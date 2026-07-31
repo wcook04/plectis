@@ -196,7 +196,6 @@ RUNTIME_GENERATED_LEAN_ARTIFACT_SOURCE_FILENAMES = {
     "decide.lean",
     "grind.lean",
     "mathlib_probe.lean",
-    "native_decide.lean",
     "omega.lean",
     "rfl.lean",
     "simp.lean",

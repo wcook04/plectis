@@ -361,7 +361,7 @@ def test_provider_adapter_files_stay_thin_and_route_to_canonical_agent_contract(
         assert "hello --reader agent" in text
         assert "does not authorize release, publication, provider calls" in text
         assert "private-root equivalence, proof correctness" in text
-        assert len(text.splitlines()) <= 20
+        assert len(text.splitlines()) <= 19
 
 
 def test_package_data_contract_includes_all_public_fixture_directories() -> None:

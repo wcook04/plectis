@@ -16,7 +16,7 @@
   "body_copied_material_count": 6,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "closed_index_only": true,
-  "created_at": "2026-06-02T02:56:05+00:00",
+  "created_at": "2026-07-16T12:23:33+00:00",
   "mathlib_allowed": false,
   "namespace_counts": {
     "Bool": 1,
@@ -36,13 +36,15 @@
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/lean_std_premise_index_fixture_acceptance.json"
   ],
   "schema_version": "lean_std_premise_index_board_v1",
+  "source_artifact_premise_count": 0,
+  "source_artifact_status": "blocked",
   "source_module_manifest_status": "not_present",
   "split_counts": {
     "dev": 11,
     "test": 11,
     "train": 11
   },
-  "status": "pass",
+  "status": "blocked",
   "test_split_tuning_authorized": false,
   "verified_source_module_count": 0
 }

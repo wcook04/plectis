@@ -1,6 +1,6 @@
 {
   "accepted_status_is_not_evidence_strength": true,
-  "adapter_backed_organ_count": 78,
+  "adapter_backed_organ_count": 84,
   "anti_claim": "The workingness map is an organ-by-organ failure envelope over public standards, commands, evidence classes, and receipt refs. It is not a maturity board, activation score, release signal, provider evaluation, or whole-system correctness claim.",
   "authority_ceiling": {
     "hosted_public_authorized": false,
@@ -12,15 +12,15 @@
     "source_mutation_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "command": "microcosm workingness",
+  "command": "plectis workingness",
   "completeness_status": "complete_failure_modes",
   "demoted_drilldown_count": 4,
   "endpoint": "/workingness",
   "failure_envelope_status": "clear",
   "gap_preview": {
-    "drilldown_command": "microcosm workingness",
+    "drilldown_command": "plectis workingness",
     "limit": 3,
-    "reader_action": "Open microcosm workingness for the full row before treating accepted status as evidence strength.",
+    "reader_action": "Open plectis workingness for the full row before treating accepted status as evidence strength.",
     "rows": [],
     "status": "clear"
   },
@@ -34,61 +34,61 @@
     "future_work_targets_are_concrete_substrate_targets": true,
     "not_a_scorecard": true
   },
-  "mapped_organ_count": 82,
+  "mapped_organ_count": 88,
   "missing_failure_modes_count": 0,
   "missing_standard_count": 0,
   "not_a_scorecard": true,
   "projection_not_authority": true,
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
-  "rows_with_failure_modes": 82,
+  "rows_with_failure_modes": 88,
   "rows_with_future_work_targets": 36,
-  "rows_with_source_body_imports": 82,
+  "rows_with_source_body_imports": 78,
   "schema_version": "microcosm_workingness_failure_map_v1",
   "source_body_material_count_scope": {
-    "aggregate_public_safe_body_material_count": 556,
+    "aggregate_public_safe_body_material_count": 390,
     "aggregate_public_safe_body_material_count_kind": "macro_body_import_floor",
     "body_text_exported": false,
-    "canonical_aggregate_floor_ref": "microcosm status --card::front_door.source_open_body_import_floor",
+    "canonical_aggregate_floor_ref": "plectis status --card::front_door.source_open_body_import_floor",
     "count_scope_rule": "Use the workingness row sum to size per-organ failure-envelope coverage; use the status body-import floor for the canonical public-safe macro body-material aggregate.",
     "counted_surface": "workingness.thing_failure_map[].source_open_body_imports",
     "differs_from_aggregate_floor": true,
     "schema_version": "microcosm_workingness_source_body_material_count_scope_v1",
-    "source_open_body_material_count": 700,
+    "source_open_body_material_count": 685,
     "source_open_body_material_count_kind": "per_organ_row_sum"
   },
-  "source_open_body_material_count": 700,
+  "source_open_body_material_count": 685,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "substrate_substitution": {
-    "accepted_organ_count": 82,
+    "accepted_organ_count": 88,
     "deleted_demoted_historical_artifact_count": 0,
-    "digest_drift_disposition_count": 23,
+    "digest_drift_disposition_count": 16,
     "disposition_counts": {
-      "real_substrate_capsule": 79,
+      "real_substrate_capsule": 85,
       "retained_regression_validator": 3
     },
     "fixture_authority_ban_status": "pass",
     "ledger_ref": "core/substrate_substitution_ledger.json",
-    "real_body_count": 581,
-    "real_substrate_capsule_count": 79,
+    "real_body_count": 591,
+    "real_substrate_capsule_count": 85,
     "receipt_body_count": 0,
     "retained_regression_validator_count": 3,
     "status": "pass"
   },
   "surface_counts": {
-    "adapter_backed_organ_count": 78,
+    "adapter_backed_organ_count": 84,
     "demoted_drilldown_count": 4,
-    "mapped_organ_count": 82,
+    "mapped_organ_count": 88,
     "missing_failure_modes_count": 0,
     "missing_standard_count": 0,
-    "rows_with_failure_modes": 82,
+    "rows_with_failure_modes": 88,
     "rows_with_future_work_targets": 36,
-    "rows_with_source_body_imports": 82,
-    "source_open_body_material_count": 700,
+    "rows_with_source_body_imports": 78,
+    "source_open_body_material_count": 685,
     "substrate_fixture_authority_ban_status": "pass",
-    "substrate_real_substrate_capsule_count": 79,
+    "substrate_real_substrate_capsule_count": 85,
     "substrate_retained_regression_validator_count": 3,
-    "thing_count": 82
+    "thing_count": 88
   },
   "thing_failure_map": [
     {
@@ -718,7 +718,7 @@
             "provider_payload_exported": false,
             "release_authorized": false
           },
-          "body_material_count": 13,
+          "body_material_count": 12,
           "body_material_ids": [
             "prover_proof_state_curriculum_corpus_readiness_json_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -727,7 +727,6 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -772,7 +771,7 @@
           "provider_payload_exported": false,
           "release_authorized": false
         },
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_ids": [
           "prover_proof_state_curriculum_corpus_readiness_json_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -781,7 +780,6 @@
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -817,20 +815,20 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "evidence_strength_claim": "algorithmic_projection",
-        "evidence_truth_bucket": "source_faithful_refactor",
-        "gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+        "claim_ceiling": "tool witness only, not general proof authority",
+        "evidence_strength_claim": "external_subprocess_witness",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "tool_witness_present_but_not_general_authority",
         "status_claim": "accepted_current_authority"
       },
-      "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+      "evidence_gap_class": "tool_witness_present_but_not_general_authority",
       "failure_mode_count": 8,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
-          "target_id": "strengthen_projection_evidence",
-          "target_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle",
-          "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
+          "target_id": "pin_and_rerun_tool_witness",
+          "target_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
+          "why": "external witness rows must stay tied to tool versions and cold rerun receipts before any broader claim"
         }
       ],
       "known_failure_modes": [
@@ -887,20 +885,20 @@
         "validation_rule_count": 9
       },
       "observed_workingness": {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "claim_ceiling": "tool witness only, not general proof authority",
         "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
-        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
         "generated_receipts": [
           "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
           "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
           "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
           "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
         ],
-        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "negative_case_independence": "bounded_to_declared_toy_witness_scope",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json::copied_macro_body_artifacts",
           "authority_ceiling": {
@@ -939,9 +937,9 @@
         "substrate_disposition": "real_substrate_capsule",
         "substrate_fixture_role": "regression_wrapper_around_real_substrate",
         "substrate_real_body_count": 1,
-        "truth_accounting_bucket": "source_faithful_refactor",
+        "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
-        "verdict_source": "derived_projection_metric"
+        "verdict_source": "subprocess_or_tool_witness"
       },
       "ordinal": 5,
       "product_path_role": "runtime_spine",
@@ -1272,7 +1270,7 @@
             "provider_payload_exported": false,
             "release_authorized": false
           },
-          "body_material_count": 13,
+          "body_material_count": 12,
           "body_material_ids": [
             "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
@@ -1280,7 +1278,6 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -1326,7 +1323,7 @@
           "provider_payload_exported": false,
           "release_authorized": false
         },
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_ids": [
           "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
@@ -1334,7 +1331,6 @@
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -2571,9 +2567,9 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "evidence_strength_claim": "bounded_runtime_computation",
-        "evidence_truth_bucket": "real_runtime_receipt",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "evidence_strength_claim": "algorithmic_projection",
+        "evidence_truth_bucket": "source_faithful_refactor",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
         "status_claim": "accepted_current_authority"
       },
@@ -2633,20 +2629,20 @@
         "validation_rule_count": 7
       },
       "observed_workingness": {
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "classification_basis": "bounded public runtime validation over three digest-verified copied macro pattern provenance bodies plus body-free replay rows; the runner recomputes public trace pass/quarantine verdicts and rejects source-module digest, manifest-boundary, source-evidence, and declared-verdict negatives without claiming benchmark performance",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "validates three copied public-safe macro pattern provenance bodies by source-module manifest digest and checks each replay row's structure and negatives, but the pass/quarantine verdict is a consistency fold over fixture-declared contamination flags, not in-process runtime computation",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
-        "evidence_class": "bounded_runtime_computation",
-        "evidence_strength_rank": 4,
+        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "generated_receipts": [
           "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
           "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
           "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
           "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
         ],
-        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
           "authority_ceiling": {
@@ -2683,9 +2679,9 @@
         "substrate_disposition": "retained_regression_validator",
         "substrate_fixture_role": "retained_regression_negative_wrapper_only",
         "substrate_real_body_count": 0,
-        "truth_accounting_bucket": "real_runtime_receipt",
+        "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
-        "verdict_source": "in_process_runtime_computation"
+        "verdict_source": "derived_projection_metric"
       },
       "ordinal": 15,
       "product_path_role": "drilldown_regression_not_runtime_spine",
@@ -2735,22 +2731,16 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "evidence_strength_claim": "algorithmic_projection",
-        "evidence_truth_bucket": "source_faithful_refactor",
-        "gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
         "status_claim": "accepted_current_authority"
       },
-      "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+      "evidence_gap_class": "unclassified_or_missing_evidence",
       "failure_mode_count": 12,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "strengthen_projection_evidence",
-          "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle",
-          "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
-        }
-      ],
+      "future_work_target_count": 0,
+      "future_work_targets": [],
       "known_failure_modes": [
         "provider-context macro source is named only as a source_ref while no copied target module exists inside Microcosm",
         "copied provider-context source module digest diverges from the macro source digest",
@@ -2807,20 +2797,20 @@
         "validation_rule_count": 13
       },
       "observed_workingness": {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
         "classification_basis": "bounded context-budget packing and section omission computation",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "generated_receipts": [
           "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
           "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
           "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
           "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
         ],
-        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json::modules",
           "authority_ceiling": {
@@ -2864,9 +2854,9 @@
         "substrate_disposition": "real_substrate_capsule",
         "substrate_fixture_role": "regression_wrapper_around_real_substrate",
         "substrate_real_body_count": 14,
-        "truth_accounting_bucket": "source_faithful_refactor",
+        "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
-        "verdict_source": "derived_projection_metric"
+        "verdict_source": "in_process_runtime_computation"
       },
       "ordinal": 16,
       "product_path_role": "runtime_spine",
@@ -3626,22 +3616,16 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "evidence_strength_claim": "algorithmic_projection",
-        "evidence_truth_bucket": "source_faithful_refactor",
-        "gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
         "status_claim": "accepted_current_authority"
       },
-      "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
+      "evidence_gap_class": "unclassified_or_missing_evidence",
       "failure_mode_count": 19,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "strengthen_projection_evidence",
-          "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
-          "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
-        }
-      ],
+      "future_work_target_count": 0,
+      "future_work_targets": [],
       "known_failure_modes": [
         "WorkItem or claim projection treated as live Task Ledger or Work Ledger authority",
         "dirty tree treated as a blocker for scoped commits instead of a scoped-path discipline condition",
@@ -3712,13 +3696,13 @@
         "validation_rule_count": 7
       },
       "observed_workingness": {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
         "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "generated_receipts": [
           "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
           "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
@@ -3729,7 +3713,7 @@
           "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
           "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
         ],
-        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle::copied_control_source_modules",
           "authority_ceiling": {
@@ -3780,9 +3764,9 @@
         "substrate_disposition": "real_substrate_capsule",
         "substrate_fixture_role": "regression_wrapper_around_real_substrate",
         "substrate_real_body_count": 9,
-        "truth_accounting_bucket": "source_faithful_refactor",
+        "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-        "verdict_source": "derived_projection_metric"
+        "verdict_source": "in_process_runtime_computation"
       },
       "ordinal": 21,
       "product_path_role": "runtime_spine",
@@ -6413,21 +6397,19 @@
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules",
           "authority_ceiling": "copied bodies are public cold-entry/navigation substrate, not route-registry authority or release authority",
-          "body_material_count": 5,
+          "body_material_count": 4,
           "body_material_ids": [
             "agent_instruction_router_body_import",
             "agent_entry_reference_body_import",
             "kernel_bootstrap_skill_body_import",
-            "kernel_navigation_seed_skill_body_import",
-            "kernel_entry_packet_command_body_import"
+            "kernel_navigation_seed_skill_body_import"
           ],
           "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
           "body_text_exported_in_receipts": false,
           "body_text_exported_in_workingness": false,
           "fixture_manifest_ref": "core/fixture_manifests/cold_reader_route_map.fixture_manifest.json",
           "material_classes": [
-            "public_macro_pattern_body",
-            "public_macro_tool_body"
+            "public_macro_pattern_body"
           ],
           "reader_action": "",
           "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
@@ -6439,7 +6421,7 @@
         "substrate_claim_ceiling": "validates declared public contract only",
         "substrate_disposition": "real_substrate_capsule",
         "substrate_fixture_role": "regression_wrapper_around_real_substrate",
-        "substrate_real_body_count": 3,
+        "substrate_real_body_count": 4,
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
         "verdict_source": "validator_computation"
@@ -6450,21 +6432,19 @@
       "source_open_body_imports": {
         "aggregate_floor_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules",
         "authority_ceiling": "copied bodies are public cold-entry/navigation substrate, not route-registry authority or release authority",
-        "body_material_count": 5,
+        "body_material_count": 4,
         "body_material_ids": [
           "agent_instruction_router_body_import",
           "agent_entry_reference_body_import",
           "kernel_bootstrap_skill_body_import",
-          "kernel_navigation_seed_skill_body_import",
-          "kernel_entry_packet_command_body_import"
+          "kernel_navigation_seed_skill_body_import"
         ],
         "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_workingness": false,
         "fixture_manifest_ref": "core/fixture_manifests/cold_reader_route_map.fixture_manifest.json",
         "material_classes": [
-          "public_macro_pattern_body",
-          "public_macro_tool_body"
+          "public_macro_pattern_body"
         ],
         "reader_action": "",
         "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
@@ -6486,9 +6466,9 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "evidence_strength_claim": "bounded_runtime_computation",
-        "evidence_truth_bucket": "real_runtime_receipt",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "evidence_strength_claim": "algorithmic_projection",
+        "evidence_truth_bucket": "source_faithful_refactor",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
         "status_claim": "accepted_current_authority"
       },
@@ -6557,20 +6537,20 @@
         "validation_rule_count": 6
       },
       "observed_workingness": {
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "classification_basis": "bounded runtime computation verifies copied public monitor-redteam macro pattern bodies and sanitized dogfood trace slices, recomputes monitor verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "validates copied public monitor-redteam macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the monitor verdict is a consistency fold over fixture-declared spans, not in-process runtime computation",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
-        "evidence_class": "bounded_runtime_computation",
-        "evidence_strength_rank": 4,
+        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "generated_receipts": [
           "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
           "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
           "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
           "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
         ],
-        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
           "authority_ceiling": {
@@ -6608,9 +6588,9 @@
         "substrate_disposition": "retained_regression_validator",
         "substrate_fixture_role": "retained_regression_negative_wrapper_only",
         "substrate_real_body_count": 0,
-        "truth_accounting_bucket": "real_runtime_receipt",
+        "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
-        "verdict_source": "in_process_runtime_computation"
+        "verdict_source": "derived_projection_metric"
       },
       "ordinal": 35,
       "product_path_role": "drilldown_regression_not_runtime_spine",
@@ -6661,9 +6641,9 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "evidence_strength_claim": "bounded_runtime_computation",
-        "evidence_truth_bucket": "real_runtime_receipt",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "evidence_strength_claim": "algorithmic_projection",
+        "evidence_truth_bucket": "source_faithful_refactor",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
         "status_claim": "accepted_current_authority"
       },
@@ -6733,20 +6713,20 @@
         "validation_rule_count": 6
       },
       "observed_workingness": {
-        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
-        "classification_basis": "bounded runtime computation verifies copied public sabotage/scheming monitor macro pattern bodies and sanitized dogfood trace slices, recomputes caught-verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "validates copied public sabotage/scheming monitor macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the caught-verdict is a consistency fold over fixture-declared scores, not in-process runtime computation",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
-        "evidence_class": "bounded_runtime_computation",
-        "evidence_strength_rank": 4,
+        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "generated_receipts": [
           "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
           "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
           "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
           "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
         ],
-        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
           "authority_ceiling": {
@@ -6785,9 +6765,9 @@
         "substrate_disposition": "retained_regression_validator",
         "substrate_fixture_role": "retained_regression_negative_wrapper_only",
         "substrate_real_body_count": 0,
-        "truth_accounting_bucket": "real_runtime_receipt",
+        "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-        "verdict_source": "in_process_runtime_computation"
+        "verdict_source": "derived_projection_metric"
       },
       "ordinal": 36,
       "product_path_role": "drilldown_regression_not_runtime_spine",
@@ -9767,7 +9747,7 @@
         },
         "standard_ref": "standards/std_microcosm_finance_forecast_evaluation_spine.json",
         "standard_status": "active",
-        "teleology": "Runs public synthetic forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
+        "teleology": "Runs public synthetic econometric forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
         "validation_rule_count": 5
       },
       "observed_workingness": {
@@ -11153,146 +11133,6 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "evidence_strength_claim": "algorithmic_projection",
-        "evidence_truth_bucket": "source_faithful_refactor",
-        "gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-        "status_claim": "accepted_current_authority"
-      },
-      "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 8,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "strengthen_projection_evidence",
-          "target_ref": "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle",
-          "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
-        }
-      ],
-      "known_failure_modes": [
-        "TSX source anchors drift",
-        "lane thresholds drift",
-        "band split math drifts",
-        "slack lane spending is removed",
-        "map-pair ordering regresses",
-        "failed/readiness-timeout posture no longer sorts first",
-        "unknown shell groups create ungoverned columns",
-        "receipts include source bodies or private runtime state"
-      ],
-      "needs_to_work": {
-        "anti_purpose": "Fixture-only receipts, browser visual acceptance, navigation graph authority, source mutation, or claims about UI readiness.",
-        "authority_boundary": "public_python_port_over_typescript_layout_nodes_not_react_runtime_or_release_authority",
-        "authority_ceiling": {
-          "authority_ceiling": "batch8_station_surface_atlas_layout_python_port_not_ui_runtime_or_release_authority",
-          "browser_render_authorized": false,
-          "navigation_graph_authority": false,
-          "publication_authorized": false,
-          "python_port": true,
-          "react_runtime_started": false,
-          "real_substrate_disposition": "real_substrate_capsule",
-          "release_authorized": false,
-          "repo_mutation_authorized": false,
-          "source_mutation_authorized": false,
-          "status": "pass"
-        },
-        "generated_receipt_count": 4,
-        "missing_requirement_ids": [],
-        "ontology": "A public-safe Python port of the deterministic layoutNodes geometry from StationSurfaceAtlas.tsx.",
-        "receipt_expectation_count": 4,
-        "required_field_count": 6,
-        "required_substrate": {
-          "claim_ceiling_declared": true,
-          "current_authority_receipt_present": true,
-          "evidence_class_declared": true,
-          "generated_receipts_present": true,
-          "known_failure_modes_present": true,
-          "owning_standard_present": true,
-          "public_private_boundary_declared": true,
-          "runtime_or_drilldown_mode_declared": true,
-          "validator_command_present": true
-        },
-        "standard_ref": "standards/std_microcosm_batch8_station_surface_atlas_layout_port.json",
-        "standard_status": "active",
-        "teleology": "Let a cold reader rerun the Atlas shell-packer semantics without needing React, a browser render, or live navigation graph state.",
-        "validation_rule_count": 6
-      },
-      "observed_workingness": {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "source-faithful public Python port of the StationSurfaceAtlas deterministic band/lane layout solver over synthetic node rows, with bounded negative cases and no browser runtime",
-        "counts_as_real_substrate_progress": true,
-        "current_authority_receipt": "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
-        "generated_receipts": [
-          "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_result.json",
-          "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_board.json",
-          "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_validation_receipt.json",
-          "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
-        ],
-        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {
-          "aggregate_floor_ref": "",
-          "authority_ceiling": {},
-          "body_material_count": 1,
-          "body_material_ids": [],
-          "body_material_status": "copied_non_secret_tsx_reference_landed_python_port_exercised",
-          "body_text_exported_in_receipts": false,
-          "body_text_exported_in_workingness": false,
-          "fixture_manifest_ref": "core/fixture_manifests/batch8_station_surface_atlas_layout_port.fixture_manifest.json",
-          "material_classes": [
-            "public_typescript_station_layout_reference"
-          ],
-          "reader_action": "Open source_module_manifest.json and source_modules/ inside examples/batch8_station_surface_atlas_layout_port/ for the TSX reference; receipts carry refs, hashes, anchors, counts, and parity verdicts only.",
-          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-          "source_manifest_refs": [
-            "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_module_manifest.json"
-          ],
-          "status": "pass"
-        },
-        "substrate_claim_ceiling": "projection mechanics only, not domain correctness",
-        "substrate_disposition": "real_substrate_capsule",
-        "substrate_fixture_role": "regression_wrapper_around_real_substrate",
-        "substrate_real_body_count": 1,
-        "truth_accounting_bucket": "source_faithful_refactor",
-        "validator_command": "python -m microcosm_core.organs.batch8_station_surface_atlas_layout_port run --input fixtures/first_wave/batch8_station_surface_atlas_layout_port/input --out receipts/first_wave/batch8_station_surface_atlas_layout_port --acceptance-out receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-        "verdict_source": "derived_projection_metric"
-      },
-      "ordinal": 64,
-      "product_path_role": "runtime_spine",
-      "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {
-        "aggregate_floor_ref": "",
-        "authority_ceiling": {},
-        "body_material_count": 1,
-        "body_material_ids": [],
-        "body_material_status": "copied_non_secret_tsx_reference_landed_python_port_exercised",
-        "body_text_exported_in_receipts": false,
-        "body_text_exported_in_workingness": false,
-        "fixture_manifest_ref": "core/fixture_manifests/batch8_station_surface_atlas_layout_port.fixture_manifest.json",
-        "material_classes": [
-          "public_typescript_station_layout_reference"
-        ],
-        "reader_action": "Open source_module_manifest.json and source_modules/ inside examples/batch8_station_surface_atlas_layout_port/ for the TSX reference; receipts carry refs, hashes, anchors, counts, and parity verdicts only.",
-        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-        "source_manifest_refs": [
-          "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_module_manifest.json"
-        ],
-        "status": "pass"
-      },
-      "source_refs": [
-        "standards/std_microcosm_batch8_station_surface_atlas_layout_port.json",
-        "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-        "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle"
-      ],
-      "status": "accepted_current_authority",
-      "thing_id": "batch8_station_surface_atlas_layout_port",
-      "thing_kind": "organ",
-      "workingness_state": "evidence_backed_runtime_spine"
-    },
-    {
-      "evaluation_comparison": {
-        "accepted_status_is_not_evidence_strength": true,
         "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
         "evidence_strength_claim": "verified_macro_body_import",
         "evidence_truth_bucket": "copied_non_secret_macro_body",
@@ -11393,7 +11233,7 @@
         "validator_command": "python -m microcosm_core.organs.batch8_structural_theses_capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 65,
+      "ordinal": 64,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -11535,7 +11375,7 @@
         "validator_command": "python -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 66,
+      "ordinal": 65,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -11677,7 +11517,7 @@
         "validator_command": "python -m microcosm_core.organs.batch9_macro_engines_capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 67,
+      "ordinal": 66,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -11815,7 +11655,7 @@
         "validator_command": "python -m microcosm_core.organs.batch10_governance_compilers_capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 68,
+      "ordinal": 67,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -11951,7 +11791,7 @@
         "validator_command": "python -m microcosm_core.organs.batch11_saturation_engines_capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 69,
+      "ordinal": 68,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -12088,7 +11928,7 @@
         "validator_command": "python -m microcosm_core.organs.tool_server_pressure_inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 70,
+      "ordinal": 69,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -12132,163 +11972,22 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "validates declared public contract only",
-        "evidence_strength_claim": "semantic_validator",
-        "evidence_truth_bucket": "real_import_validation",
-        "gap_class": "contract_validated_but_scope_bound",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "evidence_strength_claim": "algorithmic_projection",
+        "evidence_truth_bucket": "source_faithful_refactor",
+        "gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
         "status_claim": "accepted_current_authority"
       },
-      "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 7,
-      "future_work_target_count": 0,
-      "future_work_targets": [],
-      "known_failure_modes": [
-        "active_driver values are not trimmed and lowercased for the grouping key",
-        "collision count increments but latest summary or gate reason does not refresh from the newest event",
-        "rows sort by insertion order or count instead of latestIso descending",
-        "unclassified fallback bucket is allowed to outrank classified drivers by recency",
-        "fixture or receipt claims live cockpit, release, source-mutation, provider-call, or whole-system authority",
-        "source module manifest missing, target body digest stale, or declared WorkstreamBoard anchor absent",
-        "receipt embeds copied frontend body text instead of carrying public refs, hashes, counts, and verdicts"
-      ],
-      "needs_to_work": {
-        "anti_purpose": "A prose-only mention of WorkstreamBoard or a source-body copy without runnable grouping validation, negative cases, source-module manifest, and public/private boundary.",
-        "authority_boundary": "public_workstream_driver_recency_projection_with_copied_non_secret_frontend_body_floor",
-        "authority_ceiling": {
-          "frontend_release_authorized": false,
-          "live_browser_state_read": false,
-          "private_data_equivalence_claim": false,
-          "provider_calls_authorized": false,
-          "release_authority": false,
-          "source_mutation_authority": false,
-          "status": "pass",
-          "whole_system_correctness_claim": false,
-          "workstream_classifier_correctness_claim": false
-        },
-        "generated_receipt_count": 4,
-        "missing_requirement_ids": [],
-        "ontology": "A public semantic-validator organ for WorkstreamBoard.tsx groupByDriver: active_driver categorical coalescing, count aggregation, newest-wins summary/gate refresh, recency-desc sorting, and unclassified sentinel-last behavior.",
-        "receipt_expectation_count": 4,
-        "required_field_count": 6,
-        "required_substrate": {
-          "claim_ceiling_declared": true,
-          "current_authority_receipt_present": true,
-          "evidence_class_declared": true,
-          "generated_receipts_present": true,
-          "known_failure_modes_present": true,
-          "owning_standard_present": true,
-          "public_private_boundary_declared": true,
-          "runtime_or_drilldown_mode_declared": true,
-          "validator_command_present": true
-        },
-        "standard_ref": "standards/std_microcosm_workstream_driver_recency_coalescer.json",
-        "standard_status": "active",
-        "teleology": "Show that a small real frontend helper has crossed the Microcosm membrane as runnable public substrate without pretending to classify workstreams or inspect live UI state.",
-        "validation_rule_count": 4
-      },
-      "observed_workingness": {
-        "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
-        "counts_as_real_substrate_progress": true,
-        "current_authority_receipt": "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-        "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
-        "generated_receipts": [
-          "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
-          "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
-          "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
-          "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
-        ],
-        "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {
-          "aggregate_floor_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json::modules",
-          "authority_ceiling": {
-            "body_text_in_receipt": false,
-            "credential_or_account_bound_payload_exported": false,
-            "provider_payload_exported": false,
-            "release_authorized": false,
-            "whole_system_correctness_claim": false
-          },
-          "body_material_count": 1,
-          "body_material_ids": [
-            "workstream_driver_recency_coalescer"
-          ],
-          "body_material_status": "copied_non_secret_macro_body_landed",
-          "body_text_exported_in_receipts": false,
-          "body_text_exported_in_workingness": false,
-          "fixture_manifest_ref": "core/fixture_manifests/workstream_driver_recency_coalescer.fixture_manifest.json",
-          "material_classes": [
-            "public_macro_frontend_body"
-          ],
-          "reader_action": "Open source_module_manifest.json plus source_modules/.../WorkstreamBoard.tsx inside the exported workstream driver bundle for the copied macro frontend body; receipts carry refs, hashes, counts, and verdicts only.",
-          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-          "source_manifest_refs": [
-            "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json"
-          ],
-          "status": "pass"
-        },
-        "substrate_claim_ceiling": "validates declared public contract only",
-        "substrate_disposition": "real_substrate_capsule",
-        "substrate_fixture_role": "regression_wrapper_around_real_substrate",
-        "substrate_real_body_count": 1,
-        "truth_accounting_bucket": "real_import_validation",
-        "validator_command": "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-        "verdict_source": "validator_computation"
-      },
-      "ordinal": 71,
-      "product_path_role": "runtime_spine",
-      "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {
-        "aggregate_floor_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json::modules",
-        "authority_ceiling": {
-          "body_text_in_receipt": false,
-          "credential_or_account_bound_payload_exported": false,
-          "provider_payload_exported": false,
-          "release_authorized": false,
-          "whole_system_correctness_claim": false
-        },
-        "body_material_count": 1,
-        "body_material_ids": [
-          "workstream_driver_recency_coalescer"
-        ],
-        "body_material_status": "copied_non_secret_macro_body_landed",
-        "body_text_exported_in_receipts": false,
-        "body_text_exported_in_workingness": false,
-        "fixture_manifest_ref": "core/fixture_manifests/workstream_driver_recency_coalescer.fixture_manifest.json",
-        "material_classes": [
-          "public_macro_frontend_body"
-        ],
-        "reader_action": "Open source_module_manifest.json plus source_modules/.../WorkstreamBoard.tsx inside the exported workstream driver bundle for the copied macro frontend body; receipts carry refs, hashes, counts, and verdicts only.",
-        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-        "source_manifest_refs": [
-          "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json"
-        ],
-        "status": "pass"
-      },
-      "source_refs": [
-        "standards/std_microcosm_workstream_driver_recency_coalescer.json",
-        "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-        "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle"
-      ],
-      "status": "accepted_current_authority",
-      "thing_id": "workstream_driver_recency_coalescer",
-      "thing_kind": "organ",
-      "workingness_state": "evidence_backed_runtime_spine"
-    },
-    {
-      "evaluation_comparison": {
-        "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "validates declared public contract only",
-        "evidence_strength_claim": "semantic_validator",
-        "evidence_truth_bucket": "real_import_validation",
-        "gap_class": "contract_validated_but_scope_bound",
-        "status_claim": "accepted_current_authority"
-      },
-      "evidence_gap_class": "contract_validated_but_scope_bound",
+      "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
       "failure_mode_count": 8,
-      "future_work_target_count": 0,
-      "future_work_targets": [],
+      "future_work_target_count": 1,
+      "future_work_targets": [
+        {
+          "target_id": "strengthen_projection_evidence",
+          "target_ref": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle",
+          "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
+        }
+      ],
       "known_failure_modes": [
         "engine count drifts from the six Batch-8 compliance and pipeline exercises",
         "source module count drifts from eleven without manifest and test updates",
@@ -12338,20 +12037,20 @@
         "validation_rule_count": 7
       },
       "observed_workingness": {
-        "claim_ceiling": "validates declared public contract only",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
         "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
-        "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "generated_receipts": [
           "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_result.json",
           "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_board.json",
           "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_validation_receipt.json",
           "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
         ],
-        "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
         "source_open_body_imports": {
           "aggregate_floor_ref": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
           "authority_ceiling": {
@@ -12396,11 +12095,11 @@
         "substrate_disposition": "real_substrate_capsule",
         "substrate_fixture_role": "regression_wrapper_around_real_substrate",
         "substrate_real_body_count": 11,
-        "truth_accounting_bucket": "real_import_validation",
+        "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.batch8_compliance_pipeline_capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
-        "verdict_source": "validator_computation"
+        "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 72,
+      "ordinal": 70,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -12572,7 +12271,7 @@
         "validator_command": "python -m microcosm_core.organs.batch10_live_source_drift_capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 73,
+      "ordinal": 71,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -12738,7 +12437,7 @@
         "validator_command": "python -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 74,
+      "ordinal": 72,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -12900,7 +12599,7 @@
         "validator_command": "python -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 75,
+      "ordinal": 73,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13076,7 +12775,7 @@
         "validator_command": "python -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 76,
+      "ordinal": 74,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13129,147 +12828,6 @@
       ],
       "status": "accepted_current_authority",
       "thing_id": "concurrency_mission_control",
-      "thing_kind": "organ",
-      "workingness_state": "evidence_backed_runtime_spine"
-    },
-    {
-      "evaluation_comparison": {
-        "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "evidence_strength_claim": "verified_macro_body_import",
-        "evidence_truth_bucket": "copied_non_secret_macro_body",
-        "gap_class": "unclassified_or_missing_evidence",
-        "status_claim": "accepted_current_authority"
-      },
-      "evidence_gap_class": "unclassified_or_missing_evidence",
-      "failure_mode_count": 8,
-      "future_work_target_count": 0,
-      "future_work_targets": [],
-      "known_failure_modes": [
-        "trace workbench host imports static runtime code before installing the boot probe",
-        "mission refresh timers disappear from the copied host runtime body",
-        "live agent instrument view model collapses unknown proof state into a known status",
-        "attention underfiring stops being an explicit visible status bucket",
-        "station store launches duplicate operations instead of enforcing single-flight behavior",
-        "station warming state stops retrying through bounded backoff",
-        "source module digest or line count drifts from the macro station source without a refreshed exact copy and manifest",
-        "receipts include copied body text, private refs, browser or HUD state, provider payload bodies, credentials, operator transcripts, source mutation authority, release authority, or live UI correctness overclaims"
-      ],
-      "needs_to_work": {
-        "anti_purpose": "A fixture-only station smoke test, hosted UI acceptance claim, browser session claim, provider dispatch, source mutation, publication or release signal, private-root equivalence claim, or broad proof that all frontend station states are covered.",
-        "authority_boundary": "public_batch7_station_runtime_source_open_capsule_not_hosted_ui_or_release_authority",
-        "authority_ceiling": {
-          "browser_or_wallet_access": false,
-          "hosted_ui_runtime_authorized": false,
-          "live_station_authority": false,
-          "model_dispatch": false,
-          "operator_thread_authority": false,
-          "private_root_equivalence_claim": false,
-          "provider_dispatch": false,
-          "publication_authorized": false,
-          "release_authorized": false,
-          "semantic_truth_authority": false,
-          "source_mutation_authorized": false,
-          "status": "pass",
-          "test_completeness_proof": false,
-          "whole_system_correctness_claim": false
-        },
-        "generated_receipt_count": 4,
-        "missing_requirement_ids": [],
-        "ontology": "A public-safe exact-copy station runtime capsule over the trace workbench host boot probe, live agent instrument view model, station store resilience FSM, and original source-test witnesses.",
-        "receipt_expectation_count": 4,
-        "required_field_count": 9,
-        "required_substrate": {
-          "claim_ceiling_declared": true,
-          "current_authority_receipt_present": true,
-          "evidence_class_declared": true,
-          "generated_receipts_present": true,
-          "known_failure_modes_present": true,
-          "owning_standard_present": true,
-          "public_private_boundary_declared": true,
-          "runtime_or_drilldown_mode_declared": true,
-          "validator_command_present": true
-        },
-        "standard_ref": "standards/std_microcosm_batch7_station_runtime_capsule.json",
-        "standard_status": "active",
-        "teleology": "Let a cold reader rerun station runtime guardrails as provenance-backed substrate without needing the hosted UI, browser session, operator thread, provider dispatch, source mutation, publication, release, or private-root authority.",
-        "validation_rule_count": 6
-      },
-      "observed_workingness": {
-        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
-        "counts_as_real_substrate_progress": true,
-        "current_authority_receipt": "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
-        "evaluator_basis": "target-file existence, digest verification, body-import provenance, validation refs, and secret-only authority ceilings over public macro body material",
-        "evidence_class": "verified_macro_body_import",
-        "evidence_strength_rank": 5,
-        "generated_receipts": [
-          "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_result.json",
-          "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_board.json",
-          "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_validation_receipt.json",
-          "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
-        ],
-        "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
-        "source_open_body_imports": {
-          "aggregate_floor_ref": "",
-          "authority_ceiling": {},
-          "body_material_count": 5,
-          "body_material_ids": [],
-          "body_material_status": "copied_non_secret_station_runtime_source_bodies_landed",
-          "body_text_exported_in_receipts": false,
-          "body_text_exported_in_workingness": false,
-          "fixture_manifest_ref": "core/fixture_manifests/batch7_station_runtime_capsule.fixture_manifest.json",
-          "material_classes": [
-            "public_macro_tool_body",
-            "public_macro_frontend_body",
-            "public_macro_frontend_test_body"
-          ],
-          "reader_action": "Open source_module_manifest.json and source_modules/ under examples/batch7_station_runtime_capsule/ for the copied station runtime bodies; receipts carry refs, hashes, anchors, counts, witness metadata, and verdicts only.",
-          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-          "source_manifest_refs": [
-            "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json"
-          ],
-          "status": "pass"
-        },
-        "substrate_claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "substrate_disposition": "real_substrate_capsule",
-        "substrate_fixture_role": "regression_wrapper_around_real_substrate",
-        "substrate_real_body_count": 4,
-        "truth_accounting_bucket": "copied_non_secret_macro_body",
-        "validator_command": "python -m microcosm_core.organs.batch7_station_runtime_capsule run --input fixtures/first_wave/batch7_station_runtime_capsule/input --out receipts/first_wave/batch7_station_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
-        "verdict_source": "verified_public_body_import_contract"
-      },
-      "ordinal": 77,
-      "product_path_role": "runtime_spine",
-      "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {
-        "aggregate_floor_ref": "",
-        "authority_ceiling": {},
-        "body_material_count": 5,
-        "body_material_ids": [],
-        "body_material_status": "copied_non_secret_station_runtime_source_bodies_landed",
-        "body_text_exported_in_receipts": false,
-        "body_text_exported_in_workingness": false,
-        "fixture_manifest_ref": "core/fixture_manifests/batch7_station_runtime_capsule.fixture_manifest.json",
-        "material_classes": [
-          "public_macro_tool_body",
-          "public_macro_frontend_body",
-          "public_macro_frontend_test_body"
-        ],
-        "reader_action": "Open source_module_manifest.json and source_modules/ under examples/batch7_station_runtime_capsule/ for the copied station runtime bodies; receipts carry refs, hashes, anchors, counts, witness metadata, and verdicts only.",
-        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-        "source_manifest_refs": [
-          "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json"
-        ],
-        "status": "pass"
-      },
-      "source_refs": [
-        "standards/std_microcosm_batch7_station_runtime_capsule.json",
-        "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
-        "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle"
-      ],
-      "status": "accepted_current_authority",
-      "thing_id": "batch7_station_runtime_capsule",
       "thing_kind": "organ",
       "workingness_state": "evidence_backed_runtime_spine"
     },
@@ -13405,7 +12963,7 @@
         "validator_command": "python -m microcosm_core.organs.batch7_secondary_runtime_capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 78,
+      "ordinal": 75,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13554,7 +13112,7 @@
         "validator_command": "python -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 79,
+      "ordinal": 76,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13682,7 +13240,7 @@
         "validator_command": "python -m microcosm_core.organs.batch12_prediction_market_board_capsule run --input fixtures/first_wave/batch12_prediction_market_board_capsule/input --out receipts/first_wave/batch12_prediction_market_board_capsule --acceptance-out receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 80,
+      "ordinal": 77,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13807,7 +13365,7 @@
         "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 81,
+      "ordinal": 78,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
       "source_open_body_imports": {
@@ -13840,48 +13398,992 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "evidence_strength_claim": "verified_macro_body_import",
-        "evidence_truth_bucket": "copied_non_secret_macro_body",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
         "gap_class": "unclassified_or_missing_evidence",
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "unclassified_or_missing_evidence",
-      "failure_mode_count": 8,
+      "failure_mode_count": 7,
       "future_work_target_count": 0,
       "future_work_targets": [],
       "known_failure_modes": [
-        "source module count drifts from five without manifest and test updates",
-        "copied source module digest does not match macro source digest",
-        "copied source module lacks required anchors",
-        "work lens checks stop enforcing read-only ledger boundaries",
-        "market cockpit checks allow fake time-series or recommendation language",
-        "private source refs or private path literals enter public manifests or receipts",
-        "negative-case fixtures become verdict authority instead of labels paired to computed outcomes",
-        "receipts include copied body text, raw operator transcripts, provider/browser state, credentials, live ledger state, private paths, or release/publication state"
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
       ],
       "needs_to_work": {
-        "anti_purpose": "Receipt-only claims, live UI correctness, Task Ledger or Work Ledger mutation authority, provider dispatch, release or publication signaling, private-root equivalence, source mutation, or investment advice.",
-        "authority_boundary": "public_batch10_frontend_work_market_source_open_capsule_not_live_ui_ledger_market_release_or_publication_authority",
+        "anti_purpose": "Using `semantic_singleflight_dedup_runtime` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_semantic_singleflight_dedup_runtime_accepted_organ_standard",
         "authority_ceiling": {
-          "authority_ceiling": "batch10_frontend_work_market_cockpit_not_runtime_or_market_authority",
-          "browser_or_wallet_access": false,
-          "frontend_runtime_authorized": false,
-          "market_recommendation_authorized": false,
+          "accepted_organ_ref": "core/organ_registry.json#semantic_singleflight_dedup_runtime",
+          "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+          "claim_ceiling_ref": "core/organ_registry.json#semantic_singleflight_dedup_runtime.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
           "provider_dispatch": false,
           "publication_authorized": false,
-          "real_substrate_disposition": "real_substrate_capsule",
+          "release_authority": false,
           "release_authorized": false,
+          "runtime_correctness_claim": false,
           "source_mutation_authorized": false,
-          "standard_authority": "public_batch10_frontend_work_market_source_open_capsule_and_source_body_digest_contract_only",
-          "status": "pass",
-          "task_ledger_mutation_authorized": false,
-          "trading_or_prediction_authorized": false,
-          "work_ledger_mutation_authorized": false
+          "standard_authority": "public_semantic_singleflight_dedup_runtime_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A public-safe frontend source-open capsule that imports Work Lens and Market Cockpit TS/TSX source bodies and validates their read-only work-state and honest market-signal boundaries.",
+        "ontology": "Accepted Microcosm organ standard for `semantic_singleflight_dedup_runtime`: keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+        "receipt_expectation_count": 3,
+        "required_field_count": 7,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_semantic_singleflight_dedup_runtime.json",
+        "standard_status": "active",
+        "teleology": "Expose `semantic_singleflight_dedup_runtime` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "public source-faithful refactor of command_run_singleflight surfaced as a first-class operational-discipline organ; the runnable exercise builds content keys from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, demonstrates leader and completed-run-reuse dedup hits over public fixture commands, and observes two negative cases (a scoped mutation that flips the key so stale state cannot dedup, and an empty argv that is rejected), while keeping global mutual exclusion, distributed lock service, cross-host correctness, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_result.json",
+          "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_board.json",
+          "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_validation_receipt.json",
+          "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 79,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_semantic_singleflight_dedup_runtime.json",
+        "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "fixtures/first_wave/semantic_singleflight_dedup_runtime/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "semantic_singleflight_dedup_runtime",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `finite_erdos_denominator_certificate_strike` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_finite_erdos_denominator_certificate_strike_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#finite_erdos_denominator_certificate_strike",
+          "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+          "claim_ceiling_ref": "core/organ_registry.json#finite_erdos_denominator_certificate_strike.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_finite_erdos_denominator_certificate_strike_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `finite_erdos_denominator_certificate_strike`: computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+        "receipt_expectation_count": 3,
+        "required_field_count": 5,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json",
+        "standard_status": "active",
+        "teleology": "Expose `finite_erdos_denominator_certificate_strike` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 4
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "public source-faithful realization of the finite denominator-order certificate at the heart of the Erdos #257 period-noncollapse strike; the runnable exercise sums S_F(b)=sum 1/(b^n-1) as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q by repeated multiplication, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) over positive cases including a reducing case, while rejecting forged certificates (a wrong order or a wrong denominator) by recomputation and keeping solves-Erdos257, machine-checked-proof, oracle-or-prover, provider, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
+          "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
+          "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
+          "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 80,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json",
+        "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "fixtures/first_wave/finite_erdos_denominator_certificate_strike/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "finite_erdos_denominator_certificate_strike",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `bridge_campaign_dag_validation` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_bridge_campaign_dag_validation_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#bridge_campaign_dag_validation",
+          "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+          "claim_ceiling_ref": "core/organ_registry.json#bridge_campaign_dag_validation.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_bridge_campaign_dag_validation_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `bridge_campaign_dag_validation`: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 8,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_bridge_campaign_dag_validation.json",
+        "standard_status": "active",
+        "teleology": "Expose `bridge_campaign_dag_validation` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "public source-faithful realization of the bridge campaign fan-in DAG validator; the runnable exercise validates each campaign spec against a public-safe subset of the macro CR/VR rule families - schema and identity, unique node labels, existing dependency edges, DFS acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism - accepting two well-formed campaigns (a linear chain and a three-way fan-in) and rejecting a cyclic campaign (CR012) and a two-synthesis campaign (CR013) by recomputation, while keeping dispatch, multi-agent execution, provider-safety-proof, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
+          "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
+          "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
+          "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 81,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_bridge_campaign_dag_validation.json",
+        "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "fixtures/first_wave/bridge_campaign_dag_validation/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "bridge_campaign_dag_validation",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `metabolism_queue_reconciliation` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_metabolism_queue_reconciliation_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#metabolism_queue_reconciliation",
+          "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+          "claim_ceiling_ref": "core/organ_registry.json#metabolism_queue_reconciliation.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_metabolism_queue_reconciliation_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `metabolism_queue_reconciliation`: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 10,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_metabolism_queue_reconciliation.json",
+        "standard_status": "active",
+        "teleology": "Expose `metabolism_queue_reconciliation` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "Classified bounded_runtime_computation because each case actually executes the capsule's real runtime: it stands up a temp SQLite store, runs DDL/inserts/updates, performs lease math against the process clock, projects claim events, and runs the reconciler over the resulting rows. This is genuine bounded computation over a synthetic store, not a fixture echo (output is not pre-baked in the fixture), not a schema replay (it mutates and reads real SQLite state), and not an external subprocess/semantic-validator (no external binary, no NL judgement). Negatives are rejected by recomputation: the reconciler derives the firing rule from observed job/run/log state, and substituting a wrong expected marker flips the organ to fail.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
+          "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
+          "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
+          "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 82,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_metabolism_queue_reconciliation.json",
+        "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "fixtures/first_wave/metabolism_queue_reconciliation/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "metabolism_queue_reconciliation",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `derived_fact_provider_runtime` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_derived_fact_provider_runtime_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#derived_fact_provider_runtime",
+          "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+          "claim_ceiling_ref": "core/organ_registry.json#derived_fact_provider_runtime.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_derived_fact_provider_runtime_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `derived_fact_provider_runtime`: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 9,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_derived_fact_provider_runtime.json",
+        "standard_status": "active",
+        "teleology": "Expose `derived_fact_provider_runtime` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "evidence_class=bounded_runtime_computation because the organ runs the real capsule computation end-to-end over authored fixtures with a deterministic, bounded workload: JSON-pointer resolution, glob enumeration, and a small git index built inside an isolated tempdir. It is not a mere fixture_echo (it recomputes values and compares observed vs expected, and falsifiability is demonstrated), not a schema_replay (it executes the provider logic, not just shape-checks), not an algorithmic_projection (no model/extrapolation), not an external_subprocess_witness in the gating sense (the git subprocess is an internal callable-fact detail over a throwaway tempdir, not the central claimed mechanism and not an absent dependency), and not a semantic_validator (it explicitly does NOT judge truth of claims). family_id=research_and_science_replays fits a registry/provider data-resolution runtime that replays authored fact-resolution cases with planted-defect rejection; it is closer to a research/replay data-evaluation organ than to entry, navigation, formal proof, agent-safety, import-projection, or work-landing families.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
+          "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
+          "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
+          "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 83,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_derived_fact_provider_runtime.json",
+        "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "fixtures/first_wave/derived_fact_provider_runtime/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "derived_fact_provider_runtime",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `navigation_fitness_benchmark` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_navigation_fitness_benchmark_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#navigation_fitness_benchmark",
+          "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+          "claim_ceiling_ref": "core/organ_registry.json#navigation_fitness_benchmark.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_navigation_fitness_benchmark_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `navigation_fitness_benchmark`: Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 9,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_navigation_fitness_benchmark.json",
+        "standard_status": "active",
+        "teleology": "Expose `navigation_fitness_benchmark` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "Classified as bounded_runtime_computation: the organ runs the real capsule's deterministic, stdlib-only benchmark recomputation (set-based recall/precision, substring forbidden-route check, scent-term coverage, integer latency-budget comparison, percentile summary) over small bounded fixture inputs at call time. It is not a mere fixture echo/replay (the verdict is computed, not stored), not an algorithmic projection (it executes the actual scoring code path on the inputs), and needs no external subprocess, prover, or network \u2014 so external_subprocess_witness / semantic_validator do not apply. Negatives are decided by recomputation contradicting a planted expectation, confirmed by two falsifiability probes.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
+          "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
+          "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
+          "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 84,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_navigation_fitness_benchmark.json",
+        "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "fixtures/first_wave/navigation_fitness_benchmark/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "navigation_fitness_benchmark",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `annex_knowledge_routing` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_annex_knowledge_routing_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#annex_knowledge_routing",
+          "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+          "claim_ceiling_ref": "core/organ_registry.json#annex_knowledge_routing.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_annex_knowledge_routing_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `annex_knowledge_routing`: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 9,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_annex_knowledge_routing.json",
+        "standard_status": "active",
+        "teleology": "Expose `annex_knowledge_routing` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "evidence_class=bounded_runtime_computation because _evaluate_case invokes the real capsule function route_catalog (which transitively runs route_annexes) over each fixture and compares the live-computed status/slug/score/note-ids to fixture expectations \u2014 it is genuine deterministic computation over bounded inputs, not a fixture echo (the answers are recomputed, not read from the fixture) and not an external subprocess (pure in-process stdlib). family_id=architecture_and_navigation because the mechanism is a routing/navigation surface: it maps a problem statement onto ranked entries of a knowledge catalog (annex discovery/navigation), which is the architecture-and-navigation concern rather than math/proof, agent-reliability, or science-replay. gate_runnable=true: no absent dependency; build_result returns status=pass with 4 cases under PYTHONPATH=src python3.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
+          "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
+          "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
+          "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 85,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_annex_knowledge_routing.json",
+        "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "fixtures/first_wave/annex_knowledge_routing/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "annex_knowledge_routing",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "evidence_strength_claim": "bounded_runtime_computation",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "unclassified_or_missing_evidence",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "unclassified_or_missing_evidence",
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `egress_self_compliance_audit` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_egress_self_compliance_audit_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#egress_self_compliance_audit",
+          "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+          "claim_ceiling_ref": "core/organ_registry.json#egress_self_compliance_audit.claim_ceiling",
+          "evidence_class": "bounded_runtime_computation",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_egress_self_compliance_audit_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `egress_self_compliance_audit`: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 8,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_egress_self_compliance_audit.json",
+        "standard_status": "active",
+        "teleology": "Expose `egress_self_compliance_audit` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "Classified bounded_runtime_computation because each case executes the capsule's real phrase-membership detection at runtime: it recomputes the three detector verdicts (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator) over the agent-output text by testing tripwire-phrase presence against legitimiser-phrase absence, and compares the observed green/red verdict plus the firing diagnostic id to the case expectation. It is not a fixture echo or schema replay (the verdict is recomputed, proven by repair/break flips), not an external subprocess, and explicitly not semantic understanding; it is bounded deterministic computation over public fixtures. Negatives are rejected by recomputation: a planted policy-violating text fires its tripwire without a legitimiser and the gate flags it red with the expected diagnostic id.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
+          "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
+          "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
+          "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "verdict_source": "in_process_runtime_computation"
+      },
+      "ordinal": 86,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_egress_self_compliance_audit.json",
+        "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "fixtures/first_wave/egress_self_compliance_audit/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "egress_self_compliance_audit",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "tool witness only, not general proof authority",
+        "evidence_strength_claim": "external_subprocess_witness",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "tool_witness_present_but_not_general_authority",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "tool_witness_present_but_not_general_authority",
+      "failure_mode_count": 7,
+      "future_work_target_count": 1,
+      "future_work_targets": [
+        {
+          "target_id": "pin_and_rerun_tool_witness",
+          "target_ref": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+          "why": "external witness rows must stay tied to tool versions and cold rerun receipts before any broader claim"
+        }
+      ],
+      "known_failure_modes": [
+        "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+        "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+        "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+        "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+        "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+        "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+        "external check-command or tool witness absence is counted as a pass instead of a blocked or locked non-verifying state"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "Using `generated_projection_drift_runtime` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+        "authority_boundary": "public_safe_generated_projection_drift_runtime_accepted_organ_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#generated_projection_drift_runtime",
+          "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+          "claim_ceiling_ref": "core/organ_registry.json#generated_projection_drift_runtime.claim_ceiling",
+          "evidence_class": "external_subprocess_witness",
+          "live_session_authority": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_generated_projection_drift_runtime_standard_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "truth_accounting_bucket": "real_runtime_receipt",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "Accepted Microcosm organ standard for `generated_projection_drift_runtime`: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+        "receipt_expectation_count": 3,
+        "required_field_count": 10,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_generated_projection_drift_runtime.json",
+        "standard_status": "active",
+        "teleology": "Expose `generated_projection_drift_runtime` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+        "validation_rule_count": 8
+      },
+      "observed_workingness": {
+        "claim_ceiling": "tool witness only, not general proof authority",
+        "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's drift verdict is a check-command return-code witness (the capsule's no-write check command, run through its command runner \u2014 the same path that would invoke subprocess.run for an external owner command), not a pure in-module computation. The two positives and two negatives each route through the capsule's real check pipeline; negatives are rejected by recomputation (planted byte -> check_command_failed via builtin:assert-file-equals; missing artifact -> artifact_missing presence check), and the cache-hit positive is proven to skip the command via the real source-hash cache (check_mode=source_hash_cache_hit, hit_count=1). gate_runnable=true because every fixture stays on the in-process builtin command surface, so no absent external binary is needed.",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "generated_receipts": [
+          "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
+          "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
+          "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
+          "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+        "substrate_disposition": "real_substrate_capsule",
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "verdict_source": "subprocess_or_tool_witness"
+      },
+      "ordinal": 87,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
+      "source_refs": [
+        "standards/std_microcosm_generated_projection_drift_runtime.json",
+        "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "fixtures/first_wave/generated_projection_drift_runtime/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "generated_projection_drift_runtime",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "tool witness only, not general proof authority",
+        "evidence_strength_claim": "external_subprocess_witness",
+        "evidence_truth_bucket": "real_runtime_receipt",
+        "gap_class": "tool_witness_present_but_not_general_authority",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "tool_witness_present_but_not_general_authority",
+      "failure_mode_count": 7,
+      "future_work_target_count": 1,
+      "future_work_targets": [
+        {
+          "target_id": "pin_and_rerun_tool_witness",
+          "target_ref": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+          "why": "external witness rows must stay tied to tool versions and cold rerun receipts before any broader claim"
+        }
+      ],
+      "known_failure_modes": [
+        "lean binary absent but the run reports a pass instead of a terminal locked state",
+        "candidate accepted while #print axioms shows sorry or unsafe-axiom taint",
+        "forward oracle proof body leaked into the search and counted as a found tactic",
+        "policy that only succeeds because it memorised the problem id passes the ablation",
+        "tool-absence locked state counted as a mechanism failure rather than a non-verifying lock",
+        "symbolic toy-theorem closure overclaimed as neural theorem proving or open-problem progress",
+        "Lean subprocess verdict treated as release, publication, or whole-system-correctness authority"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "A proof-automation demo that counts tool absence as a pass, forwards an oracle proof body as its own search, or claims neural theorem proving or open-problem progress from a bounded fixture run.",
+        "authority_boundary": "public_safe_lean_proof_search_lab_subprocess_witness_fixture_standard",
+        "authority_ceiling": {
+          "accepted_organ_ref": "core/organ_registry.json#lean_proof_search_lab_runtime",
+          "claim_ceiling_ref": "core/organ_registry.json#lean_proof_search_lab_runtime.claim_ceiling",
+          "frontier_scale_math_automation": false,
+          "live_session_authority": false,
+          "neural_theorem_prover": false,
+          "online_rl_bandit": false,
+          "open_problem_resolution": false,
+          "oracle_body_forward_solver": false,
+          "private_macro_run_export": false,
+          "private_root_equivalence_claim": false,
+          "provider_authority": false,
+          "provider_dispatch": false,
+          "publication_authorized": false,
+          "release_authority": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_lean_proof_search_lab_subprocess_witness_schema_and_failure_envelope",
+          "status": "bounded_by_accepted_organ_claim_ceiling",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "A gated external-tool witness organ that runs a symbolic Lean proof-search lab over bounded public toy theorems: an and/or candidate-tactic search and a statement-only hammer shell out to the installed `lean` binary to compile each candidate tactic body, guarded by a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate.",
         "receipt_expectation_count": 4,
         "required_field_count": 7,
         "required_substrate": {
@@ -13895,108 +14397,46 @@
           "runtime_or_drilldown_mode_declared": true,
           "validator_command_present": true
         },
-        "standard_ref": "standards/std_microcosm_batch10_frontend_work_market_cockpit_capsule.json",
+        "standard_ref": "standards/std_microcosm_lean_proof_search_lab_runtime.json",
         "standard_status": "active",
-        "teleology": "Let a cold reader inspect and rerun representative frontend cockpit mechanics without inheriting live UI correctness, browser/provider access, ledger mutation, release/publication, source mutation, or market-advice authority.",
-        "validation_rule_count": 9
+        "teleology": "Show that a small symbolic tactic search closes toy theorems with a real Lean subprocess as the verdict source, while structurally rejecting oracle leakage, memorised-policy shortcuts, and axiom taint, and locking rather than faking a pass when Lean is unavailable.",
+        "validation_rule_count": 6
       },
       "observed_workingness": {
-        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "classification_basis": "exact copied non-secret frontend TS/TSX macro source bodies for WorkLens, WorkLens tests, MarketCockpit, MarketIntelligenceLens, and MarketCockpit tests; the runnable exercise verifies source digest equality, required anchors, read-only work-state behavior, honest market-signal presentation, route-readiness and finance-assurance indicators, source-test witness coverage, private-ref guards, and four negative cases for work-lens mutation creep, fake market time-series, recommendation leakage, and private source refs while keeping live UI correctness, browser/provider access, Task Ledger or Work Ledger mutation, market advice, source mutation, release, and publication authority false",
+        "claim_ceiling": "tool witness only, not general proof authority",
+        "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's verdict is produced by the installed Lean subprocess: run_and_or_search and run_statement_only_hammer call check_candidate_with_lean which shells out to `lean` to compile each candidate tactic body, a #print axioms cleanliness gate rejects sorry-tainted candidates, and a forward oracle firewall plus a problem-id ablation reject leaked oracle bodies and policies that only work because they memorised the problem id. The positive fixture is accepted only when real Lean closes the toy theorems; the four negatives are rejected by recomputation (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: when the lean binary is absent the organ returns a terminal locked state and verifies nothing rather than counting tool-absence as a mechanism failure or faking a pass.",
         "counts_as_real_substrate_progress": true,
-        "current_authority_receipt": "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
-        "evaluator_basis": "target-file existence, digest verification, body-import provenance, validation refs, and secret-only authority ceilings over public macro body material",
-        "evidence_class": "verified_macro_body_import",
-        "evidence_strength_rank": 5,
+        "current_authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
         "generated_receipts": [
-          "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_result.json",
-          "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_board.json",
-          "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_validation_receipt.json",
-          "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
+          "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
         ],
-        "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
-        "source_open_body_imports": {
-          "aggregate_floor_ref": "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
-          "authority_ceiling": {
-            "body_text_in_receipt": false,
-            "provider_dispatch": false,
-            "publication_authorized": false,
-            "release_authorized": false,
-            "source_mutation_authorized": false,
-            "test_completeness_proof": false
-          },
-          "body_material_count": 5,
-          "body_material_ids": [
-            "system/server/ui/src/components/intelligence/WorkLens.tsx",
-            "system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
-            "system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
-            "system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
-            "system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx"
-          ],
-          "body_material_status": "copied_non_secret_macro_body",
-          "body_text_exported_in_receipts": false,
-          "body_text_exported_in_workingness": false,
-          "fixture_manifest_ref": "core/fixture_manifests/batch10_frontend_work_market_cockpit_capsule.fixture_manifest.json",
-          "material_classes": [
-            "public_macro_frontend_typescript_body"
-          ],
-          "reader_action": "Inspect the Batch 10 Frontend Work Market Cockpit source_module_manifest and rerun the capsule validator before treating the workingness row as source-body evidence.",
-          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-          "source_manifest_refs": [
-            "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json"
-          ],
-          "status": "pass"
-        },
-        "substrate_claim_ceiling": "verified non-secret frontend source-body import only, not live UI correctness, Task Ledger or Work Ledger mutation authority, market advice, source mutation, release, or publication",
+        "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+        "source_open_body_imports": {},
+        "substrate_claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
         "substrate_disposition": "real_substrate_capsule",
-        "substrate_fixture_role": "regression_wrapper_around_real_substrate",
-        "substrate_real_body_count": 5,
-        "truth_accounting_bucket": "copied_non_secret_macro_body",
-        "validator_command": "python -m microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule run --input fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input --out receipts/first_wave/batch10_frontend_work_market_cockpit_capsule --acceptance-out receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
-        "verdict_source": "verified_public_body_import_contract"
+        "substrate_fixture_role": "no_fixture_authority",
+        "substrate_real_body_count": 2,
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "verdict_source": "subprocess_or_tool_witness"
       },
-      "ordinal": 82,
+      "ordinal": 88,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {
-        "aggregate_floor_ref": "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
-        "authority_ceiling": {
-          "body_text_in_receipt": false,
-          "provider_dispatch": false,
-          "publication_authorized": false,
-          "release_authorized": false,
-          "source_mutation_authorized": false,
-          "test_completeness_proof": false
-        },
-        "body_material_count": 5,
-        "body_material_ids": [
-          "system/server/ui/src/components/intelligence/WorkLens.tsx",
-          "system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
-          "system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
-          "system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
-          "system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx"
-        ],
-        "body_material_status": "copied_non_secret_macro_body",
-        "body_text_exported_in_receipts": false,
-        "body_text_exported_in_workingness": false,
-        "fixture_manifest_ref": "core/fixture_manifests/batch10_frontend_work_market_cockpit_capsule.fixture_manifest.json",
-        "material_classes": [
-          "public_macro_frontend_typescript_body"
-        ],
-        "reader_action": "Inspect the Batch 10 Frontend Work Market Cockpit source_module_manifest and rerun the capsule validator before treating the workingness row as source-body evidence.",
-        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-        "source_manifest_refs": [
-          "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json"
-        ],
-        "status": "pass"
-      },
+      "source_open_body_imports": {},
       "source_refs": [
-        "standards/std_microcosm_batch10_frontend_work_market_cockpit_capsule.json",
-        "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
-        "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle"
+        "standards/std_microcosm_lean_proof_search_lab_runtime.json",
+        "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle"
       ],
       "status": "accepted_current_authority",
-      "thing_id": "batch10_frontend_work_market_cockpit_capsule",
+      "thing_id": "lean_proof_search_lab_runtime",
       "thing_kind": "organ",
       "workingness_state": "evidence_backed_runtime_spine"
     }

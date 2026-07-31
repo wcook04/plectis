@@ -5827,7 +5827,7 @@
       {
         "path": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "role": "example_evidence",
-        "sha256": "b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "sha256": "79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "size_bytes": 5290
       },
       {
@@ -5839,7 +5839,7 @@
       {
         "path": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "role": "example_evidence",
-        "sha256": "b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "sha256": "87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "size_bytes": 3188
       },
       {
@@ -6715,7 +6715,7 @@
       {
         "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "role": "example_evidence",
-        "sha256": "b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "sha256": "79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "size_bytes": 5290
       },
       {
@@ -6743,7 +6743,7 @@
         "size_bytes": 71
       },
       {
-        "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+        "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/kernel_decide.lean",
         "role": "example_evidence",
         "sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
         "size_bytes": 85
@@ -6775,13 +6775,13 @@
       {
         "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "role": "example_evidence",
-        "sha256": "b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "sha256": "87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "size_bytes": 3188
       },
       {
         "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
         "role": "example_evidence",
-        "sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+        "sha256": "531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
         "size_bytes": 102
       },
       {
@@ -10633,13 +10633,13 @@
       {
         "path": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "role": "example_evidence",
-        "sha256": "b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "sha256": "79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "size_bytes": 5290
       },
       {
         "path": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "role": "example_evidence",
-        "sha256": "b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "sha256": "87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "size_bytes": 3188
       },
       {
@@ -10667,7 +10667,7 @@
         "size_bytes": 71
       },
       {
-        "path": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+        "path": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/kernel_decide.lean",
         "role": "example_evidence",
         "sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
         "size_bytes": 85
@@ -10699,7 +10699,7 @@
       {
         "path": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
         "role": "example_evidence",
-        "sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+        "sha256": "531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
         "size_bytes": 102
       },
       {
@@ -16249,13 +16249,13 @@
       {
         "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "role": "fixture",
-        "sha256": "b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "sha256": "79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "size_bytes": 5290
       },
       {
         "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "role": "fixture",
-        "sha256": "b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "sha256": "87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "size_bytes": 3188
       },
       {
@@ -16283,7 +16283,7 @@
         "size_bytes": 71
       },
       {
-        "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+        "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/kernel_decide.lean",
         "role": "fixture",
         "sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
         "size_bytes": 85
@@ -16315,7 +16315,7 @@
       {
         "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
         "role": "fixture",
-        "sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+        "sha256": "531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
         "size_bytes": 102
       },
       {

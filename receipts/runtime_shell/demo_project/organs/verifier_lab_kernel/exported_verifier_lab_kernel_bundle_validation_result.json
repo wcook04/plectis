@@ -27,205 +27,64 @@
     "oracle": "diagnostic comparator only",
     "provider": "advisory hypothesis only"
   },
-  "body_copied_material_count": 14,
+  "body_copied_material_count": 10,
   "body_in_receipt": false,
   "bundle_id": "verifier_lab_kernel_runtime_example",
-  "cache_status": "rebuilt",
+  "cache_status": "source_module_imports_blocked",
   "claim_separation": {
     "contract_rejected": [],
-    "cp2_translated": [
-      {
-        "action_class": "premise_exact",
-        "proposal_id": "cp2_premise_exact_add_comm",
-        "residual_id": "res_missing_commutativity_prior",
-        "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
-      },
-      {
-        "action_class": "retry_with_recipe",
-        "proposal_id": "cp2_retry_with_recipe_closed_std",
-        "residual_id": "res_missing_commutativity_prior",
-        "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
-      }
-    ],
-    "evolve_candidate": [
-      {
-        "baseline_receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
-        "candidate_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
-        "mutated_artifact": "failure_class_routing",
-        "rerun_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
-      }
-    ],
-    "lean_verified": [
-      {
-        "body_in_receipt": false,
-        "compiled_declaration_count": 8,
-        "component_status": "pass",
-        "receipt_refs": [
-          "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
-        ],
-        "source": "formal_math_lean_proof_witness"
-      },
-      {
-        "attempt_id": "attempt_closed_nat_mod_decide",
-        "component_receipt_ref": "component:formal_math_lean_proof_witness",
-        "forward_problem_id": "fp_closed_nat_mod_public",
-        "selected_tactic_id": "decide",
-        "verifier_result_class": "lean_verified"
-      },
-      {
-        "attempt_id": "attempt_or_comm_constructor",
-        "component_receipt_ref": "component:formal_math_lean_proof_witness",
-        "forward_problem_id": "fp_or_comm_public",
-        "selected_tactic_id": "constructor_cases",
-        "verifier_result_class": "lean_verified"
-      }
-    ],
-    "oracle_compared": [
-      {
-        "counted_as_forward_success": false,
-        "forward_problem_id": "fp_missing_commutativity_prior",
-        "oracle_result_class": "oracle_can_identify_missing_premise",
-        "sidecar_id": "oracle_missing_commutativity_prior"
-      }
-    ],
-    "provider_suggested": [
-      {
-        "candidate_action_classes": [
-          "premise_exact",
-          "retry_with_recipe"
-        ],
-        "hypothesis_id": "provider_hyp_missing_commutativity_prior",
-        "provider_results_counted": false,
-        "residual_class": "PREMISE_RETRIEVAL_MISS",
-        "residual_id": "res_missing_commutativity_prior"
-      }
-    ],
-    "retrieval_miss": [
-      {
-        "forward_problem_id": "fp_missing_commutativity_prior",
-        "missing_primitive": "Nat.add_comm closed premise term",
-        "residual_class": "PREMISE_RETRIEVAL_MISS",
-        "residual_id": "res_missing_commutativity_prior"
-      }
-    ]
+    "cp2_translated": [],
+    "evolve_candidate": [],
+    "lean_verified": [],
+    "oracle_compared": [],
+    "provider_suggested": [],
+    "retrieval_miss": []
   },
   "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
-  "component_receipt_refs": {
-    "corpus_readiness_mathlib_absence_gate": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
-    ],
-    "formal_math_lean_proof_witness": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
-    ],
-    "formal_math_premise_retrieval": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json"
-    ],
-    "formal_math_verifier_trace_repair_loop": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
-    ],
-    "lean_std_premise_index": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
-    ],
-    "proof_diagnostic_evidence_spine": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
-    ],
-    "ring2_premise_retrieval_precision_recall_harness": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
-    ],
-    "tactic_portfolio_availability_probe": [
-      "microcosm-substrate/receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
-    ],
-    "target_shape_tactic_routing_gate": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
-    ]
-  },
-  "component_statuses": {
-    "corpus_readiness_mathlib_absence_gate": "pass",
-    "formal_math_lean_proof_witness": "pass",
-    "formal_math_premise_retrieval": "pass",
-    "formal_math_verifier_trace_repair_loop": "pass",
-    "lean_std_premise_index": "pass",
-    "proof_diagnostic_evidence_spine": "pass",
-    "ring2_premise_retrieval_precision_recall_harness": "pass",
-    "tactic_portfolio_availability_probe": "pass",
-    "target_shape_tactic_routing_gate": "pass"
-  },
-  "cp2_action_candidates": [
-    {
-      "action_class": "premise_exact",
-      "proposal_id": "cp2_premise_exact_add_comm",
-      "residual_id": "res_missing_commutativity_prior",
-      "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
-    },
-    {
-      "action_class": "retry_with_recipe",
-      "proposal_id": "cp2_retry_with_recipe_closed_std",
-      "residual_id": "res_missing_commutativity_prior",
-      "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
-    }
+  "component_receipt_refs": {},
+  "component_statuses": {},
+  "cp2_action_candidates": [],
+  "created_at": "2026-07-16T12:23:14+00:00",
+  "error_codes": [
+    "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH"
   ],
-  "created_at": "2026-06-02T02:56:37+00:00",
-  "error_codes": [],
-  "evolve_candidates": [
-    {
-      "baseline_receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
-      "candidate_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
-      "mutated_artifact": "failure_class_routing",
-      "rerun_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
-    }
-  ],
+  "evolve_candidates": [],
   "expected_negative_cases": [],
-  "findings": [],
-  "fixture_id": "first_wave.verifier_lab_kernel",
-  "forward_problems": [
+  "findings": [
     {
-      "allowed_premise_ids": [],
-      "problem_id": "fp_closed_nat_mod_public",
-      "public_input_hash": "sha256:fp_closed_nat_mod_public",
-      "statement_summary": "closed public Nat modular arithmetic witness",
-      "target_shape": "closed_nat_mod_decision"
+      "body_in_receipt": false,
+      "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+      "message": "Source module target digest must match source_module_manifest.json.",
+      "negative_case_id": "source_module_manifest",
+      "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
+      "subject_kind": "source_module"
     },
     {
-      "allowed_premise_ids": [
-        "Or.inl",
-        "Or.inr"
-      ],
-      "problem_id": "fp_or_comm_public",
-      "public_input_hash": "sha256:fp_or_comm_public",
-      "statement_summary": "public disjunction commutation witness",
-      "target_shape": "conjunction_disjunction_constructor"
+      "body_in_receipt": false,
+      "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+      "message": "Source module target digest must match source_module_manifest.json.",
+      "negative_case_id": "source_module_manifest",
+      "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+      "subject_kind": "source_module"
     },
     {
-      "allowed_premise_ids": [],
-      "problem_id": "fp_missing_commutativity_prior",
-      "public_input_hash": "sha256:fp_missing_commutativity_prior",
-      "statement_summary": "public residual with deliberately missing premise terms",
-      "target_shape": "premise_exact"
+      "body_in_receipt": false,
+      "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+      "message": "Source module target digest must match source_module_manifest.json.",
+      "negative_case_id": "source_module_manifest",
+      "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py",
+      "subject_kind": "source_module"
     }
   ],
-  "freshness_basis": {
-    "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
-    "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
-    "input_mode": "exported_verifier_lab_kernel_bundle",
-    "latest_dependency_mtime_ns": 1780368449497799439,
-    "receipt_mtime_ns": null,
-    "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
-    "tracked_dependency_count": 149
-  },
+  "fixture_id": "first_wave.verifier_lab_kernel",
+  "forward_problems": [],
   "input_mode": "exported_verifier_lab_kernel_bundle",
   "kernel_id": "leak_proof_verifier_lab_kernel_runtime_bundle_v1",
-  "lean_compiled_declaration_count": 8,
-  "lean_lake_return_code": 0,
+  "lean_compiled_declaration_count": 0,
+  "lean_lake_return_code": null,
   "missing_negative_cases": [],
   "observed_negative_cases": {},
-  "oracle_sidecars": [
-    {
-      "counted_as_forward_success": false,
-      "forward_problem_id": "fp_missing_commutativity_prior",
-      "oracle_result_class": "oracle_can_identify_missing_premise",
-      "sidecar_id": "oracle_missing_commutativity_prior"
-    }
-  ],
+  "oracle_sidecars": [],
   "organ_id": "verifier_lab_kernel",
   "projection_receipt_refs": [
     "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
@@ -238,139 +97,15 @@
     "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
   ],
-  "proof_lab_component_metrics": {
-    "corpus_count": 7,
-    "lean_compiled_declaration_count": 8,
-    "lean_lake_return_code": 0,
-    "lean_std_premise_count": 11,
-    "mathlib_lake_project_import_available": false,
-    "proof_diagnostic_accepted_count": 1,
-    "proof_diagnostic_rejected_count": 0,
-    "retrieval_mean_public_recall": 1.0,
-    "retrieval_query_count": 4,
-    "ring2_mean_precision_at_k": 0.36,
-    "ring2_mean_recall_at_k": 0.9,
-    "ring2_problem_count": 10,
-    "tactic_probe_status": "pass",
-    "target_shape_route_case_count": 7,
-    "verifier_trace_attempt_count": 5
-  },
+  "proof_lab_component_metrics": {},
   "proof_lab_route": {
-    "anti_claim_floor": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
-    "available_pattern_ids": [
-      "corpus_readiness_mathlib_absence_gate",
-      "formal_math_readiness_gate_public_boundary",
-      "lean_std_toolchain_premise_index",
-      "mathematical_strategy_atlas_hypothesis_scorer",
-      "prover_premise_retrieval_term_scoring",
-      "provider_context_recipe_budget_policy",
-      "ring2_premise_retrieval_precision_recall_harness",
-      "support_affordance_mathlib_declaration_match_terms",
-      "tactic_portfolio_availability_probe",
-      "target_shape_tactic_routing_gate"
-    ],
-    "component_map": [
-      {
-        "component_organ_id": "corpus_readiness_mathlib_absence_gate",
-        "component_role": "corpus/toolchain boundary before retrieval or proof language",
-        "pattern_id": "corpus_readiness_mathlib_absence_gate"
-      },
-      {
-        "component_organ_id": "lean_std_premise_index",
-        "component_role": "closed public Lean/Std premise index",
-        "pattern_id": "lean_std_toolchain_premise_index"
-      },
-      {
-        "component_organ_id": "formal_math_premise_retrieval",
-        "component_role": "retrieval queries, context recipes, and recall floor",
-        "pattern_id": "prover_premise_retrieval_term_scoring"
-      },
-      {
-        "component_organ_id": "tactic_portfolio_availability_probe",
-        "component_role": "public tactic availability gate",
-        "pattern_id": "tactic_portfolio_availability_probe"
-      },
-      {
-        "component_organ_id": "target_shape_tactic_routing_gate",
-        "component_role": "target-shape to tactic route selection",
-        "pattern_id": "target_shape_tactic_routing_gate"
-      },
-      {
-        "component_organ_id": "ring2_premise_retrieval_precision_recall_harness",
-        "component_role": "Ring2 precision/recall and failure-mode metrics",
-        "pattern_id": "ring2_premise_retrieval_precision_recall_harness"
-      },
-      {
-        "component_organ_id": "formal_math_verifier_trace_repair_loop",
-        "component_role": "verifier trace failure class and repair curriculum",
-        "pattern_id": "lean_verifier_feedback_failure_classification"
-      },
-      {
-        "component_organ_id": "proof_diagnostic_evidence_spine",
-        "component_role": "diagnostic evidence refs and provider/body boundary",
-        "pattern_id": "formal_prover_context_strategy_gate"
-      },
-      {
-        "component_organ_id": "formal_math_lean_proof_witness",
-        "component_role": "bounded public Lean/Lake witness, not theorem authority",
-        "pattern_id": "formal_math_lean_self_contained_proof_organ"
-      }
-    ],
-    "detailed_binding_pattern_ids": [
-      "formal_math_readiness_gate_public_boundary",
-      "corpus_readiness_mathlib_absence_gate",
-      "lean_std_toolchain_premise_index",
-      "provider_context_recipe_budget_policy",
-      "mathematical_strategy_atlas_hypothesis_scorer",
-      "tactic_portfolio_availability_probe",
-      "target_shape_tactic_routing_gate",
-      "prover_premise_retrieval_term_scoring",
-      "ring2_premise_retrieval_precision_recall_harness",
-      "support_affordance_mathlib_declaration_match_terms"
-    ],
-    "error_codes": [],
-    "missing_component_organs": [],
-    "missing_pattern_ids": [],
-    "next_refinement_move": "Project as a combined proof-diagnostic organ, then add one validator lane that checks all gate receipts are present before any solved/unsolved metric is shown.",
-    "route_id": "formal_prover_context_strategy_gate",
-    "route_supplied": true,
-    "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-    "source_refs": [
-      "codex/standards/std_extracted_pattern_substrate_bindings.json",
-      "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
-      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
-      "codex/doctrine/paper_modules/proof_bundle_surface.md",
-      "codex/doctrine/paper_modules/mathematics_mission_pipeline.md",
-      "tools/meta/factory/run_prover_graph_benchmark.py",
-      "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
-      "tools/meta/factory/reduce_prover_provider_receipts.py",
-      "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-      "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
-      "tools/meta/factory/build_formal_math_support_affordance_finder.py",
-      "tools/meta/factory/build_formal_math_statement_scope_gate.py",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
-      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
-    ],
-    "source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
-    "status": "pass"
+    "reason": "source_module_imports_blocked",
+    "status": "skipped"
   },
-  "proof_lab_route_component_count": 9,
-  "proof_lab_route_id": "formal_prover_context_strategy_gate",
-  "proof_lab_route_source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
-  "provider_hypotheses": [
-    {
-      "candidate_action_classes": [
-        "premise_exact",
-        "retry_with_recipe"
-      ],
-      "hypothesis_id": "provider_hyp_missing_commutativity_prior",
-      "provider_results_counted": false,
-      "residual_class": "PREMISE_RETRIEVAL_MISS",
-      "residual_id": "res_missing_commutativity_prior"
-    }
-  ],
+  "proof_lab_route_component_count": 0,
+  "proof_lab_route_id": null,
+  "proof_lab_route_source_sha256": null,
+  "provider_hypotheses": [],
   "public_runtime_refs": [
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
     "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
@@ -385,7 +120,7 @@
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
     "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
-  "real_runtime_receipt": true,
+  "real_runtime_receipt": false,
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
@@ -425,14 +160,7 @@
     "schema_version": "verifier_lab_receipt_transparency_contract_v1",
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
   },
-  "residual_diagnoses": [
-    {
-      "forward_problem_id": "fp_missing_commutativity_prior",
-      "missing_primitive": "Nat.add_comm closed premise term",
-      "residual_class": "PREMISE_RETRIEVAL_MISS",
-      "residual_id": "res_missing_commutativity_prior"
-    }
-  ],
+  "residual_diagnoses": [],
   "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -456,172 +184,165 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 17,
+    "scanned_path_count": 13,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_module_imports": {
-    "findings": [],
-    "module_count": 14,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "findings": [
+      {
+        "body_in_receipt": false,
+        "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+        "message": "Source module target digest must match source_module_manifest.json.",
+        "negative_case_id": "source_module_manifest",
+        "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
+        "subject_kind": "source_module"
+      },
+      {
+        "body_in_receipt": false,
+        "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+        "message": "Source module target digest must match source_module_manifest.json.",
+        "negative_case_id": "source_module_manifest",
+        "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+        "subject_kind": "source_module"
+      },
+      {
+        "body_in_receipt": false,
+        "error_code": "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH",
+        "message": "Source module target digest must match source_module_manifest.json.",
+        "negative_case_id": "source_module_manifest",
+        "subject_id": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py",
+        "subject_kind": "source_module"
+      }
+    ],
+    "module_count": 10,
     "modules": [
       {
-        "actual_sha256": "sha256:d1111db8ddfcb9bb4bd862e5fbcf7719caa14d8453b5a06c568db16b2997b640",
+        "actual_sha256": "sha256:5948b1cf1a1a1b128be217991f4a3de5bc034640c4b3eb485ded2253b96bc9c6",
         "body_in_receipt": false,
-        "line_count": 2190,
+        "body_text_in_receipt": false,
+        "line_count": 3024,
         "material_class": "public_macro_tool_body",
         "module_id": "verifier_lab_kernel_source_body_import",
-        "sha256": "sha256:d1111db8ddfcb9bb4bd862e5fbcf7719caa14d8453b5a06c568db16b2997b640",
+        "sha256": "sha256:5948b1cf1a1a1b128be217991f4a3de5bc034640c4b3eb485ded2253b96bc9c6",
         "source_ref": "src/microcosm_core/organs/verifier_lab_kernel.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/verifier_lab_kernel.py"
       },
       {
-        "actual_sha256": "sha256:b78100214f24549787235e6f661637a579e0aa3586a23902da7fc54b89e14e79",
+        "actual_sha256": "sha256:94f53d23254fa1c84a7b8223efa90a0cd614307e7b1fde1062a1a6aa12c0ed86",
         "body_in_receipt": false,
-        "line_count": 1294,
+        "body_text_in_receipt": false,
+        "line_count": 2488,
         "material_class": "public_macro_tool_body",
         "module_id": "corpus_readiness_mathlib_absence_gate_source_body_import",
-        "sha256": "sha256:b78100214f24549787235e6f661637a579e0aa3586a23902da7fc54b89e14e79",
+        "sha256": "sha256:198c424e982a6118acdf59de9d8e895d1acd7e51603d1b6c1370357baff68880",
         "source_ref": "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py"
       },
       {
-        "actual_sha256": "sha256:8cca1e116c80a7ec7b481c022e4930c4d1e84aea7ee583d28eb5a42495ad248e",
+        "actual_sha256": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
         "body_in_receipt": false,
-        "line_count": 1239,
+        "body_text_in_receipt": false,
+        "line_count": 2019,
         "material_class": "public_macro_tool_body",
         "module_id": "lean_std_premise_index_source_body_import",
-        "sha256": "sha256:8cca1e116c80a7ec7b481c022e4930c4d1e84aea7ee583d28eb5a42495ad248e",
+        "sha256": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
         "source_ref": "src/microcosm_core/organs/lean_std_premise_index.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/lean_std_premise_index.py"
       },
       {
-        "actual_sha256": "sha256:b03f8ccedccb4cad32d0fcdf5733d55ba11ef0afc1605fc85c5f67fb7ddc723f",
+        "actual_sha256": "sha256:dfe2bf71bc20764b9555cf2a2307214e95ae3ea0d47726786719e87d462d956a",
         "body_in_receipt": false,
-        "line_count": 1224,
+        "body_text_in_receipt": false,
+        "line_count": 2192,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_premise_retrieval_source_body_import",
-        "sha256": "sha256:b03f8ccedccb4cad32d0fcdf5733d55ba11ef0afc1605fc85c5f67fb7ddc723f",
+        "sha256": "sha256:dfe2bf71bc20764b9555cf2a2307214e95ae3ea0d47726786719e87d462d956a",
         "source_ref": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_premise_retrieval.py"
       },
       {
-        "actual_sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
+        "actual_sha256": "sha256:16e7d5733a70f19c14a32a145f1885844658c3cd87d8de631eb3f7f407efd5bd",
         "body_in_receipt": false,
-        "line_count": 1486,
+        "body_text_in_receipt": false,
+        "line_count": 2448,
         "material_class": "public_macro_tool_body",
         "module_id": "tactic_portfolio_availability_probe_source_body_import",
-        "sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
+        "sha256": "sha256:63bc7a7835cee8c91fe2b5bff0baa03503abb70aa545c61e40cbe4d2e79242f6",
         "source_ref": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py"
       },
       {
-        "actual_sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
+        "actual_sha256": "sha256:3d122fcc9dce11defa1b09438b2b2700bf77826342475ad479e5f8b7ea5c2127",
         "body_in_receipt": false,
-        "line_count": 1530,
+        "body_text_in_receipt": false,
+        "line_count": 1879,
         "material_class": "public_macro_tool_body",
         "module_id": "target_shape_tactic_routing_gate_source_body_import",
-        "sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
+        "sha256": "sha256:b4ff97bc21d8c17dc8317b929aeb984e38acbba00fa4ff3ec82984cc1193ab31",
         "source_ref": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py"
       },
       {
-        "actual_sha256": "sha256:8a11f7cce2dcf2f6e0395757dd9f630fdbd31c96aa703b6c0104fd3e60fabe85",
+        "actual_sha256": "sha256:7b3e0c3ccc671804c68d83b5f1c3a79a7c4b2aa3fc2c4e67902ceac1a3dda34e",
         "body_in_receipt": false,
-        "line_count": 1892,
+        "body_text_in_receipt": false,
+        "line_count": 2615,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_verifier_trace_repair_loop_source_body_import",
-        "sha256": "sha256:8a11f7cce2dcf2f6e0395757dd9f630fdbd31c96aa703b6c0104fd3e60fabe85",
+        "sha256": "sha256:7b3e0c3ccc671804c68d83b5f1c3a79a7c4b2aa3fc2c4e67902ceac1a3dda34e",
         "source_ref": "src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py"
       },
       {
-        "actual_sha256": "sha256:03e0833f1fe92ad7608c07be459be0791155c49f89cac59c0a695f6133e714ec",
+        "actual_sha256": "sha256:98010e2dbba6c20b88477f4a5a630b3bf487f0d07ca1d64da4d96eb0bbc65a0c",
         "body_in_receipt": false,
-        "line_count": 1371,
+        "body_text_in_receipt": false,
+        "line_count": 1772,
         "material_class": "public_macro_tool_body",
         "module_id": "ring2_premise_retrieval_precision_recall_harness_source_body_import",
-        "sha256": "sha256:03e0833f1fe92ad7608c07be459be0791155c49f89cac59c0a695f6133e714ec",
+        "sha256": "sha256:98010e2dbba6c20b88477f4a5a630b3bf487f0d07ca1d64da4d96eb0bbc65a0c",
         "source_ref": "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py"
       },
       {
-        "actual_sha256": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
+        "actual_sha256": "sha256:a32fc23bbf59fdfc44fa88b2c213ba2fa7229b7b4a1dc8c16dcd2a714fdd0609",
         "body_in_receipt": false,
-        "line_count": 1754,
+        "body_text_in_receipt": false,
+        "line_count": 3410,
         "material_class": "public_macro_tool_body",
         "module_id": "proof_diagnostic_evidence_spine_source_body_import",
-        "sha256": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
+        "sha256": "sha256:a32fc23bbf59fdfc44fa88b2c213ba2fa7229b7b4a1dc8c16dcd2a714fdd0609",
         "source_ref": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
       },
       {
-        "actual_sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
+        "actual_sha256": "sha256:ecbc31e1768aa7a7aac70560ecbb8175c408c40bdf8b0a8820dd674827536401",
         "body_in_receipt": false,
-        "line_count": 1475,
+        "body_text_in_receipt": false,
+        "line_count": 2195,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_lean_proof_witness_source_body_import",
-        "sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
+        "sha256": "sha256:ecbc31e1768aa7a7aac70560ecbb8175c408c40bdf8b0a8820dd674827536401",
         "source_ref": "src/microcosm_core/organs/formal_math_lean_proof_witness.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_lean_proof_witness.py"
-      },
-      {
-        "actual_sha256": "sha256:91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
-        "body_in_receipt": false,
-        "line_count": 1321,
-        "material_class": "public_macro_tool_body",
-        "module_id": "prover_statement_only_hammer_bandit_runner_body_import",
-        "sha256": "sha256:91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
-        "source_ref": "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
-        "source_to_target_relation": "exact_copy",
-        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_statement_only_hammer_bandit.py"
-      },
-      {
-        "actual_sha256": "sha256:8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
-        "body_in_receipt": false,
-        "line_count": 1934,
-        "material_class": "public_macro_tool_body",
-        "module_id": "prover_proof_state_search_curriculum_runner_body_import",
-        "sha256": "sha256:8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
-        "source_ref": "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-        "source_to_target_relation": "exact_copy",
-        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_proof_state_search_curriculum.py"
-      },
-      {
-        "actual_sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-        "body_in_receipt": false,
-        "line_count": 7168,
-        "material_class": "public_macro_tool_body",
-        "module_id": "prover_graph_benchmark_helper_body_import",
-        "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
-        "source_to_target_relation": "exact_copy",
-        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
-      },
-      {
-        "actual_sha256": "sha256:9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
-        "body_in_receipt": false,
-        "line_count": 1569,
-        "material_class": "public_macro_tool_body",
-        "module_id": "prover_external_formal_benchmark_smoke_helper_body_import",
-        "sha256": "sha256:9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
-        "source_ref": "tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
-        "source_to_target_relation": "exact_copy",
-        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_external_formal_benchmark_smoke.py"
       }
     ],
     "observed_negative_cases": {},
     "source_module_manifest_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
-    "status": "pass"
+    "status": "blocked"
   },
   "source_module_manifest_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
   "source_open_body_imports": {
@@ -636,7 +357,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 14,
+    "body_material_count": 10,
     "body_material_ids": [
       "verifier_lab_kernel_source_body_import",
       "corpus_readiness_mathlib_absence_gate_source_body_import",
@@ -647,15 +368,12 @@
       "formal_math_verifier_trace_repair_loop_source_body_import",
       "ring2_premise_retrieval_precision_recall_harness_source_body_import",
       "proof_diagnostic_evidence_spine_source_body_import",
-      "formal_math_lean_proof_witness_source_body_import",
-      "prover_statement_only_hammer_bandit_runner_body_import",
-      "prover_proof_state_search_curriculum_runner_body_import",
-      "prover_graph_benchmark_helper_body_import",
-      "prover_external_formal_benchmark_smoke_helper_body_import"
+      "formal_math_lean_proof_witness_source_body_import"
     ],
     "body_material_status": "copied_non_secret_verifier_lab_kernel_component_source_bodies_with_digest_provenance",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
     "material_classes": [
       "public_macro_tool_body"
     ],
@@ -665,7 +383,7 @@
     "source_manifest_refs": [
       "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json"
     ],
-    "status": "pass"
+    "status": "blocked"
   },
   "source_pattern_ids": [
     "corpus_readiness_mathlib_absence_gate",
@@ -690,32 +408,10 @@
     "pattern_id:target_shape_tactic_routing_gate",
     "paper_module:formal_math_verifier_trace_repair_loop"
   ],
-  "status": "pass",
+  "status": "blocked",
   "synthetic_receipt_standin_allowed": false,
-  "target_shape_route_case_count": 7,
+  "target_shape_route_case_count": 0,
   "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
-  "verifier_attempts": [
-    {
-      "attempt_id": "attempt_closed_nat_mod_decide",
-      "component_receipt_ref": "component:formal_math_lean_proof_witness",
-      "forward_problem_id": "fp_closed_nat_mod_public",
-      "selected_tactic_id": "decide",
-      "verifier_result_class": "lean_verified"
-    },
-    {
-      "attempt_id": "attempt_or_comm_constructor",
-      "component_receipt_ref": "component:formal_math_lean_proof_witness",
-      "forward_problem_id": "fp_or_comm_public",
-      "selected_tactic_id": "constructor_cases",
-      "verifier_result_class": "lean_verified"
-    },
-    {
-      "attempt_id": "attempt_missing_commutativity_prior",
-      "component_receipt_ref": "component:formal_math_verifier_trace_repair_loop",
-      "forward_problem_id": "fp_missing_commutativity_prior",
-      "selected_tactic_id": "premise_exact",
-      "verifier_result_class": "retrieval_miss"
-    }
-  ],
-  "verifier_trace_attempt_count": 5
+  "verifier_attempts": [],
+  "verifier_trace_attempt_count": 0
 }

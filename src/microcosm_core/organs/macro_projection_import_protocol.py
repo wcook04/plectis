@@ -3932,7 +3932,13 @@ def _resolve_public_target_path(target_ref: str, *, public_root: Path) -> Path |
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
     if ref_path.parts[:1] == (STANDALONE_RUNTIME_ROOT_REF,):
-        return public_root.parent / ref_path
+        # Public manifests retain the canonical ``microcosm-substrate/``
+        # spelling even when the runnable public checkout has another name
+        # (for example, ``plectis``).  Runtime validation already treats that
+        # prefix as an in-tree public-root alias.  Refresh must use the same
+        # resolution rule: otherwise it can update a similarly named sibling
+        # directory while leaving the checked runtime body stale.
+        return public_root / Path(*ref_path.parts[1:])
     return public_root / ref_path
 
 
@@ -3953,7 +3959,10 @@ def _resolve_manifest_target_path(
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
     if ref_path.parts[:1] == (STANDALONE_RUNTIME_ROOT_REF,):
-        return public_root.parent / ref_path
+        # Keep manifest refresh aligned with runtime-shell validation: the
+        # canonical source label is an in-tree alias in a renamed public
+        # checkout, not a sibling directory to mutate.
+        return public_root / Path(*ref_path.parts[1:])
     public_root_prefixes = {
         "core",
         "examples",

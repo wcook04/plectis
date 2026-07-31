@@ -120,7 +120,7 @@ The probe consumes a fixture and an exported public bundle:
 - `fixtures/first_wave/tactic_portfolio_availability_probe/input`
 - `examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle`
 
-The positive tactic portfolio contains eight recorded rows:
+The proof-trust-clean public tactic portfolio contains seven recorded rows:
 
 | Tactic | Recorded status | Boundary |
 |---|---|---|
@@ -130,7 +130,6 @@ The positive tactic portfolio contains eight recorded rows:
 | `simp` | `compile_pass` | Lean/Std probe row only |
 | `simp_all` | `compile_pass` | Lean/Std probe row only |
 | `grind` | `compile_pass` | Lean/Std probe row only |
-| `native_decide` | `compile_pass` | Lean/Std probe row only |
 | `aesop` | `environment_fail` | Mathlib-dependent row blocked by Mathlib absence |
 
 The environment row records Lean 4.29.1 / Lake 5.0.0 metadata and
@@ -158,7 +157,7 @@ artifacts under `source_artifacts/`, including:
 - `tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json`
 - `corpus_readiness.json`
 - copied public Lean probe bodies for `rfl`, `decide`, `omega`, `simp`,
-  `simp_all`, `grind`, `native_decide`, `aesop`, `mathlib_probe`, and
+  `simp_all`, `grind`, `aesop`, `mathlib_probe`, and
   `trace_state_probe`
 
 The result is accepted only when the public projection agrees with the copied

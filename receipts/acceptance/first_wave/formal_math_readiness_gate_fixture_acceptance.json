@@ -24,14 +24,14 @@
   "blocked_capabilities": [
     "lean_std_synthetic_core:mathlib"
   ],
-  "body_copied_material_count": 13,
+  "body_copied_material_count": 12,
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_readiness_probe_body_with_provenance",
   "bounded_witness_organ_id": "formal_math_lean_proof_witness",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
   "copied_source_artifact_count": 0,
-  "created_at": "2026-06-01T03:29:55+00:00",
+  "created_at": "2026-07-16T12:20:42+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -124,6 +124,116 @@
   "premise_count": 11,
   "projection_cell_id": "formal_math_readiness_extensions",
   "readiness_extension_status": "public_runtime_import_landed",
+  "realness_evidence": {
+    "candidate_bindings": [
+      {
+        "copied_source_artifact_count": 0,
+        "local_lean_lake_mathlib_evidence": {
+          "available_tactic_ids": [],
+          "body_in_receipt": false,
+          "corpus_readiness_ref": null,
+          "existing_target_ref_count": 0,
+          "lake_available": false,
+          "lean_available": false,
+          "lean_probe_file_count": 0,
+          "local_evidence_bound": false,
+          "manifest_refs_exist": false,
+          "mathlib_available": false,
+          "mathlib_probe_import_seen": false,
+          "missing_target_refs": [],
+          "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+          "source_manifest_refs": [
+            "fixtures/first_wave/formal_math_readiness_gate/input/source_module_manifest.json"
+          ],
+          "std_probe_file_count": 0,
+          "tactic_portfolio_ref": null,
+          "target_ref_count": 0,
+          "unavailable_tactic_ids": []
+        },
+        "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+        "source": "source_module_imports",
+        "source_modules_pass": true,
+        "source_refs": [],
+        "tactic_probe_evidence_bound": false,
+        "target_refs": []
+      },
+      {
+        "body_copied_material_count": 12,
+        "local_lean_lake_mathlib_evidence": {
+          "available_tactic_ids": [
+            "decide",
+            "grind",
+            "omega",
+            "rfl",
+            "simp",
+            "simp_all"
+          ],
+          "body_in_receipt": false,
+          "corpus_readiness_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "existing_target_ref_count": 12,
+          "lake_available": true,
+          "lean_available": true,
+          "lean_probe_file_count": 9,
+          "local_evidence_bound": true,
+          "manifest_refs_exist": true,
+          "mathlib_available": false,
+          "mathlib_probe_import_seen": true,
+          "missing_target_refs": [],
+          "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+          "source_manifest_refs": [
+            "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+            "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
+          ],
+          "std_probe_file_count": 8,
+          "tactic_portfolio_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+          "target_ref_count": 12,
+          "unavailable_tactic_ids": [
+            "aesop"
+          ]
+        },
+        "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+        "source": "fixture_manifest_source_open_body_imports",
+        "source_manifest_refs": [
+          "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+          "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
+        ],
+        "source_module_manifest_status": "pass",
+        "source_refs": [
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+        ],
+        "tactic_probe_evidence_bound": true,
+        "target_refs": [
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+        ]
+      }
+    ],
+    "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "schema_version": "formal_math_readiness_realness_evidence_v1",
+    "synthetic_probe_labels_allowed": true,
+    "tactic_probe_evidence_bound": true
+  },
   "receipt_id": "formal_math_readiness_gate_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
@@ -166,13 +276,17 @@
     "tactic_portfolio_availability_probe",
     "target_shape_tactic_routing_gate"
   ],
-  "source_module_count": 13,
+  "source_manifest_refs": [
+    "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+    "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
+  ],
+  "source_module_count": 12,
   "source_module_import_count": 0,
   "source_module_import_status": "copied_formal_readiness_source_modules_verified",
   "source_module_imports": {
     "body_in_receipt": false,
     "body_text_in_receipt": false,
-    "module_count": 13,
+    "module_count": 12,
     "source_module_import_status": "pass",
     "source_module_manifest_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
     "source_refs": [
@@ -183,7 +297,6 @@
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -199,14 +312,13 @@
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
     ],
-    "verified_module_count": 13
+    "verified_module_count": 12
   },
   "source_module_manifest_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
   "source_module_manifest_status": "pass",
@@ -223,7 +335,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 13,
+    "body_material_count": 12,
     "body_material_ids": [
       "prover_proof_state_curriculum_corpus_readiness_json_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -232,7 +344,6 @@
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-      "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -258,7 +369,6 @@
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -274,7 +384,6 @@
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -287,5 +396,5 @@
     "aesop"
   ],
   "validator_id": "validator.microcosm.organs.formal_math_readiness_gate",
-  "verified_source_module_count": 13
+  "verified_source_module_count": 12
 }

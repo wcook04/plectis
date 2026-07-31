@@ -1,12 +1,7 @@
 {
-  "accepted_check_count": 2,
-  "accepted_check_ids": [
-    "ring2_failure_taxonomy_receipt_anchor",
-    "ring2_graph_update_candidate_anchor"
-  ],
-  "advisory_payload_ids": [
-    "ring2_failure_taxonomy_advisory_ref"
-  ],
+  "accepted_check_count": 0,
+  "accepted_check_ids": [],
+  "advisory_payload_ids": [],
   "anti_claim": "Proof diagnostic evidence spine validates real Ring2 verifier-trace repair and formal evidence-cell anchor receipt refs as diagnostic evidence. It does not run Lean, call providers, publish proof bodies, prove runtime correctness, or authorize later organs.",
   "authority_ceiling": {
     "authority_ceiling": "proof_diagnostic_evidence_spine_real_ring2_diagnostic_receipts_not_formal_proof_authority_or_runtime_correctness",
@@ -40,7 +35,7 @@
   "copied_macro_body_missing_files": null,
   "copied_macro_body_missing_target_refs": null,
   "copied_macro_body_unexpected_target_refs": null,
-  "created_at": "2026-06-02T02:56:06+00:00",
+  "created_at": "2026-07-16T12:24:06+00:00",
   "diagnostic_board_path": "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/diagnostic_board.json",
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
@@ -49,6 +44,7 @@
     "MISSING_RECEIPT_ANTI_CLAIM",
     "MISSING_VALIDATOR_ID",
     "PROOF_RECEIPT_SOURCE_COUPLING_STALE",
+    "PROVIDER_ADVISORY_ANCHOR_RECOMPUTE_FAILED",
     "PROVIDER_PAYLOAD_NOT_AUTHORITY"
   ],
   "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
@@ -58,14 +54,14 @@
     "ring2_graph_update_candidate_anchor"
   ],
   "evidence_sha256": {
-    "regression_negative_missing_source_digest": "da0b7ee7cf4eeec15262c3fc7f53486b28747af8c26234e46487bca2843d60a0",
-    "ring2_failure_taxonomy_receipt_anchor": "c6860da5f68ecce53dbf2ecb40986b98b8e68dcce2a4c8768ba95d392e2da0a5",
-    "ring2_graph_update_candidate_anchor": "9f6d1b973bf240d4f0c0d1d4fcd2aeda00eca7e8b289889015ffc87d30136fa7"
+    "regression_negative_missing_source_digest": "0b0c25dd5952176c446d013d704e2b1b6404332f936f56410c29fc4ec6afba10",
+    "ring2_failure_taxonomy_receipt_anchor": "fd704ee7f45df02a9dd457e31949441190c9cd418d72d5025e425b2ad48e2044",
+    "ring2_graph_update_candidate_anchor": "dd842730211da9042e5681ea53b65b2299057de525e208b69440ee10163b431a"
   },
   "exit_code": {
     "regression_negative_missing_source_digest": 1,
-    "ring2_failure_taxonomy_receipt_anchor": 0,
-    "ring2_graph_update_candidate_anchor": 0
+    "ring2_failure_taxonomy_receipt_anchor": 1,
+    "ring2_graph_update_candidate_anchor": 1
   },
   "expected_copied_macro_body_artifact_count": null,
   "expected_negative_cases": {
@@ -98,6 +94,75 @@
     },
     {
       "body_in_receipt": false,
+      "error_code": "DIAGNOSTIC_ROW_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Diagnostic row source/receipt anchors did not recompute.",
+      "negative_case_id": "diagnostic_row_anchor_recompute_failed",
+      "subject_id": "diag.regression.missing_source_digest",
+      "subject_kind": "diagnostic_row"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "DIAGNOSTIC_ROW_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Diagnostic row source/receipt anchors did not recompute.",
+      "negative_case_id": "diagnostic_row_anchor_recompute_failed",
+      "subject_id": "diag.ring2.failure_taxonomy_receipt_anchor",
+      "subject_kind": "diagnostic_row"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "DIAGNOSTIC_ROW_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Diagnostic row source/receipt anchors did not recompute.",
+      "negative_case_id": "diagnostic_row_anchor_recompute_failed",
+      "subject_id": "diag.ring2.graph_update_candidate_anchor",
+      "subject_kind": "diagnostic_row"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Evidence receipt source refs, receipt anchors, or semantic floor did not recompute.",
+      "negative_case_id": "evidence_receipt_anchor_recompute_failed",
+      "semantic_rejection_reasons": [
+        "expected_negative_error_code_present",
+        "missing_source_digest_ref",
+        "missing_source_ref",
+        "source_digest_mismatch"
+      ],
+      "subject_id": "regression_negative_missing_source_digest",
+      "subject_kind": "evidence_receipt_check",
+      "verdict_basis": "receipt_source_anchor_recompute"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Evidence receipt source refs, receipt anchors, or semantic floor did not recompute.",
+      "negative_case_id": "evidence_receipt_anchor_recompute_failed",
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_failure_taxonomy_report",
+        "missing_failure_taxonomy_representative_failures"
+      ],
+      "subject_id": "ring2_failure_taxonomy_receipt_anchor",
+      "subject_kind": "evidence_receipt_check",
+      "verdict_basis": "receipt_source_anchor_recompute"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Evidence receipt source refs, receipt anchors, or semantic floor did not recompute.",
+      "negative_case_id": "evidence_receipt_anchor_recompute_failed",
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_graph_update_candidate_ids",
+        "missing_graph_update_candidates"
+      ],
+      "subject_id": "ring2_graph_update_candidate_anchor",
+      "subject_kind": "evidence_receipt_check",
+      "verdict_basis": "receipt_source_anchor_recompute"
+    },
+    {
+      "body_in_receipt": false,
       "error_code": "MISSING_RECEIPT_ANTI_CLAIM",
       "message": "Evidence receipt lacks anti_claim.",
       "negative_case_id": "evidence_receipt_missing_required_fields",
@@ -119,6 +184,14 @@
       "negative_case_id": "passing_check_overclaims_runtime_correctness",
       "subject_id": "receipt.regression.ring2_diagnostic_pass_overclaims_runtime_correctness",
       "subject_kind": "evidence_receipt"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "PROVIDER_ADVISORY_ANCHOR_RECOMPUTE_FAILED",
+      "message": "Provider advisory payload premise refs or source digests did not recompute.",
+      "negative_case_id": "provider_advisory_anchor_recompute_failed",
+      "subject_id": "ring2_failure_taxonomy_advisory_ref",
+      "subject_kind": "provider_payload"
     },
     {
       "body_in_receipt": false,
@@ -145,6 +218,276 @@
       "subject_kind": "proof_receipt"
     }
   ],
+  "first_screen_proof_rows": [
+    {
+      "allowed_claim": "missing or mismatched receipt/source evidence is rejected before it can count",
+      "authority_ceiling": "regression negative only; missing digest must not count as product evidence",
+      "blocked_claim_ids": [
+        "formal_proof_authority_claim",
+        "theorem_correctness_claim",
+        "lean_execution_claim",
+        "runtime_correctness_claim",
+        "provider_payload_authority_claim",
+        "proof_body_publication_claim",
+        "source_mutation_authorized",
+        "release_authorized"
+      ],
+      "body_in_receipt": false,
+      "cheapest_falsifier": "the row is already a negative control for: expected_negative_error_code_present, missing_source_digest_ref, missing_source_ref, source_digest_mismatch",
+      "check_id": "regression_negative_missing_source_digest",
+      "claim_id": "claim.regression.missing_source_digest_rejected",
+      "command": "regression-negative-check --missing-source-digest",
+      "downgrade_sentence": "This row licenses diagnostic evidence only; it does not prove a theorem, run Lean, expose proof/provider bodies, prove runtime correctness, mutate source, or authorize release.",
+      "evaluator_signal": false,
+      "missing_verifier": [
+        "expected_negative_error_code_present",
+        "missing_source_digest_ref",
+        "missing_source_ref",
+        "source_digest_mismatch"
+      ],
+      "observed_status": "blocked",
+      "proof_floor": {
+        "body_in_receipt": false,
+        "receipt_anchor_refs_present": true,
+        "semantic_floor_passes": false,
+        "source_digest_refs_match": true,
+        "source_digest_refs_present": false,
+        "source_digests_receipt_backed": true,
+        "source_refs_present": true,
+        "source_refs_receipt_backed": true
+      },
+      "proof_refs": {
+        "receipt_anchor_refs": [
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json"
+        ],
+        "source_digest_refs": [],
+        "source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        ]
+      },
+      "result_class": "rejected_expected_negative",
+      "row_id": "first_screen_proof:regression_negative_missing_source_digest",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [],
+        "receipt_semantics": [
+          "curriculum_edges",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [],
+        "required_receipt_semantics": [],
+        "required_source_semantics": [],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "expected_negative_error_code_present",
+        "missing_source_digest_ref",
+        "missing_source_ref",
+        "source_digest_mismatch"
+      ],
+      "source_generated_boundary": {
+        "body_in_receipt": false,
+        "body_material_status": "blocked_anchor_material",
+        "evidence_anchor_status": "blocked_evidence_anchors",
+        "receipt_anchor_ref_count": 1,
+        "source_digest_ref_count": 0,
+        "source_ref_count": 1
+      },
+      "toolchain": "regression_negative_fixture",
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine"
+    },
+    {
+      "allowed_claim": "missing or mismatched receipt/source evidence is rejected before it can count",
+      "authority_ceiling": "Ring2 failure taxonomy receipt refs only; not theorem correctness or proof authority",
+      "blocked_claim_ids": [
+        "formal_proof_authority_claim",
+        "theorem_correctness_claim",
+        "lean_execution_claim",
+        "runtime_correctness_claim",
+        "provider_payload_authority_claim",
+        "proof_body_publication_claim",
+        "source_mutation_authorized",
+        "release_authorized"
+      ],
+      "body_in_receipt": false,
+      "cheapest_falsifier": "the row is already a negative control for: missing_source_ref, source_digest_mismatch, missing_failure_taxonomy_report, missing_failure_taxonomy_representative_failures",
+      "check_id": "ring2_failure_taxonomy_receipt_anchor",
+      "claim_id": "claim.ring2.failure_taxonomy_receipt_anchor_present",
+      "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
+      "downgrade_sentence": "This row licenses diagnostic evidence only; it does not prove a theorem, run Lean, expose proof/provider bodies, prove runtime correctness, mutate source, or authorize release.",
+      "evaluator_signal": false,
+      "missing_verifier": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_failure_taxonomy_report",
+        "missing_failure_taxonomy_representative_failures"
+      ],
+      "observed_status": "blocked",
+      "proof_floor": {
+        "body_in_receipt": false,
+        "receipt_anchor_refs_present": true,
+        "semantic_floor_passes": false,
+        "source_digest_refs_match": false,
+        "source_digest_refs_present": true,
+        "source_digests_receipt_backed": true,
+        "source_refs_present": true,
+        "source_refs_receipt_backed": true
+      },
+      "proof_refs": {
+        "receipt_anchor_refs": [
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+        ],
+        "source_digest_refs": [
+          "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+        ],
+        "source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+        ]
+      },
+      "result_class": "rejected_expected_negative",
+      "row_id": "first_screen_proof:ring2_failure_taxonomy_receipt_anchor",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [
+          "failure_taxonomy_report",
+          "failure_taxonomy_representative_failures"
+        ],
+        "receipt_semantics": [
+          "curriculum_edges",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [
+          "missing_failure_taxonomy_report",
+          "missing_failure_taxonomy_representative_failures"
+        ],
+        "required_receipt_semantics": [
+          "failure_mode_ledger"
+        ],
+        "required_source_semantics": [
+          "failure_taxonomy_report",
+          "failure_taxonomy_representative_failures"
+        ],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_failure_taxonomy_report",
+        "missing_failure_taxonomy_representative_failures"
+      ],
+      "source_generated_boundary": {
+        "body_in_receipt": false,
+        "body_material_status": "blocked_anchor_material",
+        "evidence_anchor_status": "blocked_evidence_anchors",
+        "receipt_anchor_ref_count": 2,
+        "source_digest_ref_count": 1,
+        "source_ref_count": 3
+      },
+      "toolchain": "python_receipt_validation",
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop"
+    },
+    {
+      "allowed_claim": "missing or mismatched receipt/source evidence is rejected before it can count",
+      "authority_ceiling": "Ring2 graph-update diagnostic refs only; not theorem correctness or proof authority",
+      "blocked_claim_ids": [
+        "formal_proof_authority_claim",
+        "theorem_correctness_claim",
+        "lean_execution_claim",
+        "runtime_correctness_claim",
+        "provider_payload_authority_claim",
+        "proof_body_publication_claim",
+        "source_mutation_authorized",
+        "release_authorized"
+      ],
+      "body_in_receipt": false,
+      "cheapest_falsifier": "the row is already a negative control for: missing_source_ref, source_digest_mismatch, missing_graph_update_candidate_ids, missing_graph_update_candidates",
+      "check_id": "ring2_graph_update_candidate_anchor",
+      "claim_id": "claim.ring2.graph_update_candidate_anchor_present",
+      "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
+      "downgrade_sentence": "This row licenses diagnostic evidence only; it does not prove a theorem, run Lean, expose proof/provider bodies, prove runtime correctness, mutate source, or authorize release.",
+      "evaluator_signal": false,
+      "missing_verifier": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_graph_update_candidate_ids",
+        "missing_graph_update_candidates"
+      ],
+      "observed_status": "blocked",
+      "proof_floor": {
+        "body_in_receipt": false,
+        "receipt_anchor_refs_present": true,
+        "semantic_floor_passes": false,
+        "source_digest_refs_match": false,
+        "source_digest_refs_present": true,
+        "source_digests_receipt_backed": true,
+        "source_refs_present": true,
+        "source_refs_receipt_backed": true
+      },
+      "proof_refs": {
+        "receipt_anchor_refs": [
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+          "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+        ],
+        "source_digest_refs": [
+          "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+        ],
+        "source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+          "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+          "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+        ]
+      },
+      "result_class": "rejected_expected_negative",
+      "row_id": "first_screen_proof:ring2_graph_update_candidate_anchor",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [
+          "graph_update_candidate_ids",
+          "graph_update_candidates"
+        ],
+        "receipt_semantics": [
+          "claim_resolution_rows",
+          "curriculum_edges",
+          "evidence_cells",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [
+          "missing_graph_update_candidate_ids",
+          "missing_graph_update_candidates"
+        ],
+        "required_receipt_semantics": [
+          "graph_update_anchor"
+        ],
+        "required_source_semantics": [
+          "graph_update_candidate_ids",
+          "graph_update_candidates"
+        ],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_graph_update_candidate_ids",
+        "missing_graph_update_candidates"
+      ],
+      "source_generated_boundary": {
+        "body_in_receipt": false,
+        "body_material_status": "blocked_anchor_material",
+        "evidence_anchor_status": "blocked_evidence_anchors",
+        "receipt_anchor_ref_count": 2,
+        "source_digest_ref_count": 1,
+        "source_ref_count": 3
+      },
+      "toolchain": "python_receipt_validation",
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop"
+    }
+  ],
   "fixture_id": "first_wave.proof_diagnostic_evidence_spine",
   "freshness_basis": null,
   "freshness_digest": null,
@@ -161,6 +504,9 @@
     ],
     "passing_check_overclaims_runtime_correctness": [
       "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS"
+    ],
+    "provider_advisory_anchor_recompute_failed": [
+      "PROVIDER_ADVISORY_ANCHOR_RECOMPUTE_FAILED"
     ],
     "provider_proof_body_payload_rejected": [
       "FORBIDDEN_PROOF_BODY",
@@ -196,81 +542,450 @@
   "proof_evidence_authority_ceilings_compatible": true,
   "proof_receipts": [
     {
+      "actual_source_digest_mismatches": [
+        {
+          "actual_sha256": "",
+          "expected_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        }
+      ],
       "authority_ceiling": "regression negative only; missing digest must not count as product evidence",
       "body_in_receipt": false,
-      "body_material_status": "regression_negative_fixture",
+      "body_material_status": "blocked_anchor_material",
       "check_id": "regression_negative_missing_source_digest",
       "claim_id": "claim.regression.missing_source_digest_rejected",
       "command": "regression-negative-check --missing-source-digest",
-      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
-      "evidence_sha256": "da0b7ee7cf4eeec15262c3fc7f53486b28747af8c26234e46487bca2843d60a0",
+      "declared_body_material_status": "regression_negative_fixture",
+      "declared_evidence_anchor_status": "",
+      "evidence_anchor_status": "blocked_evidence_anchors",
+      "evidence_sha256": "0b0c25dd5952176c446d013d704e2b1b6404332f936f56410c29fc4ec6afba10",
       "exit_code": 1,
+      "expected_source_digest_sha256_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      },
+      "legacy_expected_result_label_authority": "ignored_non_authoritative_fixture_label",
+      "legacy_expected_result_label_present": true,
+      "missing_receipt_anchor_markers": [],
+      "missing_receipt_anchor_refs": [],
+      "missing_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json"
       ],
+      "receipt_backed_source_digests": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      },
+      "receipt_backed_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
       "result_class": "rejected_expected_negative",
+      "semantic_check_status": "blocked",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [],
+        "receipt_semantics": [
+          "curriculum_edges",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [],
+        "required_receipt_semantics": [],
+        "required_source_semantics": [],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "expected_negative_error_code_present",
+        "missing_source_digest_ref",
+        "missing_source_ref",
+        "source_digest_mismatch"
+      ],
+      "source_digest_basis_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "receipt_anchor"
+      },
+      "source_digest_matches": [],
+      "source_digest_mismatches": [],
       "source_digest_refs": [],
+      "source_digest_refs_not_backed_by_receipts": [],
+      "source_digest_sha256_by_ref": {},
       "source_refs": [
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
       ],
+      "source_refs_not_backed_by_receipts": [],
       "toolchain": "regression_negative_fixture",
-      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine"
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+      "verdict_basis": "receipt_source_anchor_recompute",
+      "verdict_inputs": {
+        "actual_source_digest_mismatches": [
+          {
+            "actual_sha256": "",
+            "expected_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+            "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+          }
+        ],
+        "missing_receipt_anchor_markers": [],
+        "missing_receipt_anchor_refs": [],
+        "missing_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        ],
+        "receipt_anchor_refs_present": true,
+        "receipt_backed_source_digests": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+        },
+        "receipt_backed_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        ],
+        "semantic_floor": {
+          "missing_receipt_semantics": [],
+          "missing_source_semantics": [],
+          "receipt_semantics": [
+            "curriculum_edges",
+            "failure_mode_ledger",
+            "graph_update_anchor"
+          ],
+          "rejection_reasons": [],
+          "required_receipt_semantics": [],
+          "required_source_semantics": [],
+          "source_semantics": []
+        },
+        "semantic_rejection_reasons": [
+          "expected_negative_error_code_present",
+          "missing_source_digest_ref",
+          "missing_source_ref",
+          "source_digest_mismatch"
+        ],
+        "source_digest_basis_by_ref": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "receipt_anchor"
+        },
+        "source_digest_mismatches": [],
+        "source_digest_refs_not_backed_by_receipts": [],
+        "source_digest_refs_present": false,
+        "source_refs_not_backed_by_receipts": [],
+        "source_refs_present": true
+      }
     },
     {
+      "actual_source_digest_mismatches": [
+        {
+          "actual_sha256": "",
+          "expected_sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+        }
+      ],
       "authority_ceiling": "Ring2 failure taxonomy receipt refs only; not theorem correctness or proof authority",
       "body_in_receipt": false,
-      "body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "body_material_status": "blocked_anchor_material",
       "check_id": "ring2_failure_taxonomy_receipt_anchor",
       "claim_id": "claim.ring2.failure_taxonomy_receipt_anchor_present",
       "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
-      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
-      "evidence_sha256": "c6860da5f68ecce53dbf2ecb40986b98b8e68dcce2a4c8768ba95d392e2da0a5",
-      "exit_code": 0,
+      "declared_body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "declared_evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+      "evidence_anchor_status": "blocked_evidence_anchors",
+      "evidence_sha256": "fd704ee7f45df02a9dd457e31949441190c9cd418d72d5025e425b2ad48e2044",
+      "exit_code": 1,
+      "expected_source_digest_sha256_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      },
+      "legacy_expected_result_label_authority": "ignored_non_authoritative_fixture_label",
+      "legacy_expected_result_label_present": true,
+      "missing_receipt_anchor_markers": [],
+      "missing_receipt_anchor_refs": [],
+      "missing_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+      ],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
       ],
-      "result_class": "accepted_machine_check",
+      "receipt_backed_source_digests": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      },
+      "receipt_backed_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+      ],
+      "result_class": "rejected_expected_negative",
+      "semantic_check_status": "blocked",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [
+          "failure_taxonomy_report",
+          "failure_taxonomy_representative_failures"
+        ],
+        "receipt_semantics": [
+          "curriculum_edges",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [
+          "missing_failure_taxonomy_report",
+          "missing_failure_taxonomy_representative_failures"
+        ],
+        "required_receipt_semantics": [
+          "failure_mode_ledger"
+        ],
+        "required_source_semantics": [
+          "failure_taxonomy_report",
+          "failure_taxonomy_representative_failures"
+        ],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_failure_taxonomy_report",
+        "missing_failure_taxonomy_representative_failures"
+      ],
+      "source_digest_basis_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "receipt_anchor"
+      },
+      "source_digest_matches": [],
+      "source_digest_mismatches": [
+        "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      ],
       "source_digest_refs": [
         "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
       ],
+      "source_digest_refs_not_backed_by_receipts": [],
+      "source_digest_sha256_by_ref": {
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json": "sha256:56df2e96c81a84230757ed48c3ea72f97134d7c9a62babd5151d6da796ecbaca",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json": "sha256:189ce0227bc9cc3a69d2b22a9c7a3cb30e06343f8819a31e4b4a077ffa920ff8"
+      },
       "source_refs": [
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
       ],
+      "source_refs_not_backed_by_receipts": [],
       "toolchain": "python_receipt_validation",
-      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop"
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop",
+      "verdict_basis": "receipt_source_anchor_recompute",
+      "verdict_inputs": {
+        "actual_source_digest_mismatches": [
+          {
+            "actual_sha256": "",
+            "expected_sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+            "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+          }
+        ],
+        "missing_receipt_anchor_markers": [],
+        "missing_receipt_anchor_refs": [],
+        "missing_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+        ],
+        "receipt_anchor_refs_present": true,
+        "receipt_backed_source_digests": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+        },
+        "receipt_backed_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+        ],
+        "semantic_floor": {
+          "missing_receipt_semantics": [],
+          "missing_source_semantics": [
+            "failure_taxonomy_report",
+            "failure_taxonomy_representative_failures"
+          ],
+          "receipt_semantics": [
+            "curriculum_edges",
+            "failure_mode_ledger",
+            "graph_update_anchor"
+          ],
+          "rejection_reasons": [
+            "missing_failure_taxonomy_report",
+            "missing_failure_taxonomy_representative_failures"
+          ],
+          "required_receipt_semantics": [
+            "failure_mode_ledger"
+          ],
+          "required_source_semantics": [
+            "failure_taxonomy_report",
+            "failure_taxonomy_representative_failures"
+          ],
+          "source_semantics": []
+        },
+        "semantic_rejection_reasons": [
+          "missing_source_ref",
+          "source_digest_mismatch",
+          "missing_failure_taxonomy_report",
+          "missing_failure_taxonomy_representative_failures"
+        ],
+        "source_digest_basis_by_ref": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "receipt_anchor"
+        },
+        "source_digest_mismatches": [
+          "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+        ],
+        "source_digest_refs_not_backed_by_receipts": [],
+        "source_digest_refs_present": true,
+        "source_refs_not_backed_by_receipts": [],
+        "source_refs_present": true
+      }
     },
     {
+      "actual_source_digest_mismatches": [
+        {
+          "actual_sha256": "",
+          "expected_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        }
+      ],
       "authority_ceiling": "Ring2 graph-update diagnostic refs only; not theorem correctness or proof authority",
       "body_in_receipt": false,
-      "body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "body_material_status": "blocked_anchor_material",
       "check_id": "ring2_graph_update_candidate_anchor",
       "claim_id": "claim.ring2.graph_update_candidate_anchor_present",
       "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
-      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
-      "evidence_sha256": "9f6d1b973bf240d4f0c0d1d4fcd2aeda00eca7e8b289889015ffc87d30136fa7",
-      "exit_code": 0,
+      "declared_body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "declared_evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+      "evidence_anchor_status": "blocked_evidence_anchors",
+      "evidence_sha256": "dd842730211da9042e5681ea53b65b2299057de525e208b69440ee10163b431a",
+      "exit_code": 1,
+      "expected_source_digest_sha256_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      },
+      "legacy_expected_result_label_authority": "ignored_non_authoritative_fixture_label",
+      "legacy_expected_result_label_present": true,
+      "missing_receipt_anchor_markers": [],
+      "missing_receipt_anchor_refs": [],
+      "missing_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
       ],
-      "result_class": "accepted_machine_check",
+      "receipt_backed_source_digests": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      },
+      "receipt_backed_source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "result_class": "rejected_expected_negative",
+      "semantic_check_status": "blocked",
+      "semantic_floor": {
+        "missing_receipt_semantics": [],
+        "missing_source_semantics": [
+          "graph_update_candidate_ids",
+          "graph_update_candidates"
+        ],
+        "receipt_semantics": [
+          "claim_resolution_rows",
+          "curriculum_edges",
+          "evidence_cells",
+          "failure_mode_ledger",
+          "graph_update_anchor"
+        ],
+        "rejection_reasons": [
+          "missing_graph_update_candidate_ids",
+          "missing_graph_update_candidates"
+        ],
+        "required_receipt_semantics": [
+          "graph_update_anchor"
+        ],
+        "required_source_semantics": [
+          "graph_update_candidate_ids",
+          "graph_update_candidates"
+        ],
+        "source_semantics": []
+      },
+      "semantic_rejection_reasons": [
+        "missing_source_ref",
+        "source_digest_mismatch",
+        "missing_graph_update_candidate_ids",
+        "missing_graph_update_candidates"
+      ],
+      "source_digest_basis_by_ref": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "receipt_anchor"
+      },
+      "source_digest_matches": [],
+      "source_digest_mismatches": [
+        "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      ],
       "source_digest_refs": [
         "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
       ],
+      "source_digest_refs_not_backed_by_receipts": [],
+      "source_digest_sha256_by_ref": {
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json": "sha256:6c6ef3cb224f88b70fe16738a80ba3ed275c6a0cb9e948121f7460841129b907",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json": "sha256:56df2e96c81a84230757ed48c3ea72f97134d7c9a62babd5151d6da796ecbaca"
+      },
       "source_refs": [
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
       ],
+      "source_refs_not_backed_by_receipts": [],
       "toolchain": "python_receipt_validation",
-      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop"
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop",
+      "verdict_basis": "receipt_source_anchor_recompute",
+      "verdict_inputs": {
+        "actual_source_digest_mismatches": [
+          {
+            "actual_sha256": "",
+            "expected_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+            "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+          }
+        ],
+        "missing_receipt_anchor_markers": [],
+        "missing_receipt_anchor_refs": [],
+        "missing_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        ],
+        "receipt_anchor_refs_present": true,
+        "receipt_backed_source_digests": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+        },
+        "receipt_backed_source_refs": [
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+        ],
+        "semantic_floor": {
+          "missing_receipt_semantics": [],
+          "missing_source_semantics": [
+            "graph_update_candidate_ids",
+            "graph_update_candidates"
+          ],
+          "receipt_semantics": [
+            "claim_resolution_rows",
+            "curriculum_edges",
+            "evidence_cells",
+            "failure_mode_ledger",
+            "graph_update_anchor"
+          ],
+          "rejection_reasons": [
+            "missing_graph_update_candidate_ids",
+            "missing_graph_update_candidates"
+          ],
+          "required_receipt_semantics": [
+            "graph_update_anchor"
+          ],
+          "required_source_semantics": [
+            "graph_update_candidate_ids",
+            "graph_update_candidates"
+          ],
+          "source_semantics": []
+        },
+        "semantic_rejection_reasons": [
+          "missing_source_ref",
+          "source_digest_mismatch",
+          "missing_graph_update_candidate_ids",
+          "missing_graph_update_candidates"
+        ],
+        "source_digest_basis_by_ref": {
+          "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "receipt_anchor"
+        },
+        "source_digest_mismatches": [
+          "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+        ],
+        "source_digest_refs_not_backed_by_receipts": [],
+        "source_digest_refs_present": true,
+        "source_refs_not_backed_by_receipts": [],
+        "source_refs_present": true
+      }
     }
   ],
   "provider_policy_rejection_ids": [
-    "regression_provider_payload_with_forbidden_body_keys"
+    "regression_provider_payload_with_forbidden_body_keys",
+    "ring2_failure_taxonomy_advisory_ref"
   ],
   "real_substrate_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
@@ -304,14 +1019,16 @@
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/proof_diagnostic_evidence_spine_fixture_acceptance.json"
   ],
   "receipt_reused": null,
-  "rejected_check_count": 1,
+  "rejected_check_count": 3,
   "rejected_check_ids": [
-    "regression_negative_missing_source_digest"
+    "regression_negative_missing_source_digest",
+    "ring2_failure_taxonomy_receipt_anchor",
+    "ring2_graph_update_candidate_anchor"
   ],
   "result_class": {
     "regression_negative_missing_source_digest": "rejected_expected_negative",
-    "ring2_failure_taxonomy_receipt_anchor": "accepted_machine_check",
-    "ring2_graph_update_candidate_anchor": "accepted_machine_check"
+    "ring2_failure_taxonomy_receipt_anchor": "rejected_expected_negative",
+    "ring2_graph_update_candidate_anchor": "rejected_expected_negative"
   },
   "schema_version": "proof_diagnostic_evidence_spine_proof_receipts_v1",
   "secret_exclusion_scan": {
@@ -399,6 +1116,7 @@
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_body_floor/source_module_manifest.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
@@ -413,7 +1131,7 @@
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
-  "status": "pass",
+  "status": "blocked",
   "toolchain": {
     "regression_negative_missing_source_digest": "regression_negative_fixture",
     "ring2_failure_taxonomy_receipt_anchor": "python_receipt_validation",

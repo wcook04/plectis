@@ -1,12 +1,27 @@
 """
-Implements organs formal math premise retrieval for the public Plectis package.
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.formal_math_premise_retrieval` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
 
-Callers enter through `validate_projection_protocol`, `validate_premise_index`,
-`validate_context_recipes`, `validate_strategy_cases`, `validate_retrieval_queries`,
-`write_receipts`, and 3 more; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`,
-`RESULT_NAME`, and 18 more pin local fixture names; dependencies include `argparse`,
-`hashlib`, `json`, `os`, and 5 more. It builds public fixture, result, card, or verdict
-structures while keeping private substrate bodies out of the payload.
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, SOURCE_MODULE_MANIFEST_NAME, PUBLIC_LEAN_TOOLCHAIN_PREFIX, CARD_OMITTED_FULL_PAYLOAD_KEYS, INPUT_NAMES, OPTIONAL_BUNDLE_SCAN_NAMES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, FORBIDDEN_BODY_KEYS, AUTHORITY_CEILING, ANTI_CLAIM, BODY_MATERIAL_STATUS, BODY_MATERIAL_CONTRACT, SOURCE_MODULE_ALLOWED_IMPORT_CLASSES, validate_projection_protocol, validate_premise_index, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -140,9 +155,13 @@ SOURCE_MODULE_ALLOWED_IMPORT_CLASSES = {
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    Return public root for path for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
+    [ACTION]
+    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -158,18 +177,26 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    Produce the display value used by `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
+    [ACTION]
+    - Teleology: Implements `_display` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    Return input paths for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `input_dir` and `include_negative`.
+    [ACTION]
+    - Teleology: Implements `_input_paths` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
@@ -177,10 +204,13 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _iter_source_module_files(path: Path) -> Iterator[Path]:
     """
-    Temporarily apply iter source module files for callers using a `with` block.
-
-    The previous state is restored after the yielded block exits, including exceptional
-    exits.
+    [ACTION]
+    - Teleology: Implements `_iter_source_module_files` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     with os.scandir(path) as entries:
         for entry in entries:
@@ -193,11 +223,13 @@ def _iter_source_module_files(path: Path) -> Iterator[Path]:
 
 def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    Scan whether scan input paths holds for the organs formal math premise retrieval flow.
-
-    The result is derived from `input_dir` and `include_negative` with `_input_paths`,
-    `is_dir`, `is_file`, `extend`, and 2 more; failing evidence is returned or raised
-    exactly where the body says so.
+    [ACTION]
+    - Teleology: Implements `_scan_input_paths` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     paths = _input_paths(input_dir, include_negative=include_negative)
     for name in OPTIONAL_BUNDLE_SCAN_NAMES:
@@ -212,11 +244,13 @@ def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _json_digest(value: Any) -> str:
     """
-    Return the stable digest computed by
-    `microcosm_core.organs.formal_math_premise_retrieval._json_digest`.
-
-    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
-    before formatting the hash.
+    [ACTION]
+    - Teleology: Implements `_json_digest` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     encoded = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -226,10 +260,13 @@ def _json_digest(value: Any) -> str:
 
 def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval._file_freshness_entry`
-    into the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_file_freshness_entry` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_ref = _display(path, public_root=public_root)
     if not path.exists():
@@ -250,9 +287,13 @@ def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
 
 def _dedupe_paths(paths: list[Path]) -> list[Path]:
     """
-    Derive dedupe paths without touching module import state.
-
-    Inputs are `paths`; notable helpers are `as_posix`, `add`, `append`, and `resolve`.
+    [ACTION]
+    - Teleology: Implements `_dedupe_paths` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     deduped: list[Path] = []
     seen: set[str] = set()
@@ -271,10 +312,13 @@ def _retrieval_bundle_freshness_basis(
     public_root: Path,
 ) -> list[dict[str, Any]]:
     """
-    Compute retrieval bundle freshness basis from `input_dir` and `public_root`.
-
-    Inputs are `input_dir` and `public_root`; notable helpers are `resolve`,
-    `_scan_input_paths`, `_file_freshness_entry`, `Path`, and 1 more.
+    [ACTION]
+    - Teleology: Implements `_retrieval_bundle_freshness_basis` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     paths = [
         Path(__file__).resolve(strict=False),
@@ -297,11 +341,13 @@ def _fresh_retrieval_bundle_receipt(
     freshness_digest: str,
 ) -> dict[str, Any] | None:
     """
-    Produce the fresh retrieval bundle receipt value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `out_dir` and `freshness_digest`; notable helpers are `Path`, `is_absolute`,
-    `is_file`, `read_json_strict`, and 2 more.
+    [ACTION]
+    - Teleology: Implements `_fresh_retrieval_bundle_receipt` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -331,10 +377,13 @@ def _fresh_retrieval_bundle_receipt(
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    Produce the strip microcosm prefix value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `ref`; notable helpers are `startswith`.
+    [ACTION]
+    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -342,11 +391,13 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _sha256(path: Path) -> str:
     """
-    Return the stable digest computed by
-    `microcosm_core.organs.formal_math_premise_retrieval._sha256`.
-
-    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
-    before formatting the hash.
+    [ACTION]
+    - Teleology: Implements `_sha256` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -357,11 +408,13 @@ def _sha256(path: Path) -> str:
 
 def _normalize_sha256(value: object) -> str:
     """
-    Return the stable digest computed by
-    `microcosm_core.organs.formal_math_premise_retrieval._normalize_sha256`.
-
-    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
-    before formatting the hash.
+    [ACTION]
+    - Teleology: Implements `_normalize_sha256` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     digest = str(value or "")
     if digest and not digest.startswith("sha256:"):
@@ -371,10 +424,13 @@ def _normalize_sha256(value: object) -> str:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    Load load payloads for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
-    the exceptions and checks visible in the body.
+    [ACTION]
+    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -384,11 +440,13 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _read_source_module_manifest(input_dir: Path) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval._read_source_module_manifest` into
-    the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_read_source_module_manifest` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if not path.is_file():
@@ -399,18 +457,26 @@ def _read_source_module_manifest(input_dir: Path) -> dict[str, Any]:
 
 def _bundle_source_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    Return bundle source module rows for the organs formal math premise retrieval flow.
-
-    Inputs are `manifest`; notable helpers are `_rows`.
+    [ACTION]
+    - Teleology: Implements `_bundle_source_module_rows` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [*_rows(manifest, "modules"), *_rows(manifest, "source_faithful_modules")]
 
 
 def _public_ref_path(public_root: Path, ref: object) -> Path | None:
     """
-    Return public ref path for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `public_root` and `ref`; notable helpers are `_strip_microcosm_prefix`.
+    [ACTION]
+    - Teleology: Implements `_public_ref_path` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = str(ref or "")
     if not value:
@@ -420,10 +486,13 @@ def _public_ref_path(public_root: Path, ref: object) -> Path | None:
 
 def _source_ref_path(public_root: Path, ref: object) -> Path | None:
     """
-    Compute source ref path from `public_root` and `ref`.
-
-    Inputs are `public_root` and `ref`; notable helpers are `startswith` and
-    `_strip_microcosm_prefix`.
+    [ACTION]
+    - Teleology: Implements `_source_ref_path` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = str(ref or "")
     if not value or value.startswith("lean-toolchain://"):
@@ -440,10 +509,13 @@ def _candidate_source_artifact_paths(
     public_root: Path,
 ) -> list[Path]:
     """
-    Derive candidate source artifact paths without touching module import state.
-
-    Inputs are `ref`, `input_dir`, and `public_root`; notable helpers are `Path`,
-    `is_absolute`, `_dedupe_paths`, and `cwd`.
+    [ACTION]
+    - Teleology: Implements `_candidate_source_artifact_paths` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = Path(ref)
     if path.is_absolute():
@@ -465,11 +537,13 @@ def _resolve_source_artifact_path(
     public_root: Path,
 ) -> Path | None:
     """
-    Produce the resolve source artifact path value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `ref`, `input_dir`, and `public_root`; notable helpers are
-    `_candidate_source_artifact_paths` and `is_file`.
+    [ACTION]
+    - Teleology: Implements `_resolve_source_artifact_path` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     for candidate in _candidate_source_artifact_paths(
         ref,
@@ -483,11 +557,13 @@ def _resolve_source_artifact_path(
 
 def _normalize_source_ref(source_ref: object, *, source_root: object) -> str:
     """
-    Produce the normalize source ref value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `source_ref` and `source_root`; notable helpers are `startswith` and
-    `rstrip`.
+    [ACTION]
+    - Teleology: Implements `_normalize_source_ref` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     ref = str(source_ref or "")
     root = str(source_root or "")
@@ -503,11 +579,13 @@ def _source_premise_signature(
     source_root: object,
 ) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval._source_premise_signature` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_source_premise_signature` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "premise_id": row.get("premise_id"),
@@ -522,11 +600,13 @@ def _source_premise_signature(
 
 def _public_premise_signature(row: dict[str, Any]) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval._public_premise_signature` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_public_premise_signature` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "premise_id": row.get("premise_id"),
@@ -546,11 +626,13 @@ def _validate_source_artifact(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval._validate_source_artifact` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_validate_source_artifact` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return {
@@ -678,11 +760,13 @@ def _bundle_source_module_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval._bundle_source_module_result` into
-    the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_bundle_source_module_result` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     findings: list[dict[str, Any]] = []
@@ -836,11 +920,13 @@ def _bundle_source_module_result(
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    Return dictionary rows for `microcosm_core.organs.formal_math_premise_retrieval._rows`
-    from `payload[key]`.
-
-    Invalid payload shapes are treated as empty input so the caller can iterate without
-    extra guards.
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return []
@@ -852,11 +938,13 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    Return the non-empty string members used by
-    `microcosm_core.organs.formal_math_premise_retrieval._strings`.
-
-    The helper rejects non-list inputs and non-string elements instead of manufacturing
-    evidence from arbitrary values.
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -872,10 +960,13 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval._finding` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_finding` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "error_code": code,
@@ -898,10 +989,13 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    Record record for the organs formal math premise retrieval flow.
-
-    The side effect is the explicit file, receipt, parser, print, or instance-state update
-    performed in this function.
+    [ACTION]
+    - Teleology: Implements `_record` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings.append(
         _finding(
@@ -917,9 +1011,13 @@ def _record(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    Return merge observed for the organs formal math premise retrieval flow.
-
-    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
+    [ACTION]
+    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -931,10 +1029,13 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    Create the finding rows emitted by
-    `microcosm_core.organs.formal_math_premise_retrieval._merge_findings`.
-
-    Each row keeps the machine-readable code and subject reference beside the human message.
+    [ACTION]
+    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -952,10 +1053,13 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _tokenize(values: object) -> Counter[str]:
     """
-    Produce the tokenize value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `values`; notable helpers are `Counter`, `findall`, and `lower`.
+    [ACTION]
+    - Teleology: Implements `_tokenize` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     tokens: Counter[str] = Counter()
     if isinstance(values, str):
@@ -972,9 +1076,13 @@ def _tokenize(values: object) -> Counter[str]:
 
 def _premise_scoring_fields(premise: dict[str, Any]) -> list[tuple[str, object]]:
     """
-    Derive premise scoring fields without touching module import state.
-
-    Inputs are `premise`; notable helpers are `get`.
+    [ACTION]
+    - Teleology: Implements `_premise_scoring_fields` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         ("premise_id", premise.get("premise_id", "")),
@@ -987,21 +1095,26 @@ def _premise_scoring_fields(premise: dict[str, Any]) -> list[tuple[str, object]]
 
 def _forbidden_keys(row: dict[str, Any]) -> list[str]:
     """
-    Produce the forbidden keys value used by
-    `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `row`.
+    [ACTION]
+    - Teleology: Implements `_forbidden_keys` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval.validate_projection_protocol` into
-    the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1075,10 +1188,13 @@ def validate_premise_index(
     negative_payload: object | None = None,
 ) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval.validate_premise_index`
-    into the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `validate_premise_index` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1139,10 +1255,13 @@ def validate_context_recipes(
     negative_payload: object | None = None,
 ) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval.validate_context_recipes`
-    into the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `validate_context_recipes` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     recipes: list[dict[str, Any]] = []
     findings: list[dict[str, Any]] = []
@@ -1200,10 +1319,13 @@ def validate_strategy_cases(
     negative_payload: object | None = None,
 ) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval.validate_strategy_cases`
-    into the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `validate_strategy_cases` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     allowed = set(_strings(payload.get("allowed_strategy_ids") if isinstance(payload, dict) else []))
     findings: list[dict[str, Any]] = []
@@ -1257,10 +1379,13 @@ def _score_query(
     premises: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
-    Return score query for the organs formal math premise retrieval flow.
-
-    Inputs are `query` and `premises`; notable helpers are `_tokenize`, `get`, `Counter`,
-    `_premise_scoring_fields`, and 2 more.
+    [ACTION]
+    - Teleology: Implements `_score_query` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     split = str(query.get("split") or "train")
     query_terms = _tokenize(query.get("query_terms"))
@@ -1306,11 +1431,13 @@ def validate_retrieval_queries(
     negative_test_tuning_payload: object | None = None,
 ) -> dict[str, Any]:
     """
-    Serialize
-    `microcosm_core.organs.formal_math_premise_retrieval.validate_retrieval_queries` into
-    the payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `validate_retrieval_queries` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     allowed = set(allowed_strategy_ids)
     findings: list[dict[str, Any]] = []
@@ -1322,10 +1449,13 @@ def validate_retrieval_queries(
 
     def inspect_query(row: dict[str, Any], *, negative: bool = False) -> None:
         """
-        Run inspect query for the organs formal math premise retrieval flow.
-
-        The side effect is the explicit file, receipt, parser, print, or instance-state
-        update performed in this function.
+        [ACTION]
+        - Teleology: Implements `validate_retrieval_queries.inspect_query` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         query_id = str(row.get("query_id") or "query")
         forbidden = _forbidden_keys(row)
@@ -1426,9 +1556,13 @@ def validate_retrieval_queries(
 
 def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    Compute secret exclusion scan from `scan`.
-
-    Inputs are `scan`; notable helpers are `pop`, `get`, and `append`.
+    [ACTION]
+    - Teleology: Implements `_secret_exclusion_scan` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = dict(scan)
     payload.pop("body_redacted", None)
@@ -1456,10 +1590,13 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval._build_result` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_build_result` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1640,9 +1777,13 @@ def _common_receipt(
     receipt_paths: list[str],
 ) -> dict[str, Any]:
     """
-    Return common receipt for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
+    [ACTION]
+    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     keys = (
         "status",
@@ -1701,10 +1842,13 @@ def _common_receipt(
 
 def _result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.organs.formal_math_premise_retrieval._result_card` into the
-    payload shape expected by organs formal math premise retrieval.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    [ACTION]
+    - Teleology: Implements `_result_card` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     secret_scan = result.get("secret_exclusion_scan")
     scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
@@ -1788,9 +1932,13 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    Return relative receipt paths for `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `paths` and `public_root`; notable helpers are `_display` and `values`.
+    [ACTION]
+    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
@@ -1803,10 +1951,13 @@ def write_receipts(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
     """
-    Write write receipts for the organs formal math premise retrieval flow.
-
-    The side effect is the explicit file, receipt, parser, print, or instance-state update
-    performed in this function.
+    [ACTION]
+    - Teleology: Implements `write_receipts` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -1894,10 +2045,13 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    Produce the run value used by `microcosm_core.organs.formal_math_premise_retrieval`.
-
-    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
-    `Path`, `_build_result`, `values`, `write_receipts`, and 1 more.
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     command_text = command or (
@@ -1929,11 +2083,13 @@ def run_retrieval_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    Derive run retrieval bundle without touching module import state.
-
-    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
-    are `Path`, `_public_root_for_path`, `_retrieval_bundle_freshness_basis`,
-    `_json_digest`, and 9 more.
+    [ACTION]
+    - Teleology: Implements `run_retrieval_bundle` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1992,10 +2148,13 @@ def run_retrieval_bundle(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `microcosm_core.organs.formal_math_premise_retrieval` as a command-line entry point.
-
-    The command parses argv, calls this module's builders or validators, and returns the
-    status code used by the process wrapper.
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.formal_math_premise_retrieval` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(prog="formal_math_premise_retrieval")
     subparsers = parser.add_subparsers(dest="action", required=True)

@@ -6,8 +6,8 @@ tactic as usable.
 
 The fixture is copied from real non-secret macro substrate: the 2026-05-11
 `PROVER_PROOF_STATE_SEARCH_CURRICULUM` smoke run's Lean/Std tactic affordance
-probe. It records compile-status rows for `rfl`, `decide`, `omega`, `simp`,
-`simp_all`, `grind`, `native_decide`, and `aesop`, with source digests for the
+probe. Its public proof-trust projection records compile-status rows for `rfl`,
+`decide`, `omega`, `simp`, `simp_all`, `grind`, and `aesop`, with source digests for the
 run-level affordance probe, the `portfolio_core_v0` tactic availability artifact,
 and the paired corpus-readiness boundary. The Mathlib-dependent `aesop` row is
 marked `environment_fail` because the paired environment probe reports

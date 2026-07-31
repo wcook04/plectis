@@ -10,12 +10,13 @@
   "allowed_case_ids": [
     "miniF2F_lean3_translation_smoke_allowed"
   ],
-  "anti_claim": "Corpus readiness Mathlib absence gate validates copied non-secret corpus readiness and Lean/Std toolchain-boundary rows from the 2026-05-11 proof-state curriculum smoke run. It does not rerun Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof/provider bodies, benchmark formal-math corpora, call providers, or authorize release.",
+  "anti_claim": "Corpus readiness Mathlib absence gate validates copied non-secret corpus readiness rows from the 2026-05-11 proof-state curriculum smoke run, paired with a bounded runtime Lean/Lake import probe proving Std still imports and Mathlib remains absent in the current host environment. It does not run a Lake build, prove theorem correctness, claim Mathlib is available, expose proof/provider bodies, benchmark formal-math corpora, call providers, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority",
+    "authority_ceiling": "bounded_runtime_lean_lake_import_probe_not_mathlib_proof_or_benchmark_authority",
     "benchmark_or_corpus_completeness_authority": false,
     "formal_proof_authority": false,
-    "lean_lake_execution_authorized": false,
+    "lean_lake_execution_authorized": "bounded_runtime_import_probe_only",
+    "lean_lake_execution_scope": "temporary_lean_cli_import_probe_plus_lake_version_check_no_lake_build",
     "mathlib_dependent_proof_authority": false,
     "mathlib_lake_project_import_authorized": false,
     "provider_calls_authorized": false,
@@ -54,11 +55,13 @@
   "copied_source_artifact_count": 0,
   "corpus_count": 7,
   "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
-  "created_at": "2026-05-26T22:59:07+00:00",
+  "created_at": "2026-07-16T12:24:06+00:00",
   "error_codes": [
     "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
     "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
     "CORPUS_READINESS_RELEASE_OVERCLAIM",
+    "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+    "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN"
   ],
@@ -70,6 +73,60 @@
     "release_overclaim"
   ],
   "findings": [
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
+      "message": "Runtime-derived corpus readiness validation requires the anchored source artifact body.",
+      "negative_case_id": "positive_runtime_source_artifacts",
+      "subject_id": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
+      "message": "Runtime-derived corpus readiness validation requires the anchored source artifact body.",
+      "negative_case_id": "positive_runtime_source_artifacts",
+      "subject_id": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
+      "message": "Runtime-derived corpus readiness validation requires the anchored source artifact body.",
+      "negative_case_id": "positive_runtime_source_artifacts",
+      "subject_id": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
+      "message": "Runtime-derived corpus readiness validation requires the anchored source artifact body.",
+      "negative_case_id": "positive_runtime_source_artifacts",
+      "subject_id": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+      "message": "Corpus readiness claims must agree with the anchored runtime Mathlib probe evidence.",
+      "negative_case_id": "positive_runtime_probe",
+      "subject_id": "miniF2F_lean3_annex",
+      "subject_kind": "corpus_readiness"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+      "message": "Corpus readiness claims must agree with the anchored runtime Mathlib probe evidence.",
+      "negative_case_id": "positive_runtime_probe",
+      "subject_id": "mathlib",
+      "subject_kind": "corpus_readiness"
+    },
     {
       "body_in_receipt": false,
       "body_material_status": "negative_fixture_forbidden_material_excluded",
@@ -140,6 +197,9 @@
     "mathlib_available_without_probe": [
       "MATHLIB_AVAILABILITY_OVERCLAIM"
     ],
+    "positive_runtime_probe": [
+      "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION"
+    ],
     "private_corpus_source_ref": [
       "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN"
     ],
@@ -169,6 +229,115 @@
     "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
     "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
+  ],
+  "runtime_lean_import_probe": {
+    "body_in_receipt": false,
+    "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
+    "lake_available": true,
+    "lake_build_ran": false,
+    "lake_version_probe": {
+      "argv": [
+        "lake",
+        "--version"
+      ],
+      "cwd_name": "microcosm_corpus_readiness_probe_s0u3rxaf",
+      "return_code": 0,
+      "stderr_has_unknown_mathlib": false,
+      "stderr_line_count": 0,
+      "stdout_has_unknown_mathlib": false,
+      "stdout_line_count": 1,
+      "timed_out": false,
+      "timeout_seconds": 20
+    },
+    "lean_available": true,
+    "mathlib_import_rejected": true,
+    "mathlib_lake_project_import_available": false,
+    "mathlib_probe": {
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "MathlibAbsent.lean"
+      ],
+      "cwd_name": "microcosm_corpus_readiness_probe_s0u3rxaf",
+      "return_code": 1,
+      "stderr_has_unknown_mathlib": false,
+      "stderr_line_count": 0,
+      "stdout_has_unknown_mathlib": true,
+      "stdout_line_count": 5,
+      "timed_out": false,
+      "timeout_seconds": 20
+    },
+    "probe_input_files": [],
+    "probe_input_mode": "embedded_default_probe_sources",
+    "probe_input_status": "pass",
+    "proof_class": "live_runtime_probe",
+    "schema_version": "corpus_readiness_runtime_lean_import_probe_v1",
+    "status": "pass",
+    "std_import_passed": true,
+    "std_probe": {
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "StdGood.lean"
+      ],
+      "cwd_name": "microcosm_corpus_readiness_probe_s0u3rxaf",
+      "return_code": 0,
+      "stderr_has_unknown_mathlib": false,
+      "stderr_line_count": 0,
+      "stdout_has_unknown_mathlib": false,
+      "stdout_line_count": 0,
+      "timed_out": false,
+      "timeout_seconds": 20
+    },
+    "temp_root_policy": "/tmp temporary directory cleaned before receipt write",
+    "timeout_seconds": 20
+  },
+  "runtime_mathlib_probe_status": "unknown",
+  "runtime_source_artifact_count": 4,
+  "runtime_source_artifact_status": "blocked",
+  "runtime_source_artifacts": [
+    {
+      "actual_sha256": null,
+      "body_in_receipt": false,
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "digest_match": false,
+      "exists": false,
+      "expected_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "target_ref": "<private-home-path>"
+    },
+    {
+      "actual_sha256": null,
+      "body_in_receipt": false,
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "digest_match": false,
+      "exists": false,
+      "expected_sha256": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "target_ref": "<private-home-path>"
+    },
+    {
+      "actual_sha256": null,
+      "body_in_receipt": false,
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "digest_match": false,
+      "exists": false,
+      "expected_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "target_ref": "<private-home-path>"
+    },
+    {
+      "actual_sha256": null,
+      "body_in_receipt": false,
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "digest_match": false,
+      "exists": false,
+      "expected_sha256": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "target_ref": "<private-home-path>"
+    }
   ],
   "schema_version": "corpus_readiness_mathlib_absence_validation_receipt_v1",
   "secret_exclusion_scan": {
@@ -200,9 +369,9 @@
   },
   "source_digests": {
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267"
   },
   "source_module_import_count": 0,
   "source_module_import_status": "copied_corpus_readiness_source_modules_verified",
@@ -234,8 +403,8 @@
     "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
     "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
   ],
-  "status": "pass",
-  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
+  "status": "blocked",
+  "toolchain_boundary_status": "real_lean_cli_std_mathlib_absence_probe_with_lake_available",
   "translation_smoke_only_ids": [
     "miniF2F_lean3_annex"
   ],

@@ -2291,6 +2291,70 @@ def test_refresh_exact_copy_source_modules_refreshes_protocol_alias_rows(
     assert verification["target_body_digest"] == f"sha256:{new_digest}"
 
 
+def test_refresh_exact_copy_source_modules_maps_canonical_prefix_to_public_checkout(
+    tmp_path: Path,
+) -> None:
+    """A renamed public checkout must not redirect exact-copy writes to a sibling."""
+    public_root = tmp_path / "plectis"
+    bundle = public_root / "examples/example_bundle"
+    source_root = tmp_path
+    source = source_root / "macro/source.py"
+    target = bundle / "source_modules/macro/source.py"
+    manifest_path = bundle / "source_module_manifest.json"
+    policy = public_root / "core/private_state_forbidden_classes.json"
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    source.parent.mkdir(parents=True)
+    target.parent.mkdir(parents=True)
+    policy.parent.mkdir(parents=True)
+    source.write_text(new_body, encoding="utf-8")
+    target.write_text(old_body, encoding="utf-8")
+    policy.write_text("{}", encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "canonical_prefix_body_import",
+                        "source_ref": "macro/source.py",
+                        "target_ref": (
+                            "microcosm-substrate/examples/example_bundle/"
+                            "source_modules/macro/source.py"
+                        ),
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        write=True,
+        scan_protocols=False,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert target.read_text(encoding="utf-8") == new_body
+    assert not (
+        tmp_path
+        / "microcosm-substrate/examples/example_bundle/source_modules/macro/source.py"
+    ).exists()
+
+
 def test_refresh_exact_copy_source_modules_updates_target_adjacent_manifest(
     tmp_path: Path,
 ) -> None:
