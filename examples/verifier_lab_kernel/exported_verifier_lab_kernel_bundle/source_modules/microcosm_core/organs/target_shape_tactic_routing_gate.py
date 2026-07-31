@@ -146,7 +146,7 @@ NEGATIVE_INPUT_NAMES_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NA
 
 PREFERRED_TACTICS_BY_TARGET_SHAPE: dict[str, tuple[str, ...]] = {
     "closed_nat_mod_decision": ("decide",),
-    "rat_normalization": ("native_decide", "rfl", "decide"),
+    "rat_normalization": ("rfl", "decide"),
     "int_linear_arithmetic": ("omega",),
     "nat_arithmetic_with_variables": ("omega", "decide"),
     "nat_arithmetic": ("omega", "decide"),

@@ -148,12 +148,12 @@
     ]
   },
   "component_statuses": {
-    "corpus_readiness_mathlib_absence_gate": "pass",
+    "corpus_readiness_mathlib_absence_gate": "blocked",
     "formal_math_lean_proof_witness": "pass",
     "formal_math_premise_retrieval": "pass",
     "formal_math_verifier_trace_repair_loop": "pass",
-    "lean_std_premise_index": "pass",
-    "proof_diagnostic_evidence_spine": "pass",
+    "lean_std_premise_index": "blocked",
+    "proof_diagnostic_evidence_spine": "blocked",
     "ring2_premise_retrieval_precision_recall_harness": "pass",
     "tactic_portfolio_availability_probe": "pass",
     "target_shape_tactic_routing_gate": "pass"
@@ -180,8 +180,8 @@
     "lean_lake_return_code": 0,
     "lean_std_premise_count": 11,
     "mathlib_lake_project_import_available": false,
-    "proof_diagnostic_accepted_count": 2,
-    "proof_diagnostic_rejected_count": 1,
+    "proof_diagnostic_accepted_count": 0,
+    "proof_diagnostic_rejected_count": 3,
     "retrieval_mean_public_recall": 1.0,
     "retrieval_query_count": 4,
     "ring2_mean_precision_at_k": 0.36,
@@ -203,7 +203,7 @@
     "source_sha256": null,
     "status": "pass"
   },
-  "real_runtime_receipt": true,
+  "real_runtime_receipt": false,
   "receipt_paths": [
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
@@ -274,6 +274,8 @@
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_module_imports": {
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
     "findings": [],
     "module_count": 0,
     "modules": [],
@@ -299,6 +301,7 @@
     "body_material_status": "",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
     "material_classes": [],
     "reader_action": "",
     "schema_version": "verifier_lab_kernel_source_open_body_imports_v1",
@@ -306,6 +309,6 @@
     "source_manifest_refs": [],
     "status": "not_applicable"
   },
-  "status": "pass",
+  "status": "blocked",
   "synthetic_receipt_standin_allowed": false
 }

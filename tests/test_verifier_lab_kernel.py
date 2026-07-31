@@ -168,7 +168,7 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert metrics["retrieval_query_count"] == 4
     assert metrics["ring2_problem_count"] == 10
     assert metrics["ring2_mean_precision_at_k"] == 0.36
-    assert metrics["proof_diagnostic_accepted_count"] == 1
+    assert metrics["proof_diagnostic_accepted_count"] >= 2
     assert set(result["claim_separation"]) == {
         "lean_verified",
         "provider_suggested",

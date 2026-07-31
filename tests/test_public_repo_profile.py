@@ -39,6 +39,12 @@ def test_profile_passes_on_this_repository() -> None:
     assert first_screen["hero_install_block"] is True
     assert first_screen["foreign_repo_links_in_hero"] == []
     assert first_screen["legacy_name_leaks"] == []
+    split = report["front_door_split"]
+    assert split["readme_reader"] == "human"
+    assert split["agents_reader"] == "repository-aware coding agent"
+    assert split["agents_human_redirect_in_first_1024_bytes"] is True
+    assert split["agents_task_route_in_first_4096_bytes"] is True
+    assert split["agents_bytes"] <= split["agents_max_bytes"]
     # Version metadata agrees between citation and packaging.
     versions = report["version_consistency"]
     assert versions["citation_cff"] == versions["build_metadata"]
@@ -76,7 +82,7 @@ def test_profile_fails_when_hero_promotes_unrelated_repository(tmp_path: Path) -
         (root / name).write_text("placeholder\n", encoding="utf-8")
     (root / "README.md").write_text(
         "# Plectis\n\n"
-        "[other](https://github.com/example/unrelated-project) "
+        "[other](https://github.com/wcook04/unrelated-repository) "
         "[a](LICENSE) [b](CONTRIBUTING.md)\n\n"
         "```bash\npip install plectis\n```\n\n## More\n",
         encoding="utf-8",
@@ -89,3 +95,37 @@ def test_profile_fails_when_hero_promotes_unrelated_repository(tmp_path: Path) -
         "unrelated repository promoted above the fold" in failure
         for failure in report["failures"]
     )
+
+
+def test_profile_fails_when_agent_entry_replaces_the_human_front_door(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "repo"
+    (root / ".github/ISSUE_TEMPLATE").mkdir(parents=True)
+    for name in (
+        "LICENSE",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CITATION.cff",
+        "CHANGELOG.md",
+        "pyproject.toml",
+    ):
+        (root / name).write_text("placeholder\n", encoding="utf-8")
+    (root / "README.md").write_text(
+        "# Agent instructions\n\n"
+        "[a](LICENSE) [b](CONTRIBUTING.md)\n\n"
+        "```bash\npip install thing\n```\n",
+        encoding="utf-8",
+    )
+    (root / "AGENTS.md").write_text(
+        "# Agent entry\n\nNo human route and no task compiler.\n",
+        encoding="utf-8",
+    )
+
+    result = _run("--root", str(root), "--json")
+    assert result.returncode == 1
+    report = json.loads(result.stdout)
+    split = report["front_door_split"]
+    assert split["agents_human_redirect_in_first_1024_bytes"] is False
+    assert split["agents_task_route_in_first_4096_bytes"] is False
+    assert any("README title presents an agent contract" in row for row in report["failures"])

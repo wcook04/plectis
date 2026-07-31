@@ -1,8 +1,9 @@
 """The generated paper corpus must still describe this repository's manuscripts.
 
-``docs/papers/`` is generated: the papers are converted to Markdown and indexed
-by a tool in the private system repository, which needs pandoc and a checkout of
-both public repositories. Neither is available here, so nothing is regenerated.
+``docs/papers/`` is generated: available papers are copied or converted to
+Markdown and indexed by a tool in the private system repository. Some registry
+rows may remain explicitly unavailable when their source was not present at
+export time.
 
 What is checked is the thing that can be checked locally and cheaply, and it is
 the failure that actually happens: someone edits a manuscript and the generated
@@ -50,6 +51,8 @@ def test_every_recorded_manuscript_hash_matches() -> None:
     corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
     checked = 0
     for paper in corpus["papers"]:
+        if paper.get("availability") == "unavailable_at_build":
+            continue
         source = REPO_ROOT / paper["local_source"]
         assert source.is_file(), f"{paper['paper_id']}: {paper['local_source']} is missing"
         digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
@@ -58,14 +61,33 @@ def test_every_recorded_manuscript_hash_matches() -> None:
             "corpus was generated; re-run the export in the private system repository"
         )
         checked += 1
-    assert checked == 3, f"expected three papers in the corpus, found {checked}"
+    assert checked > 0, "the corpus contains no locally checkable manuscripts"
+    assert checked == sum("local_source" in paper for paper in corpus["papers"])
+
+
+def test_unavailable_rows_are_explicit_and_non_deceptive() -> None:
+    """An absent registered paper must not look like a locally inspectable one."""
+    corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
+    unavailable = [
+        paper
+        for paper in corpus["papers"]
+        if paper.get("availability") == "unavailable_at_build"
+    ]
+    for paper in unavailable:
+        assert paper.get("reason")
+        assert "local_source" not in paper
+        assert "local_full_text" not in paper
 
 
 @pytest.mark.parametrize("relation", ["native", "mirror"])
 def test_every_paper_declares_where_its_authority_lives(relation: str) -> None:
     """A mirror that does not say it is a mirror would move authority by copying."""
     corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
-    matching = [p for p in corpus["papers"] if p["relation_to_this_repository"] == relation]
+    matching = [
+        paper
+        for paper in corpus["papers"]
+        if paper.get("relation_to_this_repository") == relation
+    ]
     assert matching, f"no paper is marked {relation!r}"
     for paper in matching:
         assert paper["home_repository"]
@@ -81,6 +103,8 @@ def test_section_line_numbers_point_at_their_anchors() -> None:
     """The index is only useful if its line numbers are true."""
     corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
     for paper in corpus["papers"]:
+        if paper.get("availability") == "unavailable_at_build":
+            continue
         lines = (REPO_ROOT / paper["local_full_text"]).read_text(
             encoding="utf-8"
         ).splitlines()

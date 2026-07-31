@@ -27,7 +27,7 @@
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
   "copied_source_artifact_count": 0,
-  "created_at": "2026-06-05T07:43:48+00:00",
+  "created_at": "2026-07-16T12:20:42+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -122,24 +122,6 @@
   "premise_count": 11,
   "projection_cell_id": "formal_math_readiness_extensions",
   "provider_calls_authorized": false,
-  "public_path_sanitization": {
-    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
-    "policy_id": "microcosm_public_path_secret_policy_v1",
-    "replacement_count": 1,
-    "replacements": [
-      {
-        "field_path": "receipt_paths[4]",
-        "original_sha256": "sha256:55b882673ee69e07c7fe40d1e442ec37665ef8487d38d93099c41e674a127805",
-        "replacement": "<host-temp>/formal_math_readiness_gate_fixture_acceptance.json",
-        "treatment_class": "host_temp_path_transform"
-      }
-    ],
-    "schema_version": "microcosm_public_receipt_path_normalization_v1",
-    "status": "transformed",
-    "transform_classes": [
-      "host_temp_path_transform"
-    ]
-  },
   "readiness_extension_status": "public_runtime_import_landed",
   "realness_evidence": {
     "candidate_bindings": [
@@ -175,12 +157,11 @@
         "target_refs": []
       },
       {
-        "body_copied_material_count": 13,
+        "body_copied_material_count": 12,
         "local_lean_lake_mathlib_evidence": {
           "available_tactic_ids": [
             "decide",
             "grind",
-            "native_decide",
             "omega",
             "rfl",
             "simp",
@@ -188,10 +169,10 @@
           ],
           "body_in_receipt": false,
           "corpus_readiness_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-          "existing_target_ref_count": 13,
+          "existing_target_ref_count": 12,
           "lake_available": true,
           "lean_available": true,
-          "lean_probe_file_count": 10,
+          "lean_probe_file_count": 9,
           "local_evidence_bound": true,
           "manifest_refs_exist": true,
           "mathlib_available": false,
@@ -202,9 +183,9 @@
             "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
             "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
           ],
-          "std_probe_file_count": 9,
+          "std_probe_file_count": 8,
           "tactic_portfolio_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-          "target_ref_count": 13,
+          "target_ref_count": 12,
           "unavailable_tactic_ids": [
             "aesop"
           ]
@@ -224,7 +205,6 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -240,7 +220,6 @@
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
           "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -260,7 +239,7 @@
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
-    "<host-temp>/formal_math_readiness_gate_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
   ],
   "recipe_count": 3,
   "route_case_count": 5,

@@ -312,6 +312,19 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "the choices an evaluator would need to make independently of me",
 )
 
+# The worked case must precede the general repository contract.  This protects
+# an explanation invariant rather than a preferred sentence: a cold reader
+# should encounter one complete observation and its inference limit before the
+# paper introduces project vocabulary or architecture.
+REQUIRED_EARLY_EXAMPLE_ANCHORS = (
+    r"\section{One public test before the general design}",
+    "Their squared average is",
+    "without trusting the program",
+    "additional premises that the observed match does not contain",
+    "The paper asks the same six questions",
+    "Who supplied the interpretation or expected result?",
+)
+
 REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
     r"\paragraph{What I examined.}",
     r"read the list and plain descriptions of all \componentcount{} components",
@@ -390,9 +403,11 @@ REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
 
 REQUIRED_TEST_ORACLE_EXPLANATION_ANCHORS = (
     r"a \emph{test oracle}",
-    "information or procedure used to decide whether an observed output is correct",
+    "procedure used to distinguish correct from incorrect behaviour",
     "challenge of making that distinction is called the test oracle problem",
-    r"\cite[p. 507]{barr2015}",
+    r"\cite[p.~507]{barr2015}",
+    "conceptual ground-truth oracle that always gives the right answer",
+    r"\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}",
     "reader can supply the test oracle",
     "expected number derived independently of the program's output",
     r"\textbf{Who or what supplies the expected answer}",
@@ -459,8 +474,9 @@ REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
-    "a fixed 256-bit value calculated from its contents",
+    "SHA-256 message digest, used here as a fingerprint: a 256-bit value calculated",
     "used to detect change",
+    "computationally infeasible, not mathematically impossible",
     "relevant question is whether one can start with a specified file",
     "NIST) calls this second-preimage resistance",
     "expects an approved hash function to make such a search computationally infeasible",
@@ -498,6 +514,11 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "It includes no outside evaluator's report",
     "although a private rerun could be unreported",
     "These evaluations do not pair one-for-one with the distinctions",
+    r"\subsection*{A falsifiable comparison}",
+    "compare two presentations of the same frozen public items",
+    "Evaluators who did not design the items",
+    "how long they take to locate the point of disagreement",
+    "No such comparison is reported in this paper",
 )
 
 REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
@@ -610,18 +631,22 @@ REQUIRED_CITATION_KEYS = (
 )
 
 SACM_SOURCE_FIT_ANCHORS = (
-    "describes such cases as auditable claims, arguments, and evidence",
-    "has its own mapping onto SACM",
-    "informative Annex A.2 points to the maintained mapping details",
+    "defines such a case as a collection of auditable claims, arguments, and evidence",
+    "the relationship is itself an assertion by the case's author",
+    "Representing an argument is therefore not the same as establishing its validity",
+    "neither models nor independently justifies the evidential link",
 )
 
 REQUIRED_PINPOINT_CITATIONS = (
-    r"\cite[\S2.5]{runeson2009}",
+    r"\cite[\S2.5, p.~138]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
-    r"\cite[p. 507]{barr2015}",
-    r"\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}",
+    r"\cite[p.~9]{nasem2019}",
+    r"\cite[p.~507]{barr2015}",
+    r"\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}",
+    r"\cite[p.~638]{rosenthal1979}",
+    r"\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
-    r"\cite[\S4.4.1.2]{nasa8739}",
+    r"\cite[\S4.4.1.2, p.~48]{nasa8739}",
 )
 
 MIN_BIBLIOGRAPHY_FONT_PT = 7.5
@@ -668,7 +693,7 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
     ),
     "nasa8739": (
         "National Aeronautics and Space Administration",
-        "NASA-STD-8739.8B, Section 4.4.1.2, 2022",
+        "NASA-STD-8739.8B, Section 4.4.1.2, p.~48, 2022",
         "https://standards.nasa.gov/standard/NASA/NASA-STD-87398",
     ),
     "leanvalidation": (
@@ -1115,6 +1140,9 @@ def check_paper(
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")
+    for anchor in REQUIRED_EARLY_EXAMPLE_ANCHORS:
+        if anchor not in normalized_first_section:
+            failures.append(f"missing example-first explanation anchor: {anchor!r}")
     for anchor in REQUIRED_METHOD_DISCLOSURE_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section method disclosure: {anchor!r}")
@@ -1149,9 +1177,8 @@ def check_paper(
     for anchor in REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS:
         if anchor not in normalized_distinctions_intro:
             failures.append(f"missing early five-gap map: {anchor!r}")
-    conclusion_section = text.split(r"\section{Conclusion}", 1)[-1]
-    conclusion_section = conclusion_section.split(r"\appendix", 1)[0]
-    normalized_conclusion_section = re.sub(r"\s+", " ", conclusion_section)
+    appendix_review_section = text.split(r"\appendix", 1)[-1]
+    normalized_conclusion_section = re.sub(r"\s+", " ", appendix_review_section)
     for anchor in REQUIRED_FIRST_REVIEW_ANCHORS:
         if anchor not in normalized_conclusion_section:
             failures.append(f"missing executable first-review route: {anchor!r}")

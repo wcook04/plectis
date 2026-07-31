@@ -377,7 +377,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)",
         "$(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON)",
         'if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
-        "ci: test smoke package-smoke",
+            "ci: check test smoke package-smoke",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
         "$(PYTHON) scripts/check_artifact_budget.py --report",
@@ -779,11 +779,11 @@ def test_public_repo_makefile_exposes_preflight_and_validate_targets() -> None:
     assert "make validate" in text
 
 
-def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:
+def test_public_repo_makefile_ci_target_runs_preflight_test_and_smoke() -> None:
     text = MAKEFILE.read_text(encoding="utf-8")
 
     assert re.search(
-        r"^ci:\s+test\s+smoke\s+package-smoke$",
+        r"^ci:\s+check\s+test\s+smoke\s+package-smoke$",
         text,
         flags=re.MULTILINE,
     )

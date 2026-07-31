@@ -46,16 +46,14 @@ tectonic --outdir /tmp/plectis-paper paper/plectis-public-system.tex
 cp /tmp/plectis-paper/plectis-public-system.pdf plectis-public-system.pdf
 ```
 
-The tracked root PDF is the reader-facing copy. The paper has a
-twenty-page ceiling (raised from nineteen when the falsifiable hypothesis-
-handoff section made the project's prior, alternatives, discriminators, and
-expert-return authority path inspectable; raised from ten when the figures and the author's-
-hand section landed, from fourteen when the referee-pass revision
-added the related-fields grounding, the bounded authorship claim, and the
-operational reader checklist, and from fifteen when the paper adopted the
-shared house typography: the same body text now sets to a narrower
-classical measure with more generous leading, so the page count rose
-without a word being added; raise it again only with a reason recorded
-here).
+The tracked root PDF is the reader-facing copy. The paper has a twenty-one-page
+ceiling. It rose from ten as the figures and author's-hand section landed,
+from fourteen after the referee pass, from fifteen when the shared house
+typography changed the measure, and from nineteen when the falsifiable
+hypothesis handoff made the prior, alternatives, discriminators, and
+expert-return path inspectable. The twenty-first page accommodates the merged
+public evidence corpus and hypothesis-handoff discussion without shrinking the
+type or suppressing limitations. Raise it again only with a reason recorded
+here.
 `README.md` and `ARCHITECTURE.md` remain the live operational entry
 surfaces; the PDF is the stable evidence-and-scope explanation.

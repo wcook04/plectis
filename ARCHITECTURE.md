@@ -86,7 +86,7 @@ sequenceDiagram
 | How does it become credible? | receipt `receipts/runtime_shell/public_ten_minute_tour.json` |
 | What does the reader see? | the first-screen card: `selected_route_id`, `front_door_status`, the route -> work -> event -> evidence chain |
 | Where does the claim stop? | local first-screen route map only; no provider calls or source mutation |
-| Where to drill down? | `README.md#run-it`, `AGENTS.md#rules` |
+| Where to drill down? | `README.md#install`, `AGENTS.md#rules` |
 
 That tour is route 1 of 10 in the bundle's first-run sequence; each later route names its own command, receipt, and scope the same way.
 
@@ -149,14 +149,14 @@ This facet is the deep drilldown; skip it on a first read. It is body-free relat
 | Handle | Count |
 |---|---:|
 | Accepted organs with source relations | 67 |
-| Source-module edges | 3142 |
-| Source files (per-organ aggregate) | 306 |
-| Source shards (per-organ aggregate) | 699 |
-| Target files (per-organ aggregate) | 310 |
-| Target shards (per-organ aggregate) | 712 |
+| Source-module edges | 3110 |
+| Source files (per-organ aggregate) | 304 |
+| Source shards (per-organ aggregate) | 695 |
+| Target files (per-organ aggregate) | 308 |
+| Target shards (per-organ aggregate) | 708 |
 | Validation refs (per-organ aggregate) | 121 |
 
-Top relation types: `source_shard.retained_as_public_target_shard` `712` · `source_shard.validated_by_ref` `579` · `target_shard.validated_by_ref` `579` · `source_file.validated_by_ref` `346` · `target_file.validated_by_ref` `346`
+Top relation types: `source_shard.retained_as_public_target_shard` `708` · `source_shard.validated_by_ref` `571` · `target_shard.validated_by_ref` `571` · `source_file.validated_by_ref` `342` · `target_file.validated_by_ref` `342`
 
 Route into the live topology surface:
 

@@ -67,7 +67,6 @@ RUNTIME_GENERATED_LEAN_BASENAMES = {
     "decide.lean",
     "grind.lean",
     "mathlib_probe.lean",
-    "native_decide.lean",
     "omega.lean",
     "rfl.lean",
     "simp.lean",

@@ -14,7 +14,7 @@
     "synthetic_public_projection_read_model_only": true
   },
   "command": "plectis projection-import-map",
-  "created_at": "2026-06-29T15:45:24+00:00",
+  "created_at": "2026-07-31T02:28:10+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
@@ -273,7 +273,7 @@
     "public_surface_count": 7,
     "release_authorized": false,
     "row_count": 7,
-    "source_body_handoff_public_safe_body_material_count": 395,
+    "source_body_handoff_public_safe_body_material_count": 393,
     "source_body_handoff_status": "pass",
     "source_body_handoff_verified_source_module_family_count": 88,
     "stage_count": 6,
@@ -350,7 +350,7 @@
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_status": false,
     "direct_source_module_manifest_count": 35,
-    "direct_source_module_manifest_material_count": 146,
+    "direct_source_module_manifest_material_count": 144,
     "full_status_ref": "plectis status::macro_body_import_floor",
     "latest_verified_source_module_family_ids": [
       "exported_prediction_oracle_bundle",
@@ -360,14 +360,14 @@
       "exported_verifier_lab_kernel_bundle"
     ],
     "projection_map_role": "aggregate_handoff_not_body_text",
-    "public_safe_body_material_count": 395,
+    "public_safe_body_material_count": 393,
     "public_safe_body_material_counts_by_class": {
       "public_macro_packet_compiler_body": 2,
       "public_macro_packet_compiler_test_body": 1,
       "public_macro_pattern_body": 29,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 56,
-      "public_macro_tool_body": 293,
+      "public_macro_tool_body": 291,
       "public_standard_body": 6
     },
     "reader_action": "Use this handoff to move from projection rows to the current source-open body floor without printing copied source text.",

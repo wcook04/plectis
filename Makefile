@@ -65,6 +65,7 @@ PUBLIC_TESTS += tests/test_public_repo_profile.py
 PUBLIC_TESTS += tests/test_lean_companion_snapshot.py
 PUBLIC_TESTS += tests/test_paper_corpus.py
 PUBLIC_TESTS += tests/test_agent_closeout_faithfulness_audit.py
+PUBLIC_TESTS += tests/test_lean_proof_trust.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
@@ -87,7 +88,7 @@ help:
 		"  make public-site-parity  verify gh-pages/live downloadable packet parity with this source tree" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
-		"  make check               fast preflight: organ evidence-class registry integrity" \
+		"  make check               fast preflight: evidence registry + Lean proof-trust floor" \
 		"  make validate            full pre-commit floor: ci + doctrine-lattice drift check" \
 		"  make artifact-budget     report and bound the shipped distribution footprint" \
 		"  make standalone-export   export a release-gated standalone tree" \
@@ -161,10 +162,11 @@ public-site-parity:
 package-smoke:
 	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
-ci: test smoke package-smoke
+ci: check test smoke package-smoke
 
 check preflight:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
+	@$(PYTHON) scripts/check_lean_proof_trust.py
 	@printf '%s\n' "Plectis preflight: organ evidence-class registry loads cleanly."
 
 validate: ci doctrine-lattice-check

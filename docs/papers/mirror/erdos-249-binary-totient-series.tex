@@ -1,0 +1,981 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Standalone Erdős Problem Note for #249.  This deliberately repeats the
+% gateway paper's definitions and status boundary: independent readability is
+% more important than avoiding duplication.
+%
+% Ordering rule.  Most readers stop after two pages, and one of them is a
+% moderator who has already rejected a longer version of this work for
+% overstating scope.  So: the title names a theorem; the abstract states the
+% results and then the boundary; Section 1 is a numbered inventory of every
+% claim, each carrying a status tag and a live link into the checked source.
+% Everything after Section 1 is mechanism, scope and provenance.
+%
+% Second rule, learned from that rejection: a barrier is only worth printing
+% if its hypothesis class is one somebody would actually assume.  Two
+% propositions that appeared here in earlier drafts are demoted in Section 6
+% for failing that test, with the reason stated rather than the propositions
+% quietly dropped.
+%
+% Third rule, July 2026.  The status tag on a result must be the status the
+% claim registry records for the row that owns its declarations, not a tag
+% chosen while writing.  Six of the nine tags in the previous draft disagreed
+% with the registry, and two headline results turned out to be owned by no row
+% at all.  Those now say so on their face.  A note whose subject is the gap
+% between checked propositions and public wording cannot afford that gap in
+% its own status column.
+\documentclass[11pt]{article}
+\input{problem-note-preamble}
+\hypersetup{
+  pdftitle={A basis for the 2-kernel of Euler's totient},
+  pdfsubject={Erdős Problem Notes: Problem 249},
+  pdfkeywords={irrationality, Euler totient, k-regular sequences, 2-kernel, Lambert series, Möbius inversion, linear independence, Lean 4},
+}
+
+\newcommand{\Stot}{S}
+\newcommand{\EB}{E}
+\newcommand{\Aw}{A}
+\newcommand{\Ker}{\mathcal K}
+
+% Status tag from the claim taxonomy, printed on every numbered result.
+\newcommand{\stag}[1]{{\normalfont\footnotesize\textsc{[#1]}}}
+
+\runninghead{Erd\H{o}s \#249: a basis for the dyadic totient sections}
+\title{A Basis for the 2-Kernel of Euler's Totient}
+\subtitle{Exact finite-level ranks and consequences for Erd\H{o}s
+Problem~\#249}
+\author{Will Cook}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+\noteprovenance
+
+\begin{abstract}
+\noindent
+For $j\ge0$ and $0\le r<2^j$, write
+$\ph_{j,r}(n)=\ph(2^jn+r)$.  We prove that
+\[
+  \{\ph_{0,0},\ph_{1,0}\}
+  \cup
+  \{\ph_{j,r}:j\ge1,\ 0<r<2^j,\ r\ {\rm odd}\}
+\]
+is a $\Q$-basis for the span of the $2$-kernel of Euler's totient.
+Consequently, the span of the dyadic sections through level $e$ has dimension
+exactly $2^e+1$ for every $e\ge1$, and the two elementary reduction identities
+generate every $\Q$-linear relation among the sections.
+
+Let $\Stot=\sum_{n\ge1}\ph(n)/2^n$.  If $\Stot$ were rational, there would be
+an integer $v\ge1$ and an integer sequence $u$ such that
+\[
+  u(N+1)=2u(N)-v\,\ph(N+1),
+  \qquad
+  \frac{u(N)}{2^N}\longrightarrow0,
+\]
+whose dyadic sections through level $e$ span a space of dimension at least
+$2^e-1$ for every $e$.  No upper bound contradicting this lower bound is
+proved.  We also exclude every rational representation $\Stot=a/q$ with
+\[
+  1\le q\le
+  79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053,
+\]
+the sharp exclusion for the chosen $240$-binary-digit Farey window, and prove that no
+fixed positive integer clears all normalised coefficients
+$(\ph*\mu)(n)/n$.
+
+Erd\H{o}s Problem~\#249 remains open.  The final part of the note gives exact
+tail-certificate characterisations of irrationality and states the unproved
+unbounded hypotheses required by the corresponding sufficient criteria.
+\end{abstract}
+
+\section{Introduction and main results}\label{sec:results}
+
+Erd\H{o}s Problem~\#249 asks whether
+\[
+  \Stot=\sum_{n\ge1}\frac{\ph(n)}{2^n}
+\]
+is irrational; see Erd\H{o}s and Graham~\cite[p.~61]{erdosgraham1980} and
+Erd\H{o}s~\cite[p.~102]{erdos1988}.  Bloom's current catalogue record
+reproduces this question and labels it open, while explicitly warning that
+the status is the website owner's present assessment and may omit relevant
+literature~\cite{erdosproblems}.  We therefore use the catalogue for
+numbering and current reported status only; the two original sources carry
+the problem statement.
+
+The principal result determines the dyadic sections of Euler's totient at
+every finite level: the two zero-residue sections $\ph_{0,0}$ and
+$\ph_{1,0}$, together with the odd-residue sections, form a rational basis,
+and the two reduction identities below generate every rational relation among
+the sections.  Its connection with Erd\H{o}s Problem~\#249 is through the
+integral scaled-tail recurrence displayed below.  The basis theorem gives a
+lower bound for the dyadic-section rank of every such recurrence supplied by a
+hypothetical rational value of $\Stot$, but no corresponding upper bound is
+known.
+
+The other unconditional statements are a finite Farey denominator exclusion,
+identities for the Lambert coefficient sequence $\Aw=\ph*\mu$, and a theorem
+that no fixed common denominator clears every $\Aw(n)/n$.  The final two items
+have a different logical status: \ref{res:equivalences} gives exact
+characterisations of irrationality, while \ref{res:supply} gives a sufficient
+criterion.  Their unbounded hypotheses are not proved.
+
+\statusboundary
+
+Each \emph{Checked} line below links the relevant declarations at
+commit~\texttt{\commitshort}.  The bracketed tags reproduce the public status
+recorded by the claim registry; where no registry row owns the cited
+declarations, the text says so rather than assigning a neighbouring status.
+
+Throughout $\ph_{j,r}(n)=\ph(2^jn+r)$, for $j\ge0$ and $0\le r<2^j$, is the
+$(j,r)$ \emph{dyadic section} of Euler's totient, a vector in $\Q^{\N}$, and
+$j$ is its \emph{level}; the family of all of them is the $2$-kernel
+$\Ker_2(\ph)$ in the sense of Allouche and Shallit~\cite{allouche-shallit}.
+Two elementary identities relate them: the \emph{reductions}
+$\ph_{j+1,0}=2^{j}\ph_{1,0}$
+(\mword{Erdos249257/TotientMahlerDefect.lean}{150}{totientKernel_zero_residue}{checked})
+and $\ph_{j,\,2^{t+1}s}=2^{t}\ph_{j-t-1,\,s}$ for $s$ odd with $2^{t+1}s<2^j$
+(\mword{Erdos249257/TotientMahlerDefect.lean}{159}{totientKernel_even_residue_reduce}{checked}).
+At level $3$, for instance, they give $\ph_{3,0}=4\ph_{1,0}$,
+$\ph_{3,2}=\ph_{2,1}$, $\ph_{3,4}=2\ph_{1,1}$ and $\ph_{3,6}=\ph_{2,3}$, while
+the four odd residues $r=1,3,5,7$ are reduced by neither; numerically
+$\ph_{3,4}(1)=\ph(12)=4=2\ph(3)=2\ph_{1,1}(1)$.  So beyond $\ph_{0,0}$ and
+$\ph_{1,0}$ each level contributes only its odd residues, and the count
+through level $e$ is $2+\sum_{j=1}^{e}2^{j-1}=2^e+1$; \ref{res:rank} says that
+count is the exact dimension.
+
+Two objects built from $\Stot$ recur below.  The \emph{scaled tail}
+$R_N=\sum_{m\ge1}\ph(N+m)/2^m$ is $2^N$ times the part of the series beyond
+index $N$; since $2^N\Stot=\Phi_N+R_N$ with
+$\Phi_N=\sum_{1\le n\le N}\ph(n)2^{N-n}$ an integer
+(\mword{Erdos249257/TotientTailPeriodKiller.lean}{150}{two_pow_mul_totient_series_eq}{checked}),
+$R_N$ and $2^N\Stot$ differ by an integer.  For $h,N,L\in\N$, put
+\[
+  D_{h,N,L}
+  =
+  \sum_{j=0}^{L-1}
+  \bigl(\ph(N+h+1+j)-\ph(N+1+j)\bigr)2^{L-1-j},
+\]
+and let $\rho_{h,N,L}\in\{0,\dots,2^L-1\}$ be its residue modulo $2^L$.
+A \emph{finite tail-difference certificate} at $(h,N,L)$ is the pair of
+strict inequalities
+\[
+  N+h+L+2<\rho_{h,N,L}<2^L-(N+h+L+2)
+\]
+(\mword{Erdos249257/TotientTailPeriodKiller.lean}{72}{certifiedKill}{definition}).
+It exists to make a statement about an infinite tail decidable by a finite
+computation, and it is faithful: some depth $L$ certifies $(h,N)$ if and only
+if $R_{N+h}-R_N\notin\Z$
+(\mword{Erdos249257/LcmConeFlatness.lean}{316}{exists_certifiedKill_iff_tail_diff_notMem_int}{checked}).
+For example,
+\[
+  D_{1,12,16}=-143140,\qquad
+  \rho_{1,12,16}=53468,\qquad N+h+L+2=31,
+\]
+so $(1,12,16)$ is a certificate.  More generally, the test succeeds at
+$(h,12,16)$ for every $h$ with $1\le h\le8$
+(\mword{Erdos249257/TotientTailPeriodKiller.lean}{404}{certifiedKill_all_small}{checked}),
+so none of $R_{13}-R_{12},\dots,R_{20}-R_{12}$ is an integer
+(\mword{Erdos249257/TotientTailPeriodKiller.lean}{407}{tail_diff_not_int_small}{checked}).
+
+A third recurring object is an \emph{integral scaled-tail sequence with
+multiplier $v$}.  For a coefficient sequence $c$ and an integer $v\ge1$, this
+is an integer sequence $u$ satisfying
+\[
+  u(N+1)=2u(N)-v\,c(N+1)\quad\hbox{for every }N,
+  \qquad
+  \frac{u(N)}{2^N}\longrightarrow0
+\]
+(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{66}{IsTemperedBinaryOrbit}{definition});
+for $c=\ph$ such a pair $(v,u)$ with $v\ge1$ exists exactly when $\Stot$ is
+rational (Section~\ref{sec:carry-rank}).
+
+{\small
+\begin{enumerate}[label=\textbf{R\arabic*.},ref=R\arabic*,leftmargin=2.4em,
+  itemsep=0.2em,topsep=0.25em]
+
+\item\label{res:basis} \stag{checked; no registry row}
+\textbf{Basis theorem.}  The family
+$\mathcal B=\{\ph_{0,0},\ph_{1,0}\}\cup\{\ph_{j,r}:j\ge1,\ r\ \text{odd},\
+0<r<2^j\}$ is linearly independent over $\Q$ and spans the same $\Q$-subspace
+of $\Q^{\N}$ as $\Ker_2(\ph)$; so $\mathcal B$ is a basis of that span, which
+is therefore infinite-dimensional.  Since the reductions make every remaining
+section a rational multiple of a member of $\mathcal B$, the $\Q$-linear
+relations among dyadic sections of $\ph$ are exactly those the reductions
+generate --- a one-line consequence of the checked statements, not a further
+one.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientMahlerDefect.lean}{1133}{linearIndependent_oddCoreTotientKernelFamily}{independence},
+\mword{Erdos249257/TotientMahlerDefect.lean}{1248}{span_range_fullTotientKernel_eq_span_range_oddCore}{span equality},
+\mword{Erdos249257/TotientMahlerDefect.lean}{1260}{totientDyadicSectionBasis}{basis}.
+\emph{Registry:} none of these three declarations is currently owned by a row
+of the claim registry; see the formal source notes below.}
+
+\item\label{res:rank} \stag{unconditional progress}
+\textbf{Exact finite-level rank.}  For every $e\ge0$ the $2^e+1$ sections
+$\ph_{0,0}$, $\ph_{1,0}$ and $\ph_{j,r}$ with $1\le j\le e$, $r$ odd,
+$0<r<2^j$ are linearly independent over $\Q$, so their span has dimension
+exactly $2^e+1=2+\sum_{j=1}^{e}2^{j-1}$: exact, not an estimate, because the
+even residues are already dependent by the reductions.  Read instead as a
+truncation of the kernel, $V_e=\operatorname{span}_{\Q}\{\ph_{j,r}:0\le j\le
+e\}$ has $\dim V_e=2^e+1$ for every $e\ge1$, and $\dim V_0=1$: the counted
+family carries $\ph_{1,0}$, which is a level-one section, so the two readings
+agree from $e=1$ on and differ only at $e=0$.  At $e=1$ both readings say that
+$\ph(n)$, $\ph(2n)$ and $\ph(2n+1)$ are linearly independent over $\Q$.  The
+independence half of
+\ref{res:basis} follows by finite character; the span equality needs the
+reductions as well.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientMahlerDefect.lean}{900}{linearIndependent_canonicalTotientKernelFamily}{independence},
+\mword{Erdos249257/TotientMahlerDefect.lean}{954}{finrank_canonicalTotientKernel_eq}{dimension},
+\mword{Erdos249257/TotientMahlerDefect.lean}{1014}{not_finiteDimensional_span_fullTotientKernel}{infinite-dimensionality directly}.}
+
+\item\label{res:denominator} \stag{formalised here}
+\textbf{Denominator exclusion, sharp for its window.}  If $\Stot=a/q$ with
+$a\in\Z$ and $q\ge1$ then
+$q>79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053\approx7.96\times10^{34}$.
+The constant is optimal for the window that produces it --- the window here is
+the pair $(N,K)=(1,240)$, meaning $240$ committed binary digits of the series
+shifted by one --- in the sense that the next integer up is the exact first
+denominator at which that window's certificate fails.  The method is the
+classical Farey mediant argument (Section~\ref{sec:denominator}).
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/CertificateKernel.lean}{18043}{tsum_totient_div_pow_two_ne_int_div_of_den_le_79639646646701375323355774875831053}{exclusion},
+\mword{Erdos249257/CertificateKernel.lean}{18056}{tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053}{reduced-denominator form},
+\mword{Erdos249257/GapFareyBound.lean}{225}{gap_check_window_1_240_first_failure}{first failure}.
+\emph{Registry:} the row owns the reduced-denominator form only.}
+
+\item\label{res:carryrank} \stag{formalised here}
+\textbf{Rank lower bound for a rational scaled-tail sequence.}  If $\Stot$
+were rational then some integral scaled-tail sequence $u$ for the coefficients
+$\ph$, with positive multiplier, would have for \emph{every} $e$ dyadic
+sections through level $e$ --- formed from $u$ exactly as the $\ph_{j,r}$ are
+formed from $\ph$ --- spanning a space of dimension at least $2^e-1$.  The
+same lower bound holds for every positive-multiplier integral scaled-tail
+sequence.  This statement is specific to that
+binary scaled-tail representation; it does not constrain arguments formulated
+only through the Lambert weight, the coprimality identity, or tail differences.
+It is not an irrationality criterion, because no finite-rank upper bound is
+proved for the scaled-tail sequences supplied by rationality.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientCarryKernelRigidity.lean}{284}{not_irrational_totientSeries_implies_unbounded_carryRank_unconditional}{the barrier},
+\mword{Erdos249257/TotientCarryKernelRigidity.lean}{211}{finrank_canonicalCarryKernel_ge_of_linearIndependent}{rank transport from \ref{res:rank}}.}
+
+\item\label{res:weight} \stag{checked; no registry row}
+\textbf{The \#249 weight.}  $\Stot=\sum_{d\ge1}\Aw(d)/(2^d-1)$ with
+$\Aw=\ph*\mu$, the Dirichlet convolution
+$\Aw(n)=\sum_{d\mid n}\ph(d)\mu(n/d)$; here $\Aw\ge0$, $\Aw(p)=p-2$,
+$\Aw(p^k)=\ph(p^k)-\ph(p^{k-1})$, and $\Aw$ is unbounded.  Its values at
+$n=1,\dots,10$ are $1,0,1,1,3,0,5,2,4,0$.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/CertificateKernel.lean}{18117}{tsum_primWeight_div_two_pow_sub_one_eq_totient_series}{identity},
+\mword{Erdos249257/MersenneLambertLadder.lean}{370}{primWeight_nonneg}{sign},
+\mword{Erdos249257/MersenneLambertLadder.lean}{297}{primWeight_apply_prime}{primes},
+\mword{Erdos249257/MersenneLambertLadder.lean}{272}{primWeight_apply_prime_pow}{prime powers},
+\mword{Erdos249257/MersenneLambertLadder.lean}{321}{primWeight_not_bounded}{unboundedness}.
+\emph{Registry:} the Lambert-ladder row owns the neighbouring rungs, not these
+five declarations; see the formal source notes below.}
+
+\item\label{res:periodic} \stag{unconditional progress}
+\textbf{Eventually periodic weights are settled.}  For every integer base
+$b\ge2$, if $\gamma\colon\N\to\Q$ is eventually periodic, nonnegative and
+positive at some positive index of its periodic part, then
+  $\sum_{a}\gamma(a)/(b^a-1)$ is irrational.  Theorem~A in Luca and
+  Tachiya's 2017 open-access RIMS paper restates their earlier signed theorem in the exact
+  purely-periodic integer case: every nonzero purely periodic integer sequence
+  gives an irrational Lambert value at every integer base $|q|>1$
+  \cite[Theorem~A, p.~139]{lucatachiya2017}.  Their Theorem~1 strengthens the
+  nonnegative case to linear independence of each finite divisor-convolution
+  ladder \cite[Theorem~1, p.~139; proof pp.~149--150]{lucatachiya2017}.
+  Clearing the common denominator of a rational period and subtracting the
+  finite rational prefix shows that Theorem~1 already proves the eventual
+  nonnegative rational claim above; the checked theorem gives an independent
+  formal proof.  By \ref{res:weight} the weight $\Aw$ is
+unbounded, hence not eventually periodic, so \#249 is outside this class.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/CertificateKernel.lean}{12483}{irrational_ratWeightSeries_eventuallyPeriodic}{the periodic theorem}.}
+
+\item\label{res:primindex} \stag{proved here}
+\textbf{No fixed common denominator clears the normalised weight.}  For every integer
+$D\ge1$ some $n\ge1$ has $D\cdot\Aw(n)/n\notin\Z$ --- for $D=6$ at the prime
+$n=7$, where $\Aw(7)/7=5/7$ --- and any $D$ clearing every coordinate up to a
+horizon $N\ge4$ is divisible by an explicit two-tier primorial ($4$ at $p=2$,
+$p^2$ when $p^2\le N$, else $p$).  No argument that clears the coordinates
+$\Aw(n)/n$ by a single positive integer valid at all $n$ can therefore
+succeed.  This obstruction is caused by the normalisation: the unnormalised
+weights $\Aw(n)$ are integers.  Arguments whose common denominator grows with
+the horizon, arguments using the integral weights directly, and arguments
+that never clear these coordinates are untouched.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/PrimitiveDeterminantLift.lean}{169}{no_fixed_integral_primitive_euler_index}{no fixed index},
+\mword{Erdos249257/PrimitiveDeterminantLift.lean}{148}{twoTierPrimorial_dvd_of_integral_jet}{the primorial divisibility}.}
+
+\item\label{res:equivalences} \stag{proved here}
+\textbf{Four exact characterisations of irrationality.}  Irrationality
+of $\Stot$ is equivalent to each of: non-integrality of the tail difference
+$R_{N+h}-R_N$ at every $N$ and every shift $h\ge1$, equivalently a certificate
+at every such pair; a certificate at every $h\ge1$ and at arbitrarily large
+$N$; and the same at the scales $N=h=\lcm(1,\dots,t)$, for arbitrarily large
+$t$.  A fourth equivalence,
+independent of the certificate language, is a counted anti-concentration
+condition on window phases.  These characterisations identify the unbounded
+input exactly; they retain the full difficulty of \#249 and do not supply that
+input.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/LcmConeFlatness.lean}{399}{irrational_totient_series_iff_pointwise_certificates}{pointwise},
+\mword{Erdos249257/LcmConeFlatness.lean}{412}{irrational_totient_series_iff_certificate_supply}{cofinal at each shift},
+\mword{Erdos249257/LcmConeFlatness.lean}{426}{irrational_totient_series_iff_lcm_diagonal_certificate_supply}{$\lcm$ diagonal},
+\mword{Erdos249257/PivotAntiReconstruction.lean}{1744}{dtwWindowSeparatedPairs_iff_irrational_totient_series}{window-separated pairs}.}
+
+\item\label{res:supply} \stag{conditional reduction}
+\textbf{A denominator-indexed gap-certificate hypothesis.}  Suppose that for
+each denominator $q$ there is a truncation window $(N,K)$ whose totient residue
+avoids a band of width $q(N{+}K{+}2)$ out of $2^K$.  This hypothesis
+\emph{implies} irrationality.  It concerns a second certificate family, not
+the one of \ref{res:equivalences}: the band scales with $q$, and the family is
+indexed by denominators rather than by shifts.  The converse is not proved and
+is not claimed.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/CertificateKernel.lean}{15697}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the supply implication}.
+\emph{Registry:} no row currently owns this declaration.}
+
+\item\label{res:open} \stag{open}
+\textbf{Erd\H{o}s~\#249.}  Whether $\Stot$ is irrational.  Not proved here.
+
+\end{enumerate}
+}
+
+\section{The Lambert-series form of Problem \#249}\label{sec:family}
+
+If $f=g*\mathbf 1$, that is $f(n)=\sum_{d\mid n}g(d)$, then interchanging the
+two sums gives
+\[
+  \sum_{n\ge1}\frac{f(n)}{2^n}
+  \;=\;\sum_{d\ge1}\frac{g(d)}{2^d-1}.
+  \tag{1}\label{eq:lambert}
+\]
+whose right-hand side is a Lambert series with coefficients $g$.  Four
+classical coefficient sequences have this shape.  The table records the
+constant, the weight $g=f*\mu$, and its status.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{0.07\linewidth}
+  >{\raggedright\arraybackslash}p{0.19\linewidth}
+  >{\raggedright\arraybackslash}p{0.21\linewidth}
+  >{\raggedright\arraybackslash}p{0.43\linewidth}@{}}
+\toprule
+$f$ & $\sum f(n)/2^n$ & weight $g=f*\mu$ & status \\
+\midrule
+$\tau$ & $1.6066951\ldots=\EB$ & $g\equiv1$ & The Erd\H{o}s--Borwein constant;
+  irrational~\cite[theorem on p.~63]{erdos1948};
+  formalised here in the Lambert form $\sum_{d\ge1}(2^d-1)^{-1}$
+  (\mword{Erdos249257/CertificateKernel.lean}{8007}{irrational_erdosBorwein_series}{checked}) \\
+$\omega$ & $0.5169428\ldots$ & $g=\mathbf 1_{\text{primes}}$ &
+  Irrational at base $2$: Tao--Ter\"av\"ainen, Thm.~1.3, p.~4;
+  proof pp.~44--56~\cite{taoteravainen2025} \\
+$\Omega$ & $0.5895032\ldots$ & $g=\mathbf 1_{\text{prime powers}}$ &
+  Asserted \emph{ibid.}\ by a similar argument, with the details left to the
+  reader; not a proved theorem there \\
+$\ph$ & $1.3676308\ldots=\Stot$ & $g=\Aw=\ph*\mu$ &
+  \textbf{Open} (Erd\H{o}s \#249) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent The first three weights are bounded, taking only the values $0$
+and~$1$ (for $\tau$ the weight is the constant $1$).  The fourth is unbounded,
+by \ref{res:weight}.  That difference is the one that matters for the route in
+\ref{res:periodic}, and we do not claim it is the only difference: $\Aw$ also
+vanishes on $n\equiv2\pmod4$, while $\mathbf 1_{\text{primes}}$ is bounded but
+no more eventually periodic than $\Aw$ is, so the settled $\omega$ row is not
+an instance of \ref{res:periodic} either.  It was settled by a different
+method, discussed in Section~\ref{sec:open}.
+
+Luca and Tachiya's result is stronger than the single $\tau$ row:
+Example~1 makes \(1\) and every finite ladder of generalized-divisor-function
+values linearly independent
+~\cite[Example~1, p.~140; proof pp.~149--150]{lucatachiya2017}.
+Their Example~2 applies the period-two odd-support indicator and proves joint
+linear independence of its Lambert value with every finite higher
+divisor-convolution ladder, for integer bases \(q\) of either sign with
+\(|q|>1\) \cite[Example~2, p.~140]{lucatachiya2017}. Thus the cited theorem
+strictly strengthens the isolated odd-support irrationality row.
+Historically, Erd\H{o}s already singled out the totient series itself as a
+difficult analogue at the end of his 1948 paper~\cite[p.~66]{erdos1948};
+that remark supplies lineage, not a modern status proof.
+
+\paragraph{A nearby 2026 totient theorem has different coordinates.}
+Kaneko, Suzuki and Tachiya prove that if \(f(n)\) is a nonnegative integer
+sequence of infinite support with
+\(\sum_{n\le x}f(n)=O(x(\log x)^\delta)\), then, for every integer
+\(t\ge2\), both
+\[
+  \sum_{n\ge1}\frac{f(n)}{t^{\sigma(n)}}
+  \qquad\text{and}\qquad
+  \sum_{n\ge1}\frac{f(n)}{t^{\ph(n)}}
+\]
+are irrational
+\cite[Corollary~3, pp.~5--6; proof pp.~18--19]{kanekosuzukitachiya2026}.
+This includes substantial families of totient-related series, but
+\(\ph(n)\) occurs in the \emph{exponent}.  Problem~\#249 instead places
+\(\ph(n)\) in the coefficient of \(2^{-n}\).  The theorem therefore supplies
+a genuine adjacent result and a useful warning against a tempting
+misidentification; it does not settle or reduce the displayed problem.
+
+\paragraph{Exact identities and representations.}
+Several neighbouring Dirichlet-convolution identities are rational and
+exactly computable:
+$\sum_{d\ge1}\mu(d)/(2^d-1)=\tfrac12$
+(\mword{Erdos249257/CertificateKernel.lean}{18106}{tsum_moebius_div_two_pow_sub_one_eq_half}{checked})
+and $\sum_{d\ge1}\ph(d)/(2^d-1)=2$
+(\mword{Erdos249257/CertificateKernel.lean}{18101}{tsum_totient_div_two_pow_sub_one_eq_two}{checked}).
+Thus $\Stot$ sits one M\"obius convolution from a machine-checked
+irrational and one from a rational.  The squared-denominator representation
+$\Stot=\tfrac12+\sum_{d\ge1}\mu(d)/(2^d-1)^2$
+(\mword{Erdos249257/CertificateKernel.lean}{18126}{totient_series_eq_half_add_moebius_mersenne_square}{checked})
+converges fast enough to recompute the decimal above.
+
+There is also an exact probabilistic reading, and it is more than a gloss.
+Let $X$ and $Y$ be independent fair-coin geometric waiting times on $\Npos$.
+Then
+\[
+  \Stot=\tfrac12+\Pr[\gcd(X,Y)=1]
+\]
+(\mword{Erdos249257/CertificateKernel.lean}{18229}{totient_series_eq_half_add_visible_coprime_pairs}{checked}),
+the probability being the visible-coprime-pair series
+$\sum_{\gcd(m,n)=1}2^{-(m+n)}$.  That probability is distributed over the
+Stern--Brocot tree in a completely explicit way: the Mersenne weights of the
+positive reduced slopes sum to exactly~$1$
+(\mword{Erdos249257/GcdMomentCalculus.lean}{349}{tsum_pos_coprime_inv_mersenne_eq_one}{checked}),
+and at each node $(a,b)$ the cylinder mass $1/((2^a-1)(2^b-1))$ splits exactly
+into its stop mass and the masses of its two children
+(\mword{Erdos249257/GcdMomentCalculus.lean}{474}{cylinderMass_split}{checked}).
+So $\Stot-\tfrac12$ is the total mass of an exactly self-similar subdivision of
+a probability space.  What is missing is not structure; it is an arithmetic
+consequence of the structure.
+
+\section{Proof of the dyadic-section basis theorem}\label{sec:rank}
+
+\subsection{Prior work}
+
+For an integer $k\ge2$, the \emph{$k$-kernel} of a sequence $c$ is
+$\{n\mapsto c(k^jn+r):j\ge0,\ 0\le r<k^j\}$, and $c$ is \emph{$k$-regular}
+when the module generated by its $k$-kernel is finitely generated; both
+notions are due to Allouche and Shallit
+(\cite[Defs.~1.1 and 2.1, author-preprint pp.~2--3]{allouche-shallit}).
+Their Theorem~2.2 gives equivalent finite-kernel and matrix
+characterisations, and Theorem~3.1 proves closure under convolution
+~\cite[pp.~3--4 and 10--11]{allouche-shallit}; neither result controls the
+finite-level rank of a sequence that is not $k$-regular.  Coons proved that
+$\ph$ is not $k$-regular for any $k\ge2$ (\cite{coons}, Theorem~3.2,
+pp.~348--349, in the published version; Theorem~3.3, pp.~8--9, in the
+preprint, which numbers its results on a single running counter).  Bell and
+Smertnig reach a further negative
+conclusion, and by a different route rather than by strengthening that one:
+their Theorem~1.3 shows that a $k$-Mahler series with multiplicative
+coefficients has a $k$-regular coefficient sequence in an explicit closed form,
+and that the totient generating series is not $k$-Mahler for any $k\ge2$
+follows directly from the closed form~\cite{bell-smertnig}.
+
+Coons's statement is about the union over all levels: no finite set of sections
+generates the rest.  Bell and Smertnig's is about a functional equation.
+\ref{res:basis} and \ref{res:rank} are complementary positive statements at
+each finite level, and are consistent with both precisely because the rank is
+unbounded in $e$.  Knowing that a span is not finitely generated says nothing
+about its dimension at a given truncation, nor about which relations hold
+there; what is added here is that
+the dimension through level $e$ is exactly $2^e+1$, that an explicit family is
+a basis, and that the two elementary reductions generate every relation.  We
+found no prior source giving any of those three for $\ph$; that is the outcome
+of a search, not a proof of non-existence, and no priority is claimed.
+
+\subsection{Parity-separated evaluation matrices}
+
+\ref{res:rank} is proved by exhibiting a square matrix of values of the
+sections whose determinant is nonzero, and the linear algebra at its centre is
+simpler than the arithmetic construction that feeds it.  We give the linear
+algebra first, then the arithmetic input it consumes.
+
+Evaluate the sections at one point apiece to get a square matrix $M$, and
+suppose each column $j$ admits a fixed power $2^{d_j}$ dividing every entry of
+that column such that, after dividing the column through by it, the diagonal
+entry is odd and every off-diagonal entry is even; call such an $M$ a
+\emph{parity-separated evaluation matrix}.  The normalised matrix is then the
+identity modulo $2$; its determinant is odd, hence nonzero, and the sections are
+independent
+(\mword{Erdos249257/TotientMahlerDefect.lean}{788}{paritySeparatedMatrix_det_ne_zero}{checked}).
+Producing evaluation points with exactly that parity pattern is what the
+arithmetic input is for, and it is the harder half.  The Chinese remainder
+theorem together with Dirichlet's theorem on primes in arithmetic progressions
+makes one of the evaluated affine values prime, which fixes the exact power of
+$2$ dividing the diagonal entry, while every other value receives a fresh
+prime divisor congruent to $1$ modulo a large power of two, which supplies the
+one extra factor of two that the off-diagonal entries need
+(\mword{Erdos249257/TotientMahlerDefect.lean}{847}{exists_separatedMinorCertificate_totientAffineOddFamily}{checked}).
+Even residues never enter, because the second reduction has already carried
+them to odd residues at lower levels
+(\mword{Erdos249257/TotientMahlerDefect.lean}{159}{totientKernel_even_residue_reduce}{checked}).
+
+\ref{res:basis} then needs only two further steps, and both are short.  Linear
+independence is a property of finite subfamilies, so the level-$e$ statement,
+applied with $e$ above the largest level occurring in a given finite subset,
+already gives independence of the whole infinite family $\mathcal B$.  And
+the two reductions carry every remaining section onto a rational multiple of a
+member of $\mathcal B$, so the spans agree.  That the assembly is short is the
+point: the level-$e$ theorem was always the whole content, and stating its
+consequence as infinite-dimensionality understated it.  The sharp form is a
+basis.
+
+\begin{remark}
+\ref{res:basis} and \ref{res:rank} are statements about $\ph$, not about
+$\Stot$; they are true, and their proofs are complete, whether or not $\Stot$
+is irrational.  Their connection to \#249 is not thematic but a single proved
+transport, and it is \ref{res:carryrank}.
+\end{remark}
+
+\section{Carry-rank consequences of rationality}\label{sec:carry-rank}
+
+Multiplying successive scaled tails by $2$ turns a hypothetical rational
+value into an integral recurrence.  For coefficients $c(n)\le n$, and in
+particular for $c=\ph$ since $\ph(n)\le n$, the series $\sum c(n)/2^n$ is
+rational exactly when an integral scaled-tail sequence exists, that is, an
+integer sequence $u$ with
+$u(N+1)=2u(N)-v\,c(N+1)$ for every $N$ and $u(N)/2^N\to0$, for some integer
+$v\ge1$
+(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{425}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked}).
+Transporting \ref{res:rank} through that recurrence gives \ref{res:carryrank}.
+The complementary finite-rank upper bound, which would make this a proof of
+irrationality, is not available.
+
+\section{A Farey-mediant denominator exclusion}\label{sec:denominator}
+
+\ref{res:denominator} is a Farey exclusion, and we say so before saying
+anything else about it.  The argument is the classical mediant one.  The Lean
+lemma commits the first $240$ binary digits of the shifted series as a single
+residue over the totient carry window $(N,K)=(1,240)$; a rational $a/q$ can
+equal $\Stot$ only if it falls into a resulting bad interval of width
+$243/2^{240}$; that interval is bracketed by two explicit unimodular fractions
+$a_1/b<c_1/d$ with $bc_1-a_1d=1$; and the mediant lemma
+(\mword{Erdos249257/GapFareyBound.lean}{51}{farey_gap}{checked}) forces any
+rational strictly between unimodular neighbours to have denominator at least
+$b+d$.  The excluded range is therefore $q\le b+d-1$, which is the printed
+constant
+(\mword{Erdos249257/GapFareyBound.lean}{176}{gap_check_window_1_240_le_79639646646701375323355774875831053}{checked}),
+and the transport to the series is a tail estimate
+(\mword{Erdos249257/CertificateKernel.lean}{15658}{tsum_totient_div_pow_two_ne_int_div_of_totient_gap_certificate}{checked}).
+\emph{The method is standard, and we claim no novelty for it.}
+
+Two things should be read off correctly.  First, the scale.  A window of $K$
+computed binary digits yields a mediant bound of order $2^{K/2}$: the same
+pipeline gives $2.49\times10^{17}$ at $K=120$
+(\mword{Erdos249257/GapFareyBound.lean}{88}{gap_check_window_1_120_le_248672326362367909}{checked})
+and $7.96\times10^{34}$ at $K=240$.  The constant is a function of how many
+digits were committed, not a measure of how much the problem has moved.
+Second, the sharpness.  Within its window the bound cannot be improved at all:
+$b+d$ itself fails the certificate, so $b+d-1$ is exactly the last denominator
+excluded.  A reader who regards an explicit Farey exclusion as routine is not
+in disagreement with this note.  \ref{res:basis}, not \ref{res:denominator},
+is where we would ask a sceptical reader to look.
+
+The bound transfers to the coprimality form of Section~\ref{sec:family} with
+the constant halved: the visible-coprime-pair series has no representation
+$a/d$ with $d\le39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526$
+(\mword{Erdos249257/CertificateKernel.lean}{18244}{tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526}{checked}),
+that number being $(q_0-1)/2$ for the constant $q_0$ of
+\ref{res:denominator}.
+
+\section{Obstructions for fixed-coordinate methods}\label{sec:nogo}
+
+\ref{res:primindex} has a one-line proof.  Take a prime
+$p>\max(D,2)$; then $\Aw(p)=p-2$ by \ref{res:weight}, and $p\nmid D(p-2)$, so
+$D\cdot\Aw(p)/p\notin\Z$.
+
+Two further checked results delimit narrower abstract hypothesis classes.
+
+A fixed-precision transport result
+(\mword{Erdos249257/TropicalCurvatureCarry.lean}{137}{fixedPrecisionTropicalNoGo}{checked})
+says that at every fixed positive precision, each finite compatible
+valuation-unit word admits a prefix-locked centred completion.  Its statement
+quantifies over abstract pairs of a two-adic valuation and an odd unit; it
+mentions neither $\ph$ nor $\Stot$, its content is that a congruence class
+meets any interval of the corresponding length, and it is a restatement of a
+lemma printed immediately above it.  The class of arguments it closes ---
+deriving a contradiction from a local signature read at a precision fixed in
+advance, along a finite word --- is not one anybody has proposed for \#249.
+
+A factor-ideal result
+(\mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{798}{lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient}{checked},
+with a sparse-anchor companion at
+\mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{866}{lcm_factorIdeal_sparseAnchor_not_sufficient}{checked})
+exhibits, for each $t\ge3$ with $H=\lcm(1,\dots,t)$, a nonzero integer carry
+whose forcing letters lie in the ideal generated by $\ph(H)$, which reproduces
+the true totient differences at $t-2$ prescribed indices, and which every
+finite integer shift polynomial carries to a pair with the same coboundary
+form, the same ideal memberships and an $\ell^1$-weight bound.  It does close
+that hypothesis class.  Two limits.  The witness is a spike --- its state is
+$-\ph(H)$ at $t-2$ points and zero elsewhere, so it stays uniformly bounded
+while the strip bounds it respects grow, and the construction is cheap for
+that reason.  And the shifted pairs are not asserted to be nonzero, so an
+argument that additionally demanded non-vanishing after the shift is not
+excluded.  The theorem contains no whole-ray anchor condition, diagonal bound,
+or strict-survivor condition.
+
+\section{Further conditional criteria}\label{sec:programmes}
+
+The criteria below do not enter the proofs of the unconditional results.
+Each states its unproved hypotheses explicitly.
+
+\paragraph{A prime-orbit sufficient condition.}
+The hypothesis
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{18}{DTWNaturalPrimeTailOrbitStrictGap}{asks}
+for cofinally many primes $p$ at which the first tail-orbit exponential has
+real part strictly below $9/10$.  Granting it,
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{27}{naturalPivotPointEscape_of_naturalPrimeTailOrbitStrictGap}{a positive adaptive truncation budget}
+follows, and then
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{66}{irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{$\Stot$ is irrational}.
+The $9/10$ hypothesis is weaker than the earlier $4/5$ hypothesis, but no
+instance of this cofinal hypothesis is proved.
+Section~\ref{sec:frontier} states the sharper form
+in which this hypothesis is now available.
+
+\paragraph{Finite Euler-factor identities.}
+The local coefficients are
+\[
+  \eta(0)=1,\qquad \eta(1)=-2,\qquad \eta(2)=1,\qquad
+  \eta(e)=0\quad(e\ge3),
+\]
+the coefficients of $(1-X)^2$.  For a prime $p$ and $e\ge0$, write
+$\sigma_p(e)=1+p+\cdots+p^e$.  The two local Euler factors are
+\[
+  1-\frac2p+\frac1{p^2}=\left(1-\frac1p\right)^2,
+  \qquad
+  1-\frac2{p^2}+\frac1{p^4}
+      =\left(1-\frac1{p^2}\right)^2
+\]
+at
+\lword{Erdos249/FiniteEulerSieve.lean}{28}{muSqEulerFactor_one}{$s=1$}
+and
+\lword{Erdos249/FiniteEulerSieve.lean}{36}{muSqEulerFactor_two}{$s=2$}.
+On the prime-power divisor-sum row,
+\[
+  \sigma_p(1)-2\sigma_p(0)=p-1
+\]
+(\lword{Erdos249/FiniteEulerSieve.lean}{44}{sigmaPrimePow_firstDiff}{first difference}),
+and for every $e\ge0$,
+\[
+  \sigma_p(e+2)-2\sigma_p(e+1)+\sigma_p(e)
+    =p^{e+1}(p-1)
+\]
+(\lword{Erdos249/FiniteEulerSieve.lean}{51}{sigmaPrimePow_secondDiff}{second difference}).
+For example, at $p=3$ the values
+$\sigma_3(0),\ldots,\sigma_3(3)=1,4,13,40$ give
+$4-2=2$ and $40-2\cdot13+4=18=3^2(3-1)$.  Thus convolution with
+$\mu\ast\mu$ converts the prime-power divisor-sum row into the corresponding
+totient row at every finite stage.  These are finite algebraic identities; no
+transcendence conclusion is attached to them.
+
+\paragraph{Mixed differences of cyclotomic layers.}
+For a function $F:\{0,1\}^2\to\Z$, define
+\[
+  \Delta F=F(1,1)-F(1,0)-F(0,1)+F(0,0)
+\]
+(\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{15}{checkerboard}{mixed difference}).
+If $F(i,j)=u(i)+v(j)$, then $\Delta F=0$
+(\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{19}{checkerboard_separable}{separable case}).
+Conversely, among integer linear combinations of the four values of $F$ whose
+coefficients sum to zero along each row and each column, the pattern
+$(1,-1,-1,1)$ is forced up to scale
+(\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{25}{checkerboard_unique}{fixed-stencil uniqueness}).
+For example, the table
+\[
+\begin{array}{c|cc}
+ &0&1\\ \hline
+0&9&13\\
+1&12&16
+\end{array}
+\]
+has mixed difference $16-12-13+9=0$; increasing only the lower-right entry by
+$5$ changes the mixed difference to $5$.  The uniqueness statement is
+internal to this fixed $2\times2$ stencil.  It does not assert invariance under
+larger stencils, nonlinear functionals, or another representation.
+
+The formal development also records
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{38}{fourPoint_layer_identity}{a four-point divisor-layer identity}
+and
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{55}{residueClass_step_has_centred_completion}{a centred representative for a residue class modulo an even modulus}.
+The two unproved hypotheses and their target conclusion are as follows.  For
+$C:\N\to\N$ and $m,d\in\N$, put
+\[
+\begin{aligned}
+\operatorname{Layer}(C,m)\quad\Longleftrightarrow\quad&
+\exists Q_0\ \forall q\ge Q_0,\quad q\ {\rm prime}\Longrightarrow\\[-2pt]
+&\hspace{5em}1<C(mq)\ \hbox{ and }\ \gcd(C(mq),mq)=1.
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\operatorname{BoundedOrder}(C,m,d)\quad\Longleftrightarrow\quad&
+\forall q,p,\quad q,p\ {\rm prime},\ p\mid C(mq)\Longrightarrow\\[-2pt]
+&\hspace{3em}\exists k,\quad 1\le k\le d\ \hbox{ and }\ mq\mid p^k-1.
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\operatorname{FinitePrimeEscape}(C,m)\quad\Longleftrightarrow\quad&
+\forall\text{ finite sets }S\text{ of primes},\ \exists Q_0\
+\ \forall q\ge Q_0,\\[-2pt]
+&\hspace{3em}q\ {\rm prime}\Longrightarrow
+\forall p\in S,\quad p\nmid C(mq).
+\end{aligned}
+\]
+These are the linked predicates
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{88}{PrimeRayLayerSupply}{Layer},
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{95}{BoundedDegreeOrderConsumer}{BoundedOrder},
+and
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{102}{FinitePrimeSupportEscape}{FinitePrimeEscape}.
+The bounded-order condition does not assert an exact multiplicative order; it
+asserts only the displayed divisibility for some $k\le d$.
+
+The implication from bounded order to finite-prime escape is a size argument
+in the paper.  If $m=0$, the bounded-order condition forces $C(0)=1$.  If
+$m>0$, the assertion is immediate for $S=\varnothing$; otherwise choose
+$Q_0$ so that $mQ_0>\max_{p\in S}(p^d-1)$.  For every prime
+$q\ge Q_0$, a divisor $p\in S$ of $C(mq)$ would give
+$mq\mid p^k-1$ for some $k\le d$, hence
+$mq\le p^k-1\le p^d-1$, a contradiction.  The layer hypothesis separately
+ensures that the layers are nontrivial and coprime to their indices.  Neither
+hypothesis is proved here; polynomial-resultant realisability and
+Archimedean growth are also not established.
+
+\section{Open problems}\label{sec:frontier}
+
+Write $H_t=\lcm(1,\dots,t)$
+(\mword{Erdos249257/CarrySurvivorExtinction.lean}{515}{periodLcm}{definition}),
+so that $H_1=1$, $H_2=2$, $H_3=6$, $H_4=12$, $H_5=H_6=60$ and $H_7=420$; and
+recall from Section~\ref{sec:results} the tail
+$R_N=\sum_{m\ge1}\ph(N+m)/2^{m}$, which differs from $2^N\Stot$ by an integer
+(\mword{Erdos249257/TotientTailPeriodKiller.lean}{57}{totientTail}{definition}).
+
+\begin{problem}[cofinal diagonal escape]\label{prob:diagonal}
+For every $t_0$ there is a $t\ge t_0$ with $R_{2H_t}-R_{H_t}\notin\Z$.
+\end{problem}
+
+\noindent By \ref{res:equivalences}, Problem~\ref{prob:diagonal} is equivalent
+to irrationality of $\Stot$.  A finite list of successful certificates
+establishes the predicate only on its tested scales; it does not establish the
+quantified statement for arbitrarily large $t$.  In the opposite direction,
+one pair $h>0$, $N$ with $R_{N+h}-R_N\in\Z$ already makes $\Stot$ rational
+(\mword{Erdos249257/LcmConeFlatness.lean}{357}{not_irrational_of_tail_diff_mem_int}{checked}).
+
+The certificate of Section~\ref{sec:results} is decidable at each $t$, and has
+been kernel-checked to fire at the $28$ scales
+(\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1933}{diagonalPincerCertificateScalesThroughT64}{listed})
+lying between $t=1$ and $t=64$
+(\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1967}{certifiedKill_diagonal_all_imported_through_t64}{checked}).
+Later work in the repository extends the checked band to every $t\le82$; the
+module proving it postdates this note's pinned snapshot and so is not linked
+here, and the claim registry records the wider band.  The theorem through
+$t=82$ supplies no instance at $t=83$ and therefore does not discharge the
+cofinal quantifier.
+
+\paragraph{A first-harmonic sufficient condition.}
+A constant-saving first-harmonic bound on one dyadic block, or
+on any nonempty finite set of indices, already forces a certificate
+(\mword{Erdos249257/FirstHarmonicGap.lean}{104}{exists_certifiedKill_of_first_harmonic_gap_subset}{checked}).
+The block sum in question decomposes exactly into four named terms ---
+a centred supplier-fibre correlation, a fibre-mean contribution, a bad-set
+contribution and a non-supplier contribution
+(\mword{Erdos249257/FirstHarmonicPivot.lean}{342}{windowFirstExp_sum_eq_pivot_decomposition}{checked})
+--- and meeting four explicit numerical bounds on those terms cofinally
+already gives irrationality
+(\mword{Erdos249257/FirstHarmonicPivot.lean}{405}{irrational_totient_series_of_pivotResidualDecorrelation}{checked}).
+Thus the sufficient condition is to beat four stated constants in an exact
+decomposition.
+
+A proof of Problem~\ref{prob:diagonal} gives irrationality of $\Stot$ by
+\ref{res:equivalences}.  Its negation settles \#249 in the opposite direction:
+it supplies a positive-shift integral tail difference, which forces
+rationality.  By contrast, failure of the first-harmonic bounds would rule out
+only this sufficient criterion.
+
+\paragraph{The independent denominator exclusion.}
+The constant $7.96\times10^{34}$ of \ref{res:denominator} is the classical
+Farey mediant bound applied to a window with a free parameter $K$; it has
+order $2^{K/2}$, and raising it needs only more committed binary digits, which
+is a computation rather than an idea.  It is not one of the open items of
+Section~\ref{sec:open}.
+
+\subsection{Logical status and analytic input}\label{sec:open}
+
+\begin{enumerate}
+\item Irrationality of $\Stot$ (\ref{res:open}).  No proof is claimed.
+\item The reformulations of \ref{res:equivalences} convert irrationality
+  into the existence of an unbounded family of finite tail-difference
+  certificates.  Finite instances are checked --- the $28$ diagonal scales of
+  Section~\ref{sec:frontier} --- and the unbounded family is not.
+  The equivalence fixes the exact missing quantifier but does not make that
+  quantifier easier to prove.  \ref{res:denominator} is a finite instance of a
+  \emph{different} family, the gap certificates of
+  \ref{res:supply}, which reach irrationality by a one-way implication; the two
+  families should not be counted together.
+\item The four pivot bounds of Section~\ref{sec:frontier}, and the
+  prime-orbit gap they refine, are unproved.
+\end{enumerate}
+
+\noindent The correlation source that fits the normalised totient most
+directly is Balasubramanian--Giri--Srivastav~\cite{bgs2017}, not a direct
+transfer of the Tao--Ter\"av\"ainen method.  Write
+\[
+  g(n)=\frac{\ph(n)}n
+      =\sum_{d\mid n}\frac{\mu(d)}d=(f*1)(n),
+  \qquad f(d)=\frac{\mu(d)}d\in\mathcal A_1 ,
+\]
+the class $\mathcal A_1$ being the coefficient class in which the theorem
+cited next is stated.
+Theorem~2.2 of the arXiv version of~\cite{bgs2017} gives, uniformly for
+$|h|\le x/2$, an explicit asymptotic for
+$\sum g(n)g(n-h)$ with error $O(\log^2x)$; Remark~2.4 gives its Euler product,
+For each fixed $h$, the weighted partial-summation formula immediately
+following Corollary~2.8 permits $Q(n)=n(n-h)$, restoring the two linear
+factors needed to return from $g(n)g(n-h)$ to
+$\ph(n)\ph(n-h)$ with an explicitly propagated error.  That displayed
+weighted formula is not itself stated uniformly in $h$ and starts its main
+integral at \(1\), not \(H\); retaining uniformity and the lower endpoint
+would require applying partial summation directly to Theorem~2.2.  No later
+claim here relies on an unproved uniform weighted version.
+
+Tao--Ter\"av\"ainen's quantitative correlation theorem
+(\cite{taoteravainen2025}, Theorem~3.1) assumes either quantitative
+equidistribution together with an exact small-prime condition, or
+non-pretentiousness.  Here $g(p)=1-1/p$, so the stated small-prime condition
+does not hold, while
+$\sum_p(1-g(p))/p=\sum_p1/p^2<\infty$, so $g$ is pretentious to the constant
+function.  Their theorem therefore does not apply unchanged.  The
+Balasubramanian--Giri--Srivastav theorem supplies the missing first- and
+second-moment input in the correct divisor-convolution class, but it does
+\emph{not} supply the residue small-ball or phase anti-concentration estimate
+needed to turn those moments into a certificate.  That modulo-$2^L$ step is
+the precise remaining analytic gap; no irrationality conclusion is drawn from
+the correlation asymptotic alone.
+
+\section*{Formal source notes}
+
+\paragraph{Registry coverage.}
+Two of the items above are checked propositions that no row of the claim
+registry currently owns: the three declarations of \ref{res:basis}, and the
+five of \ref{res:weight}; the supply implication of \ref{res:supply} is
+likewise unowned, and \ref{res:denominator} cites three declarations of which
+the registry's row owns one.  Under this project's own division of authority
+the registry, not a manuscript, owns public status, so the honest tag on those
+items is that they are kernel-checked and not yet registered.  We print that
+rather than borrowing a neighbouring row's status.  The gap is a defect in the
+record, not in the proofs, and closing it is a review action rather than a
+mathematical one.
+
+This manuscript is authored exposition, not proof authority.  The linked Lean
+snapshot is authoritative only for its exact propositions, and kernel checking
+establishes that a proposition was proved, not that it is interesting, novel,
+or sufficient.  The consequence drawn in the last sentence of \ref{res:basis},
+the deduction in \ref{res:periodic} that an unbounded weight is not eventually
+periodic, the mechanism sentence in Section~\ref{sec:nogo}, and the size
+argument in Section~\ref{sec:programmes} are one-line arguments in the prose,
+marked as such; the first three are drawn from checked statements, and the
+last assumes the unproved bounded-order condition.  The small numerical
+instances printed above --- the level-three reductions, the certificate at
+$(1,12,16)$, the first values of $\Aw$, the $p=3$ Euler-factor calculation,
+the mixed-difference table, and the values of $H_t$ --- are computations from
+the definitions and checked identities beside them, and are not separate
+checked propositions.  Results attributed to
+Allouche and Shallit, to Coons, to Bell and Smertnig, to Kaneko, Suzuki and
+Tachiya, to Luca and Tachiya, and to Tao and Ter\"av\"ainen are cited from the
+literature and are not formalised here; the assessment that no prior source
+gives an explicit basis, an exact finite-level dimension formula, or a
+relation normal form for the totient $2$-kernel is the outcome of a literature
+search and is not a proof of non-existence.
+
+\emph{Scope of the AI declaration.}  Large-language-model agents assisted
+throughout, drafting and revising this exposition, the Lean developments it
+links to, and the repository software that checks them.  Will
+Cook set the objectives, selected and reviewed the public claims, checked the
+cited literature, and authorised this manuscript, and is responsible for its
+contents.  Formal authority is the pinned kernel's acceptance of an exact
+proposition; no model output carries any, and neither does this sentence.
+
+Erd\H{o}s Problem~\#249 remains open.
+
+\begin{thebibliography}{10}
+\bibitem{allouche-shallit} J.-P.~Allouche and J.~Shallit,
+  \href{https://cs.uwaterloo.ca/~shallit/Papers/as0.pdf}{\emph{The ring of
+  $k$-regular sequences}}, Theoret.\ Comput.\ Sci.\ \textbf{98} (1992),
+  no.~2, 163--197,
+  doi:\href{https://doi.org/10.1016/0304-3975(92)90001-V}
+  {10.1016/0304-3975(92)90001-V}.  Definitions~1.1 and 2.1 are on
+  pp.~2--3 of the linked author preprint, which differs slightly from the
+  published version; the cited definitions are unaffected.
+\bibitem{coons} M.~Coons, \emph{(Non)Automaticity of number theoretic
+  functions}, J.~Th\'eor.\ Nombres Bordeaux 22 (2010), no.~2, 339--352;
+  \href{https://doi.org/10.5802/jtnb.718}{doi:10.5802/jtnb.718};
+  \href{https://arxiv.org/abs/0810.3709}{arXiv:0810.3709}.  Theorem~3.2,
+  pp.~348--349, in the published version (Theorem~3.3, pp.~8--9, in the
+  preprint): $\ph$ is not $k$-regular for any $k\ge2$.
+\bibitem{bell-smertnig} J.~Bell and D.~Smertnig, \emph{Mahler series with
+  multiplicative coefficient sequences}, 2026,
+  \href{https://doi.org/10.48550/arXiv.2603.23456}{arXiv:2603.23456}.  The
+  totient generating series is not $k$-Mahler for any $k\ge2$, a consequence
+  of their Theorem 1.3 recorded in the introduction.
+\bibitem{kanekosuzukitachiya2026} H.~Kaneko, Y.~Suzuki and Y.~Tachiya,
+  \href{https://arxiv.org/abs/2601.20743}
+  {\emph{Refinements of Erd\H{o}s's irrationality criterion for certain
+  sparse infinite series}}, arXiv:2601.20743v1, 2026.
+  Corollary~3 is on pp.~5--6 and proves irrationality for the
+  \(\sigma(n)\)- and \(\ph(n)\)-in-the-exponent families; its proof is on
+  pp.~18--19.
+\bibitem{taoteravainen2025} T.~Tao and J.~Ter\"av\"ainen,
+  \emph{Quantitative correlations and some problems on prime factors of
+  consecutive integers}, arXiv:2512.01739 (submitted December 2025, revised
+  April 2026).  Theorem 1.3 proves irrationality of
+  $\sum_{n\ge1}\omega(n)/2^n$ at base $2$; the extension to every integer base
+  and the $\Omega$ analogue are stated as remarks, with the modifications left
+  to the reader.  The theorem is on p.~4 and its proof is Section~5,
+  pp.~44--56, in arXiv v2.
+\bibitem{bgs2017} R.~Balasubramanian, S.~Giri and P.~Srivastav,
+  \emph{On correlations of certain multiplicative functions},
+  J.\ Number Theory 174 (2017), 221--238,
+  \href{https://doi.org/10.1016/j.jnt.2016.10.001}{DOI};
+  \href{https://arxiv.org/abs/1511.02221}{arXiv:1511.02221}.
+  The arXiv version's Theorem~2.2 and Remark~2.4 give the uniform shifted
+  divisor-convolution correlation and Euler product used above; the required
+  fixed-shift weighted partial-summation formula follows Corollary~2.8.
+\bibitem{lucatachiya2017} F.~Luca and Y.~Tachiya,
+  \href{https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf}
+  {\emph{Linear independence results for the values of divisor functions
+  series}}, RIMS K\^oky\^uroku No.~2014 (2017), 138--150.
+  Theorem~A on p.~139 explicitly restates their earlier Theorem~1.1 for
+  nonzero purely periodic integer weights.  Theorem~1 is on p.~139, its
+  examples are on p.~140, and its proof is on pp.~149--150.
+\bibitem{erdos1948} P.~Erd\H{o}s,
+  \href{https://users.renyi.hu/~p_erdos/1948-04.pdf}
+  {\emph{On arithmetical properties of Lambert series}},
+  J. Indian Math. Soc. (N.S.) \textbf{12} (1948), 63--66.
+  The integer-base full-support theorem is on p.~63; the proof is on
+  pp.~63--66, and the closing totient-series remark is on p.~66.
+\bibitem{erdosgraham1980} P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New
+  Problems and Results in Combinatorial Number Theory}, 1980, p.~61.
+\bibitem{erdos1988} P.~Erd\H{o}s, \emph{On the irrationality of certain
+  series: problems and results}, in A.~Baker (ed.), \emph{New Advances in
+  Transcendence Theory}, Cambridge UP, 1988, pp.~102--109,
+  doi:\href{https://doi.org/10.1017/CBO9780511897184.009}
+  {10.1017/CBO9780511897184.009}.
+\bibitem{erdosproblems} T.~F. Bloom,
+  \href{https://www.erdosproblems.com/249}{\emph{Erd\H{o}s Problem \#249}},
+  \texttt{erdosproblems.com/249}, accessed 28 July 2026 (page displays
+  ``last edited 28 September 2025'').  The current record labels the problem
+  open, cites \texttt{[ErGr80, p.~61]} and \texttt{[Er88c, p.~102]}, and
+  explicitly describes its status as the website owner's present assessment
+  rather than a literature-completeness guarantee.
+\end{thebibliography}
+
+\end{document}

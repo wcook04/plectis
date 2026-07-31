@@ -75,6 +75,25 @@ PUBLIC_CEILING_DO_NOT_CLAIM = (
     "private-root equivalence, formal-proof correctness, benchmark score, trading "
     "or investment advice, release authority, or whole-system correctness."
 )
+LEAN_COMPANION_REPOSITORY: dict[str, Any] = {
+    "name": "plectis-lean-erdos249-257",
+    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "role": (
+        "self-contained machine-checked mathematics companion; owns theorem status, "
+        "mathematical progress, exact open propositions, and paper-to-Lean claims"
+    ),
+    "relationship": (
+        "companion, not dependency: Plectis demonstrates runnable system machinery; "
+        "the Lean repository demonstrates the public formal-mathematics corpus"
+    ),
+    "first_command_in_companion_clone": (
+        'python3 scripts/query_corpus.py --ask "What is in this repository?"'
+    ),
+    "authority_boundary": (
+        "Do not infer Lean proof authority from Plectis organs or require a sibling "
+        "checkout to comprehend or run Plectis."
+    ),
+}
 
 
 def public_cross_section_claim(component_count: int | None) -> str:
@@ -129,6 +148,15 @@ MECHANISM_SUBSTANCE_ORGAN_IDS = (
     "finance_forecast_evaluation_spine",
     "generated_projection_drift_runtime",
 )
+SELF_MODEL_FAMILY_HIGHLIGHT_ORGAN_IDS = {
+    "import_projection_and_drift": "generated_projection_drift_runtime",
+    "formal_math_and_proof": "lean_proof_search_lab_runtime",
+    "agent_reliability_and_safety": "agent_sabotage_scheming_monitor_replay",
+    "architecture_and_navigation": "navigation_hologram_route_plane",
+    "research_and_science_replays": "finance_forecast_evaluation_spine",
+    "work_landing_and_continuity": "mission_transaction_work_spine",
+    "entry_and_reveal": "public_reveal_walkthrough",
+}
 MODULE_ONLY_ORGAN_COMMANDS = {
     "annex-knowledge-routing": "annex_knowledge_routing",
     "bridge-campaign-dag-validation": "bridge_campaign_dag_validation",
@@ -205,10 +233,12 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
     atlas_by = {str(r.get("organ_id")): r for r in atlas_rows if isinstance(r, dict)}
     capsules = _load_json(base / "core/paper_module_capsules.json")
     mechanisms_doc = _load_json(base / "core/mechanism_sources.json")
+    paper_corpus = _load_json(base / "docs/papers/corpus.json")
     return {
         "root": base,
         "join_index": join_index,
         "atlas": atlas,
+        "paper_corpus": paper_corpus,
         "synopses": synopses,
         "join_index_present": isinstance(join_index, dict),
         "atlas_by_organ": atlas_by,
@@ -1318,11 +1348,43 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     if _assessment_mechanism_goal(text, exact_organ_match=bool(organ)):
         return "mechanism", None, "assessment_requires_mechanism_slice"
     if any(
+        phrase in text
+        for phrase in (
+            "which paper",
+            "what paper",
+            "each paper",
+            "papers should i read",
+            "paper should i read",
+            "paper reading",
+            "reading order",
+            "read the papers",
+            "paper guide",
+            "paper index",
+            "paper corpus",
+            "systems paper",
+            "mathematics paper",
+            "gateway paper",
+        )
+    ):
+        return "papers", None, None
+    if any(
         w in text
         for w in (
             "whole system", "whole microcosm", "everything", "self model", "self-model",
             "entire substrate", "operating picture", "all at once", "comprehend the whole",
             "comprehend all", "understand the whole", "comprehend everything",
+            "what is in this repository", "what is in this repo",
+            "what's in this repository", "what's in this repo",
+            "what does this repository contain", "what does this repo contain",
+            "show me what is here", "show me what's here",
+            "complete repository overview", "full repository overview",
+            "tell me what is here", "tell me what's here",
+            "lay of the land", "walk me through this codebase",
+            "walk me through the repository", "walk me through the repo",
+            "interesting parts", "interesting and non-trivial",
+            "interesting and nontrivial", "explain this project",
+            "what has been built", "comprehensive tour",
+            "what is plectis",
         )
     ):
         return "self-model", None, None
@@ -1609,7 +1671,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 200,
         "data_status": "full",
-        "next_packets": ["first_action", "self_model", "first_contact", "authority", "organs_index"],
+        "next_packets": ["first_action", "self_model", "first_contact", "papers", "authority", "organs_index"],
     },
     {
         "packet_id": "first_action",
@@ -1639,7 +1701,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 500,
         "data_status": "full",
-        "next_packets": ["organs_index", "organ_cluster", "math", "authority", "mutation_plan"],
+        "next_packets": ["organs_index", "organ_cluster", "math", "papers", "authority", "mutation_plan"],
     },
     {
         "packet_id": "first_contact",
@@ -1654,7 +1716,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 300,
         "data_status": "full",
-        "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
+        "next_packets": ["self_model", "papers", "authority", "organ_cluster", "organs_index", "mutation_plan"],
     },
     {
         "packet_id": "authority",
@@ -1749,6 +1811,24 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "data_status": "substantive_with_deferred_edges",
         "deferred_classes": ["proof_internal_structure"],
         "next_packets": ["organ", "claim_trace", "organ_cluster"],
+    },
+    {
+        "packet_id": "papers",
+        "packet_kind": "reference",
+        "mode": "papers",
+        "when_needed": (
+            "choose the smallest paper path for one question, understand what each "
+            "paper owns, and cross into proof or receipt authority"
+        ),
+        "command": "plectis comprehend --slice papers",
+        "inputs": ["paper_corpus"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["self_model", "math", "authority"],
     },
     {
         "packet_id": "claim_trace",
@@ -2024,6 +2104,156 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
             ),
         }
     )
+    return pack
+
+
+def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
+    """Compile the clone-local scholarly reading guide from its generated corpus."""
+    corpus = inputs.get("paper_corpus") or {}
+    root = Path(inputs.get("root") or default_root())
+    papers = [
+        row for row in corpus.get("papers", []) if isinstance(row, dict)
+    ]
+    by_id = {str(row.get("paper_id")): row for row in papers}
+
+    def paper_handle(paper_id: str) -> dict[str, Any] | None:
+        row = by_id.get(paper_id)
+        if row is None:
+            return None
+        source_ref = str(row.get("local_source") or "")
+        source_path = root / source_ref if source_ref else None
+        expected_digest = str(row.get("source_sha256") or "")
+        actual_digest = (
+            "sha256:" + hashlib.sha256(source_path.read_bytes()).hexdigest()
+            if source_path is not None and source_path.is_file()
+            else None
+        )
+        source_fresh = bool(
+            actual_digest and expected_digest and actual_digest == expected_digest
+        )
+        return {
+            "kind": "paper",
+            "id": paper_id,
+            "title": row.get("title"),
+            "summary": row.get("question_this_paper_answers"),
+            "owns": row.get("owns"),
+            "not_authority_for": row.get("not_authority_for"),
+            "home_repository": row.get("home_repository"),
+            "relation_to_this_repository": row.get("relation_to_this_repository"),
+            "full_text": row.get("local_full_text"),
+            "pdf": row.get("local_pdf"),
+            "source": source_ref or None,
+            "source_freshness": (
+                "matches_corpus_digest" if source_fresh else "corpus_projection_stale"
+            ),
+            "preferred_read_path": (
+                row.get("local_full_text")
+                if source_fresh
+                else source_ref or row.get("local_pdf")
+            ),
+        }
+
+    system_sequence = [
+        paper_id
+        for paper_id in (
+            "plectis-public-system",
+            "cold-clone-to-proof-receipt",
+            "claim-faithful-publication-systems",
+        )
+        if paper_id in by_id
+    ]
+    problem_routes = {
+        "erdos_243": ["erdos-243-reciprocal-tail-rigidity"],
+        "erdos_249": [
+            "erdos-249-binary-totient-series",
+            "erdos249-totient-reasoning-surface",
+        ],
+        "erdos_251": ["erdos-251-prime-gap-dyadic-series"],
+        "erdos_257": [
+            "erdos-257-mersenne-support-subseries",
+            "erdos257-mersenne-reasoning-surface",
+        ],
+        "erdos_269": ["erdos-269-three-prime-running-lcm"],
+        "erdos_1049": ["erdos-1049-rational-base-lambert"],
+    }
+    pack = _pack_skeleton(
+        "reference", "which papers should I read, and in what order?"
+    )
+    handles = [
+        handle
+        for paper_id in sorted(by_id)
+        if (handle := paper_handle(paper_id)) is not None
+    ]
+    stale_paper_ids = [
+        row["id"]
+        for row in handles
+        if row["source_freshness"] != "matches_corpus_digest"
+    ]
+    pack["found"] = bool(papers)
+    pack["paper_corpus_count"] = len(papers)
+    pack["summary"]["what_this_is"] = (
+        f"A question-first guide to {len(papers)} clone-local active papers. "
+        f"Do not read all of them by default. {len(stale_paper_ids)} generated "
+        "full-text projection(s) are stale against their local source; use each "
+        "row's preferred_read_path."
+    )
+    pack["summary"]["what_to_inspect_next"] = [
+        "docs/papers/README.md",
+        "docs/papers/corpus.json",
+    ]
+    pack["summary"]["what_not_to_trust"] = (
+        "Papers are exposition. They do not replace checked Lean source, claim "
+        "registries, methodology, or executable receipts."
+    )
+    pack["default_sequence"] = {
+        "purpose": "understand the two public repositories and their trust boundary",
+        "paper_ids": system_sequence,
+        "why_this_order": (
+            "Start with what the public Plectis evidence can show; then see how a "
+            "cold agent crosses from navigation to proof receipts; finish with how "
+            "formal results become bounded public claims."
+        ),
+    }
+    pack["task_routes"] = {
+        "understand_plectis": system_sequence,
+        "understand_formal_mathematics": {
+            "first": (
+                "In the companion Lean clone, read erdos249-257-main-paper.pdf "
+                "before selecting a problem-specific paper here."
+            ),
+            "then_choose_one": problem_routes,
+        },
+        "audit_claim_or_proof": [
+            "Use a paper to select a claim.",
+            (
+                "In the companion Lean clone run "
+                'python3 scripts/query_corpus.py --ask "<question>".'
+            ),
+            "Follow the emitted claim, declaration, source, and open handles.",
+        ],
+    }
+    pack["selected_nodes"] = [
+        handle
+        for paper_id in system_sequence
+        if (handle := paper_handle(paper_id)) is not None
+    ]
+    pack["paper_index"] = handles
+    pack["stale_paper_ids"] = stale_paper_ids
+    pack["problem_routes"] = problem_routes
+    pack["companion_repository"] = dict(LEAN_COMPANION_REPOSITORY)
+    pack["authority_order"] = corpus.get("authority_order")
+    pack["evidence_refs"] = [
+        "docs/papers/corpus.json",
+        "docs/papers/README.md",
+    ]
+    pack["reading_boundary"] = {
+        "stop_condition": (
+            "Stop after the smallest route answering the question; cross to typed "
+            "claims and source before asserting proof status."
+        ),
+        "task_classes": ["paper_reading", "scholarly_orientation"],
+        "source": "docs/papers/corpus.json",
+    }
     return pack
 
 
@@ -3047,6 +3277,62 @@ def compile_first_action(
         return _first_action_path_contract(
             inputs, goal, str(_rg_target), mutation=(mode == "mutation_plan")
         )
+    if not organ_target and mode == "papers":
+        spec = _SPEC_BY_MODE["papers"]
+        pack["routing"] = {
+            "basis": "paper_reading_question",
+            "packet_id": spec["packet_id"],
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for scholarly orientation: open the paper "
+            "guide, choose the smallest question-specific route, then cross into "
+            "the owning evidence surface."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": _runnable_command(spec["command"]),
+            "why": spec["when_needed"],
+            "committed_receipts": ["docs/papers/corpus.json"],
+        }
+        pack["owner"] = {
+            "scope": "clone_local_scholarly_corpus",
+            "packet_id": spec["packet_id"],
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                "python3 docs/papers/check_paper_corpus.py",
+                (
+                    "PYTHONPATH=src python3 -m microcosm_core comprehend "
+                    "--slice papers --format json"
+                ),
+            ],
+            "receipt_refs": ["docs/papers/corpus.json"],
+            "note": (
+                "the generated corpus owns paper identity and clone-local paths; "
+                "the guide only projects a reading order"
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop after selecting the smallest paper route; use typed claims, "
+                "checked source, and receipts before making an evidence claim."
+            ),
+            "task_classes": ["paper_reading", "scholarly_orientation"],
+            "source": "docs/papers/corpus.json",
+        }
+        pack["do_not_claim"] = (
+            "A paper reading route is navigation and exposition, not proof, "
+            "claim-status, release, or private-system authority."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "paper orientation is read-only",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice papers --format text",
+            "plectis comprehend --self-model --format text",
+        ]
+        return pack
     if not organ_target and mode == "mechanism":
         spec = _SPEC_BY_MODE["mechanism"]
         pack["routing"] = {
@@ -3932,6 +4218,52 @@ def _whole_substrate_rows(
     return out
 
 
+def _self_model_family_highlights(
+    families: list[dict[str, Any]],
+    atlas_by: dict[str, Any],
+    join_by: dict[str, Any],
+    mechanism_by: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Select one mechanism-bearing orientation handle for every family."""
+    highlights: list[dict[str, Any]] = []
+    for entry in families:
+        family = entry["family"]
+        member_ids = {
+            str(row.get("organ_id"))
+            for row in entry["organs"]
+            if row.get("organ_id")
+        }
+        preferred = SELF_MODEL_FAMILY_HIGHLIGHT_ORGAN_IDS.get(family)
+        organ_id = (
+            preferred
+            if preferred in member_ids
+            else next(
+                (
+                    candidate
+                    for candidate in sorted(member_ids)
+                    if (mechanism_by.get(candidate) or {}).get("line")
+                ),
+                next(iter(sorted(member_ids)), ""),
+            )
+        )
+        atlas_row = atlas_by.get(organ_id) or {}
+        join_row = join_by.get(organ_id) or {}
+        mechanism = mechanism_by.get(organ_id) or {}
+        highlights.append(
+            {
+                "family": family,
+                "family_organ_count": entry["count"],
+                "organ_id": organ_id,
+                "display_name": atlas_row.get("display_name") or organ_id,
+                "mechanism": mechanism.get("line", ""),
+                "evidence_class": join_row.get("evidence_class"),
+                "claim_ceiling": join_row.get("claim_ceiling"),
+                "drilldown": f"plectis comprehend --organ {organ_id}",
+            }
+        )
+    return highlights
+
+
 def _public_reader_block(
     health: dict[str, Any], atlas: dict[str, Any]
 ) -> dict[str, Any]:
@@ -3999,6 +4331,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["schema_version"] = SELF_MODEL_SCHEMA
     pack["context_profile"] = profile
     pack["target_reader"] = "cold Type A / cold codebase reader"
+    pack["companion_repository"] = dict(LEAN_COMPANION_REPOSITORY)
     # FRONT ANCHOR -- the strongest, load-bearing facts first (lost-in-the-middle guard).
     pack["read_me_first"] = [
         public_cross_section_claim(organ_count),
@@ -4041,9 +4374,11 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["summary"]["what_not_to_trust"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["sections"] = [
-        "read_me_first", "major_subsystems", "route_topology", "code_lens_health",
-        "authority_membrane", "thin_or_projection_surfaces", "deferred_edges",
-        "recommended_drilldowns", "tail_recap",
+        "read_me_first", "major_subsystems", "family_highlights",
+        "answer_contract", "companion_repository", "route_topology",
+        "code_lens_health", "authority_membrane",
+        "thin_or_projection_surfaces", "deferred_edges", "recommended_drilldowns",
+        "tail_recap",
     ]
     pack["major_subsystems"] = [
         {
@@ -4053,6 +4388,33 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         }
         for entry in families
     ]
+    pack["family_highlights"] = _self_model_family_highlights(
+        families,
+        atlas_by,
+        join_by,
+        inputs.get("mechanism_by_organ", {}),
+    )
+    pack["answer_contract"] = {
+        "purpose": (
+            "compose a faithful repository-wide explanation, not an inventory dump "
+            "or a description of only the nearest organ"
+        ),
+        "required_coverage": [
+            "state what Plectis is and give the complete seven-family census",
+            "explain at least one concrete mechanism from every family",
+            "separate runnable evidence, exact-copy imports, projections, and claim ceilings",
+            "surface known thinness and deferred proof-internal structure",
+            "name the Lean companion and keep its proof authority separate",
+        ],
+        "weighting_rule": (
+            "lead with mechanisms and non-trivial evidence; use counts as coverage "
+            "receipts, not as the explanation"
+        ),
+        "default_compression": (
+            "one paragraph of identity and boundaries, then one compact item per "
+            "family; enumerate all organs only when explicitly requested"
+        ),
+    }
     # ROUTE TOPOLOGY -- how task-class entry points fan out across organs. Honest in
     # both directions: a join index without the route plane says so and names the fix.
     if state["route_nodes"]:
@@ -4161,6 +4523,7 @@ _MODE_COMPILERS = {
     "self-model": lambda inputs, target: compile_self_model(inputs, target or "operating_picture"),
     "organ_cluster": lambda inputs, target: compile_organ_cluster(inputs, target or ""),
     "math": lambda inputs, target: compile_math(inputs),
+    "papers": lambda inputs, target: compile_paper_guide(inputs),
     "claim_trace": lambda inputs, target: compile_claim_trace(inputs, target or ""),
     "flow": lambda inputs, target: compile_flow(inputs, target or ""),
 }
@@ -4236,11 +4599,18 @@ def build_cached_read_packs(
         ("packet_atlas", "packet-atlas"),
     ):
         pack = comprehend(mode=mode, inputs=bundle)
+        # Wall-clock timing is useful in a live response but makes committed
+        # cold-clone read packs drift on every owner rebuild.
+        pack.pop("compile_ms", None)
         body = json.dumps(pack, ensure_ascii=True, indent=2, sort_keys=True) + "\n"
         path = target / f"{name}.json"
         path.write_text(body)
+        try:
+            manifest_path = path.relative_to(base)
+        except ValueError:
+            manifest_path = path
         manifest["packs"].append(
-            {"name": name, "path": str(path.relative_to(base)), "bytes": len(body)}
+            {"name": name, "path": str(manifest_path), "bytes": len(body)}
         )
     return manifest
 
@@ -4445,6 +4815,7 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("I just cloned this repo, what is it?", "first_contact"),
     ("comprehend the whole microcosm at once", "self_model"),
     ("where are the math and proof surfaces?", "math"),
+    ("which papers should I read, and in what order?", "papers"),
     ("how is this claim justified, what receipt proves it?", "claim_trace"),
     ("how does execution flow here", "flow"),
     ("what may I trust here?", "authority"),

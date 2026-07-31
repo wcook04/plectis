@@ -16,21 +16,21 @@
         "ORGAN_ID = \"corpus_readiness_mathlib_absence_gate\"",
         "def run"
       ],
-      "sha256": "sha256:5529d6ffdd651f5c48a04b421ee4e29ef607970c5709f042f50c46f22333459a",
+      "sha256": "sha256:44e9ac08fb7b410fa412391f910c586e28bbc8f0db2ca71a3753a108313975f9",
       "sha256_match": true,
       "source_byte_count": 94652,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 2340,
       "source_ref": "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
       "source_role": "Public Microcosm formal/prover organ logic used to validate public-safe readiness evidence.",
-      "source_sha256": "sha256:5529d6ffdd651f5c48a04b421ee4e29ef607970c5709f042f50c46f22333459a",
+      "source_sha256": "sha256:44e9ac08fb7b410fa412391f910c586e28bbc8f0db2ca71a3753a108313975f9",
       "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 94652,
       "target_expected_digest_match": true,
       "target_line_count": 2340,
       "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_body_floor/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
-      "target_sha256": "sha256:5529d6ffdd651f5c48a04b421ee4e29ef607970c5709f042f50c46f22333459a",
+      "target_sha256": "sha256:44e9ac08fb7b410fa412391f910c586e28bbc8f0db2ca71a3753a108313975f9",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_lean_sources_do_not_count_as_real_substrate"
       ]

@@ -1,42 +1,16 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
 \documentclass[11pt]{article}
-% House typography (shared with the companion Lean papers): TeX Gyre Pagella
-% under Tectonic/XeTeX, the same Palatino design through newpx under pdflatex.
-\usepackage{iftex}
-\ifpdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{newpxtext}
-  \usepackage{newpxmath}
-\else
-  \usepackage{fontspec}
-  \usepackage{unicode-math}
-  \setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,
-    BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
-  \setmathfont{texgyrepagella-math.otf}
-  \setmonofont{Inconsolatazi4}[Extension=.otf,UprightFont=*-Regular,
-    BoldFont=*-Bold,Scale=MatchLowercase]
-\fi
-\usepackage[a4paper,textwidth=418pt,textheight=636pt,hcentering,
-  top=68pt,headheight=15pt,headsep=20pt,footskip=34pt]{geometry}
-\usepackage{booktabs,array,enumitem,microtype}
-\linespread{1.045}
-\clubpenalty=10000 \widowpenalty=10000 \tolerance=1600
-\emergencystretch=2em
-\usepackage[dvipsnames]{xcolor}
-\definecolor{linkexternal}{HTML}{275D8C}
-\definecolor{linkinternal}{HTML}{6E2B2B}
-\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,citecolor=linkinternal]{hyperref}
+\usepackage{paper-house-style}
+\usepackage{booktabs,array,enumitem}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
+  citecolor=linkinternal]{hyperref}
 \usepackage{fancyvrb}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,calc}
-\usepackage{caption,float}
-\captionsetup{font=small,labelfont=bf,skip=9pt,width=0.92\linewidth}
-\fvset{fontsize=\small}
+\usepackage{float}
 \setlist{nosep,leftmargin=*}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.55em}
+\emergencystretch=2em
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\component}[1]{\nolinkurl{#1}}
 \newcommand{\repo}{\href{https://github.com/wcook04/plectis}{\nolinkurl{github.com/wcook04/plectis}}}
@@ -91,61 +65,7 @@
   pdflang={en-GB},
   pdfkeywords={research software, claim verification, public evidence, reproducibility, software artifacts, agent-assisted development},
 }
-% Front-matter and sectional architecture (house style).
-\usepackage{titlesec}
-\titleformat{\section}{\Large\bfseries}{\thesection}{0.85em}{}
-\titlespacing*{\section}{0pt}{2.4ex plus .8ex minus .3ex}{1.2ex plus .3ex}
-\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.8em}{}
-\titlespacing*{\subsection}{0pt}{1.9ex plus .6ex minus .2ex}{0.9ex plus .2ex}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small\itshape Plectis: what a stranger can check}
-\fancyhead[R]{\small\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}}
-\renewcommand{\arraystretch}{1.12}
-
-\makeatletter
-\newcommand{\subtitle}[1]{\gdef\@papersubtitle{#1}}
-\renewenvironment{abstract}{%
-  \vspace{0.1em}\small
-  \begin{center}{\normalsize\scshape Abstract}\end{center}\vspace{-0.5em}
-  \list{}{\leftmargin 1.3em\rightmargin\leftmargin\listparindent 0pt
-    \parsep 0.32em\itemindent 0pt}\item\relax}
-  {\endlist\vspace{0.5em}}
-\def\@maketitle{%
-  \newpage\null
-  \vspace*{-2.6em}%
-  \begin{center}%
-    {\LARGE\bfseries\@title\par}%
-    \vskip 0.55em
-    {\large\itshape\@papersubtitle\par}%
-    \vskip 1.1em
-    {\scshape\@author\par}%
-    \vskip 0.25em
-    {\small\@date\par}%
-    \vskip 0.8em
-    \rule{6.5em}{0.4pt}%
-  \end{center}%
-  \vskip 0.9em}
-% Production provenance, set at the foot of the first page.  A reader who meets
-% a single personal byline ordinarily infers that the named author drafted the
-% sentences; for this paper that inference is false, and a declaration reached
-% only at the back would leave it standing throughout.  The note carries no
-% mark, because it qualifies the whole manuscript rather than one passage.
-% \footnotetext does not advance the footnote counter, and the emptied
-% \thefootnote is confined to a group, so numbered footnotes are unaffected.
-% The wording is fixed by the corpus provenance contract, which the companion
-% papers reproduce in their own register, so the three cannot drift into three
-% different accounts of how they were made.
-\newcommand{\provenancenote}[1]{%
-  \begingroup
-  \renewcommand{\thefootnote}{}%
-  \footnotetext{#1}%
-  \endgroup}
-\makeatother
-
+\runninghead{Plectis: what a stranger can check}
 \title{Plectis: What a Stranger Can Check}
 \subtitle{What public evidence can and cannot show about a private system}
 \author{Will Cook}
@@ -153,40 +73,41 @@
 
 \begin{document}
 \maketitle
-\provenancenote{\emph{Production note.} I did not compose this manuscript
-sentence by sentence.  I designed and directed an agentic workflow that
-drafted and revised the prose and supporting code from objectives, evidence,
-and review criteria that I supplied.  I selected the claims, required
-revisions, reviewed and approved the published version, and take full
-responsibility for it.  The agents are production tools, not authors.
-Section~\ref{sec:problem} and Section~\ref{sec:hand} examine what follows from
-this.}
+\provenancenote{\emph{Authorship and generative-system use.} The prose in this version was generated by
+large-language-model agents under Will Cook's direction. Cook set the
+objectives and acceptance criteria, reviewed and authorised the manuscript,
+and is responsible for its contents. The agents are production tools, not
+authors. See \emph{Statements and declarations}.}
 
 \begin{abstract}
-Plectis is a public software repository (an organised, copyable project
-folder) built to expose selected claims about a larger private system. This
-paper asks what a stranger may reasonably conclude from public tests when the
-system stays private and its author chose both what to publish and what counts
-as a pass. The answer is narrow. The repository lets a reader inspect and rerun
-its published procedures, but a matching result cannot establish the hidden
-system's history, whether the published selection resembles the private whole,
-or whether the private system works reliably.
+This paper treats one named version of Plectis as a single case in a bounded
+descriptive analysis of testing public claims about software that cannot itself
+be published.  The author releases selected code, fixed inputs, expected
+results, decision rules, and run records while the larger system remains
+private.  What can a stranger conclude after rerunning those tests?  The answer
+is narrow.  The repository lets a reader inspect and rerun its published
+procedures.  A matching result shows repeatability for a stated public case; it
+does not establish where the code came from, whether the expected answer is
+correct, whether the published selection resembles the private whole, or
+whether the private system works reliably.
 
-In the version studied here, each of the \componentcount{} registered components
-(separately testable parts) connects a claim to a fixed input, command, saved
-output, pass rule, and stated limit. I call this a claim--evidence--limit
-contract. One component calculates an audio level from five small sample
-arrays; a reader can repeat it and challenge the expected numbers. That run
-still cannot show whether the pass rule tests the claim as written, how the
-code behaves on untested inputs, or whether risks outside the declared scan are
-absent. I chose the published fragments, inputs, answers, rules, and limits.
-The repository therefore lets a reader test claims about its published files
-and outputs, within those limits. I report that its published material was
-copied or adapted from the private system, which remains unpublished because it
-contains personal records, credentials, and unfinished tools. I also report
-that I developed it by directing coding tools based on artificial intelligence
-(AI). The argument does not depend on that account or on the claimed origin of
-the published material.
+The contribution is a method for making one selected disagreement local: the
+registered components (separately testable parts) place a prose claim beside a
+fixed test case, runnable procedure, expected result, decision rule, run
+record, and explicit inference limit.  The repository calls this package a
+claim--evidence--limit contract.  It is an executable-disclosure case study,
+not an evaluation of reviewer performance.  A worked component calculates an
+audio level from five small sample arrays.  A reader can repeat the calculation and,
+for one row, derive the expected number independently of the implementation.
+Even there, the run cannot show whether the pass rule tests the claim as
+written, how the code behaves on untested inputs, or whether the chosen formula
+is the right account of audio level.  I chose the published fragments, cases,
+answers, rules, and limits.  The paper therefore treats the repository as an
+author-curated test collection, not as independent validation of the private
+system.  I report that its published material was copied or adapted from that
+system and that I developed it by directing coding tools based on artificial
+intelligence (AI).  The argument does not depend on that account or on the
+claimed origin of the published material.
 \end{abstract}
 
 \section{The problem}
@@ -196,13 +117,14 @@ I have a larger private software system that I cannot responsibly publish:
 it contains personal records, credentials, live browser and account
 information, my working notes, and unfinished tools. I would still like
 strangers to be able to test some claims about it instead of accepting my
-say-so. I use \emph{answerable} in a deliberately local sense. A claim is
-answerable when a stranger can run a public procedure that bears on it, see
-how the result is judged, and point a disagreement at a named public input,
-rule, or output. This says nothing yet about whether the claim is true,
-important, or representative of the hidden system. This paper asks what
-conclusions that narrow form of answerability can support when the public
-fragments come from a system no reader can see.
+say-so. I use \emph{answerable} in a deliberately local sense: a claim is
+answerable when a stranger can run a public test that bears on it, see how the
+result is judged, and locate a disagreement in a named input, rule, or output.
+This is not a new synonym for truth, reproducibility, verification, or
+independent review. For the rest of the paper I use the plainer phrase
+\emph{publicly testable claim}. The question is what conclusions such a test
+can support when the larger system and the unpublished pool from which the
+test was selected remain invisible.
 
 Plectis is my working answer: a public software repository, stored at
 \repo. A \emph{repository} is an organised project folder, usually kept
@@ -211,22 +133,31 @@ folder and history to another computer. Everything this paper says a
 stranger can check is in that repository. This paper describes how its
 claims are exposed and where the evidence stops.
 
-At the time of this work I was 22, an economics undergraduate, working
-independently and without external funding. Over about ten months I built the
-private system by directing AI coding agents, software tools that can edit,
-run, and revise code across a task. I set objectives and review criteria,
-accepted or rejected their output, and sent them back to revise failures;
-the agents wrote nearly all of the code, and I wrote nearly none of it. No
-other person worked on the system. This account explains why the publication
-problem arose and why the choices examined below are my responsibility, but
-it remains testimony about origin. Plectis can expose public files and runs;
-it cannot independently prove how the private work was produced. The
-public repository does not prove the story, and the argument does not rely on it.
+The main result is a boundary, not a score. Public code, inputs, rules, and
+run records can make a selected claim easier to challenge. They cannot by
+themselves establish three missing premises: that the public code came from
+the private system, that the project's expected answers and pass rules are
+correct, or that the selected cases represent the unseen whole. The audio
+example in Section~\ref{sec:run} shows all three limits in one elementary
+calculation. The later inventory records what was published; it is not
+evidence of breadth, quality, or independence.
+Runeson and H\"ost likewise treat configuration-managed project documents as
+archival data while warning that records created for another purpose may omit
+needed information and be difficult to assess without complementary sources
+\cite[\S4.4, p.~148]{runeson2009}.
+The repository therefore lets a reader test claims about the public objects it
+actually exposes, within the limits stated for each test.
 
-The limit on what a public run can establish would be the same if every line
-had been written by hand. Authorship might affect how often a failure occurs:
-for example, an implementation and the program that checks it can share a mistake when
-one process drafts both. This paper compares no development methods and
+\paragraph{Who made the decisions.}
+I built the private system by directing AI coding agents: I set the objectives
+and review criteria, accepted or rejected their output, and remained
+responsible for the cases, expected answers, decision rules, and final public
+wording.  No other person worked on the system.  This account explains the
+concentration of control, but it remains testimony about origin: Plectis
+cannot independently prove how the private work was produced, and the public
+repository does not prove the story.  The same evidential limit would hold if
+every line had been written by hand.  One process can give an implementation
+and its check the same mistake; this paper compares no development methods and
 estimates no error rates.
 
 The boundary of the evidence can be stated before any command is run:
@@ -258,12 +189,15 @@ sections identify the choices an evaluator would need to make independently
 of me.
 
 This is a descriptive analysis of one public repository, not a statistical
-study. Runeson and H\"ost distinguish a case from the units of analysis within
-it \cite[\S2.5]{runeson2009}. I borrow only those two terms: the named repository
-version is the single case, and each component is a \emph{unit of analysis}
-(one item examined inside that case). This paper does not otherwise claim a
-full case-study design. No subset of the components is used to estimate
-performance or represent the private system.
+study. Runeson and H\"ost define the case as the object of study and its units
+of analysis as items contained within it
+\cite[\S2.5, p.~138]{runeson2009}. They also note that this boundary depends
+on the study context and research goals \cite[\S3.1, p.~139]{runeson2009}. I
+borrow only those two terms: the named repository version is the single case,
+and each component is a \emph{unit of analysis} (one item examined inside that
+case). This paper does not otherwise claim a full case-study design. No subset
+of the components is used to estimate performance or represent the private
+system.
 
 Reading this paper requires no programming. Reproducing its runs requires
 basic command-line use, a terminal (a text window for commands), Git (for
@@ -272,21 +206,59 @@ copying and versioning repositories), Python 3.11 or later, and \code{pip}
 environment details, and installation notes. It is a dated record of one
 verification pass at the version named there.
 
+\section{One public test before the general design}
+\label{sec:early-example}
+
+Consider four decimal audio samples:
+\[
+0,\quad 0.05,\quad -0.05,\quad 0.1.
+\]
+The published procedure squares them, averages the squares, takes the square
+root, and multiplies by eight.  Their squared average is \(0.00375\), so the
+stated rule gives \(8\sqrt{0.00375}=0.489897\ldots\).  The public program
+produces \(0.489897949\).  Anyone with a calculator can reproduce the expected
+number without trusting the program.
+
+That agreement establishes something real and small: this public program
+agrees with the stated formula on this test case.  It does not establish that
+the formula is the right account of audio level, that the public code came
+from the private system, that other inputs behave similarly, or that important
+risks were selected for testing.  Those conclusions require additional
+premises that the observed match does not contain.
+
+The paper asks the same six questions of every published item:
+\begin{enumerate}
+\item What sentence is offered for belief?
+\item What public object or procedure was checked?
+\item Who supplied the interpretation or expected result?
+\item What does the observed match establish?
+\item What remains unestablished?
+\item Which independently controlled evidence would strengthen it?
+\end{enumerate}
+Section~\ref{sec:run} gives the full command, all five audio cases, and the
+saved run record.  We now generalise from this example to the project's common
+record format.
+
 \section{The component contract}
 \label{sec:contract}
 
 A \emph{component} in Plectis is one registered, testable part of the
-project. Its \emph{fixture} is a fixed sample input. A \emph{receipt} is the
-saved record of a run. The repository supplies one from an earlier run;
-rerunning can write another. A \emph{validator} is the program that applies a
-component's pass and refusal rules. A
-\emph{commit} is a named, saved version of the repository. These terms
-describe files and commands. Here \emph{evidence} means the public input,
-procedure, output, and judgement rule offered in support of a claim. Calling
-them evidence does not establish their adequacy. \emph{Contract} means only
-that the claim, those materials, and a limit are stated together so readers
-can check their fit. Nothing in these labels grades the importance of what a
-component does.
+project. Its \emph{fixture} is a fixed sample input: in ordinary testing
+language, a test case. A \emph{receipt} is the saved record of a run. The
+repository supplies one from an earlier run; rerunning can write another.
+A \emph{validator} is the program that applies a component's pass and refusal
+rules. In testing terminology, the rule and expected result together act as
+the test oracle: they say what should count as correct for that case. A
+\emph{commit} is a named, saved version of the repository. These are Plectis's
+internal names for familiar objects---test case, test oracle, run record, and
+saved software version---and the paper uses the familiar terms whenever the
+internal filename is irrelevant.
+
+Here \emph{evidence} means the public input, procedure, output, and judgement
+rule offered in support of a claim. Calling them evidence does not establish
+their adequacy. \emph{Contract} means only that the claim, those materials,
+and a limit are stated together so readers can check their fit. Nothing in
+these labels grades the importance of what a component does.
 
 At commit \code{\snapshotshort} the registry, the component list read by the
 programs, contains \componentcount{} entries. Every entry is required to
@@ -407,34 +379,55 @@ Answerability is not the same property as computational reproducibility,
 although the component contract supplies materials needed to test the
 latter. Under the convention used by the National Academies, computational
 reproducibility means obtaining consistent results using the same input
-data, computational steps, methods, code, and conditions of analysis; such
-consistency does not by itself establish correctness
-\cite[conclusion 3-1]{nasem2019}.
-In software testing, a \emph{test oracle} is the information or procedure used
-to decide whether an observed output is correct. The challenge of making that
-distinction is called the test oracle problem \cite[p. 507]{barr2015}. The risk
+data, computational steps, methods, code, and conditions of analysis
+\cite[conclusion 3-1]{nasem2019}. The report separately cautions that exact
+reproducibility does not guarantee computational correctness: undetected
+erroneous code can reproduce the same erroneous result
+\cite[p.~9]{nasem2019}.
+In software testing, a \emph{test oracle} is a procedure used to distinguish
+correct from incorrect behaviour. The challenge of making that distinction is
+called the test oracle problem \cite[p.~507]{barr2015}. Barr et al.\ distinguish
+a partial test oracle \(D\) from a conceptual ground-truth oracle that always
+gives the right answer, modelled as a total oracle \(G\), while observing that
+such ground truth is unknowable except in trivial cases
+\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}. Soundness requires
+\(D(a)\Rightarrow G(a)\), and completeness requires
+\(G(a)\Rightarrow D(a)\). A passing validator therefore applies its published
+rule; it does not by itself establish that the rule is sound. The risk
 that a curated collection disproportionately exposes favourable cases is
 analogous to selective publication and the file-drawer problem
-\cite{rosenthal1979}.
-An \emph{assurance case} links a system claim to reasons and evidence. The
+\cite[p.~638]{rosenthal1979}.
+An \emph{assurance case} links system claims to arguments and evidence. The
 Object Management Group's Structured Assurance Case Metamodel (SACM), version
-2.3, describes such cases as auditable claims, arguments, and evidence. Section
-2.2 says the Claims--Arguments--Evidence notation has its own mapping onto SACM;
-informative Annex A.2 points to the maintained mapping details
-\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}. Plectis is
-not an implementation of that standard and makes no claim that the private
-system is safe. Its validator applies a published rule; it does not supply the
-full argument from evidence to claim that an assurance case would require.
+2.3, defines such a case as a collection of auditable claims, arguments, and
+evidence. It separately represents an artifact citation and the
+\emph{AssertedEvidence} relationship said to connect that artifact to a claim;
+the relationship is itself an assertion by the case's author. Representing an
+argument is therefore not the same as establishing its validity
+\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}. The GSN Community Standard
+states the boundary more directly: GSN documents an asserted chain of
+reasoning and its evidential references, but the notation itself establishes
+neither the truth of the argument nor the sufficiency of its support
+\cite[\S0:3.2, p.~11; \S\S0:4.11--0:4.13, p.~15]{gsn}. Plectis is not an
+implementation of that standard or of GSN, and makes no claim that the private
+system is safe. Its validator applies a published rule and records a result;
+it neither models nor independently justifies the evidential link from that
+result to the prose claim.
 The Association for Computing Machinery (ACM) calls digital research materials
 such as code, scripts, and data
 \emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
 those materials passed an independent audit for documentation, consistency,
 completeness, ability to run, and evidence of verification and validation.
-\emph{Results Reproduced} means another team later obtained the main results
-using some author-supplied artifacts \cite{acmartifact}. Plectis claims neither
-status. These standards are comparison points, not statuses awarded here. This
-paper claims no new theory of assurance, testing, or reproducibility; it reads
-each public procedure against its claim and stated limit.
+The NISO recommended practice separates object review, reproduction with the
+author's objects, and replication by a new study
+\cite[secs.~2.2--2.4]{nisobadging2021}. ACM's harmonised current names are
+\emph{Results Reproduced} and \emph{Results Replicated}; its badges are
+independent, and results validation requires a peer-reviewed report
+\cite{acmartifact}. Plectis claims neither status: its receipts are
+author-generated, not independent review or validation. These standards are
+comparison points, not statuses awarded here. This paper claims no new theory of
+assurance, testing, or reproducibility; it reads each public procedure against
+its claim and stated limit.
 
 \section{One run, examined}
 \label{sec:run}
@@ -576,16 +569,23 @@ Five labels organise the gaps in Figure~\ref{fig:gaps}: \emph{origin}, where
 the material came from; \emph{correctness}, whether an answer is right;
 \emph{meaning}, whether a rule tests its claim; \emph{reach}, whether shown
 cases stand for unshown ones; and \emph{risk}, what the declared checks may
-miss. Each subsection separates observation from inference.
+miss. These short labels correspond to familiar questions about provenance,
+test-oracle validity, claim--test fidelity, representativeness, and residual
+risk. They are not five new kinds of evidence. Each subsection separates what
+the public run directly shows from the additional premise needed for a stronger
+conclusion.
 
 \subsection*{Public execution versus where the code came from}
 
 A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
 Plectis records that boundary. Each copied file has a claimed source and a
-SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
-used to detect change \cite{nistfips1804}. Two different files can in principle
-have the same fingerprint. For this comparison, the relevant question is
+SHA-256 message digest, used here as a fingerprint: a 256-bit value calculated
+from its contents and used to detect change
+\cite[abstract, p.~iii; \S1 and Fig.~1, p.~3; \S6.2, p.~21]{nistfips1804}.
+Two different files can in principle have the same digest: FIPS 180-4 treats
+finding such a pair as computationally infeasible, not mathematically
+impossible \cite[p.~iv]{nistfips1804}. For this comparison, the relevant question is
 whether one can start with a specified file and find a different file with the
 same fingerprint. The National Institute of Standards and Technology (NIST)
 calls this second-preimage resistance and expects an approved hash function to
@@ -600,7 +600,9 @@ claims could only be strengthened by something a public repository cannot
 supply about itself, such as commitments published before the fact, or a
 trusted person permitted to examine both sides. The term \emph{provenance}
 means an object's origin and history. Here, that origin remains reported
-rather than publicly established.
+rather than publicly established. FIPS 180-4 itself similarly cautions that
+conformance to the standard does not assure that a particular implementation
+is secure \cite[qualification 12, p.~v]{nistfips1804}.
 
 \subsection*{Repeatability versus correctness}
 
@@ -648,7 +650,7 @@ or whether the collection resembles ordinary work in the private system. A
 collection can consist entirely of genuine items and still give an
 unrepresentative picture of what it was drawn from. This is analogous to
 selective publication and the file-drawer problem, not the same process
-\cite{rosenthal1979}.
+\cite[p.~638]{rosenthal1979}.
 Figure~\ref{fig:boundary} draws the situation: public checking reaches
 everything to the right of the boundary, and the pool the selection was
 drawn from stays on the left.
@@ -785,6 +787,11 @@ component at a time.}
 \section{What the collection contains}
 \label{sec:collection}
 
+This section is a dated inventory, not a result. The categories are useful for
+finding a test and for seeing which kind of limitation accompanies it. Their
+names and counts do not measure importance, correctness, independence, or
+coverage of the private system.
+
 At commit \code{\snapshotshort} the \componentcount{} components fall into
 \familycount{} groups:
 
@@ -805,12 +812,9 @@ Work recovery & \recoverycount & Record unfinished changes and test how work res
 \end{tabular}
 \end{center}
 
-The groups do not share a subject; computer-checked mathematics has nothing
-in particular to do with audio levels or with recovering interrupted work.
-Their unity is the contract of Section~\ref{sec:contract}: these are the
-places in the private system where a mechanism could be turned into a small,
-runnable public procedure. The collection is organised by how its claims are
-checked, not by subject.
+The groups do not share a subject. Their only unity is the contract of
+Section~\ref{sec:contract}: each item became a small public test. The collection
+is organised by how claims are checked, not by a common scientific question.
 
 The registry also classifies what kind of evidence each component supplies.
 It calls this classification a \emph{route}. A route says whether the
@@ -832,41 +836,28 @@ Contract checker & \validatorcount & Whether a public input satisfies a declared
 \end{tabular}
 \end{center}
 
-The copied-source route preserves the most text and demonstrates the least
-behaviour.
-A reimplementation demonstrates behaviour while surrendering textual
-identity; the worked example is one of the \refactorcount{} in that route.
-An external-tool run inherits whatever confidence the tool deserves, along
-with the tool's limits. A contract checker is worth exactly the contract its
-author chose to require. Find one item in the public component map,
-\component{ORGANS.md} (an inherited filename). Rows give a description, first
-command, scope limit, and longer-page link. Follow it rather than guessing:
-some components share a page. The example points to
-\component{paper_modules/batch8_audio_level_rms_port.md}; its registry row adds
+Copied source preserves text but demonstrates little behaviour; a
+reimplementation does the converse; an external-tool run inherits the tool's
+limits; and a contract checker is worth exactly the rule its author chose.
+To inspect one item, use the public component map,
+\component{ORGANS.md} (an inherited filename). Follow it rather than guessing,
+because some components share a page. The audio row points to
+\component{paper_modules/batch8_audio_level_rms_port.md}, which in turn names
 the fixture, receipts, route, and limit.
 
-Two cautions govern any reading of these tables. The first caution is
-arithmetic: components are not independent witnesses. Entries share code, fixture
-style, validator authorship, and my judgement; several entries can descend
-from one private mechanism, and where they do, their verdicts tend to move
-together.
-\componentcount{} entries are \componentcount{} registered claims, not
-\componentcount{} separate confirmations of anything. The same discount
-applies across the routes: they impose four different limits on what may be
-concluded; they are not four independent methods confirming one claim.
-Pages, registry entries, and receipts generated from the same underlying
-records repeat one witness rather than supply several. Machine checks can
-catch accidental disagreement among those records. They cannot create an
-independent witness.
+Two cautions govern the tables. First, components are not independent
+witnesses: they share code, fixture style, authorship, and judgement.
+\componentcount{} entries are registered claims, not \componentcount{}
+confirmations. Pages, entries, and receipts generated from the same underlying
+records repeat one witness rather than supply several. Machine checks can catch
+their accidental disagreement. They cannot create an independent witness.
+The four routes impose four different limits on what may be concluded; they
+are not four independent methods confirming one claim.
 
-The second caution is association. Group names such as computer-checked
-mathematics and AI reliability and safety tests borrow gravity from serious
-fields, and the borrowing happens in a reader whether or not any sentence
-asserts it. The corrective is to restate each group as the weakest
-property its validators actually check, which is often that a fixed case
-replays or that a record matches a declared shape, and then see how much of
-the impression survives. The names are for finding components, not for
-weighing them.
+Second, names such as computer-checked mathematics and AI reliability and
+safety tests borrow gravity from serious fields. Read each row as the weakest
+property its tests actually check---often that a fixed case replays or a record
+has a stated shape. The names help find components; they do not weigh them.
 
 \section{The author's hand}
 \label{sec:hand}
@@ -923,7 +914,7 @@ for independent verification and validation (IV\&V), a formal software check,
 through three separations: technical (the evaluator did not develop the system);
 managerial (a separate organisation chooses scope, methods, and schedule); and
 financial (an independent group controls the budget without adverse financial
-pressure) \cite[\S4.4.1.2]{nasa8739}.
+pressure) \cite[\S4.4.1.2, p.~48]{nasa8739}.
 These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
 no IV\&V. No other outside evaluation report is cited or included, and I know
 of none; an unreported private rerun would remain invisible. I use the NASA
@@ -1029,6 +1020,24 @@ review itself could not be published. The privacy cost may reasonably
 never be paid. If it is not, the origin story remains testimony, and this
 paper is written so that its argument does not depend on it.
 
+\subsection*{A falsifiable comparison}
+
+The next study should compare two presentations of the same frozen public
+items.  The baseline would provide ordinary documentation, code, outputs, and
+tests.  The comparison condition would additionally provide the explicit
+claim, test case, expected result, decision rule, run record, and inference
+limit used here.  Evaluators who did not design the items would choose from the
+frozen public list, inspect deliberately mismatched claim--rule pairs, use
+fresh inputs where an expected result can be justified independently, and
+publish failures without author substitution.
+
+The useful observations would be whether readers detect a mismatch, how often
+they wrongly accuse a matching item, how long they take to locate the point of
+disagreement, whether they reproduce the run, and how well their confidence
+tracks those outcomes.  That study would measure reviewer behaviour on the
+public items.  It would still not measure the private system, the unseen
+selection pool, or correctness beyond the independently justified cases.  No
+such comparison is reported in this paper.
 \subsection*{From an open question to a falsifiable handoff}
 \label{sec:hypothesis-handoff}
 
@@ -1114,15 +1123,35 @@ risk reduction into a guarantee.
 \section{Conclusion}
 \label{sec:conclusion}
 
-Plectis does not make the private system answerable as a whole. It publishes
-fixed cases, procedures, outputs, rules, and limits so particular claims can
-be challenged. A pass is no stronger than its rule or the expected answer's
-basis.
+Plectis makes selected public claims testable; it does not verify the private
+system as a whole. Its fixed cases, procedures, outputs, rules, and stated
+limits let a stranger repeat a result and identify exactly what they dispute.
+A pass is no stronger than the test oracle---the rule and expected answer---or
+than the basis for believing that oracle.
+
+The worked audio calculation demonstrates the hierarchy. Repeating the stored
+result supports computational reproducibility for that public case. Deriving
+one expected number by arithmetic adds evidence that the implementation agrees
+with the stated formula on that case. Neither step establishes that the formula
+is the right audio rule, that the code came from the private system, or that the
+selected case represents it.
 
 More author-controlled components enlarge the inventory without changing who
-chose the cases or rules. Moving a relevant choice out
-of the author's hands can strengthen evidence about that choice; it does not
-repair every gap.
+chose the cases or rules. Moving a relevant choice out of the author's hands
+can strengthen evidence about that choice; it does not repair every gap.
+
+\appendix
+\small
+\setlength{\parskip}{0pt}
+
+\section{Dated reproduction record}
+\label{sec:appendix}
+
+Except where a paragraph gives a later date, this appendix records one run on
+17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
+The repository version was commit \code{\snapshotcommit}, abbreviated
+\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
+does not depend on them.
 
 A typed hypothesis handoff makes the next outside contribution more specific:
 it exposes the project's tentative answer, alternatives, and update rule before
@@ -1162,19 +1191,6 @@ The final number printed should be \code{1}; in the acceptance file,
 \code{false}. This means the validator caught the deliberate mismatch; the
 exercise did not crash. Report any different result in
 \code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
-
-\appendix
-\small
-\setlength{\parskip}{0pt}
-
-\section{Dated reproduction record}
-\label{sec:appendix}
-
-Except where a paragraph gives a later date, this appendix records one run on
-17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
-The repository version was commit \code{\snapshotcommit}, abbreviated
-\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
-does not depend on them.
 
 \paragraph{Names.} Repository: \repo. Formerly Microcosm, Plectis retains
 package \code{microcosm\_core}, page \code{ORGANS.md} (``organs'' means
@@ -1251,20 +1267,23 @@ the example, cautions, or citations disagree. It checks historical facts against
 the pinned commit separately from current prose; with one maintainer, that is
 internal consistency, not external truth.
 
-\paragraph{Declaration of generative AI use.} Large-language-model agents were
-used throughout development to draft and revise prose, formal proofs, and
-software. The author set the objectives and acceptance criteria, selected and
-reviewed the claims, and approved the published version. The author assumes
-responsibility for the accuracy, interpretation, and presentation of the work.
-Generative systems are production tools; they are not authors and supply no
-independent authority. Section~\ref{sec:problem} states this in the first
-person and Section~\ref{sec:hand} examines the concentration of choice it
-leaves; both are part of this paper's subject rather than background to it. The
-account of private production is testimony about origin, and the paper's
-publicly testable claims depend only on the published files, commands, and
-stated limits identified here.
+\section*{Statements and declarations}
 
-\begin{thebibliography}{10}
+\paragraph{Declaration of generative AI use.}
+Large-language-model agents were used throughout development to draft and
+revise prose, formal proofs, and software. The author set the objectives and
+acceptance criteria, selected and reviewed the claims, and approved the
+published version. The author assumes responsibility for the accuracy,
+interpretation, and presentation of the work. Generative systems are production
+tools; they are not authors and supply no independent authority.
+
+\paragraph{Authority boundary.}
+The account of private production is testimony about origin, not independent
+evidence about the system's correctness, representativeness, or reliability.
+The public commands and records establish only the cases and limits stated in
+this paper.
+
+\begin{thebibliography}{12}
 \fontsize{7.5pt}{8.3pt}\selectfont
 \raggedright
 \setlength{\itemsep}{0pt}
@@ -1299,6 +1318,18 @@ Object Management Group.
 \href{https://www.omg.org/spec/SACM/2.3/PDF}{\emph{Structured Assurance Case Metamodel (SACM)}},
 2.3, formal/23-05-08, October 2023.
 
+\bibitem{gsn}
+SCSC Assurance Case Working Group (ACWG).
+\emph{Goal Structuring Notation Community Standard, Version 3}.
+SCSC-141C, May 2021.
+\href{https://scsc.uk/scsc-141c}{SCSC-141C}.
+
+\bibitem{nisobadging2021}
+National Information Standards Organization.
+\href{https://doi.org/10.3789/niso-rp-31-2021}{\emph{Reproducibility Badging
+and Definitions}},
+NISO RP-31-2021, approved 15 Jan. 2021.
+
 \bibitem{acmartifact}
 Association for Computing Machinery.
 \href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{``Artifact Review and Badging---Current,''}
@@ -1317,7 +1348,7 @@ Updated 9 September 2024. Accessed 18 July 2026.
 \bibitem{nasa8739}
 National Aeronautics and Space Administration.
 \emph{Software Assurance and Software Safety Standard},
-NASA-STD-8739.8B, Section 4.4.1.2, 2022.
+NASA-STD-8739.8B, Section 4.4.1.2, p.~48, 2022.
 \href{https://standards.nasa.gov/standard/NASA/NASA-STD-87398}{NASA-STD-8739.8B}.
 
 \bibitem{leanvalidation}

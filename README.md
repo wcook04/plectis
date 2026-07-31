@@ -3,15 +3,16 @@
 [Website](https://wcook04.github.io/plectis/) ·
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [The Plectis paper (PDF)](plectis-public-system.pdf) ·
-[Companion mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) ·
+[Paper guide](docs/papers/README.md) ·
+[Lean companion](https://github.com/wcook04/plectis-lean-erdos249-257) ·
 [Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
-**One private, AI-built system, two public demonstrations. Plectis is the
-machinery: 88 components you can inspect and run on your machine. Each
-component states one claim, takes a small frozen input, runs a local check,
-and writes a receipt you can read.**
+**Plectis is a local Python tool and an 88-component reference corpus for
+checking claims made about agent-built software. Each component states one
+narrow claim, takes a small frozen input, runs a local check, and writes a
+receipt you can inspect.**
 
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
@@ -22,19 +23,33 @@ python3 -m pip install .
 plectis tour --format text .
 ```
 
-The other demonstration is the companion Lean repository,
+The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
-which shows the same system's output: machine-checked mathematics around two
-open Erdős problems, #249 and #257, both still open. I have been building the
-private system alone with coding agents; it is not itself published, and these
-two repositories are what a stranger can check. Three short papers explain the
-pair: [the Plectis paper](plectis-public-system.pdf) in this repository,
-[the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
-for what is proved and where the open line sits, and
+contains the Lean source and papers for six open Erdős problems: #243, #249,
+#251, #257, #269, and #1049. All six remain open. Plectis carries the runnable
+claim-checking tools; the Lean repository carries the machine-checked
+mathematics. Neither repository establishes anything about the private
+development environment from which the public work was prepared.
+
+For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
+For a mathematical problem or result, start with the
+[Lean repository README](https://github.com/wcook04/plectis-lean-erdos249-257#readme)
+and then choose its problem-specific paper. Read
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
-for how machine-checked proofs become public claims. All three travel with this
-clone, as PDFs and as full text you can search, in
-[`docs/papers/`](docs/papers/) — you do not need the website to read them.
+for the boundary between a Lean theorem and a public claim about that theorem.
+The clone-local [`docs/papers/`](docs/papers/) directory carries the active
+paper corpus as PDFs and searchable text, so reading it does not require the
+website.
+
+For the wider scholarly corpus, start with the clone-local
+[paper guide](docs/papers/README.md), or ask the machine route:
+
+```bash
+plectis comprehend --slice papers --format text
+```
+
+It says what each paper owns, what it cannot establish, and which short
+sequence fits your question. You do not need to read all 11 papers.
 
 ## What you get
 
@@ -177,8 +192,9 @@ read.
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every component's real mechanism, one line each. |
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
+| Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for six open Erdős problems: #243, #249, #251, #257, #269, and #1049. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
@@ -266,37 +282,33 @@ developed by William Cook as an independent, AI-native solo project; see
 [PROVENANCE.md](PROVENANCE.md) for authorship, third-party, and
 no-affiliation boundaries.
 
-## Companion project: two open Erdős problems in Lean 4
+## Companion project: six open Erdős problems in Lean 4
 
-The **Formal Math & Proof** area above includes an Erdős #249/#257 example.
-This is the full, standalone Lean development behind it:
+The **Formal Math & Proof** area above includes bounded examples drawn from a
+separate Lean repository. That repository owns the proof source and
+mathematical exposition:
 
 [**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-lean-erdos249-257)
-is a Lean 4 formalisation built around two open Erdős irrationality problems,
-**#249 and #257**. Every partial result, certificate reduction, and finite
-exclusion it states is machine-checked by a pinned Lean kernel, and the exact
-propositions that remain open are named rather than glossed. It does not solve
-Erdős #249 or the universal form of #257, and it is precise throughout about
-the line between what is proved and what is not. That same
-evidence-and-ceiling discipline, applied to real mathematics rather than
-software, is why it is worth a look. It exists for the same reason Plectis
-does: the system behind both is not published, and these two repositories are
-how it can be judged from the outside.
+contains Lean 4 work on Erdős Problems **#243, #249, #251, #257, #269, and
+#1049**. All six remain open. Its README gives the statement, checked frontier,
+and remaining obligation for each problem. The pinned Lean kernel checks the
+formal propositions; the repository's claim records and papers explain what
+those propositions do and do not establish. Plectis does not inherit proof
+authority from that repository.
 
 The public Plectis checkout applies the same floor to every Lean fixture it
 ships: `make check` rejects proof placeholders, project-defined axioms, native
 evaluation, unsafe/partial declarations, and unbounded kernel limits before
 the broader test suite runs.
 
-- [**Read the mathematics paper**](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf):
-  what is proved about #249 and #257 in ordinary notation, and exactly where
-  the open line sits. The tagged citation copy is the
-  [v0.6.0 exposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf).
+- [**Choose a problem paper**](https://github.com/wcook04/plectis-lean-erdos249-257#problem-papers):
+  the companion README lists one short paper for each covered problem and
+  states the checked frontier beside it.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/0b075ccc813c4511cd1436c64ceb41a0d9150d71):
-  the recorded public source snapshot contains 991 Lean modules and 149,807
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/b028075c6fff596143db012d6f73912f2e30f731):
+  the recorded public source snapshot contains 992 Lean modules and 149,812
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
   mathematical claims; `v0.6.0` remains the tagged citation anchor.

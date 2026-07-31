@@ -154,8 +154,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1782712913503973997,
-      "receipt_mtime_ns": 1782745856570968085,
+      "latest_input_mtime_ns": 1785463608378572846,
+      "receipt_mtime_ns": 1785463613036387356,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -163,7 +163,7 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 35021,
+    "cached_receipt_bytes": 35688,
     "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -6336,7 +6336,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "body_digest": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6376,7 +6376,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "body_digest": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6654,7 +6654,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "body_digest": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6694,7 +6694,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+        "body_digest": "sha256:531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6767,26 +6767,6 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-        "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-        ],
-        "verification_mode": "exact_source_digest_match"
-      },
-      {
-        "body_digest": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-        "body_text_in_receipt": false,
-        "import_accounting_source": "bundle_source_module_manifest",
-        "material_class": "public_macro_tool_body",
-        "material_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
-        "source_refs": [
-          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-          "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json"
-        ],
-        "source_to_target_relation": "exact_copy",
-        "status": "pass",
-        "target_digest_matches": true,
-        "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
         "validation_refs": [
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
@@ -6874,7 +6854,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "body_digest": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -7638,7 +7618,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "body_digest": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -7658,7 +7638,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "body_digest": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -7751,26 +7731,6 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-        "validation_refs": [
-          "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
-          "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
-        ],
-        "verification_mode": "exact_source_digest_match"
-      },
-      {
-        "body_digest": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-        "body_text_in_receipt": false,
-        "import_accounting_source": "bundle_source_module_manifest",
-        "material_class": "public_macro_tool_body",
-        "material_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
-        "source_refs": [
-          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-          "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json"
-        ],
-        "source_to_target_relation": "exact_copy",
-        "status": "pass",
-        "target_digest_matches": true,
-        "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
         "validation_refs": [
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
@@ -7878,7 +7838,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+        "body_digest": "sha256:531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7966,7 +7926,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:1e105c62061210b188c8480859b8bf87706dc8cd93e8bb5852720a768594f8c1",
+        "body_digest": "sha256:c04be349d8a552bd37a043ad4acb3dee0ac2610b27860afaa268e8d48051c1e0",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8066,7 +8026,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:5948b1cf1a1a1b128be217991f4a3de5bc034640c4b3eb485ded2253b96bc9c6",
+        "body_digest": "sha256:a95f28f75f9b24a1e443bfa947f26d0a972f3e664b4549a8ffdf3c5d9ef05c94",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8086,7 +8046,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:198c424e982a6118acdf59de9d8e895d1acd7e51603d1b6c1370357baff68880",
+        "body_digest": "sha256:44e9ac08fb7b410fa412391f910c586e28bbc8f0db2ca71a3753a108313975f9",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8106,7 +8066,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
+        "body_digest": "sha256:e7d037f469dd1f25fb400f61013d55a6204bb397912c9fff5783ddedb4fa2d76",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8146,7 +8106,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:63bc7a7835cee8c91fe2b5bff0baa03503abb70aa545c61e40cbe4d2e79242f6",
+        "body_digest": "sha256:fe0304adfc49d896be17037c4ef364ee5683f56c75a4e6a44713d76d24ba2532",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8166,7 +8126,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b4ff97bc21d8c17dc8317b929aeb984e38acbba00fa4ff3ec82984cc1193ab31",
+        "body_digest": "sha256:8620d635e1ba0aa5dc3da36b2db3b12a136b6c8d04253c992aea17cc85d21cb2",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8206,7 +8166,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:98010e2dbba6c20b88477f4a5a630b3bf487f0d07ca1d64da4d96eb0bbc65a0c",
+        "body_digest": "sha256:d4bbe35344e730f234fa06d18828e491290268b23d2300e48c9a2b22690d794b",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8226,7 +8186,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a32fc23bbf59fdfc44fa88b2c213ba2fa7229b7b4a1dc8c16dcd2a714fdd0609",
+        "body_digest": "sha256:0f352d145409113bb178919809c4fc05952570516033a1b69212aa3952541880",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8267,11 +8227,11 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 395,
+    "copied_non_secret_macro_body_material_count": 393,
     "defect_count": 0,
     "defects": [],
     "direct_source_module_manifest_count": 35,
-    "direct_source_module_manifest_material_count": 146,
+    "direct_source_module_manifest_material_count": 144,
     "direct_source_module_manifest_refs": [
       "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
@@ -8559,7 +8519,6 @@
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-        "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -8586,7 +8545,6 @@
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-        "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -8622,7 +8580,7 @@
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
       "status": "pass"
     },
-    "non_lean_tool_body_material_count": 293,
+    "non_lean_tool_body_material_count": 291,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -8630,14 +8588,14 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 395,
+    "public_safe_body_material_count": 393,
     "public_safe_body_material_counts_by_class": {
       "public_macro_packet_compiler_body": 2,
       "public_macro_packet_compiler_test_body": 1,
       "public_macro_pattern_body": 29,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 56,
-      "public_macro_tool_body": 293,
+      "public_macro_tool_body": 291,
       "public_standard_body": 6
     },
     "route_readiness": {
@@ -8737,7 +8695,6 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -8745,12 +8702,11 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import"
           ],
-          "module_count": 10,
+          "module_count": 9,
           "source_refs": [
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-            "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -10624,20 +10580,18 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import"
           ],
-          "module_count": 10,
+          "module_count": 9,
           "source_refs": [
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-            "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -10777,7 +10731,6 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -10785,12 +10738,11 @@
             "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
             "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import"
           ],
-          "module_count": 10,
+          "module_count": 9,
           "source_refs": [
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-            "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
             "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -11137,7 +11089,7 @@
           "provider_payload_exported": false,
           "release_authorized": false
         },
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_ids": [
           "prover_proof_state_curriculum_corpus_readiness_json_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -11146,7 +11098,6 @@
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -11169,7 +11120,7 @@
         ],
         "status": "pass"
       },
-      "source_open_body_material_count": 13,
+      "source_open_body_material_count": 12,
       "substrate_claim_ceiling": "projection mechanics only, not domain correctness",
       "substrate_disposition": "real_substrate_capsule",
       "substrate_fixture_role": "regression_wrapper_around_real_substrate",
@@ -11272,7 +11223,7 @@
           "provider_payload_exported": false,
           "release_authorized": false
         },
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_ids": [
           "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
@@ -11280,7 +11231,6 @@
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
           "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -11304,7 +11254,7 @@
         ],
         "status": "pass"
       },
-      "source_open_body_material_count": 13,
+      "source_open_body_material_count": 12,
       "substrate_claim_ceiling": "projection mechanics only, not domain correctness",
       "substrate_disposition": "real_substrate_capsule",
       "substrate_fixture_role": "regression_wrapper_around_real_substrate",
@@ -16599,7 +16549,7 @@
   "substrate_substitution": {
     "accepted_organ_count": 88,
     "deleted_demoted_historical_artifact_count": 0,
-    "digest_drift_disposition_count": 20,
+    "digest_drift_disposition_count": 16,
     "disposition_counts": {
       "real_substrate_capsule": 85,
       "retained_regression_validator": 3
@@ -17623,7 +17573,7 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 21,
-    "copied_non_secret_macro_body_material_count": 395,
+    "copied_non_secret_macro_body_material_count": 393,
     "hard_boundary_count": 6,
     "mixed_public_safe_macro_import_assay_status": "pass",
     "non_progress_organ_count": 0,

@@ -1,22 +1,22 @@
 {
   "schema": "plectis-lean-companion-snapshot/v1",
   "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
-  "observed_at": "2026-07-28",
+  "observed_at": "2026-07-31",
   "upstream": {
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "0b075ccc813c4511cd1436c64ceb41a0d9150d71",
+    "public_ref": "b028075c6fff596143db012d6f73912f2e30f731",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "03e17f925a5a6db03bb3a7265fc7b903c545aa6098ebc7479a05f6ea6e3fc204",
+    "orientation_sha256": "99f1c7df01586c9d2698c82e74e90e154664134e923072286e68809336e26539",
     "latest_tag": "v0.6.0",
     "release_tag_object": "6f9e8e3989c6a47c669de89088cf9fdde4b0fa41",
     "release_commit": "c2975740da4ecbfc91faee2a2d9947d49e21e334"
   },
   "scale": {
-    "module_count": 991,
-    "declaration_count": 151755,
-    "theorem_like_count": 149807,
+    "module_count": 992,
+    "declaration_count": 151761,
+    "theorem_like_count": 149812,
     "generated_certificate_declaration_count": 8171,
     "principal_claim_link_count": 300
   },

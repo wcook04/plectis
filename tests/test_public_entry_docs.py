@@ -987,14 +987,33 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
     assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
     assert "Plectis is the public repo form of the macro system" in agents
-    assert "public executable atlas" in agents
-    assert "88 bounded components" in agents
-    assert "mechanism atlas" in agents
-    assert "evidence class, receipt path, and authority ceiling" in agents
-    assert normalized_agents.index("public executable atlas") < normalized_agents.index(
-        "local project operating substrate"
+    # Cold agents get concrete behavior and limits before repository jargon.
+    for phrase in (
+        "local Python command-line tool",
+        "88 runnable reference components",
+        "code that runs",
+        "evidence it uses",
+        "receipt it writes",
+        "limit of what a passing result proves",
+        "point Plectis at a project folder",
+        "research prototype and developer tool",
+        "does not host a service",
+        "call model providers",
+        "modify the source it inspects",
+        "prove that arbitrary software is correct",
+        "establish production readiness",
+    ):
+        assert phrase in normalized_agents, phrase
+    assert normalized_agents.index("local Python command-line tool") < (
+        normalized_agents.index("The 88 components are the reference corpus")
     )
-    assert "not a synthetic safety proxy" in agents
+    for retired_jargon in (
+        "public executable atlas",
+        "AI-native workflow and research runtime",
+        "local project operating substrate",
+        "not a synthetic safety proxy",
+    ):
+        assert retired_jargon not in normalized_agents, retired_jargon
     assert "Public should carry private by default" in agents
     assert "as much of the macro substrate as possible" in normalized_agents
     assert "The hard exclusion set is narrow" in agents
@@ -1024,7 +1043,6 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Receipts Are Authority" not in agents
     assert "macro reconstruction contracts" not in agents
     assert "executable research prototype" in normalized_agents
-    assert "local project operating substrate" in normalized_agents
     assert "plectis compile <project>" in agents
     assert "repo -> `.microcosm`" in agents
     assert "Fixtures Are Tests" in agents

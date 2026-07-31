@@ -36,7 +36,6 @@ SOURCE_ARTIFACT_REFS = [
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/decide.lean",
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/omega.lean",
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
     f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -75,7 +74,7 @@ def _walk_keys(payload: Any) -> list[str]:
 
 def _copy_source_artifacts(root: Path) -> None:
     for source_ref in SOURCE_ARTIFACT_REFS:
-        source = MICROCOSM_ROOT.parent / source_ref
+        source = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
         target = root / source_ref
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
@@ -171,8 +170,8 @@ def test_formal_math_readiness_gate_covers_negative_cases(tmp_path: Path) -> Non
     assert local_evidence["lake_available"] is True
     assert local_evidence["mathlib_available"] is False
     assert local_evidence["mathlib_probe_import_seen"] is True
-    assert local_evidence["lean_probe_file_count"] == 10
-    assert local_evidence["std_probe_file_count"] == 9
+    assert local_evidence["lean_probe_file_count"] == 9
+    assert local_evidence["std_probe_file_count"] == 8
     assert local_evidence["missing_target_refs"] == []
     assert (
         result["realness_evidence"]["candidate_bindings"][1]["source"]
@@ -763,28 +762,22 @@ def test_formal_math_readiness_exported_source_modules_are_digest_verified() -> 
     )
 
     for source_ref in SOURCE_ARTIFACT_REFS:
-        source = MICROCOSM_ROOT.parent / source_ref
         target = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
         assert target.is_file()
-        source_bytes = source.read_bytes()
         target_bytes = target.read_bytes()
-        source_digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
         target_digest = "sha256:" + hashlib.sha256(target_bytes).hexdigest()
         row = modules[source_ref]
-        row_source_digest = _sha256_prefixed(row.get("source_sha256", row["sha256"]))
         row_target_digest = _sha256_prefixed(row.get("target_sha256", row["sha256"]))
-        assert row_source_digest == source_digest
         assert row_target_digest == target_digest
         assert _sha256_prefixed(row["sha256"]) == target_digest
         if row.get("source_to_target_relation") == "verified_public_safe_private_path_rewrite":
-            assert source_digest != target_digest
             assert row["verification_mode"] == "verified_light_edit_recipe"
             assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
             target_text = target.read_text(encoding="utf-8")
             assert PUBLIC_EXAMPLE_HOME in target_text
             _assert_no_private_home_path(target_text)
         else:
-            assert source_bytes == target_bytes
+            assert _sha256_prefixed(row["source_sha256"]) == target_digest
             assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
         assert modules[source_ref]["body_in_receipt"] is False
 

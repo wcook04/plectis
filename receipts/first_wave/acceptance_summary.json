@@ -1,8 +1,8 @@
 {
   "acceptance_summary_blockers": [],
-  "accepted_count": 74,
+  "accepted_count": 88,
   "accepted_count_is_product_progress": false,
-  "accepted_current_authority_count": 74,
+  "accepted_current_authority_count": 88,
   "accepted_current_authority_organs": [
     "pattern_binding_contract",
     "executable_doctrine_grammar",
@@ -60,24 +60,38 @@
     "finance_forecast_evaluation_spine",
     "batch4_proof_authority_runtime",
     "batch6_unsurfaced_primitives_capsule",
+    "batch5_authority_systems_capsule",
     "batch7_macro_engines_capsule",
+    "batch7_oracle_sibling_capsule",
+    "batch7_demo_take_console_capsule",
     "batch8_tools_tail_primitives_capsule",
     "batch8_policy_engines_capsule",
     "batch8_audio_level_rms_port",
-    "batch8_station_surface_atlas_layout_port",
     "batch8_structural_theses_capsule",
     "engine_room_demo",
     "batch9_macro_engines_capsule",
     "batch10_governance_compilers_capsule",
     "batch11_saturation_engines_capsule",
     "tool_server_pressure_inventory",
-    "workstream_driver_recency_coalescer",
     "batch8_compliance_pipeline_capsule",
     "batch10_live_source_drift_capsule",
     "batch10_cold_eval_honesty_capsule",
     "batch8_validator_checker_capsule",
     "concurrency_mission_control",
-    "batch7_station_runtime_capsule"
+    "batch7_secondary_runtime_capsule",
+    "batch12_market_dashboard_read_model_capsule",
+    "batch12_prediction_market_board_capsule",
+    "batch12_release_claim_language_gate",
+    "semantic_singleflight_dedup_runtime",
+    "finite_erdos_denominator_certificate_strike",
+    "bridge_campaign_dag_validation",
+    "metabolism_queue_reconciliation",
+    "derived_fact_provider_runtime",
+    "navigation_fitness_benchmark",
+    "annex_knowledge_routing",
+    "egress_self_compliance_audit",
+    "generated_projection_drift_runtime",
+    "lean_proof_search_lab_runtime"
   ],
   "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only. Its accepted count is not product progress or evidence strength; the truth_accounting section separates real substrate progress from fixture, synthetic, adapter, and debt evidence classes.",
   "authority_ceiling": {
@@ -93,17 +107,16 @@
   "deferred_organs": [],
   "dependency_preflight_receipt": "receipts/preflight/dependency_preflight.json",
   "disposition_coverage": {
-    "accepted_organ_count": 74,
+    "accepted_organ_count": 88,
     "allowed_dispositions": [
       "blocked_secret_only",
       "deleted_or_demoted_historical_artifact",
       "real_substrate_capsule",
       "retained_regression_validator"
     ],
-    "covered_count": 74,
+    "covered_count": 88,
     "disposition_counts": {
-      "real_substrate_capsule": 71,
-      "retained_regression_validator": 3
+      "real_substrate_capsule": 88
     },
     "invalid_synthetic_acceptance_disposition": [],
     "missing_synthetic_acceptance_dispositions": [],
@@ -112,12 +125,8 @@
     "schema_version": "microcosm_real_substrate_disposition_coverage_v1",
     "status": "pass",
     "synthetic_acceptance_progress_flag_mismatch": [],
-    "synthetic_accepted_count": 3,
-    "synthetic_retained_regression_validator_organs": [
-      "agent_benchmark_integrity_anti_gaming_replay",
-      "agent_monitor_redteam_falsification_replay",
-      "agent_sabotage_scheming_monitor_replay"
-    ]
+    "synthetic_accepted_count": 0,
+    "synthetic_retained_regression_validator_organs": []
   },
   "fixture_freshness_receipt": "receipts/preflight/fixture_freshness.json",
   "lean_lake_authorized": "bounded_public_witness_only",
@@ -159,46 +168,53 @@
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_body_imports": {
-    "accepted_organ_count": 74,
+    "accepted_organ_count": 88,
     "body_in_receipt": false,
     "body_in_receipt_organs": [],
-    "body_material_count": 639,
+    "body_material_count": 685,
     "body_material_count_by_real_substrate_disposition": {
-      "real_substrate_capsule": 634,
-      "retained_regression_validator": 5
+      "real_substrate_capsule": 685
     },
     "material_class_counts": {
+      "public_dogfood_command_trace_slice": 2,
       "public_lean_lake_project_body": 1,
       "public_lean_source_body": 1,
       "public_lean_std_premise_descriptor_index": 1,
       "public_lean_witness_manifest_body": 1,
       "public_macro_cold_eval_python_body": 1,
+      "public_macro_compliance_python_body": 1,
       "public_macro_control_plane_body": 8,
       "public_macro_dependency_body": 2,
       "public_macro_doctrine_body": 1,
+      "public_macro_factory_tool_body": 1,
       "public_macro_finance_body": 1,
-      "public_macro_frontend_body": 2,
-      "public_macro_frontend_test_body": 1,
+      "public_macro_frontend_typescript_body": 1,
       "public_macro_governance_python_body": 1,
       "public_macro_ledger_body": 2,
+      "public_macro_market_tool_python_body": 1,
+      "public_macro_oracle_tool_python_body": 1,
       "public_macro_paper_module_body": 1,
       "public_macro_pattern_body": 23,
+      "public_macro_pipeline_python_body": 1,
       "public_macro_policy_engine_body": 1,
       "public_macro_proof_body": 7,
       "public_macro_receipt_body": 28,
       "public_macro_refactor_body": 1,
+      "public_macro_server_test_python_body": 1,
       "public_macro_skill_body": 1,
       "public_macro_standard_body": 13,
       "public_macro_support_body": 1,
-      "public_macro_tool_body": 41,
+      "public_macro_swiftpm_app_body": 1,
+      "public_macro_tool_body": 39,
       "public_macro_transaction_body": 1,
       "public_macro_validator_python_body": 1,
       "public_macro_work_ledger_tool_body": 1,
       "public_macro_workflow_tool_body": 1,
+      "public_microcosm_runtime_body": 1,
+      "public_python_source_body": 1,
       "public_python_structural_theses_macro_source": 1,
       "public_standard_body": 1,
-      "public_swift_audio_math_reference": 1,
-      "public_typescript_station_layout_reference": 1
+      "public_swift_audio_math_reference": 1
     },
     "missing_source_manifest_refs": [],
     "rows": [
@@ -268,7 +284,7 @@
       {
         "aggregate_floor_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json::copied_macro_body_artifacts",
         "body_in_receipt": false,
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_status": "copied_non_secret_PROVER_smoke_run_readiness_and_tactic_probe_artifacts_with_digest_provenance",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "algorithmic_projection",
@@ -292,7 +308,7 @@
         "body_material_count": 4,
         "body_material_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
+        "evidence_class": "external_subprocess_witness",
         "material_classes": [
           "public_macro_receipt_body",
           "public_macro_tool_body"
@@ -305,7 +321,7 @@
           "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
           "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json"
         ],
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json::modules",
@@ -332,7 +348,7 @@
       {
         "aggregate_floor_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json::copied_macro_body_artifacts",
         "body_in_receipt": false,
-        "body_material_count": 13,
+        "body_material_count": 12,
         "body_material_status": "copied_non_secret_PROVER_smoke_run_tactic_affordance_probe_bodies_with_digest_provenance",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "algorithmic_projection",
@@ -500,13 +516,13 @@
         "body_in_receipt": false,
         "body_material_count": 3,
         "body_material_status": "copied_non_secret_macro_body_with_provenance",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
         "material_classes": [
           "public_macro_pattern_body"
         ],
         "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-        "real_substrate_disposition": "retained_regression_validator",
+        "real_substrate_disposition": "real_substrate_capsule",
         "source_manifest_ref_count": 3,
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
@@ -514,7 +530,7 @@
           "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
           "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json"
         ],
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "aggregate_floor_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json::modules",
@@ -522,7 +538,7 @@
         "body_material_count": 8,
         "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
+        "evidence_class": "bounded_runtime_computation",
         "material_classes": [
           "public_macro_standard_body",
           "public_macro_tool_body"
@@ -535,7 +551,7 @@
           "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
           "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
@@ -622,7 +638,7 @@
         "body_material_count": 12,
         "body_material_status": "copied_non_secret_macro_mission_transaction_control_bodies_with_digest_provenance",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
+        "evidence_class": "bounded_runtime_computation",
         "material_classes": [
           "public_macro_tool_body",
           "public_macro_control_plane_body",
@@ -638,7 +654,7 @@
           "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
           "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
@@ -705,7 +721,7 @@
         "body_material_count": 3,
         "body_material_status": "copied_non_secret_macro_body_landed",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
+        "evidence_class": "bounded_runtime_computation",
         "material_classes": [
           "public_macro_tool_body"
         ],
@@ -716,7 +732,7 @@
         "source_manifest_refs_preview": [
           "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
@@ -724,7 +740,7 @@
         "body_material_count": 11,
         "body_material_status": "copied_non_secret_macro_body_landed",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
+        "evidence_class": "bounded_runtime_computation",
         "material_classes": [
           "public_macro_pattern_body",
           "public_macro_proof_body",
@@ -737,7 +753,7 @@
         "source_manifest_refs_preview": [
           "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
@@ -804,13 +820,14 @@
       {
         "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
         "body_in_receipt": false,
-        "body_material_count": 4,
+        "body_material_count": 5,
         "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
+        "evidence_class": "bounded_runtime_computation",
         "material_classes": [
           "public_macro_receipt_body",
-          "public_macro_tool_body"
+          "public_macro_tool_body",
+          "public_python_source_body"
         ],
         "organ_id": "public_reveal_walkthrough",
         "real_substrate_disposition": "real_substrate_capsule",
@@ -819,7 +836,7 @@
         "source_manifest_refs_preview": [
           "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle::*_source_module_manifest.json::modules",
@@ -892,13 +909,12 @@
       {
         "aggregate_floor_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules",
         "body_in_receipt": false,
-        "body_material_count": 5,
+        "body_material_count": 4,
         "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "semantic_validator",
         "material_classes": [
-          "public_macro_pattern_body",
-          "public_macro_tool_body"
+          "public_macro_pattern_body"
         ],
         "organ_id": "cold_reader_route_map",
         "real_substrate_disposition": "real_substrate_capsule",
@@ -912,15 +928,16 @@
       {
         "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
         "body_in_receipt": false,
-        "body_material_count": 1,
-        "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
+        "body_material_count": 2,
+        "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_and_public_dogfood_trace_slice_with_provenance",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
         "material_classes": [
+          "public_dogfood_command_trace_slice",
           "public_macro_pattern_body"
         ],
         "organ_id": "agent_monitor_redteam_falsification_replay",
-        "real_substrate_disposition": "retained_regression_validator",
+        "real_substrate_disposition": "real_substrate_capsule",
         "source_manifest_ref_count": 3,
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
@@ -928,20 +945,21 @@
           "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/bundle_manifest.json",
           "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json"
         ],
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
         "body_in_receipt": false,
-        "body_material_count": 1,
-        "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
+        "body_material_count": 2,
+        "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_plus_sanitized_public_dogfood_trace_with_provenance",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
         "material_classes": [
-          "public_macro_pattern_body"
+          "public_macro_pattern_body",
+          "public_dogfood_command_trace_slice"
         ],
         "organ_id": "agent_sabotage_scheming_monitor_replay",
-        "real_substrate_disposition": "retained_regression_validator",
+        "real_substrate_disposition": "real_substrate_capsule",
         "source_manifest_ref_count": 3,
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
@@ -949,7 +967,7 @@
           "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/bundle_manifest.json",
           "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json"
         ],
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "aggregate_floor_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
@@ -1363,6 +1381,21 @@
       {
         "aggregate_floor_ref": "",
         "body_in_receipt": false,
+        "body_material_count": 10,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [],
+        "organ_id": "batch5_authority_systems_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 0,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "",
+        "body_in_receipt": false,
         "body_material_count": 15,
         "body_material_status": "copied_non_secret_macro_body",
         "counts_as_real_substrate_progress": true,
@@ -1374,6 +1407,45 @@
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
           "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+        "body_in_receipt": false,
+        "body_material_count": 6,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [
+          "public_macro_oracle_tool_python_body",
+          "public_macro_server_test_python_body"
+        ],
+        "organ_id": "batch7_oracle_sibling_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
+        "body_in_receipt": false,
+        "body_material_count": 8,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [
+          "public_macro_swiftpm_app_body"
+        ],
+        "organ_id": "batch7_demo_take_console_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json"
         ],
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       },
@@ -1437,25 +1509,6 @@
       {
         "aggregate_floor_ref": "",
         "body_in_receipt": false,
-        "body_material_count": 1,
-        "body_material_status": "copied_non_secret_tsx_reference_landed_python_port_exercised",
-        "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "material_classes": [
-          "public_typescript_station_layout_reference"
-        ],
-        "organ_id": "batch8_station_surface_atlas_layout_port",
-        "real_substrate_disposition": "real_substrate_capsule",
-        "source_manifest_ref_count": 1,
-        "source_manifest_refs_omitted": 0,
-        "source_manifest_refs_preview": [
-          "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_module_manifest.json"
-        ],
-        "truth_accounting_bucket": "source_faithful_refactor"
-      },
-      {
-        "aggregate_floor_ref": "",
-        "body_in_receipt": false,
         "body_material_count": 12,
         "body_material_status": "copied_non_secret_macro_body_and_public_cp1_cp2_dependencies_landed_runtime_exercised",
         "counts_as_real_substrate_progress": true,
@@ -1472,6 +1525,25 @@
           "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json"
         ],
         "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json",
+        "body_in_receipt": false,
+        "body_material_count": 2,
+        "body_material_status": "public_package_body_backed_composition_capsule",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "semantic_validator",
+        "material_classes": [
+          "public_microcosm_runtime_body"
+        ],
+        "organ_id": "engine_room_demo",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "real_import_validation"
       },
       {
         "aggregate_floor_ref": "",
@@ -1548,23 +1620,25 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "aggregate_floor_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json::modules",
+        "aggregate_floor_ref": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
         "body_in_receipt": false,
-        "body_material_count": 1,
-        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_material_count": 11,
+        "body_material_status": "copied_non_secret_macro_body_with_provenance",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
+        "evidence_class": "algorithmic_projection",
         "material_classes": [
-          "public_macro_frontend_body"
+          "public_macro_compliance_python_body",
+          "public_macro_factory_tool_body",
+          "public_macro_pipeline_python_body"
         ],
-        "organ_id": "workstream_driver_recency_coalescer",
+        "organ_id": "batch8_compliance_pipeline_capsule",
         "real_substrate_disposition": "real_substrate_capsule",
         "source_manifest_ref_count": 1,
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
-          "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json"
+          "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json"
         ],
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "aggregate_floor_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json::modules",
@@ -1646,30 +1720,80 @@
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       },
       {
-        "aggregate_floor_ref": "",
+        "aggregate_floor_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
         "body_in_receipt": false,
-        "body_material_count": 5,
-        "body_material_status": "copied_non_secret_station_runtime_source_bodies_landed",
+        "body_material_count": 13,
+        "body_material_status": "copied_non_secret_macro_body",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "verified_macro_body_import",
         "material_classes": [
-          "public_macro_tool_body",
-          "public_macro_frontend_body",
-          "public_macro_frontend_test_body"
+          "public_macro_frontend_typescript_body",
+          "public_macro_market_tool_python_body"
         ],
-        "organ_id": "batch7_station_runtime_capsule",
+        "organ_id": "batch7_secondary_runtime_capsule",
         "real_substrate_disposition": "real_substrate_capsule",
         "source_manifest_ref_count": 1,
         "source_manifest_refs_omitted": 0,
         "source_manifest_refs_preview": [
-          "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json"
+          "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "",
+        "body_in_receipt": false,
+        "body_material_count": 1,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [],
+        "organ_id": "batch12_market_dashboard_read_model_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "",
+        "body_in_receipt": false,
+        "body_material_count": 1,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [],
+        "organ_id": "batch12_prediction_market_board_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json"
+        ],
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "aggregate_floor_ref": "",
+        "body_in_receipt": false,
+        "body_material_count": 1,
+        "body_material_status": "copied_non_secret_macro_body",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "material_classes": [],
+        "organ_id": "batch12_release_claim_language_gate",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "source_manifest_ref_count": 1,
+        "source_manifest_refs_omitted": 0,
+        "source_manifest_refs_preview": [
+          "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json"
         ],
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       }
     ],
     "schema_version": "microcosm_source_body_import_coverage_v1",
-    "source_body_import_organ_count": 72,
-    "source_manifest_ref_count": 152,
+    "source_body_import_organ_count": 78,
+    "source_manifest_ref_count": 157,
     "status": "pass"
   },
   "source_module_manifest_coverage": {
@@ -1677,30 +1801,42 @@
     "body_in_receipt_organs": [],
     "missing_source_manifest_refs": [],
     "schema_version": "microcosm_source_module_manifest_coverage_v1",
-    "source_body_import_organ_count": 72,
-    "source_manifest_ref_count": 152,
+    "source_body_import_organ_count": 78,
+    "source_manifest_ref_count": 157,
     "status": "pass"
   },
   "standards_registry_validation_receipt": "receipts/first_wave/standards_registry_validation.json",
   "status": "pass",
   "substrate_substitution": {
-    "accepted_organ_count": 74,
+    "accepted_organ_count": 88,
     "count_reconciliation": {
-      "acceptance_plan_count": 74,
+      "acceptance_plan_count": 88,
       "acceptance_summary_count": 74,
-      "divergence_disposition": "counts_aligned",
-      "registry_accepted_count": 74,
+      "divergence_disposition": "acceptance_summary_stale_projection_demoted_to_receipt_not_authority",
+      "registry_accepted_count": 88,
       "status": "pass"
     },
     "deleted_demoted_historical_artifact_count": 0,
-    "digest_drift_disposition_count": 9,
+    "digest_drift_disposition_count": 16,
     "disposition_counts": {
-      "real_substrate_capsule": 71,
+      "real_substrate_capsule": 85,
       "retained_regression_validator": 3
     },
     "fixture_authority_ban_status": "pass",
-    "real_body_count": 733,
-    "real_substrate_capsule_count": 71,
+    "name_promise": {
+      "mechanism_repair_targets": [],
+      "mechanism_theater_count": 0,
+      "policy_ref": "AP-15::mechanism_theater_name_promise",
+      "schema_version": "microcosm_name_promise_summary_v1",
+      "status_counts": {
+        "name_promise_backed_by_runtime_compute": 2,
+        "name_promise_non_runtime_obligation_in_risky_class": 5,
+        "name_promise_not_in_risky_evidence_class": 3,
+        "no_compute_name_promise": 78
+      }
+    },
+    "real_body_count": 591,
+    "real_substrate_capsule_count": 85,
     "receipt_body_count": 0,
     "retained_regression_validator_count": 3,
     "status": "pass",
@@ -1712,7 +1848,7 @@
     "accepted_count_is_product_progress": false,
     "accepted_current_authority_evidence": [
       {
-        "claim_ceiling": "validates declared public contract only",
+        "claim_ceiling": "validates only the declared public pattern-binding and route-readiness contract over public fixtures, substrate bundle structure, pattern-ledger row refs, binding sidecars, authority handles, and negative cases; does not certify the private pattern ledger, hosted-public readiness, release, publication, provider calls, private-data equivalence, whole-system correctness, or promote mined pattern rows into standalone public leaves",
         "classification_basis": "derived public contract checks over substrate bundle structure, real pattern-ledger rows, generated substrate-binding sidecar refs, authority handles, and negative cases",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "semantic_validator",
@@ -1755,11 +1891,11 @@
         "claim_ceiling": "projection mechanics only, not domain correctness",
         "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
         "organ_id": "corpus_readiness_mathlib_absence_gate",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -1812,8 +1948,8 @@
         "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces",
+        "claim_ceiling": "repair-loop evidence and deterministic public toy rerun only, not theorem correctness, Lean/Lake execution, release, benchmark, or provider authority",
+        "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces plus one deterministic public toy-theorem failure capture, repair action, and rerun receipt; no Lean/Lake or theorem proof authority is claimed here",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "algorithmic_projection",
         "evidence_strength_rank": 3,
@@ -1852,30 +1988,24 @@
         "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
-        "classification_basis": "regression-negative synthetic benchmark integrity rows are checked for body-free fixture refs, locked evaluator refs, anti-gaming denials, and explicit no-benchmark-score/no-product-progress authority",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "bounded public runtime validation over digest-verified copied macro pattern provenance bodies and body-free benchmark-integrity replay rows only; not benchmark scores, SWE-bench performance, provider execution, live repo mutation, product progress, or release authority",
+        "classification_basis": "validates three copied public-safe macro pattern provenance bodies by source-module manifest digest and checks each replay row's structure and negatives, but the pass/quarantine verdict is a consistency fold over fixture-declared contamination flags, not in-process runtime computation",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-        "real_substrate_disposition": "retained_regression_validator",
-        "synthetic_acceptance_disposition": {
-          "disposition": "retained_regression_validator",
-          "reason": "Accepted only as a body-free non-progress regression validator; fixture echo evidence is not real substrate progress.",
-          "reentry_condition": "Replace with real non-secret macro substrate import or demote/delete from accepted current authority.",
-          "review_ref": "core/organ_evidence_classes.json::class_profiles.fixture_echo_smoke"
-        },
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "projection mechanics only, not domain correctness",
         "classification_basis": "bounded context-budget packing and section omission computation",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "organ_id": "provider_context_recipe_budget_policy",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "claim_ceiling": "tool witness only, not general proof authority",
@@ -1921,11 +2051,11 @@
         "claim_ceiling": "projection mechanics only, not domain correctness",
         "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "organ_id": "mission_transaction_work_spine",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "claim_ceiling": "validates declared public contract only",
@@ -1958,27 +2088,27 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
+        "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+        "classification_basis": "bounded deterministic gridworld step computation over public spatial replay rows with predicted-versus-actual next-state checks, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "organ_id": "spatial_world_model_counterfactual_simulation_replay",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials",
+        "claim_ceiling": "bounded public toy transformer runtime plus public runtime receipt validation only, not private model transparency, benchmark, release, provider-call, product, or private model internals authority",
+        "classification_basis": "bounded deterministic NumPy two-layer toy transformer forward pass, gradient-score computation, ablation attribution check, fabrication guard, public circuit-attribution runtime receipts, and copied non-secret macro source bodies; scoped to public toy model only",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
+        "claim_ceiling": "validates only public recorded route-feedback and observability metadata fixtures, including route-lease consumption, trace attribution, hook-shadow advisory status, anti-pattern debt retirement, behavior-change evidence gates, and public macro body import refs; does not read live operator/provider/browser/HUD/account state, mutate Task Ledger or source, install hooks, certify runtime behavior, authorize pattern assimilation, private-root equivalence, release, publication, or whole-system correctness",
         "classification_basis": "derived observability and action-trace checks over public replay inputs",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "semantic_validator",
@@ -1988,7 +2118,7 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
+        "claim_ceiling": "validates only declared public synthetic bridge-continuity fixtures over continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, closeout receipts, tracked receipt-write gates, negative cases, and private-state scan boundaries; does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime/private-memory state, prove provider or UI uptime, land work, mutate source, authorize private-root equivalence, release, publication, or whole-system correctness",
         "classification_basis": "derived synthetic-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "semantic_validator",
@@ -2008,14 +2138,14 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases",
+        "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",
+        "classification_basis": "fixture card requires exported-bundle witness; bundle validation digest-verifies copied public macro bodies and rejects tampered source-module digests while focused tests exercise the advertised compile/explain path",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
         "organ_id": "public_reveal_walkthrough",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
         "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
@@ -2058,36 +2188,24 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
-        "classification_basis": "regression-negative synthetic monitor verdict rows are checked for body-free fixture refs, adversarial probes, escalation/mitigation refs, and explicit no-product-performance authority",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed monitor-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live agent execution, monitor product performance, control-eval scores, safety validation, benchmark scores, provider calls, source mutation, release, publication, or product authority",
+        "classification_basis": "validates copied public monitor-redteam macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the monitor verdict is a consistency fold over fixture-declared spans, not in-process runtime computation",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agent_monitor_redteam_falsification_replay",
-        "real_substrate_disposition": "retained_regression_validator",
-        "synthetic_acceptance_disposition": {
-          "disposition": "retained_regression_validator",
-          "reason": "Accepted only as a body-free non-progress regression validator; fixture echo evidence is not real substrate progress.",
-          "reentry_condition": "Replace with real non-secret macro substrate import or demote/delete from accepted current authority.",
-          "review_ref": "core/organ_evidence_classes.json::class_profiles.fixture_echo_smoke"
-        },
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
-        "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live sabotage, live agent execution, exploit instructions, credentials or account material, private reasoning export, harmful payloads, monitor product performance, deployment-risk claims, benchmark scores, provider calls, source mutation, release, publication, or product authority",
+        "classification_basis": "validates copied public sabotage/scheming monitor macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the caught-verdict is a consistency fold over fixture-declared scores, not in-process runtime computation",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agent_sabotage_scheming_monitor_replay",
-        "real_substrate_disposition": "retained_regression_validator",
-        "synthetic_acceptance_disposition": {
-          "disposition": "retained_regression_validator",
-          "reason": "Accepted only as a body-free non-progress regression validator; fixture echo evidence is not real substrate progress.",
-          "reentry_condition": "Replace with real non-secret macro substrate import or demote/delete from accepted current authority.",
-          "review_ref": "core/organ_evidence_classes.json::class_profiles.fixture_echo_smoke"
-        },
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -2150,8 +2268,8 @@
         "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
+        "claim_ceiling": "algorithmic projection and one public generated trace-input taint propagation only, not live external tool use, domain robustness, benchmark, release, or source mutation authority",
+        "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, and now promotes one generated public tool-call trace through the same taint-propagation mechanic; all rows remain body-free with authority ceilings and negative-case denials",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "algorithmic_projection",
         "evidence_strength_rank": 3,
@@ -2170,8 +2288,8 @@
         "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "body-free simulator rows are consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, and teaching carryforward; no wetlab or discovery authority is claimed",
+        "claim_ceiling": "artifact safety/refusal validation only, not wetlab execution, materials discovery, robot command, live assay, release, benchmark, or provider authority",
+        "classification_basis": "materials chemistry artifact safety/refusal validator over body-free simulator rows consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, refusal checks, and teaching carryforward; no wetlab loop or discovery authority is claimed",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "algorithmic_projection",
         "evidence_strength_rank": 3,
@@ -2290,12 +2408,42 @@
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       },
       {
+        "claim_ceiling": "verified non-secret macro body import only, not live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, private-root equivalence, release, or publication",
+        "classification_basis": "verified public macro-body import over 10 copied non-secret Batch 5 authority-system source modules and 8 bounded public exercises spanning post-execution receipt validation, reasoning replay scope and lineage, proof-contract gating, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch5_authority_systems_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
         "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
         "classification_basis": "verified public macro-body import over 15 copied non-secret source modules and 9 bounded public source-faithful exercises spanning trace IR parsing, code-map layout, constitutional DAG scheduling, source indexing, source-surgeon patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and never-empty regression-test selection",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "verified_macro_body_import",
         "evidence_strength_rank": 5,
         "organ_id": "batch7_macro_engines_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "verified non-secret macro body import only, not Oracle reasoning, provider or bridge authority, source mutation, semantic truth, complete coverage, release, or publication",
+        "classification_basis": "verified public macro-body import over copied public-safe Oracle sibling source modules with bounded public exercises for subject indexing, subject snapshots, macro truth-diff deltas, quartet repair planning, original pytest witnesses, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch7_oracle_sibling_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "verified non-secret macro body import only, not app launch, screen or microphone capture authority, model dispatch, source mutation, complete UI coverage, release, or publication",
+        "classification_basis": "verified public macro-body import over copied public-safe Demo Take Console Swift source modules with bounded public exercises for SwiftPM build witness posture, recording-state control, capture-helper bridge contracts, recorder-store capture FSM boundaries, hotkey/audio-meter behavior, transcribe-payload construction, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch7_demo_take_console_capsule",
         "real_substrate_disposition": "real_substrate_capsule",
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       },
@@ -2326,16 +2474,6 @@
         "evidence_class": "algorithmic_projection",
         "evidence_strength_rank": 3,
         "organ_id": "batch8_audio_level_rms_port",
-        "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "source_faithful_refactor"
-      },
-      {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "source-faithful public Python port of the StationSurfaceAtlas deterministic band/lane layout solver over synthetic node rows, with bounded negative cases and no browser runtime",
-        "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
-        "organ_id": "batch8_station_surface_atlas_layout_port",
         "real_substrate_disposition": "real_substrate_capsule",
         "truth_accounting_bucket": "source_faithful_refactor"
       },
@@ -2401,23 +2539,13 @@
       },
       {
         "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
-        "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
-        "organ_id": "workstream_driver_recency_coalescer",
-        "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "real_import_validation"
-      },
-      {
-        "claim_ceiling": "validates declared public contract only",
         "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "batch8_compliance_pipeline_capsule",
         "real_substrate_disposition": "real_substrate_capsule",
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
@@ -2460,32 +2588,161 @@
         "truth_accounting_bucket": "copied_non_secret_macro_body"
       },
       {
-        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-        "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
+        "claim_ceiling": "verified non-secret macro body import only, not browser or wallet access, live market data, investment advice, source authority, private-root equivalence, release, or publication",
+        "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "verified_macro_body_import",
         "evidence_strength_rank": 5,
-        "organ_id": "batch7_station_runtime_capsule",
+        "organ_id": "batch7_secondary_runtime_capsule",
         "real_substrate_disposition": "real_substrate_capsule",
         "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+        "classification_basis": "exact copied non-secret market dashboard read-model source body; the runnable exercise invokes validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over public fixtures, verifies source digest anchors, observes ten negative cases for graph/ref, trading-language, freshness, omission, and related-situation regressions, and keeps live market truth, investment advice, provider dispatch, release, publication, source-mutation, and whole-system authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch12_market_dashboard_read_model_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+        "classification_basis": "exact copied non-secret quant presentation mart source body; the runnable exercise invokes _prediction_market_board and _polymarket_identity_by_slug over synthetic market rows, verifies source digest anchors, observes three negative cases for duplicate selection, orphan identity non-fabrication, and deduped aggregates, and keeps live prediction-market truth, forecast correctness, calibration, investment advice, provider dispatch, release, publication, and whole-system authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch12_prediction_market_board_capsule",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+        "classification_basis": "exact copied non-secret release claim-language gate source body; the runnable exercise invokes _classify_hit, build_gate, and main --assert-clear over public markdown fixtures, verifies source digest anchors, observes two negative cases for affirmative release-language blockers and assert-clear exit code 2, and keeps release, publication, semantic NLP truth, portability, complete secret-scan, and whole-system authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "verified_macro_body_import",
+        "evidence_strength_rank": 5,
+        "organ_id": "batch12_release_claim_language_gate",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "copied_non_secret_macro_body"
+      },
+      {
+        "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+        "classification_basis": "public source-faithful refactor of command_run_singleflight surfaced as a first-class operational-discipline organ; the runnable exercise builds content keys from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, demonstrates leader and completed-run-reuse dedup hits over public fixture commands, and observes two negative cases (a scoped mutation that flips the key so stale state cannot dedup, and an empty argv that is rejected), while keeping global mutual exclusion, distributed lock service, cross-host correctness, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "semantic_singleflight_dedup_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+        "classification_basis": "public source-faithful realization of the finite denominator-order certificate at the heart of the Erdos #257 period-noncollapse strike; the runnable exercise sums S_F(b)=sum 1/(b^n-1) as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q by repeated multiplication, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) over positive cases including a reducing case, while rejecting forged certificates (a wrong order or a wrong denominator) by recomputation and keeping solves-Erdos257, machine-checked-proof, oracle-or-prover, provider, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "finite_erdos_denominator_certificate_strike",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+        "classification_basis": "public source-faithful realization of the bridge campaign fan-in DAG validator; the runnable exercise validates each campaign spec against a public-safe subset of the macro CR/VR rule families - schema and identity, unique node labels, existing dependency edges, DFS acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism - accepting two well-formed campaigns (a linear chain and a three-way fan-in) and rejecting a cyclic campaign (CR012) and a two-synthesis campaign (CR013) by recomputation, while keeping dispatch, multi-agent execution, provider-safety-proof, release, and publication authority false",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "bridge_campaign_dag_validation",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+        "classification_basis": "Classified bounded_runtime_computation because each case actually executes the capsule's real runtime: it stands up a temp SQLite store, runs DDL/inserts/updates, performs lease math against the process clock, projects claim events, and runs the reconciler over the resulting rows. This is genuine bounded computation over a synthetic store, not a fixture echo (output is not pre-baked in the fixture), not a schema replay (it mutates and reads real SQLite state), and not an external subprocess/semantic-validator (no external binary, no NL judgement). Negatives are rejected by recomputation: the reconciler derives the firing rule from observed job/run/log state, and substituting a wrong expected marker flips the organ to fail.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "metabolism_queue_reconciliation",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+        "classification_basis": "evidence_class=bounded_runtime_computation because the organ runs the real capsule computation end-to-end over authored fixtures with a deterministic, bounded workload: JSON-pointer resolution, glob enumeration, and a small git index built inside an isolated tempdir. It is not a mere fixture_echo (it recomputes values and compares observed vs expected, and falsifiability is demonstrated), not a schema_replay (it executes the provider logic, not just shape-checks), not an algorithmic_projection (no model/extrapolation), not an external_subprocess_witness in the gating sense (the git subprocess is an internal callable-fact detail over a throwaway tempdir, not the central claimed mechanism and not an absent dependency), and not a semantic_validator (it explicitly does NOT judge truth of claims). family_id=research_and_science_replays fits a registry/provider data-resolution runtime that replays authored fact-resolution cases with planted-defect rejection; it is closer to a research/replay data-evaluation organ than to entry, navigation, formal proof, agent-safety, import-projection, or work-landing families.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "derived_fact_provider_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+        "classification_basis": "Classified as bounded_runtime_computation: the organ runs the real capsule's deterministic, stdlib-only benchmark recomputation (set-based recall/precision, substring forbidden-route check, scent-term coverage, integer latency-budget comparison, percentile summary) over small bounded fixture inputs at call time. It is not a mere fixture echo/replay (the verdict is computed, not stored), not an algorithmic projection (it executes the actual scoring code path on the inputs), and needs no external subprocess, prover, or network \u2014 so external_subprocess_witness / semantic_validator do not apply. Negatives are decided by recomputation contradicting a planted expectation, confirmed by two falsifiability probes.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "navigation_fitness_benchmark",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+        "classification_basis": "evidence_class=bounded_runtime_computation because _evaluate_case invokes the real capsule function route_catalog (which transitively runs route_annexes) over each fixture and compares the live-computed status/slug/score/note-ids to fixture expectations \u2014 it is genuine deterministic computation over bounded inputs, not a fixture echo (the answers are recomputed, not read from the fixture) and not an external subprocess (pure in-process stdlib). family_id=architecture_and_navigation because the mechanism is a routing/navigation surface: it maps a problem statement onto ranked entries of a knowledge catalog (annex discovery/navigation), which is the architecture-and-navigation concern rather than math/proof, agent-reliability, or science-replay. gate_runnable=true: no absent dependency; build_result returns status=pass with 4 cases under PYTHONPATH=src python3.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "annex_knowledge_routing",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+        "classification_basis": "Classified bounded_runtime_computation because each case executes the capsule's real phrase-membership detection at runtime: it recomputes the three detector verdicts (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator) over the agent-output text by testing tripwire-phrase presence against legitimiser-phrase absence, and compares the observed green/red verdict plus the firing diagnostic id to the case expectation. It is not a fixture echo or schema replay (the verdict is recomputed, proven by repair/break flips), not an external subprocess, and explicitly not semantic understanding; it is bounded deterministic computation over public fixtures. Negatives are rejected by recomputation: a planted policy-violating text fires its tripwire without a legitimiser and the gate flags it red with the expected diagnostic id.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "egress_self_compliance_audit",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+        "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's drift verdict is a check-command return-code witness (the capsule's no-write check command, run through its command runner \u2014 the same path that would invoke subprocess.run for an external owner command), not a pure in-module computation. The two positives and two negatives each route through the capsule's real check pipeline; negatives are rejected by recomputation (planted byte -> check_command_failed via builtin:assert-file-equals; missing artifact -> artifact_missing presence check), and the cache-hit positive is proven to skip the command via the real source-hash cache (check_mode=source_hash_cache_hit, hit_count=1). gate_runnable=true because every fixture stays on the in-process builtin command surface, so no absent external binary is needed.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "organ_id": "generated_projection_drift_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
+      },
+      {
+        "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+        "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's verdict is produced by the installed Lean subprocess: run_and_or_search and run_statement_only_hammer call check_candidate_with_lean which shells out to `lean` to compile each candidate tactic body, a #print axioms cleanliness gate rejects sorry-tainted candidates, and a forward oracle firewall plus a problem-id ablation reject leaked oracle bodies and policies that only work because they memorised the problem id. The positive fixture is accepted only when real Lean closes the toy theorems; the four negatives are rejected by recomputation (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: when the lean binary is absent the organ returns a terminal locked state and verifies nothing rather than counting tool-absence as a mechanism failure or faking a pass.",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "organ_id": "lean_proof_search_lab_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "truth_accounting_bucket": "real_runtime_receipt"
       }
     ],
     "accepted_current_authority_is_evidence_strength": false,
     "blocked_import_debt_count": 0,
-    "copied_non_secret_macro_body_count": 15,
+    "copied_non_secret_macro_body_count": 21,
     "delete_or_demote_candidate_count": 0,
     "disposition_coverage": {
-      "accepted_organ_count": 74,
+      "accepted_organ_count": 88,
       "allowed_dispositions": [
         "blocked_secret_only",
         "deleted_or_demoted_historical_artifact",
         "real_substrate_capsule",
         "retained_regression_validator"
       ],
-      "covered_count": 74,
+      "covered_count": 88,
       "disposition_counts": {
-        "real_substrate_capsule": 71,
-        "retained_regression_validator": 3
+        "real_substrate_capsule": 88
       },
       "invalid_synthetic_acceptance_disposition": [],
       "missing_synthetic_acceptance_dispositions": [],
@@ -2494,31 +2751,23 @@
       "schema_version": "microcosm_real_substrate_disposition_coverage_v1",
       "status": "pass",
       "synthetic_acceptance_progress_flag_mismatch": [],
-      "synthetic_accepted_count": 3,
-      "synthetic_retained_regression_validator_organs": [
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay"
-      ]
+      "synthetic_accepted_count": 0,
+      "synthetic_retained_regression_validator_organs": []
     },
     "evidence_class_counts": {
       "algorithmic_projection": 27,
-      "external_subprocess_witness": 6,
-      "fixture_echo_smoke": 3,
-      "semantic_validator": 23,
-      "verified_macro_body_import": 15
+      "bounded_runtime_computation": 13,
+      "external_subprocess_witness": 9,
+      "semantic_validator": 18,
+      "verified_macro_body_import": 21
     },
     "external_fixture_witness_count": 0,
     "legacy_adapter_or_synthetic_placeholder_count": 0,
-    "non_progress_accepted_count": 3,
-    "non_progress_organs": [
-      "agent_benchmark_integrity_anti_gaming_replay",
-      "agent_monitor_redteam_falsification_replay",
-      "agent_sabotage_scheming_monitor_replay"
-    ],
-    "real_import_validation_count": 23,
-    "real_runtime_receipt_count": 6,
-    "real_substrate_progress_count": 71,
+    "non_progress_accepted_count": 0,
+    "non_progress_organs": [],
+    "real_import_validation_count": 18,
+    "real_runtime_receipt_count": 22,
+    "real_substrate_progress_count": 88,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -2534,6 +2783,7 @@
       "formal_evidence_cell_anchor_resolver",
       "undeclared_library_prior_symbol_classifier",
       "ring2_premise_retrieval_precision_recall_harness",
+      "agent_benchmark_integrity_anti_gaming_replay",
       "provider_context_recipe_budget_policy",
       "formal_math_lean_proof_witness",
       "verifier_lab_kernel",
@@ -2553,6 +2803,8 @@
       "prediction_oracle_reconciliation",
       "standards_meta_diagnostics",
       "cold_reader_route_map",
+      "agent_monitor_redteam_falsification_replay",
+      "agent_sabotage_scheming_monitor_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",
@@ -2573,69 +2825,90 @@
       "finance_forecast_evaluation_spine",
       "batch4_proof_authority_runtime",
       "batch6_unsurfaced_primitives_capsule",
+      "batch5_authority_systems_capsule",
       "batch7_macro_engines_capsule",
+      "batch7_oracle_sibling_capsule",
+      "batch7_demo_take_console_capsule",
       "batch8_tools_tail_primitives_capsule",
       "batch8_policy_engines_capsule",
       "batch8_audio_level_rms_port",
-      "batch8_station_surface_atlas_layout_port",
       "batch8_structural_theses_capsule",
       "engine_room_demo",
       "batch9_macro_engines_capsule",
       "batch10_governance_compilers_capsule",
       "batch11_saturation_engines_capsule",
       "tool_server_pressure_inventory",
-      "workstream_driver_recency_coalescer",
       "batch8_compliance_pipeline_capsule",
       "batch10_live_source_drift_capsule",
       "batch10_cold_eval_honesty_capsule",
       "batch8_validator_checker_capsule",
       "concurrency_mission_control",
-      "batch7_station_runtime_capsule"
+      "batch7_secondary_runtime_capsule",
+      "batch12_market_dashboard_read_model_capsule",
+      "batch12_prediction_market_board_capsule",
+      "batch12_release_claim_language_gate",
+      "semantic_singleflight_dedup_runtime",
+      "finite_erdos_denominator_certificate_strike",
+      "bridge_campaign_dag_validation",
+      "metabolism_queue_reconciliation",
+      "derived_fact_provider_runtime",
+      "navigation_fitness_benchmark",
+      "annex_knowledge_routing",
+      "egress_self_compliance_audit",
+      "generated_projection_drift_runtime",
+      "lean_proof_search_lab_runtime"
     ],
-    "regression_negative_fixture_count": 3,
+    "regression_negative_fixture_count": 0,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
     "source_body_imports": {
-      "accepted_organ_count": 74,
+      "accepted_organ_count": 88,
       "body_in_receipt": false,
       "body_in_receipt_organs": [],
-      "body_material_count": 639,
+      "body_material_count": 685,
       "body_material_count_by_real_substrate_disposition": {
-        "real_substrate_capsule": 634,
-        "retained_regression_validator": 5
+        "real_substrate_capsule": 685
       },
       "material_class_counts": {
+        "public_dogfood_command_trace_slice": 2,
         "public_lean_lake_project_body": 1,
         "public_lean_source_body": 1,
         "public_lean_std_premise_descriptor_index": 1,
         "public_lean_witness_manifest_body": 1,
         "public_macro_cold_eval_python_body": 1,
+        "public_macro_compliance_python_body": 1,
         "public_macro_control_plane_body": 8,
         "public_macro_dependency_body": 2,
         "public_macro_doctrine_body": 1,
+        "public_macro_factory_tool_body": 1,
         "public_macro_finance_body": 1,
-        "public_macro_frontend_body": 2,
-        "public_macro_frontend_test_body": 1,
+        "public_macro_frontend_typescript_body": 1,
         "public_macro_governance_python_body": 1,
         "public_macro_ledger_body": 2,
+        "public_macro_market_tool_python_body": 1,
+        "public_macro_oracle_tool_python_body": 1,
         "public_macro_paper_module_body": 1,
         "public_macro_pattern_body": 23,
+        "public_macro_pipeline_python_body": 1,
         "public_macro_policy_engine_body": 1,
         "public_macro_proof_body": 7,
         "public_macro_receipt_body": 28,
         "public_macro_refactor_body": 1,
+        "public_macro_server_test_python_body": 1,
         "public_macro_skill_body": 1,
         "public_macro_standard_body": 13,
         "public_macro_support_body": 1,
-        "public_macro_tool_body": 41,
+        "public_macro_swiftpm_app_body": 1,
+        "public_macro_tool_body": 39,
         "public_macro_transaction_body": 1,
         "public_macro_validator_python_body": 1,
         "public_macro_work_ledger_tool_body": 1,
         "public_macro_workflow_tool_body": 1,
+        "public_microcosm_runtime_body": 1,
+        "public_python_source_body": 1,
         "public_python_structural_theses_macro_source": 1,
         "public_standard_body": 1,
-        "public_swift_audio_math_reference": 1,
-        "public_typescript_station_layout_reference": 1
+        "public_swift_audio_math_reference": 1
       },
       "missing_source_manifest_refs": [],
       "rows": [
@@ -2705,7 +2978,7 @@
         {
           "aggregate_floor_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json::copied_macro_body_artifacts",
           "body_in_receipt": false,
-          "body_material_count": 13,
+          "body_material_count": 12,
           "body_material_status": "copied_non_secret_PROVER_smoke_run_readiness_and_tactic_probe_artifacts_with_digest_provenance",
           "counts_as_real_substrate_progress": true,
           "evidence_class": "algorithmic_projection",
@@ -2729,7 +3002,7 @@
           "body_material_count": 4,
           "body_material_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "algorithmic_projection",
+          "evidence_class": "external_subprocess_witness",
           "material_classes": [
             "public_macro_receipt_body",
             "public_macro_tool_body"
@@ -2742,7 +3015,7 @@
             "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
             "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json"
           ],
-          "truth_accounting_bucket": "source_faithful_refactor"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json::modules",
@@ -2769,7 +3042,7 @@
         {
           "aggregate_floor_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json::copied_macro_body_artifacts",
           "body_in_receipt": false,
-          "body_material_count": 13,
+          "body_material_count": 12,
           "body_material_status": "copied_non_secret_PROVER_smoke_run_tactic_affordance_probe_bodies_with_digest_provenance",
           "counts_as_real_substrate_progress": true,
           "evidence_class": "algorithmic_projection",
@@ -2937,13 +3210,13 @@
           "body_in_receipt": false,
           "body_material_count": 3,
           "body_material_status": "copied_non_secret_macro_body_with_provenance",
-          "counts_as_real_substrate_progress": false,
-          "evidence_class": "fixture_echo_smoke",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "algorithmic_projection",
           "material_classes": [
             "public_macro_pattern_body"
           ],
           "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-          "real_substrate_disposition": "retained_regression_validator",
+          "real_substrate_disposition": "real_substrate_capsule",
           "source_manifest_ref_count": 3,
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
@@ -2951,7 +3224,7 @@
             "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
             "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json"
           ],
-          "truth_accounting_bucket": "regression_negative_fixture"
+          "truth_accounting_bucket": "source_faithful_refactor"
         },
         {
           "aggregate_floor_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json::modules",
@@ -2959,7 +3232,7 @@
           "body_material_count": 8,
           "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "algorithmic_projection",
+          "evidence_class": "bounded_runtime_computation",
           "material_classes": [
             "public_macro_standard_body",
             "public_macro_tool_body"
@@ -2972,7 +3245,7 @@
             "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
             "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "source_faithful_refactor"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
@@ -3059,7 +3332,7 @@
           "body_material_count": 12,
           "body_material_status": "copied_non_secret_macro_mission_transaction_control_bodies_with_digest_provenance",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "algorithmic_projection",
+          "evidence_class": "bounded_runtime_computation",
           "material_classes": [
             "public_macro_tool_body",
             "public_macro_control_plane_body",
@@ -3075,7 +3348,7 @@
             "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
             "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "source_faithful_refactor"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
@@ -3142,7 +3415,7 @@
           "body_material_count": 3,
           "body_material_status": "copied_non_secret_macro_body_landed",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "semantic_validator",
+          "evidence_class": "bounded_runtime_computation",
           "material_classes": [
             "public_macro_tool_body"
           ],
@@ -3153,7 +3426,7 @@
           "source_manifest_refs_preview": [
             "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "real_import_validation"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
@@ -3161,7 +3434,7 @@
           "body_material_count": 11,
           "body_material_status": "copied_non_secret_macro_body_landed",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "semantic_validator",
+          "evidence_class": "bounded_runtime_computation",
           "material_classes": [
             "public_macro_pattern_body",
             "public_macro_proof_body",
@@ -3174,7 +3447,7 @@
           "source_manifest_refs_preview": [
             "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "real_import_validation"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
@@ -3241,13 +3514,14 @@
         {
           "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
           "body_in_receipt": false,
-          "body_material_count": 4,
+          "body_material_count": 5,
           "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "semantic_validator",
+          "evidence_class": "bounded_runtime_computation",
           "material_classes": [
             "public_macro_receipt_body",
-            "public_macro_tool_body"
+            "public_macro_tool_body",
+            "public_python_source_body"
           ],
           "organ_id": "public_reveal_walkthrough",
           "real_substrate_disposition": "real_substrate_capsule",
@@ -3256,7 +3530,7 @@
           "source_manifest_refs_preview": [
             "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "real_import_validation"
+          "truth_accounting_bucket": "real_runtime_receipt"
         },
         {
           "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle::*_source_module_manifest.json::modules",
@@ -3329,13 +3603,12 @@
         {
           "aggregate_floor_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules",
           "body_in_receipt": false,
-          "body_material_count": 5,
+          "body_material_count": 4,
           "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
           "counts_as_real_substrate_progress": true,
           "evidence_class": "semantic_validator",
           "material_classes": [
-            "public_macro_pattern_body",
-            "public_macro_tool_body"
+            "public_macro_pattern_body"
           ],
           "organ_id": "cold_reader_route_map",
           "real_substrate_disposition": "real_substrate_capsule",
@@ -3349,15 +3622,16 @@
         {
           "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
           "body_in_receipt": false,
-          "body_material_count": 1,
-          "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
-          "counts_as_real_substrate_progress": false,
-          "evidence_class": "fixture_echo_smoke",
+          "body_material_count": 2,
+          "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_and_public_dogfood_trace_slice_with_provenance",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "algorithmic_projection",
           "material_classes": [
+            "public_dogfood_command_trace_slice",
             "public_macro_pattern_body"
           ],
           "organ_id": "agent_monitor_redteam_falsification_replay",
-          "real_substrate_disposition": "retained_regression_validator",
+          "real_substrate_disposition": "real_substrate_capsule",
           "source_manifest_ref_count": 3,
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
@@ -3365,20 +3639,21 @@
             "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/bundle_manifest.json",
             "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json"
           ],
-          "truth_accounting_bucket": "regression_negative_fixture"
+          "truth_accounting_bucket": "source_faithful_refactor"
         },
         {
           "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
           "body_in_receipt": false,
-          "body_material_count": 1,
-          "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
-          "counts_as_real_substrate_progress": false,
-          "evidence_class": "fixture_echo_smoke",
+          "body_material_count": 2,
+          "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_plus_sanitized_public_dogfood_trace_with_provenance",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "algorithmic_projection",
           "material_classes": [
-            "public_macro_pattern_body"
+            "public_macro_pattern_body",
+            "public_dogfood_command_trace_slice"
           ],
           "organ_id": "agent_sabotage_scheming_monitor_replay",
-          "real_substrate_disposition": "retained_regression_validator",
+          "real_substrate_disposition": "real_substrate_capsule",
           "source_manifest_ref_count": 3,
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
@@ -3386,7 +3661,7 @@
             "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/bundle_manifest.json",
             "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json"
           ],
-          "truth_accounting_bucket": "regression_negative_fixture"
+          "truth_accounting_bucket": "source_faithful_refactor"
         },
         {
           "aggregate_floor_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
@@ -3800,6 +4075,21 @@
         {
           "aggregate_floor_ref": "",
           "body_in_receipt": false,
+          "body_material_count": 10,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [],
+          "organ_id": "batch5_authority_systems_capsule",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 0,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "",
+          "body_in_receipt": false,
           "body_material_count": 15,
           "body_material_status": "copied_non_secret_macro_body",
           "counts_as_real_substrate_progress": true,
@@ -3811,6 +4101,45 @@
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
             "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+          "body_in_receipt": false,
+          "body_material_count": 6,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [
+            "public_macro_oracle_tool_python_body",
+            "public_macro_server_test_python_body"
+          ],
+          "organ_id": "batch7_oracle_sibling_capsule",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
+          "body_in_receipt": false,
+          "body_material_count": 8,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [
+            "public_macro_swiftpm_app_body"
+          ],
+          "organ_id": "batch7_demo_take_console_capsule",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json"
           ],
           "truth_accounting_bucket": "copied_non_secret_macro_body"
         },
@@ -3874,25 +4203,6 @@
         {
           "aggregate_floor_ref": "",
           "body_in_receipt": false,
-          "body_material_count": 1,
-          "body_material_status": "copied_non_secret_tsx_reference_landed_python_port_exercised",
-          "counts_as_real_substrate_progress": true,
-          "evidence_class": "algorithmic_projection",
-          "material_classes": [
-            "public_typescript_station_layout_reference"
-          ],
-          "organ_id": "batch8_station_surface_atlas_layout_port",
-          "real_substrate_disposition": "real_substrate_capsule",
-          "source_manifest_ref_count": 1,
-          "source_manifest_refs_omitted": 0,
-          "source_manifest_refs_preview": [
-            "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_module_manifest.json"
-          ],
-          "truth_accounting_bucket": "source_faithful_refactor"
-        },
-        {
-          "aggregate_floor_ref": "",
-          "body_in_receipt": false,
           "body_material_count": 12,
           "body_material_status": "copied_non_secret_macro_body_and_public_cp1_cp2_dependencies_landed_runtime_exercised",
           "counts_as_real_substrate_progress": true,
@@ -3909,6 +4219,25 @@
             "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json"
           ],
           "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json",
+          "body_in_receipt": false,
+          "body_material_count": 2,
+          "body_material_status": "public_package_body_backed_composition_capsule",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "semantic_validator",
+          "material_classes": [
+            "public_microcosm_runtime_body"
+          ],
+          "organ_id": "engine_room_demo",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "real_import_validation"
         },
         {
           "aggregate_floor_ref": "",
@@ -3985,23 +4314,25 @@
           "truth_accounting_bucket": "real_import_validation"
         },
         {
-          "aggregate_floor_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json::modules",
+          "aggregate_floor_ref": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
           "body_in_receipt": false,
-          "body_material_count": 1,
-          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_material_count": 11,
+          "body_material_status": "copied_non_secret_macro_body_with_provenance",
           "counts_as_real_substrate_progress": true,
-          "evidence_class": "semantic_validator",
+          "evidence_class": "algorithmic_projection",
           "material_classes": [
-            "public_macro_frontend_body"
+            "public_macro_compliance_python_body",
+            "public_macro_factory_tool_body",
+            "public_macro_pipeline_python_body"
           ],
-          "organ_id": "workstream_driver_recency_coalescer",
+          "organ_id": "batch8_compliance_pipeline_capsule",
           "real_substrate_disposition": "real_substrate_capsule",
           "source_manifest_ref_count": 1,
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
-            "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json"
+            "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json"
           ],
-          "truth_accounting_bucket": "real_import_validation"
+          "truth_accounting_bucket": "source_faithful_refactor"
         },
         {
           "aggregate_floor_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json::modules",
@@ -4083,39 +4414,88 @@
           "truth_accounting_bucket": "copied_non_secret_macro_body"
         },
         {
-          "aggregate_floor_ref": "",
+          "aggregate_floor_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
           "body_in_receipt": false,
-          "body_material_count": 5,
-          "body_material_status": "copied_non_secret_station_runtime_source_bodies_landed",
+          "body_material_count": 13,
+          "body_material_status": "copied_non_secret_macro_body",
           "counts_as_real_substrate_progress": true,
           "evidence_class": "verified_macro_body_import",
           "material_classes": [
-            "public_macro_tool_body",
-            "public_macro_frontend_body",
-            "public_macro_frontend_test_body"
+            "public_macro_frontend_typescript_body",
+            "public_macro_market_tool_python_body"
           ],
-          "organ_id": "batch7_station_runtime_capsule",
+          "organ_id": "batch7_secondary_runtime_capsule",
           "real_substrate_disposition": "real_substrate_capsule",
           "source_manifest_ref_count": 1,
           "source_manifest_refs_omitted": 0,
           "source_manifest_refs_preview": [
-            "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json"
+            "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "",
+          "body_in_receipt": false,
+          "body_material_count": 1,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [],
+          "organ_id": "batch12_market_dashboard_read_model_capsule",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "",
+          "body_in_receipt": false,
+          "body_material_count": 1,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [],
+          "organ_id": "batch12_prediction_market_board_capsule",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json"
+          ],
+          "truth_accounting_bucket": "copied_non_secret_macro_body"
+        },
+        {
+          "aggregate_floor_ref": "",
+          "body_in_receipt": false,
+          "body_material_count": 1,
+          "body_material_status": "copied_non_secret_macro_body",
+          "counts_as_real_substrate_progress": true,
+          "evidence_class": "verified_macro_body_import",
+          "material_classes": [],
+          "organ_id": "batch12_release_claim_language_gate",
+          "real_substrate_disposition": "real_substrate_capsule",
+          "source_manifest_ref_count": 1,
+          "source_manifest_refs_omitted": 0,
+          "source_manifest_refs_preview": [
+            "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json"
           ],
           "truth_accounting_bucket": "copied_non_secret_macro_body"
         }
       ],
       "schema_version": "microcosm_source_body_import_coverage_v1",
-      "source_body_import_organ_count": 72,
-      "source_manifest_ref_count": 152,
+      "source_body_import_organ_count": 78,
+      "source_manifest_ref_count": 157,
       "status": "pass"
     },
     "source_faithful_refactor_count": 27,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
-      "copied_non_secret_macro_body": 15,
-      "real_import_validation": 23,
-      "real_runtime_receipt": 6,
-      "regression_negative_fixture": 3,
+      "copied_non_secret_macro_body": 21,
+      "real_import_validation": 18,
+      "real_runtime_receipt": 22,
       "source_faithful_refactor": 27
     }
   }

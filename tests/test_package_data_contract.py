@@ -226,6 +226,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files["share/plectis"] == [
         ".gitignore",
         "AGENTS.md",
+        "AGENTS.override.md",
         "AGENT_ROUTES.md",
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
@@ -352,13 +353,15 @@ def test_provider_adapter_files_stay_thin_and_route_to_canonical_agent_contract(
     for name in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
         text = (MICROCOSM_ROOT / name).read_text(encoding="utf-8")
 
-        assert "The canonical public agent\ncontract is `AGENTS.md`" in text
-        assert "do not duplicate or override it here" in text
+        assert "`AGENTS.override.md`" in text
+        assert "compact cold-clone entry" in text
+        assert "`AGENTS.md`" in text
+        assert "deep public mutation contract" in text
         assert "./bootstrap.sh --dry-run" in text
         assert "hello --reader agent" in text
         assert "does not authorize release, publication, provider calls" in text
         assert "private-root equivalence, proof correctness" in text
-        assert len(text.splitlines()) <= 16
+        assert len(text.splitlines()) <= 19
 
 
 def test_package_data_contract_includes_all_public_fixture_directories() -> None:

@@ -6,9 +6,10 @@ One shared contract, two profiles:
     formalised_mathematics_artifact   (e.g. the plectis-lean-erdos249-257 repo)
 
 The profile checks the *presentation* contract a stranger meets: a small
-classified root, a README whose hero region carries an install/build block,
-resolving links, conventional community files, and consistent
-citation/version metadata. It deliberately does NOT re-run the deep
+classified root, a human README with a runnable first screen, a bounded
+AGENTS.md with an agent-first route and an immediate human redirect, resolving
+links, conventional community files, and consistent citation/version
+metadata. It deliberately does NOT re-run the deep
 truth validators; those stay with their owners (`validators/readme_front_door.py`
 and `validators/public_entry_docs.py` here, `scripts/check_release.py` in the
 Lean repo), and `--deep` delegates to them by subprocess when asked.
@@ -31,7 +32,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
-PROFILE_VERSION = "1.0"
+PROFILE_VERSION = "1.1"
+AGENT_ENTRY_MAX_BYTES = 32_768
 
 # Files every profile expects at the root (missing -> failure).
 SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md", "CITATION.cff")
@@ -39,7 +41,8 @@ SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md
 # Root entries the python_research_tool profile accepts without comment.
 PYTHON_TOOL_ALLOWED = {
     ".git", ".github", ".gitignore", ".microcosm",
-    "AGENTS.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
+    "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md",
+    "CITATION.cff", "CONTRIBUTING.md",
     "HYPOTHESIS_HANDOFF.md", "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
     "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
@@ -61,9 +64,12 @@ PYTHON_TOOL_CLASSIFIED_EXCEPTIONS = {
 
 MATH_ARTIFACT_ALLOWED = {
     ".git", ".github", ".gitignore",
-    "CITATION.cff", "CONTRIBUTING.md", "LICENSE", "LICENSES", "README.md",
+    "AGENTS.md", "ARCHITECTURE.md", "CITATION.cff", "CLAUDE.md",
+    "CONTRIBUTING.md", "LICENSE", "LICENSES", "METHODOLOGY.md", "README.md",
     "REUSE.toml", "SCOPE.md", "SECURITY.md",
-    "docs", "examples", "paper", "scripts",
+    "claim-faithful-publication-systems-paper.pdf",
+    "erdos249-257-main-paper.pdf", "erdos249-257-exposition.pdf",
+    "docs", "examples", "experiments", "paper", "scripts",
     "lakefile.toml", "lake-manifest.json", "lean-toolchain",
     "erdos249-257-exposition.pdf",
 }
@@ -261,6 +267,58 @@ def _check_readme_links(root: Path, report: dict[str, Any]) -> None:
         report["failures"].append(f"readme_links: broken relative links {broken}")
 
 
+def _check_front_door_split(root: Path, mode: str, report: dict[str, Any]) -> None:
+    readme = root / "README.md"
+    agents = root / "AGENTS.md"
+    readme_text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
+    agents_text = agents.read_text(encoding="utf-8") if agents.is_file() else ""
+    agents_head = agents_text[:4096]
+    human_redirect = "README.md" in agents_text[:1024]
+    task_route_markers = (
+        ("comprehend --first-action", "agent-entry-composition")
+        if mode == "python_research_tool"
+        else ("docs/orientation.json", "scripts/query_corpus.py")
+    )
+    task_route_present = any(marker in agents_head for marker in task_route_markers)
+    readme_h1 = re.search(r"^#\s+(.+)$", readme_text, re.MULTILINE)
+    agents_h1 = re.search(r"^#\s+(.+)$", agents_text, re.MULTILINE)
+    agents_size = len(agents_text.encode("utf-8"))
+    row = {
+        "standard_ref": "standards/std_public_repository_front_door.json",
+        "readme_reader": "human",
+        "agents_reader": "repository-aware coding agent",
+        "readme_h1": readme_h1.group(1).strip() if readme_h1 else None,
+        "agents_h1": agents_h1.group(1).strip() if agents_h1 else None,
+        "agents_human_redirect_in_first_1024_bytes": human_redirect,
+        "agents_task_route_in_first_4096_bytes": task_route_present,
+        "agents_bytes": agents_size,
+        "agents_max_bytes": AGENT_ENTRY_MAX_BYTES,
+    }
+    report["front_door_split"] = row
+    if not agents.is_file():
+        report["failures"].append("front_door_split: AGENTS.md missing")
+    if not human_redirect:
+        report["failures"].append(
+            "front_door_split: AGENTS.md does not route people to README.md "
+            "within its first 1024 bytes"
+        )
+    if not task_route_present:
+        report["failures"].append(
+            "front_door_split: AGENTS.md has no profile-appropriate task route "
+            "within its first 4096 bytes"
+        )
+    if agents_size > AGENT_ENTRY_MAX_BYTES:
+        report["failures"].append(
+            f"front_door_split: AGENTS.md is {agents_size} bytes; "
+            f"maximum is {AGENT_ENTRY_MAX_BYTES}"
+        )
+    if readme_h1 and "agent" in readme_h1.group(1).lower():
+        report["failures"].append(
+            "front_door_split: README title presents an agent contract instead "
+            "of the project"
+        )
+
+
 def _check_version_consistency(root: Path, mode: str, report: dict[str, Any]) -> None:
     cff = _cff_version(root / "CITATION.cff")
     build = _toml_version(
@@ -315,6 +373,7 @@ def run_profile(root: Path, mode: str, deep: bool = False) -> dict[str, Any]:
     _check_required_files(root, mode, report)
     _check_readme_first_screen(root, mode, report)
     _check_readme_links(root, report)
+    _check_front_door_split(root, mode, report)
     _check_version_consistency(root, mode, report)
     if deep:
         _deep_delegate(root, mode, report)

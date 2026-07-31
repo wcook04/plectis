@@ -95,6 +95,23 @@
     "mean_precision_at_k": 0.36,
     "mean_recall_at_k": 0.9,
     "metric_aggregation": {
+      "aggregate_metric_mismatches": [],
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.36,
+        "mean_recall_at_k": 0.9,
+        "premise_retrieval_pass_count": 5,
+        "problem_count": 10,
+        "proof_failure_despite_hit": 4,
+        "retrieval_miss_count": 1
+      },
+      "expected_aggregate_metrics": {
+        "mean_precision_at_k": 0.36,
+        "mean_recall_at_k": 0.9,
+        "premise_retrieval_pass_count": 5,
+        "problem_count": 10,
+        "proof_failure_despite_hit": 4,
+        "retrieval_miss_count": 1
+      },
       "legacy_row_mean_precision_at_k": 0.4333,
       "legacy_row_mean_recall_at_k": 0.9,
       "precision": "total_hit_count_over_total_retrieval_candidate_count",

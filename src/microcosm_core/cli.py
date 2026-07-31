@@ -637,7 +637,7 @@ First-screen route:
   plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   plectis comprehend --slice mechanism  every organ's real mechanism (what it computes/verifies/rejects), one line each
-  plectis comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
+  plectis comprehend --slice {authority|organs|cluster --family <f>|math|papers|claims --organ <id>|flows --organ <id>} named comprehension packet
   plectis comprehend --improvements rank concrete Plectis improvement targets with validation commands
   plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   plectis comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
@@ -1215,6 +1215,47 @@ def _render_comprehend_card(pack: dict) -> str:
         lines.append(f"  {rmf.strip()}")
         lines.append("")
 
+    major_subsystems = pack.get("major_subsystems")
+    if isinstance(major_subsystems, list) and major_subsystems:
+        lines.append("Complete family coverage:")
+        for family in major_subsystems:
+            if not isinstance(family, dict):
+                continue
+            family_id = str(family.get("family") or "unclassified")
+            count = family.get("organ_count")
+            lines.append(f"  - {family_id}: {count} organs")
+        whole_map = ((pack.get("tail_recap") or {}).get("to_comprehend_every_organ"))
+        if whole_map:
+            lines.append(f"  every organ: {_display_command(whole_map)}")
+        lines.append("")
+
+    family_highlights = pack.get("family_highlights")
+    if isinstance(family_highlights, list) and family_highlights:
+        lines.append("One mechanism anchor per family:")
+        for highlight in family_highlights:
+            if not isinstance(highlight, dict):
+                continue
+            lines.append(
+                f"  - {highlight.get('family')} — "
+                f"{highlight.get('display_name')}: {highlight.get('mechanism')}"
+            )
+        lines.append("")
+
+    companion = pack.get("companion_repository")
+    if isinstance(companion, dict) and companion:
+        lines.append("Companion repository:")
+        lines.append(
+            f"  - {companion.get('name')}: {companion.get('role')}"
+        )
+        lines.append(f"  - {companion.get('repository')}")
+        command = str(companion.get("first_command_in_companion_clone") or "").strip()
+        if command:
+            lines.append(f"  - in that clone: {command}")
+        boundary = str(companion.get("authority_boundary") or "").strip()
+        if boundary:
+            lines.append(f"  - boundary: {boundary}")
+        lines.append("")
+
     substance_nodes = pack.get("substance_nodes")
     if not isinstance(substance_nodes, list):
         substance_nodes = pack.get("showcase_nodes")
@@ -1271,6 +1312,12 @@ def _render_comprehend_card(pack: dict) -> str:
                     lines.append(f"  - {name}{suffix}: {mechanism}")
                 else:
                     lines.append(f"  - {name}{suffix}")
+                if node.get("kind") == "paper":
+                    lines.append(
+                        "    read: "
+                        f"{node.get('preferred_read_path')} "
+                        f"({node.get('source_freshness')})"
+                    )
             lines.append("")
 
     # 2. PROOF -- validator + receipts + the honest graph counts.
@@ -4047,7 +4094,7 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--slice",
         dest="slice_name",
-        choices=["first-contact", "authority", "organs", "mechanism", "cluster", "math", "claims", "flows"],
+        choices=["first-contact", "authority", "organs", "mechanism", "cluster", "math", "papers", "claims", "flows"],
         help="compile a named comprehension slice",
     )
     comprehend_parser.add_argument(

@@ -584,6 +584,56 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "What is in this repository?",
+        "Give me the lay of the land",
+        "Walk me through this codebase",
+        "Give me a complete overview",
+        "Which papers should I read?",
+        "Where is the Lean mathematics?",
+        (
+            "What is in this repository, what are the interesting mechanisms, "
+            "what papers explain it, and where is the Lean mathematics?"
+        ),
+    ],
+)
+def test_agent_entry_card_routes_natural_whole_system_questions(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="type_a_agent",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+    route = card["whole_system_assessment_route"]
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "agent-entry"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert "complete-family glance" in payload["task_route"]["alias_resolution"][
+        "reason"
+    ]
+    assert "comprehend --self-model" in route["complete_coverage"][
+        "source_checkout_run"
+    ]
+    assert "comprehend --slice mechanism" in route["mechanism_inventory"][
+        "source_checkout_run"
+    ]
+    assert "comprehend --slice papers" in route["paper_guide"][
+        "source_checkout_run"
+    ]
+    assert route["paper_guide"]["human_index"] == "docs/papers/README.md"
+    assert route["paper_guide"]["machine_inventory"] == "docs/papers/corpus.json"
+    assert route["companion_repository"]["id"] == "plectis-lean-erdos249-257"
+    assert "scripts/query_corpus.py --ask" in route["companion_repository"][
+        "entry_in_companion_clone"
+    ]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "what commands exist",
         "show me commands",
         "command list",
@@ -2098,6 +2148,7 @@ def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() ->
     assert payload["status"] == "blocked"
     assert payload["task_route"]["selected_task_class"] == "not-a-real-task-class"
     assert payload["task_route"]["selected_task_route_found"] is False
+    assert payload["task_route"]["alias_resolution"] is None
     assert payload["task_route"]["task_class"] == "agent-entry"
     assert "missing_selected_task_route" in {
         error["code"] for error in payload["validation"]["errors"]

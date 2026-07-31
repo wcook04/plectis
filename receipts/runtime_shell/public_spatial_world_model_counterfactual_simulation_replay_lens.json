@@ -251,13 +251,13 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-06-29T15:43:19+00:00",
+  "created_at": "2026-07-16T12:25:14+00:00",
   "endpoint": "/spatial-simulation",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "freshness_basis": {
     "command": "plectis spatial-simulation",
-    "digest": "sha256:9e4e696f922f6c2be2ec8457757005fb680f8a33a2fb77b230ab754c91985db9",
+    "digest": "sha256:24616fe942114e4711f7ed2679c4814239a2d3c66a09dff96e3640613b004385",
     "input_count": 12,
     "input_mode": "exported_spatial_world_model_simulation_bundle",
     "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
@@ -313,9 +313,9 @@
         "sha256": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
       },
       {
-        "bytes": 103366,
+        "bytes": 82580,
         "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
-        "sha256": "sha256:a3e3929a7507179956d67f3dea5b9191801a4bc96156ff16bb82beab9e338e97"
+        "sha256": "sha256:de7910378bea6929800d25fdc28dc6334d22a13c4ac81b6a7190a75393616911"
       },
       {
         "bytes": 4362,
