@@ -26,12 +26,12 @@
   xrightmargin=0.02\linewidth
 }
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{141,820}
-\newcommand{\SemanticAuthoredInterpreted}{139,732}
-\newcommand{\SemanticDirectEvidence}{3,248}
+\newcommand{\SemanticAuthoredTheoremLike}{142,191}
+\newcommand{\SemanticAuthoredInterpreted}{139,737}
+\newcommand{\SemanticDirectEvidence}{3,253}
 \newcommand{\SemanticContextual}{136,484}
-\newcommand{\SemanticStructuralOnly}{2,088}
-\newcommand{\SemanticAuthoredPercent}{98.5}
+\newcommand{\SemanticStructuralOnly}{2,454}
+\newcommand{\SemanticAuthoredPercent}{98.3}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.6em
 
@@ -54,9 +54,9 @@ A large formal library can be mechanically exact and still be practically
 unreadable to the next human or reasoning agent. This paper presents a
 repository architecture that separates first-contact comprehension from proof
 checking. At the audited revision, a cold clone exposes a bounded six-line
-tour over 991 Lean modules and 151,755 declarations, a mathematical map of ten
-programmes, 100 curated claims, four explicit open propositions, and an
-elaborated loaded-root graph with 8,772 source-resolved nodes and 38,844 direct
+tour over 994 Lean modules and 152,215 declarations, a mathematical map of ten
+programmes, 101 curated claims, five explicit open propositions, and an
+elaborated loaded-root graph with 9,715 source-resolved nodes and 51,427 direct
 value-reference edges. These are committed navigation products: they require
 no Lean build and make omissions and authority boundaries explicit.
 
@@ -129,15 +129,15 @@ of understanding.
 \node[wide, fill=MidnightBlue!5] (atlas) at (0,0)
   {{\scriptsize\sffamily\bfseries\color{gray!68!black} SOURCE INVENTORY}\\[2pt]
    \textbf{Exhaustive declaration atlas}\hfill
-   \textcolor{MidnightBlue!85}{\small\textbf{991 modules \(\cdot\) 151,755 declarations}}\\[2pt]
+   \textcolor{MidnightBlue!85}{\small\textbf{994 modules \(\cdot\) 152,215 declarations}}\\[2pt]
    \footnotesize Source coordinates, declaration kinds, module roles, and a route
    for every live declaration.};
 \node[branch, fill=TealBlue!5, below left=12mm and -5.34cm of atlas.south] (dep)
   {{\scriptsize\sffamily\bfseries\color{gray!68!black} FORMAL STRUCTURE}\\[2pt]
    \textbf{Loaded-root dependency index}\\[2pt]
-   \textcolor{TealBlue!75!black}{\textbf{8,772 nodes \(\cdot\) 38,844 direct edges}}\\[3pt]
-   \footnotesize Exact type/value references joined to source. Reports 3,074
-   unresolved atlas rows and 5,800 unresolved public edge pairs.};
+   \textcolor{TealBlue!75!black}{\textbf{9,715 nodes \(\cdot\) 51,427 direct edges}}\\[3pt]
+   \footnotesize Exact type/value references joined to source. Reports 2,591
+   unresolved atlas rows and 6,097 unresolved public edge pairs.};
 \node[branch, fill=BurntOrange!6, below right=12mm and -5.34cm of atlas.south] (semantic)
   {{\scriptsize\sffamily\bfseries\color{gray!68!black} AUTHORED MEANING}\\[2pt]
    \textbf{Tiered semantic graph}\\[2pt]
@@ -149,7 +149,7 @@ of understanding.
 \node[wide, fill=ForestGreen!6, below=12mm of $(dep.south)!0.5!(semantic.south)$] (claims)
   {{\scriptsize\sffamily\bfseries\color{gray!68!black} PUBLICATION SURFACE}\\[2pt]
    \textbf{Reviewed public claim map}\hfill
-   \textcolor{ForestGreen!70!black}{\footnotesize\textbf{100 claims; 10 programmes; 4 open propositions}}\\[2pt]
+   \textcolor{ForestGreen!70!black}{\footnotesize\textbf{101 claims; 10 programmes; 5 open propositions}}\\[2pt]
    \footnotesize Public wording, status, evidence, claim ceiling, and the
    stronger adjacent statement.};
 \coordinate (fork) at ($(atlas.south)+(0,-4mm)$);

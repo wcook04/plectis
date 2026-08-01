@@ -28,22 +28,18 @@
 
 \begin{abstract}
 \noindent
-Call a sequence $(T_N)_{N\ge0}$ of rational numbers a \emph{dyadic tail
-recurrence with digits $g$} when $T_{N+1}=2T_N-g_{N+1}$ for every $N$, the
-digits $g_N$ being arbitrary integers.  For any such sequence we prove the
-block identity
-$T_{N+h}=2^{h}T_N-B_{h,N}$, with $B_{h,N}=g_{N+1}2^{\,h-1}+\cdots+g_{N+h}$, and
-hence that the shift $T_{N+h}-T_N$ is an integer
-\emph{if and only if} $(2^{h}-1)T_N$ is; that integrality of one shift
-propagates to every later index; and, by Euler's congruence, that a term whose
-reduced denominator $d$ is odd has an integral shift of length $\ph(d)$, where
-$\ph$ denotes Euler's totient function.
-Consequently every such rational sequence has a fixed $h\ge1$ whose shifts are
-integers from some index onwards.  The contrapositive over the reals is an
-irrationality criterion: if a real sequence obeys the same recurrence with
-integer digits and, for every $h\ge1$, the shift $T_{N+h}-T_N$ fails to be an
-integer for arbitrarily large $N$, then $T_0$ is irrational.  The digits
-enter all of these statements only through the fact that they are integers.
+The contribution is a Lean-checked rigidity criterion for dyadic tails and an
+exact reduction of the prime series to the prime-gap series.  If a real
+sequence satisfies $T_{N+1}=2T_N-g_{N+1}$ with integer digits, then
+\[
+ T_{N+h}=2^hT_N-
+ \bigl(g_{N+1}2^{h-1}+\cdots+g_{N+h}\bigr).
+\]
+For rational $T_0$, denominator arithmetic and propagation therefore give one
+fixed $h\ge1$ for which $T_{N+h}-T_N$ is integral at every sufficiently large
+$N$.  Contrapositively, cofinal non-integrality for every fixed $h$ forces
+$T_0$ to be irrational.  This abstract criterion is proved; the required
+cofinal property for the actual prime-gap tails is not.
 
 Let $p_0=2,p_1=3,\ldots$ enumerate the primes and let
 $g_n=p_{n+1}-p_n$.  We formalise in Lean both the exact finite identity
@@ -60,24 +56,16 @@ equivalence
  \Longleftrightarrow
  \operatorname{Irr}\!\left(\sum_{i\ge0}\frac{g_i}{2^{\,i+1}}\right).
 \]
-The prime number theorem supplies the summability in ordinary mathematics;
-that external input is not formalised here and remains an explicit hypothesis
-of the Lean declarations.
+The prime number theorem supplies summability externally; it is an explicit
+hypothesis, not part of the Lean development.
 
-Problem~\#251 remains open.  The remaining obligation is now exact:
-rationality would force some fixed $h\ge1$ for which the actual tail shifts
-$T_{N+h}-T_N$ are integers at every sufficiently large $N$.  Thus it is enough
-to prove cofinal non-integrality for every fixed $h$.  We also prove a local
-obstruction: two adjacent shifts lying strictly between $-1$ and $1$ cannot
-both be integers when the corresponding prime gaps differ.  Consequently it
-is enough to produce such adjacent small-mismatch pairs cofinally.  The actual
-prime gaps are Lean-checked to be unbounded, hence not eventually periodic,
-but that fact alone gives no control on the size of a tail.  A telescoping
-identity supplies an explicit sequence of integers $\kappa_0,\kappa_1,\ldots$
-that is unbounded, hence not eventually periodic, and for which
-$\sum_{n\ge0}\kappa_n2^{-(n+1)}$ is rational.  Rationality of a dyadic sum
-therefore cannot by itself force its integer coefficients to be eventually
-periodic, and the missing theorem must control the full prime-gap tails.
+Problem~\#251 remains open.  A local theorem shows that adjacent shifts in
+$(-1,1)$ cannot both be integers when the corresponding prime gaps differ, so
+cofinally many such small-mismatch pairs would suffice.  Unboundedness and
+nonperiodicity of the prime gaps, although Lean-checked, do not control the
+tails: we exhibit an unbounded, nonperiodic integer sequence whose dyadic sum
+is rational.  The missing input must therefore control the full prime-gap
+tails, not merely individual gaps or eventual periodicity.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -151,7 +139,10 @@ $(g_n)$ for which the sum is exactly $1$
 hypotheses that $(g_n)$ is strictly increasing and
 $g_n=O(n\log^k n)$, Erd\H{o}s had already classified the rational cases:
 rationality holds exactly when $g_n=q p_n+1$ eventually for one fixed integer
-$q>1$~\cite[pp.~96--99]{erdos1958}.  The counterexample evades those
+$q\ge1$~\cite[pp.~96--99]{erdos1958}.  The endpoint $q=1$ is included: if
+$G_n=\prod_{j=1}^{n}(p_j+1)$, then
+$p_n/G_n=1/G_{n-1}-1/G_n$, so the corresponding series telescopes to $1$.
+The counterexample evades those
 hypotheses.  It
 does not address the fixed-denominator dyadic series studied here.  The
 current catalogue record still repeats this variable-denominator expectation
@@ -252,6 +243,7 @@ Totient shift from an odd denominator & Proved here & Theorem~\ref{res:totient}.
 Propagation of an integral shift & Proved here & Theorem~\ref{res:propagate}. \\
 Eventual integral shift for every rational-valued recurrence & Lean-checked & Theorem~\ref{res:collapse}. \\
 Cofinal shift escape implies irrationality & Lean-checked abstractly & Theorem~\ref{res:escape-irrational}. \\
+Finite-approximation gap & Lean-checked over $\Q$ & Its real-valued use in Proposition~\ref{res:truncation} is paper-level. \\
 Actual prime gaps are unbounded and not eventually periodic & Lean-checked & Proposition~\ref{res:gap-nonperiodic}. \\
 Adjacent small-mismatch pair excludes simultaneous integrality & Lean-checked & Theorem~\ref{res:smallpair}. \\
 Concrete prime-gap tail recurrence & Paper-proved from PNT & Not yet instantiated as a Lean infinite sum. \\
@@ -958,8 +950,8 @@ has absolute value at most $R_{h,N,L}(M)$, so under~\eqref{eq:truncation} the
 full sum lies at positive distance from every integer.
 \end{proof}
 
-\noindent The last distance-to-integers inference is Lean-checked as the
-generic
+\noindent The rational analogue of the last distance-to-integers inference is
+Lean-checked as the generic
 \lword{Erdos251/PrimeGapDyadicTail.lean}{772}{not_ratIntegral_of_approximation_gap}{finite-approximation
 certificate}: an error at most $R$ cannot reach an integer when the
 approximation is farther than $R$ from every integer.  For instance, if
@@ -967,7 +959,10 @@ $S_{h,N,L}=2/5$ and $R_{h,N,L}(M)=1/20$, the full sum lies within $1/20$ of
 $2/5$ and so at distance at least $7/20$ from every integer, which settles
 \eqref{eq:shift-escape} at that $N$.  The prime-gap tail
 bound, the convergence used above, and the existence of blocks satisfying
-\eqref{eq:truncation} are not consequences of that formal theorem.
+\eqref{eq:truncation} are not consequences of that formal theorem.  Moreover,
+the proposition's full sum is real-valued, so the reverse-triangle inference
+used here is a paper proof rather than an instance of the linked
+rational-valued Lean declaration.
 
 \noindent Taking the classical bound $M(n)\ll n\log n$, a choice
 $L=\lceil A\log_2(N+h+2)\rceil$ with any fixed $A>1$ makes the right side a
@@ -1001,8 +996,9 @@ block estimate of the kind needed here.
 
 \paragraph{What remains to be formalised.}
 The abstract irrationality theorem and the prime-specific local
-small-mismatch theorem are Lean-checked, as is the generic
-finite-approximation certificate used in Proposition~\ref{res:truncation}.
+small-mismatch theorem are Lean-checked, as is the rational analogue of the
+finite-approximation certificate used in Proposition~\ref{res:truncation};
+the proposition's real-valued inference remains paper-level.
 The local source still takes
 summability of the prime series as a hypothesis and does not define
 $\mathcal T_N$ by an infinite sum; the prime-number-theorem comparison and the

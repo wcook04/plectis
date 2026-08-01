@@ -18,12 +18,12 @@
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{141,820}
-\newcommand{\SemanticAuthoredInterpreted}{139,732}
-\newcommand{\SemanticDirectEvidence}{3,248}
+\newcommand{\SemanticAuthoredTheoremLike}{142,191}
+\newcommand{\SemanticAuthoredInterpreted}{139,737}
+\newcommand{\SemanticDirectEvidence}{3,253}
 \newcommand{\SemanticContextual}{136,484}
-\newcommand{\SemanticStructuralOnly}{2,088}
-\newcommand{\SemanticAuthoredPercent}{98.5}
+\newcommand{\SemanticStructuralOnly}{2,454}
+\newcommand{\SemanticAuthoredPercent}{98.3}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.5em
 
@@ -870,7 +870,7 @@ structural comparisons passed on the named revision.
 \section{Reproducibility}\label{app:repro}
 
 \paragraph{Dated navigation counts.}
-At the reviewed snapshot, all 151,755 live declarations were inventoried and
+At the reviewed snapshot, all 151,761 live declarations were inventoried and
 routed, and all \SemanticAuthoredTheoremLike\ author-written theorem-like
 declarations had an exact node link.  Of those,
 \SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participated in
@@ -880,7 +880,7 @@ module-family context.  The remaining \SemanticStructuralOnly\ were linked only
 through exact source-module and normalised-signature families, not authored
 mathematical paraphrases.  Every declaration selected for a public claim had
 an authored route.  The command
-\path{python3 scripts/query_semantic.py coverage} derives these volatile
+\texttt{python3 scripts/query\_semantic.py coverage} derives these volatile
 navigation counts and checks their references.  They do not measure semantic
 review quality or public-claim completeness.
 

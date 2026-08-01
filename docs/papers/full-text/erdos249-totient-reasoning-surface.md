@@ -10,17 +10,17 @@
 
 </div>
 
-This document is the complete working record of one attack on Erdős Problem 249: whether $`S=\sum_{n\ge1}\varphi(n)/2^n`$ is irrational. The problem is open, and nothing here decides it. What the document does is collect, in one place and in a form that can be used directly as premises, every result the project holds: the Lean-checked theorems with their exact hypotheses and source sites, the exact finite computations, the coordinates in which the constant can be written, the routes that have been closed and the mechanism that closed each one, and the exact statements that remain open. Results are sorted by the scale at which they are proved, because that is where the problem stands or falls: everything proved here holds at fixed or bounded scale, while the remaining obligation is cofinal.
+This paper gives a claim-bounded map of the current formal attack on Erdős Problem 249, which asks whether $`S=\sum_{n\ge1}\varphi(n)/2^n`$ is irrational. The problem remains open. The unconditional headline results are an explicit rational basis for the full dyadic totient kernel, exact rank $`2^e+1`$ through every level $`e\ge1`$, a denominator exclusion through approximately $`7.96\times10^{34}`$, and finite lcm-diagonal certificates for every $`t\le82`$. The full kernel is therefore infinite-dimensional. The paper also records exact equivalences between irrationality and several cofinal certificate or tail-nonintegrality supplies. Those equivalences re-express rather than solve the problem: no certificate at $`t=83`$, unbounded producer, or irrationality proof is obtained. The contribution is the audited organization of checked results, coordinate-specific obstructions, and open interfaces—not a solution, an exhaustive reproduction of every repository theorem, or a priority claim for every formalisation.
 
 <a id="how-to-read-this-document"></a>
 
 # How to read this document
 
-This is a working record, not a survey. It is written to be read in full before work begins on the problem, so that every statement the project has established is available as a premise rather than as a reference to be chased. Three conventions carry that load.
+This is a reasoning surface, not an exhaustive corpus export or a literature survey. It is designed to expose the principal premises, obstructions, and open interfaces before work begins. The machine-readable corpus remains the current inventory when later theorem waves outrun this exposition. Three conventions carry the paper’s claim boundary.
 
 *Evidence bands.* Every statement is tagged. <span class="sans-serif">\[Lean\]</span> means a proof term was checked by the pinned Lean kernel. <span class="sans-serif">\[Cert\]</span> means an exact finite computation, with no floating-point decision anywhere in it. <span class="sans-serif">\[Math\]</span> means proved in ordinary mathematics in the sources but not formalised. <span class="sans-serif">\[Cited\]</span> means established in the published literature. <span class="sans-serif">\[Open\]</span> means not proved. These are never blurred, and a statement carrying one band is never described in language belonging to another.
 
-*Scale.* Every parameter-indexed statement is tagged <span class="sans-serif">scale:fixed</span> (proved at specific listed values), <span class="sans-serif">scale:bounded</span> (proved below an explicit bound), <span class="sans-serif">scale:cofinal</span> (proved for arbitrarily large parameters), or <span class="sans-serif">scale:uniform</span> (proved for all parameters). This axis is the reason the problem is still open: the corpus proves at fixed and bounded scale, and the remaining obligation is cofinal. Sorting by scale puts that boundary where it can be seen.
+*Scale.* Every parameter-indexed statement is tagged <span class="sans-serif">scale:fixed</span> (proved at specific listed values), <span class="sans-serif">scale:bounded</span> (proved below an explicit bound), <span class="sans-serif">scale:cofinal</span> (proved for arbitrarily large parameters), or <span class="sans-serif">scale:uniform</span> (proved for all parameters). The corpus contains theorems at all four scales; the unresolved endpoint depends on a particular cofinal certificate producer that is not among them. Sorting by scale keeps that distinction visible.
 
 *Coordinates.* Every statement records the representation it is expressed in. An obstruction is a fact about a coordinate, not about the object, and a wall measured in one representation may simply not exist in another; the atlas section gives the transport maps, so any obstruction recorded here can be re-measured elsewhere.
 
@@ -33,12 +33,12 @@ Erdős Problem 249 is open. No section of this document claims otherwise, and a 
 Let $`\varphi`$ be Euler’s totient function and put
 ``` math
 S \;:=\; \sum_{n \ge 1} \frac{\varphi(n)}{2^{n}}
-  \;=\; 1 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} + \tfrac{4}{32} + \cdots
-  \;=\; 1.6066\ldots
+  \;=\; \tfrac12 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} + \tfrac{4}{32} + \cdots
+  \;=\; 1.3676308\ldots
 ```
 The series converges absolutely because $`\varphi(n) \le n`$. Erdős Problem \#249 asks whether $`S`$ is irrational. *It is open.* Nothing in this document decides it, no route recorded here is a proof, and no result here should be read as an approach that is close to working. What this document does is different in kind: it assembles every recorded failure, obstruction, countermodel and dead route the programme has produced against \#249, and classifies each one by the exact class of argument it eliminates. The claim being made is that those failures are not independent — they are repeated measurements of a single obstruction, and that obstruction has a shape which can be stated.
 
-The open question has a sharp equivalent inside the corpus, and it is the statement everything below is measured against. Write $`2^{N} S = \Phi_N + R_N`$ with $`\Phi_N := \sum_{n \le N} \varphi(n) 2^{N-n} \in \mathbb{N}`$ and $`R_N := \sum_{j \ge 0} \varphi(N+1+j)/2^{j+1} \in [0,\infty)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:57), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:150)). If $`S \in \mathbb{Q}`$ then, applying Euler’s theorem to the odd part of its denominator, there are $`h > 0`$ and $`N_0`$ with $`R_{N+h} - R_N \in \mathbb{Z}`$ for every $`N \ge N_0`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358), explicit witnesses $`h = \varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0 = v_2(r.\mathrm{den})`$). So it suffices to refute integrality cofinally on every period ray. The finite device that refutes it is a residue certificate:
+The open question has a sharp equivalent inside the corpus, and it is the statement everything below is measured against. Write $`2^{N} S = \Phi_N + R_N`$ with $`\Phi_N := \sum_{n \le N} \varphi(n) 2^{N-n} \in \mathbb{N}`$ and $`R_N := \sum_{j \ge 0} \varphi(N+1+j)/2^{j+1} \in [0,\infty)`$ (, ). If $`S \in \mathbb{Q}`$ then, applying Euler’s theorem to the odd part of its denominator, there are $`h > 0`$ and $`N_0`$ with $`R_{N+h} - R_N \in \mathbb{Z}`$ for every $`N \ge N_0`$ (, explicit witnesses $`h = \varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0 = v_2(r.\mathrm{den})`$). So it suffices to refute integrality cofinally on every period ray. The finite device that refutes it is a residue certificate:
 ``` math
 \mathrm{windowDiscrepancy}(h,N,L)
   \;:=\; \sum_{j<L}\bigl(\varphi(N{+}h{+}1{+}j) - \varphi(N{+}1{+}j)\bigr)\,2^{\,L-1-j} \in \mathbb{Z},
@@ -50,7 +50,7 @@ the depth-$`L`$ truncation of $`2^{L}(R_{N+h} - R_N)`$, and
   (N{+}h{+}L{+}2) \;<\; \mathrm{windowDiscrepancy}(h,N,L) \bmod 2^{L}
   \;<\; 2^{L} - (N{+}h{+}L{+}2),
 ```
-a decidable condition ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72)). The radius $`N{+}h{+}L{+}2`$ is exactly the crude tail bound coming from $`\varphi(m) \le m`$, so a certificate is sound: it forces $`R_{N+h} - R_N \notin \mathbb{Z}`$, and in fact certificates are *complete* for non-integrality ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:316)). The entire \#249 side of the programme therefore reduces to one obligation.
+a decidable condition (, ). The radius $`N{+}h{+}L{+}2`$ is exactly the crude tail bound coming from $`\varphi(m) \le m`$, so a certificate is sound: it forces $`R_{N+h} - R_N \notin \mathbb{Z}`$, and in fact certificates are *complete* for non-integrality (). The entire \#249 side of the programme therefore reduces to one obligation.
 
 <div id="defn:sep" class="defn">
 
@@ -61,11 +61,11 @@ a decidable condition ( [<span class="smallcaps">Lean source</span>](https://git
   \forall h \ge 1\ \forall N_0\ \exists N \ge N_0\ \exists L,\;
   \mathrm{certifiedKill}(h,N,L).
 ```
-$`\mathrm{Sep} \Rightarrow \mathrm{Irrational}(S)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394)). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
+$`\mathrm{Sep} \Rightarrow \mathrm{Irrational}(S)`$ (). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
-Two features of $`\mathrm{Sep}`$ govern everything that follows. First, the quantifier shape is $`\forall\forall\exists\exists`$: the corpus can and does verify individual instances, but an instance is not the obligation. Second, depth cannot stay bounded: from $`\mathrm{certifiedKill}(h,N,L)`$ one gets $`2(N{+}h{+}L{+}2) < 2^{L}`$ immediately ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79), <span class="sans-serif">\[Lean\]</span>), so $`L \gtrsim \log_2(N{+}h)`$. A certificate is a demand that a weighted accumulation over a window of length $`\approx \log_2 N`$ lands near the centre of its dyadic arc, at full arithmetic resolution.
+Two features of $`\mathrm{Sep}`$ govern everything that follows. First, the quantifier shape is $`\forall\forall\exists\exists`$: the corpus can and does verify individual instances, but an instance is not the obligation. Second, depth cannot stay bounded: from $`\mathrm{certifiedKill}(h,N,L)`$ one gets $`2(N{+}h{+}L{+}2) < 2^{L}`$ immediately (, <span class="sans-serif">\[Lean\]</span>), so $`L \gtrsim \log_2(N{+}h)`$. A certificate is a demand that a weighted accumulation over a window of length $`\approx \log_2 N`$ lands near the centre of its dyadic arc, at full arithmetic resolution.
 
 <a id="the-unconditional-record"></a>
 
@@ -75,45 +75,45 @@ The following hold with no irrationality hypothesis. They are the results a spec
 
 <div id="thm:denom" class="thm">
 
-**Theorem 2** (Denominator exclusion — the headline unconditional fact). *If $`S \in \mathbb{Q}`$ then its reduced denominator exceeds $`Q_0 := 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053 \approx 7.96 \times 10^{34}`$. Equivalently, $`S \ne p`$ for every $`p \in \mathbb{Q}`$ with $`p.\mathrm{den} \le Q_0`$. The bound is sharp for the method: $`q = Q_0 + 1`$ is the exact first failing denominator, exhibited as the mediant of two explicit unimodular Farey neighbours. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225)*
+**Theorem 2** (Denominator exclusion — the headline unconditional fact). *If $`S \in \mathbb{Q}`$ then its reduced denominator exceeds $`Q_0 := 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053 \approx 7.96 \times 10^{34}`$. Equivalently, $`S \ne p`$ for every $`p \in \mathbb{Q}`$ with $`p.\mathrm{den} \le Q_0`$. The bound is sharp for the method: $`q = Q_0 + 1`$ is the exact first failing denominator, exhibited as the mediant of two explicit unimodular Farey neighbours. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
-This is obtained from a classical Stern–Brocot gap lemma ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51)) applied at window $`K = 240`$, the last rung of the ladder $`4838 \to 2^{22} \to 2.49\times10^{17} \to Q_0`$. It is logically independent of $`\mathrm{Sep}`$: it uses no certificate and no period apparatus. Its own open continuation is whether $`\sup_K (b+d)(K) = \infty`$; that would close \#249 through this theorem’s consumer. <span class="sans-serif">\[Open\]</span>
+This is obtained from a classical Stern–Brocot gap lemma () applied at window $`K = 240`$, the last rung of the ladder $`4838 \to 2^{22} \to 2.49\times10^{17} \to Q_0`$. It is logically independent of $`\mathrm{Sep}`$: it uses no certificate and no period apparatus. Its own open continuation is whether $`\sup_K (b+d)(K) = \infty`$; that would close \#249 through this theorem’s consumer. <span class="sans-serif">\[Open\]</span>
 
 <div id="prop:deposits" class="prop">
 
-**Proposition 3** (Finite certificate deposits). *$`\mathrm{certifiedKill}`$ has been verified at: the $`28`$ diagonal instances of the LCM pincer through $`t = 64`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificatesT64.lean:1967), endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificatesT64.lean:1928)); all shifts $`h \in [1,16]`$ simultaneously at $`(N,L) = (14,9)`$, by `decide` ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:574)); and eight further period deposits at $`N = 300`$. Every deposit fires within a small additive constant of the minimum depth permitted by $`\mathrm{certifiedKill\_depth\_floor}`$. Note the quantifier order: this deposit proves $`\exists N \exists L\, \forall h \le 16`$, whereas $`\mathrm{Sep}`$ needs $`\forall h\, \forall N_0\, \exists N \exists L`$. <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 3** (Finite certificate deposits). *$`\mathrm{certifiedKill}`$ has been verified at: the $`28`$ diagonal instances of the LCM pincer through $`t = 64`$ (, endpoint ); all shifts $`h \in [1,16]`$ simultaneously at $`(N,L) = (14,9)`$, by `decide` (); and eight further period deposits at $`N = 300`$. Every deposit fires within a small additive constant of the minimum depth permitted by $`\mathrm{certifiedKill\_depth\_floor}`$. Note the quantifier order: this deposit proves $`\exists N \exists L\, \forall h \le 16`$, whereas $`\mathrm{Sep}`$ needs $`\forall h\, \forall N_0\, \exists N \exists L`$. <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:sign" class="prop">
 
-**Proposition 4** (Cofinal positivity, and why it is exactly half a certificate). *The true actual-LCM tail difference is strictly positive for every $`a \ge 8`$, with no irrationality hypothesis ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:144)). In the same coordinate, integrality of the orbit forces the residue to the *top edge*, exactly $`2^{K} - e`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:211)). Positivity does not exclude the top edge. So the strongest cofinal fact the corpus owns about the actual object supplies one of the two inequalities a certificate needs and provably cannot supply the other. <span class="sans-serif">coord:actual-lcm</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 4** (Cofinal positivity, and why it is exactly half a certificate). *The true actual-LCM tail difference is strictly positive for every $`a \ge 8`$, with no irrationality hypothesis (, ). In the same coordinate, integrality of the orbit forces the residue to the *top edge*, exactly $`2^{K} - e`$ (). Positivity does not exclude the top edge. So the strongest cofinal fact the corpus owns about the actual object supplies one of the two inequalities a certificate needs and provably cannot supply the other. <span class="sans-serif">coord:actual-lcm</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:rank" class="prop">
 
-**Proposition 5** (Rationality forces unbounded carry rank). *If $`S`$ is rational then, for every $`e`$, the dyadic carry-kernel family at level $`e`$ has $`\mathbb{Q}`$-rank at least $`2^{e}-1`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284)). The scale side is complete and uniform in $`e`$: the canonical family of $`2^{e}+1`$ dyadic totient-kernel channels is linearly independent over $`\mathbb{Q}`$ at every depth, via CRT plus Dirichlet ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900)), so the full family spans an infinite-dimensional space ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1014)). <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 5** (Rationality forces unbounded carry rank). *If $`S`$ is rational then, for every $`e`$, the dyadic carry-kernel family at level $`e`$ has $`\mathbb{Q}`$-rank at least $`2^{e}-1`$ (). The scale side is complete and uniform in $`e`$: the canonical family of $`2^{e}+1`$ dyadic totient-kernel channels is linearly independent over $`\mathbb{Q}`$ at every depth, via CRT plus Dirichlet (), so the full family spans an infinite-dimensional space (). <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:period-not-rank" class="prop">
 
-**Proposition 6** (What rationality actually buys, and what it does not). *Rationality gives uniform eventual periodicity of the carry’s dyadic sections modulo $`v`$; that periodicity provably does *not* promote to any $`\mathbb{Q}`$-rank bound on the carry family ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:224)). <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 6** (What rationality actually buys, and what it does not). *Rationality gives uniform eventual periodicity of the carry’s dyadic sections modulo $`v`$; that periodicity provably does *not* promote to any $`\mathbb{Q}`$-rank bound on the carry family (). <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:iffs" class="prop">
 
-**Proposition 7** (Exact reformulations that do not move the truth value). *Three independent re-encodings of $`\mathrm{Sep}`$ are proved *equivalent* to $`\mathrm{Irrational}(S)`$, not merely sufficient for it: the period-multiple kill supply ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:153)), the directed-certificate supply and its LCM specialisation ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:829,875)), and the window-separated-pairs predicate ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:1775)). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 7** (Exact reformulations that do not move the truth value). *Several re-encodings are proved *equivalent* to $`\mathrm{Irrational}(S)`$, not merely sufficient for it: the period-multiple kill supply (), the base certificate supply and its lcm-diagonal normal form (; ), the directed-certificate supply and its LCM specialisation (), and the window-separated-pairs predicate (). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:parity" class="prop">
 
-**Proposition 8** (A rational sequence indistinguishable from $`\varphi`$ by every coarse invariant). *There is $`c : \mathbb{N}\to \mathbb{N}`$ with $`c(n) \le 6`$ and $`c(n) \le n`$ for all $`n`$, $`c(n) \equiv \varphi(n) \pmod 2`$ for *every* $`n`$, and $`c`$ not eventually periodic — indeed for every $`N, G, K`$ there are $`K`$ explicit carry pulses beyond $`N`$, pairwise separated by more than $`G`$ — and yet $`\sum_n c(n)/2^{n} = 3/2 \in \mathbb{Q}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:637); sum at `:359`, aperiodicity at `:487`, parity match at `:194`; `#print axioms` clean). <span class="sans-serif">coord:coefficient-word</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
+**Proposition 8** (A rational sequence indistinguishable from $`\varphi`$ by every coarse invariant). *There is $`c : \mathbb{N}\to \mathbb{N}`$ with $`c(n) \le 6`$ and $`c(n) \le n`$ for all $`n`$, $`c(n) \equiv \varphi(n) \pmod 2`$ for *every* $`n`$, and $`c`$ not eventually periodic — indeed for every $`N, G, K`$ there are $`K`$ explicit carry pulses beyond $`N`$, pairwise separated by more than $`G`$ — and yet $`\sum_n c(n)/2^{n} = 3/2 \in \mathbb{Q}`$ (; sum at `:359`, aperiodicity at `:487`, parity match at `:194`; `#print axioms` clean). <span class="sans-serif">coord:coefficient-word</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -159,13 +159,13 @@ B1 is the one barrier that is a genuine no-go theorem about proof method, so it 
 
 <div class="proof">
 
-*Proof.* From $`c(n) \le n`$ one gets $`\lvert 2^{L}(R^{c}_{N+h} - R^{c}_{N}) - A_c(h,N,L)\rvert < N{+}h{+}L{+}2`$; this is the crude tail estimate, formalised for $`\varphi`$ at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:198) and used there to prove [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:262). If $`R^{c}_{N+h} - R^{c}_{N} = k \in \mathbb{Z}`$ then $`2^{L}k \equiv 0 \pmod{2^{L}}`$ and $`A_c`$ lies within $`N{+}h{+}L{+}2`$ of $`2^{L}k`$, so $`A_c \bmod 2^{L}`$ lies within $`N{+}h{+}L{+}2`$ of $`0`$ or of $`2^{L}`$, contradicting $`\mathrm{Kill}_c`$. ◻
+*Proof.* From $`c(n) \le n`$ one gets $`\lvert 2^{L}(R^{c}_{N+h} - R^{c}_{N}) - A_c(h,N,L)\rvert < N{+}h{+}L{+}2`$; this is the crude tail estimate, formalised for $`\varphi`$ at and used there to prove . If $`R^{c}_{N+h} - R^{c}_{N} = k \in \mathbb{Z}`$ then $`2^{L}k \equiv 0 \pmod{2^{L}}`$ and $`A_c`$ lies within $`N{+}h{+}L{+}2`$ of $`2^{L}k`$, so $`A_c \bmod 2^{L}`$ lies within $`N{+}h{+}L{+}2`$ of $`0`$ or of $`2^{L}`$, contradicting $`\mathrm{Kill}_c`$. ◻
 
 </div>
 
 <div id="lem:gperiod" class="lem">
 
-**Lemma 10** (Generic tail-period law). *If $`T_c = p/(2^{e}m)`$ with $`m`$ odd and $`h := \mathrm{ord}_m(2)`$, then $`R^{c}_{N+h} - R^{c}_{N} \in \mathbb{Z}`$ for every $`N \ge e`$. <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Math\]</span>*
+**Lemma 10** (Generic tail-period law). *If $`T_c = p/(2^{e}m)`$ with $`m`$ positive and odd, and if $`h\ge1`$ satisfies $`m\mid 2^h-1`$, then $`R^{c}_{N+h} - R^{c}_{N} \in \mathbb{Z}`$ for every $`N \ge e`$. <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Math\]</span>*
 
 </div>
 
@@ -177,7 +177,7 @@ B1 is the one barrier that is a genuine no-go theorem about proof method, so it 
 
 <div class="rem">
 
-*Remark 11*. Lemmas <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">9</a> and <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">10</a> are elementary and are stated here in ordinary mathematics. Their $`\varphi`$-instances are Lean theorems ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:262), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358)), and the generic tail-period direction exists on disk inside [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:426); a generic *named* theorem of the form of Lemma <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">10</a> does not exist in either tree. The composition below is mechanical but unformalised, and is flagged <span class="sans-serif">\[Math\]</span> throughout for that reason.
+*Remark 11*. Lemmas <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">9</a> and <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">10</a> are elementary and are stated here in ordinary mathematics. Their $`\varphi`$-instances are Lean theorems (, ), and the generic tail-period direction exists on disk inside ; a generic *named* theorem of the form of Lemma <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">10</a> does not exist in either tree. The composition below is mechanical but unformalised, and is flagged <span class="sans-serif">\[Math\]</span> throughout for that reason.
 
 </div>
 
@@ -218,7 +218,7 @@ Write $`D = A/2^{B}`$ with $`A = 2^{B+1} - \sum_{n \le B}(n-\varphi(n))2^{\,B-n}
 
 <div id="cor:b1" class="cor">
 
-**Corollary 13** (What B1 rules out). *No argument establishing $`\mathrm{Sep}`$ can have its totient input confined to $`\{\varphi(n) : n \le B\}`$ for a fixed $`B`$. Equivalently, no inference of the form “$`\mathrm{Sep}`$ has been verified at every scale up to $`B`$, for arbitrarily large $`B`$, therefore $`\mathrm{Sep}`$ holds cofinally” is valid: the hypothesis is consistent with the conclusion’s negation at every $`B`$.*
+**Corollary 13** (What B1 rules out). *No proof rule that is uniform over all coefficient sequences $`c(n)\le n`$ can establish $`\mathrm{Sep}`$ from a single fixed prefix $`\{c(n):n\le B\}`$: Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">12</a> supplies a rational countermodel with that same prefix. This does *not* invalidate an argument that uses the fixed arithmetic sequence $`\varphi`$ together with compatible information at arbitrarily large horizons; the theorem gives a different $`\gamma_B`$ for each $`B`$, not one sequence agreeing with $`\varphi`$ at every $`B`$.*
 
 </div>
 
@@ -240,12 +240,12 @@ Each barrier below is stated as a claim about a class of arguments, with its sta
 
 **Proposition 15** (B2, route-collapse: intermediate targets are not waypoints). ***Status: proved** (Lean, three independent mechanisms).*
 
-1.  **Certificate completeness.* Every certificate vocabulary is an *iff* with the underlying non-integrality, so every re-encoding of $`\mathrm{Sep}`$ is equivalent to $`\mathrm{Sep}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:153), forward at `:132`, converse at `:143`).*
+1.  **Certificate completeness.* Every certificate vocabulary is an *iff* with the underlying non-integrality, so every re-encoding of $`\mathrm{Sep}`$ is equivalent to $`\mathrm{Sep}`$ (, forward at `:132`, converse at `:143`).*
 
-2.  **Sample choice.* Any weakening in which the prover may *choose* which indices to test collapses to $`\mathrm{Irrational}(S)`$ outright, because irrationality plus doubling expansivity already supplies a two-point sample with the required separation ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:1775)). The mechanism is visible in the converse proof (`windowSeparatedPairsAt_of_cofinally_scaled_adjacent_chord`, `PivotAntiReconstruction.lean:1663`): it selects $`T = \{N, N+1\}`$ and two ordered pairs, and the counted-energy threshold $`2\lvert T\rvert^{2}/5 = 8/5 \le 2\delta^{2}`$ is met by $`\delta = 9/10`$.*
+2.  **Sample choice.* Any weakening in which the prover may *choose* which indices to test collapses to $`\mathrm{Irrational}(S)`$ outright, because irrationality plus doubling expansivity already supplies a two-point sample with the required separation (). The mechanism is visible in the converse proof (`windowSeparatedPairsAt_of_cofinally_scaled_adjacent_chord`, `PivotAntiReconstruction.lean:1663`): it selects $`T = \{N, N+1\}`$ and two ordered pairs, and the counted-energy threshold $`2\lvert T\rvert^{2}/5 = 8/5 \le 2\delta^{2}`$ is met by $`\delta = 9/10`$.*
 
 3.  **Multi-point enrichment.* Adding vertices, higher-order differences, or finite shift-polynomial combinations on the same ray buys nothing, because integrality transports affinely along every ray $`H \mapsto kH`$: the four-hit diamond $`\mathrm{Hit}(H) \wedge \mathrm{Hit}(pH) \wedge \mathrm{Hit}(qH)
-      \wedge \mathrm{Hit}(pqH)`$ is equivalent to $`\mathrm{Hit}(H)`$ alone, with no primality used ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean:196)).*
+      \wedge \mathrm{Hit}(pqH)`$ is equivalent to $`\mathrm{Hit}(H)`$ alone, with no primality used ().*
 
 ***Rules out:** “find an easier waypoint” as a strategy class. **Does not rule out:** targets over a *fixed full block* with no sample choice, and targets demanding a *uniform quantitative margin* that irrationality does not supply. These two exemptions are read off the collapse proofs themselves and are exactly what the surviving routes in §<a href="#sec:survivors" data-reference-type="ref" data-reference="sec:survivors">3</a> exploit. <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
 
@@ -271,13 +271,13 @@ Each barrier below is stated as a claim about a class of arguments, with its sta
 
 <div id="prop:b4" class="prop">
 
-**Proposition 19** (B4, amplitude versus radius: residue engineering is self-defeating). ***Status: proved** (Lean construction plus an unconditional arithmetic margin). A certificate demands that the window residue sit at distance $`> N{+}h{+}L{+}2`$ from both $`0`$ and $`2^{L}`$ modulo $`2^{L}`$, and the depth floor forces $`2^{L} > 2(N{+}h{+}L{+}2)`$, so the required amplitude is comparable to the modulus. Any producer that *buys* that amplitude by prescribing totient values at engineered positions pays for the prescription in position, and position enters the radius. The corpus’s strongest such construction proves the trade is exactly self-cancelling, unconditionally and at every depth: a two-adic pulse block lands the residue at the arc *centre* $`2^{K-1} \bmod 2^{K}`$ — the ideal target — and still cannot fire, because its own defining congruence $`p \equiv 1 + 2^{K-1} \pmod{2^{K}}`$ forces $`p \ge 1 + 2^{K-1}`$, so with $`N = p-K`$, $`h = H`$, $`L = K`$ the radius $`p+H+2`$ exceeds $`2^{K-1}`$ for every prime $`p`$ and every $`K`$. <span class="sans-serif">coord:two-adic-pulse</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:211) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:262)*
+**Proposition 19** (B4, amplitude versus radius: residue engineering is self-defeating). ***Status: proved** (Lean construction plus an unconditional arithmetic margin). A certificate demands that the window residue sit at distance $`> N{+}h{+}L{+}2`$ from both $`0`$ and $`2^{L}`$ modulo $`2^{L}`$, and the depth floor forces $`2^{L} > 2(N{+}h{+}L{+}2)`$, so the required amplitude is comparable to the modulus. Any producer that *buys* that amplitude by prescribing totient values at engineered positions pays for the prescription in position, and position enters the radius. The corpus’s strongest such construction proves the trade is exactly self-cancelling, unconditionally and at every depth: a two-adic pulse block lands the residue at the arc *centre* $`2^{K-1} \bmod 2^{K}`$ — the ideal target — and still cannot fire, because its own defining congruence $`p \equiv 1 + 2^{K-1} \pmod{2^{K}}`$ forces $`p \ge 1 + 2^{K-1}`$, so with $`N = p-K`$, $`h = H`$, $`L = K`$ the radius $`p+H+2`$ exceeds $`2^{K-1}`$ for every prime $`p`$ and every $`K`$. <span class="sans-serif">coord:two-adic-pulse</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="rem:b4" class="rem">
 
-*Remark 20* (B4’s own recorded repair, and its scope). Two further Lean facts show that prescribing *letters* is exhausted: the full terminal dyadic staircase is unconditionally impossible — its terminal letter would have to be positive, strictly below a wider modulus, and divisible by it, hence $`0`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:251)); and the surviving *punctured* staircase pins its penultimate letter to exactly $`2^{m-1}`$ with $`2^{m} < 2(2H{+}J{+}K{+}2)`$, i.e. no slack at all (`puncturedDyadicStaircase_penultimate_eq_half`, `TotientActualLcmTopEdgeStaircase.lean:1187`). The repair the barrier permits is explicit: impose the half-turn on the *word* rather than on one delta, i.e. ask for cofinally many $`(h,N,L)`$ with $`\mathrm{windowDiscrepancy}(h,N,L) \equiv 2^{L-1} \pmod{2^{L}}`$ and $`2^{L-1} > N{+}h{+}L{+}2`$. What is *proved* is the failure of the Dirichlet/CRT residue-engineering family by an explicit exponential margin. The broader reading — that only carry accumulation across the weighted word can produce the required amplitude, since one letter obeys $`\lvert \varphi(n{+}h) - \varphi(n) \rvert < n{+}h`$ while the weighted word can reach $`2^{L}`$ — is an inference from the proved instance plus the linear growth bound, not itself a theorem on disk. <span class="sans-serif">\[Math\]</span>
+*Remark 20* (B4’s own recorded repair, and its scope). Two further Lean facts show that prescribing *letters* is exhausted: the full terminal dyadic staircase is unconditionally impossible — its terminal letter would have to be positive, strictly below a wider modulus, and divisible by it, hence $`0`$ (); and the surviving *punctured* staircase pins its penultimate letter to exactly $`2^{m-1}`$ with $`2^{m} < 2(2H{+}J{+}K{+}2)`$, i.e. no slack at all (`puncturedDyadicStaircase_penultimate_eq_half`, `TotientActualLcmTopEdgeStaircase.lean:1187`). The repair the barrier permits is explicit: impose the half-turn on the *word* rather than on one delta, i.e. ask for cofinally many $`(h,N,L)`$ with $`\mathrm{windowDiscrepancy}(h,N,L) \equiv 2^{L-1} \pmod{2^{L}}`$ and $`2^{L-1} > N{+}h{+}L{+}2`$. What is *proved* is the failure of the Dirichlet/CRT residue-engineering family by an explicit exponential margin. The broader reading — that only carry accumulation across the weighted word can produce the required amplitude, since one letter obeys $`\lvert \varphi(n{+}h) - \varphi(n) \rvert < n{+}h`$ while the weighted word can reach $`2^{L}`$ — is an inference from the proved instance plus the linear growth bound, not itself a theorem on disk. <span class="sans-serif">\[Math\]</span>
 
 </div>
 
@@ -285,11 +285,11 @@ Each barrier below is stated as a claim about a class of arguments, with its sta
 
 **Proposition 21** (B5, bounded state and local signatures). ***Status: proved** (three Lean theorems, all problem-agnostic).*
 
-1.  *No bounded or autonomous carry state summarising the history before position $`m`$ determines the tail after $`m`$: for a balanced-pulse family whose predecessor state is constant, no $`\mathrm{decode}`$ recovers the radius parameter, and any finite state type needs cardinality $`\ge \lfloor m/2 \rfloor + 2`$, unbounded in $`m`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:247)).*
+1.  *No bounded or autonomous carry state summarising the history before position $`m`$ determines the tail after $`m`$: for a balanced-pulse family whose predecessor state is constant, no $`\mathrm{decode}`$ recovers the radius parameter, and any finite state type needs cardinality $`\ge \lfloor m/2 \rfloor + 2`$, unbounded in $`m`$ ().*
 
-2.  *Long common suffixes erase predecessor information *exactly*: two affine binary orbits with different seeds satisfy $`\mathrm{orbit}_u(L) - \mathrm{orbit}_v(L) = 2^{L}(u_0 - v_0)`$, so the endpoint residue mod $`2^{L}`$ is independent of the initial carry ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:307)).*
+2.  *Long common suffixes erase predecessor information *exactly*: two affine binary orbits with different seeds satisfy $`\mathrm{orbit}_u(L) - \mathrm{orbit}_v(L) = 2^{L}(u_0 - v_0)`$, so the endpoint residue mod $`2^{L}`$ is independent of the initial carry ().*
 
-3.  *Bounded local $`2`$-adic valuation-unit data at fixed precision excludes nothing: for any finite word of odd-unit symbols at fixed precision and any starting carry, a compatible orbit exists with every intermediate state centred inside its symbol’s dyadic radius ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TropicalCurvatureCarry.lean:137)).*
+3.  *Bounded local $`2`$-adic valuation-unit data at fixed precision excludes nothing: for any finite word of odd-unit symbols at fixed precision and any starting carry, a compatible orbit exists with every intermediate state centred inside its symbol’s dyadic radius ().*
 
 ***Rules out:** the finite-automaton-computes-the-expansion family outright; any hope of distinguishing two carry histories after a long common suffix; and any contradiction derived from a fixed-precision valuation-unit signature. Growing precision is mandatory, not optional. None of the three mentions $`\varphi`$, so all three bind \#257 identically. <span class="sans-serif">coord:carry-orbit</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
@@ -299,15 +299,15 @@ Each barrier below is stated as a claim about a class of arguments, with its sta
 
 **Proposition 22** (B6, no finite linear compression). ***Status: proved for four independent truncations** (Lean), with the honest limit stated below. Every natural finite truncation of the totient kernel has trivial kernel:*
 
-1.  **Dyadic.* The canonical family of $`2^{e}+1`$ dyadic channels is linearly independent over $`\mathbb{Q}`$ at every depth (Proposition <a href="#prop:rank" data-reference-type="ref" data-reference="prop:rank">5</a>), and the natural repair — a bounded compressed-adjoint certificate — is impossible ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051), structure at `:1039`).*
+1.  **Dyadic.* The canonical family of $`2^{e}+1`$ dyadic channels is linearly independent over $`\mathbb{Q}`$ at every depth (Proposition <a href="#prop:rank" data-reference-type="ref" data-reference="prop:rank">5</a>), and the natural repair — a bounded compressed-adjoint certificate — is impossible (, structure at `:1039`).*
 
-2.  **Möbius incidence.* $`U_N(i,j) = \mu((i{+}1)/(j{+}1))`$ when $`(j{+}1) \mid (i{+}1)`$ and $`0`$ otherwise is lower triangular with unit diagonal, so $`\det U_N = 1`$ for every $`N`$ and the jet map is injective: no finite incidence-quotient relation exists at any horizon ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/IncidenceQuotientHermitePade.lean:56), `mobiusCompanionJetMap_injective` at `:77`).*
+2.  **Möbius incidence.* $`U_N(i,j) = \mu((i{+}1)/(j{+}1))`$ when $`(j{+}1) \mid (i{+}1)`$ and $`0`$ otherwise is lower triangular with unit diagonal, so $`\det U_N = 1`$ for every $`N`$ and the jet map is injective: no finite incidence-quotient relation exists at any horizon (, `mobiusCompanionJetMap_injective` at `:77`).*
 
-3.  **Adjugate reconstruction.* Any finite rational row exactly isolating one totient value has crude two-tail cost $`\ge 3`$, hence never $`< 1`$, at any finite grid height, using only $`\varphi(x) \le x`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:266), closure at `:307`).*
+3.  **Adjugate reconstruction.* Any finite rational row exactly isolating one totient value has crude two-tail cost $`\ge 3`$, hence never $`< 1`$, at any finite grid height, using only $`\varphi(x) \le x`$ (, closure at `:307`).*
 
 4.  **Shift-polynomial.* An explicit nonzero all-horizon countermodel agrees with every exact whole-ray anchor and survives every finite commensurate LCM-cube shift polynomial, at every finite rank (`LcmFactorIdealPulseObstruction.lean`; module docstring, theorem bodies not individually re-verified in this pass, and the construction is explicitly synthetic — it does not claim its compensation letters occur as actual totient differences).*
 
-*Additionally, every strict-subrank monomial quotient in the Möbius–Mersenne ladder overshoots its target by more than $`1/480`$, *uniformly* — every rung $`r \ge 3`$ lies in $`[1429/1512, 1)`$ and every prefix after four atoms is within $`1/3584`$ of its rung, so this is a uniform no-go rather than a census ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RankOneSubrankObstruction.lean:238)). **Honest limit:** this is four checked truncations, not a proof that no finite-linear shortcut exists. Its correct reading is the one the source module gives: any winning finite-linear shortcut must live in a genuinely different coordinate or use a growing-parameter construction. The reason the barrier bites is Proposition <a href="#prop:period-not-rank" data-reference-type="ref" data-reference="prop:period-not-rank">6</a>: what rationality actually buys is periodicity, and periodicity provably does not promote to a rank bound. <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
+*Additionally, every strict-subrank monomial quotient in the Möbius–Mersenne ladder overshoots its target by more than $`1/480`$, *uniformly* — every rung $`r \ge 3`$ lies in $`[1429/1512, 1)`$ and every prefix after four atoms is within $`1/3584`$ of its rung, so this is a uniform no-go rather than a census (). **Honest limit:** this is four checked truncations, not a proof that no finite-linear shortcut exists. Its correct reading is the one the source module gives: any winning finite-linear shortcut must live in a genuinely different coordinate or use a growing-parameter construction. The reason the barrier bites is Proposition <a href="#prop:period-not-rank" data-reference-type="ref" data-reference="prop:period-not-rank">6</a>: what rationality actually buys is periodicity, and periodicity provably does not promote to a rank bound. <span class="sans-serif">coord:carry-rank</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -345,11 +345,11 @@ An elimination is only worth the paper it is written on if it leaves somewhere t
   \Bigl\lVert \sum_{N \in [X,\,2X)} \mathrm{windowFirstExp}(h,N,L) \Bigr\rVert
   \le \tfrac{21}{25}X .
 ```
-It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:first-harmonic</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:75) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83)
+It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:first-harmonic</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
-The real-part form suffices and is strictly weaker: it is enough that $`\sum_{N \in [X,2X)} \mathrm{windowFirstCos}(h,N,L) \le \tfrac{9}{10}X`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128), the elementary unconditional engine; the $`21/25 \to 9/10`$ bridge is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:53)). Unpacked, the required object is a constant-saving cancellation estimate for the dyadically weighted totient-difference exponential sum
+The real-part form suffices and is strictly weaker: it is enough that $`\sum_{N \in [X,2X)} \mathrm{windowFirstCos}(h,N,L) \le \tfrac{9}{10}X`$ (, the elementary unconditional engine; the $`21/25 \to 9/10`$ bridge is ). Unpacked, the required object is a constant-saving cancellation estimate for the dyadically weighted totient-difference exponential sum
 ``` math
 \sum_{X \le N < 2X}
   e\!\left(\frac{\sum_{j<L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)2^{\,L-1-j}}{2^{L}}\right),
@@ -365,7 +365,7 @@ This is the only route in the corpus that evades all seven barrier classes, and 
 
 - **B1.** $`X`$ is a free unbounded parameter and the room condition $`16(2X{+}h{+}L{+}2) \le 2^{L}`$ forces $`L \gtrsim \log_2 X + 5`$, so the estimate reads $`\varphi`$ at every index in $`[X{+}1,\,2X{+}h{+}L]`$ with both position and window length growing. No $`\gamma`$ agreeing with $`\varphi`$ only on $`[1,B]`$ constrains it.
 
-- **B2 — the decisive point.** The proved collapse $`\mathrm{DTWWindowSeparatedPairs} \Leftrightarrow \mathrm{Irrational}(S)`$ works *because the prover may choose the sample*: the converse proof selects $`T = \{N, N{+}1\}`$ and meets the threshold with $`\delta = 9/10`$ supplied by irrationality plus doubling expansivity (Proposition <a href="#prop:b2" data-reference-type="ref" data-reference="prop:b2">15</a>(b)). Definition <a href="#defn:fh" data-reference-type="ref" data-reference="defn:fh">24</a> admits no sample choice: the sum ranges over all of $`[X,2X)`$ at one common depth $`L`$. Since $`\neg\,\mathrm{certifiedKill}(h,N,L)`$ forces $`\mathrm{windowFirstCos}(h,N,L) > 9/10`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:44)), the gap demands that a *positive proportion* of basepoints in the block carry certificates at a *single* depth. Irrationality supplies only one certificate per $`(h,N_0)`$, at a depth that may vary with $`N`$. The collapse mechanism therefore has no purchase. **Honest limit:** no theorem proves $`\mathrm{DTWFirstHarmonicNormGap}`$ inequivalent to $`\mathrm{Irrational}(S)`$. What is asserted is that the one proved collapse mechanism in this lane demonstrably requires sample choice, which this predicate denies. Note also that the *subset* form ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:104)) does permit sample choice and is therefore the collapse-exposed variant. Attack the full-block form.
+- **B2 — the decisive point.** The proved collapse $`\mathrm{DTWWindowSeparatedPairs} \Leftrightarrow \mathrm{Irrational}(S)`$ works *because the prover may choose the sample*: the converse proof selects $`T = \{N, N{+}1\}`$ and meets the threshold with $`\delta = 9/10`$ supplied by irrationality plus doubling expansivity (Proposition <a href="#prop:b2" data-reference-type="ref" data-reference="prop:b2">15</a>(b)). Definition <a href="#defn:fh" data-reference-type="ref" data-reference="defn:fh">24</a> admits no sample choice: the sum ranges over all of $`[X,2X)`$ at one common depth $`L`$. Since $`\neg\,\mathrm{certifiedKill}(h,N,L)`$ forces $`\mathrm{windowFirstCos}(h,N,L) > 9/10`$ (), the gap demands that a *positive proportion* of basepoints in the block carry certificates at a *single* depth. Irrationality supplies only one certificate per $`(h,N_0)`$, at a depth that may vary with $`N`$. The collapse mechanism therefore has no purchase. **Honest limit:** no theorem proves $`\mathrm{DTWFirstHarmonicNormGap}`$ inequivalent to $`\mathrm{Irrational}(S)`$. What is asserted is that the one proved collapse mechanism in this lane demonstrably requires sample choice, which this predicate denies. Note also that the *subset* form () does permit sample choice and is therefore the collapse-exposed variant. Attack the full-block form.
 
 - **B4.** The statistic is the first additive character of the *accumulated* weighted word, never an individual letter. Nothing is prescribed at any position, so the self-defeating cost that kills Dirichlet residue engineering does not arise. B4’s own recorded repair (Remark <a href="#rem:b4" data-reference-type="ref" data-reference="rem:b4">20</a>) is to impose the structure on the word rather than on one delta, which is exactly what a block exponential-sum bound does.
 
@@ -400,13 +400,13 @@ Same lane as Survivor 1, with the analytic burden repackaged. Split the block su
   \lVert \mathrm{pivotBad} \rVert \le \tfrac{1}{100}X, \quad
   \lVert \mathrm{pivotNonSupplier} \rVert \le \tfrac{8}{25}X .
 ```
-It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:first-harmonic</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:397) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:406)
+It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:first-harmonic</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
-It inherits Survivor 1’s evasions of B1, B4, B5, B6 and B7 verbatim: the four terms are exact finite sums over canonical largest-prime supplier fibres of the same accumulated-word phases, with no sample choice and nothing prescribed. Its specific advantages are three. The decomposition is an *exact identity*, proved unconditionally with `#print axioms` clean ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:342), budget consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:377)). The one-sided budget lowers the hard requirement from a norm bound $`\lVert \cdot \rVert \le X/2`$ to a real-part bound $`\le 14X/25`$. And the pivot rests on genuine arithmetic rather than a sampled surrogate: on the canonical fibre $`m = 1`$, $`s = L-h`$ the supplier set is *literally* the shifted dyadic interval of primes, proved as a membership equality ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:251)), with the totient factorisation at the pivot the honest $`\varphi(mp) = \varphi(m)(p-1)`$ and the non-divisibility discharged by size. Three of the four terms are then counting bookkeeping; only the first needs a genuine correlation estimate, and only in real part.
+It inherits Survivor 1’s evasions of B1, B4, B5, B6 and B7 verbatim: the four terms are exact finite sums over canonical largest-prime supplier fibres of the same accumulated-word phases, with no sample choice and nothing prescribed. Its specific advantages are three. The decomposition is an *exact identity*, proved unconditionally with `#print axioms` clean (, budget consumer ). The one-sided budget lowers the hard requirement from a norm bound $`\lVert \cdot \rVert \le X/2`$ to a real-part bound $`\le 14X/25`$. And the pivot rests on genuine arithmetic rather than a sampled surrogate: on the canonical fibre $`m = 1`$, $`s = L-h`$ the supplier set is *literally* the shifted dyadic interval of primes, proved as a membership equality (), with the totient factorisation at the pivot the honest $`\varphi(mp) = \varphi(m)(p-1)`$ and the non-divisibility discharged by size. Three of the four terms are then counting bookkeeping; only the first needs a genuine correlation estimate, and only in real part.
 
-**What it must respect.** B6 has a residual-gauge instance: a residual-blind determinant or conditioning test cannot certify that genuine phase reconstruction rather than a locked degenerate configuration has occurred ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:94)). So this route must couple rows by an extra arithmetic identity, not merely gauge-normalise columns. **Honest status:** strictly a repackaging of Survivor 1’s burden; it is listed separately only because three quarters of it are already exact identities on disk. The module asserts no prime-distribution or decorrelation estimate — the socket is deliberately empty. <span class="sans-serif">\[Open\]</span>
+**What it must respect.** B6 has a residual-gauge instance: a residual-blind determinant or conditioning test cannot certify that genuine phase reconstruction rather than a locked degenerate configuration has occurred (). So this route must couple rows by an extra arithmetic identity, not merely gauge-normalise columns. **Honest status:** strictly a repackaging of Survivor 1’s burden; it is listed separately only because three quarters of it are already exact identities on disk. The module asserts no prime-distribution or decorrelation estimate — the socket is deliberately empty. <span class="sans-serif">\[Open\]</span>
 
 <a id="survivor-3-uniform-quantitative-escape-at-cofinally-many-primes"></a>
 
@@ -414,7 +414,7 @@ It inherits Survivor 1’s evasions of B1, B4, B5, B6 and B7 verbatim: the four 
 
 <div id="defn:primegap" class="defn">
 
-**Definition 28** ($`\mathrm{DTWNaturalPrimeTailOrbitStrictGap}`$). For every $`h \ge 1`$ and every $`N_0`$ there is a prime $`p`$ with $`\max(N_0{+}h{+}1,\, h{+}5) \le p`$ and $`\mathrm{Re}\,\mathrm{tailOrbitFirstExp}(h,\,p{-}h{-}1) < \tfrac{9}{10}`$, where $`\mathrm{tailOrbitFirstExp}(h,N) = e(R_{N+h} - R_N)`$. Equivalently: cofinally many primes $`p`$ at which the totient tail difference across the shift $`h`$ stays a *fixed* distance $`\ge \arccos(9/10)/2\pi \approx 0.0722`$ from every integer. It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:prime-pivot</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientStrictPrimeEscape.lean:18) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientStrictPrimeEscape.lean:66)
+**Definition 28** ($`\mathrm{DTWNaturalPrimeTailOrbitStrictGap}`$). For every $`h \ge 1`$ and every $`N_0`$ there is a prime $`p`$ with $`\max(N_0{+}h{+}1,\, h{+}5) \le p`$ and $`\mathrm{Re}\,\mathrm{tailOrbitFirstExp}(h,\,p{-}h{-}1) < \tfrac{9}{10}`$, where $`\mathrm{tailOrbitFirstExp}(h,N) = e(R_{N+h} - R_N)`$. Equivalently: cofinally many primes $`p`$ at which the totient tail difference across the shift $`h`$ stays a *fixed* distance $`\ge \arccos(9/10)/2\pi \approx 0.0718`$ from every integer. It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:prime-pivot</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
@@ -433,11 +433,11 @@ It evades B1, B4, B5, B6 and B7 for the reasons given for Survivor 1: a statemen
 N + 2td + 2 \;<\; \mathrm{windowDiscrepancy}(td,N,td) \bmod 2^{td}
   \;<\; 2^{td} - (N + 2td + 2).
 ```
-It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:period-ray</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:162) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:171)
+It implies $`\mathrm{Irrational}(S)`$. <span class="sans-serif">coord:period-ray</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
-This is the shortest fully stated open inequality the programme has produced. Its evasion of B2 is recorded on disk rather than argued: its ambient parent $`\mathrm{PeriodMultipleKillSupply}`$ is *proved* equivalent to $`\mathrm{Irrational}(S)`$ and $`\mathrm{ApFullDepthEscape}`$ implies it ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:165)), so it is at least as strong, and possibly strictly stronger — the file’s own docstring records “sufficient for irrationality; not known necessary”. Being possibly strictly stronger, certificate completeness cannot collapse it back. It evades B1 (both $`N`$ and $`t`$ unbounded), B4 (locking depth to the period means the entire word accumulates and no letter is prescribed), B5 and B6 (no state, no rank). Its substance is pure anti-concentration: via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:67), the difference of two adjacent period blocks must have central residue mod $`2^{h}`$ at some multiple period $`h = td`$, and the room condition is automatic once $`h`$ is large, so nothing but the residue’s position is at stake.
+This is the shortest fully stated open inequality the programme has produced. Its evasion of B2 is recorded on disk rather than argued: its ambient parent $`\mathrm{PeriodMultipleKillSupply}`$ is *proved* equivalent to $`\mathrm{Irrational}(S)`$ and $`\mathrm{ApFullDepthEscape}`$ implies it (), so it is at least as strong, and possibly strictly stronger — the file’s own docstring records “sufficient for irrationality; not known necessary”. Being possibly strictly stronger, certificate completeness cannot collapse it back. It evades B1 (both $`N`$ and $`t`$ unbounded), B4 (locking depth to the period means the entire word accumulates and no letter is prescribed), B5 and B6 (no state, no rank). Its substance is pure anti-concentration: via , the difference of two adjacent period blocks must have central residue mod $`2^{h}`$ at some multiple period $`h = td`$, and the room condition is automatic once $`h`$ is large, so nothing but the residue’s position is at stake.
 
 **Honest demotion,** identical to Survivor 3: it is a pointwise producer and names an index. It is listed because it is the cleanest target for computational exploration — with Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">12</a> as the standing reminder that no amount of such exploration becomes a proof. <span class="sans-serif">\[Open\]</span>
 
@@ -453,7 +453,7 @@ This is the shortest fully stated open inequality the programme has produced. It
 
 This is the only surviving obligation that is not a residue or certificate statement at all, so B2’s certificate completeness cannot reach it — it is not a reformulation of $`\mathrm{Sep}`$ in any vocabulary. It evades B1 and B4 entirely (no window, no letters, no prescribed residues) and B5 (linear algebra over the whole orbit, not a bounded-state summary). The scale side is finished and uniform in $`e`$ (Proposition <a href="#prop:rank" data-reference-type="ref" data-reference="prop:rank">5</a>).
 
-**Honest flag, and it is severe.** B6 partly indicts this route from inside. The most natural approach to the upper bound is dead ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051)), and what rationality actually buys — uniform eventual periodicity of the carry’s dyadic sections mod $`v`$ — provably does not promote to a $`\mathbb{Q}`$-rank bound (Proposition <a href="#prop:period-not-rank" data-reference-type="ref" data-reference="prop:period-not-rank">6</a>). So this survivor is genuinely coordinate-disjoint from everything else, which is its whole value, but its obvious approach is closed and the missing input is a rigidity theorem nobody has stated.
+**Honest flag, and it is severe.** B6 partly indicts this route from inside. The most natural approach to the upper bound is dead (), and what rationality actually buys — uniform eventual periodicity of the carry’s dyadic sections mod $`v`$ — provably does not promote to a $`\mathbb{Q}`$-rank bound (Proposition <a href="#prop:period-not-rank" data-reference-type="ref" data-reference="prop:period-not-rank">6</a>). So this survivor is genuinely coordinate-disjoint from everything else, which is its whole value, but its obvious approach is closed and the missing input is a rigidity theorem nobody has stated.
 
 <a id="how-to-use-this-document"></a>
 
@@ -525,13 +525,13 @@ the two forms coinciding because $`\varphi(0)=0`$; the second, $`\mathbb{N}`$-in
 ``` math
 2^{N} \cdot S \;=\; \Phi_N + R_N,
 ```
-where $`\Phi_N := \sum_{n \le N} \varphi(n) \cdot 2^{N-n} \in \mathbb{N}`$ (the integer prefix) and $`R_N := \sum_{j \ge 0} \varphi(N+1+j)/2^{j+1}`$ (the fractional tail, `totientTail` in Lean). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:150)*
+where $`\Phi_N := \sum_{n \le N} \varphi(n) \cdot 2^{N-n} \in \mathbb{N}`$ (the integer prefix) and $`R_N := \sum_{j \ge 0} \varphi(N+1+j)/2^{j+1}`$ (the fractional tail, `totientTail` in Lean). <span class="sans-serif">coord:binary-digit</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div class="proof">
 
-*Consequence.* Rationality and eventual periodicity of the base-2 expansion of $`S`$ is *exactly* a statement about the tail $`R_N`$: $`S \in \mathbb{Q}`$ forces (by Euler’s theorem applied to the odd part of the denominator) a period $`h>0`$ and pre-period $`N_0`$ with $`R_{N+h}-R_N \in \mathbb{Z}`$ for all $`N \ge N_0`$ (`eventual_period_of_not_irrational`, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358), <span class="sans-serif">\[Lean\]</span>, explicit witness $`h=\varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0=v_2(r.\mathrm{den})`$). Nothing in the corpus supplies the converse cofinally; this is the certificate wall documented in full in Part 1 and is not restated here beyond this pointer. ◻
+*Consequence.* Rationality and eventual periodicity of the base-2 expansion of $`S`$ is *exactly* a statement about the tail $`R_N`$: $`S \in \mathbb{Q}`$ forces (by Euler’s theorem applied to the odd part of the denominator) a period $`h>0`$ and pre-period $`N_0`$ with $`R_{N+h}-R_N \in \mathbb{Z}`$ for all $`N \ge N_0`$ (`eventual_period_of_not_irrational`, , <span class="sans-serif">\[Lean\]</span>, explicit witness $`h=\varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0=v_2(r.\mathrm{den})`$). Nothing in the corpus supplies the converse cofinally; this is the certificate wall documented in full in Part 1 and is not restated here beyond this pointer. ◻
 
 </div>
 
@@ -543,7 +543,7 @@ The strongest *unconditional* fact the corpus holds about $`S`$ is a lower bound
 
 <div id="lem:farey" class="lem">
 
-**Lemma 34** (Farey gap, fully general). *For integers $`a,b,c,d,r,s`$ with $`b>0`$, $`d>0`$, $`bc-ad=1`$ (i.e. $`a/b`$ and $`c/d`$ are unimodular Farey neighbours), and $`as < rb`$, $`rd < cs`$ (i.e. $`r/s`$ lies strictly between them): $`b+d \le s`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51)*
+**Lemma 34** (Farey gap, fully general). *For integers $`a,b,c,d,r,s`$ with $`b>0`$, $`d>0`$, $`bc-ad=1`$ (i.e. $`a/b`$ and $`c/d`$ are unimodular Farey neighbours), and $`as < rb`$, $`rd < cs`$ (i.e. $`r/s`$ lies strictly between them): $`b+d \le s`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -558,7 +558,7 @@ This lemma is a classical Stern–Brocot fact with zero totient or Mersenne cont
 ``` math
 (q \cdot V) \bmod 2^{240} \;+\; 243\,q \;<\; 2^{240}.
 ```
-This bound is *sharp*: $`q = Q_0+1 = 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,054`$ is the exact first failing denominator, exhibited as the mediant of two explicit unimodular Farey neighbours. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225)*
+This bound is *sharp*: $`q = Q_0+1 = 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,054`$ is the exact first failing denominator, exhibited as the mediant of two explicit unimodular Farey neighbours. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -568,7 +568,7 @@ This bound is *sharp*: $`q = Q_0+1 = 79\,639\,646\,646\,701\,375\,323\,355\,774\
 ``` math
 S \;\neq\; p.
 ```
-Equivalently: *if $`S`$ is rational, its reduced denominator exceeds* $`Q_0 \approx 7.96 \times 10^{34}`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056)*
+Equivalently: *if $`S`$ is rational, its reduced denominator exceeds* $`Q_0 \approx 7.96 \times 10^{34}`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -597,13 +597,13 @@ The exact finite Farey record behind Theorem <a href="#thm:denom-record" data-r
 S \;=\; \tfrac12 \;+\; \Pr\bigl(\gcd(X,Y)=1\bigr)
 \;=\; \tfrac12 \;+\; \sum_{\substack{a,b\ge 1\\ \gcd(a,b)=1}} 2^{-(a+b)}.
 ```
-Equivalently, on the visible lattice: summing $`2^{-(a+b)}`$ over the half-open coprime pairs ($`a\ge1`$, $`b\ge0`$, $`\gcd(a,b)=1`$) recovers $`\sum_n \varphi(n)/2^n`$ exactly, with no boundary correction, because the visible-point count on the half-open antidiagonal at height $`n`$ equals $`\varphi(n)`$ for every $`n`$, including $`n=0,1`$. <span class="sans-serif">coord:probability</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18216) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18229)*
+Equivalently, on the visible lattice: summing $`2^{-(a+b)}`$ over the half-open coprime pairs ($`a\ge1`$, $`b\ge0`$, $`\gcd(a,b)=1`$) recovers $`\sum_n \varphi(n)/2^n`$ exactly, with no boundary correction, because the visible-point count on the half-open antidiagonal at height $`n`$ equals $`\varphi(n)`$ for every $`n`$, including $`n=0,1`$. <span class="sans-serif">coord:probability</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="prop:gcdlayer" class="prop">
 
-**Proposition 40** (The gcd-layer normalisation). *For independent fair-coin waiting times as above, $`\sum_{g\ge1}\Pr(\gcd(X,Y)=g)=1`$ exactly; and for every $`d>0`$, $`\Pr(d\mid X \wedge d\mid Y) = 1/(2^d-1)^2`$. <span class="sans-serif">coord:probability</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:349) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:266)*
+**Proposition 40** (The gcd-layer normalisation). *For independent fair-coin waiting times as above, $`\sum_{g\ge1}\Pr(\gcd(X,Y)=g)=1`$ exactly; and for every $`d>0`$, $`\Pr(d\mid X \wedge d\mid Y) = 1/(2^d-1)^2`$. <span class="sans-serif">coord:probability</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -613,19 +613,19 @@ Equivalently, on the visible lattice: summing $`2^{-(a+b)}`$ over the half-open 
 ``` math
 Q_1 := \left\lfloor \frac{Q_0}{2} \right\rfloor = 39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526.
 ```
-For every $`a\in\mathbb{Z}`$, $`d\in\mathbb{N}`$ with $`0<d\le Q_1`$: the visible coprime-pair probability $`\Pr(\gcd(X,Y)=1)`$ is not equal to $`a/d`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18244)*
+For every $`a\in\mathbb{Z}`$, $`d\in\mathbb{N}`$ with $`0<d\le Q_1`$: the visible coprime-pair probability $`\Pr(\gcd(X,Y)=1)`$ is not equal to $`a/d`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div id="thm:denommobsq" class="thm">
 
-**Theorem 42** (Denominator exclusion for the Möbius-square form). *With $`Q_1`$ as in Theorem <a href="#thm:denomcoprime" data-reference-type="ref" data-reference="thm:denomcoprime">41</a>: for every $`a\in\mathbb{Z}`$, $`d\in\mathbb{N}`$ with $`0<d\le Q_1`$, the signed series $`T := \sum_{d\ge1} \mu(d)/(2^d-1)^2 = S - \tfrac12`$ (see §<a href="#ssec:mobius" data-reference-type="ref" data-reference="ssec:mobius">5.5</a>) is not equal to $`a/d`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18159)*
+**Theorem 42** (Denominator exclusion for the Möbius-square form). *With $`Q_1`$ as in Theorem <a href="#thm:denomcoprime" data-reference-type="ref" data-reference="thm:denomcoprime">41</a>: for every $`a\in\mathbb{Z}`$, $`d\in\mathbb{N}`$ with $`0<d\le Q_1`$, the signed series $`T := \sum_{d\ge1} \mu(d)/(2^d-1)^2 = S - \tfrac12`$ (see §<a href="#ssec:mobius" data-reference-type="ref" data-reference="ssec:mobius">5.5</a>) is not equal to $`a/d`$. <span class="sans-serif">coord:farey</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div class="rem">
 
-*Remark 43* (Why the bound halves, and why this is not new information). $`Q_1 = \lfloor Q_0/2 \rfloor`$ arithmetically: $`Q_0`$ is odd ($`Q_0 = 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053`$), so $`Q_0/2 = 39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526.5`$ and $`Q_1`$ is its floor. The halving is exactly the cost of the affine shift $`S = \tfrac12 + T`$ (resp. $`S = \tfrac12 + \Pr(\gcd(X,Y)=1)`$) on a denominator-exclusion statement: excluding all denominators $`\le Q_1`$ for $`T`$ is equivalent, after the $`\tfrac12`$-shift, to excluding all denominators $`\le Q_0`$ for $`S`$ (a denominator-$`d`$ value of $`T`$ with $`d\le Q_1`$ yields a denominator dividing $`2d\le Q_0`$ for $`S`$). Theorems <a href="#thm:denomcoprime" data-reference-type="ref" data-reference="thm:denomcoprime">41</a> and <a href="#thm:denommobsq" data-reference-type="ref" data-reference="thm:denommobsq">42</a> are therefore the *same* finite Farey record as Theorem <a href="#thm:denom-record" data-reference-type="ref" data-reference="thm:denom-record">36</a>, transported through Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">39</a> and Proposition <a href="#prop:mobsq" data-reference-type="ref" data-reference="prop:mobsq">44</a> respectively — not independent evidence, but confirmation that the exclusion is coordinate-stable across all three exact presentations of $`S`$.
+*Remark 43* (Why the bound halves, and why this is not new information). $`Q_1 = \lfloor Q_0/2 \rfloor`$ arithmetically: $`Q_0`$ is odd ($`Q_0 = 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053`$), so $`Q_0/2 = 39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526.5`$ and $`Q_1`$ is its floor. The halving is the cost of transporting the known bound through the affine shift $`S = \tfrac12 + T`$ (resp. $`S = \tfrac12 + \Pr(\gcd(X,Y)=1)`$) on a denominator-exclusion statement: excluding all denominators $`\le Q_1`$ for $`T`$ follows from excluding all denominators $`\le Q_0`$ for $`S`$ (a denominator-$`d`$ value of $`T`$ with $`d\le Q_1`$ yields a denominator dividing $`2d\le Q_0`$ for $`S`$). Theorems <a href="#thm:denomcoprime" data-reference-type="ref" data-reference="thm:denomcoprime">41</a> and <a href="#thm:denommobsq" data-reference-type="ref" data-reference="thm:denommobsq">42</a> are therefore the *same* finite Farey record as Theorem <a href="#thm:denom-record" data-reference-type="ref" data-reference="thm:denom-record">36</a>, transported through Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">39</a> and Proposition <a href="#prop:mobsq" data-reference-type="ref" data-reference="prop:mobsq">44</a> respectively — not independent evidence. The converse finite implication is not asserted: subtracting $`1/2`$ can double a denominator, so the $`Q_1`$ exclusion for $`T`$ alone need not recover the full $`Q_0`$ exclusion for $`S`$.
 
 </div>
 
@@ -639,13 +639,13 @@ For every $`a\in\mathbb{Z}`$, $`d\in\mathbb{N}`$ with $`0<d\le Q_1`$: the visibl
 *``` math
 S \;=\; \sum_{n\ge1}\frac{\varphi(n)}{2^n} \;=\; \frac12 \;+\; \sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2},
 ```
-where $`\mu`$ is the Möbius function, so $`\mu(d)\in\{-1,0,1\}`$ for every $`d`$. Consequently *Erdős \#249 $`\iff`$ $`T:=\sum_{d\ge1}\mu(d)/(2^d-1)^2 \notin \mathbb{Q}`$*, the single reduced target every other result in this subsection and §<a href="#ssec:lambert" data-reference-type="ref" data-reference="ssec:lambert">5.6</a> feeds. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:50) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneLambertLadder.lean:665)*
+where $`\mu`$ is the Möbius function, so $`\mu(d)\in\{-1,0,1\}`$ for every $`d`$. Consequently *Erdős \#249 $`\iff`$ $`T:=\sum_{d\ge1}\mu(d)/(2^d-1)^2 \notin \mathbb{Q}`$*, the single reduced target every other result in this subsection and §<a href="#ssec:lambert" data-reference-type="ref" data-reference="ssec:lambert">5.6</a> feeds. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
 <div class="rem">
 
-*Remark 45* (Why the bounded coefficients matter — the Erdős-1948 regime). The identity of Proposition <a href="#prop:mobsq" data-reference-type="ref" data-reference="prop:mobsq">44</a> rewrites $`S`$ (equivalently $`T`$) as a *Möbius-twisted Lambert-squared series*: the numerator weight $`\mu(d)`$ is bounded, $`|\mu(d)|\le1`$ for every $`d`$, uniformly in $`d`$. This places $`T`$ in exactly the coefficient regime of the classical Erdős (1948) near-integer irrationality criterion and of the level-1 sibling identity $`L(\mu):=\sum_d \mu(d)/(2^d-1) = \tfrac12`$ (rational, trivially) alongside $`L(1) = \sum_d 1/(2^d-1) = E`$, the Erdős–Borwein constant, which *is* proved irrational in this same kernel ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:8007), <span class="sans-serif">\[Lean\]</span>). This is the opposite regime from Proposition <a href="#prop:shift" data-reference-type="ref" data-reference="prop:shift">33</a>’s **binary-digit coordinate**, where the corresponding weight is $`\varphi(n) = \Theta(n)`$ — *unbounded*, growing linearly. A near-integer/Dirichlet-approximation argument of Erdős-1948 shape (formalised generically as [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5792) and its base-power specialisation [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5821), both <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">coord:n/a</span>, fully coordinate-free) has a genuine chance of transferring to $`T`$ precisely because its weight is bounded, in a way it does not have a chance of transferring directly to the raw $`\varphi(n)/2^n`$ series. No such transfer is proved; §<a href="#ssec:mobius-wall" data-reference-type="ref" data-reference="ssec:mobius-wall">[ssec:mobius-wall]</a> below (cross-referenced here, developed in Part 2 of this paper) records exactly why the transfer has so far failed (the “$`\mu`$-pollution” obstruction) rather than merely asserting the analogy.
+*Remark 45* (Why the bounded coefficients matter — the Erdős-1948 regime). The identity of Proposition <a href="#prop:mobsq" data-reference-type="ref" data-reference="prop:mobsq">44</a> rewrites $`S`$ (equivalently $`T`$) as a *Möbius-twisted Lambert-squared series*: the numerator weight $`\mu(d)`$ is bounded, $`|\mu(d)|\le1`$ for every $`d`$, uniformly in $`d`$. This places $`T`$ in exactly the coefficient regime of the classical Erdős (1948) near-integer irrationality criterion and of the level-1 sibling identity $`L(\mu):=\sum_d \mu(d)/(2^d-1) = \tfrac12`$ (rational, trivially) alongside $`L(1) = \sum_d 1/(2^d-1) = E`$, the Erdős–Borwein constant, which *is* proved irrational in this same kernel (, <span class="sans-serif">\[Lean\]</span>). This is the opposite regime from Proposition <a href="#prop:shift" data-reference-type="ref" data-reference="prop:shift">33</a>’s **binary-digit coordinate**, where the corresponding weight satisfies $`0\le\varphi(n)\le n`$ and is unbounded. The function $`\varphi`$ has average order $`6n/\pi^2`$, equivalently $`\sum_{k\le x}\varphi(k)\sim 3x^2/\pi^2`$, but there is no pointwise estimate $`\varphi(n)=\Theta(n)`$. A near-integer/Dirichlet-approximation argument of Erdős-1948 shape (formalised generically as and its base-power specialisation , both <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">coord:n/a</span>, fully coordinate-free) has a genuine chance of transferring to $`T`$ precisely because its weight is bounded, in a way it does not have a chance of transferring directly to the raw $`\varphi(n)/2^n`$ series. No such transfer is proved; §<a href="#ssec:mobius" data-reference-type="ref" data-reference="ssec:mobius">5.5</a> below (cross-referenced here, developed in Part 2 of this paper) records exactly why the transfer has so far failed (the “$`\mu`$-pollution” obstruction) rather than merely asserting the analogy.
 
 </div>
 
@@ -659,7 +659,7 @@ where $`\mu`$ is the Möbius function, so $`\mu(d)\in\{-1,0,1\}`$ for every $`d`
 ``` math
 \sum_{d\ge1} w(d)\left(\frac{r^d}{1-r^d}\right)^2 \;=\; \sum_{n\ge1}\left(\sum_{e\mid n} w(e)\Bigl(\tfrac{n}{e}-1\Bigr)\right) r^n.
 ```
-<span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:105)*
+<span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
 
@@ -671,7 +671,7 @@ This one identity, at $`r=1/2`$, specialises to every squared-Lambert rung the c
 *``` math
 \sum_{d\ge1} \frac{1}{(2^d-1)^2} \;=\; \sum_{n\ge1} \frac{\sigma(n)-\tau(n)}{2^n} \;=\; \zeta_q(2)-\zeta_q(1) \text{ at } q=\tfrac12,
 ```
-where $`\sigma`$ is the sum-of-divisors function and $`\tau`$ the number-of-divisors function. The *identity* is machine-checked (<span class="sans-serif">\[Lean\]</span>); irrationality of the *value* $`\zeta_q(2)-\zeta_q(1)`$ is <span class="sans-serif">\[Cited\]</span> (Postelmans–Van Assche $`q`$-Padé), *not* formalised in this corpus. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:216)*
+where $`\sigma`$ is the sum-of-divisors function and $`\tau`$ the number-of-divisors function. The *identity* is machine-checked (<span class="sans-serif">\[Lean\]</span>); irrationality of the *value* $`\zeta_q(2)-\zeta_q(1)`$ is <span class="sans-serif">\[Cited\]</span> (Postelmans–Van Assche $`q`$-Padé), *not* formalised in this corpus. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span>*
 
 </div>
 
@@ -681,7 +681,7 @@ where $`\sigma`$ is the sum-of-divisors function and $`\tau`$ the number-of-divi
 *``` math
 \sum_{d\ge1} \frac{\varphi(d)}{(2^d-1)^2} \;=\; \sum_{n\ge1} \bigl(P(n)-n\bigr)\cdot 2^{-n} \;=\; \mathbb{E}[\gcd(X,Y)],
 ```
-where $`P(n) := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi * \mathrm{Id})(n)`$ is Pillai’s gcd-sum function and $`X,Y`$ are the independent fair-coin waiting times of Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">39</a>. The identity itself is machine-checked (<span class="sans-serif">\[Lean\]</span>); the value $`\mathbb{E}[\gcd(X,Y)]`$ is <span class="sans-serif">\[Open\]</span> — a cousin rung to \#249, not \#249 itself. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:235)*
+where $`P(n) := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi * \mathrm{Id})(n)`$ is Pillai’s gcd-sum function and $`X,Y`$ are the independent fair-coin waiting times of Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">39</a>. The identity itself is machine-checked (<span class="sans-serif">\[Lean\]</span>); the value $`\mathbb{E}[\gcd(X,Y)]`$ is <span class="sans-serif">\[Open\]</span> — a cousin rung to \#249, not \#249 itself. <span class="sans-serif">coord:mobius-mersenne</span> <span class="sans-serif">scale:n/a</span>*
 
 </div>
 
@@ -693,38 +693,39 @@ where $`P(n) := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi * \mathrm{Id})(n)`
 
 <a id="ssec:certtable"></a>
 
-## The exact certificate record: numerical anchors through $`t=64`$
+## The exact certificate record: the contiguous band through $`t\le82`$
 
-The certificate apparatus itself (the predicate `certifiedKill`, its soundness/completeness theorems, and the cofinal supply obligation that is the actual open target) is developed in full in Part 1 of this paper. What is recorded here is exhaustively: every finite, machine-checked numerical anchor the corpus currently holds for it, stated precisely, with no extrapolation implied.
+The certificate apparatus itself (the predicate `certifiedKill`, its soundness/completeness theorems, and the cofinal supply obligation that is the actual open target) is developed in full in Part 1 of this paper. What is recorded here is a representative historical set of machine-checked anchors, together with the current aggregate theorem closing every scale $`t\le82`$. The declaration inventory, rather than this table, is authoritative for all individual certificate shards; no extrapolation beyond the stated band is implied.
 
 <a id="certificate-object."></a>
 
 #### Certificate object.
 
-For $`h,N,L : \mathbb{N}`$, define the window discrepancy $`\Delta_{h,N,L} := \sum_{j<L} (\varphi(N+h+1+j)-\varphi(N+1+j))\cdot 2^{L-1-j} \in \mathbb{Z}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66), <span class="sans-serif">\[Lean\]</span>), and
+For $`h,N,L : \mathbb{N}`$, define the window discrepancy $`\Delta_{h,N,L} := \sum_{j<L} (\varphi(N+h+1+j)-\varphi(N+1+j))\cdot 2^{L-1-j} \in \mathbb{Z}`$ (, <span class="sans-serif">\[Lean\]</span>), and
 ``` math
 \mathrm{Sep}(h,N,L) \;:\equiv\; (N+h+L+2) < \Delta_{h,N,L} \bmod 2^{L} < 2^{L}-(N+h+L+2),
 ```
-( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72), <span class="sans-serif">\[Lean\]</span>, decidable). By completeness ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:316), <span class="sans-serif">\[Lean\]</span>), $`(\exists L,\ \mathrm{Sep}(h,N,L)) \iff R_{N+h}-R_N \notin \mathbb{Z}`$ for every $`h,N`$: an unbounded (cofinal, over $`h`$ and $`N`$) supply of $`\mathrm{Sep}`$ is exactly equivalent to $`\mathrm{Irrational}(S)`$. The table below records every $`(h,N,L)`$-shaped or $`t`$-shaped instance that has actually been checked; none of it is cofinal, and none of it is presented as deciding \#249.
+(, <span class="sans-serif">\[Lean\]</span>, decidable). By completeness (, <span class="sans-serif">\[Lean\]</span>), $`(\exists L,\ \mathrm{Sep}(h,N,L)) \iff R_{N+h}-R_N \notin \mathbb{Z}`$ for every $`h,N`$: an unbounded (cofinal, over $`h`$ and $`N`$) supply of $`\mathrm{Sep}`$ is exactly equivalent to $`\mathrm{Irrational}(S)`$. The table below records the principal $`(h,N,L)`$-shaped and $`t`$-shaped anchors; none of them is cofinal, and none is presented as deciding \#249.
 
 | **Anchor** | **Exact statement of what was checked** | **Scale** | **Site** |
 |:---|:---|:---|:---|
-| Fixed-window deposit, depth 16 | $`\mathrm{Sep}(h,12,16)`$ holds for every $`h \in \{1,\dots,8\}`$ (by `decide`, $`256`$ totient values below $`37`$); consequently $`S \ne r`$ for every $`r\in\mathbb{Q}`$ with $`1\le h\le 8`$ and $`r.\mathrm{den} \mid 2^{12}(2^h-1)`$. | <span class="sans-serif">scale:fixed</span> | [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:404) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:416) |
-| Fixed-window deposit, depth 14, wider net | $`\mathrm{Sep}(h,14,\text{depth }14)`$-shaped exclusion extends to every $`h\in\{1,\dots,16\}`$: $`S \ne r`$ for every $`r\in\mathbb{Q}`$ with $`1\le h\le16`$ and $`r.\mathrm{den}\mid 2^{14}(2^h-1)`$. | <span class="sans-serif">scale:fixed</span> | [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18562) |
-| Diagonal-pincer certificates, base 12 scales | $`\mathrm{Sep}\bigl(H_t, H_t, D(t)\bigr)`$, $`H_t := \mathrm{lcm}(1,\dots,t)`$, holds (by explicit `decide`/`norm_num` on checked `Nat.totient` values, via factored prime-power blocks with Lucas-primality certificates) for $`t \in \{1,2,3,4,5,7,8,9,11,13,16,17\}`$ with certificate depths $`D(t) \in \{6,5,7,7,9,14,15,14,21,22,23,26\}`$ respectively (in the same order). | <span class="sans-serif">scale:fixed</span> | [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2844) |
+| Fixed-window deposit, depth 16 | $`\mathrm{Sep}(h,12,16)`$ holds for every $`h \in \{1,\dots,8\}`$ (by `decide`, $`256`$ totient values below $`37`$); consequently $`S \ne r`$ for every $`r\in\mathbb{Q}`$ with $`1\le h\le 8`$ and $`r.\mathrm{den} \mid 2^{12}(2^h-1)`$. | <span class="sans-serif">scale:fixed</span> |  |
+| Fixed-window deposit, depth 9, wider net | $`\mathrm{Sep}(h,14,9)`$ holds for every $`h\in\{1,\dots,16\}`$: $`S \ne r`$ for every $`r\in\mathbb{Q}`$ with $`1\le h\le16`$ and $`r.\mathrm{den}\mid 2^{14}(2^h-1)`$. | <span class="sans-serif">scale:fixed</span> |  |
+| Diagonal-pincer certificates, base 12 scales | $`\mathrm{Sep}\bigl(H_t, H_t, D(t)\bigr)`$, $`H_t := \mathrm{lcm}(1,\dots,t)`$, holds (by explicit `decide`/`norm_num` on checked `Nat.totient` values, via factored prime-power blocks with Lucas-primality certificates) for $`t \in \{1,2,3,4,5,7,8,9,11,13,16,17\}`$ with certificate depths $`D(t) \in \{6,5,7,7,9,14,15,14,21,22,23,26\}`$ respectively (in the same order). | <span class="sans-serif">scale:fixed</span> |  |
 | Diagonal-pincer certificates, extended scales through $`t=64`$ | The same predicate $`\mathrm{Sep}(H_t,H_t,D(t))`$ is additionally checked, one sibling module per scale, at $`t \in \{19,\allowbreak23,\allowbreak25,\allowbreak27,\allowbreak29,\allowbreak31,
 \allowbreak32,\allowbreak37,\allowbreak41,\allowbreak43,\allowbreak47,\allowbreak49,
 \allowbreak53,\allowbreak59,\allowbreak61,\allowbreak64\}`$ (16 further explicit values). Together with the base 12 scales above this is **28 explicit values of $`t`$ in total**, the complete list being $`\{1,\allowbreak2,\allowbreak3,\allowbreak4,\allowbreak5,\allowbreak7,
 \allowbreak8,\allowbreak9,\allowbreak11,\allowbreak13,\allowbreak16,\allowbreak17,
 \allowbreak19,\allowbreak23,\allowbreak25,\allowbreak27,\allowbreak29,\allowbreak31,
 \allowbreak32,\allowbreak37,\allowbreak41,\allowbreak43,\allowbreak47,\allowbreak49,
-\allowbreak53,\allowbreak59,\allowbreak61,\allowbreak64\}`$. This does *not* establish $`\mathrm{Sep}(H_t,H_t,\cdot)`$ for infinitely many $`t`$; it is the concrete finite floor of the diagonal sequence, exactly what an unbounded-supply argument would need to extend. | <span class="sans-serif">scale:fixed</span> | Per-scale Lean modules; endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928) |
-| Farey denominator floor | Every $`q\in\mathbb{N}`$ with $`0<q\le Q_0=79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053`$ satisfies the window-$`(N,K)=(1,240)`$ gap certificate; $`q=Q_0+1`$ is the exact first failure. | <span class="sans-serif">scale:bounded</span> | [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176) |
-| Coprimality-probability / Möbius-square Farey floor | Every $`d\in\mathbb{N}`$ with $`0<d\le Q_1=39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526`$ (exactly $`\lfloor Q_0/2\rfloor`$) is excluded as a denominator of $`\Pr(\gcd(X,Y)=1)`$ and, separately, of $`T=\sum_d\mu(d)/(2^d-1)^2`$. | <span class="sans-serif">scale:bounded</span> | [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18244) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18159) |
+\allowbreak53,\allowbreak59,\allowbreak61,\allowbreak64\}`$. This does *not* establish $`\mathrm{Sep}(H_t,H_t,\cdot)`$ for infinitely many $`t`$; these 28 deposits are a historical strict subset of the contiguous band in the next row. | <span class="sans-serif">scale:fixed</span> | Per-scale Lean modules; endpoint |
+| Contiguous lcm-diagonal band through $`t\le82`$ | For every natural $`t\le82`$ there exists a depth $`L`$ with $`\mathrm{Sep}(H_t,H_t,L)`$. This closes every scale in the finite interval, including plateau transfers, with no holes. The next lcm jump is at the prime $`83`$; no certificate at $`t=83`$ is claimed, and any such certificate must have depth at least $`125`$. | <span class="sans-serif">scale:bounded</span> |  |
+| Farey denominator floor | Every $`q\in\mathbb{N}`$ with $`0<q\le Q_0=79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053`$ satisfies the window-$`(N,K)=(1,240)`$ gap certificate; $`q=Q_0+1`$ is the exact first failure. | <span class="sans-serif">scale:bounded</span> |  |
+| Coprimality-probability / Möbius-square Farey floor | Every $`d\in\mathbb{N}`$ with $`0<d\le Q_1=39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526`$ (exactly $`\lfloor Q_0/2\rfloor`$) is excluded as a denominator of $`\Pr(\gcd(X,Y)=1)`$ and, separately, of $`T=\sum_d\mu(d)/(2^d-1)^2`$. | <span class="sans-serif">scale:bounded</span> |  |
 
 <div class="rem">
 
-*Remark 50* (What this table is not). No row above is cofinal in its indexing parameter ($`h`$, $`t`$, or the denominator bound), and no row is claimed to extrapolate. The certificate depths in the diagonal-pincer row are strictly increasing and irregular ($`6,5,7,7,9,14,15,14,21,22,23,26,\dots`$); no closed-form growth rate for $`D(t)`$ is proved or conjectured in the corpus. This table is the complete inventory of finite Erdős-#249 certificate evidence as of this writing; the cofinal supply obligation it falls short of is the open target developed in Part 1.
+*Remark 50* (What this table is not). No row above is cofinal in its indexing parameter ($`h`$, $`t`$, or the denominator bound), and no row is claimed to extrapolate. The historical diagonal-pincer depths are irregular and nonmonotone ($`6,5,7,7,9,14,15,14,21,22,23,26,\dots`$); no closed-form growth rate for $`D(t)`$ is proved or conjectured in the corpus. This table records the historical 28-scale bank through $`t=64`$; the later aggregate theorem for every $`t\le82`$ is stated above and is not itemised row by row here. Neither bounded record supplies the cofinal obligation developed in Part 1.
 
 </div>
 
@@ -744,7 +745,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Theorem 51** (cert:a9 — `eventual_period_of_not_irrational`, THE TAIL-PERIOD LAW). *If $`S`$ is rational then a period exists: $`\neg\mathrm{Irrational}(S) \to \exists h:\mathbb{N},\, 0<h \wedge \exists N_0:\mathbb{N},\, \forall N\ge N_0,\ \mathrm{totientTail}(N+h) - \mathrm{totientTail}(N) \in \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$. The witness is explicit: $`h = \varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0 = v_2(r.\mathrm{den})`$, from Euler’s theorem applied to the odd part of the hypothetical denominator.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span>*
 
 </div>
 
@@ -752,7 +753,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Theorem 52** (cert:d5 — `not_irrational_totientSeries_implies_unbounded_carryRank_unconditional`). *$`\neg\mathrm{Irrational}(S) \to \exists v>0,\, \exists u:\mathbb{N}\to\mathbb{Z},\, \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \wedge \forall e,\ 2^e-1 \le \mathrm{finrank}_{\mathbb{Q}}(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e)))`$. Rationality of $`S`$ forces its associated tempered integral binary-carry orbit to have unboundedly rich dyadic-section rank; a second, coordinate-independent necessary condition on rationality, parallel to cert:a9 but in the carry-kernel-rank coordinate rather than the binary-digit-periodicity coordinate. Explicitly flagged in its own docstring as not by itself an irrationality proof: a separate rationality-side rank-compression theorem (contradicting cert:d4 below) would still be needed.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-kernel-rank</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>*
 
 </div>
 
@@ -760,7 +761,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Theorem 53** (cert:d4 — `linearIndependent_canonicalTotientKernelFamily`). *For every $`e:\mathbb{N}`$, the canonical dyadic totient-kernel family $`\mathrm{canonicalTotientKernelFamily}(e) : \mathrm{TotientCanonicalIndex}(e) \to \mathbb{N}\to\mathbb{Q}`$, which has exactly $`2^e+1`$ channels, is linearly independent over $`\mathbb{Q}`$. Proved unconditionally by constructing, via CRT and Dirichlet’s theorem on primes in arithmetic progression (`PrimesCongruentOne`/`PrimesInAP` from Mathlib), an explicit evaluation point at which one channel becomes prime and every other channel picks up a fresh prime $`\equiv 1`$ modulo a large power of $`2`$ — a genuine witnessed producer, not merely a dimension count. Consequently $`\neg\mathrm{FiniteDimensional}\,\mathbb{Q}\,(\mathrm{span}\,\mathbb{Q}\,(\mathrm{range}\,\mathrm{fullTotientKernelFamily}))`$. Self-flagged: this shows the dyadic-kernel side is infinite-rank; it is not itself an irrationality proof.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:dyadic-kernel-rank</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:51) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:dyadic-kernel-rank</span>*
 
 </div>
 
@@ -768,7 +769,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 54** (cert:a8 — `tail_diff_int_of_den_dvd`). *If $`S = (r:\mathbb{R})`$ for $`r:\mathbb{Q}`$ and $`r.\mathrm{den} \mid 2^N\cdot(2^h-1)`$, then $`\mathrm{totientTail}(N+h) - \mathrm{totientTail}(N) \in \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$: a rational value of $`S`$ with a denominator of this shape forces the shifted tail difference to be an integer. The sharp contrapositive engine underlying cert:a9 and cert:a6.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:327)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span>*
 
 </div>
 
@@ -776,7 +777,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 55** (mob:b5 — top fibre survives, T3, `mobiusNumerator_gcd_cyclotomicValue`). *For $`r`$ squarefree: $`\gcd(|\mathrm{mobiusNumerator}(r)|,\ \mathrm{cyclotomicValue}(r)) = 1`$, hence $`\mathrm{cyclotomicValue}(r) \mid \mathrm{baseMobiusShadow}(r).\mathrm{den}`$. The top cyclotomic channel $`|\Phi_r(2)|`$ is produced as a survivor: it can never cancel from the numerator and is exhibited as an unconditional divisor of the reduced denominator at every squarefree $`r`$.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:350) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:389)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -784,7 +785,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 56** (mob:b6 — upper-half prime channel survival, T4). *For a scale coprime to $`C = \prod_{p \in \mathrm{upperHalfPrimes}(t)} \mathrm{mersenne}(p)`$ (or with prime support $`\le t`$), the whole finite product $`C`$ over the explicit upper-half prime set $`\mathrm{upperHalfPrimes}(t) = \{p \text{ prime} : t/2 < p \le t\}`$ divides the reduced denominator of the scaled Möbius shadow at LCM height $`t`$, unscaled. A genuine finite family of surviving Mersenne-prime channels is exhibited explicitly at every $`t`$, not merely bounded below.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean:914) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean:809) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean:983)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -792,7 +793,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 57** (mob:b7a — denominator growth lower bound). *For $`t \ge 5`$ (Bertrand’s postulate supplies nonemptiness of $`\mathrm{upperHalfPrimes}(t)`$): $`2^{t/2} \le \prod_{p \in \mathrm{upperHalfPrimes}(t)} \mathrm{mersenne}(p) \le \big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den}`$. An exponential-in-$`t/2`$ growth lower bound for the reduced denominator at every LCM height, produced from mob:b6’s explicit surviving channel product. Denominator-only: does not by itself rule out cancellation by a foreign-defect term, hence does not by itself prove \#249.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:60)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -800,7 +801,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 58** (mob:b7b — exact denominator value). *For every $`t`$ (no lower bound on $`t`$ needed for this direction): $`\big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den} = \mathrm{mersenne}(\mathrm{lcmRadical}(t)) / \gcd\big(\mathrm{mersenne}(\mathrm{lcmRadical}(t)),\ \mathrm{lcmScale}(t)\cdot|\mathrm{oddJordanScalar}(\mathrm{lcmRadical}(t))|\big)`$. A fully closed form for the reduced denominator at every scale, produced (not merely bounded) as an explicit rational function of $`t`$.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:147)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -808,7 +809,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 59** (mob:d3 — signed dyadic sum nonvanishing, `scaled_dyadic_sum_ne_zero`). *If a finite signed sum $`\sum_{i \in s} u(i)\cdot 2^{e(m)-e(i)}`$ (clearing dyadic denominators to a common exponent $`e(m)`$) has one index $`m \in s`$ with strictly maximal exponent $`e(m)`$ and odd coefficient $`u(m)`$, while every other index has strictly smaller exponent, then the cleared sum is $`\equiv 1 \pmod 2`$, hence nonzero. A positive finite-nonvanishing engine, produced via a rectangular Cauchy–Binet determinant expansion (`det_mul_rectangular`) applied to the signed-Hankel/$`q`$-moment construction (`hankelDet`, `truncatedMoment`); the underlying arithmetic is a $`q=1/2`$ Hankel-determinant framework for a possible Padé route to \#249. No supply theorem is proved that such a unique-terminal configuration exists cofinally — this is a per-instance producer, not a cofinal producer.*
 
-*<span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:95) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:28)*
+*<span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span>*
 
 </div>
 
@@ -816,23 +817,28 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 **Proposition 60** (cert:a11 — `certifiedKill_all_small`). *$`\forall h \in [1,8],\ \mathrm{certifiedKill}\ h\ 12\ 16`$ — a finite, fully unconditional `decide`-checked family of 8 certificate witnesses at the fixed point $`N=12`$, $`L=16`$ (256 explicit totient values below 37 evaluated). Consequence, via cert:a6: $`\forall r:\mathbb{Q},\ 1\le h\le 8,\ r.\mathrm{den}\mid 2^{12}\cdot(2^h-1) \to S \ne r`$.*
 
-*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:404) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:416)*
+*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
 <div class="prop">
 
-**Proposition 61** (cert:a12 — upto-sixteen deposit). *$`\forall h \in [1,16]`$ at exponent $`14`$: a wider, fully unconditional `decide`-checked family of certificate witnesses, subsuming cert:a11 on both axes (larger $`h`$-range, larger 2-adic exponent). Consequence: $`\forall r:\mathbb{Q},\ 1\le h\le 16,\ r.\mathrm{den}\mid 2^{14}\cdot(2^h-1) \to S \ne r`$.*
+**Proposition 61** (cert:a12 — upto-sixteen deposit). *$`\forall h \in [1,16]`$, $`\mathrm{certifiedKill}\ h\ 14\ 9`$: a wider, fully unconditional `decide`-checked family of certificate witnesses. The basepoint $`N=14`$ yields the denominator factor $`2^{14}`$; the certificate depth is $`L=9`$. Consequence: $`\forall r:\mathbb{Q},\ 1\le h\le 16,\ r.\mathrm{den}\mid
+2^{14}\cdot(2^h-1) \to S \ne r`$.*
 
-*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18562)*
+*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
 <div class="prop">
 
-**Proposition 62** (cert:b11 — diagonal pincer finite deposits, THE DIAGONAL-PINCER IDENTITY). *$`\mathrm{certifiedKill\_diagonal\_all\_imported} : \forall t \in \{1,2,3,4,5,7,8,9,11,13,16,17,\dots\},\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t))(\mathrm{periodLcm}(t))(\mathrm{diagonalPincerKillDepth}(t))`$, with explicit certificate depths $`[6,5,7,7,9,14,15,14,21,22,23,26,\dots]`$, extended by sibling modules through $`t=64`$ (28 explicit deposits total, endpoint `certifiedKill_diagonal_t64`). Each instance is a finite `decide`/`norm_num` computation on explicit `Nat.totient` values, factored via checked prime-power blocks (`FactorBlock`, `totient_factorBlocks`, `prime_dvd_factorBlocks`) with Lucas-primality certificates for the primes involved. This is the concrete finite floor of the single-parameter diagonal sequence $`P(t) := \exists L,\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t))(\mathrm{periodLcm}(t))\,L`$ (cert:b3 below): it produces $`P(t)`$ for these 28 explicit $`t`$, and does *not* establish $`P(t)`$ for infinitely many $`t`$ — quantifier order is exact: a finite witnessed list, not a cofinal supply.*
+**Proposition 62** (cert:b11 — diagonal pincer finite deposits, historical bank and current band). *$`\mathrm{certifiedKill\_diagonal\_all\_imported} : \forall t \in \{1,2,3,4,5,7,8,9,11,13,16,17,\dots\},\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t))(\mathrm{periodLcm}(t))(\mathrm{diagonalPincerKillDepth}(t))`$, with explicit certificate depths $`[6,5,7,7,9,14,15,14,21,22,23,26,\dots]`$, extended by sibling modules through $`t=64`$ (28 explicit deposits total, endpoint `certifiedKill_diagonal_t64`). Each instance is a finite `decide`/`norm_num` computation on explicit `Nat.totient` values, factored via checked prime-power blocks (`FactorBlock`, `totient_factorBlocks`, `prime_dvd_factorBlocks`) with Lucas-primality certificates for the primes involved. This is the concrete finite floor of the single-parameter diagonal sequence $`P(t) := \exists L,\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t))(\mathrm{periodLcm}(t))\,L`$ (cert:b3 below): it produces $`P(t)`$ for these 28 explicit $`t`$, and does *not* establish $`P(t)`$ for infinitely many $`t`$ — quantifier order is exact: a finite witnessed list, not a cofinal supply.*
 
-*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:lcm-diagonal</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2870) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928)*
+*<span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:lcm-diagonal</span>*
+
+*The historical 28 deposits are now a strict subset of the aggregate theorem $`\forall t\le82,\ P(t)`$. That theorem closes the finite interval without holes but supplies neither $`P(83)`$ nor a cofinal family.*
+
+*<span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:other:lcm-diagonal</span>*
 
 </div>
 
@@ -850,7 +856,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Definition 63** (cert:a1 — `totientTail`). $`\mathrm{totientTail}(N) := \sum_{j\ge0}' \varphi(N+1+j)/2^{j+1}`$, the fractional layer of $`2^N\cdot S`$; well-defined for every $`N`$.
 
-<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:57)
+<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span>
 
 </div>
 
@@ -858,7 +864,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Definition 64** (cert:a3 — `windowDiscrepancy`). $`\mathrm{windowDiscrepancy}(h,N,L) := \sum_{j<L} \big(\varphi(N+h+1+j) - \varphi(N+1+j)\big)\cdot 2^{L-1-j} \in \mathbb{Z}`$, the depth-$`L`$ truncation of $`2^L\cdot(\mathrm{totientTail}(N+h) - \mathrm{totientTail}(N))`$; computable and decidable given $`h,N,L`$.
 
-<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66)
+<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:binary-window</span>
 
 </div>
 
@@ -866,7 +872,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Definition 65** (cert:a4 — `certifiedKill`, THE Sep(h,N,L) PREDICATE). $`\mathrm{certifiedKill}(h,N,L) := (N+h+L+2:\mathbb{Z}) < \mathrm{windowDiscrepancy}(h,N,L) \bmod 2^L < 2^L - (N+h+L+2)`$ — the residue of the window discrepancy modulo $`2^L`$ avoids the shrinking radius-$`(N+h+L+2)`$ neighbourhood of $`0`$. This is exactly the object named $`\mathrm{Sep}(h,N,L)`$: purely finite arithmetic, decidable, with no analytic hypothesis. This is the certificate kernel’s core object; every theorem below is either a hypothesis-shape wrapping it or an unconditional finite instance of it.
 
-<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72)
+<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:binary-window</span>
 
 </div>
 
@@ -874,7 +880,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 66** (cert:a2 — shift identity, `two_pow_mul_totient_series_eq`). *$`2^N \cdot \Big(\sum_{n\ge0}' \varphi(n)/2^n\Big) = \mathrm{totientPrefix}(N) + \mathrm{totientTail}(N)`$, where $`\mathrm{totientPrefix}(N) = \sum_{n\le N}\varphi(n)\cdot 2^{N-n} \in \mathbb{N}`$ is an exact integer. Rationality/periodicity of $`S`$’s binary expansion reduces exactly to a statement about $`\mathrm{totientTail}`$. Template shape (constant $`\cdot`$ prefix + tail split) reusable for any $`\sum f(n)/2^n`$.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:150)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span>*
 
 </div>
 
@@ -882,7 +888,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Lemma 67** (cert:a5 — certificate depth floor, `certifiedKill_depth_floor`). *$`\mathrm{certifiedKill}(h,N,L) \to 2\cdot(N+h+L+2) < 2^L`$. A structural corollary of the kernel definition: the certificate depth $`L`$ cannot stay bounded while $`N+h \to \infty`$; $`L`$ must grow at least logarithmically with $`N+h`$. Necessary context for reading every fixed/bounded-scale kernel instance below.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
@@ -890,7 +896,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 68** (cert:a6 — certificate soundness, the kernel’s converter direction, `tail_diff_notMem_int_of_certifiedKill`). *$`\mathrm{certifiedKill}(h,N,L) \to \mathrm{totientTail}(N+h) - \mathrm{totientTail}(N) \notin \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$. This is the kernel’s soundness converter: it moves a finite, decidable, binary-window fact into a real-analytic non-integrality fact. Composes with cert:a9 (tail-period law) by contradiction to kill a hypothetical rational’s period.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:262)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
@@ -898,7 +904,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Theorem 69** (cert:a7 — certificate completeness, `exists_certifiedKill_iff_tail_diff_notMem_int`). *$`(\exists L,\ \mathrm{certifiedKill}(h,N,L)) \iff \mathrm{totientTail}(N+h) - \mathrm{totientTail}(N) \notin \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$, for all $`h,N`$. Certificates are *complete* receipts of non-integrality, not merely sufficient: the certificate vocabulary is dispensable, and the real target of the whole kernel is exactly the right-hand real-analytic statement. Converts the open \#249 obligation freely between "supply of certificates" language and "supply of non-integral tail differences at arbitrarily large scale" language (cert:b8 below uses the latter form). Any independent non-integrality proof from any coordinate automatically yields a certificate by this iff, and vice versa.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:316)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
@@ -906,7 +912,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Definition 70** (cert:b1 — `periodLcm`, the universal period ray). $`\mathrm{periodLcm}(0) = 1`$, $`\mathrm{periodLcm}(t+1) = \mathrm{lcm}(\mathrm{periodLcm}(t), t+1)`$, i.e. $`\mathrm{periodLcm}(t) = \mathrm{lcm}(1,\dots,t)`$; $`t \le \mathrm{periodLcm}(t)`$; every primitive period $`h_0 \le t`$ divides $`\mathrm{periodLcm}(t)`$. Pure number theory about $`\mathrm{lcm}(1..t)`$, zero totient content; directly reusable for \#257 or any period-search problem — "stand on the universal-period ray to remove one free parameter" is a general reduction technique.
 
-<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:lcm-period-ray</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:515) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:81)
+<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:lcm-period-ray</span>
 
 </div>
 
@@ -914,7 +920,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 71** (cert:c1 — `farey_gap`, the mediant lemma). *For $`a,b,c,d,r,s:\mathbb{Z}`$ with $`b>0`$, $`d>0`$, unimodular neighbours $`bc-ad=1`$, and $`r`$ strictly between $`a/b`$ and $`c/d`$ ($`a\cdot s < r\cdot b`$, $`r\cdot d < c\cdot s`$): $`b+d \le s`$. Any rational strictly between two unimodular Farey neighbours has denominator at least the sum of the neighbours’ denominators. Fully problem-agnostic — pure Stern–Brocot/Farey fact, zero totient content, directly reusable for \#257.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:farey</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:farey</span>*
 
 </div>
 
@@ -922,7 +928,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 72** (cert:d1 — `irrational_of_den_mul_abs_sub_tendsto_zero`, generic Dirichlet-gap criterion). *If $`u:\mathbb{N}\to\mathbb{Q}`$ is eventually never equal to $`x:\mathbb{R}`$, and $`\mathrm{den}(u(k))\cdot|x - u(k)| \to 0`$, then $`\mathrm{Irrational}(x)`$. Classical Dirichlet-approximation irrationality criterion, zero totient/Mersenne content, already reused in this corpus to prove full-support Erdős–Borwein irrationality (#257-shaped). Apply to any explicit sequence of convergents to $`S`$ with a provable denominator$`\cdot`$gap $`\to 0`$ bound.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5371)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span>*
 
 </div>
 
@@ -930,7 +936,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 73** (cert:d2 — `irrational_of_int_mul_near_int`, classical near-integer criterion). *If $`\forall q>0,\ \exists m,z:\mathbb{Z},\ 0 < |m\cdot\xi - z| < 1/q`$, then $`\mathrm{Irrational}(\xi)`$. The classical Erdős-1948-shape criterion behind digit/carry irrationality proofs. Base-power specialisation $`\mathrm{irrational\_of\_pow\_mul\_near\_int}`$ (witnesses of form $`b^n\cdot\xi`$) directly matches a digit/carry construction in any base $`b`$, hence directly usable for \#257’s $`b^n-1`$ denominators. Together with cert:d1 these are the only two general-purpose irrationality criteria in the whole kernel; everything else exists to supply or substitute for their hypotheses.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5792) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5821)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span>*
 
 </div>
 
@@ -938,7 +944,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 74** (cert:d3 — `SeparatedMinorCertificate`, linear independence from a nonzero minor). *For an indexed family $`\mathrm{family}: \iota\to\mathbb{N}\to\mathbb{Q}`$: a $`\mathrm{SeparatedMinorCertificate}`$ (an explicit finite evaluation-point assignment $`\mathrm{rowIndex}:\iota\to\mathbb{N}`$ with $`\det(\mathrm{family}(j)(\mathrm{rowIndex}(i)))_{i,j} \ne 0`$) implies $`\mathrm{LinearIndependent}\ \mathbb{Q}\ \mathrm{family}`$. Fully generic finite-dimensional linear algebra; $`\mathrm{family}`$ is a free variable, nothing here mentions totient or Mersenne structure. Reusable for any finite-rank/linear-independence obstruction in either open problem.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:73) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:81)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span>*
 
 </div>
 
@@ -946,7 +952,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 75** (cert:d9 — `positive_rational_difference_lower_bound`). *For $`\mathrm{pfx} < \mathrm{whole}:\mathbb{Q}`$ (strict): $`1/(\mathrm{whole.den}\cdot\mathrm{pfx.den}) \le (\mathrm{whole}:\mathbb{R}) - (\mathrm{pfx}:\mathbb{R})`$. A positive rational difference is bounded below by the reciprocal of the product of the two *actual* reduced denominators, not a displayed/guessed one. Fully general; feeds `prefixDenominator_shell_power_bound_of_rational_difference` and `nextSupport_power_bound_of_rational_difference`, converting any analytic upper bound on a rational gap into a denominator-growth lower bound — plug in any tail estimate from either open problem’s coordinate.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveRationalGapSupply.lean:31)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:n/a</span>*
 
 </div>
 
@@ -954,7 +960,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 76** (mob:a1a — the Möbius–squared-Mersenne identity). *$`S = \sum_{n\ge1} \varphi(n)/2^n = \sum_{d\ge1}' \mu(d)\cdot 2^d/(2^d-1)^2 = \tfrac12 + \sum_{d\ge1}' \mu(d)/(2^d-1)^2`$. Unconditional identity of convergent real series; this is the reduced target every Möbius–Mersenne-lane result in this catalogue feeds.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:121) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:50) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:72)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -962,7 +968,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Corollary 77** (mob:a1b — \#249 restated in the squared-Lambert coordinate). *Immediate from mob:a1a: $`\mathrm{Irrational}(S) \iff \sum_{d\ge1}' \mu(d)/(2^d-1)^2 \notin \mathbb{Q}`$. Denote the right-hand series $`L_2(\mu) := S - 1/2`$ (mob:a3 below). Every subsequent Möbius-coordinate obstruction or identity in this catalogue is measured against this exact restatement, not the original totient series.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:121)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -970,7 +976,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 78** (mob:a2 — squared-Lambert transfer engine, `tsum_lambert_linear_weight_sq_pure`). *For $`w:\mathbb{N}\to\mathbb{R}`$ with $`|w(d)| \le d`$ for $`d>0`$, and $`0 \le r < 1`$: $`\sum_{d:\mathbb{N}^+}' w(d)\cdot(r^d/(1-r^d))^2 = \sum_{n:\mathbb{N}^+}' \Big(\sum_{e\mid n} w(e)\cdot(n/e-1)\Big)\cdot r^n`$. Converts any linear-growth-bounded squared-Lambert series into a divisor-convolution power series — the single reusable brick for the whole level-2 Möbius–Lambert ladder below. Pure Dirichlet-convolution/Lambert-series algebra, no Mersenne-specific structure; instantiate at $`w = \mu, 1, \varphi`$ to obtain mob:a3–a5, and directly reusable for a weighted or squared variant of \#257’s series.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:105)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -978,7 +984,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Definition 79** (mob:a3 — $`L_2(\mu)`$ is exactly \#249). $`L_2(\mu) := \sum_{d:\mathbb{N}^+}' \mu(d)/(2^d-1)^2 = S - 1/2`$. The open \#249 atom, restated as the Möbius rung of the level-2 (squared) Lambert ladder; consequence of mob:a1a and mob:a2 at $`w=\mu`$.
 
-<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:121)
+<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>
 
 </div>
 
@@ -986,7 +992,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 80** (mob:a4 — $`L_2(1)`$, the known $`q`$-zeta anchor rung, `tsum_one_div_mersenne_sq_eq_sigma_sub_tau_series`). *$`\sum_{d:\mathbb{N}^+}' 1/(2^d-1)^2 = \sum_{n:\mathbb{N}^+}' \big(\sigma(n)-\tau(n)\big)\cdot(1/2)^n = \zeta_q(2) - \zeta_q(1)`$ at $`q=1/2`$. The level-2 $`\zeta`$-rung, exactly evaluated in Lean. Irrationality of this *value* is cited (Postelmans–Van Assche $`q`$-Padé), *not* formalised — only the identity itself is machine-checked. This is the "known" sibling rung mirroring mob:a3 in the level-mirror table mob:a6.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:216)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -994,7 +1000,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 81** (mob:a5 — $`L_2(\varphi)`$, the Pillai gcd-moment rung, `tsum_totient_div_mersenne_sq_eq_gcd_moment_series`). *$`\sum_{d:\mathbb{N}^+}' \varphi(d)/(2^d-1)^2 = \sum_{n:\mathbb{N}^+}' (P(n)-n)\cdot(1/2)^n`$, where $`P = \varphi * \mathrm{Id}`$ (Pillai’s gcd-sum function). Equals $`\mathbb{E}[\gcd(X,Y)]`$ for independent fair-coin waiting times $`X,Y`$ (probabilistic coordinate, mob:a7–a9). A cousin rung, not \#249 itself; status open.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:235)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -1010,7 +1016,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 83** (mob:a7 — gcd-divisibility factorises, `tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq`). *For independent fair-coin waiting times $`X,Y`$ ($`P(X=n)=2^{-n}`$) and $`d>0`$: $`P(d\mid X \wedge d\mid Y) = 1/(2^d-1)^2`$. The foundation stone for reading $`L_2(f)`$ as $`\mathbb{E}[(f*\zeta)(\gcd(X,Y))]`$. Pure probability/geometric-series fact about independent geometric random variables, zero \#249-specific content; directly reusable for a two-coordinate gcd structure in \#257.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:probability</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:266)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:probability</span>*
 
 </div>
 
@@ -1018,7 +1024,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 84** (mob:a8 — reduced-direction law, `tsum_pos_coprime_inv_mersenne_eq_one`). *$`\sum_{(a,b):\, a,b\ge1,\, \gcd(a,b)=1}' 1/(2^{a+b}-1) = 1`$: the sum over exact bipartite coprime pairs. Every positive coprime pair carries a slope mass $`1/(2^{a+b}-1)`$, and these mass exactly one — the root cylinder $`M(1,1)=1`$ of the Stern–Brocot tree, mob:a9. Pure coprimality/geometric-series law, applies verbatim to any base-$`b`$ analogue.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:probability</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:349)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:probability</span>*
 
 </div>
 
@@ -1026,7 +1032,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 85** (mob:a9a — Stern–Brocot cylinder recursion, `cylinderMass_split`). *$`M(a,b) := 1/\big((2^a-1)(2^b-1)\big)`$ satisfies the exact telescoping identity $`M(a,b) = 1/(2^{a+b}-1) + M(a+b,b) + M(a,a+b)`$ for $`a,b:\mathbb{N}^+`$: an exact Markov measure on the Stern–Brocot mediant tree, whose closed form is a product of two independent-coordinate divisor probabilities $`P(a\mid X)\cdot P(b\mid Y)`$ (mob:a7).*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:stern-brocot</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:474)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:stern-brocot</span>*
 
 </div>
 
@@ -1034,7 +1040,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 86** (mob:a9b — depth-$`d`$ convergence rate, `sternBrocotDepthMass_error` / `tendsto_sternBrocotDepthMass`). *Children of a Stern–Brocot cylinder carry at most $`2/3`$ of the parent’s mass; the depth-$`d`$ finite unfolding of mob:a9a converges to $`M(a,b)`$ at explicit rate $`|M(a,b) - M_d(a,b)| \le (2/3)^d\cdot M(a,b)`$. The "recursion limit $`=`$ subtree mass" identification is explicitly *not* claimed beyond this rate bound (flagged as a wave-21 gap in the source). All-left cusp cylinders $`M(N,1) = 1/(2^N-1)`$ are near-Mersenne-reciprocal, one exponential order closer to the Erdős–Borwein engine than raw $`\varphi(n)`$ coefficients — an advisory bridge candidate to Erdős-1948-style arguments, not a proved route.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:stern-brocot</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:525) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:560)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:stern-brocot</span>*
 
 </div>
 
@@ -1042,7 +1048,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 87** (mob:b1 — repunit gcd word, T1, `mobiusNumeratorPolynomial_eq_gcdWord`). *For $`r`$ squarefree, the divisor-signed polynomial $`\mathrm{mobiusNumeratorPolynomial}(r) := \sum_{d\mid r} \mu(d)\cdot(r/d)\cdot\mathrm{spacedRepunit}(d,r/d)`$ equals $`\mathrm{gcdWord}(r)`$, whose $`X^k`$ coefficient ($`k<r`$) is $`\mathrm{gcdWordCoeff}(r,k) = (r/\gcd(r,k))\cdot\varphi(\gcd(r,k))`$, strictly positive for $`k<r`$ and zero for $`k\ge r`$. The signed repunit numerator is exactly a positive gcd word; the classical polynomial identity underlying it (signed spaced repunit $`=`$ gcd word) is base-independent, though the application here is Mersenne-specific.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:205) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:217) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:234)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -1050,7 +1056,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 88** (mob:b2 — evaluation at $`2`$ recovers the integer numerator, `mobiusNumeratorPolynomial_eval_two`). *$`\mathrm{mobiusNumeratorPolynomial}(r).\mathrm{eval}\,2 = \mathrm{mobiusNumerator}(r)`$ for $`r`$ squarefree, where $`\mathrm{mobiusNumerator}(r) := \sum_{s \subseteq \mathrm{primeFactors}(r)} (-1)^{|s|}\cdot(r/d)\cdot(\mathrm{mersenne}(r)/\mathrm{mersenne}(d))`$, $`d = \prod s`$. Bridges the polynomial (mob:b1) world to the integer arithmetic used by every denominator-survival theorem below.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:320) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RadicalMobiusShadow.lean:101)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -1058,7 +1064,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 89** (mob:b3 — radical shadow scale decomposition). *$`\mathrm{baseMobiusShadow}(r) := \mathrm{mobiusNumerator}(r)/(2^r-1)`$ (unscaled); $`\mathrm{numericMobiusShadow}(H) := \mathrm{baseMobiusShadow}(\mathrm{rad}(H))/\mathrm{rad}(H)`$; exactly $`H\cdot\mathrm{numericMobiusShadow}(H) = (H/\mathrm{rad}(H))\cdot\mathrm{baseMobiusShadow}(\mathrm{rad}(H))`$ for $`H>0`$. Reduced-denominator identity for the unscaled shadow: $`\mathrm{baseMobiusShadow}(r).\mathrm{den} = \mathrm{mersenne}(r)/\gcd(|\mathrm{mobiusNumerator}(r)|, \mathrm{mersenne}(r))`$ for $`r>0`$ — exact and generic, no coprimality assumed, no channel-survival hidden.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RadicalMobiusShadow.lean:125) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RadicalMobiusShadow.lean:150)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -1066,7 +1072,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 90** (mob:b4 — cyclotomic congruence, T2, `cyclotomic_dvd_mobiusNumeratorPolynomial_sub`). *For $`r`$ squarefree, $`m \mid r`$: $`\Phi_m \mid \big(\mathrm{mobiusNumeratorPolynomial}(r) - C(\mu(m)\cdot J_2(r/m))\big)`$ in $`\mathbb{Z}[X]`$, where $`J_2 = \mu * \mathrm{id}^2`$ is the Jordan totient. Evaluated: $`\mathrm{cyclotomicEval}(m) \mid \mathrm{mobiusNumerator}(r) - \mu(m)\cdot J_2(r/m)`$. Every cyclotomic fibre $`\Phi_m(2)`$ of the numerator is congruent to an explicit constant depending only on $`\mu(m)`$ and the Jordan totient of the cofactor. Setting $`m=r`$ gives mob:b5 (top fibre survives).*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:299) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:310)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -1074,7 +1080,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 91** (mob:b8a — prime-power jump recurrence, T5, new fibre). *Adjoining a new prime $`p \nmid r`$: on a genuinely new fibre $`m\cdot p`$ (with $`m \mid r`$), $`\Phi_{mp} \mid \mathrm{mobiusNumeratorPolynomial}(rp) + \mathrm{expand}_p(\mathrm{mobiusNumeratorPolynomial}(r))`$ — the new fibre picks up a sign-flipped $`p`$-expansion of the old numerator. Holds for $`p`$ prime, $`p \nmid r`$, $`m \mid r`$; the underlying recurrence needs no squarefreeness of $`r`$.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimePowerJumpDynamics.lean:281) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimePowerJumpDynamics.lean:347)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -1082,7 +1088,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 92** (mob:b8b — prime-power jump recurrence, T5, old fibre). *Adjoining a new prime $`p \nmid r`$: on an old fibre $`m`$ (with $`m \mid r`$), $`\Phi_m \mid \mathrm{mobiusNumeratorPolynomial}(rp) - C(p^2-1)\cdot\mathrm{mobiusNumeratorPolynomial}(r)`$ — old fibres scale by exactly $`p^2-1`$. Requires $`r`$ squarefree (needed for the T2 constant-fibre step mob:b4, not for the underlying recurrence itself). An inductive tool for building explicit denominator/numerator values one prime at a time; a candidate base case for an induction proving mob:b7a/b7b’s growth bound tight.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimePowerJumpDynamics.lean:310)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:cyclotomic</span>*
 
 </div>
 
@@ -1090,7 +1096,7 @@ Converters and identities move a statement between coordinates without changing 
 
 **Proposition 93** (cert:d7 — the Mersenne–Lambert ladder identities). *Define $`L(f) := \sum_{n\ge1} f(n)/(2^n-1)`$ (level 1, no square). Writing $`A := \varphi*\mu`$ (the primitive Euler weight, $`\alpha`$ in prose): the Dirichlet-convolution identities $`A*\zeta = \varphi`$ and $`\varphi*\zeta = \mathrm{Id}`$ separate five exact values of $`L`$ along one ladder, each obtained by factoring $`L(f)`$ as a divisor-transform $`(f*1)`$ followed by binary evaluation, $`L(f) = \sum_n (f*1)(m)/2^m`$. $`S`$ sits inside this ladder as $`L(A)`$: this is \#249 restated in positive Erdős–Borwein form.*
 
-*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18087)*
+*<span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:mobius-mersenne</span>*
 
 </div>
 
@@ -1107,7 +1113,7 @@ The Mersenne–Lambert ladder five-row status table (docstring @ `CertificateKer
 
 <div class="rem">
 
-*Remark 94* (cert:d7 — reading the ladder). This is the single clearest bridge placing \#249 inside \#257’s native Mersenne-Lambert coordinate ($`\sum f(n)/(b^n-1)`$, here $`b=2`$): if the \#257 lane’s Mersenne-coordinate machinery (achievement sets, greedy orbits) can say anything about the sign or density structure of $`A = \varphi*\mu`$ specifically, it transfers here for free via this ladder identity. Conversely, any \#249 result about $`L(A)`$ phrased purely in Lambert-series terms (not totient terms) is directly \#257-lane-portable. The ‘evaluated’ identity confirming $`S`$’s $`\mathbb{N}`$-indexed form equals its $`\mathbb{N}^+`$/Lambert-indexed form is the one row here checked directly against source ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18087)); the body machinery in `MersenneLambertLadder.lean` establishing the other four rows was read only via this docstring and is flagged <span class="sans-serif">\[Cited\]</span>/<span class="sans-serif">\[Math\]</span> accordingly except where a specific declaration is named above.
+*Remark 94* (cert:d7 — reading the ladder). This is the single clearest bridge placing \#249 inside \#257’s native Mersenne-Lambert coordinate ($`\sum f(n)/(b^n-1)`$, here $`b=2`$): if the \#257 lane’s Mersenne-coordinate machinery (achievement sets, greedy orbits) can say anything about the sign or density structure of $`A = \varphi*\mu`$ specifically, it transfers here for free via this ladder identity. Conversely, any \#249 result about $`L(A)`$ phrased purely in Lambert-series terms (not totient terms) is directly \#257-lane-portable. The ‘evaluated’ identity confirming $`S`$’s $`\mathbb{N}`$-indexed form equals its $`\mathbb{N}^+`$/Lambert-indexed form is the one row here checked directly against source (); the body machinery in `MersenneLambertLadder.lean` establishing the other four rows was read only via this docstring and is flagged <span class="sans-serif">\[Cited\]</span>/<span class="sans-serif">\[Math\]</span> accordingly except where a specific declaration is named above.
 
 </div>
 
@@ -1115,7 +1121,7 @@ The Mersenne–Lambert ladder five-row status table (docstring @ `CertificateKer
 
 **Proposition 95** (mob:e3 — joint-35 cone annihilator, `oldChannel_affine_moment_annihilation` / `joint35_oldChannel_zero`). *The four-vertex affine annihilator $`q(X,Y) = XY-3X-2Y+4`$ ($`q(1,1)=q(3,5)=0`$, $`q(9,25)=152`$) kills every “old” divisor channel exactly at any LCM height: for $`d\mid H`$, $`d>0`$, $`\mathrm{transportResidueKernel}(d,15H) - 3\cdot\mathrm{transportResidueKernel}(d,3H) - 2\cdot\mathrm{transportResidueKernel}(d,5H) + 4\cdot\mathrm{transportResidueKernel}(d,H) = 0`$. General form (`oldChannel_affine_moment_annihilation`): any finite affine annihilator with $`\sum c_i = 0`$, $`\sum c_i\cdot m_i = 0`$ kills every old residue channel, independent of the particular $`(3,5)`$ choice — fully coordinate-free finite linear algebra. Sharp cone radius $`19H+5L+5`$ (`sharpJoint35ConeRadius`). An unbounded certificate supply built from this (not proved) would close \#249 via the same cone-flatness route as mob:e2/cert:b6.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-diagonal</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/JointExponentTransport.lean:36) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/JointExponentTransport.lean:71) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/JointExponentTransport.lean:124)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-diagonal</span>*
 
 </div>
 
@@ -1123,7 +1129,7 @@ The Mersenne–Lambert ladder five-row status table (docstring @ `CertificateKer
 
 **Proposition 96** (mob:f1 — composite dilation defect identity, `supportCoeff_mul_eq_add_defect`). *For an abstract support set $`A\subseteq\mathbb{N}`$, $`\mathrm{supportCoeff}_A(n) := \#\{a\in A: a\mid n\}`$: for $`a\in A`$, $`a>0`$, $`x>0`$, $`\mathrm{supportCoeff}_A(ax) = \mathrm{supportCoeff}_A(x) + [a\nmid x] + \mathrm{compositeDilationDefect}_A(a,x)`$. On prime-only support (every element of $`A`$ prime) the defect is identically zero, recovering the classical $`\mathrm{supportCoeff}_A(px) = \mathrm{supportCoeff}_A(x) + [p\nmid x]`$. Pure divisor combinatorics over an abstract support set, no $`2^n`$-specific structure — a shared \#249/#257 substrate identity: instantiate $`A=\mathbb{N}`$ weighted by $`\varphi`$ for \#249, or $`A`$ the chosen infinite subset for \#257’s $`\sum_{n\in A}1/(2^n-1)`$.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:support-divisor-counting</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CompositeDilationDefect.lean:30) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CompositeDilationDefect.lean:103) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CompositeDilationDefect.lean:119)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:support-divisor-counting</span>*
 
 </div>
 
@@ -1131,13 +1137,13 @@ The Mersenne–Lambert ladder five-row status table (docstring @ `CertificateKer
 
 ### Cofinal-scale converters — the certificate-kernel reduction ladder
 
-Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irrational}(S)`$ (#249 solved) and whose *hypothesis* is a cofinal supply predicate. **None of these hypotheses is supplied anywhere in the corpus.** Each theorem itself is <span class="sans-serif">\[Lean\]</span>-checked; the hypothesis it consumes carries <span class="sans-serif">\[Open\]</span>. These are listed here, not as producers, because each one is exactly a converter: it moves an unsupplied cofinal statement in the binary-window/lcm-cone coordinate across to the target statement about $`S`$, and (via cert:a7’s iff) several of them are genuine logical equivalences, not mere one-directional implications.
+Every entry in this block exposes a cofinal supply predicate and a checked route to $`\mathrm{Irrational}(S)`$. **None of the supply predicates is established.** Completeness now gives registered iff theorems for the base certificate supply and the lcm-diagonal supply; the older one-directional consumer declarations remain useful proof components but are not the full logical status.
 
 <div class="thm">
 
-**Theorem 97** (cert:a10 — `irrational_totient_series_of_certificate_supply`, WAVE-21 REDUCTION, THE WALL). *$`\big(\forall h:\mathbb{N},\ 0<h \to \forall N_0:\mathbb{N},\ \exists N\ge N_0,\ \exists L,\ \mathrm{certifiedKill}(h,N,L)\big) \to \mathrm{Irrational}(S)`$. The hypothesis is exactly $`\mathrm{Sep}(h,N,L)`$ quantified as $`\forall h\ge1\ \forall N_0\ge0\ \exists N\ge N_0\ \exists L`$. **This hypothesis is nowhere proved in the corpus; this is the central open supply obligation.** Every other reduction theorem in this block is a re-derivation of an equivalent-or-weaker sufficient condition for the same missing supply, never a proof of it.*
+**Theorem 97** (cert:a10 — certificate-supply iff, THE WALL). *$`\big(\forall h:\mathbb{N},\ 0<h \to \forall N_0:\mathbb{N},\ \exists N\ge N_0,\ \exists L,\ \mathrm{certifiedKill}(h,N,L)\big) \leftrightarrow \mathrm{Irrational}(S)`$. The supply side is exactly $`\mathrm{Sep}(h,N,L)`$ quantified as $`\forall h\ge1\ \forall N_0\ge0\ \exists N\ge N_0\ \exists L`$. **This supply is nowhere proved in the corpus; the iff is an exact reformulation, not progress.***
 
-*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394)*
+*(equivalence proved; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:binary-window</span>*
 
 </div>
 
@@ -1145,15 +1151,15 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 98** (cert:b2 — multiple-period collapse, wave-22, `irrational_totient_series_of_multiple_certificate_supply`). *$`\big(\forall h_0>0,\ \forall N_0,\ \exists m>0,\ \exists N\ge N_0,\ \exists L,\ \mathrm{certifiedKill}(m\cdot h_0, N, L)\big) \to \mathrm{Irrational}(S)`$. Weaker hypothesis than cert:a10: for every primitive period it suffices to certify *some* multiple. Proof idea (`tail_diff_mul`, telescoping an $`m\cdot h`$-difference into a sum of $`m`$ shifted $`h`$-differences) is problem-agnostic; logically equivalent-strength weakening of cert:a10, still open.*
 
-*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-period-multiple</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:502)*
+*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-period-multiple</span>*
 
 </div>
 
 <div class="thm">
 
-**Theorem 99** (cert:b3 — lcm-diagonal collapse, wave-23, the canonical single-parameter form, `irrational_totient_series_of_lcm_diagonal_certificate_supply`). *$`\big(\forall t_0:\mathbb{N},\ \exists t\ge t_0,\ \exists L,\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t), \mathrm{periodLcm}(t), L)\big) \to \mathrm{Irrational}(S)`$. Standing at $`N=h=\mathrm{periodLcm}(t)`$ beats every hypothetical rational simultaneously (any $`t \ge \max(h_0,N_0)`$ works for both parameters at once). **This is the canonical restatement with only one quantified unknown $`t`$**, and the best target for search/heuristics; the finite floor is cert:b11 above (28 explicit values, not a cofinal supply).*
+**Theorem 99** (cert:b3 — lcm-diagonal iff, the canonical single-parameter form). *$`\big(\forall t_0:\mathbb{N},\ \exists t\ge t_0,\ \exists L,\ \mathrm{certifiedKill}(\mathrm{periodLcm}(t), \mathrm{periodLcm}(t), L)\big) \leftrightarrow \mathrm{Irrational}(S)`$. Standing at $`N=h=\mathrm{periodLcm}(t)`$ beats every hypothetical rational simultaneously; conversely, pointwise completeness supplies a diagonal witness already at $`t=t_0`$. **This is an exact restatement with one quantified scale $`t`$**, not progress. The finite floor is every $`t\le82`$, not a cofinal supply.*
 
-*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-diagonal</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:112)*
+*(equivalence proved; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-diagonal</span>*
 
 </div>
 
@@ -1161,7 +1167,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Lemma 100** (cert:b4 — lcm-window structure, `eq_prime_pow_of_not_dvd_periodLcm`). *For $`0<j<2t`$: if $`j \nmid \mathrm{periodLcm}(t)`$ then $`\exists`$ prime $`p,k`$ with $`j=p^k \wedge t<j`$ — below $`2t`$, every non-divisor of $`\mathrm{lcm}(1..t)`$ is a bare prime power exceeding $`t`$. Pure elementary number theory about $`\mathrm{lcm}(1..t)`$; structural input for anyone trying to search for a diagonal certificate — narrows where the "noise" in $`\varphi`$ on the window comes from.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18613)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-window</span>*
 
 </div>
 
@@ -1169,7 +1175,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Proposition 101** (cert:b5 — lcm-ray window totient factorisation, `totient_periodLcm_ray_split`). *On a clean divisor $`j \mid \mathrm{periodLcm}(t)`$ (every prime factor of $`j`$ still divides $`\mathrm{periodLcm}(t)/j`$): $`\varphi(q\cdot\mathrm{periodLcm}(t)+j) = \varphi(j)\cdot\varphi\big(q\cdot(\mathrm{periodLcm}(t)/j)+1\big)`$. An exact multiplicative split of window totient values into a known local part and a cofactor forced $`\equiv1`$ modulo every exhausted prime — the exact algebraic handle needed to attempt an unconditional supply proof at cert:b3.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-window-multiplicative</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:208)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-window-multiplicative</span>*
 
 </div>
 
@@ -1177,7 +1183,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 102** (cert:b6 — lcm-cone flatness law, wave-24, `rational_totient_series_forces_lcm_cone_flatness`). *$`\neg\mathrm{Irrational}(S) \to \exists t_1,\ \forall t\ge t_1,\ \forall q,m:\mathbb{N},\ 0<q \to \mathrm{totientTail}(q\cdot\mathrm{periodLcm}(t) + m\cdot\mathrm{periodLcm}(t)) - \mathrm{totientTail}(q\cdot\mathrm{periodLcm}(t)) \in \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$. Rationality forces one fractional constant on the *entire* lcm cone $`\{k\cdot\mathrm{periodLcm}(t):k\ge1\}`$ at every scale $`t\ge t_1`$, not just the diagonal pair — a strict generalisation of cert:a9’s hypothesis-generating side. Any certificate anywhere on the cone kills \#249 (cert:b7).*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-cone</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18674)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-cone</span>*
 
 </div>
 
@@ -1185,7 +1191,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 103** (cert:b7 — cone collapse, wave-24, annihilator umbrella, `irrational_totient_series_of_lcm_cone_window_kill_supply`). *$`\big(\forall t_0:\mathbb{N},\ \exists t\ge t_0,\ \exists q,m,L:\mathbb{N},\ 0<q \wedge \mathrm{certifiedKill}(m\cdot\mathrm{periodLcm}(t),\, q\cdot\mathrm{periodLcm}(t),\, L)\big) \to \mathrm{Irrational}(S)`$. One certified kill anywhere on the two-multiplier lcm cone, at arbitrarily large $`t`$, suffices. Diagonal (cert:b3) is the cell $`q=m=1`$; $`q`$-ray steps are $`m=1`$; prime-jump pairs are $`(q,m)=(1,p-1)`$. The widest known target still logically equivalent-in-strength to cert:a10.*
 
-*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-cone</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18686)*
+*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-cone</span>*
 
 </div>
 
@@ -1193,7 +1199,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Corollary 104** (cert:b8 — pure non-integrality frontier forms, no certificate vocabulary). *Diagonal: $`\big(\forall t_0,\ \exists t\ge t_0,\ \mathrm{totientTail}(2\cdot\mathrm{periodLcm}(t)) - \mathrm{totientTail}(\mathrm{periodLcm}(t)) \notin \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})\big) \to \mathrm{Irrational}(S)`$; cone form is the $`(q,m)`$ generalisation identical in shape. Via cert:a7’s iff these hypotheses are *exactly* equivalent to cert:b3/cert:b7 respectively. **The frontier of \#249 stripped of certificate vocabulary**: does $`\mathrm{totientTail}(2H_t) - \mathrm{totientTail}(H_t) \notin \mathbb{Z}`$ for infinitely many $`t`$, $`H_t = \mathrm{lcm}(1..t)`$?*
 
-*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:real-analytic-nonintegrality</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18706) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18718)*
+*(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:real-analytic-nonintegrality</span>*
 
 </div>
 
@@ -1201,7 +1207,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Proposition 105** (cert:b9a — second-difference certificates, sound but measured not shallower, `second_diff_notMem_int_of_certifiedRank2Kill`). *$`\mathrm{certifiedRank2Kill}(h,N,L) \to \big(\mathrm{totientTail}(N+2h)-\mathrm{totientTail}(N+h)\big) - \big(\mathrm{totientTail}(N+h)-\mathrm{totientTail}(N)\big) \notin \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$. Sound second-difference non-integrality via a doubled band radius. Measured cell $`(h,N)=(1,8)`$: rank-1 fires at depth 8, no rank-2 certificate exists at depth $`\le8`$, rank-2 first fires at depth 9 — a probe over $`t\le20`$ finds rank-1 at least as shallow in 30/40 cells. This route is empirically *not* a shortcut over rank-1; flagged do-not-re-attempt without new information.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18729) (measured verdict: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18762))*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:binary-window</span> (measured verdict: )*
 
 </div>
 
@@ -1209,7 +1215,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 106** (cert:b10a — cone non-flatness menu refuter, wave-25, sharper than pairwise, `exists_nonintegral_pair_of_coneNonflatCert`). *For a nonempty menu $`Q`$ of positive vertex multipliers with the one-sided floor $`\forall q\in Q,\ q\cdot H + L + 2 < 2^L`$ (half the pairwise floor of $`\mathrm{certifiedKill}`$): $`\mathrm{coneNonflatCert}(H,L,Q) \to \exists q_i,q_j \in Q,\ \mathrm{totientTail}(q_j\cdot H) - \mathrm{totientTail}(q_i\cdot H) \notin \mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$. Proved by an argmin/Helly-avoidance argument over one-sided arcs: if all vertices shared one fractional part, the minimal-deep-tail vertex would be a common left endpoint of every arc, which $`\mathrm{coneNonflatCert}`$ denies. Information-theoretically half the depth floor of pairwise $`\mathrm{certifiedKill}`$; the reusable combinatorial-geometry technique transplants to any modular-residue pincer with more than two points.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-cone-menu</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18801)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-cone-menu</span>*
 
 </div>
 
@@ -1217,7 +1223,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 107** (cert:b10b — cone non-flat supply, wave-25, `irrational_totient_series_of_lcm_cone_nonflat_supply`). *If $`\mathrm{coneNonflatCert}`$ fires (via cert:b10a) on a menu whose scale is unbounded, then $`\mathrm{Irrational}(S)`$. The sharpest known certificate-depth-reduced restatement of the wall; for $`|Q|\ge3`$ genuinely joint (menu inconsistent while every pair consistent) this is the best-known target for a search-based attempt at supplying cert:a10/cert:b3/cert:b7.*
 
-*(implication proved; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-cone-menu</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18812)*
+*(implication proved; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-cone-menu</span>*
 
 </div>
 
@@ -1225,7 +1231,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Proposition 108** (cert:b12 — survivorKill, alternative certificate via bounded carry orbit). *$`\mathrm{survivorKill}(h,N,K) := \forall j < 2(N+h+1)+1,\ \exists i\le K,\ \mathrm{carryOrbit}(h,N,j-(N+h+1),i)`$ escapes the strip $`|\cdot|\le N+i+h+2`$. Soundness: $`\mathrm{survivorKill}(h,N,K) \to \mathrm{totientTail}(N+h)-\mathrm{totientTail}(N)\notin\mathrm{range}((\uparrow):\mathbb{Z}\to\mathbb{R})`$ — a bounded-orbit argument, alternative to cert:a4/cert:a6’s residue-window argument, exhausting all $`2(N+h+1)+1`$ integer box candidates and checking each provably escapes within $`K`$ steps. cert:a4 (window) and this (orbit) are two *independently complete* coordinates for the same non-integrality target (via cert:a7’s iff): the "enumerate all integer candidates in a shrinking box, verify each provably diverges" pattern is a general technique for irrationality-by-integer-orbit arguments.*
 
-*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-orbit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:412) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:428)*
+*<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-orbit</span>*
 
 </div>
 
@@ -1233,7 +1239,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 109** (mob:e1 — first-harmonic norm-gap supply, `irrational_totient_series_of_first_harmonic_norm_gap`). *Hypothesis $`\mathrm{DTWFirstHarmonicNormGap} := \forall h>0,\ \forall X_0,\ \exists X\ge\max(X_0,1),\ \exists L,\ 16(2X+h+L+2)\le 2^L \wedge \big\|\sum_{N\in[X,2X)} \mathrm{windowFirstExp}(h,N,L)\big\| \le (21/25)\cdot X`$. If this holds then $`\mathrm{Irrational}(S)`$. A genuinely cofinal first-harmonic exponential-sum (Weyl-sum) cancellation statement is sufficient for \#249; unconditional companion `exists_certifiedKill_of_first_harmonic_gap` shows any constant-saving first-harmonic gap on one dyadic block forces a finite kill certificate (via $`\cos(\pi/8)>9/10`$ and a pigeonhole/averaging argument).*
 
-*(conditional theorem proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:binary-digit</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128)*
+*(conditional theorem proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:binary-digit</span>*
 
 </div>
 
@@ -1241,7 +1247,7 @@ Every entry in this block is an implication whose *conclusion* is $`\mathrm{Irra
 
 **Theorem 110** (mob:e2 — prime-jump sharp-kill supply, `irrational_totient_series_of_primeJumpSharpKill_supply`). *$`\mathrm{primeJumpTailCommutator}(H,p) := D(pH) - p\cdot D(H)`$, $`D(H) = R_{2H}-R_H`$, has an exact partial/tail split with sharp radius $`3pH + (p+1)(L+2)`$ (tighter than the earlier $`4pH`$ two-cell-disjunction radius). If $`\forall t_0\, \exists t\ge t_0\, \exists p,L>0,\ \mathrm{primeJumpSharpKill}(\mathrm{periodLcm}(t), p, L)`$, then $`\mathrm{Irrational}(S)`$. One concrete deposit is proved unconditionally: $`\mathrm{primeJumpSharpKill}(12,5,15)`$, kernel-`decide`d. Proof strategy: assume $`S`$ rational $`\Rightarrow`$ cone flatness (cert:b6) $`\Rightarrow`$ contradiction via the sharp prime-jump kill.*
 
-*(conditional theorem + <span class="sans-serif">\[Cert\]</span> witness; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-diagonal</span> [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:193) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:186)*
+*(conditional theorem + <span class="sans-serif">\[Cert\]</span> witness; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:lcm-diagonal</span>*
 
 </div>
 
@@ -1259,8 +1265,7 @@ This subsection lists every premise in the corpus whose conclusion is *condition
 \iff
 \forall a_0,\ \exists a \ge a_0,\ \mathtt{actualLcmTailOrbit}\ a \notin \mathrm{range}(\mathbb{Z}\to\mathbb{R}).
 ```
-Nothing beyond a supply of the right-hand side is needed in principle; every other proposition in this subsection is a route to it. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitNonintegrality.lean:37)*
+Nothing beyond a supply of the right-hand side is needed in principle; every other proposition in this subsection is a route to it. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1270,8 +1275,7 @@ Nothing beyond a supply of the right-hand side is needed in principle; every oth
 ``` math
 \forall a_0,\ \exists a\ge a_0,\ \exists L< 2\cdot 2^a,\quad \mathtt{LcmDiagonalArithmeticKill}(2^a,L)
 ```
-holds, then \#249 follows (via then Prop. <a href="#prop:NI-01" data-reference-type="ref" data-reference="prop:NI-01">111</a>). The predicate is exactly the residue-band exclusion of Appendix A4/A6: $`\mathtt{lcmDiagonalArithmeticWord}`$ at scale $`2^a`$ escapes a shrinking central arc mod $`2^L`$. Only two instances are proved (Prop. <a href="#prop:SK-02" data-reference-type="ref" data-reference="prop:SK-02">117</a>’s base cases); the cofinal supply is the open trigger of the entire private batch. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:2107)*
+holds, then \#249 follows (via then Prop. <a href="#prop:NI-01" data-reference-type="ref" data-reference="prop:NI-01">111</a>). The predicate is exactly the residue-band exclusion of Appendix A4/A6: $`\mathtt{lcmDiagonalArithmeticWord}`$ at scale $`2^a`$ escapes a shrinking central arc mod $`2^L`$. Only two instances are proved (Prop. <a href="#prop:SK-02" data-reference-type="ref" data-reference="prop:SK-02">117</a>’s base cases); the cofinal supply is the open trigger of the actual-orbit batch. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1281,8 +1285,7 @@ holds, then \#249 follows (via then Prop. <a href="#prop:NI-01" data-reference-
 ``` math
 \big|\,\mathtt{actualLcmTailOrbit}\ a - z\,\big| > \tfrac{1}{32} + (\text{explicit error radius}) \qquad \forall z\in\mathbb Z,
 ```
-then \#249 follows via the landed signed-margin producer. This restates the target as effective irrationality-measure / anti-concentration for the actual orbit rather than exact residue exclusion, using the explicit approximant of Prop. <a href="#prop:SEP-02" data-reference-type="ref" data-reference="prop:SEP-02">[prop:SEP-02]</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:305)*
+then \#249 follows via the landed signed-margin producer. This restates the target as effective irrationality-measure / anti-concentration for the actual orbit rather than exact residue exclusion, using the explicit approximant of Prop. <a href="#prop:SEP-02-inv" data-reference-type="ref" data-reference="prop:SEP-02-inv">133</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1294,8 +1297,7 @@ then \#249 follows via the landed signed-margin producer. This restates the targ
 \quad:\iff\quad
 m\le K \ \wedge\ \big(\text{residue of }\mathtt{windowDiscrepancy}\text{ at scale }m\big)\le 2^m-(\text{room bound})
 ```
-holds cofinally, then \#249 follows (, sufficiency at line 1260), because Prop. <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">134</a>/<a href="#prop:SGN-03" data-reference-type="ref" data-reference="prop:SGN-03">135</a> already exclude the negative-side residue independently — only the positive arc needs excluding. This is a strictly *weaker* target than the old symmetric certifiedKill band and is the genuinely easier open target of the whole batch. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:900,1260)*
+holds cofinally, then \#249 follows (, sufficiency at line 1260), because Prop. <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">134</a>/<a href="#prop:SGN-03" data-reference-type="ref" data-reference="prop:SGN-03">135</a> already exclude the negative-side residue independently — only the positive arc needs excluding. This is a strictly *weaker* target than the old symmetric certifiedKill band and is the genuinely easier open target of the whole batch. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1313,8 +1315,7 @@ holds cofinally, then \#249 follows (, sufficiency at line 1260), because Prop.
 &\Leftarrow \mathtt{PowerTwoFlexibleActualTerminalCarryCorridorEscapeSupply}
 \end{aligned}
 ```
-All six named predicates are open; none is proved. Because the chain is implication-only-downward, proving the single *weakest* link (`...TerminalCarryCorridorEscapeSupply`) closes the entire cluster and hence \#249. This is the true minimal remaining target of `TotientActualLcmTopEdgeStaircase`. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2108,2121,1938,1991,2184-2235)*
+All six named predicates are open; none is proved. Because the chain is implication-only-downward, proving the single *weakest* link (`...TerminalCarryCorridorEscapeSupply`) closes the entire cluster and hence \#249. This is the true minimal remaining target of `TotientActualLcmTopEdgeStaircase`. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1324,8 +1325,7 @@ All six named predicates are open; none is proved. Because the chain is implicat
 ``` math
 2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q \;=\; \mathtt{diagonalWindowIncrement}(2^a)(2q+2) \;-\; \mathtt{carryOrbit}\ H\ H\ z\ (2q+1)
 ```
-holds *exactly*. Escaping either side of this named open interval (the “terminal/carry corridor”) is both necessary and sufficient for non-integrality at rank $`q`$ (). This is the sharpest fully explicit statement of “what remains to prove” anywhere in the batch. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1678)*
+holds *exactly*. Escaping either side of this named open interval (the “terminal/carry corridor”) is both necessary and sufficient for non-integrality at rank $`q`$ (). This is the sharpest fully explicit statement of “what remains to prove” anywhere in the batch. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1335,8 +1335,7 @@ holds *exactly*. Escaping either side of this named open interval (the “termin
 ``` math
 \forall a_0\le 6,\ \exists a\ L,\ a_0\le a\ \wedge\ L<2\cdot2^a\ \wedge\ \mathtt{LcmDiagonalArithmeticKill}(2^a)\ L.
 ```
-The module’s own comment states plainly: “the remaining endpoint gap is now precisely the unbounded continuation beyond this finite prefix.” Supplying a single further instance at $`a_0=7`$ or $`a_0=8`$ already extends the stub and is independently interesting evidence toward Prop. <a href="#prop:AR-07" data-reference-type="ref" data-reference="prop:AR-07">112</a>’s full cofinal supply; the two base cases $`a=4,6`$ trace to /. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean (finite prefix only)\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:54)*
+The module’s own comment states plainly: “the remaining endpoint gap is now precisely the unbounded continuation beyond this finite prefix.” Supplying a single further instance at $`a_0=7`$ or $`a_0=8`$ already extends the stub and is independently interesting evidence toward Prop. <a href="#prop:AR-07" data-reference-type="ref" data-reference="prop:AR-07">112</a>’s full cofinal supply; the two base cases $`a=4,6`$ trace to /. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean (finite prefix only)\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1348,8 +1347,7 @@ The module’s own comment states plainly: “the remaining endpoint gap is now 
 \quad:\iff\quad
 \varphi(2H+j)\ \text{is a strict min or max among}\ \{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},
 ```
-then $`\mathtt{fixedRankSecondDifference}\ H\ j\ne 0`$, with sign matching the extremum. Notably an *ordering* suffices — no quantitative gap is required. This is a genuinely different coordinate from the sliding LCM window: $`j`$ fixed and small, only three fixed ranks examined. The remaining open step is : does this ordering hold cofinally in $`a`$. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:fixed-rank-curvature</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:256,267,275,291,307)*
+then $`\mathtt{fixedRankSecondDifference}\ H\ j\ne 0`$, with sign matching the extremum. Notably an *ordering* suffices — no quantitative gap is required. This is a genuinely different coordinate from the sliding LCM window: $`j`$ fixed and small, only three fixed ranks examined. The remaining open step is : does this ordering hold cofinally in $`a`$. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:fixed-rank-curvature</span>\*
 
 </div>
 
@@ -1359,8 +1357,7 @@ then $`\mathtt{fixedRankSecondDifference}\ H\ j\ne 0`$, with sign matching the e
 ``` math
 (\exists L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \iff \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin \mathrm{range}(\mathbb Z\to\mathbb R),
 ```
-exactly, no gap; and $`\mathrm{Irrational}(S)\iff \mathtt{CofinalDirectedLcmCertificateSupply}`$ (the LCM-diagonal specialisation). The asymmetric strip is a genuine finite-depth improvement over the symmetric certificate (kills $`t=3`$ at depth 6, one level earlier than the symmetric one), but the file itself notes the improvement does not turn into an independent sieve theorem: supplying the cofinal predicate is exactly as hard as \#249 itself. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:766,829,875,845)*
+exactly, no gap; and $`\mathrm{Irrational}(S)\iff \mathtt{CofinalDirectedLcmCertificateSupply}`$ (the LCM-diagonal specialisation). The asymmetric strip is a genuine finite-depth improvement over the symmetric certificate (kills $`t=3`$ at depth 6, one level earlier than the symmetric one), but the file itself notes the improvement does not turn into an independent sieve theorem: supplying the cofinal predicate is exactly as hard as \#249 itself. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\*
 
 </div>
 
@@ -1370,8 +1367,7 @@ exactly, no gap; and $`\mathrm{Irrational}(S)\iff \mathtt{CofinalDirectedLcmCert
 ``` math
 \mathtt{modFourPulseSurvivorKill} \implies \mathrm{Irrational}(S).
 ```
-The reduction technique (use a cofinal totient-specific pulse to legally restrict the survivor search to one residue class mod a small modulus) transfers wherever an analogous cofinal pulse can be built on the \#257 side. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:906,973,1066)*
+The reduction technique (use a cofinal totient-specific pulse to legally restrict the survivor search to one residue class mod a small modulus) transfers wherever an analogous cofinal pulse can be built on the \#257 side. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1380,10 +1376,9 @@ The reduction technique (use a cofinal totient-specific pulse to legally restric
 **Proposition 121** (The wave-21 wall: certificate supply over all periods).
 *``` math
 \big(\forall h\ge 1,\ \forall N_0,\ \exists N\ge N_0,\ \exists L,\ \mathtt{certifiedKill}\ h\ N\ L\big)
-\implies \mathrm{Irrational}(S).
+\iff \mathrm{Irrational}(S).
 ```
-This is exactly the quantifier structure $`\forall h\ge1\ \forall N_0\ \exists N\ge N_0\ \exists L\ \mathrm{Sep}(h,N,L)`$. Nothing in the public or private corpus supplies this hypothesis; every other reduction in Part B of the certificate bank is a logically equivalent-or-weaker reformulation of this same missing supply, never independent progress on it. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394)*
+This is exactly the quantifier structure $`\forall h\ge1\ \forall N_0\ \exists N\ge N_0\ \exists L\ \mathrm{Sep}(h,N,L)`$. Nothing in the corpus supplies this predicate; every other reduction in Part B of the certificate bank is a logically equivalent-or-weaker reformulation of this same missing supply, never independent progress on it. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> (equivalence; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1392,10 +1387,9 @@ This is exactly the quantifier structure $`\forall h\ge1\ \forall N_0\ \exists N
 **Proposition 122** (Diagonal collapse — one free parameter).
 *``` math
 \big(\forall t_0,\ \exists t\ge t_0,\ \exists L,\ \mathtt{certifiedKill}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\ L\big)
-\implies \mathrm{Irrational}(S).
+\iff \mathrm{Irrational}(S).
 ```
-Standing at $`N=h=\mathtt{periodLcm}\,t`$ beats every hypothetical rational simultaneously (any $`t\ge\max(h_0,N_0)`$ serves both parameters at once), collapsing Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>’s two unbounded parameters to one. This is the canonical single-unknown restatement, the best target for search or heuristics. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:112)*
+Standing at $`N=h=\mathtt{periodLcm}\,t`$ beats every hypothetical rational simultaneously (any $`t\ge\max(h_0,N_0)`$ serves both parameters at once), collapsing Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>’s two unbounded parameters to one. Conversely, pointwise completeness supplies the diagonal witness at $`t=t_0`$. This is the canonical single-scale restatement, not an advance. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> (equivalence; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1406,8 +1400,7 @@ Standing at $`N=h=\mathtt{periodLcm}\,t`$ beats every hypothetical rational simu
 \big(\forall t_0,\ \exists t\ge t_0,\ \exists q\,m\,L,\ 0<q \wedge \mathtt{certifiedKill}(m\cdot\mathtt{periodLcm}\,t)(q\cdot\mathtt{periodLcm}\,t)\ L\big)
 \implies \mathrm{Irrational}(S).
 ```
-One certified kill *anywhere* on the two-multiplier LCM cone, at arbitrarily large $`t`$, suffices; the diagonal (Prop. <a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>) is the cell $`q=m=1`$. This is the widest known target still logically equivalent-in-strength to Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18686)*
+One certified kill *anywhere* on the two-multiplier LCM cone, at arbitrarily large $`t`$, suffices; the diagonal (Prop. <a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>) is the cell $`q=m=1`$. This is the widest known target still logically equivalent-in-strength to Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1417,8 +1410,7 @@ One certified kill *anywhere* on the two-multiplier LCM cone, at arbitrarily lar
 ``` math
 \mathtt{coneNonflatCert}\ H\ L\ Q \implies \exists\, q_i,q_j\in Q,\ \mathtt{totientTail}(q_jH)-\mathtt{totientTail}(q_iH)\notin \mathrm{range}(\mathbb Z\to\mathbb R).
 ```
-If this fires at unbounded scale over a menu with $`|Q|\ge3`$ genuinely joint (menu inconsistent while every pair is separately consistent), \#249 follows via Prop. <a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a>. The argmin/Helly-avoidance proof technique is a reusable combinatorial-geometry pattern for any modular-residue pincer with more than two points. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18801,18812)*
+If this fires at unbounded scale over a menu with $`|Q|\ge3`$ genuinely joint (menu inconsistent while every pair is separately consistent), \#249 follows via Prop. <a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a>. The argmin/Helly-avoidance proof technique is a reusable combinatorial-geometry pattern for any modular-residue pincer with more than two points. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1428,8 +1420,7 @@ If this fires at unbounded scale over a menu with $`|Q|\ge3`$ genuinely joint (m
 ``` math
 \sup_K\, (b+d)(K) = \infty
 ```
-(the bound growing without limit as $`K\to\infty`$), then \#249 follows via the $`C3`$-style denominator-exclusion consumer, logically *independently* of Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>’s certificate-supply wall. No unboundedness claim is proved or attempted in the corpus. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:farey-gap</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176,225)*
+(the bound growing without limit as $`K\to\infty`$), then \#249 follows via the $`C3`$-style denominator-exclusion consumer, logically *independently* of Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>’s certificate-supply wall. No unboundedness claim is proved or attempted in the corpus. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:farey-gap</span>\*
 
 </div>
 
@@ -1439,15 +1430,13 @@ If this fires at unbounded scale over a menu with $`|Q|\ge3`$ genuinely joint (m
 ``` math
 \text{bounding the dyadic-section rank of \emph{every} rationality-supplied tempered carry}
 ```
-would contradict the unconditional lower bound and close \#249 by a linear-algebraic coordinate wholly distinct from the binary-window certificate coordinate of Props. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>-<a href="#prop:B10" data-reference-type="ref" data-reference="prop:B10">124</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284)*
+would contradict the unconditional lower bound and close \#249 by a linear-algebraic coordinate wholly distinct from the binary-window certificate coordinate of Props. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>-<a href="#prop:B10" data-reference-type="ref" data-reference="prop:B10">124</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
 
 </div>
 
 <div id="prop:B12cons" class="prop">
 
-**Proposition 127** (Alternative coordinate: bounded carry-orbit survivor supply). *$`\mathtt{survivorKill}\ h\ N\ K`$ enumerates all $`2(N+h+1)+1`$ integer box candidates and checks each provably diverges from the strip $`|\cdot|\le N+i+h+2`$ within $`K`$ steps; soundness gives $`\mathtt{survivorKill}\ h\ N\ K \implies \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin\mathrm{range}(\mathbb Z\to\mathbb R)`$, proving the *same* target as Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>/<a href="#prop:NI-01" data-reference-type="ref" data-reference="prop:NI-01">111</a> from a different coordinate (bounded dynamics, not residue windows). Per the doctrine “obstructions are coordinate-relative,” a case hard in the window coordinate may be easy here. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-orbit-dynamics</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:412,428)*
+**Proposition 127** (Alternative coordinate: bounded carry-orbit survivor supply). *$`\mathtt{survivorKill}\ h\ N\ K`$ enumerates all $`2(N+h+1)+1`$ integer box candidates and checks each provably diverges from the strip $`|\cdot|\le N+i+h+2`$ within $`K`$ steps; soundness gives $`\mathtt{survivorKill}\ h\ N\ K \implies \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin\mathrm{range}(\mathbb Z\to\mathbb R)`$, proving the *same* target as Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>/<a href="#prop:NI-01" data-reference-type="ref" data-reference="prop:NI-01">111</a> from a different coordinate (bounded dynamics, not residue windows). Per the doctrine “obstructions are coordinate-relative,” a case hard in the window coordinate may be easy here. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-orbit-dynamics</span>\*
 
 </div>
 
@@ -1463,29 +1452,25 @@ Necessary conditions that any successful (or unsuccessful) approach must be cons
 *``` math
 \mathtt{lcmRayArithmeticLetter}\ t\ j \;=\; \mathtt{deltaTotient}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t + j) \;=\; \mathtt{diagonalWindowIncrement}\ t\ j,
 ```
-valid for *both* divisor and non-divisor offsets $`j`$, with no side condition on which primes of $`j`$ survive in $`H/j`$. Every downstream sign, positivity, or residue statement about the diagonal word must factor through this identity; it generalises the older $`\mathtt{deltaTotient\_periodLcm\_ray\_split}`$, which needed $`j`$’s primes to survive. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:291,298,310)*
+valid for *both* divisor and non-divisor offsets $`j`$, with no side condition on which primes of $`j`$ survive in $`H/j`$. Every downstream sign, positivity, or residue statement about the diagonal word must factor through this identity; it generalises the older $`\mathtt{deltaTotient\_periodLcm\_ray\_split}`$, which needed $`j`$’s primes to survive. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:AR-03-inv" class="prop">
 
-**Proposition 129** (Uniform $`3/4`$-density retained on rough integers). *For $`a\ge8`$, $`t=2^a`$, every prime factor of $`n>0`$ exceeding $`t`$, and $`n<2^{2\cdot2^a}`$: $`n.\mathrm{primeFactors.card} < 2^a/4`$, hence $`(3/4)\cdot n < \varphi(n)`$ over $`\mathbb Q`$. Any argument bounding $`\varphi`$ on the short window below height $`\mathtt{periodLcm}(2^a)^2`$ must respect this floor; the counting mechanism (union-bound-in-product form, then convert via $`\mathtt{Nat.totient\_eq\_mul\_prod\_factors}`$) is reusable for \#257’s Mersenne-rough objects at the analogous height. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:722,768)*
+**Proposition 129** (Uniform $`3/4`$-density retained on rough integers). *For $`a\ge8`$, $`t=2^a`$, every prime factor of $`n>0`$ exceeding $`t`$, and $`n<2^{2\cdot2^a}`$: $`n.\mathrm{primeFactors.card} < 2^a/4`$, hence $`(3/4)\cdot n < \varphi(n)`$ over $`\mathbb Q`$. Any argument bounding $`\varphi`$ on the short window below height $`\mathtt{periodLcm}(2^a)^2`$ must respect this floor; the counting mechanism (union-bound-in-product form, then convert via $`\mathtt{Nat.totient\_eq\_mul\_prod\_factors}`$) is reusable for \#257’s Mersenne-rough objects at the analogous height. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:AR-05-inv" class="prop">
 
-**Proposition 130** (Every short-window digit sign is fixed to $`+`$). *For $`a\ge8`$, $`0<j<2\cdot2^a`$: $`0<\mathtt{lcmRayArithmeticLetter}(2^a)\ j`$. Every coefficient of the actual diagonal word in the entire short window is strictly positive — divisor offsets via a quantitative $`H<4jc`$ bound, foreign prime powers via predecessor descent plus Prop. <a href="#prop:AR-03-inv" data-reference-type="ref" data-reference="prop:AR-03-inv">129</a>’s rough-density bracket ($`H/4<c<5H/2`$), exponent-one new primes via $`H/4<c`$. This unconditional fact (no irrationality hypothesis) is what makes every sign theorem in the batch — Prop. <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">134</a> and the staircase-impossibility of Prop. <a href="#prop:TE-01-killer" data-reference-type="ref" data-reference="prop:TE-01-killer">157</a> — provable at all. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1703)*
+**Proposition 130** (Every short-window digit sign is fixed to $`+`$). *For $`a\ge8`$, $`0<j<2\cdot2^a`$: $`0<\mathtt{lcmRayArithmeticLetter}(2^a)\ j`$. Every coefficient of the actual diagonal word in the entire short window is strictly positive — divisor offsets via a quantitative $`H<4jc`$ bound, foreign prime powers via predecessor descent plus Prop. <a href="#prop:AR-03-inv" data-reference-type="ref" data-reference="prop:AR-03-inv">129</a>’s rough-density bracket ($`H/4<c<5H/2`$), exponent-one new primes via $`H/4<c`$. This unconditional fact (no irrationality hypothesis) is what makes every sign theorem in the batch — Prop. <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">134</a> and the staircase-impossibility of Prop. <a href="#prop:TE-01-killer" data-reference-type="ref" data-reference="prop:TE-01-killer">157</a> — provable at all. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:AR-06-inv" class="prop">
 
-**Proposition 131** (Window word = truncated discrepancy; kill $`\iff`$ certificate). *$`\mathtt{lcmDiagonalArithmeticWord}\ t\ L = \mathtt{windowDiscrepancy}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\ L`$, and $`\mathtt{LcmDiagonalArithmeticKill}\ t\ L \iff \mathtt{certifiedKill}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\ L`$. Any residue-band existence claim about the actual diagonal word converts directly to a $`\mathtt{certifiedKill}`$/non-integrality fact through this iff — it is the fixed bridge every consumer in this subsection implicitly uses. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1998,2045)*
+**Proposition 131** (Window word = truncated discrepancy; kill $`\iff`$ certificate). *$`\mathtt{lcmDiagonalArithmeticWord}\ t\ L = \mathtt{windowDiscrepancy}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\ L`$, and $`\mathtt{LcmDiagonalArithmeticKill}\ t\ L \iff \mathtt{certifiedKill}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\ L`$. Any residue-band existence claim about the actual diagonal word converts directly to a $`\mathtt{certifiedKill}`$/non-integrality fact through this iff — it is the fixed bridge every consumer in this subsection implicitly uses. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1495,15 +1480,13 @@ valid for *both* divisor and non-divisor offsets $`j`$, with no side condition o
 *``` math
 \mathtt{actualLcmTailOrbit}\ a \;=\; 2^H(2^H-1)\Big(\textstyle\sum_n' \varphi(n)/2^n\Big) - \big(\mathtt{totientPrefix}(2H)-\mathtt{totientPrefix}(H)\big),\quad H=\mathtt{periodLcm}(2^a).
 ```
-Every local orbit statement is secretly a statement about the global series value minus a computable finite prefix; any rational-approximation or continued-fraction style separation argument for \#249 must express its target through this exact affine image. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:68)*
+Every local orbit statement is secretly a statement about the global series value minus a computable finite prefix; any rational-approximation or continued-fraction style separation argument for \#249 must express its target through this exact affine image. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:SEP-02-inv" class="prop">
 
-**Proposition 133** (Explicit computable approximant with explicit error radius). *For all $`a,q`$: $`|\mathtt{actualLcmTailOrbit}\ a - \mathtt{actualLcmRawApprox}\ a\ q| < (2H+2q+3)/2^{2q+1}`$, where $`\mathtt{actualLcmRawApprox}\ a\ q := \mathtt{diagonalAdjacentSuffixRawBlock}(2^a,0,2q{+}1)/2^{2q+1}`$. Any separation-from-integers argument (Prop. <a href="#prop:SEP-03" data-reference-type="ref" data-reference="prop:SEP-03">113</a>) is forced to work with this finite, computable block rather than the infinite tail, at this exact error rate. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:141)*
+**Proposition 133** (Explicit computable approximant with explicit error radius). *For all $`a,q`$: $`|\mathtt{actualLcmTailOrbit}\ a - \mathtt{actualLcmRawApprox}\ a\ q| < (2H+2q+3)/2^{2q+1}`$, where $`\mathtt{actualLcmRawApprox}\ a\ q := \mathtt{diagonalAdjacentSuffixRawBlock}(2^a,0,2q{+}1)/2^{2q+1}`$. Any separation-from-integers argument (Prop. <a href="#prop:SEP-03" data-reference-type="ref" data-reference="prop:SEP-03">113</a>) is forced to work with this finite, computable block rather than the infinite tail, at this exact error rate. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1513,8 +1496,7 @@ Every local orbit statement is secretly a statement about the global series valu
 ``` math
 0 < \mathtt{totientTail}(2H+J) - \mathtt{totientTail}(H+J),\qquad H=\mathtt{periodLcm}(2^a),
 ```
-with no irrationality hypothesis — the true, infinite, real translated tail difference is strictly positive throughout almost the entire short window, proved unconditionally from Prop. <a href="#prop:AR-05-inv" data-reference-type="ref" data-reference="prop:AR-05-inv">130</a> plus a directed one-sided tail bound. Any argument about the sign of the actual orbit (not merely its residue mod $`2^L`$) must agree with this; specialised at $`J=0`$ this gives $`0<\mathtt{actualLcmTailOrbit}\ a`$. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39,144)*
+with no irrationality hypothesis — the true, infinite, real translated tail difference is strictly positive throughout almost the entire short window, proved unconditionally from Prop. <a href="#prop:AR-05-inv" data-reference-type="ref" data-reference="prop:AR-05-inv">130</a> plus a directed one-sided tail bound. Any argument about the sign of the actual orbit (not merely its residue mod $`2^L`$) must agree with this; specialised at $`J=0`$ this gives $`0<\mathtt{actualLcmTailOrbit}\ a`$. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1524,8 +1506,7 @@ with no irrationality hypothesis — the true, infinite, real translated tail di
 ``` math
 \mathtt{windowDiscrepancy}\ H\ (H{+}J)\ K \bmod 2^K \;=\; 2^K - e
 ```
-(the top-edge representative), provably *outside* the central arc required by $`\mathtt{directedCertifiedKill}`$. This documents precisely why the sign theorem alone cannot close \#249: any contradiction needs an independent exclusion of this specific top-edge boundary band, not a re-derivation of the carry reset. The named residue $`2^K-e`$ ($`e>0`$ small) is exactly what Prop. <a href="#prop:TE-04" data-reference-type="ref" data-reference="prop:TE-04">114</a> sets out to exclude. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:211)*
+(the top-edge representative), provably *outside* the central arc required by $`\mathtt{directedCertifiedKill}`$. This documents precisely why the sign theorem alone cannot close \#249: any contradiction needs an independent exclusion of this specific top-edge boundary band, not a re-derivation of the carry reset. The named residue $`2^K-e`$ ($`e>0`$ small) is exactly what Prop. <a href="#prop:TE-04" data-reference-type="ref" data-reference="prop:TE-04">114</a> sets out to exclude. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1535,8 +1516,7 @@ with no irrationality hypothesis — the true, infinite, real translated tail di
 ``` math
 \mathtt{lcmRayArithmeticLetter}(2^a)(J{+}K{-}1) = 2^{m-1} \quad\text{exactly, and}\quad 2^m < 2(2H+J+K+2).
 ```
-The modulus must be the first dyadic scale above the room bound; any extra bit of modulus makes even the punctured route empty. Any attempt to revive a partial-staircase strategy must land exactly here. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1187)*
+The modulus must be the first dyadic scale above the room bound; any extra bit of modulus makes even the punctured route empty. Any attempt to revive a partial-staircase strategy must land exactly here. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
@@ -1546,15 +1526,13 @@ The modulus must be the first dyadic scale above the room bound; any extra bit o
 ``` math
 (\exists L,\ \mathtt{certifiedKill}\ h\ N\ L) \iff \mathtt{GuardCylinderWitness}\ h\ N,
 ```
-where the witness is a logarithmic-depth socket $`(b{+}1)`$ or a two-bit mixed-guard cylinder at scale $`b=\log_2(N{+}h{+}L{+}2){+}1`$. Any certificate-search algorithm or complexity bound for either problem’s tail differences must respect this compression — an unbounded-depth search is never truly necessary once $`b`$ is fixed. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:844)*
+where the witness is a logarithmic-depth socket $`(b{+}1)`$ or a two-bit mixed-guard cylinder at scale $`b=\log_2(N{+}h{+}L{+}2){+}1`$. Any certificate-search algorithm or complexity bound for either problem’s tail differences must respect this compression — an unbounded-depth search is never truly necessary once $`b`$ is fixed. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\*
 
 </div>
 
 <div id="prop:FR-02-inv" class="prop">
 
-**Proposition 138** (Primitive kernel factor of the fixed-rank curvature). *On the square-root clean window $`j^2\le2^a`$, $`a\ge4`$: $`2\varphi(j) \mid \mathtt{fixedRankSecondDifference}(\mathtt{periodLcm}(2^a))\ j`$. The exact local factor $`2\varphi(j)`$ comes from the affine-rank-3 kernel $`(1,-2,1)`$ combined with the parity of three odd rough cofactors, and is provably tight — Prop. <a href="#prop:FR-03-kill" data-reference-type="ref" data-reference="prop:FR-03-kill">158</a> shows no bare application of the kernel can force one more factor of $`2`$. Any curvature-based attack at fixed rank must land inside this exact divisibility ceiling. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:fixed-rank-curvature</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:519)*
+**Proposition 138** (Primitive kernel factor of the fixed-rank curvature). *On the square-root clean window $`j^2\le2^a`$, $`a\ge4`$: $`2\varphi(j) \mid \mathtt{fixedRankSecondDifference}(\mathtt{periodLcm}(2^a))\ j`$. The exact local factor $`2\varphi(j)`$ comes from the affine-rank-3 kernel $`(1,-2,1)`$ combined with the parity of three odd rough cofactors, and is provably tight — Prop. <a href="#prop:FR-03-kill" data-reference-type="ref" data-reference="prop:FR-03-kill">158</a> shows no bare application of the kernel can force one more factor of $`2`$. Any curvature-based attack at fixed rank must land inside this exact divisibility ceiling. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:fixed-rank-curvature</span>\*
 
 </div>
 
@@ -1564,22 +1542,19 @@ where the witness is a logarithmic-depth socket $`(b{+}1)`$ or a two-bit mixed-g
 ``` math
 (v:\mathbb Z)\mid u(N{+}k)-u(N) \iff \mathtt{totientTail}(N{+}k)-\mathtt{totientTail}(N)\in\mathrm{range}(\mathbb Z\to\mathbb R).
 ```
-Every statement in this batch that converts between “carry orbit divisibility” and “real tail difference is an integer” is an instance of this identity — the underlying machinery ($`\mathtt{IsTemperedBinaryOrbit}`$, $`\mathtt{binaryCoeffTail}`$) is generic over any $`f`$ with $`f(n)\le n`$, so it transfers to \#257’s own coefficient function verbatim. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:77)*
+Every statement in this batch that converts between “carry orbit divisibility” and “real tail difference is an integer” is an instance of this identity — the underlying machinery ($`\mathtt{IsTemperedBinaryOrbit}`$, $`\mathtt{binaryCoeffTail}`$) is generic over any $`f`$ with $`f(n)\le n`$, so it transfers to \#257’s own coefficient function verbatim. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\*
 
 </div>
 
 <div id="prop:CP-02" class="prop">
 
-**Proposition 140** (What rationality does and does not buy — the exact frontier). *If $`\neg\mathrm{Irrational}(S)`$, there exist $`v>0`$ and a tempered orbit $`u`$ such that for every level $`e`$, the $`\mathbb Q`$-rank of the canonical carry-kernel-family span is $`\ge 2^e-1`$ (torsion-free rank grows exponentially in level), *yet* $`u`$’s dyadic sections are uniformly eventually periodic modulo $`v`$ ($`\mathtt{CarrySectionsEventuallyPeriodicMod}`$). Rationality buys quotient-mod-$`v`$ periodicity but does *not* buy any bound on $`\mathbb Q`$-rank — this is precisely the boundary any Mersenne-specific residue argument (mod-4 pulse, two-adic pulse) exists to cross, and it is the exact hypothesis feeding Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a>’s third independent wall. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:224)*
+**Proposition 140** (What rationality does and does not buy — the exact frontier). *If $`\neg\mathrm{Irrational}(S)`$, there exist $`v>0`$ and a tempered orbit $`u`$ such that for every level $`e`$, the $`\mathbb Q`$-rank of the canonical carry-kernel-family span is $`\ge 2^e-1`$ (torsion-free rank grows exponentially in level), *yet* $`u`$’s dyadic sections are uniformly eventually periodic modulo $`v`$ ($`\mathtt{CarrySectionsEventuallyPeriodicMod}`$). Rationality buys quotient-mod-$`v`$ periodicity but does *not* buy any bound on $`\mathbb Q`$-rank — this is precisely the boundary any Mersenne-specific residue argument (mod-4 pulse, two-adic pulse) exists to cross, and it is the exact hypothesis feeding Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a>’s third independent wall. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
 
 </div>
 
 <div id="prop:CP-05-inv" class="prop">
 
-**Proposition 141** (Cofinal mod-4 residue pulse — genuinely totient-specific). *For any $`h>0`$ and bound $`B`$, there is a prime $`p>B`$ with $`\mathtt{deltaTotient}(4h)\ p \equiv 2\pmod4`$, constructed via Dirichlet on $`p\equiv(3r-H)\bmod 4r`$ for a fresh prime $`r\equiv1\pmod4`$. Unlike the Mersenne-primitivity killer of Prop. <a href="#prop:CP-03-kill" data-reference-type="ref" data-reference="prop:CP-03-kill">161</a>, this *is* a genuinely totient-specific residue supplied cofinally beyond every threshold — any argument invoking Prop. <a href="#prop:CP-07" data-reference-type="ref" data-reference="prop:CP-07">120</a> inherits this as its forcing mechanism. The fresh-prime CRT template is scaled to arbitrary depth in Prop. <a href="#prop:TA-inv" data-reference-type="ref" data-reference="prop:TA-inv">142</a> below. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:dirichlet-crt</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:384,553)*
+**Proposition 141** (Cofinal mod-4 residue pulse — genuinely totient-specific). *For any $`h>0`$ and bound $`B`$, there is a prime $`p>B`$ with $`\mathtt{deltaTotient}(4h)\ p \equiv 2\pmod4`$, constructed via Dirichlet on $`p\equiv(3r-H)\bmod 4r`$ for a fresh prime $`r\equiv1\pmod4`$. Unlike the Mersenne-primitivity killer of Prop. <a href="#prop:CP-03-kill" data-reference-type="ref" data-reference="prop:CP-03-kill">161</a>, this *is* a genuinely totient-specific residue supplied cofinally beyond every threshold — any argument invoking Prop. <a href="#prop:CP-07" data-reference-type="ref" data-reference="prop:CP-07">120</a> inherits this as its forcing mechanism. The fresh-prime CRT template is scaled to arbitrary depth in Prop. <a href="#prop:TA-inv" data-reference-type="ref" data-reference="prop:TA-inv">142</a> below. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:dirichlet-crt</span>\*
 
 </div>
 
@@ -1589,99 +1564,85 @@ Every statement in this batch that converts between “carry orbit divisibility�
 ``` math
 \mathtt{windowDiscrepancy}\ H\ (p{-}K)\ K \equiv 2^{K-1}\pmod{2^K},
 ```
-and under eventual integrality transfers to $`\exists z,\ (z:\mathbb R)=\mathtt{totientTail}(p{+}H)-\mathtt{totientTail}(p)\wedge z\equiv2^{K-1}\pmod{2^K}`$. Any solution attempt must be consistent with the existence of this pulse family at every depth $`K`$. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:p-adic</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:54,211,262,301,327)*
+and under eventual integrality transfers to $`\exists z,\ (z:\mathbb R)=\mathtt{totientTail}(p{+}H)-\mathtt{totientTail}(p)\wedge z\equiv2^{K-1}\pmod{2^K}`$. Any solution attempt must be consistent with the existence of this pulse family at every depth $`K`$. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:p-adic</span>\*
 
 </div>
 
 <div id="prop:MP-01-inv" class="prop">
 
-**Proposition 143** (Exact Möbius-inversion tail identity). *$`\mathtt{totientTail}\ N = \sum_d' \mu(d)\cdot 2^{d-r_d(N)}\big(q_d(N)/(2^d-1) + 1/(2^d-1)^2\big)`$, with $`r_d(N)=d-N\bmod d`$ (forward shift to the next multiple of $`d`$), $`q_d(N)=\lfloor N/d\rfloor+1`$ — exact, not a definition-by-subtraction from a target. Any Möbius/Lambert-series manipulation of $`\mathtt{totientTail}`$ in this batch or in \#257 factors through this identity and its fully generic regrouping primitive $`\mathtt{tsum\_lambert\_pair\_regroup\_if}`$ (proved for arbitrary weight functions $`|w(d)|\le d`$, $`|v(m)|\le m`$). <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:cyclotomic</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientShiftedMobiusPulse.lean:535,112)*
+**Proposition 143** (Exact Möbius-inversion tail identity). *$`\mathtt{totientTail}\ N = \sum_d' \mu(d)\cdot 2^{d-r_d(N)}\big(q_d(N)/(2^d-1) + 1/(2^d-1)^2\big)`$, with $`r_d(N)=d-N\bmod d`$ (forward shift to the next multiple of $`d`$), $`q_d(N)=\lfloor N/d\rfloor+1`$ — exact, not a definition-by-subtraction from a target. Any Möbius/Lambert-series manipulation of $`\mathtt{totientTail}`$ in this batch or in \#257 factors through this identity and its fully generic regrouping primitive $`\mathtt{tsum\_lambert\_pair\_regroup\_if}`$ (proved for arbitrary weight functions $`|w(d)|\le d`$, $`|v(m)|\le m`$). <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:cyclotomic</span>\*
 
 </div>
 
 <div id="prop:SK-01-inv" class="prop">
 
-**Proposition 144** (The rare unconditional deposits — necessary base cases). *$`\mathtt{LcmDiagonalArithmeticKill}(2^4)\ 23`$ and $`\mathtt{LcmDiagonalArithmeticKill}(2^6)\ 93`$ are proved, routed through pre-existing compressed certificates $`\mathtt{certifiedKill\_diagonal\_t16}/\mathtt{t64}`$, giving $`\mathtt{actualLcmTailOrbit}\ 4,6\notin\mathrm{range}(\mathbb Z\to\mathbb R)`$ — the *only* two unconditional actual-orbit nonintegrality facts currently proved. Any induction or bootstrapping attempt at Prop. <a href="#prop:AR-07" data-reference-type="ref" data-reference="prop:AR-07">112</a> must reproduce these as base cases, and they double as a computational sanity check that the $`\mathtt{lcmRayArithmeticLetter}`$ machinery agrees with the older compressed-certificate route. <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:18,27,35)*
+**Proposition 144** (The rare unconditional deposits — necessary base cases). *$`\mathtt{LcmDiagonalArithmeticKill}(2^4)\ 23`$ and $`\mathtt{LcmDiagonalArithmeticKill}(2^6)\ 93`$ are proved, routed through pre-existing compressed certificates $`\mathtt{certifiedKill\_diagonal\_t16}/\mathtt{t64}`$, giving $`\mathtt{actualLcmTailOrbit}\ 4,6\notin\mathrm{range}(\mathbb Z\to\mathbb R)`$ — the *only* two unconditional actual-orbit nonintegrality facts currently proved. Any induction or bootstrapping attempt at Prop. <a href="#prop:AR-07" data-reference-type="ref" data-reference="prop:AR-07">112</a> must reproduce these as base cases, and they double as a computational sanity check that the $`\mathtt{lcmRayArithmeticLetter}`$ machinery agrees with the older compressed-certificate route. <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:A5-inv" class="prop">
 
-**Proposition 145** (Certificate depth floor). *$`\mathtt{certifiedKill}\ h\ N\ L \implies 2(N{+}h{+}L{+}2)<2^L`$. Certificate depth $`L`$ cannot stay bounded while $`N{+}h\to\infty`$: $`L`$ must grow at least logarithmically. Any complexity argument about certificate search inherits this floor, and it is exactly what Prop. <a href="#prop:TE-03-inv" data-reference-type="ref" data-reference="prop:TE-03-inv">137</a> compresses to a two-bit test at the corresponding logarithmic scale. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79)*
+**Proposition 145** (Certificate depth floor). *$`\mathtt{certifiedKill}\ h\ N\ L \implies 2(N{+}h{+}L{+}2)<2^L`$. Certificate depth $`L`$ cannot stay bounded while $`N{+}h\to\infty`$: $`L`$ must grow at least logarithmically. Any complexity argument about certificate search inherits this floor, and it is exactly what Prop. <a href="#prop:TE-03-inv" data-reference-type="ref" data-reference="prop:TE-03-inv">137</a> compresses to a two-bit test at the corresponding logarithmic scale. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:seam-integer</span>\*
 
 </div>
 
 <div id="prop:A9-inv" class="prop">
 
-**Proposition 146** (The tail-period law — necessary consequence of rationality). *$`\neg\mathrm{Irrational}(S) \implies \exists h{:}\mathbb N,\ 0<h \wedge \exists N_0,\ \forall N\ge N_0,\ \mathtt{totientTail}(N{+}h)-\mathtt{totientTail}(N)\in\mathrm{range}(\mathbb Z\to\mathbb R)`$, with explicit witnesses $`h=\varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0=v_2(r.\mathrm{den})`$ for $`S=r`$. This is the “only if” half of the master equivalence: any rationality-refutation strategy must eventually contradict *some* period $`h`$ and preperiod $`N_0`$ produced this way. Composes with Prop. <a href="#prop:AR-06-inv" data-reference-type="ref" data-reference="prop:AR-06-inv">131</a>/soundness to give Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:euler-theorem</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358)*
+**Proposition 146** (The tail-period law — necessary consequence of rationality). *$`\neg\mathrm{Irrational}(S) \implies \exists h{:}\mathbb N,\ 0<h \wedge \exists N_0,\ \forall N\ge N_0,\ \mathtt{totientTail}(N{+}h)-\mathtt{totientTail}(N)\in\mathrm{range}(\mathbb Z\to\mathbb R)`$, with explicit witnesses $`h=\varphi(\mathrm{oddPart}(r.\mathrm{den}))`$, $`N_0=v_2(r.\mathrm{den})`$ for $`S=r`$. This is the “only if” half of the master equivalence: any rationality-refutation strategy must eventually contradict *some* period $`h`$ and preperiod $`N_0`$ produced this way. Composes with Prop. <a href="#prop:AR-06-inv" data-reference-type="ref" data-reference="prop:AR-06-inv">131</a>/soundness to give Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:euler-theorem</span>\*
 
 </div>
 
 <div id="prop:B6-inv" class="prop">
 
-**Proposition 147** (Rationality flattens the whole LCM cone). *$`\neg\mathrm{Irrational}(S) \implies \exists t_1,\ \forall t\ge t_1,\ \forall q\,m{:}\mathbb N,\ 0<q,\ \mathtt{totientTail}(q\cdot\mathtt{periodLcm}\,t + m\cdot\mathtt{periodLcm}\,t)-\mathtt{totientTail}(q\cdot\mathtt{periodLcm}\,t)\in\mathrm{range}(\mathbb Z\to\mathbb R)`$. Rationality forces ONE fractional constant on the entire cone $`\{k\cdot\mathtt{periodLcm}\,t : k\ge1\}`$ at every scale $`t\ge t_1`$, not just the diagonal pair — a strict generalisation of Prop. <a href="#prop:A9-inv" data-reference-type="ref" data-reference="prop:A9-inv">146</a>. Any certificate anywhere on the cone therefore kills \#249 (Prop. <a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a>). <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18674)*
+**Proposition 147** (Rationality flattens the whole LCM cone). *$`\neg\mathrm{Irrational}(S) \implies \exists t_1,\ \forall t\ge t_1,\ \forall q\,m{:}\mathbb N,\ 0<q,\ \mathtt{totientTail}(q\cdot\mathtt{periodLcm}\,t + m\cdot\mathtt{periodLcm}\,t)-\mathtt{totientTail}(q\cdot\mathtt{periodLcm}\,t)\in\mathrm{range}(\mathbb Z\to\mathbb R)`$. Rationality forces ONE fractional constant on the entire cone $`\{k\cdot\mathtt{periodLcm}\,t : k\ge1\}`$ at every scale $`t\ge t_1`$, not just the diagonal pair — a strict generalisation of Prop. <a href="#prop:A9-inv" data-reference-type="ref" data-reference="prop:A9-inv">146</a>. Any certificate anywhere on the cone therefore kills \#249 (Prop. <a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a>). <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:D4-inv" class="prop">
 
-**Proposition 148** (Unconditional $`(2^e{+}1)`$-dimensional dyadic kernel — the rank floor). *The canonical dyadic-kernel family $`\mathtt{canonicalTotientKernelFamily}\ e`$ has exactly $`2^e+1`$ channels, unconditionally linearly independent for every $`e`$ (CRT + Dirichlet: one channel made prime, every other channel gets a fresh prime $`\equiv1\bmod`$ a large power of $`2`$). This is a proved fact, needing no rationality hypothesis at all, and it is the fixed lower bound that Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a> would have to contradict. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:51)*
+**Proposition 148** (Unconditional $`(2^e{+}1)`$-dimensional dyadic kernel — the rank floor). *The canonical dyadic-kernel family $`\mathtt{canonicalTotientKernelFamily}\ e`$ has exactly $`2^e+1`$ channels, unconditionally linearly independent for every $`e`$ (CRT + Dirichlet: one channel made prime, every other channel gets a fresh prime $`\equiv1\bmod`$ a large power of $`2`$). This is a proved fact, needing no rationality hypothesis at all, and it is the fixed lower bound that Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a> would have to contradict. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
 
 </div>
 
 <div id="prop:C2-inv" class="prop">
 
-**Proposition 149** (Sharp Farey rung — concrete necessary floor at $`K=240`$). *For all $`q{:}\mathbb N`$, $`0<q\le79639646646701375323355774875831053`$ ($`\sim7.96\times10^{34}`$): $`(qV)\bmod2^{240} + 243q < 2^{240}`$, where $`V`$ is the explicit committed totient residue for window $`(N,K)=(1,240)`$; this is SHARP — $`q=79639646646701375323355774875831054`$ is the exact first failing denominator (an explicit Farey mediant). Any candidate rational value for $`S`$ must have reduced denominator strictly larger than this bound (Prop. <a href="#prop:C3-inv" data-reference-type="ref" data-reference="prop:C3-inv">150</a> below). <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:other:farey-gap</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176,225)*
+**Proposition 149** (Sharp Farey rung — concrete necessary floor at $`K=240`$). *For all $`q{:}\mathbb N`$, $`0<q\le79639646646701375323355774875831053`$ ($`\sim7.96\times10^{34}`$): $`(qV)\bmod2^{240} + 243q < 2^{240}`$, where $`V`$ is the explicit committed totient residue for window $`(N,K)=(1,240)`$; this is SHARP — $`q=79639646646701375323355774875831054`$ is the exact first failing denominator (an explicit Farey mediant). Any candidate rational value for $`S`$ must have reduced denominator strictly larger than this bound (Prop. <a href="#prop:C3-inv" data-reference-type="ref" data-reference="prop:C3-inv">150</a> below). <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:other:farey-gap</span>\*
 
 </div>
 
 <div id="prop:C3-inv" class="prop">
 
-**Proposition 150** (Denominator exclusion — headline unconditional consequence). *$`\forall p{:}\mathbb Q,\ p.\mathrm{den}\le79639646646701375323355774875831053 \implies S\ne(p:\mathbb R)`$. If $`S`$ is rational, its reduced denominator exceeds $`\sim7.96\times10^{34}`$ — an unconditional necessary condition on any hypothetical rational value, logically independent of the certificate-supply wall (Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>); it excludes small denominators outright, without needing a period at all. <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:farey-gap</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056)*
+**Proposition 150** (Denominator exclusion — headline unconditional consequence). *$`\forall p{:}\mathbb Q,\ p.\mathrm{den}\le79639646646701375323355774875831053 \implies S\ne(p:\mathbb R)`$. If $`S`$ is rational, its reduced denominator exceeds $`\sim7.96\times10^{34}`$ — an unconditional necessary condition on any hypothetical rational value, logically independent of the certificate-supply wall (Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>); it excludes small denominators outright, without needing a period at all. <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:farey-gap</span>\*
 
 </div>
 
 <div id="prop:D1D2-inv" class="prop">
 
-**Proposition 151** (The two foundational irrationality engines). *Two, and only two, general-purpose irrationality criteria exist in the kernel, and any successful proof of \#249 must ultimately instantiate one of them: (i) if $`u{:}\mathbb N\to\mathbb Q`$ is eventually never $`x`$ and $`\mathrm{den}(u_k)\cdot|x-u_k|\to0`$, then $`\mathrm{Irrational}(x)`$; (ii) if $`\forall q>0,\ \exists m,z{:}\mathbb Z,\ 0<|m\xi-z|<1/q`$, then $`\mathrm{Irrational}(\xi)`$ (with a base-power specialisation $`b^n\xi`$ matching any digit/carry construction in base $`b`$). Every certificate, cone, or Farey argument in this catalogue exists either to supply one of these two hypotheses or to substitute for them via the $`\mathtt{certifiedKill}`$ route. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:dirichlet-approximation</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5371,5792,5821)*
+**Proposition 151** (The two foundational irrationality engines). *Two, and only two, general-purpose irrationality criteria exist in the kernel, and any successful proof of \#249 must ultimately instantiate one of them: (i) if $`u{:}\mathbb N\to\mathbb Q`$ is eventually never $`x`$ and $`\mathrm{den}(u_k)\cdot|x-u_k|\to0`$, then $`\mathrm{Irrational}(x)`$; (ii) if $`\forall q>0,\ \exists m,z{:}\mathbb Z,\ 0<|m\xi-z|<1/q`$, then $`\mathrm{Irrational}(\xi)`$ (with a base-power specialisation $`b^n\xi`$ matching any digit/carry construction in base $`b`$). Every certificate, cone, or Farey argument in this catalogue exists either to supply one of these two hypotheses or to substitute for them via the $`\mathtt{certifiedKill}`$ route. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:dirichlet-approximation</span>\*
 
 </div>
 
 <div id="prop:D7-inv" class="prop">
 
-**Proposition 152** (S sits on the Mersenne-Lambert ladder). *Writing $`L(f):=\sum_{n\ge1}f(n)/(2^n-1)`$: $`L(\mu)=1/2`$, $`L(\varphi)=2`$ (exactly rational, machine-checked), $`L(1)=E`$ = the Erdős-Borwein constant, proved **irrational** in this same kernel; $`L(A)=S`$ for $`A=\varphi*\mu`$ is exactly \#249 restated in “positive Erdős-Borwein form,” still open; $`L(\mathrm{Id})=\sum\sigma(m)/2^m`$ is transcendental by Nesterenko 1996 (cited, not formalised). Any proof of \#249 sits on this Dirichlet-convolution ladder next to a proved irrational neighbour ($`L(1)`$) and a proved rational neighbour ($`L(\varphi)`$); this is the clearest bridge into \#257’s native Lambert-series coordinate. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean, Cited\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18063-18087)*
+**Proposition 152** (S sits on the Mersenne-Lambert ladder). *Writing $`L(f):=\sum_{n\ge1}f(n)/(2^n-1)`$: $`L(\mu)=1/2`$, $`L(\varphi)=2`$ (exactly rational, machine-checked), $`L(1)=E`$ = the Erdős-Borwein constant, proved **irrational** in this same kernel; $`L(A)=S`$ for $`A=\varphi*\mu`$ is exactly \#249 restated in “positive Erdős-Borwein form,” still open; $`L(\mathrm{Id})=\sum\sigma(m)/2^m`$ is transcendental by Nesterenko 1996 (cited, not formalised). Any proof of \#249 sits on this Dirichlet-convolution ladder next to a proved irrational neighbour ($`L(1)`$) and a proved rational neighbour ($`L(\varphi)`$); this is the clearest bridge into \#257’s native Lambert-series coordinate. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean, Cited\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:D9-inv" class="prop">
 
-**Proposition 153** (Generic rational-gap adapter). *For $`\mathtt{pfx}<\mathtt{whole}{:}\mathbb Q`$: $`1/(\mathtt{whole.den}\cdot\mathtt{pfx.den}) \le \mathtt{whole}-\mathtt{pfx}`$ (as reals). Any analytic upper bound on a totient-tail gap converts, via this lemma, into a denominator-growth lower bound extending Prop. <a href="#prop:C2-inv" data-reference-type="ref" data-reference="prop:C2-inv">149</a>’s Farey rungs without redoing the Farey-neighbour search from scratch — a clean, fully general adapter usable on either problem’s tail estimate. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:farey-gap</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveRationalGapSupply.lean:31)*
+**Proposition 153** (Generic rational-gap adapter). *For $`\mathtt{pfx}<\mathtt{whole}{:}\mathbb Q`$: $`1/(\mathtt{whole.den}\cdot\mathtt{pfx.den}) \le \mathtt{whole}-\mathtt{pfx}`$ (as reals). Any analytic upper bound on a totient-tail gap converts, via this lemma, into a denominator-growth lower bound extending Prop. <a href="#prop:C2-inv" data-reference-type="ref" data-reference="prop:C2-inv">149</a>’s Farey rungs without redoing the Farey-neighbour search from scratch — a clean, fully general adapter usable on either problem’s tail estimate. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:farey-gap</span>\*
 
 </div>
 
 <div id="prop:B11-inv" class="prop">
 
-**Proposition 154** (Finite pincer floor — concrete necessary evidence through $`t=64`$). *$`\mathtt{certifiedKill\_diagonal\_all\_imported}`$: Prop. <a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>’s predicate $`P\,t`$ holds for $`t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}`$ (28 explicit cases through $`t=64`$), each a finite $`\mathtt{decide}/\mathtt{norm\_num}`$ computation on explicit $`\varphi`$ values via checked prime-power blocks with Lucas-primality certificates. This does *not* establish $`P\,t`$ for infinitely many $`t`$ and hence does not close Props. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>/<a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>/<a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a> — it is exactly the finite floor any unbounded-supply argument must extend. <span class="sans-serif">scale:fixed</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842-2870)*
+**Proposition 154** (Finite pincer floor — contiguous evidence through $`t\le82`$). *$`\mathtt{certifiedKill\_diagonal\_all\_imported}`$: Prop. <a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>’s predicate $`P\,t`$ holds for $`t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}`$ (28 explicit cases through $`t=64`$), each a finite $`\mathtt{decide}/\mathtt{norm\_num}`$ computation on explicit $`\varphi`$ values via checked prime-power blocks with Lucas-primality certificates. The current aggregate theorem strengthens this historical list to $`\forall t\le82,\ P\,t`$, with no holes. It does *not* establish $`P\,83`$ or infinitely many $`t`$ and hence does not close Props. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>/<a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">122</a>/<a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">123</a>. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\*
 
 </div>
 
 <div id="prop:C1-inv" class="prop">
 
-**Proposition 155** (The fair-coin coprimality reformulation of $`S`$). *$`\#\{(a,b): a{+}b=n,\ a>0,\ \gcd(a,b)=1\}=\varphi(n)`$ for every $`n`$ (uniform, $`\varphi(0)=0`$, $`\varphi(1)=1`$ included automatically). At $`r=1/2`$, for independent fair-coin waiting times $`X,Y`$ ($`P(X{=}n)=2^{-n}`$, $`n\ge1`$): $`P(\gcd(X,Y)=1) = S - 1/2`$. \#249’s constant is, up to the additive constant $`1/2`$, a literal lattice-point probability. Any digit argument for \#249 necessarily also carries a positional meaning about visible lattice points on the addition antidiagonal — a reformulation any proof attempt should keep in view even though it is not itself a route to a proof. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:visible-lattice-points</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:120,182,56)*
+**Proposition 155** (The fair-coin coprimality reformulation of $`S`$). *$`\#\{(a,b): a{+}b=n,\ a>0,\ \gcd(a,b)=1\}=\varphi(n)`$ for every $`n`$ (uniform, $`\varphi(0)=0`$, $`\varphi(1)=1`$ included automatically). At $`r=1/2`$, for independent fair-coin waiting times $`X,Y`$ ($`P(X{=}n)=2^{-n}`$, $`n\ge1`$): $`P(\gcd(X,Y)=1) = S - 1/2`$. \#249’s constant is, up to the additive constant $`1/2`$, a literal lattice-point probability. Any digit argument for \#249 necessarily also carries a positional meaning about visible lattice points on the addition antidiagonal — a reformulation any proof attempt should keep in view even though it is not itself a route to a proof. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:visible-lattice-points</span>\*
 
 </div>
 
@@ -1694,98 +1655,85 @@ Adversarial constructions and no-go results, kept with the mechanism that closes
 <div id="prop:SGN-02" class="obs">
 
 *Observation 156* (Nonnegative-branch elimination for the true survivor). If the translated actual orbit is integral at the start of Prop. <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">134</a>’s positive corridor, then for every later depth $`K`$ with room $`J{+}K{+}(a{+}6)<2\cdot2^a`$, the negated carry-orbit trajectory $`-\mathtt{carryOrbit}\ H\ (H{+}J)\ d\ K`$ is negative and is an $`\mathtt{endpointSurvivor}`$ at every depth in the corridor. This eliminates only the nonnegative branch of the true survivor’s sign — it is emphatically *not* a nonintegrality claim; spurious survivors of either sign may still exist. Any strategy hoping to conclude non-integrality purely from this sign fact fails: Prop. <a href="#prop:SGN-03" data-reference-type="ref" data-reference="prop:SGN-03">135</a> names exactly what remains. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:172)
 
 </div>
 
 <div id="prop:TE-01-killer" class="obs">
 
 *Observation 157* (Total dyadic staircase is impossible — route-pruning). For $`a\ge8`$, room bound, and modulus wide enough ($`2H{+}J{+}K{+}2<2^m`$): $`\mathtt{ActualLcmTerminalDyadicStaircase}\ a\ J\ K\ m`$ is **false** — a terminal window where every one of the last $`m`$ letters is divisible by its own growing power of two ($`2^{r+1}\mid\text{letter}_r`$) cannot occur. The last letter would have to be positive (Prop. <a href="#prop:AR-05-inv" data-reference-type="ref" data-reference="prop:AR-05-inv">130</a>), strictly below the wide modulus, and divisible by it, forcing it to be exactly $`0`$ — contradicting positivity. **Kills outright**: any strategy aiming for total dyadic annihilation of the terminal suffix. The generic mechanism ($`0<e<2^m\wedge2^m\mid e\implies e=0`$) is reusable wherever a positive quantity is asked to vanish mod a wider-than-itself modulus. The surviving route is the *punctured* staircase (Prop. <a href="#prop:TE-02-inv" data-reference-type="ref" data-reference="prop:TE-02-inv">136</a>) or the residue-gap producers (Prop. <a href="#prop:TE-04" data-reference-type="ref" data-reference="prop:TE-04">114</a>). <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:251)
 
 </div>
 
 <div id="prop:FR-03-kill" class="obs">
 
 *Observation 158* (The bare 3-rank kernel is exactly tight — a sharpness no-go). $`\mathtt{fixedRankSecondDifference}(2^{n+1}\cdot2)(2^{n+1}\cdot3) = -2^{n+1}`$ exactly, for all $`n`$ (a closed-form computed fixture). The two-adic valuation gained by Prop. <a href="#prop:FR-02-inv" data-reference-type="ref" data-reference="prop:FR-02-inv">138</a> is exactly tight — the normalised $`1{\times}1`$ minor is odd at every depth, so the bounded-height primitive kernel alone can **never** force one additional factor of $`2`$. **Kills**: any attempt to squeeze more $`2`$-adic information out of the bare 3-rank curvature kernel; further progress needs new arithmetic input, matching the file’s own open target $`\mathtt{PowerTwoLcmMiddleRankExtremalSupply}`$. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:other:fixed-rank-curvature</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:462)
 
 </div>
 
 <div id="prop:CM-01" class="obs">
 
 *Observation 159* (The parity coboundary countermodel object). $`\mathtt{parityCoboundaryWeight}\ n := \mathtt{parityBaseWeight}\ n + 2\cdot\mathtt{largePowerTwoBit}\ n - 4\cdot\mathtt{largePowerTwoBit}(n{-}1)`$, where $`\mathtt{parityBaseWeight}`$ is the eventually-constant word $`0,1,1,2,4,4,4,\dots`$ and $`\mathtt{largePowerTwoBit}\ n=1`$ iff $`n=2^{k+3}`$ (lacunary spikes starting at $`8`$). This is a hand-built adversary sequence containing *no* $`\varphi`$ in its definition at all except via its parity. The construction technique — add a zero-valued sparse binary coboundary $`2\cdot2^{-m}-4\cdot2^{-(m+1)}=0`$ at lacunary ranks to an eventually-periodic base word, destroying periodicity while preserving the rational sum — is a completely general recipe, directly portable to an analogous \#257 adversary matched to $`1/(2^n-1)`$-parity patterns. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:binary-digit</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:37,41,46,59)
 
 </div>
 
 <div id="prop:CM-02" class="obs">
 
 *Observation 160* (What the countermodel refutes — the flagship kill of the batch). There is $`c{:}\mathbb N\to\mathbb N`$ with: (a) arbitrarily many, arbitrarily-separated, cofinal explicit “$`6,0`$” carry pairs (for every $`N,G,K`$ a block of $`K`$ such pairs beyond $`N`$, pairwise separated by $`>G`$); (b) $`\forall n,\ c(n)\le6`$; (c) $`\forall n,\ c(n)\le n`$; (d) $`\forall n,\ c(n)\equiv\varphi(n)\pmod2`$ (exact parity agreement with Euler’s totient); (e) $`c`$ is **not** eventually periodic; yet (f) $`\sum_n' c(n)/2^n = 3/2`$, a *rational* number. **Kills**: any \#249 proof strategy whose only inputs are uniform boundedness, the trivial growth bound $`c(n)\le n`$, exact $`\varphi`$-parity agreement, and failure of eventual periodicity — *even strengthened* to cofinal, arbitrarily-separated, arbitrarily-long-block non-periodicity. The obstruction is structural, not a shortage of non-periodicity witnesses: a rational coboundary can carry unlimited *visible* aperiodic structure while summing to a fixed rational. **Doctrine consequence** (matches project memory `feedback_erdos_reductions_rejected_bank_real_results`): only arguments using actual quantitative totient/Mersenne size or residue information (as in the $`\mathtt{TotientActualLcm}\ast`$/$`\mathtt{TotientFixedRank}\ast`$ families) can possibly close \#249; pure symbolic-word arguments cannot. This countermodel is also the ready-made stress-test fixture for any future sufficient-condition candidate stated purely in coefficient-word terms (boundedness/growth/parity/periodicity), on either \#249 or \#257. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:other:binary-digit</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:637,359,487,194)
 
 </div>
 
 <div id="prop:CP-03-kill" class="obs">
 
 *Observation 161* (Primitive Mersenne-prime factors alone force nothing). For the completely-multiplicative control $`c(n)=n`$ (zero totient content: $`\mathtt{binaryCoeffTail}\ \mathrm{id}\ N = N{+}2`$): if $`q>K>0`$ and $`q\mid2^K-1`$ (e.g. $`q`$ a primitive prime factor of the homogeneous Mersenne multiplier), the shift is integral at every $`N`$ (value exactly $`K`$) but $`q\nmid K`$. **Kills**: “a large primitive Mersenne prime factor alone forces a contradiction” as a proof strategy — this is a route-pruning warning applicable *verbatim* to \#257, whose denominators $`2^n-1`$ are literally the object $`q\mid2^K-1`$ tested here. Any successful use of such a factor needs genuinely totient-specific residue/size input beyond bare Mersenne primitivity — contrast with the genuinely totient-specific pulse of Prop. <a href="#prop:CP-05-inv" data-reference-type="ref" data-reference="prop:CP-05-inv">141</a>. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:342,320)
 
 </div>
 
 <div id="prop:CP-04-kill" class="obs">
 
 *Observation 162* (Universal no-go for absolute-adjugate coefficient reconstruction). For any finite rational row $`w{:}\iota\to\mathbb Q`$, integer targets $`x{:}\iota\to\mathbb N`$ that *exactly* isolate one totient channel ($`\sum_i w_i\varphi(x_i)=1`$): the crude two-tail cost $`\sum_i|w_i|\cdot(2(x_i{+}1)+(x_i{+}2))`$ is $`\ge3`$, hence never $`<1`$. **Kills**: the strategy of recovering $`\varphi(x)`$ from $`2R_{x-1}-R_x`$ and bounding each tail termwise by $`R_M\le M{+}2`$ — it can *never* reach the strict $`<1`$ tail-error threshold, at any finite grid height, independent of matrix height, row translation, determinant, or target channel. The proof only uses $`\varphi(x)\le x`$, so the same triangle-inequality floor transfers verbatim to any \#257 reformulation with $`c(n)\le n`$. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:adjugate-linear-algebra</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:266,307)
 
 </div>
 
 <div id="prop:B9cert-kill" class="obs">
 
 *Observation 163* (Rank-2 second-difference certificates: sound but measured not shallower). $`\mathtt{certifiedRank2Kill}\ h\ N\ L \implies`$ the second difference $`(\mathtt{totientTail}(N{+}2h){-}\mathtt{totientTail}(N{+}h)) - (\mathtt{totientTail}(N{+}h){-}\mathtt{totientTail}\,N) \notin\mathrm{range}(\mathbb Z\to\mathbb R)`$, sound at doubled band radius versus rank 1. Measured at $`(h,N)=(1,8)`$: rank-1 fires at depth 8, no rank-2 certificate exists at depth $`\le8`$, rank-2 first fires at depth 9 — empirically **not** a shortcut over rank-1 (rank-1 at least as shallow in $`30/40`$ probed cells for $`t\le20`$). **Kills**: expecting a depth improvement from moving to second differences. Explicitly flagged as a dead end — do not re-attempt this exact refinement without new information. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18729,18762)
 
 </div>
 
 <div id="prop:D8cert-kill" class="obs">
 
 *Observation 164* (Unit-gap strengthening rescues at most one lattice point). $`\mathtt{ReducedDenominatorUnitGapCert}\ u\ N\ K := \forall t\in[1,L],\ \neg\mathrm{Coprime}(J{+}t,u)`$ (nonunits-only refinement of the Farey-gap consumer). At a prime-power reduced denominator $`p^e`$: $`\mathtt{ReducedDenominatorUnitGapCert}(p^e)\ N\ K \iff L{=}0 \vee (L{=}1\wedge p\mid(J{+}1))`$ — the unit-gap strengthening can rescue **at most one** additional candidate lattice point beyond the ordinary Farey-gap certificate. **Kills**: expecting this refinement to unboundedly strengthen Prop. <a href="#prop:C2-inv" data-reference-type="ref" data-reference="prop:C2-inv">149</a>/<a href="#prop:C3-inv" data-reference-type="ref" data-reference="prop:C3-inv">150</a>’s Farey rungs — it is self-flagged in its own docstring as “a strict certificate-level strengthening, not a supply theorem.” A known dead end; do not re-attempt expecting more than $`+1`$ lattice point per prime power. <span class="sans-serif">scale:bounded</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:farey-gap</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:30,54,111)
 
 </div>
 
 <div id="prop:B4b-kill" class="obs">
 
 *Observation 165* (Synthetic all-horizon countermodel to homogeneous-factor-only proof strategies). There is an explicit nonzero “all-horizon countermodel” sequence built from multiples of $`\varphi(\mathtt{periodLcm}\,t)`$ that (i) agrees with every exact whole-ray anchor $`\mathtt{deltaTotient}\ H\ (qH)=\varphi(H)`$ for $`2\le q<t`$; (ii) stays inside the natural diagonal bounds; and (iii) **survives every finite integer shift polynomial** — every commensurate finite-rank LCM cube, via the normal form $`P_m(E_H)\cdot\prod(E_H^n-1)`$. Explicitly flagged synthetic: it does not claim the compensation letters occur as actual totient differences. **Kills**: the strategy of “retain only homogeneous LCM-ray factors” at *every* finite rank, not just rank 2 or 3. This is a representation-level exclusion (a particular factor-ideal projection throws away information that can be adversarially reconstructed), not an exclusion of $`\varphi`$ itself — an actual proof must control the fresh Möbius channel, per $`\mathtt{totient\_eq\_sum\_mobiusTotientChannel}`$ in the same file. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean (docstring-sourced)\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmFactorIdealPulseObstruction.lean:1-24,328)
+and
 
 </div>
 
 <div id="prop:B5-kill" class="obs">
 
 *Observation 166* (Fixed-precision local valuation-unit signatures never obstruct). For any finite word of odd-valuation-unit symbols at fixed local $`2`$-adic precision $`u>0`$, and any starting carry state $`e`$, there **exists** a compatible carry orbit realising that exact word with every intermediate state centred in its dyadic interval ($`|e'|\le\mathtt{vuRadius}\ u\ \sigma`$). **Kills**: any proof strategy trying to derive a contradiction purely from “the local valuation-unit signature at fixed precision $`u`$ is incompatible with $`X`$” — such signatures are *always* realisable by some carry orbit. Framed against \#249 in the docstring, but the theorem itself carries no totient- or Mersenne-specific content: a proof needs growing precision or extra arithmetic coupling, not a fixed-window local signature. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:p-adic</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TropicalCurvatureCarry.lean:137,69,115)
 
 </div>
 
 <div id="prop:B8-kill" class="obs">
 
 *Observation 167* (Square-CRT correction-suppression is independent of nonvanishing). Square-CRT correction suppression (fixing a cofactor mod a prime square to remove a weighted correction term on a finite horizon) is achievable, **but** suppression alone does not force a nonzero coefficient: the smallest returned countermodel has the whole two-step finite block vanish identically, while a separate clean witness shows it can also be nonzero — “clean” (correction-suppressed) is consistent with *both* vanishing and nonvanishing. **Kills**: “achieve a clean square-CRT horizon” as a sufficient condition by itself for a nonvanishing correction term; an additional anti-concentration or residue producer is still needed, exactly as the module’s own docstring states. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean (docstring-sourced)\]</span> <span class="sans-serif">coord:other:square-crt-cocycle</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:285,294,303,311)
 
 </div>
 
 <div id="prop:D6-kill" class="obs">
 
 *Observation 168* (No fixed integer clears every normalised primitive-Euler coordinate). $`\forall D>0,\ \neg\forall n>0,\ \exists z{:}\mathbb Z,\ D\cdot(A(n)/n)=z`$, where $`A=\varphi*\mu`$ is the Mersenne-Lambert primitive weight (so $`S=L(A)`$, Prop. <a href="#prop:D7-inv" data-reference-type="ref" data-reference="prop:D7-inv">152</a>). Any $`D`$ clearing normalised coordinates through horizon $`N`$ must be divisible by every odd prime $`p\le N`$, every $`p^2\le N`$, and by $`4`$ once $`N\ge4`$ — so no fixed $`D`$ works for all $`n`$. **Kills**: any strategy seeking a single fixed integer denominator that simultaneously integralises every primitive-Euler coordinate $`A(n)/n`$ — a finite no-lift theorem in the integral Euler/Witt-coordinate category (weaker than the general Dieudonné-Dwork theorem, and explicitly *not* itself an irrationality proof). An independent-coordinate no-go, orthogonal to the binary-window (Prop. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>) and carry-rank (Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a>) obstructions — a third distinct coordinate attacking the same open problem. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:mobius-mersenne</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveDeterminantLift.lean:169,148)
 
 </div>
 
 <div id="prop:B11cert-kill" class="obs">
 
 *Observation 169* (Finite certificates only ever prove exclusion, never membership). Certified-death/kill families (finite decidable checks at a given depth) are explicitly **one-sided**: a found certificate proves exclusion, but failure to find one, or survival through any finite probed depth, proves *nothing* about membership or rationality. This is a structural caveat recurring across every certificate family in this catalogue ($`\mathtt{certifiedKill}`$, $`\mathtt{directedCertifiedKill}`$, $`\mathtt{survivorKill}`$, $`\mathtt{LcmDiagonalArithmeticKill}`$): none of them can ever certify membership/rationality by finite search, only non-membership/non-integrality. **Kills**: treating an unsuccessful finite search over any of the certificate families above as evidence toward rationality, or treating a finite prefix of confirmed kills (Prop. <a href="#prop:SK-01-inv" data-reference-type="ref" data-reference="prop:SK-01-inv">144</a>, Prop. <a href="#prop:B11-inv" data-reference-type="ref" data-reference="prop:B11-inv">154</a>) as anything more than a floor to extend. <span class="sans-serif">scale:n/a</span> <span class="sans-serif">\[Lean (structural caveat, cross-problem)\]</span> <span class="sans-serif">coord:n/a</span>\
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GreedyAchievementSet.lean:1720,1742-1744)
 
 </div>
 
@@ -1803,25 +1751,25 @@ This subsection catalogues material that entered the public record after the res
 
 <div class="defn">
 
-**Definition 170**. $`\Theta_r := \sum_{n\ge 0}\mu(n+1)/(2^{n+1}-1)^r`$, split exactly into the first two atoms $`\mathrm{TwoAtom}(r) := 1 - 3^{-r}`$ and the tail $`\mathrm{TailAfterTwo}(r) := \sum_{n\ge 0}\mu(n+3)/(2^{n+3}-1)^r`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:136) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:140) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:144) .
+**Definition 170**. $`\Theta_r := \sum_{n\ge 0}\mu(n+1)/(2^{n+1}-1)^r`$, split exactly into the first two atoms $`\mathrm{TwoAtom}(r) := 1 - 3^{-r}`$ and the tail $`\mathrm{TailAfterTwo}(r) := \sum_{n\ge 0}\mu(n+3)/(2^{n+3}-1)^r`$. .
 
 </div>
 
 <div class="thm">
 
-**Theorem 171** (Two low rungs are exact rationals tied to \#249). *$`\Theta_1 = 1/2`$, and $`\Theta_2 = \bigl(\sum_{n\ge 1}\varphi(n)2^{-n}\bigr) - 1/2`$ — the second rung is literally $`S - 1/2`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:197) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:214) .*
+**Theorem 171** (Two low rungs are exact rationals tied to \#249). *$`\Theta_1 = 1/2`$, and $`\Theta_2 = \bigl(\sum_{n\ge 1}\varphi(n)2^{-n}\bigr) - 1/2`$ — the second rung is literally $`S - 1/2`$. .*
 
 </div>
 
 <div class="thm">
 
-**Theorem 172** (Two-atom exact Hankel gap). *$`\mathrm{TwoAtom}(r{+}1)^2 - \mathrm{TwoAtom}(r)\mathrm{TwoAtom}(r{+}2) = 4/3^{r+2}`$, hence the two-atom truncation alone is strictly log-concave at every $`r`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:311) .*
+**Theorem 172** (Two-atom exact Hankel gap). *$`\mathrm{TwoAtom}(r{+}1)^2 - \mathrm{TwoAtom}(r)\mathrm{TwoAtom}(r{+}2) = 4/3^{r+2}`$, hence the two-atom truncation alone is strictly log-concave at every $`r`$. .*
 
 </div>
 
 <div class="thm">
 
-**Theorem 173** (Full ladder: unconditional strict log-concavity, every rung). *For every $`r\ge 1`$, $`\Theta_r\,\Theta_{r+2} < \Theta_{r+1}^2`$: the shifted $`2\times 2`$ Hankel determinant of the whole ladder is negative at every rung, not just asymptotically. The proof propagates the exact two-atom gap above against a geometric tail-error budget that contracts by a factor $`1/4`$ per rung against a gap that only contracts by $`1/3`$, giving an inductive floor from rung $`5`$ on (kernel-checked base cases below). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:730) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:534) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:740) .*
+**Theorem 173** (Full ladder: unconditional strict log-concavity, every rung). *For every $`r\ge 1`$, $`\Theta_r\,\Theta_{r+2} < \Theta_{r+1}^2`$: the shifted $`2\times 2`$ Hankel determinant of the whole ladder is negative at every rung, not just asymptotically. The proof propagates the exact two-atom gap above against a geometric tail-error budget that contracts by a factor $`1/4`$ per rung against a gap that only contracts by $`1/3`$, giving an inductive floor from rung $`5`$ on (kernel-checked base cases below). .*
 
 </div>
 
@@ -1831,7 +1779,7 @@ This subsection catalogues material that entered the public record after the res
 
 </div>
 
-The file also supplies the underlying algebraic infrastructure: a rectangular Cauchy–Binet expansion derived from the Leibniz formula ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:29), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:hankel-determinant</span>, needed because Mathlib’s pinned determinant API does not expose rectangular Cauchy–Binet directly), and a finite unique-terminal-dyadic-exponent parity lemma showing that clearing a common denominator by its uniquely largest power of two preserves oddness of the numerator ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:78), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:dyadic-parity</span>).
+The file also supplies the underlying algebraic infrastructure: a rectangular Cauchy–Binet expansion derived from the Leibniz formula (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:hankel-determinant</span>, needed because Mathlib’s pinned determinant API does not expose rectangular Cauchy–Binet directly), and a finite unique-terminal-dyadic-exponent parity lemma showing that clearing a common denominator by its uniquely largest power of two preserves oddness of the numerator (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:dyadic-parity</span>).
 
 <a id="generic-tail-orbit-rigidity-a-self-labelled-non-claim"></a>
 
@@ -1841,24 +1789,24 @@ The file also supplies the underlying algebraic infrastructure: a rectangular Ca
 
 <div class="thm">
 
-**Theorem 175** (T7: tempered-orbit equivalence, abstract binary series). *For any $`c:\mathbb{N}\to\mathbb{N}`$ with $`c(n)\le n`$, writing $`X_c := \sum_{n\ge 1} c(n)/2^n`$, $`X_c`$ is rational iff there exist $`v>0`$ and an integer sequence $`u`$ with $`u(N{+}1) = 2u(N) - v\,c(N{+}1)`$ and $`u(N)/2^N \to 0`$; when it exists such an orbit is rigid, $`u(N) = v\cdot T_c(N)`$ for every $`N`$, where $`T_c`$ is the scaled tail. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:426) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:339) .*
+**Theorem 175** (T7: tempered-orbit equivalence, abstract binary series). *For any $`c:\mathbb{N}\to\mathbb{N}`$ with $`c(n)\le n`$, writing $`X_c := \sum_{n\ge 1} c(n)/2^n`$, $`X_c`$ is rational iff there exist $`v>0`$ and an integer sequence $`u`$ with $`u(N{+}1) = 2u(N) - v\,c(N{+}1)`$ and $`u(N)/2^N \to 0`$; when it exists such an orbit is rigid, $`u(N) = v\cdot T_c(N)`$ for every $`N`$, where $`T_c`$ is the scaled tail. .*
 
 </div>
 
 <div class="prop">
 
-**Proposition 176** (Rigidity engine). *A real sequence $`d`$ with $`d(N{+}1)=2d(N)`$ and $`d(N)=o(2^N)`$ is identically zero. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:315) .*
+**Proposition 176** (Rigidity engine). *A real sequence $`d`$ with $`d(N{+}1)=2d(N)`$ and $`d(N)=o(2^N)`$ is identically zero. .*
 
 </div>
 
 <div class="obs">
 
 *Observation 177* (Finite-state no-go for successor decoders). For fixed $`m\ge 2`$, the “balanced-pulse” family $`c_{m,r}`$ (mass $`r`$ moved from digit $`m`$ to digit $`m{+}1`$, $`0\le r\le
-\lfloor(m{+}1)/2\rfloor`$) has the same value and the same complete pre-$`m`$ history for every $`r`$, yet the parameter $`r`$ is recovered exactly from the first post-pulse digit. Consequently no state that identifies all members of one such family can be decoded by any autonomous map, and the fan-out of any correct decoder is unbounded in $`m`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:247) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:228) . This is a genuine barrier of the class the brief asks for: it rules out exactly the class of arguments that try to predict/decode the exact tail orbit from a state depending only on the pre-pulse history, because the family exhibited is a literal counterexample generator for any such decoder. It says nothing about the totient-specific series itself.
+\lfloor(m{+}1)/2\rfloor`$) has the same value and the same complete pre-$`m`$ history for every $`r`$, yet the parameter $`r`$ is recovered exactly from the first post-pulse digit. Consequently no state that identifies all members of one such family can be decoded by any autonomous map, and the fan-out of any correct decoder is unbounded in $`m`$. . This is a genuine barrier of the class the brief asks for: it rules out exactly the class of arguments that try to predict/decode the exact tail orbit from a state depending only on the pre-pulse history, because the family exhibited is a literal counterexample generator for any such decoder. It says nothing about the totient-specific series itself.
 
 </div>
 
-Two “rational control models” are included as honesty checks, not irrationality statements: the pair-balanced family $`c(2k){=}k{-}a(k)`$, $`c(2k{+}1){=}2a(k)`$ has tempered orbit for every bounded payload $`a`$ and a fixed marked value $`4/9`$ regardless of $`a`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:545), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:tail-orbit-rigidity</span>); and the identity coefficients $`c(n)=n`$ have the explicit multiplier-one tempered orbit $`u(N)=N+2`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:564), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:fixed</span>, <span class="sans-serif">coord:other:tail-orbit-rigidity</span>).
+Two “rational control models” are included as honesty checks, not irrationality statements: the pair-balanced family $`c(2k){=}k{-}a(k)`$, $`c(2k{+}1){=}2a(k)`$ has tempered orbit for every bounded payload $`a`$ and a fixed marked value $`4/9`$ regardless of $`a`$ (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:tail-orbit-rigidity</span>); and the identity coefficients $`c(n)=n`$ have the explicit multiplier-one tempered orbit $`u(N)=N+2`$ (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:fixed</span>, <span class="sans-serif">coord:other:tail-orbit-rigidity</span>).
 
 <a id="squared-mersenne-diagonal-enclosure"></a>
 
@@ -1869,19 +1817,19 @@ Two “rational control models” are included as honesty checks, not irrational
 <div class="prop">
 
 **Proposition 178** (Exact rational centre, direct). *$`\mathrm{scaleDiagonalTailDifference}(H) - \mathrm{lambertProjectedDiagonal}(H,D)
-= C_H \cdot \mathrm{mobiusSquareTail}(D)`$ for every $`H,D`$ — no residue split and no side condition on $`D`$ versus $`H`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:138) .*
+= C_H \cdot \mathrm{mobiusSquareTail}(D)`$ for every $`H,D`$ — no residue split and no side condition on $`D`$ versus $`H`$. .*
 
 </div>
 
 <div class="prop">
 
-**Proposition 179** (Sharp geometric tail bound). *$`|\mathrm{mobiusSquareTail}(D)| \le 4/\bigl(3(2^{D+1}-1)^2\bigr)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:167) .*
+**Proposition 179** (Sharp geometric tail bound). *$`|\mathrm{mobiusSquareTail}(D)| \le 4/\bigl(3(2^{D+1}-1)^2\bigr)`$. .*
 
 </div>
 
 <div class="obs">
 
-*Observation 180* (Directed vs. symmetric enclosure). When the first nonzero Möbius channel past $`D`$ is known, its sign directs a one-sided interval half the width of the symmetric bound ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:313), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:squared-mersenne-tail</span>), and either enclosure composes with an integer-lattice separation hypothesis into a consumer theorem ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:426)). The separation hypothesis itself is exactly the remaining open content; the enclosure is real but does not supply it.
+*Observation 180* (Directed vs. symmetric enclosure). When the first nonzero Möbius channel past $`D`$ is known, its sign directs a one-sided interval half the width of the symmetric bound (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, <span class="sans-serif">coord:other:squared-mersenne-tail</span>), and either enclosure composes with an integer-lattice separation hypothesis into a consumer theorem (). The separation hypothesis itself is exactly the remaining open content; the enclosure is real but does not supply it.
 
 </div>
 
@@ -1893,34 +1841,34 @@ The 4243-line addition to `DiagonalFreshLossBridge` isolates, at the level of in
 
 <div class="prop">
 
-**Proposition 181** (Exact old-channel value: a positive gcd word, scaled). *For $`H>0`$, the sum of totient forward-differences over exactly the divisor channels of $`H`$ equals $`(H/\mathrm{rad}(H))\cdot\mathrm{gcdWordCoeff}(\mathrm{rad}(H),s)`$, where $`\mathrm{gcdWordCoeff}`$ is the positive gcd-word coefficient of §<a href="#repunit-gcd-word" data-reference-type="ref" data-reference="repunit-gcd-word">6.6.5</a> below. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:653) .*
+**Proposition 181** (Exact old-channel value: a positive gcd word, scaled). *For $`H>0`$, the sum of totient forward-differences over exactly the divisor channels of $`H`$ equals $`(H/\mathrm{rad}(H))\cdot\mathrm{gcdWordCoeff}(\mathrm{rad}(H),s)`$, where $`\mathrm{gcdWordCoeff}`$ is the positive gcd-word coefficient of §<a href="#repunit-gcd-word" data-reference-type="ref" data-reference="repunit-gcd-word">6.6.5</a> below. .*
 
 </div>
 
 <div class="prop">
 
 **Proposition 182** (Exact old/foreign split of the diagonal height increment). *$`\mathrm{diagonalHeightIncrement}(H,s) = \mathrm{oldMobiusIncrement}(H,s) +
-\mathrm{finiteForeignChannelIncrement}(H,s)`$, a literal finite-sum identity, not an estimate. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:829) .*
+\mathrm{finiteForeignChannelIncrement}(H,s)`$, a literal finite-sum identity, not an estimate. .*
 
 </div>
 
 <div class="thm">
 
 **Theorem 183** (Exact doubling law for the old-channel increment). *If $`H`$ and $`r`$ are both even, $`\mathrm{diagonalHeightIncrement}(2H,2r) =
-2\cdot\mathrm{diagonalHeightIncrement}(H,r)`$; if $`H`$ is even and $`r`$ odd, the same doubled height increment equals $`\mathrm{diagonalHeightIncrement}(H,r)`$ unchanged. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:308) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:323) .*
+2\cdot\mathrm{diagonalHeightIncrement}(H,r)`$; if $`H`$ is even and $`r`$ odd, the same doubled height increment equals $`\mathrm{diagonalHeightIncrement}(H,r)`$ unchanged. .*
 
 </div>
 
 <div class="obs">
 
-*Observation 184* (Every nonzero foreign phase term is squarefree-supported). A “foreign” channel $`d\nmid H`$ contributes a nonzero phase term to the literal increment only if $`d`$ is squarefree and $`d`$ divides exactly one of the two window endpoints $`2H{+}s`$, $`H{+}s`$ (never both, since $`d\nmid H`$ forces the two endpoints incongruent mod $`d`$). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:909) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:852) . This is a real structural narrowing — it rules out non-squarefree indices and simultaneous double support as sources of foreign contribution — but it narrows a finite bookkeeping decomposition, not the analytic separation obligation itself.
+*Observation 184* (Every nonzero foreign phase term is squarefree-supported). A “foreign” channel $`d\nmid H`$ contributes a nonzero phase term to the literal increment only if $`d`$ is squarefree and $`d`$ divides exactly one of the two window endpoints $`2H{+}s`$, $`H{+}s`$ (never both, since $`d\nmid H`$ forces the two endpoints incongruent mod $`d`$). . This is a real structural narrowing — it rules out non-squarefree indices and simultaneous double support as sources of foreign contribution — but it narrows a finite bookkeeping decomposition, not the analytic separation obligation itself.
 
 </div>
 
 <div class="prop">
 
 **Proposition 185** (Low/top echo doubling). *If a foreign channel $`d`$ has a lower-endpoint hit at offset $`s`$, its value there is $`-\mu(d)\cdot\lfloor(H{+}s)/d\rfloor`$, and its top-endpoint value at the doubled offset $`2s`$ is exactly twice that quantity in absolute value (with sign flipped): $`\mathrm{foreignChannelPhaseTerm}(d,H,2s) =
-2\bigl(\mu(d)\lfloor(H{+}s)/d\rfloor\bigr)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:941) .*
+2\bigl(\mu(d)\lfloor(H{+}s)/d\rfloor\bigr)`$. .*
 
 </div>
 
@@ -1930,13 +1878,13 @@ The 4243-line addition to `DiagonalFreshLossBridge` isolates, at the level of in
 
 <div class="thm">
 
-**Theorem 186** (T1). *For squarefree $`r`$, the signed repunit numerator polynomial $`\sum_{d\mid r}\mu(d)(r/d)(1+X^d+\cdots+X^{r-d})`$ equals the “gcd word” whose coefficient at $`X^k`$ ($`k<r`$) is $`(r/\gcd(r,k))\cdot\varphi(\gcd(r,k))`$ — strictly positive for $`k<r`$, zero for $`k\ge r`$. The squarefree hypothesis is kept explicit and is not promoted to arbitrary $`r`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:205) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:41) .*
+**Theorem 186** (T1). *For squarefree $`r`$, the signed repunit numerator polynomial $`\sum_{d\mid r}\mu(d)(r/d)(1+X^d+\cdots+X^{r-d})`$ equals the “gcd word” whose coefficient at $`X^k`$ ($`k<r`$) is $`(r/\gcd(r,k))\cdot\varphi(\gcd(r,k))`$ — strictly positive for $`k<r`$, zero for $`k\ge r`$. The squarefree hypothesis is kept explicit and is not promoted to arbitrary $`r`$. .*
 
 </div>
 
 <div class="cor">
 
-**Corollary 187**. *Evaluation at $`X=2`$ recovers the integral Möbius–Mersenne numerator already owned by `RadicalMobiusShadow`, on the same squarefree boundary. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:445) .*
+**Corollary 187**. *Evaluation at $`X=2`$ recovers the integral Möbius–Mersenne numerator already owned by `RadicalMobiusShadow`, on the same squarefree boundary. .*
 
 </div>
 
@@ -1948,13 +1896,13 @@ The 4243-line addition to `DiagonalFreshLossBridge` isolates, at the level of in
 
 <div class="defn">
 
-**Definition 188**. For a displayed residual $`p/(2L)`$, the integer excess numerator above the next dyadic point $`2^{-(n+1)}`$ is $`\mathrm{nextDyadicExcessIntNumerator}(p,n,L) := 2^n p - L`$, chosen so the skipped-branch comparison is an exact Diophantine inequality rather than a real-valued phase estimate; it obeys the exact doubling recurrence $`E(p,n{+}1,L) = 2E(p,n,L) + L`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DyadicPrefixCompression.lean:156) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DyadicPrefixCompression.lean:161) .
+**Definition 188**. For a displayed residual $`p/(2L)`$, the integer excess numerator above the next dyadic point $`2^{-(n+1)}`$ is $`\mathrm{nextDyadicExcessIntNumerator}(p,n,L) := 2^n p - L`$, chosen so the skipped-branch comparison is an exact Diophantine inequality rather than a real-valued phase estimate; it obeys the exact doubling recurrence $`E(p,n{+}1,L) = 2E(p,n,L) + L`$. .
 
 </div>
 
 <div class="prop">
 
-**Proposition 189** (Exact geometric tail bound for the Mersenne-weight remainder). *For $`n\ge 2`$, $`\mathrm{mersenneWeightRemainder}(n) \le (4/3)(1/8)^n`$, and the corresponding infinite tail from depth $`m\ge 1`$ is $`\le (4/21)(1/8)^m`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DyadicPrefixCompression.lean:1007) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DyadicPrefixCompression.lean:1024) .*
+**Proposition 189** (Exact geometric tail bound for the Mersenne-weight remainder). *For $`n\ge 2`$, $`\mathrm{mersenneWeightRemainder}(n) \le (4/3)(1/8)^n`$, and the corresponding infinite tail from depth $`m\ge 1`$ is $`\le (4/21)(1/8)^m`$. .*
 
 </div>
 
@@ -1967,7 +1915,7 @@ The 4243-line addition to `DiagonalFreshLossBridge` isolates, at the level of in
 <div class="prop">
 
 **Proposition 190** (Anchor defect is a squared complex distance). *$`\mathrm{firstHarmonicAnchorDefect}(h,L,T) = \sum_{N\in T}\|
-\mathrm{windowFirstExp}(h,N,L) - 1\|^2`$, and it equals $`2|T| - 2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:563) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:551) .*
+\mathrm{windowFirstExp}(h,N,L) - 1\|^2`$, and it equals $`2|T| - 2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L)`$. .*
 
 </div>
 
@@ -1975,7 +1923,7 @@ The 4243-line addition to `DiagonalFreshLossBridge` isolates, at the level of in
 
 **Lemma 191** (Separated-pairs energy floor). *For a finite family $`z:T\to\mathbb{C}`$ and any set of pairs $`P\subseteq
 T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
-\sum_{i,j\in T}\|z_i-z_j\|^2`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:724) .*
+\sum_{i,j\in T}\|z_i-z_j\|^2`$. .*
 
 </div>
 
@@ -1988,14 +1936,14 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 <div class="prop">
 
 **Proposition 192** (Explicit shadow is exactly the divisor-channel sum). *For $`H>0`$, $`\mathrm{scaleExplicitShadow}(H) = \sum_{d\mid H}
-\mathrm{residueIncrement}(d,H)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ActualForeignResidueProjection.lean:338) .*
+\mathrm{residueIncrement}(d,H)`$. .*
 
 </div>
 
 <div class="prop">
 
 **Proposition 193** (Complement-noncancellation consumer). *If a projection’s error against the true foreign defect is controlled by the closed geometric budget $`\mathrm{foreignComplementBound}(H,D)`$, and the finite rational state $`\mathrm{scaleExplicitShadow}(H) +
-\mathrm{projectedForeignDefect}(H,D)`$ is farther from every integer than that budget, then $`S\ne \mathrm{fullTargetHit}`$ at scale $`H`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ActualForeignResidueProjection.lean:414) . The control and separation hypotheses are exactly the two remaining open obligations; the consumer is a real theorem, not a claim they hold.*
+\mathrm{projectedForeignDefect}(H,D)`$ is farther from every integer than that budget, then $`S\ne \mathrm{fullTargetHit}`$ at scale $`H`$. . The control and separation hypotheses are exactly the two remaining open obligations; the consumer is a real theorem, not a claim they hold.*
 
 </div>
 
@@ -2008,21 +1956,21 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 <div class="thm">
 
 **Theorem 194** (Visible-point count is the totient, uniformly). *For every $`n\in\mathbb{N}`$, $`\#\{(a,b): a+b=n,\ 0<a,\ \gcd(a,b)=1\} =
-\varphi(n)`$, with no case split at $`n=0,1`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:56) .*
+\varphi(n)`$, with no case split at $`n=0,1`$. .*
 
 </div>
 
 <div class="prop">
 
 **Proposition 195** (Coprime-pair lattice mass bridges). *For $`0\le r<1`$: $`\sum_{(a,b)\ \mathrm{coprime},\,a\ge 1} r^{a+b} =
-\sum_n \varphi(n)r^n`$; over strictly positive coprime pairs the same sum is $`\sum_n\varphi(n)r^n - r`$; and layering by $`\gcd = g`$ recovers the full positive-quadrant mass $`\sum_g[\text{layer }g] = (r/(1-r))^2`$, which equals $`1`$ exactly at $`r=1/2`$ (two independent fair-coin waiting times have a finite gcd almost surely). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:120) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:182) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:328) .*
+\sum_n \varphi(n)r^n`$; over strictly positive coprime pairs the same sum is $`\sum_n\varphi(n)r^n - r`$; and layering by $`\gcd = g`$ recovers the full positive-quadrant mass $`\sum_g[\text{layer }g] = (r/(1-r))^2`$, which equals $`1`$ exactly at $`r=1/2`$ (two independent fair-coin waiting times have a finite gcd almost surely). .*
 
 </div>
 
 <div class="thm">
 
 **Theorem 196** (Rational geometric-model falsifier — a proved barrier). *For every $`0\le r<1`$, $`\sum_{(a,b)\ \mathrm{coprime},\, a,b\ge 1}
-\dfrac{r^{a+b}}{1-r^{a+b}} = \Bigl(\dfrac{r}{1-r}\Bigr)^2`$, an elementary rational function of $`r`$, hence rational at every rational $`r`$ including $`r=1/2`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:407) .*
+\dfrac{r^{a+b}}{1-r^{a+b}} = \Bigl(\dfrac{r}{1-r}\Bigr)^2`$, an elementary rational function of $`r`$, hence rational at every rational $`r`$ including $`r=1/2`$. .*
 
 </div>
 
@@ -2041,19 +1989,19 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 <div class="obs">
 
 *Observation 198* (Diagonal collapse — reduction, not a result). $`\mathrm{irrational}(S)`$ follows from: for every $`t_0`$, some $`t\ge t_0`$ admits a certified kill at the diagonal point $`(H_t,H_t)`$, $`H_t :=
-\mathrm{lcm}(1,\dots,t)`$. This is proved as an implication only; the antecedent is the unproved open content. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:112) (implication proved; antecedent <span class="sans-serif">\[Open\]</span>) .
+\mathrm{lcm}(1,\dots,t)`$. This is proved as an implication only; the antecedent is the unproved open content. (implication proved; antecedent <span class="sans-serif">\[Open\]</span>) .
 
 </div>
 
 <div class="thm">
 
-**Theorem 199** (Window structure of the lcm ray — unconditional). *Below $`2t`$, the only indices $`j`$ that fail to divide $`H_t`$ are bare prime powers exceeding $`t`$; every $`j\le t`$ divides $`H_t`$ outright. On a “clean” divisor $`j\mid H_t`$ (every prime of $`j`$ still divides $`H_t/j`$) the window totient factors exactly: $`\varphi(qH_t+j) = \varphi(j)\cdot\varphi(q(H_t/j)+1)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:137) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:208) .*
+**Theorem 199** (Window structure of the lcm ray — unconditional). *Below $`2t`$, the only indices $`j`$ that fail to divide $`H_t`$ are bare prime powers exceeding $`t`$; every $`j\le t`$ divides $`H_t`$ outright. On a “clean” divisor $`j\mid H_t`$ (every prime of $`j`$ still divides $`H_t/j`$) the window totient factors exactly: $`\varphi(qH_t+j) = \varphi(j)\cdot\varphi(q(H_t/j)+1)`$. .*
 
 </div>
 
 <div class="obs">
 
-*Observation 200* (Diagonal deposits). The kernel decides $`P(t)`$ (a certified diagonal kill) unconditionally for every $`1\le t\le 8`$ (totient arguments stay $`\le 130`$), at tabulated depths. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:257) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:266) — a finite floor, not evidence toward the cofinal supply.
+*Observation 200* (Diagonal deposits). The kernel decides $`P(t)`$ (a certified diagonal kill) unconditionally for every $`1\le t\le 8`$ (totient arguments stay $`\le 130`$), at tabulated depths. — a finite floor, not evidence toward the cofinal supply.
 
 </div>
 
@@ -2065,13 +2013,13 @@ The newly published `ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean` (3222 l
 
 <div class="thm">
 
-**Theorem 201** (Unconditional unbounded prime support for the Mersenne layer). *Every prime divisor $`p`$ of $`2^q-1`$, for prime $`q`$, satisfies $`q\mid p-1`$ (the order of $`2`$ mod $`p`$ is exactly $`q`$, by Fermat/Lagrange in $`(\mathbb{Z}/p)^\times`$); consequently the prime divisors appearing in the layers $`\{2^n-1\}`$ are unbounded, unconditionally, with no cyclotomic resultant hypothesis left open. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:33) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:105) .*
+**Theorem 201** (Unconditional unbounded prime support for the Mersenne layer). *Every prime divisor $`p`$ of $`2^q-1`$, for prime $`q`$, satisfies $`q\mid p-1`$ (the order of $`2`$ mod $`p`$ is exactly $`q`$, by Fermat/Lagrange in $`(\mathbb{Z}/p)^\times`$); consequently the prime divisors appearing in the layers $`\{2^n-1\}`$ are unbounded, unconditionally, with no cyclotomic resultant hypothesis left open. .*
 
 </div>
 
 <div class="thm">
 
-**Theorem 202** (Unconditional clean cyclotomic anchor existence). *For every period $`h>0`$ and threshold $`N_0`$, there exist a prime $`q`$ and a prime factor $`p`$ of $`|\Phi_{hq}(2)|`$ (the binary cyclotomic layer) with $`p`$ coprime to $`hq`$, $`hq\mid p-1`$, and $`p-1\ge N_0`$. The characteristic-prime exceptional case in the cyclotomic order decomposition is eliminated directly, by choosing $`q>2^h`$ (rules out $`p=q`$) and $`q>h`$ (rules out $`p\mid h`$). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:1464) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:1390) .*
+**Theorem 202** (Unconditional clean cyclotomic anchor existence). *For every period $`h>0`$ and threshold $`N_0`$, there exist a prime $`q`$ and a prime factor $`p`$ of $`|\Phi_{hq}(2)|`$ (the binary cyclotomic layer) with $`p`$ coprime to $`hq`$, $`hq\mid p-1`$, and $`p-1\ge N_0`$. The characteristic-prime exceptional case in the cyclotomic order decomposition is eliminated directly, by choosing $`q>2^h`$ (rules out $`p=q`$) and $`q>h`$ (rules out $`p\mid h`$). .*
 
 </div>
 
@@ -2083,7 +2031,7 @@ The newly published `ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean` (3222 l
 
 <div class="obs">
 
-*Observation 204* (New certified exclusions at period 30). The kernel decides two independent certificates at the composite cyclotomic anchor period $`h=30`$ (natural basepoint $`N=300`$, and the prime-anchored basepoint $`N=330`$), yielding a genuine new denominator exclusion: $`S\ne r`$ for every $`r\in\mathbb{Q}`$ with $`r.\mathrm{den}\mid 2^{300}(2^{30}-1)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:3167) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicAnchoredKill.lean:3188) — a finite exclusion, not evidence toward the cofinal supply.
+*Observation 204* (New certified exclusions at period 30). The kernel decides two independent certificates at the composite cyclotomic anchor period $`h=30`$ (natural basepoint $`N=300`$, and the prime-anchored basepoint $`N=330`$), yielding a genuine new denominator exclusion: $`S\ne r`$ for every $`r\in\mathbb{Q}`$ with $`r.\mathrm{den}\mid 2^{300}(2^{30}-1)`$. — a finite exclusion, not evidence toward the cofinal supply.
 
 </div>
 
@@ -2093,7 +2041,7 @@ The newly published `ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean` (3222 l
 
 <div class="thm">
 
-**Theorem 205** (Bounded-degree order realisability forces unbounded prime support). *If every prime divisor of a layer $`C(mq)`$ has order at most $`d`$ in the relevant residue group (`BoundedDegreeOrderConsumer`), then for every fixed finite set of primes $`S`$, all sufficiently large prime indices $`q`$ avoid $`S`$ entirely on layer $`C(mq)`$; combined with a nontrivial-layer hypothesis this forces arbitrarily large new prime divisors on cofinally many prime indices. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeRayCyclotomicCurvature.lean:116) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeRayCyclotomicCurvature.lean:172) . This is the abstract producer instantiated unconditionally for $`X-2`$ in §<a href="#prime-ray-curvature" data-reference-type="ref" data-reference="prime-ray-curvature">6.6.12</a>’s sibling result above; polynomial resultant realisability and Archimedean growth for other layers remain explicit upstream obligations, not proved here.*
+**Theorem 205** (Bounded-degree order realisability forces unbounded prime support). *If every prime divisor of a layer $`C(mq)`$ has order at most $`d`$ in the relevant residue group (`BoundedDegreeOrderConsumer`), then for every fixed finite set of primes $`S`$, all sufficiently large prime indices $`q`$ avoid $`S`$ entirely on layer $`C(mq)`$; combined with a nontrivial-layer hypothesis this forces arbitrarily large new prime divisors on cofinally many prime indices. . This is the abstract producer instantiated unconditionally for $`X-2`$ in §<a href="#prime-ray-curvature" data-reference-type="ref" data-reference="prime-ray-curvature">6.6.12</a>’s sibling result above; polynomial resultant realisability and Archimedean growth for other layers remain explicit upstream obligations, not proved here.*
 
 </div>
 
@@ -2110,13 +2058,13 @@ The newly published `ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean` (3222 l
 t(Y,e{+}2)^2/t(Y,2e{+}2) - \Theta_2 > 1/480.
 ```
 Every rank-one monomial Schur quotient built this way overshoots $`\Theta_2 =
-S-1/2`$ by a fixed positive margin, uniformly in $`e`$ and $`Y`$; the bound uses only two interval facts (every rung $`r\ge 3`$ lies in $`[1429/1512,1)`$, and every length-$`\ge\!4`$ prefix is within $`1/3584`$ of its rung). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RankOneSubrankObstruction.lean:238) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RankOneSubrankObstruction.lean:163) .*
+S-1/2`$ by a fixed positive margin, uniformly in $`e`$ and $`Y`$; the bound uses only two interval facts (every rung $`r\ge 3`$ lies in $`[1429/1512,1)`$, and every length-$`\ge\!4`$ prefix is within $`1/3584`$ of its rung). .*
 
 </div>
 
 <div class="prop">
 
-**Proposition 207** (The gap survives positive averaging). *For any nonempty finite positively-weighted family of admissible quotients, the weighted average still overshoots $`\Theta_2`$ by more than $`1/480`$; and every primitive integer linear form $`q\Theta_2 - p`$ realising such a quotient satisfies $`|q\Theta_2 - p| > q/480`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RankOneSubrankObstruction.lean:300) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RankOneSubrankObstruction.lean:341) .*
+**Proposition 207** (The gap survives positive averaging). *For any nonempty finite positively-weighted family of admissible quotients, the weighted average still overshoots $`\Theta_2`$ by more than $`1/480`$; and every primitive integer linear form $`q\Theta_2 - p`$ realising such a quotient satisfies $`|q\Theta_2 - p| > q/480`$. .*
 
 </div>
 
@@ -2134,19 +2082,19 @@ S-1/2`$ by a fixed positive margin, uniformly in $`e`$ and $`Y`$; the bound uses
 
 <div class="thm">
 
-**Theorem 209** (Nesting: the cyclotomic fan collapses onto the dyadic tower). *$`Q_{a+b,N} = 2^b Q_{a,N} + Q_{b,N+a}`$ (block concatenation), so the order-4 cyclotomic channel at height $`h`$ is literally the order-2 channel at height $`2h`$: the 2–3–4 fan of channels is a nested family along the tower $`h,2h,4h,\dots`$, not three unrelated moduli. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:77) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:94) .*
+**Theorem 209** (Nesting: the cyclotomic fan collapses onto the dyadic tower). *$`Q_{a+b,N} = 2^b Q_{a,N} + Q_{b,N+a}`$ (block concatenation), so the order-4 cyclotomic channel at height $`h`$ is literally the order-2 channel at height $`2h`$: the 2–3–4 fan of channels is a nested family along the tower $`h,2h,4h,\dots`$, not three unrelated moduli. .*
 
 </div>
 
 <div class="obs">
 
-*Observation 210* (Supply $`\Leftrightarrow`$ irrational — reduction, not a result). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:153) (equivalence proved; both directions of the underlying predicate are exactly as open as \#249 itself) . The paper’s existing diagonal bank already certifies kills at $`H_t`$ through $`t=64`$; this module’s equivalence contributes no new information about which $`t`$ beyond 64 will certify.
+*Observation 210* (Supply $`\Leftrightarrow`$ irrational — reduction, not a result). (equivalence proved; both directions of the underlying predicate are exactly as open as \#249 itself) . The paper’s current aggregate diagonal bank certifies kills at every $`H_t`$ for $`t\le82`$; this module’s equivalence contributes no new information about $`t=83`$ or any cofinal supply.
 
 </div>
 
 <div class="obs">
 
-*Observation 211* (Eight new certified denominator exclusions past the 64-smooth diagonal bank). The kernel certifies kills, unconditionally, at the eight prime-power periods the diagonal bank could not reach ($`67,81,97,101,121,125,127,128`$, all at basepoint $`N=300`$), each yielding $`S\ne r`$ for every $`r`$ with $`r.\mathrm{den}\mid 2^{300}(2^h-1)`$ — new odd denominator classes, including the Cole factors of $`2^{67}-1`$ and the Mersenne prime $`2^{127}-1`$. One of the eight is certified at its own locked depth $`L=h=67`$, the concrete instance of the sufficient (not known necessary) depth-equals-period form $`\mathrm{ApFullDepthEscape}`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:192) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:211) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:219) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PeriodMultipleEscape.lean:255) — eight finite exclusions, not evidence toward the cofinal supply.
+*Observation 211* (Eight new certified denominator exclusions past the 64-smooth diagonal bank). The kernel certifies kills, unconditionally, at the eight prime-power periods the diagonal bank could not reach ($`67,81,97,101,121,125,127,128`$, all at basepoint $`N=300`$), each yielding $`S\ne r`$ for every $`r`$ with $`r.\mathrm{den}\mid 2^{300}(2^h-1)`$ — new odd denominator classes, including the Cole factors of $`2^{67}-1`$ and the Mersenne prime $`2^{127}-1`$. One of the eight is certified at its own locked depth $`L=h=67`$, the concrete instance of the sufficient (not known necessary) depth-equals-period form $`\mathrm{ApFullDepthEscape}`$. — eight finite exclusions, not evidence toward the cofinal supply.
 
 </div>
 
@@ -2154,21 +2102,21 @@ S-1/2`$ by a fixed positive margin, uniformly in $`e`$ and $`Y`$; the bound uses
 
 ### Strict prime-orbit escape: a sharper reduction
 
-`TotientStrictPrimeEscape` sharpens the legacy first-harmonic producer’s threshold from a $`4/5`$ gap to a strict $`9/10`$ gap with an adaptive truncation budget, and proves the sharper predicate still closes \#249 through the existing singleton-certificate endpoint. This is, exactly as its own comment states, a reduction: “the producer itself remains unproved.” [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientStrictPrimeEscape.lean:66) (implication proved; antecedent <span class="sans-serif">\[Open\]</span>) .
+`TotientStrictPrimeEscape` sharpens the legacy first-harmonic producer’s threshold from a $`4/5`$ gap to a strict $`9/10`$ gap with an adaptive truncation budget, and proves the sharper predicate still closes \#249 through the existing singleton-certificate endpoint. This is, exactly as its own comment states, a reduction: “the producer itself remains unproved.” (implication proved; antecedent <span class="sans-serif">\[Open\]</span>) .
 
 <a id="finite-euler-sieve-algebra"></a>
 
 ### Finite Euler-sieve algebra
 
-`FiniteEulerSieve` records the elementary finite-stage identities behind the squared-Möbius Euler factor, with no transcendence claim asserted: $`(1-2/p+1/p^2) = (1-1/p)^2`$ and its degree-two analogue, and the second finite difference of $`1+p+\cdots+p^{e}`$ recovering $`p^{e+1}(p-1)`$, the prime-power totient row. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FiniteEulerSieve.lean:28) [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FiniteEulerSieve.lean:51) .
+`FiniteEulerSieve` records the elementary finite-stage identities behind the squared-Möbius Euler factor, with no transcendence claim asserted: $`(1-2/p+1/p^2) = (1-1/p)^2`$ and its degree-two analogue, and the second finite difference of $`1+p+\cdots+p^{e}`$ recovering $`p^{e+1}(p-1)`$, the prime-power totient row. .
 
-<a id="the-scale-ladder"></a>
+<a id="sec:249-scale-ladder"></a>
 
 # The scale ladder
 
 Every statement in the Erdős \#249 corpus that this paper draws on is tagged with a *scale*: <span class="sans-serif">scale:fixed</span> (a finite, explicitly enumerated set of parameter values, typically closed by `decide`/`interval_cases`), <span class="sans-serif">scale:bounded</span> (holds for all parameter values on one side of a threshold, e.g. $`\forall a\ge 8`$, but the proof or the constants inside it do not survive removing the threshold), <span class="sans-serif">scale:uniform</span> (holds unconditionally for every value of every free parameter, with no scale restriction at all), and <span class="sans-serif">scale:cofinal</span> (an existential claim of the shape $`\forall N_0\,\exists N\ge N_0,\ P(N)`$ — infinitely often, arbitrarily far out). The source tables underlying this ladder also mark a handful of pure identities and converters `n/a` when they are not indexed by any problem-scale parameter at all (they are definitions or unconditional equivalences); for ladder purposes these are folded into <span class="sans-serif">scale:uniform</span>, since an unconditional statement is, if anything, stronger than a uniform one. This convention is applied uniformly below and is stated here once rather than re-flagged on every row.
 
-\#249’s own supply obligation is *exactly* cofinal. The reduction chain (§<a href="#sec:249-supply-chain-forward-ref" data-reference-type="ref" data-reference="sec:249-supply-chain-forward-ref">[sec:249-supply-chain-forward-ref]</a>, and see [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitNonintegrality.lean:37)) shows
+\#249’s own supply obligation is *exactly* cofinal. The reduction chain (§<a href="#sec:249-scale-ladder" data-reference-type="ref" data-reference="sec:249-scale-ladder">7</a>, and see ) shows
 ``` math
 \mathrm{Irrational}\Bigl(\sum_{n\ge 1}\varphi(n)/2^n\Bigr) \iff \forall a_0\ \exists a\ge a_0,\ \texttt{actualLcmTailOrbit}\ a \notin \mathrm{range}(\mathbb{Z}\to\mathbb{R}),
 ```
@@ -2205,196 +2153,196 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">totientTail well-defined</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:57"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline">2<sup><em>N</em></sup> ⋅ <em>S</em></span> split</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:150"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">windowDiscrepancy (def)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>L</em></span></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">certifiedKill Sep<span class="math inline">(<em>h</em>, <em>N</em>, <em>L</em>)</span> (def)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>L</em></span></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">certificate depth floor</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>L</em></span>, given <code>certifiedKill</code><span class="math inline"> <em>h</em> <em>N</em> <em>L</em></span></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">kill engine soundness</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:262"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>L</em></span>, given <code>certifiedKill</code></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">certificates are complete receipts</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:316"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em></span></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">forced integrality under den. divisibility</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:327"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em> ∀<em>h</em> ∀<em>r</em> : ℚ</span>, given <span class="math inline"><em>S</em> = <em>r</em></span>, <span class="math inline"><em>r</em>.den ∣ 2<sup><em>N</em></sup>(2<sup><em>h</em></sup> − 1)</span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">tail-period law</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">¬Irrational <em>S</em> → ∃<em>h</em> &gt; 0 ∃<em>N</em><sub>0</sub> ∀<em>N</em> ≥ <em>N</em><sub>0</sub></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">periodLcm basic facts</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:515"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em></span></td>
 <td style="text-align: left;">other-lcm-period-ray</td>
 </tr>
 <tr>
 <td style="text-align: left;">non-divisor<span class="math inline"> &lt; 2<em>t</em></span> is a bare prime power</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18613"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em> ∀<em>j</em> (0 &lt; <em>j</em> &lt; 2<em>t</em>)</span>, given <span class="math inline"><em>j</em> ∤ periodLcm <em>t</em></span></td>
 <td style="text-align: left;">other-lcm-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">LCM-ray multiplicative split</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:208"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em> ∀<em>j</em> ∀<em>q</em></span>, given <span class="math inline"><em>j</em> ∣ periodLcm <em>t</em></span>, clean-divisor</td>
 <td style="text-align: left;">other-lcm-window-multiplicative</td>
 </tr>
 <tr>
 <td style="text-align: left;">rationality flattens the whole LCM cone</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18674"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">¬Irrational <em>S</em> → ∃<em>t</em><sub>1</sub> ∀<em>t</em> ≥ <em>t</em><sub>1</sub> ∀<em>q</em> &gt; 0 ∀<em>m</em></span></td>
 <td style="text-align: left;">other-lcm-cone</td>
 </tr>
 <tr>
 <td style="text-align: left;">second-difference kill engine</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18729"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>L</em></span>, given <code>certifiedRank2Kill</code></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">cone-menu nonintegral pair</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18801"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em> ∀<em>L</em> ∀<em>Q</em> ≠ ∅</span>, given <code>coneNonflatCert</code></td>
 <td style="text-align: left;">other-lcm-cone-menu</td>
 </tr>
 <tr>
 <td style="text-align: left;">survivorKill engine (carry-orbit route)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:428"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∀<em>N</em> ∀<em>K</em></span>, given <code>survivorKill</code></td>
 <td style="text-align: left;">other-carry-orbit</td>
 </tr>
 <tr>
 <td style="text-align: left;">Farey neighbour denominator law</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> <em>b</em> <em>c</em> <em>d</em> <em>r</em> <em>s</em> : ℤ</span>, <span class="math inline"><em>b</em> &gt; 0, <em>d</em> &gt; 0, <em>b</em><em>c</em> − <em>a</em><em>d</em> = 1</span>, unimodular-between</td>
 <td style="text-align: left;">farey</td>
 </tr>
 <tr>
 <td style="text-align: left;">Dirichlet near-integer criterion</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5371"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>u</em> : ℕ → ℚ ∀<em>x</em> : ℝ</span></td>
 <td style="text-align: left;">n/a (generic)</td>
 </tr>
 <tr>
 <td style="text-align: left;">Erdős 1948 near-integer criterion</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5792"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>ξ</em> : ℝ</span>, <span class="math inline">∀<em>q</em> &gt; 0 ∃<em>m</em> <em>z</em> 0 &lt; |<em>m</em><em>ξ</em> − <em>z</em>| &lt; 1/<em>q</em></span></td>
 <td style="text-align: left;">n/a (generic)</td>
 </tr>
 <tr>
 <td style="text-align: left;">finite-minor <span class="math inline">⇒</span> linear independence</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:81"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀ family : <em>ι</em> → ℕ → ℚ</span>, given SeparatedMinorCertificate</td>
 <td style="text-align: left;">n/a (generic)</td>
 </tr>
 <tr>
 <td style="text-align: left;">dyadic totient-kernel rank <span class="math inline"> = 2<sup><em>e</em></sup> + 1</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>e</em></span></td>
 <td style="text-align: left;">other-dyadic-kernel-rank</td>
 </tr>
 <tr>
 <td style="text-align: left;">rationality forces unbounded carry-kernel rank</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">¬Irrational <em>S</em> → ∃<em>v</em> &gt; 0 ∃<em>u</em> ∀<em>e</em></span></td>
 <td style="text-align: left;">other-carry-kernel-rank</td>
 </tr>
 <tr>
 <td style="text-align: left;">no fixed <span class="math inline"><em>D</em></span> clears all primitive Euler jets</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveDeterminantLift.lean:169"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>D</em> &gt; 0</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">Mersenne–Lambert ladder value identities</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18063"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">value identities, <span class="math inline">$L(\mu){=}\tfrac12$</span>, <span class="math inline"><em>L</em>(<em>φ</em>) = 2</span>, <span class="math inline"><em>L</em>(1)=</span>Erdős–Borwein</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">prime-power reduced-denom. unit-gap ceiling</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:54"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>p</em> prime ∀<em>e</em> &gt; 0</span></td>
 <td style="text-align: left;">farey</td>
 </tr>
 <tr>
 <td style="text-align: left;">positive rational-difference lower bound</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveRationalGapSupply.lean:31"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀ whole pfx : ℚ, pfx &lt; whole</span></td>
 <td style="text-align: left;">n/a (generic)</td>
 </tr>
 <tr>
 <td style="text-align: left;">Möbius-square identity (<span class="math inline">$S=\tfrac12+\Sigma$</span>)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:50"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">unconditional</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">squared-Lambert transfer engine</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:105"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>w</em> : ℕ → ℝ (|<em>w</em>(<em>d</em>)| ≤ <em>d</em>) ∀<em>r</em> ∈ [0, 1)</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
@@ -2408,14 +2356,14 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline"><em>L</em><sub>2</sub>(1) = <em>ζ</em><sub><em>q</em></sub>(2) − <em>ζ</em><sub><em>q</em></sub>(1)</span> identity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:216"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">unconditional</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline"><em>L</em><sub>2</sub>(<em>φ</em>)</span> = gcd moment</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:235"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">unconditional</td>
 <td style="text-align: left;">mobius-mersenne/probability</td>
@@ -2429,329 +2377,329 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">gcd-divisibility factorizes</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:266"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>d</em> : ℕ, <em>d</em> &gt; 0</span></td>
 <td style="text-align: left;">probability</td>
 </tr>
 <tr>
 <td style="text-align: left;">reduced-direction law <span class="math inline"><em>Σ</em> = 1</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:349"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">unconditional (sum over all coprime pairs)</td>
 <td style="text-align: left;">probability</td>
 </tr>
 <tr>
 <td style="text-align: left;">Stern–Brocot cylinder recursion</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:474"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> <em>b</em> : ℕ<sup>+</sup> ∀depth <em>d</em></span></td>
 <td style="text-align: left;">other-stern-brocot</td>
 </tr>
 <tr>
 <td style="text-align: left;">repunit gcd-word T1</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:205"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>r</em> (Squarefree <em>r</em>) ∀<em>k</em> &lt; <em>r</em></span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">eval-at-2 recovers numerator</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:320"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>r</em> (Squarefree <em>r</em>)</span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">radical-shadow scale decomposition</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RadicalMobiusShadow.lean:125"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em> &gt; 0 ∀<em>r</em> &gt; 0</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">cyclotomic congruence T2</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:299"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>r</em> (Squarefree <em>r</em>) ∀<em>m</em> (<em>m</em> ∣ <em>r</em>)</span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">top-fibre survives T3</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:350"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>r</em> (Squarefree <em>r</em>)</span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">upper-half prime channel survival T4</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean:809"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em> ∀<em>p</em> prime ∈ (<em>t</em>/2, <em>t</em>]</span>, scale-coprime-to-<span class="math inline"><em>C</em></span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">denominator lower bound / exact value</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:147"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em></span> (exact-value); <span class="math inline"><em>t</em> ≥ 5</span> (lower bound)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">prime-power jump recurrence T5</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimePowerJumpDynamics.lean:281"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>p</em> prime (<em>p</em> ∤ <em>r</em>) ∀<em>m</em> (<em>m</em> ∣ <em>r</em>)</span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">squared-Mersenne diagonal tail enclosure</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:72"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>D</em> : ℕ</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline">(3, 5)</span> joint annihilator</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/JointExponentTransport.lean:71"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>d</em> &gt; 0 (<em>d</em> ∣ <em>H</em>)</span>; general: finite affine annihilator</td>
 <td style="text-align: left;">other-lcm-diagonal</td>
 </tr>
 <tr>
 <td style="text-align: left;">composite-dilation defect identity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CompositeDilationDefect.lean:30"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ∈ <em>A</em> (<em>a</em> &gt; 0) ∀<em>x</em> &gt; 0</span></td>
 <td style="text-align: left;">other-divisor-support-coeff</td>
 </tr>
 <tr>
 <td style="text-align: left;">sublogarithmic zero-window T11</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SublogDivisorCoverage.lean:392"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>ε</em> &gt; 0 ∃<em>B</em></span>, given rationality of the base-2 support series</td>
 <td style="text-align: left;">other-support-divisor-counting</td>
 </tr>
 <tr>
 <td style="text-align: left;">campbell shift <span class="math inline">↔︎</span> Mersenne endpoint (shared namespace, #257-flavored)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CampbellShiftSynchronization.lean:488"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">iff, no extra parameter</td>
 <td style="text-align: left;">other-greedy-mersenne-achievement</td>
 </tr>
 <tr>
 <td style="text-align: left;">totient overlap-factor multiplicativity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:43"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>x</em> &gt; 0</span> (<span class="math inline"><em>j</em></span> fixed)</td>
 <td style="text-align: left;">other-totient-arithmetic</td>
 </tr>
 <tr>
 <td style="text-align: left;">totient relative-Euler-product split</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:100"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>j</em> <em>x</em> &gt; 0</span></td>
 <td style="text-align: left;">other-totient-arithmetic</td>
 </tr>
 <tr>
 <td style="text-align: left;">lcmRayArithmeticLetter <span class="math inline">=</span> deltaTotient <span class="math inline">=</span> diagonalWindowIncrement</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:298"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em> ∀<em>j</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">lcmDiagonalArithmeticWord <span class="math inline">=</span> windowDiscrepancy</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1998"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em> ∀<em>L</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">#249 <span class="math inline">⇔</span> cofinal actual-orbit nonintegrality</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitNonintegrality.lean:37"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;">iff</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">actualLcmTailOrbit <span class="math inline">=</span> scaled series <span class="math inline">−</span> prefix</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:68"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">explicit finite-block approximation</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:141"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ∀<em>q</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">guard-cylinder normal form</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:844"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> <em>N</em>, iff</span></td>
 <td style="text-align: left;">seam-integer</td>
 </tr>
 <tr>
 <td style="text-align: left;">fixedRankSecondDifference sign under extremality</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:256"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em> <em>j</em></span>, given MiddleRankTotientExtremal</td>
 <td style="text-align: left;">other-fixed-rank-curvature</td>
 </tr>
 <tr>
 <td style="text-align: left;">dyadic fixture exactness (kernel-valuation sharpness)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:462"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>n</em></span> (closed-form)</td>
 <td style="text-align: left;">other-fixed-rank-curvature</td>
 </tr>
 <tr>
 <td style="text-align: left;">parityCoboundaryWeight (def)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:37"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>n</em></span> (definition)</td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">totientTail <span class="math inline">=</span> positive foreign-residue kernel sum</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientShiftedMobiusForeignBridge.lean:52"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em></span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">totientTail <span class="math inline">=</span> shifted Möbius-pulse sum</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientShiftedMobiusPulse.lean:535"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em></span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">Lambert double-sum regroup engine</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientShiftedMobiusPulse.lean:112"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>w</em> <em>v</em> : ℕ → ℝ (|<em>w</em>(<em>d</em>)| ≤ <em>d</em>, |<em>v</em>(<em>m</em>)| ≤ <em>m</em>)</span></td>
 <td style="text-align: left;">cyclotomic</td>
 </tr>
 <tr>
 <td style="text-align: left;">carryShift-integrality iff</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:77"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em> <em>k</em></span>, given tempered orbit</td>
 <td style="text-align: left;">seam-integer</td>
 </tr>
 <tr>
 <td style="text-align: left;">rationality <span class="math inline">⇒</span> periodicity &amp; unbounded rank</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:224"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">¬Irrational <em>S</em> → ∃<em>v</em> <em>u</em> ∀<em>e</em></span></td>
 <td style="text-align: left;">seam-integer</td>
 </tr>
 <tr>
 <td style="text-align: left;">adjugate tail-cost floor <span class="math inline"> ≥ 3</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:266"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀ finite <em>w</em> : <em>ι</em> → ℚ <em>x</em> : <em>ι</em> → ℕ</span>, given <span class="math inline">∑<em>w</em><sub><em>i</em></sub><em>φ</em>(<em>x</em><sub><em>i</em></sub>) = 1</span></td>
 <td style="text-align: left;">other-adjugate-linear-algebra</td>
 </tr>
 <tr>
 <td style="text-align: left;">directedCertifiedKill exact iff</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:766"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> <em>N</em> <em>L</em></span></td>
 <td style="text-align: left;">seam-integer</td>
 </tr>
 <tr>
 <td style="text-align: left;">tempered orbit rigidity iff</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:425"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>c</em> : ℕ → ℕ (<em>c</em>(<em>n</em>) ≤ <em>n</em>)</span>, iff</td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">doubling-orbit rigidity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:314"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>d</em> : ℕ → ℝ</span>, doubling <span class="math inline">+</span> tempered <span class="math inline"> → <em>d</em> ≡ 0</span></td>
 <td style="text-align: left;">other-abstract-recursion</td>
 </tr>
 <tr>
 <td style="text-align: left;">finite-state no-go (unbounded state)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:246"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>m</em> ∀State</span>, collapsing-state <span class="math inline">→</span> no decoder</td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">fixed-depth affine reset</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:306"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> : ℕ → ℤ ∀<em>u</em><sub>0</sub> <em>v</em><sub>0</sub> ∀<em>L</em></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">signed dichotomy engine (full-block certs)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:13606"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>b</em> ≥ 2 ∀<em>c</em> ∀<em>q</em></span>, given full-block certificate at <span class="math inline"><em>q</em></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">Lambert double-sum regroup (dyadic forward-difference calc.)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmFactorIdealPulseObstruction.lean:211"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>f</em>, <em>c</em> : ℕ → ℤ ∀ shift-lists</span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">fair-coin coprimality bridge</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:120"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>n</em></span>; <span class="math inline">∀<em>r</em> ∈ [0, 1)</span></td>
 <td style="text-align: left;">probability</td>
 </tr>
 <tr>
 <td style="text-align: left;">linear-descender rigidity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:120"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>V</em>, <em>W</em> ∀ev ∀<em>L</em></span>, <span class="math inline">ker (ev) ≤ ker (<em>L</em>)</span></td>
 <td style="text-align: left;">p-adic</td>
 </tr>
 <tr>
 <td style="text-align: left;">rational denominator survival law</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RationalDenominatorSurvival.lean:17"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>D</em> &gt; 0 ∀<em>m</em> ∣ <em>D</em> ∀<em>a</em></span></td>
 <td style="text-align: left;">p-adic</td>
 </tr>
 <tr>
 <td style="text-align: left;">scalar-localization complement-dvd (adelic height tax)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:23"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>x</em> : ℚ ∀<em>H</em> (<em>H</em> ∣ <em>x</em>.den) ∀<em>c</em> ((<em>c</em><em>x</em>).den ∣ <em>H</em>)</span></td>
 <td style="text-align: left;">p-adic</td>
 </tr>
 <tr>
 <td style="text-align: left;">signed Hankel terminal-parity engine</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:95"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∃<em>m</em> ∈ <em>s</em></span> (strictly maximal, odd coeff), <span class="math inline">∀<em>i</em> ≠ <em>m</em> <em>e</em>(<em>i</em>) &lt; <em>e</em>(<em>m</em>)</span></td>
 <td style="text-align: left;">p-adic</td>
 </tr>
 <tr>
 <td style="text-align: left;">residual gauge obstruction (locked minors)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:47"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>d</em> ∀<em>e</em> : Fin <em>d</em> → ℕ ∀<em>z</em> : Fin <em>d</em> → ℂ</span> (<span class="math inline"><em>z</em></span> nonzero)</td>
 <td style="text-align: left;">other-first-harmonic-phase</td>
 </tr>
 <tr>
 <td style="text-align: left;">incidence-quotient no compression</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/IncidenceQuotientHermitePade.lean:56"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">uniform</td>
 <td style="text-align: left;"><span class="math inline">∀<em>N</em> : ℕ</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
@@ -2761,7 +2709,7 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">Farey window <span class="math inline"><em>K</em> = 240</span> denominator bound</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>q</em> : ℕ, 0 &lt; <em>q</em>≤</span><br />
 <span class="math inline">79, 639, 646, 646, 701,</span><br />
@@ -2770,21 +2718,21 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">denominator lower bound <span class="math inline"><em>S</em> ≠ <em>p</em>/<em>q</em></span>, <span class="math inline"><em>q</em> ≤ <em>Q</em><sub>0</sub></span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>p</em> : ℚ, <em>p</em>.den ≤ <em>Q</em><sub>0</sub></span></td>
 <td style="text-align: left;">farey</td>
 </tr>
 <tr>
 <td style="text-align: left;">foreign-residue tail-limit converter</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LambertDiagonalEnclosure.lean:31"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em> <em>D</em></span> with <span class="math inline">2<em>H</em> ≤ <em>D</em></span>, given tail-limit convergence</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">fixed-precision tropical no-go</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TropicalCurvatureCarry.lean:137"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>u</em> &gt; 0</span> (fixed precision), <span class="math inline">∀</span> finite carry word</td>
 <td style="text-align: left;">p-adic</td>
@@ -2798,119 +2746,119 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">iterated pullback / bounded-<span class="math inline"><em>Ω</em></span> vanishing</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SupportDilationDifferences.lean:250"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;">given <span class="math inline"><em>Ω</em>(<em>a</em>) ≤ <em>K</em> ∀<em>a</em> ∈ <em>A</em></span></td>
 <td style="text-align: left;">other-support-divisor-counting</td>
 </tr>
 <tr>
 <td style="text-align: left;">rough-density <span class="math inline">⇒</span> totient <span class="math inline">$\ge\tfrac34 n$</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:768"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>n</em> &gt; 0</span> (<span class="math inline"><em>n</em></span> is <span class="math inline"><em>t</em></span>-rough, <span class="math inline"><em>t</em> = 2<sup><em>a</em></sup></span>, <span class="math inline"><em>n</em> &lt; 2<sup>2 ⋅ 2<sup><em>a</em></sup></sup></span>)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">short-window sign fixed positive</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1703"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>j</em> (0 &lt; <em>j</em> &lt; 2 ⋅ 2<sup><em>a</em></sup>)</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">unconditional lower-half positivity</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded<span class="math inline"><sup>†</sup></span></td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> (<em>J</em> + (<em>a</em> + 6) &lt; 2 ⋅ 2<sup><em>a</em></sup>)</span>, no rationality hypothesis</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">top-edge residue survivor negative</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:172"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> <em>K</em></span> (room bound)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">integrality forces top-edge residue</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:211"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> <em>K</em></span> (room, <span class="math inline">2<em>H</em> + <em>J</em> + <em>K</em> + 2 &lt; 2<sup><em>K</em></sup></span>)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">short-kill supply through <span class="math inline"><em>a</em> ≤ 6</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:54"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em><sub>0</sub> ≤ 6 ∃<em>a</em> <em>L</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">terminal dyadic staircase impossible with room</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:251"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> <em>K</em> <em>m</em></span> (room, modulus-wide)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">punctured staircase penultimate pin</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1187"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> <em>K</em> <em>m</em></span> (room <span class="math inline">+</span> punctured hyp.)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">top-edge residue-gap <span class="math inline">⇒</span> nonintegral</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1260"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>J</em> <em>K</em> <em>m</em></span> (room, one-sided)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">odd-rank centred-lift <span class="math inline">=</span> terminal <span class="math inline">−</span> true carry</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1678"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 8 ∀<em>q</em></span> (room, fit bound <span class="math inline">2(<em>H</em> + <em>q</em> + 2) ≤ 4<sup><em>q</em></sup></span>)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">prime-power kernel valuation floor</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:519"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em> ≥ 4 ∀<em>j</em> &gt; 0 (<em>j</em><sup>2</sup> ≤ 2<sup><em>a</em></sup>)</span></td>
 <td style="text-align: left;">other-fixed-rank-curvature</td>
 </tr>
 <tr>
 <td style="text-align: left;">finite rational-separation <span class="math inline">⇒</span> <span class="math inline">¬</span> hit (#257-flavored)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientShiftedMobiusForeignBridge.lean:329"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em> &gt; 0 ∀<em>D</em> ≥ 2<em>H</em></span>, given finite separation</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">homogeneous Mersenne multiplier does not annihilate</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:342"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>K</em>, <em>q</em> (<em>K</em> &gt; 0, <em>K</em> &lt; <em>q</em>, <em>q</em> ∣ 2<sup><em>K</em></sup> − 1)</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">numerator-gap <span class="math inline">⇒</span> <span class="math inline">¬</span> hit (#257-flavored)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LambertProjectedNumeratorGap.lean:23"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>H</em>, <em>D</em></span> fixed, given uniform numerator-gap bound</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">periodic-weight Lambert dichotomy</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:13847"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>b</em> ≥ 2 ∀<em>m</em> &gt; 0 ∀<em>w</em></span> (<span class="math inline"><em>w</em>(<em>n</em> + <em>m</em>) = <em>w</em>(<em>n</em>)</span>)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">non-negative periodic <span class="math inline">⇒</span> irrational (unconditional)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:14255"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">bounded</td>
 <td style="text-align: left;"><span class="math inline">∀<em>b</em> ≥ 2 ∀<em>m</em> &gt; 0</span>, <span class="math inline"><em>w</em></span> periodic, <span class="math inline"> ≥ 0</span>, frequently <span class="math inline"> ≠ 0</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
@@ -2920,42 +2868,49 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">all <span class="math inline"><em>h</em> ∈ [1, 8]</span> kill certificate at depth 16, <span class="math inline"><em>N</em> = 12</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:404"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∈ [1, 8]</span>, <code>certifiedKill</code> <span class="math inline"><em>h</em></span> 12 16 (by <code>decide</code>)</td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline"><em>h</em> ∈ [1, 16]</span>, exponent 14 kill table</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18562"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ∈ [1, 16]</span>, denominator exponent 14 (by <code>decide</code>)</td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">rank-2 kill not shallower at <span class="math inline">(<em>h</em>, <em>N</em>) = (1, 8)</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18762"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;">measured over <span class="math inline"><em>t</em> ≤ 20</span> (30/40 cells)</td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">28-point diagonal pincer table through <span class="math inline"><em>t</em> = 64</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;"><span class="math inline"><em>t</em> ∈ {1, 2, 3, 4, 5, 7, 8, 9, 11, 13, 16, 17, …}</span> (28 explicit values)</td>
 <td style="text-align: left;">other-lcm-diagonal</td>
 </tr>
 <tr>
+<td style="text-align: left;">contiguous diagonal certificate band through <span class="math inline"><em>t</em> ≤ 82</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">bounded</td>
+<td style="text-align: left;"><span class="math inline">∀<em>t</em> ≤ 82 ∃<em>L</em></span>; no <span class="math inline"><em>t</em> = 83</span> certificate claimed</td>
+<td style="text-align: left;">other-lcm-diagonal</td>
+</tr>
+<tr>
 <td style="text-align: left;">short kill at <span class="math inline"><em>a</em> = 4</span> and <span class="math inline"><em>a</em> = 6</span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:18"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;"><span class="math inline"><em>a</em> = 4</span>, <span class="math inline"><em>a</em> = 6</span> (concrete, kernel-checked)</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">square-CRT clean block: vanishing / nonvanishing witnesses</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:285"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;">witness <span class="math inline"><em>n</em> = 52</span> (vanishes); witness <span class="math inline"><em>n</em> = 27</span> (nonzero)</td>
 <td style="text-align: left;">other-crt-dyadic-residue</td>
@@ -2969,7 +2924,7 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;">period-4 zeroset escape witness</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:13898"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fixed</td>
 <td style="text-align: left;"><span class="math inline">∀<em>n</em>, <em>n</em> ≡ 3   (mod  4)</span> (fixed weight <span class="math inline"><em>w</em></span>)</td>
 <td style="text-align: left;">mobius-mersenne</td>
@@ -2982,112 +2937,112 @@ an `cofinal` statement in the exponent $`a`$ that indexes $`H=\mathrm{periodLcm}
 </tr>
 <tr>
 <td style="text-align: left;"><strong>THE WALL</strong> — certificate supply <span class="math inline">⇒</span> Irrational <span class="math inline"><em>S</em></span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><strong>cofinal</strong></td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> ≥ 1 ∀<em>N</em><sub>0</sub> ≥ 0 ∃<em>N</em> ≥ <em>N</em><sub>0</sub> ∃<em>L</em>, <code>certifiedKill</code> <em>h</em> <em>N</em> <em>L</em></span></td>
 <td style="text-align: left;">other-binary-window</td>
 </tr>
 <tr>
 <td style="text-align: left;">multiple-certificate supply (weakened)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:502"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em><sub>0</sub> &gt; 0 ∀<em>N</em><sub>0</sub> ∃<em>m</em> &gt; 0 ∃<em>N</em> ≥ <em>N</em><sub>0</sub> ∃<em>L</em></span></td>
 <td style="text-align: left;">other-lcm-period-multiple</td>
 </tr>
 <tr>
 <td style="text-align: left;">LCM-diagonal one-parameter restatement</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:112"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em><sub>0</sub> ∃<em>t</em> ≥ <em>t</em><sub>0</sub> ∃<em>L</em></span></td>
 <td style="text-align: left;">other-lcm-diagonal</td>
 </tr>
 <tr>
 <td style="text-align: left;">LCM-cone window-kill supply (widest target)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18686"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em><sub>0</sub> ∃<em>t</em> ≥ <em>t</em><sub>0</sub> ∃<em>q</em> &gt; 0 ∃<em>m</em> ∃<em>L</em></span></td>
 <td style="text-align: left;">other-lcm-cone</td>
 </tr>
 <tr>
 <td style="text-align: left;">LCM diagonal/cone nonintegrality restatement</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18706"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em><sub>0</sub> ∃<em>t</em> ≥ <em>t</em><sub>0</sub></span>, <span class="math inline"><code>totientTail</code>(2<em>H</em><sub><em>t</em></sub>) − <code>totientTail</code>(<em>H</em><sub><em>t</em></sub>) ∉ ℤ</span></td>
 <td style="text-align: left;">other-real-analytic-nonintegrality</td>
 </tr>
 <tr>
 <td style="text-align: left;">LCM cone-nonflat supply (sharpest depth-reduced form)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18812"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∃</span> unbounded-scale menu <span class="math inline"><em>Q</em></span> with <code>coneNonflatCert</code> firing</td>
 <td style="text-align: left;">other-lcm-cone-menu</td>
 </tr>
 <tr>
 <td style="text-align: left;">first-harmonic norm-gap supply</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> &gt; 0 ∀<em>X</em><sub>0</sub> ∃<em>X</em> ≥ max (<em>X</em><sub>0</sub>, 1) ∃<em>L</em></span>, room <span class="math inline">16(2<em>X</em> + <em>h</em> + <em>L</em> + 2) ≤ 2<sup><em>L</em></sup></span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">prime-jump sharp-kill supply</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:193"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>t</em><sub>0</sub> ∃<em>t</em> ≥ <em>t</em><sub>0</sub> ∃<em>p</em>, <em>L</em> &gt; 0</span></td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline"><em>a</em></span>-exponent short-arithmetic kill supply (the open trigger)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:2107"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em><sub>0</sub> ∃<em>a</em> <em>L</em>, <em>a</em><sub>0</sub> ≤ <em>a</em> ∧ <em>L</em> &lt; 2 ⋅ 2<sup><em>a</em></sup></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">actual-orbit separation supply</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:305"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;">cofinal <span class="math inline">1/32+</span>error separation at guarded odd ranks</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">top-edge-residue-gap sufficiency chain (5 links, weakest first)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2221"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>a</em><sub>0</sub> ∃<em>a</em> ≥ <em>a</em><sub>0</sub> ∃⟨supply predicate⟩</span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">rational countermodel refutes {bound,parity,aperiodicity}</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:637"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∃<em>c</em> : ℕ → ℕ</span>, <span class="math inline"><em>c</em> ≤ 6</span>, <span class="math inline"><em>c</em> ≤ <em>n</em></span>, <span class="math inline"><em>c</em> ≡ <em>φ</em>   (mod  2)</span>, arbitrarily-separated blocks</td>
 <td style="text-align: left;">binary-digit</td>
 </tr>
 <tr>
 <td style="text-align: left;">mod-4 pulse cofinal supply (via CRT+Dirichlet)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:384"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>h</em> &gt; 0 ∀<em>B</em> ∃prime <em>p</em> &gt; <em>B</em></span></td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">mod-4 pulse survivor kill (fourfold reduction)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:1066"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;">given CP-05’s cofinal supply</td>
 <td style="text-align: left;">mobius-mersenne</td>
 </tr>
 <tr>
 <td style="text-align: left;">two-adic pulse at arbitrary depth <span class="math inline"><em>K</em></span></td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:54"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>K</em> ≥ 2 ∀<em>H</em> &gt; <em>K</em> ∀<em>B</em> ∃cofinally many primes <em>p</em> &gt; <em>B</em></span></td>
 <td style="text-align: left;">p-adic</td>
 </tr>
 <tr>
 <td style="text-align: left;">two-adic pulse transfer (needs eventual integrality)</td>
-<td style="text-align: left;"><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:327"><span class="smallcaps">Lean source</span></a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">cofinal</td>
 <td style="text-align: left;"><span class="math inline">∀<em>K</em> ≥ 2</span>, given TA-01 pulse <span class="math inline">+</span> eventual integrality</td>
 <td style="text-align: left;">p-adic</td>
@@ -3101,13 +3056,13 @@ $`^\dagger`$ The source normal-form table tags `actualLcmTailDiff_shift_pos` <sp
 
 ## Checked negative result: no free promotion from bounded to cofinal
 
-A ladder like the one above invites an obvious question: is any <span class="sans-serif">scale:bounded</span> result actually uniform in disguise, so that removing its threshold is a routine generalisation rather than new mathematics? This was checked directly rather than assumed. An audit read the Lean proof body behind every bounded-scale result in the \#249 corpus — eighteen candidates in total, spanning the near-miss list against the \#249-supply obligation catalogued in the interface index (fourteen rows, each independently checked against the exact cofinal target it is closest to) together with the remaining bounded/fixed rows in the certificate, Möbius–Lambert, and private-totient banks above — and found **no** bounded result whose proof is uniform enough in its threshold parameter to promote to cofinal or uniform for free. Every candidate failed for one of three reasons, and the failure mode is worth recording because it is a checked negative result, not an absence of search:
+A ladder like the one above invites an obvious question: is any <span class="sans-serif">scale:bounded</span> result actually uniform in disguise, so that removing its threshold is a routine generalisation rather than new mathematics? This was checked directly rather than assumed. An audit read the Lean proof body behind every bounded-scale result in the \#249 corpus — eighteen candidates in total, spanning the near-miss list against the \#249-supply obligation catalogued in the interface index (fourteen rows, each independently checked against the exact cofinal target it is closest to) together with the remaining bounded/fixed rows in the certificate, Möbius–Lambert, and actual-orbit banks above — and found **no** bounded result whose proof is uniform enough in its threshold parameter to promote to cofinal or uniform for free. Every candidate failed for one of three reasons, and the failure mode is worth recording because it is a checked negative result, not an absence of search:
 
-1.  **Finite certificate tables.** Results such as [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842) (28 explicit values of $`t`$ through $`t{=}64`$), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:404) ($`h\in[1,8]`$ at fixed depth 16), and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18562) ($`h\in[1,16]`$ at exponent 14) are each a finite *list* of independently verified rows, not a single argument instantiated at a free parameter. There is no uniform proof underneath to strip the bound from; each new row is a fresh finite computation.
+1.  **Finite certificate tables.** Results such as (28 explicit values of $`t`$ through $`t{=}64`$, now a strict subset of the aggregate $`\forall t\le82`$ band), ($`h\in[1,8]`$ at fixed depth 16), and ($`h\in[1,16]`$ at exponent 14) are each a finite *list* of independently verified rows, not a single argument instantiated at a free parameter. There is no uniform proof underneath to strip the bound from; each new row is a fresh finite computation.
 
-2.  **`interval_cases`/`decide` over a bounded range.** Results such as [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:768) ($`a{\ge}8`$) and the entire [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39)/top-edge-staircase family (room conditions of the shape $`J{+}(a{+}6){<}2\cdot2^a`$) are proved by case-splitting a residue or a divisor structure that is only exhaustively enumerable inside the stated range; the mathematical content genuinely narrows as the range widens, so `decide` cannot simply be re-run at a larger bound without an exponential blow-up in the search space it certifies.
+2.  **`interval_cases`/`decide` over a bounded range.** Results such as ($`a{\ge}8`$) and the entire /top-edge-staircase family (room conditions of the shape $`J{+}(a{+}6){<}2\cdot2^a`$) are proved by case-splitting a residue or a divisor structure that is only exhaustively enumerable inside the stated range; the mathematical content genuinely narrows as the range widens, so `decide` cannot simply be re-run at a larger bound without an exponential blow-up in the search space it certifies.
 
-3.  **Constants that degrade with the parameter.** The clearest instance is the echo-versus-height wall (prose:echo_versus_height_two_front_wall, §5e–5f of the ambitious-modular-route note): height-optimal ladder families pay quadratic height $`P(1)\sim 2^{K^2/2}`$ matching [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:147)’s own growth rate, while height-minimal integer-relation minimizers regrow the echo term $`E_R`$ to match — for every tested family, the two costs cannot both be driven to zero as the scale parameter grows. The interface index records the same phenomenon for `HalfRung`$`(J)`$-shaped truncation rungs: the certificate window $`B(J)`$ is driven by $`L_J=\mathrm{lcm}(2,\dots,J)`$, which grows super-exponentially in $`J`$, so the per-$`J`$ constant degrades with the very parameter the cofinal claim needs to range over — “the hallmark of a proof that does not survive bound removal” (interface index, row `d-3a/d-3b`).
+3.  **Constants that degrade with the parameter.** The clearest instance is the echo-versus-height wall (prose:echo_versus_height_two_front_wall, §5e–5f of the ambitious-modular-route note): height-optimal ladder families pay quadratic height $`P(1)\sim 2^{K^2/2}`$ matching ’s own growth rate, while height-minimal integer-relation minimizers regrow the echo term $`E_R`$ to match — for every tested family, the two costs cannot both be driven to zero as the scale parameter grows. The interface index records the same phenomenon for `HalfRung`$`(J)`$-shaped truncation rungs: the certificate window $`B(J)`$ is driven by $`L_J=\mathrm{lcm}(2,\dots,J)`$, which grows super-exponentially in $`J`$, so the per-$`J`$ constant degrades with the very parameter the cofinal claim needs to range over — “the hallmark of a proof that does not survive bound removal” (interface index, row `d-3a/d-3b`).
 
 None of the fourteen near-miss rows against the \#249-supply obligation is closed by a scale argument alone either: reading each one’s own recorded `exact_mismatch` shows the residual gap is a missing *arithmetic input* (a constant-saving Weyl-sum bound for `e1-companion`; a one-sided top-edge residue gap for `TE-04`/`TE-05-weakest`; an unbounded finite-rank compression on the rationality side for `d4/d5`), never a generalisable proof technique sitting one `omega` call away from cofinal. The one row where the source tag itself is imprecise — `SGN-01`, marked <span class="sans-serif">scale:bounded</span> even though its underlying exponent $`a`$ is unbounded, see $`^\dagger`$ above — is precisely the kind of false positive the audit was built to catch, and even there what remains open is the *other* half of the certificate band (the top-edge residue), not a scale defect in SGN-01 itself.
 
@@ -3123,21 +3078,21 @@ $`S`$ as the literal base-2 expansion object: `totientTail`, `windowDiscrepancy`
 ``` math
 S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}=\frac12+\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}
 ```
-proved by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:50) (consumed at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquaredMersenneDiagonalEnclosure.lean:72)) turns every binary-digit statement about $`S`$ into a statement about a squared Möbius–Mersenne Lambert series, and back.
+proved by (consumed at ) turns every binary-digit statement about $`S`$ into a statement about a squared Möbius–Mersenne Lambert series, and back.
 
-$`S`$ as $`\tfrac12+\sum_d\mu(d)/(2^d-1)^2`$, the Lambert ladder $`L(w)=\sum_n w(n)/(2^n-1)`$ at $`w=\mu,1,\varphi`$, and the whole cyclotomic denominator-survival chain built on it. *Transport to cyclotomic:* evaluating the Möbius-numerator polynomial at $`x=2`$, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:320) together with the definition [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RadicalMobiusShadow.lean:101), moves the squared-denominator question into finite cyclotomic-polynomial arithmetic over $`\mathbb{Z}`$.
+$`S`$ as $`\tfrac12+\sum_d\mu(d)/(2^d-1)^2`$, the Lambert ladder $`L(w)=\sum_n w(n)/(2^n-1)`$ at $`w=\mu,1,\varphi`$, and the whole cyclotomic denominator-survival chain built on it. *Transport to cyclotomic:* evaluating the Möbius-numerator polynomial at $`x=2`$, together with the definition , moves the squared-denominator question into finite cyclotomic-polynomial arithmetic over $`\mathbb{Z}`$.
 
-$`S-\tfrac12=\Pr(\gcd(X,Y)=1)`$ for independent fair-coin waiting times $`X,Y`$. *Transport from mobius-mersenne:* the gcd-divisibility factorisation [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:266) ($`\Pr(d\mid X\wedge d\mid Y)=1/(2^d-1)^2`$) together with the reduced-direction law [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:349) converts the squared-Lambert sum into a probability mass, and the independently-built [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GeometricCoprimality.lean:120) gives the same bridge from the totient generating function directly.
+$`S-\tfrac12=\Pr(\gcd(X,Y)=1)`$ for independent fair-coin waiting times $`X,Y`$. *Transport from mobius-mersenne:* the gcd-divisibility factorisation ($`\Pr(d\mid X\wedge d\mid Y)=1/(2^d-1)^2`$) together with the reduced-direction law converts the squared-Lambert sum into a probability mass, and the independently-built gives the same bridge from the totient generating function directly.
 
-The T1–T6 chain: `mobiusNumeratorPolynomial`, its coefficients (an exact divisor-counting formula, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:217)), cyclotomic-value survival ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CyclotomicProjectionOfShadow.lean:389)), and prime-power jump dynamics. *Transport to mobius-mersenne (denominator growth):* the upper-half prime-channel survival theorem [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean:809) feeds directly into the exact denominator-growth formula [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:147) in the Möbius–Mersenne coordinate.
+The T1–T6 chain: `mobiusNumeratorPolynomial`, its coefficients (an exact divisor-counting formula, ), cyclotomic-value survival (), and prime-power jump dynamics. *Transport to mobius-mersenne (denominator growth):* the upper-half prime-channel survival theorem feeds directly into the exact denominator-growth formula in the Möbius–Mersenne coordinate.
 
-Fixed and growing 2-adic valuation-unit dynamics: the adelic height/denominator-tax law, the tropical fixed-precision no-go, the signed-Hankel terminal-parity engine, the two-adic pulse-block construction. *Transport to farey:* the scalar-localisation complement-dvd law [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:23) together with the Mersenne-height corollary [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:103) ($`2^r\mid|x.\mathrm{num}|\wedge x<2/(2^n-1)\Rightarrow 2^r(2^n-1)<2\cdot x.\mathrm{den}`$) is exactly a denominator lower bound of the same shape the Farey coordinate proves directly.
+Fixed and growing 2-adic valuation-unit dynamics: the adelic height/denominator-tax law, the tropical fixed-precision no-go, the signed-Hankel terminal-parity engine, the two-adic pulse-block construction. *Transport to farey:* the scalar-localisation complement-dvd law together with the Mersenne-height corollary ($`2^r\mid|x.\mathrm{num}|\wedge x<2/(2^n-1)\Rightarrow 2^r(2^n-1)<2\cdot x.\mathrm{den}`$) is exactly a denominator lower bound of the same shape the Farey coordinate proves directly.
 
-Unimodular denominator exclusion: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51) and the committed $`K{=}240`$ window certificate [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176) giving $`S\ne p/q`$ for every $`q\le Q_0\approx7.96\times10^{34}`$. *Transport to binary-digit:* the window bound is built directly from a committed $`2^{240}`$-scale totient residue $`V`$ for the window $`(N,K)=(1,240)`$ — a binary-digit object — via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225), which shows the bound is sharp at exactly the mediant $`b_K+d_K`$.
+Unimodular denominator exclusion: and the committed $`K{=}240`$ window certificate giving $`S\ne p/q`$ for every $`q\le Q_0\approx7.96\times10^{34}`$. *Transport to binary-digit:* the window bound is built directly from a committed $`2^{240}`$-scale totient residue $`V`$ for the window $`(N,K)=(1,240)`$ — a binary-digit object — via , which shows the bound is sharp at exactly the mediant $`b_K+d_K`$.
 
-The `periodLcm`/LCM-diagonal/LCM-cone family: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:515), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18613), the multiplicative ray split, and the cone-flatness/cone-nonflat producers. *Transport to binary-digit:* the identity [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:298) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:310) identifies the LCM-ray letter literally with a `deltaTotient`/`windowDiscrepancy` value, so every LCM-orbit statement is, term for term, a binary-digit statement in disguise.
+The `periodLcm`/LCM-diagonal/LCM-cone family: , , the multiplicative ray split, and the cone-flatness/cone-nonflat producers. *Transport to binary-digit:* the identity and identifies the LCM-ray letter literally with a `deltaTotient`/`windowDiscrepancy` value, so every LCM-orbit statement is, term for term, a binary-digit statement in disguise.
 
-Weyl-sum block cancellation over the totient window discrepancy: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83) and the unconditional companion at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128) (any constant-saving cancellation, via $`\cos(\pi/8)>9/10`$ plus pigeonhole, forces a finite kill certificate). *Transport to binary-digit:* by construction the exponential sum is literally $`\sum_N \cos\bigl(2\pi\cdot(\texttt{windowDiscrepancy}\ h\ N\ L \bmod 2^L)/2^L\bigr)`$ — a first-harmonic statistic *of* the binary-digit residue, so a norm-gap in this coordinate is definitionally a statement about `windowDiscrepancy`.
+Weyl-sum block cancellation over the totient window discrepancy: and the unconditional companion at (any constant-saving cancellation, via $`\cos(\pi/8)>9/10`$ plus pigeonhole, forces a finite kill certificate). *Transport to binary-digit:* by construction the exponential sum is literally $`\sum_N \cos\bigl(2\pi\cdot(\texttt{windowDiscrepancy}\ h\ N\ L \bmod 2^L)/2^L\bigr)`$ — a first-harmonic statistic *of* the binary-digit residue, so a norm-gap in this coordinate is definitionally a statement about `windowDiscrepancy`.
 
 </div>
 
@@ -3145,9 +3100,9 @@ Weyl-sum block cancellation over the totient window discrepancy: [<span class="s
 
 ## Obstructions are coordinate-relative: the binary-digit vs. Möbius–Mersenne case
 
-The clearest instance of coordinate-relative obstruction in the whole \#249 corpus is the fate of the classical Erdős (1948) near-integer digit method. That method needs, in essence, a finite automaton: a bounded amount of state carried forward from one digit block to the next, so that the value of a far-away digit block can be recovered from a bounded summary of everything before it. In the binary-digit coordinate this is exactly what fails, and it fails as a proved Lean theorem, not a heuristic remark: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:246) shows that for a balanced-pulse family of radius $`m`$, any finite `State` type collapsing the family to a single autonomous summary must satisfy $`|\mathrm{State}|\ge\lfloor m/2\rfloor+2`$ — unbounded in $`m`$ — so no finite-state decoder can recover the shift $`r`$ from its collapsed state (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, coordinate `binary-digit`). This is the formal shadow of the classical fact that Euler’s totient function has $`\varphi(n)=\Theta(n)`$ (average order $`\tfrac6{\pi^2}n`$, elementary; <span class="sans-serif">\[Math\]</span>) rather than being bounded or sparse: the digit-window discrepancy `windowDiscrepancy`$`\,h\,N\,L`$ genuinely needs $`\Omega(m)`$ bits of state to track as $`N`$ grows, which is exactly why \#249’s own binary-digit engine is forced into a *cofinal certificate supply* ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394)) rather than a single finite-state argument: the same shape of no-go recurs at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:47) (locked gauge defeats residual-blind rank certificates for the first-harmonic pivot) and at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900) (the dyadic totient-kernel span is genuinely infinite-rank, not compressible to any fixed dimension).
+The clearest instance of coordinate-relative obstruction in the whole \#249 corpus is the fate of the classical Erdős (1948) near-integer digit method. That method needs, in essence, a finite automaton: a bounded amount of state carried forward from one digit block to the next, so that the value of a far-away digit block can be recovered from a bounded summary of everything before it. In the binary-digit coordinate this is exactly what fails, and it fails as a proved Lean theorem, not a heuristic remark: shows that for a balanced-pulse family of radius $`m`$, any finite `State` type collapsing the family to a single autonomous summary must satisfy $`|\mathrm{State}|\ge\lfloor m/2\rfloor+2`$ — unbounded in $`m`$ — so no finite-state decoder can recover the shift $`r`$ from its collapsed state (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>, coordinate `binary-digit`). This is the formal shadow of the elementary facts that $`0\le\varphi(n)\le n`$, that $`\varphi`$ is unbounded, and that $`\varphi`$ has average order $`\tfrac6{\pi^2}n`$, equivalently $`\sum_{k\le x}\varphi(k)\sim\tfrac3{\pi^2}x^2`$ (<span class="sans-serif">\[Math\]</span>), rather than any false pointwise estimate $`\varphi(n)=\Theta(n)`$: the digit-window discrepancy `windowDiscrepancy`$`\,h\,N\,L`$ genuinely needs $`\Omega(m)`$ bits of state to track as $`N`$ grows, which is exactly why \#249’s own binary-digit engine is forced into a *cofinal certificate supply* () rather than a single finite-state argument: the same shape of no-go recurs at (locked gauge defeats residual-blind rank certificates for the first-harmonic pivot) and at (the dyadic totient-kernel span is genuinely infinite-rank, not compressible to any fixed dimension).
 
-The Möbius–Mersenne coordinate does not carry this obstruction, because it is built on a coefficient sequence, $`\mu(d)\in\{-1,0,1\}`$, that is bounded rather than growing with $`d`$. The squared-Lambert transfer engine [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GcdMomentCalculus.lean:105) takes any weight with $`|w(d)|\le d`$ — $`\mu`$ trivially qualifies with room to spare — and converts it into a divisor-convolution power series for free; no finite-state decoder is ever needed because the relevant recursion (the cyclotomic T1–T6 chain: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RepunitMobiusNumerator.lean:205) through [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimePowerJumpDynamics.lean:281)) is a finite, exact polynomial identity at every squarefree radical $`r`$, uniform in $`r`$, with no growth-driven state explosion. This is precisely why the corpus’s strongest *unconditional* denominator result — the exact-value and lower-bound formulas of [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:147) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:60) — lives entirely in the Möbius–Mersenne coordinate and is scale-`uniform`, while the sharpest *conditional* route in the binary-digit coordinate is scale-`cofinal` and unclosed. The two coordinates are not equivalent representations of the same difficulty: the wall each one hits is a fact about that coordinate’s own state-growth, not about \#249 itself, which is exactly the AP17/AP18 discipline this corpus was built to enforce — before reporting an obstruction, name the coordinate it was measured in, and test whether a re-representation removes it.
+The Möbius–Mersenne coordinate does not carry this obstruction, because it is built on a coefficient sequence, $`\mu(d)\in\{-1,0,1\}`$, that is bounded rather than growing with $`d`$. The squared-Lambert transfer engine takes any weight with $`|w(d)|\le d`$ — $`\mu`$ trivially qualifies with room to spare — and converts it into a divisor-convolution power series for free; no finite-state decoder is ever needed because the relevant recursion (the cyclotomic T1–T6 chain: through ) is a finite, exact polynomial identity at every squarefree radical $`r`$, uniform in $`r`$, with no growth-driven state explosion. This is precisely why the corpus’s strongest *unconditional* denominator result — the exact-value and lower-bound formulas of and — lives entirely in the Möbius–Mersenne coordinate and is scale-`uniform`, while the sharpest *conditional* route in the binary-digit coordinate is scale-`cofinal` and unclosed. The two coordinates are not equivalent representations of the same difficulty: the wall each one hits is a fact about that coordinate’s own state-growth, not about \#249 itself, which is exactly the AP17/AP18 discipline this corpus was built to enforce — before reporting an obstruction, name the coordinate it was measured in, and test whether a re-representation removes it.
 
 <a id="interface-index-what-stands-between-the-corpus-and-a-proof"></a>
 
@@ -3164,7 +3119,7 @@ Every entry follows the same discipline. **Yields**: the exact statement proved,
 Each numbered claim carries three tags. <span class="sans-serif">scale:fixed</span> means proved at finitely many explicit numerals with no argument in the growing parameter; <span class="sans-serif">scale:bounded</span> means proved on a bounded range of a parameter that is itself unbounded elsewhere in the statement; <span class="sans-serif">scale:uniform</span> means proved for *every* value of the relevant parameter (the strongest positive tag short of matching the open target); <span class="sans-serif">scale:cofinal</span> means the statement itself has the shape $`\forall a_0\ \exists a\ge
 a_0`$, i.e. it is exactly the quantifier shape the open obligation needs; <span class="sans-serif">scale:n/a</span> applies to structural non-existence results with no growing parameter. The evidence tags are <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">\[Cert\]</span>, <span class="sans-serif">\[Math\]</span>, <span class="sans-serif">\[Cited\]</span>, <span class="sans-serif">\[Open\]</span>, used exactly as defined in Part I.
 
-The canonical open obligation for \#249, proved in Part II to be sufficient ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean)), is the **249-supply** obligation:
+The canonical open obligation for \#249, proved in Part II to be sufficient (), is the **249-supply** obligation:
 ``` math
 \forall h \ge 1,\ \forall N_0,\ \exists N \ge N_0,\ \exists L,\ \mathtt{certifiedKill}\ h\ N\ L .
 ```
@@ -3178,41 +3133,41 @@ The following two definitions, verified against the live Lean tree in this sessi
 
 <div class="defn">
 
-**Definition 212** (Window discrepancy). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66). For $`h,N,L\in\mathbb N`$,
+**Definition 212** (Window discrepancy). . For $`h,N,L\in\mathbb N`$,
 ``` math
 A_{h,N,L} \;=\; \sum_{j=0}^{L-1} \bigl(\varphi(N+h+1+j) - \varphi(N+1+j)\bigr)\cdot 2^{\,L-1-j}
   \ \in \mathbb Z .
 ```
-This is the depth-$`L`$ truncation of $`2^L\cdot(R_{N+h}-R_N)`$, where $`R_N = \sum_{j\ge 1}\varphi(N+j)/2^j`$ is the local totient tail ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:57)).
+This is the depth-$`L`$ truncation of $`2^L\cdot(R_{N+h}-R_N)`$, where $`R_N = \sum_{j\ge 1}\varphi(N+j)/2^j`$ is the local totient tail ().
 
 </div>
 
 <div class="defn">
 
-**Definition 213** (Certified kill). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72).
+**Definition 213** (Certified kill). .
 ``` math
 \mathtt{certifiedKill}\ h\ N\ L \;:\Leftrightarrow\;
   (N{+}h{+}L{+}2) < A_{h,N,L}\bmod 2^L < 2^L - (N{+}h{+}L{+}2).
 ```
-That is: the residue of $`A_{h,N,L}`$ modulo $`2^L`$ avoids the radius-$`(N{+}h{+}L{+}2)`$ neighbourhood of $`0`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79) records the necessary room condition this forces: $`2(N{+}h{+}L{+}2) < 2^L`$.
+That is: the residue of $`A_{h,N,L}`$ modulo $`2^L`$ avoids the radius-$`(N{+}h{+}L{+}2)`$ neighbourhood of $`0`$. records the necessary room condition this forces: $`2(N{+}h{+}L{+}2) < 2^L`$.
 
 </div>
 
 <div class="defn">
 
-**Definition 214** (First-harmonic real and complex characters). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:27) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:38):
+**Definition 214** (First-harmonic real and complex characters). and :
 ``` math
 \mathtt{windowFirstCos}\ h\ N\ L = \cos\!\Bigl(2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr),\qquad
   \mathtt{windowFirstExp}\ h\ N\ L = \exp\!\Bigl(i\,2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:42) records $`\mathrm{Re}(\mathtt{windowFirstExp})
-= \mathtt{windowFirstCos}`$ and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:48) that $`\|\mathtt{windowFirstExp}\,h\,N\,L\| = 1`$: this is literally the first additive character of the endpoint discrepancy modulo $`2^L`$, a standard exponential-sum object.
+records $`\mathrm{Re}(\mathtt{windowFirstExp})
+= \mathtt{windowFirstCos}`$ and that $`\|\mathtt{windowFirstExp}\,h\,N\,L\| = 1`$: this is literally the first additive character of the endpoint discrepancy modulo $`2^L`$, a standard exponential-sum object.
 
 </div>
 
 <div id="thm:hgap-real" class="thm">
 
-**Theorem 215** (Real-part certificate consumer). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. <span class="sans-serif">coord:first-harmonic</span>. For all $`h,X,L`$ with $`0<X`$ and the room condition $`16(2X{+}h{+}L{+}2)\le 2^L`$, if
+**Theorem 215** (Real-part certificate consumer). *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. <span class="sans-serif">coord:first-harmonic</span>. For all $`h,X,L`$ with $`0<X`$ and the room condition $`16(2X{+}h{+}L{+}2)\le 2^L`$, if
 ``` math
 \sum_{N=X}^{2X-1} \mathtt{windowFirstCos}\ h\ N\ L \;\le\; \tfrac{9}{10}\,X ,
 ```
@@ -3222,7 +3177,7 @@ then $`\exists N\in[X,2X)`$ with $`\mathtt{certifiedKill}\ h\ N\ L`$.*
 
 <div id="thm:hgap-subset" class="thm">
 
-**Theorem 216** (Subset consumer — no density or partition hypothesis). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:104). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. <span class="sans-serif">coord:first-harmonic</span>. For any nonempty finite $`T\subseteq\mathbb N`$ with $`T\subset[0,2X)`$ and the same room condition, if
+**Theorem 216** (Subset consumer — no density or partition hypothesis). *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. <span class="sans-serif">coord:first-harmonic</span>. For any nonempty finite $`T\subseteq\mathbb N`$ with $`T\subset[0,2X)`$ and the same room condition, if
 ``` math
 \sum_{N\in T} \mathtt{windowFirstCos}\ h\ N\ L \;\le\; \tfrac{9}{10}\,|T| ,
 ```
@@ -3232,7 +3187,7 @@ then $`\exists N\in T`$ with $`\mathtt{certifiedKill}\ h\ N\ L`$. This is strict
 
 <div id="thm:hgap-norm" class="thm">
 
-**Theorem 217** (Complex norm consumer and the open producer). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:53) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83). <span class="sans-serif">\[Lean\]</span> for both implications; the hypothesis $`DTWFirstHarmonicNormGap`$ is <span class="sans-serif">\[Open\]</span>. The complex norm bound is strictly stronger than the real-part bound ($`|z|\ge\mathrm{Re}(z)`$, and $`21/25 < 9/10`$ absorbs the slack), so it composes through Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a> to the same certificate. Define
+**Theorem 217** (Complex norm consumer and the open producer). *and . <span class="sans-serif">\[Lean\]</span> for both implications; the hypothesis $`DTWFirstHarmonicNormGap`$ is <span class="sans-serif">\[Open\]</span>. The complex norm bound is strictly stronger than the real-part bound ($`|z|\ge\mathrm{Re}(z)`$, and $`21/25 < 9/10`$ absorbs the slack), so it composes through Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a> to the same certificate. Define
 ``` math
 \mathtt{DTWFirstHarmonicNormGap} :\Leftrightarrow\;
   \forall h{>}0\ \forall X_0\ \exists X, L,\ \max(X_0,1)\le X\ \wedge\ 16(2X{+}h{+}L{+}2)\le 2^L\ \wedge
@@ -3245,13 +3200,13 @@ then $`\exists N\in T`$ with $`\mathtt{certifiedKill}\ h\ N\ L`$. This is strict
 \mathtt{DTWFirstHarmonicNormGap} \;\Longrightarrow\; \mathrm{Irrational}\Bigl(\sum_{n\ge 0}
   \tfrac{\varphi(n)}{2^n}\Bigr),
 ```
-proved in full, with no further gap, by chaining Theorem <a href="#thm:hgap-norm" data-reference-type="ref" data-reference="thm:hgap-norm">217</a>$`\to`$Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a>$`\to`$ [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean).*
+proved in full, with no further gap, by chaining Theorem <a href="#thm:hgap-norm" data-reference-type="ref" data-reference="thm:hgap-norm">217</a>$`\to`$Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a>$`\to`$ .*
 
 </div>
 
 <div id="obs:no-instance" class="obs">
 
-*Observation 218* (The exact negative). No instance of $`\mathtt{DTWFirstHarmonicNormGap}`$’s hypothesis, nor of $`hgap`$ in Theorems <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a>–<a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>, is proved anywhere in the corpus, at any $`h`$, $`X`$, $`L`$. <span class="sans-serif">\[Open\]</span> is exact, not conservative rounding. The two consumer theorems that *use* the subset form (Theorem <a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>) are conditional consumers, not a supply: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdjacentPhaseSeparation.lean:267) instantiates $`T`$ as the explicit two-element set $`\{N,M\}`$ (`apply exists_certifiedKill_of_first_harmonic_gap_subset ({N, M} : Finset ℕ)`), and both call sites in [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:851) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.lean:1541) likewise apply it to a finite explicit pair, never to an infinite or growing family. There is no theorem anywhere in the corpus that discharges $`hgap`$ at a single instance, let alone cofinally.
+*Observation 218* (The exact negative). No instance of $`\mathtt{DTWFirstHarmonicNormGap}`$’s hypothesis, nor of $`hgap`$ in Theorems <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">215</a>–<a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>, is proved anywhere in the corpus, at any $`h`$, $`X`$, $`L`$. <span class="sans-serif">\[Open\]</span> is exact, not conservative rounding. The two consumer theorems that *use* the subset form (Theorem <a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>) are conditional consumers, not a supply: instantiates $`T`$ as the explicit two-element set $`\{N,M\}`$ (`apply exists_certifiedKill_of_first_harmonic_gap_subset ({N, M} : Finset Nat)`). The two call sites in and use, respectively, an arbitrary supplied finite set $`T`$ and the explicit singleton $`\{N\}`$; neither call site supplies such a set or discharges its harmonic-gap hypothesis. There is no theorem anywhere in the corpus that discharges $`hgap`$ at a single instance, let alone cofinally.
 
 </div>
 
@@ -3263,7 +3218,7 @@ First, the saving required is a *constant*, not $`o(X)`$: $`21/25`$ (complex nor
 
 Second, the room condition $`16(2X{+}h{+}L{+}2)\le 2^L`$ forces only $`L \gtrsim \log_2 X + 5`$, which is satisfiable for every $`X`$ by simply taking $`L`$ large enough (the depth floor grows logarithmically in $`X`$, not polynomially); no scale obstruction of the kind documented elsewhere in this paper (e.g. the $`\sqrt{2\log_2 N}`$ silent-position defect for \#257, Part I) stands in the way of the producer’s own room requirement.
 
-Third, the subset form (Theorem <a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>) removes even the requirement that the cancellation happen on the whole dyadic block or a positive-density subset of it: any single explicitly named finite $`T`$ with the averaged bound would do. In particular a supplier-fibre or sparse-subsequence argument — e.g. picking $`N`$ to be one less than a prime, as the exact pivot algebra in [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean) already sets up via `pivotArgument`, `pivotPrime`, `pivotSupplierBases` — is a legitimate route to this obligation and does not need to control the discrepancy on a full interval.
+Third, the subset form (Theorem <a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">216</a>) removes even the requirement that the cancellation happen on the whole dyadic block or a positive-density subset of it: any single explicitly named finite $`T`$ with the averaged bound would do. In particular a supplier-fibre or sparse-subsequence argument — e.g. picking $`N`$ to be one less than a prime, as the exact pivot algebra in already sets up via `pivotArgument`, `pivotPrime`, `pivotSupplierBases` — is a legitimate route to this obligation and does not need to control the discrepancy on a full interval.
 
 </div>
 
@@ -3279,23 +3234,23 @@ The headline (§<a href="#ssec:headline" data-reference-type="ref" data-referenc
 
 <div class="defn">
 
-**Definition 220**. The *actual LCM tail orbit* at exponent $`a`$ is $`\mathtt{actualLcmTailOrbit}\ a = R_{2H+2H} - R_{H+... }`$, precisely $`\mathrm{totientTail}(2H)-\mathrm{totientTail}(H)`$ where $`H = \mathtt{periodLcm}(2^a)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:144)).
+**Definition 220**. The *actual LCM tail orbit* at exponent $`a`$ is $`\mathtt{actualLcmTailOrbit}\ a = R_{2H+2H} - R_{H+... }`$, precisely $`\mathrm{totientTail}(2H)-\mathrm{totientTail}(H)`$ where $`H = \mathtt{periodLcm}(2^a)`$ ().
 
 </div>
 
 <div class="thm">
 
-**Theorem 221**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:144). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`a\ge 8`$ and every $`J`$ with $`J+(a{+}6) < 2\cdot 2^a`$,
+**Theorem 221**. *and . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`a\ge 8`$ and every $`J`$ with $`J+(a{+}6) < 2\cdot 2^a`$,
 ``` math
 0 \;<\; \mathrm{totientTail}(2H{+}J) - \mathrm{totientTail}(H{+}J), \qquad H=\mathtt{periodLcm}(2^a).
 ```
-Hence $`0 < \mathtt{actualLcmTailOrbit}\ a`$ for every $`a\ge 8`$. The proof is genuinely uniform in $`a`$: it rests on two facts proved for all $`a\ge 8`$ by a two-case structural split (divisor letter vs. foreign prime power), with absolute constants $`4,8,32`$ and no lookup table — [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1703) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1906).*
+Hence $`0 < \mathtt{actualLcmTailOrbit}\ a`$ for every $`a\ge 8`$. The proof is genuinely uniform in $`a`$: it rests on two facts proved for all $`a\ge 8`$ by a two-case structural split (divisor letter vs. foreign prime power), with absolute constants $`4,8,32`$ and no lookup table — and .*
 
 </div>
 
 <div class="rem">
 
-*Remark 222* (Exactly half the certificate band, and where the other half goes). $`\mathtt{certifiedKill}`$ needs the residue to avoid a *symmetric* radius-$`(N{+}h{+}L{+}2)`$ neighbourhood of $`0`$ on both sides. SGN-01 gives positivity only. Its companion [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:211) proves that, under integrality, the consequence is not a kill but the opposite: the residue is forced to the *top edge*, exactly $`2^K - e`$ where $`e`$ is the true carry orbit ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/)). So the lower half of the certified-kill band is discharged unconditionally and cofinally by SGN-01; the upper half is untouched, and what remains open is a genuinely different, one-sided statement about the top edge — row TE-04 below. The corpus’s own normal-form tables tag this row <span class="sans-serif">scale:bounded</span>; that tag is misleading, since only the window offset $`J`$ is bounded relative to the height, and the height $`2\cdot 2^a`$ itself is unbounded: the correct tag is <span class="sans-serif">scale:uniform</span>.
+*Remark 222* (Exactly half the certificate band, and where the other half goes). $`\mathtt{certifiedKill}`$ needs the residue to avoid a *symmetric* radius-$`(N{+}h{+}L{+}2)`$ neighbourhood of $`0`$ on both sides. SGN-01 gives positivity only. Its companion proves that, under integrality, the consequence is not a kill but the opposite: the residue is forced to the *top edge*, exactly $`2^K - e`$ where $`e`$ is the true carry orbit (). So the lower half of the certified-kill band is discharged unconditionally and cofinally by SGN-01; the upper half is untouched, and what remains open is a genuinely different, one-sided statement about the top edge — row TE-04 below. The corpus’s own normal-form tables tag this row <span class="sans-serif">scale:bounded</span>; that tag is misleading, since only the window offset $`J`$ is bounded relative to the height, and the height $`2\cdot 2^a`$ itself is unbounded: the correct tag is <span class="sans-serif">scale:uniform</span>.
 
 </div>
 
@@ -3307,26 +3262,26 @@ This is the sharpest *landed weakening* of the 249-supply obligation in the corp
 
 <div class="thm">
 
-**Theorem 223** (Consumers, fully proved). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1260), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1314), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2184). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`a\ge 8`$ and every $`J,K,m`$ inside the sign corridor ($`J{+}K{+}(a{+}6) < 2\cdot 2^a`$), a one-sided residue gap at precision $`m\le K`$ — room $`2H{+}J{+}K{+}2 < 2^m`$ and $`A_{H,H+J,K}\bmod 2^m \le 2^m - (2H{+}J{+}K{+}2)`$ — already forces $`\mathrm{totientTail}(2H{+}J) - \mathrm{totientTail}(H{+}J)\notin\mathbb Z`$. No lower margin at all is demanded. The proof chain is complete: the theorem holds for every $`a\ge 8`$, and *$`\mathtt{PowerTwoActualLcmTopEdgeResidueGapSupply}`$ $`\Rightarrow`$ Irrational $`S`$* is proved.*
+**Theorem 223** (Consumers, fully proved). *, , . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`a\ge 8`$ and every $`J,K,m`$ inside the sign corridor ($`J{+}K{+}(a{+}6) < 2\cdot 2^a`$), a one-sided residue gap at precision $`m\le K`$ — room $`2H{+}J{+}K{+}2 < 2^m`$ and $`A_{H,H+J,K}\bmod 2^m \le 2^m - (2H{+}J{+}K{+}2)`$ — already forces $`\mathrm{totientTail}(2H{+}J) - \mathrm{totientTail}(H{+}J)\notin\mathbb Z`$. No lower margin at all is demanded. The proof chain is complete: the theorem holds for every $`a\ge 8`$, and *$`\mathtt{PowerTwoActualLcmTopEdgeResidueGapSupply}`$ $`\Rightarrow`$ Irrational $`S`$* is proved.*
 
 </div>
 
 <div class="defn">
 
-**Definition 224** (The open producer). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1325). <span class="sans-serif">\[Open\]</span>. <span class="sans-serif">scale:cofinal</span>.
+**Definition 224** (The open producer). . <span class="sans-serif">\[Open\]</span>. <span class="sans-serif">scale:cofinal</span>.
 ``` math
 \forall a_0\ \exists a,K,m,\ a_0\le a\ \wedge\ 8\le a\ \wedge\ K{+}(a{+}6)<2\cdot 2^a\ \wedge\
   \mathtt{ActualLcmTopEdgeResidueGap}\ a\ 0\ K\ m .
 ```
-No unconditional statement anywhere in the corpus locates the residue of the diagonal word $`A_{H,H,K}`$ (where $`H=\mathtt{periodLcm}(2^a)`$) below the top strip at even one large $`a`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:909) further reduces the condition to the last $`m`$ arithmetic letters of the word alone.
+No unconditional statement anywhere in the corpus locates the residue of the diagonal word $`A_{H,H,K}`$ (where $`H=\mathtt{periodLcm}(2^a)`$) below the top strip at even one large $`a`$. further reduces the condition to the last $`m`$ arithmetic letters of the word alone.
 
 </div>
 
 <div id="prop:te-chain" class="prop">
 
-**Proposition 225** (The five strictly weaker sufficient links — proving any one closes \#249). *All five are proved sufficient for [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1325) in the same module, and each is *strictly weaker* in the sense that it drops a hypothesis, widens a band, or asks only for magnitude rather than a signed inequality.*
+**Proposition 225** (The five strictly weaker sufficient links — proving any one closes \#249). *All five are proved sufficient for in the same module, and each is *strictly weaker* in the sense that it drops a hypothesis, widens a band, or asks only for magnitude rather than a signed inequality.*
 
-1.  *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1334) (<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>):
+1.  *(<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>):
     ``` math
     \forall a_0\ \exists a,m,\ a_0\le a \wedge 8\le a \wedge m{+}1{+}(a{+}6)<2\cdot 2^a \wedge
           2H{+}m{+}3 < 2^m \wedge
@@ -3336,19 +3291,19 @@ No unconditional statement anywhere in the corpus locates the residue of the dia
     ```
     (a two-sided band on the adjacent-suffix residue directly, one candidate depth $`m`$).*
 
-2.  *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1349) (<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>): at the odd guarded depth $`2q{+}1`$, a two-sided band of half-width $`H{+}q{+}2`$ on the half-word residue mod $`4^q`$ — “substantially weaker than the older fixed $`1/32`$ central band.”*
+2.  *(<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>): at the odd guarded depth $`2q{+}1`$, a two-sided band of half-width $`H{+}q{+}2`$ on the half-word residue mod $`4^q`$ — “substantially weaker than the older fixed $`1/32`$ central band.”*
 
-3.  *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1471) (<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>), *proved equivalent* to the previous one via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1479):
+3.  *(<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>), *proved equivalent* to the previous one via :
     ``` math
     \forall a_0\ \exists a,q,\ \max(14,a_0)\le a \wedge \mathtt{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)=2q{+}1
           \wedge H{+}q{+}2 \le |\mathtt{actualOddHalfCenteredLift}\ a\ q| .
     ```*
 
-4.  *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1927) (<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>): the same magnitude bound with the depth restriction relaxed from “canonical guarded” to any odd $`2q{+}1`$ satisfying the half-cell fit $`2(H{+}q{+}2)\le 4^q`$ and the sign-corridor room $`2q{+}2{+}(a{+}6)<2\cdot 2^a`$.*
+4.  *(<span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>): the same magnitude bound with the depth restriction relaxed from “canonical guarded” to any odd $`2q{+}1`$ satisfying the half-cell fit $`2(H{+}q{+}2)\le 4^q`$ and the sign-corridor room $`2q{+}2{+}(a{+}6)<2\cdot 2^a`$.*
 
-5.  *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1908) — the weakest of all five; treated separately as row TE-05-weakest below.*
+5.  *— the weakest of all five; treated separately as row TE-05-weakest below.*
 
-*Proving *any one* of these five closes Erdős \#249; the corpus has already proved all the implications from each to [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1325) (chain: midband $`\to`$ residue-gap at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2109); half-word-band $`\to`$ midband at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2058); final-magnitude $`\Leftrightarrow`$ half-word-band at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1479); flexible-magnitude $`\to`$ midband at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2008); final-magnitude $`\to`$ flexible-magnitude at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1993)).*
+*Proving *any one* of these five closes Erdős \#249; the corpus has already proved all the implications from each to (chain: midband $`\to`$ residue-gap at ; half-word-band $`\to`$ midband at ; final-magnitude $`\Leftrightarrow`$ half-word-band at ; flexible-magnitude $`\to`$ midband at ; final-magnitude $`\to`$ flexible-magnitude at ).*
 
 </div>
 
@@ -3360,7 +3315,7 @@ This is the weakest landed link in the whole \#249 sufficiency lattice: a single
 
 <div class="defn">
 
-**Definition 226**. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1908). <span class="sans-serif">\[Open\]</span>. <span class="sans-serif">scale:cofinal</span>. Writing $`H=\mathtt{periodLcm}(2^a)`$,
+**Definition 226**. . <span class="sans-serif">\[Open\]</span>. <span class="sans-serif">scale:cofinal</span>. Writing $`H=\mathtt{periodLcm}(2^a)`$,
 ``` math
 \forall a_0\ \exists a,q,\ a_0\le a \wedge 8\le a \wedge 2q{+}2{+}(a{+}6)<2\cdot 2^a \wedge
   2(H{+}q{+}2)\le 4^q \wedge
@@ -3373,22 +3328,22 @@ This is the weakest landed link in the whole \#249 sufficiency lattice: a single
 
 <div class="thm">
 
-**Theorem 227** (Consumer). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1880) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2221). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. The dominance hypothesis at a single odd rank already excludes integrality of $`\mathtt{actualLcmTailOrbit}\ a`$, and the supply predicate composes to $`\mathrm{Irrational}(S)`$.*
+**Theorem 227** (Consumer). *and . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. The dominance hypothesis at a single odd rank already excludes integrality of $`\mathtt{actualLcmTailOrbit}\ a`$, and the supply predicate composes to $`\mathrm{Irrational}(S)`$.*
 
 </div>
 
 <div id="obs:staircase-tension" class="obs">
 
-*Observation 228* (The exact identity, and the internal tension it exposes). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1678). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For $`a\ge 8`$, room $`2q{+}1{+}1{+}(a{+}6)<2\cdot2^a`$, half-cell fit $`2(H{+}q{+}2)\le 4^q`$, and any integral representative $`z`$ with $`z = \mathtt{actualLcmTailOrbit}\ a`$:
+*Observation 228* (The exact identity, and the internal tension it exposes). . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For $`a\ge 8`$, room $`2q{+}1{+}1{+}(a{+}6)<2\cdot2^a`$, half-cell fit $`2(H{+}q{+}2)\le 4^q`$, and any integral representative $`z`$ with $`z = \mathtt{actualLcmTailOrbit}\ a`$:
 ``` math
 2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q
   \;=\; \mathtt{diagonalWindowIncrement}(2^a)(2q{+}2) - \mathtt{carryOrbit}\ H\ H\ z\ (2q{+}1) .
 ```
-This is an *exact equality*, not a bound. Comparing it against the dominance inequality above, *the dominance inequality is literally equivalent to $`\mathtt{carryOrbit}\,H\,H\,z\,(2q{+}1)\le 0`$*. But SGN-02 ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:172), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>) proves that under integrality the true carry orbit is *strictly positive* throughout this exact corridor: for $`a\ge 8`$ and $`J{+}K{+}(a{+}6)<2\cdot 2^a`$,
+This is an *exact equality*, not a bound. Comparing it against the dominance inequality above, *the dominance inequality is literally equivalent to $`\mathtt{carryOrbit}\,H\,H\,z\,(2q{+}1)\le 0`$*. But SGN-02 (, <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:uniform</span>) proves that under integrality the true carry orbit is *strictly positive* throughout this exact corridor: for $`a\ge 8`$ and $`J{+}K{+}(a{+}6)<2\cdot 2^a`$,
 ``` math
 0 < \mathtt{carryOrbit}\ H\ (H{+}J)\ d\ K
 ```
-whenever $`d`$ is the real-valued representative of the translated tail difference. So the two branches of the corridor-escape disjunction that [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1824) offers are *not* symmetric: SGN-02 has already eliminated the branch that the identity most naturally supplies (dominance, $`\mathtt{carryOrbit}\le 0`$), and the surviving branch is the *lower* escape
+whenever $`d`$ is the real-valued representative of the translated tail difference. So the two branches of the corridor-escape disjunction that offers are *not* symmetric: SGN-02 has already eliminated the branch that the identity most naturally supplies (dominance, $`\mathtt{carryOrbit}\le 0`$), and the surviving branch is the *lower* escape
 ``` math
 2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q \;\le\;
   \mathtt{diagonalWindowIncrement}(2^a)(2q{+}2) - (2H{+}2q{+}3) .
@@ -3399,8 +3354,8 @@ This is stated precisely so the reader can check it: it is neither a refutation 
 
 <div class="prop">
 
-**Proposition 229** (What would close it). *Either (i) the lower-escape branch cofinally — as displayed just above — or (ii) the two-sided magnitude form [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1927) (item 4 of Proposition <a href="#prop:te-chain" data-reference-type="ref" data-reference="prop:te-chain">225</a>), which asks only $`H{+}q{+}2 \le
-|\mathtt{actualOddHalfCenteredLift}\ a\ q|`$ and which the file proves ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1938)) implies corridor escape via a clean sign split (positive branch escapes above the terminal letter, negative branch escapes below the directed bound), sidestepping the SGN-02 tension entirely because it does not commit to a sign for the centred lift.*
+**Proposition 229** (What would close it). *Either (i) the lower-escape branch cofinally — as displayed just above — or (ii) the two-sided magnitude form (item 4 of Proposition <a href="#prop:te-chain" data-reference-type="ref" data-reference="prop:te-chain">225</a>), which asks only $`H{+}q{+}2 \le
+|\mathtt{actualOddHalfCenteredLift}\ a\ q|`$ and which the file proves () implies corridor escape via a clean sign split (positive branch escapes above the terminal letter, negative branch escapes below the directed bound), sidestepping the SGN-02 tension entirely because it does not commit to a sign for the centred lift.*
 
 </div>
 
@@ -3410,7 +3365,7 @@ This is stated precisely so the reader can check it: it is neither a refutation 
 
 <div class="thm">
 
-**Theorem 230**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:141) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:305). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Unconditionally, for every $`a`$ and $`q`$,
+**Theorem 230**. *and . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Unconditionally, for every $`a`$ and $`q`$,
 ``` math
 \bigl|\, \mathtt{actualLcmTailOrbit}\ a - \mathtt{actualLcmRawApprox}\ a\ q \,\bigr|
   \;<\; \frac{4H + 2(2q{+}1) + 4}{2^{2q+2}} ,
@@ -3421,7 +3376,7 @@ where $`\mathtt{actualLcmRawApprox}\ a\ q`$ is an explicit finite computable rat
 
 <div class="rem">
 
-*Remark 231*. Consequently a cofinal $`1/32`$-separation of the raw approximant from every integer suffices for \#249. The corpus verifies the analogous kill *unconditionally* at exactly two exponents, $`a=4`$ and $`a=6`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:35), <span class="sans-serif">\[Cert\]</span>, <span class="sans-serif">scale:fixed</span>, via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928)). Nothing beyond $`a=6`$ is proved. The depth $`q`$ is not free: the supply predicate pins $`2q{+}1 =
+*Remark 231*. Consequently a cofinal $`1/32`$-separation of the raw approximant from every integer suffices for \#249. The corpus verifies the analogous kill *unconditionally* at exactly two exponents, $`a=4`$ and $`a=6`$ (, <span class="sans-serif">\[Cert\]</span>, <span class="sans-serif">scale:fixed</span>, via and ). Nothing beyond $`a=6`$ is proved. The depth $`q`$ is not free: the supply predicate pins $`2q{+}1 =
 \mathtt{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)`$, so per scale $`a`$ there is exactly one admissible depth, not a search over depths.
 
 </div>
@@ -3447,12 +3402,12 @@ Since the error radius is explicit, this reduces to a distance-to-nearest-intege
 
 <div class="thm">
 
-**Theorem 233**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:54) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:63). <span class="sans-serif">\[Cert\]</span> for the witness, <span class="sans-serif">\[Lean\]</span> for the consumer. <span class="sans-serif">scale:bounded</span>.
+**Theorem 233**. *and . <span class="sans-serif">\[Cert\]</span> for the witness, <span class="sans-serif">\[Lean\]</span> for the consumer. <span class="sans-serif">scale:bounded</span>.
 ``` math
 \forall a_0\le 6,\ \exists a,L,\ a_0\le a \wedge L < 2\cdot 2^a \wedge
   \mathtt{LcmDiagonalArithmeticKill}(2^a)\,L
 ```
-— literally the open cofinal supply predicate below with its universal quantifier truncated at $`a_0\le 6`$. This is the purest <span class="sans-serif">scale:fixed</span>-vs-<span class="sans-serif">scale:cofinal</span> row in the corpus: the proof term is `⟨6, 93, ha₀, by norm_num, lcmDiagonalArithmeticKill_two_pow_six⟩` — a single hard-coded witness $`(a,L)=(6,93)`$, itself discharged from [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928) (a `norm_num` evaluation over an explicit table of $`\varphi`$ values). There is no argument in $`a`$ whatsoever; removing the bound $`a_0\le 6`$ requires an entirely new proof, not a re-run.*
+— literally the open cofinal supply predicate below with its universal quantifier truncated at $`a_0\le 6`$. This is the purest <span class="sans-serif">scale:fixed</span>-vs-<span class="sans-serif">scale:cofinal</span> row in the corpus: the proof term is $`\langle`$`6, 93, ha0, by norm_num, lcmDiagonalArithmeticKill_two_pow_six`$`\rangle`$ — a single hard-coded witness $`(a,L)=(6,93)`$, itself discharged from (a `norm_num` evaluation over an explicit table of $`\varphi`$ values). There is no argument in $`a`$ whatsoever; removing the bound $`a_0\le 6`$ requires an entirely new proof, not a re-run.*
 
 </div>
 
@@ -3473,18 +3428,18 @@ The short-window restriction $`L<2\cdot 2^a`$ buys extra structure — every non
 
 <div class="thm">
 
-**Theorem 235**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2860), with [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2844). <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>.
+**Theorem 235**. *, with and . <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>.
 ``` math
 \forall t\in\{1,2,3,4,5,7,8,9,11,13,16,17\},\ \exists L,\
   \mathtt{certifiedKill}\ (\mathtt{periodLcm}\ t)\ (\mathtt{periodLcm}\ t)\ L
 ```
-at depths $`\{6,5,7,7,9,14,15,14,21,22,23,26\}`$ respectively, extended by the separate T19…T64 modules to 28 values through $`t=64`$ (the $`t=64`$ endpoint is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928)). Every witness is a `norm_num` evaluation over a hard-coded block of $`\varphi`$ values — e.g. the $`t=17`$ certificate lists $`\varphi(12252241),\ldots,\varphi(24504506)`$ explicitly — so nothing in the proof is a function of $`t`$.*
+at depths $`\{6,5,7,7,9,14,15,14,21,22,23,26\}`$ respectively, extended by the separate T19…T64 modules to 28 historical values through $`t=64`$ (the $`t=64`$ endpoint is ). The later aggregate theorem closes every scale $`t\le82`$ with no holes (). Every witness is a `norm_num` evaluation over a hard-coded block of $`\varphi`$ values — e.g. the $`t=17`$ certificate lists $`\varphi(12252241),\ldots,\varphi(24504506)`$ explicitly — so nothing in the proof is a function of $`t`$.*
 
 </div>
 
 <div class="rem">
 
-*Remark 236* (A stronger signal in the depth table than the theorem states). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:79) forces $`2(2H_t{+}L{+}2)<2^L`$, i.e. $`L \gtrsim \log_2(4\cdot\mathtt{periodLcm}\ t)`$ at any certified depth. Comparing that floor against $`\mathtt{diagonalPincerKillDepth}`$ shows every landed certificate fires within a small additive constant of the theoretical minimum depth, at every tested scale — a numerically supported (<span class="sans-serif">\[Cert\]</span>, not <span class="sans-serif">\[Math\]</span>) anti-concentration observation, not a theorem.
+*Remark 236* (A stronger signal in the depth table than the theorem states). forces $`2(2H_t{+}L{+}2)<2^L`$, i.e. $`L \gtrsim \log_2(4\cdot\mathtt{periodLcm}\ t)`$ at any certified depth. Comparing that floor against $`\mathtt{diagonalPincerKillDepth}`$ shows every landed certificate fires within a small additive constant of the theoretical minimum depth, at every tested scale — a numerically supported (<span class="sans-serif">\[Cert\]</span>, not <span class="sans-serif">\[Math\]</span>) anti-concentration observation, not a theorem.
 
 </div>
 
@@ -3505,7 +3460,7 @@ This is an anti-concentration statement about the diagonal word’s residue at t
 
 <div class="thm">
 
-**Theorem 238**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18556) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18562) (shallower sibling [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:404)). <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>.
+**Theorem 238**. *and (shallower sibling ). <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>.
 ``` math
 \forall h\in[1,16],\quad \mathtt{certifiedKill}\ h\ 14\ 9
 ```
@@ -3531,20 +3486,20 @@ This is an anti-concentration statement about the diagonal word’s residue at t
 
 <div class="thm">
 
-**Theorem 241**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056), built from the classical mediant lemma [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:51) and the window sharpness certificate [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:176) / [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225). <span class="sans-serif">\[Lean\]</span> for the general mediant lemma; <span class="sans-serif">\[Cert\]</span> for the $`K=240`$ window instantiation. <span class="sans-serif">scale:fixed</span>. If $`S`$ is rational, its reduced denominator exceeds $`7.9639646646701375323355774875831053\times 10^{34}`$ (the exact numeral in the declaration name). This is the strongest unconditional statement about $`S`$ in the corpus, logically independent of the certificate-supply reduction.*
+**Theorem 241**. *, built from the classical mediant lemma and the window sharpness certificate / . <span class="sans-serif">\[Lean\]</span> for the general mediant lemma; <span class="sans-serif">\[Cert\]</span> for the $`K=240`$ window instantiation. <span class="sans-serif">scale:fixed</span>. If $`S`$ is rational, its reduced denominator exceeds $`7.9639646646701375323355774875831053\times 10^{34}`$ (the exact numeral in the declaration name). This is the strongest unconditional statement about $`S`$ in the corpus, logically independent of the certificate-supply reduction.*
 
 </div>
 
 <div class="rem">
 
 *Remark 242* (Why re-running the same window buys nothing). The cofinal upgrade of this statement — $`S\ne p/q`$ for every bound $`q`$, not just $`q =
-7.96\times10^{34}`$ — is literally $`\mathrm{Irrational}(S)`$, so the target coordinate is right. What blocks promotion is proved on disk: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225) establishes that the $`K=240`$ window bound is *sharp*, at exactly the mediant $`b{+}d`$, so re-running the same argument at the same window buys nothing further. Each new $`K`$ needs (i) a freshly committed $`2^K`$-scale totient residue $`V_K`$ and (ii) fresh continued-fraction convergents of $`V_K'/2^K`$, both hard-coded numerals in the current proofs. The growth of the bound $`b_K{+}d_K`$ is governed by the convergent denominators of the underlying constant, which stall at $`q_0`$ precisely if $`S=a/q_0`$: the growth law is equivalent in difficulty to \#249 itself.
+7.96\times10^{34}`$ — is literally $`\mathrm{Irrational}(S)`$, so the target coordinate is right. What blocks promotion is proved on disk: establishes that the $`K=240`$ window bound is *sharp*, at exactly the mediant $`b{+}d`$, so re-running the same argument at the same window buys nothing further. Each new $`K`$ needs (i) a freshly committed $`2^K`$-scale totient residue $`V_K`$ and (ii) fresh continued-fraction convergents of $`V_K'/2^K`$, both hard-coded numerals in the current proofs. The growth of the bound $`b_K{+}d_K`$ is governed by the convergent denominators of the underlying constant. Rationality would force eventual stalling, so unbounded growth would prove \#249; however, no converse reduction or proved logical equivalence is known. The sentence is therefore a diagnosis of why this fixed-window method reaches the original difficulty, not an iff theorem.
 
 </div>
 
 <div class="obs">
 
-*Observation 243* (A closed sub-route). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:30) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:47), the corpus’s own attempt at strengthening this window refinement via a unit-modulo-odd-part criterion, prove a hard ceiling in [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:54) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:111) (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:n/a</span>): at a prime-power denominator, the strengthening rescues at most *one* extra lattice point. That route is closed — it cannot be the source of a growth law.
+*Observation 243* (A closed sub-route). and , the corpus’s own attempt at strengthening this window refinement via a unit-modulo-odd-part criterion, prove a hard ceiling in and (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:n/a</span>): at a prime-power denominator, the strengthening rescues at most *one* extra lattice point. That route is closed — it cannot be the source of a growth law.
 
 </div>
 
@@ -3560,7 +3515,7 @@ This is an anti-concentration statement about the diagonal word’s residue at t
 
 <div class="thm">
 
-**Theorem 245**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:54), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:211), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:262), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTwoAdicPulseBlock.lean:327). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span> (the theorem is unconditional and holds for *every* $`K`$, $`H`$, $`B`$, not merely cofinally many). For every $`K\ge 2`$, every $`H>K`$, and every bound $`B`$, there are primes $`p>B`$ with a length-$`(K{-}1)`$ zero prefix and a terminal half-turn, giving
+**Theorem 245**. *, , , . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span> (the theorem is unconditional and holds for *every* $`K`$, $`H`$, $`B`$, not merely cofinally many). For every $`K\ge 2`$, every $`H>K`$, and every bound $`B`$, there are primes $`p>B`$ with a length-$`(K{-}1)`$ zero prefix and a terminal half-turn, giving
 ``` math
 A_{H,p-K,K} \equiv 2^{K-1} \pmod{2^K}.
 ```
@@ -3588,23 +3543,23 @@ Under eventual integrality this transfers to an integer $`z`$ with $`(z:\mathbb 
 
 <div class="thm">
 
-**Theorem 248** (Cofinal producer, fully proved). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2437). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:cofinal</span> (proved, not open): $`\forall t_0\ \exists t\ge t_0`$ with $`\mathtt{periodLcm}\ t < \mathtt{periodLcm}(t{+}1)`$, witnessed by $`p{-}1`$ for any prime $`p>t_0`$. The power-of-two specialization [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2495) shows the positions $`t=2^a{-}1`$ already suffice, so no position search is needed at all.*
+**Theorem 248** (Cofinal producer, fully proved). *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:cofinal</span> (proved, not open): $`\forall t_0\ \exists t\ge t_0`$ with $`\mathtt{periodLcm}\ t < \mathtt{periodLcm}(t{+}1)`$, witnessed by $`p{-}1`$ for any prime $`p>t_0`$. The power-of-two specialization shows the positions $`t=2^a{-}1`$ already suffice, so no position search is needed at all.*
 
 </div>
 
 <div class="defn">
 
-**Definition 249** (The slack scalar and the open supply). [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2453):
+**Definition 249** (The slack scalar and the open supply). :
 ``` math
 \mathtt{canonicalAdjacentSuffixCentralSlack}\ t = \min\bigl(d-2^{m-5},\ (2^m-2^{m-5})-d\bigr),
 ```
-with $`m`$ the canonical adjacent-suffix depth and $`d`$ the residue at that depth. The open producers, both <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span>, are [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2488) (any strict jump) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2495) (power-of-two positions), each asking $`0\le \mathtt{canonicalAdjacentSuffixCentralSlack}(t{+}1)`$ cofinally, and both compose to $`\mathrm{Irrational}(S)`$ at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2739) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2746).
+with $`m`$ the canonical adjacent-suffix depth and $`d`$ the residue at that depth. The open producers, both <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span>, are (any strict jump) and (power-of-two positions), each asking $`0\le \mathtt{canonicalAdjacentSuffixCentralSlack}(t{+}1)`$ cofinally, and both compose to $`\mathrm{Irrational}(S)`$ at and .
 
 </div>
 
 <div class="rem">
 
-*Remark 250* (Census evidence only). <span class="sans-serif">\[Cert\]</span>, <span class="sans-serif">scale:fixed</span>. All $`40`$ strict jumps up to endpoint $`113`$ pass, closest margin $`\approx 0.000221`$ of the modulus at $`t=100`$; the power-of-two endpoints $`4,8,16,32`$ pass with slack fractions $`0.41,0.036,0.40,0.19`$. Census, not theorem. The structural handle nobody has used: $`\mathtt{periodLcm\_succ\_eq\_prime\_mul\_of\_strict\_jump}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2134)) says a strict jump at $`t`$ means $`t{+}1=p^k`$ and $`\mathtt{periodLcm}(t{+}1) = p\cdot\mathtt{periodLcm}(t)`$ — so the required statement is a transfer lemma for how the adjacent-suffix residue at height $`H`$ moves under $`H\mapsto pH`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalFreshLossBridge.lean:2460) already proves the slack is constant across each LCM plateau, so only jump indices matter.
+*Remark 250* (Census evidence only). <span class="sans-serif">\[Cert\]</span>, <span class="sans-serif">scale:fixed</span>. All $`40`$ strict jumps up to endpoint $`113`$ pass, closest margin $`\approx 0.000221`$ of the modulus at $`t=100`$; the power-of-two endpoints $`4,8,16,32`$ pass with slack fractions $`0.41,0.036,0.40,0.19`$. Census, not theorem. The structural handle nobody has used: $`\mathtt{periodLcm\_succ\_eq\_prime\_mul\_of\_strict\_jump}`$ () says a strict jump at $`t`$ means $`t{+}1=p^k`$ and $`\mathtt{periodLcm}(t{+}1) = p\cdot\mathtt{periodLcm}(t)`$ — so the required statement is a transfer lemma for how the adjacent-suffix residue at height $`H`$ moves under $`H\mapsto pH`$. already proves the slack is constant across each LCM plateau, so only jump indices matter.
 
 </div>
 
@@ -3620,19 +3575,19 @@ with $`m`$ the canonical adjacent-suffix depth and $`d`$ the residue at that dep
 
 <div class="thm">
 
-**Theorem 252**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:37) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:178). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Uniform consumer for all $`H,p,L`$: a residue of the four-vertex commutator $`J(H,p)`$ outside the sharp radius $`3pH{+}(p{+}1)(L{+}2)`$ forces $`J(H,p)\notin\mathbb Z`$. This is tighter than the earlier $`4pH`$ two-cell disjunction.*
+**Theorem 252**. *and . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Uniform consumer for all $`H,p,L`$: a residue of the four-vertex commutator $`J(H,p)`$ outside the sharp radius $`3pH{+}(p{+}1)(L{+}2)`$ forces $`J(H,p)\notin\mathbb Z`$. This is tighter than the earlier $`4pH`$ two-cell disjunction.*
 
 </div>
 
 <div class="thm">
 
-**Theorem 253** (The one witness). *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:186). <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>. $`\mathtt{primeJumpSharpKill}\ 12\ 5\ 15`$ (i.e. $`H=\mathtt{periodLcm}\ 4=12`$, $`p=5`$, $`L=15`$), proved by `decide` on an explicit 15-bit window with no dependence on $`t`$ or $`p`$; only a single instance exists, at $`t=4`$, the smallest nontrivial height. The full endpoint composition is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimeJumpWindow.lean:193).*
+**Theorem 253** (The one witness). *. <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">scale:fixed</span>. $`\mathtt{primeJumpSharpKill}\ 12\ 5\ 15`$ (i.e. $`H=\mathtt{periodLcm}\ 4=12`$, $`p=5`$, $`L=15`$), proved by `decide` on an explicit 15-bit window with no dependence on $`t`$ or $`p`$; only a single instance exists, at $`t=4`$, the smallest nontrivial height. The full endpoint composition is .*
 
 </div>
 
 <div class="rem">
 
-*Remark 254*. The supply hypothesis $`\forall t_0\ \exists t\ge t_0\ \exists p,L{>}0`$ with $`\mathtt{primeJumpSharpKill}(\mathtt{periodLcm}\ t)\ p\ L`$ is a genuinely cheaper target than the raw SEP-02 supply: it asks for one fresh prime $`p`$ per LCM height rather than a full central-arc certificate. Because the consumer route is `rational_totient_series_forces_lcm_cone_flatness`$`\to`$contradiction, the natural attack is to pick $`p`$ as the fresh prime introduced at the next strict LCM jump (linking this row to d-3a), where the commutator’s old-channel contributions are annihilated by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/JointExponentTransport.lean:36).
+*Remark 254*. The supply hypothesis $`\forall t_0\ \exists t\ge t_0\ \exists p,L{>}0`$ with $`\mathtt{primeJumpSharpKill}(\mathtt{periodLcm}\ t)\ p\ L`$ is a genuinely cheaper target than the raw SEP-02 supply: it asks for one fresh prime $`p`$ per LCM height rather than a full central-arc certificate. Because the consumer route is `rational_totient_series_forces_lcm_cone_flatness`$`\to`$contradiction, the natural attack is to pick $`p`$ as the fresh prime introduced at the next strict LCM jump (linking this row to d-3a), where the commutator’s old-channel contributions are annihilated by .
 
 </div>
 
@@ -3642,7 +3597,7 @@ with $`m`$ the canonical adjacent-suffix depth and $`d`$ the residue at that dep
 
 <div class="thm">
 
-**Theorem 255**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:60), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:85), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:99). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`t\ge 5`$, uniformly in $`t`$:
+**Theorem 255**. *, , . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. For every $`t\ge 5`$, uniformly in $`t`$:
 ``` math
 2^{t/2} \;\le\; \prod_{p\in \mathrm{upperHalfPrimes}(t)} \mathtt{mersenne}(p) \;\le\;
   \mathrm{den}\bigl(\mathtt{lcmHeight}(t)\cdot \mathtt{numericMobiusShadow}(\mathtt{lcmHeight}(t))\bigr).
@@ -3659,7 +3614,7 @@ An unbounded denominator lower bound at every LCM height, with an individual sur
 
 <div class="prop">
 
-**Proposition 257** (What would close it). *Either (i) a Dirichlet-criterion bridge in the shape of [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:5371): a sequence of rationals $`u_t`$ with $`u_t\ne S`$ and $`\mathrm{den}(u_t)\cdot|S-u_t|\to 0`$, which requires the approximation error to beat the denominator, not merely the denominator to grow; or (ii) a transport map from “channel of size $`\ge 2^{t/2}`$ survives in the denominator” to “windowDiscrepancy residue avoids the arc,” which does not exist in the corpus. Route (i) needs the growth rate raised from $`2^{t/2}`$ to beat the shadow’s own truncation error.*
+**Proposition 257** (What would close it). *Either (i) a Dirichlet-criterion bridge in the shape of : a sequence of rationals $`u_t`$ with $`u_t\ne S`$ and $`\mathrm{den}(u_t)\cdot|S-u_t|\to 0`$, which requires the approximation error to beat the denominator, not merely the denominator to grow; or (ii) a transport map from “channel of size $`\ge 2^{t/2}`$ survives in the denominator” to “windowDiscrepancy residue avoids the arc,” which does not exist in the corpus. Route (i) needs the growth rate raised from $`2^{t/2}`$ to beat the shadow’s own truncation error.*
 
 </div>
 
@@ -3671,13 +3626,13 @@ This row runs a second, independent open obligation in parallel to 249-supply, i
 
 <div class="thm">
 
-**Theorem 258**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Unconditional and uniform in $`e`$: the dyadic totient-kernel family is linearly independent at every depth $`e`$ (dimension exactly $`2^e{+}1`$, via CRT and Dirichlet on primes in arithmetic progression).*
+**Theorem 258**. *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. Unconditional and uniform in $`e`$: the dyadic totient-kernel family is linearly independent at every depth $`e`$ (dimension exactly $`2^e{+}1`$, via CRT and Dirichlet on primes in arithmetic progression).*
 
 </div>
 
 <div class="thm">
 
-**Theorem 259**. *[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284). <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. If $`S`$ is rational there is a tempered integral carry orbit $`u`$ with
+**Theorem 259**. *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">scale:uniform</span>. If $`S`$ is rational there is a tempered integral carry orbit $`u`$ with
 ``` math
 2^e - 1 \;\le\; \mathrm{finrank}_{\mathbb Q}\,\mathrm{span}(\mathtt{canonicalCarryKernelFamily}\ u\ e)
   \qquad\text{for every } e .
@@ -3687,7 +3642,7 @@ This row runs a second, independent open obligation in parallel to 249-supply, i
 
 <div class="rem">
 
-*Remark 260* (The scale side is finished; the missing direction is proved dead on one route). So: rationality forces *unbounded* carry-kernel rank, and the $`2^e{-}1`$ floor holds for all $`e`$ with a uniform proof. What is missing is the opposite inequality — a rationality-side rank upper bound, which would contradict the floor and close \#249. The corpus proves one natural route to it is dead: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051) (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:n/a</span>) shows no [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1039) ($`Q\cdot v\cdot A =`$ boundary with $`|\mathrm{boundary}| < Q\cdot v`$ and $`A\ne 0`$) can exist, and `not_finiteDimensional_span_fullTotientKernel` (immediately above it in the same file) shows the full family spans an infinite-dimensional space. Cross-checked against a separate row, $`\mathtt{lcm\_factorIdeal\_finiteRank\_shiftAlgebra\_not\_sufficient}`$: a single explicit countermodel defeats every finite-rank shift-polynomial observation simultaneously, so finite-rank amplification per se is not the missing rigidity.
+*Remark 260* (The scale side is finished; the missing direction is proved dead on one route). So: rationality forces *unbounded* carry-kernel rank, and the $`2^e{-}1`$ floor holds for all $`e`$ with a uniform proof. What is missing is the opposite inequality — a rationality-side rank upper bound, which would contradict the floor and close \#249. The corpus proves one natural route to it is dead: (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:n/a</span>) shows no ($`Q\cdot v\cdot A =`$ boundary with $`|\mathrm{boundary}| < Q\cdot v`$ and $`A\ne 0`$) can exist, and `not_finiteDimensional_span_fullTotientKernel` (immediately above it in the same file) shows the full family spans an infinite-dimensional space. Cross-checked against a separate row, $`\mathtt{lcm\_factorIdeal\_finiteRank\_shiftAlgebra\_not\_sufficient}`$: a single explicit countermodel defeats every finite-rank shift-polynomial observation simultaneously, so finite-rank amplification per se is not the missing rigidity.
 
 </div>
 
@@ -3721,14 +3676,14 @@ This section catalogues every no-go, countermodel, obstruction, and refuted proo
 
 ## Meta-level: finite inspection cannot certify the supply (the $`\gamma`$-splice remark)
 
-**(a) Route as conceived.** Every unconditional route to \#249 in this corpus bottoms out in a *certificate-supply* obligation of the shape $`\forall h\ge1\,\forall N_0\,\exists N\ge N_0\,\exists L,\ \mathrm{Sep}(h,N,L)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:412), the exact open-obligation form quoted throughout the existing manuscript). A natural hope is that verifying $`\mathrm{Sep}`$ — or its diagonal specialisation — at every scale up to some large, explicit bound $`B`$ is evidence that the supply holds, and that pushing $`B`$ far enough would eventually amount to a proof.
+**(a) Route as conceived.** Every unconditional route to \#249 in this corpus bottoms out in a *certificate-supply* obligation of the shape $`\forall h\ge1\,\forall N_0\,\exists N\ge N_0\,\exists L,\ \mathrm{Sep}(h,N,L)`$ (, the exact open-obligation form quoted throughout the existing manuscript). A natural hope is that verifying $`\mathrm{Sep}`$ — or its diagonal specialisation — at every scale up to some large, explicit bound $`B`$ is evidence that the supply holds, and that pushing $`B`$ far enough would eventually amount to a proof.
 
 **(b) Exact mechanism that closed it.** The manuscript’s own remark (<span class="sans-serif">\[Math\]</span>, prose-only, not formalised in Lean: *§5.4, “finite inspection cannot establish the supply”*) gives an explicit splice construction. Take any coefficient stream $`\gamma:\mathbb
 N\to\mathbb N`$ that agrees with $`\varphi`$ on every index $`\le B`$, and alter $`\gamma`$ at one residue class beyond $`B`$ so that the resulting binary series $`\sum\gamma(n)/2^n`$ is forced *rational*. Such a $`\gamma`$ exists for every $`B`$ (this is the same coboundary-splice technique that produces §<a href="#sec:parity-countermodel" data-reference-type="ref" data-reference="sec:parity-countermodel">10.2</a>’s `parityCoboundaryWeight` witness, generalised: insert a lacunary zero-valued coboundary edit $`2/2^m - 4/2^{m+1} = 0`$ at some $`m>B`$). Because $`\gamma`$ agrees with $`\varphi`$ on every index $`\le B`$, $`\gamma`$ passes every finite certificate that only inspects indices $`\le B`$ — in particular every instance of $`\mathrm{Sep}(h,N,L)`$ with $`N+L\le B`$ that $`\varphi`$ itself passes or fails. Yet $`\sum\gamma(n)/2^n\in\mathbb Q`$ by construction.
 
 **(c) Precise scope.** This is a statement about *proof method*, not about $`\varphi`$: it does not touch $`S`$ at all. What it excludes is the inference “$`\mathrm{Sep}`$ verified up to bound $`B`$, for arbitrarily large $`B`$, therefore $`\mathrm{Sep}`$ holds cofinally.” The scope is exactly $`{\small\textsf{scale:bounded}}`$ versus $`{\small\textsf{scale:cofinal}}`$: any finite-B verification, however large, is compatible with both outcomes, because a rational stream can be built to survive any *fixed* inspection horizon. It says nothing about whether $`\varphi`$ itself is such a $`\gamma`$ — only that no finite-horizon check can distinguish $`\varphi`$ from a $`\gamma`$ that is.
 
-**(d) Salvage.** The splice construction is exactly the mechanism underlying §<a href="#sec:parity-countermodel" data-reference-type="ref" data-reference="sec:parity-countermodel">10.2</a>’s Lean-formalised countermodel below, so its *content* is not lost even though this specific remark is unformalised: everywhere a proof strategy in this corpus proposes to certify a supply by exhaustive finite search (the diagonal deposits at $`t\in\{1,\dots,64\}`$, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842); the row-200,000 sqrt-escape census on the \#257 side), this remark is the standing reason such a search, however large, is evidence and not proof. <span class="sans-serif">\[Math\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span>.
+**(d) Salvage.** The splice construction is exactly the mechanism underlying §<a href="#sec:parity-countermodel" data-reference-type="ref" data-reference="sec:parity-countermodel">10.2</a>’s Lean-formalised countermodel below, so its *content* is not lost even though this specific remark is unformalised: everywhere a proof strategy in this corpus proposes to certify a supply by exhaustive finite search (the diagonal deposits at $`t\in\{1,\dots,64\}`$, ; the row-200,000 sqrt-escape census on the \#257 side), this remark is the standing reason such a search, however large, is evidence and not proof. <span class="sans-serif">\[Math\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span>.
 
 <a id="sec:parity-countermodel"></a>
 
@@ -3745,11 +3700,11 @@ N\to\mathbb N`$ that agrees with $`\varphi`$ on every index $`\le B`$, and alter
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:637) (sum computation [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:359); non-periodicity [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:487); exact parity match [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientParityCoboundaryCountermodel.lean:194)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:binary-digit</span>.
+(sum computation ; non-periodicity ; exact parity match ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:binary-digit</span>.
 
 **(c) Precise scope.** This is an *object*-level existence witness ($`c\ne\varphi`$, only $`c\equiv\varphi\pmod2`$) that closes a *proof-route*: it proves that the hypothesis set $`\{`$bounded, linear growth, $`\varphi`$-parity match, non-eventual-periodicity$`\}`$, no matter how strongly the non-periodicity clause is strengthened (up to the arbitrarily-separated arbitrarily-numerous form above), can never entail irrationality of the associated binary series, because $`c`$ satisfies every hypothesis and is rational. It says nothing about $`\varphi`$ itself — the witness sequence $`c`$ is a different, hand-built sequence. Any future sufficient-condition candidate stated purely in terms of $`\{`$coefficient boundedness, growth, parity, periodicity$`\}`$ must be checked against this countermodel before being trusted, for *either* \#249 or \#257.
 
-**(d) Salvage.** The lacunary coboundary-splice technique itself — inserting zero-valued edits $`2\cdot2^{-m}-4\cdot2^{-(m+1)}=0`$ at sparse ranks to destroy periodicity while preserving the rational sum — is a fully general recipe for building rational-valued, non-eventually-periodic, bounded coefficient sequences matching *any* parity template, and is literally the mechanism instantiated informally in §<a href="#sec:gamma-splice" data-reference-type="ref" data-reference="sec:gamma-splice">[sec:gamma-splice]</a>’s $`\gamma`$-splice remark above. It is also a ready-made stress-test fixture for any future parity-based sufficient condition proposed anywhere in the corpus. Confirms the corpus-wide lesson (project memory `feedback_erdos_reductions_rejected_bank_real_results`): only arguments using *actual* quantitative totient/Mersenne size or residue information — as in the `TotientActualLcm*`, `TotientFixedRank*` families below — can possibly close \#249; pure symbolic-word arguments cannot.
+**(d) Salvage.** The lacunary coboundary-splice technique itself — inserting zero-valued edits $`2\cdot2^{-m}-4\cdot2^{-(m+1)}=0`$ at sparse ranks to destroy periodicity while preserving the rational sum — is a fully general recipe for building rational-valued, non-eventually-periodic, bounded coefficient sequences matching *any* parity template, and is literally the mechanism instantiated informally in Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">12</a>’s $`\gamma`$-splice construction. It is also a ready-made stress-test fixture for any future parity-based sufficient condition proposed anywhere in the corpus. Confirms the corpus-wide lesson (project memory `feedback_erdos_reductions_rejected_bank_real_results`): only arguments using *actual* quantitative totient/Mersenne size or residue information — as in the `TotientActualLcm*`, `TotientFixedRank*` families below — can possibly close \#249; pure symbolic-word arguments cannot.
 
 <a id="two-scoped-249-no-go-countermodels-square-crt-correction-suppression-is-ambiguous"></a>
 
@@ -3759,15 +3714,15 @@ N\to\mathbb N`$ that agrees with $`\varphi`$ on every index $`\le B`$, and alter
 
 **(b) Exact mechanism that closed it.** Two explicit, opposite finite computations refute the hoped-for entailment simultaneously:
 
-- *Vanishing witness.* The smallest returned countermodel has the *entire* two-step finite block $`\mathtt{actualOneCubeCoeff}`$ equal to zero at $`n=52`$, $`r_0=13`$, $`r_1=13/18`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:285), kernel-`decide`d; cleanliness witnessed by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:294)).
+- *Vanishing witness.* The smallest returned countermodel has the *entire* two-step finite block $`\mathtt{actualOneCubeCoeff}`$ equal to zero at $`n=52`$, $`r_0=13`$, $`r_1=13/18`$ (, kernel-`decide`d; cleanliness witnessed by ).
 
-- *Nonvanishing witness.* A separate, nearby clean configuration at $`n=27`$ has the same block *nonzero* ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:303); cleanliness witnessed by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:311)).
+- *Nonvanishing witness.* A separate, nearby clean configuration at $`n=27`$ has the same block *nonzero* (; cleanliness witnessed by ).
 
-Both witnesses are exhibited alongside the positive achievability result [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:198) (a bounded common base satisfying prescribed CRT anchors/residues does exist). <span class="sans-serif">\[Cert\]</span> (theorem bodies not independently re-verified beyond signatures and docstring — flagged `DOCSTRING-SOURCED` in the source bank) <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:square-crt-cocycle</span>.
+Both witnesses are exhibited alongside the positive achievability result (a bounded common base satisfying prescribed CRT anchors/residues does exist). <span class="sans-serif">\[Cert\]</span> (theorem bodies not independently re-verified beyond signatures and docstring — flagged `DOCSTRING-SOURCED` in the source bank) <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:square-crt-cocycle</span>.
 
 **(c) Precise scope.** These are two \#249-scoped countermodels — the coordinate is the totient prime-dilation cocycle specifically, not a problem-agnostic phenomenon. Together they show that *correction-suppression is logically independent of the sign/nonvanishing question it was hoped to settle*: “clean” (i.e. correction-free) is consistent with *both* outcomes. This is a statement about a specific finite-difference construction (the representation), not about $`\varphi`$: it does not exclude a nonvanishing finite-difference cube in general, only the inference from cleanliness *alone* to nonvanishing.
 
-**(d) Salvage.** The general cocycle identity $`\varphi(pm)=(p-1)\varphi(m)+[p\mid m]\varphi(m)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean)) and the CRT-witness apparatus ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean)) remain fully reusable for *any* residue-forcing construction, in any coordinate. More valuably, the abstract cube-cancellation lemma extracted from the same file, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SquareCRTCube.lean:264) — “if inserting one coordinate never changes the value of $`f`$, the alternating powerset sum of $`f`$ vanishes” — is completely divorced from totient/CRT content and is directly reusable for any Hilbert-cube or higher-difference argument on either problem. What remains as the honest open gap: an independent anti-concentration or residue-producer argument for why the clean residual does *not* vanish, which this module explicitly does not supply.
+**(d) Salvage.** The general cocycle identity $`\varphi(pm)=(p-1)\varphi(m)+[p\mid m]\varphi(m)`$ () and the CRT-witness apparatus (, ) remain fully reusable for *any* residue-forcing construction, in any coordinate. More valuably, the abstract cube-cancellation lemma extracted from the same file, — “if inserting one coordinate never changes the value of $`f`$, the alternating powerset sum of $`f`$ vanishes” — is completely divorced from totient/CRT content and is directly reusable for any Hilbert-cube or higher-difference argument on either problem. What remains as the honest open gap: an independent anti-concentration or residue-producer argument for why the clean residual does *not* vanish, which this module explicitly does not supply.
 
 <a id="sec:adelic-height"></a>
 
@@ -3784,11 +3739,11 @@ c.\mathrm{natAbs}`$.*
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:23). The equality strengthening, $`\exists t:\mathbb Z,\ H\cdot c\cdot x = t\cdot x.\mathrm{num}`$, is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:56). The Mersenne-scale corollary — for positive $`x`$, if $`2^r\mid x.\mathrm{num.natAbs}`$ and $`x<2/(2^n-1)`$, then $`2^r(2^n-1)<2\cdot x.\mathrm{den}`$ — is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:103) (generic form [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:77)). A companion rigidity fact rules out smuggling the discarded information back in through a linear channel: if a linear map $`\Lambda:V\to W`$ factors through a surjective evaluation $`\mathrm{ev}`$ ($`\ker\mathrm{ev}\le\ker\Lambda`$), then $`\Lambda`$ is *exactly* $`\mathrm{ev}(\cdot)\bullet w_0`$ for a single fixed $`w_0`$ — [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/AdelicHeightObstruction.lean:120). The upstream primitive these import, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RationalDenominatorSurvival.lean:17) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RationalDenominatorSurvival.lean:38), gives the exact survival/cancellation law: a divisor $`m\mid D`$ of a displayed denominator survives reduction of $`a/D`$ iff $`m`$ is coprime to $`a`$; after scaling the numerator by $`h`$, a surviving coprime divisor $`C\mid D`$ shrinks to exactly $`C/\gcd(C,h)`$, never further. <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:rational-height</span>.
+. The equality strengthening, $`\exists t:\mathbb Z,\ H\cdot c\cdot x = t\cdot x.\mathrm{num}`$, is . The Mersenne-scale corollary — for positive $`x`$, if $`2^r\mid x.\mathrm{num.natAbs}`$ and $`x<2/(2^n-1)`$, then $`2^r(2^n-1)<2\cdot x.\mathrm{den}`$ — is (generic form ). A companion rigidity fact rules out smuggling the discarded information back in through a linear channel: if a linear map $`\Lambda:V\to W`$ factors through a surjective evaluation $`\mathrm{ev}`$ ($`\ker\mathrm{ev}\le\ker\Lambda`$), then $`\Lambda`$ is *exactly* $`\mathrm{ev}(\cdot)\bullet w_0`$ for a single fixed $`w_0`$ — . The upstream primitive these import, and , gives the exact survival/cancellation law: a divisor $`m\mid D`$ of a displayed denominator survives reduction of $`a/D`$ iff $`m`$ is coprime to $`a`$; after scaling the numerator by $`h`$, a surviving coprime divisor $`C\mid D`$ shrinks to exactly $`C/\gcd(C,h)`$, never further. <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:rational-height</span>.
 
-**(c) Precise scope.** This is pure $`\mathbb Q`$-arithmetic with zero Mersenne or totient content — it is not a statement about $`S`$ at all, but about *any* rational-height bookkeeping argument. Its exact content: scalar denominator-clearing never *erases* the complementary denominator; it moves that complement into the coefficient’s (Archimedean) size. Any construction that tries to shrink a displayed denominator down to one surviving channel pays for it in coefficient growth. This directly explains *why* denominator-compression strategies are structurally hard: the Mersenne-shadow denominator lower bound $`2^{t/2}\le\prod_{p\in\mathrm{upperHalfPrimes}\,t}\mathrm{mersenne}(p)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:60)) forces a quadratic-in-scale coefficient cost via this lemma if one tries to localise to a single channel.
+**(c) Precise scope.** This is pure $`\mathbb Q`$-arithmetic with zero Mersenne or totient content — it is not a statement about $`S`$ at all, but about *any* rational-height bookkeeping argument. Its exact content: scalar denominator-clearing never *erases* the complementary denominator; it moves that complement into the coefficient’s (Archimedean) size. Any construction that tries to shrink a displayed denominator down to one surviving channel pays for it in coefficient growth. This directly explains *why* denominator-compression strategies are structurally hard: the Mersenne-shadow denominator lower bound $`2^{t/2}\le\prod_{p\in\mathrm{upperHalfPrimes}\,t}\mathrm{mersenne}(p)`$ () forces a quadratic-in-scale coefficient cost via this lemma if one tries to localise to a single channel.
 
-**(d) Salvage.** Fully problem-agnostic and directly reusable for \#257 or any other Lambert-type denominator-survival argument as-is. It is the general mechanism underlying the corpus’s Farey-gap denominator-exclusion family (Part C of the certificate bank, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056), the strongest current unconditional statement about $`S`$: if $`S`$ is rational its reduced denominator exceeds $`79{,}639{,}646{,}646{,}701{,}375{,}323{,}355{,}774{,}875{,}831{,}053\approx7.96\times10^{34}`$).
+**(d) Salvage.** Fully problem-agnostic and directly reusable for \#257 or any other Lambert-type denominator-survival argument as-is. It is the general mechanism underlying the corpus’s Farey-gap denominator-exclusion family (Part C of the certificate bank, , the strongest current unconditional statement about $`S`$: if $`S`$ is rational its reduced denominator exceeds $`79{,}639{,}646{,}646{,}701{,}375{,}323{,}355{,}774{,}875{,}831{,}053\approx7.96\times10^{34}`$).
 
 <a id="the-signed-q-moment-machinery-a-positive-tool-not-an-obstruction"></a>
 
@@ -3804,7 +3759,7 @@ c.\mathrm{natAbs}`$.*
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:95), built from a fully generic rectangular Cauchy–Binet-style determinant-of-product expansion [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:28) (`hankelDet`/`truncatedMoment` defs at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/SignedQMomentObstruction.lean:107,116)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span>.
+, built from a fully generic rectangular Cauchy–Binet-style determinant-of-product expansion (definitions and ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span>.
 
 **(c) Precise scope — the point this section exists to make.** Despite living in a file named alongside the corpus’s “obstruction” modules, this is explicitly *not* phrased as a no-go in its own docstring: it is the finite nonvanishing engine that a Hankel–Padé construction for \#249 would *consume*. The parity lemma and the Cauchy–Binet expansion use no totient or Mersenne structure at all — pure linear algebra, fully problem-agnostic, directly transplantable to any base-$`q`$ dyadic-clearing argument including \#257’s series family. What is missing, and what prevents this from closing anything, is a *supply* theorem: no result in the corpus proves that a unique-terminal configuration of this shape exists cofinally for the totient-derived family. The obstruction, such as it is, is not in this lemma but in the absence of its hypothesis’s cofinal supply — exactly the same shape of gap as §<a href="#sec:mahler-defect" data-reference-type="ref" data-reference="sec:mahler-defect">10.8</a>’s Mahler defect below.
 
@@ -3814,7 +3769,7 @@ c.\mathrm{natAbs}`$.*
 
 ## The residual-gauge obstruction
 
-**(a) Route as conceived.** A “first-harmonic pivot” strategy for \#249 (via exponential/character-sum cancellation, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean)) might try to certify a nonzero determinant or full-rank minor of a residual-weighted monomial matrix as sufficient evidence that a genuine phase reconstruction (as opposed to a degenerate locked configuration) has occurred.
+**(a) Route as conceived.** A “first-harmonic pivot” strategy for \#249 (via exponential/character-sum cancellation, ) might try to certify a nonzero determinant or full-rank minor of a residual-weighted monomial matrix as sufficient evidence that a genuine phase reconstruction (as opposed to a degenerate locked configuration) has occurred.
 
 **(b) Exact mechanism.**
 
@@ -3826,18 +3781,18 @@ r(i,j)\cdot z(j)^{e(i)}`$ with all residual entries $`z(j)\ne0`$ and $`e(i)=1`$ 
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:94) (row-dependent relaxation [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:124); the column-gauge identity underlying it, $`\det(\mathrm{residualMonomialMatrix}) =
-\det(\mathrm{phasePowerMatrix})\cdot\prod_j W(j)`$, is [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:47); a row-dependent relaxation still fails at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:145)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:first-harmonic-phase</span>.
+(row-dependent relaxation ; the column-gauge identity underlying it, $`\det(\mathrm{residualMonomialMatrix}) =
+\det(\mathrm{phasePowerMatrix})\cdot\prod_j W(j)`$, is ; a row-dependent relaxation still fails at ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:first-harmonic-phase</span>.
 
 **(c) Precise scope.** Pure linear algebra over $`\mathbb C`$, fully generic in dimension $`d`$ and exponent function $`e`$, zero \#249-specific content — this is a statement about *residual-weighted monomial matrices as a representation*, not about the totient object. It rules out exactly one class of certificate: a residual-blind rank/determinant/ conditioning test, used alone, cannot distinguish genuine phase reconstruction from an explicit “locked” degenerate configuration in which a residual weighting scales every column by $`W(j)=z(j)^{-1}`$, collapsing the exponent-one row to the constant row $`(1,\dots,1)`$ while the determinant stays nonzero whenever the base (Vandermonde-shaped) $`\mathrm{phasePowerMatrix}`$ determinant is nonzero. It does *not* rule out determinants carrying an additional arithmetic coupling identity between rows.
 
-**(d) Salvage.** A hard requirement for any future first-harmonic determinant construction (Part E of the certificate bank, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83)): the construction *must* couple rows by an extra arithmetic identity, not merely gauge-normalise columns. The diagonal-gauge-action technique itself is reusable for any determinant-based nonvanishing strategy in any coordinate.
+**(d) Salvage.** A hard requirement for any future first-harmonic determinant construction (Part E of the certificate bank, ): the construction *must* couple rows by an extra arithmetic identity, not merely gauge-normalise columns. The diagonal-gauge-action technique itself is reusable for any determinant-based nonvanishing strategy in any coordinate.
 
 <a id="cone-flatness-and-cone-nonflatness"></a>
 
 ## Cone flatness and cone nonflatness
 
-**(a) Route as conceived.** The diagonal certificate-supply obligation ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:412)) concerns only the pair $`(H,2H)`$ at LCM height $`H=\mathrm{periodLcm}(t)`$. Two natural strengthenings: (i) show rationality of $`S`$ is even more constrained than a single diagonal pair — it flattens an *entire cone* of ratios; (ii) conversely, exhibit *nonflatness* on a wider “menu” of cone vertices as a cheaper sufficient certificate than a single pairwise $`\mathrm{certifiedKill}`$.
+**(a) Route as conceived.** The diagonal certificate-supply obligation () concerns only the pair $`(H,2H)`$ at LCM height $`H=\mathrm{periodLcm}(t)`$. Two natural strengthenings: (i) show rationality of $`S`$ is even more constrained than a single diagonal pair — it flattens an *entire cone* of ratios; (ii) conversely, exhibit *nonflatness* on a wider “menu” of cone vertices as a cheaper sufficient certificate than a single pairwise $`\mathrm{certifiedKill}`$.
 
 **(b) Exact mechanism — flatness (necessary consequence of rationality).**
 
@@ -3851,7 +3806,7 @@ r(i,j)\cdot z(j)^{e(i)}`$ with all residual entries $`z(j)\ne0`$ and $`e(i)=1`$ 
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18674) (body `LcmConeFlatness.lean`). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> (for all sufficiently large $`t`$, *given* rationality) <span class="sans-serif">coord:other:lcm-ray-totient</span>. Rationality forces one fractional constant on the entire LCM cone $`\{k\cdot\mathrm{periodLcm}(t):k\ge1\}`$ at every scale $`t\ge t_1`$, not merely the single diagonal pair — the umbrella collapse theorem [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18686) shows any $`\mathrm{certifiedKill}`$ *anywhere* on the two-multiplier cone, at arbitrarily large $`t`$, forces $`\mathrm{Irrational}(S)`$.
+(body `LcmConeFlatness.lean`). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> (for all sufficiently large $`t`$, *given* rationality) <span class="sans-serif">coord:other:lcm-ray-totient</span>. Rationality forces one fractional constant on the entire LCM cone $`\{k\cdot\mathrm{periodLcm}(t):k\ge1\}`$ at every scale $`t\ge t_1`$, not merely the single diagonal pair — the umbrella collapse theorem shows any $`\mathrm{certifiedKill}`$ *anywhere* on the two-multiplier cone, at arbitrarily large $`t`$, forces $`\mathrm{Irrational}(S)`$.
 
 **(b$`'`$) Exact mechanism — nonflatness (a sharper sufficient certificate).**
 
@@ -3864,11 +3819,11 @@ H\,L\,Q`$ fires (an argmin/Helly-avoidance argument: the vertices cannot all sha
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18801) (supply theorem [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18812)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> (proved for a given finite menu $`Q`$; an *unbounded*-scale menu is the open sufficient target) <span class="sans-serif">coord:other:lcm-ray-totient</span>.
+(supply theorem ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> (proved for a given finite menu $`Q`$; an *unbounded*-scale menu is the open sufficient target) <span class="sans-serif">coord:other:lcm-ray-totient</span>.
 
-**(c) Precise scope.** Flatness is a genuine *necessary consequence* of rationality — it is a statement about what rationality of $`S`$ would force, conditional on rationality, not an unconditional fact about $`S`$. Nonflatness is an unconditional *sufficient* certificate mechanism, information-theoretically half the depth floor of the pairwise $`\mathrm{certifiedKill}`$ (one-sided versus two-sided radius charging), but it has been proved only for individual finite menus $`Q`$; no menu of unbounded scale has been supplied. Neither direction decides \#249: flatness gives a contrapositive route (exhibit *any* cone nonintegrality at arbitrarily large $`t`$ and rationality is refuted) and nonflatness sharpens the certificate needed, but the underlying producer obligation — a nonintegral tail difference at cofinally many scales — is unchanged. Note also the coordinate warning from the manuscript’s own Appendix C ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:90)): cone flatness is a *necessary* consequence, and only the sharper diagonal-pincer / full-target-avoidance normal forms ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerDecomposition.lean:215,290)) are an exact $`\mathrm{iff}`$ with irrationality.
+**(c) Precise scope.** Flatness is a genuine *necessary consequence* of rationality — it is a statement about what rationality of $`S`$ would force, conditional on rationality, not an unconditional fact about $`S`$. Nonflatness is an unconditional *sufficient* certificate mechanism, information-theoretically half the depth floor of the pairwise $`\mathrm{certifiedKill}`$ (one-sided versus two-sided radius charging), but it has been proved only for individual finite menus $`Q`$; no menu of unbounded scale has been supplied. Neither direction decides \#249: flatness gives a contrapositive route (exhibit *any* cone nonintegrality at arbitrarily large $`t`$ and rationality is refuted) and nonflatness sharpens the certificate needed, but the underlying producer obligation — a nonintegral tail difference at cofinally many scales — is unchanged. Note also the coordinate warning from the manuscript’s own Appendix C (): cone flatness is a *necessary* consequence, and only the sharper diagonal-pincer / full-target-avoidance normal forms (, ) are an exact $`\mathrm{iff}`$ with irrationality.
 
-**(d) Salvage.** The argmin/Helly-avoidance combinatorial-geometry technique behind cone-nonflatness is a reusable pattern for any modular-residue pincer argument with more than two points, in any coordinate. The rank-2 second-difference certificate family built on the same window apparatus was independently tested and found *not* to be a shortcut over rank 1 (measured, not merely conjectured: at $`(h,N)=(1,8)`$, rank-1 fires at depth 8 while no rank-2 certificate exists at depth $`\le8`$; [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18762)) — an explicitly flagged dead end not to re-attempt without new information.
+**(d) Salvage.** The argmin/Helly-avoidance combinatorial-geometry technique behind cone-nonflatness is a reusable pattern for any modular-residue pincer argument with more than two points, in any coordinate. The rank-2 second-difference certificate family built on the same window apparatus was independently tested and found *not* to be a shortcut over rank 1 (measured, not merely conjectured: at $`(h,N)=(1,8)`$, rank-1 fires at depth 8 while no rank-2 certificate exists at depth $`\le8`$; ) — an explicitly flagged dead end not to re-attempt without new information.
 
 <a id="sec:mahler-defect"></a>
 
@@ -3880,18 +3835,18 @@ H\,L\,Q`$ fires (an argmin/Helly-avoidance argument: the vertices cannot all sha
 
 <div class="thm">
 
-**Theorem 268** (Infinite dyadic totient-kernel rank). *For every depth $`e\ge0`$, the canonical family of $`2^e+1`$ dyadic totient-kernel channels ($`\mathtt{card\_totientCanonicalIndex}`$, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:51)) is linearly independent over $`\mathbb Q`$, proved via a `SeparatedMinorCertificate` (an explicit finite evaluation-point assignment with nonzero determinant, forced by CRT + Dirichlet’s theorem on primes in arithmetic progressions — one channel made prime, every other channel forced through a fresh prime $`\equiv1\bmod`$ a large power of $`2`$).*
+**Theorem 268** (Infinite dyadic totient-kernel rank). *For every depth $`e\ge0`$, the canonical family of $`2^e+1`$ dyadic totient-kernel channels ($`\mathtt{card\_totientCanonicalIndex}`$, ) is linearly independent over $`\mathbb Q`$, proved via a `SeparatedMinorCertificate` (an explicit finite evaluation-point assignment with nonzero determinant, forced by CRT + Dirichlet’s theorem on primes in arithmetic progressions — one channel made prime, every other channel forced through a fresh prime $`\equiv1\bmod`$ a large power of $`2`$).*
 
 </div>
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900); consequently the full infinite family spans an infinite-dimensional $`\mathbb Q`$-space, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1014). A companion impossibility result closes the natural repair attempt directly: a bounded *compressed-adjoint certificate* — a triple $`(Q,A,\mathrm{boundary})`$ with $`Q\cdot v\cdot A=\mathrm{boundary}`$, $`|\mathrm{boundary}|<Q\cdot v`$, $`A\ne0`$ — is provably impossible, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> (holds for every $`e`$; existence side is unconditional, via Mathlib’s CRT + primes-in-AP machinery) <span class="sans-serif">coord:binary-digit</span> (dyadic totient-kernel — *not* the Möbius coordinate).
+; consequently the full infinite family spans an infinite-dimensional $`\mathbb Q`$-space, . A companion impossibility result closes the natural repair attempt directly: a bounded *compressed-adjoint certificate* — a triple $`(Q,A,\mathrm{boundary})`$ with $`Q\cdot v\cdot A=\mathrm{boundary}`$, $`|\mathrm{boundary}|<Q\cdot v`$, $`A\ne0`$ — is provably impossible, . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> (holds for every $`e`$; existence side is unconditional, via Mathlib’s CRT + primes-in-AP machinery) <span class="sans-serif">coord:binary-digit</span> (dyadic totient-kernel — *not* the Möbius coordinate).
 
 **(c) Precise scope — coordinate-relative, stated explicitly by the source module.** This does *not* show irrationality of $`S`$. It proves the dyadic-kernel *side* is infinite-rank; the module’s own docstring names the missing input as “a rationality-side finite-rank compression, or equivalent contradiction.” The companion necessary-consequence-of-rationality theorem, $`\neg\mathrm{Irrational}(S) \implies \exists v>0,\exists U:\mathbb
 N\to\mathbb Z,\ \mathrm{IsTemperedBinaryOrbit}(\varphi,v,U)\wedge\forall
 e,\ 2^e-1\le\mathrm{finrank}_{\mathbb Q}\,\mathrm{span}(\mathrm{range}(
-\mathrm{canonicalCarryKernelFamily}(U,e)))`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284)), shows the SCALE side is finished — the $`2^e-1`$ floor holds for all $`e`$ with a uniform proof — but the opposite inequality (a rationality-side rank *upper* bound) is exactly what is missing, and its absence is the entire open content here. A *third*, independent coordinate exhibits the same coordinate-relative phenomenon: the Möbius-incidence companion matrix $`U_N(i,j)=\mu((i+1)/(j+1))`$ if $`(j+1)\mid(i+1)`$ else $`0`$ is lower triangular with diagonal $`1`$, hence $`\det U_N=1`$ for every $`N`$, hence its jet-evaluation map is injective — a finite “incidence quotient” compression is impossible at any finite horizon in the Möbius coordinate too ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/IncidenceQuotientHermitePade.lean:56)). Both natural finite truncations — dyadic-residue and Möbius-incidence — turn out to have no nontrivial kernel, in two completely different coordinates. That is strong evidence any winning finite-linear-algebra shortcut, if one exists, must live in a genuinely third coordinate or use an infinite/growing-parameter construction, not evidence that no shortcut exists at all.
+\mathrm{canonicalCarryKernelFamily}(U,e)))`$ (), shows the SCALE side is finished — the $`2^e-1`$ floor holds for all $`e`$ with a uniform proof — but the opposite inequality (a rationality-side rank *upper* bound) is exactly what is missing, and its absence is the entire open content here. A *third*, independent coordinate exhibits the same coordinate-relative phenomenon: the Möbius-incidence companion matrix $`U_N(i,j)=\mu((i+1)/(j+1))`$ if $`(j+1)\mid(i+1)`$ else $`0`$ is lower triangular with diagonal $`1`$, hence $`\det U_N=1`$ for every $`N`$, hence its jet-evaluation map is injective — a finite “incidence quotient” compression is impossible at any finite horizon in the Möbius coordinate too (). Both natural finite truncations — dyadic-residue and Möbius-incidence — turn out to have no nontrivial kernel, in two completely different coordinates. That is strong evidence any winning finite-linear-algebra shortcut, if one exists, must live in a genuinely third coordinate or use an infinite/growing-parameter construction, not evidence that no shortcut exists at all.
 
-**(d) Salvage.** [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:73) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:81) are fully generic finite-rank linear-independence infrastructure — the indexed family is a free variable, reusable for any finite-rank obstruction argument on either problem (e.g. testing independence of Mersenne-indexed sequences for \#257 via an explicit nonzero minor). The CRT+Dirichlet evaluation-forcing technique (make one channel prime, force every other channel through a fresh arithmetic-progression prime) is a reusable construction pattern independent of the totient specifics.
+**(d) Salvage.** and are fully generic finite-rank linear-independence infrastructure — the indexed family is a free variable, reusable for any finite-rank obstruction argument on either problem (e.g. testing independence of Mersenne-indexed sequences for \#257 via an explicit nonzero minor). The CRT+Dirichlet evaluation-forcing technique (make one channel prime, force every other channel through a fresh arithmetic-progression prime) is a reusable construction pattern independent of the totient specifics.
 
 <a id="further-closed-routes-catalogued-for-completeness"></a>
 
@@ -3901,20 +3856,20 @@ The following additional no-gos and route-pruning results were read in full and 
 
 | **Route** | **Mechanism & site** | **Scope / salvage** |
 |:---|:---|:---|
-| Full terminal dyadic staircase (annihilate every suffix letter mod growing powers of 2) | $`a\ge8`$, room bound $`\Rightarrow`$ `ActualLcmTerminalDyadicStaircase` is false: the terminal letter would have to be positive (by short-window positivity) and strictly below a wider-than-itself modulus while divisible by it, forcing it to $`0`$, contradicting positivity. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:251). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | Kills the FULL terminal-staircase proof strategy outright and unconditionally; the *punctured* staircase (all but the last letter vanish) survives and is pinned exactly to the half-turn value $`2^{m-1}`$ at the penultimate letter ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1187)). The generic mechanism ($`0<e<2^m\wedge2^m\mid e\Rightarrow e=0`$) is reusable anywhere a positive quantity is asked to vanish mod a wider modulus. |
-| LCM factor-ideal retention (keep only the homogeneous “factor-only” part of an LCM-ray decomposition) | An explicit nonzero all-horizon countermodel, built from multiples of $`\varphi(\mathrm{periodLcm}(t))`$, agrees with every exact whole-ray anchor $`\Delta\varphi(H,qH)=\varphi(H)`$ for $`2\le q<t`$ and survives every finite commensurate LCM-cube shift-polynomial, at every finite rank. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmFactorIdealPulseObstruction.lean:1-24) (module docstring; theorem bodies <span class="sans-serif">\[Cert\]</span>, DOCSTRING-SOURCED). <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-ray-totient</span> | This is a *representation*-level exclusion, not an object-level one: it shows the homogeneous factor-ideal projection discards fresh Möbius-channel information that can be adversarially reconstructed. Explicitly flagged SYNTHETIC — no claim that the compensation letters occur as actual totient differences. Salvage: a future factor-ideal argument must control the *fresh* channel via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmFactorIdealPulseObstruction.lean:328), not just the old one. |
+| Full terminal dyadic staircase (annihilate every suffix letter mod growing powers of 2) | $`a\ge8`$, room bound $`\Rightarrow`$ `ActualLcmTerminalDyadicStaircase` is false: the terminal letter would have to be positive (by short-window positivity) and strictly below a wider-than-itself modulus while divisible by it, forcing it to $`0`$, contradicting positivity. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | Kills the FULL terminal-staircase proof strategy outright and unconditionally; the *punctured* staircase (all but the last letter vanish) survives and is pinned exactly to the half-turn value $`2^{m-1}`$ at the penultimate letter (). The generic mechanism ($`0<e<2^m\wedge2^m\mid e\Rightarrow e=0`$) is reusable anywhere a positive quantity is asked to vanish mod a wider modulus. |
+| LCM factor-ideal retention (keep only the homogeneous “factor-only” part of an LCM-ray decomposition) | An explicit nonzero all-horizon countermodel, built from multiples of $`\varphi(\mathrm{periodLcm}(t))`$, agrees with every exact whole-ray anchor $`\Delta\varphi(H,qH)=\varphi(H)`$ for $`2\le q<t`$ and survives every finite commensurate LCM-cube shift-polynomial, at every finite rank. (module docstring; theorem bodies <span class="sans-serif">\[Cert\]</span>, DOCSTRING-SOURCED). <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:lcm-ray-totient</span> | This is a *representation*-level exclusion, not an object-level one: it shows the homogeneous factor-ideal projection discards fresh Möbius-channel information that can be adversarially reconstructed. Explicitly flagged SYNTHETIC — no claim that the compensation letters occur as actual totient differences. Salvage: a future factor-ideal argument must control the *fresh* channel via , not just the old one. |
 | Two-prime “full-target diamond” (four simultaneous ray hits certify more than one) | The four-hit diamond $`\mathrm{Hit}(H)\wedge\mathrm{Hit}(pH)\wedge\mathrm{Hit}(qH)\wedge
-\mathrm{Hit}(pqH)`$ is logically equivalent to $`\mathrm{Hit}(H)`$ alone, no primality of $`p,q`$ needed — hits transport multiplicatively for free because $`\mathrm{Hit}(H)\iff\mathrm{IsIntegralValue}(\text{scaleDiagonalTailDifference}(H))`$ and integrality transports affinely along every ray $`H\mapsto kH`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean:196). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:mobius-mersenne</span> | The 4-condition diamond carries zero information beyond its base point — a “curvature-zero collapse” of a multi-point certificate. Any future positive-holonomy argument needs an independently-defined projection of the foreign state *plus* control of the discarded complement; a bare 2/4-point diamond cannot supply new information beyond its own scale. |
-| Fixed-precision local valuation-unit signature (2-adic “tropical curvature carry” attack) | For any finite word of odd-unit-part 2-adic symbols at fixed precision $`u>0`$ and any starting carry state $`e`$, there exists a compatible carry orbit realising the word with every intermediate state centred inside its symbol’s dyadic radius. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TropicalCurvatureCarry.lean:137). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span> | Bounded LOCAL valuation-unit data at FIXED precision can never exclude all finite centred carry completions — no obstruction is derivable from a fixed-window local signature alone; growing precision, or extra arithmetic coupling, is required. Pure 2-adic dynamics, zero totient content, reusable against any similarly-shaped fixed-window carry-certificate attack. |
-| Fixed-depth affine carry reset (distinguishing two carry histories after a long common tail) | For the affine binary orbit $`\mathrm{orbit}(0)=u_0`$, $`\mathrm{orbit}(n{+}1)=2\,\mathrm{orbit}(n)-a(n{+}1)`$ with common forcing word $`a`$: $`\mathrm{orbit}_u(L)-\mathrm{orbit}_v(L)=2^L(u_0-v_0)`$ exactly. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:306). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | After $`L`$ common steps the endpoint residue mod $`2^L`$ is *independent* of the initial carry — long common tails erase predecessor information exactly, not approximately. Directly relevant to any argument hoping to distinguish two carry histories from a shared long suffix; the terminal forcing word alone determines the residue. |
+\mathrm{Hit}(pqH)`$ is logically equivalent to $`\mathrm{Hit}(H)`$ alone, no primality of $`p,q`$ needed — hits transport multiplicatively for free because $`\mathrm{Hit}(H)\iff\mathrm{IsIntegralValue}(\text{scaleDiagonalTailDifference}(H))`$ and integrality transports affinely along every ray $`H\mapsto kH`$. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:mobius-mersenne</span> | The 4-condition diamond carries zero information beyond its base point — a “curvature-zero collapse” of a multi-point certificate. Any future positive-holonomy argument needs an independently-defined projection of the foreign state *plus* control of the discarded complement; a bare 2/4-point diamond cannot supply new information beyond its own scale. |
+| Fixed-precision local valuation-unit signature (2-adic “tropical curvature carry” attack) | For any finite word of odd-unit-part 2-adic symbols at fixed precision $`u>0`$ and any starting carry state $`e`$, there exists a compatible carry orbit realising the word with every intermediate state centred inside its symbol’s dyadic radius. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:p-adic</span> | Bounded LOCAL valuation-unit data at FIXED precision can never exclude all finite centred carry completions — no obstruction is derivable from a fixed-window local signature alone; growing precision, or extra arithmetic coupling, is required. Pure 2-adic dynamics, zero totient content, reusable against any similarly-shaped fixed-window carry-certificate attack. |
+| Fixed-depth affine carry reset (distinguishing two carry histories after a long common tail) | For the affine binary orbit $`\mathrm{orbit}(0)=u_0`$, $`\mathrm{orbit}(n{+}1)=2\,\mathrm{orbit}(n)-a(n{+}1)`$ with common forcing word $`a`$: $`\mathrm{orbit}_u(L)-\mathrm{orbit}_v(L)=2^L(u_0-v_0)`$ exactly. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | After $`L`$ common steps the endpoint residue mod $`2^L`$ is *independent* of the initial carry — long common tails erase predecessor information exactly, not approximately. Directly relevant to any argument hoping to distinguish two carry histories from a shared long suffix; the terminal forcing word alone determines the residue. |
 | Bounded finite-state / autonomous successor decoder for the binary carry | For a balanced-pulse family at location $`m`$ whose predecessor `State` is constant across the whole family, no $`\mathrm{decode}:\mathrm{State}\to
-\mathbb N`$ recovers the radius parameter; any finite `Fintype State` needs $`\mathrm{card}\ge\lfloor m/2\rfloor+2`$, unbounded in $`m`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GenericTailOrbitRigidity.lean:246). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | Rules out, unconditionally, ANY proof strategy that defines a bounded or autonomous “carry state” summarising pre-$`m`$ history and claims it exactly determines the post-$`m`$ tail — independent of whether the coefficients are $`\varphi`$ or a Möbius-support indicator. A hard stop against finite-automaton-computes-the-expansion style attacks on either problem. |
-| Period-4 sign weight as a route to A7’s “frequently nonzero” hypothesis for free | The divisor coefficient of the period-4 sign weight ($`w(a){=}1`$ if $`a{\equiv}1`$, $`-1`$ if $`a{\equiv}3`$, else $`0`$, mod 4) vanishes identically at every $`n\equiv3\pmod4`$, via the divisor-pairing involution $`d\mapsto n/d`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:13898). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:mobius-mersenne</span> | Witnesses that Dirichlet-convolution coefficients CAN vanish identically on an arithmetic progression, so the “frequently nonzero” hypothesis in the nonnegative-periodic irrationality closure ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:14255)) is not free — it is why the corpus lands a dichotomy for general periodic signed weights rather than an unconditional supply theorem. |
-| Certified finite-depth “death” certificates as a route to membership proofs (both problems) | $`\mathtt{CertifiedGreedyMersenneDeath}(x,\mathrm{level},\mathrm{lookahead})`$ is a decidable, finite-depth certificate proving non-membership only ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GreedyAchievementSet.lean:1720); witness [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GreedyAchievementSet.lean:1742), $`3/4`$ certified dead at level 1). <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:greedy-orbit</span> | Structural one-sidedness, recurring across the WHOLE certified-kill family ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean), this one): certified-death $`\Rightarrow`$ non-membership, but absence of a found certificate, or survival through any finite depth, proves *nothing* about membership or rationality. |
-| Reconstructing one totient value from a two-tail absolute-value linear combination | For any finite $`w:\iota\to\mathbb Q`$, $`x:\iota\to\mathbb N`$ with $`\sum w_i\varphi(x_i)=1`$ (exact isolation), the crude two-tail cost $`\sum|w_i|(2(x_i+1)+(x_i+2))\ge3`$, using only $`\varphi(x)\le x`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:266) (closure [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:307)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:totient-adjugate-linear-algebra</span> | The strategy needs cost $`<1`$ and gets $`\ge3`$ at ANY finite grid height — kills the entire “isolate one coefficient via absolute-value two-tail bookkeeping” family before it starts. The proof mechanism is problem-agnostic (any $`c(n)\le n`$ sequence gets the same floor by the triangle inequality) and transfers verbatim to a \#257 reformulation. |
-| Homogeneous Mersenne-primitive prime factor alone forces a contradiction | For the completely-multiplicative control $`c(n)=n`$ (zero totient content): if $`K<q`$, $`q\mid2^K-1`$, the corresponding tail shift is integral at every $`N`$ yet $`q\nmid K`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:342). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:mersenne-modulus</span> | A primitive prime factor of the homogeneous multiplier $`2^K-1`$ alone supplies NO contradiction from tail integrality. A direct cross-problem warning: \#257’s denominators $`2^n-1`$ are literally this $`q\mid2^K-1`$ object, so “a large primitive Mersenne prime factor alone forces a contradiction” should be checked against this lemma before being attempted on either problem. |
-| Prime-power reduced-denominator unit-gap strengthening (rescuing extra Farey lattice points) | At a prime-power reduced denominator $`p^e`$, the unit-gap refinement can rescue at most ONE additional candidate lattice point beyond the ordinary gap certificate. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:111) (iff-characterisation [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:54)). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:farey-gap</span> | A formal ceiling on how much this specific refinement can ever buy — a known dead end for extending the $`\approx7.96\times10^{34}`$ Farey rung (§<a href="#sec:adelic-height" data-reference-type="ref" data-reference="sec:adelic-height">10.4</a>) unboundedly. Do not re-attempt this exact strengthening expecting more than +1 lattice point per prime power; the underlying reduced-denominator-implies-unit-numerator technique is reusable for other denominator-exclusion arguments. |
-| Fixed rank-3 finite-difference kernel squeezing more than one dyadic bit of curvature information | $`\mathrm{fixedRankSecondDifference}(2^{n+1}\cdot2,\,2^{n+1}\cdot3)=-2^{n+1}`$ exactly, for all $`n`$: the two-adic valuation gained by the primitive kernel factor $`2\varphi(j)`$ is exactly tight. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:462). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span> | Route-pruning ammunition: rules out extracting more than one dyadic bit from the bare 3-rank affine kernel $`(1,-2,1)`$; any further progress on the fixed-rank curvature route needs new arithmetic input, not a sharper valuation squeeze from the same kernel. The affine rank-3 kernel classification itself ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientFixedRankLcmAsymptotic.lean:338), pure linear algebra over $`\mathbb Z`$, zero number-theoretic content) is fully reusable for any 3-point finite-difference argument on either problem. |
+\mathbb N`$ recovers the radius parameter; any finite `Fintype State` needs $`\mathrm{card}\ge\lfloor m/2\rfloor+2`$, unbounded in $`m`$. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:binary-digit</span> | Rules out, unconditionally, ANY proof strategy that defines a bounded or autonomous “carry state” summarising pre-$`m`$ history and claims it exactly determines the post-$`m`$ tail — independent of whether the coefficients are $`\varphi`$ or a Möbius-support indicator. A hard stop against finite-automaton-computes-the-expansion style attacks on either problem. |
+| Period-4 sign weight as a route to A7’s “frequently nonzero” hypothesis for free | The divisor coefficient of the period-4 sign weight ($`w(a){=}1`$ if $`a{\equiv}1`$, $`-1`$ if $`a{\equiv}3`$, else $`0`$, mod 4) vanishes identically at every $`n\equiv3\pmod4`$, via the divisor-pairing involution $`d\mapsto n/d`$. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:mobius-mersenne</span> | Witnesses that Dirichlet-convolution coefficients CAN vanish identically on an arithmetic progression, so the “frequently nonzero” hypothesis in the nonnegative-periodic irrationality closure () is not free — it is why the corpus lands a dichotomy for general periodic signed weights rather than an unconditional supply theorem. |
+| Certified finite-depth “death” certificates as a route to membership proofs (both problems) | $`\mathtt{CertifiedGreedyMersenneDeath}(x,\mathrm{level},\mathrm{lookahead})`$ is a decidable, finite-depth certificate proving non-membership only (; witness , $`3/4`$ certified dead at level 1). <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:bounded</span> <span class="sans-serif">coord:greedy-orbit</span> | Structural one-sidedness, recurring across the WHOLE certified-kill family (, , this one): certified-death $`\Rightarrow`$ non-membership, but absence of a found certificate, or survival through any finite depth, proves *nothing* about membership or rationality. |
+| Reconstructing one totient value from a two-tail absolute-value linear combination | For any finite $`w:\iota\to\mathbb Q`$, $`x:\iota\to\mathbb N`$ with $`\sum w_i\varphi(x_i)=1`$ (exact isolation), the crude two-tail cost $`\sum|w_i|(2(x_i+1)+(x_i+2))\ge3`$, using only $`\varphi(x)\le x`$. (closure ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:totient-adjugate-linear-algebra</span> | The strategy needs cost $`<1`$ and gets $`\ge3`$ at ANY finite grid height — kills the entire “isolate one coefficient via absolute-value two-tail bookkeeping” family before it starts. The proof mechanism is problem-agnostic (any $`c(n)\le n`$ sequence gets the same floor by the triangle inequality) and transfers verbatim to a \#257 reformulation. |
+| Homogeneous Mersenne-primitive prime factor alone forces a contradiction | For the completely-multiplicative control $`c(n)=n`$ (zero totient content): if $`K<q`$, $`q\mid2^K-1`$, the corresponding tail shift is integral at every $`N`$ yet $`q\nmid K`$. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:other:mersenne-modulus</span> | A primitive prime factor of the homogeneous multiplier $`2^K-1`$ alone supplies NO contradiction from tail integrality. A direct cross-problem warning: \#257’s denominators $`2^n-1`$ are literally this $`q\mid2^K-1`$ object, so “a large primitive Mersenne prime factor alone forces a contradiction” should be checked against this lemma before being attempted on either problem. |
+| Prime-power reduced-denominator unit-gap strengthening (rescuing extra Farey lattice points) | At a prime-power reduced denominator $`p^e`$, the unit-gap refinement can rescue at most ONE additional candidate lattice point beyond the ordinary gap certificate. (iff-characterisation ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:farey-gap</span> | A formal ceiling on how much this specific refinement can ever buy — a known dead end for extending the $`\approx7.96\times10^{34}`$ Farey rung (§<a href="#sec:adelic-height" data-reference-type="ref" data-reference="sec:adelic-height">10.4</a>) unboundedly. Do not re-attempt this exact strengthening expecting more than +1 lattice point per prime power; the underlying reduced-denominator-implies-unit-numerator technique is reusable for other denominator-exclusion arguments. |
+| Fixed rank-3 finite-difference kernel squeezing more than one dyadic bit of curvature information | $`\mathrm{fixedRankSecondDifference}(2^{n+1}\cdot2,\,2^{n+1}\cdot3)=-2^{n+1}`$ exactly, for all $`n`$: the two-adic valuation gained by the primitive kernel factor $`2\varphi(j)`$ is exactly tight. . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:n/a</span> <span class="sans-serif">coord:binary-digit</span> | Route-pruning ammunition: rules out extracting more than one dyadic bit from the bare 3-rank affine kernel $`(1,-2,1)`$; any further progress on the fixed-rank curvature route needs new arithmetic input, not a sharper valuation squeeze from the same kernel. The affine rank-3 kernel classification itself (, pure linear algebra over $`\mathbb Z`$, zero number-theoretic content) is fully reusable for any 3-point finite-difference argument on either problem. |
 
 <a id="sec:promotion-audit"></a>
 
@@ -3926,24 +3881,24 @@ Of the eighteen, **sixteen are conclusively NOT_PROMOTABLE**: reading the proof 
 
 | **Obligation** | **Row / site** | **Gap kind** | **Verdict and exact blocker** |
 |:---|:---|:---|:---|
-| 249-supply | e1-companion, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128) | hypothesis_strength | NOT_PROMOTABLE. The consumer already has the obligation’s exact quantifier shape; the missing input is a single unproved arithmetic fact — a constant-saving first-harmonic (Weyl-sum) cancellation bound $`\sum_{N\in[X,2X)}\cos(2\pi\cdot(\ldots)/2^L)\le(9/10)X`$ — not proved at any $`X,h,L`$ anywhere in the corpus. |
-| 249-supply | SGN-01, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39) | hypothesis_strength | NOT_PROMOTABLE. Positivity is exactly HALF of the needed certificate: the companion theorem in the same file proves integrality forces the residue to the TOP edge, not a kill — the lower half of the band is discharged unconditionally and cofinally, the upper half is untouched. |
-| 249-supply | TE-04, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1260) | hypothesis_strength | NOT_PROMOTABLE. The consumer side is finished and cofinal (proved for every $`a\ge8`$); the residual is purely the one-sided residue-gap *producer*, unconditionally unsupplied at even one large $`a`$. |
-| 249-supply | TE-05-weakest, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1908) | hypothesis_strength | NOT_PROMOTABLE. The exact identity pinning the target shows the dominance inequality is equivalent to $`\mathrm{carryOrbit}\le0`$, and the sign machinery (SGN-02) already proves the true carry orbit is strictly *positive* under integrality — the corridor-escape branch the identity naturally supplies is exactly the branch already eliminated. |
-| 249-supply | SEP-02, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:141) | scale_only | NOT_PROMOTABLE. The analytic tail is fully discharged with an explicit, uniform error radius; only two exponents ($`a=4,6`$) have the resulting finite distance-to-integer question verified unconditionally ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:35)); nothing beyond $`a=6`$ is proved. |
-| 249-supply | b7, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/MersenneShadowDenominatorGrowth.lean:60) | coordinate_only | NOT_PROMOTABLE. The only proved unbounded-growth quantity in the Möbius–Mersenne coordinate, uniform in $`t`$, but there is no landed transport from a denominator lower bound to $`\mathrm{certifiedKill}`$ or to totient-tail non-integrality — a different coordinate from the obligation. |
-| 249-supply | d4/d5, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900), [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284) | coordinate_only | NOT_PROMOTABLE. The scale side of a second, independent open obligation (unbounded carry-kernel rank forced by rationality) is finished uniformly in $`e`$; the opposite (rationality-side rank upper bound) is missing, and one natural route to it is proved dead ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051)). |
-| 257-reset | rc-2 / F4-adjacent, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean:2309) | multiple | NOT_PROMOTABLE. The excess-side run-length law is only half-assembled: an exact iterate identity exists, and an upper bound on the terminal excess exists separately, but no theorem in Lean composes the two into an excess-side run-length statement, even though every ingredient is present. |
-| 257-reset | E1, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/HalfCylinderSeamLimit.lean:192) | coordinate_only | NOT_PROMOTABLE. Supplies an UPPER bound on the remainder (the ceiling half of the picture); the obligation needs a LOWER bound on the deviation magnitude — the two do not compose without an additional input. |
+| 249-supply | e1-companion, | hypothesis_strength | NOT_PROMOTABLE. The consumer already has the obligation’s exact quantifier shape; the missing input is a single unproved arithmetic fact — a constant-saving first-harmonic (Weyl-sum) cancellation bound $`\sum_{N\in[X,2X)}\cos(2\pi\cdot(\ldots)/2^L)\le(9/10)X`$ — not proved at any $`X,h,L`$ anywhere in the corpus. |
+| 249-supply | SGN-01, | hypothesis_strength | NOT_PROMOTABLE. Positivity is exactly HALF of the needed certificate: the companion theorem in the same file proves integrality forces the residue to the TOP edge, not a kill — the lower half of the band is discharged unconditionally and cofinally, the upper half is untouched. |
+| 249-supply | TE-04, | hypothesis_strength | NOT_PROMOTABLE. The consumer side is finished and cofinal (proved for every $`a\ge8`$); the residual is purely the one-sided residue-gap *producer*, unconditionally unsupplied at even one large $`a`$. |
+| 249-supply | TE-05-weakest, | hypothesis_strength | NOT_PROMOTABLE. The exact identity pinning the target shows the dominance inequality is equivalent to $`\mathrm{carryOrbit}\le0`$, and the sign machinery (SGN-02) already proves the true carry orbit is strictly *positive* under integrality — the corridor-escape branch the identity naturally supplies is exactly the branch already eliminated. |
+| 249-supply | SEP-02, | scale_only | NOT_PROMOTABLE. The analytic tail is fully discharged with an explicit, uniform error radius; only two exponents ($`a=4,6`$) have the resulting finite distance-to-integer question verified unconditionally (); nothing beyond $`a=6`$ is proved. |
+| 249-supply | b7, | coordinate_only | NOT_PROMOTABLE. The only proved unbounded-growth quantity in the Möbius–Mersenne coordinate, uniform in $`t`$, but there is no landed transport from a denominator lower bound to $`\mathrm{certifiedKill}`$ or to totient-tail non-integrality — a different coordinate from the obligation. |
+| 249-supply | d4/d5, , | coordinate_only | NOT_PROMOTABLE. The scale side of a second, independent open obligation (unbounded carry-kernel rank forced by rationality) is finished uniformly in $`e`$; the opposite (rationality-side rank upper bound) is missing, and one natural route to it is proved dead (). |
+| 257-reset | rc-2 / F4-adjacent, | multiple | NOT_PROMOTABLE. The excess-side run-length law is only half-assembled: an exact iterate identity exists, and an upper bound on the terminal excess exists separately, but no theorem in Lean composes the two into an excess-side run-length statement, even though every ingredient is present. |
+| 257-reset | E1, | coordinate_only | NOT_PROMOTABLE. Supplies an UPPER bound on the remainder (the ceiling half of the picture); the obligation needs a LOWER bound on the deviation magnitude — the two do not compose without an additional input. |
 | 257-reset | rc-8, prose *erdos257_reset_crossing_unification_2026_07_24.md* §6 | multiple | NOT_PROMOTABLE. Two gaps at once: the sign law is <span class="sans-serif">\[Cert\]</span>/empirical only (flagged <span class="sans-serif">\[Open\]</span> as an unconditional lemma, not proved), and even if proved it delivers only the SIGN of the deviation, not its magnitude, which is what the obligation needs. |
-| 257-cofinal-rows | TH-sharp-capacity-progress, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/BooleanMobiusSkipRow.lean:286) | hypothesis_strength | NOT_PROMOTABLE. Unconditional and strictly more general than every actual consumer, but it needs a per-$`c`$ input ($`\mathrm{localBinarySuffix}\,D\,1\,(2c{-}2)<2^{c-2}`$) that the corpus only ever supplies through a route which then rigidly collapses onto one specific support family — the deficit hypothesis is a self-imposed restriction of the consumers, and the general input itself is unsupplied. |
-| 257-cofinal-rows | precriticalSuffix_lt_of_future_skip_after_takenBlock, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean:603) | hypothesis_strength | NOT_PROMOTABLE. Unconditional and uniform in both parameters $`(c,t)`$; the sole missing input is an orbit-level skip-gap bound on the rational half-greedy orbit, never proved and never previously isolated as a target anywhere in the banks. |
-| 257-cofinal-rows | greedyHalfFrozenMargin_nonneg, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/HalfCylinderFiniteShadow.lean:1180) | scale_only | NOT_PROMOTABLE. The margin-nonnegativity horizon is produced by a *non-effective* limit argument (an existential horizon from a convergence fact); the exact-row route needs the SPECIFIC effective horizon $`J=k-2`$, and effectivising it is explicitly recorded as unfinished bookkeeping, not new mathematics — but it is still unfinished. |
-| 257-cofinal-rows | C4a, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TerminalOnlyCofinal.lean:34) | multiple | NOT_PROMOTABLE. Trades off against the obligation in the opposite direction on *support locality*: tolerates any support inside a depth window but demands a carry inside a tight $`\sim2\sqrt M`$ strip, where the obligation tolerates an exponentially looser carry but demands the support be confined to a lower window — the gap is support locality, not carry size, and neither socket implies the other. |
-| 257-universal | NM-02, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GreedyAchievementSet.lean:2482) | scale_only | **PROMOTABLE (no new mathematics), but does not close anything.** The proof was opened and found already uniform in the target in every internal step; only the statement’s own quantifier is artificially pinned to $`t=1/2`$. Promoting it converts the whole half-greedy refutation machine from a one-target equivalence to one covering every rational target — the highest-value mechanical promotion in the bank — but it supplies no new arithmetic content: it is a restatement, not a producer. |
-| 257-universal | NM-03, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/HalfCarryReachability.lean:589) | scale_only | **PROMOTABLE (no new mathematics), but does not close anything.** The headline is pinned to target $`1/2`$ while its engine ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DyadicPrefixCompression.lean:1358)) is already fully general over finite supports; verbatim re-derivation at any even-denominator target is available with zero new arithmetic. Paired with NM-02: universal \#257 at $`b=2`$ is false iff some rational $`t`$ with even reduced denominator has an infinitely-skipping greedy Mersenne orbit — a genuine reformulation, not a resolution. |
-| 257-universal | NM-04, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RationalSupportCarrySkeleton.lean:2200) | coordinate_only | NOT_PROMOTABLE (partial mechanical content only). The dyadic restriction $`v=1`$ is a call-site choice, not a proof constraint — the general-$`v`$ conclusion is already landed for arbitrary $`(v,h,L,F)`$ at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/RationalSupportCarrySkeleton.lean:1962) — but the strict form needed for non-dyadic targets requires one genuinely new auxiliary bound (a mean-least-residue estimate) not present in the corpus. |
-| 257-universal | NM-12, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/HalfCutLocator.lean:623) | scale_only | NOT_PROMOTABLE (unverified, not merely blocked). The killer and the dichotomy scaffold are already target-generic; the two endpoint kills that pin the dichotomy to $`1/2`$ generalise on their face, but their proof bodies were explicitly *not* read in this audit pass — recorded as a strong promotability hypothesis, not a verified promotion, since a `norm_num`-style numeric step could hide a $`1/2`$-specific bound. |
+| 257-cofinal-rows | TH-sharp-capacity-progress, | hypothesis_strength | NOT_PROMOTABLE. Unconditional and strictly more general than every actual consumer, but it needs a per-$`c`$ input ($`\mathrm{localBinarySuffix}\,D\,1\,(2c{-}2)<2^{c-2}`$) that the corpus only ever supplies through a route which then rigidly collapses onto one specific support family — the deficit hypothesis is a self-imposed restriction of the consumers, and the general input itself is unsupplied. |
+| 257-cofinal-rows | precriticalSuffix_lt_of_future_skip_after_takenBlock, | hypothesis_strength | NOT_PROMOTABLE. Unconditional and uniform in both parameters $`(c,t)`$; the sole missing input is an orbit-level skip-gap bound on the rational half-greedy orbit, never proved and never previously isolated as a target anywhere in the banks. |
+| 257-cofinal-rows | greedyHalfFrozenMargin_nonneg, | scale_only | NOT_PROMOTABLE. The margin-nonnegativity horizon is produced by a *non-effective* limit argument (an existential horizon from a convergence fact); the exact-row route needs the SPECIFIC effective horizon $`J=k-2`$, and effectivising it is explicitly recorded as unfinished bookkeeping, not new mathematics — but it is still unfinished. |
+| 257-cofinal-rows | C4a, | multiple | NOT_PROMOTABLE. Trades off against the obligation in the opposite direction on *support locality*: tolerates any support inside a depth window but demands a carry inside a tight $`\sim2\sqrt M`$ strip, where the obligation tolerates an exponentially looser carry but demands the support be confined to a lower window — the gap is support locality, not carry size, and neither socket implies the other. |
+| 257-universal | NM-02, | scale_only | **PROMOTABLE (no new mathematics), but does not close anything.** The proof was opened and found already uniform in the target in every internal step; only the statement’s own quantifier is artificially pinned to $`t=1/2`$. Promoting it converts the whole half-greedy refutation machine from a one-target equivalence to one covering every rational target — the highest-value mechanical promotion in the bank — but it supplies no new arithmetic content: it is a restatement, not a producer. |
+| 257-universal | NM-03, | scale_only | **PROMOTABLE (no new mathematics), but does not close anything.** The headline is pinned to target $`1/2`$ while its engine () is already fully general over finite supports; verbatim re-derivation at any even-denominator target is available with zero new arithmetic. Paired with NM-02: universal \#257 at $`b=2`$ is false iff some rational $`t`$ with even reduced denominator has an infinitely-skipping greedy Mersenne orbit — a genuine reformulation, not a resolution. |
+| 257-universal | NM-04, | coordinate_only | NOT_PROMOTABLE (partial mechanical content only). The dyadic restriction $`v=1`$ is a call-site choice, not a proof constraint — the general-$`v`$ conclusion is already landed for arbitrary $`(v,h,L,F)`$ at — but the strict form needed for non-dyadic targets requires one genuinely new auxiliary bound (a mean-least-residue estimate) not present in the corpus. |
+| 257-universal | NM-12, | scale_only | NOT_PROMOTABLE (unverified, not merely blocked). The killer and the dichotomy scaffold are already target-generic; the two endpoint kills that pin the dichotomy to $`1/2`$ generalise on their face, but their proof bodies were explicitly *not* read in this audit pass — recorded as a strong promotability hypothesis, not a verified promotion, since a `norm_num`-style numeric step could hide a $`1/2`$-specific bound. |
 
 <a id="classification-of-the-sixteen-genuine-blockers"></a>
 
@@ -3967,7 +3922,7 @@ No row in the audited eighteen falls under `quantifier_order` — every row with
 
 Everything in Parts I–IV of this document is either a theorem about $`\varphi`$ or a theorem about proof methods for $`\varphi`$. Nothing in it decides Erdős \#249, and this section does not either. What this section does is different in kind from the rest: it takes each route that survives the barrier classification, states the missing mathematics as an exact sentence, identifies the shape of argument that could supply it, names the precise point at which the nearest existing technique fails, and — where the evidence permits — attempts the construction rather than describing it.
 
-Four things are new here and are marked as such. (i) An exact normal form that turns every surviving \#249 route into a statement about the binary expansion of one explicit real number, with the thresholds computed (Lemma <a href="#lem:orbit" data-reference-type="ref" data-reference="lem:orbit">270</a>, Proposition <a href="#prop:transfer" data-reference-type="ref" data-reference="prop:transfer">271</a>, Corollary <a href="#cor:digitform" data-reference-type="ref" data-reference="cor:digitform">272</a>). (ii) A proof that the first-harmonic gap is strictly stronger than irrationality, by an explicit witness inside the same coefficient class (Theorem <a href="#thm:lacunary" data-reference-type="ref" data-reference="thm:lacunary">274</a>); the corpus had this only as a plausibility argument. (iii) Two of the four analytic budgets of the pivot route reduced to classical theorems, with the crossover scale computed (Propositions <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">275</a> and <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">276</a>), together with the exact modulus window in which the pivot is neither $`2`$-adically trivial nor beyond prime-distribution technology (Observation <a href="#obs:tension" data-reference-type="ref" data-reference="obs:tension">277</a>). (iv) A refutation of the fifth surviving route as stated (Theorem <a href="#thm:rankdead" data-reference-type="ref" data-reference="thm:rankdead">280</a>), which retires it.
+Four things are new here and are marked as such. (i) An exact normal form that turns every surviving \#249 route into a statement about the binary expansion of one explicit real number, with the thresholds computed (Lemma <a href="#lem:orbit" data-reference-type="ref" data-reference="lem:orbit">270</a>, Proposition <a href="#prop:transfer" data-reference-type="ref" data-reference="prop:transfer">271</a>, Corollary <a href="#cor:digitform" data-reference-type="ref" data-reference="cor:digitform">272</a>). (ii) A proof that the first-harmonic gap is strictly stronger than irrationality, by an explicit witness inside the same coefficient class (Theorem <a href="#thm:lacunary" data-reference-type="ref" data-reference="thm:lacunary">274</a>); the corpus had this only as a plausibility argument. (iii) A one-sided smooth-number majorant for the non-supplier budget and a bad-cofactor estimate, with their remaining uniformity hypotheses exposed (Propositions <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">275</a> and <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">276</a>); the quantifier audit also shows that the proposed shallow-modulus Siegel–Walfisz route does not fit the predicate. (iv) An audit of the rationality-side rank route: its proposed generic counterexample loses one zero-residue section per level, so it neither refutes nor retires the route.
 
 Where a claim is proved it is marked <span class="sans-serif">\[Math\]</span>; where it is checked by exact or floating-point computation, <span class="sans-serif">\[Cert\]</span>; where it is quoted, <span class="sans-serif">\[Cited\]</span>; where it is a proposal, <span class="sans-serif">\[Open\]</span>. No proposal below is offered as progress towards a solution. Two of them are reductions, and a reduction is not a result.
 
@@ -3981,7 +3936,7 @@ Where a claim is proved it is marked <span class="sans-serif">\[Math\]</span>; w
 
 ## One identity, and what it does to every surviving route
 
-Write $`S=\sum_{n\ge 1}\varphi(n)/2^n`$, $`R_N=\sum_{m\ge 1}\varphi(N+m)/2^m`$ for the local tail ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.\allowbreak lean:57)), and $`\Phi_N=\sum_{n\le N}\varphi(n)2^{N-n}\in\mathbb{Z}`$ for the integer prefix, so that $`2^N S=\Phi_N+R_N`$. For $`h\ge 1`$ set
+Write $`S=\sum_{n\ge 1}\varphi(n)/2^n`$, $`R_N=\sum_{m\ge 1}\varphi(N+m)/2^m`$ for the local tail (), and $`\Phi_N=\sum_{n\le N}\varphi(n)2^{N-n}\in\mathbb{Z}`$ for the integer prefix, so that $`2^N S=\Phi_N+R_N`$. For $`h\ge 1`$ set
 ``` math
 \alpha_h \;:=\; (2^h-1)\,S .
 ```
@@ -4004,7 +3959,7 @@ Hence, for fixed $`h`$, the phases $`\{\,R_{N+h}-R_N \bmod 1\,\}_{N\ge 0}`$ are 
 
 </div>
 
-The second identity and the character form are landed: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.\allowbreak lean:54) and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.\allowbreak lean:66) . The recurrence $`R_{N+1}=2R_N-\varphi(N+1)`$ is one line from the definition and is used below only for intuition <span class="sans-serif">\[Math\]</span>.
+The second identity and the character form are landed: and . The recurrence $`R_{N+1}=2R_N-\varphi(N+1)`$ is one line from the definition and is used below only for intuition <span class="sans-serif">\[Math\]</span>.
 
 This is not a new fact — it is two landed Lean theorems read together — but reading them together has a consequence the corpus never draws. The first-harmonic block sum, which is the analytic frontier of \#249, is a *lacunary exponential sum in a single real variable*. The following proposition makes the transfer exact, including the truncation budget.
 
@@ -4022,13 +3977,13 @@ Then $`\mathrm{OrbitBlockGap}`$ implies that $`S`$ is irrational.*
 
 <div class="proof">
 
-*Proof.* Fix $`h\ge 1`$ and $`X_0`$, and take $`X`$ as supplied. Choose $`L`$ with $`2^{L}\ge 1024\,(2X+h+L+2)`$; such $`L`$ exists because $`2^L/L\to\infty`$, and it satisfies the room inequality $`16(2X+h+L+2)\le 2^L`$ a fortiori. For every $`N<2X`$ the landed truncation bound [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.\allowbreak lean:202) gives $`\bigl\|\,\mathrm{windowFirstExp}(h,N,L)-e(2^N\alpha_h)\,\bigr\|
- < 2\pi(N+L+h+2)/2^{L} \le 2\pi/1024 < 1/100`$, so by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.\allowbreak lean:221), $`\mathrm{windowFirstCos}(h,N,L)\le \cos(2\pi 2^N\alpha_h)+1/100`$. Summing over the $`X`$ values $`N\in[X,2X)`$ gives $`\sum_N \mathrm{windowFirstCos}(h,N,L)\le \tfrac{89}{100}X+\tfrac{1}{100}X
-=\tfrac{9}{10}X`$, so [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.\allowbreak lean:128) produces $`N\in[X,2X)`$ with $`\mathrm{certifiedKill}(h,N,L)`$, and $`N\ge X\ge X_0`$. This is exactly the certificate supply consumed by [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.\allowbreak lean:394). ◻
+*Proof.* Fix $`h\ge 1`$ and $`X_0`$, and take $`X`$ as supplied. Choose $`L`$ with $`2^{L}\ge 1024\,(2X+h+L+2)`$; such $`L`$ exists because $`2^L/L\to\infty`$, and it satisfies the room inequality $`16(2X+h+L+2)\le 2^L`$ a fortiori. For every $`N<2X`$ the landed truncation bound gives $`\bigl\|\,\mathrm{windowFirstExp}(h,N,L)-e(2^N\alpha_h)\,\bigr\|
+ < 2\pi(N+L+h+2)/2^{L} \le 2\pi/1024 < 1/100`$, so by , $`\mathrm{windowFirstCos}(h,N,L)\le \cos(2\pi 2^N\alpha_h)+1/100`$. Summing over the $`X`$ values $`N\in[X,2X)`$ gives $`\sum_N \mathrm{windowFirstCos}(h,N,L)\le \tfrac{89}{100}X+\tfrac{1}{100}X
+=\tfrac{9}{10}X`$, so produces $`N\in[X,2X)`$ with $`\mathrm{certifiedKill}(h,N,L)`$, and $`N\ge X\ge X_0`$. This is exactly the certificate supply consumed by . ◻
 
 </div>
 
-<span class="sans-serif">\[Math\]</span> . The proof uses only landed lemmas; formalising it is a variant of [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:83) with the constant $`21/25`$ replaced by the real-part constant $`89/100`$ and the room factor $`16`$ by $`1024`$. Nothing here is an improvement of the analytic requirement; it is a change of coordinate that makes the requirement legible.
+<span class="sans-serif">\[Math\]</span> . The proof uses only landed lemmas; formalising it is a variant of with the constant $`21/25`$ replaced by the real-part constant $`89/100`$ and the room factor $`16`$ by $`1024`$. Nothing here is an improvement of the analytic requirement; it is a change of coordinate that makes the requirement legible.
 
 <div id="cor:digitform" class="cor">
 
@@ -4051,11 +4006,11 @@ Then $`\mathrm{OrbitBlockGap}`$ implies that $`S`$ is irrational.*
 | $`1`$ | $`256`$ | $`0.4766`$ | $`\phantom{-}0.0037`$ | $`\le 0.89`$ |
 | $`1`$ | $`2048`$ | $`0.5073`$ | $`-0.0043`$ | $`\le 0.89`$ |
 | $`3`$ | $`256`$ | $`0.4648`$ | $`\phantom{-}0.0296`$ | $`\le 0.89`$ |
-| $`3`$ | $`2048`$ | $`0.5020`$ | $`\phantom{-}0.0028`$ | $`\le 0.89`$ |
+| $`3`$ | $`2048`$ | $`0.5020`$ | $`\phantom{-}0.0027`$ | $`\le 0.89`$ |
 | $`8`$ | $`2048`$ | $`0.5112`$ | $`-0.0088`$ | $`\le 0.89`$ |
 | $`13`$ | $`2048`$ | $`0.5049`$ | $`-0.0195`$ | $`\le 0.89`$ |
 
-Block statistics for $`\alpha_h=(2^h-1)S`$, computed from the exact integer $`\lfloor 2^{6000}S\rfloor`$ (error $`<1`$ in the last bit, tail bound $`(M+2)2^{-M}`$ at $`M=6080`$). Over positions $`1..5800`$ the binary expansion of $`\alpha_1`$ has $`2863`$ runs, mean run length $`2.0255`$, longest run $`13`$; for $`\alpha_3`$, $`2964`$ runs, mean $`1.9565`$, longest $`12`$; for $`\alpha_8`$, $`2926`$ runs, mean $`1.9819`$, longest $`14`$. A uniform digit model predicts mean run length $`2`$ and longest run $`\approx\log_2 5800\approx 12.5`$. <span class="sans-serif">\[Cert\]</span>
+Block statistics for $`\alpha_h=(2^h-1)S`$, computed from the exact integer $`\lfloor 2^{6000}S\rfloor`$ (error $`<1`$ in the last bit, tail bound $`(M+2)2^{-M}`$ at $`M=6080`$). Over positions $`1..5800`$ the binary expansion of $`\alpha_1`$ has $`2864`$ runs, mean run length $`2.0251`$, longest run $`13`$; for $`\alpha_3`$, $`2964`$ runs, mean $`1.9568`$, longest $`12`$; for $`\alpha_8`$, $`2927`$ runs, mean $`1.9816`$, longest $`14`$. A uniform digit model predicts mean run length $`2`$ and longest run $`\approx\log_2 5800\approx 12.5`$. <span class="sans-serif">\[Cert\]</span>
 
 </div>
 
@@ -4078,7 +4033,7 @@ Block statistics for $`\alpha_h=(2^h-1)S`$, computed from the exact integer $`\l
   \max(X_0,1)\le X,\quad 16(2X+h+L+2)\le 2^{L},\quad
   \Bigl\|\sum_{N=X}^{2X-1} e\bigl(D(h,N,L)/2^{L}\bigr)\Bigr\|\le \tfrac{21}{25}X,
 ```
-where $`D(h,N,L)=\sum_{j<L}\bigl(\varphi(N+h+1+j)-\varphi(N+1+j)\bigr)2^{L-1-j}`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:75), consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:83) . By Proposition <a href="#prop:transfer" data-reference-type="ref" data-reference="prop:transfer">271</a> the weaker real-part form with constant $`89/100`$ suffices.
+where $`D(h,N,L)=\sum_{j<L}\bigl(\varphi(N+h+1+j)-\varphi(N+1+j)\bigr)2^{L-1-j}`$. , consumer . By Proposition <a href="#prop:transfer" data-reference-type="ref" data-reference="prop:transfer">271</a> the weaker real-part form with constant $`89/100`$ suffices.
 
 <a id="what-d-is-as-an-arithmetic-object."></a>
 
@@ -4166,34 +4121,38 @@ For every $`h\ge 1`$ there must exist $`s\ge 1`$ and $`\eta\in(0,1)`$ such that 
   &\qquad \bigl\|\mathrm{pivotNonSupplierContribution}\bigr\| &\le \tfrac{8}{25}X .
 \end{aligned}
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:397), consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:405) . The decomposition is an exact identity, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:342) , and the supplier set at the canonical fibre is a membership equality with a shifted dyadic interval of primes, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:251) .
+, consumer . The decomposition is an exact identity, , and the supplier set at the canonical fibre is a membership equality with a shifted dyadic interval of primes, .
 
-<a id="two-of-the-four-budgets-are-classical.-here-they-are."></a>
+<a id="one-budget-has-a-classical-one-sided-majorant."></a>
 
-#### Two of the four budgets are classical. Here they are.
+#### One budget has a classical one-sided majorant.
 
-The last two terms have never been attacked because they look like unquantified bookkeeping. They are not: they are exactly calibrated, and both are within reach of standard analytic number theory.
+The non-supplier term is not identified exactly by smooth numbers. What the factorisation gives is the one-way containment needed for an upper bound.
 
 <div id="prop:dickman" class="prop">
 
-**Proposition 275** (The non-supplier budget). *Let $`P(n)`$ denote the largest prime factor of $`n`$. A base $`N`$ fails $`\mathrm{pivotSupplier}`$ only if the pivot argument $`n=N+L-s+1`$ satisfies $`P(n)<4\sqrt X`$. Consequently
+**Proposition 275** (Non-suppliers: the valid one-sided estimate). *Choose the admissible depth $`L`$ minimally for each large $`X`$, with the predicate’s previously fixed $`h`$ and $`s`$. If $`n=N+L-s+1`$ is not a supplier, then its largest prime factor satisfies
 ``` math
-\#\{N\in[X,2X): \neg\,\mathrm{pivotSupplier}(X,L,s,N)\}
-  \;=\;\bigl(\rho(2)+O(1/\log X)\bigr)X
-  \;=\;\bigl(1-\log 2+o(1)\bigr)X
-  \;=\;(0.30685\ldots+o(1))X ,
+P(n)\le (4+o(1))\sqrt X .
 ```
-so the required bound $`\tfrac{8}{25}X=0.32X`$ holds for all sufficiently large $`X`$, where $`\rho`$ is the Dickman function.*
+Therefore
+``` math
+\#\{N\in[X,2X):\neg\,\mathrm{pivotSupplier}(X,L,s,N)\}
+  \le
+  \Psi(2X+O(\log X),(4+o(1))\sqrt X)
+  -\Psi(X+O(\log X),(4+o(1))\sqrt X).
+```
+A uniform smooth-number asymptotic for this shifted interval would make the right side $`(1-\log2+o(1))X<\tfrac8{25}X`$ and would discharge the budget.*
 
 </div>
 
 <div class="proof">
 
-*Proof sketch.* $`\mathrm{pivotSupplier}`$ demands $`2\lfloor\sqrt X\rfloor<p`$ and $`m=n/p\le\lfloor\sqrt X\rfloor/2`$. The second forces $`p\ge 2n/\sqrt X`$, which for $`n<2X+O(\log X)`$ is the binding condition and lies in $`[2\sqrt X,4\sqrt X)`$; so a non-supplier has $`P(n)<4\sqrt X`$. The count is then $`\Psi(2X,y)-\Psi(X,y)`$ in shape with $`u=\log n/\log y\to 2`$, and Hildebrand’s uniform smooth-number estimate <span class="sans-serif">\[Cited\]</span> applies far below $`y=\sqrt x`$. Finally $`\rho(2)=1-\log 2`$. ◻
+*Proof.* Let $`p=P(n)`$ and $`m=n/p`$. Supplier failure means either $`p\le2\lfloor\sqrt X\rfloor`$ or $`m>\lfloor\sqrt X\rfloor/2`$ (up to the definition’s exact floor and positivity clauses). In the second case $`p=n/m\le(4+o(1))\sqrt X`$, because minimal admissible $`L`$ gives $`L-s+1=O(\log X)`$ and hence $`n<2X+O(\log X)`$. Thus every non-supplier lies in the displayed smooth-number set. This proves only an upper bound, not an asymptotic equality for the non-supplier count. ◻
 
 </div>
 
-<span class="sans-serif">\[Math\]</span> (modulo the cited uniform estimate) . Two remarks. First, the budget $`8/25`$ evidently was chosen to sit just above $`1-\log 2`$: the slack is $`0.0132`$, four per cent of the budget. Second, the approach to the limit is at rate $`\asymp 1/\log X`$, so the inequality is true but not observable. Exact computation gives non-supplier density $`0.41795`$ at $`X=2\cdot 10^{4}`$ and $`0.40381`$ at $`X=8\cdot 10^{4}`$ <span class="sans-serif">\[Cert\]</span>; extrapolating the $`1/\log X`$ correction, the crossover below $`0.32`$ lies beyond $`X=10^{30}`$, plausibly near $`10^{40}`$ (order-of-magnitude extrapolation, not a computation). Any numerical sanity check of this budget will therefore appear to refute it.
+<span class="sans-serif">\[Math\]</span> for the containment; <span class="sans-serif">\[Cited\]</span> for the smooth-number estimate needed to finish the numerical budget. In particular the earlier identity with Dickman density, and numerical extrapolations of an exact crossover scale, are not claimed. The implication is sufficient if the required uniform shifted-interval estimate is supplied.
 
 <div id="prop:badcof" class="prop">
 
@@ -4214,33 +4173,24 @@ so a single choice of $`\eta`$ with $`D(\eta)<1/200`$ meets the $`\tfrac{1}{100}
 
 <span class="sans-serif">\[Math\]</span> . The choice is not tight: the least element of $`B(1/5)`$ is $`2\cdot3\cdot5\cdot7\cdot11\cdot13=30030`$, with $`\varphi(m)/m=5760/30030=0.19181`$, and the logarithmic density of $`B(1/5)`$ up to $`3\cdot10^{5}`$ is $`3\cdot 10^{-5}`$ <span class="sans-serif">\[Cert\]</span>. So $`\eta=1/5`$ is already defensible pending an explicit numerical bound on $`D(1/5)`$, and that bound is itself a finite computation a reader could start today.
 
-<a id="where-the-pivot-may-live-an-exact-window."></a>
+<a id="the-pivot-quantifiers-force-a-deep-modulus."></a>
 
-#### Where the pivot may live: an exact window.
+#### The pivot quantifiers force a deep modulus.
 
-The pivot sits at offset $`t=L-s+1`$ in <a href="#eq:window" data-reference-type="eqref" data-reference="eq:window">[eq:window]</a>, so its modulus is $`2^{t}`$ and its coefficient is $`(2^{h}-1)\varphi(m)`$ with $`2^{h}-1`$ odd. Two constraints pull against each other, and the corpus states neither.
-
-<div id="obs:tension" class="obs">
-
-*Observation 277* (The pivot modulus window). *(a) Shallow pivots are $`2`$-adically trivial.* If $`v_2(\varphi(m))\ge t`$ then $`(2^{h}-1)\varphi(m)(p-1)/2^{t}\in\mathbb{Z}`$, the pivot phase is identically $`1`$, the fibre mean is $`1`$, and the budget $`\|\mathrm{pivotFiberMeanContribution}\|\le X/100`$ fails outright. Now $`v_2(\varphi(m))=\sum_{p\mid m,\ p\ \mathrm{odd}}v_2(p-1)+\max(v_2(m)-1,0)`$ has mean $`\sim 2\log\log m`$ — measured means $`3.11,\,3.71,\,4.18,\,4.37`$ for $`m\le 10^{3},10^{4},10^{5},3\cdot10^{5}`$ <span class="sans-serif">\[Cert\]</span> — and is asymptotically normal with variance of order $`\log\log m`$, so a $`1/100`$ fibre-mean budget forces roughly $`t\gtrsim 2\log\log X+C\sqrt{\log\log X}`$.
-
-*(b) Deep pivots are beyond prime distribution.* The fibre mean at cofactor $`m`$ is $`|F_m|^{-1}\sum_{p}e\bigl(a_m(p-1)/2^{t}\bigr)`$ with $`a_m=(2^{h}-1)\varphi(m)`$ and $`p`$ running over primes in an interval of length $`\asymp X/m`$. Writing $`q'=2^{t}/\gcd(a_m,2^{t})`$, the main term is $`\mu(q')/\varphi(q')`$ times the count, and $`\mu(2^{j})=0`$ for $`j\ge2`$: the main term *vanishes identically*. What remains is the error term for primes in progressions to modulus $`2^{t}`$, which Siegel–Walfisz supplies only for $`2^{t}\le(\log X)^{A}`$, that is $`t\le 1.443\,A\log\log X`$. At the room-forced depth $`L\approx\log_2X+5`$, a pivot at $`t\approx L`$ would demand equidistribution of primes to a modulus exceeding the length of the range — past Bombieri–Vinogradov ($`x^{1/2}`$) and past Elliott–Halberstam ($`x^{1-\varepsilon}`$) even conjecturally.
-
-*(c) The window is non-empty.* Combining,
+The pivot sits at offset $`t=L-s+1`$ in <a href="#eq:window" data-reference-type="eqref" data-reference="eq:window">[eq:window]</a>. Crucially, the definition of `DTWPivotResidualDecorrelation` chooses $`s`$ once, after $`h`$ and before the universal threshold $`X_0`$. Thus $`s`$ is fixed as $`X\to\infty`$; it cannot be increased with $`X`$ to make $`t`$ shallow. The room condition gives
 ``` math
-2\log\log X+C\sqrt{\log\log X}\;\lesssim\;t\;\lesssim\;1.443\,A\log\log X ,
+2^L\ge16(2X+h+L+2),\qquad
+  t=L-s+1\ge\log_2X-O_{h,s}(1).
 ```
-non-empty for any $`A>1.39`$; Siegel–Walfisz holds for every fixed $`A`$, at the cost of an ineffective constant. The pivot route is therefore not dead on modulus grounds, and the standing intuition that “the modulus $`2^{L}`$ is hopeless” applies only to the deep pivot, not to the free choice of $`s`$ that the predicate actually offers.
+After removing the $`2`$-part of the coefficient, the prime-progression modulus is still typically of order $`X`$ up to subpolynomial factors, not $`(\log X)^A`$. Standard Siegel–Walfisz therefore does not reach the quantifier order of the stated predicate; choosing a hypothetical $`t=O(\log\log X)`$ would amount to choosing $`s`$ after $`X`$, which the predicate forbids.
 
-</div>
-
-<span class="sans-serif">\[Math\]</span> for (a) and for the vanishing main term in (b); <span class="sans-serif">\[Cited\]</span> for Siegel–Walfisz and the two barrier scales; <span class="sans-serif">\[Cert\]</span> for the measured valuations. This is the item in this section a specialist is most likely to be able to use: it says the analytic socket is well posed and confines it to a definite range of one free parameter.
+The exact $`2`$-adic triviality observation remains useful: if $`v_2(\varphi(m))\ge t`$, then the pivot phase is $`1`$. It does not create a nonempty analytic window under the actual quantifiers. Hence the claimed shallow-modulus route is withdrawn. This does not disprove the pivot predicate; it says only that the proposed prime-distribution argument does not supply it. <span class="sans-serif">\[Math\]</span> <span class="sans-serif">scale:cofinal</span>.
 
 <a id="the-specific-obstacle-the-weight-is-neither-type-i-nor-type-ii."></a>
 
 #### The specific obstacle: the weight is neither Type I nor Type II.
 
-With Propositions <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">275</a>, <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">276</a> and Observation <a href="#obs:tension" data-reference-type="ref" data-reference="obs:tension">277</a>, three of the four budgets have a route. The first does not, and the failure can be located exactly. Factoring the pivot argument as $`n=mp`$ and dividing out the pivot phase leaves
+Propositions <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">275</a> and <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">276</a> isolate possible bookkeeping bounds, subject to their stated uniform estimates. The fixed-$`s`$ quantifier leaves the fibre-mean modulus deep, and the centred term has a separate correlation obstruction. Factoring the pivot argument as $`n=mp`$ and dividing out the pivot phase leaves
 ``` math
 \operatorname{Re}\sum_{m}\ \sum_{p\,:\,mp\in[X,2X)+t}
     w(mp)\,\bigl(e\bigl(a_m(p-1)/2^{t}\bigr)-\overline{e}_m\bigr)
@@ -4284,13 +4234,13 @@ with $`L_k`$ any admissible depth sequence, then infinitely many blocks satisfy 
   \ \wedge\
   \operatorname{Re}\bigl(\mathrm{tailOrbitFirstExp}(h,\,p-h-1)\bigr)<\tfrac{9}{10}.
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ErdosProblems/\allowbreak Erdos249/\allowbreak TotientStrictPrimeEscape.\allowbreak lean:18), consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ErdosProblems/\allowbreak Erdos249/\allowbreak TotientStrictPrimeEscape.\allowbreak lean:66) .
+, consumer .
 
 <a id="what-it-says-after-lemma-lemorbit."></a>
 
 #### What it says, after Lemma <a href="#lem:orbit" data-reference-type="ref" data-reference="lem:orbit">270</a>.
 
-$`\operatorname{Re}e(2^{p-h-1}\alpha_h)<9/10`$ says $`\|2^{p-h-1}\alpha_h\|_{\mathbb{R}/\mathbb{Z}}>\arccos(9/10)/2\pi=0.07226\ldots`$, so the requirement is: *for each $`h`$, the binary expansion of $`\alpha_h`$ begins a run of at most three equal digits at position $`p-h`$, for cofinally many primes $`p`$*. It is a run-length bound at a prime-indexed subsequence of a $`\times2`$ orbit.
+$`\operatorname{Re}e(2^{p-h-1}\alpha_h)<9/10`$ says $`\|2^{p-h-1}\alpha_h\|_{\mathbb{R}/\mathbb{Z}}>\arccos(9/10)/2\pi=0.0717831\ldots`$, so the requirement is exactly: *for each $`h`$, the indicated prime-indexed $`\times2`$ orbit point stays more than $`0.0717831\ldots`$ from the nearest integer, for cofinally many primes $`p`$*. A short-run condition on the binary digits can be a sufficient proxy for this circle-distance inequality, but it is not equivalent to it; a run-length description alone does not determine the residual position inside the dyadic cylinder.
 
 <a id="the-specific-obstacle."></a>
 
@@ -4308,12 +4258,12 @@ Among the $`501`$ primes in $`[1000,5000)`$, the proportion with $`\operatorname
 
 #### A swing: replace the pointwise demand by a canonical fibre.
 
-The corpus warns against the subset consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.\allowbreak lean:104) because a predicate quantifying existentially over subsets $`T\subseteq[X,2X)`$ is collapse-exposed: the proved collapse [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PivotAntiReconstruction.\allowbreak lean:1775) works precisely by *choosing* $`T=\{N,N+1\}`$. That warning applies to a free $`T`$. It does not apply to a $`T`$ named in advance as a function of $`(h,X,L)`$, and the corpus already contains the right one:
+The corpus warns against the subset consumer because a predicate quantifying existentially over subsets $`T\subseteq[X,2X)`$ is collapse-exposed: the proved collapse works precisely by *choosing* $`T=\{N,N+1\}`$. That warning applies to a free $`T`$. It does not apply to a $`T`$ named in advance as a function of $`(h,X,L)`$, and the corpus already contains the right one:
 ``` math
 T_{h,X,L}\;:=\;\mathrm{pivotFiber}(X,L,L-h,1)
   \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},
 ```
-a membership equality rather than a sampled surrogate ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.\allowbreak lean:251), <span class="sans-serif">\[Lean\]</span>). The proposal is to prove
+a membership equality rather than a sampled surrogate (, <span class="sans-serif">\[Lean\]</span>). The proposal is to prove
 ``` math
 \begin{equation}
 \label{eq:primefibre}
@@ -4325,11 +4275,11 @@ a membership equality rather than a sampled surrogate ( [<span class="smallcaps"
 ```
 which by the landed subset consumer yields a certificate at some $`N\ge X\ge X_0`$, hence irrationality. <span class="sans-serif">\[Open\]</span>
 
-Three features make this the sharpest available target. (i) On this fibre the cofactor is $`m=1`$, so the pivot coefficient is $`(2^{h}-1)\varphi(1)=2^{h}-1`$, which is *odd*: the $`2`$-adic triviality of Observation <a href="#obs:tension" data-reference-type="ref" data-reference="obs:tension">277</a>(a) cannot occur. (ii) The pivot modulus is $`2^{h+1}`$, *fixed* once $`h`$ is fixed, so the fibre-mean term is governed by the prime number theorem in progressions to a fixed power of two, where the Ramanujan main term $`c_{2^{h+1}}(2^{h}-1)=\mu(2^{h+1})=0`$ vanishes for every $`h\ge1`$ and the error term is effective. Observation <a href="#obs:tension" data-reference-type="ref" data-reference="obs:tension">277</a>(b) does not bite. (iii) The bookkeeping budgets of §<a href="#sub:pivot" data-reference-type="ref" data-reference="sub:pivot">12.3</a> disappear: inside $`T`$ there are no non-suppliers and no bad cofactors. What remains is exactly one estimate — decorrelation of the fixed phase $`e\bigl((2^{h}-1)(p-1)/2^{h+1}\bigr)`$ from the residual totient weight — and it is the same estimate isolated at the end of §<a href="#sub:pivot" data-reference-type="ref" data-reference="sub:pivot">12.3</a>. This does not make that estimate easier. It removes everything that is not that estimate.
+Three features make this the sharpest available target. (i) On this fibre the cofactor is $`m=1`$, so the pivot coefficient is $`(2^{h}-1)\varphi(1)=2^{h}-1`$, which is *odd*, so the $`2`$-adic triviality described above cannot occur. (ii) The pivot modulus is $`2^{h+1}`$, *fixed* once $`h`$ is fixed, so the fibre-mean term is governed by the prime number theorem in progressions to a fixed power of two, where the Ramanujan main term $`c_{2^{h+1}}(2^{h}-1)=\mu(2^{h+1})=0`$ vanishes for every $`h\ge1`$ and the error term is effective; the fixed-$`s`$ deep-modulus obstruction does not apply to this separately defined canonical fibre. (iii) The bookkeeping budgets of §<a href="#sub:pivot" data-reference-type="ref" data-reference="sub:pivot">12.3</a> disappear: inside $`T`$ there are no non-suppliers and no bad cofactors. What remains is exactly one estimate — decorrelation of the fixed phase $`e\bigl((2^{h}-1)(p-1)/2^{h+1}\bigr)`$ from the residual totient weight — and it is the same estimate isolated at the end of §<a href="#sub:pivot" data-reference-type="ref" data-reference="sub:pivot">12.3</a>. This does not make that estimate easier. It removes everything that is not that estimate.
 
 <div class="rem">
 
-*Remark 278*. Honesty about <a href="#eq:primefibre" data-reference-type="eqref" data-reference="eq:primefibre">[eq:primefibre]</a>: it is not proved to be strictly stronger than irrationality, and no collapse is proved either. What can be said is that the one collapse mechanism that exists in this lane consumes the freedom to choose the sample, and <a href="#eq:primefibre" data-reference-type="eqref" data-reference="eq:primefibre">[eq:primefibre]</a> has no such freedom. Deciding this either way — exhibiting a collapse, or a witness in the coefficient class of Theorem <a href="#thm:lacunary" data-reference-type="ref" data-reference="thm:lacunary">274</a> that separates it from irrationality — is itself a well-defined finite piece of work.
+*Remark 277*. Honesty about <a href="#eq:primefibre" data-reference-type="eqref" data-reference="eq:primefibre">[eq:primefibre]</a>: it is not proved to be strictly stronger than irrationality, and no collapse is proved either. What can be said is that the one collapse mechanism that exists in this lane consumes the freedom to choose the sample, and <a href="#eq:primefibre" data-reference-type="eqref" data-reference="eq:primefibre">[eq:primefibre]</a> has no such freedom. Deciding this either way — exhibiting a collapse, or a witness in the coefficient class of Theorem <a href="#thm:lacunary" data-reference-type="ref" data-reference="thm:lacunary">274</a> that separates it from irrationality — is itself a well-defined finite piece of work.
 
 </div>
 
@@ -4345,17 +4295,17 @@ Three features make this the sharpest available target. (i) On this fibre the co
 \mathrm{ApFullDepthEscape} :\equiv
   \forall d\ge 1\ \forall N\ \exists t\ge 1:\ \mathrm{certifiedKill}(td,\,N,\,td),
 ```
-unpacked, $`(N+2td+2:\mathbb{Z})<D(td,N,td)\bmod 2^{td}<2^{td}-(N+2td+2)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ErdosProblems/\allowbreak Erdos249/\allowbreak PeriodMultipleEscape.\allowbreak lean:162), consumer [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ErdosProblems/\allowbreak Erdos249/\allowbreak PeriodMultipleEscape.\allowbreak lean:171), ambient equivalence [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ErdosProblems/\allowbreak Erdos249/\allowbreak PeriodMultipleEscape.\allowbreak lean:153) . It is the shortest fully stated open inequality the programme has produced.
+unpacked, $`(N+2td+2:\mathbb{Z})<D(td,N,td)\bmod 2^{td}<2^{td}-(N+2td+2)`$. , consumer , ambient equivalence . It is the shortest fully stated open inequality the programme has produced.
 
 <a id="what-it-says-an-anti-self-similarity-statement-about-the-digits-of-s-alone."></a>
 
 #### What it says: an anti-self-similarity statement about the digits of $`S`$ alone.
 
-Writing $`h=td`$ and using $`D(h,N,L)/2^{L}=(R_{N+h}-R_N)-(R_{N+L+h}-R_{N+L})/2^{L}`$ at $`L=h`$, together with the landed strip $`|R_{M+h}-R_M|<M+h+2`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.\allowbreak lean:79), <span class="sans-serif">\[Lean\]</span>), applied at $`M=N+h`$, one gets:
+Writing $`h=td`$ and using $`D(h,N,L)/2^{L}=(R_{N+h}-R_N)-(R_{N+L+h}-R_{N+L})/2^{L}`$ at $`L=h`$, together with the landed strip $`|R_{M+h}-R_M|<M+h+2`$ (, <span class="sans-serif">\[Lean\]</span>), applied at $`M=N+h`$, one gets:
 
 <div id="prop:route4" class="prop">
 
-**Proposition 279**. *$`\mathrm{certifiedKill}(h,N,h)`$ holds whenever $`\bigl\|2^{N+h}S-2^{N}S\bigr\|_{\mathbb{R}/\mathbb{Z}}>2(N+2h+2)/2^{h}`$.*
+**Proposition 278**. *$`\mathrm{certifiedKill}(h,N,h)`$ holds whenever $`\bigl\|2^{N+h}S-2^{N}S\bigr\|_{\mathbb{R}/\mathbb{Z}}>2(N+2h+2)/2^{h}`$.*
 
 </div>
 
@@ -4386,9 +4336,9 @@ At $`N=300`$, the least $`t`$ with $`\mathrm{certifiedKill}(td,300,td)`$ exists 
 
 Under a uniform model for $`\|2^{N}(2^{h}-1)S\|`$ the failure probability at depth $`h=td`$ is $`\approx 4(N+2h+2)/2^{h}`$, which is $`\approx 1`$ at the first admissible $`t`$ and falls by a factor $`2^{d}`$ at each subsequent $`t`$. The probability that a given $`(d,N)`$ fails at every $`t`$ is therefore a product $`\prod_{j\ge0}\min(1,\,c\,2^{-jd})`$, super-exponentially small, and the expected number of failing pairs $`(d,N)`$ over all $`N`$ converges. At $`d=1`$, $`N=300`$ the product evaluates to about $`10^{-5}`$, and the observed value is a success at the very first admissible depth. The model therefore predicts Route 4 holds with enormous margin — which is precisely why no finite computation will ever be evidence for it. <span class="sans-serif">\[Open\]</span> (heuristic).
 
-<a id="route-5-the-rationality-side-rank-bound-and-why-it-should-be-retired"></a>
+<a id="route-5-the-rationality-side-rank-bound-remains-open"></a>
 
-## Route 5: the rationality-side rank bound, and why it should be retired
+## Route 5: the rationality-side rank bound remains open
 
 <a id="the-exact-statement-that-was-wanted."></a>
 
@@ -4399,56 +4349,21 @@ Under a uniform model for $`\|2^{N}(2^{h}-1)S\|`$ the failure probability at dep
   \ \forall v>0\ \forall u\ \mathrm{IsTemperedBinaryOrbit}(c,v,u)\ \forall e:\quad
   \operatorname{rk}_e(u)\le C ,
 ```
-where $`X_c=\sum_{n\ge1}c(n)/2^{n}`$, $`\operatorname{rk}_e(u)=\dim_{\mathbb{Q}}\operatorname{span}_{\mathbb{Q}}\{n\mapsto u(2^{j}n+r)
-: 1\le j\le e,\ r<2^{j}\}`$, or the same with $`C`$ replaced by any $`g(e)=o(2^{e})`$. It would contradict the landed floor [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.\allowbreak lean:284) , which gives $`2^{e}-1\le\operatorname{rk}_e(u)`$ for every $`e`$.
+where $`X_c=\sum_{n\ge1}c(n)/2^{n}`$ and $`\operatorname{rk}_e(u)`$ is the dimension of the span of the dyadic sections of $`u`$ through level $`e`$. A suitable subexponential upper bound would also contradict the landed $`\varphi`$-specific floor . No such rationality-side upper bound is proved.
 
-<a id="first-the-right-vocabulary."></a>
+<a id="the-right-vocabulary-and-the-audited-gap."></a>
 
-#### First, the right vocabulary.
+#### The right vocabulary, and the audited gap.
 
-“The $`\mathbb{Q}`$-span of all dyadic sections is finite-dimensional” is, verbatim, the definition of a *$`2`$-regular sequence* in the sense of Allouche and Shallit <span class="sans-serif">\[Cited\]</span>. In that vocabulary the corpus’s unconditional theorem [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.\allowbreak lean:1014) says: *$`\varphi`$ is not $`2`$-regular*; and the obligation above says: *a rational binary coefficient series with linear growth forces its carry orbit to be $`2`$-regular*. Naming this connects the lane to a mature literature and, as it turns out, decides it.
+Finite-dimensional span of all dyadic sections is the definition of a $`2`$-regular sequence in the sense of Allouche and Shallit <span class="sans-serif">\[Cited\]</span>. The unconditional theorem says that $`\varphi`$ is not $`2`$-regular. An attempted generic counterexample chose a coefficient sequence $`c(n)\le n`$ with rational binary series and non-$`2`$-regular dyadic kernel. Those facts do not refute the desired bound for its carry orbit.
 
-<div id="thm:rankdead" class="thm">
+The generic recurrence
+``` math
+v\,c(N+1)=2u(N)-u(N+1)
+```
+does express each *positive-residue* level-$`j`$ section of $`c`$ as a linear combination of two level-$`j`$ sections of $`u`$. It does not control the zero-residue section at each level. Across levels $`1,\ldots,e`$ those omitted sections can contribute up to $`e`$ new directions, not a fixed $`O(1)`$ error. Consequently non-$`2`$-regularity of $`c`$ alone does not imply unbounded $`\operatorname{rk}_e(u)`$, and the previously claimed bound $`\operatorname{rk}_e(u)\ge2^{e-1}-3`$ has no valid proof here. The proposed greedy set construction therefore supplies neither a counterexample nor a reason to retire the route. <span class="sans-serif">\[Gap\]</span> <span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-kernel</span>.
 
-**Theorem 280** (The obligation is false in its bounded form). *Let $`M=\{4p:p\ \text{prime}\}`$ and define $`b:\mathbb{N}_{\ge1}\to\mathbb{N}`$ by $`b(n)=1`$ for $`n\notin M\cup(M+1)`$, $`b(m)=0`$ for $`m\in M`$, $`b(m+1)=3`$ for $`m\in M`$. Put $`c(n)=n-b(n)`$. Then*
-
-1.  *$`c(n)\in\mathbb{N}`$ and $`c(n)\le n`$ for every $`n\ge1`$;*
-
-2.  *$`X_c=1`$, so $`X_c`$ is rational and a tempered integral orbit $`u`$ exists with $`v=1`$;*
-
-3.  *$`c`$ is not $`2`$-regular, hence $`\operatorname{rk}_e(c)\to\infty`$ and, by the carry bridge [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.\allowbreak lean:94) in its coefficient-generic form — which is the recurrence $`v\,c(N+1)=2u(N)-u(N+1)`$ read on each dyadic section, and uses nothing about $`\varphi`$ — $`\operatorname{rk}_e(u)\to\infty`$.*
-
-*Hence no constant $`C`$ works, and the bounded form of the obligation is refuted.*
-
-</div>
-
-<div class="proof">
-
-*Proof.* (i) $`b`$ takes values in $`\{0,1,3\}`$, and $`b(n)=3`$ only at $`n=m+1\ge 9`$, so $`c(n)=n-b(n)\ge0`$ always; $`c(1)=0`$, $`c(2)=1`$. (ii) $`\sum_{n\ge1}n2^{-n}=2`$, and $`\sum_{n\ge1}b(n)2^{-n}=1`$ because the base sequence $`b\equiv1`$ sums to $`1`$ and each edit contributes $`-1\cdot2^{-m}+2\cdot2^{-(m+1)}=0`$; the edits are disjoint since $`M\subseteq4\mathbb{N}`$ contains no two integers at distance $`1`$. Hence $`X_c=2-1=1`$. (iii) The sequence $`n\mapsto n`$ is $`2`$-regular, and $`2`$-regular sequences form a ring closed under $`\mathbb{Q}`$-linear combination, so if $`c`$ were $`2`$-regular then $`b=\mathrm{id}-c`$ would be. But $`b`$ is bounded, and a bounded $`2`$-regular sequence is $`2`$-automatic (Allouche–Shallit) <span class="sans-serif">\[Cited\]</span>; a $`2`$-automatic $`b`$ makes $`M=\{n:b(n)=0\}`$ a $`2`$-automatic set, hence $`\{p\ \text{prime}\}=\{k:4k\in M\}`$ $`2`$-automatic, contradicting the theorem of Minsky and Papert that the primes are not recognisable by a finite automaton in any base <span class="sans-serif">\[Cited\]</span>. Finally, $`v\,c(N+1)=2u(N)-u(N+1)`$ gives each section of $`c`$ at level $`j`$ and residue $`r\ge1`$ as a $`\mathbb{Q}`$-combination of two sections of $`u`$ at the same level, so $`\operatorname{rk}_e(u)\ge\operatorname{rk}_e(c)-O(1)`$. ◻
-
-</div>
-
-<span class="sans-serif">\[Math\]</span> .
-
-<div id="prop:rankgrowth" class="prop">
-
-**Proposition 281** (The growth form is false too). *The set $`M`$ above may be chosen so that $`\operatorname{rk}_e(u)\ge 2^{e-1}-3`$ for every $`e`$, which exceeds every $`g(e)=o(2^{e})`$ for large $`e`$.*
-
-</div>
-
-<div class="proof">
-
-*Construction.* Take $`M=4G`$ and note that for $`j\ge2`$ and $`r\equiv0\pmod4`$ the level-$`j`$, residue-$`r`$ section of $`b`$ is $`n\mapsto 1-\mathbf 1_G(2^{j-2}n+r/4)`$, since $`M+1`$ misses $`4\mathbb{N}`$. It therefore suffices to choose $`G`$ so that the family $`f_{i,s}(n)=\mathbf 1_G(2^{i}n+s)`$, over $`i\ge0`$ and $`0\le s<2^{i}`$, is $`\mathbb{Q}`$-linearly independent; there are $`2^{e-1}-1`$ such pairs with $`i\le e-2`$, while the sections of $`c`$ differ from those of $`b`$ by the sections of $`\mathrm{id}`$ and by the constant function, together at most three dimensions. Build $`G=\{g_1<g_2<\cdots\}`$ greedily against an enumeration $`(i_t,s_t)`$ of the pairs. At step $`t`$ choose $`g_t\equiv s_t\ (\mathrm{mod}\ 2^{i_t})`$, far above everything chosen so far, and set $`n_t=(g_t-s_t)/2^{i_t}`$, so that $`f_{i_t,s_t}(n_t)=1`$. The values $`2^{i}n_t+s`$ for other pairs $`(i,s)`$ are the only ones that could make $`f_{i,s}(n_t)=1`$; those below $`g_t`$ are finitely many and are avoided by a finite condition on $`g_t`$, and those above $`g_t`$ are added to a forbidden set. The forbidden set contributed by step $`t`$ is $`\bigcup_i[2^{i}n_t,2^{i}(n_t+1))`$, whose relative density inside any arithmetic progression of $`2`$-power modulus is $`O(1/n_t)`$; choosing $`n_t\ge4^{t}`$ makes the total forbidden density less than $`1/2`$, so a legal $`g_{t'}`$ always exists. The resulting evaluation matrix $`\bigl(f_{i_{t'},s_{t'}}(n_t)\bigr)`$ is the identity, so the family is independent. ◻
-
-</div>
-
-<span class="sans-serif">\[Math\]</span> (elementary greedy construction; the only quantitative input is the density estimate stated).
-
-<a id="and-the-floor-carries-no-information-from-rationality."></a>
-
-#### And the floor carries no information from rationality.
-
-There is a second, independent reason to retire this route. The bridge [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.\allowbreak lean:94) places every positive-residue $`\varphi`$-section inside the span of two $`u`$-sections at the same level, and [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.\allowbreak lean:1014) says that span is infinite-dimensional unconditionally. So the floor $`2^{e}-1\le\operatorname{rk}_e(u)`$ is nothing but the non-$`2`$-regularity of $`\varphi`$ transported through an exact identity: it uses rationality only to produce an integral orbit $`u`$ at all, and it would hold for any $`u`$ whatsoever. The two sides of the hoped-for contradiction are therefore not independent measurements of the object. One of them is a fact about $`\varphi`$ that holds regardless, and the other — the upper bound — must consequently carry the entire problem. The apparent coordinate-disjointness that made this route attractive is an artefact of stating the floor and the ceiling in the same vocabulary. Combined with Theorem <a href="#thm:rankdead" data-reference-type="ref" data-reference="thm:rankdead">280</a> and Proposition <a href="#prop:rankgrowth" data-reference-type="ref" data-reference="prop:rankgrowth">281</a>, the recommendation is: retire the route as stated. What is *not* retired is the vocabulary: “is the carry orbit of a rational linear-growth coefficient series $`2`$-regular?” is a good question with a clean negative answer, and knowing the answer is worth more than the route was.
+The Lean theorem for $`\varphi`$ remains valid: it uses the special structure and independently proved linear independence of the totient kernel, not the invalid generic $`O(1)`$ bridge. The honest status is thus asymmetric. The large $`\varphi`$-specific rank floor is proved; a rationality-driven ceiling is open; and the generic countermodel attempt is inconclusive.
 
 <a id="sub:shape"></a>
 
@@ -4469,7 +4384,7 @@ Lemma <a href="#lem:orbit" data-reference-type="ref" data-reference="lem:orbit"
 | 1, 2 | at least $`11\%`$ of positions carry a digit change; mean run length $`\le 9.1`$ in one block per scale | a full dyadic block of $`\alpha_h`$ |
 | 3 | one run of length $`\le 3`$ | positions $`p-h`$, $`p`$ prime, in $`\alpha_h`$ |
 | 4 | the tails at gap $`h`$ differ by more than $`2(N+2h+2)2^{-h}`$ | every basepoint, some multiple of every ray, in $`S`$ |
-| 5 | (retired: Theorem <a href="#thm:rankdead" data-reference-type="ref" data-reference="thm:rankdead">280</a>) the carry orbit is $`2`$-regular | — |
+| 5 | an open rationality-side upper bound on the carry-orbit kernel rank | all dyadic sections through level $`e`$ |
 
 </div>
 
@@ -4503,16 +4418,16 @@ One theorem, of any strength, giving a nontrivial digit statistic for $`S`$ or f
 
 # What is open, stated exactly
 
-Erdős \#249 asks whether $`S = \sum_{n\ge 0} \varphi(n)/2^n`$ is irrational. It is <span class="sans-serif">\[Open\]</span>: nothing in this corpus decides it. Every attack recorded in Parts I–IV terminates, in one of exactly two ways, at a small number of *cofinal supply obligations* on the totient tail $`R_N := \sum_{j\ge 0}\varphi(N+1+j)/2^{j+1}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:57)): either it proves a genuine theorem of the shape “*if* this cofinal predicate holds, *then* $`S`$ is irrational,” with the predicate itself left completely unproved, or it prunes one specific proof shape and shows it cannot supply the predicate. This section renders every such obligation exactly as Lean states it, gives its site, records which of them are proved *equivalent* to one another (iff) and which are proved only *sufficient* (one-directional, an easier target implied by a harder one), and closes by naming, without overclaiming, the piece of new mathematics each surviving form would need. Quantifier order is preserved exactly as written in Lean; nowhere below does a finite verified list stand in for a cofinal supply, and nowhere does an implication get reported as a solved case.
+Erdős \#249 asks whether $`S = \sum_{n\ge 0} \varphi(n)/2^n`$ is irrational. It is <span class="sans-serif">\[Open\]</span>: nothing in this corpus decides it. Every attack recorded in Parts I–IV terminates, in one of exactly two ways, at a small number of *cofinal supply obligations* on the totient tail $`R_N := \sum_{j\ge 0}\varphi(N+1+j)/2^{j+1}`$ (): either it proves a genuine theorem of the shape “*if* this cofinal predicate holds, *then* $`S`$ is irrational,” with the predicate itself left completely unproved, or it prunes one specific proof shape and shows it cannot supply the predicate. This section renders every such obligation exactly as Lean states it, gives its site, records which of them are proved *equivalent* to one another (iff) and which are proved only *sufficient* (one-directional, an easier target implied by a harder one), and closes by naming, without overclaiming, the piece of new mathematics each surviving form would need. Quantifier order is preserved exactly as written in Lean; nowhere below does a finite verified list stand in for a cofinal supply, and nowhere does an implication get reported as a solved case.
 
-Throughout, $`H_t := \mathrm{periodLcm}(t) = \operatorname{lcm}(1,\dots,t)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:515)), $`D(h,N,L) := \sum_{j<L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)\cdot 2^{L-1-j}\in\mathbb{Z}`$ is `windowDiscrepancy` ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:66)), and the base predicate named “$`\mathrm{Sep}(h,N,L)`$” in the task brief is literally `certifiedKill`:
+Throughout, $`H_t := \mathrm{periodLcm}(t) = \operatorname{lcm}(1,\dots,t)`$ (), $`D(h,N,L) := \sum_{j<L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)\cdot 2^{L-1-j}\in\mathbb{Z}`$ is `windowDiscrepancy` (), and the base predicate named “$`\mathrm{Sep}(h,N,L)`$” in the task brief is literally `certifiedKill`:
 ``` math
 \mathrm{certifiedKill}(h,N,L) :\equiv
   (N+h+L+2 : \mathbb{Z}) < D(h,N,L) \bmod 2^L
   \ \wedge\
   D(h,N,L) \bmod 2^L < 2^L - (N+h+L+2).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:72) (the definition; decidable, instance at line 84) . In words: the residue of the window discrepancy modulo $`2^L`$ avoids a shrinking radius-$`(N+h+L+2)`$ neighbourhood of $`0`$ inside the growing modulus $`2^L`$.
+(the definition; decidable, instance at line 84) . In words: the residue of the window discrepancy modulo $`2^L`$ avoids a shrinking radius-$`(N+h+L+2)`$ neighbourhood of $`0`$ inside the growing modulus $`2^L`$.
 
 <a id="the-certificate-completeness-converter"></a>
 
@@ -4524,7 +4439,7 @@ Every reformulation below ultimately measures the same underlying real quantity,
   \iff
   R_{N+h} - R_N \notin \operatorname{range}\bigl((\uparrow)\colon \mathbb{Z}\to\mathbb{R}\bigr).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmConeFlatness.lean:316) (wrapped as `totient_tail_window_kill_exists_iff_tail_diff_notMem_int` at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18697)) (holds for all $`h,N`$) .
+(wrapped as `totient_tail_window_kill_exists_iff_tail_diff_not_int` at ) (holds for all $`h,N`$) .
 
 *Note.* This iff is the reason every “certificate supply” form below can be restated, without loss, in “pure non-integrality” language with no certificate vocabulary at all (the B8/TE forms). It does *not* assert that the cofinal supply exists; it only says the certificate route and the real-analytic route are the same route.
 
@@ -4532,45 +4447,47 @@ Every reformulation below ultimately measures the same underlying real quantity,
 
 ## The base cofinal obligation — the wall
 
-> **Obligation 1 (certificate supply).**
+> **Obligation 1 (certificate-supply normal form).**
 > ``` math
-> \forall h\ge 1,\ \forall N_0,\ \exists N\ge N_0,\ \exists L,\ \mathrm{certifiedKill}(h,N,L)
->   \quad\Longrightarrow\quad
->   \mathrm{Irrational}(S).
+> \mathrm{Irrational}(S)
+>   \quad\Longleftrightarrow\quad
+>   \forall h\ge 1,\ \forall N_0,\ \exists N\ge N_0,\ \exists L,\
+>   \mathrm{certifiedKill}(h,N,L).
 > ```
 
-This is exactly the quantifier structure named “$`\mathrm{Sep}(h,N,L)`$” in the task brief: $`\forall h\ge 1\ \forall N_0\ge 0\ \exists N\ge N_0\ \exists L\ \mathrm{Sep}(h,N,L)`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:394) (the implication is proved; the hypothesis is unsupplied — evidence tags the theorem, not the missing premise) .
+This is exactly the quantifier structure named “$`\mathrm{Sep}(h,N,L)`$” in the task brief: $`\forall h\ge 1\ \forall N_0\ge 0\ \exists N\ge N_0\ \exists L\ \mathrm{Sep}(h,N,L)`$. (the equivalence is proved; the supply itself is unsupplied) .
 
-The proof is by contradiction against the tail-period law: if $`S`$ were rational, `eventual_period_of_not_irrational` ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:358), <span class="sans-serif">\[Lean\]</span>, unconditional) supplies a period $`h>0`$ and pre-period $`N_0`$ with $`R_{N+h}-R_N\in\mathbb{Z}`$ for all $`N\ge N_0`$; the certificate hypothesis instantiated at that $`(h,N_0)`$ produces an $`N\ge N_0`$ where $`R_{N+h}-R_N\notin\mathbb{Z}`$, a contradiction via `tail_diff_notMem_int_of_certifiedKill` ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailPeriodKiller.lean:262)). *What supplying Obligation 1 would take:* an arithmetic (not merely existential) argument that, for every period length $`h`$ and past every threshold $`N_0`$, the totient window discrepancy’s residue mod $`2^L`$ can be pushed off $`0`$ by a margin growing with the modulus — i.e., genuine cancellation/anti-concentration information about $`\varphi`$ on a sliding window, at every scale, for every $`h`$. No such argument exists in the corpus; every row below is a restatement of exactly this missing input in a different coordinate or with fewer free parameters, never a proof of it.
+The reverse direction is by contradiction against the tail-period law: if $`S`$ were rational, `eventual_period_of_not_irrational` (, <span class="sans-serif">\[Lean\]</span>, unconditional) supplies a period $`h>0`$ and pre-period $`N_0`$ with $`R_{N+h}-R_N\in\mathbb{Z}`$ for all $`N\ge N_0`$; the certificate hypothesis instantiated at that $`(h,N_0)`$ produces an $`N\ge N_0`$ where $`R_{N+h}-R_N\notin\mathbb{Z}`$, a contradiction via `tail_diff_notMem_int_of_certifiedKill` (). For the forward direction, irrationality gives pointwise non-integrality of every positive tail shift and certificate completeness supplies a witness already at $`N=N_0`$. *What supplying Obligation 1 would take:* an arithmetic (not merely existential) argument that, for every period length $`h`$ and past every threshold $`N_0`$, the totient window discrepancy’s residue mod $`2^L`$ can be pushed off $`0`$ by a margin growing with the modulus — i.e., genuine cancellation/anti-concentration information about $`\varphi`$ on a sliding window, at every scale, for every $`h`$. No such argument exists in the corpus; the rows below are exact normal forms or sufficient producers for this missing input, never a proof that the input holds.
 
 <a id="collapsing-free-parameters-the-multiple-diagonal-cone-chain"></a>
 
 ## Collapsing free parameters: the multiple / diagonal / cone chain
 
-Three further public reformulations replace Obligation 1’s two free parameters $`(h,N_0)`$ with successively less information, each proved *sufficient* (not shown equivalent) for $`\mathrm{Irrational}(S)`$ by an explicit reduction chain in Lean.
+Three further reformulations replace Obligation 1’s two free parameters $`(h,N_0)`$ with successively less information. The multiple and cone predicates have explicit reductions to irrationality; the lcm-diagonal predicate has a registered iff. Since Obligation 1 itself is an iff, every predicate both implied by Obligation 1 and sufficient for irrationality is also propositionally equivalent to it, even when the corpus exposes only the two directed constructions rather than a separately named iff.
 
-<a id="multiple-period-collapse-weaker-hypothesis-than-obligation-1."></a>
+<a id="multiple-period-collapse-formally-looser-but-endpoint-equivalent."></a>
 
-#### Multiple-period collapse (weaker hypothesis than Obligation 1).
+#### Multiple-period collapse (formally looser, but endpoint-equivalent).
 
 ``` math
 \forall h_0>0,\ \forall N_0,\ \exists m>0,\ \exists N\ge N_0,\ \exists L,\
     \mathrm{certifiedKill}(m\cdot h_0, N, L)
   \ \Longrightarrow\ \mathrm{Irrational}(S).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CarrySurvivorExtinction.lean:502) . Obligation 1’s hypothesis trivially implies this one (take $`m=1`$), so this target is strictly easier to satisfy; it is still open.
+. Obligation 1’s hypothesis trivially implies this one (take $`m=1`$), while the displayed theorem sends it back to irrationality and hence, by the base iff, back to Obligation 1. It is an easier-looking target, not progress; it remains exactly as open as \#249.
 
 <a id="diagonal-collapse-one-free-parameter."></a>
 
 #### Diagonal collapse — one free parameter.
 
 ``` math
-\forall t_0,\ \exists t\ge t_0,\ \exists L,\
-    \mathrm{certifiedKill}(H_t, H_t, L)
-  \ \Longrightarrow\ \mathrm{Irrational}(S).
+\mathrm{Irrational}(S)
+  \ \Longleftrightarrow\
+  \forall t_0,\ \exists t\ge t_0,\ \exists L,\
+    \mathrm{certifiedKill}(H_t, H_t, L).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:112) . This is the canonical single-quantifier restatement: write $`P(t) :\equiv \exists L,\ \mathrm{certifiedKill}(H_t,H_t,L)`$; the obligation is $`\forall t_0\,\exists t\ge t_0,\ P(t)`$. The reduction is a genuine proof, not a relabelling: given $`t\ge\max(h_0,N_0)`$, $`h_0\mid H_t`$ and $`H_t\ge
-t\ge N_0`$ simultaneously, so a single diagonal witness at $`t`$ discharges *both* of Obligation 1’s free parameters at once, via the intermediate lemma [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/LcmDiagonalReduction.lean:92) which itself reduces to the multiple-period form above. $`P(t)`$ is verified at 28 explicit values of $`t`$ through $`t=64`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificates.lean:2842), depths $`[6,5,7,7,9,14,15,14,21,22,23,26,\dots]`$ for $`t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}`$; endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean:1928)) <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:lcm-diagonal</span> — a finite floor, not a cofinal supply: nothing in these 28 witnesses is a function of $`t`$, each is an independent `norm_num` block over explicit $`\varphi`$ values.
+. This is the canonical single-quantifier restatement: write $`P(t) :\equiv \exists L,\ \mathrm{certifiedKill}(H_t,H_t,L)`$; the obligation is $`\forall t_0\,\exists t\ge t_0,\ P(t)`$. The reduction is a genuine proof, not a relabelling: given $`t\ge\max(h_0,N_0)`$, $`h_0\mid H_t`$ and $`H_t\ge
+t\ge N_0`$ simultaneously, so a single diagonal witness at $`t`$ discharges *both* of Obligation 1’s free parameters at once, via the intermediate lemma which itself reduces to the multiple-period form above. Conversely, irrationality and pointwise certificate completeness give the diagonal witness already at $`t=t_0`$. $`P(t)`$ is verified for every $`t\le82`$ (). The historical bank contained 28 explicit values through $`t=64`$ (, depths $`[6,5,7,7,9,14,15,14,21,22,23,26,\dots]`$ for $`t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}`$; endpoint ) <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:fixed</span> <span class="sans-serif">coord:other:lcm-diagonal</span>). The current contiguous band is still a finite floor, not a cofinal supply; no certificate at $`t=83`$ is claimed.
 
 <a id="cone-collapse-two-multipliers-still-the-same-wall."></a>
 
@@ -4581,7 +4498,7 @@ t\ge N_0`$ simultaneously, so a single diagonal witness at $`t`$ discharges *bot
     \mathrm{certifiedKill}(m\cdot H_t,\, q\cdot H_t,\, L)
   \ \Longrightarrow\ \mathrm{Irrational}(S).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18686) . The diagonal form above is exactly the cell $`q=m=1`$, so any diagonal witness trivially witnesses the cone form; the cone form is thus the weakest known target still logically tied to this coordinate. It rests on a genuine strengthening of the tail-period law, *lcm-cone flatness*: if $`S`$ is rational there is $`t_1`$ such that for every $`t\ge t_1`$ and every $`q>0,m`$, $`R_{qH_t+mH_t}-R_{qH_t}\in\mathbb{Z}`$ — rationality flattens the *whole* cone $`\{k H_t : k\ge 1\}`$, not just one difference ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18674), <span class="sans-serif">\[Lean\]</span>, unconditional). A sharper cone-form producer, `coneNonflatCert`, needs only a *one-sided* radius per vertex — information-theoretically half of `certifiedKill`’s pairwise floor — and proves that some pair in a finite multiplier menu $`Q`$ is non-integral; the corresponding supply, $`\exists`$ an unbounded-scale menu $`Q`$ with `coneNonflatCert` firing, is <span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18812).
+. The diagonal form above is exactly the cell $`q=m=1`$, so any diagonal witness trivially witnesses the cone form. The cone predicate is therefore a formally looser target, but its sufficiency theorem and the base iff make it propositionally equivalent to \#249 rather than an unconditional advance. It rests on a genuine strengthening of the tail-period law, *lcm-cone flatness*: if $`S`$ is rational there is $`t_1`$ such that for every $`t\ge t_1`$ and every $`q>0,m`$, $`R_{qH_t+mH_t}-R_{qH_t}\in\mathbb{Z}`$ — rationality flattens the *whole* cone $`\{k H_t : k\ge 1\}`$, not just one difference (, <span class="sans-serif">\[Lean\]</span>, unconditional). A sharper cone-form producer, `coneNonflatCert`, needs only a *one-sided* radius per vertex — information-theoretically half of `certifiedKill`’s pairwise floor — and proves that some pair in a finite multiplier menu $`Q`$ is non-integral; the corresponding supply, $`\exists`$ an unbounded-scale menu $`Q`$ with `coneNonflatCert` firing, is <span class="sans-serif">\[Open\]</span>, <span class="sans-serif">scale:cofinal</span>, .
 
 <a id="pure-non-integrality-form-certificate-vocabulary-stripped-out."></a>
 
@@ -4593,7 +4510,7 @@ Via the completeness iff above, the diagonal and cone forms restate, *exactly*, 
   \ \Longleftrightarrow\ \text{diagonal obligation above}
   \ \Longrightarrow\ \mathrm{Irrational}(S),
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18706) (cone analogue at [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18718)) . This is the frontier of \#249 with every piece of certificate machinery removed: *does $`R_{2H_t}-R_{H_t}\notin\mathbb{Z}`$ for infinitely many $`t`$?* Nothing decides this either.
+(cone analogue at ) . This is the frontier of \#249 with every piece of certificate machinery removed: *does $`R_{2H_t}-R_{H_t}\notin\mathbb{Z}`$ for infinitely many $`t`$?* Nothing decides this either.
 
 <a id="the-exponential-sum-form"></a>
 
@@ -4607,17 +4524,17 @@ A first-harmonic (Weyl-sum) cancellation statement is proved sufficient for Obli
   16\,(2X+h+L+2)\le 2^L\ \wedge\
   \Bigl\|\sum_{N\in[X,2X)} e\bigl(D(h,N,L)/2^L\bigr)\Bigr\| \le \tfrac{21}{25}X.
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:75) (the predicate; unproved at every $`h,X_0`$) .
+(the predicate; unproved at every $`h,X_0`$) .
 ``` math
 \mathrm{DTWFirstHarmonicNormGap} \ \Longrightarrow\ \mathrm{Irrational}(S).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:83) . The consumer already has Obligation 1’s exact free-parameter shape ($`X`$ is a completely free threshold, so applying the gap at $`X\ge N_0`$ gives $`\exists N\ge N_0\ \exists L`$ directly); what is missing is not scale and not coordinate, it is the arithmetic input itself — not one instance of a constant-saving cancellation bound for the complex exponential sum $`\sum_{N\in[X,2X)} e(D(h,N,L)/2^L)`$ is proved anywhere in the corpus, at any $`h,X,L`$. A strictly stronger *subset* form (a saving on any nonempty finite $`T\subseteq[0,2X)`$, no density or partition hypothesis) is also proved sufficient and unconditional as an implication: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicPivot.lean:53) consumes the elementary block lemma [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/FirstHarmonicGap.lean:128) (<span class="sans-serif">\[Lean\]</span>, unconditional: *any* constant-saving first-harmonic gap on one dyadic block forces a finite kill certificate, via $`\cos(\pi/8)>9/10`$ and averaging). *What supplying this form would take:* genuine cancellation for the first additive character of the totient window discrepancy — a Weyl-type bound, uniform in $`h`$ and growing $`L`$, on a character sum built from $`\varphi`$ differences, not merely an existence statement. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/ResidualGaugeObstruction.lean:47) rules out one entire class of candidate proofs: a residual-blind determinant/rank certificate cannot see this cancellation, because an explicit “locked” unit-norm gauge reconstructs the exact bad configuration while keeping any Vandermonde-shaped minor nonzero — any real argument here must couple the rows arithmetically, not merely normalise columns.
+. The consumer already has Obligation 1’s exact free-parameter shape ($`X`$ is a completely free threshold, so applying the gap at $`X\ge N_0`$ gives $`\exists N\ge N_0\ \exists L`$ directly); what is missing is not scale and not coordinate, it is the arithmetic input itself — not one instance of a constant-saving cancellation bound for the complex exponential sum $`\sum_{N\in[X,2X)} e(D(h,N,L)/2^L)`$ is proved anywhere in the corpus, at any $`h,X,L`$. A strictly stronger *subset* form (a saving on any nonempty finite $`T\subseteq[0,2X)`$, no density or partition hypothesis) is also proved sufficient and unconditional as an implication: consumes the elementary block lemma (<span class="sans-serif">\[Lean\]</span>, unconditional: *any* constant-saving first-harmonic gap on one dyadic block forces a finite kill certificate, via $`\cos(\pi/8)>9/10`$ and averaging). *What supplying this form would take:* genuine cancellation for the first additive character of the totient window discrepancy — a Weyl-type bound, uniform in $`h`$ and growing $`L`$, on a character sum built from $`\varphi`$ differences, not merely an existence statement. rules out one entire class of candidate proofs: a residual-blind determinant/rank certificate cannot see this cancellation, because an explicit “locked” unit-norm gauge reconstructs the exact bad configuration while keeping any Vandermonde-shaped minor nonzero — any real argument here must couple the rows arithmetically, not merely normalise columns.
 
-<a id="the-private-lane-the-actual-orbit-reformulation-and-the-top-edge-staircase"></a>
+<a id="the-actual-orbit-reformulation-and-the-top-edge-staircase"></a>
 
-## The private lane: the actual-orbit reformulation and the top-edge staircase
+## The actual-orbit reformulation and the top-edge staircase
 
-A second, independently developed lane (private modules `TotientActual*`/`TotientFixedRank*`, never mirrored to the public repository) restates \#249 in terms of the *actual* power-of-two LCM diagonal, $`H = H_{2^a}`$, and proves a genuine **iff** with the totient series itself — the strongest form of “exact statement of what remains” anywhere in the corpus.
+A second, independently developed lane (the public pinned modules `TotientActual*`/`TotientFixedRank*`) restates \#249 in terms of the *actual* power-of-two LCM diagonal, $`H = H_{2^a}`$, and proves a genuine **iff** with the totient series itself — the strongest form of “exact statement of what remains” anywhere in the corpus.
 
 > **The exact equivalence.**
 > ``` math
@@ -4626,7 +4543,7 @@ A second, independently developed lane (private modules `TotientActual*`/`Totien
 >   \forall a_0,\ \exists a\ge a_0,\ \mathrm{actualLcmTailOrbit}(a)\notin\mathbb{Z}.
 > ```
 
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitNonintegrality.lean:37) (an unconditional equivalence, not a supply) , where $`\mathrm{actualLcmTailOrbit}(a) := 2^H(2^H-1)S - (\mathrm{totientPrefix}(2H)-\mathrm{totientPrefix}(H))`$, $`H=H_{2^a}`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:68)). *This is \#249 restated with nothing left over*: no auxiliary hypothesis, no scale caveat — cofinal non-integrality of this one sparse sequence at power-of-two heights is exactly Erdős \#249. Everything else in this subsection is an attempt to reach the right-hand side.
+(an unconditional equivalence, not a supply) , where $`\mathrm{actualLcmTailOrbit}(a) := 2^H(2^H-1)S - (\mathrm{totientPrefix}(2H)-\mathrm{totientPrefix}(H))`$, $`H=H_{2^a}`$ (). *This is \#249 restated with nothing left over*: no auxiliary hypothesis, no scale caveat — cofinal non-integrality of this one sparse sequence at power-of-two heights is exactly Erdős \#249. Everything else in this subsection is an attempt to reach the right-hand side.
 
 <a id="route-pruning-total-staircase-collapse-is-impossible."></a>
 
@@ -4636,7 +4553,7 @@ Before any positive target, the file proves one entire proof shape is empty. For
 ``` math
 \neg\,\mathrm{ActualLcmTerminalDyadicStaircase}(a,J,K,m).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:251) . The mechanism is a bare positivity/divisibility contradiction (a positive quantity below a modulus, divisible by that modulus, must be $`0`$) against the unconditional positivity of every short-window letter, $`0<\mathrm{lcmRayArithmeticLetter}(2^a,j)`$ for $`a\ge8`$, $`0<j<2\cdot2^a`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:1703), <span class="sans-serif">\[Lean\]</span>, unconditional, no rationality hypothesis). *Do not attempt a full terminal-staircase producer*: it is provably empty. The corpus’s own route past this dead end is the *punctured* staircase (all but the last letter vanish; the last is retained and pinned exactly to the half-turn $`2^{m-1}`$, [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1187), <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) and the one-sided residue-gap family below.
+. The mechanism is a bare positivity/divisibility contradiction (a positive quantity below a modulus, divisible by that modulus, must be $`0`$) against the unconditional positivity of every short-window letter, $`0<\mathrm{lcmRayArithmeticLetter}(2^a,j)`$ for $`a\ge8`$, $`0<j<2\cdot2^a`$ (, <span class="sans-serif">\[Lean\]</span>, unconditional, no rationality hypothesis). *Do not attempt a full terminal-staircase producer*: it is provably empty. The corpus’s own route past this dead end is the *punctured* staircase (all but the last letter vanish; the last is retained and pinned exactly to the half-turn $`2^{m-1}`$, , <span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) and the one-sided residue-gap family below.
 
 <a id="the-surviving-one-sided-target."></a>
 
@@ -4648,27 +4565,27 @@ Before any positive target, the file proves one entire proof shape is empty. For
   2H+J+K+2 < 2^m\ \wedge\
   D(H,\,H+J,\,K) \bmod 2^m \le 2^m - (2H+J+K+2).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:900) (a definition, unproved at any $`a`$) . Note this is a *one-sided* inequality — only the upper (positive) carry arc is excluded, not a symmetric two-sided band — because the corridor’s lower half is already discharged unconditionally: for $`a\ge8`$ and $`J+(a{+}6)<2\cdot2^a`$,
+(a definition, unproved at any $`a`$) . Note this is a *one-sided* inequality — only the upper (positive) carry arc is excluded, not a symmetric two-sided band — because the corridor’s lower half is already discharged unconditionally: for $`a\ge8`$ and $`J+(a{+}6)<2\cdot2^a`$,
 ``` math
 0 < R_{2H+J}-R_{H+J}
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:39) — a rare genuinely unconditional, non-hypothetical real-analytic theorem in this corpus, needing no rationality assumption at all. Its companion shows that *if* the orbit is integral, the residue is forced to the exact top edge $`2^K-e`$ ($`e>0`$ small), *outside* the arc a symmetric certificate would need: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:211) (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) — this is the exact statement of “here is what remains,” pinning the missing exclusion to one named residue class rather than leaving it implicit.
+— a rare genuinely unconditional, non-hypothetical real-analytic theorem in this corpus, needing no rationality assumption at all. Its companion shows that *if* the orbit is integral, the residue is forced to the exact top edge $`2^K-e`$ ($`e>0`$ small), *outside* the arc a symmetric certificate would need: (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) — this is the exact statement of “here is what remains,” pinning the missing exclusion to one named residue class rather than leaving it implicit.
 ``` math
 \mathrm{ActualLcmTopEdgeResidueGap}(a,J,K,m)\ \Longrightarrow\
   R_{2H+J}-R_{H+J}\notin\mathbb{Z}.
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1260) . The cofinal target built from it:
+. The cofinal target built from it:
 ``` math
 \mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply} :\equiv\
   \forall a_0,\ \exists a,K,m,\quad
   a_0\le a\ \wedge\ 8\le a\ \wedge\ K+(a{+}6)<2\cdot 2^a\ \wedge\
   \mathrm{ActualLcmTopEdgeResidueGap}(a,0,K,m).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1325) .
+.
 ``` math
 \mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply} \Longrightarrow \mathrm{Irrational}(S).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2184) .
+.
 
 <a id="five-strictly-weaker-links-each-independently-proved-sufficient."></a>
 
@@ -4676,34 +4593,34 @@ Before any positive target, the file proves one entire proof shape is empty. For
 
 The same file proves five further cofinal predicates, each strictly weaker than `PowerTwoActualLcmTopEdgeResidueGapSupply` (each implies it, so each is an easier target), with a direct \#249 endpoint of its own — proving the *weakest* of the six closes the entire cluster.
 
-1.  $`\mathrm{PowerTwoAdjacentSuffixMidbandSupply}`$: replaces the $`m`$-bit residue test with a symmetric two-sided band on the *adjacent-suffix* residue at depth $`m`$, buffered by the larger depth $`m{+}1`$ so either branch stays inside the sign corridor. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1334) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Sufficiency: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2108), direct endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2191).
+1.  $`\mathrm{PowerTwoAdjacentSuffixMidbandSupply}`$: replaces the $`m`$-bit residue test with a symmetric two-sided band on the *adjacent-suffix* residue at depth $`m`$, buffered by the larger depth $`m{+}1`$ so either branch stays inside the sign corridor. <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Sufficiency: , direct endpoint .
 
 2.  $`\mathrm{PowerTwoOddGuardTopEdgeHalfWordBandSupply}`$: at odd depth $`m=2q+1`$ the adjacent-suffix residue is exactly twice a half-word residue, and both directed edge widths halve to the same threshold $`H+q+2`$:
     ``` math
     H+q+2 \le \bigl(\text{half-word correction word}\bigr) \bmod 4^q
       \le 4^q - (H+q+2).
     ```
-    [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1349) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. This is a substantially weaker demand than the earlier fixed $`1/32`$ central band elsewhere in the corpus. Sufficiency: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2121).
+    <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. This is a substantially weaker demand than the earlier fixed $`1/32`$ central band elsewhere in the corpus. Sufficiency: .
 
 3.  $`\mathrm{PowerTwoActualFinalTopEdgeMagnitudeSupply}`$: the exact centered-lift restatement of (ii),
     ``` math
     H+q+2 \le |\mathrm{actualOddHalfCenteredLift}(a,q)|,
     ```
-    [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1471) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Proved **equivalent** (an iff, not merely sufficient) to (ii):
+    <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Proved **equivalent** (an iff, not merely sufficient) to (ii):
     ``` math
     \mathrm{PowerTwoOddGuardTopEdgeHalfWordBandSupply}
       \iff
       \mathrm{PowerTwoActualFinalTopEdgeMagnitudeSupply}.
     ```
-    [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1479) .
+    .
 
-4.  $`\mathrm{PowerTwoFlexibleActualTopEdgeMagnitudeSupply}`$: the same magnitude test at an *arbitrary* odd rank whose adjacent depth still fits the corridor (not forced to the canonical guarded depth): [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1927) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Sufficiency routes back through (i), not through the corridor-escape chain below: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1938), direct endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2213).
+4.  $`\mathrm{PowerTwoFlexibleActualTopEdgeMagnitudeSupply}`$: the same magnitude test at an *arbitrary* odd rank whose adjacent depth still fits the corridor (not forced to the canonical guarded depth): <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Sufficiency routes back through (i), not through the corridor-escape chain below: , direct endpoint .
 
 5.  $`\mathrm{PowerTwoFlexibleActualTerminalDominanceSupply}`$: a strictly *one-sided* version of (iv) — only the upper comparison, no absolute value:
     ``` math
     \mathrm{diagonalWindowIncrement}(2^a,\,2q{+}2) \le 2\cdot\mathrm{actualOddHalfCenteredLift}(a,q).
     ```
-    [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1908) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Direct endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2221).
+    <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Direct endpoint .
 
 <a id="the-weakest-known-link-and-the-exact-identity-pinning-it."></a>
 
@@ -4715,24 +4632,24 @@ A sixth predicate, strictly weaker again than (v) — it is the disjunction of (
   \forall a_0,\ \exists a,q,\quad \cdots\ \wedge\
   \Bigl(2u \le d - B\ \vee\ d \le 2u\Bigr),
 ```
-where $`d=\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)`$, $`u=\mathrm{actualOddHalfCenteredLift}(a,q)`$, $`B=2H+(2q{+}1)+2`$. [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1895) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Direct endpoint [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:2230). This form is not arbitrary: under integrality it is exactly one side of a proved identity,
+where $`d=\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)`$, $`u=\mathrm{actualOddHalfCenteredLift}(a,q)`$, $`B=2H+(2q{+}1)+2`$. <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>. Direct endpoint . This form is not arbitrary: under integrality it is exactly one side of a proved identity,
 ``` math
 2\cdot\mathrm{actualOddHalfCenteredLift}(a,q)
   = \mathrm{diagonalWindowIncrement}(2^a,2q{+}2) - \mathrm{carryOrbit}(H,H,z,2q{+}1),
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1678) — an *equality*, not an inequality: the doubled centered-lift state is exactly (terminal arithmetic letter) minus (true carry). Escaping either side of this named open interval is exactly the corridor-escape supply. Crucially, the sign machinery has already eliminated the branch this identity most naturally supplies: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSign.lean:172) (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) proves that *under integrality* the true carry orbit is strictly *positive* throughout the corridor, which means the dominance branch (v) is the one the identity naturally produces positive evidence *against*, and the surviving open target is really the *lower*-escape branch, $`2u \le d - B`$ — the dominance branch itself is stated separately as [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:1880). This is the sharpest finite arithmetic statement of “what remains to prove” anywhere in the corpus: a fully closed-form real-integer quantity whose escape from a named interval is necessary and sufficient (mod a fit hypothesis $`2(H{+}q{+}2)\le 4^q`$) for non-integrality at that rank.
+— an *equality*, not an inequality: the doubled centered-lift state is exactly (terminal arithmetic letter) minus (true carry). Escaping either side of this named open interval is exactly the corridor-escape supply. Crucially, the sign machinery has already eliminated the branch this identity most naturally supplies: (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>) proves that *under integrality* the true carry orbit is strictly *positive* throughout the corridor, which means the dominance branch (v) is the one the identity naturally produces positive evidence *against*, and the surviving open target is really the *lower*-escape branch, $`2u \le d - B`$ — the dominance branch itself is stated separately as . This is the sharpest finite arithmetic statement of “what remains to prove” anywhere in the corpus: a fully closed-form real-integer quantity whose escape from a named interval is necessary and sufficient (mod a fit hypothesis $`2(H{+}q{+}2)\le 4^q`$) for non-integrality at that rank.
 
 <a id="a-second-independent-finite-window-target-the-short-arithmetic-kill-supply."></a>
 
 #### A second, independent finite-window target: the short-arithmetic-kill supply.
 
-A separate reduction ties the diagonal public form (the collapsing-free-parameters chain above) to this private lane via an exact digit formula with no cleanliness hypothesis at all, $`\mathrm{lcmRayArithmeticLetter}(t,j) = \varphi(H_t+j)-\varphi(H_t)`$ for *every* offset $`j`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:298), <span class="sans-serif">\[Lean\]</span>), and $`\mathrm{LcmDiagonalArithmeticKill}(t,L)\iff\mathrm{certifiedKill}(H_t,H_t,L)`$ ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:2045), <span class="sans-serif">\[Lean\]</span>). Consequently
+A separate reduction ties the diagonal form (the collapsing-free-parameters chain above) to this actual-orbit lane via an exact digit formula with no cleanliness hypothesis at all, $`\mathrm{lcmRayArithmeticLetter}(t,j) = \varphi(H_t+j)-\varphi(H_t)`$ for *every* offset $`j`$ (, <span class="sans-serif">\[Lean\]</span>), and $`\mathrm{LcmDiagonalArithmeticKill}(t,L)\iff\mathrm{certifiedKill}(H_t,H_t,L)`$ (, <span class="sans-serif">\[Lean\]</span>). Consequently
 ``` math
 \mathrm{PowerTwoActualLcmShortArithmeticKillSupply} :\equiv
   \forall a_0,\ \exists a,L,\quad a_0\le a\ \wedge\ L<2\cdot2^a\ \wedge\
   \mathrm{certifiedKill}(H_{2^a}, H_{2^a}, L)
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:2107) <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span> is *literally the diagonal obligation $`P(t)`$ of the collapsing-free-parameters chain above, restricted to powers of two and to a short window $`L<2\cdot2^a`$*. It is proved sufficient for the actual-orbit iff above via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitArithmetic.lean:2152), and it is verified at exactly two exponents, $`a=4`$ (depth $`L=23`$) and $`a=6`$ (depth $`L=93`$), each traced to a pre-existing compressed diagonal certificate: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:35) <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:fixed</span>. The bounded stub [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmShortKill.lean:54) (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>, proof is a single hard-coded witness $`(a,L)=(6,93)`$, with no argument in $`a`$ at all) proves the supply only for $`a_0\le 6`$; extending it to a single further exponent (say $`a=7`$) is a self-contained, independently interesting target, not a re-run.
+<span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span> is *literally the diagonal obligation $`P(t)`$ of the collapsing-free-parameters chain above, restricted to powers of two and to a short window $`L<2\cdot2^a`$*. It is proved sufficient for the actual-orbit iff above via , and it is verified at exactly two exponents, $`a=4`$ (depth $`L=23`$) and $`a=6`$ (depth $`L=93`$), each traced to a pre-existing compressed diagonal certificate: <span class="sans-serif">\[Cert\]</span> <span class="sans-serif">scale:fixed</span>. The bounded stub (<span class="sans-serif">\[Lean\]</span>, <span class="sans-serif">scale:bounded</span>, proof is a single hard-coded witness $`(a,L)=(6,93)`$, with no argument in $`a`$ at all) proves the supply only for $`a_0\le 6`$; extending it to a single further exponent (say $`a=7`$) is a self-contained, independently interesting target, not a re-run.
 
 <a id="a-diophantine-flavoured-alternative-the-raw-approximant-separation-supply."></a>
 
@@ -4743,14 +4660,14 @@ Unconditionally, for every $`a,q`$:
 \bigl|\mathrm{actualLcmTailOrbit}(a) - \mathrm{actualLcmRawApprox}(a,q)\bigr|
   < \frac{4H+2(2q{+}1)+4}{2^{2q+2}},
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:141) , where $`\mathrm{actualLcmRawApprox}(a,q)`$ is an explicit finite computable rational. This reduces the whole analytic problem to a finite question: a cofinal $`1/32`$-separation of the raw approximant from every integer,
+, where $`\mathrm{actualLcmRawApprox}(a,q)`$ is an explicit finite computable rational. This reduces the whole analytic problem to a finite question: a cofinal $`1/32`$-separation of the raw approximant from every integer,
 ``` math
 \mathrm{PowerTwoActualLcmOrbitSeparationSupply} :\equiv
   \forall a_0,\ \exists a\ge\max(2,a_0),\ \exists q,\quad
   \mathrm{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)=2q{+}1\ \wedge\
   \forall z\in\mathbb{Z},\ \tfrac{1}{32}+\mathrm{errorRadius}(a,q)\le|\mathrm{actualLcmTailOrbit}(a)-z|,
 ```
-<span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>, sufficient via [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmOrbitSeparation.lean:305) (<span class="sans-serif">\[Lean\]</span>). Note the depth $`q`$ is not a free search parameter: the supply pins exactly one admissible depth per scale $`a`$ via $`\mathrm{oddGuardedCanonicalAdjacentSuffixDepth}`$.
+<span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:mobius-mersenne</span>, sufficient via (<span class="sans-serif">\[Lean\]</span>). Note the depth $`q`$ is not a free search parameter: the supply pins exactly one admissible depth per scale $`a`$ via $`\mathrm{oddGuardedCanonicalAdjacentSuffixDepth}`$.
 
 <a id="a-problem-agnostic-normal-form-the-guard-cylinder-compression"></a>
 
@@ -4762,7 +4679,7 @@ Independently of which coordinate is used, *any* tail-difference certificate —
   \iff
   \mathrm{GuardCylinderWitness}(h,N).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientActualLcmTopEdgeStaircase.lean:844) , where the witness is $`\exists s,b,\ \mathrm{certifiedKill}(h,N{+}s,b{+}1) \vee
+, where the witness is $`\exists s,b,\ \mathrm{certifiedKill}(h,N{+}s,b{+}1) \vee
 (\text{room} \wedge \mathrm{DyadicMixedGuard}(D(h,N{+}s,b{+}2),b))`$ at $`b=\lfloor\log_2(N{+}h{+}L{+}2)\rfloor+1`$. This statement mentions no Mersenne or totient structure whatsoever and is stated for arbitrary $`h,N,L`$; it compresses the search space for *any* tail-difference non-integrality certificate — of any depth $`L`$, however large — down to a socket at a logarithmic scale plus a two-bit mixed-guard cylinder ($`01`$ or $`10`$). This is directly reusable, unchanged, for any binary-series tail-difference problem, including \#257’s own denominators.
 
 <a id="two-further-logically-independent-obligations"></a>
@@ -4775,18 +4692,18 @@ Two more open statements would *also* close \#249, each living in a genuinely di
 
 #### Obligation 2 (rank compression).
 
-Unconditionally, for every level $`e`$, the dyadic totient-kernel family of $`2^e+1`$ channels is linearly independent over $`\mathbb{Q}`$ (via CRT and Dirichlet’s theorem on primes in arithmetic progression): [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:900) . Consequently, if $`S`$ is rational there is a tempered integral binary carry orbit $`u`$ with
+Unconditionally, for every level $`e`$, the dyadic totient-kernel family of $`2^e+1`$ channels is linearly independent over $`\mathbb{Q}`$ (via CRT and Dirichlet’s theorem on primes in arithmetic progression): . Consequently, if $`S`$ is rational there is a tempered integral binary carry orbit $`u`$ with
 ``` math
 \forall e,\quad 2^e-1 \le \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr).
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientCarryKernelRigidity.lean:284) . The missing input is the opposite inequality — a rationality-side rank *upper* bound:
+. The missing input is the opposite inequality — a rationality-side rank *upper* bound:
 ``` math
 \exists C,\quad \forall\text{ tempered integral binary carry orbit } u
   \text{ for a rational } S,\quad
   \forall e,\quad \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr) \le C
 ```
 (or any bound growing slower than $`2^e-1`$). <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>. One natural route to it is proved dead: no `CompressedAdjointCertificate` ($`Q\cdot v\cdot A =
-\mathrm{boundary}`$ with $`|\mathrm{boundary}|<Q\cdot v`$ and $`A\ne0`$) can exist — [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1051) — and the full family is proved infinite-dimensional in span: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientMahlerDefect.lean:1014) . What rationality *does* buy — uniform eventual periodicity of $`u`$’s dyadic sections modulo some $`v>0`$ — is proved to *not* promote to any finite rank bound without further arithmetic input: [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/TotientTailCarryPeriod.lean:224) . This pins the obstacle precisely, but supplies no rank upper bound.
+\mathrm{boundary}`$ with $`|\mathrm{boundary}|<Q\cdot v`$ and $`A\ne0`$) can exist — — and the full family is proved infinite-dimensional in span: . What rationality *does* buy — uniform eventual periodicity of $`u`$’s dyadic sections modulo some $`v>0`$ — is proved to *not* promote to any finite rank bound without further arithmetic input: . This pins the obstacle precisely, but supplies no rank upper bound.
 
 <a id="obligation-3-farey-growth-law."></a>
 
@@ -4797,7 +4714,7 @@ The corpus’s strongest *unconditional* statement about $`S`$ comes from a Fare
 \forall p\in\mathbb{Q},\quad p.\mathrm{den} \le 79639646646701375323355774875831053
   \ \Longrightarrow\ S\ne p.
 ```
-[<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/CertificateKernel.lean:18056) . This bound is *sharp* at $`K=240`$ — the mediant $`q=79639646646701375323355774875831054`$ is proved to be the exact first failing denominator ( [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/GapFareyBound.lean:225), <span class="sans-serif">\[Lean\]</span>) — so re-running the same window buys nothing further; a new $`K`$ needs a freshly committed totient residue and freshly computed continued-fraction convergents, both hard-coded numerals. The cofinal upgrade would be: a proved growth law $`g(K)\to\infty`$ such that for every $`K`$ the $`(N{=}1,K)`$ gap check passes for all $`q\le g(K)`$ — equivalently, a lower bound on the convergent denominators of the underlying totient-window constant, uniform in $`K`$. <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:farey</span>. One natural strengthening is proved to be a hard ceiling, not a route to unboundedness: at a prime-power reduced denominator, the “unit-gap” refinement can rescue *at most one* additional lattice point beyond the ordinary gap certificate — [<span class="smallcaps">Lean source</span>](https://github.com/wcook04/plectis-lean-erdos249-257/blob/1128d0858e1060c741f26460afac166f36801af9/Erdos249257/PrimitiveWeightCertificate.lean:111) . This route is closed; growing $`K`$ genuinely requires new per-window computation, not a refinement of the existing one.
+. This bound is *sharp* at $`K=240`$ — the mediant $`q=79639646646701375323355774875831054`$ is proved to be the exact first failing denominator (, <span class="sans-serif">\[Lean\]</span>) — so re-running the same window buys nothing further; a new $`K`$ needs a freshly committed totient residue and freshly computed continued-fraction convergents, both hard-coded numerals. The cofinal upgrade would be: a proved growth law $`g(K)\to\infty`$ such that for every $`K`$ the $`(N{=}1,K)`$ gap check passes for all $`q\le g(K)`$ — equivalently, a lower bound on the convergent denominators of the underlying totient-window constant, uniform in $`K`$. <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:farey</span>. One natural strengthening is proved to be a hard ceiling, not a route to unboundedness: at a prime-power reduced denominator, the “unit-gap” refinement can rescue *at most one* additional lattice point beyond the ordinary gap certificate — . This route is closed; growing $`K`$ genuinely requires new per-window computation, not a refinement of the existing one.
 
 <a id="equivalence-map"></a>
 
@@ -4807,10 +4724,10 @@ The corpus’s strongest *unconditional* statement about $`S`$ comes from a Fare
 
 | **Form** | **Relation to Obligation 1** | **Site** |
 |:---|:---|:---|
-| Sep$`(h,N,L)`$ supply (Obl. 1, base form) | base form | TotientTailPeriodKiller.lean:394 |
-| multiple-period supply | weaker (implied by Obl. 1) | CarrySurvivorExtinction.lean:502 |
-| lcm-diagonal supply $`P(t)`$ | weaker; single free parameter | LcmDiagonalReduction.lean:112 |
-| lcm-cone supply | weaker again; $`P(t)`$ is the cell $`q{=}m{=}1`$ | CertificateKernel.lean:18686 |
+| Sep$`(h,N,L)`$ supply (Obl. 1, base form) | **equivalent** to Irrational$`(S)`$ | LcmConeFlatness.lean:412 |
+| multiple-period supply | propositionally equivalent via Obl. 1; explicit directions are Obl. 1 $`\Rightarrow`$ multiple and multiple $`\Rightarrow`$ irrationality | CarrySurvivorExtinction.lean:502 |
+| lcm-diagonal supply $`P(t)`$ | **equivalent** to Irrational$`(S)`$; single free parameter | LcmConeFlatness.lean:426 |
+| lcm-cone supply | propositionally equivalent via Obl. 1; $`P(t)`$ is the cell $`q{=}m{=}1`$ | CertificateKernel.lean:18686 |
 | cone-menu (`coneNonflatCert`) supply | weaker; half the pairwise radius | CertificateKernel.lean:18812 |
 | pure non-integrality (diagonal/cone) | **equivalent** to the corresp. certificate form, via the completeness iff | CertificateKernel.lean:18706, :18718 |
 | DTWFirstHarmonicNormGap | sufficient for Obl. 1 (not shown weaker/stronger) | FirstHarmonicPivot.lean:83 |
@@ -4830,7 +4747,7 @@ The corpus’s strongest *unconditional* statement about $`S`$ comes from a Fare
 
 </div>
 
-*Reading the table.* “Weaker” always means: the stronger form’s hypothesis, if it held, would imply the weaker form’s hypothesis by an explicit Lean construction (so the weaker predicate is an easier target), and each row independently has its own theorem to $`\mathrm{Irrational}(S)`$. “Equivalent” is reserved for rows connected by a proved `iff` statement; no other pair in this table is known to be logically equivalent, only jointly sufficient for the same conclusion. In particular, Obligation 1 (the public certificate supply) and the actual-orbit iff (the private lane) are *not* shown equivalent to each other as stated; they are independently sufficient reformulations of the same underlying question, connected concretely only through the short-arithmetic-kill supply, which is a genuine special case of Obligation 1’s diagonal form.
+*Reading the table.* *Weaker* in rows not marked equivalent describes an explicit implication between producer predicates: the stronger hypothesis constructs the easier-looking one. *Equivalent* marks a registered `iff`; *propositionally equivalent* marks two proved directions obtained by composing the displayed implications with the base iff. In particular, Obligation 1 and the actual-orbit supply are logically equivalent through $`\mathrm{Irrational}(S)`$, although the corpus does not claim a direct witness-to-witness converter between their predicates. The short-arithmetic-kill supply is one concrete special case of Obligation 1’s diagonal form.
 
 <a id="what-new-mathematics-each-surviving-form-would-need"></a>
 
@@ -4848,8 +4765,8 @@ None of the forms above is close to complete; every one reduces the open content
 
 #### The staircase form.
 
-The private top-edge cluster’s surviving target, in every one of its six equivalent-or-sufficient guises, reduces under the exact identity of the private lane above to control of a single *terminal arithmetic letter*: the value $`\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)
-= \varphi(2H{+}2q{+}2)-\varphi(2H)`$ measured against twice a centred carry-lift state. What is needed is not a new certificate mechanism — the whole apparatus of arithmetic letters, centred lifts, and carry orbits is already exact and unconditional — but a genuine size or residue statement about this one totient value at cofinally many scales $`a`$, sufficient to force it off the interval the identity names. The corpus’s own finite census (through $`t=64`$ on the diagonal form, and $`a=4,6`$ on the short arithmetic-kill form) gives no asymptotic evidence either way; it is a floor, not a trend.
+The actual-orbit top-edge cluster’s surviving target, in every one of its six equivalent-or-sufficient guises, reduces under the exact identity of the actual-orbit lane above to control of a single *terminal arithmetic letter*: the value $`\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)
+= \varphi(2H{+}2q{+}2)-\varphi(2H)`$ measured against twice a centred carry-lift state. What is needed is not a new certificate mechanism — the whole apparatus of arithmetic letters, centred lifts, and carry orbits is already exact and unconditional — but a genuine size or residue statement about this one totient value at cofinally many scales $`a`$, sufficient to force it off the interval the identity names. The corpus’s own finite census (through every $`t\le82`$ on the diagonal form, and $`a=4,6`$ on the short arithmetic-kill form) gives no asymptotic evidence either way; it is a floor, not a trend.
 
 No claim is made that either obstruction is close to resolution, and none of the material above decides Erdős \#249, \#257, or any weakening of them.
 

@@ -22,8 +22,8 @@
 % useful one.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{ae9ef27b040934b70f2418431d58d30a4b01974b}
-\renewcommand{\commitshort}{ae9ef27b0409}
+\renewcommand{\commit}{e5fd26a6d1b1a346430205eab5385b4c9565d004}
+\renewcommand{\commitshort}{e5fd26a6d1b1}
 \hypersetup{
   pdftitle={Denominator periods, rational-value constraints and achievement-set geometry for Mersenne subseries (Erdős Problem 257)},
   pdfsubject={Erdős Problem Notes: Problem 257},
@@ -48,41 +48,28 @@ Achievement-Set Geometry}
 
 \begin{abstract}
 \noindent
-Let $F\subseteq\Npos$ be finite and nonempty, let $b\ge2$, and write
-\[
-  \sum_{n\in F}\frac1{b^n-1}=\frac{N_F}{D_F}
-  \qquad (\gcd(N_F,D_F)=1,\ D_F>0).
-\]
-The lead result is the exact identity
-$\operatorname{ord}_{D_F}(b)=\lcm(F)$, with the convention
-$\operatorname{ord}_1(b)=1$.  If $\lcm(F)\ge2$, then also
-$\lcm(F)<D_F$.  Without that hypothesis the conclusion can fail: at
-$b=2$ and $F=\{1\}$ one has $D_F=1$.
+For finite nonempty $F\subseteq\Npos$ at base $b\ge2$, let $D_F$ be the
+reduced denominator of $\sum_{n\in F}(b^n-1)^{-1}$.  The checked lead theorem is
+$\operatorname{ord}_{D_F}(b)=\lcm(F)$.  If $\lcm(F)\ge2$, then
+$\lcm(F)<D_F$; the case $b=2$, $F=\{1\}$ shows why that hypothesis is needed.
 
-Erd\H{o}s~\#257 asks whether
-$X_A=\sum_{a\in A}(2^a-1)^{-1}$ is irrational for every infinite
-$A\subseteq\Npos$.  It remains open.  The coordinate used here is the divisor
-incidence $\scA_A(n)=\#\{d\mid n:d\in A\}$, for which
-$X_A=\sum_{n\ge1}\scA_A(n)2^{-n}$; these coefficients are nonnegative divisor
-counts and need not be binary digits.  If $X_A$ is rational, its integral
-scaled-tail sequence satisfies an exact long-division recurrence.  For
-infinite $A$ that sequence is unbounded, and every zero window of
-$\scA_A$ at $c+N$ has length at most
-$\varepsilon\log_2(N+1)+O_{\varepsilon,c,v}(1)$.  Under the additional
-hypotheses that $\sum_{a\in A}1/a$ converges and that the reduced odd
-denominator part $v>1$ is coprime to the numerator, rationality also forces
-\[
-  \sum_{a\in A}\frac1a\ge\frac1{\operatorname{ord}_v(2)}.
-\]
-Finally, rational values admit an exact Boolean--M\"obius scaled-tail
-characterisation from which the support is reconstructed.  These constraints
-are not known to be contradictory.  We also record the squarefree support,
-whose values at every power-of-two base are jointly controlled by the
-literature and on which two of the
-arguments used here fail for a reason internal to a normalisation rather than
-to the value itself.  We then record the achievement-set geometry and the exact
-status of the candidate $1/2$: membership would refute \#257, while
-non-membership would eliminate only this one candidate.
+Erd\H{o}s~\#257 asks whether every infinite-support value
+$X_A=\sum_{a\in A}(2^a-1)^{-1}$ is irrational.  It remains open.  This note's
+checked contribution is an exact structural record: hypothetical rational
+values have an unbounded scaled-tail recurrence, sublogarithmic zero windows,
+and Boolean--M\"obius reconstruction; every restriction to allowed exponents
+$J$ preserves unique coding, compactness, and nowhere density, is perfect for
+infinite $J$, and has measure $2^{-|F|}$ when $J^c=F$ is finite and zero when
+$J^c$ is infinite.  For squarefree support the incidence is
+$2^{\omega(n)}-1$; at every even base two divisibility-first certificate
+hypotheses fail already at precision $b^2$, while adjoining $1$ preserves
+irrationality and restores arbitrarily long base-$2$ opening blocks.  Finite
+support represents neither $1/2$ nor $1/21$: the first target is equivalent to
+unbounded greedy skips, and the second to excluding one explicit fatal aligned
+branch whose eventual affine-supercapacity regime remains possible.
+Tao--Ter\"av\"ainen's base-$2$ prime-support theorem and Duverney--Tachiya's
+power-of-two squarefree theorem are cited prior work, not formalised here.
+These classifications and scoped frontiers do not solve \#257 or either target.
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:problem}
@@ -171,8 +158,9 @@ irrational values, grouped by the argument that reaches them.
 Section~\ref{sec:squarefree} treats
 the squarefree support, whose values are known at every power-of-two base and which two of the
 arguments used here provably cannot reach at any even base.
-Section~\ref{sec:geometry} is the geometry of the set of attainable values, and
-the value $1/2$ inside it.  Section~\ref{sec:open} states what remains.
+Section~\ref{sec:geometry} gives the unrestricted and support-restricted
+topology and measure classifications, followed by the exact $1/2$ and $1/21$
+frontiers.  Section~\ref{sec:open} states what remains.
 
 \section{Finite-support denominator periods}\label{sec:period}
 
@@ -369,7 +357,7 @@ with $Q_U$ as in~\eqref{eq:bmc}.
 \end{theorem}
 
 \noindent Checked as
-\mword{Erdos249257/BooleanMobiusCarry.lean}{948}{exists_normalized_support_fraction_iff_exists_booleanMobiusCarry}{Lean}.
+\mword{Erdos249257/BooleanMobiusCarry.lean}{949}{exists_normalized_support_fraction_iff_exists_booleanMobiusCarry}{Lean}.
 The finite example $A=\{2,3\}$ makes the definition concrete.  Here
 $p/q=10/21$, and
 \[
@@ -417,20 +405,20 @@ Support $A$ & Bases & Mechanism and authority \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Classical full support, and base change into it}}\\
 all of $\Npos$ & every $b\ge2$ & Erd\H{o}s 1948~\cite{erdos1948};
-  \mword{Erdos249257/CertificateKernel.lean}{8717}{irrational_erdosSupportSeries_univ}{formalised here} \\
+  \mword{Erdos249257/CertificateKernel.lean}{8998}{irrational_erdosSupportSeries_univ}{formalised here} \\
 multiples of a fixed $d$ & every $b\ge2$ & dilation: the multiples series at
   base $b$ \emph{is} the full-support series at base $b^d$
-  (\mword{Erdos249257/CertificateKernel.lean}{8775}{irrational_erdosSupportSeries_multiples}{checked}) \\
+  (\mword{Erdos249257/CertificateKernel.lean}{9056}{irrational_erdosSupportSeries_multiples}{checked}) \\
 \addlinespace
 \multicolumn{3}{@{}l}{\emph{Periodicity of the coefficient sequence}}\\
 eventually periodic & every $b\ge2$ &
-  \mword{Erdos249257/CertificateKernel.lean}{11276}{irrational_erdosSupportSeries_eventuallyPeriodic}{checked here};
+  \mword{Erdos249257/CertificateKernel.lean}{11557}{irrational_erdosSupportSeries_eventuallyPeriodic}{checked here};
   Luca--Tachiya prove the nonnegative purely-periodic case
   \cite[Theorem~1, p.~139; proof pp.~149--150]{lucatachiya2017};
   finite rational prefixes give the infinite eventual case \\
 a residue class; the odd numbers & every $b\ge2$ & special cases of the row
-  above (\mword{Erdos249257/CertificateKernel.lean}{11344}{irrational_erdosSupportSeries_residueClass}{residue class},
-  \mword{Erdos249257/CertificateKernel.lean}{11358}{irrational_erdosSupportSeries_odd}{odd});
+  above (\mword{Erdos249257/CertificateKernel.lean}{11625}{irrational_erdosSupportSeries_residueClass}{residue class},
+  \mword{Erdos249257/CertificateKernel.lean}{11639}{irrational_erdosSupportSeries_odd}{odd});
   Luca--Tachiya's Example~2 strengthens the odd row to joint linear
   independence of every finite divisor-convolution ladder, also for negative
   integer bases with absolute value greater than one
@@ -438,12 +426,12 @@ a residue class; the odd numbers & every $b\ge2$ & special cases of the row
 \addlinespace
 \multicolumn{3}{@{}l}{\emph{Denominator gaps along a sparse support}}\\
 factorials $\{n!\}$ & every $b\ge2$ &
-  \mword{Erdos249257/CertificateKernel.lean}{5707}{irrational_erdosSum_factorial_support}{checked here} \\
+  \mword{Erdos249257/CertificateKernel.lean}{5988}{irrational_erdosSum_factorial_support}{checked here} \\
 powers of two $\{2^k\}$ & every $b\ge2$ &
-  \mword{Erdos249257/CertificateKernel.lean}{5731}{irrational_erdosSum_two_pow_support}{checked here} \\
+  \mword{Erdos249257/CertificateKernel.lean}{6012}{irrational_erdosSum_two_pow_support}{checked here} \\
 pairwise coprime, $\sum_{a\in A}a^{-1}<\infty$ & every $b\ge2$ &
   Erd\H{o}s~\cite{erdos1968}, theorem on p.~222;
-  \mword{Erdos249257/CertificateKernel.lean}{10448}{irrational_erdosSupportSeries_pairwise_coprime}{formalised here} \\
+  \mword{Erdos249257/CertificateKernel.lean}{10729}{irrational_erdosSupportSeries_pairwise_coprime}{formalised here} \\
 \addlinespace
 \multicolumn{3}{@{}l}{\emph{Multiplicative closure: Chowla--Erd\H{o}s, refined}}\\
 $F_s(E)$ and the monomial images
@@ -489,7 +477,7 @@ rows do not, and this is not merely an artefact of how they were proved.  The
 denominator-gap criterion behind the factorial and power-of-two rows
 \emph{provably cannot} reach the full support: the prefix lcm grows too slowly
 for its hypothesis to hold
-(\mword{Erdos249257/CertificateKernel.lean}{5944}{lcm_gap_hypothesis_fails_full_support}{checked}).
+(\mword{Erdos249257/CertificateKernel.lean}{6225}{lcm_gap_hypothesis_fails_full_support}{checked}).
 Conversely the analytic method of~\cite{taoteravainen2025} reaches the primes,
 which are neither eventually periodic nor pairwise coprime with summable
 reciprocals.  No list contains another, and their union does not exhaust the
@@ -551,7 +539,7 @@ exact about where.  For $u\colon\Npos\to\Z$ periodic and
 $b\ge2$, what is checked here is a \emph{dichotomy}: the series
 $\sum_{n\ge1}u(n)/(b^n-1)$ is irrational, \emph{or} some power of $b$ times
 its value is an integer
-(\mword{Erdos249257/CertificateKernel.lean}{13847}{irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic}{checked}).
+(\mword{Erdos249257/CertificateKernel.lean}{14128}{irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic}{checked}).
 For a nonnegative support indicator the terminating alternative is excluded by
 the rows above; for mixed signs this argument does not exclude it.
 
@@ -699,9 +687,12 @@ $3b^2>b$; if $N=0$ and $L\ge2$, the $r=2$ term gives
 $C\ge b^{L-2}$ and hence $qC\ge b^L$.  These exhaust the cases.
 \end{proof}
 
-\noindent This is an argument in the prose, drawn from the checked incidence
-and parity lemmas, and is marked as such in
-\emph{Statements and declarations}.
+\noindent The two engine-facing nonexistence statements are checked directly as
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{274}{not_exists_carry_certificates_squarefreeSupport}{the carry-aware no-go}
+and
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{292}{not_exists_digitwise_certificates_squarefreeSupport}{the digitwise no-go}.
+The displayed proof is retained to expose the empty- and one-position-block
+boundary cases rather than leaving the scope hidden behind the interfaces.
 
 \subsection{The obstruction is a normalisation, not the value}
 
@@ -719,10 +710,19 @@ so the two supports pose the same irrationality question at every base, while
 the divisor incidence changes from $2^{\omega(n)}-1$ to $2^{\omega(n)}$ ---
 from odd to even at every $n\ge2$.  The parity obstruction of
 Corollary~\ref{res:blind} evaporates under a shift that provably cannot change
-the answer.  More is true: the shifted first-block condition at base~$2$ asks for
+the answer.  The shifted coefficient identity and the exact equivalence of the
+two irrationality questions are checked as
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{314}{supportCoeff_squarefreeShiftedSupport}{$2^{\omega(n)}$ incidence}
+and
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{335}{irrational_erdosSupportSeries_squarefreeSupport_iff_shifted}{the shift iff}.
+More is true: the shifted first-block condition at base~$2$ asks for
 $2^{r}\mid 2^{\omega(N+r)}$, that is $\omega(N+r)\ge r$ for $1\le r\le K$, and
 a Chinese-remainder construction reserving $r$ fresh primes for each shift $r$
-supplies such an $N$ for every $K$.
+supplies such an $N$ for every $K$.  This is checked both as the arithmetic
+block theorem
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{441}{exists_omega_ge_block}{for $\omega$}
+and in the engine-facing form
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{485}{exists_digitwise_block_squarefreeShiftedSupport}{for the shifted incidence}.
 
 It does \emph{not} follow that either argument certifies the shifted support:
 the opening block is one of the conditions listed above, and the middle bound
@@ -739,9 +739,9 @@ $A\mathbin{\triangle}B$ is finite, choose $M$ above all of its elements.
 The two support series then have the same tail beyond $M$, while each omitted
 prefix is rational.  The two directions of this argument are exactly the
 checked prefix lemmas
-\mword{Erdos249257/CertificateKernel.lean}{9139}{irrational_erdosSupportSeries_of_tail}{Lean}
+\mword{Erdos249257/CertificateKernel.lean}{9420}{irrational_erdosSupportSeries_of_tail}{Lean}
 and
-\mword{Erdos249257/CertificateKernel.lean}{9148}{irrational_erdosSupportSeries_tail_of_irrational}{Lean}.
+\mword{Erdos249257/CertificateKernel.lean}{9429}{irrational_erdosSupportSeries_tail_of_irrational}{Lean}.
 Thus $X_A(b)$ is irrational if and only if $X_B(b)$ is irrational for every
 integer $b\ge2$.  The present shift is the smallest instance of a general
 checked finite-change principle.
@@ -971,11 +971,96 @@ positive M\"obius tail, hence at least $1/2+1/63$
 \mword{Erdos249257/MobiusSignSupportNoGo.lean}{150}{half_add_one_div_sixty_three_le_tsum_negativeMobius}{bound}).
 That closes the sign-truncation construction; it excludes no other support.
 
+\subsection{A second rational target}
+
+The target $1/21$ has a useful property that does not depend on any finite
+search.
+
+\begin{theorem}[finite-support obstruction at $1/21$]\label{res:one-over-twenty-one}
+For every finite set $F$ of exponents with $n\ge2$ for all $n\in F$,
+\[
+  \sum_{n\in F}\frac{1}{2^n-1}\ne\frac1{21}.
+\]
+\end{theorem}
+
+\noindent This is checked by
+\lword{Erdos257/HalfCounterexampleFrontier.lean}{59}{finiteErdosSum_ne_one_div_twenty_one}{the formal theorem}.
+The reduced denominator $21$ has doubling order $6$, so the exact
+denominator--lcm identity forces every selected exponent to divide $6$.
+The lower bound $n\ge2$ leaves only $2,3,6$, and the remaining eight subsets
+are discharged by exact rational arithmetic.  Thus any representation of
+$1/21$ along this rank-$\ge2$ route, if one exists, must be infinite.
+The theorem proves nontermination only: it does not prove that $1/21$ lies
+in $\Ach$.
+
+A separate arithmetic module isolates the primitive cone that appears in one
+candidate expansion route.  Write
+\[
+  \mathcal P_{23}(n)=
+  \{(p,q)\in\Npos^2:\gcd(p,q)=1,\ 2p+3q=n\}.
+\]
+Every $n\ge11$ has a member of $\mathcal P_{23}(n)$
+(\mword{Erdos249257/Primitive23Multiplicity.lean}{52}{exists_primitive23_solution_of_eleven_le}{checked}),
+whereas $\mathcal P_{23}(10)$ is empty
+(\mword{Erdos249257/Primitive23Multiplicity.lean}{26}{no_primitive23_solution_ten}{checked}).
+Multiplicity begins immediately at $11$, and every $10k$ with $k\ge2$ has
+at least two distinct primitive representations
+(\mword{Erdos249257/Primitive23Multiplicity.lean}{38}{exists_two_primitive23_solutions_eleven}{rank eleven},
+\mword{Erdos249257/Primitive23Multiplicity.lean}{86}{exists_two_primitive23_solutions_mul_ten}{multiples of ten}).
+These are exact Diophantine facts, not a counterexample construction.  In
+particular the recurring collisions show why primitive-cone coverage is not
+already a Boolean expansion: the missing step is a proof that the relevant
+integer multiplicities can be converted into zero--one reciprocal-Mersenne
+digits without changing the value.
+
+The sharper route works directly with the denominator-$21$ greedy orbit.
+At even depth $2R$, let $s_R$ be the terminal remainder of the descending
+integer-greedy algorithm on the scaled quotient weights, and let
+$D_R\subseteq\{2,\ldots,R\}$ be its Boolean support.  Write
+$\mathcal F_{21}$ for the explicit fatal branch in which the real greedy
+orbit has a fatal witness, only finitely many skipped exponents, eventual
+agreement with the quotient-greedy rows, and eventual occupation of every
+doubling block.
+
+\begin{theorem}[canonical quotient-greedy frontier at $1/21$]
+\label{res:one-over-twenty-one-frontier}
+The following statements hold.
+\begin{enumerate}
+\item $1/21\in\Ach$ if and only if $\mathcal F_{21}$ does not hold.
+\item If there is an unbounded sequence of ranks $R$ with $s_R\le 2^R$,
+  then $1/21\in\Ach$.
+\item On $\mathcal F_{21}$, eventually $s_R>2^R$, the boundary rank $R+1$
+  belongs to $D_{R+1}$, and $(D_R,s_R)$ follows one exact affine recurrence.
+\end{enumerate}
+\end{theorem}
+
+\noindent The equivalence is
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3508}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{kernel checked};
+the closed-row compactness step is
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5553}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}{kernel checked};
+and the eventual affine regime is
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5657}{twentyOneFatalAlignedBranch_eventually_affine_supercapacity}{kernel checked}.
+The denominator-specific separation theorem additionally proves that every
+closed Boolean row is exactly the canonical quotient-greedy row, including
+the saturated boundary
+(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{231}{twentyOneClosedRow_forces_quotientGreedy}{kernel checked}).
+An aligned crossing from saturation into strict supercapacity forces a
+missing canonical ancestor at one-third or two-thirds scale and a real
+skipped exponent with square-root-bounded defect
+(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5178}{twentyOneAlignedSaturatedCrossing_forces_canonical_ancestor_hole}{ancestor hole},
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5222}{twentyOneAlignedSaturatedCrossing_forces_scaled_greedy_skip}{scaled skip}).
+These conclusions remove alternative late Boolean branches; they do not
+exclude the full fatal/cofinite/aligned branch.  On that branch the permanent
+affine-supercapacity recurrence is forced, so a contradiction of the
+recurrence would be sufficient, but the recurrence alone is not the exact
+membership endpoint.
+
 \section{Open problems}\label{sec:open}
 
-For the base-$2$ universal problem, two endpoint propositions organise the
-remaining discussion.  They are not independent, and the relation between
-them is asymmetric.  No finite support has value $1/2$
+For the base-$2$ universal problem, three endpoint questions organise the
+remaining discussion.  The universal problem and the half-value question
+are not independent, and the relation between them is asymmetric.  No finite
+support has value $1/2$
 (Theorem~\ref{res:half}), so $1/2\in\Ach$ would exhibit an \emph{infinite}
 support with a rational value and thereby refute
 Problem~\ref{res:problem}; equivalently, a positive answer to
@@ -984,6 +1069,15 @@ does not follow: $1/2\notin\Ach$ would give a finite fatal-gap witness and
 eliminate this candidate, but would not imply the universal statement.  The
 half-value question is therefore a one-sided test of \#257, not a second
 problem beside it.
+
+\begin{problem}[membership of 1/21 in the Mersenne achievement set]
+\label{prob:one-over-twenty-one-membership}
+Exclude the explicit fatal/cofinite/aligned branch $\mathcal F_{21}$.
+It is sufficient either to contradict the eventual permanent
+affine-supercapacity recurrence forced by that branch or to force an unbounded
+sequence of closed canonical quotient rows; neither sufficient route is
+claimed to be equivalent by itself.
+\end{problem}
 
 \begin{enumerate}
 \item \textbf{Problem~\ref{res:problem} itself}, for arbitrary infinite $A$.
@@ -998,6 +1092,13 @@ problem beside it.
   this exactly equivalent to infinitely many greedy skips, and to a fatal gap
   on the other side; neither is proved.  A proof of non-membership would take
   the form of one finite fatal gap.
+\item \textbf{Problem~\ref{prob:one-over-twenty-one-membership}.}
+  Theorem~\ref{res:one-over-twenty-one} rules out finite support, while
+  Theorem~\ref{res:one-over-twenty-one-frontier} reduces membership exactly
+  to excluding $\mathcal F_{21}$.  Contradicting its forced eventual
+  affine-supercapacity recurrence or producing arbitrarily deep closed
+  canonical rows would suffice.  Neither input is known, and neither is
+  promoted to an equivalence.
 \end{enumerate}
 
 \noindent For scope, all squarefree values at power-of-two bases, jointly in
@@ -1012,15 +1113,15 @@ makes no global open-status or priority claim for those values.
 This manuscript is authored exposition, not proof authority.  The linked Lean
 snapshot is authoritative only for its exact propositions; kernel checking
 establishes that a proposition was proved, not that it is interesting, novel,
-or sufficient.  The proof of Corollary~\ref{res:blind}, the derivation of
-Corollary~\ref{res:sfsettled} from
+or sufficient.  The displayed proof of Corollary~\ref{res:blind}, the
+derivation of Corollary~\ref{res:sfsettled} from
 ~\cite[Cor.~1.2 and Ex.~1.1, author-preprint p.~4]{duverneytachiya},
-the finite-change
-argument (from the two checked prefix lemmas), the shift identity and
-Chinese-remainder remark in Section~\ref{sec:squarefree}, and the restricted
-selector-injectivity sentence in Section~\ref{sec:geometry} are arguments in the
-prose rather than checked statements; each is drawn from the checked lemmas
-cited beside it or from the cited literature.  The numerical instances --- the
+and the general finite-change argument (from the two checked prefix lemmas) are
+expository arguments rather than named checked statements.  The squarefree
+no-go interfaces, shifted coefficient, shift equivalence, Chinese-remainder
+block supply, and restricted-selector injectivity are directly checked
+statements linked at their use; they are not prose-only claims.  The numerical
+instances --- the
 table of finite supports in Section~\ref{sec:period}, the incidence and
 zero-window examples, the reciprocal-mass and Boolean--M\"obius instances, the
 $3/4$ certificate, and the greedy expansion of $1/2$ through level~$21$ ---
