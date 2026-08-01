@@ -38,43 +38,30 @@
 
 \begin{abstract}
 \noindent
-Sylvester's sequence $2,3,7,43,1807,\ldots$ satisfies
-$a_n=a_{n-1}^{2}-a_{n-1}+1$ and has reciprocal sum $1$.  Erd\H{o}s asked
-whether a rapidly growing integer sequence with rational reciprocal sum must
-satisfy that recurrence eventually.  Clearing denominators gives integer states
-$D_{n+1}=a_nD_n$ and $C_{n+1}=a_nC_n-D_n$, and centring at the Sylvester tail
-gives $E_n=D_n-(a_n-1)C_n$, with $C_{n+1}=C_n-E_n$; the question becomes
-whether $E$ can avoid vanishing.  When $E$ is nonnegative a one-line descent
-settles it.  This note is about the negative side.
+Sylvester's sequence satisfies $a_{n+1}=a_n^2-a_n+1$ and has reciprocal sum
+$1$.  Erd\H{o}s asked whether every increasing integer sequence with
+$a_{n+1}/a_n^2\to1$ and rational reciprocal sum satisfies this recurrence
+eventually.  We prove Lean-checked rigidity results for the associated centred
+denominator-clearing error $E_n$.  Problem~\#243 remains open: our results do
+not classify mixed-sign errors or exclude the remaining unbounded-negative
+regime.
 
-We formalise in Lean three increasingly general exclusions of a negative $E$.
-It cannot be constantly $-m$, at any magnitude and any scale:
-every multiplier would have to share a prime with the fixed $m$, and once a
-prime divides one multiplier every later multiplier is $1$ modulo it, so a
-fixed integer would need infinitely many distinct prime divisors.  It cannot be
-periodic with positive drift, by the same pigeonhole after a strong induction
-that removes common scale.  And, under eventual strict centring and normalised
-vanishing, it cannot have a bounded negative part:
-a bounded negative part makes $C$ rise by a bounded amount, normalised
-vanishing makes $C$ tend to infinity, the tail gcd stabilises so the orbit may
-be taken reduced, and in a reduced tail the multipliers are pairwise coprime
-and permanently avoided by the numerator, which a Chinese-remainder block of
-consecutive multiples forbids.  That last step is a statement about integer
-sequences alone: a sequence tending to infinity with upward steps bounded by
-$B$ cannot permanently avoid infinitely many pairwise coprime moduli.
-Together with an absorption lemma making
-$E_n=0$ propagate, this yields: under exact dynamics, eventual strict centring,
-an eventually bounded negative part, and normalised vanishing, $E$ vanishes
-eventually, and the sequence satisfies the Sylvester recurrence eventually.
+An eventually negative error orbit cannot have constant magnitude.  If its
+magnitude is periodic, $|E_n|<a_n$, and the period has positive drift, it is
+likewise impossible.  More generally, exact state dynamics, an eventually
+bounded negative part, and normalised vanishing force $E_n=0$ eventually; the
+stated eventual strict-centring hypothesis is redundant, since normalised
+vanishing yields it after a finite shift.  A single zero is then absorbed
+forward, giving the Sylvester recurrence eventually.  Under the same
+normalised-vanishing hypothesis, finite normalised negative mass is also
+impossible.
 
-Problem~\#243 is open and this note does not close it.  The last theorem is
-conditional, and two of its hypotheses are analytic inputs that we assume
-rather than derive.  What the results remove is the bounded case and, more
-generally, the finite normalised negative-mass case.  Under normalised
-vanishing, summability of
-\(\sum_n(-E_n)_+/C_n\) makes \(C_n\) bounded and hence \(E_n\) eventually
-zero.  Thus any surviving exact state orbit must have negative excursions
-unbounded along a cofinal set and divergent normalised negative mass.
+For the canonical orbit attached to a sequence in Erd\H{o}s's problem,
+Koizumi's results provide normalised vanishing and a stronger centring range.
+Hence the bounded-negative theorem applies conditionally, with boundedness of
+the negative part as the missing hypothesis.  Any surviving canonical orbit
+must therefore have negative excursions unbounded along a cofinal set and
+divergent normalised negative mass.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -239,7 +226,7 @@ Coprime-modulus barrier & Proved here & Theorem~\ref{res:barrier}. \\
 Bounded negative part & Excluded here; conditional & Theorem~\ref{res:bounded}; see its hypotheses. \\
 Finite normalised negative mass & Excluded here; conditional & Theorem~\ref{res:mass}, Section~\ref{sec:mass}; normalised vanishing remains an input. \\
 Factorial residue reduction & Proved here; superseded for its original purpose & Theorem~\ref{res:residue}, Appendix~\ref{app:residue}. \\
-Strict centring, normalised vanishing & Assumed here; supplied by prior art & Section~\ref{sec:bounded}; derived in~\cite{koizumi2025}, see Section~\ref{sec:problem}. \\
+Normalised vanishing & Assumed here; supplied by prior art & Section~\ref{sec:bounded}; derived in~\cite{koizumi2025}.  The separate strict-centring hypothesis retained in the Lean-matching statement follows eventually by taking $K=1$. \\
 Unbounded, divergent-mass negative excursions & Open & Section~\ref{sec:open}; the surviving obstruction. \\
 Erd\H{o}s--Straus criterion; Duverney & Proved elsewhere & Cited, not formalised; the Erd\H{o}s--Straus hypothesis is implied by that of Theorem~\ref{res:descent}. \\
 State system equals reciprocal tails & Not formalised & Section~\ref{sec:state}. \\
@@ -250,11 +237,12 @@ State system equals reciprocal tails & Not formalised & Section~\ref{sec:state}.
 \noindent Taken together the exclusions constrain the shape of any
 counterexample.  By Theorem~\ref{res:absorb} a counterexample has $E_n\ne0$ for
 every large $n$.  By Theorem~\ref{res:descent} it cannot have $E$ eventually
-nonnegative.  By Theorems~\ref{res:constant} and~\ref{res:periodic} its
-negative magnitudes are neither eventually constant nor eventually periodic.
-And by Theorems~\ref{res:bounded} and~\ref{res:mass}, if the two analytic
-hypotheses of Section~\ref{sec:bounded} hold, the negative part is neither
-bounded nor of finite normalised mass.  What survives is stated in
+nonnegative.  If its tail is all negative, Theorems~\ref{res:constant}
+and~\ref{res:periodic} exclude, respectively, constant magnitude and periodic
+magnitude in the stated regime $e_n<a_n$ with positive drift; they are not a
+classification of a mixed-sign tail.  Under normalised vanishing,
+Theorems~\ref{res:bounded} and~\ref{res:mass} show that the negative part is
+neither bounded nor of finite normalised mass.  What survives is stated in
 Section~\ref{sec:open}.
 
 \subsection*{Structure}
@@ -505,9 +493,11 @@ eventually, then $E$ is nowhere zero beyond that index.
 
 Absorption changes the shape of the problem.  Without it, one would have to
 exclude an $E$ that dips to zero and recovers.  With it, either $E$ hits zero
-once and is finished, or it is never zero at all; the later sections may
-therefore assume that $E_n\ne0$ for every $n$, and in the negative case that
-$E_n<0$ throughout, without loss.
+once and is finished, or it is never zero at all.  Sections~\ref{sec:constant}
+and~\ref{sec:periodic} then restrict to the special all-negative case; this is
+not a without-loss reduction for a mixed-sign tail.  The mixed-sign analysis
+in Sections~\ref{sec:bounded} and~\ref{sec:mass} instead separates cofinally
+negative errors from an eventually positive tail.
 
 \section{Descent when the error is nonnegative}\label{sec:descent}
 
@@ -733,7 +723,7 @@ case unnecessary, since a periodic magnitude is bounded while the multipliers
 tend to infinity.
 \end{remark}
 
-\section{Bounded rise cannot avoid coprime moduli}\label{sec:barrier}
+\section{Bounded rise cannot remain coprime to fresh moduli}\label{sec:barrier}
 
 Periodicity is still a strong assumption.  Removing it needs a different kind
 of obstruction, and the one used here is a counting argument about where an
@@ -764,11 +754,11 @@ least $3$, that value is at most $5$, and every member of $\{3,4,5\}$ is
 divisible by one of the three moduli.
 \end{example}
 
-\begin{theorem}[bounded rise cannot avoid fresh moduli]\label{res:barrier}
+\begin{theorem}[bounded rise cannot remain coprime to fresh moduli]\label{res:barrier}
 Let $u:\N\to\N$ tend to infinity with $u_{n+1}\le u_n+B$ for a fixed $B>0$.
-Then $u$ cannot permanently avoid infinitely many fresh pairwise coprime
+Then $u$ cannot remain coprime to infinitely many fresh pairwise coprime
 moduli: there is no family of pairwise coprime $m_i\ge2$, one for each index,
-such that $m_i\nmid u_t$ whenever $i<t$.
+such that $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
 
 \begin{proof}
@@ -776,7 +766,7 @@ Take $B$ of the moduli, from indices beyond any chosen point, and use
 Lemma~\ref{res:crt} to find $t$ far out with the $i$th of them dividing $t+i$.
 The interval $[t,t+B)$ has length $B$, and $u$ climbs by at most $B$ per step
 while tending to infinity, so some $u_s$ lands in it.  Then $u_s=t+i$ for some
-$i<B$, and the $i$th modulus divides $u_s$, against avoidance.
+$i<B$, and the $i$th modulus divides $u_s$, contradicting coprimality.
 \end{proof}
 
 \noindent Formalised as the
@@ -787,7 +777,7 @@ forbids it from stepping over a window of width $B$.  Uniformity of the bound
 is what the proof uses, and it is the hypothesis that cannot be relaxed by this
 argument: a rise bounded only along a subsequence leaves the intervening steps
 free to jump the window.  We have not looked for a sequence of unbounded rise
-avoiding every modulus.  The statement is elementary and we are not aware of a
+remaining coprime to every fresh modulus.  The statement is elementary and we are not aware of a
 prior published form of it, but we would not be surprised if one exists.
 
 The moduli are indexed by the same set as the sequence, and the $i$th of them
@@ -837,7 +827,7 @@ constant, so it satisfies every hypothesis of the exclusion just stated except
 divergence; since the tail exists, that hypothesis cannot be dropped.
 \end{example}
 
-The orbit of Section~\ref{sec:state} is not reduced, so one more step is needed
+An arbitrary orbit of Section~\ref{sec:state} need not be reduced, so one more step is needed
 before the barrier can be applied to it: the common factor must stop changing.
 We call a set of indices \emph{cofinal} when it is infinite, and say that a
 property holds \emph{cofinally} when the set of indices at which it holds is
@@ -904,7 +894,7 @@ $B$ per step, while hypothesis~(6), once the error is nowhere zero, forces the
 tail state to diverge.  Proposition~\ref{res:gcdstab} makes the orbit reduced,
 and Theorem~\ref{res:barrier} then converts the tension into a contradiction:
 an integer sequence tending to infinity with upward steps of size at most $B$
-cannot permanently avoid the pairwise coprime moduli a reduced tail carries.
+cannot remain coprime to the pairwise coprime moduli a reduced tail carries.
 The
 complementary case, in which the error is eventually positive, is the descent
 of Theorem~\ref{res:descent}.
@@ -963,16 +953,19 @@ $a_{n+1}=a_n^{2}-a_n+1$ for all sufficiently large $n$.
 Theorem~\ref{res:bounded} then Theorem~\ref{res:eventual}.
 \end{proof}
 
-Hypotheses~(1)--(3) are the state system.  Hypothesis~(4) says the centred
-state is a strict centred representative, and~(6) says $|E_n|/C_n\to0$ in a
-division-free form.  Neither is derived here from
-$a_{n+1}/a_n^{2}\to1$, and no argument in the formal source connects them to
-Problem~\ref{res:problem}.  Theorem~\ref{res:bounded} is therefore a
-conditional theorem about the state system, and Corollary~\ref{res:cor} does
-not settle any case of Problem~\ref{res:problem}.  What is unconditional in
-this note is the exclusion of constant and periodic negative magnitudes,
-Theorems~\ref{res:constant} and~\ref{res:periodic}, and the barrier itself,
-Theorem~\ref{res:barrier}.
+Hypotheses~(1)--(3) are the state system, and~(6) is the division-free form of
+$|E_n|/C_n\to0$.  Hypothesis~(4) is logically redundant: hypothesis~(6) with
+$K=1$ gives $|E_n|<C_n$ eventually.  It is retained because the displayed
+statement tracks the linked Lean declaration; shifting to the resulting
+threshold gives the same conclusion without an independent centring input.
+The formal source does not derive normalised vanishing from
+$a_{n+1}/a_n^{2}\to1$, so Theorem~\ref{res:bounded} is, by itself, a
+conditional theorem about the state system.  Combined with
+Koizumi's bridge below, however, Corollary~\ref{res:cor} settles the
+bounded-negative canonical case of Problem~\ref{res:problem}.  What is
+unconditional in this note is the all-negative constant and periodic
+exclusions, Theorems~\ref{res:constant} and~\ref{res:periodic}, and the barrier
+itself, Theorem~\ref{res:barrier}.
 
 The conditionality can nevertheless be located precisely, because the missing
 inputs are supplied elsewhere.  With the results of~\cite{koizumi2025},
@@ -1071,18 +1064,19 @@ Problem~\#243 is open.  The negative case has narrowed, and it is worth being
 precise about what is left.
 
 By Theorem~\ref{res:absorb} a counterexample has $E_n\ne0$ for every large $n$.
-By Theorem~\ref{res:descent} it cannot have $E$ eventually nonnegative.  By
-Theorems~\ref{res:constant} and~\ref{res:periodic} its negative magnitudes are
-neither eventually constant nor eventually periodic.  By
-Theorem~\ref{res:bounded}, if the analytic hypotheses~(4) and~(6) hold, the
-negative part cannot be bounded either, and by Theorem~\ref{res:mass}, under
-normalised vanishing, its normalised negative mass cannot be finite.  What
-remains is the following.
+By Theorem~\ref{res:descent} it cannot have $E$ eventually nonnegative.  On an
+all-negative tail, Theorems~\ref{res:constant} and~\ref{res:periodic} exclude
+the constant and the stated periodic regimes; they do not exclude those
+patterns merely along the negative indices of a mixed-sign tail.  Under
+normalised vanishing, Theorem~\ref{res:bounded} excludes a bounded negative
+part---its separate centring hypothesis follows by taking $K=1$---and
+Theorem~\ref{res:mass} excludes finite normalised negative mass.  What remains
+is the following.
 
 \begin{problem}[unbounded divergent-mass negative excursions]\label{res:excursions}
 Exclude, or construct, an exact natural orbit $(a,D,C)$ with $a_n>1$ and
 $C_n>0$, whose multipliers satisfy $\lim_n a_{n+1}/a_n^{2}=1$ and whose centred
-state satisfies eventual strict centring and normalised vanishing, and which is
+state satisfies normalised vanishing, and which is
 negative infinitely often with magnitudes unbounded along that cofinal set and
 \[
  \sum_n\frac{(-E_n)_+}{C_n}=\infty .
@@ -1141,8 +1135,8 @@ since local admissibility at each index does not produce a global orbit.
 
 \begin{remark}
 One further question is not left open here, since it is answered
-in~\cite{koizumi2025}: whether eventual strict centring and normalised
-vanishing follow from $a_{n+1}/a_n^{2}\to1$ and rationality.  They do.  After
+in~\cite{koizumi2025}: whether normalised vanishing follows from
+$a_{n+1}/a_n^{2}\to1$ and rationality.  It does.  After
 deleting a finite prefix, Koizumi's Corollary~3
 ~\cite[p.~9]{koizumi2025} makes the sequence the pseudo-greedy expansion of its
 own reciprocal sum and gives $\varepsilon_n\to0$ under exactly the hypotheses of
@@ -1153,7 +1147,8 @@ centring comes from the same source and is stronger than what
 Theorem~\ref{res:bounded} assumes: for a rational reciprocal sum, the range
 $-c_n/2\le e_n<c_n/2$ of his Lemma~4(2)
 ~\cite[p.~11]{koizumi2025} gives $|E_n|<C_n$ at every index, not
-merely for all large $n$.  What remains unsupplied is hypothesis~(5), the bound
+merely for all large $n$; eventual strict centring also follows directly from
+normalised vanishing with $K=1$.  What remains unsupplied is hypothesis~(5), the bound
 on the negative part, which is why the theorem is still conditional.
 \end{remark}
 
@@ -1202,9 +1197,10 @@ residue reduction of Appendix~\ref{app:residue} is in
 the source.  The
 identification of any of these modules with reciprocal tails is the exposition
 of Section~\ref{sec:state} and is not a checked statement.  The periodic exclusion
-assumes the regime $e_n<a_n$.  And the final theorem assumes strict centring
-and normalised vanishing, which are hypotheses of the theorem and are not
-derived in the formal source; for where they do come from,
+assumes the regime $e_n<a_n$.  And the final Lean declaration lists strict
+centring and normalised vanishing as hypotheses; the former follows eventually
+from the latter with $K=1$, while the formal source derives neither from the
+original analytic problem.  For the external bridge supplying them,
 see Sections~\ref{sec:problem} and~\ref{sec:bounded}.
 
 % The exhaustive source manifest is retained in the authored TeX for automated

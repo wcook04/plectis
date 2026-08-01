@@ -8,11 +8,9 @@
 
 </div>
 
-Let $`F(t)=\sum_{n\ge1}(t^{n}-1)^{-1}`$. At the rational base $`3/2`$ we prove exclusions for the approach to irrationality by integer linear forms, and formalise them in Lean. Rowwise content (the greatest common divisor of the two entries of a coefficient row) scales the analytic error and the exterior determinant by exactly the same factors, including the absolute determinant height, so a local divisor supplied only by the two row contents is paid for by exactly the same factor in the Archimedean determinant height. Homogeneous specialisation at $`(3,2)`$ sees the constant endpoint modulo $`3`$ and the top endpoint modulo $`2`$, so unit endpoints exclude both primes from any common divisor. Together: when one entry of a coefficient pair has a unit top endpoint and the other a unit constant endpoint, neither rowwise scalar content nor a common divisor of the two specialised evaluations can manufacture the two local primes required at $`3/2`$. The missing local gain must therefore survive primitive normalisation. What remains is a growing-rank additive kernel cancelling both endpoint jets (the residues of a specialised coefficient modulo $`3^{R}`$ and modulo $`2^{S}`$) in both specialised coefficient sequences while preserving a nonzero, sufficiently small remainder; we count the four-jet target exactly and prove the concrete sufficient threshold $`M\ge 4R+2S`$ on the number $`M`$ of coefficient pairs, at positive bottom depth $`R`$.
+Let $`F(t)=\sum_{n\ge1}(t^n-1)^{-1}`$. Problem #1049 asks whether $`F(t)`$ is irrational for every rational $`t>1`$; it remains open, and we prove no irrationality result. At $`t=3/2`$ we instead formalise two no-go theorems for a common-width integer-linear-form approach. Scalar multiplication changes analytic error and exterior determinant by the same factors, including determinant height, so scalar content alone gives no local-to-Archimedean gain. Under unit-endpoint hypotheses, homogeneous specialisation at $`(3,2)`$ excludes both $`3`$ and $`2`$ from any common divisor of the two specialised evaluations. These results exclude only those mechanisms; they neither prove that local gain is necessary nor rule out polynomial factors before specialisation, cross-row arithmetic, or another proof architecture.
 
-We also record what a direct clearing route costs. Erdős’s actual 1948 integer-base proof instead constructs, by the Chinese remainder theorem, arbitrarily long blocks of zero base-$`b`$ digits and proves that the expansion does not terminate \[erdos1948, pp. 63–66\]. The separate cut-level clearing studied here leaves a factor $`s^{N+1}`$ behind at a rational base $`r/s`$ with $`s\ge2`$. Writing a coordinatewise corridor for the surviving arithmetic, we prove that a corridor forces $`s^{N+K+1}<r(N+K)`$, and that at the base $`3/2`$ this is impossible once the shift and the cleared window are both nonempty. We also prove the exact denominator-cleared tail recurrence $`U_{N+1}=rU_N-Bc(N+1)s^{N+1}`$ and the bound $`2^{N+1}\le Bc(N+1)s^{N+1}`$ for $`s\ge2`$ and positive data, against the exact collapse of that term to $`Bc(N+1)`$ at $`s=1`$. The height criterion of Bundschuh and Väänänen (1994), which settles a restricted family of rational bases containing $`7/2`$, is used as an external theorem. We formalise the complete elementary Archimedean height inequality required at $`7/2`$, while leaving the source theorem’s analytic irrationality argument external. Separately we check polynomial bounds on the denominator exponents of a homogenised Padé construction, with the analytic remainder left untouched.
-
-Problem #1049 is open, and nothing here decides it. The results are exclusions of particular constructions, not statements about the arithmetic nature of any value: we do not prove irrationality at $`3/2`$, at any other rational base, or in the unrestricted problem.
+For positive bottom depth $`R`$, any $`M\ge4R+2S`$ coefficient pairs admit a nonzero selector difference cancelling both endpoint jets in both sequences. This constructs only the signed relation, not a nonzero combined polynomial pair or analytic remainder. For coordinatewise cut-level clearing at a reduced base $`r/s`$ with $`s\ge2`$, a corridor implies $`s^{N+K+1}<r(N+K)`$; at $`3/2`$ this is impossible when both shift and window are nonempty. The cleared tail satisfies $`U_{N+1}=rU_N-Bc(N+1)s^{N+1}`$ and yields $`2^{N+1}\le Bc(N+1)s^{N+1}`$ for positive data, whereas at $`s=1`$ the corresponding term is $`Bc(N+1)`$. At $`7/2`$ we formalise the elementary height inequality required by Bundschuh–Väänänen’s 1994 criterion \[bv1994\], leaving its analytic irrationality argument external. Polynomial denominator-exponent bounds for a homogenised Padé construction likewise leave the analytic remainder untreated.
 
 <a id="sec:problem"></a>
 
@@ -54,13 +52,13 @@ Write $`\beta=r/s`$ for the base and $`c(n)`$ for the coefficient of $`\beta^{-n
 
 #### Terminology.
 
-The linear-form route works with pairs $`(U,V)`$, of integers or of integer polynomials; following matrix usage we call such a pair a *row*, and its *content* is the greatest common divisor of its two entries. A row of content $`1`$ is *primitive*, and dividing a row by its content is *primitive normalisation*. The *exterior determinant* of two integer rows is $`U_{n}V_{m}-U_{m}V_{n}`$, the determinant of the $`2\times2`$ matrix they form. Two quantities attached to that determinant are compared throughout: an integer dividing it, which is a local gain, and its absolute value, which is an Archimedean cost; we call that comparison the *local-to-Archimedean balance*. The *endpoints* of a coefficient polynomial, taken relative to the declared width $`W`$ of Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a>, are its constant coefficient and its coefficient at $`W`$; we call these the *constant endpoint* and the *top endpoint*, so the top endpoint is the coefficient at $`W`$ and not the leading coefficient unless the two agree. A *unit* endpoint is one equal to $`\pm1`$, the units of $`\mathbb{Z}`$; Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a> is the reason only these two coefficients decide divisibility by $`3`$ and by $`2`$ after specialisation at $`(3,2)`$. A *jet* is a residue of a specialised coefficient modulo a prime power: the bottom jet is its residue modulo $`3^{R}`$ and the top jet its residue modulo $`2^{S}`$, and $`R`$ and $`S`$ are the bottom and top *depths*. A jet vanishes exactly when the prime power in question divides the specialised coefficient.
+The linear-form route uses polynomial pairs before specialisation and integer pairs afterwards. We reserve *row* for an integer pair $`(U,V)`$. Its *integer scalar content* is $`\gcd(|U|,|V|)`$; a row is *primitive* when this number is $`1`$, and dividing by it is *primitive normalisation*. A polynomial pair may instead have a polynomial common factor in $`\mathbb{Z}[X]`$; that is a different operation and is not called row content here. The *exterior determinant* of two integer rows is $`U_{n}V_{m}-U_{m}V_{n}`$, the determinant of the $`2\times2`$ matrix they form. Two quantities attached to that determinant are compared throughout: an integer dividing it, which is a local gain, and its absolute value, which is an Archimedean cost; we call that comparison the *local-to-Archimedean balance*. The *endpoints* of a coefficient polynomial, taken relative to the declared width $`W`$ of Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a>, are its constant coefficient and its coefficient at $`W`$; we call these the *constant endpoint* and the *top endpoint*, so the top endpoint is the coefficient at $`W`$ and not the leading coefficient unless the two agree. A *unit* endpoint is one equal to $`\pm1`$, the units of $`\mathbb{Z}`$; Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a> is the reason only these two coefficients decide divisibility by $`3`$ and by $`2`$ after specialisation at $`(3,2)`$. A *jet* is a residue of a specialised coefficient modulo a prime power: the bottom jet is its residue modulo $`3^{R}`$ and the top jet its residue modulo $`2^{S}`$, and $`R`$ and $`S`$ are the bottom and top *depths*. A jet vanishes exactly when the prime power in question divides the specialised coefficient.
 
 <a id="the-shortfall-at-32."></a>
 
 #### The shortfall at $`3/2`$.
 
-The elementary route and the linear-form route are both examined below. For the coordinatewise clearing scheme the leftover at each step is the forcing term of an exact recurrence, of size at least $`2^{N+1}`$ whenever $`s\ge2`$ and the scaling constant $`B`$ and the coefficient $`c(N+1)`$ are at least $`1`$ (Theorem <a href="#res:forcing" data-reference-type="ref" data-reference="res:forcing">17</a>), and the scheme itself is excluded at $`3/2`$ for every shift $`N\ge1`$ and every cleared window of width $`K\ge1`$ (Theorem <a href="#res:nocorridor" data-reference-type="ref" data-reference="res:nocorridor">15</a>). For the linear-form constructions the shortfall is the $`2`$-adic and $`3`$-adic gain that has to remain after the coefficient rows have been divided by their contents (Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a>). Each multiplicative device examined here for supplying that gain is excluded: rowwise content is exactly neutral, since it scales the exterior determinant and its absolute height by the same factor (Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a>), and unit endpoints keep both $`2`$ and $`3`$ out of any common divisor of the two specialised evaluations (Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a> and Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a>). Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a> states the two together. Separately, the scalar parameter margin is negative under the assumed source inequality (Theorem <a href="#res:scalar" data-reference-type="ref" data-reference="res:scalar">10</a>). The device pursued here instead is additive: an integer relation among rows that cancels the endpoint jets. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> shows that a nonzero relation with coefficients in $`\{-1,0,1\}`$ cancelling all four jets exists whenever the bottom depth is positive and the number of coefficient pairs is at least $`4R+2S`$. It does not show that the resulting combination has a nonzero polynomial pair or a nonzero remainder, which is what Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a> asks for. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record two external routes and what each leaves unproved at $`3/2`$.
+The elementary route and the linear-form route are both examined below. For the coordinatewise clearing scheme the leftover at each step is the forcing term of an exact recurrence, of size at least $`2^{N+1}`$ whenever $`s\ge2`$ and the scaling constant $`B`$ and the coefficient $`c(N+1)`$ are at least $`1`$ (Theorem <a href="#res:forcing" data-reference-type="ref" data-reference="res:forcing">17</a>), and the scheme itself is excluded at $`3/2`$ for every shift $`N\ge1`$ and every cleared window of width $`K\ge1`$ (Theorem <a href="#res:nocorridor" data-reference-type="ref" data-reference="res:nocorridor">15</a>). For the linear-form constructions we examine two possible sources of $`2`$-adic and $`3`$-adic gain. Integer scalar content is exactly neutral, since it scales the exterior determinant and its absolute height by the same factor (Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a>), while unit endpoints keep both $`2`$ and $`3`$ out of any common divisor of the two specialised evaluations (Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a> and Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a>). Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a> states the two scoped exclusions together; neither is claimed to be necessary for every linear-form proof. Separately, the scalar parameter margin is negative under the assumed source inequality (Theorem <a href="#res:scalar" data-reference-type="ref" data-reference="res:scalar">10</a>). One candidate pursued here is additive: an integer relation among rows that cancels the endpoint jets. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> shows that a nonzero relation with coefficients in $`\{-1,0,1\}`$ cancelling all four jets exists whenever the bottom depth is positive and the number of coefficient pairs is at least $`4R+2S`$. It does not show that the resulting combination has a nonzero polynomial pair or a nonzero remainder. Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a> gives a precise sufficient specification for that particular candidate architecture, not a necessary condition for solving Problem #1049. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record two external routes and what each leaves unproved at $`3/2`$.
 
 <a id="sharpness."></a>
 
@@ -72,13 +70,13 @@ Two questions of scope are worth isolating. The corridor bound of Theorem <a hr
 
 | Statement | Status | Treatment here |
 |:---|:---|:---|
-| Irrationality of $`F(3/2)`$ | Open | Not proved, and no partial result here bears on it. |
+| Irrationality of $`F(3/2)`$ | Open | Not proved; the results below exclude only named proof architectures and imply no arithmetic property of this value. |
 | Irrationality at some rational non-integer base | Proved elsewhere | The height criterion of \[bv1994\]; cited, not formalised. |
 | Nonrationality of the Lambert function $`\sum_{n\ge1}z^n/(1-z^n)`$ | Proved elsewhere | Rivin’s Corollary 6.4 \[rivin2026, p. 9\]; a functional statement, not a special-value theorem. |
-| Row content is neutral for the local-to-Archimedean balance | Proved here | Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a>, including the absolute determinant height. |
+| Integer scalar content is neutral for the local-to-Archimedean balance | Proved here | Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a>, including the absolute determinant height. |
 | Homogeneous endpoint residues at $`(3,2)`$ | Proved here | Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a>. |
 | Common divisor of the two specialised evaluations avoids $`2`$ and $`3`$ | Proved here | Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a>; under unit endpoint hypotheses. |
-| No gain from row content or from a common divisor at $`3/2`$ | Deduced here | Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a>; an ordinary deduction from the two preceding rows, not separately formalised. |
+| No gain from integer scalar content or from the stated common divisor at $`3/2`$ | Deduced here | Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a>; an ordinary deduction from the two preceding rows, not separately formalised. |
 | Four-jet collision at $`M\ge4R+2S`$ coefficient pairs | Proved here | Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a>; sufficient, at positive bottom depth. |
 | Scalar margin on Zudilin’s parameter cone | Negative under source input | Theorem <a href="#res:scalar" data-reference-type="ref" data-reference="res:scalar">10</a>; the source inequality is assumed. |
 | Corridor forces $`s^{N+K+1}<r(N+K)`$ | Proved here | Theorem <a href="#res:corridorbound" data-reference-type="ref" data-reference="res:corridorbound">12</a>. |
@@ -88,19 +86,19 @@ Two questions of scope are worth isolating. The corridor bound of Theorem <a hr
 | The elementary $`7/2`$ height condition | Proved here | Theorem <a href="#res:sevenhalves" data-reference-type="ref" data-reference="res:sevenhalves">19</a>; the analytic theorem of \[bv1994\] remains external. |
 | Padé denominator-exponent bounds | Proved here | Section <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a>; exponent arithmetic only. |
 | Padé remainder positivity and decay | Not treated | Section <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a>. |
-| Growing-rank simultaneous endpoint-jet kernel | Open | Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">8</a>; the exact remaining obligation. |
+| Common-width simultaneous endpoint-jet construction | Candidate sufficient route | Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a>; not necessary for every proof and not supplied by the collision theorem alone. |
 
 <a id="structure."></a>
 
 #### Structure.
 
-Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> proves that rowwise content is neutral for the local-to-Archimedean balance. Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a> proves the endpoint congruences at $`(3,2)`$, deduces from them and from Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> that neither rowwise content nor a common divisor of the two specialised evaluations supplies the missing local gain, gives the four-jet collision count, and records one further exclusion on Zudilin’s scalar parameters. Sections <a href="#sec:corridor" data-reference-type="ref" data-reference="sec:corridor">4</a> and <a href="#sec:tail" data-reference-type="ref" data-reference="sec:tail">5</a> return to the elementary clearing scheme and record what the residue $`s^{n}`$ costs there, first as an exclusion and then as an exact recurrence with a lower bound on the surviving term. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record what is and is not formalised of two external routes. Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">8</a> states the remaining obligations. Linked phrases open the corresponding Lean declaration at the pinned source revision 08d83b6689c8.
+Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> proves that integer scalar content is neutral for the local-to-Archimedean balance. Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a> proves the endpoint congruences at $`(3,2)`$, deduces from them and from Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> that neither integer scalar content nor a common divisor of the two specialised evaluations supplies the targeted endpoint gain, gives the four-jet collision count, and records one further exclusion on Zudilin’s scalar parameters. Sections <a href="#sec:corridor" data-reference-type="ref" data-reference="sec:corridor">4</a> and <a href="#sec:tail" data-reference-type="ref" data-reference="sec:tail">5</a> return to the elementary clearing scheme and record what the residue $`s^{n}`$ costs there, first as an exclusion and then as an exact recurrence with a lower bound on the surviving term. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record what is and is not formalised of two external routes. Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">8</a> states the remaining obligations. Linked phrases open the corresponding Lean declaration at the pinned source revision 08d83b6689c8.
 
 **Keywords.** irrationality; Lambert series; rational base; Padé approximation; Lean 4. **MSC 2020.** 11J72 (primary); 11J82, 68V20 (secondary).
 
 <a id="sec:primitive"></a>
 
-# Row content does not change the local-to-Archimedean balance
+# Integer scalar content is neutral
 
 An irrationality argument by linear forms replaces the clearing scheme by explicit rational approximation: one constructs integer linear forms in $`1`$ and $`F(\beta)`$ whose analytic decay outruns the height of their common denominator. For an integer coefficient pair $`(U,V)`$ and a real target $`S`$, put
 ``` math
@@ -121,7 +119,7 @@ and the two errors cannot both be smaller than $`1/(|U_n|+|U_m|)`$. The determin
 
 <div id="res:content" class="theorem">
 
-**Theorem 1** (row-content no-go). *Let $`S`$ be real, let $`(U_n,V_n)`$ and $`(U_m,V_m)`$ be pairs of integers, and let $`c_n,c_m`$ be integers. Then
+**Theorem 1** (integer-scalar-content no-go). *Let $`S`$ be real, let $`(U_n,V_n)`$ and $`(U_m,V_m)`$ be pairs of integers, and let $`c_n,c_m`$ be integers. Then
 ``` math
 L_S(c_nU_n,c_nV_n)=c_nL_S(U_n,V_n),
 ```
@@ -135,7 +133,7 @@ and consequently
  =|c_n|\,|c_m|\,
    \left|\Delta\bigl((U_n,V_n),(U_m,V_m)\bigr)\right|.
 ```
-In particular $`c_nc_m`$ divides the scaled determinant. Hence a local divisor supplied only by the two row contents is paid for by exactly the same factor in the Archimedean determinant height.*
+In particular $`c_nc_m`$ divides the scaled determinant. Hence a local divisor supplied only by the two integer scalar factors is paid for by exactly the same factor in the Archimedean determinant height.*
 
 </div>
 
@@ -145,7 +143,7 @@ In particular $`c_nc_m`$ divides the scaled determinant. Hence a local divisor s
 
 </div>
 
-Informally, Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a> says that a common factor introduced into the rows appears twice over: once as a divisor of the exterior determinant, and once as the same factor in the absolute value of that determinant. It moves the local gain and the Archimedean cost by exactly the same amount.
+Informally, Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a> says that multiplying specialised integer rows by scalar factors moves the local gain and the Archimedean cost by exactly the same amount. Within an argument whose only extra divisor is integer scalar content, primitive normalisation therefore loses no net gain. This says nothing about polynomial factors before specialisation, cross-row common factors, determinant-specific arithmetic, or additive combinations.
 
 <div id="ex:content" class="example">
 
@@ -157,7 +155,7 @@ Lean checks the error identity in [error scaling](https://github.com/wcook04/ple
 
 The key point is that the two scalings are the same scaling. Each identity on its own is a one-line expansion, and the interest of the theorem is not in any one of them. Taken together they say that the factor $`c_nc_m`$ which a rescaling introduces into the determinant reappears undiminished, as $`|c_n|\,|c_m|`$, in the absolute value of that determinant. The third identity is displayed with absolute values for exactly that reason: it is what makes the statement one about the Archimedean height and not about divisibility alone. Whatever $`c_n`$ and $`c_m`$ are, a rescaling therefore leaves the balance between the local divisor and that height where it was.
 
-The theorem does not construct primitive Padé rows, estimate their remainders, or prove that their exterior determinant is nonzero. It removes one source of apparent gain: multiplying a useful row by a large common integer cannot improve the local-to-Archimedean balance. Every candidate family must first be divided by its rowwise common contents; the required $`2`$-adic and $`3`$-adic gain must remain afterwards. The theorem quantifies over arbitrary integer coefficient pairs, so it applies to the rows of any construction of this shape, whatever produced them.
+The theorem does not construct primitive Padé rows, estimate their remainders, or prove that their exterior determinant is nonzero. It removes one source of apparent gain: multiplying a useful row by a large common integer cannot improve the local-to-Archimedean balance. Within a construction whose proposed gain comes only from those integer scalars, the rows may be primitive-normalised without a net loss. This does not say that every candidate family must use such a normalisation or that every proof needs separate $`2`$-adic and $`3`$-adic gain. The theorem quantifies over arbitrary integer pairs, so it applies whenever a construction has reached that specialised-row stage.
 
 <a id="sec:endpoints"></a>
 
@@ -239,19 +237,19 @@ Here $`\gcd(21,49)=7`$, so a common divisor does exist and is not small; it is s
 
 <div id="res:nomult" class="corollary">
 
-**Corollary 7** (no gain from row content or a common divisor at $`3/2`$). *Under the endpoint hypotheses of Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a>, neither rowwise scalar content nor a common divisor of the two specialised evaluations $`H_W(U)`$ and $`H_W(V)`$ can manufacture the two local primes required at $`3/2`$.*
+**Corollary 7** (no gain from integer scalar content or the stated common divisor at $`3/2`$). *Under the endpoint hypotheses of Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a>, neither integer scalar content of specialised rows nor a common divisor of the two specialised evaluations $`H_W(U)`$ and $`H_W(V)`$ can supply factors $`2`$ and $`3`$ by those mechanisms in the common-width endpoint architecture studied here.*
 
 </div>
 
 <div class="proof">
 
-*Proof.* By Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a> rowwise content multiplies the analytic error and the exterior determinant, including the absolute determinant height, by exactly the factors it introduces, so a divisor obtained that way is paid for by the same factor in that height. By Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a> an integer dividing both specialised evaluations is divisible by neither $`2`$ nor $`3`$. ◻
+*Proof.* By Theorem <a href="#res:content" data-reference-type="ref" data-reference="res:content">1</a> integer scalar content multiplies the analytic error and the exterior determinant, including the absolute determinant height, by exactly the factors it introduces, so a divisor obtained that way is paid for by the same factor in that height. By Proposition <a href="#res:commonmult" data-reference-type="ref" data-reference="res:commonmult">5</a> an integer dividing both specialised evaluations is divisible by neither $`2`$ nor $`3`$. ◻
 
 </div>
 
-Both ingredients are Lean-checked; the combination is an ordinary deduction and is not separately formalised. The corollary excludes two ways of producing the required gain. It does not show that a gain of that kind is necessary for a proof by linear forms at $`3/2`$.
+Both ingredients are Lean-checked; the combination is an ordinary deduction and is not separately formalised. The corollary excludes two ways of producing the targeted gain. It does not show that a gain of that kind is necessary for a proof by linear forms at $`3/2`$.
 
-Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a> excludes the two multiplicative devices above, and what the rest of this section pursues in their place is additive: rather than multiplying one row by a scalar, take an integer combination of several rows and ask that the combination be divisible where the individual rows are not. The endpoint congruences are the first case of a divisibility condition that can be imposed to any depth, and it is that condition, read additively, which is counted below.
+Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a> excludes the two multiplicative mechanisms above, and one candidate pursued in the rest of this section is additive: rather than multiplying one row by a scalar, take an integer combination of several rows and ask that the combination be divisible where the individual rows are not. The endpoint congruences are the first case of a divisibility condition that can be imposed to any depth, and it is that condition, read additively, which is counted below.
 
 We first raise the two congruences to prime powers. Fix depths $`R,S\ge0`$. For $`P\in\mathbb{Z}[X]`$ the *bottom jet* $`J_{3,R}(P)`$ is the residue of $`H_W(P)`$ modulo $`3^R`$, and the *top jet* $`J_{2,S}(P)`$ is its residue modulo $`2^S`$; Theorem <a href="#res:endpoints" data-reference-type="ref" data-reference="res:endpoints">3</a> computes them at $`R=S=1`$. Their vanishing is exactly the requested divisibility:
 ``` math
@@ -265,7 +263,7 @@ These are the checked [bottom-jet divisibility criterion](https://github.com/wco
 ```
 two residues for each of the two primes, one from each entry of the pair. By the displayed criteria it vanishes exactly when $`3^R`$ divides both specialised entries and $`2^S`$ divides both.
 
-This turns the missing local divisor into an additive congruence-kernel problem: what is sought is no longer a common divisor of the two evaluations, but a vector of small integer coefficients on which four residues vanish at once. Since $`H_W`$ is linear in the coefficients of $`P`$, the four-jet signature of a combination is the corresponding combination of signatures, which is what makes the following count possible.
+For this candidate architecture, this turns the targeted local divisor into an additive congruence-kernel problem: what is sought is no longer a common divisor of the two evaluations, but a vector of small integer coefficients on which four residues vanish at once. Since $`H_W`$ is linear in the coefficients of $`P`$, the four-jet signature of a combination is the corresponding combination of signatures, which is what makes the following count possible.
 
 <div id="res:jetkernel" class="theorem">
 
@@ -291,7 +289,7 @@ which proves the stated sufficient threshold. ◻
 
 </div>
 
-The target count is the checked [four-jet target cardinality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L129); the abstract collision is the checked [four-jet pigeonhole kernel](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L140), and the linear sufficient condition is the checked [rank–depth collision threshold](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L159). The count is a routine pigeonhole; the reformulation above is what makes it relevant. Pigeonhole cancellation itself requires no independence. Independence or a non-collapsed deformation is needed only to ensure that the resulting nonzero selector difference has a nonzero polynomial pair and analytic remainder. None of the statements proved here produces a sufficiently large primitive non-collapsed family, or proves that a collision has nonzero polynomial pair or nonzero remainder.
+The target count is the checked [four-jet target cardinality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L129); the abstract collision is the checked [four-jet pigeonhole kernel](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L140), and the linear sufficient condition is the checked [rank–depth collision threshold](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L159). The count is a routine pigeonhole; the reformulation above is what makes it relevant. Pigeonhole cancellation itself requires no independence. Additional information about the input family is needed to ensure that the resulting nonzero selector difference has a nonzero combined polynomial pair and analytic remainder. None of the statements proved here supplies such a family or proves either nonvanishing conclusion.
 
 <div id="ex:jetcount" class="example">
 
@@ -353,7 +351,7 @@ and cancelling the positive factor $`Q`$ gives the claim. ◻
 
 Formalised as the [power-versus-linear consequence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L114).
 
-The inequality of Theorem <a href="#res:corridorbound" data-reference-type="ref" data-reference="res:corridorbound">12</a> is where the integer and rational cases part. At $`b=1`$ it reads $`1<a(N+K)`$, which holds for every $`a\ge2`$ and every nonempty window; the corridor imposes no obstruction at all. At $`b\ge2`$ the left side is exponential in $`N+K`$ and the right side is linear, so the corridor can survive only for small $`N+K`$. At $`b=2`$ the crossing has already happened at the smallest admissible window.
+The inequality of Theorem <a href="#res:corridorbound" data-reference-type="ref" data-reference="res:corridorbound">12</a> is where the integer and rational cases part. At $`b=1`$ it reads $`1<a(N+K)`$, which holds for every $`a\ge2`$ and every nonempty window; the corridor imposes no obstruction at all. At $`b\ge2`$ the left side is exponential in $`N+K`$ and the right side is linear, so the corridor can survive only for small $`N+K`$. At $`(a,b)=(3,2)`$ the crossing has already happened at the smallest admissible window.
 
 <div id="ex:corridor" class="example">
 
@@ -528,23 +526,47 @@ These are routine inequalities between polynomials in the exponents. They establ
 
 # Complements and further questions
 
-Problem #1049 is open. The following is the exact statement that a construction at $`3/2`$ would have to supply. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> supplies the combinatorial step: at depths $`R,S`$ with $`R>0`$, once at least $`4R+2S`$ pairs are in hand, a coefficient vector on which all four jets vanish exists. What the problem adds is that those pairs be primitive-normalised Heine–Zudilin pairs drawn from a family that does not degenerate, that the depths grow quadratically, and that the resulting remainder be nonzero with a local gain beating the Archimedean height.
+Problem #1049 is open. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> suggests the following precise sufficient subproblem for one common-width additive architecture. It is not asserted to be necessary for every proof of irrationality.
 
 <div id="prob:kernel" class="problem">
 
-**Problem 22** (growing-rank simultaneous endpoint-jet kernel). For positive quadratic target depths $`R_n,S_n`$, exhibit at least $`4R_n+2S_n`$ *primitive-normalised* Heine–Zudilin coefficient pairs from a genuinely non-collapsed deformation, and prove that at least one resulting checked collision satisfies
+**Problem 22** (common-width simultaneous endpoint-jet construction). Exhibit an integer constant $`C\ge1`$ and, for every sufficiently large positive integer $`n`$, positive integers $`W_n,R_n,S_n,M_n`$ such that
 ``` math
-J_{3,R_n}\!\left(\sum_j\lambda_jU_j\right)=
- J_{3,R_n}\!\left(\sum_j\lambda_jV_j\right)=0,
-\qquad
- J_{2,S_n}\!\left(\sum_j\lambda_jU_j\right)=
- J_{2,S_n}\!\left(\sum_j\lambda_jV_j\right)=0,
+n^2\le W_n,R_n,S_n\le Cn^2,
+ \qquad 4R_n+2S_n\le M_n\le Cn^2,
 ```
-where $`R_n,S_n`$ have the required quadratic order, while the resulting remainder is nonzero and its local gain beats the Archimedean height. The checked collision already has coefficients in $`\{-1,0,1\}`$. A rank-saturated contiguous-shift family or a genuinely independent deformation would be a first candidate.
+together with polynomial pairs $`(U_{n,j},V_{n,j})\in\mathbb{Z}[X]^2`$ for $`0\le j<M_n`$, each of degree at most the common declared width $`W_n`$, whose specialised integer rows are primitive:
+``` math
+\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)=1.
+```
+Find a nonzero vector $`\lambda^{(n)}\in\{-1,0,1\}^{M_n}`$ for which, on putting
+``` math
+U_n=\sum_{j<M_n}\lambda^{(n)}_jU_{n,j},
+ \qquad V_n=\sum_{j<M_n}\lambda^{(n)}_jV_{n,j},
+```
+the pair $`(U_n,V_n)`$ is not $`(0,0)`$, all four common-width jets vanish,
+``` math
+J_{3,R_n}(U_n)=J_{3,R_n}(V_n)=0,
+ \qquad J_{2,S_n}(U_n)=J_{2,S_n}(V_n)=0,
+```
+where every jet in this display is formed using the declared width $`W_n`$, and the resulting divided integer linear form
+``` math
+A_n=\frac{H_{W_n}(U_n)}{3^{R_n}2^{S_n}},
+ \qquad
+ B_n=\frac{H_{W_n}(V_n)}{3^{R_n}2^{S_n}},
+ \qquad
+ \rho_n=A_nF(3/2)-B_n
+```
+satisfies the explicit analytic condition
+``` math
+0<|\rho_n|<\frac1n.
+```
 
 </div>
 
-Rescaling a row along a ray, letting the row contents grow, or computing a further common divisor of the two specialised evaluations does not address the obstruction that survives Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a>; each is one of the two devices excluded there, and what Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a> asks for is additive. Devices outside that corollary are not addressed either way: inserting a multiplicative cyclotomic factor changes the coefficient polynomials rather than scaling a row, and cross-row common factors, determinant-specific arithmetic, additive combinations, and a different architecture all lie outside the two devices it excludes. A theorem showing that every available family is too small or too degenerate to meet the requirements of Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a> would show that no argument of this shape can succeed.
+The jet equations make $`A_n,B_n`$ integers. A solution would prove irrationality: if $`F(3/2)=a/b`$ in lowest terms, every nonzero $`\rho_n`$ has absolute value at least $`1/b`$, contradicting the displayed bound for $`n>b`$. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> supplies only a nonzero signed relation with the four jet equations once the pairs and size inequality are present; it does not supply primitive input rows, a nonzero combined polynomial pair, or the nonvanishing and decay of $`\rho_n`$.
+
+Integer rescaling and a common divisor of the two specialised evaluations are the two mechanisms excluded by Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a>. Polynomial factors before specialisation, cross-row or determinant-specific arithmetic, cyclotomic factors, other additive constructions, and entirely different architectures remain outside that corollary and are not decided either way.
 
 The unrestricted question, which rational bases give an irrational value, remains open, and is not reduced to the problem above.
 
