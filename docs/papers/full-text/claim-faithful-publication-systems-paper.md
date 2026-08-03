@@ -16,7 +16,7 @@ The worked example separates a finite theorem from an open problem. Lean has che
 
 # The publication gap
 
-The [repository studied here](https://github.com/wcook04/plectis-lean-erdos249-257) is a public development in the Lean 4 proof assistant \[lean4\] around two unsolved problems in number theory, Erdős Problems 249 and 257. Both problems remain open. The project proves intermediate results, exact reformulations, and finite certificates around them; it does not claim a solution to either problem.
+The [repository studied here](https://github.com/wcook04/plectis-lean-erdos249-257) is a public development in the Lean 4 proof assistant \[lean4\] around eight unsolved problems in number theory; the claim registry examined in this paper covers its two reviewed problems, Erdős Problems 249 and 257. All eight problems remain open. The project proves intermediate results, exact reformulations, and finite certificates around them; it does not claim a solution to any of them.
 
 *Lean* is both a language for writing mathematics precisely and a program for checking proofs. A Lean theorem has a formal statement and a proof object. Its *kernel*, the small trusted part of the system, checks the proof using the file’s definitions, earlier theorems, and explicit assumptions \[lean4; leanapi\]. Acceptance is therefore a strong conclusion about the formal statement. A person must still judge whether that statement expresses the intended mathematics and whether later prose says anything stronger.
 
@@ -309,7 +309,7 @@ The failure supplies the governing limit. The registered checking boundary is on
 
 #### Dated navigation counts.
 
-At the reviewed snapshot, all 151,761 live declarations were inventoried and routed, and all 142,191 author-written theorem-like declarations had an exact node link. Of those, 139,737 (98.3%) participated in authored mathematical interpretations: 3,253 as exact proposition evidence and 136,484 as bounded certificate- or module-family context. The remaining 2,454 were linked only through exact source-module and normalised-signature families, not authored mathematical paraphrases. Every declaration selected for a public claim had an authored route. The command `python3 scripts/query_semantic.py coverage` derives these volatile navigation counts and checks their references. They do not measure semantic review quality or public-claim completeness.
+At the semantic review’s snapshot, taken before the eight-problem consolidation of 2026-08-02 enlarged the corpus to 153,238 declarations, all 151,761 then-live declarations were inventoried and routed, and all 143,041 author-written theorem-like declarations had an exact node link. Of those, 139,737 (97.7%) participated in authored mathematical interpretations: 3,253 as exact proposition evidence and 136,484 as bounded certificate- or module-family context. The remaining 3,304 were linked only through exact source-module and normalised-signature families, not authored mathematical paraphrases. Every declaration selected for a public claim had an authored route. The command `python3 scripts/query_semantic.py coverage` derives these volatile navigation counts and checks their references. They do not measure semantic review quality or public-claim completeness.
 
 The reviewed claim record, `docs/claims.json`, names the saved Git revision of the Lean source, which the release checker requires to match exactly. This paper omits the changing commit identifier so that the claim record is the only place that states it.
 

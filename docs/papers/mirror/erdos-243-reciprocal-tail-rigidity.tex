@@ -46,22 +46,47 @@ denominator-clearing error $E_n$.  Problem~\#243 remains open: our results do
 not classify mixed-sign errors or exclude the remaining unbounded-negative
 regime.
 
-An eventually negative error orbit cannot have constant magnitude.  If its
-magnitude is periodic, $|E_n|<a_n$, and the period has positive drift, it is
-likewise impossible.  More generally, exact state dynamics, an eventually
-bounded negative part, and normalised vanishing force $E_n=0$ eventually; the
-stated eventual strict-centring hypothesis is redundant, since normalised
-vanishing yields it after a finite shift.  A single zero is then absorbed
-forward, giving the Sylvester recurrence eventually.  Under the same
-normalised-vanishing hypothesis, finite normalised negative mass is also
-impossible.
+We formalise in Lean three increasingly general exclusions of a negative $E$.
+It cannot be constantly $-m$, at any magnitude and any scale:
+every multiplier would have to share a prime with the fixed $m$, and once a
+prime divides one multiplier every later multiplier is $1$ modulo it, so a
+fixed integer would need infinitely many distinct prime divisors.  It cannot be
+periodic in the regime $|E_n|<a_n$ with positive drift, by the same pigeonhole
+after a strong induction that removes common scale.  And, under eventual strict
+centring and normalised vanishing, it cannot have a bounded negative part:
+a bounded negative part makes $C$ rise by a bounded amount, normalised
+vanishing makes $C$ tend to infinity, the tail gcd stabilises so the orbit may
+be taken reduced, and in a reduced tail the multipliers are pairwise coprime
+and coprime to every later numerator, which a Chinese-remainder block of
+consecutive multiples forbids.  That last step is a statement about integer
+sequences alone: a sequence tending to infinity with upward steps bounded by
+$B$ cannot remain coprime to a fresh pairwise-coprime modulus at every stage.
+Together with an absorption lemma making
+$E_n=0$ propagate, this yields: under exact dynamics, eventual strict centring,
+an eventually bounded negative part, and normalised vanishing, $E$ vanishes
+eventually, and the sequence satisfies the Sylvester recurrence eventually.
+The stated eventual strict-centring hypothesis is redundant, since normalised
+vanishing yields it after a finite shift.  Under the same normalised-vanishing
+hypothesis, finite normalised negative mass is also impossible.
 
-For the canonical orbit attached to a sequence in Erd\H{o}s's problem,
-Koizumi's results provide normalised vanishing and a stronger centring range.
-Hence the bounded-negative theorem applies conditionally, with boundedness of
-the negative part as the missing hypothesis.  Any surviving canonical orbit
-must therefore have negative excursions unbounded along a cofinal set and
-divergent normalised negative mass.
+There is also a weaker conclusion from normalised vanishing alone.  It makes
+strict increases of $\gcd(C_n,D_n)$ sublinear in number and forces constant-gcd
+blocks of every prescribed finite length arbitrarily far out.  It does not
+make the gcd eventually constant; that stronger conclusion uses cofinally
+bounded negative magnitudes.
+
+Problem~\#243 is open and this note does not close it.  The last theorem is
+conditional: its centring and normalised-vanishing hypotheses are analytic
+inputs that we assume rather than derive.  For the canonical orbit attached to
+a sequence in Erd\H{o}s's problem, Koizumi's results provide normalised
+vanishing and a stronger centring range, so the bounded-negative theorem
+applies conditionally, with boundedness of the negative part as the missing
+hypothesis.  What the results remove is the bounded case and, more
+generally, the finite normalised negative-mass case.  Under normalised
+vanishing, summability of
+\(\sum_n(-E_n)_+/C_n\) makes \(C_n\) bounded and hence \(E_n\) eventually
+zero.  Any surviving canonical orbit must therefore have negative excursions
+unbounded along a cofinal set and divergent normalised negative mass.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -224,10 +249,11 @@ Constantly negative $E$ & Excluded here & Theorem~\ref{res:constant}, at any mag
 Periodic negative magnitude & Excluded here & Theorem~\ref{res:periodic}, in the regime $e_n<a_n$ and with positive drift $M>0$. \\
 Coprime-modulus barrier & Proved here & Theorem~\ref{res:barrier}. \\
 Bounded negative part & Excluded here; conditional & Theorem~\ref{res:bounded}; see its hypotheses. \\
+Normalised vanishing alone & Gcd changes are sparse & Proposition~\ref{res:gcdsparse}; arbitrarily late finite constant blocks, not eventual constancy. \\
 Finite normalised negative mass & Excluded here; conditional & Theorem~\ref{res:mass}, Section~\ref{sec:mass}; normalised vanishing remains an input. \\
 Factorial residue reduction & Proved here; superseded for its original purpose & Theorem~\ref{res:residue}, Appendix~\ref{app:residue}. \\
-Normalised vanishing & Assumed here; supplied by prior art & Section~\ref{sec:bounded}; derived in~\cite{koizumi2025}.  The separate strict-centring hypothesis retained in the Lean-matching statement follows eventually by taking $K=1$. \\
-Unbounded, divergent-mass negative excursions & Open & Section~\ref{sec:open}; the surviving obstruction. \\
+Normalised vanishing & Assumed here; supplied by prior art & Section~\ref{sec:bounded}; derived in~\cite{koizumi2025}, see Section~\ref{sec:problem}.  The separate strict-centring hypothesis retained in the Lean-matching statement follows eventually by taking $K=1$. \\
+Unbounded, divergent-mass negative excursions & Necessary conditions proved here; orbit-level case open & Section~\ref{sec:open}: Proposition~\ref{res:frontier} gives conditions any counterexample must satisfy, not a separate open problem; Problem~\ref{res:excursions} is the surviving orbit-level obstruction. \\
 Erd\H{o}s--Straus criterion; Duverney & Proved elsewhere & Cited, not formalised; the Erd\H{o}s--Straus hypothesis is implied by that of Theorem~\ref{res:descent}. \\
 State system equals reciprocal tails & Not formalised & Section~\ref{sec:state}. \\
 \bottomrule
@@ -766,7 +792,8 @@ Take $B$ of the moduli, from indices beyond any chosen point, and use
 Lemma~\ref{res:crt} to find $t$ far out with the $i$th of them dividing $t+i$.
 The interval $[t,t+B)$ has length $B$, and $u$ climbs by at most $B$ per step
 while tending to infinity, so some $u_s$ lands in it.  Then $u_s=t+i$ for some
-$i<B$, and the $i$th modulus divides $u_s$, contradicting coprimality.
+$i<B$, and the $i$th modulus divides $u_s$.  Since that modulus is at least
+$2$, this contradicts $\gcd(m_i,u_s)=1$.
 \end{proof}
 
 \noindent Formalised as the
@@ -871,6 +898,42 @@ boundedness \emph{along a cofinal set} and not
 boundedness at every index.  That is what the situation gives: the tail gcd is
 controlled only at the negative indices, and cofinally many of them is all the
 divisibility chain needs.
+
+Normalised vanishing by itself gives a different, strictly weaker conclusion.
+For an exact natural orbit with $C_n>0$, put
+\[
+ G_n=\gcd(C_n,D_n),\qquad
+ \Gamma(N)=\#\{0\le j<N:G_j<G_{j+1}\}.
+\]
+
+\begin{proposition}[normalised vanishing makes strict gcd changes sparse]
+\label{res:gcdsparse}
+Assume
+\[
+  (\forall K\ge1)(\exists N)(\forall n\ge N)\qquad
+  K|E_n|<C_n.
+\]
+Then, for every $K\ge1$, eventually $K\Gamma(N)<N$.  Moreover, for every
+starting bound $B$ and block length $L$, some $n\ge B$ satisfies
+\[
+  G_n=G_{n+1}=\cdots=G_{n+L}.
+\]
+\end{proposition}
+
+\noindent The first assertion is the
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2092}{tailGcd_strictGrowthCount_sublinear_of_normalizedVanishes}{sublinear
+strict-growth theorem}; the second is the
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2108}{tailGcd_exists_arbitrarilyLate_constBlock_of_normalizedVanishes}{arbitrarily
+late constant-block theorem}.  The proof first converts normalised vanishing
+into subexponential growth of $C_n$, then charges every strict divisibility
+increase of $G_n$ against a finite power-of-two budget.  Sparse strict changes
+force long finite gaps between them.
+
+The quantifiers matter.  Proposition~\ref{res:gcdstab} uses cofinally bounded
+negative magnitudes and yields eventual constancy.  Proposition~\ref{res:gcdsparse}
+uses only normalised vanishing and yields arbitrarily late constant blocks of
+each prescribed finite length.  It does not yield one infinite constant tail,
+and it does not exclude cofinally unbounded negative excursions.
 
 \section{Excluding a bounded negative part}\label{sec:bounded}
 
@@ -1063,15 +1126,54 @@ $(-E_n)_+/C_n$ and not a bound on it.
 Problem~\#243 is open.  The negative case has narrowed, and it is worth being
 precise about what is left.
 
-By Theorem~\ref{res:absorb} a counterexample has $E_n\ne0$ for every large $n$.
-By Theorem~\ref{res:descent} it cannot have $E$ eventually nonnegative.  On an
-all-negative tail, Theorems~\ref{res:constant} and~\ref{res:periodic} exclude
-the constant and the stated periodic regimes; they do not exclude those
-patterns merely along the negative indices of a mixed-sign tail.  Under
-normalised vanishing, Theorem~\ref{res:bounded} excludes a bounded negative
-part---its separate centring hypothesis follows by taking $K=1$---and
-Theorem~\ref{res:mass} excludes finite normalised negative mass.  What remains
-is the following.
+Each exclusion holds only in its stated regime.  Theorems~\ref{res:constant}
+and~\ref{res:periodic} exclude the constant and the stated periodic magnitudes
+on an all-negative tail, and do not exclude those patterns merely along the
+negative indices of a mixed-sign tail; Theorems~\ref{res:bounded}
+and~\ref{res:mass} exclude a bounded negative part and finite normalised
+negative mass under normalised vanishing.  Together with absorption and descent
+they fix the profile of any counterexample.
+
+\begin{proposition}[frontier profile for a counterexample]\label{res:frontier}
+For the canonical integer state attached to any counterexample to
+Problem~\ref{res:problem},
+\[
+ E_n\ne0\quad\hbox{eventually},\qquad
+ \frac{|E_n|}{C_n}\longrightarrow0,
+\]
+and
+\[
+ \limsup_{\substack{n\to\infty\\E_n<0}}(-E_n)=\infty,
+ \qquad
+ \sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}=\infty .
+\]
+In particular, negative indices occur infinitely often.  Thus the remaining
+regime consists of globally coherent, unbounded negative excursions with
+divergent normalised negative mass.
+\end{proposition}
+
+\begin{proof}
+Koizumi's canonical-tail transfer gives strict centring and normalised
+vanishing after a finite shift; the strict-centring hypothesis of
+Theorem~\ref{res:bounded} also follows from normalised vanishing with $K=1$.
+Absorption then makes $E_n\ne0$ eventually,
+since eventual zero would give the Sylvester recurrence.  Descent excludes an
+eventually nonnegative state.  Theorem~\ref{res:bounded} excludes a bounded
+negative part, and Theorem~\ref{res:mass} excludes finite normalised negative
+mass.  These statements are unchanged by deleting a finite prefix.
+\end{proof}
+
+Put
+\[
+ \delta_n:=\frac{(-E_n)_+}{C_n}.
+\]
+Every argument in Sections~\ref{sec:constant}--\ref{sec:bounded} uses a
+finiteness hypothesis: a fixed set of prime divisors, a fixed period, or a
+fixed bound on the negative part.  Theorem~\ref{res:mass} uses
+$\sum_n\delta_n<\infty$.  Proposition~\ref{res:frontier} records that a
+counterexample has none of them; it is a frontier statement, not an additional
+problem equivalent to the original one.  Stated at the level of state orbits,
+the surviving obstruction is the following.
 
 \begin{problem}[unbounded divergent-mass negative excursions]\label{res:excursions}
 Exclude, or construct, an exact natural orbit $(a,D,C)$ with $a_n>1$ and
@@ -1081,12 +1183,12 @@ negative infinitely often with magnitudes unbounded along that cofinal set and
 \[
  \sum_n\frac{(-E_n)_+}{C_n}=\infty .
 \]
-Every
-argument in Sections~\ref{sec:constant}--\ref{sec:bounded} uses some
-finiteness hypothesis: a fixed set of prime divisors, a fixed period, or a
-fixed bound on the negative part.  Theorem~\ref{res:mass} uses a finite total
-multiplicative growth as well.  An excursion of the kind described has none of
-these.
+An excursion of this kind has none of the finiteness hypotheses just listed.
+By Proposition~\ref{res:frontier} the canonical state of a counterexample is
+such an orbit after deletion of a finite prefix, so an exclusion would settle
+Problem~\#243.  A construction would not settle it in the other direction: an
+exact state orbit need not arise from a sequence satisfying
+Problem~\ref{res:problem}.
 \end{problem}
 
 \begin{remark}
@@ -1116,22 +1218,83 @@ multiplier recurrence, so growth fails with them.  It is recorded only to show
 that the state recurrence alone is not enough.
 \end{remark}
 
-\begin{problem}[summable normalised negative mass]\label{res:masshyp}
-Prove from the rapid-growth and rationality hypotheses of
-Problem~\ref{res:problem} that \(\sum_n(-E_n)_+/C_n<\infty\), or prove any
-uniform bound on the partial products \(\prod_{n<N}(1+(-E_n)_+/C_n)\); a bound
-of the form
+\subsection{Global height and old-factor overlap}
+
+The main arithmetic gap is global.  Define the cumulative digit LCM and its
+overlap quotient by
 \[
- \sum_{n=N}^{M}\frac{(-E_n)_+}{C_n}\le B
- \quad\text{for all }M\ge N
+ L_0=D_0,\qquad L_{n+1}=\lcm(L_n,a_n),\qquad M_n=\frac{D_n}{L_n}.
 \]
-with explicit hypotheses would suffice.  A disproof should exhibit a sequence
-satisfying the hypotheses of Problem~\ref{res:problem} whose exact state orbit
-has divergent normalised negative mass; an orbit satisfying normalised
-vanishing alone is not enough, since normalised vanishing is strictly weaker
-than those hypotheses, and neither is a list of locally admissible defects,
-since local admissibility at each index does not produce a global orbit.
+Since $D_n=D_0\prod_{j<n}a_j$, the quotient is integral and
+$M_nL_n=D_n$.  It records the multiplicity lost when the full product scale
+is compressed to an LCM.
+
+\begin{problem}[global overlap-height growth]\label{res:lcmheight}
+For every nonterminal canonical orbit satisfying Problem~\ref{res:problem},
+must
+\[
+ \limsup_{n\to\infty}\frac{\log M_n}{n}>0?
+\]
+Equivalently, must there be a $K\ge1$ for which
+\[
+ 2^n\le M_n^K
+\]
+at infinitely many indices?
 \end{problem}
+
+\noindent The two displayed formulations are equivalent up to changing the
+positive constant; the second is not a weaker target.  A positive answer is
+not yet, by itself, a proof of Problem~\#243: the missing bridge is a comparison
+of $M_n$ with a subexponential state or exact cancellation-payment scale.
+No assertion such as $M_n\mid C_n$ or $M_n\le C_n$ is used here.  Proving such
+a bridge together with Problem~\ref{res:lcmheight} would collide with the
+subexponential tail-height budget forced by normalised vanishing.
+
+There is also a more local-looking question whose content is nevertheless the
+entire prefix.  Put $A_n=\prod_{j<n}a_j$, so $D_n=D_0A_n$.  From
+\[
+ D_0A_n=(a_n-1)C_n+E_n
+\]
+one immediately obtains
+\[
+ \gcd(A_n,a_n-1)\mid E_n.
+\]
+The checked
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2076}{tailState_subexponential_of_normalizedVanishes}{tail-height estimate}
+and normalised vanishing make $|E_n|$ subexponential in $n$.
+
+\begin{problem}[old-factor overlap]\label{res:prefixgcd}
+In every nonterminal canonical orbit satisfying Problem~\ref{res:problem}, is
+\[
+ \limsup_{n\to\infty}
+ \frac{\log\gcd(A_n,a_n-1)}{n}>0?
+\]
+Equivalently, do there exist $\eta>0$ and infinitely many $n$ such that
+$\gcd(A_n,a_n-1)\ge e^{\eta n}$?
+\end{problem}
+
+\noindent A positive answer contradicts the displayed divisibility and the
+subexponential error budget.  Arbitrarily long locally admissible blocks do
+not answer this question: the gcd uses the complete prefix.
+
+\subsection{The direct analytic question}
+
+\begin{problem}[summability from rationality]\label{res:masshyp}
+Let $(a_n)$ satisfy Problem~\ref{res:problem}, and let $(D_n,C_n,E_n)$ be its
+canonical integer state.  Must
+\[
+ \sum_{n=0}^{\infty}\delta_n
+ =\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}<\infty ?
+\]
+\end{problem}
+
+\noindent An affirmative answer closes Problem~\#243 by
+Theorem~\ref{res:mass}.  Since $\delta_n\to0$, convergence is equivalently
+expressible as boundedness of the partial products
+$\prod_{n<N}(1+\delta_n)$; that is an explanatory reformulation, not a second
+success criterion.  A negative answer must be a sequence satisfying the full
+growth and rationality hypotheses, not merely a locally admissible state
+orbit.
 
 \begin{remark}
 One further question is not left open here, since it is answered
@@ -1152,13 +1315,33 @@ normalised vanishing with $K=1$.  What remains unsupplied is hypothesis~(5), the
 on the negative part, which is why the theorem is still conditional.
 \end{remark}
 
-\begin{problem}[the two published criteria]
-Formalise the criterion of Erd\H{o}s and Straus stated in
-Section~\ref{sec:problem}, and Duverney's conditional characterisation, under
-explicit analytic hypotheses.  Both are cited here and neither is formalised;
-each reaches the original problem under analytic hypotheses not assumed in this
-note.
+\subsection{A barrier extension}
+
+\begin{problem}[variable-rise CRT barrier]\label{res:variablerise}
+Determine the weakest growth condition on the positive increments of $u_n$
+under which an unbounded integer sequence cannot remain coprime to infinitely
+many pairwise-coprime old moduli as in Theorem~\ref{res:barrier}.  In
+particular, does the conclusion remain valid under the candidate condition
+\[
+ (u_{n+1}-u_n)_+=o\bigl(\log\log(u_n+3)\bigr)?
+\]
 \end{problem}
+
+\noindent The displayed rate is a proposed threshold, not a proved sharp
+boundary.  Either an extension of the CRT barrier or a counterexample with
+this rise rate would be informative independently of Problem~\#243.
+
+\subsection*{Formalisation targets}
+
+\paragraph{Erd\H{o}s--Straus.}
+Formalise Theorem~3 of~\cite{erdosstraus1964}, with its prefix-LCM quotient
+and correctly indexed growth factor, under the published analytic hypotheses.
+
+\paragraph{Duverney.}
+Formalise Corollary~3.2 of~\cite{duverney2001}, including its signed
+numerators and absolute convergence hypothesis, and then recover the
+all-positive specialisation used here.  These are useful verification
+projects, but neither is an additional open mathematical problem.
 
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}

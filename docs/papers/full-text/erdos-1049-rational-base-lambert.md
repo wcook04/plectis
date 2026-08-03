@@ -1,6 +1,6 @@
 <a id="erdos-1049-rational-base-lambert"></a>
 
-# Multiplicative Obstructions at Base 3/2
+# Arithmetic Boundaries at Base 3/2
 
 <div class="center">
 
@@ -8,9 +8,11 @@
 
 </div>
 
-Let $`F(t)=\sum_{n\ge1}(t^n-1)^{-1}`$. Problem #1049 asks whether $`F(t)`$ is irrational for every rational $`t>1`$; it remains open, and we prove no irrationality result. At $`t=3/2`$ we instead formalise two no-go theorems for a common-width integer-linear-form approach. Scalar multiplication changes analytic error and exterior determinant by the same factors, including determinant height, so scalar content alone gives no local-to-Archimedean gain. Under unit-endpoint hypotheses, homogeneous specialisation at $`(3,2)`$ excludes both $`3`$ and $`2`$ from any common divisor of the two specialised evaluations. These results exclude only those mechanisms; they neither prove that local gain is necessary nor rule out polynomial factors before specialisation, cross-row arithmetic, or another proof architecture.
+Let $`F(t)=\sum_{n\ge1}(t^{n}-1)^{-1}`$. Problem #1049 asks whether $`F(t)`$ is irrational for every rational $`t>1`$; it remains open, and we prove no irrationality result. At the rational base $`3/2`$ we instead prove two scoped arithmetic obstructions. The first concerns a common-width integer-linear-form approach. Integer scalar multiplication changes the analytic error and the exterior determinant by the same factors, including determinant height, so scalar content alone gives no local-to-Archimedean gain. Homogeneous specialisation at $`(3,2)`$ detects the constant endpoint modulo $`3`$ and the top endpoint modulo $`2`$; under unit-endpoint hypotheses, neither prime can divide both specialised evaluations. Thus an argument using this particular local-divisibility strategy must obtain its $`2`$- and $`3`$-primary gain after primitive normalisation. These results exclude only those mechanisms; they neither prove that local gain is necessary nor rule out polynomial factors before specialisation, cross-row arithmetic, or another proof architecture. We also give a finite-group collision lemma: for positive bottom depth $`R`$, any $`M\ge4R+2S`$ coefficient pairs admit a nonzero selector difference cancelling four prescribed endpoint residues, that is, both endpoint jets in both sequences. This constructs only the signed relation; it does not ensure that the resulting polynomial pair or analytic remainder is nonzero.
 
-For positive bottom depth $`R`$, any $`M\ge4R+2S`$ coefficient pairs admit a nonzero selector difference cancelling both endpoint jets in both sequences. This constructs only the signed relation, not a nonzero combined polynomial pair or analytic remainder. For coordinatewise cut-level clearing at a reduced base $`r/s`$ with $`s\ge2`$, a corridor implies $`s^{N+K+1}<r(N+K)`$; at $`3/2`$ this is impossible when both shift and window are nonempty. The cleared tail satisfies $`U_{N+1}=rU_N-Bc(N+1)s^{N+1}`$ and yields $`2^{N+1}\le Bc(N+1)s^{N+1}`$ for positive data, whereas at $`s=1`$ the corresponding term is $`Bc(N+1)`$. At $`7/2`$ we formalise the elementary height inequality required by Bundschuh–Väänänen’s 1994 criterion \[bv1994\], leaving its analytic irrationality argument external. Polynomial denominator-exponent bounds for a homogenised Padé construction likewise leave the analytic remainder untreated.
+Second, we isolate a six-condition coordinatewise clearing scheme at a rational base $`r/s`$. Its hypotheses force $`s^{N+K+1}<r(N+K)`$, which is impossible at $`3/2`$ when the shift and cleared window are nonempty. The associated cleared-tail recurrence $`U_{N+1}=rU_N-Bc(N+1)s^{N+1}`$ is recorded as an explanatory identity; its forcing term satisfies $`2^{N+1}\le Bc(N+1)s^{N+1}`$ for $`s\ge2`$ and positive data, whereas at $`s=1`$ that term is $`Bc(N+1)`$. The recurrence is not derived from rationality and does not exclude other clearing or linear-form constructions.
+
+For comparison, Bundschuh and Väänänen’s published theorem settles a restricted family containing $`7/2`$; Lean checks only the elementary height inequality required by that 1994 criterion \[bv1994\], leaving its analytic irrationality argument external. Polynomial denominator-exponent bounds for a homogenised Padé construction likewise leave the analytic remainder untreated. We also verify elementary membership and exclusion statements for the logarithmic region $`\log b/\log a<81/200`$, but cite no analytic irrationality theorem for that cutoff. Problem #1049 remains open: nothing here proves rationality or irrationality at $`3/2`$, or supplies a method-wide obstruction.
 
 <a id="sec:problem"></a>
 
@@ -84,6 +86,9 @@ Two questions of scope are worth isolating. The corridor bound of Theorem <a hr
 | Cleared-tail recurrence | Proved here | Theorem <a href="#res:tailrec" data-reference-type="ref" data-reference="res:tailrec">16</a>, an exact identity. |
 | Forcing term at least $`2^{N+1}`$ for $`s\ge2`$ | Proved here | Theorem <a href="#res:forcing" data-reference-type="ref" data-reference="res:forcing">17</a>; at $`s=1`$ the term is $`Bc(N+1)`$. |
 | The elementary $`7/2`$ height condition | Proved here | Theorem <a href="#res:sevenhalves" data-reference-type="ref" data-reference="res:sevenhalves">19</a>; the analytic theorem of \[bv1994\] remains external. |
+| Membership of $`31/4`$ and its powers in the $`81/200`$ logarithmic region | Proved here | Exact elementary inequalities; no analytic irrationality theorem is inferred. |
+| Exclusion of $`3/2`$ from both recorded height regions | Proved here | $`3^{81}<2^{200}`$ gives $`81/200<\log2/\log3`$. |
+| Explicit rectangular exponent-model threshold does not improve the classical margin | Proved here | Algebraic statement about the displayed exponent formulas, with equality only at the classical endpoint. |
 | Padé denominator-exponent bounds | Proved here | Section <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a>; exponent arithmetic only. |
 | Padé remainder positivity and decay | Not treated | Section <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a>. |
 | Common-width simultaneous endpoint-jet construction | Candidate sufficient route | Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a>; not necessary for every proof and not supplied by the collision theorem alone. |
@@ -92,7 +97,7 @@ Two questions of scope are worth isolating. The corridor bound of Theorem <a hr
 
 #### Structure.
 
-Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> proves that integer scalar content is neutral for the local-to-Archimedean balance. Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a> proves the endpoint congruences at $`(3,2)`$, deduces from them and from Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> that neither integer scalar content nor a common divisor of the two specialised evaluations supplies the targeted endpoint gain, gives the four-jet collision count, and records one further exclusion on Zudilin’s scalar parameters. Sections <a href="#sec:corridor" data-reference-type="ref" data-reference="sec:corridor">4</a> and <a href="#sec:tail" data-reference-type="ref" data-reference="sec:tail">5</a> return to the elementary clearing scheme and record what the residue $`s^{n}`$ costs there, first as an exclusion and then as an exact recurrence with a lower bound on the surviving term. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record what is and is not formalised of two external routes. Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">8</a> states the remaining obligations. Linked phrases open the corresponding Lean declaration at the pinned source revision 08d83b6689c8.
+Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> proves that integer scalar content is neutral for the local-to-Archimedean balance. Section <a href="#sec:endpoints" data-reference-type="ref" data-reference="sec:endpoints">3</a> proves the endpoint congruences at $`(3,2)`$, deduces from them and from Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> that neither integer scalar content nor a common divisor of the two specialised evaluations supplies the targeted endpoint gain, gives the four-jet collision count, and records one further exclusion on Zudilin’s scalar parameters. Sections <a href="#sec:corridor" data-reference-type="ref" data-reference="sec:corridor">4</a> and <a href="#sec:tail" data-reference-type="ref" data-reference="sec:tail">5</a> return to the elementary clearing scheme and record what the residue $`s^{n}`$ costs there, first as an exclusion and then as an exact recurrence with a lower bound on the surviving term. Sections <a href="#sec:sevenhalves" data-reference-type="ref" data-reference="sec:sevenhalves">6</a> and <a href="#sec:pade" data-reference-type="ref" data-reference="sec:pade">7</a> record what is and is not formalised of two external routes, together with the separate $`81/200`$ logarithmic comparison. Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">8</a> separates kernel escape from asymptotic adequacy and states the remaining obligations. Linked phrases open the corresponding Lean declaration at the pinned source revision 76b5b0a7ed5d.
 
 **Keywords.** irrationality; Lambert series; rational base; Padé approximation; Lean 4. **MSC 2020.** 11J72 (primary); 11J82, 68V20 (secondary).
 
@@ -151,7 +156,7 @@ Informally, Theorem <a href="#res:content" data-reference-type="ref" data-refer
 
 </div>
 
-Lean checks the error identity in [error scaling](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84), the determinant identity in [content factorisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94), the exact absolute-height identity in [absolute determinant scaling](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104), and the divisor statement in [content-product divisibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116). The elimination identity is the checked [exterior determinant identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124).
+Lean checks the error identity in [error scaling](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84), the determinant identity in [content factorisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94), the exact absolute-height identity in [absolute determinant scaling](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104), and the divisor statement in [content-product divisibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116). The elimination identity is the checked [exterior determinant identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124).
 
 The key point is that the two scalings are the same scaling. Each identity on its own is a one-line expansion, and the interest of the theorem is not in any one of them. Taken together they say that the factor $`c_nc_m`$ which a rescaling introduces into the determinant reappears undiminished, as $`|c_n|\,|c_m|`$, in the absolute value of that determinant. The third identity is displayed with absolute values for exactly that reason: it is what makes the statement one about the Archimedean height and not about divisibility alone. Whatever $`c_n`$ and $`c_m`$ are, a rescaling therefore leaves the balance between the local divisor and that height where it was.
 
@@ -161,13 +166,13 @@ The theorem does not construct primitive Padé rows, estimate their remainders, 
 
 # Endpoint residues at $`(3,2)`$ and the four-jet kernel
 
-Zudilin’s treatment of $`q`$-harmonic series \[zudilin2004\] builds linear forms of the shape used in Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> out of Heine’s basic transform. What matters here is one feature of that construction: its coefficients are produced as polynomials with integer coefficients, and a numerical base is substituted only at the end. We call these the Heine–Zudilin forms and ask what the substitution at $`3/2`$ does to the two primes $`2`$ and $`3`$. The endpoint and jet arguments below use no property of the construction beyond integrality of those coefficient polynomials, and each of them quantifies over arbitrary elements of $`\mathbb{Z}[X]`$. The exception is Theorem <a href="#res:scalar" data-reference-type="ref" data-reference="res:scalar">10</a> at the end of the section, which concerns the scalar parameters of Zudilin’s cone rather than the coefficient polynomials.
+Zudilin’s treatment of $`q`$-harmonic series \[zudilin2004\] builds linear forms of the shape used in Section <a href="#sec:primitive" data-reference-type="ref" data-reference="sec:primitive">2</a> out of Heine’s basic transform. The generic endpoint and jet lemmas below concern arbitrary integral coefficient pairs of this shape; they do not construct or instantiate Zudilin’s actual polynomial family. Each lemma uses no property beyond integrality and quantifies over arbitrary elements of $`\mathbb{Z}[X]`$. The exception is Theorem <a href="#res:scalar" data-reference-type="ref" data-reference="res:scalar">10</a> at the end of the section, which concerns the scalar parameters of Zudilin’s cone rather than the coefficient polynomials.
 
 Substituting $`X=3/2`$ into an integer polynomial produces a rational number, and multiplying by a power of $`2`$ clears its denominator. The following evaluation records that cleared numerator, so that all the arithmetic below stays inside $`\mathbb{Z}`$. For $`P(X)=\sum_i p_iX^i\in\mathbb{Z}[X]`$ and a declared width $`W\ge0`$, put
 ``` math
 H_W(P)=\sum_{i=0}^{W}p_i\,3^i2^{W-i}.
 ```
-This is the [homogeneous endpoint evaluation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L96). It is homogeneous in the sense that $`X^{i}`$ is replaced by $`3^{i}2^{W-i}`$, so the numerator and the denominator of the base are carried symmetrically. When $`W\ge\deg P`$ it is exactly the cleared numerator, since
+This is the [homogeneous endpoint evaluation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L96). It is homogeneous in the sense that $`X^{i}`$ is replaced by $`3^{i}2^{W-i}`$, so the numerator and the denominator of the base are carried symmetrically. When $`W\ge\deg P`$ it is exactly the cleared numerator, since
 ``` math
 \sum_{i=0}^{W}p_i\,3^i2^{W-i}=2^{W}\sum_{i=0}^{W}p_i\left(\tfrac32\right)^{i}
  =2^{W}P\!\left(\tfrac32\right).
@@ -210,7 +215,7 @@ The first has both endpoints equal to $`1`$ and its evaluation, $`13`$, is divis
 
 </div>
 
-The congruences are the [bottom-endpoint identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L201) and [top-endpoint identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L215); the unit consequences are the [constant-endpoint obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L233) and [top-endpoint obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L251).
+The congruences are the [bottom-endpoint identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L201) and [top-endpoint identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L215); the unit consequences are the [constant-endpoint obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L233) and [top-endpoint obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L251).
 
 The proof is two lines, but the shape of the statement is not incidental. The difficulty lies in the fact that the specialisation sees a different endpoint at each of the two primes: modulo $`3`$ only the constant coefficient survives, and modulo $`2`$ only the top one does. The two exclusions are therefore conditions at opposite ends of the coefficient vector, and the statement below imposes one at each end, on the two entries of a single coefficient pair.
 
@@ -223,7 +228,7 @@ The proof is two lines, but the shape of the statement is not incidental. The di
 
 </div>
 
-This is the checked [common-divisor exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L293). The proposition does not say that the two evaluations are coprime; it says that whatever they share misses both of the primes that matter at $`3/2`$.
+This is the checked [common-divisor exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L293). The proposition does not say that the two evaluations are coprime; it says that whatever they share misses both of the primes that matter at $`3/2`$.
 
 <div id="ex:commonmult" class="example">
 
@@ -256,7 +261,7 @@ We first raise the two congruences to prime powers. Fix depths $`R,S\ge0`$. For 
 J_{3,R}(P)=0\iff 3^R\mid H_W(P),\qquad
  J_{2,S}(P)=0\iff 2^S\mid H_W(P).
 ```
-These are the checked [bottom-jet divisibility criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L189) and [top-jet divisibility criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L195). The *four-jet signature* of a coefficient pair $`(U,V)`$ is then the quadruple
+These are the checked [bottom-jet divisibility criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L189) and [top-jet divisibility criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L195). The *four-jet signature* of a coefficient pair $`(U,V)`$ is then the quadruple
 ``` math
 \bigl(J_{3,R}(U),J_{3,R}(V),J_{2,S}(U),J_{2,S}(V)\bigr)
  \in(\mathbb{Z}/3^R\mathbb{Z})^2\times(\mathbb{Z}/2^S\mathbb{Z})^2 ,
@@ -289,7 +294,7 @@ which proves the stated sufficient threshold. ◻
 
 </div>
 
-The target count is the checked [four-jet target cardinality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L129); the abstract collision is the checked [four-jet pigeonhole kernel](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L140), and the linear sufficient condition is the checked [rank–depth collision threshold](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L159). The count is a routine pigeonhole; the reformulation above is what makes it relevant. Pigeonhole cancellation itself requires no independence. Additional information about the input family is needed to ensure that the resulting nonzero selector difference has a nonzero combined polynomial pair and analytic remainder. None of the statements proved here supplies such a family or proves either nonvanishing conclusion.
+The target count is the checked [four-jet target cardinality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L129); the abstract collision is the checked [four-jet pigeonhole kernel](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L140), and the linear sufficient condition is the checked [rank–depth collision threshold](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L159). The count is a routine pigeonhole; the reformulation above is what makes it relevant. Pigeonhole cancellation itself requires no independence. Additional information about the input family is needed to ensure that the resulting nonzero selector difference has a nonzero combined polynomial pair and analytic remainder. None of the statements proved here supplies such a family or proves either nonvanishing conclusion.
 
 <div id="ex:jetcount" class="example">
 
@@ -310,7 +315,7 @@ C_0\log 3-C_1\log 2<0.
 
 </div>
 
-Written multiplicatively, the conclusion is $`3^{C_0}<2^{C_1}`$. The inequality is immediate from $`\log3<2\log2`$ and $`C_1>0`$, and is the checked [three-halves scalar margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L323). The interest is in the fence around it. The primary Zudilin theorem \[zudilin2004, Theorem 1, p. 154; Sec. 5, pp. 161–162\] supplies an integer-base irrationality-exponent estimate on its parameter cone, and the elementary inequality $`\mu\ge2`$ then forces $`2C_0\le C_1`$ whenever $`C_0>0`$; Lean checks that implication separately. The primary theorem assumes an integer base $`p=1/q`$. It does not state a rational $`p=3/2`$ theorem, so the all-scale coefficient construction and rational specialisation remain external to the checked result, which is the scalar parameter margin alone.
+Written multiplicatively, the conclusion is $`3^{C_0}<2^{C_1}`$. The inequality is immediate from $`\log3<2\log2`$ and $`C_1>0`$, and is the checked [three-halves scalar margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L323). The interest is in the fence around it. The primary Zudilin theorem \[zudilin2004, Theorem 1, p. 154; Sec. 5, pp. 161–162\] supplies an integer-base irrationality-exponent estimate on its parameter cone, and the elementary inequality $`\mu\ge2`$ then forces $`2C_0\le C_1`$ whenever $`C_0>0`$; Lean checks that implication separately. The primary theorem assumes an integer base $`p=1/q`$. It does not state a rational $`p=3/2`$ theorem, so the all-scale coefficient construction and rational specialisation remain external to the checked result, which is the scalar parameter margin alone.
 
 <a id="sec:corridor"></a>
 
@@ -328,7 +333,7 @@ a>0,\qquad Q>0,\qquad D>0,\qquad D\le N+K,\qquad
 
 </div>
 
-The reading is: $`a`$ and $`b`$ are the numerator and denominator of the base, playing the roles of $`r`$ and $`s`$ in the introduction, so that $`(a,b)=(3,2)`$ is the case of interest; $`N`$ is the shift, $`K`$ is the width of the cleared window, $`Q`$ is the accumulated clearing factor, and $`D`$ is the final coefficient being cleared. The bound $`D\le N+K`$ is the only property of the coefficient used; for the divisor-counting coefficient it holds because $`\tau(n)\le n`$. The divisibility $`a^{K}\mid QD`$ is the requirement that clearing succeeded coordinatewise, and the last inequality is the tail estimate that makes the trapped integer smaller than $`1`$. The name records the shape of the constraint: the divisibility bounds $`a^{K}`$ from above by $`Q(N+K)`$, the tail estimate bounds $`a^{K+1}`$ from below by $`Q\,b^{\,N+K+1}`$, and admissible parameters must fit in the band between them. The definition is the [corridor predicate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L106).
+The reading is: $`a`$ and $`b`$ are the numerator and denominator of the base, playing the roles of $`r`$ and $`s`$ in the introduction, so that $`(a,b)=(3,2)`$ is the case of interest; $`N`$ is the shift, $`K`$ is the width of the cleared window, $`Q`$ is the accumulated clearing factor, and $`D`$ is the final coefficient being cleared. The bound $`D\le N+K`$ is the only property of the coefficient used; for the divisor-counting coefficient it holds because $`\tau(n)\le n`$. The divisibility $`a^{K}\mid QD`$ is the requirement that clearing succeeded coordinatewise, and the last inequality is the tail estimate that makes the trapped integer smaller than $`1`$. The name records the shape of the constraint: the divisibility bounds $`a^{K}`$ from above by $`Q(N+K)`$, the tail estimate bounds $`a^{K+1}`$ from below by $`Q\,b^{\,N+K+1}`$, and admissible parameters must fit in the band between them. The definition is the [corridor predicate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L113).
 
 <div id="res:corridorbound" class="theorem">
 
@@ -349,9 +354,9 @@ and cancelling the positive factor $`Q`$ gives the claim. ◻
 
 </div>
 
-Formalised as the [power-versus-linear consequence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L114).
+Formalised as the [power-versus-linear consequence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121).
 
-The inequality of Theorem <a href="#res:corridorbound" data-reference-type="ref" data-reference="res:corridorbound">12</a> is where the integer and rational cases part. At $`b=1`$ it reads $`1<a(N+K)`$, which holds for every $`a\ge2`$ and every nonempty window; the corridor imposes no obstruction at all. At $`b\ge2`$ the left side is exponential in $`N+K`$ and the right side is linear, so the corridor can survive only for small $`N+K`$. At $`(a,b)=(3,2)`$ the crossing has already happened at the smallest admissible window.
+The inequality of Theorem <a href="#res:corridorbound" data-reference-type="ref" data-reference="res:corridorbound">12</a> is where the integer and rational cases part. At $`b=1`$ it reads $`1<a(N+K)`$, which holds for every $`a\ge2`$ and every nonempty window; this necessary inequality imposes no obstruction. The other corridor hypotheses remain in force. At $`b\ge2`$ the left side is exponential in $`N+K`$ and the right side is linear, so the corridor can survive only for small $`N+K`$. At $`(a,b)=(3,2)`$ the crossing has already happened at the smallest admissible window.
 
 <div id="ex:corridor" class="example">
 
@@ -371,7 +376,7 @@ The inequality of Theorem <a href="#res:corridorbound" data-reference-type="ref
 
 </div>
 
-Formalised as the [exponential comparison](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L135).
+Formalised as the [exponential comparison](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142).
 
 <div id="res:nocorridor" class="theorem">
 
@@ -385,7 +390,7 @@ Formalised as the [exponential comparison](https://github.com/wcook04/plectis-le
 
 </div>
 
-Formalised as the [corridor exclusion at three halves](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L148).
+Formalised as the [corridor exclusion at three halves](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155).
 
 Theorem <a href="#res:nocorridor" data-reference-type="ref" data-reference="res:nocorridor">15</a> excludes the coordinatewise clearing scheme at $`3/2`$, and nothing else: it does not bound the denominator of $`F(3/2)`$, it does not show that $`F(3/2)`$ is irrational, and it does not show that $`F(3/2)`$ is rational. It also does not cover a clearing scheme of a different shape, since the corridor fixes one divisibility pattern and one tail inequality.
 
@@ -402,7 +407,7 @@ P_N=\sum_{m=0}^{N-1}\frac{c(m+1)\,s^{\,m+1}}{r^{\,m+1}},
  U_N=B\,r^{N}\bigl(F-P_N\bigr).
 \tag{$\ast$}\label{eq:tailstate}
 ```
-Thus $`P_N`$ is the partial sum of $`\sum_{n\ge1}c(n)(s/r)^{n}`$ through level $`N`$, and $`U_N`$ is the tail of a putative value $`F`$ after that level, scaled by $`Br^{N}`$. These are the [rational-base prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L161) and the [cleared tail state](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L174).
+Thus $`P_N`$ is the partial sum of $`\sum_{n\ge1}c(n)(s/r)^{n}`$ through level $`N`$, and $`U_N`$ is the tail of a putative value $`F`$ after that level, scaled by $`Br^{N}`$. These are the [rational-base prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L168) and the [cleared tail state](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L181).
 
 <div id="res:tailrec" class="theorem">
 
@@ -419,7 +424,7 @@ U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.
 
 </div>
 
-Formalised as the [cleared-tail recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L180).
+Formalised as the [cleared-tail recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187).
 
 The recurrence has a linear part $`rU_N`$ and a forcing term $`Bc(N+1)s^{N+1}`$, the inhomogeneous term the state receives at each step. The direct-clearing route studied here works only if the state remains in a bounded window, and the forcing term is what that window must absorb. Its size is what separates the two denominator regimes.
 
@@ -439,7 +444,7 @@ The recurrence has a linear part $`rU_N`$ and a forcing term $`Bc(N+1)s^{N+1}`$,
 
 </div>
 
-Formalised as the [exponential lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L197) and the [integer-base collapse](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L211).
+Formalised as the [exponential lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204) and the [integer-base collapse](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218).
 
 At $`s=1`$ the forcing term is $`Bc(N+1)`$, so it grows only as fast as the coefficient; for the divisor function that is $`O(N^{\varepsilon})`$ for every $`\varepsilon>0`$, and a bounded-state argument has room. At $`s\ge2`$ the same term is at least $`2^{N+1}`$ whenever the coefficient is nonzero.
 
@@ -472,15 +477,41 @@ At $`q=7/2`$ the Archimedean parameter is $`\lambda=\log 7/\log(7/2)`$. The crit
 
 </div>
 
-Numerically the two sides are $`1.5533\ldots`$ and $`1.6630\ldots`$, so the condition holds with a margin of about $`0.11`$. The Lean proof factors the estimate into the [integer certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32) $`2^{18}<7^7`$, the resulting [logarithmic ratio bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L41) $`\log2/\log7<7/18`$, the [$`\pi`$-bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L57) $`1/\pi^2<1/9`$, and the [strict margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L66)
+Numerically the two sides are $`1.5533\ldots`$ and $`1.6630\ldots`$, so the condition holds with a margin of about $`0.11`$. The Lean proof factors the estimate through the explicit [height-region predicate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L44) and the [integer certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32) $`2^{18}<7^7`$, the resulting [logarithmic ratio bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L48) $`\log2/\log7<7/18`$, the [$`\pi`$-bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L64) $`1/\pi^2<1/9`$, and the [strict margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L73)
 ``` math
 \frac{\log2}{\log7}<\frac12-\frac1{\pi^2}.
 ```
-The [final height inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L76) then rewrites $`\log(7/2)=\log7-\log2`$ and closes the displayed condition.
+The [final height inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83) then rewrites $`\log(7/2)=\log7-\log2`$ and closes the displayed condition.
 
 This formalises the complete elementary parameter check at $`q=7/2`$; it does not formalise Bundschuh and Väänänen’s analytic irrationality theorem, whose proof occupies pp. 189–193 of the source. The conclusion that $`F(7/2)`$ is irrational is consequently cited from that theorem, not claimed as a Lean theorem here.
 
 The criterion does not cover $`3/2`$, and the results of Sections <a href="#sec:corridor" data-reference-type="ref" data-reference="sec:corridor">4</a> and <a href="#sec:tail" data-reference-type="ref" data-reference="sec:tail">5</a> give no evidence either way about whether $`F(3/2)`$ is irrational.
+
+<a id="the-81200-logarithmic-region"></a>
+
+## The $`81/200`$ logarithmic region
+
+Consider the rational-height region
+``` math
+\frac{\log b}{\log a}<\frac{81}{200}
+ \qquad(a>b>0).
+```
+No bibliographic source for an analytic irrationality theorem at this cutoff is asserted here. The Lean module instead treats the displayed inequality as a definition and proves elementary memberships and exclusions. In particular,
+``` math
+\frac25
+ <\frac{\log4}{\log31}
+ <\frac{81}{200}
+ <\frac{\log2}{\log3}.
+```
+The first two comparisons come respectively from $`31^2<4^5`$ and $`4^{200}<31^{81}`$; the last comes from $`3^{81}<2^{200}`$. The lower bound is the checked theorem [two-fifths lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L67). Consequently $`31/4`$, and every positive power $`(31/4)^r`$, lies in the enlarged region ([checked](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45), [power family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L62)). The same base lies strictly outside the earlier Bundschuh–Väänänen region ([checked](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L94)), so the $`81/200`$ inequality defines a strict set-theoretic enlargement of the earlier recorded logarithmic region. Membership alone supplies no irrationality theorem for $`31/4`$.
+
+It still does not approach $`3/2`$. The exact comparison
+``` math
+3^{81}<2^{200}
+ \quad\Longrightarrow\quad
+ \frac{81}{200}<\frac{\log2}{\log3}
+```
+is Lean-checked, as is the conclusion that $`3/2`$ belongs to neither height region ([boundary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L108), [exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L125)). Thus $`81/200`$ is the larger of the two explicitly defined cutoffs used below, while a cutoff that includes $`3/2`$ must be strictly larger than $`\log2/\log3\approx0.6309`$.
 
 <a id="sec:pade"></a>
 
@@ -512,7 +543,7 @@ Then, for integers $`n,k,m`$:*
 
 </div>
 
-Part (1) is the [summand exponent bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30), part (2) the [exact gap identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52), and part (3) the [maximal exponent bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/08d83b6689c85fc501f4051960d4c35bddb0f431/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60). The gap in (2) is an identity in $`\mathbb{Z}[n,m]`$, so (3) follows from $`m(m-1)\ge0`$ and $`n\ge0`$; the hypothesis $`m\ge1`$ names the range in which the corresponding summand does not vanish, and it is not the sharpest hypothesis under which the inequality holds.
+Part (1) is the [summand exponent bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30), part (2) the [exact gap identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52), and part (3) the [maximal exponent bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60). The gap in (2) is an identity in $`\mathbb{Z}[n,m]`$, so (3) follows from $`m(m-1)\ge0`$ and $`n\ge0`$; the hypothesis $`m\ge1`$ names the range in which the corresponding summand does not vanish, and it is not the sharpest hypothesis under which the inequality holds.
 
 <div id="ex:pade" class="example">
 
@@ -526,7 +557,7 @@ These are routine inequalities between polynomials in the exponents. They establ
 
 # Complements and further questions
 
-Problem #1049 is open. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> suggests the following precise sufficient subproblem for one common-width additive architecture. It is not asserted to be necessary for every proof of irrationality.
+Problem #1049 remains open. Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> suggests the following precise sufficient subproblem for one common-width additive architecture. It is not asserted to be necessary for every proof of irrationality.
 
 <div id="prob:kernel" class="problem">
 
@@ -568,7 +599,164 @@ The jet equations make $`A_n,B_n`$ integers. A solution would prove irrationalit
 
 Integer rescaling and a common divisor of the two specialised evaluations are the two mechanisms excluded by Corollary <a href="#res:nomult" data-reference-type="ref" data-reference="res:nomult">7</a>. Polynomial factors before specialisation, cross-row or determinant-specific arithmetic, cyclotomic factors, other additive constructions, and entirely different architectures remain outside that corollary and are not decided either way.
 
-The unrestricted question, which rational bases give an irrational value, remains open, and is not reduced to the problem above.
+The remaining linear-form programme therefore has two independent gates: first find a four-jet collision that does not collapse algebraically or analytically; only then ask whether its divisibility and decay beat its height. We state those gates separately below.
+
+<a id="exact-kernel-escape"></a>
+
+## Exact kernel escape
+
+Fix, for each $`n`$, a declared width $`W_n`$ and a specified family
+``` math
+(U_{n,j},V_{n,j},\mathcal R_{n,j})_{j<M_n},
+```
+where $`U_{n,j},V_{n,j}\in\mathbb{Z}[X]`$ and $`\mathcal R_{n,j}`$ is the corresponding remainder function. Normalisation must be fixed before the jet map is formed. Call the family *polynomially primitive* when the common coefficient content of the pair in $`\mathbb{Z}[X]^2`$ is divided out before specialisation; as the Terminology paragraph records, that is a different operation from primitive normalisation of a specialised integer row, which is what Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a> imposes. The specialised row content
+``` math
+g^{\mathrm{spec}}_{n,j}
+ =\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)
+```
+and the content of a final additive combination are separate quantities; they are not silently divided out. If either is divided out later, both the height and the remainder below are measured after that same division. Under the unit endpoint hypotheses, $`g^{\mathrm{spec}}_{n,j}`$ is coprime to $`6`$, so such division does not manufacture or destroy the $`2`$- and $`3`$-primary jet vanishing.
+
+For target depths $`R_n,S_n`$, let $`J_n(\lambda)`$ be the four-jet signature of the pair $`\sum_j\lambda_j(U_{n,j},V_{n,j})`$, and define
+``` math
+\mathcal C_n=
+ \{\lambda\in\{-1,0,1\}^{M_n}\mathbin{\backslash}\{0\}:J_n(\lambda)=0\},
+```
+``` math
+\begin{aligned}
+ K_n^{\mathrm{poly}}
+   &=\left\{\lambda\in\{-1,0,1\}^{M_n}:
+       \sum_j\lambda_jU_{n,j}=0,\ \sum_j\lambda_jV_{n,j}=0\right\},\\
+ K_n^{\mathrm{rem}}
+   &=\left\{\lambda\in\{-1,0,1\}^{M_n}:
+       \sum_j\lambda_j\mathcal R_{n,j}(3/2)=0\right\}.
+\end{aligned}
+```
+The second nullspace concerns the value at $`3/2`$; an identically zero remainder function is a still stronger collapse and is automatically bad.
+
+The exact pigeonhole condition is
+``` math
+2^{M_n}>3^{2R_n}2^{2S_n},
+ \qquad\text{equivalently}\qquad
+ M_n>2R_n\log_2 3+2S_n.
+\tag{8.1}\label{eq:exact-jet-threshold}
+```
+Thus the least admissible integer rank is
+``` math
+M_{\min}(R,S)=
+ \left\lfloor2R\log_2 3+2S\right\rfloor+1.
+```
+The checked condition $`M\ge4R+2S`$ for $`R>0`$ is a convenient sufficient corollary, not the exact threshold. Moreover, with $`N=2^{M_n}`$ and $`Q=3^{2R_n}2^{2S_n}`$, convexity of the fibre sizes gives at least
+``` math
+\frac12\left(\frac{N^2}{Q}-N\right)
+\tag{8.2}\label{eq:collision-count}
+```
+unordered equal-signature selector pairs. A normality estimate can therefore win by showing that fewer than this many collision pairs land in the two bad nullspaces.
+
+<div id="prob:escape" class="problem">
+
+**Problem 23** (four-jet kernel escape). For one literal polynomially primitive family satisfying <a href="#eq:exact-jet-threshold" data-reference-type="eqref" data-reference="eq:exact-jet-threshold">[eq:exact-jet-threshold]</a>, prove, preferably by comparing the lower bound <a href="#eq:collision-count" data-reference-type="eqref" data-reference="eq:collision-count">[eq:collision-count]</a> with the bad-pair multiplicities, that
+``` math
+\mathcal C_n\mathbin{\backslash}
+ \bigl(K_n^{\mathrm{poly}}\cup K_n^{\mathrm{rem}}\bigr)
+ \ne\varnothing
+```
+for all sufficiently large $`n`$.
+
+</div>
+
+Theorem <a href="#res:jetkernel" data-reference-type="ref" data-reference="res:jetkernel">8</a> supplies only $`\mathcal C_n\ne\varnothing`$. It gives a nonzero selector difference, but it gives neither polynomial-pair nonvanishing nor remainder nonvanishing. Problem <a href="#prob:escape" data-reference-type="ref" data-reference="prob:escape">23</a> is finite algebra and normality; it makes no asymptotic product-formula claim. It is the first of the two gates in Problem <a href="#prob:kernel" data-reference-type="ref" data-reference="prob:kernel">22</a>: it asks for the two nonvanishing conclusions, and not for the analytic condition stated there.
+
+<a id="the-first-falsifiable-families"></a>
+
+## The first falsifiable families
+
+An exploratory calculation suggests a contiguous $`a_0`$-shift determinant at $`r_n=13n+2`$, after apparent failure of lower ranks $`r\le13n+1`$. These computations are not Lean theorems. More importantly, no literal definition of the matrix $`A_{n,r}`$ is given here, so writing merely “$`\det A_{n,13n+2}\ne0`$” would not yet be a public mathematical question.
+
+<div class="problem">
+
+**Problem 24** (the first saturated determinant). Give the entrywise formula for the contiguous $`a_0`$-shift matrix $`A_{n,r}`$, the exact relation $`M_n=M(n,r)`$ between its size and the number of coefficient pairs, and the declared width $`W_n`$. Then determine whether
+``` math
+\det A_{n,13n+2}\ne0
+```
+for every sufficiently large $`n`$. At the first computable scales, report the rank, determinant, coefficient-pair contents, specialised row contents, four endpoint jets, and the first nonzero remainder coefficient. A negative answer must identify a systematic rank relation or the first exact failing $`n`$.
+
+</div>
+
+This formulation makes the matrix definition part of the problem statement rather than relying on undeclared notation.
+
+<div class="problem">
+
+**Problem 25** (minimal non-$`a_0`$ deformation). If the saturated contiguous family collapses, enlarge it by exactly one $`a_1`$-shift while retaining the same source cone and widths. Does this one-direction extension increase the polynomial-pair rank and produce a collision outside $`K_n^{\mathrm{poly}}\cup K_n^{\mathrm{rem}}`$? If every such one-shift extension collapses, prove that class-wide obstruction before adding a second new direction.
+
+</div>
+
+This is the smallest specified deformation beyond the contiguous family; it replaces the unbounded request for a “genuinely independent deformation.”
+
+<a id="asymptotic-adequacy-after-kernel-escape"></a>
+
+## Asymptotic adequacy after kernel escape
+
+Suppose a good collision has been found. Let $`D_n=3^{R_n}2^{S_n}`$ be the certified local divisor (or replace it by the exact determinant-specific divisor), let $`H_n`$ be the coefficient or exterior height after precisely the normalisation just declared, and let $`L_n\ne0`$ be the resulting analytic form or exterior remainder.
+
+<div class="problem">
+
+**Problem 26** (negative normalised product-formula margin). Prove the explicit estimate
+``` math
+\limsup_{n\to\infty}
+ \frac{\log H_n+\log|L_n|-R_n\log3-S_n\log2}{n^2}<0.
+\tag{8.3}\label{eq:negative-margin}
+```
+Every denominator, row content and final-combination content must already be included in $`H_n`$ and $`L_n`$.
+
+</div>
+
+Nonvanishing alone does not address <a href="#eq:negative-margin" data-reference-type="eqref" data-reference="eq:negative-margin">[eq:negative-margin]</a>. Conversely, excellent formal decay is irrelevant if every jet collision lies in a bad nullspace. The exploratory adjacent-exterior calculation leaves a positive normalised exponent of about $`110.850\,n^2`$; this is not a checked theorem. Any proposed improvement must remove this explicit deficit rather than merely exhibit some extra divisibility.
+
+<a id="one-exact-alternative-criterion-test"></a>
+
+## One exact alternative-criterion test
+
+A separate possible route is Mahler’s method. Its first applicability test is the following.
+
+<div class="problem">
+
+**Problem 27** (finite Mahler-system test). For
+``` math
+\mathcal L(z)=\sum_{n\ge1}\frac{z^n}{1-z^n},
+```
+determine whether $`\mathcal L`$ belongs to a finite-dimensional $`\mathbb{Q}(z)`$-vector space stable under both $`z\mapsto z^2`$ and $`z\mapsto z^3`$, with a regular functional system at $`z=2/3`$ to which a stated special-value theorem applies. Supply the literal system and verify its hypotheses, or prove that no such finite-dimensional regular system exists.
+
+</div>
+
+This question has a concrete positive and negative outcome. It does not infer a special-value theorem from the already known fact that $`\mathcal L`$ is not a rational function.
+
+<a id="the-quantitative-height-frontier"></a>
+
+## The quantitative height frontier
+
+The module `HermitePadeNoGo` defines an explicit rectangular two-parameter exponent model. Writing $`\sigma=1+\rho+u`$, its denominator-cleared gap has the exact expansion
+``` math
+-\pi^2\rho^2-\pi^2\rho u-2\pi^2\rho-2\rho^2-10\rho u
+ -4\rho-6u^2-8u.
+```
+Thus for $`\rho\ge0`$ and $`\sigma\ge1+\rho`$ the cleared gap is nonpositive, and it vanishes exactly when $`\rho=0`$ and $`\sigma=1`$ ([exact expansion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L43), [nonpositivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L53), [equality case](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L70)). Equivalently, within that model the displayed threshold never exceeds the classical one-function margin, with equality only at the classical endpoint ([bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L99), [equality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L121)). This is an algebraic theorem about the four defined exponent expressions and only that explicit rectangular model. It does not construct polynomials, remainders, integrality, a determinant, or asymptotics, and it is not a method-universal no-go theorem. The separate $`81/200`$ cutoff of the preceding section satisfies
+``` math
+\frac{81}{200}<\frac{\log2}{\log3}.
+```
+Thus “improve the height theorem” has a precise numerical target.
+
+<div class="problem">
+
+**Problem 28** (optimal admissible height threshold). Specify a concrete class $`\mathcal A`$ of primitive, noncollapsed constructions, excluding scalar row rescaling, proportional permutation-orbit forms, pure row-content gain, and constructions governed by the rectangular exponent model above. For that class define
+``` math
+\theta_*=\sup_{\alpha\in\mathcal A}
+   \frac{C_0(\alpha)}{C_1(\alpha)}.
+```
+Prove one of the following: $`\theta_*>81/200`$ by an explicit construction; an exact value for $`\theta_*`$; a converse $`\theta_*<\log2/\log3`$; or a class theorem showing that every member reduces to one of the checked scalar or rectangular no-go mechanisms.
+
+</div>
+
+Reaching $`3/2`$ requires a threshold strictly beyond $`\log2/\log3\approx0.6309`$, not merely an improvement over $`81/200=0.405`$. The unrestricted question of which rational bases give irrational values remains open and is not reduced to any one of these problems.
 
 <a id="statements-and-declarations"></a>
 
@@ -578,7 +766,7 @@ The unrestricted question, which rational bases give an irrational value, remain
 
 #### Artefact and data availability.
 
-The [pinned formal-source revision](https://github.com/wcook04/plectis-lean-erdos249-257/tree/08d83b6689c85fc501f4051960d4c35bddb0f431) contains the Lean sources, the fixed toolchain, and the library manifest used in the verification. This manuscript provides navigation rather than proof authority.
+The [pinned formal-source revision](https://github.com/wcook04/plectis-lean-erdos249-257/tree/76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0) contains the Lean sources, the fixed toolchain, and the library manifest used in the verification. This manuscript provides navigation rather than proof authority.
 
 <a id="declaration-of-generative-ai-use."></a>
 
@@ -602,7 +790,7 @@ The problem numbering and status follow the Erdős Problems catalogue maintained
 
 # Guide to the formal sources
 
-Each linked phrase opens its Lean declaration at the pinned source revision 08d83b6689c8. The declarations of this note live in three modules: the corridor, the cleared-tail recurrence, and the two arithmetic certificates in the first; the Padé exponent arithmetic in the second; and the Heine–Zudilin endpoint arithmetic in the third. The link coordinates are validated against that pinned revision, so they remain correct as later work moves lines in the working tree.
+Each linked phrase opens its Lean declaration at the pinned source revision 76b5b0a7ed5d. The declarations of this note live in five modules: `RationalBaseLambert`, `RationalPadeArithmetic`, `ZudilinConeArithmetic`, `ZudilinHeightRegion`, and `HermitePadeNoGo`. The first contains the corridor, cleared-tail recurrence, and elementary $`7/2`$ certificate; the remaining four separate the Padé exponent arithmetic, endpoint arithmetic, logarithmic comparisons, and rectangular exponent model. The link coordinates are validated against that pinned revision, so they remain correct as later work moves lines in the working tree.
 
 <div class="thebibliography">
 

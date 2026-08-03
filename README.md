@@ -25,8 +25,8 @@ plectis tour --format text .
 
 The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
-contains the Lean source and papers for six open Erdős problems: #243, #249,
-#251, #257, #269, and #1049. All six remain open. Plectis carries the runnable
+contains the Lean source and papers for eight open Erdős problems: #68, #243,
+#249, #251, #257, #269, #1041, and #1049. All eight remain open. Plectis carries the runnable
 claim-checking tools; the Lean repository carries the machine-checked
 mathematics. Neither repository establishes anything about the private
 development environment from which the public work was prepared.
@@ -194,7 +194,7 @@ read.
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
 | Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for six open Erdős problems: #243, #249, #251, #257, #269, and #1049. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for eight open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
@@ -282,15 +282,15 @@ developed by William Cook as an independent, AI-native solo project; see
 [PROVENANCE.md](PROVENANCE.md) for authorship, third-party, and
 no-affiliation boundaries.
 
-## Companion project: six open Erdős problems in Lean 4
+## Companion project: eight open Erdős problems in Lean 4
 
 The **Formal Math & Proof** area above includes bounded examples drawn from a
 separate Lean repository. That repository owns the proof source and
 mathematical exposition:
 
 [**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-lean-erdos249-257)
-contains Lean 4 work on Erdős Problems **#243, #249, #251, #257, #269, and
-#1049**. All six remain open. Its README gives the statement, checked frontier,
+contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
+#1041, and #1049**. All eight remain open. Its README gives the statement, checked frontier,
 and remaining obligation for each problem. The pinned Lean kernel checks the
 formal propositions; the repository's claim records and papers explain what
 those propositions do and do not establish. Plectis does not inherit proof

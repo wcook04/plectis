@@ -34,7 +34,7 @@ Let $`\varphi`$ be Euler’s totient function and put
 ``` math
 S \;:=\; \sum_{n \ge 1} \frac{\varphi(n)}{2^{n}}
   \;=\; \tfrac12 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} + \tfrac{4}{32} + \cdots
-  \;=\; 1.3676308\ldots
+  \;=\; 1.3676308019850223\ldots
 ```
 The series converges absolutely because $`\varphi(n) \le n`$. Erdős Problem \#249 asks whether $`S`$ is irrational. *It is open.* Nothing in this document decides it, no route recorded here is a proof, and no result here should be read as an approach that is close to working. What this document does is different in kind: it assembles every recorded failure, obstruction, countermodel and dead route the programme has produced against \#249, and classifies each one by the exact class of argument it eliminates. The claim being made is that those failures are not independent — they are repeated measurements of a single obstruction, and that obstruction has a shape which can be stated.
 
@@ -469,7 +469,7 @@ Every claim carries one, and they are never blurred. <span class="sans-serif">\[
 
 #### The scale axis.
 
-This is the load-bearing axis of the whole document. <span class="sans-serif">scale:fixed</span> means one instance; <span class="sans-serif">scale:bounded</span> means every instance up to an explicit bound; <span class="sans-serif">scale:cofinal</span> means infinitely often past every threshold; <span class="sans-serif">scale:uniform</span> means for all parameters with no dependence. The single most important structural fact about the corpus is that *everything unconditional and quantitative sits on the fixed or bounded side, while $`\mathrm{Sep}`$ is cofinal*. Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">12</a> says that gap is one of kind and not of degree: no accumulation of bounded verification, at any bound, is evidence that the cofinal statement holds. Read every result’s `scale` tag before reading its content.
+This is the load-bearing axis of the whole document. <span class="sans-serif">scale:fixed</span> means one instance; <span class="sans-serif">scale:bounded</span> means every instance up to an explicit bound; <span class="sans-serif">scale:cofinal</span> means infinitely often past every threshold; <span class="sans-serif">scale:uniform</span> means for all parameters with no dependence. The single most important structural fact about the corpus is narrower: *every direct certificate deposit for $`\mathrm{Sep}`$ is fixed or bounded, although the corpus also contains uniform and cofinal structural theorems*. Those stronger-scale results do not produce $`\mathrm{Sep}`$. Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">12</a> says that no accumulation of bounded verification, at any bound, is evidence that the cofinal statement holds. Read every result’s `scale` tag before reading its content.
 
 <a id="coordinates-and-why-obstructions-are-relative-to-them."></a>
 
@@ -751,7 +751,7 @@ Producers conclude an existence or a supply: a witnessed object, a witnessed fin
 
 <div class="thm">
 
-**Theorem 52** (cert:d5 — `not_irrational_totientSeries_implies_unbounded_carryRank_unconditional`). *$`\neg\mathrm{Irrational}(S) \to \exists v>0,\, \exists u:\mathbb{N}\to\mathbb{Z},\, \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \wedge \forall e,\ 2^e-1 \le \mathrm{finrank}_{\mathbb{Q}}(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e)))`$. Rationality of $`S`$ forces its associated tempered integral binary-carry orbit to have unboundedly rich dyadic-section rank; a second, coordinate-independent necessary condition on rationality, parallel to cert:a9 but in the carry-kernel-rank coordinate rather than the binary-digit-periodicity coordinate. Explicitly flagged in its own docstring as not by itself an irrationality proof: a separate rationality-side rank-compression theorem (contradicting cert:d4 below) would still be needed.*
+**Theorem 52** (cert:d5 — `not_irrational_totientSeries_implies_unbounded_carryRank_unconditional`). *$`\neg\mathrm{Irrational}(S) \to \exists v>0,\, \exists u:\mathbb{N}\to\mathbb{Z},\, \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \wedge \forall e,\ 2^e-1 \le \mathrm{finrank}_{\mathbb{Q}}(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e)))`$. Rationality of $`S`$ forces its associated tempered integral binary-carry orbit to have unboundedly rich dyadic-section rank; this is a second, coordinate-independent necessary condition on rationality, parallel to cert:a9 but in the carry-kernel-rank coordinate rather than the binary-digit-periodicity coordinate. It is not by itself an irrationality proof. In particular, the later countermodels rule out treating generic finite-rank shift-polynomial or compressed-adjoint observations as the missing opposite inequality; an actual-totient-specific upper bound would be a genuinely new theorem, not a surviving consequence of the present rank machinery.*
 
 *<span class="sans-serif">scale:uniform</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>*
 
@@ -1426,11 +1426,11 @@ If this fires at unbounded scale over a menu with $`|Q|\ge3`$ genuinely joint (m
 
 <div id="prop:D5cons" class="prop">
 
-**Proposition 126** (Finite-rank compression — a third independent wall). *By Prop. <a href="#prop:D4-inv" data-reference-type="ref" data-reference="prop:D4-inv">148</a>, the canonical dyadic totient-kernel family is unconditionally $`(2^e+1)`$-dimensional at every level $`e`$. Rationality of $`S`$ forces an associated tempered carry orbit with $`\mathbb Q`$-rank $`\ge 2^e-1`$ at every level (Prop. <a href="#prop:CP-02" data-reference-type="ref" data-reference="prop:CP-02">140</a>). A theorem
+**Proposition 126** (Rank lower bound; the generic compression shortcut is retired). *By Prop. <a href="#prop:D4-inv" data-reference-type="ref" data-reference="prop:D4-inv">148</a>, the canonical dyadic totient-kernel family is unconditionally $`(2^e+1)`$-dimensional at every level $`e`$. Rationality of $`S`$ forces an associated tempered carry orbit with $`\mathbb Q`$-rank $`\ge 2^e-1`$ at every level (Prop. <a href="#prop:CP-02" data-reference-type="ref" data-reference="prop:CP-02">140</a>). Formally, a theorem
 ``` math
 \text{bounding the dyadic-section rank of \emph{every} rationality-supplied tempered carry}
 ```
-would contradict the unconditional lower bound and close \#249 by a linear-algebraic coordinate wholly distinct from the binary-window certificate coordinate of Props. <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">121</a>-<a href="#prop:B10" data-reference-type="ref" data-reference="prop:B10">124</a>. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
+would contradict this lower bound and close \#249. The corpus supplies no such theorem or mechanism. More strongly, its compressed-adjoint impossibility result and its explicit all-horizon finite-rank shift-polynomial countermodel retire the generic finite-compression shortcut (Observation <a href="#prop:B4b-kill" data-reference-type="ref" data-reference="prop:B4b-kill">165</a>). Thus the displayed upper bound is only a logically sufficient new input, not a third live frontier and not evidence that existing rank machinery is close to a contradiction. <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Open\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
 
 </div>
 
@@ -1548,7 +1548,7 @@ Every statement in this batch that converts between “carry orbit divisibility�
 
 <div id="prop:CP-02" class="prop">
 
-**Proposition 140** (What rationality does and does not buy — the exact frontier). *If $`\neg\mathrm{Irrational}(S)`$, there exist $`v>0`$ and a tempered orbit $`u`$ such that for every level $`e`$, the $`\mathbb Q`$-rank of the canonical carry-kernel-family span is $`\ge 2^e-1`$ (torsion-free rank grows exponentially in level), *yet* $`u`$’s dyadic sections are uniformly eventually periodic modulo $`v`$ ($`\mathtt{CarrySectionsEventuallyPeriodicMod}`$). Rationality buys quotient-mod-$`v`$ periodicity but does *not* buy any bound on $`\mathbb Q`$-rank — this is precisely the boundary any Mersenne-specific residue argument (mod-4 pulse, two-adic pulse) exists to cross, and it is the exact hypothesis feeding Prop. <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a>’s third independent wall. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
+**Proposition 140** (What rationality does and does not buy — the exact frontier). *If $`\neg\mathrm{Irrational}(S)`$, there exist $`v>0`$ and a tempered orbit $`u`$ such that for every level $`e`$, the $`\mathbb Q`$-rank of the canonical carry-kernel-family span is $`\ge 2^e-1`$ (torsion-free rank grows exponentially in level), *yet* $`u`$’s dyadic sections are uniformly eventually periodic modulo $`v`$ ($`\mathtt{CarrySectionsEventuallyPeriodicMod}`$). Rationality buys quotient-mod-$`v`$ periodicity but does *not* buy any bound on $`\mathbb Q`$-rank — this is precisely the boundary any Mersenne-specific residue argument (mod-4 pulse, two-adic pulse) exists to cross. Proposition <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">126</a> records the rank lower bound while explicitly retiring generic finite-rank compression as a live shortcut. <span class="sans-serif">scale:uniform</span> <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>\*
 
 </div>
 
@@ -1947,11 +1947,11 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 
 </div>
 
-<a id="geometric-coprimality-a-coordinate-that-provably-cannot-decide-249-alone"></a>
+<a id="geometric-coprimality-a-lattice-coordinate-and-a-classical-identity-beside-it"></a>
 
-### Geometric coprimality: a coordinate that provably cannot decide \#249 alone
+### Geometric coprimality: a lattice coordinate, and a classical identity beside it
 
-`GeometricCoprimality` relocates \#249 onto the visible-lattice-point mass of coprime pairs, and then proves that this specific coordinate change, by itself, cannot decide irrationality at any rational parameter — a genuine proved barrier against an entire family of approaches.
+`GeometricCoprimality` relocates \#249 onto the visible-lattice-point mass of coprime pairs. Beside that bridge it formalises the classical gcd-layering identity for the Lambert-weighted coprime sum. That identity is an elementary rational function of its parameter, so it cannot distinguish rational from irrational inputs; and it carries a different summand weight from $`S`$, so it is not a statement about \#249.
 
 <div class="thm">
 
@@ -1969,14 +1969,14 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 
 <div class="thm">
 
-**Theorem 196** (Rational geometric-model falsifier — a proved barrier). *For every $`0\le r<1`$, $`\sum_{(a,b)\ \mathrm{coprime},\, a,b\ge 1}
-\dfrac{r^{a+b}}{1-r^{a+b}} = \Bigl(\dfrac{r}{1-r}\Bigr)^2`$, an elementary rational function of $`r`$, hence rational at every rational $`r`$ including $`r=1/2`$. .*
+**Theorem 196** (The classical visible-point Lambert identity). *For every $`0\le r<1`$, $`\sum_{(a,b)\ \mathrm{coprime},\, a,b\ge 1}
+\dfrac{r^{a+b}}{1-r^{a+b}} = \Bigl(\dfrac{r}{1-r}\Bigr)^2`$, an elementary rational function of $`r`$, hence rational at every rational $`r`$ including $`r=1/2`$. This is the classical visible-point identity, and the Lean declaration is a formalisation of it rather than a new result: writing each pair $`(A,B)`$ of positive integers uniquely as $`g\cdot(a,b)`$ with $`\gcd(a,b)=1`$ converts the quadrant sum $`\sum_{A,B\ge1}r^{A+B}=(r/(1-r))^2`$ into the displayed sum over visible points, which is the $`\gcd`$-layering already recorded in the bridges above. Its summand weight is the Lambert weight $`r^{a+b}/(1-r^{a+b})`$, not the plain weight $`r^{a+b}`$ under which the same index set sums to $`\sum_n\varphi(n)r^n`$; the two sums share an index set and differ in weight, and only the second is $`S`$. .*
 
 </div>
 
 <div class="obs">
 
-*Observation 197*. This is a proved barrier, not an observed pattern: it names exactly the class of argument it rules out. Coprime-pair restriction, exact Stern–Brocot-type splitting by $`\gcd`$, and geometric cylinder decay of the summand under the map $`n\mapsto r^n/(1-r^n)`$, used together and evaluated at a rational $`r`$, cannot imply irrationality of the resulting sum, because the identical construction is provably rational at *every* rational $`r`$ in $`[0,1)`$ — the mechanism has zero sensitivity to whether $`r`$ itself is rational. Any future argument built on this specific coordinate must use some further feature of $`r=1/2`$ beyond coprimality, gcd-layering, and geometric decay; the coordinate change is real and interesting, but this particular route through it is closed.
+*Observation 197*. The consequence to draw is narrow, and it is about the Lambert-weighted sum rather than about $`S`$. Coprime-pair restriction, exact Stern–Brocot-type splitting by $`\gcd`$, and geometric cylinder decay of the summand under the map $`n\mapsto r^n/(1-r^n)`$, used together and evaluated at a rational $`r`$, cannot imply irrationality of the resulting sum, because the identical construction is provably rational at *every* rational $`r`$ in $`[0,1)`$ — the mechanism has zero sensitivity to whether $`r`$ itself is rational. This closes one route through the coprime-lattice coordinate; it does not close the coordinate, and it is not evidence about the plain-weight sum that actually equals $`S`$. Any future argument built on this specific route must use some further feature of $`r=1/2`$ beyond coprimality, gcd-layering, and geometric decay.
 
 </div>
 
@@ -2049,7 +2049,7 @@ The newly published `ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean` (3222 l
 
 ### Rank-one subrank obstruction: a uniform proved barrier
 
-`RankOneSubrankObstruction` is, together with the coprimality falsifier above, the sharpest new barrier in this batch: it names an entire family of candidate linear-form constructions and proves, uniformly, that none of them can work.
+`RankOneSubrankObstruction` is a uniform proved barrier: it names an entire family of candidate linear-form constructions and proves, uniformly, that none of them can work.
 
 <div class="thm">
 
@@ -3064,7 +3064,7 @@ A ladder like the one above invites an obvious question: is any <span class="san
 
 3.  **Constants that degrade with the parameter.** The clearest instance is the echo-versus-height wall (prose:echo_versus_height_two_front_wall, §5e–5f of the ambitious-modular-route note): height-optimal ladder families pay quadratic height $`P(1)\sim 2^{K^2/2}`$ matching ’s own growth rate, while height-minimal integer-relation minimizers regrow the echo term $`E_R`$ to match — for every tested family, the two costs cannot both be driven to zero as the scale parameter grows. The interface index records the same phenomenon for `HalfRung`$`(J)`$-shaped truncation rungs: the certificate window $`B(J)`$ is driven by $`L_J=\mathrm{lcm}(2,\dots,J)`$, which grows super-exponentially in $`J`$, so the per-$`J`$ constant degrades with the very parameter the cofinal claim needs to range over — “the hallmark of a proof that does not survive bound removal” (interface index, row `d-3a/d-3b`).
 
-None of the fourteen near-miss rows against the \#249-supply obligation is closed by a scale argument alone either: reading each one’s own recorded `exact_mismatch` shows the residual gap is a missing *arithmetic input* (a constant-saving Weyl-sum bound for `e1-companion`; a one-sided top-edge residue gap for `TE-04`/`TE-05-weakest`; an unbounded finite-rank compression on the rationality side for `d4/d5`), never a generalisable proof technique sitting one `omega` call away from cofinal. The one row where the source tag itself is imprecise — `SGN-01`, marked <span class="sans-serif">scale:bounded</span> even though its underlying exponent $`a`$ is unbounded, see $`^\dagger`$ above — is precisely the kind of false positive the audit was built to catch, and even there what remains open is the *other* half of the certificate band (the top-edge residue), not a scale defect in SGN-01 itself.
+None of the fourteen near-miss rows against the \#249-supply obligation is closed by a scale argument alone either: reading each one’s own recorded `exact_mismatch` shows the residual gap is a missing *arithmetic input* (a constant-saving Weyl-sum bound for `e1-companion`; a one-sided top-edge residue gap for `TE-04`/`TE-05-weakest`), never a generalisable proof technique sitting one `omega` call away from cofinal. The one row where the source tag itself is imprecise — `SGN-01`, marked <span class="sans-serif">scale:bounded</span> even though its underlying exponent $`a`$ is unbounded, see $`^\dagger`$ above — is precisely the kind of false positive the audit was built to catch, and even there what remains open is the *other* half of the certificate band (the top-edge residue), not a scale defect in SGN-01 itself.
 
 <a id="coordinate-atlas-and-transport-maps"></a>
 
@@ -4682,27 +4682,27 @@ Independently of which coordinate is used, *any* tail-difference certificate —
 , where the witness is $`\exists s,b,\ \mathrm{certifiedKill}(h,N{+}s,b{+}1) \vee
 (\text{room} \wedge \mathrm{DyadicMixedGuard}(D(h,N{+}s,b{+}2),b))`$ at $`b=\lfloor\log_2(N{+}h{+}L{+}2)\rfloor+1`$. This statement mentions no Mersenne or totient structure whatsoever and is stated for arbitrary $`h,N,L`$; it compresses the search space for *any* tail-difference non-integrality certificate — of any depth $`L`$, however large — down to a socket at a logarithmic scale plus a two-bit mixed-guard cylinder ($`01`$ or $`10`$). This is directly reusable, unchanged, for any binary-series tail-difference problem, including \#257’s own denominators.
 
-<a id="two-further-logically-independent-obligations"></a>
+<a id="one-open-farey-problem-and-one-failed-rank-shortcut"></a>
 
-## Two further, logically independent obligations
+## One open Farey problem and one failed rank shortcut
 
-Two more open statements would *also* close \#249, each living in a genuinely different coordinate from the certificate/residue coordinate above, and each finished on exactly one side of an inequality.
+The Farey growth law below is a genuinely independent live obligation. The rank statement is retained only to record a counterfactual sufficient input and the reason that the generic compression route to it is closed; it is not a second open problem supported by the present argument.
 
-<a id="obligation-2-rank-compression."></a>
+<a id="a-counterfactual-rank-criterion."></a>
 
-#### Obligation 2 (rank compression).
+#### A counterfactual rank criterion.
 
 Unconditionally, for every level $`e`$, the dyadic totient-kernel family of $`2^e+1`$ channels is linearly independent over $`\mathbb{Q}`$ (via CRT and Dirichlet’s theorem on primes in arithmetic progression): . Consequently, if $`S`$ is rational there is a tempered integral binary carry orbit $`u`$ with
 ``` math
 \forall e,\quad 2^e-1 \le \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr).
 ```
-. The missing input is the opposite inequality — a rationality-side rank *upper* bound:
+. An opposite inequality — a rationality-side rank *upper* bound — would of course contradict the displayed lower bound:
 ``` math
 \exists C,\quad \forall\text{ tempered integral binary carry orbit } u
   \text{ for a rational } S,\quad
   \forall e,\quad \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr) \le C
 ```
-(or any bound growing slower than $`2^e-1`$). <span class="sans-serif">\[Open\]</span> <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">coord:other:carry-kernel-rank</span>. One natural route to it is proved dead: no `CompressedAdjointCertificate` ($`Q\cdot v\cdot A =
+(or any bound growing slower than $`2^e-1`$). This is a logically sufficient new theorem schema, not an open proposition isolated by the preceding mathematics: the corpus gives no reason rationality should force it, and explicit finite-rank shift-polynomial countermodels show that periodic denominator data alone do not. The most direct generic construction is also impossible: no `CompressedAdjointCertificate` ($`Q\cdot v\cdot A =
 \mathrm{boundary}`$ with $`|\mathrm{boundary}|<Q\cdot v`$ and $`A\ne0`$) can exist — — and the full family is proved infinite-dimensional in span: . What rationality *does* buy — uniform eventual periodicity of $`u`$’s dyadic sections modulo some $`v>0`$ — is proved to *not* promote to any finite rank bound without further arithmetic input: . This pins the obstacle precisely, but supplies no rank upper bound.
 
 <a id="obligation-3-farey-growth-law."></a>

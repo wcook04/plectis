@@ -18,12 +18,12 @@
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{142,191}
+\newcommand{\SemanticAuthoredTheoremLike}{143,041}
 \newcommand{\SemanticAuthoredInterpreted}{139,737}
 \newcommand{\SemanticDirectEvidence}{3,253}
 \newcommand{\SemanticContextual}{136,484}
-\newcommand{\SemanticStructuralOnly}{2,454}
-\newcommand{\SemanticAuthoredPercent}{98.3}
+\newcommand{\SemanticStructuralOnly}{3,304}
+\newcommand{\SemanticAuthoredPercent}{97.7}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.5em
 
@@ -72,11 +72,12 @@ claim discovery, correct interpretation, or a solution of either problem.
 \section{The publication gap}\label{sec:gap}
 
 The \href{\repobase}{repository studied here}
-is a public development in the Lean 4 proof assistant~\cite{lean4} around two
-unsolved problems in number theory,
-Erd\H{o}s Problems 249 and 257.  Both problems remain open.  The project
-proves intermediate results, exact reformulations, and finite certificates
-around them; it does not claim a solution to either problem.
+is a public development in the Lean 4 proof assistant~\cite{lean4} around
+eight unsolved problems in number theory; the claim registry examined in this
+paper covers its two reviewed problems, Erd\H{o}s Problems 249 and 257.  All
+eight problems remain open.  The project proves intermediate results, exact
+reformulations, and finite certificates around them; it does not claim a
+solution to any of them.
 
 \emph{Lean} is both a language for writing mathematics precisely and a program
 for checking proofs.  A Lean theorem has a formal statement and a proof object.
@@ -870,8 +871,10 @@ structural comparisons passed on the named revision.
 \section{Reproducibility}\label{app:repro}
 
 \paragraph{Dated navigation counts.}
-At the reviewed snapshot, all 151,761 live declarations were inventoried and
-routed, and all \SemanticAuthoredTheoremLike\ author-written theorem-like
+At the semantic review's snapshot, taken before the eight-problem
+consolidation of 2026-08-02 enlarged the corpus to 153,238 declarations, all
+151,761 then-live declarations were inventoried and routed, and all
+\SemanticAuthoredTheoremLike\ author-written theorem-like
 declarations had an exact node link.  Of those,
 \SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participated in
 authored mathematical interpretations: \SemanticDirectEvidence\ as exact
