@@ -34,7 +34,9 @@ development environment from which the public work was prepared.
 For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
 For a mathematical problem or result, start with the
 [Lean repository README](https://github.com/wcook04/plectis-lean-erdos249-257#readme)
-and then choose its problem-specific paper. Read
+and its per-problem map of strongest checked results,
+[RESULTS.md](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md),
+then choose its problem-specific paper. Read
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
 for the boundary between a Lean theorem and a public claim about that theorem.
 The clone-local [`docs/papers/`](docs/papers/) directory carries the active
@@ -49,7 +51,7 @@ plectis comprehend --slice papers --format text
 ```
 
 It says what each paper owns, what it cannot establish, and which short
-sequence fits your question. You do not need to read all 11 papers.
+sequence fits your question. You do not need to read every paper.
 
 ## What you get
 
@@ -301,6 +303,10 @@ ships: `make check` rejects proof placeholders, project-defined axioms, native
 evaluation, unsafe/partial declarations, and unbounded kernel limits before
 the broader test suite runs.
 
+- [**Read the strongest checked results, problem by problem**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md):
+  one entry per problem — the strongest checked statements with exact Lean
+  anchors, what each does not establish, and the surviving obligation beside
+  it. All eight problems remain open.
 - [**Choose a problem paper**](https://github.com/wcook04/plectis-lean-erdos249-257#problem-papers):
   the companion README lists one short paper for each covered problem and
   states the checked frontier beside it.
