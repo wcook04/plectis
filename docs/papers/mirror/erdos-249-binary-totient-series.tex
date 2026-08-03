@@ -27,6 +27,8 @@
 % its own status column.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\renewcommand{\commit}{599f7e50a15b288f27f9b57ece16fdd396cb6d76}
+\renewcommand{\commitshort}{599f7e50a15b}
 \hypersetup{
   pdftitle={A basis for the 2-kernel of Euler's totient},
   pdfsubject={Erdős Problem Notes: Problem 249},
@@ -37,6 +39,7 @@
 \newcommand{\EB}{E}
 \newcommand{\Aw}{A}
 \newcommand{\Ker}{\mathcal K}
+\newtheorem{equivform}[theorem]{Equivalent formulation}
 
 % Status tag from the claim taxonomy, printed on every numbered result.
 \newcommand{\stag}[1]{{\normalfont\footnotesize\textsc{[#1]}}}
@@ -241,8 +244,8 @@ shifted by one --- in the sense that the next integer up is the exact first
 denominator at which that window's certificate fails.  The method is the
 classical Farey mediant argument (Section~\ref{sec:denominator}).
 {\footnotesize\emph{Checked:}
-\mword{Erdos249257/CertificateKernel.lean}{18324}{tsum_totient_div_pow_two_ne_int_div_of_den_le_79639646646701375323355774875831053}{exclusion},
-\mword{Erdos249257/CertificateKernel.lean}{18337}{tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053}{reduced-denominator form},
+\mword{Erdos249257/CertificateKernel.lean}{18043}{tsum_totient_div_pow_two_ne_int_div_of_den_le_79639646646701375323355774875831053}{exclusion},
+\mword{Erdos249257/CertificateKernel.lean}{18056}{tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053}{reduced-denominator form},
 \mword{Erdos249257/GapFareyBound.lean}{225}{gap_check_window_1_240_first_failure}{first failure}.
 \emph{Registry:} the row owns the reduced-denominator form only.}
 
@@ -269,7 +272,7 @@ $\Aw(n)=\sum_{d\mid n}\ph(d)\mu(n/d)$; here $\Aw\ge0$, $\Aw(p)=p-2$,
 $\Aw(p^k)=\ph(p^k)-\ph(p^{k-1})$, and $\Aw$ is unbounded.  Its values at
 $n=1,\dots,10$ are $1,0,1,1,3,0,5,2,4,0$.
 {\footnotesize\emph{Checked:}
-\mword{Erdos249257/CertificateKernel.lean}{18398}{tsum_primWeight_div_two_pow_sub_one_eq_totient_series}{identity},
+\mword{Erdos249257/CertificateKernel.lean}{18117}{tsum_primWeight_div_two_pow_sub_one_eq_totient_series}{identity},
 \mword{Erdos249257/MersenneLambertLadder.lean}{370}{primWeight_nonneg}{sign},
 \mword{Erdos249257/MersenneLambertLadder.lean}{297}{primWeight_apply_prime}{primes},
 \mword{Erdos249257/MersenneLambertLadder.lean}{272}{primWeight_apply_prime_pow}{prime powers},
@@ -294,7 +297,7 @@ positive at some positive index of its periodic part, then
   formal proof.  By \ref{res:weight} the weight $\Aw$ is
 unbounded, hence not eventually periodic, so \#249 is outside this class.
 {\footnotesize\emph{Checked:}
-\mword{Erdos249257/CertificateKernel.lean}{12764}{irrational_ratWeightSeries_eventuallyPeriodic}{the periodic theorem}.}
+\mword{Erdos249257/CertificateKernel.lean}{12483}{irrational_ratWeightSeries_eventuallyPeriodic}{the periodic theorem}.}
 
 \item\label{res:primindex} \stag{proved here}
 \textbf{No fixed common denominator clears the normalised weight.}  For every integer
@@ -337,7 +340,7 @@ the one of \ref{res:equivalences}: the band scales with $q$, and the family is
 indexed by denominators rather than by shifts.  The converse is not proved and
 is not claimed.
 {\footnotesize\emph{Checked:}
-\mword{Erdos249257/CertificateKernel.lean}{15978}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the supply implication}.
+\mword{Erdos249257/CertificateKernel.lean}{15697}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the supply implication}.
 \emph{Registry:} no row currently owns this declaration.}
 
 \item\label{res:open} \stag{open}
@@ -374,7 +377,7 @@ $f$ & $\sum f(n)/2^n$ & weight $g=f*\mu$ & status \\
 $\tau$ & $1.6066951\ldots=\EB$ & $g\equiv1$ & The Erd\H{o}s--Borwein constant;
   irrational~\cite[theorem on p.~63]{erdos1948};
   formalised here in the Lambert form $\sum_{d\ge1}(2^d-1)^{-1}$
-  (\mword{Erdos249257/CertificateKernel.lean}{8288}{irrational_erdosBorwein_series}{checked}) \\
+  (\mword{Erdos249257/CertificateKernel.lean}{8007}{irrational_erdosBorwein_series}{checked}) \\
 $\omega$ & $0.5169428\ldots$ & $g=\mathbf 1_{\text{primes}}$ &
   Irrational at base $2$: Tao--Ter\"av\"ainen, Thm.~1.3, p.~4;
   proof pp.~44--56~\cite{taoteravainen2025} \\
@@ -431,9 +434,9 @@ misidentification; it does not settle or reduce the displayed problem.
 Several neighbouring Dirichlet-convolution identities are rational and
 exactly computable.  Writing $L(g):=\sum_{d\ge1}g(d)/(2^d-1)$, we have
 $\sum_{d\ge1}\mu(d)/(2^d-1)=\tfrac12$
-(\mword{Erdos249257/CertificateKernel.lean}{18387}{tsum_moebius_div_two_pow_sub_one_eq_half}{checked})
+(\mword{Erdos249257/CertificateKernel.lean}{18106}{tsum_moebius_div_two_pow_sub_one_eq_half}{checked})
 and $\sum_{d\ge1}\ph(d)/(2^d-1)=2$
-(\mword{Erdos249257/CertificateKernel.lean}{18382}{tsum_totient_div_two_pow_sub_one_eq_two}{checked}).
+(\mword{Erdos249257/CertificateKernel.lean}{18101}{tsum_totient_div_two_pow_sub_one_eq_two}{checked}).
 These belong to two distinct one-step M\"obius-convolution chains:
 \[
   L(\mathbf 1)=\EB \ \longmapsto\ L(\mu)=\tfrac12,
@@ -444,7 +447,7 @@ Thus $\Stot$ is one convolution step from the rational value $L(\ph)=2$, not
 from $\EB$; the parallel chains show that this transformation need not
 preserve rationality.  The squared-denominator representation
 $\Stot=\tfrac12+\sum_{d\ge1}\mu(d)/(2^d-1)^2$
-(\mword{Erdos249257/CertificateKernel.lean}{18407}{totient_series_eq_half_add_moebius_mersenne_square}{checked})
+(\mword{Erdos249257/CertificateKernel.lean}{18126}{totient_series_eq_half_add_moebius_mersenne_square}{checked})
 converges fast enough to recompute the decimal above.
 
 There is also an exact probabilistic reading, and it is more than a gloss.
@@ -453,7 +456,7 @@ Then
 \[
   \Stot=\tfrac12+\Pr[\gcd(X,Y)=1]
 \]
-(\mword{Erdos249257/CertificateKernel.lean}{18510}{totient_series_eq_half_add_visible_coprime_pairs}{checked}),
+(\mword{Erdos249257/CertificateKernel.lean}{18229}{totient_series_eq_half_add_visible_coprime_pairs}{checked}),
 the probability being the visible-coprime-pair series
 $\sum_{\gcd(m,n)=1}2^{-(m+n)}$.  That probability is related to a distribution
 over the Stern--Brocot tree in a completely explicit way.  For positive
@@ -583,7 +586,7 @@ $b+d$.  The excluded range is therefore $q\le b+d-1$, which is the printed
 constant
 (\mword{Erdos249257/GapFareyBound.lean}{176}{gap_check_window_1_240_le_79639646646701375323355774875831053}{checked}),
 and the transport to the series is a tail estimate
-(\mword{Erdos249257/CertificateKernel.lean}{15939}{tsum_totient_div_pow_two_ne_int_div_of_totient_gap_certificate}{checked}).
+(\mword{Erdos249257/CertificateKernel.lean}{15658}{tsum_totient_div_pow_two_ne_int_div_of_totient_gap_certificate}{checked}).
 \emph{The method is standard, and we claim no novelty for it.}
 
 Two things should be read off correctly.  First, the scale.  A window of $K$
@@ -601,7 +604,7 @@ is where we would ask a sceptical reader to look.
 The bound transfers to the coprimality form of Section~\ref{sec:family} with
 the constant halved: the visible-coprime-pair series has no representation
 $a/d$ with $d\le39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526$
-(\mword{Erdos249257/CertificateKernel.lean}{18525}{tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526}{checked}),
+(\mword{Erdos249257/CertificateKernel.lean}{18244}{tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526}{checked}),
 that number being $(q_0-1)/2$ for the constant $q_0$ of
 \ref{res:denominator}.
 
@@ -777,47 +780,189 @@ recall from Section~\ref{sec:results} the tail
 $R_N=\sum_{m\ge1}\ph(N+m)/2^{m}$, which differs from $2^N\Stot$ by an integer
 (\mword{Erdos249257/TotientTailPeriodKiller.lean}{57}{totientTail}{definition}).
 
-\begin{problem}[cofinal diagonal escape]\label{prob:diagonal}
-For every $t_0$ there is a $t\ge t_0$ with $R_{2H_t}-R_{H_t}\notin\Z$.
-\end{problem}
+\subsection{Exact equivalent formulations}
 
-\noindent By \ref{res:equivalences}, Problem~\ref{prob:diagonal} is equivalent
-to irrationality of $\Stot$.  A finite list of successful certificates
-establishes the predicate only on its tested scales; it does not establish the
-quantified statement for arbitrarily large $t$.  In the opposite direction,
-one pair $h>0$, $N$ with $R_{N+h}-R_N\in\Z$ already makes $\Stot$ rational
+\begin{equivform}[lcm-diagonal escape]\label{prob:diagonal}
+For every $t_0$ there is a $t\ge t_0$ with $R_{2H_t}-R_{H_t}\notin\Z$.
+\end{equivform}
+
+\noindent By \ref{res:equivalences}, formulation~\ref{prob:diagonal} is
+equivalent to irrationality of $\Stot$.  It identifies an exact decidable
+witness family, but is not claimed to reduce the difficulty of Erd\H{o}s
+\#249.  A finite list of successful certificates establishes the predicate
+only on its tested scales.  Conversely, one pair $h>0$, $N$ with
+$R_{N+h}-R_N\in\Z$ already makes $\Stot$ rational
 (\mword{Erdos249257/LcmConeFlatness.lean}{357}{not_irrational_of_tail_diff_mem_int}{checked}).
 
-The certificate of Section~\ref{sec:results} is decidable at each $t$, and has
-been kernel-checked to fire at the $28$ scales
-(\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1933}{diagonalPincerCertificateScalesThroughT64}{listed})
-lying between $t=1$ and $t=64$
-(\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1967}{certifiedKill_diagonal_all_imported_through_t64}{checked}).
-The current pinned source strengthens this historical list to every
-$t\le82$, with no gaps
+The certificate is decidable at each $t$, and is kernel-checked at the $28$
+listed scales between $t=1$ and $t=64$
+(\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1933}{diagonalPincerCertificateScalesThroughT64}{list},
+\mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1967}{certifiedKill_diagonal_all_imported_through_t64}{verification}).
+The current pinned source strengthens that historical list to every $t\le82$,
+with no gaps
 (\lword{Skip/LadderT67.lean}{71264}{exists_diagonalKill_le_82}{checked}).
-The theorem through $t=82$ supplies no instance at $t=83$ and therefore does
-not discharge the cofinal quantifier.
+The theorem through $t=82$ supplies no instance at $t=83$ and does not
+discharge the cofinal quantifier.
 
-\paragraph{A first-harmonic sufficient condition.}
-A constant-saving first-harmonic bound on one dyadic block, or
-on any nonempty finite set of indices, already forces a certificate
-(\mword{Erdos249257/FirstHarmonicGap.lean}{104}{exists_certifiedKill_of_first_harmonic_gap_subset}{checked}).
-The block sum in question decomposes exactly into four named terms ---
-a centred supplier-fibre correlation, a fibre-mean contribution, a bad-set
-contribution and a non-supplier contribution
-(\mword{Erdos249257/FirstHarmonicPivot.lean}{342}{windowFirstExp_sum_eq_pivot_decomposition}{checked})
---- and meeting four explicit numerical bounds on those terms cofinally
-already gives irrationality
-(\mword{Erdos249257/FirstHarmonicPivot.lean}{405}{irrational_totient_series_of_pivotResidualDecorrelation}{checked}).
-Thus the sufficient condition is to beat four stated constants in an exact
-decomposition.
+The cyclotomic form exposes more arithmetic structure.  Write
+$C(n)=|\Phi_n(2)|$.
 
-A proof of Problem~\ref{prob:diagonal} gives irrationality of $\Stot$ by
+\begin{equivform}[cyclotomic-anchored phase escape]\label{prob:cyclotomic}
+For every $h\ge1$ and every $N_0$, there exist primes $q,p$ and $L\in\N$ such
+that
+\[
+ \gcd(p,hq)=1,\qquad p\mid C(hq),\qquad hq\mid p-1,
+ \qquad p-1\ge N_0,
+\]
+and $(hq,p-1,L)$ is a finite tail-difference certificate.
+\end{equivform}
+
+\noindent This is
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3042}{CyclotomicAnchoredKillSupply}{CyclotomicAnchoredKillSupply}.
+For the binary layers, clean anchors satisfying every condition before the
+certificate are already supplied, and
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3138}{binaryCyclotomicAnchoredKillSupply_iff_irrational}{the checked equivalence}
+identifies formulation~\ref{prob:cyclotomic} with irrationality of $\Stot$.
+The unknown is phase escape of the totient discrepancy modulo $2^L$, not
+large prime divisors or multiplicative order.  The checked $p=331$ instances
+are finite models of this exact predicate; unbounded support alone does not
+imply it.
+
+\subsection{Stronger sufficient producer problems}
+
+\begin{problem}[full-depth period-multiple escape]\label{prob:fulldepth}
+For every $d\ge1$ and every $N\in\N$, is there a $t\ge1$ such that
+$(td,N,td)$ is a finite tail-difference certificate?
+\end{problem}
+
+\noindent This is the depth-locked predicate
+\lword{Erdos249/PeriodMultipleEscape.lean}{162}{ApFullDepthEscape}{ApFullDepthEscape}.
+It is stronger than the exact period-multiple characterisation because the
+certificate depth is forced to equal the period.  A positive answer proves
+irrationality through
+\lword{Erdos249/PeriodMultipleEscape.lean}{171}{irrational_totient_series_of_apFullDepthEscape}{the checked consumer};
+a negative answer eliminates this route only.
+
+\begin{problem}[first-harmonic anti-concentration on supplier fibres]
+\label{prob:firstharmonic}
+For each $h\ge1$, do there exist $s\ge1$ and $0<\eta<1$ such that, for every
+$X_0$, there are $X,L$ with
+\[
+ \max(X_0,1)\le X,\qquad h\le L-s,\qquad
+ 16(2X+h+L+2)\le2^L,
+\]
+for which the four bounds below hold?
+\end{problem}
+
+To make the question self-contained, put
+\[
+ \omega_N=\exp\!\left(2\pi i\,
+   \frac{D_{h,N,L}\bmod 2^L}{2^L}\right),\qquad X\le N<2X.
+\]
+At the pivot argument $N+L-s+1$, call $N$ a supplier when this integer factors
+as $mp$, where $p$ is its largest prime factor,
+$0<m\le\sqrt X/2$, and $p>2\sqrt X$.  Suppliers are good when
+$\eta m\le\ph(m)$ and bad otherwise; non-suppliers form the remaining set.
+For a supplier write $z_N$ for its explicit totient pivot phase,
+$w_N=\omega_N/z_N$, and $\bar z_m$ for the mean of $z_N$ on the fibre with
+cofactor $m$.  Define
+\[
+\begin{aligned}
+ \mathcal C&=\sum_{N\ {\mathrm{good}}}w_N(z_N-\bar z_m),&
+ \mathcal M&=\sum_{N\ {\mathrm{good}}}w_N\bar z_m,\\
+ \mathcal B&=\sum_{N\ {\mathrm{bad}}}\omega_N,&
+ \mathcal U&=\sum_{N\ {\mathrm{nonsupplier}}}\omega_N.
+\end{aligned}
+\]
+The exact identity is
+$\sum_{X\le N<2X}\omega_N=\mathcal C+\mathcal M+\mathcal B+\mathcal U$, and
+Problem~\ref{prob:firstharmonic} asks precisely for
+\[
+ \operatorname{Re}\mathcal C\le\frac{14}{25}X,\qquad
+ |\mathcal M|\le\frac1{100}X,\qquad
+ |\mathcal B|\le\frac1{100}X,\qquad
+ |\mathcal U|\le\frac8{25}X.
+\]
+The decomposition is
+\mword{Erdos249257/FirstHarmonicPivot.lean}{342}{windowFirstExp_sum_eq_pivot_decomposition}{checked},
+and the four budgets imply irrationality by
+\mword{Erdos249257/FirstHarmonicPivot.lean}{405}{irrational_totient_series_of_pivotResidualDecorrelation}{the checked consumer}.
+An obstruction showing that available first- and second-moment information
+cannot force this modulo-$2^L$ small-ball estimate would also decisively close
+the present harmonic route.
+
+\subsection{Structural and Diophantine routes}
+
+\begin{problem}[totient carry-rank compression]\label{prob:carryrank}
+Suppose $v\ge1$ and $u:\N\to\Z$ satisfy
+\[
+ u(N+1)=2u(N)-v\ph(N+1),\qquad \frac{u(N)}{2^N}\longrightarrow0.
+\]
+Must the span of the level-$e$ dyadic sections of $u$ have dimension less
+than $2^e-1$ for some $e$?
+\end{problem}
+
+\noindent Rationality of $\Stot$ would produce exactly such an integral
+tempered orbit, while the checked transport theorem forces its rank to be at
+least $2^e-1$ at every level.  Thus a positive answer proves irrationality.
+A negative answer should ideally construct a control recurrence with the same
+integrality and decay architecture and near-maximal dyadic rank; infinite
+dimension of the totient $2$-kernel alone is not enough.
+
+For a separate denominator-compression route, define the M\"obius--Mersenne
+ladder
+\[
+ \Theta_r=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^r},
+ \qquad \Theta_2=\Stot-\frac12.
+\]
+The positive rank-one family has already been excluded at a quantitative
+scale: every admissible monomial quotient, and every positive finite average
+of them, exceeds $\Theta_2$ by more than $1/480$
+(\lword{Erdos249/RankOneSubrankObstruction.lean}{238}{rankOneSubrankQuotient_sub_theta_two_gt}{rank-one gap},
+\lword{Erdos249/RankOneSubrankObstruction.lean}{300}{positive_direct_sum_sub_theta_two_gt}{positive-sum gap}).
+
+\begin{problem}[genuinely coupled denominator compression]\label{prob:hankel}
+Construct integers $P_n$ and $Q_n>0$ from a genuinely off-diagonal,
+vector-valued, or signed-cancellation Hankel--Schur--Pad\'e kernel such that
+\[
+ 0<Q_n\left|\Theta_2-\frac{P_n}{Q_n}\right|\longrightarrow0.
+\]
+Alternatively, prove a structural no-go theorem for a clearly defined larger
+class of bounded-width coupled kernels.
+\end{problem}
+
+\noindent Ordinary convergence of rational approximants is insufficient; the
+scaled error is the Diophantine quantity.  The words ``genuinely coupled''
+exclude the positive rank-one and positive direct-sum mechanisms already
+separated from $\Theta_2$ by the uniform gap.
+
+\subsection{Independent extension}
+
+\begin{problem}[odd-prime totient kernels]\label{prob:oddprime}
+For a fixed odd prime $\ell$, determine for every $e$ the exact dimension
+\[
+ \dim_{\Q}\operatorname{span}_{\Q}
+ \{\,n\mapsto\ph(\ell^j n+r):0\le j\le e,
+       \ 0\le r<\ell^j\,\},
+\]
+and give an explicit basis and a complete normal form for all rational
+relations.  The first concrete case is $\ell=3$.
+\end{problem}
+
+\begin{remark}[excluded generic mechanisms]
+Unbounded prime support, exact multiplicative order, natural-boundary
+information, ordinary Hankel nonvanishing, and positive rank-one averaging do
+not supply the missing binary phase or denominator compression.  The finite
+Euler-factor and $2\times2$ mixed-difference identities of
+Section~\ref{sec:programmes} are tools rather than open endpoints; no
+growing-level Diophantine conclusion is claimed for them here.
+\end{remark}
+
+A proof of formulation~\ref{prob:diagonal} gives irrationality of $\Stot$ by
 \ref{res:equivalences}.  Its negation settles \#249 in the opposite direction:
 it supplies a positive-shift integral tail difference, which forces
-rationality.  By contrast, failure of the first-harmonic bounds would rule out
-only this sufficient criterion.
+rationality.  By contrast, failure of the sufficient producer bounds would
+rule out only their respective routes.
 
 \paragraph{The independent denominator exclusion.}
 The constant $7.96\times10^{34}$ of \ref{res:denominator} is the classical
@@ -830,18 +975,26 @@ Section~\ref{sec:open}.
 
 \begin{enumerate}
 \item Irrationality of $\Stot$ (\ref{res:open}).  No proof is claimed.
-\item The reformulations of \ref{res:equivalences} convert irrationality
-  into the existence of an unbounded family of finite tail-difference
-  certificates.  Finite instances are checked --- every $t\le82$, including
-  the historical $28$-scale bank of Section~\ref{sec:frontier} --- and the
-  unbounded family is not.
-  The equivalence fixes the exact missing quantifier but does not make that
+\item The lcm-diagonal and clean cyclotomic-anchor statements are exact
+  equivalent formulations of \ref{res:equivalences}: they convert
+  irrationality into the existence of an unbounded family of finite
+  tail-difference certificates.  Finite instances are checked --- every
+  $t\le82$, including the historical $28$-scale bank of
+  Section~\ref{sec:frontier} --- and the unbounded family is not.  The
+  equivalences fix the exact missing quantifier but do not make that
   quantifier easier to prove.  \ref{res:denominator} is a finite instance of a
-  \emph{different} family, the gap certificates of
-  \ref{res:supply}, which reach irrationality by a one-way implication; the two
-  families should not be counted together.
-\item The four pivot bounds of Section~\ref{sec:frontier}, and the
-  prime-orbit gap they refine, are unproved.
+  \emph{different} family, the gap certificates of \ref{res:supply}, which
+  reach irrationality by a one-way implication; the two families should not be
+  counted together.
+\item Full-depth period-multiple escape and the four first-harmonic pivot
+  bounds are stronger sufficient producers; they, and the prime-orbit gap the
+  pivot bounds refine, are unproved.  Failure of either would refute only that
+  route.
+\item Carry-rank compression and genuinely coupled denominator compression
+  are separate contradiction targets.  No required upper bound or coupled
+  approximant family is proved.
+\item The odd-prime kernel question is independent of the irrationality
+  problem and carries no claimed answer or prior-art verdict.
 \end{enumerate}
 
 \noindent The correlation source that fits the normalised totient most

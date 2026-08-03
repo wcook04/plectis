@@ -6,9 +6,9 @@ Generated file. This script is copied verbatim into each public repository by
 
 The corpus under ``docs/papers/`` is exported by a tool that needs pandoc and a
 checkout of both public repositories. Neither is available here, so this check
-does not regenerate anything. It verifies the one thing that can be verified
-locally and cheaply: every manuscript recorded in ``corpus.json`` still hashes to
-the value the corpus was built from.
+does not regenerate anything. It verifies what can be verified locally and
+cheaply: every manuscript and every shipped PDF recorded in ``corpus.json``
+still hashes to the value the corpus was built from.
 
 That catches the failure that actually happens -- someone edits a paper and the
 generated text silently keeps describing the old one -- using nothing but the
@@ -62,6 +62,23 @@ def main() -> int:
                 f"    the file now hashes to {actual}"
             )
 
+        pdf_rel = paper.get("local_pdf")
+        expected_pdf = paper.get("pdf_sha256")
+        if pdf_rel and expected_pdf:
+            pdf_path = repo_root / pdf_rel
+            try:
+                actual_pdf = "sha256:" + hashlib.sha256(pdf_path.read_bytes()).hexdigest()
+            except OSError:
+                missing.append(pdf_rel)
+                continue
+            checked += 1
+            if actual_pdf != expected_pdf:
+                stale.append(
+                    f"{paper.get('paper_id')}: {pdf_rel}\n"
+                    f"    corpus was built from {expected_pdf}\n"
+                    f"    the file now hashes to {actual_pdf}"
+                )
+
     if missing:
         for rel in missing:
             print(f"missing manuscript: {rel}", file=sys.stderr)
@@ -79,7 +96,10 @@ def main() -> int:
         )
         return 1
 
-    print(f"paper corpus current: {checked} manuscripts match their recorded hashes")
+    print(
+        f"paper corpus current: {checked} recorded artefacts "
+        "(manuscripts and shipped PDFs) match their hashes"
+    )
     return 0
 
 

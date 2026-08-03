@@ -1,0 +1,498 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Standalone Erdős Problem Note for #1041.  Context is deliberately repeated
+% from the sibling notes so that this file remains independently readable.
+%
+% The public March manuscript is attributable only to the erdosproblems.com
+% handle `shtuka`; the PDF contains no real-name author metadata.  The
+% bibliography therefore cites that handle and public URL conservatively.
+%
+% Build from the public paper directory with `make`.
+\documentclass[11pt]{article}
+\input{problem-note-preamble}
+\renewcommand{\commit}{76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0}
+\renewcommand{\commitshort}{76b5b0a7ed5d}
+\hypersetup{
+  pdftitle={Newton flow and critical-value ray separation for Erdős Problem 1041},
+  pdfsubject={Erdős Problem Notes: Problem 1041},
+  pdfkeywords={lemniscate, Newton flow, saddle connection, Morse theory, Reeb decomposition, Lean 4},
+}
+
+% The prose keeps compact declaration labels; the source appendix supplies the
+% commit-pinned links checked by the public release gate.
+\newcommand{\pdecl}[1]{\emph{\leanlabel{#1}}}
+\newcommand{\dbar}{\mathbb{D}}
+
+\runninghead{Erd\H{o}s \#1041: Newton flow and ray separation}
+\title{Newton Flow and Critical-Value Ray Separation}
+\subtitle{A checked dynamical input for Erd\H{o}s Problem~\#1041}
+\author{Will Cook}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+\noteprovenance
+
+\begin{abstract}
+\noindent
+Let $f(z)=\prod_{i}(z-z_i)$ be monic with every root in the open unit disc.
+Erd\H{o}s, Herzog, and Piranian asked whether two roots can always be joined by
+a curve of length less than $2$ contained in the open lemniscate
+$\{|f|<1\}$.  The problem is open.  A manuscript posted in March 2026 claims
+the result for all such $f$; its Proposition~12 is a load-bearing spanning-tree
+decomposition whose printed proof contains an invalid local saddle block.  At
+an interior Morse saddle a sufficiently small chart lies wholly in the open
+component and contains all four sectors, so the asserted one-lower/two-upper
+three-ended neighbourhood does not follow.  The proposition itself is not
+refuted and may admit a cut-annulus or four-pronged repair.  An independent
+June 2026 preprint proves the degree-four case.  This note isolates and checks a
+dynamical input that could support an alternative decomposition.
+
+Along a trajectory of the complex Newton field $-f/f'$ the polynomial value
+satisfies $w'=-w$, so $f(z(t))=e^{-t}f(z(0))$ and $e^{t}f(z(t))$ is a first
+integral.  Both are checked by the Lean kernel.  The consequence is a
+separation criterion: the endpoints of any finite Newton-flow connection lie on
+one oriented ray from the origin, so critical values on distinct rays admit no
+saddle-to-saddle connection.  The criterion is sharper than the one the
+manuscript uses.  Distinct critical values, and even distinct critical-value
+moduli, do not exclude saddle connections; distinct critical-value
+\emph{arguments} do.  The obstruction to arranging distinct arguments by
+perturbation is also made explicit: for each pair of critical values the set of
+common translations causing a ray collision is a one-real-parameter locus, given
+in closed form.
+
+What remains is the planar topology and the length bookkeeping.  Neither is
+proved here, and Erd\H{o}s \#1041 is not settled.
+\end{abstract}
+
+\section{The problem}\label{sec:problem}
+
+\begin{problem}[Erd\H{o}s \#1041]\label{res:problem}
+Let $f(z)=\prod_{i=1}^{n}(z-z_i)$ be monic with $z_i\in\dbar$, the open unit
+disc.  Show that two of the roots can be joined by a curve of length less than
+$2$ lying in the open lemniscate $E=\{z\in\mathbb{C}:|f(z)|<1\}$.
+\end{problem}
+
+\noindent Numbering and current status follow Bloom's Erd\H{o}s problem
+catalogue \cite{bloom}.
+The problem is open.  The original source is Problem~5 on printed p.~139 of
+Erd\H{o}s--Herzog--Piranian \cite[p.~139]{ehp1958}; the preceding paragraph records the
+known input that one component of the lemniscate contains at least two zeros.
+
+Two recent manuscripts are relevant.  The 48-page manuscript posted by
+\texttt{shtuka} on 24 March 2026
+\cite[Theorem~1, p.~1]{march2026} claims the unrestricted
+statement.  Its Proposition~12 (p.~16, with proof continuing through p.~30)
+supplies the spanning-tree decomposition used in the final proof.  The forum
+discussion did not locate the issue, but the local three-ended saddle
+construction is invalid as written; the exact defect and possible repairs are
+recorded in Section~\ref{sec:gap}.  This is a proof gap, not a counterexample to
+the proposition.  Pendyala's independent June 2026
+preprint \cite[Thm.~1, p.~1]{june2026} proves the degree-four case.  The quartic theorem does
+not close the problem.
+
+The object we work with is not the lemniscate directly but the flow that
+foliates it.
+
+\statusboundary
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{0.34\linewidth}
+  >{\raggedright\arraybackslash}p{0.20\linewidth}
+  >{\raggedright\arraybackslash}p{0.38\linewidth}@{}}
+\toprule
+Statement & Status & Exact boundary \\
+\midrule
+Erd\H{o}s \#1041 & Open & No proof is claimed. \\
+Newton value equation $w'=-w$ & Checked & Away from critical points, along any trajectory tangent to $-f/f'$. \\
+Exponential first integral & Checked & $\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0$. \\
+Ray separation of critical values & Checked (consumer form) & Endpoints of a finite connection share one oriented ray; distinct rays exclude a connection. \\
+Ray-collision locus & Checked & $\beta=(ra-b)/(1-r)$, $r>0$, $r\ne1$: one real parameter per pair. \\
+Quartic case & Cited & Proved in \cite[Thm.~1, p.~1]{june2026}; does not extend to general degree. \\
+Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Proof gap & Proposition~12 uses a false three-ended local saddle block; its statement is not refuted and may be repairable. \\
+Constant-translation ray separation and root retention & Checked & After critical-value injectivity, arbitrary small ray avoidance and an explicit unit-disc margin. \\
+Coefficient perturbation and slack stability & Open & Must first create injective critical values and preserve the component, collars and length budget. \\
+Reeb decomposition and length fan-in & Open & The two surviving producers. \\
+Random search to degree $10$ & Verified finite instances & Upper bounds for sampled configurations only. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The Newton value equation}\label{sec:newton}
+
+Away from the critical set, define the complex Newton field
+\[
+  N(z)=-\frac{f(z)}{f'(z)} .
+\]
+Let $z(t)$ be differentiable with $z'(t)=N(z(t))$, and put $w(t)=f(z(t))$.
+
+\begin{theorem}[value equation]\label{res:value}
+$w'(t)=-w(t)$.
+\end{theorem}
+
+\noindent The computation is one line: $w'=f'(z)\,z'=f'(z)\cdot(-f(z)/f'(z))=-f(z)=-w$.
+The kernel checks it as \pdecl{newtonFlow_value_hasDerivAt}, together with the
+differential form of the first integral,
+\pdecl{newtonFlow_scaledValue_hasDerivAt_zero}:
+\[
+  \frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
+  \qquad\text{equivalently}\qquad
+  f(z(t))=e^{-t}f(z(0)) .
+\]
+Observe what this says about the geometry.  The value moves radially inward at
+exponential rate and never changes argument.  The lemniscate $\{|f|<1\}$ is
+therefore forward-invariant, and the flow lines are exactly the preimages of
+rays from the origin.
+
+\begin{corollary}[ray separation]\label{res:ray}
+The endpoints of any finite Newton-flow connection lie on the same oriented ray
+from $0$.  Consequently, if two critical values lie on distinct positive rays,
+no Newton-flow saddle connection joins the corresponding critical points.
+\end{corollary}
+
+\noindent This is checked in consumer form: the kernel accepts the implication
+from the hypothesis of distinct rays to the absence of a connection.  It is the
+statement the topology needs, and it is a genuine sharpening of the criterion
+used in the literature.
+
+\section{Arguments, not moduli}\label{sec:arguments}
+
+It is tempting to arrange a generic perturbation so that the critical values
+are pairwise distinct, or that their moduli are pairwise distinct, and to
+conclude that saddle connections are excluded.  Neither is enough.
+
+Two distinct critical values can lie on one ray, and two critical values with
+distinct moduli certainly can: the ray records the argument, and the modulus is
+exactly the coordinate the flow contracts.  By Corollary~\ref{res:ray} the
+invariant that excludes connections is the argument.  What a perturbation must
+therefore achieve is pairwise distinct critical-value \emph{arguments}, which is
+a condition on $n-1$ points modulo the circle rather than on their positions in
+the plane.
+
+The cost of that condition is also checked, and it is small.
+
+\begin{theorem}[ray-collision locus]\label{res:locus}
+Let $a\ne b$ be complex.  Every common translation $\beta$ for which $a+\beta$
+and $b+\beta$ lie on the same positive ray has the form
+\[
+  \beta=\frac{ra-b}{1-r},
+  \qquad r\in\mathbb{R}_{>0},\ r\ne1 .
+\]
+\end{theorem}
+
+\noindent So each pair of critical values contributes a one-real-parameter
+forbidden locus in the translation plane, given in closed form
+(\pdecl{translated_samePositiveRay_parameterization}).  A finite union of such
+loci has empty interior, which is the shape one wants for an avoidance
+argument.  Turning that into a perturbation of $f$ is not immediate: the
+translation model must be replaced by an actual perturbation of the roots that
+keeps them inside $\dbar$ and preserves the length slack.  That is the first
+open producer of \S\ref{sec:open}.
+
+\section{A proof gap in the unrestricted argument}\label{sec:gap}
+
+The March manuscript's Proposition~12 claims the following load-bearing
+statement.  For $u=-\log|f|$, a connected component $V$ of $\{u>c\}$ carrying
+$m\ge2$ simple zeros, and the stated regularity and Morse hypotheses, it
+constructs, for every $\varepsilon>0$, an embedded spanning tree
+$G_\varepsilon\subset V$ with
+\[
+ \operatorname{len}(G_\varepsilon)
+ \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon.
+\tag{5.1}\label{eq:prop12-bound}
+\]
+The final theorem uses this estimate, so the issue below cannot be bypassed by
+calling the proposition auxiliary.
+
+At an interior index-one critical point $p$, the proof invokes a Morse chart
+\[
+ u=\mu+x^2-y^2
+\]
+and replaces the saddle by a three-ended neighbourhood having one connected
+lower cross-section and two connected upper cross-sections.  That local model
+is false as written.  Because $p\in V$ and $V$ is open, a sufficiently small
+closed disc around $p$ lies entirely in $V$.  In that disc the full Morse chart
+has four sectors: two components of $u>\mu$ and two components of $u<\mu$.
+A global component argument cannot delete one local sector from a disc already
+contained in $V$.
+
+This diagnoses a proof step, not the proposition's statement.  A repair might
+cut an adjoining regular annulus along a separatrix or regular flow arc before
+forming the block, retain a four-pronged saddle neighbourhood and change the
+assembly, or replace the local construction by the ray-cut decomposition
+proposed below.  Any repair must prove that its connector cost can be made
+arbitrarily small uniformly in the attachment points and that the repaired
+blocks still assemble to an embedded tree satisfying~\eqref{eq:prop12-bound}.
+The shorter descriptions of the same three-ended block do not repair the
+four-sector topology.
+
+Corollary~\ref{res:ray} supplies one independent input for a different route:
+distinct critical-value arguments exclude saddle-to-saddle Newton
+connections.  It does not itself prove the compact planar decomposition,
+classify all orbit endpoints or provide the metric gluing estimate.  Those are
+separate problems below.
+
+\section{Finite evidence}\label{sec:finite}
+
+A search was run over random monic polynomials with roots in the unit disc.  For
+each sample the region $\{|f|<1\}$ was rasterised and shortest grid paths were
+computed between every pair of roots.  The best upper bounds obtained were
+\[
+  \begin{array}{lrr}
+    \text{degree } 5, & 500 \text{ trials}: & 1.1052648928\\
+    \text{degree } 6, & 1500 \text{ trials}: & 0.8450414343\\
+    \text{degree } 8, & 1500 \text{ trials}: & 0.6203916714\\
+    \text{degree } 10, & 1500 \text{ trials}: & 0.4303640486 .
+  \end{array}
+\]
+No counterexample candidate was found, and the measured values sit well below
+the threshold $2$.  These are grid distances for the sampled configurations:
+upper bounds on those samples, not bounds over the family.  The apparent
+decrease with degree is a property of the sample, and we draw no conjecture from
+it.
+Future searches should target named failure modes---near-degenerate saddles,
+thin necks, boundary-critical configurations and almost-connected
+separatrices---and report those diagnostics.  Raster paths remain candidate
+finders, never continuous certificates.
+
+\section{Complements and further questions}\label{sec:open}
+
+The dependency chain has five separate gates.  A proof, a minimally corrected
+hypothesis set, or an explicit polynomial or planar counterexample is a
+decisive answer to any one of them.
+
+\subsection*{1. Repair or refute the saddle block}
+
+\begin{problem}[corrected local saddle assembly]\label{prob:saddle1041}
+Under the hypotheses of Proposition~12, replace the invalid three-ended local
+model by a four-pronged block or by a block formed after a specified annular
+cut.  Prove that for every $\eta>0$ its connector has total Euclidean length
+below $\eta$, uniformly over the selected attachment points, and that the
+corrected blocks assemble to an embedded tree satisfying
+\[
+ \operatorname{len}(G_\varepsilon)
+ \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon;
+\]
+or give a polynomial or harmonic planar counterexample to that statement.
+\end{problem}
+
+The full-disc model $x^2-y^2$, an annulus in which lower branches rejoin, two
+saddles joined by a separatrix and simultaneous saddle levels are mandatory
+tests.  Repeating the one-lower/two-upper assertion does not answer the
+problem.
+
+\subsection*{2. The compact ray-cut decomposition}
+
+Let $p$ have simple roots, simple nonzero critical points and let
+$u=-\log|p|$.  For regular values $c<T$, take
+\[
+ M_{c,T}=\overline{V\cap\{c<u<T\}},
+\]
+and assume explicitly that this is a compact genus-zero surface, its lower
+boundary is one smooth Jordan curve, its upper boundary consists of $m$ smooth
+root curves, all interior critical points are nondegenerate index-one saddles,
+the normalised gradient field
+\[
+ X=\frac{\nabla u}{|\nabla u|^2}=-\frac{p}{p'}
+\]
+is transverse to the level boundaries, and no maximal $X$-trajectory has two
+saddle endpoints.
+
+\begin{problem}[finite strip decomposition after ray cuts]\label{prob:reeb1041}
+For every $\eta>0$, construct disjoint Morse neighbourhoods $N_j$ with
+$\sum_j\operatorname{diam}N_j<\eta$ and a finite set of complete separatrix or
+regular-flow cuts so that every component of the complement is flow-diffeomorphic
+to a rectangle
+\[
+ [a_S,b_S]\times[0,1],\qquad u(\Phi_S(t,s))=t,
+\]
+with connected level sections and no uncut annular component.  Give an explicit
+finite bound $E(s,m)$ for the number of strips, or exhibit the minimal missing
+hypothesis or a counterexample.
+\end{problem}
+
+No particular formula such as $2s+1$ is presumed.  Boundary tangencies,
+simultaneous levels, branch reunion through an annulus and non-Hausdorff orbit
+spaces must be handled rather than suppressed.
+
+\subsection*{3. Metric fan-in without losing the coefficient}
+
+For a strip $S$, write
+\[
+ \Gamma_t^S=S\cap\{u=t\},\qquad
+ P_S(t)=\mathcal H^1(\Gamma_t^S),
+\]
+and let $k_S$ be its number of root ends.  The flux identity
+\[
+ \int_{\Gamma_t^S}|\nabla u|\,ds=2\pi k_S
+\]
+gives the average trajectory estimate
+\[
+ \int_{\Gamma_{t_0}^S}\operatorname{len}(\gamma_x)\,d\mu_{t_0}(x)
+ =
+ \frac1{2\pi k_S}\int_{a_S}^{b_S}P_S(t)\,dt.
+\]
+
+\begin{problem}[additive-error strip gluing]\label{prob:metric1041}
+Assuming Problem~\ref{prob:reeb1041}, select trajectories in all strips and
+connect them through the saddle and root neighbourhoods so that, for every
+$\eta>0$, the resulting embedded tree contains all $m$ roots and obeys
+\[
+ \operatorname{len}(G)
+ \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta.
+\tag{6.1}\label{eq:metric-fanin1041}
+\]
+The total saddle, annular-cut and root-cap cost must be below $\eta$ without a
+multiplicative loss in $1/(2\pi)$.
+\end{problem}
+
+For the final strict inequality, use the actual collar slack
+\[
+ q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt>0
+\]
+and give budgets that keep the perturbation, tree error and transfer cost below
+fixed fractions of $q$.  Independently choosing a shortest trajectory in each
+strip is not enough unless the attachment mismatch is controlled.
+
+\subsection*{4. Coefficient perturbation and stability}
+
+The constant-translation stage is no longer open.  Once a finite critical-value
+family is injective, Lean proves an arbitrarily small translation making every
+value nonzero and pairwise positive-ray separated
+(\pdecl{exists_small_translation_separating_arguments}).  It also proves the
+explicit root-retention estimate; a shift below $\varepsilon$ keeps all roots
+in the unit disc when
+\[
+ ((n+1)\varepsilon)^{1/n}+\rho<1
+\]
+(\pdecl{constant_perturbation_roots_in_unitDisk}).  A constant translation
+cannot separate initially equal critical values.
+
+\begin{problem}[two-stage generic perturbation with slack]\label{prob:perturb1041}
+For fixed root discs, compact collar $K$, regular levels
+$\alpha/2,\alpha,2\alpha,5\alpha/2$ and collar slack $q>0$, prove that an
+arbitrarily small
+\[
+ g_{\lambda,\beta}(z)=f(z)+\lambda z+\beta
+\]
+can be chosen so that:
+
+\begin{enumerate}
+\item $f+\lambda z$ has simple relevant critical points and injective complex
+critical values;
+\item the checked constant translation $\beta$ makes those values nonzero and
+pairwise ray-separated;
+\item no critical point enters the protected collar or truncation boundary;
+\item the relevant component remains in $K$, contains exactly the corresponding
+perturbed roots and has slack $q_g>q/2$; and
+\item root displacement and straight-line transfer back to the original roots
+consume less than a prescribed fraction of $q/m$.
+\end{enumerate}
+
+If the one-coefficient perturbation $\lambda z$ cannot ensure all five
+properties, give the smallest additional lower-coefficient direction that can,
+or an explicit obstruction.
+\end{problem}
+
+Finite planar avoidance and the subsequent constant translation must not be
+relisted as missing; coefficient genericity, component stability and slack
+stability are the open content.
+
+\subsection*{5. The global Newton-flow claim ceiling}
+
+\begin{problem}[relative global Newton-flow theorem]\label{prob:globalflow1041}
+On a compact regular band
+\[
+ M_{a,b}=\{z:a\le-\log|p(z)|\le b\},
+\]
+prove real-time existence and the identities
+\[
+ p(z(t))=e^{-(t-t_0)}p(z(t_0)),\qquad
+ u(z(t))=u(z(t_0))+t-t_0
+\]
+throughout every maximal orbit; classify both limiting endpoints among the
+regular boundary, root ends and finite saddle set; and exclude recurrent,
+accumulating and non-Hausdorff orbit phenomena.  Under pairwise ray separation
+of the critical values, decide whether the flow is Morse--Smale relative to the
+boundary or whether the strongest valid conclusion is only absence of
+saddle-to-saddle connections.
+\end{problem}
+
+The checked algebra proves the pointwise value equation and the endpoint-ray
+consumer.  It does not supply global solution theory or an orbit-space graph.
+A positive stronger theorem must give the graph and a finite edge bound; a
+negative answer should exhibit the simplest ray-separated polynomial carrying
+the remaining pathology.
+
+Erd\H{o}s~\#1041 remains open.  The source now publicly verifies the Newton
+kernel, finite ray avoidance and quantitative constant-translation root
+control; the coefficient perturbation, corrected planar decomposition and
+metric gluing remain the exact unresolved producers.
+
+\section*{Statements and declarations}
+
+This manuscript is authored exposition, not Lean proof authority.  The checked
+core is the Newton value equation, the exponential first integral, the consumer
+form of ray separation, the finite planar-avoidance theorem, quantitative
+constant-translation root retention, and the ray-collision parameterisation.  The
+decomposition and length statements of \S\ref{sec:open} are not proved.  The
+diagnosis of Proposition~12 in \S\ref{sec:gap} concerns its printed local
+saddle construction; it does not refute the proposition's statement.  The
+search results of \S\ref{sec:finite} are computations.
+
+\appendix
+\section{Guide to the formal sources}\label{app:sources}
+
+The public \texttt{ErdosProblems.Erdos1041.NewtonFlowRaySeparation} module
+contains the checked source for this note.  The search of \S\ref{sec:finite} is
+\texttt{scripts/search\_counterexample.py} in the source package.  The
+declaration table below is pinned to the shared formal-source commit used
+throughout this problem-note series.
+
+\begin{itemize}[leftmargin=*]
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{34}{newtonFlowVector}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{38}{derivative_mul_newtonFlowVector}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{50}{newtonFlow_value_hasDerivAt}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{64}{newtonFlow_scaledValue_hasDerivAt_zero}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{77}{SamePositiveRay}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{80}{samePositiveRay_refl}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{84}{samePositiveRay_symm}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{92}{samePositiveRay_trans}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{107}{translated_samePositiveRay_parameterization}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{127}{realAffineLine}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{130}{realAffineLine_eq_affineSpan}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{147}{isClosed_realAffineLine}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{152}{dense_compl_realAffineLine}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{162}{exists_small_avoiding_finite_realAffineLines}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{179}{samePositiveRay_imp_mem_realAffineLine}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{197}{exists_small_translation_separating_arguments}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{230}{norm_lt_one_of_near_root}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{257}{constant_perturbation_root_near_original}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{287}{constant_perturbation_roots_in_unitDisk}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{306}{samePositiveRay_of_real_exp_decay}
+\item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{315}{no_newtonConnection_of_not_samePositiveRay}
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problems}, problem~1041.
+  \url{https://www.erdosproblems.com/1041}
+\bibitem{ehp1958} P.~Erd\H{o}s, F.~Herzog, and G.~Piranian,
+  \emph{Metric properties of polynomials}, J. Analyse Math. \textbf{6}
+  (1958), 125--148. \url{https://doi.org/10.1007/BF02790232}
+\bibitem{march2026} \texttt{shtuka},
+  \emph{A Short Path Joining Two Zeros Inside a Polynomial Lemniscate},
+  manuscript posted 24 March 2026, 48~pp.
+  \url{https://shtuka123.github.io/1041/main.pdf}
+\bibitem{june2026} V.~S. Pendyala,
+  \emph{A Degree-Four Lemniscate Path Theorem},
+  arXiv:2606.24875v1 (2026).
+  \url{https://arxiv.org/abs/2606.24875},
+  doi:\href{https://doi.org/10.48550/arXiv.2606.24875}
+  {10.48550/arXiv.2606.24875}.
+\end{thebibliography}
+
+\end{document}
