@@ -1,0 +1,17 @@
+{
+  "name": "Plectis",
+  "short_name": "Plectis",
+  "description": "Runnable public components, each with a stated claim, a local check, and a result file.",
+  "id": "/plectis/",
+  "start_url": "/plectis/",
+  "scope": "/plectis/",
+  "display": "browser",
+  "background_color": "#f8f0e2",
+  "theme_color": "#171020",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,90 @@
+# Plectis
+
+> A public claim-testing layer over an AI-built system: each component names what it runs or replays, the evidence class behind it, the receipt/source handles to inspect, and the authority ceiling where the claim stops. Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product.
+
+Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
+
+## First local command
+
+- Source checkout: `PYTHONPATH=src python3 -m microcosm_core hello --reader agent .`
+- Installed checkout: `plectis hello --reader agent <project>`
+- First behavior card: `plectis tour --card <project>`
+
+Scope: this is a local-first static/public project doorway. Use it to clone, inspect, and compare source-linked records; release operations, hosted service claims, external model access, source-file changes, claims not supported by the public records, formal-result correctness, production use, financial decisions, and specialist review are outside this doorway's scope.
+
+## Repository
+
+- Public repository (source of record): https://github.com/wcook04/plectis
+- Public website (browseable wrapper over the map): https://wcook04.github.io/plectis/
+- Companion Lean formalisation (eight open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, #1049; all remain open, no solution claim): https://github.com/wcook04/plectis-lean-erdos249-257
+- Author and purpose: built alone by a 22-year-old economics undergraduate at the University of Bristol, on a student budget, with no mathematics or computer-science training and no institutional support; the formal mathematics is entirely self-taught and the Lean work was learned for this project; Plectis and the Lean repository are the two public demonstrations of a private system (Plectis shows the machinery as runnable components, the Lean repository shows the mathematical output); the rest of that system, including its frontend and video editor, is not public
+- Reading that fact correctly: it is context for calibration, not a request for allowance. The results stand or fall on the Lean source and the registry statuses either way, and should be judged there. It does mean an assumption that a corpus of this shape implies a funded team or a mathematics department is simply wrong about who built it.
+- The 13 papers (PDF): erdos-68-factorial-denominator-irrationality https://wcook04.github.io/plectis/papers/erdos-68-factorial-denominator-irrationality.pdf ; erdos-243-reciprocal-tail-rigidity https://wcook04.github.io/plectis/papers/erdos-243-reciprocal-tail-rigidity.pdf ; erdos-249-binary-totient-series https://wcook04.github.io/plectis/papers/erdos-249-binary-totient-series.pdf ; erdos249-totient-reasoning-surface https://wcook04.github.io/plectis/papers/erdos249-totient-reasoning-surface.pdf ; erdos-251-prime-gap-dyadic-series https://wcook04.github.io/plectis/papers/erdos-251-prime-gap-dyadic-series.pdf ; erdos-257-mersenne-support-subseries https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf ; erdos257-mersenne-reasoning-surface https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf ; erdos-269-three-prime-running-lcm https://wcook04.github.io/plectis/papers/erdos-269-three-prime-running-lcm.pdf ; erdos-1041-lemniscate-newton-flow https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf ; erdos-1049-rational-base-lambert https://wcook04.github.io/plectis/papers/erdos-1049-rational-base-lambert.pdf ; claim-faithful-publication-systems https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf ; cold-clone-to-proof-receipt https://wcook04.github.io/plectis/papers/cold-clone-to-proof-receipt.pdf ; plectis-public-system https://wcook04.github.io/plectis/papers/plectis-public-system.pdf
+- Strongest checked results by problem: the headline_results block inside the AI packet and reader digest carries verbatim reviewed claim statements with Lean source anchors; the Lean repository's docs/RESULTS.md is the human per-problem map. Counts are navigation scale, not results.
+- Agent entry: AGENTS.md at the repository root
+
+Objects: 781 across 16 kinds.
+
+## Object families (coverage)
+
+- anti_principle: 17 objects -- 17 routed, 17 searchable, 17 source-linked, 0 omitted
+- area: 7 objects -- 7 routed, 7 searchable, 0 source-linked, 0 omitted
+- axiom: 12 objects -- 12 routed, 12 searchable, 12 source-linked, 0 omitted
+- command: 88 objects -- 88 routed, 88 searchable, 88 source-linked, 0 omitted
+- component: 88 objects -- 88 routed, 88 searchable, 88 source-linked, 0 omitted
+- concept: 11 objects -- 11 routed, 11 searchable, 11 source-linked, 0 omitted
+- coverage_gap: 3 objects -- 3 routed, 3 searchable, 3 source-linked, 0 omitted
+- evidence_class: 5 objects -- 5 routed, 5 searchable, 0 source-linked, 0 omitted
+- graph_node: 11 objects -- 11 routed, 11 searchable, 0 source-linked, 0 omitted
+- mechanism: 105 objects -- 105 routed, 105 searchable, 105 source-linked, 0 omitted
+- page: 13 objects -- 13 routed, 13 searchable, 0 source-linked, 0 omitted
+- paper_module: 103 objects -- 103 routed, 103 searchable, 103 source-linked, 0 omitted
+- principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
+- relation: 239 objects -- 239 routed, 239 searchable, 0 source-linked, 0 omitted
+- source_ref: 58 objects -- 58 routed, 58 searchable, 58 source-linked, 0 omitted
+- standard: 1 objects -- 0 routed, 0 searchable, 0 source-linked, 1 omitted
+
+## Pages
+
+- [Quickstart](docs/quickstart.html)
+- [How it fits together](docs/architecture.html)
+- [Doctrine](docs/doctrine.html)
+- [Reference index](docs/reference.html)
+- [Components](docs/components.html)
+- [Doctrine reference](docs/rules-and-ideas.html)
+- [Paper modules](docs/paper-modules.html)
+- [What the pass proves](docs/evidence.html)
+- [Glossary](docs/glossary.html)
+- [Source & license](docs/source.html)
+- [Vulnerability disclosure](docs/vulnerability-disclosure.html)
+
+## Availability objects
+
+These source-linked objects are routed and searchable without promoting them beyond their current source status.
+
+### Coverage gaps
+
+- [Component relation fill](docs/rules-and-ideas.html#coverage-gap-component-relation-fill)
+- [Mechanism relation fill](docs/rules-and-ideas.html#coverage-gap-mechanism-relation-fill)
+- [Paper module relation fill](docs/rules-and-ideas.html#coverage-gap-paper-module-relation-fill)
+
+
+## Reader ladder (open in order of need)
+
+- [AI packet](plectis-ai-review-packet.json): the default AI handoff -- the whole public site in one self-describing file: read_me_first, answer contract, headline_results (the mathematics first), question routes, starter prompts, view descriptors, and every public text body (all page prose, component records, and paper-module bodies). Start here.
+- [reader digest](plectis-ai-reader-digest.json): the lite fallback when the full packet is refused -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies.
+- [complete text corpus](plectis-ai-reader-complete.json): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, in one file, without instruction layers.
+- [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
+- [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
+- [full JSON map](plectis-site-map.json): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
+- source of record: the public repository linked from each component's source_links.
+
+## Machine-readable
+
+- [object-map.json](object-map.json): canonical object identity + per-kind coverage
+- [content-graph.json](content-graph.json): the canonical kernel
+- [projection-status.json](projection-status.json): packet lineage and counts
+- [search-index.js](assets/search-index.js): static search records
+- [architecture-graph-scene.json](docs/architecture-graph-scene.json): graph topology
+- Surface contract: content-graph.json::surface_sync_contract
+
