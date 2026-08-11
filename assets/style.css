@@ -347,23 +347,6 @@ p { margin: 0; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 0.18em; }
 
-/* One link on the site is a joke and it has to look like one. The page accent is
-   blue, so the site's existing warm gold reads as deliberately off-register: the
-   eye catches it and nobody mistakes it for another evidence route. --link-ext is
-   already the gold here and is already what an outbound link wears, which this
-   is. Underlined at rest, because a coloured word on its own just looks like a
-   styling accident. */
-.humanity-link {
-  color: var(--link-ext);
-  text-decoration: underline;
-  text-decoration-thickness: 0.06em;
-  text-underline-offset: 0.18em;
-  text-decoration-color: color-mix(in srgb, var(--link-ext) 55%, transparent);
-}
-.humanity-link:hover {
-  color: var(--link-ext);
-  text-decoration-color: currentColor;
-}
 /* Form controls inherit the UA font (e.g. Arial on <button>), which reads as a
    foreign typeface next to the page stack. Inherit the page font so buttons match
    the surrounding type. Size/weight stay with each control's own rule. */
