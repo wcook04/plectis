@@ -100,8 +100,8 @@
       "source_repo": "plectis-lean-erdos249-257",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1049-rational-base-lambert.pdf",
-      "source_sha256": "c032d33c67964787ec9e20218d6e36d257150a737b463d1294d4639c8a9e7c20",
-      "bytes": 154032,
+      "source_sha256": "b29cc750ae1a2806ba03391050d02f4e44178640af3e5d715c6265c7c0e9f734",
+      "bytes": 163000,
       "source_tex_path": "paper/erdos-1049-rational-base-lambert.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
     },
