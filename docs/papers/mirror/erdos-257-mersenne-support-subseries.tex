@@ -22,8 +22,8 @@
 % useful one.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{d52755f4b3131beacf9affcfc3a7404f55412bfe}
-\renewcommand{\commitshort}{d52755f4b313}
+\renewcommand{\commit}{3f2e72a49e0f3d0e4e8f4881fc8f98ccf62c2492}
+\renewcommand{\commitshort}{3f2e72a49e0f}
 \hypersetup{
   pdftitle={Denominator periods, rational-value constraints and achievement-set geometry for Mersenne subseries (Erdős Problem 257)},
   pdfsubject={Erdős Problem Notes: Problem 257},
@@ -95,6 +95,17 @@ prime-support theorem and Duverney--Tachiya's power-of-two squarefree theorem
 are cited prior work, not formalised here.  These classifications and scoped
 frontiers do not solve \#257 or either target.
 \end{abstract}
+
+\externalreviewobject{The paper proves finite-support denominator-period
+noncollapse, exact injective coding and a measure dichotomy for restricted
+achievement sets, and formalises the classical full-support irrationality
+theorem for every integer base $b\ge2$.}{These are distinct contribution
+classes: local structure, known achievement-set geometry, and prior
+mathematics.  None treats every infinite support, so universal Problem~\#257
+and the stated rational targets remain open.}{Comparator selects the exact
+finite-period theorem, the restricted-set measure dichotomy, the unrestricted
+measure-one theorem, and the classical full-support theorem;
+the receipt lists the exact theorem set actually checked.}
 
 \section{Introduction and main results}\label{sec:problem}
 
@@ -1226,11 +1237,11 @@ interval?
 
 \noindent This is not merely sufficient: it is equivalent to
 $1/21\in\Ach$
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{2715}{one_div_twenty_one_mem_iff_scaledGreedyRemainderCofinallyBounded}{checked}).
+(\mword{Erdos249257/BooleanMobiusCarry.lean}{2716}{one_div_twenty_one_mem_iff_scaledGreedyRemainderCofinallyBounded}{checked}).
 It asks for neither convergence, a prescribed $B$, a global bound nor bounded
 return gaps.  Two concrete stronger targets are cofinal recurrence of
 $Q_N\le1$
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{2842}{one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally}{consumer})
+(\mword{Erdos249257/BooleanMobiusCarry.lean}{2843}{one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally}{consumer})
 and arbitrarily deep closed quotient rows $s_R\le2^R$.  Exact computation
 through rank $200{,}000$ records $96$ zero-defect returns and $4{,}956$ returns
 to $Q_N\le1$, with last observed ranks $193{,}690$ and $199{,}930$ and maximum

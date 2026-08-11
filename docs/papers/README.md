@@ -111,7 +111,7 @@ This paper states no reading route. Its evidence boundary is in [The cold-clone 
 
 **Plectis: What a Stranger Can Check**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/1569d9d2d9bfaea513921498812aef46c697e14c/paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem](full-text/plectis-public-system.md#sec:problem), [Five distinctions](full-text/plectis-public-system.md#sec:distinctions).
 

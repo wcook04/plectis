@@ -52,7 +52,7 @@
 % are handled locally so authors may write names verbatim.
 % ---------------------------------------------------------------------------
 \newcommand{\PK}{Erdos249257}
-\newcommand{\commit}{d52755f4b3131beacf9affcfc3a7404f55412bfe}
+\newcommand{\commit}{3f2e72a49e0f3d0e4e8f4881fc8f98ccf62c2492}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
 % \lean declaration file:line forms a hyperlink to the pinned public
 % formal-source checkpoint. The second argument is a machine coordinate,
@@ -513,7 +513,7 @@ $\operatorname{ihc}(A,N)$ denote the integer half-carry at level $N$. Then
 \]
 where $\mathrm{T}$ is the binary coefficient tail of $\operatorname{sc}_A$.
 \coord{half-carry} \scale{uniform} \ev{Lean}\\
-\textbf{Sites:} \lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:870};
+\textbf{Sites:} \lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:871};
 \lean{binaryCoeffTail\_nonneg}{GenericTailOrbitRigidity.lean:78};
 \lean{binaryCoeffTail\_supportCoeff\_le\_two\_sqrt\_add\_four}{BooleanMobiusCarry.lean:290}.
 \end{lem}
@@ -527,7 +527,7 @@ strip of width $O(\sqrt{N})$ forces $\delta = 0$.
 \begin{proof}
 By Lemma~\ref{lem:collapse-mech}, $2^{N+1}\delta = \operatorname{ihc}(A,N) - \mathrm{T}(N+1)$.
 For the greedy support of $1/2$ one has $x_G \le 1/2$, hence $\delta \ge 0$
-(\lean{erdosSupportSeries\_greedyMersenneSupport\_le}{HalfCarryReachability.lean:887}). If
+(\lean{erdosSupportSeries\_greedyMersenneSupport\_le}{HalfCarryReachability.lean:888}). If
 $\operatorname{ihc}(A,N) \le c\sqrt{N} + c'$ for cofinally many $N$, then
 $2^{N+1}\delta \le c\sqrt{N} + c'$ along that sequence; since $2^{N+1}$ outgrows any $\sqrt{N}$
 envelope and $\delta \ge 0$ is a fixed real, $\delta = 0$. Conversely $\delta = 0$ makes
@@ -568,8 +568,8 @@ $1 \notin A$ (which holds since $x_1 = 1 > 1/2$).
 Each of the following is logically \emph{equivalent} to $1/2 \in \mathcal{A}$, not strictly weaker:
 \begin{enumerate}[nosep,label=(\alph*)]
 \item the \texttt{hbound} hypothesis of
-  \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:833}
-  and of \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_upperBound}{HalfCarryReachability.lean:952};
+  \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:834}
+  and of \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_upperBound}{HalfCarryReachability.lean:953};
 \item \lean{CofinalPositiveHalfGreedySkips}{BooleanMobiusSkipRowCofinal.lean:22};
 \item \lean{CofinalExactLocalMersenneHalfRows}{BooleanMobiusCofinalExactRows.lean:38}, including its
   advertised weakening that \emph{no} compatibility is required between witness supports at
@@ -919,7 +919,7 @@ side: the \texttt{hbound} hypothesis of the two \texttt{mobiusCenteredHalfCarry}
 \texttt{GreedyHalfCarryCofinalStripReturn}; \texttt{HalfCarryCofinalTerminalOnlyStrip}. The forward
 directions are landed. Every reverse direction runs through Lemma~\ref{lem:sqrt-witness}, stated
 once, whose only inputs are
-\lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:870},
+\lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:871},
 \lean{binaryCoeffTail\_nonneg}{GenericTailOrbitRigidity.lean:78},
 \lean{binaryCoeffTail\_supportCoeff\_le\_two\_sqrt\_add\_four}{BooleanMobiusCarry.lean:290}, and the
 evaluation of the square root at a perfect square. The scope limit of
@@ -1524,7 +1524,7 @@ Mersenne weights directly — since $\varphi=\mu * \mathrm{id}$ is itself
 M\"obius-built, this is a strong candidate for adaptation to \#249.
 \par\ev{Lean}\scale{uniform}\coord{mobius-mersenne}
 \lean{mobiusCenteredHalfCarry\_nonneg\_of\_supportSeries\_lt\_half}{HalfCylinderFinalMiddleCellEscape.lean:94}
-\lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:870}
+\lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:871}
 \end{thm}
 
 \begin{thm}[Square-root carry-growth route: current open numeric-analytic frontier]
@@ -1541,8 +1541,8 @@ exactly $1/2$. Only the upper bound remains open; a distinct socket from the dya
 track; whether that wall bears on this half-membership socket is unverified — treat any
 connection as \texttt{hypothesis}, not established.
 \par\ev{Lean}\scale{uniform}\coord{greedy-orbit}
-\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:833}
-\lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:816}
+\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:834}
+\lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:817}
 \end{thm}
 
 \begin{thm}[Governed frozen-margin producer family: three graded sockets]
@@ -2538,7 +2538,7 @@ If
 \forall N,\quad \mathrm{mobiusCenteredHalfCarry}(\mathrm{greedySupport}(1/2),N) \;\le\; 2\sqrt N + 4,
 \]
 then the greedy skipped support is infinite and $\mathrm{erdosSupportSeries}(2,\mathrm{greedyMersenneSupport}(1/2)) = 1/2$. Nonnegativity of the left side is unconditional (see 257bm:i-carry below); ONLY the upper $2\sqrt N+4$ bound remains open. Distinct from 257bm:c11's dyadic-band route and from 257bm:c7's largest-skip socket — the corpus records this as a genuinely independent square-root-scale frontier.
-\par\noindent\ev{Open} \scale{cofinal} \coord{other:sqrt-carry-growth} \lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:816} \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:833}
+\par\noindent\ev{Open} \scale{cofinal} \coord{other:sqrt-carry-growth} \lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:817} \lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:834}
 \end{thm}
 
 \begin{thm}[257rig:c17 --- \texttt{exists\_infinite\_support\_half\_of\_cofinalTerminalOnlyStrip}]
@@ -2898,7 +2898,7 @@ constructs, and since \#249 ($\varphi/2^n$) is itself built from a M\"obius/divi
 structure ($\varphi=\mu*\mathrm{id}$), this carry-nonnegativity mechanism is a strong candidate
 for direct reuse or close adaptation on the \#249 side. The analytic half of 257bm:k12's
 contradiction machine below; also the base case consumed by 257rig:c16's sqrt-bound route.
-\par\noindent\ev{Lean} \scale{uniform} \coord{other:mobius-centred-carry} \lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:870} \lean{mobiusCenteredHalfCarry\_nonneg\_of\_supportSeries\_lt\_half}{HalfCylinderFinalMiddleCellEscape.lean:94}
+\par\noindent\ev{Lean} \scale{uniform} \coord{other:mobius-centred-carry} \lean{integerHalfCarry\_eq\_scaled\_residual\_add\_tail}{HalfCarryReachability.lean:871} \lean{mobiusCenteredHalfCarry\_nonneg\_of\_supportSeries\_lt\_half}{HalfCylinderFinalMiddleCellEscape.lean:94}
 \end{thm}
 
 \begin{thm}[257hg:i7 --- \texttt{halfGreedy\_skipped\_endpoint\_trichotomy} (G5)]
@@ -3392,7 +3392,7 @@ $J\le k+1$ gives a nonnegative frozen margin
 \[
 \mathrm{HalfGreedyGovernedFrozenMarginProducer}\ \Longrightarrow\ (1/2:\mathbb{R})\in\mathcal{A}
 \]
-(\lean{half\_mem\_mersenneAchievementSet\_of\_governedFrozenMarginProducer}{HalfCylinderFiniteShadow.lean:1274},
+(\lean{half\_mem\_mersenneAchievementSet\_of\_governedFrozenMarginProducer}{HalfCylinderFiniteShadow.lean:1275},
 \ev{Lean}), proved via the pre-existing
 \lean{half\_mem\_mersenneAchievementSet\_of\_skipped\_dyadicCap}{GreedyAchievementSet.lean:1444} and the
 excess-sign equivalence already noted above. This is the module's actual promised consumer; the
@@ -4441,7 +4441,7 @@ on the board.
 \begin{obs}[C4c / G3 / greedy carry vs.\ frozen prefix carry, coordinate mismatch] \ev{Lean}
 \lean{GreedyHalfCarryCofinalStripReturn}{CofinalStripReturn.lean:76},
 \lean{greedy\_half\_infinite\_of\_cofinalStripReturn}{CofinalStripReturn.lean:130}, line 157;
-\lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:816},
+\lean{infinite\_support\_half\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:817},
 line 805 (nonnegativity from line 842 /
 \lean{}{HalfCylinderFinalMiddleCellEscape.lean:94}).
 \textbf{Yields:} cofinal returns of the actual greedy carry to the square-root strip (C4c), or a
@@ -4819,9 +4819,9 @@ $1/2\in\mathrm{mersenneAchievementSet}$ directly) for the scope in which they ar
 any of them as an easier waypoint is a mistake this index exists to prevent.
 
 \begin{rem}[hbound is equivalent to the conclusion, greedy support only]
-\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:833}
+\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_sqrtBound}{HalfCarryReachability.lean:834}
 and its packaged form
-\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_upperBound}{HalfCarryReachability.lean:952}
+\lean{greedy\_half\_infinite\_of\_mobiusCenteredHalfCarry\_upperBound}{HalfCarryReachability.lean:953}
 take a hypothesis \texttt{hbound}: $\forall N,\ \mathrm{mobiusCenteredHalfCarry}\,A\,N \le
 2\sqrt N + 4$. For the canonical greedy support $A=\mathrm{greedyMersenneSupport}(1/2)$
 specifically, \texttt{hbound} is logically \emph{equivalent} to the theorem's own conclusion
@@ -5833,7 +5833,7 @@ $k\ge1$,
 \]
 \end{lem}
 \begin{proof}
-By \lean{integerHalfCarry_eq_scaled_residual_add_tail}{HalfCarryReachability.lean:870} (\ev{Lean}),
+By \lean{integerHalfCarry_eq_scaled_residual_add_tail}{HalfCarryReachability.lean:871} (\ev{Lean}),
 \[
 \bigl(\mathtt{integerHalfCarry}\ A\ N:\R\bigr)
 = 2^{\,N+1}\Bigl(\tfrac12-\mathtt{erdosSupportSeries}\ 2\ A\Bigr)
@@ -5875,7 +5875,7 @@ $\Pi^0_1$ goal.
 
 \textbf{Scope limits to be stated verbatim in the docstrings.} (1) does \emph{not} extend to every
 $A$ with $1\notin A$: without
-\lean{erdosSupportSeries_greedyMersenneSupport_le}{HalfCarryReachability.lean:887} (which supplies
+\lean{erdosSupportSeries_greedyMersenneSupport_le}{HalfCarryReachability.lean:888} (which supplies
 $\delta:=1/2-S_G\ge0$ for the greedy support specifically) one obtains only the one-sided
 equivalence $\text{hbound}\iff(1/2-S_A)\le0$. The mechanism in all five cases is the same and
 should be recorded once: $2^{\,N+1}\delta$ dominates any $\sqrt{N}$ envelope, so a strip
@@ -6213,7 +6213,7 @@ socket carries no strategic advantage over proving $\mathrm{HALF}$ outright.
 Neither Prop.~\ref{prop:cpgs-equiv} nor Prop.~\ref{prop:strip-equiv} narrows the search space for
 $\mathrm{HALF}$. Their value is negative: they retire two named targets from the "worth chasing as
 an easier waystation" list. A third socket, the hypothesis $\forall N,\ \mathtt{mobiusCenteredHalfCarry}\,A\,N\le 2\sqrt N+4$
-of \lean{greedy_half_infinite_of_mobiusCenteredHalfCarry_sqrtBound}{HalfCarryReachability.lean:833},
+of \lean{greedy_half_infinite_of_mobiusCenteredHalfCarry_sqrtBound}{HalfCarryReachability.lean:834},
 is likewise proved EQUIVALENT to $\mathrm{HALF}$ for the specific support $A=G$ (Survivor 4,
 \ev{Math, adversarially verified, weakened}) --- not, as originally claimed, for every $A$ with
 $1\notin A$; the general-$A$ version is only a one-sided implication ($\mathrm{hbound}\Rightarrow

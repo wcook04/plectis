@@ -66,6 +66,16 @@ What remains is the planar topology and the length bookkeeping.  Neither is
 proved here, and Erd\H{o}s \#1041 is not settled.
 \end{abstract}
 
+\externalreviewobject{The paper checks exponential Newton-value decay,
+parameterises positive-ray collisions, constructs arbitrarily small
+translations avoiding all collisions in a finite family, and proves root
+retention under a quantified constant perturbation.}{These are dynamical and
+perturbative inputs.  They do not repair the global topology and metric gluing
+needed for a curve of length less than $2$, so Problem~\#1041 remains open.}{Comparator
+selects the finite-family small-translation theorem and the quantified
+root-retention theorem.  The literature diagnosis and finite computation
+remain separate evidence classes.}
+
 \section{The problem}\label{sec:problem}
 
 \begin{problem}[Erd\H{o}s \#1041]\label{res:problem}
@@ -84,11 +94,15 @@ Two recent manuscripts are relevant.  The 48-page manuscript posted by
 \texttt{shtuka} on 24 March 2026
 \cite[Theorem~1, p.~1]{march2026} claims the unrestricted
 statement.  Its Proposition~12 (p.~16, with proof continuing through p.~30)
-supplies the spanning-tree decomposition used in the final proof.  The forum
-discussion did not locate the issue, but the local three-ended saddle
-construction is invalid as written; the exact defect and possible repairs are
-recorded in Section~\ref{sec:gap}.  This is a proof gap, not a counterexample to
-the proposition.  Pendyala's independent June 2026
+supplies the spanning-tree decomposition used in the final proof.  The defect
+was located publicly in the problem's discussion thread: on 25 March 2026 Tao
+observed that the invocation of Lemma~8 there is unjustified and that the flow
+lines need not organise into connected trees, and on 26 March 2026 the
+manuscript's author agreed that the statement of Proposition~12 itself, not
+only its printed proof, is incorrect, and set the strategy aside.  Section~\ref{sec:gap}
+records an independent diagnosis of the same failure through the local
+three-ended saddle model, together with possible repairs.  No counterexample
+to the proposition is exhibited there.  Pendyala's independent June 2026
 preprint \cite[Thm.~1, p.~1]{june2026} proves the degree-four case.  The quartic theorem does
 not close the problem.
 
@@ -113,7 +127,7 @@ Exponential first integral & Checked & $\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0$
 Ray separation of critical values & Checked (consumer form) & Endpoints of a finite connection share one oriented ray; distinct rays exclude a connection. \\
 Ray-collision locus & Checked & $\beta=(ra-b)/(1-r)$, $r>0$, $r\ne1$: one real parameter per pair. \\
 Quartic case & Cited & Proved in \cite[Thm.~1, p.~1]{june2026}; does not extend to general degree. \\
-Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Proof gap & Proposition~12 uses a false three-ended local saddle block; its statement is not refuted and may be repairable. \\
+Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Proof gap & Proposition~12 uses a false three-ended local saddle block; located publicly by Tao (25 March 2026), conceded by the author at statement level (26 March 2026).  No counterexample is exhibited. \\
 Constant-translation ray separation and root retention & Checked & After critical-value injectivity, arbitrary small ray avoidance and an explicit unit-disc margin. \\
 Coefficient perturbation and slack stability & Open & Must first create injective critical values and preserve the component, collars and length budget. \\
 Reeb decomposition and length fan-in & Open & The two surviving producers. \\
@@ -486,7 +500,12 @@ throughout this problem-note series.
 \bibitem{march2026} \texttt{shtuka},
   \emph{A Short Path Joining Two Zeros Inside a Polynomial Lemniscate},
   manuscript posted 24 March 2026, 48~pp.
-  \url{https://shtuka123.github.io/1041/main.pdf}
+  \url{https://shtuka123.github.io/1041/main.pdf}.
+  The file at this URL has since been replaced by a shorter partial version
+  that no longer contains Proposition~12; the durable public record of the
+  March version, its defect, and the author's 26 March 2026 concession is the
+  discussion thread at
+  \url{https://www.erdosproblems.com/forum/thread/1041}.
 \bibitem{june2026} V.~S. Pendyala,
   \emph{A Degree-Four Lemniscate Path Theorem},
   arXiv:2606.24875v1 (2026).

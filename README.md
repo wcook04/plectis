@@ -17,6 +17,12 @@ receipt you can inspect.**
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
 
+**How this was built.** One person sets the direction; large-language-model
+agents write and maintain most of the code. William Cook selects the public
+claims and is responsible for them. That is also why the corpus is built the way
+it is: every component has to leave evidence a separate check can read, because
+the author's own confidence is not the thing being offered.
+
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
 python3 -m pip install .

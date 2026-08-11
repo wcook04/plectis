@@ -30,6 +30,12 @@ and therefore the unconditional identity and irrationality equivalence
 ```
 Problem #251 remains open. Under non-irrationality, the denominator decomposition selects a positive fixed shift that is eventually integral but not eventually confined to $`(-1,1)`$. This is compatible with rationality, not a contradiction. A contradiction would require eventual smallness for that shift, or cofinally many adjacent small shifts at indices where the prime gaps differ; neither is proved. Unboundedness and nonperiodicity of the prime gaps, although both Lean-checked, do not supply either property. Indeed, an explicit unbounded, non-eventually-periodic integer sequence has a rational dyadic sum, so the missing argument must control the full prime-gap tails rather than the coefficients alone.
 
+> **Contribution.** The paper proves the exact prime/prime-gap summation identity, classifies rationality through integral tail shifts, proves that actual prime gaps are unbounded, and gives a nonperiodic rational countermodel to a tempting coefficient-only route.
+>
+> **Relation to the open problem.** These results expose the missing cofinal nonintegrality statement for the actual prime gaps without proving it. Problem #251 remains open.
+>
+> **Executable review object.** Comparator selects the prime-gap unboundedness theorem and the exact irrationality equivalence between the two infinite series, with the summability hypothesis retained. The repository’s external-verification job compares these exact Lean propositions with separately declared challenge statements and an axiom budget, then asks Lean’s kernel to check the submitted proofs. The [formalisation manifest](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml) and the commit-bound CI receipt record that check; they do not assess novelty, significance, or whether the original problem is solved.
+
 <a id="sec:problem"></a>
 
 # Introduction

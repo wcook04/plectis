@@ -26,6 +26,12 @@ The finite channel algebra gives a second rigorous layer. In each channel $`d`$,
 
 No theorem constructs cofinally many non-unit carries, a cofinal family of strictly nonzero translated residuals, or the quantitative residue and scale bounds required by the endpoint arguments. The note therefore proves a carry normal form, finite channel obstructions, and a denominator exclusion—not irrationality of $`S`$.
 
+> **Contribution.** The paper proves exact carry and divisibility equivalences for the factorial-gap series and records a finite denominator exclusion through $`q<300000`$, whose arithmetic certificate is checked outside Lean.
+>
+> **Relation to the open problem.** The equivalences identify the missing cofinal input without supplying it. A finite denominator exclusion does not change the quantifier, and Problem #68 remains open.
+>
+> **Executable review object.** Comparator selects both exact equivalences: cofinal failure of the strict factorial-successor divisibility test and cofinally many non-unit carries. The mixed Lean-plus-certificate denominator computation is reported separately. The repository’s external-verification job compares these exact Lean propositions with separately declared challenge statements and an axiom budget, then asks Lean’s kernel to check the submitted proofs. The [formalisation manifest](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml) and the commit-bound CI receipt record that check; they do not assess novelty, significance, or whether the original problem is solved.
+
 <a id="sec:problem"></a>
 
 # The problem
@@ -61,7 +67,6 @@ The definitions and claim boundary are repeated here so that the note is self-co
 
 | Statement | Status | Exact boundary |
 |:---|:---|:---|
-| Statement | Status | Exact boundary |
 | Irrationality of $`S`$ | Open | No proof is claimed. |
 | Canonical factorial digit kernel | Checked | Floor formula, digit bounds, remainder recurrence, finite expansion, zero-tail propagation. |
 | Channel integrality | Checked | $`(d!)^{\lfloor i/d\rfloor}\mid i!`$, with exact denominator cancellation. |
@@ -93,7 +98,7 @@ This is the factorial base taken in its canonical form. The kernel checks the fl
 x=\lfloor x\rfloor+\sum_{m=2}^{N}\frac{d_m}{m!}
    +\frac{\theta_N}{N!},
 ```
-and the propagation rule: a zero remainder at one index forces every later digit to vanish. These are , , , , the [finite factorial expansion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/8c455842bcc5d17e861816391ec75e85e76a57d3/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196), and the [zero-remainder termination theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/8c455842bcc5d17e861816391ec75e85e76a57d3/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269); they hold for every real $`x`$, not only for $`S`$.
+and the propagation rule: a zero remainder at one index forces every later digit to vanish. These are *canonical digit eq floor mul remainder*, *canonical digit nonneg*, *canonical digit lt radix*, *canonical remainder recurrence*, the [finite factorial expansion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/8c455842bcc5d17e861816391ec75e85e76a57d3/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196), and the [zero-remainder termination theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/8c455842bcc5d17e861816391ec75e85e76a57d3/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269); they hold for every real $`x`$, not only for $`S`$.
 
 The rational direction is also kernel-checked. If $`q>0`$ and $`q\le n`$, then
 ``` math
@@ -152,7 +157,7 @@ defines the integral channel weight $`W_{d,i}`$ obtained by cancelling that fact
 n\,W_{d,n-1}-W_{d,n}=0
   \qquad\text{whenever } d\nmid n .
 ```
-So the channel weight is arithmetically inert except at multiples of $`d`$. The formal statements are , , and .
+So the channel weight is arithmetically inert except at multiples of $`d`$. The formal statements are *factorial pow floor dvd factorial*, *channel weight mul denominator*, and *channel event eq zero of not dvd*.
 
 Let $`\lambda`$ be a finitely supported integer vector on indices $`n\ge2`$, let $`M=M(\lambda)`$ be its factorial moment, and let $`V_{d}(\lambda)`$ be the $`d`$-th channel numerator. The kernel checks two facts about them.
 
@@ -217,7 +222,7 @@ The channel obstruction raises a natural question: can a finite support affect e
 
 The theorem holds for every prime, not merely for sampled primes. Its use is arithmetic rather than analytic: it supplies, at cost zero in the moment, a unit in the $`p`$-channel. Adding an integer multiple of this corrector to any candidate kernel shifts the $`p`$-channel numerator by multiples of $`p!-1`$ and leaves every other channel and the moment untouched.
 
-The consequence is already uniform in the support location. For every channel rank and every prescribed cutoff, Lean constructs a factorial-grid kernel and a remote prime-corrector pair entirely beyond that cutoff, with all requested low channels zero, nonzero factorial moment, and residual in $`[-1/2,1/2]`$; see . What is not available is strict nonvanishing: nothing proved here rules out the rounded residual being exactly zero, and no cofinal family with a strictly nonzero rounded residual has been produced. This is the most direct remaining hypothesis, stated in §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">9</a>.
+The consequence is already uniform in the support location. For every channel rank and every prescribed cutoff, Lean constructs a factorial-grid kernel and a remote prime-corrector pair entirely beyond that cutoff, with all requested low channels zero, nonzero factorial moment, and residual in $`[-1/2,1/2]`$; see *exists remote factorial grid prime translator reduction*. What is not available is strict nonvanishing: nothing proved here rules out the rounded residual being exactly zero, and no cofinal family with a strictly nonzero rounded residual has been produced. This is the most direct remaining hypothesis, stated in §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">9</a>.
 
 <a id="sec:plateau"></a>
 
@@ -316,7 +321,7 @@ The third formal layer converts modular disagreement into exclusion.
 
 </div>
 
-The leave-one-out specialisation $`Q=R/r`$ also follows. More generally, let $`a,b`$ divide $`R`$ and take the complementary projection moduli $`R/a`$ and $`R/b`$. Lean checks the same quotient cancellation and collision-cap comparison for these factor projections. If $`\gcd(a,b)=1`$, then $`\operatorname{lcm}(R/a,R/b)=R`$, and the resulting branch-free factor-pair floor is at most the global complementary residue. The factors $`a,b`$ may both divide one private quotient. Thus the reduction needs no analytic input and no pair of distinct denominator indices, only suitable factors whose projections or factor-pair floor satisfy the stated bound. This is checked in and .
+The leave-one-out specialisation $`Q=R/r`$ also follows. More generally, let $`a,b`$ divide $`R`$ and take the complementary projection moduli $`R/a`$ and $`R/b`$. Lean checks the same quotient cancellation and collision-cap comparison for these factor projections. If $`\gcd(a,b)=1`$, then $`\operatorname{lcm}(R/a,R/b)=R`$, and the resulting branch-free factor-pair floor is at most the global complementary residue. The factors $`a,b`$ may both divide one private quotient. Thus the reduction needs no analytic input and no pair of distinct denominator indices, only suitable factors whose projections or factor-pair floor satisfy the stated bound. This is checked in *factorial block factor projection lcm eq private modulus* and *factorial block complementary factor pair floor le global*.
 
 The transport to the literal factorial block is established directly rather than advisory. Lean builds the collision core $`C`$, private quotients $`r_i`$, private modulus $`R`$, and weighted numerator $`T`$ for the actual denominators $`i!-1`$, and proves both the endpoint congruence modulo $`R`$ and the required coprimality. Moreover, if $`m!-1`$ has canonical large prefix-private primes, then their complete prime-power product divides the single quotient owned by $`m`$ on the tailored block with parameter $`\lfloor m/2\rfloor+1`$, hence divides that block’s $`R`$.
 
@@ -326,7 +331,7 @@ C(S\cup\{a\})
  =\operatorname{lcm}\!\left(C(S),\,
      \gcd\!\left(d_a,\operatorname{lcm}_{j\in S}d_j\right)\right).
 ```
-Indeed, finite-family gcd–lcm distributivity collapses the lcm of all pairwise gcds against $`d_a`$ to this single gcd. The same formula holds after adjoining the distinguished base; see and . Thus each step needs only the old denominator lcm and the old collision core, with no pairwise rescan.
+Indeed, finite-family gcd–lcm distributivity collapses the lcm of all pairwise gcds against $`d_a`$ to this single gcd. The same formula holds after adjoining the distinguished base; see *pairwise collision core insert gcd lcm* and *collision core insert gcd lcm*. Thus each step needs only the old denominator lcm and the old collision core, with no pairwise rescan.
 
 There is also an exact product–lcm bound. If $`\widetilde C(S)`$ denotes the collision core after cancelling a positive distinguished base, while $`L(S)=\operatorname{lcm}_{j\in S}d_j`$ and $`P(S)=\prod_{j\in S}d_j`$, then Lean proves
 ``` math
@@ -334,14 +339,14 @@ There is also an exact product–lcm bound. If $`\widetilde C(S)`$ denotes the c
  \qquad\text{hence}\qquad
  \widetilde C(S)\le \frac{P(S)}{L(S)}.
 ```
-See . For the actual factorial block this specializes to
+See *collision core div base mul denominator lcm dvd denominator prod*. For the actual factorial block this specializes to
 ``` math
 \operatorname{factorialBlockNormalizedCollisionCore}(p)
  \le
  \frac{\displaystyle\prod_{n\in I_p}(n!-1)}
       {\displaystyle\operatorname{lcm}_{n\in I_p}(n!-1)},
 ```
-where $`I_p`$ is the block index set; see . This is an exact quantitative bridge from lower estimates for the factorial-gap lcm to upper estimates for the normalized collision core. It does not itself close the local scale bound: one still needs cofinal estimates strong enough at the selected private factor and factorial scale. A fixed-modulus hit count alone does not supply such control.
+where $`I_p`$ is the block index set; see *factorial block normalized collision core le gap prod div gap lcm*. This is an exact quantitative bridge from lower estimates for the factorial-gap lcm to upper estimates for the normalized collision core. It does not itself close the local scale bound: one still needs cofinal estimates strong enough at the selected private factor and factorial scale. A fixed-modulus hit count alone does not supply such control.
 
 The distinguished-base cancellation is now exact prime by prime. Writing $`B=(p-1)!`$ and $`C`$ for the unnormalised factorial-block collision core,
 ``` math
@@ -349,17 +354,17 @@ The distinguished-base cancellation is now exact prime by prime. Writing $`B=(p-
  =\frac{C}{\gcd(B,C)},\qquad
  v_q(\widetilde C_p)=v_q(C)-\min\{v_q(B),v_q(C)\}.
 ```
-See , , and . Consequently $`q^e\mid\widetilde C_p`$ exactly when the pairwise core carries $`q^{e+v_q(B)}`$; in the factorial block this forces two distinct gaps to be divisible by that higher power. Lean moreover proves the sharp surviving valuation cap
+See *collision core div base eq pairwise collision core div gcd*, *collision core div base factorization*, and *factorial block normalized collision core factorization*. Consequently $`q^e\mid\widetilde C_p`$ exactly when the pairwise core carries $`q^{e+v_q(B)}`$; in the factorial block this forces two distinct gaps to be divisible by that higher power. Lean moreover proves the sharp surviving valuation cap
 ``` math
 v_q(\widetilde C_p)+v_q((p-1)!)<q.
 ```
-Thus every support prime satisfies $`p-1<q(q-1)<q^2`$, and, whenever $`k(k-1)\le p-1`$, $`\widetilde C_p`$ is coprime to $`k!`$; see , , and . This removes every factorial channel below the moving square-root cutoff, but does not yet bound the aggregate product of the remaining large prime powers at the selected quotient, nor force the complementary projections or residues cofinally. It therefore supplies a stronger exact reduction, not an irrationality proof.
+Thus every support prime satisfies $`p-1<q(q-1)<q^2`$, and, whenever $`k(k-1)\le p-1`$, $`\widetilde C_p`$ is coprime to $`k!`$; see *factorial block normalized collision factorization add base lt prime*, *factorial block prime sq gt pred of dvd normalized collision core*, and *factorial block normalized collision core coprime factorial of mul pred le*. This removes every factorial channel below the moving square-root cutoff, but does not yet bound the aggregate product of the remaining large prime powers at the selected quotient, nor force the complementary projections or residues cofinally. It therefore supplies a stronger exact reduction, not an irrationality proof.
 
 For collision estimates that already provide an upper-half hit, no exponent is lost to normalization. If $`q`$ divides a displayed factorial gap at some $`n\ge p`$, then $`q\nmid(p-1)!`$, and Lean proves for every $`e>0`$ that
 ``` math
 q^e\mid\widetilde C_p\quad\Longleftrightarrow\quad q^e\mid C_p.
 ```
-See and . Combined with the two-hit theorem, this identifies every complete normalized upper-hit contribution with repeated full-power load in two distinct displayed gaps. The remaining arithmetic task is to aggregate those moving loads strongly enough for the normalized collision cap; this equivalence does not provide that estimate or the complementary-residue bound.
+See *factorial block prime not dvd base of upper hit* and *factorial block prime power dvd normalized collision core iff of upper hit*. Combined with the two-hit theorem, this identifies every complete normalized upper-hit contribution with repeated full-power load in two distinct displayed gaps. The remaining arithmetic task is to aggregate those moving loads strongly enough for the normalized collision cap; this equivalence does not provide that estimate or the complementary-residue bound.
 
 This bridge has an exact incidence-count form. For an upper-hit prime $`q`$ and every $`e>0`$, Lean proves
 ``` math
@@ -367,7 +372,7 @@ q^e\mid\widetilde C_p
  \quad\Longleftrightarrow\quad
  1<\#\{i\in I_p:q^e\mid i!-1\}.
 ```
-See . Hence a source estimate giving at most one $`q^e`$-hit deletes that exponent from the normalized core and yields $`v_q(\widetilde C_p)<e`$; see . The remaining problem is genuinely aggregate: obtain sufficiently uniform incidence bounds over all moving support primes and exponents, multiply the surviving valuation contributions, and still close the complementary-residue coordinate.
+See *factorial block prime power dvd normalized collision core iff one lt hit count*. Hence a source estimate giving at most one $`q^e`$-hit deletes that exponent from the normalized core and yields $`v_q(\widetilde C_p)<e`$; see *factorial block normalized collision core factorization lt of hit count le one*. The remaining problem is genuinely aggregate: obtain sufficiently uniform incidence bounds over all moving support primes and exponents, multiply the surviving valuation contributions, and still close the complementary-residue coordinate.
 
 The local aggregation is now exact. For every upper-hit prime $`q`$, Lean proves
 ``` math
@@ -376,7 +381,7 @@ v_q(\widetilde C_p)
  \#\left\{e\in[1,q-1]:
    1<\#\{i\in I_p:q^e\mid i!-1\}\right\};
 ```
-see . There is therefore no additional valuation loss between prime-power incidence estimates and the complete local collision exponent. The open step is to bound these layer counts uniformly as $`q`$ and $`p`$ move, then control the product over all surviving primes strongly enough for the normalized collision cap; this theorem does not supply that global estimate.
+see *factorial block normalized collision core factorization eq repeated hit layer count*. There is therefore no additional valuation loss between prime-power incidence estimates and the complete local collision exponent. The open step is to bound these layer counts uniformly as $`q`$ and $`p`$ move, then control the product over all surviving primes strongly enough for the normalized collision cap; this theorem does not supply that global estimate.
 
 The same local load now has a distance-sensitive witness. Put $`B=(p-1)!`$. If $`q`$ is prime, $`e>0`$, and $`q^e\mid\widetilde C_p`$, Lean produces $`i<j`$ in $`I_p`$ such that
 ``` math
@@ -384,28 +389,28 @@ q^{e+v_q(B)}\mid i!-1,\qquad
  q^{e+v_q(B)}\mid j!-1,\qquad
  q^{e+v_q(B)}\le j^{\,j-i}.
 ```
-See . Consequently, if
+See *exists factorial block hit pair with normalized prime power le gap pow*. Consequently, if
 ``` math
 (2p-1)^d<q^{e+v_q(B)},
 ```
-then some such two hits satisfy $`d<j-i`$; see . The spacing hypothesis in that reduction is now discharged internally. If $`q`$ is prime, then any two $`q^e`$-hits $`i<j`$ satisfy $`e<j-i`$, without an endpoint or large-prime hypothesis; see . The point is that $`q\mid j!-1`$ already forces $`j<q`$, while the preceding gap-power inequality converts this automatic size relation into strict separation. Consequently Lean proves the global primewise diameter ceiling
+then some such two hits satisfy $`d<j-i`$; see *exists factorial block hit pair distance gt of endpoint pow lt normalized prime power*. The spacing hypothesis in that reduction is now discharged internally. If $`q`$ is prime, then any two $`q^e`$-hits $`i<j`$ satisfy $`e<j-i`$, without an endpoint or large-prime hypothesis; see *factorial block prime hit pair distance gt exponent*. The point is that $`q\mid j!-1`$ already forces $`j<q`$, while the preceding gap-power inequality converts this automatic size relation into strict separation. Consequently Lean proves the global primewise diameter ceiling
 ``` math
 q\mid\widetilde C_p
  \quad\Longrightarrow\quad
  v_q(\widetilde C_p)+v_q((p-1)!)<2p-3
 ```
-for every prime $`q`$ and $`p\ge2`$; see . The exponent-level version is . Thus the earlier endpoint-prime estimate is a special case, and even primes already present in the normalization base pay for their base valuation inside the same block-diameter budget. This still does not control how many collision primes occur or the product of their bounded powers; those global estimates, together with the complementary-residue bound, remain open.
+for every prime $`q`$ and $`p\ge2`$; see *factorial block normalized collision factorization add base lt block diameter*. The exponent-level version is *factorial block normalized collision exponent add base factorization lt block diameter*. Thus the earlier endpoint-prime estimate is a special case, and even primes already present in the normalization base pay for their base valuation inside the same block-diameter budget. This still does not control how many collision primes occur or the product of their bounded powers; those global estimates, together with the complementary-residue bound, remain open.
 
 The pairwise statement is stronger than the selected-witness form used in that proof. For arbitrary $`q,e`$ and any displayed hits $`i<j`$, Lean proves
 ``` math
 q^e\mid(i!-1),\quad q^e\mid(j!-1)
  \quad\Longrightarrow\quad q^e\le j^{\,j-i};
 ```
-see . Consequently, when $`q`$ is prime and $`e>0`$, every two $`q^e`$-hits in the block—not just one chosen pair—satisfy $`e<j-i`$; see . Every prime-power hit layer is therefore an $`e`$-separated subset of the block. Lean now proves the finite cardinality corollary itself:
+see *factorial block prime power le gap pow of two hits*. Consequently, when $`q`$ is prime and $`e>0`$, every two $`q^e`$-hits in the block—not just one chosen pair—satisfy $`e<j-i`$; see *factorial block prime hit pair distance gt exponent*. Every prime-power hit layer is therefore an $`e`$-separated subset of the block. Lean now proves the finite cardinality corollary itself:
 ``` math
 (e+1)\#\{i\in I_p:q^e\mid i!-1\}\le 2p+e-2
 ```
-for $`p\ge2`$, prime $`q`$, and $`e>0`$; see . The unweighted packing step is therefore complete. What remains is to combine it with the exact repeated-layer valuation identity, sum the prime-power weights over all moving collision primes, and prove a global product bound strong enough for the normalized collision cap.
+for $`p\ge2`$, prime $`q`$, and $`e>0`$; see *factorial block prime power hit count mul succ le*. The unweighted packing step is therefore complete. What remains is to combine it with the exact repeated-layer valuation identity, sum the prime-power weights over all moving collision primes, and prove a global product bound strong enough for the normalized collision cap.
 
 For an endpoint prime carrying one upper-half hit, Lean now performs the first combination exactly. If $`p\ge2`$, $`q`$ is prime, and $`2p-1<q`$, then
 ``` math
@@ -414,7 +419,7 @@ v_q(\widetilde C_p)
  \#\left\{e\in[1,2p-4]:
    1<\#\{i\in I_p:q^e\mid i!-1\}\right\};
 ```
-see . Thus every repeated-hit layer outside the block-diameter window has been removed from the exact local valuation formula. The remaining estimate is still global and weighted: these truncated layer counts must be aggregated over the moving endpoint primes strongly enough to bound their complete prime-power product, and the independent complementary-residue coordinate remains open.
+see *factorial block normalized collision core factorization eq truncated repeated hit layer count*. Thus every repeated-hit layer outside the block-diameter window has been removed from the exact local valuation formula. The remaining estimate is still global and weighted: these truncated layer counts must be aggregated over the moving endpoint primes strongly enough to bound their complete prime-power product, and the independent complementary-residue coordinate remains open.
 
 The endpoint incidence criterion itself no longer needs a selected upper-half anchor. For every prime $`q>2p-1`$ and $`e>0`$, Lean proves
 ``` math
@@ -422,15 +427,15 @@ q^e\mid\widetilde C_p
  \quad\Longleftrightarrow\quad
  1<\#\{i\in I_p:q^e\mid i!-1\};
 ```
-see . Thus an at-most-one $`q^e`$ incidence estimate forces $`v_q(\widetilde C_p)<e`$ without first choosing an upper hit; see . At $`e=2`$ this gives the conditional squarefree conclusion $`v_q(\widetilde C_p)\le1`$; see . More generally the endpoint inequality can be replaced by the exact condition $`q\nmid(p-1)!`$. For every such prime and every $`e>0`$, Lean proves the same hit-count equivalence; see . The at-most-one estimate cuts the normalized valuation below $`e`$, and its $`e=2`$ specialization gives conditional squarefreeness; see and . Every prime $`q\ge p`$ is absent from $`(p-1)!`$, so this covers the entire moving prime range at and above the block parameter. The result remains conditional: no theorem here supplies the uniform prime-square incidence premise or the global weighted product estimate. The squarefreeness premise is not proved. An exhaustive modular scan through $`q\le2{,}000{,}000`$ and $`n\le240`$ found four individual square hits and no prime with two such hits. Separately, all $`498{,}501`$ pairs $`2\le a<b\le1000`$ have squarefree $`\gcd(a!-1,b!-1)`$, and the aggregate squarefree-collision scan through $`p=499`$ stays below $`0.374`$ of the upper-descending-factorial logarithmic scale. These are finite exact computations, not theorem authority or an asymptotic incidence bound.
+see *factorial block prime power dvd normalized collision core iff one lt hit count of endpoint lt base*. Thus an at-most-one $`q^e`$ incidence estimate forces $`v_q(\widetilde C_p)<e`$ without first choosing an upper hit; see *factorial block normalized collision core factorization lt of endpoint lt base of hit count le one*. At $`e=2`$ this gives the conditional squarefree conclusion $`v_q(\widetilde C_p)\le1`$; see *factorial block normalized collision core factorization le one of endpoint lt base of prime sq hit count le one*. More generally the endpoint inequality can be replaced by the exact condition $`q\nmid(p-1)!`$. For every such prime and every $`e>0`$, Lean proves the same hit-count equivalence; see *factorial block prime power dvd normalized collision core iff one lt hit count of not dvd base*. The at-most-one estimate cuts the normalized valuation below $`e`$, and its $`e=2`$ specialization gives conditional squarefreeness; see *factorial block normalized collision core factorization lt of not dvd base of hit count le one* and *factorial block normalized collision core factorization le one of not dvd base of prime sq hit count le one*. Every prime $`q\ge p`$ is absent from $`(p-1)!`$, so this covers the entire moving prime range at and above the block parameter. The result remains conditional: no theorem here supplies the uniform prime-square incidence premise or the global weighted product estimate. The squarefreeness premise is not proved. An exhaustive modular scan through $`q\le2{,}000{,}000`$ and $`n\le240`$ found four individual square hits and no prime with two such hits. Separately, all $`498{,}501`$ pairs $`2\le a<b\le1000`$ have squarefree $`\gcd(a!-1,b!-1)`$, and the aggregate squarefree-collision scan through $`p=499`$ stays below $`0.374`$ of the upper-descending-factorial logarithmic scale. These are finite exact computations, not theorem authority or an asymptotic incidence bound.
 
-Cofinal prefix-private support itself is unconditional. Given any cutoff $`B`$, Lean chooses a prime $`q\ge B!+5`$, uses Wilson’s theorem to obtain $`q\mid(q-2)!-1`$, and takes the least factorial-gap hit $`m`$ of $`q`$. If $`m\le B`$, then $`q\le m!-1\le B!`$, a contradiction. Hence $`m>B`$; see . A finite variant compares the product of a chosen set of primes, each at least $`5`$, with
+Cofinal prefix-private support itself is unconditional. Given any cutoff $`B`$, Lean chooses a prime $`q\ge B!+5`$, uses Wilson’s theorem to obtain $`q\mid(q-2)!-1`$, and takes the least factorial-gap hit $`m`$ of $`q`$. If $`m\le B`$, then $`q\le m!-1\le B!`$, a contradiction. Hence $`m>B`$; see *cofinal prefix private factorial gap hits*. A finite variant compares the product of a chosen set of primes, each at least $`5`$, with
 ``` math
 \prod_{2\le k\le B}(k!-1).
 ```
-If the prime product is larger, at least one chosen prime has no hit through $`B`$, while Wilson still bounds its least hit by $`q-2`$; see . These statements supply private factors, but they do not prove either scale estimate below. In particular, the unconditional construction gives no useful upper bound for $`q`$ in terms of its least hit $`m`$.
+If the prime product is larger, at least one chosen prime has no hit through $`B`$, while Wilson still bounds its least hit by $`q-2`$; see *exists late prefix private factorial gap hit of prime product lt*. These statements supply private factors, but they do not prove either scale estimate below. In particular, the unconditional construction gives no useful upper bound for $`q`$ in terms of its least hit $`m`$.
 
-Wilson reflection also limits what can be inferred from a prime factor merely because it is linear in a later index. If $`n`$ is odd, $`n<q`$, and $`q\mid n!-1`$, then $`q\mid(q-n-1)!-1`$. When both indices lie in the same block and the reflected hit is earlier, equivalently $`q<2n+1`$, this repeated hit survives predecessor-factorial normalization and its full-block incidence count exceeds one; see and and . Thus a linear-size divisor need not be private.
+Wilson reflection also limits what can be inferred from a prime factor merely because it is linear in a later index. If $`n`$ is odd, $`n<q`$, and $`q\mid n!-1`$, then $`q\mid(q-n-1)!-1`$. When both indices lie in the same block and the reflected hit is earlier, equivalently $`q<2n+1`$, this repeated hit survives predecessor-factorial normalization and its full-block incidence count exceeds one; see *prime dvd reflected factorial gap of odd* and *prime dvd factorial block normalized collision core of odd reflection* and *one lt factorial block prime hit count of odd reflection*. Thus a linear-size divisor need not be private.
 
 This warning applies to a genuine source theorem, not an inferred change of sign. Stewart states that for every $`\varepsilon>0`$ there are infinitely many odd $`n`$ whose least prime factor $`q`$ of $`n!-1`$ satisfies
 ``` math
@@ -439,11 +444,11 @@ n<q<
 ```
 the printed text explicitly transfers estimate (9) from $`n!+1`$ to $`n!-1`$ \[stewart2004, p. 464\]. Wilson reflection then supplies the earlier hit $`q\mid(q-n-1)!-1`$. The source controls $`q`$ relative to the later index $`n`$, but it does not control $`q`$ relative to the private first-hit index $`m`$. Accordingly it is collision-core input, not the missing private-anchor or global product estimate.
 
-In fact one selected prime $`q`$ already furnishes the exact coprime factor pair $`(1,q)`$: its projection moduli are $`R`$ and $`R/q`$, whose least common multiple is $`R`$. Thus no second selected prime is needed; see and . There is no hidden equality/disagreement branch in this specialization. Writing $`\rho`$ for the global complementary residue, Lean proves that the unit-pair floor is exactly
+In fact one selected prime $`q`$ already furnishes the exact coprime factor pair $`(1,q)`$: its projection moduli are $`R`$ and $`R/q`$, whose least common multiple is $`R`$. Thus no second selected prime is needed; see *factorial gap large prefix private power modulus dvd tailored block private quotient* and *factorial gap large prefix private primes unit factor pair tailored block*. There is no hidden equality/disagreement branch in this specialization. Writing $`\rho`$ for the global complementary residue, Lean proves that the unit-pair floor is exactly
 ``` math
 \min\{\rho,R/q\};
 ```
-see . Consequently the remaining factor-pair scale comparison must simultaneously beat the global complementary-residue coordinate and the local $`R/q`$ coordinate. After using $`L=CR`$, the latter is precisely the collision-cap comparison with the selected factor $`q`$, while the former is the global complementary-residue lower bound. Lean records this as the exact equivalence
+see *factorial block unit factor pair floor eq min*. Consequently the remaining factor-pair scale comparison must simultaneously beat the global complementary-residue coordinate and the local $`R/q`$ coordinate. After using $`L=CR`$, the latter is precisely the collision-cap comparison with the selected factor $`q`$, while the former is the global complementary-residue lower bound. Lean records this as the exact equivalence
 ``` math
 (2p+1)L < 2p^2(2p-1)!\min\{\rho,R/q\}
  \quad\Longleftrightarrow\quad
@@ -452,7 +457,7 @@ see . Consequently the remaining factor-pair scale comparison must simultaneousl
   (2p+1)Cq < 2p^2(2p-1)!,
  \end{cases}
 ```
-see . Thus the factor reduction has no opaque floor premise left: the two surviving arithmetic estimates are exposed independently and neither follows merely from the existence of the selected prime. The irrationality implication also works for every natural block parameter at least three, not only prime parameters. What remains open is the arithmetic input. Wilson supplies cofinal prefix-private factors without analytic input. The stronger source-backed large-prime selection remains relevant because it supplies a positive-density family and a linear lower bound for $`q`$ relative to the original hit; neither result proves the global complementary-residue bound or the local collision-core bound. The surviving obligation is therefore to prove both sides of this exact branch-free scale split cofinally, packaged by .
+see *factorial block unit factor pair floor scale iff*. Thus the factor reduction has no opaque floor premise left: the two surviving arithmetic estimates are exposed independently and neither follows merely from the existence of the selected prime. The irrationality implication also works for every natural block parameter at least three, not only prime parameters. What remains open is the arithmetic input. Wilson supplies cofinal prefix-private factors without analytic input. The stronger source-backed large-prime selection remains relevant because it supplies a positive-density family and a linear lower bound for $`q`$ relative to the original hit; neither result proves the global complementary-residue bound or the local collision-core bound. The surviving obligation is therefore to prove both sides of this exact branch-free scale split cofinally, packaged by *irrational factorial gap series of cofinal large prefix private unit scale split*.
 
 <a id="sec:nogo"></a>
 
@@ -470,7 +475,7 @@ The following are closed routes. They are part of the result, not caveats attach
 
 - Zero-moment variations cannot create an additional fractional cancellation coordinate (§<a href="#sec:channels" data-reference-type="ref" data-reference="sec:channels">3</a>), and factorial valuations cannot absorb the channel LCM obstruction.
 
-- A fixed pair of low-index private owners cannot make the projection route cofinal. If the owner index $`n`$ is fixed and $`p>n!-1`$, then $`n!-1\mid(p-1)!`$, so its private quotient in the factorial block at $`p`$ is exactly one. Lean checks this uniformly in and checks the two-owner consequence in . Thus the large private quotients seen at small blocks—for example the factor $`719`$ owned at $`n=6`$—are finite-range phenomena. The factor-level reduction does not require two moving denominator indices: two factors inside one moving private quotient can suffice. It still requires selected nontrivial factors that escape with $`p`$.
+- A fixed pair of low-index private owners cannot make the projection route cofinal. If the owner index $`n`$ is fixed and $`p>n!-1`$, then $`n!-1\mid(p-1)!`$, so its private quotient in the factorial block at $`p`$ is exactly one. Lean checks this uniformly in *factorial block private quotient eq one of gap lt* and checks the two-owner consequence in *factorial block fixed pair private quotients eq one*. Thus the large private quotients seen at small blocks—for example the factor $`719`$ owned at $`n=6`$—are finite-range phenomena. The factor-level reduction does not require two moving denominator indices: two factors inside one moving private quotient can suffice. It still requires selected nontrivial factors that escape with $`p`$.
 
 <a id="sec:finite"></a>
 

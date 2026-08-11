@@ -52,7 +52,7 @@
 % are handled locally so authors may write names verbatim.
 % ---------------------------------------------------------------------------
 \newcommand{\PK}{Erdos249257}
-\newcommand{\commit}{d52755f4b3131beacf9affcfc3a7404f55412bfe}
+\newcommand{\commit}{3f2e72a49e0f3d0e4e8f4881fc8f98ccf62c2492}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
 % \lean declaration file:line forms a hyperlink to the pinned public
 % formal-source checkpoint. The second argument is a machine coordinate,
@@ -387,7 +387,7 @@ the base certificate supply and its lcm-diagonal normal form
 the directed-certificate supply and its LCM specialisation
 (\lean{Erdos257PeriodNoncollapse.CofinalDirectedLcmCertificateSupply}{TotientTailCarryPeriod.lean:866}),
 and the window-separated-pairs predicate
-(\lean{Erdos249257.dtwWindowSeparatedPairs\_iff\_irrational\_totient\_series}{PivotAntiReconstruction.lean:1775}).
+(\lean{Erdos249257.dtwWindowSeparatedPairs\_iff\_irrational\_totient\_series}{PivotAntiReconstruction.lean:1765}).
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{prop}
 
@@ -625,7 +625,7 @@ is never used as a premise elsewhere in this document.
   which indices to test collapses to $\mathrm{Irrational}(S)$ outright, because
   irrationality plus doubling expansivity already supplies a two-point sample
   with the required separation
-  (\lean{Erdos249257.dtwWindowSeparatedPairs\_iff\_irrational\_totient\_series}{PivotAntiReconstruction.lean:1775}).
+  (\lean{Erdos249257.dtwWindowSeparatedPairs\_iff\_irrational\_totient\_series}{PivotAntiReconstruction.lean:1765}).
   The mechanism is visible in the converse proof
   (\texttt{windowSeparatedPairsAt\_of\_cofinally\_scaled\_adjacent\_chord},
   \texttt{PivotAntiReconstruction.lean:1663}): it selects $T = \{N, N+1\}$ and
@@ -995,8 +995,8 @@ $16(2X{+}h{+}L{+}2) \le 2^{L}$, and all four of
 \]
 It implies $\mathrm{Irrational}(S)$.
 \coord{first-harmonic} \scale{cofinal} \ev{Lean}
-\lean{Erdos249257.DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:397}
-\lean{Erdos249257.irrational\_totient\_series\_of\_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:405}
+\lean{Erdos249257.DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:563}
+\lean{Erdos249257.irrational\_totient\_series\_of\_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:571}
 \end{defn}
 
 It inherits Survivor 1's evasions of B1, B4, B5, B6 and B7 verbatim: the four
@@ -1004,15 +1004,15 @@ terms are exact finite sums over canonical largest-prime supplier fibres of the
 same accumulated-word phases, with no sample choice and nothing prescribed. Its
 specific advantages are three. The decomposition is an \emph{exact identity},
 proved unconditionally with \texttt{\#print axioms} clean
-(\lean{Erdos249257.windowFirstExp\_sum\_eq\_pivot\_decomposition}{FirstHarmonicPivot.lean:342},
+(\lean{Erdos249257.windowFirstExp\_sum\_eq\_pivot\_decomposition}{FirstHarmonicPivot.lean:508},
 budget consumer
-\lean{Erdos249257.first\_harmonic\_gap\_of\_pivotBudgetAt}{FirstHarmonicPivot.lean:377}).
+\lean{Erdos249257.first\_harmonic\_gap\_of\_pivotBudgetAt}{FirstHarmonicPivot.lean:543}).
 The one-sided budget lowers the hard requirement from a norm bound
 $\lVert \cdot \rVert \le X/2$ to a real-part bound $\le 14X/25$. And the pivot
 rests on genuine arithmetic rather than a sampled surrogate: on the canonical
 fibre $m = 1$, $s = L-h$ the supplier set is \emph{literally} the shifted dyadic
 interval of primes, proved as a membership equality
-(\lean{Erdos249257.mem\_pivotFiber\_one\_overlap\_iff}{FirstHarmonicPivot.lean:251}),
+(\lean{Erdos249257.mem\_pivotFiber\_one\_overlap\_iff}{FirstHarmonicPivot.lean:417}),
 with the totient factorisation at the pivot the honest
 $\varphi(mp) = \varphi(m)(p-1)$ and the non-divisibility discharged by size.
 Three of the four terms are then counting bookkeeping; only the first needs a
@@ -1041,8 +1041,8 @@ $h$ stays a \emph{fixed} distance
 $\ge \arccos(9/10)/2\pi \approx 0.0718$ from every integer.
 It implies $\mathrm{Irrational}(S)$.
 \coord{prime-pivot} \scale{cofinal} \ev{Lean}
-\lean{DTWNaturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:18}
-\lean{irrational\_totient\_series\_of\_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:66}
+\lean{DTWNaturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:157}
+\lean{irrational\_totient\_series\_of\_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:205}
 \end{defn}
 
 It evades B1, B4, B5, B6 and B7 for the reasons given for Survivor 1: a
@@ -2462,7 +2462,7 @@ $\mathtt{totientTail}$ in this batch or in \#257 factors through this identity a
 generic regrouping primitive $\mathtt{tsum\_lambert\_pair\_regroup\_if}$ (proved for arbitrary
 weight functions $|w(d)|\le d$, $|v(m)|\le m$).
 \scale{uniform}\ \ev{Lean}\ \coord{cyclotomic}\\
-\lean{totientTail_eq_tsum_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:535}
+\lean{totientTail_eq_tsum_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:547}
 \end{prop}
 
 \begin{prop}[The rare unconditional deposits — necessary base cases]\label{prop:SK-01-inv}
@@ -3097,8 +3097,8 @@ such). The exact algebraic core underneath is reusable:
 $\mathrm{firstHarmonicAnchorDefect}(h,L,T) = \sum_{N\in T}\|
 \mathrm{windowFirstExp}(h,N,L) - 1\|^2$, and it equals
 $2|T| - 2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L)$.
-\lean{Erdos249257.TotientTailPeriodKiller.firstHarmonicAnchorDefect_eq_sum_norm_sq}{PivotAntiReconstruction.lean:563}
-\quad \lean{Erdos249257.TotientTailPeriodKiller.firstHarmonicAnchorDefect_eq}{PivotAntiReconstruction.lean:551}
+\lean{Erdos249257.TotientTailPeriodKiller.firstHarmonicAnchorDefect_eq_sum_norm_sq}{PivotAntiReconstruction.lean:562}
+\quad \lean{Erdos249257.TotientTailPeriodKiller.firstHarmonicAnchorDefect_eq}{PivotAntiReconstruction.lean:550}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:pivot-fiber}.
 \end{prop}
 
@@ -3106,7 +3106,7 @@ $2|T| - 2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L)$.
 For a finite family $z:T\to\mathbb{C}$ and any set of pairs $P\subseteq
 T\times T$ each separated by $\ge\delta$, $|P|\cdot\delta^2 \le
 \sum_{i,j\in T}\|z_i-z_j\|^2$.
-\lean{Erdos249257.TotientTailPeriodKiller.card_mul_sq_le_sum_pairwise_norm_sq_of_separatedPairs}{PivotAntiReconstruction.lean:724}
+\lean{Erdos249257.TotientTailPeriodKiller.card_mul_sq_le_sum_pairwise_norm_sq_of_separatedPairs}{PivotAntiReconstruction.lean:720}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:pivot-fiber}.
 \end{lem}
 
@@ -3405,7 +3405,7 @@ adaptive truncation budget, and proves the sharper predicate still closes
 \#249 through the existing singleton-certificate endpoint. This is, exactly
 as its own comment states, a reduction: ``the producer itself remains
 unproved.''
-\lean{ErdosProblems.Erdos249.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:66}
+\lean{ErdosProblems.Erdos249.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:205}
 \quad \ev{Lean} (implication proved; antecedent
 \ev{Open})
 \quad \scale{cofinal} \quad \coord{other:first-harmonic}.
@@ -3530,9 +3530,9 @@ guard-cylinder normal form & \lean{exists\_certifiedKill\_iff\_guardCylinderWitn
 fixedRankSecondDifference sign under extremality & \lean{fixedRankSecondDifference}{TotientFixedRankLcmAsymptotic.lean:256} & uniform & $\forall H\,j$, given MiddleRankTotientExtremal & other-fixed-rank-curvature\\
 dyadic fixture exactness (kernel-valuation sharpness) & \lean{fixedRankSecondDifference\_dyadic\_fixture\_exact}{TotientFixedRankLcmAsymptotic.lean:462} & uniform & $\forall n$ (closed-form) & other-fixed-rank-curvature\\
 parityCoboundaryWeight (def) & \lean{parityCoboundaryWeight}{TotientParityCoboundaryCountermodel.lean:59} & uniform & $\forall n$ (definition) & binary-digit\\
-totientTail $=$ positive foreign-residue kernel sum & \lean{totientTail\_eq\_tsum\_positiveForeignResidueKernel}{TotientShiftedMobiusForeignBridge.lean:52} & uniform & $\forall N$ & cyclotomic\\
-totientTail $=$ shifted M\"obius-pulse sum & \lean{totientTail\_eq\_tsum\_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:535} & uniform & $\forall N$ & cyclotomic\\
-Lambert double-sum regroup engine & \lean{tsum\_lambert\_pair\_regroup\_if}{TotientShiftedMobiusPulse.lean:112} & uniform & $\forall w\,v{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d,\,|v(m)|{\le}m)$ & cyclotomic\\
+totientTail $=$ positive foreign-residue kernel sum & \lean{totientTail\_eq\_tsum\_positiveForeignResidueKernel}{TotientShiftedMobiusForeignBridge.lean:61} & uniform & $\forall N$ & cyclotomic\\
+totientTail $=$ shifted M\"obius-pulse sum & \lean{totientTail\_eq\_tsum\_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:547} & uniform & $\forall N$ & cyclotomic\\
+Lambert double-sum regroup engine & \lean{tsum\_lambert\_pair\_regroup\_if}{TotientShiftedMobiusPulse.lean:124} & uniform & $\forall w\,v{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d,\,|v(m)|{\le}m)$ & cyclotomic\\
 carryShift-integrality iff & \lean{carryShift\_dvd\_iff\_tailDiff\_mem\_int}{TotientTailCarryPeriod.lean:77} & uniform & $\forall N\,k$, given tempered orbit & seam-integer\\
 rationality $\Rightarrow$ periodicity \& unbounded rank & \lean{not\_irrational\_totientSeries\_implies\_mod\_period\_and\_unbounded\_rank}{TotientTailCarryPeriod.lean:224} & uniform & $\lnot\mathrm{Irrational}\,S\to\exists v\,u\,\forall e$ & seam-integer\\
 adjugate tail-cost floor $\ge 3$ & \lean{three\_le\_totientAdjugateTailCost}{TotientTailCarryPeriod.lean:266} & uniform & $\forall\ \text{finite}\ w{:}\iota\to\mathbb{Q}\,x{:}\iota\to\mathbb{N}$, given $\sum w_i\varphi(x_i){=}1$ & other-adjugate-linear-algebra\\
@@ -3572,7 +3572,7 @@ punctured staircase penultimate pin & \lean{puncturedDyadicStaircase\_penultimat
 top-edge residue-gap $\Rightarrow$ nonintegral & \lean{actualLcmTailDiff\_notMem\_int\_of\_topEdgeResidueGap}{TotientActualLcmTopEdgeStaircase.lean:1260} & bounded & $\forall a{\ge}8\,\forall J\,K\,m$ (room, one-sided) & mobius-mersenne\\
 odd-rank centred-lift $=$ terminal $-$ true carry & \lean{two\_mul\_actualOddHalfCenteredLift\_eq\_terminal\_sub\_trueCarry}{TotientActualLcmTopEdgeStaircase.lean:1678} & bounded & $\forall a{\ge}8\,\forall q$ (room, fit bound $2(H{+}q{+}2){\le}4^q$) & mobius-mersenne\\
 prime-power kernel valuation floor & \lean{two\_mul\_totient\_dvd\_fixedRankSecondDifference}{TotientFixedRankLcmAsymptotic.lean:519} & bounded & $\forall a{\ge}4\,\forall j{>}0\,(j^2{\le}2^a)$ & other-fixed-rank-curvature\\
-finite rational-separation $\Rightarrow$ $\lnot$ hit (\#257-flavored) & \lean{renormalizedResidueAgreement\_of\_twice\_le}{TotientShiftedMobiusForeignBridge.lean:329} & bounded & $\forall H{>}0\,\forall D{\ge}2H$, given finite separation & mobius-mersenne\\
+finite rational-separation $\Rightarrow$ $\lnot$ hit (\#257-flavored) & \lean{renormalizedResidueAgreement\_of\_twice\_le}{TotientShiftedMobiusForeignBridge.lean:338} & bounded & $\forall H{>}0\,\forall D{\ge}2H$, given finite separation & mobius-mersenne\\
 homogeneous Mersenne multiplier does not annihilate & \lean{idCoeff\_mersenneModulus\_does\_not\_annihilate\_tailShift}{TotientTailCarryPeriod.lean:342} & bounded & $\forall K,q\,(K{>}0,K{<}q,q{\mid}2^K{-}1)$ & mobius-mersenne\\
 numerator-gap $\Rightarrow$ $\lnot$ hit (\#257-flavored) & \lean{scaleFullTarget\_miss\_of\_lambert\_projected\_num\_gap}{LambertProjectedNumeratorGap.lean:23} & bounded & $\forall H,D$ fixed, given uniform numerator-gap bound & mobius-mersenne\\
 periodic-weight Lambert dichotomy & \lean{irrational\_or\_bpow\_mul\_eq\_intCast\_intWeightedErdosSeries\_periodic}{CertificateKernel.lean:14175} & bounded & $\forall b{\ge}2\,\forall m{>}0\,\forall w$ ($w(n{+}m){=}w(n)$) & mobius-mersenne\\
@@ -4431,9 +4431,9 @@ jump) and \lean{CanonicalAdjacentSuffixPowerTwoPostJumpSlackSupply}{DiagonalFres
 (power-of-two positions), each asking $0\le \mathtt{canonicalAdjacentSuffixCentralSlack}(t{+}1)$
 cofinally, and both compose to
 $\mathrm{Irrational}(S)$ at
-\lean{irrational_totientSeries_of_canonicalAdjacentSuffixPostJumpSlackSupply}{DiagonalFreshLossBridge.lean:2937}
+\lean{irrational_totientSeries_of_canonicalAdjacentSuffixPostJumpSlackSupply}{DiagonalFreshLossBridge.lean:2941}
 and
-\lean{irrational_totientSeries_of_canonicalAdjacentSuffixPowerTwoPostJumpSlackSupply}{DiagonalFreshLossBridge.lean:2944}.
+\lean{irrational_totientSeries_of_canonicalAdjacentSuffixPowerTwoPostJumpSlackSupply}{DiagonalFreshLossBridge.lean:2948}.
 \end{defn}
 
 \begin{rem}[Census evidence only]
@@ -5590,7 +5590,7 @@ gives
 $\bigl\|\,\mathrm{windowFirstExp}(h,N,L)-e(2^N\alpha_h)\,\bigr\|
  < 2\pi(N+L+h+2)/2^{L} \le 2\pi/1024 < 1/100$,
 so by
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstCos_le_\allowbreak add_of_tailOrbitGap}{PivotAntiReconstruction.lean:221},
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstCos_le_\allowbreak add_of_tailOrbitGap}{PivotAntiReconstruction.lean:220},
 $\mathrm{windowFirstCos}(h,N,L)\le \cos(2\pi 2^N\alpha_h)+1/100$. Summing over
 the $X$ values $N\in[X,2X)$ gives
 $\sum_N \mathrm{windowFirstCos}(h,N,L)\le \tfrac{89}{100}X+\tfrac{1}{100}X
@@ -5818,14 +5818,14 @@ $16(2X+h+L+2)\le 2^{L}$, and all four of
   &\qquad \bigl\|\mathrm{pivotNonSupplierContribution}\bigr\| &\le \tfrac{8}{25}X .
 \end{aligned}
 \]
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:397},
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:563},
 consumer
-\lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:405}
+\lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:571}
 \quad \ev{Open} \quad \scale{cofinal}. The decomposition is an exact identity,
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:342}
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:508}
 \quad \ev{Lean}, and the supplier set at the canonical fibre is a membership
 equality with a shifted dyadic interval of primes,
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:251}
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:417}
 \quad \ev{Lean}.
 
 \paragraph{One budget has a classical one-sided majorant.}
@@ -5994,9 +5994,9 @@ many multiplicative values. \ev{Open}
   \ \wedge\
   \operatorname{Re}\bigl(\mathrm{tailOrbitFirstExp}(h,\,p-h-1)\bigr)<\tfrac{9}{10}.
 \]
-\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak DTWNaturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:18},
+\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak DTWNaturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:157},
 consumer
-\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak irrational_totient_\allowbreak series_of_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:66}
+\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak irrational_totient_\allowbreak series_of_naturalPrimeTailOrbitStrictGap}{ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean:205}
 \quad \ev{Open} \quad \scale{cofinal}.
 
 \paragraph{What it says, after Lemma~\ref{lem:orbit}.}
@@ -6033,7 +6033,7 @@ The corpus warns against the subset consumer
 \lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak exists_certifiedKill_of_\allowbreak first_harmonic_gap_subset}{FirstHarmonicGap.lean:104}
 because a predicate quantifying existentially over subsets
 $T\subseteq[X,2X)$ is collapse-exposed: the proved collapse
-\lean{Erdos249257.\allowbreak dtwWindowSeparatedPairs_iff_\allowbreak irrational_totient_series}{PivotAntiReconstruction.lean:1775}
+\lean{Erdos249257.\allowbreak dtwWindowSeparatedPairs_iff_\allowbreak irrational_totient_series}{PivotAntiReconstruction.lean:1765}
 works precisely by \emph{choosing} $T=\{N,N+1\}$. That warning applies to a
 free $T$. It does not apply to a $T$ named in advance as a function of
 $(h,X,L)$, and the corpus already contains the right one:
@@ -6042,7 +6042,7 @@ $(h,X,L)$, and the corpus already contains the right one:
   \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},
 \]
 a membership equality rather than a sampled surrogate
-(\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:251},
+(\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:417},
 \ev{Lean}). The proposal is to prove
 \begin{equation}\label{eq:primefibre}
   \forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
