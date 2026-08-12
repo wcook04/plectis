@@ -4575,15 +4575,43 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   font-size: 1.05rem; line-height: var(--lh-snug);
   color: var(--ink); text-wrap: pretty;
 }
+/* The title is the anchor now that the row is a row rather than one link, so it
+   carries the row's own colour and only announces itself on hover. Underlining
+   it at rest would put a rule under every title in the list and turn a reading
+   surface into a link index. */
+#papers .link-row strong a { color: inherit; text-decoration: none; }
+#papers .link-row strong a:hover,
+#papers .link-row strong a:focus-visible {
+  text-decoration: underline; text-underline-offset: 0.18em;
+}
 #papers .link-row .desc {
   max-width: var(--prose); margin-top: 0.15rem;
   font-size: 0.92rem; line-height: 1.55; text-wrap: pretty;
+}
+
+/* Two routes per paper: the typeset document and its source. They sit in the
+   cell the single "Open the PDF" label used to occupy, separated by the same
+   middot the meta line uses, so the row gains a destination without gaining a
+   second visual system. */
+#papers .paper-row__routes {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 0.1rem 0.5rem;
+}
+#papers .paper-row__routes > * + *::before {
+  content: "\00b7"; margin-right: 0.5rem; color: var(--rule);
+}
+#papers .paper-row__route { color: var(--accent); text-decoration: none; }
+#papers .paper-row__route:hover,
+#papers .paper-row__route:focus-visible {
+  text-decoration: underline; text-underline-offset: 0.2em;
 }
 @media (max-width: 640px) {
   #papers .link-row { grid-template-columns: minmax(0, 1fr); }
   #papers .link-row .go {
     grid-column: 1; grid-row: 4; text-align: left; margin-top: 0.35rem;
   }
+  /* Left-aligned with the rest of the row once it drops below the précis. */
+  #papers .paper-row__routes { justify-content: flex-start; }
 }
 
 /* The question sets used to be disclosures inside the "Questions worth asking

@@ -1,0 +1,131 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Shared preamble for the Erdős Problem Notes: the short, standalone,
+% problem-owned manuscripts covering the expansion library `ErdosProblems`.
+%
+% One note owns one Erdős problem.  Each note repeats whatever context its own
+% reader needs, so that a reader who arrives at a single problem never has to
+% assemble it from the gateway paper.  Deliberate repetition across notes is the
+% design, not an oversight.
+%
+% Source links resolve against one pinned formal-source commit, declared once
+% below.  `scripts/check_problem_note_sources.py` verifies that every authored
+% (file, line, declaration) triple names that exact declaration in the pinned
+% snapshot, so a link cannot silently rot as later work moves lines.
+
+\usepackage{paper-house-style}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\setlist{topsep=0.35em,itemsep=0.2em}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
+  citecolor=linkinternal]{hyperref}
+\hypersetup{bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
+  pdfauthor={Will Cook},pdflang={en-GB}}
+
+% ---------------------------------------------------------------------------
+% Pinned formal source.  \commit names the checkpoint every link resolves
+% against; the checker reads that snapshot rather than the working tree, so the
+% printed coordinates stay correct however later waves move declarations.
+% ---------------------------------------------------------------------------
+\newcommand{\commit}{e5fd26a6d1b1a346430205eab5385b4c9565d004}
+\newcommand{\commitshort}{e5fd26a6d1b1}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
+\newcommand{\sourceurl}{https://github.com/wcook04/plectis-lean-erdos249-257/tree/\commit}
+\newcommand{\PX}{ErdosProblems}
+
+% Declaration names stay inside link targets.  The printed label is either a
+% spaced, lower-case reading of the declaration name (\lref) or a short authored
+% phrase (\lword); neither prints a module path or a raw Lean identifier.
+\ExplSyntaxOn
+\cs_new_protected:Npn \noteleanlabel #1
+  {
+    \tl_set:Nx \l_tmpa_tl { \tl_to_str:n {#1} }
+    \regex_replace_all:nnN { _+ } { \c{space} } \l_tmpa_tl
+    \regex_replace_all:nnN
+      { ([a-z0-9])([A-Z]) }
+      { \1\c{space}\2 }
+      \l_tmpa_tl
+    \tl_set:Nx \l_tmpa_tl { \tl_lower_case:n { \tl_use:N \l_tmpa_tl } }
+    \tl_use:N \l_tmpa_tl
+  }
+\ExplSyntaxOff
+\newcommand{\leanlabel}[1]{\noteleanlabel{#1}}
+\newcommand{\lref}[3]{\href{\repobase/\PX/#1\#L#2}{\leanlabel{#3}}}
+\newcommand{\lword}[4]{\href{\repobase/\PX/#1\#L#2}{#4}}
+\newcommand{\lloc}[2]{\href{\repobase/\PX/#1\#L#2}{Lean source}}
+
+% Links into a sibling library, named repository-relative.  The expansion
+% library is implicit in \lref/\lword, because that is where problem-owned
+% work lands.  Several problems have their headline theorem in the older
+% reviewed #249/#257 corpus, and a note that could not name that library
+% would have to paraphrase a checked statement instead of linking it.
+\newcommand{\mref}[3]{\href{\repobase/#1\#L#2}{\leanlabel{#3}}}
+\newcommand{\mword}[4]{\href{\repobase/#1\#L#2}{#4}}
+\newcommand{\mloc}[2]{\href{\repobase/#1\#L#2}{Lean source}}
+\emergencystretch=2em
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Npos}{\mathbb{N}_{>0}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\ph}{\varphi}
+
+% The series line printed under every note's title block.
+\newcommand{\seriesline}{Erd\H{o}s Problem Notes}
+
+% Production provenance.  The wording is fixed by the corpus provenance
+% contract and reproduced verbatim in every manuscript in this repository, so
+% the papers cannot drift into different accounts of how they were made.
+\newcommand{\noteprovenance}{\provenancenote{\emph{Authorship and AI use.} The
+prose, formal proofs, and software in this version were drafted and revised by
+large-language-model agents under Will Cook's direction.  Cook set the
+objectives and acceptance criteria, reviewed and authorised the manuscript, and
+is responsible for its contents.  The agents are production tools, not authors.
+See \emph{Statements and declarations}.}}
+
+% The status paragraph every note carries, in its own words, before any result.
+% Kernel checking establishes the exact Lean proposition; it does not establish
+% that the proposition is the interesting one, that it is new, or that the
+% Erdős problem is closed.
+\newcommand{\statusboundary}{%
+  \emph{Status.}  The problem treated here is open, and this note does not
+  close it.  Every statement below marked as checked is a proposition that the
+  pinned Lean kernel accepts from the sources this note links to, with no
+  \texttt{sorry}, no added axiom, and no unchecked evaluation.  That is a claim
+  about the formal statement, not about its mathematical interest, its
+  novelty, or the original problem.  The unresolved obligations are named
+  exactly, in their own section, and none of the finite computations,
+  reductions, or no-go results here removes one of them.}
+
+% Compact opening card for the separately stated Comparator theorem selected
+% from each problem note.  The prose supplied by each note owns the
+% contribution and relevance judgements; the shared final sentence states the
+% mechanical assurance boundary once and points to the public evidence owner.
+\newcommand{\externalreviewobject}[3]{%
+  \begin{quote}\small
+  \textbf{Contribution.} #1\par
+  \textbf{Relation to the open problem.} #2\par
+  \textbf{Executable review object.} #3  The repository's
+  external-verification job compares these exact Lean propositions with
+  separately declared challenge statements and an axiom budget, then asks
+  Lean's kernel to check the submitted proofs.  The
+  \href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml}%
+  {formalisation manifest} and the commit-bound CI receipt record that check;
+  they do not assess novelty, significance, or whether the original problem is
+  solved.
+  \end{quote}}

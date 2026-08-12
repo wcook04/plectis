@@ -1,0 +1,31 @@
+{
+  "schema": "plectis_site_lean_source_manifest_v1",
+  "standard_ref": "std_publication_manifest#published_artifact_parity_contract",
+  "artifact_collection": "lean",
+  "note": "The Lean claim layer, hosted so a reader or a model can answer what is claimed and at what status without cloning. Each file is recopied from the public Lean repository only after its bytes match the named GitHub main artifact.",
+  "not_hosted": {
+    "reason": "Hosting these would add roughly 129 MB to a static site to serve material that is read by cloning, not by fetching. The claim layer above is what makes a question answerable; these are what make it verifiable, and they are one clone away.",
+    "proofs": "The 697 .lean files (about 57 MB) that carry the proofs: https://github.com/wcook04/plectis-lean-erdos249-257",
+    "declaration_atlas": "docs/declaration_atlas.json (about 72 MB), the full per-declaration atlas: https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/declaration_atlas.json"
+  },
+  "files": [
+    {
+      "hosted_path": "lean/claims.json",
+      "source_repo": "plectis-lean-erdos249-257",
+      "source_ref": "main",
+      "source_path": "docs/claims.json",
+      "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json",
+      "source_sha256": "af10387c3d4ba094e50bc8bf3b6b77f258329bafba275968062bf73836c6aa17",
+      "bytes": 659713
+    },
+    {
+      "hosted_path": "lean/problems.json",
+      "source_repo": "plectis-lean-erdos249-257",
+      "source_ref": "main",
+      "source_path": "docs/problems.json",
+      "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json",
+      "source_sha256": "b4826623720f6d857dbbe4edfbc9a8fd1c4ccd2c4ef33f70deff55e8ef93f0a7",
+      "bytes": 52474
+    }
+  ]
+}
