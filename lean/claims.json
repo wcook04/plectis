@@ -840,8 +840,7 @@
           "which results need novelty review"
         ],
         "read": [
-          "docs/PRIOR_ART.md",
-          "docs/orientation.json"
+          "docs/PRIOR_ART.md"
         ],
         "query_steps": [
           "python3 scripts/query_corpus.py --artifact docs/PRIOR_ART.md",
@@ -932,6 +931,16 @@
       "principal_declaration_index_label": "app:index",
       "claim_anchor_field": "paper_label",
       "companion_sources": [
+        {
+          "title": "A Basis for the 2-Kernel of Euler's Totient",
+          "source": "paper/erdos-249-binary-totient-series.tex",
+          "rendered": "erdos-249-binary-totient-series.pdf",
+          "role": "Standalone theorem-led problem note for Erdős #249 and the dyadic/all-base totient-kernel boundary.",
+          "anchor_label_allowlist": [
+            "res:basis",
+            "res:rank"
+          ]
+        },
         {
           "title": "The Binary Totient Series: a complete working record of Erdős Problem 249",
           "source": "paper/erdos249-totient-reasoning-surface.tex",
@@ -1364,15 +1373,17 @@
             "adelic_height_obstruction",
             "square_crt_correction_suppression",
             "signed_dyadic_moment_substrate",
+            "dyadic_totient_basis",
             "dyadic_totient_certificate_interface",
+            "all_base_totient_kernel_index_reduction",
             "residual_gauge_obstruction",
             "totient_carry_kernel_anti_compression"
           ],
-          "status_summary": "Exact finite obstructions and interfaces with one conditional rank consequence.",
-          "prior_art_posture": "Classical Euler/Möbius, CRT, determinant, and Lambert tools; the selected tail-atom boundary is elementary column-denominator clearing. No completed endpoint or priority claim.",
+          "status_summary": "Exact finite obstructions and interfaces, a constructive dyadic basis, and an all-base arithmetic/spanning layer with exact rank conditional on explicit linear independence.",
+          "prior_art_posture": "Classical Euler/Möbius, CRT, determinant, and Lambert tools; Coons already implies full-kernel infinite rank, and Martin supplies the external all-base affine-independence step. No completed irrationality endpoint or priority claim.",
           "primary_narrative_owner": "docs/claims.json::claims",
           "source_route": "python3 scripts/query_corpus.py --route lambert_obstruction_interfaces",
-          "consumer_or_open_obligation": "Additional all-level independence or arithmetic coupling would be needed.",
+          "consumer_or_open_obligation": "No rationality-to-finite-rank bridge is proved; all-base linear independence remains external to Lean, while spanning and the rank conclusion conditional on that input are checked.",
           "view_decision": "gateway_selected_boundaries_and_living_reference_detail"
         },
         {
@@ -7571,6 +7582,27 @@
           ]
         },
         {
+          "id": "Erdos249257.TotientKernelConditional",
+          "path": "Erdos249257/TotientKernelConditional.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "Erdos249257.TotientKernelReduction",
+            "Erdos249257.TotientKernelIndex"
+          ]
+        },
+        {
+          "id": "Erdos249257.TotientKernelIndex",
+          "path": "Erdos249257/TotientKernelIndex.lean",
+          "role": "Lean proof module",
+          "imports": []
+        },
+        {
+          "id": "Erdos249257.TotientKernelReduction",
+          "path": "Erdos249257/TotientKernelReduction.lean",
+          "role": "Lean proof module",
+          "imports": []
+        },
+        {
           "id": "Erdos249257.TotientMahlerDefect",
           "path": "Erdos249257/TotientMahlerDefect.lean",
           "role": "Finite dyadic-totient rank and certificate interface",
@@ -7660,7 +7692,11 @@
           "path": "ErdosProblems/AxiomAudit.lean",
           "role": "Lean proof module",
           "imports": [
-            "ErdosProblems.Root"
+            "ErdosProblems.Root",
+            "Erdos249257.FirstHarmonicPivot",
+            "Erdos249257.TotientKernelConditional",
+            "Erdos249257.TotientKernelIndex",
+            "Erdos249257.TotientKernelReduction"
           ]
         },
         {
@@ -7980,6 +8016,12 @@
         {
           "id": "ErdosProblems.Erdos1049.HermitePadeNoGo",
           "path": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+          "role": "Lean proof module",
+          "imports": []
+        },
+        {
+          "id": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
+          "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
           "role": "Lean proof module",
           "imports": []
         },
@@ -10228,6 +10270,7 @@
           "imports": [
             "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
             "ErdosProblems.Erdos1049.HermitePadeNoGo",
+            "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
             "ErdosProblems.Erdos1049.RationalBaseLambert",
             "ErdosProblems.Erdos1049.RationalPadeArithmetic",
             "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
@@ -11127,11 +11170,11 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
     "formal_source": {
-      "ref": "63a7f05c17da22556344c74f871bbf34f0c1ede6",
+      "ref": "9e231ce4371fcda607f81c4520d29b16dcb4482e",
       "ref_kind": "commit",
       "publication_state": "published_committed_checkpoint",
-      "relationship_to_last_tag": "at_last_tag",
-      "public_tag": "formal-source-2026-08-03"
+      "relationship_to_last_tag": "post_tag_checkpoint",
+      "public_tag": "formal-source-2026-08-12-r2"
     },
     "public_projection": {
       "posture": "self_contained_public_projection_from_a_larger_ongoing_research_workflow",
@@ -11260,6 +11303,18 @@
         ],
         "historical_attribution": "Erdos, On arithmetical properties of Lambert series (1948), theorem on p. 63 as recorded in the repository's prior-art ledger.",
         "logical_dependency": "The theorem is independently represented and proved in Lean in this repository; the historical source is attribution and fidelity evidence, not an imported kernel dependency."
+      },
+      "totient_kernel_rank": {
+        "source_statement": "Coons proved that Euler's totient sequence is not k-regular for every integer k at least 2, while Martin's affine-totient ordering theorem implies linear independence of every finite family of pairwise nonproportional positive-slope affine totient sections.",
+        "mapping": "The dyadic Lean development gives an independent constructive finite-level basis and rank proof. Its full-kernel infinite-dimensionality corollary is kernel-checked here but is not an independent contribution: for integer-valued sequence modules it is equivalent to Coons's non-k-regularity result. The all-base Lean modules check the zero-channel identity, the exact composite-base scalar reduction, residue coordinates, index cardinality k^e+1, and unconditional spanning by the canonical family. Lean also checks the exact-rank conclusion under an explicit linear-independence hypothesis. Martin remains the external authority for that hypothesis, so the unconditional all-base basis and rank theorem remains a paper conclusion rather than a Lean theorem without assumptions.",
+        "references": [
+          "paper/erdos-249-binary-totient-series.tex",
+          "docs/PRIOR_ART.md",
+          "https://doi.org/10.1017/S0305004108001665",
+          "https://doi.org/10.1007/s11139-004-4633-4"
+        ],
+        "historical_attribution": "Coons for non-k-regularity of Euler's totient sequence; Martin for the positive-density affine ordering theorem from which the paper's finite-family independence step follows.",
+        "logical_dependency": "The dyadic finite-level proof is local. In the all-base development, arithmetic reduction and canonical spanning are unconditional; exact rank is conditional on an explicit linear-independence hypothesis. The paper discharges that hypothesis using Martin externally, whose positive-density theorem is not formalised."
       }
     },
     "main_results": [
@@ -11324,17 +11379,18 @@
         "problem": 249,
         "review_family": "totient_kernel_rank",
         "claim_id": "dyadic_totient_certificate_interface",
-        "contribution_class": "locally proved result; novelty unassessed",
+        "contribution_class": "Lean formalisation of an existing consequence of Coons",
         "original_declaration": "Erdos249257.not_finiteDimensional_span_fullTotientKernel",
         "original_source": "Erdos249257/TotientMahlerDefect.lean",
         "wrapper_declaration": "Erdos249257.ExternalVerification.not_finiteDimensional_span_fullTotientKernel",
         "statement": "The rational span of the full dyadic totient kernel is not finite-dimensional.",
-        "boundary": "No rationality-to-finite-rank bridge is proved."
+        "boundary": "The declaration is kernel-checked locally, but full-kernel infinite-dimensionality is not an independent contribution of this release; no rationality-to-finite-rank bridge is proved."
       },
       {
         "id": "totient_kernel_basis",
         "problem": 249,
         "review_family": "totient_kernel_basis",
+        "claim_id": "dyadic_totient_basis",
         "contribution_class": "locally proved result; novelty unassessed",
         "original_declaration": "Erdos249257.totientDyadicSectionBasis",
         "original_source": "Erdos249257/TotientMahlerDefect.lean",
@@ -11588,11 +11644,19 @@
           },
           {
             "id": "totient_kernel_rank",
-            "contribution_class": "locally proved result; novelty unassessed",
-            "summary": "Exact finite-level rank 2^e+1 and infinite-dimensionality of the full kernel.",
+            "contribution_class": "mixed local finite-level theorem and formalised prior consequence",
+            "summary": "An independent constructive proof of exact finite-level dyadic rank 2^e+1, together with a kernel-checked full-kernel infinite-dimensionality corollary already implied by Coons's non-2-regularity theorem.",
             "evidence_mode": "Lean kernel plus Comparator",
             "comparator_disposition": "targeted",
-            "boundary": "No rationality-to-finite-rank bridge is proved."
+            "boundary": "Only the finite-level rank is presented as an additional result; full-kernel infinite-dimensionality is prior-art context, and no rationality-to-finite-rank bridge is proved."
+          },
+          {
+            "id": "totient_kernel_all_base_index",
+            "contribution_class": "formalised unconditional spanning and conditional rank with external independence input",
+            "summary": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
+            "evidence_mode": "Lean kernel for arithmetic, finite indexing, spanning, and the conditional-rank theorem; paper argument plus Martin's cited theorem for independence",
+            "comparator_disposition": "not_selected_external_independence_boundary",
+            "boundary": "Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input."
           },
           {
             "id": "totient_finite_denominator_exclusion",
@@ -14162,14 +14226,42 @@
       ]
     },
     {
-      "id": "dyadic_totient_certificate_interface",
-      "label": "Unconditional dyadic totient-kernel rank",
+      "id": "dyadic_totient_basis",
+      "label": "Explicit basis of the dyadic totient kernel span",
       "status": "unconditional progress",
-      "statement": "For every e, a CRT–Dirichlet construction produces a separated nonzero evaluation minor for the canonical dyadic totient-kernel family, which is linearly independent with exact span dimension 2^e + 1. Consequently the span of the full dyadic totient kernel is not finite-dimensional over Q. Even residues reduce to odd-core channels, and the compressed-adjoint boundary remains available. These coefficient-side theorems do not prove that S is irrational.",
+      "statement": "Lean constructs an explicit odd-core-indexed basis of the rational span of the full dyadic totient kernel, with exact span equality and linear independence. This is an independent constructive proof route; its infinite-dimensionality consequence is not an independent contribution because Coons's non-2-regularity theorem already implies it.",
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_249_irrationality"
       ],
-      "paper_label": "res:dyadictotient",
+      "paper_label": "res:basis",
+      "readme_headline": false,
+      "declarations": [
+        {
+          "name": "linearIndependent_oddCoreTotientKernelFamily",
+          "module": "Erdos249257/TotientMahlerDefect.lean",
+          "line": 1265
+        },
+        {
+          "name": "span_range_fullTotientKernel_eq_span_range_oddCore",
+          "module": "Erdos249257/TotientMahlerDefect.lean",
+          "line": 1380
+        },
+        {
+          "name": "totientDyadicSectionBasis",
+          "module": "Erdos249257/TotientMahlerDefect.lean",
+          "line": 1392
+        }
+      ]
+    },
+    {
+      "id": "dyadic_totient_certificate_interface",
+      "label": "Dyadic totient-kernel finite-level rank",
+      "status": "unconditional progress",
+      "statement": "For every e, a CRT–Dirichlet construction produces a separated nonzero evaluation minor for the canonical dyadic totient-kernel family, which is linearly independent with exact span dimension 2^e + 1. The same Lean development proves that the full dyadic kernel span is not finite-dimensional, but that corollary is not an independent contribution: it is equivalent, for this integer-valued sequence module, to Coons's non-2-regularity theorem. Even residues reduce to odd-core channels, and the compressed-adjoint boundary remains available. These coefficient-side theorems do not prove that S is irrational.",
+      "remaining_open_proposition_ids": [
+        "remaining_open.erdos_249_irrationality"
+      ],
+      "paper_label": "res:rank",
       "readme_headline": false,
       "declarations": [
         {
@@ -14206,6 +14298,94 @@
           "name": "false_of_compressedAdjointCertificate",
           "module": "Erdos249257/TotientMahlerDefect.lean",
           "line": 1183
+        }
+      ]
+    },
+    {
+      "id": "all_base_totient_kernel_index_reduction",
+      "label": "All-base totient-kernel reduction, spanning, and conditional rank",
+      "status": "proved here",
+      "statement": "For every integer base k at least 2, Lean checks the zero-residue scaling identity, the exact nonzero scalar used in composite-base residue reduction, unique quotient/nonzero-digit coordinates, and cardinality k^e + 1 of the canonical finite-level index. It proves unconditionally that this canonical family spans the complete kernel through level e, and proves exact rank k^e + 1 under the explicit hypothesis that the family is linearly independent. Lean does not prove that hypothesis or formalise Martin's positive-density theorem; the unconditional basis and rank theorem in the paper uses Martin externally.",
+      "remaining_open_proposition_ids": [
+        "remaining_open.erdos_249_irrationality"
+      ],
+      "paper_label": null,
+      "readme_headline": true,
+      "declarations": [
+        {
+          "name": "totient_pow_mul_eq",
+          "module": "Erdos249257/TotientKernelReduction.lean",
+          "line": 60
+        },
+        {
+          "name": "totient_pow_mul_affine_gcd_cross_eq",
+          "module": "Erdos249257/TotientKernelReduction.lean",
+          "line": 117
+        },
+        {
+          "name": "totientKernelSectionIndex_spec",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 124
+        },
+        {
+          "name": "totientKernelResidueAtLevel_injective",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 190
+        },
+        {
+          "name": "existsUnique_totientKernelResidueAtLevel",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 213
+        },
+        {
+          "name": "card_totientKernelSectionLevel",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 241
+        },
+        {
+          "name": "card_totientKernelSectionIndex",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 249
+        },
+        {
+          "name": "card_totientKernelIndex_eq_two_add_sum",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 264
+        },
+        {
+          "name": "card_totientKernelIndex",
+          "module": "Erdos249257/TotientKernelIndex.lean",
+          "line": 277
+        },
+        {
+          "name": "totientKernelReductionScalar_ne_zero",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 35
+        },
+        {
+          "name": "allBaseTotientKernelSeq_mul_residue_step",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 54
+        },
+        {
+          "name": "allBaseTotientKernelSeq_mem_span_canonical_of_le",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 102
+        },
+        {
+          "name": "span_allBaseTotientKernelThroughLevelFamily_eq_canonical",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 185
+        },
+        {
+          "name": "finrank_canonicalAllBaseTotientKernel_eq_of_linearIndependent",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 203
+        },
+        {
+          "name": "finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
+          "module": "Erdos249257/TotientKernelConditional.lean",
+          "line": 215
         }
       ]
     },
@@ -14626,27 +14806,27 @@
         {
           "name": "windowFirstExp_sum_eq_pivot_decomposition",
           "module": "Erdos249257/FirstHarmonicPivot.lean",
-          "line": 342
+          "line": 514
         },
         {
           "name": "PivotBudgetAt",
           "module": "Erdos249257/FirstHarmonicPivot.lean",
-          "line": 371
+          "line": 543
         },
         {
           "name": "first_harmonic_gap_of_pivotBudgetAt",
           "module": "Erdos249257/FirstHarmonicPivot.lean",
-          "line": 377
+          "line": 549
         },
         {
           "name": "DTWPivotResidualDecorrelation",
           "module": "Erdos249257/FirstHarmonicPivot.lean",
-          "line": 397
+          "line": 569
         },
         {
           "name": "irrational_totient_series_of_pivotResidualDecorrelation",
           "module": "Erdos249257/FirstHarmonicPivot.lean",
-          "line": 405
+          "line": 577
         }
       ]
     },

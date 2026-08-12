@@ -623,7 +623,7 @@
         "The exact residue-digit plus coboundary form of an integral carry, together with a function-faithful observer criterion and a finite realised-span consequence."
       ],
       "what_is_not_checked": [
-        "Irrationality or transcendence in any three-prime case. Every two-prime case is settled at transcendence level by a paper argument in the problem note, with Loxton-van der Poorten 1977 (quoted in Bugeaud-Laurent form) as the external engine; the same argument was posted publicly by Steve Fan on the problem's erdosproblems.com discussion page on 26 June 2026, before the note was finalised, so the note claims no priority. The argument is deliberately not formalised here and no Lean declaration asserts it.",
+        "Irrationality or transcendence in any three-prime case.",
         "The derivation of the actual bounded positive carry, including the divisibility required to cancel the absorbed smooth denominator factor, from a hypothetical rational value of the original series.",
         "CofinalLocalWindowEscape for those actual words; it is an explicit hypothesis of the checked consumer, not a theorem.",
         "A proof that the actual three-channel word satisfies the block-null, anchor, or factorisation hypotheses of the migrated abstract consumers.",
@@ -748,10 +748,10 @@
           "module": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
           "path": "ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
           "present": true,
-          "line_count": 345,
-          "declaration_count": 29,
-          "theorem_count": 19,
-          "content_digest": "sha256:7c5542b1d2d9951ce43f5f92f43dc0884f079620c9805ddc96b4dd856d5f36d3"
+          "line_count": 450,
+          "declaration_count": 36,
+          "theorem_count": 25,
+          "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0"
         },
         {
           "module": "ErdosProblems.Erdos1049.HermitePadeNoGo",

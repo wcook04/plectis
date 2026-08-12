@@ -6,9 +6,6 @@
 % `tectonic erdos-1049-rational-base-lambert.tex` or `make`.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-% Problem-specific source pin for all linked #1049 declarations.
-\renewcommand{\commit}{76b5b0a7ed5da7ebf3b9ed3bfd2fb480b6c38ee0}
-\renewcommand{\commitshort}{76b5b0a7ed5d}
 \hypersetup{
   pdftitle={Arithmetic boundaries at base 3/2: coordinatewise clearing and endpoint congruences for Erdős Problem 1049},
   pdfsubject={Erdős Problem Notes: Problem 1049},
@@ -148,7 +145,42 @@ Theorem~3 proves irrationality of
 $\sum_{k\ge1}(cp^k-1)^{-1}$ for an integer $p>1$ and fixed rational $c$
 away from the poles~\cite[Thm.~3, p.~14]{vanassche2001}; it does not cover a
 rational noninteger base $t$ in $F(t)$, because the multiplier needed to
-write $t^k$ over an integer base varies with $k$.  In 2013 Vandehey proved that
+write $t^k$ over an integer base varies with $k$.
+
+The same Lambert value was already the target of Amdeberhan and
+Zeilberger's $q$-WZ construction~\cite{az1998}.  Here $p>1$ is the integer-base
+parameter and the little-$q$ kernel uses $q=p^{-1}$.  The two constructions
+share that bivariate little-$q$-Legendre Pad\'e kernel, but Van Assche's
+diagonal does not satisfy the Amdeberhan--Zeilberger scalar recurrence.
+Amdeberhan--Zeilberger use the moving diagonal
+$P_n(p^{n+1}\mid p^{-1})$, whereas Van Assche uses
+$P_n(p^n\mid p^{-1})$.  Van Assche also records, citing
+Borwein's 1992 Lemma~2, the neighbouring evaluation
+$P_{n-1}(c p^{n+1}\mid p^{-1})$~\cite{borwein1992,vanassche2001}.
+The shared kernel therefore does not license transfer of recurrence,
+endpoint, lattice, or valuation claims between the diagonals.  Indeed, if
+$A_n(p)=P_n(p^n\mid p^{-1})$, exact substitution at $n=0$ into the
+Amdeberhan--Zeilberger operator leaves
+\[
+ -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2),
+\]
+which is nonzero for every real $p>1$.  One nonzero residual is decisive for
+non-transfer of that recurrence.  Lean checks the
+\lword{Erdos1049/QAperyDiagonalNonEquivalence.lean}{67}{vanAsscheQAperyResidualAtZero_eq}{exact
+residual factorisation} and its
+\lword{Erdos1049/QAperyDiagonalNonEquivalence.lean}{94}{vanAsscheQAperyResidualAtZero_ne_zero}{nonvanishing
+for $p>1$}.  These are finite statements at $n=0$; they do not supply a
+recurrence for either diagonal.  No recurrence, endpoint, lattice, or
+valuation statement for one diagonal is used for the other; the displayed
+exact residual is the sole claim made here about their incompatibility.
+
+There is a second distinction at rational base $3/2$.  Over the checked range,
+the raw rational approximation errors decrease while the selected cleared
+integer forms grow from $n\ge2$.  This says that the chosen integerisation does
+not produce small linear forms; it does \emph{not} say that the raw approximants
+fail to converge.
+
+In 2013 Vandehey proved that
 $\sum_{n\ge1}d(n)a_n/b^n$ is irrational whenever $b>1$ is an integer and
 $(a_n)$ ranges in a finite integer alphabet excluding zero; taking
 $a_n=(-1)^n$ completes the elementary digit method for integer bases
@@ -464,7 +496,7 @@ stays inside \(\Z\).  For \(P(X)=\sum_i p_iX^i\in\Z[X]\) and a declared width
  H_W(P)=\sum_{i=0}^{W}p_i\,3^i2^{W-i}.
 \]
 This is the
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{96}{homEvalThreeTwo}{homogeneous
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{98}{homEvalThreeTwo}{homogeneous
 endpoint evaluation}.  It is homogeneous in the sense that \(X^{i}\) is
 replaced by \(3^{i}2^{W-i}\), so the numerator and the denominator of the base
 are carried symmetrically.  When \(W\ge\deg P\) it is exactly the cleared
@@ -518,13 +550,13 @@ endpoint admits \(3\), and spoiling the top endpoint admits \(2\).
 \end{example}
 
 \noindent The congruences are the
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{201}{homEvalThreeTwo_mod_three}{bottom-endpoint
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{203}{homEvalThreeTwo_mod_three}{bottom-endpoint
 identity} and
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{215}{homEvalThreeTwo_mod_two}{top-endpoint
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{320}{homEvalThreeTwo_mod_two}{top-endpoint
 identity}; the unit consequences are the
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{233}{three_not_dvd_homEvalThreeTwo_of_const_unit}{constant-endpoint
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{338}{three_not_dvd_homEvalThreeTwo_of_const_unit}{constant-endpoint
 obstruction} and
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{251}{two_not_dvd_homEvalThreeTwo_of_top_unit}{top-endpoint
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{356}{two_not_dvd_homEvalThreeTwo_of_top_unit}{top-endpoint
 obstruction}.
 
 The proof is two lines, but the shape of the statement is not incidental.  The
@@ -544,7 +576,7 @@ has unit constant endpoint, and an integer
 \end{proposition}
 
 \noindent This is the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{293}{commonMultiplier_not_two_not_three_of_endpoint_units}{common-divisor
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{398}{commonMultiplier_not_two_not_three_of_endpoint_units}{common-divisor
 exclusion}.  The proposition does not say that the two evaluations are coprime;
 it says that whatever they share misses both of the primes that matter at
 \(3/2\).
@@ -595,6 +627,13 @@ homogenisation survives, and modulo a prime dividing $a$ only the constant term
 does.
 \end{proof}
 
+The kernel-checked declaration
+\lref{Erdos1049/ZudilinConeArithmetic.lean}{302}{cyclotomicHomEval_isCoprime_mul}
+proves Proposition~\ref{res:cyclounit} in the same homogeneous-evaluation
+representation.  It checks Proposition~3.6 under the displayed coprimality
+assumptions; it does not certify the later analytic deductions or
+Proposition~8.6.
+
 The methods that reduce denominators at integer bases---the factorial-coset
 quotients of Rhin and Viola~\cite{rhinviola1996} and the order-twelve group and
 cyclotomic divisor of Zudilin~\cite{zudilin2004}---produce their gain as
@@ -631,9 +670,9 @@ vanishing is exactly the requested divisibility:
  J_{2,S}(P)=0\iff 2^S\mid H_W(P).
 \]
 These are the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{189}{bottomJet3_eq_zero_iff_dvd}{bottom-jet
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}{bottom-jet
 divisibility criterion} and
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{195}{topJet2_eq_zero_iff_dvd}{top-jet
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}{top-jet
 divisibility criterion}.  The \emph{four-jet signature} of a coefficient pair
 \((U,V)\) is then the quadruple
 \[
@@ -680,11 +719,11 @@ which proves the stated sufficient threshold.
 \end{proof}
 
 \noindent The target count is the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{129}{fourJetSignature_card}{four-jet
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}{four-jet
 target cardinality}; the abstract collision is the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{140}{exists_distinct_binary_selectors_same_fourJet}{four-jet
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{142}{exists_distinct_binary_selectors_same_fourJet}{four-jet
 pigeonhole kernel}, and the linear sufficient condition is the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{159}{exists_distinct_binary_selectors_same_fourJet_of_rank}{rank--depth
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{161}{exists_distinct_binary_selectors_same_fourJet_of_rank}{rank--depth
 collision threshold}.  The count is a routine pigeonhole; the reformulation
 above is what makes it relevant.  Pigeonhole cancellation itself requires no
 independence.  Additional information about the input family is needed to
@@ -720,7 +759,7 @@ Let \(C_1>0\).  If \(C_0\le0\) or \(2C_0\le C_1\), then
 \noindent Written multiplicatively, the conclusion is \(3^{C_0}<2^{C_1}\).  The
 inequality is immediate from \(\log3<2\log2\) and \(C_1>0\), and
 is the checked
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{323}{three_two_scalar_margin_neg}{three-halves
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}{three-halves
 scalar margin}.  The interest is in the fence around it.  The primary Zudilin
 theorem~\cite[Theorem~1, p.~154; Sec.~5, pp.~161--162]{zudilin2004} supplies an integer-base
 irrationality-exponent estimate on its parameter cone, and the elementary
@@ -998,14 +1037,14 @@ definition and proves elementary memberships and exclusions.  In particular,
 The first two comparisons come respectively from $31^2<4^5$ and
 $4^{200}<31^{81}$; the last comes from $3^{81}<2^{200}$.  The lower bound is
 the checked theorem
-\lword{Erdos1049/ZudilinHeightRegion.lean}{67}{twoFifths_lt_thirtyoneFour_log_ratio}{two-fifths
+\lword{Erdos1049/ZudilinHeightRegion.lean}{65}{twoFifths_lt_thirtyoneFour_log_ratio}{two-fifths
 lower bound}.  Consequently $31/4$, and every positive power $(31/4)^r$, lies
 in the enlarged region
 (\lword{Erdos1049/ZudilinHeightRegion.lean}{45}{thirtyoneFour_mem_zudilinHeightRegion}{checked},
-\lword{Erdos1049/ZudilinHeightRegion.lean}{62}{thirtyoneFour_power_mem_zudilinHeightRegion}{power family}).
+\lword{Erdos1049/ZudilinHeightRegion.lean}{59}{thirtyoneFour_power_mem_zudilinHeightRegion}{power family}).
 The same base lies strictly outside the earlier
 Bundschuh--V\"a\"an\"anen region
-(\lword{Erdos1049/ZudilinHeightRegion.lean}{94}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}{checked}),
+(\lword{Erdos1049/ZudilinHeightRegion.lean}{91}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}{checked}),
 so the $81/200$ inequality defines a strict set-theoretic enlargement of the
 earlier recorded logarithmic region.  Membership alone supplies no
 irrationality theorem for $31/4$.
@@ -1018,8 +1057,8 @@ It still does not approach $3/2$.  The exact comparison
 \]
 is Lean-checked, as is the conclusion that $3/2$ belongs to neither height
 region
-(\lword{Erdos1049/ZudilinHeightRegion.lean}{108}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}{boundary},
-\lword{Erdos1049/ZudilinHeightRegion.lean}{125}{threeHalves_outside_zudilinHeightRegion}{exclusion}).
+(\lword{Erdos1049/ZudilinHeightRegion.lean}{105}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}{boundary},
+\lword{Erdos1049/ZudilinHeightRegion.lean}{122}{threeHalves_outside_zudilinHeightRegion}{exclusion}).
 Thus $81/200$ is the larger of the two explicitly defined cutoffs used below,
 while a cutoff that includes $3/2$ must be strictly larger than
 $\log2/\log3\approx0.6309$.
@@ -1356,13 +1395,13 @@ denominator-cleared gap has the exact expansion
 \]
 Thus for $\rho\ge0$ and $\sigma\ge1+\rho$ the cleared gap is nonpositive, and
 it vanishes exactly when $\rho=0$ and $\sigma=1$
-(\lword{Erdos1049/HermitePadeNoGo.lean}{43}{hpClearedGap_expansion}{exact expansion},
-\lword{Erdos1049/HermitePadeNoGo.lean}{53}{hpClearedGap_nonpos}{nonpositivity},
-\lword{Erdos1049/HermitePadeNoGo.lean}{70}{hpClearedGap_eq_zero_iff}{equality case}).
+(\lword{Erdos1049/HermitePadeNoGo.lean}{48}{hpClearedGap_expansion}{exact expansion},
+\lword{Erdos1049/HermitePadeNoGo.lean}{58}{hpClearedGap_nonpos}{nonpositivity},
+\lword{Erdos1049/HermitePadeNoGo.lean}{75}{hpClearedGap_eq_zero_iff}{equality case}).
 Equivalently, within that model the displayed threshold never exceeds the
 classical one-function margin, with equality only at the classical endpoint
-(\lword{Erdos1049/HermitePadeNoGo.lean}{99}{rectangular_hp_threshold_le_classical}{bound},
-\lword{Erdos1049/HermitePadeNoGo.lean}{121}{rectangular_hp_threshold_eq_classical_iff}{equality}).
+(\lword{Erdos1049/HermitePadeNoGo.lean}{103}{rectangular_hp_threshold_le_classical}{bound},
+\lword{Erdos1049/HermitePadeNoGo.lean}{126}{rectangular_hp_threshold_eq_classical_iff}{equality}).
 This is an algebraic theorem about the four defined exponent expressions and
 only that explicit rectangular model.  It does not construct polynomials,
 remainders, integrality, a determinant, or asymptotics, and it is not a
@@ -1401,13 +1440,15 @@ remains open and is not reduced to any one of these problems.
 fixed toolchain, and the library manifest used in the verification.  This
 manuscript provides navigation rather than proof authority.
 
-\paragraph{Declaration of generative AI use.} Large-language-model agents were
-used throughout development to draft and revise prose, formal proofs, and
-software.  The author set the objectives and acceptance criteria, selected and
-reviewed the claims, and approved the published version.  The author assumes
-responsibility for the accuracy, interpretation, and presentation of the work.
-Generative systems are production tools; they are not authors and supply no
-independent authority.  Lean checks each proof term against the fixed library
+\paragraph{Declaration of generative AI use.} Every word of this manuscript was
+generated by agents based on large language models operating within Will Cook's
+private research system for artificial intelligence. The formal proofs and
+repository software were likewise drafted and revised by the agents through
+that system under Cook's direction. Cook set the objectives and acceptance
+criteria, selected and reviewed the public claims, and approved the published
+version. Cook assumes responsibility for the accuracy, interpretation, and
+presentation of the work. Generative systems are production tools, not authors,
+and supply no independent authority. Lean checks each proof term against the fixed library
 version, and the sources linked here contain no proof placeholders and no
 project-defined axioms; Lean does not authorise the exposition, the citation
 choices, or the interpretation, for which the author remains responsible.
@@ -1422,13 +1463,14 @@ Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 \section{Guide to the formal sources}\label{app:index}
 
 Each linked phrase opens its Lean declaration at the pinned source
-revision~\commitshort.  The declarations of this note live in five modules:
-\texttt{RationalBaseLambert}, \texttt{RationalPadeArithmetic},
-\texttt{ZudilinConeArithmetic}, \texttt{ZudilinHeightRegion}, and
-\texttt{HermitePadeNoGo}.  The first contains the corridor, cleared-tail
-recurrence, and elementary $7/2$ certificate; the remaining four separate the
-Pad\'e exponent arithmetic, endpoint arithmetic, logarithmic comparisons, and
-rectangular exponent model.  The link
+revision~\commitshort.  The declarations of this note live in six modules:
+\texttt{RationalBaseLambert}, \texttt{QAperyDiagonalNonEquivalence},
+\texttt{RationalPadeArithmetic}, \texttt{ZudilinConeArithmetic},
+\texttt{ZudilinHeightRegion}, and \texttt{HermitePadeNoGo}.  The first contains
+the corridor, cleared-tail recurrence, and elementary $7/2$ certificate; the
+second checks the finite $n=0$ diagonal residual; the remaining four separate
+the Pad\'e exponent arithmetic, endpoint arithmetic, logarithmic comparisons,
+and rectangular exponent model.  The link
 coordinates are validated against that pinned revision, so they remain correct
 as later work moves lines in the working tree.
 
@@ -1438,6 +1480,9 @@ as later work moves lines in the working tree.
 
 \begin{tabular}{@{}ll@{}}
 informal statement & linked Lean source\\
+Van Assche diagonal initial values & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{33}{vanAsscheDiagonal_initial_values}\\
+exact $n=0$ residual factorisation & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{67}{vanAsscheQAperyResidualAtZero_eq}\\
+nonzero $n=0$ residual for $p>1$ & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{94}{vanAsscheQAperyResidualAtZero_ne_zero}\\
 corridor predicate & \lrefx{Erdos1049/RationalBaseLambert.lean}{113}{CoordinatewiseCorridor}\\
 corridor bound & \lrefx{Erdos1049/RationalBaseLambert.lean}{121}{coordinatewiseCorridor_implies_pow_lt_linear}\\
 exponential comparison & \lrefx{Erdos1049/RationalBaseLambert.lean}{142}{three_mul_lt_two_pow_succ}\\
@@ -1466,26 +1511,33 @@ row-content determinant factorisation & \lrefx{Erdos1049/RationalPadeArithmetic.
 absolute determinant scaling & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{104}{natAbs_rationalPadeExteriorDet_mul_contents}\\
 content-product divisibility & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{116}{contentProduct_dvd_rationalPadeExteriorDet}\\
 exterior determinant identity & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{124}{rationalPadeExteriorDet_cast_eq}\\
-homogeneous endpoint evaluation & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{96}{homEvalThreeTwo}\\
-four-jet target cardinality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{129}{fourJetSignature_card}\\
-four-jet pigeonhole kernel & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{140}{exists_distinct_binary_selectors_same_fourJet}\\
-rank--depth collision threshold & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{159}{exists_distinct_binary_selectors_same_fourJet_of_rank}\\
-bottom-jet divisibility & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{189}{bottomJet3_eq_zero_iff_dvd}\\
-top-jet divisibility & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{195}{topJet2_eq_zero_iff_dvd}\\
-bottom endpoint modulo three & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{201}{homEvalThreeTwo_mod_three}\\
-top endpoint modulo two & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{215}{homEvalThreeTwo_mod_two}\\
-unit constant endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{233}{three_not_dvd_homEvalThreeTwo_of_const_unit}\\
-unit top endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{251}{two_not_dvd_homEvalThreeTwo_of_top_unit}\\
-common-multiplier exclusion & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{293}{commonMultiplier_not_two_not_three_of_endpoint_units}\\
-irrationality-exponent inequality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{311}{twice_le_of_irrationalityExponent_bounds}\\
-three-halves scalar margin & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{323}{three_two_scalar_margin_neg}\\
+homogeneous endpoint evaluation & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{98}{homEvalThreeTwo}\\
+four-jet target cardinality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}\\
+four-jet pigeonhole kernel & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{142}{exists_distinct_binary_selectors_same_fourJet}\\
+rank--depth collision threshold & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{161}{exists_distinct_binary_selectors_same_fourJet_of_rank}\\
+bottom-jet divisibility & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}\\
+top-jet divisibility & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}\\
+bottom endpoint modulo three & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{203}{homEvalThreeTwo_mod_three}\\
+generic homogeneous evaluation & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{221}{homEval}\\
+left endpoint congruence & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{226}{homEval_mod_left}\\
+right endpoint congruence & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{238}{homEval_mod_right}\\
+left endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{254}{homEval_isCoprime_left_of_const_unit}\\
+right endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{270}{homEval_isCoprime_right_of_top_unit}\\
+two-endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{286}{homEval_isCoprime_mul_of_endpoint_units}\\
+cyclotomic endpoint coprimality (Proposition~3.6) & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{302}{cyclotomicHomEval_isCoprime_mul}\\
+top endpoint modulo two & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{320}{homEvalThreeTwo_mod_two}\\
+unit constant endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{338}{three_not_dvd_homEvalThreeTwo_of_const_unit}\\
+unit top endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{356}{two_not_dvd_homEvalThreeTwo_of_top_unit}\\
+common-multiplier exclusion & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{398}{commonMultiplier_not_two_not_three_of_endpoint_units}\\
+irrationality-exponent inequality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{416}{twice_le_of_irrationalityExponent_bounds}\\
+three-halves scalar margin & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}\\
 $31/4$ logarithmic-region membership & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{45}{thirtyoneFour_mem_zudilinHeightRegion}\\
-positive-power membership & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{62}{thirtyoneFour_power_mem_zudilinHeightRegion}\\
-$31/4$ outside the earlier region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{94}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}\\
-$81/200$ below the $3/2$ log ratio & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{108}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}\\
-$3/2$ outside the $81/200$ region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{125}{threeHalves_outside_zudilinHeightRegion}\\
-rectangular exponent-model bound & \lrefx{Erdos1049/HermitePadeNoGo.lean}{99}{rectangular_hp_threshold_le_classical}\\
-equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{121}{rectangular_hp_threshold_eq_classical_iff}\\
+positive-power membership & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{59}{thirtyoneFour_power_mem_zudilinHeightRegion}\\
+$31/4$ outside the earlier region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{91}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}\\
+$81/200$ below the $3/2$ log ratio & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{105}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}\\
+$3/2$ outside the $81/200$ region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{122}{threeHalves_outside_zudilinHeightRegion}\\
+rectangular exponent-model bound & \lrefx{Erdos1049/HermitePadeNoGo.lean}{103}{rectangular_hp_threshold_le_classical}\\
+equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{126}{rectangular_hp_threshold_eq_classical_iff}\\
 \end{tabular}
 \fi
 
@@ -1505,6 +1557,17 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   $\sum1/(q^{n}+r)$},
   J. Number Theory \textbf{37} (1991), no.~3, 253--259,
   doi:\href{https://doi.org/10.1016/S0022-314X(05)80041-1}{10.1016/S0022-314X(05)80041-1}.
+\bibitem{borwein1992} P.~B. Borwein, \emph{On the irrationality of certain
+  series}, Math. Proc. Cambridge Philos. Soc. \textbf{112} (1992), no.~1,
+  141--146,
+  doi:\href{https://doi.org/10.1017/S030500410007081X}{10.1017/S030500410007081X}.
+  Van Assche cites Lemma~2 for the neighbouring little-$q$-Legendre
+  evaluation used above.
+\bibitem{az1998} T.~Amdeberhan and D.~Zeilberger, \emph{$q$-Ap\'ery
+  irrationality proofs by $q$-WZ pairs}, Adv. Appl. Math. \textbf{20} (1998),
+  no.~2, 275--283,
+  \href{https://arxiv.org/abs/math/9804122}{arXiv:math/9804122},
+  doi:\href{https://doi.org/10.1006/aama.1997.0565}{10.1006/aama.1997.0565}.
 \bibitem{bv1994} P.~Bundschuh and K.~V\"a\"an\"anen,
   \href{https://numdam.org/item/CM_1994__91_2_175_0.pdf}{\emph{Arithmetical
   investigations of a certain infinite product}},
