@@ -10,6 +10,7 @@ const SITE = join(HERE, '..');
 const HTML = readFileSync(join(SITE, 'index.html'), 'utf8');
 const GLOSSARY = readFileSync(join(SITE, 'docs', 'glossary.html'), 'utf8');
 const SOURCE = readFileSync(join(SITE, 'assets', 'landing.js'), 'utf8');
+const DOCS_RUNTIME = readFileSync(join(SITE, 'assets', 'docs.js'), 'utf8');
 const TERM_PREVIEWS = readFileSync(join(SITE, 'assets', 'term-previews.js'), 'utf8');
 
 function glossaryTerm(id) {
@@ -109,6 +110,8 @@ test('Plectis preview explains the name in this project, not only its Latin root
   );
   assert.doesNotMatch(plectis.reader_preview, /[—*]/);
   assert.match(GLOSSARY, /In context, it names the readable public surface/);
+  assert.match(HTML, /assets\/docs\.js\?v=plectis-context-v2/);
+  assert.match(DOCS_RUNTIME, /term-previews\.js\?v=plectis-context-v2/);
 });
 
 test('runtime startup crosses a paint barrier and serializes docs before art', () => {

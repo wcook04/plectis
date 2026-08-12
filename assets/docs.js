@@ -133,7 +133,7 @@
     }
 
     var s = document.createElement('script');
-    s.src = mcAssetUrl('term-previews.js');
+    s.src = mcAssetUrl('term-previews.js?v=plectis-context-v2');
     s.async = true;
     s.setAttribute('data-term-previews', '');
     s.addEventListener('load', function () { completeTermPreviews(mcTermPreviewRecords()); });
