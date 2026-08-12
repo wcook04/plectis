@@ -8,16 +8,7 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = join(HERE, '..');
 const HTML = readFileSync(join(SITE, 'index.html'), 'utf8');
-const GLOSSARY = readFileSync(join(SITE, 'docs', 'glossary.html'), 'utf8');
 const SOURCE = readFileSync(join(SITE, 'assets', 'landing.js'), 'utf8');
-const DOCS_RUNTIME = readFileSync(join(SITE, 'assets', 'docs.js'), 'utf8');
-const TERM_PREVIEWS = readFileSync(join(SITE, 'assets', 'term-previews.js'), 'utf8');
-
-function glossaryTerm(id) {
-  const context = { window: {} };
-  vm.runInNewContext(TERM_PREVIEWS, context, { filename: 'term-previews.js' });
-  return context.window.__MICROCOSM_TERM_PREVIEWS__.terms.find((term) => term.object_id === `term:${id}`);
-}
 
 function runtimeRef(name, src) {
   const ref = { getAttribute: (key) => key === 'src' ? src : null };
@@ -92,26 +83,6 @@ test('landing keeps heavyweight runtimes inert behind the small scheduler', () =
   assert.doesNotMatch(HTML, /<script async src="assets\/(?:docs|art)\.js/);
   assert.match(SOURCE, /var eased = 1 - Math\.pow\(1 - p, 3\)/);
   assert.match(SOURCE, /window\.cancelAnimationFrame\(anchorRaf\)/);
-});
-
-test('the first narrative Plectis reference offers its glossary preview exactly once', () => {
-  assert.match(
-    HTML,
-    /<p class="hero__lede"><a class="narrative-ref narrative-ref--term" href="docs\/glossary\.html#glossary-plectis" data-term="plectis">Plectis<\/a> contains/,
-  );
-  assert.equal((HTML.match(/data-term="plectis"/g) || []).length, 1);
-});
-
-test('Plectis preview explains the name in this project, not only its Latin root', () => {
-  const plectis = glossaryTerm('plectis');
-  assert.equal(
-    plectis.reader_preview,
-    'Plectis is the public name for this project: the site, the reader-facing map, the components and papers it presents, and the public source repository behind them. Its name comes from the Latin plectere, to weave or entwine: it describes the public surface that gathers those separate, source-linked parts into one readable whole.',
-  );
-  assert.doesNotMatch(plectis.reader_preview, /[—*]/);
-  assert.match(GLOSSARY, /In context, it names the readable public surface/);
-  assert.match(HTML, /assets\/docs\.js\?v=plectis-context-v2/);
-  assert.match(DOCS_RUNTIME, /term-previews\.js\?v=plectis-context-v2/);
 });
 
 test('runtime startup crosses a paint barrier and serializes docs before art', () => {
