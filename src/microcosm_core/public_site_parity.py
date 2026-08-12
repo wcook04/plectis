@@ -24,18 +24,28 @@ from typing import Any
 SITE_ROOT_URL = "https://wcook04.github.io/plectis/"
 SOURCE_OF_RECORD = "https://github.com/wcook04/plectis"
 
-JSON_PACKET_PATHS = (
-    "content-manifest.json",
-    "object-map.json",
-    "projection-status.json",
-    "microcosm-ai-reader-digest.json",
-    "microcosm-ai-review-packet.json",
-    "microcosm-ai-reader-complete.json",
+CANONICAL_PACKET_PATHS = (
     "plectis-ai-reader-digest.json",
     "plectis-ai-review-packet.json",
     "plectis-ai-reader-complete.json",
 )
-HTML_PATHS = ("index.html", "plectis.html")
+LEGACY_PACKET_REDIRECTS = {
+    "microcosm-ai-reader-digest.json": "plectis-ai-reader-digest.json",
+    "microcosm-ai-review-packet.json": "plectis-ai-review-packet.json",
+    "microcosm-ai-reader-complete.json": "plectis-ai-reader-complete.json",
+}
+LEGACY_PACKET_PATHS = tuple(LEGACY_PACKET_REDIRECTS)
+CANONICAL_HTML_PATHS = ("index.html",)
+LEGACY_HTML_REDIRECTS = {"plectis.html": SITE_ROOT_URL}
+
+JSON_PACKET_PATHS = (
+    "content-manifest.json",
+    "object-map.json",
+    "projection-status.json",
+    *LEGACY_PACKET_PATHS,
+    *CANONICAL_PACKET_PATHS,
+)
+HTML_PATHS = CANONICAL_HTML_PATHS + tuple(LEGACY_HTML_REDIRECTS)
 TEXT_PATHS = ("llms.txt",)
 REQUIRED_PATHS = JSON_PACKET_PATHS + HTML_PATHS + TEXT_PATHS
 HASHED_PATHS = tuple(
@@ -43,14 +53,7 @@ HASHED_PATHS = tuple(
     for path in REQUIRED_PATHS
     if path not in {"projection-status.json", "plectis.html"}
 )
-PACKET_PATHS = (
-    "microcosm-ai-reader-digest.json",
-    "microcosm-ai-review-packet.json",
-    "microcosm-ai-reader-complete.json",
-    "plectis-ai-reader-digest.json",
-    "plectis-ai-review-packet.json",
-    "plectis-ai-reader-complete.json",
-)
+PACKET_PATHS = CANONICAL_PACKET_PATHS
 
 
 @dataclass(frozen=True)
@@ -361,6 +364,48 @@ def _packet_authority_errors(payload: dict[str, Any], rel: str) -> list[dict[str
     return errors
 
 
+def _legacy_packet_pointer_errors(payload: dict[str, Any], rel: str) -> list[dict[str, Any]]:
+    """Validate that a retired Microcosm packet points at its Plectis replacement."""
+    target = LEGACY_PACKET_REDIRECTS[rel]
+    expected_fields = {
+        "schema": "plectis_public_moved_artifact_v1",
+        "status": "moved",
+        "this_path": rel,
+        "moved_to": target,
+        "canonical_url": SITE_ROOT_URL + target,
+    }
+    return [
+        {
+            "code": "legacy_packet_pointer_mismatch",
+            "path": rel,
+            "field": field,
+            "expected": expected,
+            "actual": payload.get(field),
+        }
+        for field, expected in expected_fields.items()
+        if payload.get(field) != expected
+    ]
+
+
+def _legacy_html_redirect_errors(text: str, rel: str) -> list[dict[str, Any]]:
+    """Validate that a retired HTML path remains an explicit redirect to its canonical page."""
+    target = LEGACY_HTML_REDIRECTS[rel]
+    expected_phrases = (
+        f'<link rel="canonical" href="{target}">',
+        f'<meta http-equiv="refresh" content="0; url={target}">',
+        f'<a href="{target}">{target}</a>',
+    )
+    return [
+        {
+            "code": "legacy_html_redirect_missing",
+            "path": rel,
+            "phrase": phrase,
+        }
+        for phrase in expected_phrases
+        if phrase not in text
+    ]
+
+
 def _check_snapshot(
     snapshot: SiteSnapshot,
     *,
@@ -432,6 +477,9 @@ def _check_snapshot(
                         "other": compare_to.label,
                     }
                 )
+
+    for rel in LEGACY_PACKET_PATHS:
+        errors.extend(_legacy_packet_pointer_errors(payloads[rel], rel))
 
     for rel in PACKET_PATHS:
         payload = payloads[rel]
@@ -531,7 +579,7 @@ def _check_snapshot(
         "Six example claims to try to break.",
         "standalone public repository",
     )
-    for rel in HTML_PATHS:
+    for rel in CANONICAL_HTML_PATHS:
         text = snapshot.files[rel].decode("utf-8", errors="replace")
         for phrase in required_html_phrases:
             if phrase not in text:
@@ -593,11 +641,13 @@ def _check_snapshot(
                         }
                     )
 
+    for rel in LEGACY_HTML_REDIRECTS:
+        text = snapshot.files[rel].decode("utf-8", errors="replace")
+        errors.extend(_legacy_html_redirect_errors(text, rel))
+
     for rel in (
         "plectis-ai-review-packet.json",
-        "microcosm-ai-review-packet.json",
         "plectis-ai-reader-complete.json",
-        "microcosm-ai-reader-complete.json",
     ):
         raw = snapshot.files.get(rel)
         if raw is None:
