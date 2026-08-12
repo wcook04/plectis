@@ -4237,8 +4237,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   margin: 0.3rem 0 1.4rem;
 }
 .docs-main .paper-entry {
-  max-width: var(--prose);
-  padding: 1.15rem 0 1.35rem;
+  max-width: 44rem;
+  padding: 2.9rem 0 2.6rem;
   border-top: 1px solid var(--rule);
 }
 /* Subject, kind of document, and length -- the same identity line the landing
@@ -4248,7 +4248,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    bearing rather than decorative. */
 .docs-main .paper-entry__meta {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.5rem;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.6rem;
   font-family: var(--font-sans); font-size: var(--fs-micro);
   letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
   color: var(--faint);
@@ -4256,46 +4256,86 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .docs-main .paper-entry__meta > * + *::before {
   content: "\00b7"; margin-right: 0.5rem; color: var(--rule);
 }
-.docs-main .paper-entry__subject { color: var(--ink-soft); font-weight: 600; }
+/* The problem number is what a reader scans thirteen entries for, so it is the
+   one thing in the identity line allowed to carry weight and colour. */
+.docs-main .paper-entry__subject {
+  color: var(--accent); font-weight: 700;
+  font-size: var(--fs-small); letter-spacing: var(--tracking-kicker);
+}
 .docs-main .paper-entry[data-subject-kind="system"] .paper-entry__subject {
   color: var(--muted); font-weight: 500;
 }
 .docs-main .paper-entry__pages { font-variant-numeric: tabular-nums; }
-.docs-main .paper-entry h3 { margin: 0 0 0.3rem; font-size: var(--fs-h3); }
+/* The title is the anchor of the record and has to look like it. At --fs-h3 it
+   set at 1.06rem, a hair above the question line directly beneath it, so the
+   entry opened with three near-identical text blocks and nothing to enter by. */
+.docs-main .paper-entry h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(1.35rem, 2.3vw, 1.62rem);
+  line-height: 1.18; letter-spacing: -0.012em;
+  text-wrap: balance; max-width: 26ch;
+}
+/* The orientation question, in the serif italic. Question and précis were both
+   set in the running roman at nearly one size, so the two jobs read as one long
+   paragraph; the italic separates the line that sorts a reader onto this shelf
+   from the line that settles whether this is the paper they wanted. */
 .docs-main .paper-entry__question {
-  margin: 0 0 0.5rem; color: var(--ink-soft); line-height: var(--lh-snug);
+  margin: 0 0 0.95rem;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 1.06rem; line-height: 1.5;
+  color: var(--muted);
+  max-width: 58ch; text-wrap: pretty;
 }
 /* The abstract compressed. It sits below the orientation question because the
    question is what sorts a reader onto this shelf, and the précis is what
    settles whether this is the paper they wanted once they are on it. */
+/* The précis is the reading matter of the record, so it is set as body text and
+   not as caption. At --fs-meta it was smaller than the question above it and
+   the same grey as the apparatus below it, which is what made a shelf of
+   thirteen read as one undifferentiated column. */
 .docs-main .paper-entry__precis {
-  margin: 0 0 0.85rem; color: var(--muted);
-  font-size: var(--fs-meta); line-height: 1.55; text-wrap: pretty;
-  overflow-wrap: anywhere;
+  margin: 0 0 1.4rem; color: var(--ink-soft);
+  font-size: 1rem; line-height: 1.72; text-wrap: pretty;
+  max-width: 64ch; overflow-wrap: anywhere;
 }
 .docs-main .paper-entry__state {
   margin: 0 0 0.85rem; color: var(--warn-warm); font-size: var(--fs-meta);
   line-height: var(--lh-snug);
 }
-.docs-main .paper-entry__body { margin: 0; display: grid; gap: 0.5rem; }
+/* Scope: what the paper explains, what it is not authority for, and where to
+   start. This was a two-column table with a 9.5rem uppercase label cell, which
+   put three uppercase labels beside every entry -- thirty-nine of them down a
+   catalogue of thirteen -- and left "Not authority for" wrapping onto two lines
+   inside its own cell while its value sat beside the ragged result. The labels
+   now run in at the head of their line, the way a catalogue or a dictionary
+   sets them, so they cannot wrap into a column and the block reads as the
+   annotation it is rather than as a form stapled under the abstract. The rule
+   in the margin is what marks it as an aside; nothing here is boxed. */
+.docs-main .paper-entry__body {
+  margin: 0; padding-top: 0.85rem;
+  border-top: 1px solid var(--rule);
+  display: grid; gap: 0.35rem;
+}
 .docs-main .paper-entry__row {
-  display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 0.9rem;
-  font-size: var(--fs-meta); line-height: var(--lh-snug);
+  display: block;
+  font-size: var(--fs-small); line-height: 1.5;
 }
 .docs-main .paper-entry__row dt {
-  color: var(--faint); font-size: var(--fs-small);
-  letter-spacing: var(--tracking-kicker); text-transform: uppercase;
+  display: inline; margin-right: 0.45rem;
+  font-family: var(--font-sans); font-size: var(--fs-micro); font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--faint);
 }
-.docs-main .paper-entry__row dd { margin: 0; color: var(--muted); }
+.docs-main .paper-entry__row dd { display: inline; margin: 0; color: var(--faint); }
 .docs-main .paper-entry__aside { color: var(--faint); }
+/* The routes are the only actionable thing in the record, so they sit clear of
+   the scope aside rather than tucked against its last line. */
 .docs-main .paper-entry__routes {
-  margin: 0.95rem 0 0; font-size: var(--fs-meta); color: var(--faint);
+  margin: 0.85rem 0 0; font-size: var(--fs-meta); font-weight: 600;
+  color: var(--faint);
 }
 .docs-main .paper-entry__repo { font-family: var(--font-mono); font-size: var(--fs-small); }
-
-@media (max-width: 620px) {
-  .docs-main .paper-entry__row { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
-}
 
 .paper-flagship {
   margin: 0 0 2rem; padding-top: 1.35rem;
@@ -4535,8 +4575,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 #papers .link-rows { max-width: 780px; }
 #papers .link-row {
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.3rem 1.2rem;
-  padding-block: 1.25rem;
+  gap: 0.35rem 1.2rem;
+  padding-block: 1.5rem;
   align-items: start;
 }
 #papers .link-row .paper-row__meta { grid-column: 1; grid-row: 1; }
@@ -4570,9 +4610,14 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 }
 #papers .paper-row__pages { font-variant-numeric: tabular-nums; }
 
+/* The title carries the row. At 1.05rem it sat between a meta line above and a
+   précis below that were nearly the same size, so thirteen rows read as one
+   grey column; a little more size and a tighter line make each row start
+   somewhere. */
 #papers .link-row strong {
   font-family: var(--font-serif); font-weight: 600;
-  font-size: 1.05rem; line-height: var(--lh-snug);
+  font-size: 1.14rem; line-height: 1.28;
+  letter-spacing: -0.005em;
   color: var(--ink); text-wrap: pretty;
 }
 /* The title is the anchor now that the row is a row rather than one link, so it
@@ -4585,8 +4630,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   text-decoration: underline; text-underline-offset: 0.18em;
 }
 #papers .link-row .desc {
-  max-width: var(--prose); margin-top: 0.15rem;
-  font-size: 0.92rem; line-height: 1.55; text-wrap: pretty;
+  max-width: 62ch; margin-top: 0.25rem;
+  font-size: 0.92rem; line-height: 1.62; text-wrap: pretty;
 }
 
 /* Two routes per paper: the typeset document and its source. They sit in the
