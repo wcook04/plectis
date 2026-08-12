@@ -995,8 +995,8 @@ $16(2X{+}h{+}L{+}2) \le 2^{L}$, and all four of
 \]
 It implies $\mathrm{Irrational}(S)$.
 \coord{first-harmonic} \scale{cofinal} \ev{Lean}
-\lean{Erdos249257.DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:563}
-\lean{Erdos249257.irrational\_totient\_series\_of\_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:571}
+\lean{Erdos249257.DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:397}
+\lean{Erdos249257.irrational\_totient\_series\_of\_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:405}
 \end{defn}
 
 It inherits Survivor 1's evasions of B1, B4, B5, B6 and B7 verbatim: the four
@@ -1004,15 +1004,15 @@ terms are exact finite sums over canonical largest-prime supplier fibres of the
 same accumulated-word phases, with no sample choice and nothing prescribed. Its
 specific advantages are three. The decomposition is an \emph{exact identity},
 proved unconditionally with \texttt{\#print axioms} clean
-(\lean{Erdos249257.windowFirstExp\_sum\_eq\_pivot\_decomposition}{FirstHarmonicPivot.lean:508},
+(\lean{Erdos249257.windowFirstExp\_sum\_eq\_pivot\_decomposition}{FirstHarmonicPivot.lean:342},
 budget consumer
-\lean{Erdos249257.first\_harmonic\_gap\_of\_pivotBudgetAt}{FirstHarmonicPivot.lean:543}).
+\lean{Erdos249257.first\_harmonic\_gap\_of\_pivotBudgetAt}{FirstHarmonicPivot.lean:377}).
 The one-sided budget lowers the hard requirement from a norm bound
 $\lVert \cdot \rVert \le X/2$ to a real-part bound $\le 14X/25$. And the pivot
 rests on genuine arithmetic rather than a sampled surrogate: on the canonical
 fibre $m = 1$, $s = L-h$ the supplier set is \emph{literally} the shifted dyadic
 interval of primes, proved as a membership equality
-(\lean{Erdos249257.mem\_pivotFiber\_one\_overlap\_iff}{FirstHarmonicPivot.lean:417}),
+(\lean{Erdos249257.mem\_pivotFiber\_one\_overlap\_iff}{FirstHarmonicPivot.lean:251}),
 with the totient factorisation at the pivot the honest
 $\varphi(mp) = \varphi(m)(p-1)$ and the non-divisibility discharged by size.
 Three of the four terms are then counting bookkeeping; only the first needs a
@@ -5818,14 +5818,14 @@ $16(2X+h+L+2)\le 2^{L}$, and all four of
   &\qquad \bigl\|\mathrm{pivotNonSupplierContribution}\bigr\| &\le \tfrac{8}{25}X .
 \end{aligned}
 \]
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:563},
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:397},
 consumer
-\lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:571}
+\lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:405}
 \quad \ev{Open} \quad \scale{cofinal}. The decomposition is an exact identity,
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:508}
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:342}
 \quad \ev{Lean}, and the supplier set at the canonical fibre is a membership
 equality with a shifted dyadic interval of primes,
-\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:417}
+\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:251}
 \quad \ev{Lean}.
 
 \paragraph{One budget has a classical one-sided majorant.}
@@ -6042,7 +6042,7 @@ $(h,X,L)$, and the corpus already contains the right one:
   \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},
 \]
 a membership equality rather than a sampled surrogate
-(\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:417},
+(\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:251},
 \ev{Lean}). The proposal is to prove
 \begin{equation}\label{eq:primefibre}
   \forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
