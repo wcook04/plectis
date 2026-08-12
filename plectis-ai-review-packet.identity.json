@@ -1,0 +1,21 @@
+{
+  "schema": "plectis_packet_identity_sidecar_v1",
+  "describes": "plectis-ai-review-packet.json",
+  "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
+  "exact_byte_sha256": "sha256:d22123ce6095440121baccf0f4638e4108181b7ae94d97e80088fd82e701cd67",
+  "byte_count": 14085170,
+  "payload_sha256_excluding_identity": "sha256:96630aa8b8ef4ca9ff0cfa3a0c914d21f470dc4520570222a81b5bf63b388f78",
+  "source_fingerprint": "a46c56b0c366395189df71fc836b5209",
+  "packet_schema": "microcosm_ai_review_packet_v2",
+  "lean_release_version": "0.8.0",
+  "formal_source_ref": "9e231ce4371fcda607f81c4520d29b16dcb4482e",
+  "formal_source_public_tag": "formal-source-2026-08-12-r2",
+  "repository_heads_at_build": {
+    "plectis": "2f1696db492f00317113ef21d821c6b1ffdee443",
+    "plectis-lean-erdos249-257": "6f90a03b623284e723bfa3c204edefd9ddd2bad4"
+  },
+  "source_integrity": "verified_current",
+  "suggested_local_filename": "plectis-ai-review-packet-0.8.0-r2-9e231ce.json",
+  "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
+  "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
+}
