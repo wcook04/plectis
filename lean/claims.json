@@ -14796,13 +14796,33 @@
       "id": "first_harmonic_pivot_decomposition",
       "label": "Complex first-harmonic pivot decomposition",
       "status": "conditional reduction",
-      "statement": "Removing the pivot phase gives an exact decomposition of the block first-harmonic sum into a centred supplier-fibre correlation, a supplier-fibre mean term, a bad-supplier term, and a non-supplier term. At a positive scale satisfying the explicit dyadic-room inequality, if the real part of the centred term is at most 14X/25 and the other three norms are at most X/100, X/100, and 8X/25, then the real first-harmonic sum is at most 9X/10 and yields a finite certificate. A cofinal supply of these budgets implies irrationality of S. No prime-distribution or decorrelation estimate supplying the budgets is proved.",
+      "statement": "For each positive cofactor m at most sqrt(X)/2, the canonical supplier fibre is exactly the injective image of the primes p in the shifted product interval under N = mp - (L-s+1). This exact bijection does not make a supplier prime globally isolated: at X=16, L=20, s=1, m=2, N=18 the pivot is 38=2*19, while the same prime 19 divides the distinct window argument N+1=19. Removing the pivot phase gives an exact decomposition of the block first-harmonic sum into a centred supplier-fibre correlation, a supplier-fibre mean term, a bad-supplier term, and a non-supplier term. At a positive scale satisfying the explicit dyadic-room inequality, if the real part of the centred term is at most 14X/25 and the other three norms are at most X/100, X/100, and 8X/25, then the real first-harmonic sum is at most 9X/10 and yields a finite certificate. A cofinal supply of these budgets implies irrationality of S. No global supplier-prime isolation, prime-distribution estimate, or decorrelation estimate supplying the budgets is proved.",
       "remaining_open_proposition_ids": [
         "remaining_open.unbounded_certificate_supply"
       ],
       "paper_label": null,
       "readme_headline": false,
       "declarations": [
+        {
+          "name": "mem_pivotFiber_iff_exists_supplierPrime",
+          "module": "Erdos249257/FirstHarmonicPivot.lean",
+          "line": 299
+        },
+        {
+          "name": "pivotBaseOfPrime_injective_on_supplierPrimes",
+          "module": "Erdos249257/FirstHarmonicPivot.lean",
+          "line": 367
+        },
+        {
+          "name": "image_pivotSupplierPrimes_eq_pivotFiber",
+          "module": "Erdos249257/FirstHarmonicPivot.lean",
+          "line": 384
+        },
+        {
+          "name": "supplierPrime_not_globally_isolated_counterexample",
+          "module": "Erdos249257/FirstHarmonicPivot.lean",
+          "line": 394
+        },
         {
           "name": "windowFirstExp_sum_eq_pivot_decomposition",
           "module": "Erdos249257/FirstHarmonicPivot.lean",

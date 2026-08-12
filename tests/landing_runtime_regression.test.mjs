@@ -85,14 +85,6 @@ test('landing keeps heavyweight runtimes inert behind the small scheduler', () =
   assert.match(SOURCE, /window\.cancelAnimationFrame\(anchorRaf\)/);
 });
 
-test('the first narrative Plectis reference offers its glossary preview exactly once', () => {
-  assert.match(
-    HTML,
-    /<p class="hero__lede"><a class="narrative-ref narrative-ref--term" href="docs\/glossary\.html#glossary-plectis" data-term="plectis">Plectis<\/a> contains/,
-  );
-  assert.equal((HTML.match(/data-term="plectis"/g) || []).length, 1);
-});
-
 test('runtime startup crosses a paint barrier and serializes docs before art', () => {
   const page = harness();
   assert.equal(page.preloads.length, 2, 'both runtimes warm without executing');

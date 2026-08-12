@@ -232,6 +232,13 @@ core)**
   irrationality criterion at `7/2` is checked (`RationalBaseLambert.lean:83`);
   the analytic theorem itself remains external. Formalisation of known
   inputs.
+- The Van Assche moving diagonal fails the Amdeberhan–Zeilberger scalar
+  recurrence already at `n=0`: its exact residual is
+  `-p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2)`, strictly negative for every real
+  `p>1` (`QAperyDiagonalNonEquivalence.lean:67,94`). This finite obstruction
+  proves only non-transfer of that recurrence; it supplies no general
+  recurrence, endpoint, lattice, valuation, denominator, or irrationality
+  theorem. Registry: none.
 - Open: irrationality at `3/2`; the primitive noncollapsed construction;
   analytic remainder control. The note proves no irrationality result and
   says so.

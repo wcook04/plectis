@@ -770,6 +770,15 @@
           "declaration_count": 13,
           "theorem_count": 12,
           "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa"
+        },
+        {
+          "module": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
+          "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+          "present": true,
+          "line_count": 102,
+          "declaration_count": 11,
+          "theorem_count": 4,
+          "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1"
         }
       ],
       "note": {
@@ -793,7 +802,8 @@
         "That the source integer-base ratio inequality implies a strictly negative scalar product-formula margin at three halves.",
         "That the four-jet target has exact cardinality (3^R)^2(2^S)^2 and, for positive R, any family with n at least 4R+2S forces two distinct binary selectors to collide; their {-1,0,1} difference cancels all four endpoint jets.",
         "That the rectangular Hermite-Pade threshold never improves on the classical one in the checked exponent model, with equality characterised exactly.",
-        "The exact 81/200 height region: 31/4 and every positive power lie inside it and outside the earlier Bundschuh-Vaananen region, while 3/2 lies outside both."
+        "The exact 81/200 height region: 31/4 and every positive power lie inside it and outside the earlier Bundschuh-Vaananen region, while 3/2 lies outside both.",
+        "At n = 0, the Amdeberhan-Zeilberger q-Apery operator applied to Van Assche's moving diagonal has residual -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2), which is strictly negative and nonzero for every real p > 1."
       ],
       "what_is_not_checked": [
         "Irrationality at base three halves, or for any rational base.",
@@ -802,7 +812,8 @@
         "The source analytic irrationality theorem inside the 81/200 height region; only its elementary parameter specialisations are formalised.",
         "A sufficiently large primitive-normalised, non-collapsed coefficient family meeting the checked n >= 4R+2S threshold at the required quadratic depths.",
         "That one of the resulting bounded-coefficient collision vectors has a nonzero polynomial pair, lies outside the analytic remainder nullspace, and has sufficient local gain.",
-        "Positivity or decay of the elementary Padé remainder; only its exponent arithmetic is checked."
+        "Positivity or decay of the elementary Padé remainder; only its exponent arithmetic is checked.",
+        "Any general recurrence, endpoint, lattice, valuation, denominator, or irrationality conclusion from the n = 0 q-Apery residual; it proves only that the named scalar recurrence does not transfer to Van Assche's diagonal."
       ],
       "open_obligations": [
         {

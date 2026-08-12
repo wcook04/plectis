@@ -4664,18 +4664,86 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .claim-statements li:last-child { border-bottom: 0; }
 .claim-more > p:last-child { color: var(--muted); max-width: var(--prose); }
 
-/* ---- Demonstration rows (no player chrome while unpublished) -------------- */
+/* ---- Demonstration rows: one still per published cut ---------------------- */
+/* Three cuts of one demonstration read as a list of prose until each row shows
+   a frame from the video it links to. The still is the affordance that says
+   "these are videos" before a word is read; the duration sits on the frame in
+   the ordinary video grammar rather than in a column of its own, and the watch
+   link left the heading (where an inline pill hung off the baseline) for the
+   action line under the logline, flush with the disclosures below it. No player
+   is embedded: the still is a same-origin image and the link opens YouTube. */
+/* This fold carries figures, so its body takes the wider measure while the prose
+   inside it stays at the reading measure. Every rule in the section then spans
+   the same width, and no paragraph runs long to buy the stills their size. */
+#demo-videos .fold__body { max-inline-size: 880px; }
+#demo-videos .fold__intro { max-inline-size: var(--reading-measure); }
 .demo-provenance { font-size: var(--fs-meta); color: var(--faint); max-width: var(--prose); }
-.demo-rows { list-style: none; margin: 0.4rem 0 0; padding: 0; max-width: 860px; }
+.demo-rows { list-style: none; margin: 0.6rem 0 0; padding: 0; }
 .demo-row {
-  display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 1.15rem;
-  padding: 1.15rem 0 1.2rem; border-top: 1px solid var(--rule);
+  display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 1.6rem;
+  padding: 1.5rem 0 1.6rem; border-top: 1px solid var(--rule);
+  align-items: start;
+}
+.demo-row__body { min-width: 0; }
+.demo-row__thumb {
+  position: relative; display: block; overflow: hidden;
+  aspect-ratio: 16 / 9; text-decoration: none;
+  border: 1px solid var(--rule-strong); border-radius: var(--r-lg);
+  background: var(--surface-sunk);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.demo-row__still {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 260ms ease;
+}
+.demo-row__play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(10, 8, 12, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+.demo-row__play::before {
+  content: ""; display: block;
+  border-left: 12px solid #fff;
+  border-top: 7.5px solid transparent;
+  border-bottom: 7.5px solid transparent;
+  margin-left: 3px;
+  transition: border-left-color 150ms ease;
 }
 .demo-row__duration {
-  justify-self: start; align-self: start; margin-top: 0.12rem;
-  font-family: var(--font-mono); font-size: var(--fs-small); color: var(--muted);
-  border: 1px solid var(--rule-strong); border-radius: var(--r-pill);
-  padding: 0.16rem 0.55rem; font-variant-numeric: tabular-nums; white-space: nowrap;
+  position: absolute; right: 7px; bottom: 7px;
+  font-family: var(--font-mono); font-size: var(--fs-micro);
+  color: #f5efe4; background: rgba(10, 8, 12, 0.78);
+  border-radius: var(--r-sm); padding: 0.1rem 0.38rem;
+  font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.6;
+}
+/* Hovering the still, or reaching its watch link by keyboard, lights the same
+   card: the still is mouse-only chrome (aria-hidden, out of the tab order), so
+   the link is what a keyboard user lands on and the frame answers to it. */
+.demo-row__thumb:hover,
+.demo-row:has(.demo-row__watch:hover) .demo-row__thumb,
+.demo-row:has(.demo-row__watch:focus-visible) .demo-row__thumb {
+  border-color: var(--link-ext); box-shadow: var(--shadow);
+}
+.demo-row__thumb:hover .demo-row__still,
+.demo-row:has(.demo-row__watch:hover) .demo-row__still { transform: scale(1.025); }
+.demo-row__thumb:hover .demo-row__play,
+.demo-row:has(.demo-row__watch:hover) .demo-row__play,
+.demo-row:has(.demo-row__watch:focus-visible) .demo-row__play {
+  background: var(--link-ext); border-color: var(--link-ext);
+  transform: translate(-50%, -50%) scale(1.07);
+}
+.demo-row__thumb:hover .demo-row__play::before,
+.demo-row:has(.demo-row__watch:hover) .demo-row__play::before,
+.demo-row:has(.demo-row__watch:focus-visible) .demo-row__play::before {
+  border-left-color: #17100a;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-row__still, .demo-row__play, .demo-row__thumb { transition: none; }
+  .demo-row__thumb:hover .demo-row__still,
+  .demo-row:has(.demo-row__watch:hover) .demo-row__still { transform: none; }
 }
 .demo-row__title { font-size: var(--fs-h3); font-family: var(--font-sans); letter-spacing: 0; margin-bottom: 0.25rem; }
 .demo-row__state {
@@ -4685,23 +4753,18 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   border: 1px solid var(--rule-strong); border-radius: var(--r-pill);
   padding: 0.1rem 0.5rem;
 }
-.demo-row__watch {
-  display: inline-block; vertical-align: 0.12em; margin-left: 0.5rem;
-  font-size: var(--fs-micro); font-weight: 600; letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase; color: var(--accent); text-decoration: none;
-  border: 1px solid currentColor; border-radius: var(--r-pill);
-  padding: 0.1rem 0.5rem; white-space: nowrap;
-}
-.demo-row__watch:hover, .demo-row__watch:focus-visible { color: var(--accent-strong); }
-.demo-row__logline { color: var(--muted); font-size: 0.95rem; max-width: var(--prose); margin-bottom: 0.45rem; }
+.demo-row__logline { color: var(--muted); font-size: 0.95rem; max-width: var(--prose); margin-bottom: 0.5rem; }
+.demo-row__actions { margin: 0 0 0.25rem; }
 .demo-row__note { max-width: var(--prose); }
 .demo-row__note summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
 .demo-row__note summary:hover { color: var(--accent-strong); }
 .demo-row__note-body { padding: 0.45rem 0 0.6rem; color: var(--muted); font-size: var(--fs-body); }
 .demo-row__note-body p + p { margin-top: 0.6rem; }
 .demo-row__note-body ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
-@media (max-width: 560px) {
-  .demo-row { grid-template-columns: minmax(0, 1fr); gap: 0.45rem; }
+/* Below the two-column threshold the still goes full width above its text, so
+   the frame keeps its size instead of shrinking into a stamp. */
+@media (max-width: 660px) {
+  .demo-row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; padding: 1.3rem 0 1.4rem; }
 }
 
 /* ---- Grouped contact directory ------------------------------------------- */
@@ -4715,19 +4778,22 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 }
 .section__head + .link-group-label { margin-top: 0.4rem; }
 
-/* Bound-state watch link for a published demonstration: same chip geometry as
-   the unpublished state, in the outbound-gold link colour. The binding lane in
-   the outreach workbench swaps the state chip for this anchor when a cut's
-   YouTube URL goes live. */
+/* Bound-state watch link for a published demonstration, in the outbound-gold
+   link colour. The binding lane in the outreach workbench swaps the state chip
+   for this anchor when a cut's YouTube URL goes live. It reads as a link rather
+   than a pill: the still above it already carries the button, and an uppercase
+   chip inside the heading is what hung off the baseline before. */
 .demo-row__watch {
-  display: inline-block; vertical-align: 0.12em; margin-left: 0.5rem;
-  font-size: var(--fs-micro); font-weight: 700; letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase; color: var(--link-ext);
-  border: 1px solid var(--link-ext); border-radius: var(--r-pill);
-  padding: 0.1rem 0.5rem; text-decoration: none;
+  display: inline-block; font-size: var(--fs-meta); font-weight: 600;
+  letter-spacing: 0; text-transform: none; color: var(--link-ext);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--link-ext) 45%, transparent);
+  text-underline-offset: 0.22em; text-decoration-thickness: 1px;
 }
 .demo-row__watch:hover,
-.demo-row__watch:focus-visible { color: var(--accent-strong); border-color: var(--accent-strong); text-decoration: none; }
+.demo-row__watch:focus-visible {
+  color: var(--link-ext); text-decoration-color: var(--link-ext);
+}
 
 /* ---- Landing depth disclosures -------------------------------------------- */
 /* One chevron grammar for the landing's depth controls (specimen mechanics,

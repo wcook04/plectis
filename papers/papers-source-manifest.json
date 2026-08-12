@@ -37,13 +37,13 @@
       "source_repo": "plectis-lean-erdos249-257",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-249-binary-totient-series.pdf",
-      "source_sha256": "d9ac45fae80c417ea397f0586efb70120c0fe4dd888c7e90f8780a007d740274",
-      "bytes": 153697,
+      "source_sha256": "8938d66f619c1eeace226dad71419696e93da5476f17f96b11df15f23661aec3",
+      "bytes": 154919,
       "source_tex_path": "paper/erdos-249-binary-totient-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex",
       "hosted_tex_path": "papers/source/plectis-lean-erdos249-257/paper/erdos-249-binary-totient-series.tex",
-      "hosted_tex_sha256": "c1dcd44fce4efb221200a091dd221f58ce69a5ccbbb4b99116bd70e18d5f3f3a",
-      "tex_bytes": 70724
+      "hosted_tex_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+      "tex_bytes": 71582
     },
     {
       "hosted_path": "papers/erdos249-totient-reasoning-surface.pdf",
