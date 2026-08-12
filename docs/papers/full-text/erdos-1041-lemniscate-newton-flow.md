@@ -14,6 +14,12 @@ Along a trajectory of the complex Newton field $`-f/f'`$ the polynomial value sa
 
 What remains is the planar topology and the length bookkeeping. Neither is proved here, and Erdős \#1041 is not settled.
 
+> **Contribution.** The paper checks exponential Newton-value decay, parameterises positive-ray collisions, constructs arbitrarily small translations avoiding all collisions in a finite family, and proves root retention under a quantified constant perturbation.
+>
+> **Relation to the open problem.** These are dynamical and perturbative inputs. They do not repair the global topology and metric gluing needed for a curve of length less than $`2`$, so Problem #1041 remains open.
+>
+> **Executable review object.** Comparator selects the finite-family small-translation theorem and the quantified root-retention theorem. The literature diagnosis and finite computation remain separate evidence classes. The repository’s external-verification job compares these exact Lean propositions with separately declared challenge statements and an axiom budget, then asks Lean’s kernel to check the submitted proofs. The [formalisation manifest](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml) and the commit-bound CI receipt record that check; they do not assess novelty, significance, or whether the original problem is solved.
+
 <a id="sec:problem"></a>
 
 # The problem
@@ -26,7 +32,7 @@ What remains is the planar topology and the length bookkeeping. Neither is prove
 
 Numbering and current status follow Bloom’s Erdős problem catalogue \[bloom\]. The problem is open. The original source is Problem 5 on printed p. 139 of Erdős–Herzog–Piranian \[ehp1958, p. 139\]; the preceding paragraph records the known input that one component of the lemniscate contains at least two zeros.
 
-Two recent manuscripts are relevant. The 48-page manuscript posted by `shtuka` on 24 March 2026 \[march2026, Theorem 1, p. 1\] claims the unrestricted statement. Its Proposition 12 (p. 16, with proof continuing through p. 30) supplies the spanning-tree decomposition used in the final proof. The forum discussion did not locate the issue, but the local three-ended saddle construction is invalid as written; the exact defect and possible repairs are recorded in Section <a href="#sec:gap" data-reference-type="ref" data-reference="sec:gap">4</a>. This is a proof gap, not a counterexample to the proposition. Pendyala’s independent June 2026 preprint \[june2026, Thm. 1, p. 1\] proves the degree-four case. The quartic theorem does not close the problem.
+Two recent manuscripts are relevant. The 48-page manuscript posted by `shtuka` on 24 March 2026 \[march2026, Theorem 1, p. 1\] claims the unrestricted statement. Its Proposition 12 (p. 16, with proof continuing through p. 30) supplies the spanning-tree decomposition used in the final proof. The defect was located publicly in the problem’s discussion thread: on 25 March 2026 Tao observed that the invocation of Lemma 8 there is unjustified and that the flow lines need not organise into connected trees, and on 26 March 2026 the manuscript’s author agreed that the statement of Proposition 12 itself, not only its printed proof, is incorrect, and set the strategy aside. Section <a href="#sec:gap" data-reference-type="ref" data-reference="sec:gap">4</a> records an independent diagnosis of the same failure through the local three-ended saddle model, together with possible repairs. No counterexample to the proposition is exhibited there. Pendyala’s independent June 2026 preprint \[june2026, Thm. 1, p. 1\] proves the degree-four case. The quartic theorem does not close the problem.
 
 The object we work with is not the lemniscate directly but the flow that foliates it.
 
@@ -40,7 +46,7 @@ The object we work with is not the lemniscate directly but the flow that foliate
 | Ray separation of critical values | Checked (consumer form) | Endpoints of a finite connection share one oriented ray; distinct rays exclude a connection. |
 | Ray-collision locus | Checked | $`\beta=(ra-b)/(1-r)`$, $`r>0`$, $`r\ne1`$: one real parameter per pair. |
 | Quartic case | Cited | Proved in \[june2026, Thm. 1, p. 1\]; does not extend to general degree. |
-| Unrestricted proof of \[march2026, Theorem 1, p. 1\] | Proof gap | Proposition 12 uses a false three-ended local saddle block; its statement is not refuted and may be repairable. |
+| Unrestricted proof of \[march2026, Theorem 1, p. 1\] | Proof gap | Proposition 12 uses a false three-ended local saddle block; located publicly by Tao (25 March 2026), conceded by the author at statement level (26 March 2026). No counterexample is exhibited. |
 | Constant-translation ray separation and root retention | Checked | After critical-value injectivity, arbitrary small ray avoidance and an explicit unit-disc margin. |
 | Coefficient perturbation and slack stability | Open | Must first create injective critical values and preserve the component, collars and length budget. |
 | Reeb decomposition and length fan-in | Open | The two surviving producers. |
@@ -62,7 +68,7 @@ Let $`z(t)`$ be differentiable with $`z'(t)=N(z(t))`$, and put $`w(t)=f(z(t))`$.
 
 </div>
 
-The computation is one line: $`w'=f'(z)\,z'=f'(z)\cdot(-f(z)/f'(z))=-f(z)=-w`$. The kernel checks it as , together with the differential form of the first integral, :
+The computation is one line: $`w'=f'(z)\,z'=f'(z)\cdot(-f(z)/f'(z))=-f(z)=-w`$. The kernel checks it as *newton flow value has deriv at*, together with the differential form of the first integral, *newton flow scaled value has deriv at zero*:
 ``` math
 \frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
   \qquad\text{equivalently}\qquad
@@ -98,7 +104,7 @@ The cost of that condition is also checked, and it is small.
 
 </div>
 
-So each pair of critical values contributes a one-real-parameter forbidden locus in the translation plane, given in closed form (). A finite union of such loci has empty interior, which is the shape one wants for an avoidance argument. Turning that into a perturbation of $`f`$ is not immediate: the translation model must be replaced by an actual perturbation of the roots that keeps them inside $`\mathbb{D}`$ and preserves the length slack. That is the first open producer of §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">6</a>.
+So each pair of critical values contributes a one-real-parameter forbidden locus in the translation plane, given in closed form (*translated same positive ray parameterization*). A finite union of such loci has empty interior, which is the shape one wants for an avoidance argument. Turning that into a perturbation of $`f`$ is not immediate: the translation model must be replaced by an actual perturbation of the roots that keeps them inside $`\mathbb{D}`$ and preserves the length slack. That is the first open producer of §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">6</a>.
 
 <a id="sec:gap"></a>
 
@@ -228,11 +234,11 @@ and give budgets that keep the perturbation, tree error and transfer cost below 
 
 ## 4. Coefficient perturbation and stability
 
-The constant-translation stage is no longer open. Once a finite critical-value family is injective, Lean proves an arbitrarily small translation making every value nonzero and pairwise positive-ray separated (). It also proves the explicit root-retention estimate; a shift below $`\varepsilon`$ keeps all roots in the unit disc when
+The constant-translation stage is no longer open. Once a finite critical-value family is injective, Lean proves an arbitrarily small translation making every value nonzero and pairwise positive-ray separated (*exists small translation separating arguments*). It also proves the explicit root-retention estimate; a shift below $`\varepsilon`$ keeps all roots in the unit disc when
 ``` math
 ((n+1)\varepsilon)^{1/n}+\rho<1
 ```
-(). A constant translation cannot separate initially equal critical values.
+(*constant perturbation roots in unit disk*). A constant translation cannot separate initially equal critical values.
 
 <div id="prob:perturb1041" class="problem">
 
@@ -285,7 +291,13 @@ Erdős #1041 remains open. The source now publicly verifies the Newton kernel, 
 
 # Statements and declarations
 
-This manuscript is authored exposition, not Lean proof authority. The checked core is the Newton value equation, the exponential first integral, the consumer form of ray separation, the finite planar-avoidance theorem, quantitative constant-translation root retention, and the ray-collision parameterisation. The decomposition and length statements of §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">6</a> are not proved. The diagnosis of Proposition 12 in §<a href="#sec:gap" data-reference-type="ref" data-reference="sec:gap">4</a> concerns its printed local saddle construction; it does not refute the proposition’s statement. The search results of §<a href="#sec:finite" data-reference-type="ref" data-reference="sec:finite">5</a> are computations.
+<a id="declaration-of-generative-ai-use."></a>
+
+#### Declaration of generative AI use.
+
+Every word of this manuscript was generated by agents based on large language models operating within Will Cook’s private research system for artificial intelligence. The formal proofs and repository software were likewise drafted and revised by the agents through that system under Cook’s direction. Cook set the objectives and acceptance criteria, selected and reviewed the public claims, and approved the published version. Cook assumes responsibility for the accuracy, interpretation, and presentation of the work. Generative systems are production tools, not authors, and supply no independent authority.
+
+Lean does not authorise the exposition, the citation choices, or the interpretation, for which the author remains responsible. This manuscript is authored exposition, not Lean proof authority. The checked core is the Newton value equation, the exponential first integral, the consumer form of ray separation, the finite planar-avoidance theorem, quantitative constant-translation root retention, and the ray-collision parameterisation. The decomposition and length statements of §<a href="#sec:open" data-reference-type="ref" data-reference="sec:open">6</a> are not proved. The diagnosis of Proposition 12 in §<a href="#sec:gap" data-reference-type="ref" data-reference="sec:gap">4</a> concerns its printed local saddle construction; it does not refute the proposition’s statement. The search results of §<a href="#sec:finite" data-reference-type="ref" data-reference="sec:finite">5</a> are computations.
 
 <a id="app:sources"></a>
 
@@ -337,6 +349,6 @@ The public `ErdosProblems.Erdos1041.NewtonFlowRaySeparation` module contains the
 
 <div class="thebibliography">
 
-9 T. F. Bloom, *Erdős Problems*, problem 1041. <https://www.erdosproblems.com/1041> P. Erdős, F. Herzog, and G. Piranian, *Metric properties of polynomials*, J. Analyse Math. **6** (1958), 125–148. <https://doi.org/10.1007/BF02790232> `shtuka`, *A Short Path Joining Two Zeros Inside a Polynomial Lemniscate*, manuscript posted 24 March 2026, 48 pp. <https://shtuka123.github.io/1041/main.pdf> V. S. Pendyala, *A Degree-Four Lemniscate Path Theorem*, arXiv:2606.24875v1 (2026). <https://arxiv.org/abs/2606.24875>, doi:[10.48550/arXiv.2606.24875](https://doi.org/10.48550/arXiv.2606.24875).
+9 T. F. Bloom, *Erdős Problems*, problem 1041. <https://www.erdosproblems.com/1041> P. Erdős, F. Herzog, and G. Piranian, *Metric properties of polynomials*, J. Analyse Math. **6** (1958), 125–148. <https://doi.org/10.1007/BF02790232> `shtuka`, *A Short Path Joining Two Zeros Inside a Polynomial Lemniscate*, manuscript posted 24 March 2026, 48 pp. <https://shtuka123.github.io/1041/main.pdf>. The file at this URL has since been replaced by a shorter partial version that no longer contains Proposition 12; the durable public record of the March version, its defect, and the author’s 26 March 2026 concession is the discussion thread at <https://www.erdosproblems.com/forum/thread/1041>. V. S. Pendyala, *A Degree-Four Lemniscate Path Theorem*, arXiv:2606.24875v1 (2026). <https://arxiv.org/abs/2606.24875>, doi:[10.48550/arXiv.2606.24875](https://doi.org/10.48550/arXiv.2606.24875).
 
 </div>
