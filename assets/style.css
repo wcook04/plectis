@@ -1111,21 +1111,42 @@ code, kbd, pre { font-family: var(--font-mono); }
   display: flex; align-items: center; justify-content: space-between;
   height: 60px;
 }
+/* Not a flex box. The ladder below aligns its three rungs on their baselines,
+   and a flex container does not hand up the baseline you can see: it
+   synthesises one from its first flex item, which here is the 26px plait,
+   whose baseline as a replaced element is its own bottom edge. So the ladder
+   was setting the bottom of the mark level with the sans text's baseline, and
+   the serif "Plectis" — centred against that mark inside this box — floated
+   8px clear of "Will Cook" and the slash it is supposed to sit beside. A block
+   container reports the baseline of its first line box instead, which is the
+   serif's own, and that is the one the ladder was always trying to align.
+   Declared `inline` and blockified by the ladder, as any flex item is; what
+   matters is only that it is no longer a flex box itself. The row's gap moves
+   onto the mark, and nowrap replaces what the flex row guaranteed for free. */
 .wordmark {
-  display: inline-flex; align-items: center; gap: 0.52rem;
+  display: inline; white-space: nowrap;
   font-family: var(--font-serif);
   font-size: 1.18rem; font-weight: 600; letter-spacing: -0.01em;
   color: var(--ink);
 }
 .wordmark:hover { text-decoration: none; color: var(--ink); }
 /* The plait. It carries its own corner radius and its own ground, so it needs no
-   frame here — only a fixed box, since a flex row would otherwise let it
-   stretch. Optically it sits a hair above the serif's baseline centre. */
+   frame here — only a fixed box. Now that it is an inline sibling of the word
+   rather than a flex item, its own vertical-align does the centring the flex
+   row used to do: -0.36em puts the middle of the 26px mark a third of an em
+   above the baseline, which is about where the serif's cap-height centre sits.
+   Keep the two in step if either size changes. */
 .wordmark__mark {
   width: 26px; height: 26px; flex: none;
-  display: block; transform: translateY(-0.5px);
+  display: inline-block;
+  margin-right: 0.52rem;
+  vertical-align: -0.36em;
 }
-@media (max-width: 480px) { .wordmark__mark { width: 22px; height: 22px; } }
+@media (max-width: 480px) {
+  /* A smaller mark needs less of it below the baseline to stay centred on the
+     same serif: 22px wants -0.25em where 26px wants -0.36em. */
+  .wordmark__mark { width: 22px; height: 22px; vertical-align: -0.25em; }
+}
 /* The mark carries the theme with the page: incandescent at night, ink on paper
    by day. It has to be swapped by file rather than by CSS, because an SVG in an
    <img> is its own document and cannot see data-theme — favicon.svg answers only
@@ -1137,6 +1158,19 @@ code, kbd, pre { font-family: var(--font-mono); }
    anywhere `content` on a replaced element is not honoured. */
 :root[data-theme="dark"] .wordmark__mark { content: url("favicon-night.svg"); }
 :root[data-theme="light"] .wordmark__mark { content: url("favicon-day.svg"); }
+/* The filetype, carried on the download control rather than left to the prose
+   under it. What a reader wants to know before pressing is what will land in
+   their downloads, and "packet" is our word, not a file format. Monospaced so
+   it reads as a filename rather than as the last word of the label, and held
+   under the verb's weight so the control still says one thing. Shared with the
+   host front door, which carries the same cue on the same control. */
+.btn__ext {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.92em; font-weight: 500;
+  opacity: 0.6;
+  margin-left: 0.1em;
+}
+
 /* ── The brand ladder ────────────────────────────────────────────────────────
    One rung above the wordmark: the host front door this site is published
    under. Shared by the curated landing header and the generated docs topbar,
