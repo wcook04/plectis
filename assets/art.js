@@ -8,13 +8,23 @@
    Motion and heat contract:
    - WebGL is a one-shot paint tool, not an ambient process. It renders one
      deliberately soft frame into a 2D canvas, releases its context, and does
-     no recurring work while the page is idle.
+     no recurring work while the page is idle. There is no ambient rAF loop to
+     leave running, so a backgrounded tab costs exactly nothing.
+   - Nothing is compiled or painted while the document is hidden. A prerender
+     or a background tab waits for its first visible moment.
    - Scrolling only adjusts the retained still's wrapper opacity once per
-     animation frame. It never invokes the shader.
+     animation frame. It never invokes the shader, and it writes opacity with
+     the wrapper's CSS transition disabled so the recession tracks the scroll
+     instead of chasing a 240ms transition restarted on every frame.
+   - A resize or rotation repaints once, debounced, into the SAME retained
+     still, so the field never stretches and never flickers back to the flat
+     wash mid-gesture. Sub-threshold height changes (a mobile URL bar) are
+     ignored.
    - prefers-reduced-motion keeps the static CSS field and starts no WebGL.
    - The static CSS field in style.css stays authoritative for no-JS,
      no-WebGL, save-data, small-device, and lost-context visitors; this
-     file crossfades over it and removes itself cleanly on any failure.
+     file crossfades over it and removes itself cleanly on any failure,
+     including a GPU context loss and an evicted 2D backing store.
    - Nothing leaves the page: no fetches, no storage, no third-party code
      (CSP: 'self'). */
 (function () {
@@ -200,6 +210,18 @@
   var U = {};
   var vt = 47 + Math.random() * 180;
   var scrollRaf = 0;
+  /* Set while this file deliberately drops its own context after the single
+     paint, so the WEBGL_lose_context event that release fires is not mistaken
+     for a real GPU loss. */
+  var releasing = false;
+  /* Effective darkness of the frame currently on screen; null until first
+     paint. Guards the repaint triggers against redrawing an identical frame. */
+  var paintedDark = null;
+  /* Viewport the current still was composed for. */
+  var lastVW = 0, lastVH = 0;
+  var resizeTimer = 0;
+  var settleTimer = 0;
+  var pendingRepaint = false;
 
   function isDark() {
     var t = root.getAttribute('data-theme');
@@ -264,6 +286,7 @@
   function applyPalette() {
     if (!gl) return;
     var dark = isDark();
+    paintedDark = dark;
     gl.uniform1f(U.u_theme, dark ? 0 : 1);
     gl.uniform3fv(U.u_ground, colorOf('--page', dark ? [0.09, 0.063, 0.125] : [0.973, 0.941, 0.886]));
     gl.uniform3fv(U.u_warm, ignite(colorOf('--wash-warm', [0.878, 0.635, 0.247]), dark ? 1.25 : 1.12, 1.0));
@@ -302,6 +325,8 @@
     var scale = Math.min(0.75, Math.max(0.5, dpr * 0.45));
     var w = Math.max(2, Math.round(window.innerWidth * scale));
     var h = Math.max(2, Math.round(window.innerHeight * scale));
+    lastVW = window.innerWidth;
+    lastVH = window.innerHeight;
     if (glCanvas.width !== w || glCanvas.height !== h) {
       glCanvas.width = w;
       glCanvas.height = h;
@@ -313,27 +338,56 @@
     return true;
   }
 
+  /* The deliberate drop after one frame. `releasing` stays true until the next
+     renderer starts: WEBGL_lose_context dispatches its event in a later task,
+     and a flag survives that gap where removeEventListener alone would race. */
   function releaseRenderer() {
     if (!gl) return;
+    releasing = true;
     try {
       gl.flush();
       var lose = gl.getExtension('WEBGL_lose_context');
       if (lose) lose.loseContext();
     } catch (e) {}
-    if (glCanvas && glCanvas.parentNode) glCanvas.parentNode.removeChild(glCanvas);
-    if (glCanvas) { glCanvas.width = 1; glCanvas.height = 1; }
+    if (glCanvas) {
+      glCanvas.removeEventListener('webglcontextlost', onGlContextLost, false);
+      if (glCanvas.parentNode) glCanvas.parentNode.removeChild(glCanvas);
+      glCanvas.width = 1;
+      glCanvas.height = 1;
+    }
     glCanvas = null;
     gl = null;
     program = null;
     U = {};
   }
 
+  /* A real GPU loss during the single paint. Cancelling the default would ask
+     for a restore this file has no ambient loop to use, so hand the room back
+     to the CSS field instead — that is the documented fallback. */
+  function onGlContextLost() {
+    if (releasing) return;
+    teardown();
+  }
+
+  /* Chrome can evict a 2D backing store under memory pressure. The retained
+     still is what the reader is actually looking at, and mc-field-live has
+     already faded the CSS wash out behind it, so a lost still would read as a
+     void rather than a fallback. Withdraw and let the wash return. */
+  function onStillContextLost() {
+    teardown();
+  }
+
   function teardown() {
     if (sizeRetry) { clearTimeout(sizeRetry); sizeRetry = 0; }
+    if (resizeTimer) { clearTimeout(resizeTimer); resizeTimer = 0; }
+    if (settleTimer) { clearTimeout(settleTimer); settleTimer = 0; }
     if (scrollRaf) { cancelAnimationFrame(scrollRaf); scrollRaf = 0; }
+    pendingRepaint = false;
+    paintedDark = null;
     releaseRenderer();
     root.classList.remove('mc-field-live');
     root.removeAttribute('data-plectis-field-mode');
+    if (still) still.removeEventListener('contextlost', onStillContextLost, false);
     if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
     wrap = null; still = null; stillCtx = null;
   }
@@ -350,7 +404,24 @@
     root.setAttribute('data-plectis-field-mode', 'still');
     root.classList.add('mc-field-live');
     applyScrollOpacity();
+    settleWrapper();
     releaseRenderer();
+  }
+
+  /* The wrapper's entry crossfade is a CSS transition on opacity. Scroll
+     recession writes that same property every animation frame, which restarts
+     the transition sixty times a second and leaves the field trailing a quarter
+     of a second behind the scroll. Once the entry fade has finished, take
+     direct control of it. A theme flip tears the wrapper down and mounts a
+     fresh one, so the crossfade still introduces every repainted field; a
+     resize repaints into the existing wrapper and correctly keeps the
+     direct-write behaviour it already has. */
+  function settleWrapper() {
+    if (settleTimer || !wrap || wrap.style.transition === 'none') return;
+    settleTimer = window.setTimeout(function () {
+      settleTimer = 0;
+      if (wrap) wrap.style.transition = 'none';
+    }, 340);
   }
 
   /* Scroll recession updates at most once per display frame and never touches
@@ -368,17 +439,21 @@
     if (!scrollRaf) scrollRaf = requestAnimationFrame(applyScrollOpacity);
   }
 
-  function init() {
-    if (!doc.body) return;
-    wrap = doc.createElement('div');
-    wrap.className = 'mc-field';
-    wrap.setAttribute('aria-hidden', 'true');
+  /* Renderer setup, kept separate from the wrapper mount so a resize can
+     repaint into the SAME retained still. size(), applyPalette() and
+     paintStill() run in one synchronous task, so the moment where the still is
+     resized (and therefore cleared) never reaches a presented frame — the
+     reader sees the old field, then the new one, and never the bare wash. */
+  function startRenderer() {
+    if (!wrap || !still || !stillCtx) return false;
+    if (gl) releaseRenderer();
+    releasing = false;
+
     glCanvas = doc.createElement('canvas');
-    still = doc.createElement('canvas');
-    wrap.appendChild(glCanvas);
-    wrap.appendChild(still);
-    doc.body.appendChild(wrap);
-    stillCtx = still.getContext('2d', { alpha: false });
+    /* Behind the still, matching the original stacking: both canvases are
+       absolutely positioned, so document order decides which is on top. */
+    wrap.insertBefore(glCanvas, still);
+    glCanvas.addEventListener('webglcontextlost', onGlContextLost, false);
 
     /* Preserve only long enough to copy the one frame into the retained 2D
        canvas. releaseRenderer() drops the context immediately afterwards. */
@@ -386,7 +461,7 @@
     try {
       gl = glCanvas.getContext('webgl', opts) || glCanvas.getContext('experimental-webgl', opts);
     } catch (e) { gl = null; }
-    if (!gl || !stillCtx) { teardown(); return; }
+    if (!gl) return false;
 
     function shader(type, src) {
       var s = gl.createShader(type);
@@ -397,12 +472,12 @@
     }
     var vs = shader(gl.VERTEX_SHADER, VERT);
     var fs = shader(gl.FRAGMENT_SHADER, FRAG);
-    if (!vs || !fs) { teardown(); return; }
+    if (!vs || !fs) return false;
     program = gl.createProgram();
     gl.attachShader(program, vs);
     gl.attachShader(program, fs);
     gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { teardown(); return; }
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return false;
     gl.useProgram(program);
 
     var buf = gl.createBuffer();
@@ -417,9 +492,25 @@
       U[n] = gl.getUniformLocation(program, n);
     });
 
-    if (!size()) return;
+    if (!size()) return true;   /* size() schedules its own retry and repaint */
     applyPalette();
     paintStill();
+    return true;
+  }
+
+  function init() {
+    if (!doc.body || retired) return;
+    if (!wrap) {
+      wrap = doc.createElement('div');
+      wrap.className = 'mc-field';
+      wrap.setAttribute('aria-hidden', 'true');
+      still = doc.createElement('canvas');
+      wrap.appendChild(still);
+      doc.body.appendChild(wrap);
+      stillCtx = still.getContext('2d', { alpha: false });
+      still.addEventListener('contextlost', onStillContextLost, false);
+    }
+    if (!stillCtx || !startRenderer()) { teardown(); return; }
   }
 
   /* A palette change REPAINTS the field rather than retiring it.
@@ -439,6 +530,32 @@
   var restartTimer = 0;
   var retired = false;
 
+  /* Nothing is compiled or painted for a document the reader cannot see. A
+     prerender or a background tab records the intent and spends the work on
+     its first visible moment instead. */
+  function start() {
+    if (retired) return;
+    if (doc.hidden) { pendingRepaint = true; return; }
+    init();
+  }
+
+  function onVisibility() {
+    if (doc.hidden || retired || !pendingRepaint) return;
+    pendingRepaint = false;
+    if (wrap) repaint();
+    else init();
+  }
+
+  /* Same wrapper, same retained still, new frame. Used for resize and rotation,
+     where a full teardown would drop the reader back to the flat CSS wash for
+     the length of the restart delay. */
+  function repaint() {
+    if (retired) return;
+    if (!wrap) { start(); return; }
+    if (doc.hidden) { pendingRepaint = true; return; }
+    if (!startRenderer()) teardown();
+  }
+
   function restart() {
     if (retired) return;
     teardown();
@@ -448,8 +565,34 @@
        them off the computed style. */
     restartTimer = window.setTimeout(function () {
       restartTimer = 0;
-      if (!retired) init();
+      start();
     }, 60);
+  }
+
+  /* Only a change in effective darkness changes the palette: every --wash-*
+     value is declared under :root, :root[data-theme="dark"] and the
+     prefers-color-scheme mirror of that. A system-scheme flip on a page whose
+     theme is pinned, or a data-theme write landing on the value already in
+     force, would otherwise recompile a shader to draw the identical frame. */
+  function onThemeChange() {
+    if (paintedDark !== null && isDark() === paintedDark) return;
+    restart();
+  }
+
+  /* The composition is aspect-dependent, so a resized viewport was stretching
+     the retained still rather than recomposing it. Mobile browsers also fire
+     resize when the URL bar slides — height only, and by a little — which is
+     not a recomposition and must not cost one. */
+  function onResize() {
+    if (retired || !wrap || !lastVW) return;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    if (w === lastVW && Math.abs(h - lastVH) <= Math.max(90, lastVH * 0.18)) return;
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () {
+      resizeTimer = 0;
+      repaint();
+    }, 240);
   }
 
   /* Reduced motion is the one flip that is meant to be terminal. Guard on the
@@ -463,18 +606,21 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('orientationchange', onResize, { passive: true });
+  doc.addEventListener('visibilitychange', onVisibility, false);
   if (window.MutationObserver) {
-    new MutationObserver(restart)
+    new MutationObserver(onThemeChange)
       .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   }
-  if (mqDark.addEventListener) mqDark.addEventListener('change', restart);
-  else if (mqDark.addListener) mqDark.addListener(restart);
+  if (mqDark.addEventListener) mqDark.addEventListener('change', onThemeChange);
+  else if (mqDark.addListener) mqDark.addListener(onThemeChange);
   if (mqMotion.addEventListener) mqMotion.addEventListener('change', onMotionChange);
   else if (mqMotion.addListener) mqMotion.addListener(onMotionChange);
 
   if (doc.readyState === 'loading') {
-    doc.addEventListener('DOMContentLoaded', init, { once: true });
+    doc.addEventListener('DOMContentLoaded', start, { once: true });
   } else {
-    init();
+    start();
   }
 })();

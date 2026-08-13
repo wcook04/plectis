@@ -216,6 +216,31 @@
     }
   }
 
+  /* Warm the runtime at the lowest priority the engine will honour. This runs
+     from a deferred script, so the document is already parsed and the
+     stylesheet long since requested: the bytes cost nothing on the critical
+     path, and a reader who hovers a term or opens search in the first second
+     meets a warm cache instead of a cold 219KB. Skipped under Save-Data, where
+     a speculative download is precisely what the reader has asked us not to
+     do. The landing already schedules its runtimes this way. */
+  function warmRuntime() {
+    try {
+      if (navigator.connection && navigator.connection.saveData) return;
+    } catch (e) {}
+    /* The scheduler also runs in minimal DOMs (tests, embedded readers, and
+       document-like shells) where a body is available but `head` is not.
+       Preloading is opportunistic; activation must remain functional without
+       a preload insertion point. */
+    if (!doc.head || !doc.head.appendChild) return;
+    var link = doc.createElement('link');
+    link.rel = 'preload';
+    link.as = 'script';
+    link.href = runtimeSrc;
+    try { link.fetchPriority = 'low'; } catch (e) {}
+    doc.head.appendChild(link);
+  }
+
+  warmRuntime();
   mark('staged');
   doc.addEventListener('mouseover', onIntent, true);
   doc.addEventListener('focusin', onIntent, true);

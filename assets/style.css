@@ -78,15 +78,22 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  /* ---- Type scale (1rem = 16px base; ~1.18 ratio, hand-tuned to existing steps) ---- */
-  --fs-micro: 0.72rem;   /* eyebrows, kbd, tags, group labels */
-  --fs-small: 0.82rem;   /* meta, captions, secondary chips */
-  --fs-meta:  0.88rem;   /* card body meta, fine print */
-  --fs-body:  0.92rem;   /* dense body, card copy */
-  --fs-base:  1rem;       /* default body */
-  --fs-lede:  1.12rem;   /* doc ledes */
-  --fs-h3:    1.06rem;
-  --fs-h2:    1.2rem;     /* sans section headings */
+  /* ---- Type scale ----
+     Not a geometric ratio: a whole-pixel ladder at the 16px root —
+     12 / 13 / 14 / 15 / 16 / 17 / 18 / 19. The steps below the base are one
+     pixel apart because they label rather than read; the reading tiers are
+     15 / 16 / 18. Previous values (0.72 / 0.82 / 0.88 / 0.92 / 1.12 / 1.06 /
+     1.2) landed on fractional pixels and were described here as a "~1.18
+     ratio" they never held. Sizes above this ladder are set locally with
+     clamp(), because display type should answer the viewport, not a token. */
+  --fs-micro: 0.75rem;    /* 12px — eyebrows, kbd, tags, group labels */
+  --fs-small: 0.8125rem;  /* 13px — meta, captions, secondary chips */
+  --fs-meta:  0.875rem;   /* 14px — card body meta, fine print */
+  --fs-body:  0.9375rem;  /* 15px — dense body, card copy */
+  --fs-base:  1rem;       /* 16px — default body */
+  --fs-h3:    1.0625rem;  /* 17px */
+  --fs-lede:  1.125rem;   /* 18px — doc ledes */
+  --fs-h2:    1.1875rem;  /* 19px — sans section headings */
   --lh-tight: 1.2;
   --lh-snug:  1.4;
   --lh-body:  1.62;
@@ -103,7 +110,15 @@
   --space-6: 2rem;
   --space-7: 2.75rem;
   --space-8: 3.5rem;
-  --gutter: 24px;           /* page side gutter (half of the 48px clamp) */
+  --gutter: 24px;           /* page side gutter, consumed by .wrap */
+  /* Two tiers for stacking blocks inside one band, replacing the seven
+     near-identical values (1.5 / 1.7 / 1.9 / 2.2 / 2.4 / 2.6rem) that used to
+     express the same relationship. Major = a new object in the band, minor =
+     a closing note on the object above it. The pad is the space after the
+     hairline that marks either boundary. */
+  --stack-major: 2.25rem;
+  --stack-minor: 1.15rem;
+  --stack-pad: 1.2rem;
   /* Vertical rhythm between landing sections. Raised once the sections stopped
      announcing themselves with borders and boxes: with the panels gone, space
      is what separates one idea from the next. Applied to both sides of a
@@ -142,6 +157,12 @@
      One value for the prose column, so the fold summary grid and every body
      share the same left column and the page has a single text spine. */
   --reading-measure: 40rem;
+  /* Measure for the small tiers. --prose is a pixel width, so a paragraph set
+     at 13px inside it runs to ~78 characters while the same box at 16px runs
+     to 66 — the smaller the type, the longer the line, which is backwards.
+     A ch cap tracks the type it holds and keeps every note inside a readable
+     measure at any size or zoom level. */
+  --measure-note: 66ch;
 
   color-scheme: light;
 }
@@ -1024,6 +1045,10 @@ code, kbd, pre { font-family: var(--font-mono); }
   text-transform: uppercase;
   color: var(--faint);
   font-family: var(--font-sans);
+  /* Tracked capitals are wide, so a three-word eyebrow wraps on a phone. Left
+     to the browser it breaks after the last word that fits and drops one word
+     onto the second line; balanced, the two lines come out even. */
+  text-wrap: balance;
 }
 /* Editorial kicker: a short leading rule ties each eyebrow to the grid — a
    gilded tick in the warm reading key (--link-ext), echoing the spine thread
@@ -1051,7 +1076,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 /* ----------------------------------------------------------------------------
    Landing
 ---------------------------------------------------------------------------- */
-.wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+.wrap { width: min(var(--max), calc(100% - var(--gutter) * 2)); margin-inline: auto; }
 
 .site-header {
   position: sticky; top: 0; z-index: 30;
@@ -1165,6 +1190,25 @@ a.nav-cue[data-link-kind="exogenous"]::after { content: none; }
 /* Docs topbar packs its nav tighter than the landing; give the control a hair
    of breathing room there without disturbing the landing's 1.6rem nav gap. */
 .docs-topbar__links .theme-toggle { margin-left: 0.15rem; }
+/* Reserve the control's slot before the control exists. docs.js builds the
+   toggle at runtime and appends it here, so until then the nav is one item
+   short and the links sit 46.4px + one gap further right: on the landing that
+   was 72px, on the docs topbar 70px, and because a layout shift is scored on
+   the LARGEST distance any shifted element travels, that horizontal slide set
+   the distance term for the whole cold-load shift. The placeholder is the
+   button's own outer box -- the track is border-box at 2.9rem x 1.6rem and the
+   button itself adds no padding, border or margin -- so the exchange is
+   dimensionally exact, gap included, and the height keeps the nav from growing
+   the ~1.6px the taller control adds. It is dropped by the same class docs.js
+   sets immediately before it mounts, so there is never a frame with both. */
+html:not(.js) .site-header nav[aria-label="Primary"]::after,
+html:not(.js) .docs-topbar__links::after {
+  content: "";
+  flex: none;
+  width: 2.9rem;
+  height: 1.6rem;
+}
+html:not(.js) .docs-topbar__links::after { margin-left: 0.15rem; }
 
 .hero { padding: 92px 0 64px; }
 /* Standalone 404 uses <main class="wrap hero">; centre it in the viewport so the
@@ -1177,22 +1221,39 @@ main.hero {
   padding-block: 64px;
 }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 52px; align-items: start; }
-.hero__kicker { margin-bottom: 1.1rem; }
+/* Label and title are one object, so they sit closer to each other than the
+   title sits to the paragraph beneath it. Equal gaps above and below the h1
+   left it grouped with neither. */
+.hero__kicker { margin-bottom: 0.75rem; }
 .hero h1 {
   font-size: clamp(2.7rem, 5.6vw, 3.9rem);
-  margin: 0 0 1.1rem;
+  margin: 0 0 1.3rem;
 }
 .hero__lede {
   font-family: var(--font-serif);
   font-size: clamp(1.25rem, 2.2vw, 1.5rem);
   line-height: var(--lh-snug); color: var(--ink-soft);
-  max-width: 800px;
+  /* Measured in characters, not pixels. The lede is set in a display size
+     that changes with the viewport, so a fixed 800px box gave a 53-character
+     line beside the map and a 67-character one once the map dropped below it:
+     the same sentence, two different textures. One measure holds it at the
+     same shape everywhere, and 54 is short because display type wants a
+     shorter line than body type, not a longer one. */
+  max-width: 54ch;
   margin-bottom: 0.7rem;
   /* Short serif display line: even the two lines and prevent a lone last word
      ("…system."), the same wrap discipline h1/h2 already get. */
   text-wrap: balance;
 }
-.hero__sub { font-size: 1.02rem; color: var(--muted); max-width: var(--prose); margin-bottom: 1.9rem; text-wrap: pretty; }
+/* The proof pointer. At 1.02rem it was two per cent above the body size —
+   a step the eye cannot see — so the lede dropped straight to body and the
+   one line that tells a reader where the worked example is read as small
+   print. One real step down from the lede: 24 / 18 / 15. */
+.hero__sub {
+  font-size: var(--fs-lede); color: var(--muted);
+  max-width: var(--measure-note); margin-bottom: 1.9rem;
+  line-height: var(--lh-snug); text-wrap: pretty;
+}
 /* The clone-the-repo instruction underlines in the same warm gold as the
    Docs cue and the Lean button: one consistent "press this" grammar. */
 .hero__sub u {
@@ -1218,8 +1279,9 @@ main.hero {
 .hero__ai { max-width: 800px; }
 .hero__ai-status { display: block; }
 .hero__stance {
-  margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
-  font-size: 0.9rem; color: var(--muted); max-width: var(--prose);
+  margin-top: var(--stack-major); padding-top: var(--stack-pad);
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-body); color: var(--muted); max-width: var(--measure-note);
 }
 
 /* Hero orientation card — the "Start here" route map */
@@ -1375,8 +1437,8 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 .link-row:hover { text-decoration: none; color: var(--ink); background: var(--surface-sunk); }
 .link-row:last-child { border-bottom: 1px solid var(--rule); }
 .link-row strong { font-weight: 600; }
-.link-row .desc { color: var(--muted); font-size: 0.9rem; overflow-wrap: anywhere; }
-.link-row .go { color: var(--accent); font-size: 0.88rem; white-space: nowrap; text-align: right; }
+.link-row .desc { color: var(--muted); font-size: var(--fs-body); overflow-wrap: anywhere; }
+.link-row .go { color: var(--accent); font-size: var(--fs-meta); white-space: nowrap; text-align: right; }
 .link-row:hover .go,
 .link-row:focus-visible .go { text-decoration: underline; text-underline-offset: 0.2em; }
 .link-row[data-link-kind="exogenous"] .go { color: var(--link-ext); }
@@ -1389,9 +1451,9 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 .contact-line a { font-weight: 500; }
 
 .verify-strip {
-  margin: var(--space-5) 0 0; padding: 1.4rem 1.5rem; background: var(--surface-sunk);
-  border: 1px solid var(--rule); border-radius: 10px;
-  font-size: 0.92rem; color: var(--muted); max-width: var(--prose);
+  margin: var(--stack-major) 0 0; padding: 1.4rem 1.5rem; background: var(--surface-sunk);
+  border: 1px solid var(--rule); border-radius: var(--r-lg);
+  font-size: var(--fs-body); color: var(--muted); max-width: var(--prose);
 }
 .verify-strip strong { color: var(--ink-soft); font-weight: 600; }
 
@@ -1437,10 +1499,40 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 }
 
 .site-footer { border-top: 1px solid var(--rule); padding: 40px 0 64px; }
-.site-footer__inner { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; justify-content: space-between; }
-.site-footer p { font-size: 0.85rem; color: var(--faint); }
-.site-footer nav { display: flex; gap: 1.2rem; }
-.site-footer nav a { font-size: 0.85rem; color: var(--muted); }
+.site-footer__inner { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: baseline; justify-content: space-between; }
+.site-footer p { font-size: var(--fs-meta); color: var(--faint); }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
+.site-footer nav a { font-size: var(--fs-meta); color: var(--muted); }
+
+/* The parent route. This site is one of the routes listed on the host front
+   door at wcook04.github.io, and that page links here; this is the other half
+   of the pair, so the relationship reads in both directions instead of one.
+   It borrows the front door's own row grammar — an uppercase kind, then the
+   destination named exactly as it names itself — which is what makes the two
+   pages read as one family rather than two sites sharing a host. It stays in
+   the colophon: a fifth item in the primary nav would crowd four links that
+   are already doing work, and a parent link is not a peer of them. */
+.site-footer__parent {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 0.3rem 0.85rem; margin-top: var(--stack-major);
+}
+.site-footer__parent-kind {
+  font-family: var(--font-sans); font-size: var(--fs-micro); font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--faint);
+}
+.site-footer .site-footer__parent a {
+  color: var(--ink-soft); font-size: var(--fs-meta);
+  text-decoration: underline; text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  text-decoration-color: color-mix(in srgb, var(--ink-soft) 32%, transparent);
+  transition: color var(--motion-fast) var(--ease-out),
+              text-decoration-color var(--motion-fast) var(--ease-out);
+}
+.site-footer .site-footer__parent a:hover,
+.site-footer .site-footer__parent a:focus-visible {
+  color: var(--accent-strong); text-decoration-color: var(--accent-strong);
+}
 
 /* ----------------------------------------------------------------------------
    Docs shell
@@ -2456,7 +2548,12 @@ pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
   .site-header nav a, .docs-topbar__links a, .site-footer nav a {
     display: inline-flex; align-items: center; min-height: 44px;
   }
-  .theme-toggle, .docs-main .docs-pagetool, .landing-pagetools .docs-pagetool {
+  /* The reserved slot tracks the control it stands in for: on a coarse pointer
+     the toggle is 44px tall, so a 1.6rem placeholder would let the nav grow the
+     moment the real button lands on any touch layout wide enough not to wrap. */
+  .theme-toggle, .docs-main .docs-pagetool, .landing-pagetools .docs-pagetool,
+  html:not(.js) .site-header nav[aria-label="Primary"]::after,
+  html:not(.js) .docs-topbar__links::after {
     min-height: 44px;
   }
 }
@@ -2559,6 +2656,7 @@ pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
   .cmdk, .copy-btn, .page-export-btn, .page-export-status,
   [data-site-export], [data-site-download],
   .comp-actions, .gfocus, .gpanel, .skip-link,
+  .docs-pagetools,
   .docs-toc, .docs-pager, .site-footer nav, .video-card__frame { display: none !important; }
 
   /* Static, single-column flow. */
@@ -3479,15 +3577,24 @@ body.has-viewback { padding-bottom: 64px; }
 /* ===== Per-view reader tools (copy text / download JSON) =================
    A small toolbar above each prose view. Copy gives a clean transcription with
    every collapsed card expanded; Download gives the structured page JSON. Both
-   are JS-only, so they stay hidden until docs.js marks <html> as .js (matches
-   the Search pill pattern; no dead affordance when JS is off).
+   are JS-only, so the affordances stay hidden until docs.js marks <html> as .js
+   (matches the Search pill pattern; no dead affordance when JS is off).
    The landing carries the same toolbar in the same top-right position; it has
    no .docs-main wrapper, so .landing-pagetools joins every selector here and
-   supplies the width the docs column gets from its layout. */
+   supplies the width the docs column gets from its layout.
+
+   The BOX is reserved, not revealed. Gating `display` on html.js meant the
+   toolbar appeared in the frame docs.js finished and pushed everything under it
+   down -- measured at +29px on the landing and +53px on a docs page, worth
+   CLS 0.044 and 0.024 on a cold load against 0.00 warm. That is a defect that
+   lands on first-time visitors and nobody else. Holding the box from first
+   paint and hiding only its contents costs a no-JS reader an empty band of the
+   same height and removes the shift for everyone else. visibility:hidden keeps
+   the height exact while taking the buttons out of the tab order and out of the
+   accessibility tree, so a reader without JS -- or one whose runtime fails to
+   load -- still meets no dead control. */
 .docs-main .docs-pagetools,
-.landing-pagetools .docs-pagetools { display: none; }
-html.js .docs-main .docs-pagetools,
-html.js .landing-pagetools .docs-pagetools {
+.landing-pagetools .docs-pagetools {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -3495,11 +3602,20 @@ html.js .landing-pagetools .docs-pagetools {
   max-width: var(--prose);
   margin: 0 0 20px;
 }
-html.js .landing-pagetools .docs-pagetools {
+html:not(.js) .docs-main .docs-pagetools > *,
+html:not(.js) .landing-pagetools .docs-pagetools > * { visibility: hidden; }
+/* On the landing this toolbar is the first thing under the header, above the
+   title. Spread across the full column with the label pinned left and the
+   button pushed right, it read as a second navigation bar and spent 53px of
+   the first screen on a utility. It now sits as one quiet group in the
+   top-right margin, in the type size of a caption rather than a control. */
+.landing-pagetools .docs-pagetools {
   max-width: none;
   margin: 0;
+  justify-content: flex-end;
+  gap: 10px;
 }
-.landing-pagetools { padding-top: 20px; }
+.landing-pagetools { padding-top: var(--space-3); }
 .docs-main .docs-pagetools__label,
 .landing-pagetools .docs-pagetools__label {
   margin-right: auto;
@@ -3537,6 +3653,22 @@ html.js .landing-pagetools .docs-pagetools {
 .landing-pagetools .docs-pagetool__icon { font-size: 0.95em; line-height: 1; }
 .docs-main .docs-pagetools__status,
 .landing-pagetools .docs-pagetools__status { font-size: var(--fs-small); color: var(--muted); }
+/* Landing-only demotion. On a docs page the toolbar heads an article and can
+   afford a control's weight; on the landing it sits above the title, where a
+   filled row spanning the full column reads as a second navigation bar. The
+   label stops pushing the button to the far edge, and the two travel together
+   as one caption-weight group in the top-right margin. */
+.landing-pagetools .docs-pagetools__label { margin-right: 0; }
+.landing-pagetools .docs-pagetool {
+  padding: 3px 9px;
+  color: var(--faint);
+  /* No fill at rest: a filled chip in the top-right corner of a page whose
+     first screen is otherwise open paper reads as the loudest object on it.
+     The hairline states the affordance; the ground arrives on hover. */
+  background: transparent;
+  border-color: var(--rule);
+}
+.landing-pagetools .docs-pagetool:hover { color: var(--accent-strong); }
 
 /* ── Lean corpus figures ─────────────────────────────────────────────────────
    Opens the papers fold. Four measured figures, sized so the two soundness
@@ -3576,7 +3708,7 @@ html.js .landing-pagetools .docs-pagetools {
 .corpus-facts__note {
   font-size: var(--fs-small);
   color: var(--muted);
-  max-width: var(--prose);
+  max-width: var(--measure-note);
   margin: 0 0 14px;
 }
 
@@ -3668,7 +3800,7 @@ html.js .landing-pagetools .docs-pagetools {
 /* The assistant lane. A hairline and a lede separate it from the agent lane
    above without another box, and the download control is sized to its label:
    a full-width slab made the secondary route the loudest thing on the page. */
-.ai-primary { margin: 1.5rem 0 0; padding-top: 1.3rem; border-top: 1px solid var(--rule); }
+.ai-primary { margin: var(--stack-major) 0 0; padding-top: var(--stack-pad); border-top: 1px solid var(--rule); }
 .ai-primary__lede { margin: 0; color: var(--ink-soft); font-size: var(--fs-body); line-height: var(--lh-snug); }
 .ai-primary__row {
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 1rem;
@@ -3681,7 +3813,7 @@ html.js .landing-pagetools .docs-pagetools {
 }
 .ai-primary__for {
   margin: 0.85rem 0 0; font-size: var(--fs-small); color: var(--muted);
-  line-height: var(--lh-snug); text-wrap: pretty;
+  line-height: var(--lh-snug); text-wrap: pretty; max-width: var(--measure-note);
 }
 .ai-advanced { margin: 0.8rem 0 0; border-top: 1px solid var(--rule); }
 .ai-advanced > summary {
@@ -4075,8 +4207,10 @@ html.js .landing-pagetools .docs-pagetools {
 .claim-card__go { margin-top: auto; font-weight: 600; }
 .claim-carousel__nav { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.75rem; }
 /* Reading measure for the prose that follows the wide carousel and the
-   check-route steps: the wide wrap is for cards, not 140-char lines. */
-#put-to-test > p, #check > p { max-width: var(--prose); }
+   check-route steps: the wide wrap is for cards, not 140-char lines. Held in
+   characters rather than pixels so the smaller tiers do not inherit a longer
+   line than the body text above them. */
+#put-to-test > p, #check > p { max-width: var(--measure-note); }
 .claim-card__refs { margin-top: auto; padding-top: 0.55rem; }
 .claim-card__refs > summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--accent); padding: 0.2rem 0; }
 .claim-refs { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.55rem 0 0.1rem; padding: 0; }
@@ -4158,22 +4292,30 @@ html.js .landing-pagetools .docs-pagetools {
   .site-header nav { width: 100%; gap: 0.65rem; flex-wrap: wrap; }
 }
 
-/* ---- Hero: copy + public-topology panel ---------------------------------- */
-.hero { padding: 76px 0 56px; }
+/* ---- Hero: copy + public-topology panel ----------------------------------
+   The top padding was 76px above a page-tools row that already spent 53px of
+   the first screen on a copy button. The tool is now a margin note (see
+   .landing-pagetools below) and the hero starts a third of a screen higher,
+   which is the difference between the lede being the second thing a reader
+   sees and the fourth. */
+.hero { padding: 60px 0 56px; }
 .hero__layout { display: grid; grid-template-columns: minmax(0, 1fr) 356px; gap: 60px; align-items: start; }
 .hero__copy--lead { max-width: none; }
-.hero__lede { max-width: 640px; }
-.hero__stance { margin-top: 2.2rem; }
 @media (max-width: 1023px) {
   .hero__layout { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .hero__lede { max-width: 800px; }
 }
 @media (max-width: 540px) {
   /* This landing rule must follow the recomposition above; the older global
-     responsive block appears earlier in the sheet and loses the cascade. */
-  .hero { padding: 56px 0 44px; }
+     responsive block appears earlier in the sheet and loses the cascade.
+     On a phone the first screen is roughly 700px of reading room, so 56px of
+     it above the eyebrow — on top of the page-tools row — was buying air at
+     the cost of the lede. */
+  .hero { padding: 40px 0 44px; }
   /* Recover the full text measure so the final kicker word does not orphan. */
   .hero__kicker::before { content: none; }
+  /* The tool is a margin note on a phone too, and the label has no room to be
+     one half of a spread row. */
+  .landing-pagetools { padding-top: var(--space-2); }
 }
 
 /* The public map is the mental model a cold reader needs first, so it should
@@ -4393,8 +4535,12 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 }
 .specimen__code code { font-family: inherit; font-size: inherit; background: none; padding: 0; }
 .specimen__code--receipt { border-left: 3px solid var(--accent); }
-.specimen__note { display: block; margin-top: 0.45rem; font-size: var(--fs-small); color: var(--muted); line-height: var(--lh-snug); }
-.specimen__links { margin-top: 1.15rem; padding-top: 0.95rem; border-top: 1px solid var(--rule); font-size: var(--fs-meta); color: var(--muted); }
+.specimen__note { display: block; margin-top: 0.45rem; font-size: var(--fs-small); color: var(--muted); line-height: var(--lh-snug); max-width: var(--measure-note); }
+.specimen__links {
+  margin-top: var(--stack-minor); padding-top: 0.95rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-meta); color: var(--muted); max-width: var(--measure-note);
+}
 
 /* ---- Landing folds --------------------------------------------------------
    Every landing block below the hero is an openable fold. Closed, it shows its
@@ -4631,7 +4777,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 }
 #papers .link-row .desc {
   max-width: 62ch; margin-top: 0.25rem;
-  font-size: 0.92rem; line-height: 1.62; text-wrap: pretty;
+  font-size: var(--fs-body); line-height: 1.62; text-wrap: pretty;
 }
 
 /* Two routes per paper: the typeset document and its source. They sit in the
@@ -4674,7 +4820,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 /* ---- Compact further-claims list ----------------------------------------- */
 /* Held to a reading measure rather than the wide band: at 860px these
    paragraphs ran long enough that the eye lost the line return. */
-.claim-more { max-width: 720px; margin-top: 2.4rem; }
+.claim-more { max-width: 720px; margin-top: var(--stack-major); }
 .claim-more h3 { margin: 0 0 0.6rem; }
 /* The open-question block is its own section with its own eyebrow, so its
    heading should carry a section's weight. As a default h3 it read as a
@@ -4722,7 +4868,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    the same width, and no paragraph runs long to buy the stills their size. */
 #demo-videos .fold__body { max-inline-size: 880px; }
 #demo-videos .fold__intro { max-inline-size: var(--reading-measure); }
-.demo-provenance { font-size: var(--fs-meta); color: var(--faint); max-width: var(--prose); }
+.demo-provenance { font-size: var(--fs-meta); color: var(--faint); max-width: var(--measure-note); }
 .demo-rows { list-style: none; margin: 0.6rem 0 0; padding: 0; }
 .demo-row {
   display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 1.6rem;
@@ -4790,7 +4936,15 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   .demo-row__thumb:hover .demo-row__still,
   .demo-row:has(.demo-row__watch:hover) .demo-row__still { transform: none; }
 }
-.demo-row__title { font-size: var(--fs-h3); font-family: var(--font-sans); letter-spacing: 0; margin-bottom: 0.25rem; }
+/* The row's heading. At --fs-h3 it set 17px directly above a 15px logline —
+   two pixels of difference doing the work of a heading, so three rows read as
+   one grey column. The step is now visible without borrowing the serif the
+   section heading above it owns. */
+.demo-row__title {
+  font-size: 1.25rem; font-family: var(--font-sans);
+  letter-spacing: -0.005em; line-height: var(--lh-snug);
+  margin-bottom: 0.3rem;
+}
 .demo-row__state {
   display: inline-block; vertical-align: 0.12em; margin-left: 0.5rem;
   font-size: var(--fs-micro); font-weight: 600; letter-spacing: var(--tracking-kicker);
@@ -4798,7 +4952,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   border: 1px solid var(--rule-strong); border-radius: var(--r-pill);
   padding: 0.1rem 0.5rem;
 }
-.demo-row__logline { color: var(--muted); font-size: 0.95rem; max-width: var(--prose); margin-bottom: 0.5rem; }
+.demo-row__logline { color: var(--muted); font-size: var(--fs-body); max-width: var(--measure-note); margin-bottom: 0.5rem; }
 .demo-row__actions { margin: 0 0 0.25rem; }
 .demo-row__note { max-width: var(--prose); }
 .demo-row__note summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
@@ -4819,7 +4973,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .link-group-label {
   font-size: var(--fs-meta); font-weight: 600;
   letter-spacing: 0; text-transform: none;
-  color: var(--faint); margin: 1.9rem 0 0.55rem;
+  color: var(--faint); margin: var(--stack-major) 0 0.55rem;
 }
 .section__head + .link-group-label { margin-top: 0.4rem; }
 
@@ -4906,7 +5060,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   border-radius: 0 var(--r-lg) var(--r-lg) 0; max-width: 860px;
 }
 .review-receipt__finding .review-receipt__exit { align-self: start; margin-top: 0.16rem; }
-.review-receipt__finding-body { margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; }
+.review-receipt__finding-body { margin: 0; color: var(--ink-soft); font-size: var(--fs-body); line-height: 1.55; }
 .review-receipt__finding-body code { font-size: 0.78rem; overflow-wrap: anywhere; }
 @media (max-width: 560px) {
   .review-receipt__finding { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
@@ -4914,12 +5068,15 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .review-receipt__log[open] > summary { margin-bottom: 0.95rem; }
 
 /* ---- No-AI lane (run band, id="check") ------------------------------------ */
-.diy-strip { max-width: 780px; margin: 1.5rem 0 0; padding-top: 1.15rem; border-top: 1px solid var(--rule); }
-.diy-strip p { margin: 0; color: var(--muted); font-size: var(--fs-meta); line-height: 1.55; }
+.diy-strip {
+  max-width: 780px; margin: var(--stack-major) 0 0; padding-top: var(--stack-pad);
+  border-top: 1px solid var(--rule);
+}
+.diy-strip p { margin: 0; color: var(--muted); font-size: var(--fs-meta); line-height: 1.55; max-width: var(--measure-note); }
 .diy-strip strong { color: var(--ink-soft); }
 
 /* ---- Collapsed source directory (contact band) ---------------------------- */
-.contact-directory { margin: 1.7rem 0 0; }
+.contact-directory { margin: var(--stack-major) 0 0; }
 .contact-directory > summary {
   font-size: var(--fs-meta); font-weight: 400;
   letter-spacing: 0; text-transform: none;
@@ -4936,7 +5093,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    section made the page read as a stack of containers rather than a sequence
    of ideas; a hairline and space separate them just as well. */
 .review-receipt {
-  margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+  margin-top: var(--stack-major); padding-top: var(--stack-pad);
+  border-top: 1px solid var(--rule);
   /* The record keeps a reading measure rather than inheriting the wide band. */
   max-width: 760px;
 }
@@ -4966,8 +5124,9 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .review-receipt__what { color: var(--ink-soft); font-size: var(--fs-meta); line-height: 1.55; }
 .review-receipt__what code { font-size: 0.78rem; overflow-wrap: anywhere; }
 .review-receipt__note {
-  margin: 1.05rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--rule);
-  color: var(--muted); font-size: var(--fs-meta); line-height: 1.55; max-width: 820px;
+  margin: var(--stack-minor) 0 0; padding-top: 0.9rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font-size: var(--fs-meta); line-height: 1.55;
+  max-width: var(--measure-note);
 }
 @media (max-width: 719px) {
   .review-receipt__row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
@@ -4981,7 +5140,7 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .help-routes__list { list-style: none; margin: 0 0 0.6rem; padding: 0; max-width: 860px; }
 .help-routes__list li {
   border-bottom: 1px solid var(--rule); padding: 0.65rem 0.2rem 0.7rem;
-  color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55;
+  color: var(--ink-soft); font-size: var(--fs-body); line-height: 1.55;
 }
 .help-routes__list li strong { color: var(--ink); }
 
@@ -5366,17 +5525,53 @@ p.muted a:not(.narrative-ref):focus-visible {
   .btn--text:hover::after { translate: 3px 0; }
 }
 
+/* The term layer, held back on the landing's first surfaces.
+   The glossary linker marks the first occurrence of every governed term. On a
+   docs article that is a reference apparatus doing its job. On the landing the
+   hero alone holds forty-two term anchors and the fold summaries another
+   seventy-three, so the opening lede arrived with a dotted rule under most of
+   its nouns and the sentence a stranger reads first stopped looking authored.
+   The surfaces a reader meets before choosing to go deeper — the hero, every
+   fold summary, the boundary line and the colophon — now keep the anchors and
+   drop the rule at rest, exactly as repeat mentions already do site-wide: the
+   affordance is silent until sought, and hover or keyboard focus raises it.
+   Inside an opened fold the marks return, because a reader who opened it asked
+   for the detail the glossary serves. Nothing here is scoped to .docs-main, so
+   the generated pages keep the apparatus in full. */
+.hero a.narrative-ref--term,
+.fold__summary a.narrative-ref--term,
+.boundary-band a.narrative-ref--term,
+.site-footer a.narrative-ref--term {
+  text-decoration-line: none;
+}
+.hero a.narrative-ref--term:hover,
+.hero a.narrative-ref--term:focus-visible,
+.fold__summary a.narrative-ref--term:hover,
+.fold__summary a.narrative-ref--term:focus-visible,
+.boundary-band a.narrative-ref--term:hover,
+.boundary-band a.narrative-ref--term:focus-visible,
+.site-footer a.narrative-ref--term:hover,
+.site-footer a.narrative-ref--term:focus-visible {
+  color: var(--accent-strong);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--accent-strong);
+}
 /* A reader who asks for more contrast gets it structurally, not as an
    afterthought: hairlines step up to the strong rule, the translucent chrome
-   goes opaque, and repeat term mentions keep their underline instead of
-   falling silent. */
+   goes opaque, and every term mention held silent above keeps its underline
+   rather than falling out of the page's link grammar. */
 @media (prefers-contrast: more) {
   :root, :root:not([data-theme]), :root[data-theme] { --rule: var(--rule-strong); }
   .site-header, .docs-topbar {
     background: var(--page);
     backdrop-filter: none;
   }
-  a.narrative-ref--term.is-term-again { text-decoration-line: underline; }
+  a.narrative-ref--term.is-term-again,
+  .hero a.narrative-ref--term,
+  .fold__summary a.narrative-ref--term,
+  .boundary-band a.narrative-ref--term,
+  .site-footer a.narrative-ref--term { text-decoration-line: underline; }
 }
 
 /* Paper gets book margins. The print sheet above sets the ink; this sets the

@@ -8,7 +8,10 @@
    - real intent activates docs.js immediately and preserves a first-click
      navigation trail even if the shared runtime has not executed yet;
    - art.js activates only after docs.js settles, then keeps its own low-power
-     and reduced-motion gates;
+     and reduced-motion gates. A reader who has asked for reduced motion or for
+     data saving never downloads it at all: art.js would return on its own first
+     line, so spending the bytes to learn that is the wrong answer to a stated
+     preference;
    - native links, downloads, disclosure controls, and the CSS field remain the
      no-JS/failure fallback. */
 (function () {
@@ -23,6 +26,24 @@
   var callbacks = { docs: [], art: [] };
   var templates = doc.querySelectorAll('template[data-plectis-runtime]');
   var i;
+
+  function prefersReducedMotion() {
+    try {
+      return !!(window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) { return false; }
+  }
+
+  /* The two gates that are a reader's stated preference rather than a device
+     guess. art.js owns the full gate — device memory, core count — and a
+     mismatch here only ever costs or saves its 20KB, never correctness. */
+  function fieldWanted() {
+    if (prefersReducedMotion()) return false;
+    try {
+      if (navigator.connection && navigator.connection.saveData) return false;
+    } catch (e) {}
+    return true;
+  }
 
   for (i = 0; i < templates.length; i += 1) {
     var name = templates[i].getAttribute('data-plectis-runtime');
@@ -61,7 +82,8 @@
       flush(name);
       return;
     }
-    if (states[name] === 'ready' || states[name] === 'failed') {
+    if (states[name] === 'ready' || states[name] === 'failed' ||
+        states[name] === 'skipped') {
       flush(name);
       return;
     }
@@ -92,6 +114,7 @@
   }
 
   function queueArt() {
+    if (!fieldWanted()) { mark('art', 'skipped'); return; }
     var run = function () { activate('art'); };
     if (window.requestIdleCallback) {
       window.requestIdleCallback(run, { timeout: 2200 });
@@ -206,7 +229,13 @@
     var target = closestAction(event.target);
     if (!target) return;
     var anchor = target.closest && target.closest('a[href]');
-    var href = anchor && (anchor.getAttribute('href') || '');
+    /* The outer `|| ''` is load-bearing. closestAction() also matches buttons,
+       [data-term] and [role=button], and for those `anchor` is null, so the
+       inner expression yields null and .charAt() below threw a TypeError —
+       which aborted the handler before startDocs(). Hover intent on every
+       non-anchor control on the landing was therefore dead until the idle
+       activation caught up, and each hover logged an uncaught error. */
+    var href = (anchor && (anchor.getAttribute('href') || '')) || '';
     /* In-page routes are handled immediately below and need no shared runtime
        on their hover path. */
     if (href.charAt(0) === '#') return;
@@ -265,7 +294,12 @@
       window.scrollTo(0, end);
       return;
     }
-    var duration = Math.min(520, Math.max(260, Math.abs(distance) * 0.16));
+    /* Distance-scaled, but capped inside the site's motion budget: --motion-panel
+       is 260ms for a disclosure, and a jump across the page should not read as
+       four times slower than opening a fold. The old 260–520ms band spent its
+       upper half feeling deliberate rather than responsive. The cubic ease-out
+       below is the JS twin of --ease-out. */
+    var duration = Math.min(380, Math.max(200, Math.abs(distance) * 0.12));
     var started = 0;
     var token = ++anchorMotionToken;
     function frame(now) {
@@ -278,6 +312,19 @@
       else anchorRaf = 0;
     }
     anchorRaf = window.requestAnimationFrame(frame);
+  }
+
+  /* An in-page jump moves the eye; it must move the caret too. Without this the
+     next Tab after following an in-page link continues from the LINK, not from
+     the section the reader just asked for, so keyboard and screen-reader
+     visitors are silently left behind by the scroll. preventScroll keeps the
+     focus call from fighting the animation that is already running. */
+  function focusTarget(target) {
+    if (!target || typeof target.focus !== 'function') return;
+    var focusable = /^(?:A|BUTTON|INPUT|SELECT|TEXTAREA|SUMMARY|DETAILS)$/
+      .test(target.tagName) || target.hasAttribute('tabindex');
+    if (!focusable) target.setAttribute('tabindex', '-1');
+    try { target.focus({ preventScroll: true }); } catch (e) {}
   }
 
   function moveToHash(raw, addHistory) {
@@ -300,6 +347,7 @@
     var run = function () {
       if (reduced) target.scrollIntoView({ behavior: 'auto', block: 'start' });
       else animateTo(target);
+      focusTarget(target);
     };
     if (window.requestAnimationFrame) window.requestAnimationFrame(run);
     else run();
@@ -310,7 +358,10 @@
     var target = closestAction(event.target);
     if (!target) return;
     var anchor = target.closest && target.closest('a[href]');
-    var href = anchor && (anchor.getAttribute('href') || '');
+    /* Same null-anchor guard as onIntent: clicking any button on the landing
+       threw here, in a capture-phase listener, before the runtime handoff
+       below could run. */
+    var href = (anchor && (anchor.getAttribute('href') || '')) || '';
     if (
       href.charAt(0) === '#' && event.button === 0 &&
       !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
@@ -339,9 +390,13 @@
   }
 
   addPreload('docs');
-  addPreload('art');
   mark('docs', 'staged');
-  mark('art', 'staged');
+  if (fieldWanted()) {
+    addPreload('art');
+    mark('art', 'staged');
+  } else {
+    mark('art', 'skipped');
+  }
 
   doc.addEventListener('pointerover', onIntent, true);
   doc.addEventListener('focusin', onIntent, true);
