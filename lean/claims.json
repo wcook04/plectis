@@ -11299,7 +11299,7 @@
         "references": [
           "https://users.renyi.hu/~p_erdos/1948-04.pdf",
           "docs/PRIOR_ART.md",
-          "paper/erdos-257-mersenne-subseries.tex"
+          "paper/erdos-257-mersenne-support-subseries.tex"
         ],
         "historical_attribution": "Erdos, On arithmetical properties of Lambert series (1948), theorem on p. 63 as recorded in the repository's prior-art ledger.",
         "logical_dependency": "The theorem is independently represented and proved in Lean in this repository; the historical source is attribution and fidelity evidence, not an imported kernel dependency."
@@ -13686,7 +13686,7 @@
     {
       "id": "totient_carry_kernel_anti_compression",
       "label": "Unconditional carry-kernel anti-compression",
-      "status": "proved here",
+      "status": "formalised here",
       "statement": "If the totient coefficient series were rational, one positive-multiplier tempered integral carry would have canonical carry-section span dimension at least 2^e − 1 for every e. The all-level kernel-independence producer is supplied by the CRT–Dirichlet minor theorem. No finite-rank bound for every rationality-supplied carry is proved, so this is an infinite anti-compression barrier rather than an irrationality criterion for S.",
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_249_irrationality"
@@ -14134,7 +14134,7 @@
       "id": "mersenne_shadow_denominator",
       "label": "Exact Mersenne-shadow denominator and survivor bounds",
       "status": "proved here",
-      "statement": "The reduced denominator of the lcm-height scaled Möbius shadow is computed exactly, and an explicit upper-half Mersenne product both divides it and supplies a quantitative lower bound.",
+      "statement": "The reduced denominator of the lcm-height scaled Möbius shadow is computed exactly at every height, and for t ≥ 5 an explicit upper-half Mersenne product both divides it and supplies a quantitative lower bound.",
       "paper_label": "res:shadowden",
       "readme_headline": false,
       "declarations": [
@@ -14433,7 +14433,7 @@
       "id": "boolean_mobius_carry",
       "label": "Boolean–Möbius carry certificate equivalence",
       "status": "proved here",
-      "statement": "A nonempty support with series value p/q exists exactly when a positive, square-root-bounded integer orbit with Boolean Möbius quotient exists; the support is reconstructed from the certificate.",
+      "statement": "A nonempty normalised support, one omitting 0, with series value p/q exists exactly when a positive, square-root-bounded integer orbit with Boolean Möbius quotient exists; the support is reconstructed from the certificate.",
       "paper_label": "res:carrycert",
       "readme_headline": false,
       "declarations": [
@@ -14481,7 +14481,7 @@
       "id": "sublog_zero_windows",
       "label": "Sublogarithmic divisor-coverage zero windows",
       "status": "proved here",
-      "statement": "A rational support-series value forces every zero window in the divisor-count coefficient to have length at most ε·log₂(N+1) + O_{ε,c,v}(1), uniformly in the support. This constrains coverage; it does not solve universal #257.",
+      "statement": "A rational support-series value forces every zero window in the divisor-count coefficient to have length at most ε·log₂(N+1) + B, where B ≥ 0 is built from ε, c and v but is bound after the support and numerator, so no single constant is claimed uniform across supports. This constrains coverage; it does not solve universal #257.",
       "remaining_open_proposition_ids": [
         "remaining_open.universal_257_all_infinite_supports"
       ],
