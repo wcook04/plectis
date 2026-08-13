@@ -1,0 +1,1127 @@
+{
+ "artifact_kind": "plectis_reviewer_decision_brief",
+ "schema": "plectis_reviewer_decision_brief_v1",
+ "display_name": "Plectis reviewer decision brief",
+ "what_this_is": "The decision layer of the full review packet, published separately so a reader can decide whether this is relevant to them without downloading 14 MB of evidence first.",
+ "authority": "Projection only. Every field here is copied verbatim from plectis-ai-review-packet.json after that file's gates have run. Where the two disagree, the packet is right and this is stale -- regenerate rather than editing this file.",
+ "the_evidence_itself_is_at": "plectis-ai-review-packet.json",
+ "read_in_this_order": [
+  "project_thesis",
+  "stakeholder_decision_router",
+  "decision_briefs",
+  "reviewer_diligence_ladder"
+ ],
+ "source_fingerprint": "300cde1c48dee293639e8739c8f216374e434aad7f70f3b63852643787d4ac14",
+ "project_thesis": {
+  "schema": "plectis_project_thesis_v1",
+  "role": "the one paragraph a reader should get before any inventory",
+  "problem": {
+   "statement": "Agent-assisted work can be produced faster than anyone can check it. The bottleneck moves from writing the change to establishing that the change is what its author says it is.",
+   "statement_class": "author_thesis"
+  },
+  "mechanism": {
+   "statement": "Route every claim to the thing that would settle it: the source it came from, the command that produces its verdict, the receipt that run left, and the sentence saying where its authority stops.",
+   "statement_class": "author_thesis"
+  },
+  "public_evidence": [
+   {
+    "statement": "88 components, of which 20 invoke external machinery from the published artifact.",
+    "statement_class": "public_fact",
+    "source_routes": [
+     "component_digest",
+     "counts"
+    ]
+   },
+   {
+    "statement": "One component runs real git and pytest against planted false completion claims and names each refusal in its receipt.",
+    "statement_class": "public_fact",
+    "source_routes": [
+     "component_digest[id=agent_closeout_faithfulness_audit]"
+    ]
+   },
+   {
+    "statement": "4 defects the project's own checks found and published against its own sources, with what to do until each is fixed.",
+    "statement_class": "public_fact",
+    "source_routes": [
+     "upstream_defects.defects"
+    ]
+   },
+   {
+    "statement": "Work on 8 open Erdos problems, none of them solved here, with each statement quoted at the strength its registry asserts.",
+    "statement_class": "public_fact",
+    "source_routes": [
+     "headline_results.per_problem",
+     "headline_results.verification_boundary"
+    ]
+   }
+  ],
+  "boundary": {
+   "statement": "The public slice can be checked. It does not establish that the unpublished system is reliable, that any of this works outside its fixtures, or that it is ready to be used by anyone else.",
+   "statement_class": "public_fact",
+   "source_routes": [
+    "authority_ceiling.how_to_read_the_false_values",
+    "execution_boundary"
+   ]
+  },
+  "what_the_author_wants": {
+   "statement": "Assurance rather than attention: a way to find out whether any of this survives contact with someone who knows the field, including the answer that it does not.",
+   "statement_class": "author_thesis"
+  },
+  "immediate_ask": {
+   "statement": "Pick one decision from the router, follow its fifteen-minute path, and stop when it tells you to.",
+   "statement_class": "recommended_next_action",
+   "does_not_imply": "that having read it you have reviewed the project, or that the author treats a reading as an endorsement"
+  }
+ },
+ "stakeholder_decision_router": {
+  "schema": "plectis_stakeholder_decision_router_v1",
+  "why_this_exists": "Every other router here sorts by the kind of object a reader names. This one sorts by the decision they are trying to make, because a reader who does not yet know what is in the file cannot name an object, and the decision is the thing they always have.",
+  "ask_once_if_unclear": "What are you trying to decide: whether it is real, whether it matters to your work, whether it is new, or whether to speak to the builder?",
+  "never": [
+   "infer the reader's role from weak hints and answer as if it were known",
+   "give a decision brief to a reader who asked a narrow factual question",
+   "present a recommended action without the condition that would stop it"
+  ],
+  "decisions": {
+   "understand_the_project": {
+    "sounds_like": "what is this, what is it for",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "project_thesis"
+   },
+   "verify_one_public_claim": {
+    "sounds_like": "is any of this real, show me one thing I can check",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "evidence": "signature_evidence_sets.sets.general_first_pass"
+   },
+   "assess_ai_lab_relevance": {
+    "sounds_like": "why should a lab care, is this relevant to us",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.ai_lab_executive"
+   },
+   "assess_agent_infrastructure_relevance": {
+    "sounds_like": "we run coding agents, is there anything here",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.agent_infrastructure_lead"
+   },
+   "assess_safety_or_evals_relevance": {
+    "sounds_like": "does this bear on agent safety or evaluations",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.safety_evals_team"
+   },
+   "assess_formal_methods_relevance": {
+    "sounds_like": "what about the mathematics, is the Lean work worth reading",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "evidence": "signature_evidence_sets.sets.formal_methods"
+   },
+   "assess_investment_meeting_relevance": {
+    "sounds_like": "is this a company, is it worth a meeting",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.investor_technical_diligence"
+   },
+   "assess_builder_or_hiring_relevance": {
+    "sounds_like": "what has the builder actually demonstrated",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.hiring_or_research_collaboration"
+   },
+   "consider_collaboration_or_pilot": {
+    "sounds_like": "could we test this against a real workflow",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.agent_infrastructure_lead"
+   },
+   "request_controlled_private_review": {
+    "sounds_like": "I cannot take the whole system, what can I review",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "decision_briefs.briefs.controlled_private_reviewer"
+   },
+   "report_a_problem": {
+    "sounds_like": "this is wrong, here is a defect",
+    "answer_shape": [
+     "the decision this reader is making, named back to them",
+     "at most three records, from the brief or the signature set",
+     "what those records cannot settle",
+     "the cheapest next action, or the stop condition if that is the honest answer"
+    ],
+    "opens": "upstream_defects.how_to_read_this",
+    "note": "A defect report is the most useful thing a reader can send, and the one the project has the least of."
+   }
+  }
+ },
+ "decision_briefs": {
+  "schema": "plectis_decision_briefs_v1",
+  "how_to_use": "One brief, chosen by decision, not several. Each states what it can and cannot settle; both halves are the answer.",
+  "shared_missing_evidence": [
+   {
+    "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+    "statement_class": "missing_evidence",
+    "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+   },
+   {
+    "statement": "Nothing published bears on whether the unpublished system works. The public components were selected by the author from it, and a selected sample does not establish the population.",
+    "statement_class": "missing_evidence",
+    "cheapest_test": "a controlled review of one fixed private claim under the access levels below, chosen by the reviewer rather than the author"
+   }
+  ],
+  "briefs": {
+   "ai_lab_executive": {
+    "brief_id": "ai_lab_executive",
+    "decision_supported": "whether to spend one capable reviewer's afternoon on this",
+    "one_sentence": "A public, checkable prototype of the layer between a capable model and the work it reports doing: claims bound to the source, command, receipt and limit that would settle them.",
+    "why_it_may_matter": [
+     {
+      "statement": "Teams running long-horizon agents have to decide what a completion report is worth, and this is a small, inspectable attempt at making that decidable rather than trusted.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]"
+      ],
+      "not_established": [
+       "that the approach holds at the scale a frontier lab runs",
+       "that it beats an existing internal review process",
+       "that the refusal rate on real tasks resembles the fixture"
+      ]
+     },
+     {
+      "statement": "The same discipline is applied in an unrelated domain -- formal mathematics with a real prover -- which is weak evidence that the discipline, not the domain, is doing the work.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "component_digest[id=formal_math_lean_proof_witness]",
+       "mathematical_assertions.claim_fidelity"
+      ],
+      "not_established": [
+       "that transfer across two domains predicts transfer to a third",
+       "that the mathematics is itself significant"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.general_first_pass.records",
+    "fifteen_minute_path": [
+     "project_thesis -- the problem and the boundary, one paragraph each",
+     "the three records in the signature set, in order",
+     "authority_ceiling.how_to_read_the_false_values, then its denied_authority list -- what the project refuses to conclude, and why every value is false",
+     "upstream_defects -- what its own checks currently say is wrong"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether the mechanism is concrete enough to be worth an internal comparison",
+     "whether the author's claim discipline is one you would trust to report a negative result"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "whether any of it works at your scale",
+     "whether the unpublished system is safe or capable",
+     "whether it improves on what you already run"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "Nothing published bears on whether the unpublished system works. The public components were selected by the author from it, and a selected sample does not establish the population.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "a controlled review of one fixed private claim under the access levels below, chosen by the reviewer rather than the author"
+     },
+     {
+      "statement": "No measurement exists of how often the completion check fires on real agent work, or how often it fires wrongly.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "run the check over a week of one team's agent close-out notes and count both directions of error"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If your agents already bind completion claims to CI evidence, this is a smaller version of what you have. Stop here.",
+      "statement_class": "stop_condition"
+     },
+     {
+      "statement": "If you need evidence of production behaviour rather than mechanism design, nothing in this packet supplies it, and reading further will not change that.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Run the one advertised command from a fresh clone and compare the receipt with the one published.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that a reproduced fixture predicts behaviour on real work"
+     },
+     {
+      "statement": "Pick a case the author did not choose and send it in through the challenge route.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that surviving one external case validates the approach"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.technical_critique"
+   },
+   "agent_infrastructure_lead": {
+    "brief_id": "agent_infrastructure_lead",
+    "decision_supported": "whether any mechanism here is worth reproducing in your own stack",
+    "one_sentence": "Working implementations of three things agent platforms tend to leave to convention: checked completion, generated-file drift, and work that survives the session.",
+    "why_it_may_matter": [
+     {
+      "statement": "Each mechanism is small enough to read in one sitting and carries the command that produces its verdict, so it can be compared against your own without adopting anything.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "component_digest[id=generated_projection_drift_runtime]",
+       "component_digest[id=mission_transaction_work_spine]"
+      ],
+      "not_established": [
+       "integration cost against an existing harness",
+       "latency or developer friction",
+       "any benefit over ordinary CI and tracing"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.agent_infrastructure.records",
+    "fifteen_minute_path": [
+     "the three records in the signature set",
+     "each record's command, run or read",
+     "each record's scope limit, which is where the design admits its edges"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether a mechanism is worth an afternoon's reimplementation"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "whether it is worth adopting",
+     "what it costs to run against a real workload"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "No comparison exists against conventional CI, tracing, or workflow orchestration, which are what a team would otherwise use.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "take one mechanism, express the same check in your existing CI, and see which one catches the case the other misses"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If the fixtures look too clean to resemble your workload, that is the correct reading and the packet does not argue otherwise.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Reimplement one check against a repository of your own and see whether it finds anything.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that the design is sound because a reimplementation ran"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.independent_rerun"
+   },
+   "safety_evals_team": {
+    "brief_id": "safety_evals_team",
+    "decision_supported": "whether this exposes an evaluation problem worth studying",
+    "one_sentence": "A public substrate for asking what an agent's operating environment -- its authority rules, refusals and records -- does to its behaviour, as distinct from what the model does.",
+    "why_it_may_matter": [
+     {
+      "statement": "The failure it targets, an agent reporting work it did not do, is behavioural rather than capability-bound, and the fixture with planted false claims is closer to an eval than a feature.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]",
+       "component_digest[id=egress_self_compliance_audit]"
+      ],
+      "not_established": [
+       "that these bounded replays predict behaviour under real pressure",
+       "any general safety property of the system they came from",
+       "that the author chose adversarial enough cases"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.safety_and_evaluation.records",
+    "fifteen_minute_path": [
+     "the planted-forgery fixture and the named refusals in its receipt",
+     "the egress policy's own statement of what it is not",
+     "challenge_manifest -- the route for choosing cases the author did not"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether the failure mode is one you want to study"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "whether the controls work",
+     "anything about the unpublished system's safety"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "Nothing published bears on whether the unpublished system works. The public components were selected by the author from it, and a selected sample does not establish the population.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "a controlled review of one fixed private claim under the access levels below, chosen by the reviewer rather than the author"
+     },
+     {
+      "statement": "Every public case was chosen by the author, so the fixtures measure the author's imagination as much as the mechanism.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "supply your own cases through the challenge route and publish what happened"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If you need adversarial pressure rather than declared policy, the public components are bounded replays and will not supply it.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Choose the cases yourself and compare the declared decisions with your own policy.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that agreement on your cases generalises"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.research_discussion"
+   },
+   "investor_technical_diligence": {
+    "brief_id": "investor_technical_diligence",
+    "decision_supported": "whether a first technical conversation is warranted -- nothing beyond that",
+    "one_sentence": "A substantial public technical artifact built by one person with AI as the implementation medium, which is evidence about the builder and the method and is not evidence about a company.",
+    "why_it_may_matter": [
+     {
+      "statement": "If the scarce resource in agent-built software shifts from producing changes to establishing what they did, an evidence layer is one of the things that would matter. This is a prototype of that argument, not a demonstration that it is right.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "project_thesis.problem",
+       "component_digest"
+      ],
+      "not_established": [
+       "that the shift is happening",
+       "that anyone would buy a layer like this",
+       "that this implementation would be the one they bought"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.general_first_pass.records",
+    "fifteen_minute_path": [
+     "project_thesis, then the boundary immediately after it",
+     "the three signature records",
+     "this brief's missing_evidence, which is the longest one here and is the honest centre of the diligence question"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether the technical range is unusual enough to be worth an hour",
+     "whether the author reports negative results about their own work"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "anything about commercial viability",
+     "whether this should be a company at all"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "No evidence exists here of anyone other than the author wanting this, using it, or paying for it.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "six interviews with teams running long-lived agents, asking where completion reports are hard to check -- and treating 'nowhere' as a real finding"
+     },
+     {
+      "statement": "There is no chosen commercial wedge, no deployment outside the author's own machine, and one person.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "name the narrowest testable wedge and run one four-week pilot against it"
+     },
+     {
+      "statement": "Nothing published bears on whether the unpublished system works. The public components were selected by the author from it, and a selected sample does not establish the population.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "a controlled review of one fixed private claim under the access levels below, chosen by the reviewer rather than the author"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If you need commercial signal, stop now: this packet contains none and is not arguing that it does.",
+      "statement_class": "stop_condition"
+     },
+     {
+      "statement": "If your thesis needs a team rather than an individual, that is settled here without a meeting.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Treat it as a technical reference on the builder and take or decline a conversation on that basis.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that a conversation implies interest in funding anything"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.thesis_conversation"
+   },
+   "hiring_or_research_collaboration": {
+    "brief_id": "hiring_or_research_collaboration",
+    "decision_supported": "whether to interview the builder, and for what kind of role",
+    "one_sentence": "A public record of what one person built with AI as the implementation medium, across system design, formal mathematics, evidence discipline and release engineering.",
+    "why_it_may_matter": [
+     {
+      "statement": "The unusual signal is not the volume but the refusals: the project publishes defects against itself, states where each claim stops, and reports an author-run check as author-run.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "upstream_defects",
+       "authority_ceiling"
+      ],
+      "not_established": [
+       "how the builder works inside a team",
+       "anything about operating software other people depend on",
+       "that solo scope resembles the scope of a role"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.general_first_pass.records",
+    "fifteen_minute_path": [
+     "one component end to end, including its scope limit",
+     "one published defect and how it is written up",
+     "one mathematical statement and the audit of its wording"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether there is enough here to justify a technical interview"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "collaboration ability",
+     "performance under review by peers",
+     "whether the work would hold up to a specialist in any one field"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "Almost nobody with the relevant expertise has read this. Where specialists have engaged, the narrow judgments were not favourable.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one specialist reads one component or one proof and says what they think"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If the role needs demonstrated team delivery, this record does not speak to it and an interview would be the only way to find out.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Interview around one mechanism or one proof rather than the whole project.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that breadth of output is evidence of depth in any part of it"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.hiring_or_collaboration"
+   },
+   "controlled_private_reviewer": {
+    "brief_id": "controlled_private_reviewer",
+    "decision_supported": "whether a bounded look at one unpublished claim is worth your time",
+    "one_sentence": "A staged route for examining a fixed claim about the unpublished system without receiving it, with the terms stated before anything is shared.",
+    "why_it_may_matter": [
+     {
+      "statement": "The question the author cannot answer alone is whether any of the unpublished work survives expert contact, and the public slice is deliberately not an argument that it does.",
+      "statement_class": "reviewer_relevance_hypothesis",
+      "source_routes": [
+       "controlled_review_protocol.access_levels"
+      ],
+      "not_established": [
+       "that a bounded review would license any general conclusion",
+       "that the author has stated the claim well enough to be tested"
+      ]
+     }
+    ],
+    "signature_records": "signature_evidence_sets.sets.general_first_pass.records",
+    "fifteen_minute_path": [
+     "controlled_review_protocol.access_levels, lowest first",
+     "controlled_review_protocol.every_review_record_names",
+     "the conclusions the protocol explicitly does not authorise"
+    ],
+    "what_you_can_decide_after_this": [
+     "whether the terms are ones you would accept"
+    ],
+    "what_you_cannot_decide_after_this": [
+     "anything about the private system before the review happens"
+    ],
+    "missing_evidence": [
+     {
+      "statement": "Nothing published bears on whether the unpublished system works. The public components were selected by the author from it, and a selected sample does not establish the population.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "a controlled review of one fixed private claim under the access levels below, chosen by the reviewer rather than the author"
+     },
+     {
+      "statement": "No such review has been carried out, so the protocol is untested as a procedure.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "run level one with a single reviewer and publish what the procedure got wrong"
+     },
+     {
+      "statement": "No party unconnected to the author has reproduced a component or reviewed the unpublished system. The cold rerun published on the landing page is an author-run check and says so inline.",
+      "statement_class": "missing_evidence",
+      "cheapest_test": "one reader clones the public repository at its release tag, runs the one advertised command, and reports the exit code and what they concluded -- including if the answer is that it proves little"
+     }
+    ],
+    "stop_conditions": [
+     {
+      "statement": "If you cannot accept a fixed claim chosen in advance, this route is the wrong shape and a general look is not on offer.",
+      "statement_class": "stop_condition"
+     }
+    ],
+    "next_actions": [
+     {
+      "statement": "Name the claim you would want tested and the access you would need.",
+      "statement_class": "recommended_next_action",
+      "does_not_imply": "that the author can grant it, or that agreeing terms implies a finding"
+     }
+    ],
+    "engagement_route": "engagement_contract.lanes.controlled_private_review"
+   }
+  }
+ },
+ "signature_evidence_sets": {
+  "schema": "plectis_signature_evidence_sets_v1",
+  "selection_rule": "Chosen for explanatory coverage, not for being the strongest rows. Every set carries at least one command that runs external machinery, at least one negative case or published defect, and every record states where its authority stops.",
+  "why_not_more": "Three records is the point at which a reader can still hold the whole set in mind. The other components are not hidden; they are in component_digest, all 88 of them.",
+  "sets": {
+   "general_first_pass": {
+    "for": "any reader deciding whether this is technically real",
+    "why_these": "One mechanism that runs external tools and refuses planted false claims; one that catches a generated file disagreeing with its source; and one defect the project published against itself. Strength, the check that constrains strength, and a failure.",
+    "records": [
+     {
+      "id": "agent_closeout_faithfulness_audit",
+      "label": "Agent Completion Faithfulness Audit",
+      "why_chosen": "the shortest path from a claim to a refusal: real git and pytest calls against planted forgeries, with the refusals named in the receipt",
+      "what_it_shows": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]"
+      ]
+     },
+     {
+      "id": "generated_projection_drift_runtime",
+      "label": "Generated Projection Drift Runtime",
+      "why_chosen": "the rule the rest of the project rests on -- a generated file may not disagree with the source it came from -- as a runnable check rather than a stated principle",
+      "what_it_shows": "Runs each owner's own drift check on generated files and flags repairs, without changing the file.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "The bundle demonstrates owner-routed generated projection drift detection over declared artifacts, source authorities, clean-result record fingerprints, and no-write check return codes. It is not semantic drift proof, not full source registry validation, not repair authority, and not launch-scope decision.",
+      "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out /tmp/plectis-public-runs/generated_projection_drift_runtime",
+      "read_it_at": "docs/component-generated-projection-drift-runtime.html",
+      "source_routes": [
+       "component_digest[id=generated_projection_drift_runtime]"
+      ]
+     },
+     {
+      "id": "prior_art:locators_missing",
+      "label": "Published defect: prior_art:locators_missing",
+      "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
+      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "runs_real_tools": false,
+      "negative_case": true,
+      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "read_it_at": "docs/rules-and-ideas.html",
+      "source_routes": [
+       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+      ]
+     }
+    ]
+   },
+   "agent_infrastructure": {
+    "for": "a reader who runs long-lived coding agents",
+    "why_these": "The three places agent work goes wrong that this project has built something for: a completion claim nobody checked, a map that drifted from the code, and work that did not survive the session it started in.",
+    "records": [
+     {
+      "id": "agent_closeout_faithfulness_audit",
+      "label": "Agent Completion Faithfulness Audit",
+      "why_chosen": "the completion claim, checked against the tools that would show it",
+      "what_it_shows": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]"
+      ]
+     },
+     {
+      "id": "mission_transaction_work_spine",
+      "label": "Mission Transaction Work Spine",
+      "why_chosen": "work landing and continuity, re-derived over a sanitised snapshot",
+      "what_it_shows": "Runs the real work-ledger engine on a sanitised snapshot to re-derive each change's verdict.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real completion, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+      "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "read_it_at": "docs/component-mission-transaction-work-spine.html",
+      "source_routes": [
+       "component_digest[id=mission_transaction_work_spine]"
+      ]
+     },
+     {
+      "id": "prior_art:locators_missing",
+      "label": "Published defect: prior_art:locators_missing",
+      "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
+      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "runs_real_tools": false,
+      "negative_case": true,
+      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "read_it_at": "docs/rules-and-ideas.html",
+      "source_routes": [
+       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+      ]
+     }
+    ]
+   },
+   "safety_and_evaluation": {
+    "for": "a reader studying how an operating environment changes agent behaviour",
+    "why_these": "Two bounded mechanisms about what an agent is permitted to say and claim, and one record of the project's own checking failing.",
+    "records": [
+     {
+      "id": "agent_closeout_faithfulness_audit",
+      "label": "Agent Completion Faithfulness Audit",
+      "why_chosen": "planted false claims with named refusals, which is an evaluation fixture more than a product feature",
+      "what_it_shows": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]"
+      ]
+     },
+     {
+      "id": "egress_self_compliance_audit",
+      "label": "Egress Self-Compliance Audit",
+      "why_chosen": "an explicit, deliberately shallow policy over an agent's own output -- useful because it says plainly what it is not",
+      "what_it_shows": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "The bundle evaluates egress text through explicit phrase-membership policy. It is not taint analysis, prompt-injection defense, sandboxing, information-flow control, or launch-scope decision.",
+      "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out /tmp/plectis-public-runs/egress_self_compliance_audit",
+      "read_it_at": "docs/component-egress-self-compliance-audit.html",
+      "source_routes": [
+       "component_digest[id=egress_self_compliance_audit]"
+      ]
+     },
+     {
+      "id": "prior_art:locators_missing",
+      "label": "Published defect: prior_art:locators_missing",
+      "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
+      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "runs_real_tools": false,
+      "negative_case": true,
+      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "read_it_at": "docs/rules-and-ideas.html",
+      "source_routes": [
+       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+      ]
+     }
+    ]
+   },
+   "formal_methods": {
+    "for": "a reader assessing the mathematics or the claim discipline around it",
+    "why_these": "The same claim-to-evidence rule applied in a setting where the evidence is a proof term, plus the audit that compares each public sentence against the theorem it cites.",
+    "records": [
+     {
+      "id": "formal_math_lean_proof_witness",
+      "label": "Formal Math Lean Proof Witness",
+      "why_chosen": "a real toolchain invocation whose scope limit is unusually explicit",
+      "what_it_shows": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It excludes Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, external model access, private proof import, benchmark or performance claims, whole-system correctness, or any launch, hosted deployment, or public sharing.",
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
+      "read_it_at": "docs/component-formal-math-lean-proof-witness.html",
+      "source_routes": [
+       "component_digest[id=formal_math_lean_proof_witness]"
+      ]
+     },
+     {
+      "id": "agent_closeout_faithfulness_audit",
+      "label": "Agent Completion Faithfulness Audit",
+      "why_chosen": "the non-mathematical form of the same rule, for comparison",
+      "what_it_shows": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
+      "runs_real_tools": true,
+      "negative_case": false,
+      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
+      "source_routes": [
+       "component_digest[id=agent_closeout_faithfulness_audit]"
+      ]
+     },
+     {
+      "id": "prior_art:locators_missing",
+      "label": "Published defect: prior_art:locators_missing",
+      "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
+      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "runs_real_tools": false,
+      "negative_case": true,
+      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "read_it_at": "docs/rules-and-ideas.html",
+      "source_routes": [
+       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "reviewer_diligence_ladder": {
+  "schema": "plectis_reviewer_diligence_ladder_v1",
+  "why_this_exists": "A reader can already find out what is here. What they cannot find out is what a given amount of their time entitles them to conclude, which is the question that actually governs whether they keep reading.",
+  "rule": "Every rung names what it settles and what it does not. A reader who stops at any rung has a defensible position, not a partial one.",
+  "rungs": [
+   {
+    "budget": "60 seconds",
+    "read": [
+     "project_thesis.problem",
+     "project_thesis.boundary"
+    ],
+    "decision_supported": "irrelevant, possibly relevant, or unclear",
+    "decision_not_supported": "anything about whether the work is any good"
+   },
+   {
+    "budget": "5 minutes",
+    "read": [
+     "the first record of the general signature set",
+     "its planted negative cases and its scope limit",
+     "one published defect"
+    ],
+    "decision_supported": "whether the mechanism is concrete enough to justify a deeper look, or concrete enough to reject",
+    "decision_not_supported": "that the mechanism works outside its fixture"
+   },
+   {
+    "budget": "15 minutes",
+    "read": [
+     "the brief for your decision",
+     "its three signature records",
+     "its missing_evidence, in full"
+    ],
+    "decision_supported": "assign a reviewer, take a meeting, ask for a pilot, or stop",
+    "decision_not_supported": "any conclusion the brief lists under what you cannot decide"
+   },
+   {
+    "budget": "60 minutes",
+    "read": [
+     "one component run from a clean clone, by its published command",
+     "one case you chose yourself through the challenge route",
+     "the current defects and what each says to do until it lands"
+    ],
+    "decision_supported": "whether a technical conversation is worth having",
+    "decision_not_supported": "that a reproduced fixture says anything about real work, or that the unpublished system resembles this"
+   },
+   {
+    "budget": "controlled review",
+    "read": [
+     "controlled_review_protocol"
+    ],
+    "decision_supported": "whether one fixed unpublished claim holds up under the access you were granted",
+    "decision_not_supported": "whole-system correctness, safety certification, or any conclusion about parts you were not shown"
+   }
+  ]
+ },
+ "engagement_contract": {
+  "schema": "plectis_engagement_contract_v1",
+  "why_this_exists": "The standing ask was for a serious look, which is sincere and gives a willing reader nothing to act on. These are the specific things that would actually help, smallest first.",
+  "most_useful_first": [
+   "technical_critique",
+   "independent_rerun",
+   "research_discussion",
+   "design_partner_experiment",
+   "controlled_private_review",
+   "hiring_or_collaboration",
+   "thesis_conversation"
+  ],
+  "lanes": {
+   "technical_critique": {
+    "send": "the claim, the record you read, and what you think is wrong with it",
+    "you_get": "a correction, or an argument, or a published defect entry naming you if you want it",
+    "does_not_imply": "agreement, or that the project will act on it"
+   },
+   "independent_rerun": {
+    "send": "the exit code, the machine, and what you concluded",
+    "you_get": "the discrepancy chased down and the result published either way",
+    "does_not_imply": "endorsement -- a rerun that fails is the more useful outcome"
+   },
+   "research_discussion": {
+    "send": "the question you would want answered, not a request for a summary",
+    "you_get": "the author's actual position and where it is uncertain",
+    "does_not_imply": "collaboration"
+   },
+   "design_partner_experiment": {
+    "send": "one workflow where completion reports are hard to check",
+    "you_get": "one mechanism adapted to it and an honest measurement, including a null result",
+    "does_not_imply": "a product, support, or any commitment to maintain it"
+   },
+   "controlled_private_review": {
+    "send": "the claim you would want tested and the least access that would let you test it",
+    "you_get": "the staged protocol, terms agreed before anything is shared",
+    "does_not_imply": "access to the system, or that a finding would be favourable"
+   },
+   "hiring_or_collaboration": {
+    "send": "the role or problem, and which mechanism or proof you want to talk through",
+    "you_get": "a conversation organised around one artifact rather than the whole project",
+    "does_not_imply": "that public breadth predicts performance in a team"
+   },
+   "thesis_conversation": {
+    "send": "the part of the argument you doubt",
+    "you_get": "the evidence that exists and a direct statement of what does not",
+    "does_not_imply": "that the packet contains commercial evidence; it does not"
+   }
+  }
+ },
+ "controlled_review_protocol": {
+  "schema": "plectis_controlled_review_protocol_v1",
+  "why_this_exists": "The open question the author cannot answer alone is whether the unpublished work survives expert contact. Asking for a general look at a private system is not a request anyone can accept, so this is the same request made answerable: one fixed claim, the least access that could test it, terms stated first.",
+  "status": "designed, never run",
+  "access_levels": [
+   {
+    "level": 1,
+    "name": "public packet review",
+    "access": "nothing beyond this file and the public repositories",
+    "answers": "whether the public claims hold together"
+   },
+   {
+    "level": 2,
+    "name": "source-assisted public review",
+    "access": "the same, with the author available to answer questions",
+    "answers": "whether a reviewer's own route through the public material lands where the packet says"
+   },
+   {
+    "level": 3,
+    "name": "redacted demonstration",
+    "access": "recorded outputs for a fixed claim; no source transferred",
+    "answers": "whether a named behaviour occurs, without establishing how"
+   },
+   {
+    "level": 4,
+    "name": "scoped confidential source review",
+    "access": "named modules only, fixed configuration, stated retention",
+    "answers": "whether one claim is supported by the code that implements it"
+   },
+   {
+    "level": 5,
+    "name": "wider review",
+    "access": "considered only if a lower level produced a finding that needs it",
+    "answers": "nothing by itself; it is an escalation, not a certification"
+   }
+  ],
+  "every_review_record_names": [
+   "the single claim under review",
+   "the configuration, fixed before the review starts",
+   "access granted, and access explicitly withheld",
+   "the reviewer, and any conflict either party is aware of",
+   "which tests are permitted",
+   "retention and deletion terms",
+   "who may publish the outcome, and whether the author may withhold it",
+   "who remains responsible for the release afterwards"
+  ],
+  "conclusions_this_protocol_does_not_authorise": [
+   "that the unpublished system is correct, safe, or ready for anyone to rely on",
+   "that a passing review of one claim says anything about another",
+   "a security certification of any kind"
+  ],
+  "the_asymmetry_that_makes_it_safe": "The reviewer chooses the cases and keeps the right to report what they found. The author keeps release responsibility and gains no authority to describe the outcome as validation."
+ },
+ "evidence_gap_register": {
+  "schema": "plectis_evidence_gap_register_v1",
+  "why_this_exists": "This project has far stronger evidence that its mechanisms exist and repeat than that they matter. Leaving a reader to discover that themselves invites them to read it as concealment; stating it makes the next experiment obvious.",
+  "rungs": [
+   {
+    "rung": "mechanism_exists",
+    "means": "the mechanism is described and its source is public"
+   },
+   {
+    "rung": "repeats_on_public_fixture",
+    "means": "its own command reproduces the result from a public fixture"
+   },
+   {
+    "rung": "independent_reproduction",
+    "means": "someone unconnected to the author ran it and reported what happened"
+   },
+   {
+    "rung": "real_workflow_outcome",
+    "means": "it ran against real work, not a fixture, and the outcome was measured"
+   },
+   {
+    "rung": "cross_harness_transfer",
+    "means": "the result held under a different agent harness or model family"
+   },
+   {
+    "rung": "team_or_organisation_outcome",
+    "means": "a team's review cost or error rate changed measurably"
+   },
+   {
+    "rung": "sustained_operation",
+    "means": "it kept working over time under conditions the author did not choose"
+   }
+  ],
+  "highest_rung_reached_by_any_mechanism": "repeats_on_public_fixture",
+  "why_it_stops_there": {
+   "statement": "The rung above requires someone unconnected to the author. The cold rerun published on the landing page is author-run and says so in the sentence that reports it passing.",
+   "statement_class": "public_fact",
+   "source_routes": [
+    "site_views.landing[view_id=landing.receipt]"
+   ]
+  },
+  "per_mechanism": [
+   {
+    "mechanism": "agent_closeout_faithfulness_audit",
+    "highest_rung_reached": "repeats_on_public_fixture",
+    "cheapest_experiment_that_would_advance_it": "one reader runs its published command from a clean clone and reports the exit code"
+   },
+   {
+    "mechanism": "generated_projection_drift_runtime",
+    "highest_rung_reached": "repeats_on_public_fixture",
+    "cheapest_experiment_that_would_advance_it": "one reader runs its published command from a clean clone and reports the exit code"
+   },
+   {
+    "mechanism": "mission_transaction_work_spine",
+    "highest_rung_reached": "repeats_on_public_fixture",
+    "cheapest_experiment_that_would_advance_it": "one reader runs its published command from a clean clone and reports the exit code"
+   },
+   {
+    "mechanism": "formal_math_lean_proof_witness",
+    "highest_rung_reached": "repeats_on_public_fixture",
+    "cheapest_experiment_that_would_advance_it": "one reader runs its published command from a clean clone and reports the exit code"
+   },
+   {
+    "mechanism": "egress_self_compliance_audit",
+    "highest_rung_reached": "repeats_on_public_fixture",
+    "cheapest_experiment_that_would_advance_it": "one reader runs its published command from a clean clone and reports the exit code"
+   }
+  ],
+  "not_measured_anywhere": [
+   {
+    "statement": "How often any check fires on real work rather than a fixture, and how often it fires wrongly.",
+    "statement_class": "missing_evidence",
+    "cheapest_test": "run one check over a week of real agent output and count both directions of error"
+   },
+   {
+    "statement": "Whether any of it transfers to a different agent harness or model family.",
+    "statement_class": "missing_evidence",
+    "cheapest_test": "run one fixture under a second harness and compare the decisions"
+   },
+   {
+    "statement": "Whether a reader who is not the author can find the right record and describe it without overstating it.",
+    "statement_class": "missing_evidence",
+    "cheapest_test": "give four readers the same six questions and score the answers for accuracy and overclaim"
+   }
+  ]
+ },
+ "empirical_programme": {
+  "schema": "plectis_empirical_programme_v1",
+  "why_this_exists": "The next honest gain does not come from more components. It comes from contact with people who did not build this.",
+  "ordering_rule": "cheapest first, and each is worth publishing whichever way it comes out",
+  "studies": [
+   {
+    "study": "independent clean-clone reproduction",
+    "question": "does the advertised command do what the receipt says, on a machine the author has never touched",
+    "measure": [
+     "exit code",
+     "where the instructions failed",
+     "what the reader concluded"
+    ],
+    "a_negative_result_looks_like": "it does not run, or it runs and the reader cannot tell what it proved"
+   },
+   {
+    "study": "cold-comprehension comparison",
+    "question": "which surface lets an unfamiliar reader answer six fixed questions correctly",
+    "measure": [
+     "time",
+     "accuracy",
+     "overclaim rate",
+     "which surface they used"
+    ],
+    "a_negative_result_looks_like": "the decision layer is slower or produces more confident wrong answers than the README"
+   },
+   {
+    "study": "real agent-work pilot",
+    "question": "does the completion check catch anything on work it was not designed against",
+    "measure": [
+     "claims caught",
+     "false refusals",
+     "reviewer time",
+     "friction"
+    ],
+    "a_negative_result_looks_like": "it fires constantly, or never, or only on cases already obvious"
+   },
+   {
+    "study": "cross-harness transfer",
+    "question": "which controls survive a different harness and which encoded local convention",
+    "measure": [
+     "decisions that agree",
+     "decisions that diverge and why"
+    ],
+    "a_negative_result_looks_like": "the mechanism depends on this project's own conventions"
+   },
+   {
+    "study": "evaluator-chosen challenge",
+    "question": "does it hold on cases the author did not pick",
+    "measure": [
+     "cases refused correctly",
+     "cases missed"
+    ],
+    "a_negative_result_looks_like": "the fixtures were easier than the author believed"
+   },
+   {
+    "study": "design-partner interviews",
+    "question": "is unverifiable completion a problem anyone actually has",
+    "measure": [
+     "where reports are hard to check",
+     "what teams use instead",
+     "what they would permit a new layer to read"
+    ],
+    "a_negative_result_looks_like": "nobody recognises the problem, which would be the most useful finding here"
+   }
+  ]
+ }
+}
