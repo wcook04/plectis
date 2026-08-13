@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -333,12 +334,20 @@ def _check_version_consistency(root: Path, mode: str, report: dict[str, Any]) ->
 
 def _deep_delegate(root: Path, mode: str, report: dict[str, Any]) -> None:
     """Run the owning deep validator by subprocess (opt-in via --deep)."""
+    env = os.environ.copy()
     if mode == "python_research_tool":
         cmd = [
             sys.executable, "-m",
             "microcosm_core.validators.readme_front_door", "--root", str(root),
         ]
-        env_note = "PYTHONPATH must include src/"
+        existing_pythonpath = env.get("PYTHONPATH")
+        source_root = str(root / "src")
+        env["PYTHONPATH"] = (
+            os.pathsep.join((source_root, existing_pythonpath))
+            if existing_pythonpath
+            else source_root
+        )
+        env_note = "profile supplied the repository src/ directory on PYTHONPATH"
     else:
         checker = root / "scripts/check_release.py"
         if not checker.is_file():
@@ -346,7 +355,7 @@ def _deep_delegate(root: Path, mode: str, report: dict[str, Any]) -> None:
             return
         cmd = [sys.executable, str(checker)]
         env_note = None
-    proc = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
+    proc = subprocess.run(cmd, cwd=root, env=env, capture_output=True, text=True)
     report["deep"] = {
         "command": " ".join(cmd),
         "returncode": proc.returncode,

@@ -52,6 +52,17 @@ def test_profile_passes_on_this_repository() -> None:
     assert report["authority_ceiling"]["release_authorized"] is False
 
 
+def test_profile_deep_mode_supplies_source_checkout_pythonpath() -> None:
+    result = _run("--root", str(MICROCOSM_ROOT), "--deep", "--json")
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads(result.stdout)
+    assert report["status"] == "pass"
+    assert report["deep"]["returncode"] == 0
+    assert report["deep"]["note"] == (
+        "profile supplied the repository src/ directory on PYTHONPATH"
+    )
+
+
 def test_profile_fails_on_unclassified_root_clutter(tmp_path: Path) -> None:
     root = tmp_path / "repo"
     root.mkdir()
