@@ -7,7 +7,8 @@
 [Lean companion](https://github.com/wcook04/plectis-lean-erdos249-257) ·
 [Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
-[Contributing](CONTRIBUTING.md)
+[Contributing](CONTRIBUTING.md) ·
+[All public work](https://wcook04.github.io/)
 
 **Plectis is a local Python tool and an 88-component reference corpus for
 checking claims made about agent-built software. Each component states one
