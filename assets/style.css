@@ -23,6 +23,16 @@
   --faint: #786359;
   --rule: #eaddc9;
   --rule-strong: #d9c7ae;
+  /* Boundary of a QUIET INTERACTIVE CONTROL, as distinct from a decorative rule.
+     WCAG 1.4.11 wants 3:1 for the visual information needed to identify a UI
+     component; on the ghost button and the page-tool pills the 1px border is the
+     only thing marking the control, because their fill sits at 1.06-1.18:1
+     against the page. --rule-strong measured 1.46:1 there. This token is the
+     minimum darkening that clears 3:1 against BOTH the page and the control's own
+     fill (3.23:1 vs --page, 3.59:1 vs --surface), so the hairline stays quiet and
+     the restraint survives. Decorative rules keep --rule / --rule-strong: they
+     are not controls and 1.4.11 does not reach them. */
+  --rule-control: #96836a;
   --accent: #34508e;
   --accent-strong: #263c74;
   /* Tint of the accent for quiet fills (selection, active wash) — derived, low-chroma. */
@@ -271,6 +281,9 @@ p { margin: 0; }
     --faint: #a18e88;
     --rule: #332947;
     --rule-strong: #463a5e;
+    /* See the light-mode note: control boundaries need 3:1, decorative rules do
+       not. 3.38:1 vs --page, 3.18:1 vs --surface; --rule-strong was 1.79:1. */
+    --rule-control: #6f6389;
     --accent: #a9c0ee;
     --accent-strong: #c6d7fa;
     --accent-wash: #2b2a52;
@@ -323,6 +336,7 @@ p { margin: 0; }
   --faint: #a18e88;
   --rule: #332947;
   --rule-strong: #463a5e;
+  --rule-control: #6f6389;
   --accent: #a9c0ee;
   --accent-strong: #c6d7fa;
   --accent-wash: #2b2a52;
@@ -1303,7 +1317,7 @@ main.hero {
 }
 .btn--primary { background: var(--ink); color: var(--page); box-shadow: 0 1px 2px rgba(var(--ink-rgb), 0.14); }
 .btn--primary:hover { background: var(--ink-press); color: var(--page); text-decoration: none; }
-.btn--ghost { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+.btn--ghost { background: var(--surface); color: var(--ink); border-color: var(--rule-control); }
 .btn--ghost:hover { border-color: var(--ink-soft); color: var(--ink); text-decoration: none; }
 /* Subtle warm gold — Lean snapshot cue, kin to --link-ext / Docs gold. */
 .btn--gold {
@@ -2638,7 +2652,7 @@ pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
   :root {
     --page: #ffffff; --surface: #ffffff; --surface-sunk: #ffffff;
     --ink: #000000; --ink-soft: #1a1a1a; --muted: #333333; --faint: #444444;
-    --rule: #cccccc; --rule-strong: #999999;
+    --rule: #cccccc; --rule-strong: #999999; --rule-control: #767676;
     --edge: #808080;
     --accent: #1a1a1a; --accent-strong: #000000;
     --shadow: none; --shadow-pop: none;
@@ -3630,7 +3644,7 @@ html:not(.js) .landing-pagetools .docs-pagetools > * { visibility: hidden; }
   align-items: center;
   gap: 6px;
   padding: 5px 11px;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--rule-control);
   border-radius: 7px;
   background: var(--surface);
   font: inherit;
@@ -3664,9 +3678,12 @@ html:not(.js) .landing-pagetools .docs-pagetools > * { visibility: hidden; }
   color: var(--faint);
   /* No fill at rest: a filled chip in the top-right corner of a page whose
      first screen is otherwise open paper reads as the loudest object on it.
-     The hairline states the affordance; the ground arrives on hover. */
+     The hairline states the affordance; the ground arrives on hover.
+     With no fill at all the hairline is the whole control, so it carries
+     --rule-control rather than --rule: at --rule this measured 1.18:1 against
+     the page, i.e. the affordance was stated in something close to nothing. */
   background: transparent;
-  border-color: var(--rule);
+  border-color: var(--rule-control);
 }
 .landing-pagetools .docs-pagetool:hover { color: var(--accent-strong); }
 
@@ -4511,7 +4528,13 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    which reads as decoration rather than structure. The specimen is now a plain
    block on the page with one hairline above it; the labels stay quiet and let
    the actual claim carry the weight. */
-.specimen { display: grid; gap: 1.4rem; margin-top: 1.5rem; max-width: 760px; }
+/* minmax(0, 1fr), not the implicit auto track: a grid item's automatic minimum
+   size is min-content, so the long `plectis ...` command inside .specimen__code
+   forced a 302px track into a 272px box at 320px wide and pushed five text runs
+   past the viewport edge with no horizontal scroll to reach them (SC 1.4.10
+   Reflow). With the track floored at 0 the <pre> scrolls inside its own
+   overflow-x: auto box, which is where the overflow belongs. */
+.specimen { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.4rem; margin-top: 1.5rem; max-width: 760px; }
 .specimen__card { padding: 0; border-top: 1px solid var(--rule); padding-top: 1.3rem; }
 .specimen__kicker {
   font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0;
@@ -4786,12 +4809,28 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    second visual system. */
 #papers .paper-row__routes {
   display: flex; flex-wrap: wrap; align-items: baseline;
-  gap: 0.1rem 0.5rem;
+  /* Row gap carries the vertical padding the routes below gain, so a wrapped
+     pair keeps two separate hit areas instead of overlapping ones. */
+  gap: 12px 0.5rem;
+  /* Cancel the routes' vertical padding at the row's outer edge: the hit area
+     grows, the printed layout does not move. */
+  margin: -6px 0;
 }
 #papers .paper-row__routes > * + *::before {
   content: "\00b7"; margin-right: 0.5rem; color: var(--rule);
 }
-#papers .paper-row__route { color: var(--accent); text-decoration: none; }
+/* WCAG 2.2 SC 2.5.8 Target Size (Minimum). These are the PDF and LaTeX routes --
+   standalone block action links, not links inside a sentence, so the inline
+   exception does not apply -- and they measured 26.6 x 22.7 px at 375px with an
+   8px gap, failing both the 24px size floor and the 24px spacing exception.
+   Vertical padding lifts the hit area to 34.7px; the negative margin on the row
+   above absorbs it, so nothing on the page moves. Horizontal size is untouched:
+   both routes are already wider than 24px, and padding sideways would have made
+   the two targets overlap across their 8px gap. */
+#papers .paper-row__route {
+  color: var(--accent); text-decoration: none;
+  display: inline-block; padding-top: 6px; padding-bottom: 6px;
+}
 #papers .paper-row__route:hover,
 #papers .paper-row__route:focus-visible {
   text-decoration: underline; text-underline-offset: 0.2em;

@@ -82,7 +82,7 @@
       },
       "content-manifest.json": {
         "byte_count": 301910,
-        "sha256": "sha256:7b61fe0d08c9d6ee93d1c3c12e6bee2a0a1f6c75604ac8b7b1129ab71e85f5b0"
+        "sha256": "sha256:57ad3ccd87ef4be35bf3375a6dcabae109eb27ac22d57666b30c3f7c858cd360"
       },
       "docs/architecture-graph-scene.json": {
         "byte_count": 255148,
@@ -1278,7 +1278,7 @@
       },
       "microcosm-legacy/content-manifest.json": {
         "byte_count": 301910,
-        "sha256": "sha256:7b61fe0d08c9d6ee93d1c3c12e6bee2a0a1f6c75604ac8b7b1129ab71e85f5b0"
+        "sha256": "sha256:57ad3ccd87ef4be35bf3375a6dcabae109eb27ac22d57666b30c3f7c858cd360"
       },
       "microcosm-legacy/docs/architecture.html": {
         "byte_count": 1463,
