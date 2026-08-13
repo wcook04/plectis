@@ -409,6 +409,15 @@ summary:focus-visible,
   outline-offset: 3px;
   border-radius: 3px;
 }
+/* The one deliberate exception, and it removes nothing a reader can reach.
+   <main id="main"> carries tabindex="-1" purely so the skip link can land focus
+   on it (SC 2.4.1); it is never in the Tab sequence. Without this the rule above
+   would draw a 2px ring around the entire content column the moment the skip
+   link was used. Scoped to #main by id so no other focus indicator is touched --
+   and nothing else in this stylesheet removes an outline outside a :focus
+   context. */
+main#main:focus,
+main#main:focus-visible { outline: none; }
 
 /* ── Link grammar: endogenous (stays in Microcosm) vs exogenous (leaves it) ───
    The operator's ask: a click that goes off-site (Source / GitHub / License)
@@ -4812,9 +4821,6 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   /* Row gap carries the vertical padding the routes below gain, so a wrapped
      pair keeps two separate hit areas instead of overlapping ones. */
   gap: 12px 0.5rem;
-  /* Cancel the routes' vertical padding at the row's outer edge: the hit area
-     grows, the printed layout does not move. */
-  margin: -6px 0;
 }
 #papers .paper-row__routes > * + *::before {
   content: "\00b7"; margin-right: 0.5rem; color: var(--rule);
@@ -4823,13 +4829,18 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    standalone block action links, not links inside a sentence, so the inline
    exception does not apply -- and they measured 26.6 x 22.7 px at 375px with an
    8px gap, failing both the 24px size floor and the 24px spacing exception.
-   Vertical padding lifts the hit area to 34.7px; the negative margin on the row
-   above absorbs it, so nothing on the page moves. Horizontal size is untouched:
-   both routes are already wider than 24px, and padding sideways would have made
-   the two targets overlap across their 8px gap. */
+   Vertical padding lifts the hit area to 34.7px; the matching negative margin
+   keeps the flex item's OUTER box at its old 22.7px, so the hit area grows
+   outside the layout and nothing on the page moves. (The compensation has to
+   live here rather than on the row: `#papers .link-row .go` sets margin-top
+   0.35rem below 640px and outranks a rule on .paper-row__routes, so half of a
+   row-level negative margin was silently dropped and every paper row grew 6px.)
+   Horizontal size is untouched: both routes are already wider than 24px, and
+   padding sideways would have made the two targets overlap across their 8px
+   gap. */
 #papers .paper-row__route {
   color: var(--accent); text-decoration: none;
-  display: inline-block; padding-top: 6px; padding-bottom: 6px;
+  display: inline-block; padding: 6px 0; margin: -6px 0;
 }
 #papers .paper-row__route:hover,
 #papers .paper-row__route:focus-visible {
@@ -5046,6 +5057,12 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   cursor: pointer; list-style: none;
   display: inline-flex; align-items: center; gap: 0.55rem;
   font-size: var(--fs-meta); font-weight: 600; color: var(--muted);
+  /* An inline-flex box shrink-to-fits, but at 320px this one resolved to its
+     302px max-content inside a 272px column and pushed its last glyphs off an
+     un-scrollable page (SC 1.4.10). Cap it at the column and let the label wrap.
+     min-width: 0 stops the text flex item's automatic min-content floor from
+     re-inflating it. */
+  max-width: 100%; min-width: 0;
 }
 .specimen__depth > summary::-webkit-details-marker,
 .review-receipt__log > summary::-webkit-details-marker,

@@ -765,6 +765,18 @@
     });
   })();
 
+  // --- Skip link: make the target focusable ----------------------------------
+  // The builder now ships <main id="main" tabindex="-1">, which is the real fix
+  // because it works before this file has loaded. This is the reconciliation for
+  // pages generated before that change: without a focusable target the skip link
+  // scrolls but leaves focus behind, so the next Tab goes back to the top of the
+  // header and the reader has skipped nothing (SC 2.4.1 Bypass Blocks). Only sets
+  // what is missing, so the owner attribute always wins.
+  (function skipLinkTarget() {
+    var main = document.getElementById('main');
+    if (main && main.getAttribute('tabindex') === null) main.setAttribute('tabindex', '-1');
+  })();
+
   // --- Mobile sidebar drawer -------------------------------------------------
   (function drawer() {
     var btn = document.querySelector('.docs-menu-btn');
@@ -778,9 +790,49 @@
     // still convey the toggle. Runs every load, so it survives owner HTML regen (the
     // builder-side fix is captured for the clean-source --write).
     if (btn.textContent.trim()) btn.removeAttribute('aria-label');
+    // The closed drawer used to be carried only by a delayed visibility
+    // transition (transition: ... visibility 0s linear var(--dur-slow)). Measured
+    // at 375px, visibility never returned to hidden after one open->close cycle:
+    // the drawer stayed visibility:visible at translateX(-102%) for as long as the
+    // page lived, so 26 off-canvas links at x = -270px remained focusable and
+    // remained in the accessibility tree. A keyboard reader who opened the menu
+    // once then tabbed on spent 26 stops with no focus indicator anywhere on
+    // screen -- SC 2.4.3 Focus Order and SC 2.4.7 Focus Visible.
+    //
+    // inert is the authoritative gate: no timing, no transition to complete, and
+    // it removes the subtree from the a11y tree as well as the tab order. The
+    // visibility transition stays exactly as it is, so the slide-out still reads.
+    //
+    // It must apply ONLY in the drawer regime. Above 768px this same <aside> is
+    // the ordinary always-visible docs sidebar, and marking it inert there would
+    // delete the site's navigation for every keyboard and screen-reader user.
+    //
+    // The risk here is asymmetric, and the guard is built around that. Failing to
+    // set inert costs 26 phantom tab stops; setting it wrongly costs the reader
+    // the site's entire navigation. So the drawer regime is re-derived from the
+    // toggle button's own computed display -- the exact thing the 768px media
+    // query switches -- rather than trusted from a cached flag, and it is
+    // re-evaluated on every event that could invalidate it, including focusin,
+    // which fires the moment tab order starts to matter and therefore clears a
+    // stale inert before a keyboard reader can ever reach the sidebar.
+    var mqDrawer = window.matchMedia('(max-width: 768px)');
+    function inDrawerRegime() {
+      // The menu button is display:none above 768px; if it is showing, the aside
+      // is the off-canvas drawer rather than the standing sidebar.
+      return getComputedStyle(btn).display !== 'none';
+    }
+    function syncInert() {
+      if (inDrawerRegime() && !document.body.classList.contains('nav-open')) {
+        sidebar.setAttribute('inert', '');
+      } else {
+        sidebar.removeAttribute('inert');
+      }
+    }
     function setOpen(open) {
       document.body.classList.toggle('nav-open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      // Must run before the focus call below: an inert subtree refuses focus.
+      syncInert();
       // Move focus into the drawer when it opens so keyboard/SR users land in the
       // newly-revealed navigation instead of staying on the overlaid toggle. The
       // sidebar is visibility:hidden when closed, so this only runs once the
@@ -791,6 +843,20 @@
         if (firstLink) firstLink.focus();
       }
     }
+    syncInert();
+    // A reader who opens the drawer at 375px, closes it, then rotates to landscape
+    // or widens the window must not be left with an inert sidebar. The triggers
+    // deliberately overlap, because a stale inert costs more than a late one:
+    // matchMedia is the precise signal, resize covers hosts that change the
+    // viewport without delivering a media-query change, focusin runs the instant
+    // tab order is in use, and keydown is the hard guarantee -- a Tab press is
+    // handled before focus moves, so the regime is always re-derived before a
+    // keyboard reader can reach the sidebar.
+    if (mqDrawer.addEventListener) mqDrawer.addEventListener('change', syncInert);
+    else if (mqDrawer.addListener) mqDrawer.addListener(syncInert);
+    window.addEventListener('resize', syncInert);
+    document.addEventListener('focusin', syncInert);
+    document.addEventListener('keydown', syncInert, true);
     btn.addEventListener('click', function () {
       setOpen(!document.body.classList.contains('nav-open'));
     });
@@ -1799,18 +1865,24 @@
     var searchIndexStatus = index.length ? 'ready' : 'idle';
     if (!modal || !input || !list) return;
 
-    // ARIA semantics reconciliation (runtime). The build-time shell ships the
-    // results <ul> as role="listbox", and rows historically carried role="option".
-    // But every row holds real interactive controls (Copy command / Open source /
-    // Copy packet ...), and an option's descendants are exposed as presentational,
-    // so nested buttons/links inside an option are invalid ARIA. We are not a
-    // combobox either (the input declares no combobox role / aria-activedescendant).
-    // A "correct" listbox is impossible without removing the per-row actions, so we
-    // demote the popup to an ordinary list: drop the listbox role here (this runs on
-    // every load, so it survives owner HTML regeneration), keep rows as plain list
-    // items with genuine focusable controls, and announce the active row via the
-    // live region during arrow nav. The dialog focus trap keeps controls reachable.
-    list.removeAttribute('role');
+    // ARIA semantics reconciliation (runtime; runs on every load, so it survives
+    // owner HTML regeneration).
+    //
+    // The popup IS a combobox popup, but it cannot be a LISTBOX one. Every row
+    // holds real interactive controls (Copy command / Show in map / Open evidence
+    // / Open source / Copy packet -- up to five), and role="option" has
+    // presentational children: declaring it would strip the role and name off all
+    // five, leaving focusable elements that assistive technology cannot describe.
+    // That trades one 4.1.2 failure for a worse one.
+    //
+    // The shape ARIA does sanction for a combobox popup whose rows contain
+    // controls is a grid: role="grid" > role="row" > role="gridcell", where cells
+    // may hold interactive content. The input becomes the combobox and carries
+    // aria-activedescendant, so the active row has a real programmatic state
+    // instead of only the CSS class .is-active (SC 4.1.2 Name, Role, Value), and
+    // arrow-stepping is announced natively rather than via a bolt-on live region.
+    list.setAttribute('role', 'grid');
+    if (!list.getAttribute('aria-label')) list.setAttribute('aria-label', 'Search results');
 
     // The build-time shell ships the search field with an aria-label but no id or
     // name; a nameless/idless form control trips a Chrome DevTools best-practice
@@ -1820,6 +1892,22 @@
     // clean-source --write). Only set what's missing so an owner fix wins.
     if (!input.getAttribute('name')) input.setAttribute('name', 'microcosm-search');
     if (!input.id) input.id = 'cmdk-search-input';
+
+    // Combobox half of the pattern above. aria-controls already points at the
+    // results container in the build-time shell; aria-expanded and
+    // aria-activedescendant are maintained by paint() as results change.
+    input.setAttribute('role', 'combobox');
+    input.setAttribute('aria-autocomplete', 'list');
+    input.setAttribute('aria-haspopup', 'grid');
+    input.setAttribute('aria-expanded', 'false');
+
+    // SC 4.1.3 Status Messages (AA). The result count changes on every keystroke
+    // with no focus change and nothing announced; the empty state replaces it when
+    // nothing matches. Both are already visible text, so marking them as status
+    // regions costs no pixels. They are mutually exclusive -- a non-empty count
+    // means the empty paragraph is hidden -- so there is no double announcement.
+    if (countEl && !countEl.getAttribute('role')) countEl.setAttribute('role', 'status');
+    if (emptyEl && !emptyEl.getAttribute('role')) emptyEl.setAttribute('role', 'status');
 
     var KIND = { component: 'Component', area: 'Area', page: 'Page', 'paper module': 'Paper module' };
     // Kinds absent from KIND fall back to their raw id; snake_case ones (e.g.
@@ -1847,10 +1935,14 @@
       active = -1;
       if (emptyEl) {
         if (emptyDefault == null) emptyDefault = emptyEl.textContent;
-        emptyEl.textContent = message || emptyDefault;
+        // Reveal before writing: a role="status" region that is still hidden when
+        // its text changes may never announce.
         emptyEl.removeAttribute('hidden');
+        emptyEl.textContent = message || emptyDefault;
       }
       if (countEl) countEl.textContent = '';
+      input.removeAttribute('aria-activedescendant');
+      input.setAttribute('aria-expanded', 'false');
     }
 
     function ensureSearchIndex(cb) {
@@ -1905,12 +1997,16 @@
 
     function paint() {
       var items = list.children;
+      var activeId = '';
       for (var i = 0; i < items.length; i++) {
         if (i === active) {
           items[i].classList.add('is-active');
+          items[i].setAttribute('aria-selected', 'true');
+          activeId = items[i].id;
           items[i].scrollIntoView({ block: 'nearest' });
         } else {
           items[i].classList.remove('is-active');
+          items[i].setAttribute('aria-selected', 'false');
         }
         // Keep the palette's secondary actions keyboard-reachable without
         // turning every result into several additional Tab stops. Arrow keys
@@ -1920,16 +2016,16 @@
           rowActions[j].tabIndex = i === active ? 0 : -1;
         }
       }
-    }
-
-    // Announce the active row to screen readers during arrow navigation. The list
-    // is no longer a listbox (no aria-selected / aria-activedescendant), so this
-    // polite live-region update is what makes keyboard row-stepping perceivable.
-    function announceActive() {
-      if (active < 0 || !results[active]) return;
-      var rec = results[active];
-      var rl = roleLabel(rec.kind);
-      announce(kindLabel(rec.kind) + (rl ? ' (' + rl + ')' : '') + ': ' + rec.label + ' (' + (active + 1) + ' of ' + results.length + ')');
+      // This is what makes the active row's state programmatically determinable.
+      // The .is-active class is a paint instruction and nothing more; assistive
+      // technology cannot see it. Pointing aria-activedescendant at the row's id
+      // is also why arrow-stepping no longer needs a live-region announcement:
+      // the screen reader reads the newly-active row itself. Layering a live
+      // region on top of a working activedescendant makes every arrow press
+      // speak twice.
+      if (activeId) input.setAttribute('aria-activedescendant', activeId);
+      else input.removeAttribute('aria-activedescendant');
+      input.setAttribute('aria-expanded', items.length ? 'true' : 'false');
     }
 
     function render() {
@@ -1971,15 +2067,22 @@
         results = ordered.slice(0, 30);
       }
       list.innerHTML = '';
-      results.forEach(function (rec) {
+      results.forEach(function (rec, rowIndex) {
         var li = document.createElement('li');
         li.className = 'cmdk__item';
+        // A stable, unique id per row: aria-activedescendant can only refer to an
+        // element that has one, and these rows previously shipped with id === "".
+        li.id = 'cmdk-row-' + rowIndex;
+        li.setAttribute('role', 'row');
+        li.setAttribute('aria-selected', 'false');
         li.setAttribute('data-url', rec.url);
         var kind = document.createElement('span');
         kind.className = 'cmdk__kind';
+        kind.setAttribute('role', 'gridcell');
         kind.textContent = kindLabel(rec.kind);
         var label = document.createElement('span');
         label.className = 'cmdk__label';
+        label.setAttribute('role', 'gridcell');
         label.textContent = rec.label;
         // Evidence-rank parity with the map inspector: show the strength signal
         // inline after the title when the record carries it (components only).
@@ -1992,6 +2095,7 @@
         }
         var meta = document.createElement('span');
         meta.className = 'cmdk__meta';
+        meta.setAttribute('role', 'gridcell');
         // Scent parity with the map inspector: lead with the one-line statement
         // (what it does), keep the area as context. Previously a component with a
         // family showed only the bare area word and hid its statement entirely.
@@ -2082,9 +2186,14 @@
           flashCopy(btn, copyTextSync(JSON.stringify(buildResultPacket(rec), null, 2)), 'Copy packet');
         });
         actions.push(packetBtn);
+        // Always present (Copy packet is offered for every record), so every row
+        // carries the same four gridcells and the grid has a consistent column
+        // count. This cell is the one that holds interactive content, which is
+        // the whole reason the popup is a grid rather than a listbox.
         if (actions.length) {
           var actionRow = document.createElement('div');
           actionRow.className = 'cmdk__actions';
+          actionRow.setAttribute('role', 'gridcell');
           actions.forEach(function (node) { actionRow.appendChild(node); });
           li.appendChild(actionRow);
         }
@@ -2103,10 +2212,12 @@
           // for the query-less case so this stays behaviour, not a copy fork.
           if (emptyDefault == null) emptyDefault = emptyEl.textContent;
           var q = input.value.trim();
+          // Reveal before writing, so the status region is rendered when its
+          // content changes and the dead end is actually announced.
+          emptyEl.removeAttribute('hidden');
           emptyEl.textContent = q
             ? ('No matches for “' + q + '”. Try a component, area, or evidence term.')
             : emptyDefault;
-          emptyEl.removeAttribute('hidden');
         }
       }
       if (countEl) {
@@ -2151,6 +2262,10 @@
       // at <body> start before this).
       if (returnFocusTo && returnFocusTo.focus) { returnFocusTo.focus(); }
       returnFocusTo = null;
+      // Do not leave the combobox claiming an expanded popup and an active row
+      // once the dialog is gone.
+      input.removeAttribute('aria-activedescendant');
+      input.setAttribute('aria-expanded', 'false');
     }
 
     // The modal declares aria-modal="true"; keep Tab focus inside it while open.
@@ -2181,8 +2296,10 @@
       scheduleRender();
     });
     input.addEventListener('keydown', function (ev) {
-      if (ev.key === 'ArrowDown') { ev.preventDefault(); if (results.length) { active = (active + 1) % results.length; paint(); announceActive(); } }
-      else if (ev.key === 'ArrowUp') { ev.preventDefault(); if (results.length) { active = (active - 1 + results.length) % results.length; paint(); announceActive(); } }
+      // paint() moves aria-activedescendant, which is what the screen reader
+      // announces; no separate live-region call (it would speak every row twice).
+      if (ev.key === 'ArrowDown') { ev.preventDefault(); if (results.length) { active = (active + 1) % results.length; paint(); } }
+      else if (ev.key === 'ArrowUp') { ev.preventDefault(); if (results.length) { active = (active - 1 + results.length) % results.length; paint(); } }
       else if (ev.key === 'Enter') { ev.preventDefault(); if (active >= 0 && results[active]) go(results[active].url); }
       else if (ev.key === 'Escape') { ev.preventDefault(); close(); }
     });

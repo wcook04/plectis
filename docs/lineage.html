@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=2f2dd6f49674"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=72a486372f0a">
+  <link rel="stylesheet" href="../assets/style.css?v=2afce561512c">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=fa09076500b4"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9a94ac7ffc7a"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -86,7 +86,17 @@
         </nav>
     </aside>
 
-    <main class="docs-main" id="main">
+    <!-- tabindex="-1" is what makes the skip link above actually skip. Without
+         it the fragment jump scrolls but leaves focus on the skip link itself,
+         so the next Tab returns to the top of the header and the control does
+         nothing for the keyboard reader it exists for (SC 2.4.1 Bypass Blocks).
+         Measured on a docs page before this: activeElement stayed <body> and
+         #main never became focusable. The landing gets the same effect at
+         runtime from landing.js; docs pages had no equivalent, and a static
+         attribute is better anyway -- it works before docs.js has loaded, which
+         is exactly when a keyboard reader reaches the skip link. style.css
+         suppresses the focus ring on #main so no stray outline appears. -->
+    <main class="docs-main" id="main" tabindex="-1">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off">
         <ol class="docs-breadcrumb__list">
           <li class="docs-crumb"><a href="../index.html">Plectis</a></li>
@@ -166,12 +176,19 @@
     <div class="cmdk__backdrop" data-search-close></div>
     <div class="cmdk__panel" role="dialog" aria-modal="true" aria-label="Search Plectis">
       <div class="cmdk__head">
-        <input class="cmdk__input" type="search" autocomplete="off" spellcheck="false" placeholder="Search components, areas, evidence…" aria-label="Search Plectis" data-search-input aria-controls="cmdk-results">
+        <input class="cmdk__input" id="cmdk-search-input" name="microcosm-search" type="search" autocomplete="off" spellcheck="false" placeholder="Search components, areas, evidence…" aria-label="Search Plectis" data-search-input role="combobox" aria-controls="cmdk-results" aria-haspopup="grid" aria-autocomplete="list" aria-expanded="false">
         <button class="cmdk__close" type="button" data-search-close aria-label="Close search">Esc</button>
       </div>
-      <ul class="cmdk__results" id="cmdk-results" role="listbox" aria-label="Search results" data-search-results></ul>
-      <p class="cmdk__empty" data-search-empty hidden>No matches yet.</p>
-      <div class="cmdk__foot"><span data-search-count></span><span class="cmdk__hint">&uarr;&darr; move &middot; &crarr; open &middot; esc close</span></div>
+      <!-- role="grid", not listbox: each result row carries up to five real
+           controls (Copy command / Show in map / Open evidence / Open source /
+           Copy packet), and role="option" has presentational children, which
+           would strip role and name from every one of them. A grid popup is the
+           ARIA-sanctioned shape for a combobox whose rows contain controls.
+           docs.js maintains aria-selected on the rows and aria-activedescendant
+           on the input above; keep the two in step if either is edited. -->
+      <ul class="cmdk__results" id="cmdk-results" role="grid" aria-label="Search results" data-search-results></ul>
+      <p class="cmdk__empty" role="status" data-search-empty hidden>No matches yet.</p>
+      <div class="cmdk__foot"><span role="status" data-search-count></span><span class="cmdk__hint">&uarr;&darr; move &middot; &crarr; open &middot; esc close</span></div>
     </div>
   </div>
 
