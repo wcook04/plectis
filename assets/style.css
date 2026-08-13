@@ -1137,6 +1137,41 @@ code, kbd, pre { font-family: var(--font-mono); }
    anywhere `content` on a replaced element is not honoured. */
 :root[data-theme="dark"] .wordmark__mark { content: url("favicon-night.svg"); }
 :root[data-theme="light"] .wordmark__mark { content: url("favicon-day.svg"); }
+/* ── The brand ladder ────────────────────────────────────────────────────────
+   One rung above the wordmark: the host front door this site is published
+   under. Shared by the curated landing header and the generated docs topbar,
+   so a reader is never more than one click from the top of the public work,
+   from any of the 219 pages.
+
+   It borrows the docs breadcrumb's grammar deliberately (--muted link, --faint
+   slash, --accent on hover, same 0.8-ish sans) because it is the same device
+   pointed one level further out. Nothing new is tokenised: every value here is
+   an existing token, which is what keeps it correct in both palettes without
+   touching either of the two dark blocks.
+
+   Baseline alignment, not centre: the wordmark is an inline-flex box carrying a
+   26px mark, so centring would float the small parent text against the mark's
+   optical middle instead of sitting it on the same line as the serif. */
+.brand-ladder { display: inline-flex; align-items: baseline; gap: 0.5rem; min-width: 0; }
+.brand-ladder__up {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: var(--muted);
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.brand-ladder__up:hover { color: var(--accent); border-bottom-color: var(--accent); text-decoration: none; }
+.brand-ladder__up:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.brand-ladder__sep { color: var(--faint); font-size: 0.95rem; user-select: none; }
+/* The margin belonged to the wordmark when the wordmark was the topbar's own
+   flex child. It now sits inside the ladder, where that margin would open a gap
+   between "Plectis" and the search button that the ladder's own gap already
+   handles; move it to the ladder so the spacing lands outside the rungs. */
+.docs-topbar .brand-ladder { margin-right: 0.4rem; }
+.docs-topbar .brand-ladder .wordmark { margin-right: 0; }
+
 .site-header nav { display: flex; gap: 1.6rem; align-items: center; }
 .site-header nav a { color: var(--ink-soft); font-size: 0.92rem; }
 .site-header nav a:hover { color: var(--accent); text-decoration: none; }
@@ -1532,9 +1567,17 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
    of the pair, so the relationship reads in both directions instead of one.
    It borrows the front door's own row grammar — an uppercase kind, then the
    destination named exactly as it names itself — which is what makes the two
-   pages read as one family rather than two sites sharing a host. It stays in
-   the colophon: a fifth item in the primary nav would crowd four links that
-   are already doing work, and a parent link is not a peer of them. */
+   pages read as one family rather than two sites sharing a host.
+
+   It stays in the colophon, and the reason it was never a fifth item in the
+   primary nav still holds: a parent is not a peer of four links that are
+   already doing work. What changed is that this is no longer the only way up.
+   The header carries the same route as a ladder beside the wordmark
+   (.brand-ladder above), which is what a reader arriving cold needs, and what
+   every docs page needs — there is no footer anywhere under docs/, so this row
+   was unreachable from 218 of the site's 219 pages. This one keeps the longer
+   name for the reader who has finished the page rather than just landed on
+   it. */
 .site-footer__parent {
   display: flex; flex-wrap: wrap; align-items: baseline;
   gap: 0.3rem 0.85rem; margin-top: var(--stack-major);

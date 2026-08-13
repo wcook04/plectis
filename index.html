@@ -127,18 +127,50 @@
   <!-- Pre-paint theme apply (blocking, same-origin, CSP 'self'): stamps the
        saved/system theme on <html> before the stylesheet applies, so a
        returning visitor never flashes the other theme. Toggle logic is in docs.js. -->
-  <script src="assets/theme-init.js?v=7cb932bcc475"></script>
-  <link rel="stylesheet" href="assets/style.css?v=2afce561512c">
+  <script src="assets/theme-init.js?v=2f2dd6f49674"></script>
+  <link rel="stylesheet" href="assets/style.css?v=5a8ef983105c">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="wrap site-header__inner">
-      <!-- The mark is decorative here: the word beside it already names the
-           site, so an alt text would make a screen reader say "Plectis" twice.
+      <!-- The ladder out of this site, in the position a ladder belongs: to the
+           left of the thing it holds up, reading top-down as you read across.
+           This site is one of four routes listed on the host front door, and
+           until now the only way back was a row in the colophon at the bottom
+           of this one page — nothing a reader who arrived from a link and
+           wanted to know whose work this is would ever scroll to.
+
+           Not a fifth item in the primary nav, for two reasons that survive the
+           taste argument. It is not a peer of Papers, Docs, GitHub and Contact;
+           those are places inside this site and this is the thing they hang
+           under. And the nav is a budgeted row — it wraps to its own line below
+           620px and is hidden outright on docs pages below 600px — so an
+           up-route parked there would disappear on exactly the screens where a
+           reader is most lost. Beside the wordmark it costs no nav slot and is
+           visible at every width.
+
+           The separator and the two colours are the docs breadcrumb's, not new
+           ones: link in --muted, slash in --faint, hover to --accent. The two
+           devices answer different questions and should look related — this bar
+           says which site you are in, the breadcrumb inside a docs page says
+           where you are within it.
+
+           data-link-kind="parent" is load-bearing on the generated docs copy of
+           this markup: mark_external_links() stamps every absolute href as
+           exogenous, which would paint this gold and hang an outbound arrow off
+           it. Climbing one level inside the same public work is not leaving for
+           somewhere foreign. Declared here too so both copies read alike.
+
+           The mark is decorative: the word beside it already names the site, so
+           an alt text would make a screen reader say "Plectis" twice.
            Width/height are set so the header never reflows while it loads. -->
-      <a class="wordmark" href="index.html"><img class="wordmark__mark" src="assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="index.html"><img class="wordmark__mark" src="assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
       <nav aria-label="Primary">
         <a href="#papers">Papers</a>
         <a class="nav-cue" href="docs/index.html">Docs</a>
@@ -949,12 +981,17 @@
         <a href="#contact">Contact</a>
       </nav>
     </div>
-    <!-- The other half of a pair. The host front door at wcook04.github.io
-         lists this site as its "Run / Plectis" route; until now nothing here
-         pointed back, so the relationship only existed in one direction. The
-         row uses that page's own grammar — a kind, then the destination named
-         as it names itself — and sits in the colophon rather than the primary
-         nav, because a parent is not a peer of Papers, Docs, GitHub, Contact.
+    <!-- The other half of a pair, and the fuller half. The host front door at
+         wcook04.github.io lists this site as its "Run / Plectis" route; this
+         row names it back, in that page's own grammar — a kind, then the
+         destination named exactly as it names itself.
+
+         The header now carries the same route as a ladder beside the wordmark,
+         which is what a reader arriving cold needs. This row is for the reader
+         who has reached the bottom, so it can afford the longer name. Still not
+         in the primary nav, for the reason it never was: a parent is not a peer
+         of Papers, Docs, GitHub and Contact.
+
          Absolute URL on purpose: the two sites are separate directories on one
          host, and a relative "../" would be true but harder to read. -->
     <p class="wrap site-footer__parent">

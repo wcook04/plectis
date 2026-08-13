@@ -25,7 +25,7 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=2f2dd6f49674"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=2afce561512c">
+  <link rel="stylesheet" href="../assets/style.css?v=5a8ef983105c">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9a94ac7ffc7a"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
@@ -37,7 +37,21 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <a class="wordmark" href="../index.html">Plectis</a>
+      <!-- The ladder out of this site. A docs page is two levels down from the
+           host front door and, until this existed, had no route back to it at
+           all: there is no footer anywhere under docs/, so the landing's
+           colophon row was unreachable from any of these pages. It sits beside
+           the wordmark rather than in the primary nav because it is not a peer
+           of GitHub and Contact -- it is the thing they hang under -- and
+           because the nav is hidden outright below 600px, which would have made
+           the up-route vanish on exactly the screens where a reader is most
+           lost. The in-page breadcrumb underneath stays site-internal; this bar
+           answers the other question, which is what site you are in. -->
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../index.html">Plectis</a>
+      </span>
       <button class="docs-search-btn" type="button" data-search-open aria-haspopup="dialog" aria-expanded="false">
         <span class="docs-search-btn__text">Search</span>
         <kbd class="docs-search-btn__kbd">/</kbd>
