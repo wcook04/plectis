@@ -138060,7 +138060,7 @@
             "page": "area-continuity.html"
           }
         ],
-        "total_occurrences": 133
+        "total_occurrences": 132
       },
       "visible_text_byte_count": 940
     },
@@ -138204,7 +138204,7 @@
             "page": "area-import-drift.html"
           }
         ],
-        "total_occurrences": 619
+        "total_occurrences": 620
       },
       "visible_text_byte_count": 788
     },
@@ -140782,7 +140782,7 @@
             "page": "paper-module-batch8-policy-engines-capsule.html"
           }
         ],
-        "total_occurrences": 638
+        "total_occurrences": 639
       },
       "visible_text_byte_count": 865
     },
@@ -148945,7 +148945,7 @@
             "page": "paper-module-navigation-hologram-route-plane.html"
           }
         ],
-        "total_occurrences": 327
+        "total_occurrences": 329
       },
       "visible_text_byte_count": 1610
     },
@@ -156647,7 +156647,7 @@
             "page": "open-questions.html"
           }
         ],
-        "total_occurrences": 365
+        "total_occurrences": 367
       },
       "visible_text_byte_count": 817
     },
@@ -161759,7 +161759,7 @@
             "page": "vulnerability-disclosure.html"
           }
         ],
-        "total_occurrences": 81
+        "total_occurrences": 82
       },
       "visible_text_byte_count": 877
     },
@@ -266984,7 +266984,7 @@
     },
     "continuity": {
       "by_page": {
-        "architecture.html": 7,
+        "architecture.html": 6,
         "area-agent-reliability.html": 2,
         "area-continuity.html": 8,
         "area-import-drift.html": 1,
@@ -267014,7 +267014,7 @@
       },
       "page_count": 27,
       "top_page": "reference.html",
-      "total_occurrences": 133
+      "total_occurrences": 132
     },
     "contradiction": {
       "by_page": {
@@ -267032,7 +267032,7 @@
     },
     "control": {
       "by_page": {
-        "architecture.html": 6,
+        "architecture.html": 7,
         "area-agent-reliability.html": 3,
         "area-continuity.html": 3,
         "area-entry.html": 1,
@@ -267127,7 +267127,7 @@
       },
       "page_count": 92,
       "top_page": "reference.html",
-      "total_occurrences": 619
+      "total_occurrences": 620
     },
     "convergence": {
       "by_page": {
@@ -269423,7 +269423,7 @@
     },
     "engine": {
       "by_page": {
-        "architecture.html": 7,
+        "architecture.html": 8,
         "area-agent-reliability.html": 2,
         "area-architecture.html": 2,
         "area-continuity.html": 2,
@@ -269482,7 +269482,7 @@
       },
       "page_count": 56,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 638
+      "total_occurrences": 639
     },
     "engine_room": {
       "by_page": {
@@ -276537,7 +276537,7 @@
     },
     "navigation": {
       "by_page": {
-        "architecture.html": 6,
+        "architecture.html": 8,
         "area-agent-reliability.html": 1,
         "area-architecture.html": 23,
         "area-entry.html": 1,
@@ -276598,7 +276598,7 @@
       },
       "page_count": 58,
       "top_page": "reference.html",
-      "total_occurrences": 327
+      "total_occurrences": 329
     },
     "negative": {
       "by_page": {
@@ -283102,7 +283102,7 @@
     },
     "safety": {
       "by_page": {
-        "architecture.html": 4,
+        "architecture.html": 6,
         "area-agent-reliability.html": 27,
         "area-continuity.html": 3,
         "area-formal-math.html": 1,
@@ -283175,7 +283175,7 @@
       },
       "page_count": 70,
       "top_page": "reference.html",
-      "total_occurrences": 365
+      "total_occurrences": 367
     },
     "sandbox": {
       "by_page": {
@@ -287220,7 +287220,7 @@
     },
     "vulnerability": {
       "by_page": {
-        "architecture.html": 1,
+        "architecture.html": 2,
         "area-agent-reliability.html": 2,
         "component-agentic-vulnerability-discovery-patch-proof-replay.html": 7,
         "component-mission-transaction-work-spine.html": 1,
@@ -287240,7 +287240,7 @@
       },
       "page_count": 17,
       "top_page": "reference.html",
-      "total_occurrences": 81
+      "total_occurrences": 82
     },
     "whole": {
       "by_page": {

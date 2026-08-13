@@ -2926,6 +2926,18 @@ body.cmdk-open { overflow: hidden; }
 .gcluster__box { fill: var(--surface-sunk); stroke: var(--rule); stroke-width: 1; }
 .gcluster__label { fill: var(--ink-soft); font-family: var(--font-sans); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
 .gcluster__count { fill: var(--muted); font-weight: 700; }
+/* Two structural tiers. The scene has always carried cluster `kind` (overview /
+   shared_spine / area) and it never reached the DOM, so nine identical grey
+   rectangles were all CSS could draw — the main reason the figure read as a
+   wireframe. The seven areas keep the filled card; the two orientation bands
+   become unfilled frames, so scaffolding reads as frame and areas as content.
+   Existing tokens only, so this carries into dark and print for free. */
+.gcluster__box--overview, .gcluster__box--shared_spine { fill: none; stroke: var(--rule-strong); }
+.gcluster--overview .gcluster__label, .gcluster--shared_spine .gcluster__label {
+  fill: var(--muted); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.gcluster--overview .gcluster__count, .gcluster--shared_spine .gcluster__count { fill: var(--muted); }
 
 .gedge { stroke: var(--edge); stroke-width: 1; stroke-linecap: round; transition: opacity var(--dur) var(--ease); }
 /* Token-driven so the salience tiers re-point in dark/print: the dashed binds
@@ -2951,7 +2963,9 @@ body.cmdk-open { overflow: hidden; }
 .gnode--wired_component .gnode__dot { fill: var(--surface-sunk); stroke: var(--accent); stroke-width: 1.4; }
 .gnode__label {
   fill: var(--ink-soft); font-family: var(--font-sans); font-size: 13px; pointer-events: none;
-  paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+  /* Halo matches the card fill the labels actually sit on (--surface-sunk), not
+     the page surface behind the figure. */
+  paint-order: stroke; stroke: var(--surface-sunk); stroke-width: 3px; stroke-linejoin: round;
 }
 .gnode__hit { cursor: pointer; }
   /* Scoped to areas: the component token owns its ring (above), so a generic
@@ -2986,6 +3000,13 @@ body.cmdk-open { overflow: hidden; }
 .system-map__graph.has-salience .gnode--wired_component.is-hub .gnode__label,
 .system-map__graph.has-salience .gnode--wired_component.is-active .gnode__label,
 .system-map__graph.has-salience .gnode--wired_component.is-neighbour .gnode__label { opacity: 1; }
+/* The same reveal without scripting. The figure now carries `has-salience` from
+   the builder, so the label ladder applies on a scripting-off page too; this
+   hover/focus rule is what gives that page a way to read a name back. */
+.system-map__graph.has-salience .gnode--component:hover .gnode__label,
+.system-map__graph.has-salience .gnode--component:focus-within .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component:hover .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component:focus-within .gnode__label { opacity: 1; }
 
 /* Hub promotion: a faint outer ring on the otherwise-invisible hit halo, a
    firmer dot edge, and a persistent heavier label — so the handful of true

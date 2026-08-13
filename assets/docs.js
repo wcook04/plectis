@@ -2502,15 +2502,29 @@
     }
     var colX = uniqSortedInt(boxes.map(function (b) { return b.x; }));
     var rowY = uniqSortedInt(boxes.map(function (b) { return b.y; }));
-    var boxW = boxes.length ? boxes[0].w : 364, boxH = boxes.length ? boxes[0].h : 302;
+    // Right edge per column and bottom edge per row, MEASURED from the boxes in
+    // them. This used to be `boxes[0].w` / `boxes[0].h` applied to every column
+    // and row -- a silent uniform-grid assumption. The cards are now sized to
+    // their contents, so a scalar extent would place gutter lanes inside cards.
+    function extent(keys, axis, span) {
+      return keys.map(function (k) {
+        var m = -Infinity;
+        boxes.forEach(function (b) {
+          if (Math.abs(b[axis] - k) < 1) m = Math.max(m, b[axis] + b[span]);
+        });
+        return m === -Infinity ? k : m;
+      });
+    }
+    var colRight = extent(colX, 'x', 'w');
+    var rowBottom = extent(rowY, 'y', 'h');
     var vGutterX = [];
-    for (var ci = 0; ci < colX.length - 1; ci++) vGutterX.push((colX[ci] + boxW + colX[ci + 1]) / 2);
+    for (var ci = 0; ci < colX.length - 1; ci++) vGutterX.push((colRight[ci] + colX[ci + 1]) / 2);
     var leftMarginX = (SCENE.x + colX[0]) / 2;
-    var rightMarginX = (colX[colX.length - 1] + boxW + (SCENE.x + SCENE.w)) / 2;
+    var rightMarginX = (colRight[colRight.length - 1] + (SCENE.x + SCENE.w)) / 2;
     var hGutterY = [];
-    for (var ri = 0; ri < rowY.length - 1; ri++) hGutterY.push((rowY[ri] + boxH + rowY[ri + 1]) / 2);
+    for (var ri = 0; ri < rowY.length - 1; ri++) hGutterY.push((rowBottom[ri] + rowY[ri + 1]) / 2);
     var topMarginY = (SCENE.y + rowY[0]) / 2;
-    var botMarginY = (rowY[rowY.length - 1] + boxH + (SCENE.y + SCENE.h)) / 2;
+    var botMarginY = (rowBottom[rowBottom.length - 1] + (SCENE.y + SCENE.h)) / 2;
     function colOf(b) { for (var i = 0; i < colX.length; i++) if (Math.abs(b.x - colX[i]) < 1) return i; return -1; }
     function rowOf(b) { for (var i = 0; i < rowY.length; i++) if (Math.abs(b.y - rowY[i]) < 1) return i; return -1; }
 
@@ -2838,6 +2852,11 @@
       if (sbi < 0 || tbi < 0 || sbi === tbi) return null;
       var sb = boxes[sbi], tb = boxes[tbi];
       var sCol = colOf(sb), sRow = rowOf(sb), tCol = colOf(tb), tRow = rowOf(tb);
+      // A -1 here used to index vGutterX[-1] / hGutterY[-1] and produce NaN
+      // coordinates, which survived both safety gates (every NaN comparison is
+      // false) and were rejected only because `score < bestScore` was also
+      // false. Make the rejection explicit rather than accidental.
+      if (sCol < 0 || tCol < 0 || sRow < 0 || tRow < 0) return null;
 
       var vLanes;
       if (sCol === tCol) {
@@ -3071,7 +3090,9 @@
       catch (e) { hideBadge(); return; } // not rendered (display:none / detached) -> no badge, don't throw out of activation
       var padX = 8, padY = 5;
       var w = bb.width + padX * 2, h = bb.height + padY * 2;
-      var labelGap = 30;          // clear the node's own label (baseline cy+24.9)
+      // Clear the node's own label, whose baseline is r + 14 below the dot and
+      // so varies with the node's degree-derived radius (see __dy above).
+      var labelGap = (node.__dy || LABEL_DY) + 6;
       var hostBox = boxOfPoint(c.x, c.y);
       var bx = c.x - w / 2;
       var by = c.y + labelGap;    // below the dot + its label by default
@@ -3124,11 +3145,18 @@
       t.textContent = n.__short;
       var perChar = n.__full.length ? (n.__fullW / n.__full.length) : 6.4;
       n.__shortW = n.__short.length * perChar;
+      // Per-node label offset, read off the baseline the builder emitted. The
+      // frozen 24.9 was r + 14 with r pinned at 10.9 for every node, which held
+      // only while attention_score was constant; dot radii now carry declared-
+      // wiring degree, so the collision rectangles must follow the real label.
+      var c0 = centreOf(n.getAttribute('data-id'));
+      var ty = parseFloat(t.getAttribute('y'));
+      n.__dy = (c0 && isFinite(ty)) ? (ty - c0.y) : LABEL_DY;
     });
     function labelRect(n, full) {
       var c = centreOf(n.getAttribute('data-id')); if (!c) return null;
       var w = full ? n.__fullW : n.__shortW;
-      return { x: c.x - w / 2, y: c.y + LABEL_DY - 11, w: w, h: LABEL_H, cx: c.x };
+      return { x: c.x - w / 2, y: c.y + (n.__dy || LABEL_DY) - 11, w: w, h: LABEL_H, cx: c.x };
     }
     var labelTouched = [];
     function resetLabels() {

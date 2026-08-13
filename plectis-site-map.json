@@ -56,7 +56,7 @@
           "no_signup_form"
         ],
         "first_sources": [
-          "route_index.pages[updates]",
+          "route_index.pages[docs/updates.html]",
           "sidecar_refs.updates_feed",
           "route_index.start_here"
         ],
@@ -116,7 +116,7 @@
           "coverage_scope",
           "route_index",
           "component_digest[].scope_limit",
-          "claim_ceiling_index[public_evidence_only]"
+          "claim_ceiling_index.entries[public_evidence_only]"
         ],
         "must_not_infer": [
           "claims_without_public_evidence",
@@ -139,7 +139,38 @@
           "source_authority",
           "first_local_check"
         ],
+        "canonical_route": "what_is_plectis",
         "first_sources": [
+          "canonical_public_identity",
+          "route_index.pages[docs/lineage.html]",
+          "legacy_compatibility",
+          "coverage_scope",
+          "read_first",
+          "route_index.start_here"
+        ],
+        "must_not_infer": [
+          "second_active_brand",
+          "affiliation_or_endorsement",
+          "claims_without_public_evidence",
+          "hosted_service",
+          "whole_system_correctness"
+        ],
+        "question_family": "orientation",
+        "when": "the reader met the legacy identifier -- in artifact_kind, in a schema string, in a stored copy or in a package name -- and is asking whether it is a different project"
+      },
+      "what_is_plectis": {
+        "alias_routes": [
+          "what_is_microcosm"
+        ],
+        "answer_shape": [
+          "current_public_name",
+          "what_the_project_is_in_one_sentence",
+          "legacy_identifier_and_why_it_persists",
+          "public_boundary",
+          "first_map_route"
+        ],
+        "first_sources": [
+          "canonical_public_identity",
           "route_index.pages[docs/lineage.html]",
           "legacy_compatibility",
           "coverage_scope",
@@ -182,7 +213,7 @@
         "first_sources": [
           "component_digest[].rank",
           "component_digest[].evidence_kind",
-          "route_index.pages[evidence]"
+          "route_index.pages[docs/evidence.html]"
         ],
         "must_not_infer": [
           "maturity",
@@ -214,11 +245,12 @@
           "read_evidence_line",
           "follow_source_route"
         ],
+        "default_mode": "read this packet in this conversation. Raise the separate coding-agent route only when fresh execution is asked for; see how_to_review_with_a_coding_agent.",
         "expansion_sources": [
           "component_digest"
         ],
         "first_sources": [
-          "public_glossary",
+          "cold_open_protocol",
           "quick_path",
           "route_index.start_here",
           "component_digest[cold_reader_route_map]"
@@ -5998,7 +6030,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:297b34d55542a4fdc36b260ac8a46b2fd27f58be626cc7b3970a4aac3845f939",
+    "payload_sha256_excluding_identity": "sha256:5a32fdb7e25e90b5910e87e4a5172e3442a2c8aab0dc998427c5d78fb570e51f",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "a46c56b0c366395189df71fc836b5209"
@@ -40093,7 +40125,7 @@
               "page": "area-continuity.html"
             }
           ],
-          "total_occurrences": 133
+          "total_occurrences": 132
         },
         "visible_text_byte_count": 940
       },
@@ -40237,7 +40269,7 @@
               "page": "area-import-drift.html"
             }
           ],
-          "total_occurrences": 619
+          "total_occurrences": 620
         },
         "visible_text_byte_count": 788
       },
@@ -42815,7 +42847,7 @@
               "page": "paper-module-batch8-policy-engines-capsule.html"
             }
           ],
-          "total_occurrences": 638
+          "total_occurrences": 639
         },
         "visible_text_byte_count": 865
       },
@@ -50978,7 +51010,7 @@
               "page": "paper-module-navigation-hologram-route-plane.html"
             }
           ],
-          "total_occurrences": 327
+          "total_occurrences": 329
         },
         "visible_text_byte_count": 1610
       },
@@ -58680,7 +58712,7 @@
               "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 365
+          "total_occurrences": 367
         },
         "visible_text_byte_count": 817
       },
@@ -63792,7 +63824,7 @@
               "page": "vulnerability-disclosure.html"
             }
           ],
-          "total_occurrences": 81
+          "total_occurrences": 82
         },
         "visible_text_byte_count": 877
       },
@@ -70411,7 +70443,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:1b23b97f37488e3201271691a012ecedef651016bdf538207b6d52d25e3b616c",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:1dc2b0241ebc7fd073e33b093f168ffdce109d45057c8a70a8a9f4767ded7faa"
+      "sites/microcosm/index.html": "sha256:2a1c7f9321942c48074986b5d471bb9bb5d56f7edff2a4b150b81bfd9c6769f2"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
@@ -201767,7 +201799,7 @@
                 "page": "area-continuity.html"
               }
             ],
-            "total_occurrences": 133
+            "total_occurrences": 132
           },
           "visible_text_byte_count": 940
         },
@@ -201911,7 +201943,7 @@
                 "page": "area-import-drift.html"
               }
             ],
-            "total_occurrences": 619
+            "total_occurrences": 620
           },
           "visible_text_byte_count": 788
         },
@@ -204489,7 +204521,7 @@
                 "page": "paper-module-batch8-policy-engines-capsule.html"
               }
             ],
-            "total_occurrences": 638
+            "total_occurrences": 639
           },
           "visible_text_byte_count": 865
         },
@@ -212652,7 +212684,7 @@
                 "page": "paper-module-navigation-hologram-route-plane.html"
               }
             ],
-            "total_occurrences": 327
+            "total_occurrences": 329
           },
           "visible_text_byte_count": 1610
         },
@@ -220354,7 +220386,7 @@
                 "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 365
+            "total_occurrences": 367
           },
           "visible_text_byte_count": 817
         },
@@ -225466,7 +225498,7 @@
                 "page": "vulnerability-disclosure.html"
               }
             ],
-            "total_occurrences": 81
+            "total_occurrences": 82
           },
           "visible_text_byte_count": 877
         },

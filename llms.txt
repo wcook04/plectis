@@ -81,7 +81,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 ## Reader ladder (open in order of need)
 
-- [reader digest](plectis-ai-reader-digest.json) (~317 KB): start here -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index, and provenance. It carries the routes and the claim ceilings without the deep bodies, which is what most questions need.
+- [reader digest](plectis-ai-reader-digest.json) (~318 KB): start here -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index, and provenance. It carries the routes and the claim ceilings without the deep bodies, which is what most questions need.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [AI packet](plectis-ai-review-packet.json) (~14 MB): the whole public site in one self-describing file -- read_me_first, answer contract, headline_results (the mathematics first), question routes, starter prompts, view descriptors, and every public text body. The most complete single artifact, and large enough that it is a deliberate choice rather than a default.
 - [complete text corpus](plectis-ai-reader-complete.json) (~9 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
