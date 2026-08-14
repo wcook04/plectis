@@ -43,11 +43,14 @@ import sys
 
 # Content column of the markdown body at a 1440px viewport.
 CONTENT_PX = 1012
-# Advance width of one character. GitHub sets 12px SFMono for code (~7.2px) and
-# 16px system prose (~7.6px average). Code is what drives table minimums, so the
-# monospace figure is the operative one.
-CODE_PX_PER_CHAR = 7.2
-PROSE_PX_PER_CHAR = 7.6
+# Advance width of one character, measured on live github.com by rendering
+# probes at `width: min-content` inside `.markdown-body`:
+#   69-char underscore identifier -> 576px  = 8.35 px/char
+#   70-char dotted identifier     -> 584px  = 8.34 px/char
+#   75-char slashed path          -> 625px  = 8.33 px/char
+#   longest word of ordinary prose          = 7.2 px/char
+CODE_PX_PER_CHAR = 8.34
+PROSE_PX_PER_CHAR = 7.2
 # td padding: 13px each side, plus the 1px border.
 COL_CHROME_PX = 27
 
@@ -66,6 +69,17 @@ IMG = re.compile(r"!\[([^\]]*)\]\(([^)]*)\)")
 HTML_TAG = re.compile(r"<[^>]+>")
 WS = re.compile(r"\s+")
 DELIM = re.compile(r"^\s*\|?\s*:?-{1,}:?\s*(\|\s*:?-{1,}:?\s*)*\|?\s*$")
+# Where a line may break. Whitespace obviously, and a hyphen: UAX #14 makes a
+# hyphen a break opportunity, and GitHub leaves `word-break: normal`, so a
+# hyphenated slug really does wrap. Measured: a 72-char hyphenated slug has a
+# min-content width of 120px, while a 69-char underscored identifier has 576px.
+# Underscores, dots and slashes are NOT break opportunities — do not add them.
+BREAKABLE = re.compile(r"[\s­-]+")
+
+
+def segments(text: str):
+    """Split into runs that cannot be broken across lines."""
+    return [s for s in BREAKABLE.split(text) if s]
 
 
 def strip_inline(text: str) -> str:
@@ -77,16 +91,20 @@ def strip_inline(text: str) -> str:
 
 
 def cell_metrics(cell: str) -> tuple[float, int, str]:
-    """Return (min_px, visible_chars, worst_token) for one cell."""
+    """Return (min_px, visible_chars, worst_token) for one cell.
+
+    The minimum is set by the widest run that cannot be broken across lines,
+    which is what table layout uses to size a column.
+    """
     worst_px = 0.0
     worst_tok = ""
     for m in CODE_SPAN.finditer(cell):
-        for tok in WS.split(m.group(1)):
+        for tok in segments(m.group(1)):
             px = len(tok) * CODE_PX_PER_CHAR
             if px > worst_px:
                 worst_px, worst_tok = px, tok
     rest = strip_inline(CODE_SPAN.sub(" ", cell))
-    for tok in WS.split(rest):
+    for tok in segments(rest):
         px = len(tok) * PROSE_PX_PER_CHAR
         if px > worst_px:
             worst_px, worst_tok = px, tok
