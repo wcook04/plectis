@@ -141,15 +141,25 @@ Each card carries: **What it makes visible** (plain language) · **For agents** 
 
 The evidence class tells you how strong a card's backing is. It is a claim-boundary legend, not a score.
 
-| Evidence class | Strength | Scope limit | Counts as substrate progress |
-|---|---|---|---|
-| `algorithmic_projection` | 3/5 | projection mechanics only, not domain-level conclusions | yes |
-| `bounded_runtime_computation` | 4/5 | bounded in-process runtime computation only, not domain-level conclusions, launch, benchmark, or product authority | yes |
-| `external_subprocess_witness` | 4/5 | tool witness only, not general proof authority | yes |
-| `fixture_echo_smoke` | 1/5 | smoke/projection demo only, not behavioral validation, not safety validation, not benchmark claims, and not product progress evidence | no (regression/smoke) |
-| `fixture_schema_replay` | 2/5 | schema/regression fixture only | no (regression/smoke) |
-| `semantic_validator` | 5/5 | validates declared public contract only | yes |
-| `verified_macro_body_import` | 5/5 | verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing | yes |
+| Evidence class | Strength | Counts as substrate progress |
+|---|---|---|
+| `algorithmic_projection` | 3/5 | yes |
+| `bounded_runtime_computation` | 4/5 | yes |
+| `external_subprocess_witness` | 4/5 | yes |
+| `fixture_echo_smoke` | 1/5 | no (regression/smoke) |
+| `fixture_schema_replay` | 2/5 | no (regression/smoke) |
+| `semantic_validator` | 5/5 | yes |
+| `verified_macro_body_import` | 5/5 | yes |
+
+Where each class stops:
+
+- `algorithmic_projection` — projection mechanics only, not domain-level conclusions
+- `bounded_runtime_computation` — bounded in-process runtime computation only, not domain-level conclusions, launch, benchmark, or product authority
+- `external_subprocess_witness` — tool witness only, not general proof authority
+- `fixture_echo_smoke` — smoke/projection demo only, not behavioral validation, not safety validation, not benchmark claims, and not product progress evidence
+- `fixture_schema_replay` — schema/regression fixture only
+- `semantic_validator` — validates declared public contract only
+- `verified_macro_body_import` — verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing
 
 ## Families
 

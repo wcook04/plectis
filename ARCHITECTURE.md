@@ -82,11 +82,13 @@ sequenceDiagram
 | What starts it? | `plectis tour <project>` — point it at a folder |
 | Where does control go? | `cli.py` enters, `project_substrate.py` runs the spine |
 | What lands on disk? | `.microcosm/` catalog, routes, `events.jsonl`, `evidence/` |
-| What does not change? | source files (`source_mutation_default` `false`), provider state (`provider_calls_authorized` `false`), release state (`release_authorized` `false`) — governed kernel flags, not prose |
-| How does it become credible? | receipt `receipts/runtime_shell/public_ten_minute_tour.json` |
+| What does not change? | source files, provider state, release state |
+| How does it become credible? | one generated receipt |
 | What does the reader see? | the first-screen card: `selected_route_id`, `front_door_status`, the route -> work -> event -> evidence chain |
 | Where does the claim stop? | local first-screen route map only; no provider calls or source mutation |
 | Where to drill down? | `README.md#install`, `AGENTS.md#rules` |
+
+What does not change is recorded as three governed kernel flags rather than prose: `source_mutation_default` `false` for source files, `provider_calls_authorized` `false` for provider state, `release_authorized` `false` for release state. The receipt behind the run is `receipts/runtime_shell/public_ten_minute_tour.json`.
 
 That tour is route 1 of 10 in the bundle's first-run sequence; each later route names its own command, receipt, and scope the same way.
 
@@ -101,7 +103,7 @@ The run above is one path through a small, fixed set of parts. This is the whole
 | Project-local state | `.microcosm/` | The record a run writes — one file per primitive, plus `events.jsonl` and `evidence/`. |
 | Components | `organs/` | One module per component: a bounded specimen with a runner and a stated scope limit. |
 | Validators | `validators/` | The checkers that back claims; an evidence class is only as strong as the validator behind it. |
-| Projections | `projections/` | The builders that render the public surfaces — the component atlas, the architecture graph scene, and this page — from `core/*.json`. |
+| Projections | `projections/` | Builders that render the public surfaces from `core/*.json`: component atlas, architecture graph scene, and this page. |
 | Governed registries | `core/*.json` | The source of truth this page is generated from, not the prose here. |
 
 ```mermaid
@@ -207,15 +209,13 @@ flowchart LR
   S --> AC[Scope limit]
 ```
 
-| Family | Organs | What it helps you do |
-|---|---|---|
-| [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | Microcosm's entry point and what its short guided path actually proves. |
-| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 12 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
-| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 20 | The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates. |
-| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 20 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
-| [Research & Science Replays](ORGANS.md#research--science-replays) | 9 | Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
-| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 20 | The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source. |
-| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+- **[Entry & Reveal](ORGANS.md#entry--reveal)** — 2 components. Microcosm's entry point and what its short guided path actually proves.
+- **[Architecture & Navigation](ORGANS.md#architecture--navigation)** — 12 components. The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable.
+- **[Formal Math & Proof](ORGANS.md#formal-math--proof)** — 20 components. The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.
+- **[Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays)** — 20 components. Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.
+- **[Research & Science Replays](ORGANS.md#research--science-replays)** — 9 components. Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.
+- **[Import, Projection & Drift](ORGANS.md#import-projection--drift)** — 20 components. The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.
+- **[Work, Landing & Continuity](ORGANS.md#work-landing--continuity)** — 5 components. How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.
 
 ## Level 3 — organ wiring map
 

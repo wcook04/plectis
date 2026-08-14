@@ -169,22 +169,26 @@ filenames.
 
 ## Structured Lattice Bindings
 
-| Binding | Source |
-|---|---|
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]` |
-| Generated instance | `paper_modules/corpus_readiness_mathlib_absence_gate.json` |
-| Reader projection | `paper_modules/corpus_readiness_mathlib_absence.md` |
-| Organ subject | `corpus_readiness_mathlib_absence_gate` |
-| Mechanism subject | `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary` |
-| Mathlib-absence mechanism | `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary` |
-| Governing concept | `concept.formal_math_and_proof_witness_bundle` |
-| Runtime locus | `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py` |
-| Dependency | `paper_module.tactic_portfolio_availability` |
-| Governing principle | `P-8` |
-| Governing axiom | `AX-7` |
-| Generated Mermaid | `paper_module.corpus_readiness_mathlib_absence_gate.mermaid` is `available_from_capsule_edges` |
-| Generated Atlas card | `organ_atlas.corpus_readiness_mathlib_absence_gate` is `blocked_until_organ_atlas_owner_lane_binds_edges` |
-| Residual relations | No paper-module selective dependency residual remains for the source-backed tactic-portfolio edge. |
+- **Capsule authority:**
+  `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]`
+- **Generated instance:** `paper_modules/corpus_readiness_mathlib_absence_gate.json`
+- **Reader projection:** `paper_modules/corpus_readiness_mathlib_absence.md`
+- **Organ subject:** `corpus_readiness_mathlib_absence_gate`
+- **Mechanism subject:**
+  `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary`
+- **Mathlib-absence mechanism:**
+  `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary`
+- **Governing concept:** `concept.formal_math_and_proof_witness_bundle`
+- **Runtime locus:** `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py`
+- **Dependency:** `paper_module.tactic_portfolio_availability`
+- **Governing principle:** `P-8`
+- **Governing axiom:** `AX-7`
+- **Generated Mermaid:** `paper_module.corpus_readiness_mathlib_absence_gate.mermaid`
+  is `available_from_capsule_edges`
+- **Generated Atlas card:** `organ_atlas.corpus_readiness_mathlib_absence_gate`
+  is `blocked_until_organ_atlas_owner_lane_binds_edges`
+- **Residual relations:** no paper-module selective dependency residual remains
+  for the source-backed tactic-portfolio edge.
 
 The generated instance currently carries eight relationship edges: three
 explained subjects, one governing concept, one governing principle, one

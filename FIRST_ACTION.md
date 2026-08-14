@@ -88,27 +88,27 @@ This is the contract's stable projection: volatile fields (timings, byte budgets
 
 ## The battery at a glance (17 goals)
 
-Short command tails below; the per-section blocks and the receipt carry every command verbatim in the cold-runnable source form.
+Each row names how the goal routed, which component owns it, and the class of first action the contract produced. The per-section blocks below carry the owner's component id and every command verbatim in the cold-runnable source form, as does the receipt.
 
 | Goal | Resolved via | Owner | First action |
 |---|---|---|---|
-| explain the system to me | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
-| what's going on here? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
-| How do I evaluate the finance forecasting system? | `task_class_route_match (finance)` | `finance_forecast_evaluation_spine` | `finance-forecast-evaluation-spine run --input fixture...` |
-| check the lean proof evidence | `task_class_route_match (lean-subprocess)` | `lean_proof_search_lab_runtime` | `PYTHONPATH=src python3 -m microcosm_core.organs.lean_...` |
-| evaluate prompt injection defenses | `organ_token_match (indirect_prompt_injection_information_flow_policy_replay)` | `indirect_prompt_injection_information_flow_policy_replay` | `indirect-prompt-injection-information-flow-policy-rep...` |
-| where do I start with this clone? | `task_class_route_match (getting-started)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
-| evaluate agent benchmark gaming | `task_class_route_match (agent-evaluation)` | `agent_benchmark_integrity_anti_gaming_replay` | `agent-benchmark-integrity-anti-gaming-replay run-benc...` |
-| is the Mission Transaction Work Spine safe to edit? | `organ_named_in_goal (mission_transaction_work_spine)` | `mission_transaction_work_spine` | `mission-transaction-work-spine run --input fixtures/f...` |
-| ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map | `organ_named_in_goal (cold_reader_route_map)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
-| what should I fix in this repo? | `improvement_goal` | `release_improvement` | `comprehend --mutation src/microcosm_core/comprehensio...` |
-| delete the agent memory | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
-| publish the Microcosm release | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
-| force push to origin main | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
-| where is the fixture input for the audio organ? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
-| dispatch the route bundle | `task_class_route_match (agent-entry)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
-| how does the exchange rate organ work? | `packet_fallback` | `whole_substrate` | `comprehend --packet-atlas` |
-| audit the security posture of this repo | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
+| explain the system to me | `packet_fallback` | `whole_substrate` | `open_packet` |
+| what's going on here? | `packet_fallback` | `whole_substrate` | `open_packet` |
+| How do I evaluate the finance forecasting system? | `task_class_route_match (finance)` | Finance Forecast Evaluation Spine | `run_fixture_command` |
+| check the lean proof evidence | `task_class_route_match (lean-subprocess)` | Lean Proof-Search Lab Runtime | `run_fixture_command` |
+| evaluate prompt injection defenses | `organ_token_match` | Prompt-Injection Flow-Policy Replay | `run_fixture_command` |
+| where do I start with this clone? | `task_class_route_match (getting-started)` | Cold Reader Route Map | `run_fixture_command` |
+| evaluate agent benchmark gaming | `task_class_route_match (agent-evaluation)` | Agent Benchmark Integrity Anti Gaming Replay | `run_fixture_command` |
+| is the Mission Transaction Work Spine safe to edit? | `organ_named_in_goal` | Mission Transaction Work Spine | `run_fixture_command` |
+| ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map | `organ_named_in_goal` | Cold Reader Route Map | `run_fixture_command` |
+| what should I fix in this repo? | `improvement_goal` | `release_improvement` | `inspect_mutation_target` |
+| delete the agent memory | `out_of_scope_authority_boundary` | `whole_substrate` | `open_packet` |
+| publish the Microcosm release | `out_of_scope_authority_boundary` | `whole_substrate` | `open_packet` |
+| force push to origin main | `out_of_scope_authority_boundary` | `whole_substrate` | `open_packet` |
+| where is the fixture input for the audio organ? | `packet_fallback` | `whole_substrate` | `open_packet` |
+| dispatch the route bundle | `task_class_route_match (agent-entry)` | Cold Reader Route Map | `run_fixture_command` |
+| how does the exchange rate organ work? | `packet_fallback` | `whole_substrate` | `open_packet` |
+| audit the security posture of this repo | `packet_fallback` | `whole_substrate` | `open_packet` |
 
 ## Orientation: no-task questions get the orientation packet
 

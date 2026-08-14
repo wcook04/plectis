@@ -124,24 +124,27 @@ correctness.
 
 ## Structured Lattice Bindings
 
-| Binding | Reader route |
-|---|---|
-| Paper module id | `paper_module.agent_closeout_faithfulness_audit` |
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[12:paper_module.agent_closeout_faithfulness_audit]` |
-| Markdown projection | `paper_modules/agent_closeout_faithfulness_audit.md` |
-| Generated instance | `paper_modules/agent_closeout_faithfulness_audit.json::paper_module_payload` |
-| Organ runtime | `src/microcosm_core/organs/agent_closeout_faithfulness_audit.py` |
-| Mechanism source | `core/mechanism_sources.json::mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims` |
-| Standard | `standards/std_microcosm_agent_closeout_faithfulness_audit.json` |
-| Fixture input | `fixtures/first_wave/agent_closeout_faithfulness_audit/input` |
-| Exported bundle | `examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle` |
-| Source manifest | `examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json` |
-| Fixture manifest | `core/fixture_manifests/agent_closeout_faithfulness_audit.fixture_manifest.json` |
-| First-wave result receipt | `receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_result.json` |
-| First-wave board receipt | `receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json` |
-| First-wave validation receipt | `receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json` |
-| Acceptance receipt | `receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json` |
-| Runtime-shell receipt | `receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle_validation_result.json` |
+Reader routes for this module, by binding. Each route is given in full so it
+can be copied straight into a checkout:
+
+```
+Paper module id                paper_module.agent_closeout_faithfulness_audit
+Capsule authority              core/paper_module_capsules.json::paper_modules[12:paper_module.agent_closeout_faithfulness_audit]
+Markdown projection            paper_modules/agent_closeout_faithfulness_audit.md
+Generated instance             paper_modules/agent_closeout_faithfulness_audit.json::paper_module_payload
+Organ runtime                  src/microcosm_core/organs/agent_closeout_faithfulness_audit.py
+Mechanism source               core/mechanism_sources.json::mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims
+Standard                       standards/std_microcosm_agent_closeout_faithfulness_audit.json
+Fixture input                  fixtures/first_wave/agent_closeout_faithfulness_audit/input
+Exported bundle                examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle
+Source manifest                examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json
+Fixture manifest               core/fixture_manifests/agent_closeout_faithfulness_audit.fixture_manifest.json
+First-wave result receipt      receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_result.json
+First-wave board receipt       receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json
+First-wave validation receipt  receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json
+Acceptance receipt             receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json
+Runtime-shell receipt          receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle_validation_result.json
+```
 
 ## Governing Lattice Relation
 
@@ -180,14 +183,17 @@ flowchart TD
     Audit --> Ceiling[authority ceiling<br/>no live mutation or release]
 ```
 
-The accounting is source-backed:
+The accounting is source-backed. The runtime checks below all live in
+`src/microcosm_core/organs/agent_closeout_faithfulness_audit.py`, and the
+declared pytest span is
+`tests/test_closeout_fixture.py::test_public_fixture_addition`.
 
 | Evidence input | Runtime check | Receipt/accounting field |
 |---|---|---|
-| `closeout_claims.json` carries `claim_public_head_exists`, `claim_cap_exists`, and `claim_pytest_span_passed` | `evaluate()` loops over the three claim rows in `src/microcosm_core/organs/agent_closeout_faithfulness_audit.py` | `claim_count: 3`, `verified_claim_count: 3` |
+| `closeout_claims.json` carries `claim_public_head_exists`, `claim_cap_exists`, and `claim_pytest_span_passed` | `evaluate()` loops over the three claim rows | `claim_count: 3`, `verified_claim_count: 3` |
 | `public_fixture_repo` is copied into a temporary git repo | `_prepare_public_fixture_repo()` runs `git init`, config, add, commit, and `rev-parse HEAD` subprocesses | `git_subprocess_count: 6`, `head_verified_by_subprocess: true` |
 | `fixture_ledger.json` names fixture cap rows | `task_ledger_cap` claims must match `task_ledger_caps[].cap_id` | `cap_fixture_closeout_receipt_exists` is accepted; missing caps emit `CLOSEOUT_FAKE_CAP_CLAIM` |
-| `tests/test_closeout_fixture.py::test_public_fixture_addition` is the declared pytest span | `evaluate()` runs `python -m pytest <nodeid> -q` and records return code, `span_ran`, and explicit pass-status checking | `pytest_subprocess_count: 1`, `pytest_span_ran_count: 1`, `pytest_pass_status_checked_count: 1` |
+| The declared pytest span | `evaluate()` runs `python -m pytest <nodeid> -q` and records return code, `span_ran`, and explicit pass-status checking | `pytest_subprocess_count: 1`, `pytest_span_ran_count: 1`, `pytest_pass_status_checked_count: 1` |
 | `source_module_manifest.json` names one copied non-secret macro source body | the bundle validator checks digest equality, line count, required anchors, and body-free receipt posture | `module_count: 1`, `line_count: 1703`, `sha256_match: true`, `body_in_receipt: false` |
 
 Negative cases are part of the Shape rather than an appendix because they define

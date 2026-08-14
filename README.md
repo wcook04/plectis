@@ -194,18 +194,32 @@ shared path, is in [Architecture](ARCHITECTURE.md) and as an
 
 ## Browse the component map
 
-Each area groups related components. Open one to read a card for every
-component inside it: one line at a glance, or expanded in full.
+Each area groups related components, and the number beside it is the count.
+Open one to read a card for every component inside it: one line at a glance, or
+expanded in full.
 
-| Area | Components | What it is |
-|---|---|---|
-| [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | The entry point, and what its short guided path actually proves. |
-| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 12 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape. |
-| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 20 | The Lean proof-evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier-trace repair, bounded witnesses, and certificates. |
-| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 20 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, and benchmark gaming. |
-| [Research & Science Replays](ORGANS.md#research--science-replays) | 9 | Replay specimens for scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, and prediction reconciliation. |
-| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 20 | The membrane that brings non-secret substrate into the public tree and keeps generated projections honest instead of letting them drift. |
-| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+- **[Entry & Reveal](ORGANS.md#entry--reveal)** (2) — The entry point, and what
+  its short guided path actually proves.
+- **[Architecture & Navigation](ORGANS.md#architecture--navigation)** (12) —
+  The kernel primitives, pattern binding, doctrine grammar, route plane, and
+  standards that give the system its shape.
+- **[Formal Math & Proof](ORGANS.md#formal-math--proof)** (20) — The Lean
+  proof-evidence pipeline: corpus readiness, premise retrieval, tactic routing,
+  verifier-trace repair, bounded witnesses, and certificates.
+- **[Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays)**
+  (20) — Source-open replay specimens for agent failure modes: red-team
+  monitors, sabotage, sandbox escape, prompt injection, tool authority, memory
+  poisoning, and benchmark gaming.
+- **[Research & Science Replays](ORGANS.md#research--science-replays)** (9) —
+  Replay specimens for scientific and forecasting workflows: replication
+  rubrics, spatial world models, materials-lab safety, and prediction
+  reconciliation.
+- **[Import, Projection & Drift](ORGANS.md#import-projection--drift)** (20) —
+  The membrane that brings non-secret substrate into the public tree and keeps
+  generated projections honest instead of letting them drift.
+- **[Work, Landing & Continuity](ORGANS.md#work-landing--continuity)** (5) —
+  How reversible work transactions are recorded, how dirty-tree landing
+  decisions are made, and how detached runs resume.
 
 For the full per-component cards, open the [System map](ORGANS.md), or click
 through the same corpus as an
@@ -221,17 +235,24 @@ read.
 | Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
-| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every component's real mechanism, one line each. |
-| Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
+| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | Every component's real mechanism, one line each. |
+| Verify a specific claim before trusting it | `comprehend --first-action` | The owning component, its authority ceiling, and the command that tests it. |
 | Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for eight open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for the eight open Erdős problems named above. |
 | Watch it being used rather than read about it | [Demo videos](https://wcook04.github.io/plectis/#demo-videos) | Recorded walkthroughs of the system in use, on the website. |
 | Click through the corpus instead of cloning | [Component browser](https://wcook04.github.io/plectis/docs/components.html) · [Paper browser](https://wcook04.github.io/plectis/docs/papers.html) | The same 88 components and the paper corpus as browsable pages, no install. |
 | Hand the whole thing to a reviewer or a model at once | [Review packet](https://wcook04.github.io/plectis/plectis-ai-review-packet.json) · [reader digest](https://wcook04.github.io/plectis/plectis-ai-reader-digest.json) | One 14.4 MB JSON carrying the public cross-section for a single reading pass; the digest is the smaller cut for pasting. |
 | See the rest of the work this belongs to | [wcook04.github.io](https://wcook04.github.io/) | The front door across the software, the Lean mathematics, the papers, and the films. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
+
+The two `comprehend` routes in full:
+
+```bash
+plectis comprehend --slice mechanism --format text
+plectis comprehend --first-action "<claim to verify>" --format text
+```
 
 ## Scope and limitations
 

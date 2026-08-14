@@ -190,18 +190,43 @@ decision content.
 
 ## Test Matrix
 
-| Class | Evidence | Expected verdict |
-|---|---|---|
-| Real-good fixture | Baseline first-wave fixture with four candidate, assay, and decision rows | `public_safe_simulator_replay_accepted`; numeric replay `pass`; selected candidate `mat_polymer_membrane_001`; score `0.917` |
-| Real-good source body floor | Exported bundle manifest with four copied modules and zero manifest findings | `source_module_manifest_status: pass`; `verified_module_count: 4`; receipts remain body-free; current checked-in bundle still needs refreshed numeric rows before it is a full exported-bundle pass |
-| Real-bad lab safety | Controlled/bioactive targets, hazardous synthesis flags, mismatched safety refs, robot command, credentials, private notebooks, or discovery claims | `blocked_public_safety_boundary` with the relevant `MATERIALS_*_FORBIDDEN` or positive-linkage finding |
-| Real-bad numeric missingness | Score-backed rows removed while numeric policy is active | `MATERIALS_NUMERIC_REPLAY_POLICY_REQUIRES_SCORE_BACKED_ROWS`; `verified_numeric_row_count: 0` |
-| Real-bad numeric required | Numeric policy removed and score rows absent | `MATERIALS_NUMERIC_REPLAY_REQUIRED`; realness rung `blocked` |
-| Real-bad stale label | Policy declares `mat_catalyst_support_003` while recomputation selects `mat_polymer_membrane_001` | `MATERIALS_NUMERIC_REPLAY_EXPECTED_LABEL_STALE` |
-| Real-bad score range | Safety, assay, or active-learning score outside `[0, 1]` | `MATERIALS_NUMERIC_REPLAY_SCORE_OUT_OF_RANGE` |
-| Perturbation, low safety gate | Membrane safety gate lowered to `0.52` | Computed pick moves to `mat_solid_electrolyte_002`, verdict blocks, and findings include stale label plus `MATERIALS_NUMERIC_REPLAY_SAFETY_GATE_FAILED` |
-| Perturbation, moved valid pick | Sorbent raised to safety `0.93`, assay `0.98`, active learning `0.98`, and policy expectation updated | Numeric replay passes, selected candidate `mat_sorbent_surface_004`, selected action `screen_candidate`, score `0.970` |
-| Perturbation, moved pick without expectation update | Exported bundle recomputes sorbent as the winner while policy still expects membrane | Source manifest stays `pass`, but numeric replay blocks with `MATERIALS_NUMERIC_REPLAY_EXPECTED_LABEL_STALE` |
+Each case pairs one evidence shape with the verdict the runtime must return.
+
+- **Real-good fixture.** Baseline first-wave fixture with four candidate, assay,
+  and decision rows. Verdict `public_safe_simulator_replay_accepted`; numeric
+  replay `pass`; selected candidate `mat_polymer_membrane_001`; score `0.917`.
+- **Real-good source body floor.** Exported bundle manifest with four copied
+  modules and zero manifest findings. Verdict
+  `source_module_manifest_status: pass`; `verified_module_count: 4`; receipts
+  remain body-free; the current checked-in bundle still needs refreshed numeric
+  rows before it is a full exported-bundle pass.
+- **Real-bad lab safety.** Controlled/bioactive targets, hazardous synthesis
+  flags, mismatched safety refs, robot command, credentials, private notebooks,
+  or discovery claims. Verdict `blocked_public_safety_boundary` with the
+  relevant `MATERIALS_*_FORBIDDEN` or positive-linkage finding.
+- **Real-bad numeric missingness.** Score-backed rows removed while numeric
+  policy is active. Verdict
+  `MATERIALS_NUMERIC_REPLAY_POLICY_REQUIRES_SCORE_BACKED_ROWS`;
+  `verified_numeric_row_count: 0`.
+- **Real-bad numeric required.** Numeric policy removed and score rows absent.
+  Verdict `MATERIALS_NUMERIC_REPLAY_REQUIRED`; realness rung `blocked`.
+- **Real-bad stale label.** Policy declares `mat_catalyst_support_003` while
+  recomputation selects `mat_polymer_membrane_001`. Verdict
+  `MATERIALS_NUMERIC_REPLAY_EXPECTED_LABEL_STALE`.
+- **Real-bad score range.** Safety, assay, or active-learning score outside
+  `[0, 1]`. Verdict `MATERIALS_NUMERIC_REPLAY_SCORE_OUT_OF_RANGE`.
+- **Perturbation, low safety gate.** Membrane safety gate lowered to `0.52`.
+  Computed pick moves to `mat_solid_electrolyte_002`, verdict blocks, and
+  findings include stale label plus
+  `MATERIALS_NUMERIC_REPLAY_SAFETY_GATE_FAILED`.
+- **Perturbation, moved valid pick.** Sorbent raised to safety `0.93`, assay
+  `0.98`, active learning `0.98`, and policy expectation updated. Numeric replay
+  passes, selected candidate `mat_sorbent_surface_004`, selected action
+  `screen_candidate`, score `0.970`.
+- **Perturbation, moved pick without expectation update.** Exported bundle
+  recomputes sorbent as the winner while policy still expects membrane. Source
+  manifest stays `pass`, but numeric replay blocks with
+  `MATERIALS_NUMERIC_REPLAY_EXPECTED_LABEL_STALE`.
 
 These cases are source/test-backed by
 `tests/test_materials_chemistry_closed_loop_lab_safety_replay.py`. Fresh local
@@ -217,12 +242,18 @@ The exported bundle at
 `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle`
 contains a `source_module_manifest.json` with four copied non-secret bodies:
 
-| Module id | Material class | Role |
-|---|---|---|
-| `materials_lab_evolve_failure_replay_specimen_body_import` | `public_macro_tool_body` | deterministic replay graph construction, failure classification, restart-point selection, source-capsule hashing, and receipt boundaries |
-| `materials_lab_evolve_replay_graph_body_import` | `public_macro_control_plane_body` | replay graph body, restart points, source capsules, global teachings, and public claim boundary |
-| `materials_lab_evolve_receipt_body_import` | `public_macro_receipt_body` | replay receipt body proving the macro evidence shape without moving private material into receipts |
-| `laboratory_standard_body_import` | `public_standard_body` | public laboratory standard floor for the replay |
+- `materials_lab_evolve_failure_replay_specimen_body_import`
+  (`public_macro_tool_body`) — deterministic replay graph construction, failure
+  classification, restart-point selection, source-capsule hashing, and receipt
+  boundaries.
+- `materials_lab_evolve_replay_graph_body_import`
+  (`public_macro_control_plane_body`) — replay graph body, restart points,
+  source capsules, global teachings, and public claim boundary.
+- `materials_lab_evolve_receipt_body_import` (`public_macro_receipt_body`) —
+  replay receipt body proving the macro evidence shape without moving private
+  material into receipts.
+- `laboratory_standard_body_import` (`public_standard_body`) — public laboratory
+  standard floor for the replay.
 
 The bundle validator checks `module_count: 4`, `verified_module_count: 4`,
 `source_module_manifest_status: pass`, body-free receipt policy, and zero source

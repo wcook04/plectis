@@ -28,10 +28,12 @@ The evaluator consumes four public bundle files:
 
 | Input | Required semantics | Main checks |
 |---|---|---|
-| `kind_atlas_rows.json` | Declared Kind Atlas families, expected entity IDs, known-debt floors, and absence policy. | Recompute live row counts through `system.lib.kind_atlas.build_kind_atlas`; reject forbidden unknown-unknown exhaustiveness. |
-| `system_atlas_graph.json` | Generated graph slice carrying materialized System Atlas entity IDs. | Require non-empty entities and `generated_by == tools/meta/factory/build_system_atlas.py`; derive materialized IDs from graph rows. |
+| `kind_atlas_rows.json` | Declared Kind Atlas families, expected entity IDs, known-debt floors, and absence policy. | Recompute live row counts through `system.lib.kind_atlas.build_kind_atlas`. |
+| `system_atlas_graph.json` | Generated graph slice carrying materialized System Atlas entity IDs. | Require non-empty entities; derive materialized IDs from graph rows. |
 | `materialized_entities.json` | Declared materialization rows and snapshot metadata. | Check declared counts against graph-derived counts; use graph-derived counts as authority. |
 | `projection_protocol.json` | Receipt for the System Atlas check and coverage scope. | Require the exact coverage scope and a valid `build_system_atlas.py --check` receipt or blocked-refresh receipt. |
+
+Two of the checks on the first two inputs are refusals rather than computations. `kind_atlas_rows.json` is rejected when it declares forbidden unknown-unknown exhaustiveness, and the graph slice is accepted only when it declares `generated_by == tools/meta/factory/build_system_atlas.py`.
 
 Algorithmically, the organ performs this loop:
 
@@ -58,15 +60,33 @@ Those numbers come from `examples/self_ignorance_coverage_ledger/exported_self_i
 
 ## Projection Protocol Receipt
 
-`projection_protocol.json` is the receipt that prevents a static graph slice from masquerading as live authority. The accepted bundle must carry:
+`projection_protocol.json` is the receipt that prevents a static graph slice from masquerading as live authority. The accepted bundle must carry these five fields and accepted values, where `system_atlas_check_status` admits either of two:
 
-| Field | Accepted value | Meaning |
-|---|---|---|
-| `coverage_scope` | `live_kind_atlas_vs_generated_system_atlas_materialization_snapshot` | The domain is live Kind Atlas rows against generated System Atlas materialization. |
-| `system_atlas_check_command` | `./repo-python tools/meta/factory/build_system_atlas.py --check` | The refresh/check route is named, not implied. |
-| `system_atlas_check_status` | `pass` or `blocked_source_inputs_changed_since_artifact_generation` | A blocked refresh is admissible only when declared as such; it does not upgrade the snapshot. |
-| `system_atlas_refresh_blocked_by_active_source_claims` | Boolean | The receipt can explain why a fresh generated graph was not rebuilt during the bundle. |
-| `body_in_receipt` | `false` | Receipt fields carry metadata and verdicts, not copied source bodies. |
+```text
+coverage_scope
+  live_kind_atlas_vs_generated_system_atlas_materialization_snapshot
+
+system_atlas_check_command
+  ./repo-python tools/meta/factory/build_system_atlas.py --check
+
+system_atlas_check_status
+  pass
+  blocked_source_inputs_changed_since_artifact_generation
+
+system_atlas_refresh_blocked_by_active_source_claims
+  Boolean
+
+body_in_receipt
+  false
+```
+
+What each field is for:
+
+- `coverage_scope`: The domain is live Kind Atlas rows against generated System Atlas materialization.
+- `system_atlas_check_command`: The refresh/check route is named, not implied.
+- `system_atlas_check_status`: A blocked refresh is admissible only when declared as such; it does not upgrade the snapshot.
+- `system_atlas_refresh_blocked_by_active_source_claims`: The receipt can explain why a fresh generated graph was not rebuilt during the bundle.
+- `body_in_receipt`: Receipt fields carry metadata and verdicts, not copied source bodies.
 
 The focused tests `test_self_ignorance_coverage_ledger_rejects_projection_scope_tamper` and `test_self_ignorance_coverage_ledger_rejects_system_atlas_receipt_tamper` are the proof consumers for this protocol. They force the R4 claim down to R3 or block when the scope or check receipt is hand-authored away from the builder-owned route.
 
@@ -111,20 +131,37 @@ The accepted result must report status `pass`, known debt `196`, observed negati
 
 The real-bad cases are not marketing examples; they are the contract. Treat a guard as validated only when the focused pytest route passes in the current checkout:
 
-| Evidence class | Test / mutation | Required refusal |
-|---|---|---|
-| Missing real graph | `test_self_ignorance_static_fixture_blocks_without_real_graph` | `CROWN_JEWEL_INPUT_MISSING` and `SELF_IGNORANCE_REAL_ATLAS_GRAPH_EMPTY`. |
-| Absence overclaim | `test_self_ignorance_coverage_ledger_rejects_absence_omniscience` | `SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE`. |
-| Expected ID mismatch | `test_self_ignorance_coverage_ledger_rejects_coverage_debt_mismatch` | `SELF_IGNORANCE_EXPECTED_ENTITY_IDS_MISMATCH`. |
-| Baked IDs without graph authority | `test_self_ignorance_coverage_ledger_rejects_baked_expected_ids_without_source` | `SELF_IGNORANCE_EXPECTED_ENTITY_IDS_NOT_SOURCE_BACKED`; realness rank falls. |
-| Declared entity substitution | `test_self_ignorance_coverage_ledger_rejects_declared_entity_id_substitution` | Missing-from-graph and missing-from-expected mismatch rows. |
-| Count tamper | `test_self_ignorance_coverage_ledger_rejects_materialized_count_tamper` | `SELF_IGNORANCE_MATERIALIZATION_COUNT_NOT_GRAPH_DERIVED`. |
-| Graph materialization tamper | `test_self_ignorance_coverage_ledger_rejects_graph_materialization_tamper` | Expected-ID mismatch and changed debt vector. |
-| Graph builder tamper | `test_self_ignorance_coverage_ledger_rejects_graph_builder_tamper` | `SELF_IGNORANCE_ATLAS_GRAPH_BUILDER_MISMATCH`. |
-| Protocol scope/check tamper | projection protocol tests | Scope or check receipt blocked; R4 cannot stand. |
-| Declared negative labels lie | `test_self_ignorance_negative_cases_are_semantic_not_declared_labels` | Semantic evaluator still finds the expected error codes. |
-| Copied source self-reference | `test_self_ignorance_bundle_rejects_stale_copied_target_source_ref` | `CROWN_JEWEL_SOURCE_SELF_REFERENCE_UNVERIFIED`. |
-| Copied source digest drift | `test_self_ignorance_bundle_rejects_source_module_digest_mismatch` | `CROWN_JEWEL_SOURCE_DIGEST_MISMATCH`. |
+| Evidence class | Required refusal |
+|---|---|
+| Missing real graph | `CROWN_JEWEL_INPUT_MISSING` and `SELF_IGNORANCE_REAL_ATLAS_GRAPH_EMPTY`. |
+| Absence overclaim | `SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE`. |
+| Expected ID mismatch | `SELF_IGNORANCE_EXPECTED_ENTITY_IDS_MISMATCH`. |
+| Baked IDs without graph authority | `SELF_IGNORANCE_EXPECTED_ENTITY_IDS_NOT_SOURCE_BACKED`; realness rank falls. |
+| Declared entity substitution | Missing-from-graph and missing-from-expected mismatch rows. |
+| Count tamper | `SELF_IGNORANCE_MATERIALIZATION_COUNT_NOT_GRAPH_DERIVED`. |
+| Graph materialization tamper | Expected-ID mismatch and changed debt vector. |
+| Graph builder tamper | `SELF_IGNORANCE_ATLAS_GRAPH_BUILDER_MISMATCH`. |
+| Protocol scope/check tamper | Scope or check receipt blocked; R4 cannot stand. |
+| Declared negative labels lie | Semantic evaluator still finds the expected error codes. |
+| Copied source self-reference | `CROWN_JEWEL_SOURCE_SELF_REFERENCE_UNVERIFIED`. |
+| Copied source digest drift | `CROWN_JEWEL_SOURCE_DIGEST_MISMATCH`. |
+
+The test or mutation behind each evidence class, all in `tests/test_self_ignorance_coverage_ledger.py`:
+
+```text
+missing real graph                 test_self_ignorance_static_fixture_blocks_without_real_graph
+absence overclaim                  test_self_ignorance_coverage_ledger_rejects_absence_omniscience
+expected ID mismatch               test_self_ignorance_coverage_ledger_rejects_coverage_debt_mismatch
+baked IDs without graph authority  test_self_ignorance_coverage_ledger_rejects_baked_expected_ids_without_source
+declared entity substitution       test_self_ignorance_coverage_ledger_rejects_declared_entity_id_substitution
+count tamper                       test_self_ignorance_coverage_ledger_rejects_materialized_count_tamper
+graph materialization tamper       test_self_ignorance_coverage_ledger_rejects_graph_materialization_tamper
+graph builder tamper               test_self_ignorance_coverage_ledger_rejects_graph_builder_tamper
+protocol scope/check tamper        projection protocol tests
+declared negative labels lie       test_self_ignorance_negative_cases_are_semantic_not_declared_labels
+copied source self-reference       test_self_ignorance_bundle_rejects_stale_copied_target_source_ref
+copied source digest drift         test_self_ignorance_bundle_rejects_source_module_digest_mismatch
+```
 
 Perturbation evidence is `test_self_ignorance_coverage_debt_moves_with_materialized_entity_graph`: adding a real, source-backed standard entity moves the known-debt count from 196 to 195 and keeps the result passing. That proves the ledger is coupled to the graph-derived materialization set, not to a fixed prose number.
 
@@ -132,13 +169,18 @@ The unsourced-materialization guard target is `test_self_ignorance_coverage_ledg
 
 ## Source-Backed Concept / Mechanism / Law Links
 
-The capsule row `core/paper_module_capsules.json::paper_modules[49:paper_module.self_ignorance_coverage_ledger]` binds this reader projection to the following source-backed links:
+The capsule row `core/paper_module_capsules.json::paper_modules[49:paper_module.self_ignorance_coverage_ledger]` binds this reader projection to the following source-backed links.
+
+The three subject links:
+
+- Organ `self_ignorance_coverage_ledger`, backed by `organs/self_ignorance_coverage_ledger.json` and `core/organ_atlas.json::organs[51:self_ignorance_coverage_ledger]`. This is an accepted public organ with the named runtime locus and paper-module drilldown.
+- Mechanism `mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger`, backed by `core/mechanism_sources.json` and `mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json`. The mechanism validates known Kind Atlas coverage-debt fixtures while refusing overclaims.
+- Concept `concept.architecture_and_navigation_route_contract_bundle`, backed by `concepts/concept.architecture_and_navigation_route_contract_bundle.json`. The organ is part of the executable architecture/navigation route-contract family.
+
+The remaining links are principles and axioms, each backed by a single source file:
 
 | Link | Source-backed support | Claim supported |
 |---|---|---|
-| Organ `self_ignorance_coverage_ledger` | `organs/self_ignorance_coverage_ledger.json` and `core/organ_atlas.json::organs[51:self_ignorance_coverage_ledger]` | This is an accepted public organ with the named runtime locus and paper-module drilldown. |
-| Mechanism `mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger` | `core/mechanism_sources.json` and `mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json` | The mechanism validates known Kind Atlas coverage-debt fixtures while refusing overclaims. |
-| Concept `concept.architecture_and_navigation_route_contract_bundle` | `concepts/concept.architecture_and_navigation_route_contract_bundle.json` | The organ is part of the executable architecture/navigation route-contract family. |
 | Principle `P-2` | `principles/P-2.json` | Claim strength must be no stronger than the named checker and receipt. |
 | Principle `P-7` | `principles/P-7.json` | Known gaps remain typed residual pressure, not completeness claims. |
 | Principle `P-11` | `principles/P-11.json` | Freshness-sensitive claims require dated receipts and refresh routes. |

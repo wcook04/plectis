@@ -76,12 +76,28 @@ interpretability algorithm. The membrane turns an interpretability-shaped
 fixture into a pass/fail public receipt by requiring all claim-bearing rows to
 cross four gates:
 
-| Gate | Accepts | Rejects |
-|---|---|---|
-| Replay schema | Feature ids, graph rows, causal refs, sufficiency and faithfulness limits, contradiction refs, cold-replay refs, target refs, and body-free receipt flags. | Missing required fields, unverifiable feature labels, screenshot-only graph evidence, transparency claims without causal-intervention refs, and faithfulness claims without limits. |
-| Graph traversal | Machine-readable nodes and edges with a path from declared sparse features to public error nodes. | Disconnected edges and decorative constant-delta edge-weight sequences. |
-| Toy recomputation | Fixture-coupled forward, gradient, ablation, weight digest, and declared-winner comparison. | Internal default toy specs, stale declared winners, or uncoupled cached receipts. |
-| Source/body boundary | Copied non-secret macro bodies with digest, class, anchor, and body-free receipt checks. | Private weights, raw activations, proprietary prompt bodies, hidden reasoning, provider payloads, body text in receipts, and release authority. |
+- **Replay schema**
+  - Accepts: feature ids, graph rows, causal refs, sufficiency and faithfulness
+    limits, contradiction refs, cold-replay refs, target refs, and body-free
+    receipt flags.
+  - Rejects: missing required fields, unverifiable feature labels,
+    screenshot-only graph evidence, transparency claims without
+    causal-intervention refs, and faithfulness claims without limits.
+- **Graph traversal**
+  - Accepts: machine-readable nodes and edges with a path from declared sparse
+    features to public error nodes.
+  - Rejects: disconnected edges and decorative constant-delta edge-weight
+    sequences.
+- **Toy recomputation**
+  - Accepts: fixture-coupled forward, gradient, ablation, weight digest, and
+    declared-winner comparison.
+  - Rejects: internal default toy specs, stale declared winners, or uncoupled
+    cached receipts.
+- **Source/body boundary**
+  - Accepts: copied non-secret macro bodies with digest, class, anchor, and
+    body-free receipt checks.
+  - Rejects: private weights, raw activations, proprietary prompt bodies, hidden
+    reasoning, provider payloads, body text in receipts, and release authority.
 
 ## Authority And Evidence Boundary
 
@@ -154,15 +170,44 @@ The organ has four coupled checks:
 
 ## Implementation Contract
 
-| Runtime locus | Role in the mechanism | Evidence surface |
-|---|---|---|
-| `run` | First-wave fixture validator. It loads the public input directory, negative cases, source-module manifest, secret-exclusion policy, and acceptance output. | `tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_replay_observes_negative_cases` |
-| `run_attribution_bundle` | Exported-bundle validator for the runtime-shell and public demo path. It uses the same replay gates without requiring first-wave negative-case files. | `test_mechanistic_interpretability_exported_bundle_validates_runtime_shape` |
-| `_replay_policy_findings` | Row-level policy checker for required fields and forbidden interpretability overclaims. | Negative fixtures in `fixtures/.../input/*` and `EXPECTED_NEGATIVE_CASES` |
-| `_graph_analysis_for_replay` / `_weight_sequence_analysis` | Circuit-graph shape checks: resolvable nodes/edges, feature-to-error paths, and non-decorative weights. | `test_mechanistic_interpretability_rejects_disconnected_graph_edges` and `test_mechanistic_interpretability_rejects_decorative_weight_sequences` |
-| `_toy_transformer_attribution_runtime` | Pure-Python recomputation harness for target logit, attribution scores, ablation deltas, declared winners, and fixture digest. | Toy runtime, stale-claim, perturbation, and cache-reuse tests |
-| `_source_module_manifest_result` / `_source_open_body_import_summary` | Source-open body floor: copied non-secret macro body checks with digest, class, anchor, and body-free receipt constraints. | Source-module exact-import and body-text rejection tests |
-| `_write_receipts` / `result_card` | Public output membrane. Receipts and cards carry refs, digests, counts, omitted-payload flags, and authority ceilings rather than source bodies or private state. | Receipt-boundary and card-reuse tests |
+Each runtime locus below is paired with the evidence surface that exercises it.
+
+- **`run`** — first-wave fixture validator. It loads the public input directory,
+  negative cases, source-module manifest, secret-exclusion policy, and
+  acceptance output.
+  - Evidence:
+
+    ```
+    tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_replay_observes_negative_cases
+    ```
+
+- **`run_attribution_bundle`** — exported-bundle validator for the runtime-shell
+  and public demo path. It uses the same replay gates without requiring
+  first-wave negative-case files.
+  - Evidence:
+    `test_mechanistic_interpretability_exported_bundle_validates_runtime_shape`
+- **`_replay_policy_findings`** — row-level policy checker for required fields
+  and forbidden interpretability overclaims.
+  - Evidence: negative fixtures in `fixtures/.../input/*` and
+    `EXPECTED_NEGATIVE_CASES`
+- **`_graph_analysis_for_replay` / `_weight_sequence_analysis`** — circuit-graph
+  shape checks: resolvable nodes/edges, feature-to-error paths, and
+  non-decorative weights.
+  - Evidence:
+    `test_mechanistic_interpretability_rejects_disconnected_graph_edges` and
+    `test_mechanistic_interpretability_rejects_decorative_weight_sequences`
+- **`_toy_transformer_attribution_runtime`** — pure-Python recomputation harness
+  for target logit, attribution scores, ablation deltas, declared winners, and
+  fixture digest.
+  - Evidence: toy runtime, stale-claim, perturbation, and cache-reuse tests
+- **`_source_module_manifest_result` / `_source_open_body_import_summary`** —
+  source-open body floor: copied non-secret macro body checks with digest,
+  class, anchor, and body-free receipt constraints.
+  - Evidence: source-module exact-import and body-text rejection tests
+- **`_write_receipts` / `result_card`** — public output membrane. Receipts and
+  cards carry refs, digests, counts, omitted-payload flags, and authority
+  ceilings rather than source bodies or private state.
+  - Evidence: receipt-boundary and card-reuse tests
 
 ## Toy-Transformer Attribution Mechanism
 
@@ -202,41 +247,139 @@ they are coupled to.
 The proof is strongest where it distinguishes a real coupling from a plausible
 but stale story. The focused tests exercise those distinctions directly:
 
-| Test | Fixture move | Expected verdict | Why it matters |
-|---|---|---|---|
-| `test_mechanistic_interpretability_toy_transformer_input_perturbation_moves_verdict` | Changes `layer2[0][1]` to `-0.5` and updates declared winners to `toy_hidden_feature_0`. | Passes with target logit `-0.116939`; both attribution and ablation move to `toy_hidden_feature_0`. | The receipt follows changed input when declaration and recomputation remain coupled. |
-| `test_mechanistic_interpretability_input_perturbation_rejects_stale_claims` | Applies the same perturbation but leaves declared winners at `toy_hidden_feature_1`. | Blocks with `INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH`. | The verifier disconfirms stale interpretability claims instead of trusting old fixture prose. |
-| `test_mechanistic_interpretability_rejects_internal_default_toy_runtime` | Removes `toy_transformer_runtime` from the exported bundle. | Blocks with `INTERPRETABILITY_TOY_TRANSFORMER_FIXTURE_SPEC_REQUIRED`. | The public proof must be input-coupled, not backed by an internal default. |
-| `test_mechanistic_interpretability_bundle_card_rejects_uncoupled_cached_receipt` | Edits a cached receipt so `input_coupled_fixture` and `input_coupled_verdict` are false. | Refuses cached reuse and rebuilds a fresh receipt. | The command-card path is a freshness optimization, not permission to reuse uncoupled evidence. |
-| `test_mechanistic_interpretability_rejects_decorative_weight_sequences` | Rewrites graph-edge weights into simple arithmetic sequences. | Blocks as suspected decorative graph evidence. | Machine-readable graph rows still need anti-fabrication checks. |
-| `test_mechanistic_interpretability_rejects_disconnected_graph_edges` | Breaks an edge path to a declared public error node. | Blocks with zero path count for the affected row. | A circuit-shaped graph must be traversable, not merely present. |
-| `test_mechanistic_interpretability_source_modules_reject_body_text_in_receipt` | Marks source body text as present in receipt material. | Blocks the source/body import. | Source-open evidence remains body-free at receipt boundaries. |
+- **`test_mechanistic_interpretability_toy_transformer_input_perturbation_moves_verdict`**
+  - Fixture move: changes `layer2[0][1]` to `-0.5` and updates declared winners
+    to `toy_hidden_feature_0`.
+  - Expected verdict: passes with target logit `-0.116939`; both attribution and
+    ablation move to `toy_hidden_feature_0`.
+  - Why it matters: the receipt follows changed input when declaration and
+    recomputation remain coupled.
+- **`test_mechanistic_interpretability_input_perturbation_rejects_stale_claims`**
+  - Fixture move: applies the same perturbation but leaves declared winners at
+    `toy_hidden_feature_1`.
+  - Expected verdict: blocks with
+    `INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH`.
+  - Why it matters: the verifier disconfirms stale interpretability claims
+    instead of trusting old fixture prose.
+- **`test_mechanistic_interpretability_rejects_internal_default_toy_runtime`**
+  - Fixture move: removes `toy_transformer_runtime` from the exported bundle.
+  - Expected verdict: blocks with
+    `INTERPRETABILITY_TOY_TRANSFORMER_FIXTURE_SPEC_REQUIRED`.
+  - Why it matters: the public proof must be input-coupled, not backed by an
+    internal default.
+- **`test_mechanistic_interpretability_bundle_card_rejects_uncoupled_cached_receipt`**
+  - Fixture move: edits a cached receipt so `input_coupled_fixture` and
+    `input_coupled_verdict` are false.
+  - Expected verdict: refuses cached reuse and rebuilds a fresh receipt.
+  - Why it matters: the command-card path is a freshness optimization, not
+    permission to reuse uncoupled evidence.
+- **`test_mechanistic_interpretability_rejects_decorative_weight_sequences`**
+  - Fixture move: rewrites graph-edge weights into simple arithmetic sequences.
+  - Expected verdict: blocks as suspected decorative graph evidence.
+  - Why it matters: machine-readable graph rows still need anti-fabrication
+    checks.
+- **`test_mechanistic_interpretability_rejects_disconnected_graph_edges`**
+  - Fixture move: breaks an edge path to a declared public error node.
+  - Expected verdict: blocks with zero path count for the affected row.
+  - Why it matters: a circuit-shaped graph must be traversable, not merely
+    present.
+- **`test_mechanistic_interpretability_source_modules_reject_body_text_in_receipt`**
+  - Fixture move: marks source body text as present in receipt material.
+  - Expected verdict: blocks the source/body import.
+  - Why it matters: source-open evidence remains body-free at receipt
+    boundaries.
 
 ## Evidence Contract
 
-| Evidence class | Local authority | What it proves | What it does not prove |
-|---|---|---|---|
-| Capsule binding | `core/paper_module_capsules.json` row 52 | The paper module, organ, mechanism, source locus, and generated projection statuses are linked. | Markdown is not promoted to source authority. |
-| Replay rows | `fixtures/.../input/attribution_replays.json` and exported bundle mirror | Six public replay rows with feature ids, graph edges, causal refs, faithfulness limits, contradiction refs, cold replay refs, and body-free target refs. | The refs are fixture/accounting evidence, not live model internals. |
-| Feature catalog | `fixtures/.../input/feature_catalog.json` | Six public sparse-feature summary ids with labels and no private weights or activation dumps. | It does not disclose trained-model features or raw activations. |
-| Toy runtime | `_toy_transformer_attribution_runtime` and focused tests | Forward, gradient, ablation, digest, and stale-declaration checks are recomputed from the input fixture. | The toy runtime is not a general interpretability method. |
-| Graph analysis | `_graph_analysis_for_replay` and `_weight_sequence_analysis` | Graph rows are machine-readable, traversable, and not decorative constant-delta weight sequences. | It does not validate a real neural circuit. |
-| Source-open body floor | `source_module_manifest.json` plus `source_modules/` | Eleven copied non-secret macro bodies have digest/anchor/material-class checks. | Bodies are not copied into receipts and do not authorize private/live export. |
-| Receipt set | `receipts/first_wave/...`, `receipts/acceptance/...`, runtime-shell lens | Public outputs carry refs, digests, counts, verdicts, omitted-payload flags, and authority ceilings. | Receipts do not publish private model data or release authority. |
+Each evidence class names its local authority, what it proves, and what it does
+not prove.
+
+- **Capsule binding** — local authority: `core/paper_module_capsules.json` row 52.
+  - Proves: the paper module, organ, mechanism, source locus, and generated
+    projection statuses are linked.
+  - Limit: Markdown is not promoted to source authority.
+- **Replay rows** — local authority:
+  `fixtures/.../input/attribution_replays.json` and exported bundle mirror.
+  - Proves: six public replay rows with feature ids, graph edges, causal refs,
+    faithfulness limits, contradiction refs, cold replay refs, and body-free
+    target refs.
+  - Limit: the refs are fixture/accounting evidence, not live model internals.
+- **Feature catalog** — local authority:
+  `fixtures/.../input/feature_catalog.json`.
+  - Proves: six public sparse-feature summary ids with labels and no private
+    weights or activation dumps.
+  - Limit: it does not disclose trained-model features or raw activations.
+- **Toy runtime** — local authority: `_toy_transformer_attribution_runtime` and
+  focused tests.
+  - Proves: forward, gradient, ablation, digest, and stale-declaration checks
+    are recomputed from the input fixture.
+  - Limit: the toy runtime is not a general interpretability method.
+- **Graph analysis** — local authority: `_graph_analysis_for_replay` and
+  `_weight_sequence_analysis`.
+  - Proves: graph rows are machine-readable, traversable, and not decorative
+    constant-delta weight sequences.
+  - Limit: it does not validate a real neural circuit.
+- **Source-open body floor** — local authority: `source_module_manifest.json`
+  plus `source_modules/`.
+  - Proves: eleven copied non-secret macro bodies have
+    digest/anchor/material-class checks.
+  - Limit: bodies are not copied into receipts and do not authorize private/live
+    export.
+- **Receipt set** — local authority: `receipts/first_wave/...`,
+  `receipts/acceptance/...`, runtime-shell lens.
+  - Proves: public outputs carry refs, digests, counts, verdicts,
+    omitted-payload flags, and authority ceilings.
+  - Limit: receipts do not publish private model data or release authority.
 
 ## Reader Evidence Routing
 
 The proof consumer for this reader slice is the focused interpretability replay
-suite plus the paper-module corpus parity check. The table below is the route a
-rank/projection reader should follow before trusting any claim in this module:
+suite plus the paper-module corpus parity check. The questions below are the
+route a rank/projection reader should follow before trusting any claim in this
+module. Each question names the source surface, the focused proof consumer, and
+the claim ceiling the answer carries.
 
-| Reader question | Source surface | Focused proof consumer | Claim ceiling |
-|---|---|---|---|
-| Is this module bound to a real organ and mechanism? | `core/paper_module_capsules.json::paper_module.mechanistic_interpretability_circuit_attribution_replay` and `paper_modules/mechanistic_interpretability_circuit_attribution_replay.json` | `scripts/build_doctrine_projection.py --check-paper-module-corpus` | Proves capsule/sidecar parity only; Markdown remains a reader projection. |
-| Does the replay recompute the attribution claim? | `_toy_transformer_attribution_runtime` over fixture-provided `token_ids`, weights, and `target_logit_index` | `test_mechanistic_interpretability_toy_transformer_runtime_computes_attribution`, perturbation, and stale-claim tests | Proves fixture-local recomputation, not a general interpretability method. |
-| Are graph rows actual circuit evidence rather than screenshots? | `_graph_analysis_for_replay` and `_weight_sequence_analysis` over declared graph nodes, edges, and public error nodes | disconnected-graph and decorative-weight regression tests | Proves machine-readable traversability and anti-decoration checks, not a real neural circuit. |
-| Do source-open bodies stay out of receipts? | `source_module_manifest.json`, copied `source_modules/`, `_source_module_manifest_result`, and `_write_receipts` | source-module exact-import and body-text-in-receipt rejection tests | Proves copied non-secret body floor and body-free receipts, not private/live export authority. |
-| Where does a reader start when projections disagree? | Capsule row, generated JSON instance, runtime source, focused tests, then receipts | corpus check and focused pytest together | Generated Mermaid, Atlas, and site surfaces are owner-lane projections; this Markdown edit does not regenerate them. |
+- **Is this module bound to a real organ and mechanism?**
+  - Source surface:
+
+    ```
+    core/paper_module_capsules.json::paper_module.mechanistic_interpretability_circuit_attribution_replay
+    paper_modules/mechanistic_interpretability_circuit_attribution_replay.json
+    ```
+
+  - Focused proof consumer:
+    `scripts/build_doctrine_projection.py --check-paper-module-corpus`
+  - Claim ceiling: proves capsule/sidecar parity only; Markdown remains a reader
+    projection.
+- **Does the replay recompute the attribution claim?**
+  - Source surface: `_toy_transformer_attribution_runtime` over
+    fixture-provided `token_ids`, weights, and `target_logit_index`
+  - Focused proof consumer:
+    `test_mechanistic_interpretability_toy_transformer_runtime_computes_attribution`,
+    perturbation, and stale-claim tests
+  - Claim ceiling: proves fixture-local recomputation, not a general
+    interpretability method.
+- **Are graph rows actual circuit evidence rather than screenshots?**
+  - Source surface: `_graph_analysis_for_replay` and
+    `_weight_sequence_analysis` over declared graph nodes, edges, and public
+    error nodes
+  - Focused proof consumer: disconnected-graph and decorative-weight regression
+    tests
+  - Claim ceiling: proves machine-readable traversability and anti-decoration
+    checks, not a real neural circuit.
+- **Do source-open bodies stay out of receipts?**
+  - Source surface: `source_module_manifest.json`, copied `source_modules/`,
+    `_source_module_manifest_result`, and `_write_receipts`
+  - Focused proof consumer: source-module exact-import and
+    body-text-in-receipt rejection tests
+  - Claim ceiling: proves copied non-secret body floor and body-free receipts,
+    not private/live export authority.
+- **Where does a reader start when projections disagree?**
+  - Source surface: capsule row, generated JSON instance, runtime source,
+    focused tests, then receipts
+  - Focused proof consumer: corpus check and focused pytest together
+  - Claim ceiling: generated Mermaid, Atlas, and site surfaces are owner-lane
+    projections; this Markdown edit does not regenerate them.
 
 ## Failure Modes And Limitations
 

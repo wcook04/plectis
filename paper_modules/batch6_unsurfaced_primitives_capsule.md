@@ -221,21 +221,26 @@ to Markdown inference.
 
 ## Structured Lattice Bindings
 
-| Binding | Source |
-|---|---|
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[78:paper_module.batch6_unsurfaced_primitives_capsule]` |
-| Generated instance | `paper_modules/batch6_unsurfaced_primitives_capsule.json` |
-| Reader projection | `paper_modules/batch6_unsurfaced_primitives_capsule.md` |
-| Organ subject | `batch6_unsurfaced_primitives_capsule` |
-| Mechanism validation | `mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule` |
-| Concept bundle | `concept.import_projection_and_drift_control_bundle` |
-| Runtime locus | `src/microcosm_core/organs/batch6_unsurfaced_primitives_capsule.py` |
-| Governing principles | `P-2`, `P-5`, `P-9`, `P-15` |
-| Governing axioms | `AX-4`, `AX-8`, `AX-10`, `AX-11` |
-| Dependency modules | `paper_module.macro_projection_import_protocol`, `paper_module.agent_route_observability_runtime`, `paper_module.batch12_market_dashboard_read_model_capsule`, `paper_module.batch7_demo_take_console_capsule` |
-| Generated Mermaid | `paper_module.batch6_unsurfaced_primitives_capsule.mermaid` is `available_from_capsule_edges` |
-| Generated Atlas card | `organ_atlas.batch6_unsurfaced_primitives_capsule` is `linked_from_capsule_edges` |
-| Residual relations | None in the generated selective relation list. |
+- **Capsule authority:**
+  `core/paper_module_capsules.json::paper_modules[78:paper_module.batch6_unsurfaced_primitives_capsule]`
+- **Generated instance:** `paper_modules/batch6_unsurfaced_primitives_capsule.json`
+- **Reader projection:** `paper_modules/batch6_unsurfaced_primitives_capsule.md`
+- **Organ subject:** `batch6_unsurfaced_primitives_capsule`
+- **Mechanism validation:**
+  `mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule`
+- **Concept bundle:** `concept.import_projection_and_drift_control_bundle`
+- **Runtime locus:** `src/microcosm_core/organs/batch6_unsurfaced_primitives_capsule.py`
+- **Governing principles:** `P-2`, `P-5`, `P-9`, `P-15`
+- **Governing axioms:** `AX-4`, `AX-8`, `AX-10`, `AX-11`
+- **Dependency modules:** `paper_module.macro_projection_import_protocol`,
+  `paper_module.agent_route_observability_runtime`,
+  `paper_module.batch12_market_dashboard_read_model_capsule`,
+  `paper_module.batch7_demo_take_console_capsule`
+- **Generated Mermaid:** `paper_module.batch6_unsurfaced_primitives_capsule.mermaid`
+  is `available_from_capsule_edges`
+- **Generated Atlas card:** `organ_atlas.batch6_unsurfaced_primitives_capsule`
+  is `linked_from_capsule_edges`
+- **Residual relations:** none in the generated selective relation list.
 
 The generated instance currently carries sixteen relationship edges: one organ
 subject, one mechanism-validation edge, one concept-bundle edge, four

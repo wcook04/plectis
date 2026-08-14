@@ -195,13 +195,21 @@ The authority manifest is
 
 The copied materials are:
 
-| Module id | Material class | What it contributes |
-|---|---|---|
-| `public_reveal_first_slice_execution_receipt_body_import` | `public_macro_receipt_body` | First public Microcosm slice validation receipt with release/publication/hosting boundaries. |
-| `public_reveal_runtime_shell_reorientation_receipt_body_import` | `public_macro_receipt_body` | Macro receipt for the shift from receipt archive posture to runnable runtime shell posture. |
-| `public_reveal_clean_clone_state_fixture_receipt_body_import` | `public_macro_receipt_body` | Clean-clone fixture repair receipt showing self-contained public validation. |
-| `public_reveal_public_substrate_boundary_policy_body_import` | `public_macro_tool_body` | Boundary policy for public-safe macro import and excluded material classes. |
-| `public_reveal_walkthrough_control_plane_source_body_import` | `public_python_source_body` | The public organ source body that validates reveal commands, claims, digest evidence, and body-free receipts. |
+- `public_reveal_first_slice_execution_receipt_body_import`
+  (`public_macro_receipt_body`) — first public Microcosm slice validation
+  receipt with release/publication/hosting boundaries.
+- `public_reveal_runtime_shell_reorientation_receipt_body_import`
+  (`public_macro_receipt_body`) — macro receipt for the shift from receipt
+  archive posture to runnable runtime shell posture.
+- `public_reveal_clean_clone_state_fixture_receipt_body_import`
+  (`public_macro_receipt_body`) — clean-clone fixture repair receipt showing
+  self-contained public validation.
+- `public_reveal_public_substrate_boundary_policy_body_import`
+  (`public_macro_tool_body`) — boundary policy for public-safe macro import and
+  excluded material classes.
+- `public_reveal_walkthrough_control_plane_source_body_import`
+  (`public_python_source_body`) — the public organ source body that validates
+  reveal commands, claims, digest evidence, and body-free receipts.
 
 All five rows are exact-copy imports, `body_in_receipt=false`, and digest
 checks must pass before the exported reveal bundle can count as source-backed.

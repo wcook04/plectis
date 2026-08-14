@@ -134,15 +134,30 @@ flowchart TD
   entry-payload admission, affordance-passport selection, code-architecture
   packet, and exported bundle validation.
 
-Source-module body floor:
+Source-module body floor. Each module id names one macro source body and the
+exact public copy of it inside the exported bundle:
 
-| Module id | Macro source | Public copied target |
-| --- | --- | --- |
-| `navigation_route_plane_intervention_source_body_import` | `system/lib/navigation_route_intervention.py` | `examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py` |
-| `navigation_route_plane_context_pack_source_body_import` | `system/lib/navigation_context_pack.py` | `examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py` |
-| `navigation_route_plane_entry_packet_source_body_import` | `system/lib/kernel/commands/comprehension_snapshot.py` | `examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py` |
-| `navigation_route_plane_option_surface_source_body_import` | `system/lib/standard_option_surface.py` | `examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py` |
-| `navigation_route_plane_navigation_contract_source_body_import` | `codex/standards/std_navigation_contract.json` | `examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json` |
+```text
+navigation_route_plane_intervention_source_body_import
+  macro source   system/lib/navigation_route_intervention.py
+  copied target  examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py
+
+navigation_route_plane_context_pack_source_body_import
+  macro source   system/lib/navigation_context_pack.py
+  copied target  examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py
+
+navigation_route_plane_entry_packet_source_body_import
+  macro source   system/lib/kernel/commands/comprehension_snapshot.py
+  copied target  examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py
+
+navigation_route_plane_option_surface_source_body_import
+  macro source   system/lib/standard_option_surface.py
+  copied target  examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py
+
+navigation_route_plane_navigation_contract_source_body_import
+  macro source   codex/standards/std_navigation_contract.json
+  copied target  examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json
+```
 
 Registry receipt refs:
 
@@ -227,19 +242,33 @@ unresolved selective relations in the generated row.
 
 ## Structured Lattice Bindings
 
+The capsule row, generated projections, subjects, and runtime locus bind as
+follows:
+
+```text
+capsule authority     core/paper_module_capsules.json::paper_modules[1:paper_module.navigation_hologram_route_plane]
+generated instance    paper_modules/navigation_hologram_route_plane.json
+reader projection     paper_modules/navigation_hologram_route_plane.md
+organ subject         navigation_hologram_route_plane
+mechanism subject     mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle
+runtime locus         src/microcosm_core/organs/navigation_hologram_route_plane.py
+generated Mermaid     paper_module.navigation_hologram_route_plane.mermaid is available_from_capsule_edges
+generated Atlas card  organ_atlas.navigation_hologram_route_plane is linked_from_capsule_edges
+```
+
+The four sibling paper-module dependencies:
+
+```text
+paper_module.cold_reader_route_map
+paper_module.agent_route_observability_runtime
+paper_module.routing_anti_patterns_registry
+paper_module.pattern_binding_contract
+```
+
 | Binding | Source |
 |---|---|
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[1:paper_module.navigation_hologram_route_plane]` |
-| Generated instance | `paper_modules/navigation_hologram_route_plane.json` |
-| Reader projection | `paper_modules/navigation_hologram_route_plane.md` |
-| Organ subject | `navigation_hologram_route_plane` |
-| Mechanism subject | `mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` |
-| Runtime locus | `src/microcosm_core/organs/navigation_hologram_route_plane.py` |
 | Governing principles | `P-1`, `P-2`, `P-3`, `P-5`, `P-6`, `P-8`, `P-9`, `P-12`, `P-15` |
 | Governing axioms | `AX-1`, `AX-4`, `AX-5`, `AX-7`, `AX-8`, `AX-11` |
-| Dependency modules | `paper_module.cold_reader_route_map`, `paper_module.agent_route_observability_runtime`, `paper_module.routing_anti_patterns_registry`, `paper_module.pattern_binding_contract` |
-| Generated Mermaid | `paper_module.navigation_hologram_route_plane.mermaid` is `available_from_capsule_edges` |
-| Generated Atlas card | `organ_atlas.navigation_hologram_route_plane` is `linked_from_capsule_edges` |
 | Residual relations | None in the generated row. |
 
 The generated instance currently carries twenty-three relationship edges: two

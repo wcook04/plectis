@@ -724,10 +724,21 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     text = (MICROCOSM_ROOT / "AGENT_ROUTES.md").read_text(encoding="utf-8")
     assert "# Plectis Agent Task Routes" in text
     assert "## Agent Task Route Table" in text
-    assert (
-        "| `task_class` | Relevant organ(s) | First command | Source relation handles |"
-        in text
-    )
+    # The route surface is an anchor-linked index table over per-route sections.
+    # It was a single six-column grid until 2026-08-14; every row held several
+    # paragraphs, so the table needed ~2700px of GitHub's 1012px content column
+    # and rendered with a horizontal scrollbar and unreadable columns. The
+    # selector contract is unchanged: a reader arriving with a work shape still
+    # finds its `task_class` in one scan, and now follows a link to the detail.
+    assert "| `task_class` | Primary component | Components |" in text
+    assert "links to its route section below" in text
+    assert "## Route detail" in text
+    for task_class in ("getting-started", "formal-methods", "ai-safety"):
+        assert f"[`{task_class}`](#{task_class})" in text, f"{task_class} not linked"
+        assert f"### `{task_class}`" in text, f"{task_class} has no route section"
+    # Each route section still carries the fields the old columns held.
+    assert "Relevant components:" in text
+    assert "First command:" in text
     assert "Evidence / doctrine / drilldown" in text
     assert "atlas/agent_task_routes.json" in text
     assert "top-level `routes` as an array of rows keyed by `task_class`" in text
@@ -740,7 +751,10 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     assert "`source_relation_summary` handles" in text
     assert "Stop when the first command or named result record is visible" in text
     assert "`agent-entry`" in text
-    assert "`organ_doctrine_row:cold_reader_route_map.concept_binding`" in text
+    # Evidence refs now sit in a fenced block rather than an inline code span,
+    # so they are copy-paste clean and scroll inside the block instead of
+    # widening the table. Assert the identifier, not the backticks around it.
+    assert "organ_doctrine_row:cold_reader_route_map.concept_binding" in text
     for task_class in (
         "getting-started",
         "interesting-parts",

@@ -218,14 +218,37 @@ entry-card status.
 
 ## Reader Evidence Routing
 
-| Evidence surface | Authority ref | What it supports | Boundary |
-|---|---|---|---|
-| Runnable organ | `src/microcosm_core/organs/batch7_oracle_sibling_capsule.py` | The Microcosm capsule executes deterministic subject-index, subject-snapshot, truth-diff, quartet-plan, and original-pytest witness paths. | Code locus evidence only; not a doctrine-lattice subject edge until JSON capsule admission. |
-| Standard | `standards/std_microcosm_batch7_oracle_sibling_capsule.json` | Required exact public-safe source copies, direct oracle tool execution, original pytest witness, run-missing exclusion, negative cases, and authority ceiling. | Standard requirements are local capsule requirements, not release authority. |
-| Focused tests | `tests/test_batch7_oracle_sibling_capsule.py` | Runtime shape, exact source-module copies, private-body omission, and negative-case stability. | Focused witness only; not whole Oracle coverage. |
-| Fixture manifest | `core/fixture_manifests/batch7_oracle_sibling_capsule.fixture_manifest.json` | Fixture root, exported bundle, and source manifest routing for reproducible local runs. | Fixture availability is not semantic truth authority. |
-| Source manifest | `examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json` | Exact-copy hashes and required anchors for public-safe Oracle sibling source modules. | Non-secret copied bodies remain source evidence; receipts keep bodies out. |
-| Acceptance receipts | `receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json` and `receipts/first_wave/batch7_oracle_sibling_capsule/` | Prior fixture acceptance, board, validation receipt, and bundle validation outputs. | Receipt presence does not flip Mermaid/Atlas status or aggregate coverage. |
+Six surfaces carry the reader-verifiable evidence. Each one names its authority
+ref, what it supports, and where its authority stops.
+
+- **Runnable organ**,
+  `src/microcosm_core/organs/batch7_oracle_sibling_capsule.py`. The Microcosm
+  capsule executes deterministic subject-index, subject-snapshot, truth-diff,
+  quartet-plan, and original-pytest witness paths. Boundary: code locus evidence
+  only; not a doctrine-lattice subject edge until JSON capsule admission.
+- **Standard**, `standards/std_microcosm_batch7_oracle_sibling_capsule.json`.
+  Required exact public-safe source copies, direct oracle tool execution,
+  original pytest witness, run-missing exclusion, negative cases, and authority
+  ceiling. Boundary: standard requirements are local capsule requirements, not
+  release authority.
+- **Focused tests**, `tests/test_batch7_oracle_sibling_capsule.py`. Runtime
+  shape, exact source-module copies, private-body omission, and negative-case
+  stability. Boundary: focused witness only; not whole Oracle coverage.
+- **Fixture manifest**,
+  `core/fixture_manifests/batch7_oracle_sibling_capsule.fixture_manifest.json`.
+  Fixture root, exported bundle, and source manifest routing for reproducible
+  local runs. Boundary: fixture availability is not semantic truth authority.
+- **Source manifest**,
+  `examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json`.
+  Exact-copy hashes and required anchors for public-safe Oracle sibling source
+  modules. Boundary: non-secret copied bodies remain source evidence; receipts
+  keep bodies out.
+- **Acceptance receipts**,
+  `receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json`
+  and `receipts/first_wave/batch7_oracle_sibling_capsule/`. Prior fixture
+  acceptance, board, validation receipt, and bundle validation outputs.
+  Boundary: receipt presence does not flip Mermaid/Atlas status or aggregate
+  coverage.
 
 The selective relation boundary is intentionally narrow: this Markdown names
 walkable source routes for readers, but it does not infer governed concepts,

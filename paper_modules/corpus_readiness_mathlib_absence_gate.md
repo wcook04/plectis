@@ -31,14 +31,27 @@ page treats generated currentness as a limitation rather than authority.
 
 ## Authority Map
 
-| Surface | Role | Safe use |
-|---|---|---|
-| `core/paper_module_capsules.json::paper_module.corpus_readiness_mathlib_absence_gate` | Capsule authority | Names the organ, mechanisms, code locus, doctrine refs, dependency, and claim ceiling. |
-| `paper_modules/corpus_readiness_mathlib_absence.md` | Capsule-declared reader projection | Primary human reader page for the populated capsule row. |
-| `paper_modules/corpus_readiness_mathlib_absence_gate.md` | This legacy companion paper | Technical explanation of the Lean CLI absence gate and evidence classes. |
-| `paper_modules/corpus_readiness_mathlib_absence_gate.json` | Generated legacy sidecar for this filename | Current residual: `legacy_markdown_projection`, zero edges, blocked Mermaid/Atlas, six unresolved selective relations. |
-| `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py` | Runtime source | Implements fixture validation, exported-bundle validation, live Lean CLI probe, and body-free receipts. |
-| `tests/test_corpus_readiness_mathlib_absence_gate.py` | Regression evidence | Pins good, bad, and perturbation cases for the gate. |
+- **Capsule authority** —
+  `core/paper_module_capsules.json::paper_module.corpus_readiness_mathlib_absence_gate`.
+  Names the organ, mechanisms, code locus, doctrine refs, dependency, and claim
+  ceiling.
+- **Capsule-declared reader projection** —
+  `paper_modules/corpus_readiness_mathlib_absence.md`.
+  Primary human reader page for the populated capsule row.
+- **This legacy companion paper** —
+  `paper_modules/corpus_readiness_mathlib_absence_gate.md`.
+  Technical explanation of the Lean CLI absence gate and evidence classes.
+- **Generated legacy sidecar for this filename** —
+  `paper_modules/corpus_readiness_mathlib_absence_gate.json`.
+  Current residual: `legacy_markdown_projection`, zero edges, blocked
+  Mermaid/Atlas, six unresolved selective relations.
+- **Runtime source** —
+  `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py`.
+  Implements fixture validation, exported-bundle validation, live Lean CLI
+  probe, and body-free receipts.
+- **Regression evidence** —
+  `tests/test_corpus_readiness_mathlib_absence_gate.py`.
+  Pins good, bad, and perturbation cases for the gate.
 
 Do not infer capsule authority from the `_gate.md` filename. Follow the capsule
 row's `legacy_markdown_projection` field for the source-backed reader page.
@@ -119,16 +132,25 @@ and compact command-card output. Their ceiling is readiness visibility only.
 
 ## Exact Probe Contract
 
-| Probe element | Contract |
-|---|---|
-| Preconditions | `shutil.which("lean")` and `shutil.which("lake")` must both resolve; otherwise the probe returns `blocked_by: lean_unavailable` or `blocked_by: lake_unavailable`. |
-| Temporary files | A `/tmp/microcosm_corpus_readiness_probe_*` directory receives `StdGood.lean` and `MathlibAbsent.lean`; the receipt states that the temp root is cleaned before receipt write. |
-| Std command | `lean StdGood.lean` over a tiny `import Std` Nat example must return `0`. |
-| Mathlib command | `lean MathlibAbsent.lean` over a tiny `import Mathlib` example must return nonzero and expose unknown `Mathlib` in stdout or stderr. |
-| Lake command | `lake --version` must return `0`. |
-| Pass shape | `status: pass`, `std_import_passed: true`, `mathlib_import_rejected: true`, `mathlib_lake_project_import_available: false`, `lake_build_ran: false`. |
-| Receipt policy | `body_in_receipt: false`, `body_redacted: true`; command cards can show argv, return code, booleans, and redaction status, not Lean/proof/provider bodies. |
-| Prohibited inference | A passing probe is not a Lake build, not theorem proof, not Mathlib availability, and not benchmark or release authority. |
+- **Preconditions.** `shutil.which("lean")` and `shutil.which("lake")` must both
+  resolve; otherwise the probe returns `blocked_by: lean_unavailable` or
+  `blocked_by: lake_unavailable`.
+- **Temporary files.** A `/tmp/microcosm_corpus_readiness_probe_*` directory
+  receives `StdGood.lean` and `MathlibAbsent.lean`; the receipt states that the
+  temp root is cleaned before receipt write.
+- **Std command.** `lean StdGood.lean` over a tiny `import Std` Nat example must
+  return `0`.
+- **Mathlib command.** `lean MathlibAbsent.lean` over a tiny `import Mathlib`
+  example must return nonzero and expose unknown `Mathlib` in stdout or stderr.
+- **Lake command.** `lake --version` must return `0`.
+- **Pass shape.** `status: pass`, `std_import_passed: true`,
+  `mathlib_import_rejected: true`, `mathlib_lake_project_import_available: false`,
+  `lake_build_ran: false`.
+- **Receipt policy.** `body_in_receipt: false`, `body_redacted: true`; command
+  cards can show argv, return code, booleans, and redaction status, not
+  Lean/proof/provider bodies.
+- **Prohibited inference.** A passing probe is not a Lake build, not theorem
+  proof, not Mathlib availability, and not benchmark or release authority.
 
 The source constants name the rung explicitly:
 `TOOLCHAIN_BOUNDARY_STATUS = real_lean_cli_std_mathlib_absence_probe_with_lake_available`,
@@ -255,19 +277,27 @@ residual evidence for this legacy companion filename.
 
 ## Doctrine And Source Links
 
-| Link | Source-backed role |
-|---|---|
-| `corpus_readiness_mathlib_absence_gate` | Organ subject. |
-| `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary` | Mechanism for copied corpus/toolchain readiness gating. |
-| `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary` | Mechanism for explicit Mathlib-absence blocking. |
-| `concept.formal_math_and_proof_witness_bundle` | Governing concept: proof-witness language must be backed by public readiness evidence. |
-| `P-8` and `AX-7` | Governing Microcosm principle and axiom refs from the populated capsule row. |
-| `paper_module.tactic_portfolio_availability` | Dependency because the exported source artifacts include tactic portfolio availability metadata. |
-| `standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json` | Local standard for this organ's validation and claim boundaries. |
-| `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py` | Runtime source and receipt writer. |
-| `tests/test_corpus_readiness_mathlib_absence_gate.py` | Source-level regression evidence for good/bad/perturbation cases. |
-| `fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input` | Fixture input corpus and consumer cases. |
-| `examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle` | Exported bundle and source-module manifest. |
+- `corpus_readiness_mathlib_absence_gate` — organ subject.
+- `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary`
+  — mechanism for copied corpus/toolchain readiness gating.
+- `mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary`
+  — mechanism for explicit Mathlib-absence blocking.
+- `concept.formal_math_and_proof_witness_bundle` — governing concept:
+  proof-witness language must be backed by public readiness evidence.
+- `P-8` and `AX-7` — governing Microcosm principle and axiom refs from the
+  populated capsule row.
+- `paper_module.tactic_portfolio_availability` — dependency, because the
+  exported source artifacts include tactic portfolio availability metadata.
+- `standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json` — local
+  standard for this organ's validation and claim boundaries.
+- `src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py` — runtime
+  source and receipt writer.
+- `tests/test_corpus_readiness_mathlib_absence_gate.py` — source-level
+  regression evidence for good/bad/perturbation cases.
+- `fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input` — fixture
+  input corpus and consumer cases.
+- `examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle`
+  — exported bundle and source-module manifest.
 
 ## False-Proof Authority Ceiling
 

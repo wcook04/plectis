@@ -131,21 +131,46 @@ The Batch-9 pipeline has four stages.
 
 ## Mechanism Set
 
-| Mechanism id | Imported source body | What the public exercise checks |
-|---|---|---|
-| `lineage_temporal_provenance_chain_resolver` | `system/server/lineage.py` | Parent/truth lineage chain behavior and self-loop pruning. |
-| `approval_sign_off_claim_adjudicator` | `system/lib/approval_registry.py` | Approval decision shape and claim-conflict enforcement. |
-| `python_ast_symbol_index_doc_tree` | `system/lib/python_documentation_tree.py` | Python AST symbol extraction, including async/function/class coverage. |
-| `finance_news_dedup_cluster_ranker` | `system/server/ui/src/lib/financePresentation.ts` | Headline fingerprinting, stopword behavior, and duplicate clustering. |
-| `mission_graph_topological_compiler` | `system/server/graph.py` | DAG compilation, group closure, upstream dependency walk, and missing-target handling. |
-| `dependency_pin_drift_auditor` | `tools/dev/check_pin_drift.py` | Requirement parsing and drift/missing/unparseable classification. |
-| `config_authority_drift_audit` | `system/lib/config_authority_registry.py` | Config authority registry validation and mutation-allowed rejection. |
-| `heterogeneous_graph_edge_extractor` | `system/server/ui/src/pages/RootNavigator.tsx` | Generic edge-field map extraction and relation normalization. |
-| `work_atlas_cell_histogram_aggregator` | `system/server/ui/src/components/intelligence/WorkAtlas.tsx` | Cell aggregation and the unrouted-only route-reason histogram gate. |
-| `host_pressure_admission_decision_gate` | `system/lib/admission_consumer.py` | Admission normalization and summary-first blocking behavior. |
-| `doctrine_file_enrichment_multihop_join` | `system/server/doctrine_enrichment.py` | File-to-doctrine enrichment join and empty-envelope detection. |
-| `worker_job_budget_forbidden_surface_gate` | `system/lib/type_a_worker_harness.py` | Provider budget and forbidden-surface pre-dispatch gates. |
-| `milestone_relative_promotion_quality_accounting` | `system/lib/population_lane_metrics.py` | Milestone-relative promotion metrics and blocker-to-next-action classification. |
+Each mechanism id names one imported source body and one public exercise over
+it.
+
+- `lineage_temporal_provenance_chain_resolver`, from `system/server/lineage.py`.
+  Checks parent/truth lineage chain behavior and self-loop pruning.
+- `approval_sign_off_claim_adjudicator`, from
+  `system/lib/approval_registry.py`. Checks approval decision shape and
+  claim-conflict enforcement.
+- `python_ast_symbol_index_doc_tree`, from
+  `system/lib/python_documentation_tree.py`. Checks Python AST symbol
+  extraction, including async/function/class coverage.
+- `finance_news_dedup_cluster_ranker`, from
+  `system/server/ui/src/lib/financePresentation.ts`. Checks headline
+  fingerprinting, stopword behavior, and duplicate clustering.
+- `mission_graph_topological_compiler`, from `system/server/graph.py`. Checks
+  DAG compilation, group closure, upstream dependency walk, and missing-target
+  handling.
+- `dependency_pin_drift_auditor`, from `tools/dev/check_pin_drift.py`. Checks
+  requirement parsing and drift/missing/unparseable classification.
+- `config_authority_drift_audit`, from
+  `system/lib/config_authority_registry.py`. Checks config authority registry
+  validation and mutation-allowed rejection.
+- `heterogeneous_graph_edge_extractor`, from
+  `system/server/ui/src/pages/RootNavigator.tsx`. Checks generic edge-field map
+  extraction and relation normalization.
+- `work_atlas_cell_histogram_aggregator`, from
+  `system/server/ui/src/components/intelligence/WorkAtlas.tsx`. Checks cell
+  aggregation and the unrouted-only route-reason histogram gate.
+- `host_pressure_admission_decision_gate`, from
+  `system/lib/admission_consumer.py`. Checks admission normalization and
+  summary-first blocking behavior.
+- `doctrine_file_enrichment_multihop_join`, from
+  `system/server/doctrine_enrichment.py`. Checks file-to-doctrine enrichment
+  join and empty-envelope detection.
+- `worker_job_budget_forbidden_surface_gate`, from
+  `system/lib/type_a_worker_harness.py`. Checks provider budget and
+  forbidden-surface pre-dispatch gates.
+- `milestone_relative_promotion_quality_accounting`, from
+  `system/lib/population_lane_metrics.py`. Checks milestone-relative promotion
+  metrics and blocker-to-next-action classification.
 
 Several tests deliberately mutate copied source bodies in a temporary public
 bundle and refresh the manifest digest. Finance, lineage, approval, AST,
