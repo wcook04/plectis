@@ -136019,7 +136019,7 @@
             "page": "paper-module-formal-evidence-cell-anchor-resolver.html"
           }
         ],
-        "total_occurrences": 2077
+        "total_occurrences": 2078
       },
       "visible_text_byte_count": 1084
     },
@@ -147479,7 +147479,7 @@
             "page": "paper-module-engine-room-generated-projection-drift-gate.html"
           }
         ],
-        "total_occurrences": 565
+        "total_occurrences": 566
       },
       "visible_text_byte_count": 697
     },
@@ -152032,7 +152032,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 12,
+            "count": 13,
             "page": "papers.html"
           },
           {
@@ -152040,7 +152040,7 @@
             "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           }
         ],
-        "total_occurrences": 15
+        "total_occurrences": 16
       },
       "visible_text_byte_count": 847
     },
@@ -153416,7 +153416,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 3623
+        "total_occurrences": 3624
       },
       "visible_text_byte_count": 945
     },
@@ -153461,7 +153461,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 5,
+            "count": 6,
             "page": "papers.html"
           },
           {
@@ -153485,7 +153485,7 @@
             "page": "paper-module-batch8-audio-level-rms-port.html"
           }
         ],
-        "total_occurrences": 22
+        "total_occurrences": 23
       },
       "visible_text_byte_count": 967
     },
@@ -265568,7 +265568,7 @@
         "paper-module-work-landing-control-spine.html": 11,
         "paper-module-world-model-projection-drift-control-room.html": 5,
         "paper-modules.html": 118,
-        "papers.html": 13,
+        "papers.html": 14,
         "reference.html": 94,
         "rules-and-ideas.html": 152,
         "source.html": 1,
@@ -265577,7 +265577,7 @@
       },
       "page_count": 188,
       "top_page": "doctrine.html",
-      "total_occurrences": 2077
+      "total_occurrences": 2078
     },
     "claim_registry": {
       "by_page": {
@@ -275469,13 +275469,13 @@
         "paper-module-work-landing-control-spine.html": 4,
         "paper-module-world-model-projection-drift-control-room.html": 4,
         "paper-modules.html": 8,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 10,
         "rules-and-ideas.html": 8
       },
       "page_count": 109,
       "top_page": "doctrine.html",
-      "total_occurrences": 565
+      "total_occurrences": 566
     },
     "mathematics": {
       "by_page": {
@@ -278542,11 +278542,11 @@
     "prime": {
       "by_page": {
         "paper-module-finite-erdos-denominator-certificate-strike.html": 3,
-        "papers.html": 12
+        "papers.html": 13
       },
       "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 15
+      "total_occurrences": 16
     },
     "principle": {
       "by_page": {
@@ -280040,7 +280040,7 @@
         "paper-module-work-landing-control-spine.html": 13,
         "paper-module-world-model-projection-drift-control-room.html": 27,
         "paper-modules.html": 319,
-        "papers.html": 9,
+        "papers.html": 10,
         "reference.html": 539,
         "rules-and-ideas.html": 732,
         "source.html": 12,
@@ -280050,7 +280050,7 @@
       },
       "page_count": 203,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 3623
+      "total_occurrences": 3624
     },
     "published": {
       "by_page": {
@@ -280060,13 +280060,13 @@
         "open-questions.html": 1,
         "paper-module-batch12-release-claim-language-gate.html": 1,
         "paper-module-batch8-audio-level-rms-port.html": 2,
-        "papers.html": 5,
+        "papers.html": 6,
         "tour.html": 1,
         "vulnerability-disclosure.html": 3
       },
       "page_count": 9,
       "top_page": "papers.html",
-      "total_occurrences": 22
+      "total_occurrences": 23
     },
     "purpose": {
       "by_page": {
