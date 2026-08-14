@@ -136019,7 +136019,7 @@
             "page": "paper-module-formal-evidence-cell-anchor-resolver.html"
           }
         ],
-        "total_occurrences": 2078
+        "total_occurrences": 2079
       },
       "visible_text_byte_count": 1084
     },
@@ -140687,7 +140687,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 91,
+        "page_count": 92,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -140715,7 +140715,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 263
+        "total_occurrences": 264
       },
       "visible_text_byte_count": 815
     },
@@ -144816,7 +144816,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 5,
+        "page_count": 6,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -144833,6 +144833,10 @@
           },
           {
             "count": 1,
+            "page": "papers.html"
+          },
+          {
+            "count": 1,
             "page": "reference.html"
           },
           {
@@ -144840,7 +144844,7 @@
             "page": "rules-and-ideas.html"
           }
         ],
-        "total_occurrences": 16
+        "total_occurrences": 17
       },
       "visible_text_byte_count": 821
     },
@@ -146252,7 +146256,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 10,
+        "page_count": 11,
         "top_page": "paper-module-lean-std-premise-index.html",
         "top_pages": [
           {
@@ -146280,7 +146284,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 22
+        "total_occurrences": 23
       },
       "visible_text_byte_count": 805
     },
@@ -152252,7 +152256,7 @@
             "page": "paper-module-agent-memory-temporal-conflict-replay.html"
           }
         ],
-        "total_occurrences": 240
+        "total_occurrences": 241
       },
       "visible_text_byte_count": 719
     },
@@ -153270,11 +153274,11 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           },
           {
-            "count": 14,
+            "count": 15,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 596
+        "total_occurrences": 597
       },
       "visible_text_byte_count": 794
     },
@@ -157607,7 +157611,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 140,
+        "page_count": 141,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -157635,7 +157639,7 @@
             "page": "paper-module-engine-room-demo.html"
           }
         ],
-        "total_occurrences": 505
+        "total_occurrences": 506
       },
       "visible_text_byte_count": 768
     },
@@ -265568,7 +265572,7 @@
         "paper-module-work-landing-control-spine.html": 11,
         "paper-module-world-model-projection-drift-control-room.html": 5,
         "paper-modules.html": 118,
-        "papers.html": 14,
+        "papers.html": 15,
         "reference.html": 94,
         "rules-and-ideas.html": 152,
         "source.html": 1,
@@ -265577,7 +265581,7 @@
       },
       "page_count": 188,
       "top_page": "doctrine.html",
-      "total_occurrences": 2078
+      "total_occurrences": 2079
     },
     "claim_registry": {
       "by_page": {
@@ -269417,12 +269421,13 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 1,
         "paper-module-work-landing-control-spine.html": 1,
         "paper-modules.html": 7,
+        "papers.html": 1,
         "reference.html": 8,
         "rules-and-ideas.html": 9
       },
-      "page_count": 91,
+      "page_count": 92,
       "top_page": "doctrine.html",
-      "total_occurrences": 263
+      "total_occurrences": 264
     },
     "engine": {
       "by_page": {
@@ -273012,12 +273017,13 @@
         "doctrine.html": 12,
         "open-questions.html": 1,
         "paper-module-pattern-binding-contract.html": 1,
+        "papers.html": 1,
         "reference.html": 1,
         "rules-and-ideas.html": 1
       },
-      "page_count": 5,
+      "page_count": 6,
       "top_page": "doctrine.html",
-      "total_occurrences": 16
+      "total_occurrences": 17
     },
     "import": {
       "by_page": {
@@ -274529,11 +274535,12 @@
         "paper-module-formal-math-premise-retrieval.html": 2,
         "paper-module-lean-std-premise-index.html": 5,
         "paper-module-undeclared-library-prior-classifier.html": 3,
+        "papers.html": 1,
         "reference.html": 1
       },
-      "page_count": 10,
+      "page_count": 11,
       "top_page": "paper-module-lean-std-premise-index.html",
-      "total_occurrences": 22
+      "total_occurrences": 23
     },
     "library": {
       "by_page": {
@@ -278780,13 +278787,13 @@
         "paper-module-work-landing-control-spine.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 8,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 16,
         "rules-and-ideas.html": 14
       },
       "page_count": 117,
       "top_page": "paper-module-undeclared-library-prior-classifier.html",
-      "total_occurrences": 240
+      "total_occurrences": 241
     },
     "private": {
       "by_page": {
@@ -279711,14 +279718,14 @@
         "paper-module-verifier-lab-kernel.html": 3,
         "paper-module-work-landing-control-spine.html": 1,
         "paper-modules.html": 12,
-        "papers.html": 14,
+        "papers.html": 15,
         "reference.html": 5,
         "rules-and-ideas.html": 119,
         "tour.html": 1
       },
       "page_count": 129,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 596
+      "total_occurrences": 597
     },
     "provenance": {
       "by_page": {
@@ -284156,12 +284163,13 @@
         "paper-module-work-landing-control-spine.html": 12,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 51,
+        "papers.html": 1,
         "reference.html": 9,
         "rules-and-ideas.html": 60
       },
-      "page_count": 140,
+      "page_count": 141,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 505
+      "total_occurrences": 506
     },
     "shared_path": {
       "by_page": {
