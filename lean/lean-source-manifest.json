@@ -24,8 +24,8 @@
       "source_ref": "main",
       "source_path": "docs/problems.json",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json",
-      "source_sha256": "4c3a887bbc48b03a4ef23e2c1d514ff17b18088ec975ed76740f81dfbee9c8f3",
-      "bytes": 52867
+      "source_sha256": "f8231ce740abe3fd1e972ab86c636d019fbe7a3343fd76b32cff0ddd9b907181",
+      "bytes": 52881
     },
     {
       "hosted_path": "lean/RESULTS.md",

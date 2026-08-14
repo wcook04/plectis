@@ -150,7 +150,7 @@
       ],
       "note": {
         "artifact_id": "erdos_68_note",
-        "title": "Integral Channels and the Prime Unit Translator",
+        "title": "Factorial Carries and Finite Channel Obstructions",
         "source_path": "paper/erdos-68-factorial-denominator-irrationality.tex",
         "rendered_path": "erdos-68-factorial-denominator-irrationality.pdf",
         "authority_posture": "authored_mathematical_exposition_of_unregistered_expansion_modules_and_an_external_finite_certificate_not_Lean_proof_authority"
@@ -369,7 +369,7 @@
       ],
       "note": {
         "artifact_id": "erdos_249_note",
-        "title": "Exact Ranks for the Dyadic Sections of Euler’s Totient",
+        "title": "A Basis for the 2-Kernel of Euler's Totient",
         "source_path": "paper/erdos-249-binary-totient-series.tex",
         "rendered_path": "erdos-249-binary-totient-series.pdf",
         "authority_posture": "authored_problem_owned_synthesis_of_reviewed_gateway_claims_and_unregistered_expansion_modules_not_Lean_proof_authority"
@@ -436,7 +436,7 @@
       ],
       "note": {
         "artifact_id": "erdos_251_note",
-        "title": "The Prime-Gap Equivalence and the Integral-Shift Frontier",
+        "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
         "source_path": "paper/erdos-251-prime-gap-dyadic-series.tex",
         "rendered_path": "erdos-251-prime-gap-dyadic-series.pdf",
         "authority_posture": "authored_mathematical_exposition_of_an_unregistered_expansion_module_not_Lean_proof_authority"
@@ -498,7 +498,7 @@
       ],
       "note": {
         "artifact_id": "erdos_257_note",
-        "title": "Forced Structure in Mersenne Subseries",
+        "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
         "source_path": "paper/erdos-257-mersenne-support-subseries.tex",
         "rendered_path": "erdos-257-mersenne-support-subseries.pdf",
         "authority_posture": "authored_problem_owned_synthesis_of_reviewed_gateway_claims_and_unregistered_expansion_modules_not_Lean_proof_authority"
@@ -783,7 +783,7 @@
       ],
       "note": {
         "artifact_id": "erdos_1049_note",
-        "title": "Rational Bases and the Integer-Base Argument",
+        "title": "Arithmetic Boundaries at Base 3/2",
         "source_path": "paper/erdos-1049-rational-base-lambert.tex",
         "rendered_path": "erdos-1049-rational-base-lambert.pdf",
         "authority_posture": "authored_mathematical_exposition_of_an_unregistered_expansion_module_not_Lean_proof_authority"
