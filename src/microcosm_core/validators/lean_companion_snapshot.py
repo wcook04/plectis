@@ -50,6 +50,28 @@ def _load_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _latest_release_tag(upstream_root: Path, public_ref: str) -> str | None:
+    """The newest ``vX.Y.Z`` tag reachable from the tracked public ref.
+
+    Only release tags count: the companion also carries dated provenance tags
+    such as ``formal-source-2026-08-12-r2``, and ``git describe`` would return
+    one of those, which is not a citation anchor. Returns ``None`` when no
+    release tag is reachable, so the caller can keep the recorded value rather
+    than blank a real anchor on a shallow or tagless checkout.
+    """
+    try:
+        raw = _git_output(
+            upstream_root, "tag", "--merged", public_ref, "--sort=-v:refname", "v*"
+        )
+    except Exception:
+        return None
+    for line in raw.splitlines():
+        tag = line.strip()
+        if re.fullmatch(r"v\d+\.\d+\.\d+", tag):
+            return tag
+    return None
+
+
 def _build_snapshot_from_upstream(
     payload: dict[str, Any],
     upstream_root: Path,
@@ -68,7 +90,16 @@ def _build_snapshot_from_upstream(
     ).encode("utf-8")
     orientation = json.loads(orientation_bytes)
     upstream_scale = orientation["scale"]
-    latest_tag = str(upstream["latest_tag"])
+    # Derived, not carried forward. This field used to be copied from the
+    # snapshot being refreshed, so every other value here tracked public main
+    # while the tag silently aged: the README went on naming v0.6.0 as the
+    # citation anchor two releases after the companion's own README and
+    # CITATION.cff had moved to v0.8.0. Read it from the tags actually
+    # reachable from the tracked ref, so a release cannot be announced by the
+    # companion and missed here.
+    latest_tag = _latest_release_tag(upstream_root, public_ref) or str(
+        upstream["latest_tag"]
+    )
 
     refreshed = json.loads(json.dumps(payload))
     refreshed["observed_at"] = _git_output(
@@ -83,6 +114,10 @@ def _build_snapshot_from_upstream(
     refreshed_upstream["orientation_sha256"] = hashlib.sha256(
         orientation_bytes
     ).hexdigest()
+    # Written back, not just used. Without this the name and the two hashes
+    # below could disagree: the refresh would resolve the newest tag's objects
+    # while still calling it by the old tag's name.
+    refreshed_upstream["latest_tag"] = latest_tag
     refreshed_upstream["release_tag_object"] = _git_output(
         upstream_root,
         "rev-parse",
@@ -121,6 +156,15 @@ def _readme_companion_block(payload: dict[str, Any]) -> str:
                 f"  mathematical claims; `{latest_tag}` remains the tagged "
                 "citation anchor."
             ),
+            # The release bullet is inside the managed block because it names
+            # the same tag. It used to sit outside it, so a refresh updated the
+            # sentence above and left this line pointing at an older release --
+            # one README naming two different citation anchors.
+            (
+                f"- [**Release {latest_tag}**]"
+                f"({repository}/releases/tag/{latest_tag}):"
+            ),
+            "  the tagged, citable scholarly artefact and citation anchor.",
         ]
     )
 
@@ -140,7 +184,8 @@ def refresh_lean_companion_snapshot(
 
     readme = readme_path.read_text(encoding="utf-8")
     block_pattern = re.compile(
-        r"(?ms)^- \[\*\*Browse the Lean source\*\*\].*?(?=^- \[\*\*Release )"
+        r"(?ms)^- \[\*\*Browse the Lean source\*\*\].*?citable scholarly "
+        r"artefact and citation anchor\.\n"
     )
     if block_pattern.search(readme) is None:
         raise ValueError("README Lean companion block is missing")

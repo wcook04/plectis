@@ -31,9 +31,9 @@
       "local_full_text": "docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md",
       "local_source": "docs/papers/mirror/erdos-68-factorial-denominator-irrationality.tex",
       "source_sha256": "sha256:7a79a936a41e08af7c2267cecd994e4a7fa9ffd21ef602fc77df91b6e0763ecf",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-68-factorial-denominator-irrationality.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-68-factorial-denominator-irrationality.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-68-factorial-denominator-irrationality.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-68-factorial-denominator-irrationality.tex",
       "section_count": 18,
       "sections": [
         {
@@ -146,10 +146,6 @@
         }
       ],
       "citations_rendered": 12,
-      "fallback_title_drift": {
-        "registry_fallback": "Integral Channels and the Prime Unit Translator",
-        "manuscript_title": "Factorial Carries and Finite Channel Obstructions"
-      },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-68-factorial-denominator-irrationality.pdf",
       "pdf_sha256": "sha256:797587bb93c6600b9807372f34ae282ae0afc7a54aa866165f97bdca6013819e",
@@ -197,9 +193,9 @@
       "local_full_text": "docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md",
       "local_source": "docs/papers/mirror/erdos-243-reciprocal-tail-rigidity.tex",
       "source_sha256": "sha256:6412e4483f997e12d87b18f859b2e3cd4a61404e9efa9982e30072cffbb96eb7",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-243-reciprocal-tail-rigidity.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-243-reciprocal-tail-rigidity.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-243-reciprocal-tail-rigidity.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-243-reciprocal-tail-rigidity.tex",
       "section_count": 27,
       "sections": [
         {
@@ -407,10 +403,10 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos-249-binary-totient-series.md",
       "local_source": "docs/papers/mirror/erdos-249-binary-totient-series.tex",
-      "source_sha256": "sha256:c1dcd44fce4efb221200a091dd221f58ce69a5ccbbb4b99116bd70e18d5f3f3a",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-249-binary-totient-series.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-249-binary-totient-series.tex",
+      "source_sha256": "sha256:a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-249-binary-totient-series.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-249-binary-totient-series.tex",
       "section_count": 24,
       "sections": [
         {
@@ -525,37 +521,37 @@
           "level": 2,
           "id": "structural-and-diophantine-routes",
           "title": "Structural and Diophantine routes",
-          "line": 402
+          "line": 406
         },
         {
           "level": 2,
           "id": "independent-extension",
           "title": "Independent extension",
-          "line": 437
+          "line": 441
         },
         {
           "level": 4,
           "id": "the-independent-denominator-exclusion.",
           "title": "The independent denominator exclusion.",
-          "line": 479
+          "line": 483
         },
         {
           "level": 2,
           "id": "sec:open",
           "title": "Logical status and analytic input",
-          "line": 485
+          "line": 489
         },
         {
           "level": 1,
           "id": "formal-source-notes",
           "title": "Formal source notes",
-          "line": 509
+          "line": 513
         },
         {
           "level": 4,
           "id": "registry-coverage.",
           "title": "Registry coverage.",
-          "line": 513
+          "line": 517
         }
       ],
       "citations_rendered": 21,
@@ -565,8 +561,8 @@
       },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-249-binary-totient-series.pdf",
-      "pdf_sha256": "sha256:d9ac45fae80c417ea397f0586efb70120c0fe4dd888c7e90f8780a007d740274",
-      "pdf_byte_count": 153697,
+      "pdf_sha256": "sha256:8938d66f619c1eeace226dad71419696e93da5476f17f96b11df15f23661aec3",
+      "pdf_byte_count": 154919,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
@@ -584,7 +580,7 @@
           {
             "id": "sec:open",
             "title": "Logical status and analytic input",
-            "line": 485
+            "line": 489
           }
         ],
         "unresolved_count": 1
@@ -605,9 +601,9 @@
       "local_full_text": "docs/papers/full-text/erdos249-totient-reasoning-surface.md",
       "local_source": "docs/papers/mirror/erdos249-totient-reasoning-surface.tex",
       "source_sha256": "sha256:3791c2f8319372eff4b7e7a247b788983ad195af0ec21addfe9d5e9126da6f28",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos249-totient-reasoning-surface.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos249-totient-reasoning-surface.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos249-totient-reasoning-surface.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos249-totient-reasoning-surface.tex",
       "section_count": 153,
       "sections": [
         {
@@ -1567,9 +1563,9 @@
       "local_full_text": "docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md",
       "local_source": "docs/papers/mirror/erdos-251-prime-gap-dyadic-series.tex",
       "source_sha256": "sha256:90e3d359d43cd7b9cf7f3239f901a2814a20fa59a4b374d9e85dd9f1500c5559",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-251-prime-gap-dyadic-series.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-251-prime-gap-dyadic-series.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-251-prime-gap-dyadic-series.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-251-prime-gap-dyadic-series.tex",
       "section_count": 23,
       "sections": [
         {
@@ -1754,9 +1750,9 @@
       "local_full_text": "docs/papers/full-text/erdos-257-mersenne-support-subseries.md",
       "local_source": "docs/papers/mirror/erdos-257-mersenne-support-subseries.tex",
       "source_sha256": "sha256:03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-257-mersenne-support-subseries.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-257-mersenne-support-subseries.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-257-mersenne-support-subseries.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-257-mersenne-support-subseries.tex",
       "section_count": 24,
       "sections": [
         {
@@ -1952,9 +1948,9 @@
       "local_full_text": "docs/papers/full-text/erdos257-mersenne-reasoning-surface.md",
       "local_source": "docs/papers/mirror/erdos257-mersenne-reasoning-surface.tex",
       "source_sha256": "sha256:3baddc326432cae58d4e17d092987bd2491a200573c3ec9525f551fd82033ec4",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos257-mersenne-reasoning-surface.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos257-mersenne-reasoning-surface.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos257-mersenne-reasoning-surface.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos257-mersenne-reasoning-surface.tex",
       "section_count": 136,
       "sections": [
         {
@@ -2817,9 +2813,9 @@
       "local_full_text": "docs/papers/full-text/erdos-269-three-prime-running-lcm.md",
       "local_source": "docs/papers/mirror/erdos-269-three-prime-running-lcm.tex",
       "source_sha256": "sha256:f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-269-three-prime-running-lcm.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-269-three-prime-running-lcm.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-269-three-prime-running-lcm.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-269-three-prime-running-lcm.tex",
       "section_count": 26,
       "sections": [
         {
@@ -3027,9 +3023,9 @@
       "local_full_text": "docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md",
       "local_source": "docs/papers/mirror/erdos-1041-lemniscate-newton-flow.tex",
       "source_sha256": "sha256:18eb45e9bb45836b4df89f6b52f9de5d634755db75ba3b9a2431e5daccad0968",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-1041-lemniscate-newton-flow.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-1041-lemniscate-newton-flow.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1041-lemniscate-newton-flow.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1041-lemniscate-newton-flow.tex",
       "section_count": 15,
       "sections": [
         {
@@ -3171,9 +3167,9 @@
       "local_full_text": "docs/papers/full-text/erdos-1049-rational-base-lambert.md",
       "local_source": "docs/papers/mirror/erdos-1049-rational-base-lambert.tex",
       "source_sha256": "sha256:012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-1049-rational-base-lambert.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/erdos-1049-rational-base-lambert.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1049-rational-base-lambert.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1049-rational-base-lambert.tex",
       "section_count": 28,
       "sections": [
         {
@@ -3346,10 +3342,6 @@
         }
       ],
       "citations_rendered": 34,
-      "fallback_title_drift": {
-        "registry_fallback": "Multiplicative Obstructions at Base 3/2",
-        "manuscript_title": "Arithmetic Boundaries at Base 3/2"
-      },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-1049-rational-base-lambert.pdf",
       "pdf_sha256": "sha256:2cfe26c4e0bd205038761d01a578539cbe6d199fe0f2887df2c486b98c14cc1d",
@@ -3397,9 +3389,9 @@
       "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
       "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
       "source_sha256": "sha256:f352b41f998417637669b8763fa2afb3a311fff7810b513975d513dff0d01812",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/claim-faithful-publication-systems-paper.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/claim-faithful-publication-systems-paper.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/claim-faithful-publication-systems-paper.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/claim-faithful-publication-systems-paper.tex",
       "section_count": 30,
       "sections": [
         {
@@ -3631,9 +3623,9 @@
       "local_full_text": "docs/papers/full-text/cold-clone-to-proof-receipt.md",
       "local_source": "docs/papers/mirror/cold-clone-to-proof-receipt.tex",
       "source_sha256": "sha256:bc3961badf35c5c16b8e0ff883413c4030611006c19ea7b7861c8cc6d13ac4aa",
-      "canonical_source_commit": "22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e",
-      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/cold-clone-to-proof-receipt.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/22c1d931b0b08d04bcb0d1baf555dc0d7fdfcf0e/paper/cold-clone-to-proof-receipt.tex",
+      "canonical_source_commit": "07fc2560d0d40550f1a74b1daff4e197eab1f11e",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/cold-clone-to-proof-receipt.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/cold-clone-to-proof-receipt.tex",
       "section_count": 19,
       "sections": [
         {
@@ -3804,9 +3796,9 @@
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
       "source_sha256": "sha256:7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
-      "canonical_source_commit": "480b6307c0f544833373cc0ceebb1efb36873e4c",
-      "canonical_source_url": "https://github.com/wcook04/plectis/blob/480b6307c0f544833373cc0ceebb1efb36873e4c/paper/plectis-public-system.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/480b6307c0f544833373cc0ceebb1efb36873e4c/paper/plectis-public-system.tex",
+      "canonical_source_commit": "e6be605bc81015d37896145081eb4b5727212fcb",
+      "canonical_source_url": "https://github.com/wcook04/plectis/blob/e6be605bc81015d37896145081eb4b5727212fcb/paper/plectis-public-system.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/e6be605bc81015d37896145081eb4b5727212fcb/paper/plectis-public-system.tex",
       "section_count": 31,
       "sections": [
         {
