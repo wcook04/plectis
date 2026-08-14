@@ -926,6 +926,20 @@ At the pivot argument $N+L-s+1$, call $N$ a supplier when this integer factors
 as $mp$, where $p$ is its largest prime factor,
 $0<m\le\sqrt X/2$, and $p>2\sqrt X$.  Suppliers are good when
 $\eta m\le\ph(m)$ and bad otherwise; non-suppliers form the remaining set.
+Writing $t=L-s+1$, the canonical fibre with cofactor $m$ is exactly the image
+of the primes in
+\[
+ X+t\le mp<2X+t
+\]
+under the injective map $p\mapsto mp-t$
+(\mword{Erdos249257/FirstHarmonicPivot.lean}{299}{mem_pivotFiber_iff_exists_supplierPrime}{membership},
+\mword{Erdos249257/FirstHarmonicPivot.lean}{367}{pivotBaseOfPrime_injective_on_supplierPrimes}{injectivity},
+\mword{Erdos249257/FirstHarmonicPivot.lean}{384}{image_pivotSupplierPrimes_eq_pivotFiber}{image equality}).
+This exact bijection does not imply that the supplier prime is isolated from
+every other argument in the window.  At $X=16$, $L=20$, $s=1$, $m=2$, and
+$N=18$, the pivot is $38=2\cdot19$, while the same prime $19$ divides the
+distinct argument $N+1=19$
+(\mword{Erdos249257/FirstHarmonicPivot.lean}{394}{supplierPrime_not_globally_isolated_counterexample}{checked counterexample}).
 For a supplier write $z_N$ for its explicit totient pivot phase,
 $w_N=\omega_N/z_N$, and $\bar z_m$ for the mean of $z_N$ on the fibre with
 cofactor $m$.  Define

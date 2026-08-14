@@ -2077,7 +2077,19 @@ def _registry_accepted_count() -> int:
 def test_public_entry_docs_state_no_stale_component_or_organ_count() -> None:
     expected = _registry_accepted_count()
     offenders: list[str] = []
-    for name in ("README.md", "AGENTS.md", "QUICKSTART.md", "FIRST_ACTION.md"):
+    # cli.py is here because the tool's own first screen is an entry doc: the
+    # README tells a reader to install and run `plectis`, so the help text under
+    # their cursor is the first count they meet. It was excluded, and drifted to
+    # "82 organs" -- the same stale figure the 2026-06-29 fix removed from every
+    # other surface -- while README, AGENTS, ARCHITECTURE and the registry all
+    # agreed on the real one.
+    for name in (
+        "README.md",
+        "AGENTS.md",
+        "QUICKSTART.md",
+        "FIRST_ACTION.md",
+        "src/microcosm_core/cli.py",
+    ):
         path = MICROCOSM_ROOT / name
         if not path.exists():
             continue

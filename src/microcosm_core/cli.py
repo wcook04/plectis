@@ -633,7 +633,7 @@ First-screen route:
   plectis tour --card <project> build .microcosm and read route/state/proof refs
   plectis first-screen --card <project> emit the compact JSON first-screen card
   plectis comprehend --packet-atlas  the navigable MENU of comprehension packets (pick a different lens when first-action is not the question)
-  plectis comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
+  plectis comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = the current organ roster)
   plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   plectis comprehend --slice mechanism  every organ's real mechanism (what it computes/verifies/rejects), one line each

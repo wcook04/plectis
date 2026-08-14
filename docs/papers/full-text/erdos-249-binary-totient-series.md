@@ -381,7 +381,11 @@ To make the question self-contained, put
 \omega_N=\exp\!\left(2\pi i\,
    \frac{D_{h,N,L}\bmod 2^L}{2^L}\right),\qquad X\le N<2X.
 ```
-At the pivot argument $`N+L-s+1`$, call $`N`$ a supplier when this integer factors as $`mp`$, where $`p`$ is its largest prime factor, $`0<m\le\sqrt X/2`$, and $`p>2\sqrt X`$. Suppliers are good when $`\eta m\le\varphi(m)`$ and bad otherwise; non-suppliers form the remaining set. For a supplier write $`z_N`$ for its explicit totient pivot phase, $`w_N=\omega_N/z_N`$, and $`\bar z_m`$ for the mean of $`z_N`$ on the fibre with cofactor $`m`$. Define
+At the pivot argument $`N+L-s+1`$, call $`N`$ a supplier when this integer factors as $`mp`$, where $`p`$ is its largest prime factor, $`0<m\le\sqrt X/2`$, and $`p>2\sqrt X`$. Suppliers are good when $`\eta m\le\varphi(m)`$ and bad otherwise; non-suppliers form the remaining set. Writing $`t=L-s+1`$, the canonical fibre with cofactor $`m`$ is exactly the image of the primes in
+``` math
+X+t\le mp<2X+t
+```
+under the injective map $`p\mapsto mp-t`$ ([membership](https://github.com/wcook04/plectis-lean-erdos249-257/blob/9e231ce4371fcda607f81c4520d29b16dcb4482e/Erdos249257/FirstHarmonicPivot.lean#L299), [injectivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/9e231ce4371fcda607f81c4520d29b16dcb4482e/Erdos249257/FirstHarmonicPivot.lean#L367), [image equality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/9e231ce4371fcda607f81c4520d29b16dcb4482e/Erdos249257/FirstHarmonicPivot.lean#L384)). This exact bijection does not imply that the supplier prime is isolated from every other argument in the window. At $`X=16`$, $`L=20`$, $`s=1`$, $`m=2`$, and $`N=18`$, the pivot is $`38=2\cdot19`$, while the same prime $`19`$ divides the distinct argument $`N+1=19`$ ([checked counterexample](https://github.com/wcook04/plectis-lean-erdos249-257/blob/9e231ce4371fcda607f81c4520d29b16dcb4482e/Erdos249257/FirstHarmonicPivot.lean#L394)). For a supplier write $`z_N`$ for its explicit totient pivot phase, $`w_N=\omega_N/z_N`$, and $`\bar z_m`$ for the mean of $`z_N`$ on the fibre with cofactor $`m`$. Define
 ``` math
 \begin{aligned}
  \mathcal C&=\sum_{N\ {\mathrm{good}}}w_N(z_N-\bar z_m),&
