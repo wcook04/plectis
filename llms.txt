@@ -77,7 +77,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 - [claims.json](lean/claims.json): the Lean claim layer -- release identity, the status taxonomy, the remaining open propositions, the claims with their source anchors, and the explicit non-claims
 - [problems.json](lean/problems.json): the per-problem index
 - [RESULTS.md](lean/RESULTS.md): the per-problem map -- the strongest checked statement per problem, its exact status, and where to verify it. Hosted here as raw Markdown for offline and machine readers, on the same byte-parity terms as the two files above; it [renders on GitHub](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md) if you are reading it yourself
-- The proofs themselves are not hosted: 697 Lean files, about 57 MB, plus a 72 MB per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-lean-erdos249-257, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
+- The proofs themselves are not hosted: 1,033 Lean files, about 152 MB, plus a 72 MB per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-lean-erdos249-257, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
 
 ## Reader ladder (open in order of need)
 

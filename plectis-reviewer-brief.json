@@ -11,7 +11,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "300cde1c48dee293639e8739c8f216374e434aad7f70f3b63852643787d4ac14",
+ "source_fingerprint": "bf8e299636aaefa0b4639831d5bd3dd3790f497500fd03668da303258a1a1fd9",
  "project_thesis": {
   "schema": "plectis_project_thesis_v1",
   "role": "the one paragraph a reader should get before any inventory",
