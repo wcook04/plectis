@@ -1176,7 +1176,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "a46c56b0c366395189df71fc836b5209",
+    "source_fingerprint": "6bb077090257cbf9244a2d04d6f46470",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -5661,7 +5661,7 @@
     "microcosm-substrate/paper_modules/batch8_structural_theses_capsule.md": "sha256:2640d9154995c59b9913f0411d8637041463c0612fdffca0684b45ffde5b3375",
     "microcosm-substrate/paper_modules/batch8_tools_tail_primitives_capsule.md": "sha256:d87f54f0a22037f3474d895815523832b59c427805c188ed6a7c0b1a0fa003f0",
     "microcosm-substrate/paper_modules/batch8_validator_checker_capsule.md": "sha256:734e4465ba2cd9557da9992264fb1b4f34ffa95faf2352656b1362df6040332c",
-    "microcosm-substrate/paper_modules/batch9_macro_engines_capsule.md": "sha256:3a73cb48f260f50e63c3bec8bf1e3e19a559b017199f192c5675d8ff9cda7041",
+    "microcosm-substrate/paper_modules/batch9_macro_engines_capsule.md": "sha256:f4623bff104ec25566d12bf19e59c0cc6393bd4f8b47500cb94d7e8c5686fbdd",
     "microcosm-substrate/paper_modules/belief_state_process_reward_replay.md": "sha256:74b68e3a9a21c9bf940ab1631a8444d0b9b60696f7df6295323e87d87587d2bc",
     "microcosm-substrate/paper_modules/bounded_autonomy_campaign_packet.md": "sha256:026a695f89be3a2e5527c257dd748439a44ea9b750592001c77d46e1fdf0aac1",
     "microcosm-substrate/paper_modules/bridge_campaign_dag_validation.md": "sha256:c33be4992eceb47b978e4e26daf8fb46dad299743bb844e82fc1df616b903b98",
@@ -5710,7 +5710,7 @@
     "microcosm-substrate/paper_modules/microcosm_axiom_substrate.md": "sha256:e0f96f5ba27d20b2c9e3079c547cd9f7e03279d3070e98201c1628dce188f633",
     "microcosm-substrate/paper_modules/mission_transaction_work_spine.md": "sha256:c66a98c4d56d08ea26e6bbc5cc94a99e660c4454947bebf36fcc9fb6e27356f4",
     "microcosm-substrate/paper_modules/navigation_fitness_benchmark.md": "sha256:21880ada9563000c045d65b83d4c064a308111dc7d6d767284a0c2ab08cb1e3a",
-    "microcosm-substrate/paper_modules/navigation_hologram_route_plane.md": "sha256:2f301c4a1f56bd2f0ab5bb87f64765144fbed80fa3b6d99ff5196525d0741451",
+    "microcosm-substrate/paper_modules/navigation_hologram_route_plane.md": "sha256:bd8099a53b22fa96ad7934be6769e4fdf2149995edfe9400f47371cec7ace8fa",
     "microcosm-substrate/paper_modules/pattern_assimilation.md": "sha256:35e48a9edc96718c7f6f1edce6dd9144d205067b64514df80d44d7d907180bd1",
     "microcosm-substrate/paper_modules/pattern_binding_contract.md": "sha256:2d0b826d389727f0d883cdab00447a5afe427fe4f230f17e2365a9c0711d2695",
     "microcosm-substrate/paper_modules/prediction_oracle_reconciliation.md": "sha256:041b547260482eb69a8fd657ca5dfa66400bb9f5d305b4ad8285cef64eeb1751",
@@ -5755,7 +5755,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:6cb5372eccf7386727f4cc037d775cf0d4125e73b35f766a30faf1992d979bec",
+    "sites/microcosm/index.html": "sha256:533eafda80a81ee7f88be9a10ace88b3370ee55d794886ecadc6ec2ae945b229",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:116a0c8b49bd236e2c5243f7af3670b5a0306314b335e3784390bf68c5d44643"
   },
   "source_of_truth_contract": {

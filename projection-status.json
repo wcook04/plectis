@@ -46,43 +46,43 @@
       },
       "assets/ai-orientation-packet.js": {
         "byte_count": 162539,
-        "sha256": "sha256:c7b4b90a97bd165d5200c9fdfb75a8a3e4314cbea49448b330b70888d850ec4f"
+        "sha256": "sha256:18ce59c985dd945a93fc4dd1a97138c3d998363709412bd5482043f783eb7c72"
       },
       "assets/ai-reader-digest-packet.js": {
         "byte_count": 340003,
-        "sha256": "sha256:b4ea2cf441d6db93a20c72cdb7a051333af5b2d5759d22201e6b72fcb4fa2bfe"
+        "sha256": "sha256:46237866f3c7c7ccd71d22706b8b413244b90d765e4d3e334d4de0f369a19db5"
       },
       "assets/ai-review-packet.js": {
-        "byte_count": 15249533,
-        "sha256": "sha256:9973330146ac94931d380db33e81ed521e681bcc894bdd4c43d89a7dc03e57d8"
+        "byte_count": 15250630,
+        "sha256": "sha256:8bedf12cb33af28a15fc5bd6f094e8163edb9661f49f67f381dd7a18fbbb62c5"
       },
       "assets/object-map.js": {
         "byte_count": 6672282,
-        "sha256": "sha256:f3393a03c356b04c759e97cb37062a1af207ce2dc51c072499dc001c47146a36"
+        "sha256": "sha256:ffc42a5f36494efbcab98fdb20782b4e807235869a083fd95fa16b2c90d0ecc4"
       },
       "assets/public-reader-assurance-packet.js": {
         "byte_count": 121706,
-        "sha256": "sha256:35606242ff5b3608efe98e4e300b33823ebca1c4654caf282964d07616a10730"
+        "sha256": "sha256:f9751e294051ef20e5398cc8574b3aae6be75991de9bc655ab3337277e2f44c0"
       },
       "assets/search-index.js": {
         "byte_count": 1401785,
-        "sha256": "sha256:d3cededda474c9d77eff920e415a20ba71e7d9183b01e0611502c2972355a73f"
+        "sha256": "sha256:310ac4893e7385a9b4bed5cef9ae86a00093cc6653a11a5bac8e4b109fb62dbe"
       },
       "assets/site-packet.js": {
-        "byte_count": 14343385,
-        "sha256": "sha256:f107cc09b53c72179b69a2f4173e93c6674e4a2fe889bf830cfa74aafa2a8f0a"
+        "byte_count": 14344532,
+        "sha256": "sha256:10b551297c4c327554acf6867e062028d8d936183b3d81faa807ceb5d26631a3"
       },
       "assets/term-previews.js": {
         "byte_count": 366827,
         "sha256": "sha256:12a8d94f08f67124591d08b6b73c9786a281f52fd63fed2570f18f9814ea6c62"
       },
       "content-graph.json": {
-        "byte_count": 17729550,
-        "sha256": "sha256:dfe9a397e0fdf86e449e0fc86a1e6cf8d6cee82602203e0ab49cfd1bb9d2f4d0"
+        "byte_count": 17730211,
+        "sha256": "sha256:6bde82fce1fd8bb3bd0d8a3a57fbbb6ba2f609f663b30746f2b49bef506e699a"
       },
       "content-manifest.json": {
         "byte_count": 301910,
-        "sha256": "sha256:b479c192b6b01fc95338d69ca5919dfe8057f45df44808b7ae3aa61631dfb3d4"
+        "sha256": "sha256:f8adc238029ecc3de7be3b25aa04457a7ad3e2a0934570322561218f399fd59f"
       },
       "docs/architecture-graph-scene.json": {
         "byte_count": 255148,
@@ -764,9 +764,9 @@
         "term_markup_neutral_byte_count": 39229
       },
       "docs/paper-module-batch9-macro-engines-capsule.html": {
-        "byte_count": 59039,
-        "sha256": "sha256:78ddd5cbf92cf676ddf46444fe55f7e7728b7554459b128de013cc6b04e7bb7b",
-        "term_markup_neutral_byte_count": 41635
+        "byte_count": 59809,
+        "sha256": "sha256:56eb2301e305953f8c8125794fdff04374c6538c87c10620dd58d9b7c073f43d",
+        "term_markup_neutral_byte_count": 42157
       },
       "docs/paper-module-belief-state-process-reward-replay.html": {
         "byte_count": 59969,
@@ -1009,9 +1009,9 @@
         "term_markup_neutral_byte_count": 38844
       },
       "docs/paper-module-navigation-hologram-route-plane.html": {
-        "byte_count": 66885,
-        "sha256": "sha256:c148fff7c87f6cd94d57742c4d0547b024c0e4d727457ffc9598066a58578752",
-        "term_markup_neutral_byte_count": 47181
+        "byte_count": 67218,
+        "sha256": "sha256:ae69bbaa328ac2fbfebd8c07e0464f79b96bae4273b79e3eca967dc8e936190e",
+        "term_markup_neutral_byte_count": 47148
       },
       "docs/paper-module-pattern-assimilation.html": {
         "byte_count": 55497,
@@ -1160,7 +1160,7 @@
       },
       "docs/source.html": {
         "byte_count": 25643,
-        "sha256": "sha256:2224fbf97f370d421fbd08d9d490221f851ccb1bd05b619e9842adf6efe14f0e",
+        "sha256": "sha256:4506f3a7759dcb341752e910e08c4cf04b1093d77a9b4414e1197ee00b21c301",
         "term_markup_neutral_byte_count": 19715
       },
       "docs/tour.html": {
@@ -1179,13 +1179,13 @@
         "term_markup_neutral_byte_count": 14299
       },
       "index.html": {
-        "byte_count": 171519,
-        "sha256": "sha256:6cb5372eccf7386727f4cc037d775cf0d4125e73b35f766a30faf1992d979bec",
-        "term_markup_neutral_byte_count": 109039
+        "byte_count": 172118,
+        "sha256": "sha256:533eafda80a81ee7f88be9a10ace88b3370ee55d794886ecadc6ec2ae945b229",
+        "term_markup_neutral_byte_count": 109644
       },
       "legacy-route-manifest.json": {
         "byte_count": 186690,
-        "sha256": "sha256:63915e1a2440209c9954eaa427273178bace2cfe5628e42ac526102fdf67a5dd"
+        "sha256": "sha256:e67b84983aa432f6b4da834fc77f995e7b0bbfd903c59068f84ba79f27384a83"
       },
       "llms.txt": {
         "byte_count": 10213,
@@ -1218,15 +1218,15 @@
       },
       "microcosm-legacy/assets/ai-orientation-packet.js": {
         "byte_count": 162539,
-        "sha256": "sha256:c7b4b90a97bd165d5200c9fdfb75a8a3e4314cbea49448b330b70888d850ec4f"
+        "sha256": "sha256:18ce59c985dd945a93fc4dd1a97138c3d998363709412bd5482043f783eb7c72"
       },
       "microcosm-legacy/assets/ai-reader-digest-packet.js": {
         "byte_count": 340003,
-        "sha256": "sha256:b4ea2cf441d6db93a20c72cdb7a051333af5b2d5759d22201e6b72fcb4fa2bfe"
+        "sha256": "sha256:46237866f3c7c7ccd71d22706b8b413244b90d765e4d3e334d4de0f369a19db5"
       },
       "microcosm-legacy/assets/ai-review-packet.js": {
-        "byte_count": 15249533,
-        "sha256": "sha256:9973330146ac94931d380db33e81ed521e681bcc894bdd4c43d89a7dc03e57d8"
+        "byte_count": 15250630,
+        "sha256": "sha256:8bedf12cb33af28a15fc5bd6f094e8163edb9661f49f67f381dd7a18fbbb62c5"
       },
       "microcosm-legacy/assets/art.js": {
         "byte_count": 26782,
@@ -1246,19 +1246,19 @@
       },
       "microcosm-legacy/assets/object-map.js": {
         "byte_count": 6672282,
-        "sha256": "sha256:f3393a03c356b04c759e97cb37062a1af207ce2dc51c072499dc001c47146a36"
+        "sha256": "sha256:ffc42a5f36494efbcab98fdb20782b4e807235869a083fd95fa16b2c90d0ecc4"
       },
       "microcosm-legacy/assets/public-reader-assurance-packet.js": {
         "byte_count": 121706,
-        "sha256": "sha256:35606242ff5b3608efe98e4e300b33823ebca1c4654caf282964d07616a10730"
+        "sha256": "sha256:f9751e294051ef20e5398cc8574b3aae6be75991de9bc655ab3337277e2f44c0"
       },
       "microcosm-legacy/assets/search-index.js": {
         "byte_count": 1401785,
-        "sha256": "sha256:d3cededda474c9d77eff920e415a20ba71e7d9183b01e0611502c2972355a73f"
+        "sha256": "sha256:310ac4893e7385a9b4bed5cef9ae86a00093cc6653a11a5bac8e4b109fb62dbe"
       },
       "microcosm-legacy/assets/site-packet.js": {
-        "byte_count": 14343385,
-        "sha256": "sha256:f107cc09b53c72179b69a2f4173e93c6674e4a2fe889bf830cfa74aafa2a8f0a"
+        "byte_count": 14344532,
+        "sha256": "sha256:10b551297c4c327554acf6867e062028d8d936183b3d81faa807ceb5d26631a3"
       },
       "microcosm-legacy/assets/style.css": {
         "byte_count": 293229,
@@ -1273,12 +1273,12 @@
         "sha256": "sha256:2f2dd6f4967424e45c17043711e9bdd0f7368136733d31cadee688075854dde3"
       },
       "microcosm-legacy/content-graph.json": {
-        "byte_count": 17729550,
-        "sha256": "sha256:dfe9a397e0fdf86e449e0fc86a1e6cf8d6cee82602203e0ab49cfd1bb9d2f4d0"
+        "byte_count": 17730211,
+        "sha256": "sha256:6bde82fce1fd8bb3bd0d8a3a57fbbb6ba2f609f663b30746f2b49bef506e699a"
       },
       "microcosm-legacy/content-manifest.json": {
         "byte_count": 301910,
-        "sha256": "sha256:b479c192b6b01fc95338d69ca5919dfe8057f45df44808b7ae3aa61631dfb3d4"
+        "sha256": "sha256:f8adc238029ecc3de7be3b25aa04457a7ad3e2a0934570322561218f399fd59f"
       },
       "microcosm-legacy/docs/architecture.html": {
         "byte_count": 1463,
@@ -2377,31 +2377,31 @@
       },
       "microcosm-legacy/legacy-route-manifest.json": {
         "byte_count": 186690,
-        "sha256": "sha256:63915e1a2440209c9954eaa427273178bace2cfe5628e42ac526102fdf67a5dd"
+        "sha256": "sha256:e67b84983aa432f6b4da834fc77f995e7b0bbfd903c59068f84ba79f27384a83"
       },
       "microcosm-legacy/microcosm-ai-reader-complete.json": {
-        "byte_count": 9291290,
-        "sha256": "sha256:972a5afa26a3c3e3ec4061f282af211ae021f4aee365ab54d03eb269bcb935bb"
+        "byte_count": 9292376,
+        "sha256": "sha256:e06702fab68429ace8b942a5e0e0f4ad8ad79b3ed8d7c8220903fc55f5685a7e"
       },
       "microcosm-legacy/microcosm-ai-reader-digest.json": {
         "byte_count": 318239,
-        "sha256": "sha256:3d9f9cead805e413620862f253d974c6eac58cf2451c241181211f188bd9b98f"
+        "sha256": "sha256:2a8b60f6e897754ad9e55a54e0a69503408985d06bd22c96751543113eb7a3e9"
       },
       "microcosm-legacy/microcosm-ai-review-packet.json": {
-        "byte_count": 14415059,
-        "sha256": "sha256:88d6dbb96d4f326d54aa3329dde47648baa70911a70855ed70889f096a3aa867"
+        "byte_count": 14416132,
+        "sha256": "sha256:6f843923451adf99d1055dd226666e630bab6598275921727d1a2ee99764ab6b"
       },
       "microcosm-legacy/microcosm-public-reader-assurance.json": {
         "byte_count": 113219,
-        "sha256": "sha256:22d6abbd2a890fc31cb7566e8d66985323131636b034ee5376edb62315d3ca23"
+        "sha256": "sha256:4e8d22480072f5589157277debb8dc4bd89c18762d9263575161d55a343d9f2b"
       },
       "microcosm-legacy/microcosm-site-map.json": {
-        "byte_count": 17936723,
-        "sha256": "sha256:85b02917d1263f5b4a99a667abbe043a8af8151e918423fe804f0c1140e8ddf2"
+        "byte_count": 17937911,
+        "sha256": "sha256:644d723d2429c3e0f3ee1ea36f7360efc3608d4f7037486f4fdcaf4a3a298e9d"
       },
       "microcosm-legacy/object-map.json": {
         "byte_count": 8537166,
-        "sha256": "sha256:d2b166f639c118b9a55701b4735d5e219767a96545b7e62f6acd606712520ad8"
+        "sha256": "sha256:c3d26bf62bfbb4aadfd052d7fec05b56496e8a4165d2e38eef724e3307232b17"
       },
       "microcosm-legacy/projection-status.json": {
         "byte_count": 812,
@@ -2425,35 +2425,35 @@
       },
       "object-map.json": {
         "byte_count": 8537166,
-        "sha256": "sha256:d2b166f639c118b9a55701b4735d5e219767a96545b7e62f6acd606712520ad8"
+        "sha256": "sha256:c3d26bf62bfbb4aadfd052d7fec05b56496e8a4165d2e38eef724e3307232b17"
       },
       "plectis-ai-reader-complete.json": {
-        "byte_count": 9291290,
-        "sha256": "sha256:972a5afa26a3c3e3ec4061f282af211ae021f4aee365ab54d03eb269bcb935bb"
+        "byte_count": 9292376,
+        "sha256": "sha256:e06702fab68429ace8b942a5e0e0f4ad8ad79b3ed8d7c8220903fc55f5685a7e"
       },
       "plectis-ai-reader-digest.json": {
         "byte_count": 318239,
-        "sha256": "sha256:3d9f9cead805e413620862f253d974c6eac58cf2451c241181211f188bd9b98f"
+        "sha256": "sha256:2a8b60f6e897754ad9e55a54e0a69503408985d06bd22c96751543113eb7a3e9"
       },
       "plectis-ai-review-packet.identity.json": {
         "byte_count": 1567,
-        "sha256": "sha256:20fafb5b21550fed47562801955eed29f3f9efde676b5acf09a51ce762bd1909"
+        "sha256": "sha256:70c062ec6e5489404fed53ccd32d33476ec067a1c9f19312da338f3ed744d94d"
       },
       "plectis-ai-review-packet.json": {
-        "byte_count": 14415059,
-        "sha256": "sha256:88d6dbb96d4f326d54aa3329dde47648baa70911a70855ed70889f096a3aa867"
+        "byte_count": 14416132,
+        "sha256": "sha256:6f843923451adf99d1055dd226666e630bab6598275921727d1a2ee99764ab6b"
       },
       "plectis-public-reader-assurance.json": {
         "byte_count": 113219,
-        "sha256": "sha256:22d6abbd2a890fc31cb7566e8d66985323131636b034ee5376edb62315d3ca23"
+        "sha256": "sha256:4e8d22480072f5589157277debb8dc4bd89c18762d9263575161d55a343d9f2b"
       },
       "plectis-reviewer-brief.json": {
         "byte_count": 59928,
-        "sha256": "sha256:4326f9f1d6bcb1792ec85ea08dc2be4e5329815fb4e272206fdb146862226434"
+        "sha256": "sha256:ecc68ff882093b48cb76a826357cee4eab923f150cbda5cc52609e714bc3f883"
       },
       "plectis-site-map.json": {
-        "byte_count": 17936723,
-        "sha256": "sha256:85b02917d1263f5b4a99a667abbe043a8af8151e918423fe804f0c1140e8ddf2"
+        "byte_count": 17937911,
+        "sha256": "sha256:644d723d2429c3e0f3ee1ea36f7360efc3608d4f7037486f4fdcaf4a3a298e9d"
       },
       "plectis.html": {
         "byte_count": 503,
@@ -2478,16 +2478,16 @@
       }
     },
     "lite_public_handoff": "plectis-ai-reader-digest.json",
-    "lite_public_handoff_sha256": "sha256:3d9f9cead805e413620862f253d974c6eac58cf2451c241181211f188bd9b98f",
+    "lite_public_handoff_sha256": "sha256:2a8b60f6e897754ad9e55a54e0a69503408985d06bd22c96751543113eb7a3e9",
     "primary_public_handoff": "plectis-ai-review-packet.json",
-    "primary_public_handoff_sha256": "sha256:88d6dbb96d4f326d54aa3329dde47648baa70911a70855ed70889f096a3aa867",
+    "primary_public_handoff_sha256": "sha256:6f843923451adf99d1055dd226666e630bab6598275921727d1a2ee99764ab6b",
     "projection_status_self_digest": "not_self_embedded",
     "public_reader_assurance_dossier": "plectis-public-reader-assurance.json",
-    "public_reader_assurance_dossier_sha256": "sha256:22d6abbd2a890fc31cb7566e8d66985323131636b034ee5376edb62315d3ca23",
+    "public_reader_assurance_dossier_sha256": "sha256:4e8d22480072f5589157277debb8dc4bd89c18762d9263575161d55a343d9f2b",
     "reader_digest": "plectis-ai-reader-digest.json",
-    "reader_digest_sha256": "sha256:3d9f9cead805e413620862f253d974c6eac58cf2451c241181211f188bd9b98f",
+    "reader_digest_sha256": "sha256:2a8b60f6e897754ad9e55a54e0a69503408985d06bd22c96751543113eb7a3e9",
     "schema": "microcosm_public_generated_artifact_identity_v0",
-    "source_fingerprint": "a46c56b0c366395189df71fc836b5209"
+    "source_fingerprint": "6bb077090257cbf9244a2d04d6f46470"
   },
   "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
   "component_count": 88,
@@ -3137,7 +3137,7 @@
       "finance_forecast_evaluation_spine"
     ]
   },
-  "content_fingerprint": "a46c56b0c366395189df71fc836b5209",
+  "content_fingerprint": "6bb077090257cbf9244a2d04d6f46470",
   "contract": {
     "browser_connect_src": "none",
     "repository_is_source_of_record": true,
@@ -3853,7 +3853,7 @@
       "note": "The single public query kernel. Every derived view below is a projection of this packet and carries this source_fingerprint; none re-projects source independently.",
       "path": "content-graph.json",
       "schema": "microcosm_public_content_graph_v1",
-      "source_fingerprint": "a46c56b0c366395189df71fc836b5209"
+      "source_fingerprint": "6bb077090257cbf9244a2d04d6f46470"
     },
     "derived_views": [
       {
@@ -4571,7 +4571,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:6cb5372eccf7386727f4cc037d775cf0d4125e73b35f766a30faf1992d979bec"
+    "sites/microcosm/index.html": "sha256:533eafda80a81ee7f88be9a10ace88b3370ee55d794886ecadc6ec2ae945b229"
   },
   "source_refs": [
     "microcosm-substrate/anti_principles/AP-1.json",
