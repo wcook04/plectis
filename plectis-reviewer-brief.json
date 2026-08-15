@@ -11,7 +11,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "e06b4a81b365e37ab119e3ec875504f66c114da03bbb93212b4178c9a7facfc8",
+ "source_fingerprint": "d30bbbf1bb507291ac2c81e9cd20f78bea244abc8dae43e1c712bed6862f7afe",
  "project_thesis": {
   "schema": "plectis_project_thesis_v1",
   "role": "the one paragraph a reader should get before any inventory",
@@ -857,6 +857,16 @@
     ],
     "decision_supported": "whether a technical conversation is worth having",
     "decision_not_supported": "that a reproduced fixture says anything about real work, or that the unpublished system resembles this"
+   },
+   {
+    "budget": "60 minutes, formal mathematics",
+    "read": [
+     "formalization.yaml, status.main_results, in the public Lean repository",
+     "verification/comparator.json and docs/EXTERNAL_VERIFICATION.md",
+     "one interface re-run by docs/EXTERNAL_VERIFICATION_REPLAY.md"
+    ],
+    "decision_supported": "whether the nineteen selected propositions are stated separately from their proofs, what each one claims, and whether the submitted proofs pass under the declared axiom budget",
+    "decision_not_supported": "that a proposition expresses the intended mathematics, that any result is new, or that any of the eight open Erdos problems is closer to solved; fourteen of the nineteen interfaces are not registered as canonical claims"
    },
    {
     "budget": "controlled review",
