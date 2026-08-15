@@ -151,7 +151,7 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "group: ${{ github.workflow }}-${{ github.ref }}",
         "cancel-in-progress: true",
         "timeout-minutes: 30",
-        'python-version: ["3.11", "3.12", "3.13"]',
+        'python-version: ["3.11", "3.12", "3.13", "3.14"]',
         "run: make ci",
     ):
         assert required in workflow
