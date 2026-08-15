@@ -11,7 +11,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "d30bbbf1bb507291ac2c81e9cd20f78bea244abc8dae43e1c712bed6862f7afe",
+ "source_fingerprint": "6c47def0c54864378299527fa94f8287d22c5eb042aa5fbde41cc46580a7e55c",
  "project_thesis": {
   "schema": "plectis_project_thesis_v1",
   "role": "the one paragraph a reader should get before any inventory",
@@ -767,8 +767,22 @@
    },
    "formal_methods": {
     "for": "a reader assessing the mathematics or the claim discipline around it",
-    "why_these": "The same claim-to-evidence rule applied in a setting where the evidence is a proof term, plus the audit that compares each public sentence against the theorem it cites.",
+    "why_these": "The strongest checking the Lean work is subject to, the same claim-to-evidence rule in a setting where the evidence is a proof term, and a defect the project's own checks found.",
     "records": [
+     {
+      "id": "lean_external_verification",
+      "label": "Comparator external verification of the Lean repository",
+      "why_chosen": "the second checker is run with a fixture built to fail, which is the half of a verification claim that is usually left out",
+      "what_it_shows": "Comparator, pinned by commit, checks 19 propositions declared separately from their proofs against the submitted proofs under a fixed axiom budget of propext, Quot.sound, Classical.choice; the same job runs one altered statement and requires Comparator's exact mismatch diagnostic, naming the theorem, before the commit-bound receipt passes.",
+      "runs_real_tools": true,
+      "negative_case": true,
+      "scope_limit": "It establishes that the named propositions type-check as written, under the permitted axioms, at one commit. It checks propositions only: no paper deduction, cited theorem or external computation. It is not peer review, not a novelty assessment, and not evidence that any of the eight problems is solved -- all eight remain open.",
+      "command": "python3 scripts/replay_external_verification.py run --source-commit <commit> --source-tree <tree>",
+      "read_it_at": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md",
+      "source_routes": [
+       "lean_corpus_facts.external_verification"
+      ]
+     },
      {
       "id": "formal_math_lean_proof_witness",
       "label": "Formal Math Lean Proof Witness",
@@ -781,20 +795,6 @@
       "read_it_at": "docs/component-formal-math-lean-proof-witness.html",
       "source_routes": [
        "component_digest[id=formal_math_lean_proof_witness]"
-      ]
-     },
-     {
-      "id": "agent_closeout_faithfulness_audit",
-      "label": "Agent Completion Faithfulness Audit",
-      "why_chosen": "the non-mathematical form of the same rule, for comparison",
-      "what_it_shows": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
-      "runs_real_tools": true,
-      "negative_case": false,
-      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
-      "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
-      "source_routes": [
-       "component_digest[id=agent_closeout_faithfulness_audit]"
       ]
      },
      {
