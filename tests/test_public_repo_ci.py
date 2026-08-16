@@ -153,8 +153,22 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "timeout-minutes: 30",
         'python-version: ["3.11", "3.12", "3.13", "3.14"]',
         "run: make ci",
+        # The published first screen, exercised on the platform where it broke.
+        # Every Ubuntu job stayed green while `python3 -m pip install .` --
+        # the README's first runnable command -- was refused under PEP 668 on
+        # macOS. This job pins the interpreter to whatever the runner ships,
+        # so the promise is tested against the machine a reader arrives on.
+        'os: ["macos-latest", "ubuntu-latest"]',
+        "PYTHONPATH=src python3 -m plectis tour --format text .",
+        ".venv/bin/python -m pip install .",
     ):
         assert required in workflow
+
+    # This job must NOT pin an interpreter: setting one up would test a machine
+    # nobody arrives on and would have hidden the PEP 668 refusal again.
+    first_contact = workflow[workflow.index("  first-contact:") :]
+    first_contact = first_contact[: first_contact.index("  user-smoke:")]
+    assert "uses: actions/setup-python" not in first_contact
     # These must name the versions the SHAs above actually resolve to. The set
     # is the only thing keeping the comments honest, since nothing offline can
     # check a SHA against its upstream tag -- and when Dependabot moves a pin it

@@ -66,6 +66,15 @@ PUBLIC_TESTS += tests/test_lean_companion_snapshot.py
 PUBLIC_TESTS += tests/test_paper_corpus.py
 PUBLIC_TESTS += tests/test_agent_closeout_faithfulness_audit.py
 PUBLIC_TESTS += tests/test_lean_proof_trust.py
+# First-contact guards. These belong on the floor rather than in the broad drift
+# suite: they are the only checks that speak for the reader who arrives with a
+# clone and no context, and while they sat outside `make ci` the front page
+# opened on an install command that PEP 668 refuses on every Homebrew, Debian,
+# and Ubuntu `python3`. test_documented_first_contact_commands runs the
+# documented route instead of matching it.
+PUBLIC_TESTS += tests/test_documented_first_contact_commands.py
+PUBLIC_TESTS += tests/test_quickstart_docs.py
+PUBLIC_TESTS += tests/test_readme_front_door.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card

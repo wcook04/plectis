@@ -94,7 +94,12 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
     assert quickstart_path.is_file()
     assert "](QUICKSTART.md)" in readme
     for phrase in (
-        "python3 -m pip install .",
+        # The install lane is isolated, not aimed at the system interpreter:
+        # `python3 -m pip install .` is refused under PEP 668 by every
+        # Homebrew/Debian/Ubuntu `python3`, which is what a cold reader has.
+        "python3 -m venv .venv",
+        ".venv/bin/python -m pip install .",
+        "externally-managed-environment",
         "./bootstrap.sh",
         ".microcosm/cold_clone_probe.json",
         "plectis tour --format text .",

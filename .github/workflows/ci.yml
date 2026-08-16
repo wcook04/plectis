@@ -42,6 +42,46 @@ jobs:
       - name: Run repository verification target
         run: make ci
 
+  first-contact:
+    # The published first screen, run as a stranger runs it. Deliberately no
+    # actions/setup-python step: the promise this repository makes is to the
+    # `python3` a reader already has, and pinning an interpreter here would
+    # test a machine nobody arrives on. macOS is in the matrix because that is
+    # where the documented install command was refused under PEP 668 while
+    # every Ubuntu job stayed green.
+    name: Documented first contact (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["macos-latest", "ubuntu-latest"]
+
+    steps:
+      - name: Check out repository
+        # Public action tag: actions/checkout@v7. The workflow pins the action by SHA below.
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+
+      - name: Report the interpreter a reader would actually use
+        run: |
+          python3 -VV
+          python3 - <<'PY'
+          import os, sysconfig
+          marker = os.path.join(sysconfig.get_paths()["stdlib"], "EXTERNALLY-MANAGED")
+          print("externally managed:", os.path.exists(marker))
+          PY
+
+      - name: Run the documented no-install route
+        run: PYTHONPATH=src python3 -m plectis tour --format text .
+
+      - name: Run the documented install route
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install .
+          .venv/bin/plectis tour --format text .
+
   user-smoke:
     name: User smoke and timing
     runs-on: ubuntu-latest

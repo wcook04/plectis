@@ -24,11 +24,17 @@ claims and is responsible for them. That is also why the corpus is built the way
 it is: every component has to leave evidence a separate check can read, because
 the author's own confidence is not the thing being offered.
 
+Two commands, no install, any Python 3.11 or newer:
+
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
-python3 -m pip install .
-plectis tour --format text .
+PYTHONPATH=src python3 -m plectis tour --format text .
 ```
+
+That reads the project, picks a route through it, writes an inspectable record
+beside it, and prints what it did — in about a tenth of a second, with your
+source files unchanged. Installing is optional and covered under
+[Install](#install); it only buys the shorter `plectis` command name.
 
 The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
@@ -134,18 +140,27 @@ plectis tour --card .
 
 ## Install
 
-From a clone (Python 3.11 or newer, no third-party runtime dependencies):
-
-```bash
-python3 -m pip install .
-plectis tour --format text .
-```
-
-Without installing anything, the same commands run in source form:
+Every command in this README runs from a clone without installing anything
+(Python 3.11 or newer, no third-party runtime dependencies):
 
 ```bash
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
+
+Installing buys the shorter `plectis` command name. Install into a virtual
+environment, which behaves the same on every platform:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install .
+.venv/bin/plectis tour --format text .
+```
+
+A system Python installed by Homebrew, Debian, or Ubuntu refuses
+`python3 -m pip install .` with `error: externally-managed-environment`
+([PEP 668](https://peps.python.org/pep-0668/)), because that interpreter
+belongs to your operating system. The virtual environment above is the
+supported answer, and the source form needs neither.
 
 Contributors and the full test floor use `make install` and the `[test]`
 extra instead; see [Contributing](CONTRIBUTING.md). The legacy `microcosm`
@@ -204,6 +219,10 @@ read.
 | Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for eight open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. |
+| Watch it being used rather than read about it | [Demo videos](https://wcook04.github.io/plectis/#demo-videos) | Recorded walkthroughs of the system in use, on the website. |
+| Click through the corpus instead of cloning | [Component browser](https://wcook04.github.io/plectis/docs/components.html) · [Paper browser](https://wcook04.github.io/plectis/docs/papers.html) | The same 88 components and the paper corpus as browsable pages, no install. |
+| Hand the whole thing to a reviewer or a model at once | [Review packet](https://wcook04.github.io/plectis/plectis-ai-review-packet.json) · [reader digest](https://wcook04.github.io/plectis/plectis-ai-reader-digest.json) | One 14.4 MB JSON carrying the public cross-section for a single reading pass; the digest is the smaller cut for pasting. |
+| See the rest of the work this belongs to | [wcook04.github.io](https://wcook04.github.io/) | The front door across the software, the Lean mathematics, the papers, and the films. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
