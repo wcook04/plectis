@@ -240,14 +240,26 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
 def test_pyproject_description_matches_mechanism_first_identity() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
+    # This test is named for mechanism-first identity, but the string it used
+    # to pin described the package as a harness for testing "the claims of an
+    # AI-built system" -- someone else's system, not the reader's project. The
+    # README and the repository description had both moved to what a reader
+    # does with it; pyproject had not, and this assertion was the reason it
+    # could not. It is the summary PyPI would publish, so it is the one place
+    # the old framing would have outlived every surface that corrected it.
     assert pyproject["project"]["description"] == (
-        "A local toolkit and executable reference corpus for testing the "
-        "claims of an AI-built system: bounded components with typed "
-        "evidence, local receipts, and explicit authority limits."
+        "Checks claims about software nobody watched being built: point it at "
+        "a project and it writes a local record you can re-run — the route it "
+        "took, the evidence behind each finding, and where that finding stops. "
+        "Runs entirely on your machine."
     )
     lowered = pyproject["project"]["description"].lower()
     for banned in ("impressive", "ambitious", "strongest public claim"):
         assert banned not in lowered
+    # Pinning an exact string stops silent drift but cannot say what the string
+    # has to mean. Name the property directly: the summary addresses a reader
+    # about their own project, rather than advertising a system they cannot see.
+    assert "point it at a project" in lowered
     assert "zenith/blob/main/microcosm-substrate" not in (
         pyproject["project"]["urls"]["Documentation"]
     )
