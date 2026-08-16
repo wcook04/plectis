@@ -2,9 +2,9 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:21fcb4fd9b7b06ae86dbba29f7c78761fb297aa7d6f3694d1738838da32fe7d0",
-  "byte_count": 14426061,
-  "payload_sha256_excluding_identity": "sha256:aa22ca5731d0bf21667dc44d7e0f802a1e27bdd312d1b14ab7a0c6cad39a4d18",
+  "exact_byte_sha256": "sha256:bdc2eb403ed41d5eeba9a751efb0485227694c194a55819c7f704a10d923ec68",
+  "byte_count": 14426209,
+  "payload_sha256_excluding_identity": "sha256:fd914480a3e555ba7c09c5adf0e298d74dd9620b30f5eaa63c7b8166227a59f1",
   "source_fingerprint": "6bb077090257cbf9244a2d04d6f46470",
   "packet_schema": "microcosm_ai_review_packet_v2",
   "lean_release_version": "0.8.0",
@@ -12,7 +12,7 @@
   "formal_source_public_tag": "formal-source-2026-08-12-r2",
   "repository_heads_at_build": {
     "plectis": "e12b56780ae337d9b50fe5105cc5ed313a4b48b2",
-    "plectis-lean-erdos249-257": "3c354961938ee1684f18212b498acb4722d4eaf2"
+    "plectis-lean-erdos249-257": "a966bed871ac0a0329c60857a2f956d9bffb5e57"
   },
   "source_integrity": "verified_current",
   "suggested_local_filename": "plectis-ai-review-packet-0.8.0-r2-9e231ce.json",
