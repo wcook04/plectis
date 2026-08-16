@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "plectis"
 version = "0.5.0"
-description = "Checks claims about software nobody watched being built: point it at a project and it writes a local record you can re-run — the route it took, the evidence behind each finding, and where that finding stops. Runs entirely on your machine."
+description = "88 runnable mechanisms from an AI-native research and engineering runtime — formal proof, agent reliability, research, projection-drift control, validators, work landing, continuity — each naming the code it runs, the evidence its result stands on, and where that result stops. Also a local tool: point it at a project and it writes an inspectable record beside your source."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"

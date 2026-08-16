@@ -4,11 +4,15 @@ Reading this as a person? The human map is [README.md](README.md); this file
 is the agent entry contract.
 
 Plectis is a local Python command-line tool plus 88 runnable reference
-components for checking claims about agent-built software. The components cover
-formal proof, agent reliability and safety, research and forecasting,
-projection-drift control, validation, work landing, and continuity. Each one
-names the code that runs, the evidence it uses, the receipt it writes, and the
-limit of what a passing result proves.
+components spanning formal proof, agent reliability and safety, research and
+forecasting, projection-drift control, validation, work landing, and continuity.
+Each one names the code that runs, the evidence it uses, the receipt it writes,
+and the limit of what a passing result proves.
+
+Read it in that order — mechanisms, then evidence discipline, then the local
+runtime. The receipts are how a component is held to its claim; they are not the
+thing being published. An agent that summarises Plectis as claim-checking has
+described the accountability layer and missed six of the seven families.
 
 A user can point Plectis at a project folder, create ignored `.microcosm/`
 state, index files, discover patterns, propose and explain routes, record work,

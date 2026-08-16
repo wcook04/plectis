@@ -218,8 +218,8 @@ def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
     # inject the compatibility state dir into the hero promise
     _mutate(
         root,
-        "receipt you can inspect",
-        "receipt you can inspect from .microcosm/",
+        "writes an inspectable record beside it",
+        "writes an inspectable record into .microcosm/",
     )
     receipt = validate_readme_front_door(root)
     assert "README_HERO_ONTOLOGY_LEAK" in receipt["blocking_codes"]
@@ -259,13 +259,33 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "**Plectis checks claims about software nobody watched being built.",
-        "**Plectis is a local evidence router.",
+        "**Plectis publishes 88 runnable mechanisms",
+        "**Plectis is a local evidence router.**  It publishes 88 mechanisms",
     )
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
     assert (
         "local-evidence-router-primary-frame"
+        in receipt["findings"]["front_door_local_only_frames"]
+    )
+
+
+def test_blocks_record_layer_before_mechanisms(tmp_path: Path) -> None:
+    # The named-sentence patterns only recognise wordings that were once
+    # written. This opens with the record layer in wording none of them match:
+    # the front door still leads with what Plectis writes rather than what it
+    # publishes, which is the property the read order forbids.
+    root = _front_door_tree(tmp_path)
+    _mutate(
+        root,
+        "**Plectis publishes 88 runnable mechanisms",
+        "**Plectis writes an inspectable record of any project you point it at.**"
+        "  It also publishes 88 runnable mechanisms",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
+    assert (
+        "record-layer-precedes-mechanisms"
         in receipt["findings"]["front_door_local_only_frames"]
     )
 

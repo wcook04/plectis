@@ -71,6 +71,24 @@ FRONT_DOOR_LOCAL_ONLY_PATTERNS: tuple[tuple[str, str], ...] = (
     ),
     (r"\blocal evidence router\b", "local-evidence-router-primary-frame"),
 )
+# The three patterns above name specific sentences that were once written. They
+# cannot express the property those sentences violated, so the front door could
+# lead with what Plectis writes -- in any wording that avoided the literal
+# phrases -- and still pass. The README states the property itself: read
+# mechanisms, then evidence discipline, then the local runtime, and if the
+# record layer sounds like the product, the project has been underread. That is
+# an ordering claim, so check the ordering: inside the opening window, the
+# mechanisms have to arrive before the record they are accountable through.
+FRONT_DOOR_MECHANISM_FIRST_MARKERS: tuple[str, ...] = (
+    r"\bmechanisms?\b",
+    r"\bcomponents?\b",
+    r"\bformal proof\b",
+)
+FRONT_DOOR_RECORD_LAYER_MARKERS: tuple[str, ...] = (
+    r"\blocal record\b",
+    r"\brecord you can re-?run\b",
+    r"\binspectable record\b",
+)
 FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS: tuple[tuple[str, str], ...] = (
     (
         r"\bmechanisms?\s*[-=]+>\s*evidence discipline\s*[-=]+>\s*local runtime\b",
@@ -418,6 +436,28 @@ def validate_readme_front_door(
         for pattern, label in FRONT_DOOR_LOCAL_ONLY_PATTERNS
         if re.search(pattern, local_only_window, flags=re.DOTALL)
     )
+    first_mechanism = min(
+        (
+            match.start()
+            for pattern in FRONT_DOOR_MECHANISM_FIRST_MARKERS
+            if (match := re.search(pattern, local_only_window))
+        ),
+        default=None,
+    )
+    first_record = min(
+        (
+            match.start()
+            for pattern in FRONT_DOOR_RECORD_LAYER_MARKERS
+            if (match := re.search(pattern, local_only_window))
+        ),
+        default=None,
+    )
+    if first_record is not None and (
+        first_mechanism is None or first_record < first_mechanism
+    ):
+        local_only_frames = sorted(
+            local_only_frames + ["record-layer-precedes-mechanisms"]
+        )
     missing_claim_grammar = sorted(
         label
         for pattern, label in FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS

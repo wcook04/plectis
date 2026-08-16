@@ -10,12 +10,16 @@
 [Contributing](CONTRIBUTING.md) ·
 [All public work](https://wcook04.github.io/)
 
-**Plectis checks claims about software nobody watched being built.** Point it at
-a project and it writes a local record you can re-run: the route it took through
-the code, the evidence behind each finding, and the line where that finding
-stops. The 88 components in this repository are the same mechanism published as
-working examples — each states one narrow claim, takes a small frozen input,
-runs a local check, and writes a receipt you can inspect.
+**Plectis publishes 88 runnable mechanisms from a working AI-native research and
+engineering runtime** — formal proof, agent reliability and safety, research and
+forecasting, projection-drift control, validators, work landing, and continuity.
+Each is a public, executable component that names the code it runs, the evidence
+class its result stands on, and the authority ceiling where that result stops.
+
+It is also a local tool. Point it at a project and it reads the code, picks a
+route through it, and writes an inspectable record beside it. That record is how
+you check a mechanism against what it claims — the accountability layer, not the
+product.
 
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
