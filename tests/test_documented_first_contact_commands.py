@@ -86,6 +86,37 @@ def test_first_runnable_readme_block_needs_no_install() -> None:
     assert "pip install" not in first
 
 
+def test_every_hero_command_works_before_anything_is_installed() -> None:
+    """Not just the first one. Every command above the first heading.
+
+    The check above tests `blocks[0]`, and on 2026-08-16 that was enough to
+    call the front door repaired. It was not. Four paragraphs further down,
+    still on the first screen and still above any heading, the README offered
+
+        plectis comprehend --slice papers --format text
+
+    which is the installed alias — for the install the same screen had just
+    described as optional. A cold clone answered it with exit 127, and nothing
+    noticed, because the evaluator written that morning to prove the documented
+    route runs only ever ran the first block of it.
+
+    A hero that says "no install" owes that promise to every command it
+    contains, so this walks all of them.
+    """
+    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    hero = readme.split("\n## ", 1)[0]
+    offenders = [
+        line
+        for line in _command_lines(hero)
+        if line.startswith("plectis ") or line.startswith("./plectis")
+    ]
+    assert not offenders, (
+        "the first screen promises a route that needs no install, then uses the "
+        f"installed alias, which exits 127 on a fresh clone: {offenders}. Use "
+        f"{SOURCE_FORM_PREFIX!r}, or move the command below the Install section."
+    )
+
+
 def test_documented_source_form_route_actually_runs(tmp_path: Path) -> None:
     """Run the documented no-install command end to end on a fresh project.
 
