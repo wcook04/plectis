@@ -310,9 +310,62 @@ def validate_readme_front_door(
         blocking.append("README_HERO_INSTALL_NOT_ISOLATED")
 
     # --- 3. recognition promise (a bold span) in the hero ---
-    findings["hero_promise_present"] = bool(re.search(r"\*\*.+?\*\*", hero, re.DOTALL))
-    if not findings["hero_promise_present"]:
+    promise_match = re.search(r"\*\*(.+?)\*\*", hero, re.DOTALL)
+    findings["hero_promise_present"] = bool(promise_match)
+    if not promise_match:
         blocking.append("README_HERO_PROMISE_MISSING")
+    else:
+        # 3b. The promise must open on what the reader gets, not on what the
+        # repository contains. Until 2026-08-16 the first sentence here read
+        # "a local Python tool and an 88-component reference corpus", which is
+        # accurate and answers a question nobody arriving from a link has yet
+        # asked. An inventory is corroboration; it cannot be the first thing a
+        # stranger is handed, because a count only means something once they
+        # know what one of the things is for.
+        first_sentence = re.split(
+            r"(?<=[.:])\s", promise_match.group(1).strip(), maxsplit=1
+        )[0]
+        findings["hero_promise_first_sentence"] = first_sentence
+        leads_with_inventory = bool(
+            re.search(r"\b\d+[\s‑-]?(?:component|organ|module|check|test)s?\b",
+                      first_sentence, re.IGNORECASE)
+        )
+        findings["hero_promise_leads_with_inventory"] = leads_with_inventory
+        if leads_with_inventory:
+            blocking.append("README_HERO_PROMISE_LEADS_WITH_INVENTORY")
+
+    # --- 3c. attribution is not the second thing a stranger reads.
+    #
+    # The provenance paragraph ("large-language-model agents write and maintain
+    # most of the code") is load-bearing and stays on the first screen. Until
+    # 2026-08-16 it sat between the promise and the first command, so a reader
+    # deciding whether to spend two minutes was asked to form a view on how the
+    # software was authored before they had seen it do anything. Order is the
+    # whole claim here: after a command has run, the same paragraph reads as
+    # disclosure; before it, it reads as the pitch.
+    if hero_blocks and findings["hero_first_run_block_present"]:
+        first_run_at = min(
+            hero.find(block) for block in hero_blocks if _RUN_COMMAND.search(block)
+        )
+        attribution_at = min(
+            (
+                position
+                for position in (
+                    hero.lower().find(marker)
+                    for marker in (
+                        "how this was built",
+                        "large-language-model agents",
+                        "ai assistance",
+                    )
+                )
+                if position >= 0
+            ),
+            default=-1,
+        )
+        findings["hero_attribution_offset"] = attribution_at
+        findings["hero_first_run_offset"] = first_run_at
+        if 0 <= attribution_at < first_run_at:
+            blocking.append("README_HERO_ATTRIBUTION_BEFORE_FIRST_RUN")
 
     # --- 4. a compact route rail in the hero (>= 3 links) ---
     hero_links = _markdown_links(hero)

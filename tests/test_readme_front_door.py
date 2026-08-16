@@ -8,6 +8,7 @@ assert the specific blocking code, proving the validator is not decorative.
 
 from __future__ import annotations
 
+import re
 import shutil
 from pathlib import Path
 
@@ -141,6 +142,57 @@ def test_blocks_unisolated_hero_install(tmp_path: Path) -> None:
     assert "README_HERO_INSTALL_NOT_ISOLATED" in receipt["blocking_codes"]
 
 
+def test_blocks_promise_that_leads_with_inventory(tmp_path: Path) -> None:
+    """Restore the historical opening and require the count-led framing to fail.
+
+    Until 2026-08-16 the promise read "Plectis is a local Python tool and an
+    88-component reference corpus for checking claims made about agent-built
+    software". Every word of that is true. It also spends the one sentence a
+    stranger reliably reads on how much there is, before saying what any of it
+    is for, which is the opposite of the order a cold reader needs.
+    """
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    promise = re.search(r"\*\*(.+?)\*\*", text, re.DOTALL)
+    assert promise is not None
+    readme.write_text(
+        text.replace(
+            promise.group(0),
+            "**Plectis is a local Python tool and an 88-component reference "
+            "corpus for checking claims made about agent-built software.**",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_HERO_PROMISE_LEADS_WITH_INVENTORY" in receipt["blocking_codes"]
+
+
+def test_blocks_attribution_above_the_first_command(tmp_path: Path) -> None:
+    """Put the provenance paragraph back above the first command.
+
+    This is where it sat until 2026-08-16: between the promise and anything
+    runnable, so the second thing a stranger read was who wrote the code rather
+    than what it does. The paragraph itself is not the problem and stays on the
+    first screen; only its position ahead of the demonstration is blocked.
+    """
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    marker = "**How this was built, and why it is built the way it is.**"
+    start = text.find(marker)
+    assert start >= 0, "fixture needs the provenance paragraph to relocate"
+    end = text.find("\n\n", start)
+    paragraph = text[start:end]
+    moved = text.replace(paragraph + "\n\n", "", 1)
+    anchor = "Two commands, no install"
+    moved = moved.replace(anchor, paragraph + "\n\n" + anchor, 1)
+    readme.write_text(moved, encoding="utf-8")
+    receipt = validate_readme_front_door(root)
+    assert "README_HERO_ATTRIBUTION_BEFORE_FIRST_RUN" in receipt["blocking_codes"]
+
+
 def test_blocks_injected_overclaim(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     readme = root / "README.md"
@@ -207,8 +259,7 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "**Plectis is a local Python tool and an 88-component reference corpus for\n"
-        "checking claims made about agent-built software.",
+        "**Plectis checks claims about software nobody watched being built.",
         "**Plectis is a local evidence router.",
     )
     receipt = validate_readme_front_door(root)
