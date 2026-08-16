@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use or discuss Plectis, please cite it using this metadata."
 type: software
 title: "Plectis"
-abstract: "A local Python toolkit and executable reference corpus for testing the claims of an AI-built system: bounded components with typed evidence classes, local receipts, and explicit authority ceilings."
+abstract: "A local Python toolkit that checks claims about software nobody watched being built. Point it at a project and it writes a record you can re-run: the route it took, the evidence behind each finding, and where that finding stops. The repository publishes the same mechanism as an executable reference corpus, each component carrying a typed evidence class, a local receipt, and an explicit authority ceiling. It runs entirely on your machine."
 authors:
   - family-names: "Cook"
     given-names: "William"
