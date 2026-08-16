@@ -10,19 +10,15 @@
 [Contributing](CONTRIBUTING.md) ·
 [All public work](https://wcook04.github.io/)
 
-**Plectis is a local Python tool and an 88-component reference corpus for
-checking claims made about agent-built software. Each component states one
-narrow claim, takes a small frozen input, runs a local check, and writes a
-receipt you can inspect.**
+**Plectis checks claims about software nobody watched being built.** Point it at
+a project and it writes a local record you can re-run: the route it took through
+the code, the evidence behind each finding, and the line where that finding
+stops. The 88 components in this repository are the same mechanism published as
+working examples — each states one narrow claim, takes a small frozen input,
+runs a local check, and writes a receipt you can inspect.
 
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
-
-**How this was built.** One person sets the direction; large-language-model
-agents write and maintain most of the code. William Cook selects the public
-claims and is responsible for them. That is also why the corpus is built the way
-it is: every component has to leave evidence a separate check can read, because
-the author's own confidence is not the thing being offered.
 
 Two commands, no install, any Python 3.11 or newer:
 
@@ -35,6 +31,13 @@ That reads the project, picks a route through it, writes an inspectable record
 beside it, and prints what it did — in about a tenth of a second, with your
 source files unchanged. Installing is optional and covered under
 [Install](#install); it only buys the shorter `plectis` command name.
+
+**How this was built, and why it is built the way it is.** One person sets the
+direction; large-language-model agents write and maintain most of the code.
+William Cook selects the public claims and is responsible for them. That is also
+why the corpus is built the way it is: every component has to leave evidence a
+separate check can read, because the author's own confidence is not the thing
+being offered.
 
 The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
