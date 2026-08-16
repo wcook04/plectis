@@ -135561,7 +135561,7 @@
             "page": "paper-module-annex-knowledge-routing.html"
           }
         ],
-        "total_occurrences": 715
+        "total_occurrences": 716
       },
       "visible_text_byte_count": 782
     },
@@ -138962,7 +138962,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 104,
+        "page_count": 105,
         "top_page": "paper-modules.html",
         "top_pages": [
           {
@@ -138990,7 +138990,7 @@
             "page": "doctrine.html"
           }
         ],
-        "total_occurrences": 341
+        "total_occurrences": 342
       },
       "visible_text_byte_count": 783
     },
@@ -154053,15 +154053,10 @@
       "status": "active",
       "term_kind": "artifact",
       "used_in": {
-        "page_count": 1,
-        "top_page": "coding-agents.html",
-        "top_pages": [
-          {
-            "count": 1,
-            "page": "coding-agents.html"
-          }
-        ],
-        "total_occurrences": 1
+        "page_count": 0,
+        "top_page": null,
+        "top_pages": [],
+        "total_occurrences": 0
       },
       "visible_text_byte_count": 1696
     },
@@ -264757,7 +264752,7 @@
         "area-formal-math.html": 1,
         "area-import-drift.html": 2,
         "area-research.html": 2,
-        "coding-agents.html": 2,
+        "coding-agents.html": 3,
         "component-agent-memory-temporal-conflict-replay.html": 1,
         "component-agent-sabotage-scheming-monitor-replay.html": 1,
         "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
@@ -264890,7 +264885,7 @@
       },
       "page_count": 135,
       "top_page": "doctrine.html",
-      "total_occurrences": 715
+      "total_occurrences": 716
     },
     "certificate": {
       "by_page": {
@@ -267740,6 +267735,7 @@
         "area-formal-math.html": 3,
         "area-import-drift.html": 1,
         "area-research.html": 1,
+        "coding-agents.html": 1,
         "component-agent-memory-temporal-conflict-replay.html": 3,
         "component-agent-sandbox-policy-escape-replay.html": 1,
         "component-batch12-release-claim-language-gate.html": 1,
@@ -267838,9 +267834,9 @@
         "reference.html": 11,
         "rules-and-ideas.html": 20
       },
-      "page_count": 104,
+      "page_count": 105,
       "top_page": "paper-modules.html",
-      "total_occurrences": 341
+      "total_occurrences": 342
     },
     "declaration": {
       "by_page": {
@@ -280528,14 +280524,6 @@
       "top_page": "doctrine.html",
       "total_occurrences": 324
     },
-    "reader_packet": {
-      "by_page": {
-        "coding-agents.html": 1
-      },
-      "page_count": 1,
-      "top_page": "coding-agents.html",
-      "total_occurrences": 1
-    },
     "real": {
       "by_page": {
         "area-agent-reliability.html": 2,
@@ -287724,5 +287712,5 @@
       "total_occurrences": 4
     }
   },
-  "term_occurrence_term_count": 364
+  "term_occurrence_term_count": 363
 }
