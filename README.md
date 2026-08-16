@@ -63,7 +63,7 @@ For the wider scholarly corpus, start with the clone-local
 [paper guide](docs/papers/README.md), or ask the machine route:
 
 ```bash
-plectis comprehend --slice papers --format text
+PYTHONPATH=src python3 -m plectis comprehend --slice papers --format text
 ```
 
 It says what each paper owns, what it cannot establish, and which short
