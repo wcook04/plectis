@@ -20,7 +20,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        # A cold reader runs `make test` under whatever `python3` they already
+        # have, so the newest released interpreter is part of the promise this
+        # repository makes and is tested here rather than discovered by them.
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
 
     steps:
       - name: Check out repository

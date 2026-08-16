@@ -315,6 +315,12 @@ def test_cli_proof_lab_cached_result_treats_unreadable_receipt_metadata_as_missi
         lambda **_kwargs: None,
     )
     monkeypatch.setattr(Path, "stat", guarded_stat)
+    # `Path.is_file()` stopped routing through `Path.stat` in CPython 3.13, so the
+    # stat guard alone decides the branch differently per interpreter: before 3.13
+    # the receipt read as absent and this test silently exercised the missing-file
+    # path instead of the unreadable-metadata path it names. Pin presence here so
+    # the unreadable-metadata branch is the one under test on every version.
+    monkeypatch.setattr(cli, "_path_is_file", lambda path: path == receipt)
 
     payload = cli._proof_lab_cached_result(str(input_dir), str(out_dir))
 
@@ -322,7 +328,7 @@ def test_cli_proof_lab_cached_result_treats_unreadable_receipt_metadata_as_missi
     assert payload["cache_status"] == "missing_cached_receipt"
     assert payload["cached_receipt_bytes"] == 0
     assert payload["cache_freshness"]["status"] == "missing_cached_receipt"
-    assert payload["cache_freshness"]["input_status"] == "not_checked"
+    assert payload["cache_freshness"]["input_status"] == "unreadable_cached_receipt"
 
 
 def test_runtime_shell_proof_lab_cache_freshness_skips_symlinked_input_files(
@@ -428,13 +434,16 @@ def test_runtime_shell_proof_lab_card_treats_unreadable_receipt_metadata_as_miss
         return original_stat(self, *_args, **_kwargs)
 
     monkeypatch.setattr(Path, "stat", guarded_stat)
+    # See the CLI twin above: `Path.is_file()` bypasses `Path.stat` from CPython
+    # 3.13 on, so pin presence to keep the unreadable-metadata branch under test.
+    monkeypatch.setattr(runtime_shell, "_path_is_file", lambda path: path == receipt)
 
     payload = runtime_shell._proof_lab_first_screen_card(tmp_path)
 
     assert payload["cache_status"] == "missing_cached_receipt"
     assert payload["cached_receipt_bytes"] == 0
     assert payload["cache_freshness"]["status"] == "missing_cached_receipt"
-    assert payload["cache_freshness"]["input_status"] == "not_checked"
+    assert payload["cache_freshness"]["input_status"] == "unreadable_cached_receipt"
 
 
 def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> None:
