@@ -15,6 +15,7 @@ into the interpreter the reader's operating system depends on.
 
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 import subprocess
@@ -24,6 +25,18 @@ from pathlib import Path
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIRST_CONTACT_DOCS = ("README.md", "QUICKSTART.md")
+
+# The one directory the documented run is supposed to create beside a project.
+RECORD_DIR = ".microcosm"
+
+
+def _tree_digest(root: Path) -> dict[str, str]:
+    """Hash every file under `root` except the record the run is meant to write."""
+    return {
+        str(path.relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(root.rglob("*"))
+        if path.is_file() and RECORD_DIR not in path.relative_to(root).parts
+    }
 
 # The documented no-install invocation, spelled exactly as the docs spell it.
 SOURCE_FORM_PREFIX = "PYTHONPATH=src python3 -m plectis"
@@ -128,6 +141,11 @@ def test_documented_source_form_route_actually_runs(tmp_path: Path) -> None:
     project.mkdir()
     (project / "README.md").write_text("# Sample\n\nA small project.\n", encoding="utf-8")
     (project / "main.py").write_text("def main() -> int:\n    return 0\n", encoding="utf-8")
+    (project / "pkg").mkdir()
+    (project / "pkg" / "util.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "notes.txt").write_text("scratch\n", encoding="utf-8")
+
+    before = _tree_digest(project)
 
     env = {
         key: value
@@ -154,10 +172,26 @@ def test_documented_source_form_route_actually_runs(tmp_path: Path) -> None:
         )
         assert completed.stdout.strip(), f"{verb[0]!r} produced no output"
 
-    # The run left a record beside the project and did not touch its source.
-    assert (project / ".microcosm").is_dir()
-    assert (project / "main.py").read_text(encoding="utf-8") == (
-        "def main() -> int:\n    return 0\n"
+    # The run left a record beside the project, and left everything else alone.
+    #
+    # The README makes this promise twice, and it is the one promise a tool that
+    # inspects other people's code cannot be allowed to break. Checking a single
+    # named file would keep saying yes while the tool rewrote a sibling, dropped
+    # a file, or added one: the promise covers the tree, so the guard has to.
+    assert (project / ".microcosm").is_dir(), (
+        "the documented run wrote no record beside the project"
+    )
+    after = _tree_digest(project)
+    changed = sorted(
+        path for path in before.keys() & after.keys() if before[path] != after[path]
+    )
+    assert not changed, f"the documented run modified source files: {changed}"
+    assert not sorted(before.keys() - after.keys()), (
+        f"the documented run removed source files: {sorted(before.keys() - after.keys())}"
+    )
+    assert not sorted(after.keys() - before.keys()), (
+        "the documented run added files outside its record directory: "
+        f"{sorted(after.keys() - before.keys())}"
     )
 
 
