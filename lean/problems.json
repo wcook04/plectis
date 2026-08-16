@@ -27,6 +27,24 @@
       "note": "Declarations under this root are exact Lean propositions accepted by the pinned kernel. They are not reviewed public mathematical claims, and kernel checking this root does not promote them into one."
     }
   ],
+  "external_check": {
+    "source": "docs/claims.json::external_verification_packet.review_matrix",
+    "public_wording": "Comparator-checked against a separately declared statement and axiom budget",
+    "forbidden_wording": "independently verified",
+    "boundary": "All eight covered Erdős problems remain open. Comparator checks exact Lean statements, configured axioms, and kernel acceptance; it does not assess novelty, significance, source fidelity, or whether any open problem is solved.",
+    "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed",
+    "disposition_classes": {
+      "targeted": "Comparator checked a separately declared statement of this family",
+      "represented_by_": "another selected interface carries this family's content",
+      "not_selected_": "a Lean proposition here, not selected for external execution",
+      "not_applicable_": "not a Lean theorem, so there is nothing for Comparator to check"
+    },
+    "reading_rule": "A per-family disposition says whether Comparator was asked to check that family, not whether the family is true and not whether the problem is solved."
+  },
+  "paper_corpus": {
+    "source": "docs/papers/corpus.json",
+    "reading_rule": "Each problem's paper block names the manuscript that writes the problem up. The paper is authored exposition; it is not proof authority and it does not register claims."
+  },
   "problem_count": 8,
   "problems": [
     {
@@ -193,7 +211,32 @@
           "statement": "Construct an unbounded factorial-grid family whose exact Cramer residual is nonintegral, using a determinant, valuation, cancellation, or gcd-of-minors certificate that controls the finite sign-changing block."
         }
       ],
-      "finite_search": "An exact GMP recurrence checks the carry sequence through m = 300000 and finds a non-unit carry at that index. The Lean consumer turns that one certificate into q >= 300000 for any hypothetical positive rational denominator; it does not prove a cofinal statement."
+      "finite_search": "An exact GMP recurrence checks the carry sequence through m = 300000 and finds a non-unit carry at that index. The Lean consumer turns that one certificate into q >= 300000 for any hypothetical positive rational denominator; it does not prove a cofinal statement.",
+      "paper": {
+        "paper_id": "erdos-68-factorial-denominator-irrationality",
+        "title": "Factorial Carries and Finite Channel Obstructions",
+        "source": "paper/erdos-68-factorial-denominator-irrationality.tex",
+        "pdf": "erdos-68-factorial-denominator-irrationality.pdf",
+        "full_text": "docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 5,
+        "by_class": {
+          "not_applicable": 2,
+          "not_selected": 1,
+          "represented_by": 1,
+          "targeted": 1
+        },
+        "dispositions": {
+          "factorial_carry_characterisation": "targeted",
+          "factorial_channel_and_projection_rigidity": "represented_by_isolated_headline",
+          "factorial_conditional_producers": "not_selected_deep_project_predicate_stack",
+          "factorial_finite_certificates": "not_applicable_to_external_execution",
+          "factorial_lcm_growth": "not_applicable_not_a_lean_declaration"
+        }
+      }
     },
     {
       "problem_id": "erdos_243",
@@ -327,7 +370,31 @@
           "statement": "Kernel-check the Erdos-Straus weighted criterion and Duverney's conditional characterisation under explicit analytic hypotheses."
         }
       ],
-      "finite_search": "An exact search over initial states below five thousand produced forced prefixes of length seventeen and no longer. It is superseded: the constant-negative template is now excluded outright, for every seed and at every scale."
+      "finite_search": "An exact search over initial states below five thousand produced forced prefixes of length seventeen and no longer. It is superseded: the constant-negative template is now excluded outright, for every seed and at every scale.",
+      "paper": {
+        "paper_id": "erdos-243-reciprocal-tail-rigidity",
+        "title": "Excluding the Bounded Negative Part",
+        "source": "paper/erdos-243-reciprocal-tail-rigidity.tex",
+        "pdf": "erdos-243-reciprocal-tail-rigidity.pdf",
+        "full_text": "docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 5,
+        "by_class": {
+          "not_selected": 1,
+          "represented_by": 2,
+          "targeted": 2
+        },
+        "dispositions": {
+          "centered_state_dynamics": "represented_by_selected_boundary_theorems",
+          "negative_orbit_no_go": "targeted_representative_periodic_theorem",
+          "bounded_rise_coprimality": "represented_by_stronger_selected_boundary_theorem",
+          "bounded_negative_exclusion": "targeted",
+          "negative_mass_recovery": "not_selected_deep_state_vocabulary"
+        }
+      }
     },
     {
       "problem_id": "erdos_249",
@@ -412,7 +479,34 @@
           "statement": "Prove the sharp cusp asymptotic and then supply a non-formal bridge from the geometric parameter regime to the exact totient value."
         }
       ],
-      "finite_search": "The returned strict-orbit packet reports an exact finite deposit at parameters (147,23), verified through harmonic height 5022. It is research evidence, not a Lean-checked unbounded certificate."
+      "finite_search": "The returned strict-orbit packet reports an exact finite deposit at parameters (147,23), verified through harmonic height 5022. It is research evidence, not a Lean-checked unbounded certificate.",
+      "paper": {
+        "paper_id": "erdos-249-binary-totient-series",
+        "title": "A Basis for the 2-Kernel of Euler’s Totient",
+        "source": "paper/erdos-249-binary-totient-series.tex",
+        "pdf": "erdos-249-binary-totient-series.pdf",
+        "full_text": "docs/papers/full-text/erdos-249-binary-totient-series.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 8,
+        "by_class": {
+          "not_selected": 5,
+          "represented_by": 1,
+          "targeted": 2
+        },
+        "dispositions": {
+          "totient_kernel_basis": "targeted",
+          "totient_kernel_rank": "targeted",
+          "totient_kernel_all_base_index": "not_selected_external_independence_boundary",
+          "totient_finite_denominator_exclusion": "not_selected_finite_family_has_separate_receipt",
+          "totient_carry_rank": "not_selected_deep_orbit_vocabulary",
+          "totient_lambert_coefficients": "represented_by_basis_and_rank_targets",
+          "eventually_periodic_lambert": "not_selected_prior_result",
+          "totient_certificate_equivalences": "not_selected_deep_certificate_vocabulary"
+        }
+      }
     },
     {
       "problem_id": "erdos_251",
@@ -474,7 +568,31 @@
           "statement": "Formalise summability of the actual prime and prime-gap dyadic series and identify the concrete infinite prime-gap tail with the checked real/rational dyadic recurrence, so the local consumer reaches the target series without a paper-only analytic bridge."
         }
       ],
-      "finite_search": null
+      "finite_search": null,
+      "paper": {
+        "paper_id": "erdos-251-prime-gap-dyadic-series",
+        "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+        "source": "paper/erdos-251-prime-gap-dyadic-series.tex",
+        "pdf": "erdos-251-prime-gap-dyadic-series.pdf",
+        "full_text": "docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 5,
+        "by_class": {
+          "not_selected": 2,
+          "represented_by": 1,
+          "targeted": 2
+        },
+        "dispositions": {
+          "prime_gap_reformulation": "targeted",
+          "integral_shift_classification": "not_selected_abstract_family_represented_in_manifest",
+          "totient_shift_propagation": "represented_by_integral_shift_family",
+          "small_mismatch_criterion": "not_selected_open_producer_hypothesis",
+          "coefficient_only_no_go": "targeted_unboundedness_theorem_only"
+        }
+      }
     },
     {
       "problem_id": "erdos_257",
@@ -523,7 +641,33 @@
           "statement": "Extend the measure dichotomy to Bernoulli laws and periodic-stride dimensions without implying arithmetic consequences."
         }
       ],
-      "finite_search": null
+      "finite_search": null,
+      "paper": {
+        "paper_id": "erdos-257-mersenne-support-subseries",
+        "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+        "source": "paper/erdos-257-mersenne-support-subseries.tex",
+        "pdf": "erdos-257-mersenne-support-subseries.pdf",
+        "full_text": "docs/papers/full-text/erdos-257-mersenne-support-subseries.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 7,
+        "by_class": {
+          "not_applicable": 1,
+          "not_selected": 2,
+          "targeted": 4
+        },
+        "dispositions": {
+          "finite_period_noncollapse": "targeted",
+          "rational_support_constraints": "not_selected_deep_support_vocabulary",
+          "known_irrational_supports": "targeted_full_support_representative",
+          "squarefree_support": "not_applicable_to_external_irrationality_input",
+          "achievement_set_geometry": "targeted_measure_theorem",
+          "restricted_achievement_sets": "targeted_measure_dichotomy",
+          "half_and_twenty_one_frontiers": "not_selected_deep_greedy_state_vocabulary"
+        }
+      }
     },
     {
       "problem_id": "erdos_269",
@@ -648,7 +792,34 @@
           "statement": "Replace one finite denominator exclusion by a family whose exclusion bound tends to infinity."
         }
       ],
-      "finite_search": "The integer-only dyadic-window checker reproduces three exact packet certificates and, for all 106,666 pairs with denominator B <= 1000 coprime to 30 and dyadic start 100 <= a <= 500, finds an escaping window of length at most 18; the largest first successful length is 14. This is finite proof-consumer evidence only and proves neither unbounded-denominator nor cofinal escape."
+      "finite_search": "The integer-only dyadic-window checker reproduces three exact packet certificates and, for all 106,666 pairs with denominator B <= 1000 coprime to 30 and dyadic start 100 <= a <= 500, finds an escaping window of length at most 18; the largest first successful length is 14. This is finite proof-consumer evidence only and proves neither unbounded-denominator nor cofinal escape.",
+      "paper": {
+        "paper_id": "erdos-269-three-prime-running-lcm",
+        "title": "The Three-Prime Running Least Common Multiple",
+        "source": "paper/erdos-269-three-prime-running-lcm.tex",
+        "pdf": "erdos-269-three-prime-running-lcm.pdf",
+        "full_text": "docs/papers/full-text/erdos-269-three-prime-running-lcm.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 7,
+        "by_class": {
+          "not_applicable": 2,
+          "not_selected": 1,
+          "represented_by": 2,
+          "targeted": 2
+        },
+        "dispositions": {
+          "three_prime_lcm_cells": "targeted_running_lcm_identity",
+          "two_prime_transcendence": "not_applicable_not_a_lean_declaration",
+          "height_fibre_and_shell": "represented_by_three_prime_structure_target",
+          "rank_two_kernel_no_go": "targeted",
+          "dyadic_block_alphabet": "represented_by_three_prime_structure_target",
+          "conditional_carry_escape": "not_selected_unproved_bridge_and_deep_predicates",
+          "three_prime_finite_search": "not_applicable_not_a_lean_theorem"
+        }
+      }
     },
     {
       "problem_id": "erdos_1041",
@@ -714,7 +885,33 @@
           "statement": "Prove the global relative Newton-flow theorem that turns the checked ray separation into the required root-to-root curve inside the original open lemniscate."
         }
       ],
-      "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence, not a topology proof or a counterexample certificate."
+      "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence, not a topology proof or a counterexample certificate.",
+      "paper": {
+        "paper_id": "erdos-1041-lemniscate-newton-flow",
+        "title": "Newton Flow and Critical-Value Ray Separation",
+        "source": "paper/erdos-1041-lemniscate-newton-flow.tex",
+        "pdf": "erdos-1041-lemniscate-newton-flow.pdf",
+        "full_text": "docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 6,
+        "by_class": {
+          "not_applicable": 2,
+          "not_selected": 1,
+          "represented_by": 1,
+          "targeted": 2
+        },
+        "dispositions": {
+          "newton_value_decay": "not_selected_compact_calculus_family",
+          "ray_separation": "represented_by_translation_avoidance_targets",
+          "translation_avoidance": "targeted",
+          "root_retention": "targeted",
+          "published_proof_gap": "not_applicable_not_a_lean_proposition",
+          "lemniscate_finite_search": "not_applicable_not_a_lean_theorem"
+        }
+      }
     },
     {
       "problem_id": "erdos_1049",
@@ -821,7 +1018,34 @@
           "statement": "After dividing every coefficient pair by its rowwise common content, at positive quadratic target depths R_n,S_n exhibit at least 4R_n+2S_n primitive coefficient pairs from a genuinely non-collapsed deformation, prove that the required two-adic and three-adic gain survives primitive normalisation, and prove that at least one resulting checked {-1,0,1} collision has a nonzero polynomial pair and lies outside the analytic remainder nullspace; or prove an exact rank obstruction."
         }
       ],
-      "finite_search": null
+      "finite_search": null,
+      "paper": {
+        "paper_id": "erdos-1049-rational-base-lambert",
+        "title": "Arithmetic Boundaries at Base 3/2",
+        "source": "paper/erdos-1049-rational-base-lambert.tex",
+        "pdf": "erdos-1049-rational-base-lambert.pdf",
+        "full_text": "docs/papers/full-text/erdos-1049-rational-base-lambert.md",
+        "resolution": "resolved"
+      },
+      "external_check": {
+        "state": "reviewed",
+        "family_count": 7,
+        "by_class": {
+          "not_applicable": 1,
+          "not_selected": 2,
+          "represented_by": 2,
+          "targeted": 2
+        },
+        "dispositions": {
+          "scalar_content_no_go": "represented_by_selected_coordinatewise_no_go",
+          "endpoint_residues": "represented_by_selected_coordinatewise_no_go",
+          "four_jet_collision": "not_selected_finite_combinatorial_family",
+          "coordinatewise_corridor_no_go": "targeted",
+          "rational_base_tail_recurrence": "targeted",
+          "seven_halves_irrationality": "not_applicable_to_external_irrationality_conclusion",
+          "height_and_pade_arithmetic": "not_selected_multiple_scoped_arithmetic_families"
+        }
+      }
     }
   ],
   "reviewed_problems": [
