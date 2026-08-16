@@ -24,11 +24,17 @@ claims and is responsible for them. That is also why the corpus is built the way
 it is: every component has to leave evidence a separate check can read, because
 the author's own confidence is not the thing being offered.
 
+Two commands, no install, any Python 3.11 or newer:
+
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
-python3 -m pip install .
-plectis tour --format text .
+PYTHONPATH=src python3 -m plectis tour --format text .
 ```
+
+That reads the project, picks a route through it, writes an inspectable record
+beside it, and prints what it did — in about a tenth of a second, with your
+source files unchanged. Installing is optional and covered under
+[Install](#install); it only buys the shorter `plectis` command name.
 
 The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
@@ -134,18 +140,27 @@ plectis tour --card .
 
 ## Install
 
-From a clone (Python 3.11 or newer, no third-party runtime dependencies):
-
-```bash
-python3 -m pip install .
-plectis tour --format text .
-```
-
-Without installing anything, the same commands run in source form:
+Every command in this README runs from a clone without installing anything
+(Python 3.11 or newer, no third-party runtime dependencies):
 
 ```bash
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
+
+Installing buys the shorter `plectis` command name. Install into a virtual
+environment, which behaves the same on every platform:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install .
+.venv/bin/plectis tour --format text .
+```
+
+A system Python installed by Homebrew, Debian, or Ubuntu refuses
+`python3 -m pip install .` with `error: externally-managed-environment`
+([PEP 668](https://peps.python.org/pep-0668/)), because that interpreter
+belongs to your operating system. The virtual environment above is the
+supported answer, and the source form needs neither.
 
 Contributors and the full test floor use `make install` and the `[test]`
 extra instead; see [Contributing](CONTRIBUTING.md). The legacy `microcosm`

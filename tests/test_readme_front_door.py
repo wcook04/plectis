@@ -71,7 +71,8 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     assert findings["h1"] == "Plectis"
     assert findings["witness_command_bound"] is True
     assert findings["hero_banned_terms"] == []
-    assert findings["hero_install_block_present"] is True
+    assert findings["hero_first_run_block_present"] is True
+    assert findings["hero_unisolated_install_present"] is False
     assert findings["registry_component_count"] >= 80
     assert findings["registry_component_count_bound_in_front_door"] is True
     assert findings["front_door_required_context_missing"] == []
@@ -103,18 +104,41 @@ def test_blocks_stale_witness_command(tmp_path: Path) -> None:
     assert "README_WITNESS_COMMAND_UNBOUND" in receipt["blocking_codes"]
 
 
-def test_blocks_missing_install_command(tmp_path: Path) -> None:
+def test_blocks_missing_first_run_command(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     readme = root / "README.md"
-    # Strip every install line: the hero must show how to get the tool.
+    text = readme.read_text(encoding="utf-8")
+    # Break every runnable command in the hero. A first screen that shows no
+    # way to run the tool has failed its one job, however much prose it keeps.
+    hero, separator, rest = text.partition("\n## ")
+    readme.write_text(
+        hero.replace("plectis", "frobnicate") + separator + rest, encoding="utf-8"
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_FIRST_RUN_COMMAND_MISSING" in receipt["blocking_codes"]
+
+
+def test_blocks_unisolated_hero_install(tmp_path: Path) -> None:
+    """Restore the historical defect verbatim and require it to be named.
+
+    Until 2026-08-16 the front door opened on `python3 -m pip install .`,
+    which every Homebrew, Debian, and Ubuntu `python3` refuses under PEP 668.
+    The previous version of this validator asked for exactly that string, so
+    the front door's own guard held the failure in place. This fixture puts it
+    back and proves the guard now points the other way.
+    """
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
     readme.write_text(
         readme.read_text(encoding="utf-8").replace(
-            "python3 -m pip install .", "python3 -m frobnicate ."
+            "PYTHONPATH=src python3 -m plectis tour --format text .",
+            "python3 -m pip install .\nplectis tour --format text .",
+            1,
         ),
         encoding="utf-8",
     )
     receipt = validate_readme_front_door(root)
-    assert "README_INSTALL_COMMAND_MISSING" in receipt["blocking_codes"]
+    assert "README_HERO_INSTALL_NOT_ISOLATED" in receipt["blocking_codes"]
 
 
 def test_blocks_injected_overclaim(tmp_path: Path) -> None:

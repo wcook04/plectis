@@ -6,7 +6,7 @@ from pathlib import Path
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_quickstart_is_a_short_install_first_path() -> None:
+def test_quickstart_is_a_short_run_first_path() -> None:
     quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
 
     # Short by contract: a quickstart that regrows into an operator manual has
@@ -14,13 +14,32 @@ def test_quickstart_is_a_short_install_first_path() -> None:
     # docs/maintainers/.
     assert len(quickstart.splitlines()) <= 110
 
-    # Install-first ordering, with the pre-install probe available but not
-    # blocking the first screen.
-    assert quickstart.index("## 1. Install") < quickstart.index("## 2. First result")
-    assert quickstart.index("## 2. First result") < quickstart.index(
+    # Run-first ordering. This was install-first until 2026-08-16, when the
+    # documented first command turned out to fail outright on the interpreter
+    # most readers have: a Homebrew, Debian, or Ubuntu `python3` refuses
+    # `python3 -m pip install .` under PEP 668. Installing is a convenience
+    # that buys a shorter command name, so it cannot stand between a cold
+    # clone and its first result.
+    assert quickstart.index("## 1. First result") < quickstart.index("## 2. Install")
+    assert quickstart.index("## 2. Install") < quickstart.index(
         "## 5. Verify the public floor"
     )
-    assert "python3 -m pip install ." in quickstart
+
+    # The first runnable block installs nothing, and the install lane is
+    # isolated rather than aimed at the system interpreter.
+    first_result = quickstart[
+        quickstart.index("## 1. First result") : quickstart.index("## 2. Install")
+    ]
+    assert "pip install" not in first_result
+    assert "PYTHONPATH=src python3 -m plectis tour --format text ." in first_result
+    assert "python3 -m venv .venv" in quickstart
+    assert ".venv/bin/python -m pip install ." in quickstart
+
+    # Naming the refusal is the point: a reader who hits it must recognise it
+    # as their operating system protecting itself, not as a broken repository.
+    assert "externally-managed-environment" in quickstart
+    assert "https://peps.python.org/pep-0668/" in quickstart
+
     assert "./bootstrap.sh" in quickstart
     assert "./bootstrap.sh --dry-run" in quickstart
     assert ".microcosm/cold_clone_probe.json" in quickstart

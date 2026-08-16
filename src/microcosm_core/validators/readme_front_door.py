@@ -202,6 +202,33 @@ def _fenced_blocks(text: str) -> list[str]:
     return re.findall(r"```[^\n]*\n(.*?)```", text, flags=re.DOTALL)
 
 
+# A command that actually runs the tool: the installed entry point, an
+# absolute or venv-relative path to it, or the source form that needs no
+# install at all.
+_RUN_COMMAND = re.compile(r"(?:^|\s)(?:\S*/)?plectis\s+[a-z]|-m\s+plectis\s+[a-z]", re.M)
+
+
+def _unisolated_install(block: str) -> bool:
+    """True when a block installs into the reader's own system interpreter.
+
+    PEP 668 makes that a hard failure on Homebrew, Debian, and Ubuntu Python.
+    An install routed through a virtual environment, or through the Makefile's
+    own environment, is fine and is not reported here.
+    """
+    for raw in block.splitlines():
+        line = raw.strip()
+        if "pip install" not in line:
+            continue
+        if (
+            line.startswith((".venv/", "make ", "$(PIP_ENV)"))
+            or "-m venv" in line
+            or "$(VENV_PYTHON)" in line
+        ):
+            continue
+        return True
+    return False
+
+
 def validate_readme_front_door(
     public_root: Path,
     out: Path | None = None,
@@ -255,14 +282,32 @@ def validate_readme_front_door(
         if alt and "—" in alt:
             blocking.append("README_BANNER_ALT_EM_DASH")
 
-    # --- 2b. the hero closes with an install-and-run block: a stranger's
-    # first screen must show how to get the tool before any taxonomy.
+    # --- 2b. the hero closes with a block that gets a stranger to a result
+    # before any taxonomy.
+    #
+    # This asked for the literal string "pip install" until 2026-08-16, and
+    # that is how `python3 -m pip install .` survived as the first runnable
+    # command on the front door long after PEP 668 made it fail outright on
+    # every Homebrew, Debian, and Ubuntu `python3` — which is what a reader
+    # arriving from GitHub has. The guard never asked whether the command
+    # worked, only whether an install was advertised, so the one repair a cold
+    # reader needed (get the install off the first screen) was the one repair
+    # this validator forbade. What the hero owes a stranger is a first command
+    # that runs; the source form satisfies that without installing anything.
     hero_blocks = _fenced_blocks(hero)
-    findings["hero_install_block_present"] = any(
-        "pip install" in block for block in hero_blocks
+    findings["hero_first_run_block_present"] = any(
+        _RUN_COMMAND.search(block) for block in hero_blocks
     )
-    if not findings["hero_install_block_present"]:
-        blocking.append("README_INSTALL_COMMAND_MISSING")
+    if not findings["hero_first_run_block_present"]:
+        blocking.append("README_FIRST_RUN_COMMAND_MISSING")
+
+    # An install may appear on the first screen, but only into an environment
+    # the reader creates. Aiming pip at the interpreter their operating system
+    # depends on is the failure above, and it stays blocked by name.
+    unisolated = [block for block in hero_blocks if _unisolated_install(block)]
+    findings["hero_unisolated_install_present"] = bool(unisolated)
+    if unisolated:
+        blocking.append("README_HERO_INSTALL_NOT_ISOLATED")
 
     # --- 3. recognition promise (a bold span) in the hero ---
     findings["hero_promise_present"] = bool(re.search(r"\*\*.+?\*\*", hero, re.DOTALL))
