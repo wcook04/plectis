@@ -181,6 +181,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
     for required in (
         "include .gitignore",
         "include .github/PULL_REQUEST_TEMPLATE.md",
+        "include .github/copilot-instructions.md",
         "include AGENTS.md",
         "include AGENT_ROUTES.md",
         "include CLAUDE.md",
@@ -188,6 +189,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
         "include CODEX.md",
         "include CURSOR.md",
         "include FIRST_ACTION.md",
+        "include GEMINI.md",
         "include HYPOTHESIS_HANDOFF.md",
         "include ARCHITECTURE.md",
         "include ORGANS.md",
@@ -237,6 +239,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "CODEX.md",
         "CURSOR.md",
         "FIRST_ACTION.md",
+        "GEMINI.md",
         "HYPOTHESIS_HANDOFF.md",
         "LICENSE",
         "MANIFEST.in",
@@ -259,7 +262,8 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         ".github/workflows/*.yml"
     ]
     assert data_files["share/plectis/.github"] == [
-        ".github/PULL_REQUEST_TEMPLATE.md"
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        ".github/copilot-instructions.md",
     ]
 
     assert data_files["share/plectis/atlas"] == ["atlas/*.json"]
@@ -350,7 +354,13 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
 
 
 def test_provider_adapter_files_stay_thin_and_route_to_canonical_agent_contract() -> None:
-    for name in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
+    for name in (
+        "CLAUDE.md",
+        "CODEX.md",
+        "CURSOR.md",
+        "GEMINI.md",
+        ".github/copilot-instructions.md",
+    ):
         text = (MICROCOSM_ROOT / name).read_text(encoding="utf-8")
 
         assert "`AGENTS.override.md`" in text

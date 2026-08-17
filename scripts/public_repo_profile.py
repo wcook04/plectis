@@ -42,8 +42,10 @@ SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md
 # Root entries the python_research_tool profile accepts without comment.
 PYTHON_TOOL_ALLOWED = {
     ".git", ".github", ".gitignore", ".microcosm",
+    # CLAUDE.md and GEMINI.md are tool-required root filenames: their providers
+    # look for that exact path and read nothing else by default.
     "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md",
-    "CITATION.cff", "CONTRIBUTING.md",
+    "CITATION.cff", "CONTRIBUTING.md", "GEMINI.md",
     "HYPOTHESIS_HANDOFF.md", "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
     "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",

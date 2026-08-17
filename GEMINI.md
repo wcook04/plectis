@@ -1,0 +1,18 @@
+# GEMINI.md - Microcosm Substrate Adapter
+
+This is a thin adapter for Gemini-style agents. Read `AGENTS.override.md` as the
+compact cold-clone entry; `AGENTS.md` remains the deep public mutation contract.
+Run `/memory show` to confirm which context files this session actually loaded.
+
+First read `AGENTS.md` only after the compact task router names a deep section.
+With a goal, convert it into your first correct action (demonstrated in
+`FIRST_ACTION.md`); then run the bootstrap preview and card:
+```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
+./bootstrap.sh --dry-run
+PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
+```
+
+This adapter does not authorize release, publication, provider calls, source
+mutation, private-root equivalence, proof correctness, production use, or
+financial advice.
