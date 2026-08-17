@@ -1,5 +1,6 @@
 include .gitignore
 include .github/PULL_REQUEST_TEMPLATE.md
+include .github/copilot-instructions.md
 include AGENTS.md
 include AGENTS.override.md
 include AGENT_ROUTES.md
@@ -14,6 +15,7 @@ include CONTRIBUTING.md
 include CODEX.md
 include CURSOR.md
 include FIRST_ACTION.md
+include GEMINI.md
 include HYPOTHESIS_HANDOFF.md
 include LICENSE
 include Makefile

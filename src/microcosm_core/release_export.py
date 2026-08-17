@@ -58,6 +58,7 @@ DEFAULT_INCLUDE_REFS = (
     "CODEX.md",
     "CURSOR.md",
     "FIRST_ACTION.md",
+    "GEMINI.md",
     "HYPOTHESIS_HANDOFF.md",
     "LICENSE",
     "MANIFEST.in",
@@ -95,6 +96,8 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     "CLAUDE.md",
     "CODEX.md",
     "CURSOR.md",
+    "GEMINI.md",
+    ".github/copilot-instructions.md",
     "AGENTS.md",
     "AGENTS.override.md",
     "AGENT_ROUTES.md",
@@ -477,6 +480,11 @@ def _public_role(rel: str) -> str:
     Inputs are `rel`; notable helpers are `endswith` and `split`.
     """
     top = rel.split("/", 1)[0]
+    # Copilot's instruction file lives under .github but is a provider entry
+    # adapter, not CI: it is read by an agent at session start, so it carries
+    # the same claim-language and entry obligations as the root adapters.
+    if rel == ".github/copilot-instructions.md":
+        return "public_entry_document"
     if top == ".github":
         return "ci_workflow"
     if rel == "Makefile":
@@ -498,6 +506,7 @@ def _public_role(rel: str) -> str:
         "CONTRIBUTING.md",
         "CODEX.md",
         "CURSOR.md",
+        "GEMINI.md",
         "HYPOTHESIS_HANDOFF.md",
         "PRINCIPLES.md",
         "ORGANS.md",

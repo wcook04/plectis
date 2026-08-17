@@ -243,6 +243,7 @@ def _make_release_root(root: Path) -> Path:
         "CODEX.md",
         "CURSOR.md",
         "FIRST_ACTION.md",
+        "GEMINI.md",
         "HYPOTHESIS_HANDOFF.md",
         "LICENSE",
         "MANIFEST.in",
@@ -317,6 +318,7 @@ where = ["src"]
         "ci: test smoke\n",
     )
     _write(root / ".github/workflows/ci.yml", "run: make ci\n")
+    _write(root / ".github/copilot-instructions.md", "# Copilot\n")
     _write(
         root / "examples/runtime_shell/demo_project/.microcosm/project_manifest.json",
         '{"intentional": true}\n',
@@ -726,6 +728,8 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             "CLAUDE.md",
             "CODEX.md",
             "CURSOR.md",
+            "GEMINI.md",
+            ".github/copilot-instructions.md",
             "AGENTS.md",
             "AGENT_ROUTES.md",
             "ANTI_PRINCIPLES.md",

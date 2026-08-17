@@ -1813,6 +1813,8 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
         ("CLAUDE adapter", "CLAUDE.md"),
         ("CODEX adapter", "CODEX.md"),
         ("CURSOR adapter", "CURSOR.md"),
+        ("GEMINI adapter", "GEMINI.md"),
+        ("Copilot adapter", ".github/copilot-instructions.md"),
         ("first-action demonstration", "FIRST_ACTION.md"),
         ("agent task-route selector", "AGENT_ROUTES.md"),
     ):
@@ -1832,7 +1834,13 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     assert agent_routes.index(product_command) < agent_routes.index(
         "## Agent Task Route Table"
     )
-    for rel in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
+    for rel in (
+        "CLAUDE.md",
+        "CODEX.md",
+        "CURSOR.md",
+        "GEMINI.md",
+        ".github/copilot-instructions.md",
+    ):
         adapter_head = "\n".join(
             (MICROCOSM_ROOT / rel).read_text(encoding="utf-8").splitlines()[:12]
         )
@@ -1893,7 +1901,13 @@ def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
     for rel in ("AGENTS.md", "README.md", "SOURCE_STATUS.md"):
         text = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
         assert preflight in text, f"{rel} dropped the mechanism preflight command"
-    for rel in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
+    for rel in (
+        "CLAUDE.md",
+        "CODEX.md",
+        "CURSOR.md",
+        "GEMINI.md",
+        ".github/copilot-instructions.md",
+    ):
         adapter = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
         assert "First read `AGENTS.md`" in adapter, f"{rel} stopped routing to AGENTS.md"
 
@@ -1981,6 +1995,8 @@ _ENTRY_DOCS_FOR_COMPREHEND_PARITY = (
     "CLAUDE.md",
     "CODEX.md",
     "CURSOR.md",
+    "GEMINI.md",
+    ".github/copilot-instructions.md",
     "AGENTS.md",
     "README.md",
     "QUICKSTART.md",
