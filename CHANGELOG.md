@@ -4,6 +4,31 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2026-08-17
+
+Three changes landed within the hour after 0.6.0 was tagged, so the tag no
+longer described the repository. This is that tag re-cut, not new work.
+
+### Added
+
+- A guard for markdown tables. GitHub renders a table into a fixed 1012px
+  column with no wrap escape, so an unbreakable token — a file path, a long
+  identifier — pushes the row off the side of the screen. Long tokens now sit
+  in fenced code blocks, which scroll inside themselves, and
+  `scripts/check_markdown_table_render.py` fails the build on a table that
+  overflows. `AGENT_ROUTES.md` is an index plus per-route sections rather than
+  one six-column grid.
+
+### Changed
+
+- `public_site_parity` distinguishes canonical site packets from retired ones,
+  and checks that each retired path points at its replacement instead of
+  validating it as equally canonical content.
+- `actions/setup-python` moves to v7. The comment beside each pin, which exists
+  so a reader can tell what a forty-character SHA resolves to, moves with it —
+  as does the required-tag set in `tests/test_public_repo_ci.py`, which is what
+  keeps that comment honest. Three surfaces, not two.
+
 ## [0.6.0] - 2026-08-17
 
 The release that makes the first screen say what the repository is. Plectis

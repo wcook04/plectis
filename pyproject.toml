@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plectis"
-version = "0.6.0"
+version = "0.6.1"
 description = "88 runnable mechanisms from an AI-native research and engineering runtime — formal proof, agent reliability, research, projection-drift control, validators, work landing, continuity — each naming the code it runs, the evidence its result stands on, and where that result stops. Also a local tool: point it at a project and it writes an inspectable record beside your source."
 readme = "README.md"
 requires-python = ">=3.11"
