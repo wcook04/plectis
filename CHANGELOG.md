@@ -4,6 +4,32 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2026-08-17
+
+Four changes to what a stranger meets first, so the tag is re-cut to match.
+
+### Added
+
+- Every paper in the corpus now says what kind of publication it is
+  (`publication_class`), whether anyone outside has reviewed it
+  (`peer_review_state`), and whether it carries a DOI — with the absence typed
+  rather than blank. The class is derived from each paper's own statement of
+  what it owns, not assigned by hand, and a check keeps the projection current.
+- `GEMINI.md` and `.github/copilot-instructions.md`. Both tools look for a
+  filename this repository did not have, and finding nothing they fall back to
+  guessing at a repository whose whole point is that it does not need guessing.
+- An issue route for someone who ran Plectis on a repository its author did not
+  build. Every existing form assumes you have found a defect here; none of them
+  fit the most useful report this project can receive, which is what happened
+  when the tool met code it had never seen — including that nothing useful
+  happened. That report was arriving nowhere because there was no door for it.
+
+### Fixed
+
+- The agent contract said six problems while every human surface said eight.
+- A paper-guide test measured the day it was written rather than the property
+  it was meant to hold, so it would have started failing on its own.
+
 ## [0.6.1] - 2026-08-17
 
 Three changes landed within the hour after 0.6.0 was tagged, so the tag no

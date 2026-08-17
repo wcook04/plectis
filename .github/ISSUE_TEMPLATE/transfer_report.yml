@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2026 Will Cook
+# SPDX-License-Identifier: Apache-2.0
+name: You ran it on a repository I did not build
+description: What Plectis did on code it had never seen — including nothing useful.
+labels: ["transfer"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every check in this repository was run by its author, on code its author
+        wrote. That is the largest single gap in the evidence here, and it is
+        not one more component can close.
+
+        A report that Plectis was useless on your repository is worth more than
+        one saying it was impressive on mine. Please do not soften it.
+  - type: input
+    id: target
+    attributes:
+      label: What you pointed it at
+      description: A link if it is public; otherwise the language, rough size, and whether much of it was agent-written.
+      placeholder: github.com/someone/something, or "~40k lines of Go, mostly hand-written"
+    validations:
+      required: true
+  - type: textarea
+    id: ran
+    attributes:
+      label: What you ran and what came back
+      description: The command, and the part of the output you actually looked at. Paste rather than summarise if you can.
+    validations:
+      required: true
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: Was any of it useful
+      options:
+        - No — it told me nothing I did not already know
+        - No — it told me something confidently wrong
+        - Partly — one finding was worth reading, the rest was noise
+        - Yes — it found something I would not have found
+        - It did not run
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: Anything it got wrong
+      description: >
+        A finding unsupported by the evidence it cited, a route that made no
+        sense for your project, a scope claim wider than what it checked, or a
+        receipt that did not survive a second look. This is the most useful box
+        on the form.
+  - type: input
+    id: environment
+    attributes:
+      label: Python and OS
+      placeholder: 3.12 on Ubuntu 24.04
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have not pasted credentials, private source, or anything I am not free to share.
+          required: true
