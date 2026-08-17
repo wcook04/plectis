@@ -6,12 +6,12 @@
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "10f38727ade59c0090b6a807da23fb9a2102259f",
+    "public_ref": "6843a666b2d8db78d41738697532d5ffbc46af55",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "1b63198e6c07815118766a68fa07e19631fa55fb8c3fea2341ed11f6fdc0f8dc",
-    "latest_tag": "v0.8.0",
-    "release_tag_object": "06467ccc7d842fabec0457d22fdac299b4b15715",
-    "release_commit": "06467ccc7d842fabec0457d22fdac299b4b15715",
+    "orientation_sha256": "ed1a841190c104260be0a354cced4315c4603b7f9176ac3dab081e8f88e97be3",
+    "latest_tag": "v0.9.0",
+    "release_tag_object": "6843a666b2d8db78d41738697532d5ffbc46af55",
+    "release_commit": "6843a666b2d8db78d41738697532d5ffbc46af55",
     "problems_path": "docs/problems.json"
   },
   "scale": {
