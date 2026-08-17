@@ -4,10 +4,16 @@ This is the first-contact contract for repository-aware agents. It is deliberate
 small. [AGENTS.md](AGENTS.md) remains the deep public mutation and authority
 contract; open only the section named by the route you select below.
 
-Plectis contains the local Python claim-checking tools and runnable reference
-components. The companion
+Plectis publishes runnable mechanisms from a working AI-native research and
+engineering runtime: formal proof, agent reliability and safety, research and
+forecasting, projection-drift control, validators, work landing, and continuity.
+Each names the code it runs, the evidence class its result stands on, and the
+authority ceiling where it stops. The local record a run writes is that
+accountability layer, not the product — do not describe this repository by it,
+and do not treat the nearest component as the whole system. Read counts from the
+self-model card below rather than asserting them. The companion
 [`plectis-lean-erdos249-257`](https://github.com/wcook04/plectis-lean-erdos249-257)
-repository contains the Lean source and papers for six open Erdős problems.
+repository contains the Lean source and papers for eight open Erdős problems.
 Neither repository gives access to private state or makes claims about it.
 
 ## Route the task before reading broadly
