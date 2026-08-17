@@ -265,24 +265,27 @@ flowchart LR
 
 ## Structured Lattice Bindings
 
-| Binding | Reader route |
-|---|---|
-| Paper module id | `paper_module.doctrine_fact_claim_audit` |
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[48:paper_module.doctrine_fact_claim_audit]` |
-| Markdown projection | `paper_modules/doctrine_fact_claim_audit.md` |
-| Generated instance | `paper_modules/doctrine_fact_claim_audit.json::paper_module_payload` |
-| Organ runtime | `src/microcosm_core/organs/doctrine_fact_claim_audit.py` |
-| Mechanism source | `core/mechanism_sources.json::mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit` |
-| Standard | `standards/std_microcosm_doctrine_fact_claim_audit.json` |
-| Fixture input | `fixtures/first_wave/doctrine_fact_claim_audit/input` |
-| Exported bundle | `examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle` |
-| Source manifest | `examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json` |
-| Fixture manifest | `core/fixture_manifests/doctrine_fact_claim_audit.fixture_manifest.json` |
-| First-wave result receipt | `receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json` |
-| First-wave board receipt | `receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json` |
-| First-wave validation receipt | `receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json` |
-| Acceptance receipt | `receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json` |
-| Runtime-shell receipt | `receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle_validation_result.json` |
+Reader routes for this module, by binding. Each route is given in full so it
+can be copied straight into a checkout:
+
+```
+Paper module id                paper_module.doctrine_fact_claim_audit
+Capsule authority              core/paper_module_capsules.json::paper_modules[48:paper_module.doctrine_fact_claim_audit]
+Markdown projection            paper_modules/doctrine_fact_claim_audit.md
+Generated instance             paper_modules/doctrine_fact_claim_audit.json::paper_module_payload
+Organ runtime                  src/microcosm_core/organs/doctrine_fact_claim_audit.py
+Mechanism source               core/mechanism_sources.json::mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit
+Standard                       standards/std_microcosm_doctrine_fact_claim_audit.json
+Fixture input                  fixtures/first_wave/doctrine_fact_claim_audit/input
+Exported bundle                examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle
+Source manifest                examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json
+Fixture manifest               core/fixture_manifests/doctrine_fact_claim_audit.fixture_manifest.json
+First-wave result receipt      receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json
+First-wave board receipt       receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json
+First-wave validation receipt  receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json
+Acceptance receipt             receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json
+Runtime-shell receipt          receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle_validation_result.json
+```
 
 ## Named Proof Consumers
 

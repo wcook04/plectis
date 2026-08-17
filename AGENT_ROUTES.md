@@ -4,84 +4,2029 @@
 
 This is the agent-facing selector over the frozen organ atlas. Start here when you know the work shape but not the organ id. Human specialty entry lives in [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty); full organ cards live in [ORGANS.md](ORGANS.md).
 
-With a goal already in hand, convert it first: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"` returns the owning component, the runnable first command, the validator that proves it, and the stop condition (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)). This table is the per-`task_class` selector behind that contract.
+With a goal already in hand, convert it first: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"` returns the owning component, the runnable first command, the validator that proves it, and the stop condition (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)). This page is the per-`task_class` selector behind that contract.
 
 > Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, source mutation, private-root equivalence, proof authority, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
 
-## How to use this table
+## How to use this page
 
-Pick the `task_class` that matches the job, run the first command only inside the listed scope boundary, then open the drilldown card before making a broader claim. The JSON read model is [atlas/agent_task_routes.json](atlas/agent_task_routes.json); it keeps top-level `routes` as an array of rows keyed by `task_class`, with `standard_ref`, `paper_module_ref`, `concept_ref`, `mechanism_ref`, and `source_relation_summary` handles for every relevant organ. Use `microcosm organ-topology` for dynamic file and shard edge drilldown.
+Pick the `task_class` that matches the job from the index below, open its route section, run the first command only inside the listed scope boundary, then open the drilldown card before making a broader claim. The JSON read model is [atlas/agent_task_routes.json](atlas/agent_task_routes.json); it keeps top-level `routes` as an array of rows keyed by `task_class`, with `standard_ref`, `paper_module_ref`, `concept_ref`, `mechanism_ref`, and `source_relation_summary` handles for every relevant organ. Use `microcosm organ-topology` for dynamic file and shard edge drilldown.
 If the installed `microcosm` console is not on `PATH` in a source-only checkout, run the same command through `PYTHONPATH=src python3 -m microcosm_core ...`. If that command imports package dependencies that your system Python lacks, run the Quickstart install first and use `.venv/bin/python -m microcosm_core ...` or the installed console.
+
+Every route ends the same way, so the stop condition is stated once here rather than repeated per section: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. It is carried per row as `stop_condition` in the JSON read model.
 
 ## Agent Task Route Table
 
-| `task_class` | Relevant organ(s) | First command | Source relation handles | Authority / stop condition | Evidence / doctrine / drilldown |
-|---|---|---|---|---|---|
-| `agent-concurrency` | [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine); [Concurrency Mission Control](ORGANS.md#concurrency-mission-control); [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime) | `microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine` | `74` edges<br>`11` files<br>`39` shards<br>`microcosm organ-topology --organ mission_transaction_work_spine` | It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]`<br>`organ_doctrine_row:mission_transaction_work_spine.concept_binding`<br>`organ_doctrine_row:mission_transaction_work_spine.mechanism_binding`<br>[primary card](ORGANS.md#mission-transaction-work-spine) |
-| `agent-entry` | [Cold Reader Route Map](ORGANS.md#cold-reader-route-map); [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane); [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics); [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop) | `microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card` | `263` edges<br>`16` files<br>`54` shards<br>`microcosm organ-topology --organ cold_reader_route_map` | It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]`<br>`organ_doctrine_row:cold_reader_route_map.concept_binding`<br>`organ_doctrine_row:cold_reader_route_map.mechanism_binding`<br>[primary card](ORGANS.md#cold-reader-route-map) |
-| `agent-evaluation` | [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit); [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet); [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy); [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule); +12 more in JSON | `microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay` | `763` edges<br>`36` files<br>`103` shards<br>`microcosm organ-topology --organ provider_context_recipe_budget_policy` | It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding`<br>[primary card](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay) |
-| `agent-orchestration` | [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation) | `microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ bridge_campaign_dag_validation` | Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]`<br>`organ_doctrine_row:bridge_campaign_dag_validation.concept_binding`<br>`organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding`<br>[primary card](ORGANS.md#bridge-campaign-dag-validation) |
-| `agent-reliability` | [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit) | `microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ egress_self_compliance_audit` | Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]`<br>`organ_doctrine_row:egress_self_compliance_audit.concept_binding`<br>`organ_doctrine_row:egress_self_compliance_audit.mechanism_binding`<br>[primary card](ORGANS.md#egress-self-compliance-audit) |
-| `agent-runtime` | [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation) | `microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ metabolism_queue_reconciliation` | Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]`<br>`organ_doctrine_row:metabolism_queue_reconciliation.concept_binding`<br>`organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding`<br>[primary card](ORGANS.md#metabolism-queue-reconciliation) |
-| `ai-safety` | [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit); [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet); [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy); [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule); +12 more in JSON | `microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay` | `763` edges<br>`36` files<br>`103` shards<br>`microcosm organ-topology --organ provider_context_recipe_budget_policy` | It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding`<br>[primary card](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay) |
-| `annex-catalog` | [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing) | `microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ annex_knowledge_routing` | Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]`<br>`organ_doctrine_row:annex_knowledge_routing.concept_binding`<br>`organ_doctrine_row:annex_knowledge_routing.mechanism_binding`<br>[primary card](ORGANS.md#annex-knowledge-routing) |
-| `architecture` | [Pattern Binding Contract](ORGANS.md#pattern-binding-contract); [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step); [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar); [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane); +8 more in JSON | `microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness` | `336` edges<br>`35` files<br>`96` shards<br>`microcosm organ-topology --organ pattern_binding_contract` | It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound). Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]`<br>`organ_doctrine_row:pattern_binding_contract.concept_binding`<br>`organ_doctrine_row:pattern_binding_contract.mechanism_binding`<br>[primary card](ORGANS.md#pattern-binding-contract) |
-| `audio` | [Audio Level RMS Port](ORGANS.md#audio-level-rms-port) | `microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json` | `0` edges<br>`0` files<br>`0` shards<br>`microcosm organ-topology --organ batch8_audio_level_rms_port` | projection mechanics only, not domain-level conclusions Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch8_audio_level_rms_port]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_audio_level_rms_port]`<br>`organ_doctrine_row:batch8_audio_level_rms_port.concept_binding`<br>`organ_doctrine_row:batch8_audio_level_rms_port.mechanism_binding`<br>[primary card](ORGANS.md#audio-level-rms-port) |
-| `authority-boundary` | [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule) | `PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json` | `0` edges<br>`0` files<br>`0` shards<br>`microcosm organ-topology --organ batch5_authority_systems_capsule` | It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch5_authority_systems_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch5_authority_systems_capsule]`<br>`organ_doctrine_row:batch5_authority_systems_capsule.concept_binding`<br>`organ_doctrine_row:batch5_authority_systems_capsule.mechanism_binding`<br>[primary card](ORGANS.md#authority-systems-source-capsule) |
-| `benchmark-recomputation` | [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark) | `microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ navigation_fitness_benchmark` | Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]`<br>`organ_doctrine_row:navigation_fitness_benchmark.concept_binding`<br>`organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding`<br>[primary card](ORGANS.md#navigation-fitness-benchmark) |
-| `bounded-fixture` | [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation); [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation) | `microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json` | `55` edges<br>`4` files<br>`7` shards<br>`microcosm organ-topology --organ bridge_campaign_dag_validation` | Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]`<br>`organ_doctrine_row:bridge_campaign_dag_validation.concept_binding`<br>`organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding`<br>[primary card](ORGANS.md#bridge-campaign-dag-validation) |
-| `campaign-dag` | [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation) | `microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ bridge_campaign_dag_validation` | Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]`<br>`organ_doctrine_row:bridge_campaign_dag_validation.concept_binding`<br>`organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding`<br>[primary card](ORGANS.md#bridge-campaign-dag-validation) |
-| `compliance` | [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule) | `microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule` | `0` edges<br>`0` files<br>`0` shards<br>`microcosm organ-topology --organ batch8_compliance_pipeline_capsule` | validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, private data equivalence, or whole-system correctness Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch8_compliance_pipeline_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_compliance_pipeline_capsule]`<br>`organ_doctrine_row:batch8_compliance_pipeline_capsule.concept_binding`<br>`organ_doctrine_row:batch8_compliance_pipeline_capsule.mechanism_binding`<br>[primary card](ORGANS.md#compliance-pipeline-capsule) |
-| `continuity` | [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine); [Durable Agent Work Landing Replay](ORGANS.md#durable-agent-work-landing-replay); [Bridge-Continuity Acceptance Replay](ORGANS.md#bridge-continuity-acceptance-replay); [Concurrency Mission Control](ORGANS.md#concurrency-mission-control); +1 more in JSON | `microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine` | `74` edges<br>`11` files<br>`39` shards<br>`microcosm organ-topology --organ mission_transaction_work_spine` | It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]`<br>`organ_doctrine_row:mission_transaction_work_spine.concept_binding`<br>`organ_doctrine_row:mission_transaction_work_spine.mechanism_binding`<br>[primary card](ORGANS.md#mission-transaction-work-spine) |
-| `deduplication` | [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime) | `microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ semantic_singleflight_dedup_runtime` | It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]`<br>`organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding`<br>`organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding`<br>[primary card](ORGANS.md#semantic-singleflight-dedup-runtime) |
-| `derived-facts` | [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime) | `microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ derived_fact_provider_runtime` | Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]`<br>`organ_doctrine_row:derived_fact_provider_runtime.concept_binding`<br>`organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding`<br>[primary card](ORGANS.md#derived-fact-provider-runtime) |
-| `desktop-capture-boundary` | [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule) | `PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json` | `0` edges<br>`0` files<br>`0` shards<br>`microcosm organ-topology --organ batch7_demo_take_console_capsule` | It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_demo_take_console_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_demo_take_console_capsule]`<br>`organ_doctrine_row:batch7_demo_take_console_capsule.concept_binding`<br>`organ_doctrine_row:batch7_demo_take_console_capsule.mechanism_binding`<br>[primary card](ORGANS.md#demo-take-console-source-capsule) |
-| `doctrine` | [Pattern Binding Contract](ORGANS.md#pattern-binding-contract); [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step); [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar); [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane); +6 more in JSON | `microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness` | `281` edges<br>`31` files<br>`89` shards<br>`microcosm organ-topology --organ pattern_binding_contract` | It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound). Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]`<br>`organ_doctrine_row:pattern_binding_contract.concept_binding`<br>`organ_doctrine_row:pattern_binding_contract.mechanism_binding`<br>[primary card](ORGANS.md#pattern-binding-contract) |
-| `drift-control` | [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule); [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol); [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator); [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule); +16 more in JSON | `microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json` | `353` edges<br>`59` files<br>`196` shards<br>`microcosm organ-topology --organ batch7_secondary_runtime_capsule` | verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding`<br>[primary card](ORGANS.md#secondary-runtime-source-capsule) |
-| `durable-queue` | [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation) | `microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ metabolism_queue_reconciliation` | Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]`<br>`organ_doctrine_row:metabolism_queue_reconciliation.concept_binding`<br>`organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding`<br>[primary card](ORGANS.md#metabolism-queue-reconciliation) |
-| `egress-policy` | [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit) | `microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ egress_self_compliance_audit` | Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]`<br>`organ_doctrine_row:egress_self_compliance_audit.concept_binding`<br>`organ_doctrine_row:egress_self_compliance_audit.mechanism_binding`<br>[primary card](ORGANS.md#egress-self-compliance-audit) |
-| `evaluation` | [Cold Reader Route Map](ORGANS.md#cold-reader-route-map); [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough) | `microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card` | `160` edges<br>`5` files<br>`19` shards<br>`microcosm organ-topology --organ cold_reader_route_map` | It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]`<br>`organ_doctrine_row:cold_reader_route_map.concept_binding`<br>`organ_doctrine_row:cold_reader_route_map.mechanism_binding`<br>[primary card](ORGANS.md#cold-reader-route-map) |
-| `exact-arithmetic` | [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike) | `microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ finite_erdos_denominator_certificate_strike` | It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding`<br>[primary card](ORGANS.md#finite-erdos-denominator-order-certificate-strike) |
-| `finance` | [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine); [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule); [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule); [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule); +3 more in JSON | `microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine` | `92` edges<br>`29` files<br>`33` shards<br>`microcosm organ-topology --organ finance_forecast_evaluation_spine` | synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding`<br>[primary card](ORGANS.md#finance-forecast-evaluation-spine) |
-| `fixture-runtime` | [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime) | `microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ derived_fact_provider_runtime` | Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]`<br>`organ_doctrine_row:derived_fact_provider_runtime.concept_binding`<br>`organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding`<br>[primary card](ORGANS.md#derived-fact-provider-runtime) |
-| `forecasting` | [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine); [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule); [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule); [Toy-Transformer Attribution Replay](ORGANS.md#toy-transformer-attribution-replay); +4 more in JSON | `microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine` | `294` edges<br>`46` files<br>`69` shards<br>`microcosm organ-topology --organ finance_forecast_evaluation_spine` | synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding`<br>[primary card](ORGANS.md#finance-forecast-evaluation-spine) |
-| `formal-math` | [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike); [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime) | `microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json` | `60` edges<br>`4` files<br>`8` shards<br>`microcosm organ-topology --organ finite_erdos_denominator_certificate_strike` | It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding`<br>[primary card](ORGANS.md#finite-erdos-denominator-order-certificate-strike) |
-| `formal-methods` | [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab); [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness); [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine); [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate); +14 more in JSON | `microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card` | `935` edges<br>`98` files<br>`148` shards<br>`microcosm organ-topology --organ certificate_kernel_execution_lab` | It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`organ_doctrine_row:certificate_kernel_execution_lab.concept_binding`<br>`organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding`<br>[primary card](ORGANS.md#proof-diagnostic-evidence-spine) |
-| `frontend` | [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule); [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule); [Backend & Governance Engines Capsule](ORGANS.md#backend--governance-engines-capsule) | `microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json` | `16` edges<br>`5` files<br>`3` shards<br>`microcosm organ-topology --organ batch7_secondary_runtime_capsule` | verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding`<br>[primary card](ORGANS.md#secondary-runtime-source-capsule) |
-| `generated-surfaces` | [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime) | `microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ generated_projection_drift_runtime` | Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]`<br>`organ_doctrine_row:generated_projection_drift_runtime.concept_binding`<br>`organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding`<br>[primary card](ORGANS.md#generated-projection-drift-runtime) |
-| `getting-started` | [Cold Reader Route Map](ORGANS.md#cold-reader-route-map); [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough) | `microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card` | `160` edges<br>`5` files<br>`19` shards<br>`microcosm organ-topology --organ cold_reader_route_map` | It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]`<br>`organ_doctrine_row:cold_reader_route_map.concept_binding`<br>`organ_doctrine_row:cold_reader_route_map.mechanism_binding`<br>[primary card](ORGANS.md#cold-reader-route-map) |
-| `interesting-parts` | [Cold Reader Route Map](ORGANS.md#cold-reader-route-map); [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough) | `microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card` | `160` edges<br>`5` files<br>`19` shards<br>`microcosm organ-topology --organ cold_reader_route_map` | It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]`<br>`organ_doctrine_row:cold_reader_route_map.concept_binding`<br>`organ_doctrine_row:cold_reader_route_map.mechanism_binding`<br>[primary card](ORGANS.md#cold-reader-route-map) |
-| `json-pointer` | [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime) | `microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ derived_fact_provider_runtime` | Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]`<br>`organ_doctrine_row:derived_fact_provider_runtime.concept_binding`<br>`organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding`<br>[primary card](ORGANS.md#derived-fact-provider-runtime) |
-| `lean` | [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab); [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness); [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine); [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate); +14 more in JSON | `microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card` | `935` edges<br>`98` files<br>`148` shards<br>`microcosm organ-topology --organ certificate_kernel_execution_lab` | It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`organ_doctrine_row:certificate_kernel_execution_lab.concept_binding`<br>`organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding`<br>[primary card](ORGANS.md#proof-diagnostic-evidence-spine) |
-| `lean-subprocess` | [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime) | `microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ lean_proof_search_lab_runtime` | Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding`<br>[primary card](ORGANS.md#lean-proof-search-lab-runtime) |
-| `market-boundary` | [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule) | `microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json` | `4` edges<br>`4` files<br>`0` shards<br>`microcosm organ-topology --organ batch7_secondary_runtime_capsule` | verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding`<br>[primary card](ORGANS.md#secondary-runtime-source-capsule) |
-| `navigation` | [Pattern Binding Contract](ORGANS.md#pattern-binding-contract); [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step); [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar); [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane); +7 more in JSON | `microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness` | `311` edges<br>`33` files<br>`93` shards<br>`microcosm organ-topology --organ pattern_binding_contract` | It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound). Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]`<br>`organ_doctrine_row:pattern_binding_contract.concept_binding`<br>`organ_doctrine_row:pattern_binding_contract.mechanism_binding`<br>[primary card](ORGANS.md#pattern-binding-contract) |
-| `number-theory` | [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike) | `microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ finite_erdos_denominator_certificate_strike` | It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding`<br>[primary card](ORGANS.md#finite-erdos-denominator-order-certificate-strike) |
-| `operational-discipline` | [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime) | `microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ semantic_singleflight_dedup_runtime` | It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]`<br>`organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding`<br>`organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding`<br>[primary card](ORGANS.md#semantic-singleflight-dedup-runtime) |
-| `oracle-boundary` | [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule) | `PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json` | `21` edges<br>`4` files<br>`17` shards<br>`microcosm organ-topology --organ batch7_oracle_sibling_capsule` | It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_oracle_sibling_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_oracle_sibling_capsule]`<br>`organ_doctrine_row:batch7_oracle_sibling_capsule.concept_binding`<br>`organ_doctrine_row:batch7_oracle_sibling_capsule.mechanism_binding`<br>[primary card](ORGANS.md#oracle-sibling-source-capsule) |
-| `owner-checks` | [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime) | `microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ generated_projection_drift_runtime` | Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]`<br>`organ_doctrine_row:generated_projection_drift_runtime.concept_binding`<br>`organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding`<br>[primary card](ORGANS.md#generated-projection-drift-runtime) |
-| `phrase-membership` | [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit) | `microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ egress_self_compliance_audit` | Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]`<br>`organ_doctrine_row:egress_self_compliance_audit.concept_binding`<br>`organ_doctrine_row:egress_self_compliance_audit.mechanism_binding`<br>[primary card](ORGANS.md#egress-self-compliance-audit) |
-| `projection-drift` | [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime) | `microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ generated_projection_drift_runtime` | Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]`<br>`organ_doctrine_row:generated_projection_drift_runtime.concept_binding`<br>`organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding`<br>[primary card](ORGANS.md#generated-projection-drift-runtime) |
-| `proof-search` | [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime) | `microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ lean_proof_search_lab_runtime` | Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding`<br>[primary card](ORGANS.md#lean-proof-search-lab-runtime) |
-| `provenance` | [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule); [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol); [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator); [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule); +16 more in JSON | `microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json` | `353` edges<br>`59` files<br>`196` shards<br>`microcosm organ-topology --organ batch7_secondary_runtime_capsule` | verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding`<br>[primary card](ORGANS.md#secondary-runtime-source-capsule) |
-| `provider-boundary` | [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation) | `microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ bridge_campaign_dag_validation` | Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]`<br>`organ_doctrine_row:bridge_campaign_dag_validation.concept_binding`<br>`organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding`<br>[primary card](ORGANS.md#bridge-campaign-dag-validation) |
-| `provider-ops` | [Cold Reader Route Map](ORGANS.md#cold-reader-route-map); [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics); [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop); [Cognitive Operator Registry](ORGANS.md#cognitive-operator-registry); +27 more in JSON | `microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card` | `1530` edges<br>`139` files<br>`317` shards<br>`microcosm organ-topology --organ cold_reader_route_map` | It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]`<br>`organ_doctrine_row:cold_reader_route_map.concept_binding`<br>`organ_doctrine_row:cold_reader_route_map.mechanism_binding`<br>[primary card](ORGANS.md#cold-reader-route-map) |
-| `red-teaming` | [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit); [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet); [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy); [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule); +12 more in JSON | `microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay` | `763` edges<br>`36` files<br>`103` shards<br>`microcosm organ-topology --organ provider_context_recipe_budget_policy` | It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding`<br>`organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding`<br>[primary card](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay) |
-| `research-infrastructure` | [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime) | `microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ derived_fact_provider_runtime` | Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]`<br>`organ_doctrine_row:derived_fact_provider_runtime.concept_binding`<br>`organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding`<br>[primary card](ORGANS.md#derived-fact-provider-runtime) |
-| `research-workflows` | [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine); [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule); [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule); [Toy-Transformer Attribution Replay](ORGANS.md#toy-transformer-attribution-replay); +4 more in JSON | `PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay` | `294` edges<br>`46` files<br>`69` shards<br>`microcosm organ-topology --organ finance_forecast_evaluation_spine` | It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=research_replication_rubric_artifact_replay]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=research_replication_rubric_artifact_replay]`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding`<br>`organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding`<br>[primary card](ORGANS.md#research-replication-rubric-artifact-replay) |
-| `route-packet` | [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark) | `microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ navigation_fitness_benchmark` | Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]`<br>`organ_doctrine_row:navigation_fitness_benchmark.concept_binding`<br>`organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding`<br>[primary card](ORGANS.md#navigation-fitness-benchmark) |
-| `routing` | [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing) | `microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ annex_knowledge_routing` | Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]`<br>`organ_doctrine_row:annex_knowledge_routing.concept_binding`<br>`organ_doctrine_row:annex_knowledge_routing.mechanism_binding`<br>[primary card](ORGANS.md#annex-knowledge-routing) |
-| `security` | [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay); [Memory-Poisoning Quarantine Policy Replay](ORGANS.md#memory-poisoning-quarantine-policy-replay); [Sandbox-Policy Replay](ORGANS.md#sandbox-policy-replay) | `PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out` | `154` edges<br>`9` files<br>`17` shards<br>`microcosm organ-topology --organ agent_memory_temporal_conflict_replay` | It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=agent_memory_temporal_conflict_replay]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_memory_temporal_conflict_replay]`<br>`organ_doctrine_row:agent_memory_temporal_conflict_replay.concept_binding`<br>`organ_doctrine_row:agent_memory_temporal_conflict_replay.mechanism_binding`<br>[primary card](ORGANS.md#agent-memory-temporal-conflict-replay) |
-| `self-compliance` | [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit) | `microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ egress_self_compliance_audit` | Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]`<br>`organ_doctrine_row:egress_self_compliance_audit.concept_binding`<br>`organ_doctrine_row:egress_self_compliance_audit.mechanism_binding`<br>[primary card](ORGANS.md#egress-self-compliance-audit) |
-| `self-falsifying` | [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime) | `microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ lean_proof_search_lab_runtime` | Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding`<br>`organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding`<br>[primary card](ORGANS.md#lean-proof-search-lab-runtime) |
-| `self-falsifying-certificate` | [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike) | `microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ finite_erdos_denominator_certificate_strike` | It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding`<br>`organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding`<br>[primary card](ORGANS.md#finite-erdos-denominator-order-certificate-strike) |
-| `source-import` | [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule); [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol); [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator); [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule); +16 more in JSON | `microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json` | `353` edges<br>`59` files<br>`196` shards<br>`microcosm organ-topology --organ batch7_secondary_runtime_capsule` | verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding`<br>`organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding`<br>[primary card](ORGANS.md#secondary-runtime-source-capsule) |
-| `sqlite-reconciliation` | [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation) | `microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ metabolism_queue_reconciliation` | Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]`<br>`organ_doctrine_row:metabolism_queue_reconciliation.concept_binding`<br>`organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding`<br>[primary card](ORGANS.md#metabolism-queue-reconciliation) |
-| `subprocess-witness` | [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime) | `microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json` | `30` edges<br>`2` files<br>`4` shards<br>`microcosm organ-topology --organ generated_projection_drift_runtime` | Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]`<br>`organ_doctrine_row:generated_projection_drift_runtime.concept_binding`<br>`organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding`<br>[primary card](ORGANS.md#generated-projection-drift-runtime) |
-| `theorem-proving` | [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab); [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness); [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine); [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate); +15 more in JSON | `microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card` | `965` edges<br>`100` files<br>`152` shards<br>`microcosm organ-topology --organ certificate_kernel_execution_lab` | It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]`<br>`organ_doctrine_row:certificate_kernel_execution_lab.concept_binding`<br>`organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding`<br>[primary card](ORGANS.md#proof-diagnostic-evidence-spine) |
-| `weighted-token-retrieval` | [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing) | `microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json` | `25` edges<br>`2` files<br>`3` shards<br>`microcosm organ-topology --organ annex_knowledge_routing` | Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]`<br>`organ_doctrine_row:annex_knowledge_routing.concept_binding`<br>`organ_doctrine_row:annex_knowledge_routing.mechanism_binding`<br>[primary card](ORGANS.md#annex-knowledge-routing) |
-| `work-ledger` | [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine); [Concurrency Mission Control](ORGANS.md#concurrency-mission-control) | `microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine` | `44` edges<br>`9` files<br>`35` shards<br>`microcosm organ-topology --organ mission_transaction_work_spine` | It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]`<br>`organ_doctrine_row:mission_transaction_work_spine.concept_binding`<br>`organ_doctrine_row:mission_transaction_work_spine.mechanism_binding`<br>[primary card](ORGANS.md#mission-transaction-work-spine) |
-| `workflow-engineering` | [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine); [Durable Agent Work Landing Replay](ORGANS.md#durable-agent-work-landing-replay); [Bridge-Continuity Acceptance Replay](ORGANS.md#bridge-continuity-acceptance-replay); [Concurrency Mission Control](ORGANS.md#concurrency-mission-control) | `microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine` | `44` edges<br>`9` files<br>`35` shards<br>`microcosm organ-topology --organ mission_transaction_work_spine` | It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete. Stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion. | `core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]`<br>`core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]`<br>`organ_doctrine_row:mission_transaction_work_spine.concept_binding`<br>`organ_doctrine_row:mission_transaction_work_spine.mechanism_binding`<br>[primary card](ORGANS.md#mission-transaction-work-spine) |
+65 task classes over 88 accepted components. Each `task_class` links to its route section below, which carries the first command, the scope limit, the source-relation handles, and the evidence refs.
+
+| `task_class` | Primary component | Components |
+|---|---|---:|
+| [`agent-concurrency`](#agent-concurrency) | Mission Transaction Work Spine | 3 |
+| [`agent-entry`](#agent-entry) | Cold Reader Route Map | 4 |
+| [`agent-evaluation`](#agent-evaluation) | Agent Benchmark Integrity Anti Gaming Replay | 16 |
+| [`agent-orchestration`](#agent-orchestration) | Bridge Campaign DAG Validation | 1 |
+| [`agent-reliability`](#agent-reliability) | Egress Self-Compliance Audit | 1 |
+| [`agent-runtime`](#agent-runtime) | Metabolism Queue Reconciliation | 1 |
+| [`ai-safety`](#ai-safety) | Agent Benchmark Integrity Anti Gaming Replay | 16 |
+| [`annex-catalog`](#annex-catalog) | Annex Knowledge Routing | 1 |
+| [`architecture`](#architecture) | Pattern Binding Contract | 12 |
+| [`audio`](#audio) | Audio Level RMS Port | 1 |
+| [`authority-boundary`](#authority-boundary) | Authority Systems Source Capsule | 1 |
+| [`benchmark-recomputation`](#benchmark-recomputation) | Navigation Fitness Benchmark | 1 |
+| [`bounded-fixture`](#bounded-fixture) | Bridge Campaign DAG Validation | 2 |
+| [`campaign-dag`](#campaign-dag) | Bridge Campaign DAG Validation | 1 |
+| [`compliance`](#compliance) | Compliance Pipeline Capsule | 1 |
+| [`continuity`](#continuity) | Mission Transaction Work Spine | 5 |
+| [`deduplication`](#deduplication) | Semantic Singleflight Dedup Runtime | 1 |
+| [`derived-facts`](#derived-facts) | Derived Fact Provider Runtime | 1 |
+| [`desktop-capture-boundary`](#desktop-capture-boundary) | Demo Take Console Source Capsule | 1 |
+| [`doctrine`](#doctrine) | Pattern Binding Contract | 10 |
+| [`drift-control`](#drift-control) | Secondary Runtime Source Capsule | 20 |
+| [`durable-queue`](#durable-queue) | Metabolism Queue Reconciliation | 1 |
+| [`egress-policy`](#egress-policy) | Egress Self-Compliance Audit | 1 |
+| [`evaluation`](#evaluation) | Cold Reader Route Map | 2 |
+| [`exact-arithmetic`](#exact-arithmetic) | Finite Erdos Denominator-Order Certificate Strike | 1 |
+| [`finance`](#finance) | Finance Forecast Evaluation Spine | 7 |
+| [`fixture-runtime`](#fixture-runtime) | Derived Fact Provider Runtime | 1 |
+| [`forecasting`](#forecasting) | Finance Forecast Evaluation Spine | 8 |
+| [`formal-math`](#formal-math) | Finite Erdos Denominator-Order Certificate Strike | 2 |
+| [`formal-methods`](#formal-methods) | Proof Diagnostic Evidence Spine | 18 |
+| [`frontend`](#frontend) | Secondary Runtime Source Capsule | 3 |
+| [`generated-surfaces`](#generated-surfaces) | Generated Projection Drift Runtime | 1 |
+| [`getting-started`](#getting-started) | Cold Reader Route Map | 2 |
+| [`interesting-parts`](#interesting-parts) | Cold Reader Route Map | 2 |
+| [`json-pointer`](#json-pointer) | Derived Fact Provider Runtime | 1 |
+| [`lean`](#lean) | Proof Diagnostic Evidence Spine | 18 |
+| [`lean-subprocess`](#lean-subprocess) | Lean Proof-Search Lab Runtime | 1 |
+| [`market-boundary`](#market-boundary) | Secondary Runtime Source Capsule | 1 |
+| [`navigation`](#navigation) | Pattern Binding Contract | 11 |
+| [`number-theory`](#number-theory) | Finite Erdos Denominator-Order Certificate Strike | 1 |
+| [`operational-discipline`](#operational-discipline) | Semantic Singleflight Dedup Runtime | 1 |
+| [`oracle-boundary`](#oracle-boundary) | Oracle Sibling Source Capsule | 1 |
+| [`owner-checks`](#owner-checks) | Generated Projection Drift Runtime | 1 |
+| [`phrase-membership`](#phrase-membership) | Egress Self-Compliance Audit | 1 |
+| [`projection-drift`](#projection-drift) | Generated Projection Drift Runtime | 1 |
+| [`proof-search`](#proof-search) | Lean Proof-Search Lab Runtime | 1 |
+| [`provenance`](#provenance) | Secondary Runtime Source Capsule | 20 |
+| [`provider-boundary`](#provider-boundary) | Bridge Campaign DAG Validation | 1 |
+| [`provider-ops`](#provider-ops) | Cold Reader Route Map | 31 |
+| [`red-teaming`](#red-teaming) | Agent Benchmark Integrity Anti Gaming Replay | 16 |
+| [`research-infrastructure`](#research-infrastructure) | Derived Fact Provider Runtime | 1 |
+| [`research-workflows`](#research-workflows) | Research Replication Rubric Artifact Replay | 8 |
+| [`route-packet`](#route-packet) | Navigation Fitness Benchmark | 1 |
+| [`routing`](#routing) | Annex Knowledge Routing | 1 |
+| [`security`](#security) | Agent Memory Temporal Conflict Replay | 3 |
+| [`self-compliance`](#self-compliance) | Egress Self-Compliance Audit | 1 |
+| [`self-falsifying`](#self-falsifying) | Lean Proof-Search Lab Runtime | 1 |
+| [`self-falsifying-certificate`](#self-falsifying-certificate) | Finite Erdos Denominator-Order Certificate Strike | 1 |
+| [`source-import`](#source-import) | Secondary Runtime Source Capsule | 20 |
+| [`sqlite-reconciliation`](#sqlite-reconciliation) | Metabolism Queue Reconciliation | 1 |
+| [`subprocess-witness`](#subprocess-witness) | Generated Projection Drift Runtime | 1 |
+| [`theorem-proving`](#theorem-proving) | Proof Diagnostic Evidence Spine | 19 |
+| [`weighted-token-retrieval`](#weighted-token-retrieval) | Annex Knowledge Routing | 1 |
+| [`work-ledger`](#work-ledger) | Mission Transaction Work Spine | 2 |
+| [`workflow-engineering`](#workflow-engineering) | Mission Transaction Work Spine | 4 |
+
+## Route detail
+
+One section per `task_class`, in the same order as the index above.
+
+### `agent-concurrency`
+
+Relevant components:
+
+- [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+- [Concurrency Mission Control](ORGANS.md#concurrency-mission-control)
+- [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+First command:
+
+```text
+microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
+```
+
+Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+
+Source relation: `74` edges, `11` files, `39` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+organ_doctrine_row:mission_transaction_work_spine.concept_binding
+organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
+```
+
+Primary card: [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+
+### `agent-entry`
+
+Relevant components:
+
+- [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+- [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane)
+- [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics)
+- [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop)
+
+First command:
+
+```text
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
+```
+
+Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+
+Source relation: `263` edges, `16` files, `54` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+organ_doctrine_row:cold_reader_route_map.concept_binding
+organ_doctrine_row:cold_reader_route_map.mechanism_binding
+```
+
+Primary card: [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+
+### `agent-evaluation`
+
+Relevant components:
+
+- [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit)
+- [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet)
+- [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy)
+- [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule)
+- [Validator Checker Capsule](ORGANS.md#validator-checker-capsule)
+- [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+- [Monitor Evidence-Boundary Replay](ORGANS.md#monitor-evidence-boundary-replay)
+- [Sabotage-Monitor Contract Replay](ORGANS.md#sabotage-monitor-contract-replay)
+- [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay)
+- [Memory-Poisoning Quarantine Policy Replay](ORGANS.md#memory-poisoning-quarantine-policy-replay)
+- [MCP Tool-Authority Policy Replay](ORGANS.md#mcp-tool-authority-policy-replay)
+- [Belief-State Reward Bundle Replay](ORGANS.md#belief-state-reward-bundle-replay)
+- [Sandbox-Policy Replay](ORGANS.md#sandbox-policy-replay)
+- [Prompt-Injection Flow-Policy Replay](ORGANS.md#prompt-injection-flow-policy-replay)
+- [Vulnerability Patch-Proof Replay](ORGANS.md#vulnerability-patch-proof-replay)
+- [Agent Route Observability Runtime](ORGANS.md#agent-route-observability-runtime)
+
+First command:
+
+```text
+microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
+```
+
+Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+
+Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
+organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
+```
+
+Primary card: [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+
+### `agent-orchestration`
+
+Relevant component: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+First command:
+
+```text
+microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
+```
+
+Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
+organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
+```
+
+Primary card: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+### `agent-reliability`
+
+Relevant component: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+First command:
+
+```text
+microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
+```
+
+Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+organ_doctrine_row:egress_self_compliance_audit.concept_binding
+organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
+```
+
+Primary card: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+### `agent-runtime`
+
+Relevant component: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+First command:
+
+```text
+microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
+```
+
+Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
+organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
+```
+
+Primary card: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+### `ai-safety`
+
+Relevant components:
+
+- [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit)
+- [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet)
+- [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy)
+- [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule)
+- [Validator Checker Capsule](ORGANS.md#validator-checker-capsule)
+- [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+- [Monitor Evidence-Boundary Replay](ORGANS.md#monitor-evidence-boundary-replay)
+- [Sabotage-Monitor Contract Replay](ORGANS.md#sabotage-monitor-contract-replay)
+- [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay)
+- [Memory-Poisoning Quarantine Policy Replay](ORGANS.md#memory-poisoning-quarantine-policy-replay)
+- [MCP Tool-Authority Policy Replay](ORGANS.md#mcp-tool-authority-policy-replay)
+- [Belief-State Reward Bundle Replay](ORGANS.md#belief-state-reward-bundle-replay)
+- [Sandbox-Policy Replay](ORGANS.md#sandbox-policy-replay)
+- [Prompt-Injection Flow-Policy Replay](ORGANS.md#prompt-injection-flow-policy-replay)
+- [Vulnerability Patch-Proof Replay](ORGANS.md#vulnerability-patch-proof-replay)
+- [Agent Route Observability Runtime](ORGANS.md#agent-route-observability-runtime)
+
+First command:
+
+```text
+microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
+```
+
+Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+
+Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
+organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
+```
+
+Primary card: [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+
+### `annex-catalog`
+
+Relevant component: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+First command:
+
+```text
+microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
+```
+
+Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+organ_doctrine_row:annex_knowledge_routing.concept_binding
+organ_doctrine_row:annex_knowledge_routing.mechanism_binding
+```
+
+Primary card: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+### `architecture`
+
+Relevant components:
+
+- [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+- [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step)
+- [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar)
+- [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane)
+- [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics)
+- [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop)
+- [Cognitive Operator Registry](ORGANS.md#cognitive-operator-registry)
+- [Routing Anti Patterns Registry](ORGANS.md#routing-anti-patterns-registry)
+- [Doctrine Fact Claim Audit](ORGANS.md#doctrine-fact-claim-audit)
+- [Self Ignorance Coverage Ledger](ORGANS.md#self-ignorance-coverage-ledger)
+- [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+- [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+First command:
+
+```text
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
+```
+
+Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+
+Source relation: `336` edges, `35` files, `96` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+organ_doctrine_row:pattern_binding_contract.concept_binding
+organ_doctrine_row:pattern_binding_contract.mechanism_binding
+```
+
+Primary card: [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+
+### `audio`
+
+Relevant component: [Audio Level RMS Port](ORGANS.md#audio-level-rms-port)
+
+First command:
+
+```text
+microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json
+```
+
+Scope limit: projection mechanics only, not domain-level conclusions
+
+Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch8_audio_level_rms_port`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch8_audio_level_rms_port]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_audio_level_rms_port]
+organ_doctrine_row:batch8_audio_level_rms_port.concept_binding
+organ_doctrine_row:batch8_audio_level_rms_port.mechanism_binding
+```
+
+Primary card: [Audio Level RMS Port](ORGANS.md#audio-level-rms-port)
+
+### `authority-boundary`
+
+Relevant component: [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule)
+
+First command:
+
+```text
+PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json
+```
+
+Scope limit: It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.
+
+Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch5_authority_systems_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch5_authority_systems_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch5_authority_systems_capsule]
+organ_doctrine_row:batch5_authority_systems_capsule.concept_binding
+organ_doctrine_row:batch5_authority_systems_capsule.mechanism_binding
+```
+
+Primary card: [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule)
+
+### `benchmark-recomputation`
+
+Relevant component: [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+
+First command:
+
+```text
+microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
+```
+
+Scope limit: Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ navigation_fitness_benchmark`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]
+organ_doctrine_row:navigation_fitness_benchmark.concept_binding
+organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding
+```
+
+Primary card: [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+
+### `bounded-fixture`
+
+Relevant components:
+
+- [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+- [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+First command:
+
+```text
+microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
+```
+
+Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+
+Source relation: `55` edges, `4` files, `7` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
+organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
+```
+
+Primary card: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+### `campaign-dag`
+
+Relevant component: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+First command:
+
+```text
+microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
+```
+
+Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
+organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
+```
+
+Primary card: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+### `compliance`
+
+Relevant component: [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule)
+
+First command:
+
+```text
+microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule
+```
+
+Scope limit: validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, private data equivalence, or whole-system correctness
+
+Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch8_compliance_pipeline_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch8_compliance_pipeline_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_compliance_pipeline_capsule]
+organ_doctrine_row:batch8_compliance_pipeline_capsule.concept_binding
+organ_doctrine_row:batch8_compliance_pipeline_capsule.mechanism_binding
+```
+
+Primary card: [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule)
+
+### `continuity`
+
+Relevant components:
+
+- [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+- [Durable Agent Work Landing Replay](ORGANS.md#durable-agent-work-landing-replay)
+- [Bridge-Continuity Acceptance Replay](ORGANS.md#bridge-continuity-acceptance-replay)
+- [Concurrency Mission Control](ORGANS.md#concurrency-mission-control)
+- [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+First command:
+
+```text
+microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
+```
+
+Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+
+Source relation: `74` edges, `11` files, `39` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+organ_doctrine_row:mission_transaction_work_spine.concept_binding
+organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
+```
+
+Primary card: [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+
+### `deduplication`
+
+Relevant component: [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+First command:
+
+```text
+microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
+```
+
+Scope limit: It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ semantic_singleflight_dedup_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]
+organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding
+organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding
+```
+
+Primary card: [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+### `derived-facts`
+
+Relevant component: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+First command:
+
+```text
+microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+organ_doctrine_row:derived_fact_provider_runtime.concept_binding
+organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
+```
+
+Primary card: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+### `desktop-capture-boundary`
+
+Relevant component: [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule)
+
+First command:
+
+```text
+PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json
+```
+
+Scope limit: It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.
+
+Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_demo_take_console_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_demo_take_console_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_demo_take_console_capsule]
+organ_doctrine_row:batch7_demo_take_console_capsule.concept_binding
+organ_doctrine_row:batch7_demo_take_console_capsule.mechanism_binding
+```
+
+Primary card: [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule)
+
+### `doctrine`
+
+Relevant components:
+
+- [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+- [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step)
+- [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar)
+- [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane)
+- [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics)
+- [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop)
+- [Cognitive Operator Registry](ORGANS.md#cognitive-operator-registry)
+- [Routing Anti Patterns Registry](ORGANS.md#routing-anti-patterns-registry)
+- [Doctrine Fact Claim Audit](ORGANS.md#doctrine-fact-claim-audit)
+- [Self Ignorance Coverage Ledger](ORGANS.md#self-ignorance-coverage-ledger)
+
+First command:
+
+```text
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
+```
+
+Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+
+Source relation: `281` edges, `31` files, `89` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+organ_doctrine_row:pattern_binding_contract.concept_binding
+organ_doctrine_row:pattern_binding_contract.mechanism_binding
+```
+
+Primary card: [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+
+### `drift-control`
+
+Relevant components:
+
+- [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+- [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol)
+- [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator)
+- [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule)
+- [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule)
+- [Trace, Code-Map & Scheduling Engines Capsule](ORGANS.md#trace-code-map--scheduling-engines-capsule)
+- [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule)
+- [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule)
+- [Tools-Tail Primitives Capsule](ORGANS.md#tools-tail-primitives-capsule)
+- [Policy Engines Capsule](ORGANS.md#policy-engines-capsule)
+- [Audio Level RMS Port](ORGANS.md#audio-level-rms-port)
+- [Structural Theses Finance Capsule](ORGANS.md#structural-theses-finance-capsule)
+- [Engine Room Demo](ORGANS.md#engine-room-demo)
+- [Backend & Governance Engines Capsule](ORGANS.md#backend--governance-engines-capsule)
+- [Governance & Compiler Mechanisms Capsule](ORGANS.md#governance--compiler-mechanisms-capsule)
+- [Saturation Engines Capsule](ORGANS.md#saturation-engines-capsule)
+- [Tool Server Pressure Inventory](ORGANS.md#tool-server-pressure-inventory)
+- [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule)
+- [Live Source Drift Capsule](ORGANS.md#live-source-drift-capsule)
+- [Release Claim-Language Gate](ORGANS.md#release-claim-language-gate)
+
+First command:
+
+```text
+microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
+```
+
+Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+
+Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
+organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
+```
+
+Primary card: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+### `durable-queue`
+
+Relevant component: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+First command:
+
+```text
+microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
+```
+
+Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
+organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
+```
+
+Primary card: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+### `egress-policy`
+
+Relevant component: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+First command:
+
+```text
+microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
+```
+
+Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+organ_doctrine_row:egress_self_compliance_audit.concept_binding
+organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
+```
+
+Primary card: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+### `evaluation`
+
+Relevant components:
+
+- [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+- [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough)
+
+First command:
+
+```text
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
+```
+
+Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+
+Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+organ_doctrine_row:cold_reader_route_map.concept_binding
+organ_doctrine_row:cold_reader_route_map.mechanism_binding
+```
+
+Primary card: [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+
+### `exact-arithmetic`
+
+Relevant component: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+First command:
+
+```text
+microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
+```
+
+Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
+```
+
+Primary card: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+### `finance`
+
+Relevant components:
+
+- [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine)
+- [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule)
+- [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule)
+- [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule)
+- [Policy Engines Capsule](ORGANS.md#policy-engines-capsule)
+- [Structural Theses Finance Capsule](ORGANS.md#structural-theses-finance-capsule)
+- [Governance & Compiler Mechanisms Capsule](ORGANS.md#governance--compiler-mechanisms-capsule)
+
+First command:
+
+```text
+microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine
+```
+
+Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
+
+Source relation: `92` edges, `29` files, `33` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]
+organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
+organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
+```
+
+Primary card: [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine)
+
+### `fixture-runtime`
+
+Relevant component: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+First command:
+
+```text
+microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+organ_doctrine_row:derived_fact_provider_runtime.concept_binding
+organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
+```
+
+Primary card: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+### `forecasting`
+
+Relevant components:
+
+- [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine)
+- [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule)
+- [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule)
+- [Toy-Transformer Attribution Replay](ORGANS.md#toy-transformer-attribution-replay)
+- [Gridworld Counterfactual State Replay](ORGANS.md#gridworld-counterfactual-state-replay)
+- [Research Replication Rubric Artifact Replay](ORGANS.md#research-replication-rubric-artifact-replay)
+- [Materials Lab-Safety Refusal Replay](ORGANS.md#materials-lab-safety-refusal-replay)
+- [Prediction Oracle Reconciliation](ORGANS.md#prediction-oracle-reconciliation)
+
+First command:
+
+```text
+microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine
+```
+
+Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
+
+Source relation: `294` edges, `46` files, `69` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]
+organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
+organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
+```
+
+Primary card: [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine)
+
+### `formal-math`
+
+Relevant components:
+
+- [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+- [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+First command:
+
+```text
+microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
+```
+
+Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+
+Source relation: `60` edges, `4` files, `8` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
+```
+
+Primary card: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+### `formal-methods`
+
+Relevant components:
+
+- [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab)
+- [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness)
+- [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine)
+- [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate)
+- [Proof / Control / Runtime Import Capsule](ORGANS.md#proof--control--runtime-import-capsule)
+- [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+- [Formal Math Readiness Gate](ORGANS.md#formal-math-readiness-gate)
+- [Mathematical Strategy Atlas Hypothesis Scorer](ORGANS.md#mathematical-strategy-atlas-hypothesis-scorer)
+- [Tactic Portfolio Availability Probe](ORGANS.md#tactic-portfolio-availability-probe)
+- [Target Shape Tactic Routing Gate](ORGANS.md#target-shape-tactic-routing-gate)
+- [Lean Std Premise Index](ORGANS.md#lean-std-premise-index)
+- [Formal Math Premise Retrieval](ORGANS.md#formal-math-premise-retrieval)
+- [Formal Math Verifier Trace Repair Loop](ORGANS.md#formal-math-verifier-trace-repair-loop)
+- [Formal Evidence Cell Anchor Resolver](ORGANS.md#formal-evidence-cell-anchor-resolver)
+- [Undeclared Library Prior Symbol Classifier](ORGANS.md#undeclared-library-prior-symbol-classifier)
+- [Ring2 Premise Retrieval Precision Recall Harness](ORGANS.md#ring2-premise-retrieval-precision-recall-harness)
+- [Verifier Lab Kernel](ORGANS.md#verifier-lab-kernel)
+- [Proof Derived Governed Mutation Authorization](ORGANS.md#proof-derived-governed-mutation-authorization)
+
+First command:
+
+```text
+microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
+```
+
+Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+
+Source relation: `935` edges, `98` files, `148` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
+organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
+```
+
+Primary card: [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+
+### `frontend`
+
+Relevant components:
+
+- [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+- [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule)
+- [Backend & Governance Engines Capsule](ORGANS.md#backend--governance-engines-capsule)
+
+First command:
+
+```text
+microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
+```
+
+Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+
+Source relation: `16` edges, `5` files, `3` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
+organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
+```
+
+Primary card: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+### `generated-surfaces`
+
+Relevant component: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+First command:
+
+```text
+microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+organ_doctrine_row:generated_projection_drift_runtime.concept_binding
+organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
+```
+
+Primary card: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+### `getting-started`
+
+Relevant components:
+
+- [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+- [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough)
+
+First command:
+
+```text
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
+```
+
+Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+
+Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+organ_doctrine_row:cold_reader_route_map.concept_binding
+organ_doctrine_row:cold_reader_route_map.mechanism_binding
+```
+
+Primary card: [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+
+### `interesting-parts`
+
+Relevant components:
+
+- [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+- [Public Reveal Walkthrough](ORGANS.md#public-reveal-walkthrough)
+
+First command:
+
+```text
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
+```
+
+Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+
+Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+organ_doctrine_row:cold_reader_route_map.concept_binding
+organ_doctrine_row:cold_reader_route_map.mechanism_binding
+```
+
+Primary card: [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+
+### `json-pointer`
+
+Relevant component: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+First command:
+
+```text
+microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+organ_doctrine_row:derived_fact_provider_runtime.concept_binding
+organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
+```
+
+Primary card: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+### `lean`
+
+Relevant components:
+
+- [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab)
+- [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness)
+- [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine)
+- [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate)
+- [Proof / Control / Runtime Import Capsule](ORGANS.md#proof--control--runtime-import-capsule)
+- [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+- [Formal Math Readiness Gate](ORGANS.md#formal-math-readiness-gate)
+- [Mathematical Strategy Atlas Hypothesis Scorer](ORGANS.md#mathematical-strategy-atlas-hypothesis-scorer)
+- [Tactic Portfolio Availability Probe](ORGANS.md#tactic-portfolio-availability-probe)
+- [Target Shape Tactic Routing Gate](ORGANS.md#target-shape-tactic-routing-gate)
+- [Lean Std Premise Index](ORGANS.md#lean-std-premise-index)
+- [Formal Math Premise Retrieval](ORGANS.md#formal-math-premise-retrieval)
+- [Formal Math Verifier Trace Repair Loop](ORGANS.md#formal-math-verifier-trace-repair-loop)
+- [Formal Evidence Cell Anchor Resolver](ORGANS.md#formal-evidence-cell-anchor-resolver)
+- [Undeclared Library Prior Symbol Classifier](ORGANS.md#undeclared-library-prior-symbol-classifier)
+- [Ring2 Premise Retrieval Precision Recall Harness](ORGANS.md#ring2-premise-retrieval-precision-recall-harness)
+- [Verifier Lab Kernel](ORGANS.md#verifier-lab-kernel)
+- [Proof Derived Governed Mutation Authorization](ORGANS.md#proof-derived-governed-mutation-authorization)
+
+First command:
+
+```text
+microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
+```
+
+Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+
+Source relation: `935` edges, `98` files, `148` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
+organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
+```
+
+Primary card: [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+
+### `lean-subprocess`
+
+Relevant component: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+First command:
+
+```text
+microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
+```
+
+Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
+organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
+```
+
+Primary card: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+### `market-boundary`
+
+Relevant component: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+First command:
+
+```text
+microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
+```
+
+Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+
+Source relation: `4` edges, `4` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
+organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
+```
+
+Primary card: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+### `navigation`
+
+Relevant components:
+
+- [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+- [Pattern Assimilation Step](ORGANS.md#pattern-assimilation-step)
+- [Executable Doctrine Grammar](ORGANS.md#executable-doctrine-grammar)
+- [Navigation Hologram Route Plane](ORGANS.md#navigation-hologram-route-plane)
+- [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics)
+- [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop)
+- [Cognitive Operator Registry](ORGANS.md#cognitive-operator-registry)
+- [Routing Anti Patterns Registry](ORGANS.md#routing-anti-patterns-registry)
+- [Doctrine Fact Claim Audit](ORGANS.md#doctrine-fact-claim-audit)
+- [Self Ignorance Coverage Ledger](ORGANS.md#self-ignorance-coverage-ledger)
+- [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+
+First command:
+
+```text
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
+```
+
+Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+
+Source relation: `311` edges, `33` files, `93` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+organ_doctrine_row:pattern_binding_contract.concept_binding
+organ_doctrine_row:pattern_binding_contract.mechanism_binding
+```
+
+Primary card: [Pattern Binding Contract](ORGANS.md#pattern-binding-contract)
+
+### `number-theory`
+
+Relevant component: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+First command:
+
+```text
+microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
+```
+
+Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
+```
+
+Primary card: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+### `operational-discipline`
+
+Relevant component: [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+First command:
+
+```text
+microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
+```
+
+Scope limit: It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ semantic_singleflight_dedup_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]
+organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding
+organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding
+```
+
+Primary card: [Semantic Singleflight Dedup Runtime](ORGANS.md#semantic-singleflight-dedup-runtime)
+
+### `oracle-boundary`
+
+Relevant component: [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule)
+
+First command:
+
+```text
+PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json
+```
+
+Scope limit: It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.
+
+Source relation: `21` edges, `4` files, `17` shards. Drill down with `microcosm organ-topology --organ batch7_oracle_sibling_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_oracle_sibling_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_oracle_sibling_capsule]
+organ_doctrine_row:batch7_oracle_sibling_capsule.concept_binding
+organ_doctrine_row:batch7_oracle_sibling_capsule.mechanism_binding
+```
+
+Primary card: [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule)
+
+### `owner-checks`
+
+Relevant component: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+First command:
+
+```text
+microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+organ_doctrine_row:generated_projection_drift_runtime.concept_binding
+organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
+```
+
+Primary card: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+### `phrase-membership`
+
+Relevant component: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+First command:
+
+```text
+microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
+```
+
+Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+organ_doctrine_row:egress_self_compliance_audit.concept_binding
+organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
+```
+
+Primary card: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+### `projection-drift`
+
+Relevant component: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+First command:
+
+```text
+microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+organ_doctrine_row:generated_projection_drift_runtime.concept_binding
+organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
+```
+
+Primary card: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+### `proof-search`
+
+Relevant component: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+First command:
+
+```text
+microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
+```
+
+Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
+organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
+```
+
+Primary card: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+### `provenance`
+
+Relevant components:
+
+- [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+- [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol)
+- [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator)
+- [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule)
+- [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule)
+- [Trace, Code-Map & Scheduling Engines Capsule](ORGANS.md#trace-code-map--scheduling-engines-capsule)
+- [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule)
+- [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule)
+- [Tools-Tail Primitives Capsule](ORGANS.md#tools-tail-primitives-capsule)
+- [Policy Engines Capsule](ORGANS.md#policy-engines-capsule)
+- [Audio Level RMS Port](ORGANS.md#audio-level-rms-port)
+- [Structural Theses Finance Capsule](ORGANS.md#structural-theses-finance-capsule)
+- [Engine Room Demo](ORGANS.md#engine-room-demo)
+- [Backend & Governance Engines Capsule](ORGANS.md#backend--governance-engines-capsule)
+- [Governance & Compiler Mechanisms Capsule](ORGANS.md#governance--compiler-mechanisms-capsule)
+- [Saturation Engines Capsule](ORGANS.md#saturation-engines-capsule)
+- [Tool Server Pressure Inventory](ORGANS.md#tool-server-pressure-inventory)
+- [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule)
+- [Live Source Drift Capsule](ORGANS.md#live-source-drift-capsule)
+- [Release Claim-Language Gate](ORGANS.md#release-claim-language-gate)
+
+First command:
+
+```text
+microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
+```
+
+Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+
+Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
+organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
+```
+
+Primary card: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+### `provider-boundary`
+
+Relevant component: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+First command:
+
+```text
+microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
+```
+
+Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
+organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
+```
+
+Primary card: [Bridge Campaign DAG Validation](ORGANS.md#bridge-campaign-dag-validation)
+
+### `provider-ops`
+
+Relevant components:
+
+- [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+- [Standards Meta Diagnostics](ORGANS.md#standards-meta-diagnostics)
+- [Voice To Doctrine Self Improvement Loop](ORGANS.md#voice-to-doctrine-self-improvement-loop)
+- [Cognitive Operator Registry](ORGANS.md#cognitive-operator-registry)
+- [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab)
+- [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness)
+- [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine)
+- [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate)
+- [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+- [Formal Math Readiness Gate](ORGANS.md#formal-math-readiness-gate)
+- [Formal Math Premise Retrieval](ORGANS.md#formal-math-premise-retrieval)
+- [Formal Math Verifier Trace Repair Loop](ORGANS.md#formal-math-verifier-trace-repair-loop)
+- [Formal Evidence Cell Anchor Resolver](ORGANS.md#formal-evidence-cell-anchor-resolver)
+- [Undeclared Library Prior Symbol Classifier](ORGANS.md#undeclared-library-prior-symbol-classifier)
+- [Ring2 Premise Retrieval Precision Recall Harness](ORGANS.md#ring2-premise-retrieval-precision-recall-harness)
+- [Verifier Lab Kernel](ORGANS.md#verifier-lab-kernel)
+- [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy)
+- [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule)
+- [Validator Checker Capsule](ORGANS.md#validator-checker-capsule)
+- [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+- [Sabotage-Monitor Contract Replay](ORGANS.md#sabotage-monitor-contract-replay)
+- [MCP Tool-Authority Policy Replay](ORGANS.md#mcp-tool-authority-policy-replay)
+- [Agent Route Observability Runtime](ORGANS.md#agent-route-observability-runtime)
+- [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule)
+- [Toy-Transformer Attribution Replay](ORGANS.md#toy-transformer-attribution-replay)
+- [Research Replication Rubric Artifact Replay](ORGANS.md#research-replication-rubric-artifact-replay)
+- [Prediction Oracle Reconciliation](ORGANS.md#prediction-oracle-reconciliation)
+- [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator)
+- [Tools-Tail Primitives Capsule](ORGANS.md#tools-tail-primitives-capsule)
+- [Tool Server Pressure Inventory](ORGANS.md#tool-server-pressure-inventory)
+- [Concurrency Mission Control](ORGANS.md#concurrency-mission-control)
+
+First command:
+
+```text
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
+```
+
+Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+
+Source relation: `1530` edges, `139` files, `317` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+organ_doctrine_row:cold_reader_route_map.concept_binding
+organ_doctrine_row:cold_reader_route_map.mechanism_binding
+```
+
+Primary card: [Cold Reader Route Map](ORGANS.md#cold-reader-route-map)
+
+### `red-teaming`
+
+Relevant components:
+
+- [Agent Closeout Faithfulness Audit](ORGANS.md#agent-closeout-faithfulness-audit)
+- [Bounded Autonomy Campaign Packet](ORGANS.md#bounded-autonomy-campaign-packet)
+- [Provider Context Recipe Budget Policy](ORGANS.md#provider-context-recipe-budget-policy)
+- [Cold-Eval Honesty Capsule](ORGANS.md#cold-eval-honesty-capsule)
+- [Validator Checker Capsule](ORGANS.md#validator-checker-capsule)
+- [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+- [Monitor Evidence-Boundary Replay](ORGANS.md#monitor-evidence-boundary-replay)
+- [Sabotage-Monitor Contract Replay](ORGANS.md#sabotage-monitor-contract-replay)
+- [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay)
+- [Memory-Poisoning Quarantine Policy Replay](ORGANS.md#memory-poisoning-quarantine-policy-replay)
+- [MCP Tool-Authority Policy Replay](ORGANS.md#mcp-tool-authority-policy-replay)
+- [Belief-State Reward Bundle Replay](ORGANS.md#belief-state-reward-bundle-replay)
+- [Sandbox-Policy Replay](ORGANS.md#sandbox-policy-replay)
+- [Prompt-Injection Flow-Policy Replay](ORGANS.md#prompt-injection-flow-policy-replay)
+- [Vulnerability Patch-Proof Replay](ORGANS.md#vulnerability-patch-proof-replay)
+- [Agent Route Observability Runtime](ORGANS.md#agent-route-observability-runtime)
+
+First command:
+
+```text
+microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
+```
+
+Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+
+Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
+organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
+```
+
+Primary card: [Agent Benchmark Integrity Anti Gaming Replay](ORGANS.md#agent-benchmark-integrity-anti-gaming-replay)
+
+### `research-infrastructure`
+
+Relevant component: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+First command:
+
+```text
+microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+organ_doctrine_row:derived_fact_provider_runtime.concept_binding
+organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
+```
+
+Primary card: [Derived Fact Provider Runtime](ORGANS.md#derived-fact-provider-runtime)
+
+### `research-workflows`
+
+Relevant components:
+
+- [Finance Forecast Evaluation Spine](ORGANS.md#finance-forecast-evaluation-spine)
+- [Prediction Market Board Capsule](ORGANS.md#prediction-market-board-capsule)
+- [Market Dashboard Read-Model Capsule](ORGANS.md#market-dashboard-read-model-capsule)
+- [Toy-Transformer Attribution Replay](ORGANS.md#toy-transformer-attribution-replay)
+- [Gridworld Counterfactual State Replay](ORGANS.md#gridworld-counterfactual-state-replay)
+- [Research Replication Rubric Artifact Replay](ORGANS.md#research-replication-rubric-artifact-replay)
+- [Materials Lab-Safety Refusal Replay](ORGANS.md#materials-lab-safety-refusal-replay)
+- [Prediction Oracle Reconciliation](ORGANS.md#prediction-oracle-reconciliation)
+
+First command:
+
+```text
+PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay
+```
+
+Scope limit: It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.
+
+Source relation: `294` edges, `46` files, `69` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=research_replication_rubric_artifact_replay]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=research_replication_rubric_artifact_replay]
+organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
+organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
+```
+
+Primary card: [Research Replication Rubric Artifact Replay](ORGANS.md#research-replication-rubric-artifact-replay)
+
+### `route-packet`
+
+Relevant component: [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+
+First command:
+
+```text
+microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
+```
+
+Scope limit: Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ navigation_fitness_benchmark`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]
+organ_doctrine_row:navigation_fitness_benchmark.concept_binding
+organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding
+```
+
+Primary card: [Navigation Fitness Benchmark](ORGANS.md#navigation-fitness-benchmark)
+
+### `routing`
+
+Relevant component: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+First command:
+
+```text
+microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
+```
+
+Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+organ_doctrine_row:annex_knowledge_routing.concept_binding
+organ_doctrine_row:annex_knowledge_routing.mechanism_binding
+```
+
+Primary card: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+### `security`
+
+Relevant components:
+
+- [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay)
+- [Memory-Poisoning Quarantine Policy Replay](ORGANS.md#memory-poisoning-quarantine-policy-replay)
+- [Sandbox-Policy Replay](ORGANS.md#sandbox-policy-replay)
+
+First command:
+
+```text
+PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out
+```
+
+Scope limit: It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.
+
+Source relation: `154` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=agent_memory_temporal_conflict_replay]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_memory_temporal_conflict_replay]
+organ_doctrine_row:agent_memory_temporal_conflict_replay.concept_binding
+organ_doctrine_row:agent_memory_temporal_conflict_replay.mechanism_binding
+```
+
+Primary card: [Agent Memory Temporal Conflict Replay](ORGANS.md#agent-memory-temporal-conflict-replay)
+
+### `self-compliance`
+
+Relevant component: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+First command:
+
+```text
+microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
+```
+
+Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+organ_doctrine_row:egress_self_compliance_audit.concept_binding
+organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
+```
+
+Primary card: [Egress Self-Compliance Audit](ORGANS.md#egress-self-compliance-audit)
+
+### `self-falsifying`
+
+Relevant component: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+First command:
+
+```text
+microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
+```
+
+Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
+organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
+```
+
+Primary card: [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+### `self-falsifying-certificate`
+
+Relevant component: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+First command:
+
+```text
+microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
+```
+
+Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
+organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
+```
+
+Primary card: [Finite Erdos Denominator-Order Certificate Strike](ORGANS.md#finite-erdos-denominator-order-certificate-strike)
+
+### `source-import`
+
+Relevant components:
+
+- [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+- [Macro Projection Import Protocol](ORGANS.md#macro-projection-import-protocol)
+- [Projection-Drift Contract Validator](ORGANS.md#projection-drift-contract-validator)
+- [Unsurfaced Macro Primitives Capsule](ORGANS.md#unsurfaced-macro-primitives-capsule)
+- [Authority Systems Source Capsule](ORGANS.md#authority-systems-source-capsule)
+- [Trace, Code-Map & Scheduling Engines Capsule](ORGANS.md#trace-code-map--scheduling-engines-capsule)
+- [Oracle Sibling Source Capsule](ORGANS.md#oracle-sibling-source-capsule)
+- [Demo Take Console Source Capsule](ORGANS.md#demo-take-console-source-capsule)
+- [Tools-Tail Primitives Capsule](ORGANS.md#tools-tail-primitives-capsule)
+- [Policy Engines Capsule](ORGANS.md#policy-engines-capsule)
+- [Audio Level RMS Port](ORGANS.md#audio-level-rms-port)
+- [Structural Theses Finance Capsule](ORGANS.md#structural-theses-finance-capsule)
+- [Engine Room Demo](ORGANS.md#engine-room-demo)
+- [Backend & Governance Engines Capsule](ORGANS.md#backend--governance-engines-capsule)
+- [Governance & Compiler Mechanisms Capsule](ORGANS.md#governance--compiler-mechanisms-capsule)
+- [Saturation Engines Capsule](ORGANS.md#saturation-engines-capsule)
+- [Tool Server Pressure Inventory](ORGANS.md#tool-server-pressure-inventory)
+- [Compliance Pipeline Capsule](ORGANS.md#compliance-pipeline-capsule)
+- [Live Source Drift Capsule](ORGANS.md#live-source-drift-capsule)
+- [Release Claim-Language Gate](ORGANS.md#release-claim-language-gate)
+
+First command:
+
+```text
+microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
+```
+
+Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+
+Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
+organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
+```
+
+Primary card: [Secondary Runtime Source Capsule](ORGANS.md#secondary-runtime-source-capsule)
+
+### `sqlite-reconciliation`
+
+Relevant component: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+First command:
+
+```text
+microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
+```
+
+Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
+organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
+```
+
+Primary card: [Metabolism Queue Reconciliation](ORGANS.md#metabolism-queue-reconciliation)
+
+### `subprocess-witness`
+
+Relevant component: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+First command:
+
+```text
+microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
+```
+
+Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+
+Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+organ_doctrine_row:generated_projection_drift_runtime.concept_binding
+organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
+```
+
+Primary card: [Generated Projection Drift Runtime](ORGANS.md#generated-projection-drift-runtime)
+
+### `theorem-proving`
+
+Relevant components:
+
+- [Certificate Kernel Execution Lab](ORGANS.md#certificate-kernel-execution-lab)
+- [Formal Math Lean Proof Witness](ORGANS.md#formal-math-lean-proof-witness)
+- [Verifier Lab Execution Spine](ORGANS.md#verifier-lab-execution-spine)
+- [Corpus Readiness Mathlib Absence Gate](ORGANS.md#corpus-readiness-mathlib-absence-gate)
+- [Proof / Control / Runtime Import Capsule](ORGANS.md#proof--control--runtime-import-capsule)
+- [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+- [Formal Math Readiness Gate](ORGANS.md#formal-math-readiness-gate)
+- [Mathematical Strategy Atlas Hypothesis Scorer](ORGANS.md#mathematical-strategy-atlas-hypothesis-scorer)
+- [Tactic Portfolio Availability Probe](ORGANS.md#tactic-portfolio-availability-probe)
+- [Target Shape Tactic Routing Gate](ORGANS.md#target-shape-tactic-routing-gate)
+- [Lean Std Premise Index](ORGANS.md#lean-std-premise-index)
+- [Formal Math Premise Retrieval](ORGANS.md#formal-math-premise-retrieval)
+- [Formal Math Verifier Trace Repair Loop](ORGANS.md#formal-math-verifier-trace-repair-loop)
+- [Formal Evidence Cell Anchor Resolver](ORGANS.md#formal-evidence-cell-anchor-resolver)
+- [Undeclared Library Prior Symbol Classifier](ORGANS.md#undeclared-library-prior-symbol-classifier)
+- [Ring2 Premise Retrieval Precision Recall Harness](ORGANS.md#ring2-premise-retrieval-precision-recall-harness)
+- [Verifier Lab Kernel](ORGANS.md#verifier-lab-kernel)
+- [Proof Derived Governed Mutation Authorization](ORGANS.md#proof-derived-governed-mutation-authorization)
+- [Lean Proof-Search Lab Runtime](ORGANS.md#lean-proof-search-lab-runtime)
+
+First command:
+
+```text
+microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
+```
+
+Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+
+Source relation: `965` edges, `100` files, `152` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
+organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
+```
+
+Primary card: [Proof Diagnostic Evidence Spine](ORGANS.md#proof-diagnostic-evidence-spine)
+
+### `weighted-token-retrieval`
+
+Relevant component: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+First command:
+
+```text
+microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
+```
+
+Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+
+Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+organ_doctrine_row:annex_knowledge_routing.concept_binding
+organ_doctrine_row:annex_knowledge_routing.mechanism_binding
+```
+
+Primary card: [Annex Knowledge Routing](ORGANS.md#annex-knowledge-routing)
+
+### `work-ledger`
+
+Relevant components:
+
+- [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+- [Concurrency Mission Control](ORGANS.md#concurrency-mission-control)
+
+First command:
+
+```text
+microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
+```
+
+Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+
+Source relation: `44` edges, `9` files, `35` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+organ_doctrine_row:mission_transaction_work_spine.concept_binding
+organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
+```
+
+Primary card: [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+
+### `workflow-engineering`
+
+Relevant components:
+
+- [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
+- [Durable Agent Work Landing Replay](ORGANS.md#durable-agent-work-landing-replay)
+- [Bridge-Continuity Acceptance Replay](ORGANS.md#bridge-continuity-acceptance-replay)
+- [Concurrency Mission Control](ORGANS.md#concurrency-mission-control)
+
+First command:
+
+```text
+microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
+```
+
+Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+
+Source relation: `44` edges, `9` files, `35` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+
+Evidence / doctrine / drilldown:
+
+```text
+core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
+core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+organ_doctrine_row:mission_transaction_work_spine.concept_binding
+organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
+```
+
+Primary card: [Mission Transaction Work Spine](ORGANS.md#mission-transaction-work-spine)
 
 ---
 

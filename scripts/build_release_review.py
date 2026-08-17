@@ -111,6 +111,20 @@ def _encounter_check_names() -> list[str]:
     return sorted(sample["checks"])
 
 
+def _surface_heading(surface: str) -> str:
+    """
+    Return the section heading for one failure-code surface.
+
+    The taxonomy's surface field groups the codes; carrying it as a heading keeps each
+    code's meaning and non-meaning in full prose instead of a four-column grid whose
+    cells run past two hundred characters.
+    """
+    phrase = surface.replace("_", " ")
+    if phrase == "generate or verify":
+        return "Generate-side or verify-side codes"
+    return f"{phrase[:1].upper()}{phrase[1:]}-side codes"
+
+
 def build_contract(root: Path) -> tuple[str, str]:
     """
     Return build contract for the scripts build release review flow.
@@ -199,12 +213,15 @@ def build_contract(root: Path) -> tuple[str, str]:
         "bound to these committed subjects:"
     )
     lines.append("")
-    lines.append("| Committed subject | SHA-256 | Bytes |")
-    lines.append("|---|---|---|")
     for subject in subjects:
-        lines.append(
-            f"| `{subject['ref']}` | `{subject['sha256']}` | {subject['bytes']} |"
-        )
+        lines.append(f"- `{subject['ref']}` — {subject['bytes']} bytes")
+    lines.append("")
+    lines.append("Their SHA-256 digests, in `shasum -a 256` output form:")
+    lines.append("")
+    lines.append("```")
+    for subject in subjects:
+        lines.append(f"{subject['sha256']}  {subject['ref']}")
+    lines.append("```")
     lines.append("")
     lines.append(
         "If these digests no longer match the files in your tree, this "
@@ -317,21 +334,24 @@ def build_contract(root: Path) -> tuple[str, str]:
         "Generate-side codes name which packet block reads `blocked` (the "
         "generate summary lists them as `blocked_codes`); verify-side codes "
         "appear literally in the verification receipt's `statuses`. Every "
-        "named failure, with what it does and does not mean:"
+        "named failure below carries what it does and does not mean."
     )
     lines.append("")
-    lines.append("| Code | Surface | Means | Does not mean |")
-    lines.append("|---|---|---|---|")
+    surfaces_in_order: list[str] = []
     for row in FAILURE_INTERPRETATIONS:
-        lines.append(
-            "| `{code}` | {surface} | {meaning} | {does_not_mean} |".format(
-                code=row["code"],
-                surface=row["surface"].replace("_", " "),
-                meaning=row["meaning"].replace("|", "\\|"),
-                does_not_mean=row["does_not_mean"].replace("|", "\\|"),
-            )
-        )
-    lines.append("")
+        if row["surface"] not in surfaces_in_order:
+            surfaces_in_order.append(row["surface"])
+    for surface_id in surfaces_in_order:
+        lines.append(f"### {_surface_heading(surface_id)}")
+        lines.append("")
+        for row in FAILURE_INTERPRETATIONS:
+            if row["surface"] != surface_id:
+                continue
+            lines.append(f"**`{row['code']}`**")
+            lines.append("")
+            lines.append(f"- Means: {row['meaning']}")
+            lines.append(f"- Does not mean: {row['does_not_mean']}")
+            lines.append("")
 
     lines.append("## What verification proves — and what it cannot")
     lines.append("")

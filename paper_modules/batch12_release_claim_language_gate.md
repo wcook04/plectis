@@ -119,23 +119,48 @@ frontends, markets, or future site projections.
 
 ## Structured Lattice Bindings
 
-| Binding | Reader route |
-|---|---|
-| Paper module id | `paper_module.batch12_release_claim_language_gate` |
-| Capsule authority | `core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]` |
-| Markdown projection | `paper_modules/batch12_release_claim_language_gate.md` |
-| Generated instance | `paper_modules/batch12_release_claim_language_gate.json::paper_module_payload` |
-| Organ runtime | `src/microcosm_core/organs/batch12_release_claim_language_gate.py` |
-| Mechanism source | `core/mechanism_sources.json::mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate` |
-| Standard | `standards/std_microcosm_batch12_release_claim_language_gate.json` |
-| Fixture input | `fixtures/first_wave/batch12_release_claim_language_gate/input` |
-| Exported bundle | `examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle` |
-| Source manifest | `examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json` |
-| Acceptance receipt | `receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json` |
-| First-wave result receipt | `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_result.json` |
-| First-wave board receipt | `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_board.json` |
-| First-wave validation receipt | `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json` |
-| Runtime-shell receipt | `receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle_validation_result.json` |
+Each binding names its reader route: the path to open to check it.
+
+Authority and projection:
+
+- Paper module id: `paper_module.batch12_release_claim_language_gate`
+- Capsule authority:
+  `core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]`
+- Markdown projection:
+  `paper_modules/batch12_release_claim_language_gate.md`
+- Generated instance:
+  `paper_modules/batch12_release_claim_language_gate.json::paper_module_payload`
+
+Runtime and governing contract:
+
+- Organ runtime:
+  `src/microcosm_core/organs/batch12_release_claim_language_gate.py`
+- Mechanism source:
+  `core/mechanism_sources.json::mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate`
+- Standard:
+  `standards/std_microcosm_batch12_release_claim_language_gate.json`
+
+Fixture and exported bundle:
+
+- Fixture input:
+  `fixtures/first_wave/batch12_release_claim_language_gate/input`
+- Exported bundle:
+  `examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle`
+- Source manifest:
+  `examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json`
+
+Receipts:
+
+- Acceptance receipt:
+  `receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json`
+- First-wave result receipt:
+  `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_result.json`
+- First-wave board receipt:
+  `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_board.json`
+- First-wave validation receipt:
+  `receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json`
+- Runtime-shell receipt:
+  `receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle_validation_result.json`
 
 ## Governing Lattice Relation
 
@@ -358,14 +383,57 @@ actually held, and stronger language requires stronger support. This is prior
 art for the proof-consumer shape only. The module does not implement legal
 compliance, authorize release, or decide whether public copy is fit to publish.
 
-External source receipt, checked 2026-06-05:
+External source receipt, checked 2026-06-05. Each entry gives the exact URL, why
+the source matters here, and the local boundary it does not cross.
 
-| Source | Exact URL | Why it matters here | Local boundary |
-|---|---|---|---|
-| FTC advertising substantiation policy | `https://www.ftc.gov/legal-library/browse/ftc-policy-statement-regarding-advertising-substantiation` | Objective claims need a reasonable basis before dissemination, and express or implied support claims must match the support actually held. | Microcosm maps this to receipt-backed evidence classes and fail-closed release-language blockers, not to legal sufficiency. |
-| FINRA Rule 2210 | `https://www.finra.org/rules-guidance/rulebooks/finra-rules/2210` | Public communications must be fair and balanced, give a sound factual basis, and avoid false, exaggerated, unwarranted, promissory, or misleading claims. | The module only uses this as a prior-art analogue for keeping benefits, risks, and qualifications in the same local claim context. |
-| SEC investment adviser marketing guide | `https://www.sec.gov/resources-small-businesses/small-business-compliance-guides/investment-adviser-marketing` | The marketing rule guide summarizes general prohibitions on untrue or misleading material statements, unsupported material facts, unfair treatment of risks, and constrained performance or endorsement claims. | The module's investment-advice anti-claim stays negative: a green receipt is not adviser marketing compliance or investment advice. |
-| SEC marketing compliance FAQ | `https://www.sec.gov/rules-regulations/staff-guidance/division-investment-management-frequently-asked-questions/marketing-compliance-frequently-asked-questions` | Current staff FAQ entries still route extracted performance and characteristics through Rule 206(4)-1 general prohibitions. | This is a currency/source-link receipt for claim-ceiling posture, not a new Microcosm capability or finance claim. |
+### FTC advertising substantiation policy
+
+```
+https://www.ftc.gov/legal-library/browse/ftc-policy-statement-regarding-advertising-substantiation
+```
+
+- Why it matters here: objective claims need a reasonable basis before
+  dissemination, and express or implied support claims must match the support
+  actually held.
+- Local boundary: Microcosm maps this to receipt-backed evidence classes and
+  fail-closed release-language blockers, not to legal sufficiency.
+
+### FINRA Rule 2210
+
+```
+https://www.finra.org/rules-guidance/rulebooks/finra-rules/2210
+```
+
+- Why it matters here: public communications must be fair and balanced, give a
+  sound factual basis, and avoid false, exaggerated, unwarranted, promissory, or
+  misleading claims.
+- Local boundary: the module only uses this as a prior-art analogue for keeping
+  benefits, risks, and qualifications in the same local claim context.
+
+### SEC investment adviser marketing guide
+
+```
+https://www.sec.gov/resources-small-businesses/small-business-compliance-guides/investment-adviser-marketing
+```
+
+- Why it matters here: the marketing rule guide summarizes general prohibitions
+  on untrue or misleading material statements, unsupported material facts,
+  unfair treatment of risks, and constrained performance or endorsement claims.
+- Local boundary: the module's investment-advice anti-claim stays negative: a
+  green receipt is not adviser marketing compliance or investment advice.
+
+### SEC marketing compliance FAQ
+
+```
+https://www.sec.gov/rules-regulations/staff-guidance/division-investment-management-frequently-asked-questions/marketing-compliance-frequently-asked-questions
+```
+
+- Why it matters here: current staff FAQ entries still route extracted
+  performance and characteristics through Rule 206(4)-1 general prohibitions.
+- Local boundary: this is a currency/source-link receipt for claim-ceiling
+  posture, not a new Microcosm capability or finance claim.
+
+### Local adaptation
 
 Microcosm adapts the substantiation pattern to release and evidence language.
 Receipt-backed classes, ordinal evidence strength, real-substrate flags,

@@ -106,14 +106,12 @@ The proof object is the tuple:
 
 The exported bundle includes a small but real artifact-replay loop:
 
-| Role | Public artifact |
-|---|---|
-| Input body | `execution_artifacts/inputs/public_synthetic_table.json` |
-| Input hash | `execution_artifacts/inputs/public_synthetic_table.sha256.json` |
-| Metric script | `execution_artifacts/metrics/public_sum_metric.json` |
-| Metric hash | `execution_artifacts/metrics/public_sum_metric.sha256.json` |
-| Declared output | `execution_artifacts/artifacts/result_table.json` |
-| Declared output hash | `execution_artifacts/artifacts/result_table.sha256.json` |
+- Input body: `execution_artifacts/inputs/public_synthetic_table.json`
+- Input hash: `execution_artifacts/inputs/public_synthetic_table.sha256.json`
+- Metric script: `execution_artifacts/metrics/public_sum_metric.json`
+- Metric hash: `execution_artifacts/metrics/public_sum_metric.sha256.json`
+- Declared output: `execution_artifacts/artifacts/result_table.json`
+- Declared output hash: `execution_artifacts/artifacts/result_table.sha256.json`
 
 `run_replication_bundle` reads
 `execution_artifacts/execution_artifact_manifest.json`, executes the
@@ -223,13 +221,43 @@ The focused regression file
 `tests/test_research_replication_rubric_artifact_replay.py` carries the source
 proof for this module.
 
-| Class | Examples | What it proves |
-|---|---|---|
-| Real-good | `test_research_replication_replay_observes_negative_cases`, `test_research_replication_exported_bundle_validates_runtime_shape`, `test_public_agent_execution_trace_refactor_builds_research_replay_spans` | The fixture and exported bundle produce body-free receipts, observe the required negative cases, execute the local metric replay, and build two public trace spans. |
-| Real-bad | `test_research_replication_rejects_source_module_digest_mismatch`, `test_research_replication_rejects_bundle_local_source_module_body_tamper`, `test_research_replication_rejects_rehashed_source_module_body_swap`, `test_research_replication_rejects_metadata_only_bundle` | The validator rejects broken source-module provenance, local bundle tamper, self-consistent source swaps, and metadata-only replay packets. |
-| Perturbation | `test_research_replication_rejects_wrong_execution_artifact_hash`, `test_research_replication_rejects_wrong_artifact_ref_with_matching_hash`, `test_research_replication_rejects_metric_perturbation`, `test_research_replication_rejects_valid_metric_script_body_swap`, `test_research_replication_rejects_replay_metric_script_ref_tamper`, `test_research_replication_rejects_replay_allowed_input_ref_tamper`, `test_research_replication_rejects_input_perturbation`, `test_research_replication_rejects_output_artifact_body_tamper`, `test_research_replication_rejects_output_artifact_baked_swap`, `test_research_replication_rejects_self_consistent_input_output_hash_rewrite` | Metric, input, output, hash, and replay-row mutations stay blocked even when the tampered bundle tries to preserve self-consistency. |
-| Label forgery | `test_research_replication_ignores_forged_negative_case_labels`, `test_research_replication_negative_case_id_follows_semantics_not_filename`, `test_research_replication_exported_bundle_ignores_self_declared_pass_labels` | Verdicts are derived from semantic replay-row fields, not filenames, declared status labels, or expected error-code labels. |
-| Receipt economy | `test_research_replication_receipts_are_public_relative_and_secret_excluded`, `test_research_replication_bundle_card_reuses_fresh_receipt`, `test_research_replication_bundle_card_rejects_stale_receipt_after_input_mutation` | Receipts remain public-relative and secret-excluded; command cards reuse fresh receipts and reject stale ones after input mutation. |
+It covers five classes. Each class states what it proves, then names the tests
+that prove it.
+
+- **Real-good.** The fixture and exported bundle produce body-free receipts,
+  observe the required negative cases, execute the local metric replay, and
+  build two public trace spans.
+  - `test_research_replication_replay_observes_negative_cases`
+  - `test_research_replication_exported_bundle_validates_runtime_shape`
+  - `test_public_agent_execution_trace_refactor_builds_research_replay_spans`
+- **Real-bad.** The validator rejects broken source-module provenance, local
+  bundle tamper, self-consistent source swaps, and metadata-only replay packets.
+  - `test_research_replication_rejects_source_module_digest_mismatch`
+  - `test_research_replication_rejects_bundle_local_source_module_body_tamper`
+  - `test_research_replication_rejects_rehashed_source_module_body_swap`
+  - `test_research_replication_rejects_metadata_only_bundle`
+- **Perturbation.** Metric, input, output, hash, and replay-row mutations stay
+  blocked even when the tampered bundle tries to preserve self-consistency.
+  - `test_research_replication_rejects_wrong_execution_artifact_hash`
+  - `test_research_replication_rejects_wrong_artifact_ref_with_matching_hash`
+  - `test_research_replication_rejects_metric_perturbation`
+  - `test_research_replication_rejects_valid_metric_script_body_swap`
+  - `test_research_replication_rejects_replay_metric_script_ref_tamper`
+  - `test_research_replication_rejects_replay_allowed_input_ref_tamper`
+  - `test_research_replication_rejects_input_perturbation`
+  - `test_research_replication_rejects_output_artifact_body_tamper`
+  - `test_research_replication_rejects_output_artifact_baked_swap`
+  - `test_research_replication_rejects_self_consistent_input_output_hash_rewrite`
+- **Label forgery.** Verdicts are derived from semantic replay-row fields, not
+  filenames, declared status labels, or expected error-code labels.
+  - `test_research_replication_ignores_forged_negative_case_labels`
+  - `test_research_replication_negative_case_id_follows_semantics_not_filename`
+  - `test_research_replication_exported_bundle_ignores_self_declared_pass_labels`
+- **Receipt economy.** Receipts remain public-relative and secret-excluded;
+  command cards reuse fresh receipts and reject stale ones after input mutation.
+  - `test_research_replication_receipts_are_public_relative_and_secret_excluded`
+  - `test_research_replication_bundle_card_reuses_fresh_receipt`
+  - `test_research_replication_bundle_card_rejects_stale_receipt_after_input_mutation`
 
 ## Realness Rungs
 

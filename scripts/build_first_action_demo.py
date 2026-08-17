@@ -208,17 +208,6 @@ def _contract_surface(contract: dict) -> dict:
     }
 
 
-def _command_tail(command: str) -> str:
-    """
-    Derive command tail without touching module import state.
-
-    Inputs are `command`; notable helpers are `startswith` and `rstrip`.
-    """
-    prefix = "PYTHONPATH=src python3 -m microcosm_core "
-    tail = command[len(prefix):] if command.startswith(prefix) else command
-    return tail if len(tail) <= 56 else tail[:53].rstrip() + "..."
-
-
 def _owner_label(surface: dict) -> str:
     """
     Compute owner label from `surface`.
@@ -239,6 +228,37 @@ def _basis_label(surface: dict) -> str:
     basis = str(routing.get("basis") or "-")
     qualifier = routing.get("task_class") or routing.get("organ_id")
     return f"{basis} ({qualifier})" if qualifier else basis
+
+
+def _table_basis(surface: dict) -> str:
+    """
+    Render the routing basis as an at-a-glance table cell.
+
+    The qualifier is dropped when it only repeats the organ the Owner column already
+    names in the same row; task-class qualifiers, which name something no other column
+    carries, are kept. The full label stays in the per-goal block below.
+    """
+    routing = surface.get("routing") or {}
+    basis = str(routing.get("basis") or "-")
+    qualifier = routing.get("task_class") or routing.get("organ_id")
+    owner_id = (surface.get("owner") or {}).get("organ_id")
+    if qualifier and qualifier != owner_id:
+        return f"`{basis} ({qualifier})`"
+    return f"`{basis}`"
+
+
+def _table_owner(surface: dict) -> str:
+    """
+    Render the owner as an at-a-glance table cell.
+
+    Organ ids run past fifty characters with no break opportunity, and a table column
+    floored by one of those reserves half the rendered page width, so the atlas display
+    name -- which wraps -- is what the table carries. The exact organ id stays in the
+    per-goal block below and in the receipt.
+    """
+    owner = surface.get("owner") or {}
+    display = str(owner.get("display_name") or "").strip()
+    return display if display else f"`{_owner_label(surface)}`"
 
 
 def _goal_block(surface: dict) -> list[str]:
@@ -415,8 +435,10 @@ def build_demo(root: Path) -> tuple[str, str]:
     lines.append(f"## The battery at a glance ({len(surfaces)} goals)")
     lines.append("")
     lines.append(
-        "Short command tails below; the per-section blocks and the receipt carry "
-        "every command verbatim in the cold-runnable source form."
+        "Each row names how the goal routed, which component owns it, and the "
+        "class of first action the contract produced. The per-section blocks "
+        "below carry the owner's component id and every command verbatim in "
+        "the cold-runnable source form, as does the receipt."
     )
     lines.append("")
     lines.append("| Goal | Resolved via | Owner | First action |")
@@ -424,11 +446,11 @@ def build_demo(root: Path) -> tuple[str, str]:
     for surface in surfaces:
         action = surface.get("first_action") or {}
         lines.append(
-            "| {goal} | `{basis}` | `{owner}` | `{tail}` |".format(
+            "| {goal} | {basis} | {owner} | `{kind}` |".format(
                 goal=str(surface.get("goal") or "").replace("|", "\\|"),
-                basis=_basis_label(surface),
-                owner=_owner_label(surface),
-                tail=_command_tail(str(action.get("command") or "-")),
+                basis=_table_basis(surface),
+                owner=_table_owner(surface),
+                kind=str(action.get("action_kind") or "-"),
             )
         )
     lines.append("")

@@ -22,10 +22,15 @@ What is explicitly not claimed:
 
 You are reviewing whichever distribution of this repository you hold — a source checkout, a built and installed package, or the standalone export. The proof exercises all three from a checkout. The claim is bound to these committed subjects:
 
-| Committed subject | SHA-256 | Bytes |
-|---|---|---|
-| `FIRST_ACTION.md` | `d73f5e5275092a89ad2ce19b5d98e1783eb8f415ce8c48a2451af9e247955e96` | 38051 |
-| `receipts/code_lens/first_action_demo.json` | `019482416e49e0a76b33bad1255d1b82730cb5aee3547858c377db250199ad20` | 58010 |
+- `FIRST_ACTION.md` — 37571 bytes
+- `receipts/code_lens/first_action_demo.json` — 58010 bytes
+
+Their SHA-256 digests, in `shasum -a 256` output form:
+
+```
+e2eb163a569dd01febd36732f7c52b2a3ca66b589eaf72df03b6e8bc9079d62a  FIRST_ACTION.md
+019482416e49e0a76b33bad1255d1b82730cb5aee3547858c377db250199ad20  receipts/code_lens/first_action_demo.json
+```
 
 If these digests no longer match the files in your tree, this contract is stale for your tree — refresh it with `PYTHONPATH=src python3 scripts/build_release_review.py --write` and review the diff. The proof does not embed a commit hash: the artifact may arrive as an export without git history, so identity is carried by these subject digests plus the per-file digests inside the proof packet. No public release artifact has been published or attested yet (`external_signature_status: absent_public_release_not_yet_attested`).
 
@@ -83,19 +88,58 @@ The run writes `release-candidate-proof.json` (the digest-bound evidence packet)
 
 ## Reading a failure
 
-A red result classifies; it is never a bare “bad repo”. Generate-side codes name which packet block reads `blocked` (the generate summary lists them as `blocked_codes`); verify-side codes appear literally in the verification receipt's `statuses`. Every named failure, with what it does and does not mean:
+A red result classifies; it is never a bare “bad repo”. Generate-side codes name which packet block reads `blocked` (the generate summary lists them as `blocked_codes`); verify-side codes appear literally in the verification receipt's `statuses`. Every named failure below carries what it does and does not mean.
 
-| Code | Surface | Means | Does not mean |
-|---|---|---|---|
-| `context_encounter_blocked` | generate | one distribution context did not produce the complete first-action contract; that context's failed_checks names each missed obligation and evidence_refs points at the raw bytes | the whole repository is broken — read the named context's evidence before concluding anything wider |
-| `cross_context_agreement_blocked` | generate | the contexts resolved the hero goal to different owners, commands, or validators — the installed or exported product differs from the checkout | a tampered packet; agreement failures are honest divergence evidence, preserved for review |
-| `expectation_policy_blocked` | generate | the agreed encounter does not match the committed demonstration (owner, command, or validator drifted, or the committed demo receipt is missing from the tree) | cross-context divergence — the contexts can agree with each other and still differ from what the artifact promised |
-| `private_path_leak` | generate or verify | a written evidence file carries a private absolute path, so the packet refuses to present itself as public-safe | a security breach — the usual cause is a subprocess echoing an absolute workspace path into scanned output |
-| `source_mutation_seen` | generate or verify | tracked source changed while the proof ran, so the run is not a clean witness (concurrent edits in a busy tree also trip this) | the proof machinery mutated the tree — rerun in a quiet window before suspecting the substrate |
-| `packet_stale` | verify | the packet is missing, unparseable, schema-mismatched, missing referenced evidence, or asserting an authority/signature posture this lane does not grant — regenerate before reviewing | evidence forgery — staleness is the no-packet / wrong-version / wrong-posture class, not the tampered-bytes class |
-| `digest_mismatch` | verify | stored claims diverge from the digest-bound evidence: tampered bytes, a forged block, or a doctored status | an infrastructure flake — treat the packet as untrusted and regenerate it |
-| `concurrent_churn_possible` | verify | the mutation receipt shows tracked files changed during the run — most likely a concurrent writer, not the proof itself | deliberate tampering |
-| `packet_valid` | verify | every digest re-hashed, every derived block re-derived, no private-path leak: the packet is internally consistent with its evidence | release authorization, domain correctness, or proof that the run happened as recorded — rerun the generator to re-establish provenance |
+### Generate-side codes
+
+**`context_encounter_blocked`**
+
+- Means: one distribution context did not produce the complete first-action contract; that context's failed_checks names each missed obligation and evidence_refs points at the raw bytes
+- Does not mean: the whole repository is broken — read the named context's evidence before concluding anything wider
+
+**`cross_context_agreement_blocked`**
+
+- Means: the contexts resolved the hero goal to different owners, commands, or validators — the installed or exported product differs from the checkout
+- Does not mean: a tampered packet; agreement failures are honest divergence evidence, preserved for review
+
+**`expectation_policy_blocked`**
+
+- Means: the agreed encounter does not match the committed demonstration (owner, command, or validator drifted, or the committed demo receipt is missing from the tree)
+- Does not mean: cross-context divergence — the contexts can agree with each other and still differ from what the artifact promised
+
+### Generate-side or verify-side codes
+
+**`private_path_leak`**
+
+- Means: a written evidence file carries a private absolute path, so the packet refuses to present itself as public-safe
+- Does not mean: a security breach — the usual cause is a subprocess echoing an absolute workspace path into scanned output
+
+**`source_mutation_seen`**
+
+- Means: tracked source changed while the proof ran, so the run is not a clean witness (concurrent edits in a busy tree also trip this)
+- Does not mean: the proof machinery mutated the tree — rerun in a quiet window before suspecting the substrate
+
+### Verify-side codes
+
+**`packet_stale`**
+
+- Means: the packet is missing, unparseable, schema-mismatched, missing referenced evidence, or asserting an authority/signature posture this lane does not grant — regenerate before reviewing
+- Does not mean: evidence forgery — staleness is the no-packet / wrong-version / wrong-posture class, not the tampered-bytes class
+
+**`digest_mismatch`**
+
+- Means: stored claims diverge from the digest-bound evidence: tampered bytes, a forged block, or a doctored status
+- Does not mean: an infrastructure flake — treat the packet as untrusted and regenerate it
+
+**`concurrent_churn_possible`**
+
+- Means: the mutation receipt shows tracked files changed during the run — most likely a concurrent writer, not the proof itself
+- Does not mean: deliberate tampering
+
+**`packet_valid`**
+
+- Means: every digest re-hashed, every derived block re-derived, no private-path leak: the packet is internally consistent with its evidence
+- Does not mean: release authorization, domain correctness, or proof that the run happened as recorded — rerun the generator to re-establish provenance
 
 ## What verification proves — and what it cannot
 

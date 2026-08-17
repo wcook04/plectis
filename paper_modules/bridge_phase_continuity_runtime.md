@@ -164,14 +164,31 @@ manifest, source-module manifest, public receipts, and focused regression.
 A diagram view and an atlas card are generated for this module. This page
 explains what a reader can infer from them.
 
-| Evidence class | What it supports | Proof consumer |
-|---|---|---|
-| Positive synthetic fixture | The runner consumes the observe/apply fixture, writes five body-free receipt roles, keeps private-state scan clean, and preserves the authority ceiling. | `tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_runner_consumes_observe_apply_fixture` |
-| JSONL input handling | Heartbeat rows are streamed, invalid JSONL rows become findings, and non-object rows are rejected without reading live transport state. | `test_bridge_phase_continuity_jsonl_reader_streams` |
-| Tracked receipt gate | Durable tracked receipt paths are not refreshed unless the explicit tracked-write environment variable is present. | `test_bridge_phase_continuity_runner_reports_tracked_receipt_write_gate` |
-| Public synthetic label | Fixture inputs use `synthetic_transport` and do not carry stale legacy transport or expected-error-code labels. | `test_bridge_phase_continuity_fixture_inputs_use_public_synthetic_transport_label` |
-| Negative floor | The seven expected negative case classes are observed as concrete error codes rather than prose warnings. | Focused bridge-continuity negative-case tests in `tests/test_bridge_phase_continuity_runtime.py` |
-| CLI card boundary | Compact command cards can summarize status without leaking forbidden private/live body classes. | Bridge-continuity CLI/card tests in `tests/test_bridge_phase_continuity_runtime.py` |
+| Evidence class | What it supports |
+|---|---|
+| Positive synthetic fixture | The runner consumes the observe/apply fixture, writes five body-free receipt roles, keeps private-state scan clean, and preserves the authority ceiling. |
+| JSONL input handling | Heartbeat rows are streamed, invalid JSONL rows become findings, and non-object rows are rejected without reading live transport state. |
+| Tracked receipt gate | Durable tracked receipt paths are not refreshed unless the explicit tracked-write environment variable is present. |
+| Public synthetic label | Fixture inputs use `synthetic_transport` and do not carry stale legacy transport or expected-error-code labels. |
+| Negative floor | The seven expected negative case classes are observed as concrete error codes rather than prose warnings. |
+| CLI card boundary | Compact command cards can summarize status without leaking forbidden private/live body classes. |
+
+Four of the six classes name one proof consumer each:
+
+```
+Positive synthetic fixture
+    tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_runner_consumes_observe_apply_fixture
+JSONL input handling
+    test_bridge_phase_continuity_jsonl_reader_streams
+Tracked receipt gate
+    test_bridge_phase_continuity_runner_reports_tracked_receipt_write_gate
+Public synthetic label
+    test_bridge_phase_continuity_fixture_inputs_use_public_synthetic_transport_label
+```
+
+The negative floor is carried by the focused bridge-continuity negative-case
+tests in `tests/test_bridge_phase_continuity_runtime.py`, and the CLI card
+boundary by the bridge-continuity CLI/card tests in the same file.
 
 ## Reader Proof Boundary
 
