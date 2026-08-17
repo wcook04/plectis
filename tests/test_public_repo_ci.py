@@ -174,9 +174,15 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
     # check a SHA against its upstream tag -- and when Dependabot moves a pin it
     # does not touch the sentence beside it. Bump both together, or the guard
     # starts requiring the comment to misstate the version.
+    #
+    # Three things move together, not two: the pinned SHA in the workflow, the
+    # Public action tag comment beside it, and this set. Dependabot writes the
+    # first. A contributor who reads the sentence above and fixes only the
+    # second is still red here, which is the tripwire working -- but it is
+    # worth saying which three, because that is not obvious from the failure.
     _assert_inspectable_pinned_github_actions(
         workflow,
-        required_public_tags={"actions/checkout@v7", "actions/setup-python@v6"},
+        required_public_tags={"actions/checkout@v7", "actions/setup-python@v7"},
     )
 
     for duplicated_command in (
