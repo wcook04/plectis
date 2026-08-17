@@ -13,7 +13,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "555112dd1c42ce0c95d89c237514fc590495e1dd156d5ba3f2ebe5cfdc2738e6",
+ "source_fingerprint": "7c385eb121d47870e36c184b1585cc2290d61b6838aa0cb00283a632b52f8faf",
  "canonical_public_identity": {
   "schema": "plectis_canonical_public_identity_v1",
   "project_name": "Plectis",
@@ -251,7 +251,7 @@
     ]
    },
    {
-    "statement": "4 defects the project's own checks found and published against its own sources, with what to do until each is fixed.",
+    "statement": "3 defects the project's own checks found and published against its own sources, with what to do until each is fixed.",
     "statement_class": "public_fact",
     "source_routes": [
      "upstream_defects.defects"
@@ -892,16 +892,16 @@
       ]
      },
      {
-      "id": "prior_art:locators_missing",
-      "label": "Published defect: prior_art:locators_missing",
+      "id": "claim:concrete_seam_adapter",
+      "label": "Published defect: claim:concrete_seam_adapter",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
       ]
      }
     ]
@@ -939,16 +939,16 @@
       ]
      },
      {
-      "id": "prior_art:locators_missing",
-      "label": "Published defect: prior_art:locators_missing",
+      "id": "claim:concrete_seam_adapter",
+      "label": "Published defect: claim:concrete_seam_adapter",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
       ]
      }
     ]
@@ -986,16 +986,16 @@
       ]
      },
      {
-      "id": "prior_art:locators_missing",
-      "label": "Published defect: prior_art:locators_missing",
+      "id": "claim:concrete_seam_adapter",
+      "label": "Published defect: claim:concrete_seam_adapter",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
       ]
      }
     ]
@@ -1033,16 +1033,16 @@
       ]
      },
      {
-      "id": "prior_art:locators_missing",
-      "label": "Published defect: prior_art:locators_missing",
+      "id": "claim:concrete_seam_adapter",
+      "label": "Published defect: claim:concrete_seam_adapter",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "2 rows in the prior-art document name 2 external works with no DOI, arXiv id or URL, so a reader cannot reach the antecedent the corpus is positioning against. This matters more since the packet began routing novelty questions to the prior-art posture: a reader following a posture that names an antecedent now arrives at a row they cannot follow.",
+      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Treat an unlocated antecedent as unverified positioning. The claim it concerns is unaffected; what is missing is the route to the prior work.",
+      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=prior_art:locators_missing]"
+       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
       ]
      }
     ]

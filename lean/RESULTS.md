@@ -439,12 +439,30 @@ V_K = (∑_{r=1}^K φ(r+1) 2^(K-r)) mod 2^K
 and from the explicit neighbouring fractions in
 `Erdos249257/GapFareyBound.lean`.
 
-| `K` | Interval width | Farey neighbour denominators `b,d` | `b+d-1` | Formal exclusion bound | Delta | First failing denominator |
-|---:|---:|---:|---:|---:|---:|---:|
-| 120 | `123/2^120` | `41326538792622579`, `207345787569745331` | `248672326362367909` | `248672326362367909` | `0` | `248672326362367910` |
-| 240 | `243/2^240` | `66013429300517684370587633721421187`, `13626217346183690952768141154409867` | `79639646646701375323355774875831053` | `79639646646701375323355774875831053` | `0` | `79639646646701375323355774875831054` |
+| `K` | Interval width | Delta |
+|---:|---:|---:|
+| 120 | `123/2^120` | `0` |
+| 240 | `243/2^240` | `0` |
 
-For each row, the recomputation gives determinant `1` for the two neighbours,
+The exact denominators of each window are:
+
+```text
+K = 120
+  Farey neighbour denominators b, d   41326538792622579
+                                      207345787569745331
+  b+d-1                               248672326362367909
+  formal exclusion bound              248672326362367909
+  first failing denominator           248672326362367910
+
+K = 240
+  Farey neighbour denominators b, d   66013429300517684370587633721421187
+                                      13626217346183690952768141154409867
+  b+d-1                               79639646646701375323355774875831053
+  formal exclusion bound              79639646646701375323355774875831053
+  first failing denominator           79639646646701375323355774875831054
+```
+
+For each window, the recomputation gives determinant `1` for the two neighbours,
 verifies both interval brackets, verifies the displayed bound, and verifies
 failure at the next denominator. The corresponding proved declarations are
 `farey_gap`, `gap_check_window_1_120_le_248672326362367909`,
@@ -470,32 +488,66 @@ not supply the unbounded theorem required by #249.
 These theorems rule out particular proof mechanisms. They do not rule out other
 arguments.
 
-| Lean name | Exact scope | File |
-|---|---|---|
-| `no_lift_from_lower_totient_data` | No universal lift of the displayed form can follow only from the stated lower totient data, pointwise bound, and a lower certificate. | `ErdosProblems/Lift/AngleA5.lean` |
-| `no_window_local_lift` | For prime multipliers `p ≥ 3`, agreement on the lower diagonal window does not force any certificate in the lifted window. | `ErdosProblems/Lift/InduceLaw.lean` |
-| `exists_certifiedKill_antitone` | A certificate at a larger position gives one at a smaller position; the implication runs opposite to a forward lift. | `ErdosProblems/Lift/AngleA4.lean` |
-| `consecutiveFail_iff` | Under its explicit depth inequality, a run of `K` failures at depth `L` is equivalent to failure at depth `L+K` at the base position. | `ErdosProblems/Half/FreeWalk2.lean` |
-| `no_absolute_bound_on_consecutive_failures` | The abstract admissible-run model permits arbitrarily long failure runs under its stated budget. | `ErdosProblems/Half/FreeWalk1.lean` |
-| `exists_persistent_surplus_model` | The listed row recurrence and ceiling inequalities admit a sequence that stays above the target forever. | `ErdosProblems/Rem/C1.lean` |
-| `rowLaw_blind_at_16` | At one concrete row, every listed row-level trigger is silent although the next row has a late skip. | `ErdosProblems/Rem/C1.lean` |
-| `IntervalCeiling.four_pow_le` | Every ceiling satisfying the stated branch-blind rank-recursion obligations must grow on the `4^s` scale. | `ErdosProblems/Three/T1.lean` |
-| `two_pow_mul_y` | The normalised state used in the doubling route is dyadic at every finite row. | `ErdosProblems/Three/T2.lean` |
-| `exists_persistent_odd_surplus_model` | Adding parity to the listed row-level constraints still admits a persistent surplus model. | `ErdosProblems/Three/T3.lean` |
-| `PairCeiling.terminal_ge_of_splits` | In the stated two-sided abstraction, a failed branch prediction forces the terminal upper bound above the target scale. | `ErdosProblems/Decl/D1.lean` |
+- `no_lift_from_lower_totient_data`, `ErdosProblems/Lift/AngleA5.lean` — no
+  universal lift of the displayed form can follow only from the stated lower
+  totient data, pointwise bound, and a lower certificate.
+- `no_window_local_lift`, `ErdosProblems/Lift/InduceLaw.lean` — for prime
+  multipliers `p ≥ 3`, agreement on the lower diagonal window does not force
+  any certificate in the lifted window.
+- `exists_certifiedKill_antitone`, `ErdosProblems/Lift/AngleA4.lean` — a
+  certificate at a larger position gives one at a smaller position; the
+  implication runs opposite to a forward lift.
+- `consecutiveFail_iff`, `ErdosProblems/Half/FreeWalk2.lean` — under its
+  explicit depth inequality, a run of `K` failures at depth `L` is equivalent
+  to failure at depth `L+K` at the base position.
+- `no_absolute_bound_on_consecutive_failures`,
+  `ErdosProblems/Half/FreeWalk1.lean` — the abstract admissible-run model
+  permits arbitrarily long failure runs under its stated budget.
+- `exists_persistent_surplus_model`, `ErdosProblems/Rem/C1.lean` — the listed
+  row recurrence and ceiling inequalities admit a sequence that stays above the
+  target forever.
+- `rowLaw_blind_at_16`, `ErdosProblems/Rem/C1.lean` — at one concrete row,
+  every listed row-level trigger is silent although the next row has a late
+  skip.
+- `IntervalCeiling.four_pow_le`, `ErdosProblems/Three/T1.lean` — every ceiling
+  satisfying the stated branch-blind rank-recursion obligations must grow on
+  the `4^s` scale.
+- `two_pow_mul_y`, `ErdosProblems/Three/T2.lean` — the normalised state used in
+  the doubling route is dyadic at every finite row.
+- `exists_persistent_odd_surplus_model`, `ErdosProblems/Three/T3.lean` — adding
+  parity to the listed row-level constraints still admits a persistent surplus
+  model.
+- `PairCeiling.terminal_ge_of_splits`, `ErdosProblems/Decl/D1.lean` — in the
+  stated two-sided abstraction, a failed branch prediction forces the terminal
+  upper bound above the target scale.
 
 ### Other standalone exact obstructions
 
 These five registry claims are not restatements of either endpoint. Each has a
 separate limitation, and none settles an Erdős problem.
 
-| Registry id | Exact checked content | Boundary |
-|---|---|---|
-| `totient_carry_kernel_anti_compression` | If `S` were rational, one rationality-supplied tempered integral carry would have canonical carry-section span dimension at least `2^e-1` for every `e`. | No finite-rank upper bound for such carries is known, so this does not contradict rationality. |
-| `primitive_coordinate_index_obstruction` | Clearing `(φ*μ)(n)/n` through level `N` forces a two-tier primorial divisor; no fixed positive index clears every level. | Finite Euler-coordinate obstruction, not an irrationality criterion. |
-| `lcm_factor_ideal_anchor_pulse_no_go` | For every `t≥3`, a synthetic survivor satisfies the factor-ideal and whole-ray-anchor constraints and survives every finite integer shift polynomial. | Its letters need not be actual totient differences; nonlinear fresh-divisor arguments remain possible. |
-| `reciprocal_mass_bound` | A rational support value with odd denominator part `v` forces reciprocal mass at least `1/ord_v(2)`, or divergence; a dyadic-rational infinite support forces divergence or mass greater than one. | Does not exclude every rational value. |
-| `unbounded_carry_states` | Every infinite support with rational series value has an unbounded positive carry state. | Rules out finite-state interpretations, not rationality itself. |
+- `totient_carry_kernel_anti_compression` — if `S` were rational, one
+  rationality-supplied tempered integral carry would have canonical
+  carry-section span dimension at least `2^e-1` for every `e`.
+  Boundary: no finite-rank upper bound for such carries is known, so this does
+  not contradict rationality.
+- `primitive_coordinate_index_obstruction` — clearing `(φ*μ)(n)/n` through
+  level `N` forces a two-tier primorial divisor; no fixed positive index clears
+  every level.
+  Boundary: finite Euler-coordinate obstruction, not an irrationality
+  criterion.
+- `lcm_factor_ideal_anchor_pulse_no_go` — for every `t≥3`, a synthetic survivor
+  satisfies the factor-ideal and whole-ray-anchor constraints and survives
+  every finite integer shift polynomial.
+  Boundary: its letters need not be actual totient differences; nonlinear
+  fresh-divisor arguments remain possible.
+- `reciprocal_mass_bound` — a rational support value with odd denominator part
+  `v` forces reciprocal mass at least `1/ord_v(2)`, or divergence; a
+  dyadic-rational infinite support forces divergence or mass greater than one.
+  Boundary: does not exclude every rational value.
+- `unbounded_carry_states` — every infinite support with rational series value
+  has an unbounded positive carry state.
+  Boundary: rules out finite-state interpretations, not rationality itself.
 
 Retrieve their declarations and current source coordinates with
 `python3 scripts/query_corpus.py --claim <registry-id>`.
@@ -532,30 +584,69 @@ release results.
 |---|---|---|---|
 | `Recon257.seamExcess s = 2` | `s = 5,…,102` (two overlapping scans, `5…64` and `58…102`) | No occurrence. | MEASURED. This makes the audited uses at `s=D+1`, `D≥60`, unobserved. |
 | Three-row `hcof` on the seven audited survivor values | `D = {101,122,164,314,545,629,1112}` | Fails at all seven values. | MEASURED; every audited case satisfying `hcof` already died by depth 3. |
-| Residual invariant | `s = 6,…,3000`, `d = 2,…,s-1` | Exactly `(s,d)=(13,7)`; residual `524419`, bound `524288`. | The exception is also PROVED by `Three/T1.not_residualInvariant`. Maximum ratio away from the exception was `0.9999807` at `(606,602)`. |
+| Residual invariant | `s = 6,…,3000`, `d = 2,…,s-1` | Exactly `(s,d)=(13,7)`; residual `524419`, bound `524288`. | The exception is also PROVED by `Three/T1.not_residualInvariant`. |
 | `hlow` and `hhigh` at late pairs | all late pairs with `s = 5,…,600` | `hlow` fails exactly at `(7,5)`; `hhigh` fails exactly at `(5,4)`. | The `hlow` exception is PROVED in `Decl/D4` and `Hlow/H1`. |
 | Remainder-hit/greedy-support correspondence | `s = 5,…,900` | Zero mismatches. | MEASURED. It does not prove infinitely many hits. |
 | `UnboundedLargestSkipLate` row event | `s = 5,…,1500` | Fails exactly at `s = 5,11,12,13`. | MEASURED. A finite interval does not prove eventual or unbounded behaviour. |
 | Residual invariant on adjacent control rows | every rank of rows `s=12` and `s=14` | No failures. | MEASURED anti-vacuity check for the isolated `(13,7)` counterexample. |
 | Diophantine height at one scale | `d=1000` | Denominator bit length `253815`; comparison value `d²/4=250000`. | MEASURED single-scale size check, not an asymptotic theorem. |
 | Relative-margin scan | `d = 2,…,2000` | Record low `1.13×10^-4` at `d=1136`; no danger-zone instance. | MEASURED. It does not establish a positive lower bound. |
-| Exact endpoint-certificate probe | all `960` pairs `1≤N≤120`, `1≤h≤8`, searching `1≤L≤400`; additional `h=1` probes at `N=200,500,1000,2000,5000`; exact LCM-diagonal pairs `(N,h)=(lcm(1,…,t),lcm(1,…,t))` for `1≤t≤16` | No failures. Relative to the least arithmetically admissible depth `L₀=min{L≥1:2ᴸ>2(N+h+L+2)}`, the rectangle's first certificates have excess `0…11` (median `1`, mean `727/480`); the 16 indexed diagonal rows have excess `0…4` (median `1`, mean `5/4`), and the 11 distinct diagonal scales have mean `14/11`. | MEASURED by exact integer arithmetic. Raw depth must grow with scale because the certificate interval is empty below `L₀`; the finite excess distributions prove no asymptotic law, equidistribution, bounded-excess theorem, or cofinal supply. Reproduce with `python3 scripts/probe_certificate_supply.py --check`. |
-| Source-backed checked diagonal depths | all 33 distinct `periodLcm` scales covering positive `t≤82` | Every checked working depth has excess `0…4` over `L₀` (median `1`, mean `40/33`). Five rows have proved least depths, with exact excess `0…3`; the other 28 values are upper bounds on least-depth excess. | FINITE SOURCE EXTRACTION from explicit Lean theorem signatures. It establishes no bounded-excess law at untested scales and no cofinal supply. Reproduce with `python3 scripts/build_checked_diagonal_depth_roster.py --check`. |
 
-Except for the endpoint-certificate probe and the checked diagonal-depth
-roster, these rows are carried from a dated audit log whose raw run logs and
+For the residual invariant, the maximum ratio away from the exception was
+`0.9999807` at `(606,602)`.
+
+The rows above are carried from a dated audit log whose raw run logs and
 executable scan owners are not preserved in this release. Their stated finite
 domains and exception sets are therefore historical measurement records, not
-independently reproducible artifacts. A
-reported late-bit scan of about 14,000 ranks over `s=14,…,400` is omitted from
-the table because neither its exact sample count nor its sample identities were
-preserved.
+independently reproducible artifacts. A reported late-bit scan of about 14,000
+ranks over `s=14,…,400` is omitted from the table because neither its exact
+sample count nor its sample identities were preserved.
 
 The audit also records a selection-biased certificate sample: at depth excess
 `c=2`, 15 of 154 samples failed; at `c=3`, 601 of 5987 failed. The sample
 identities are not preserved in the log, so these counts are not independently
 reconstructible from the release and are not evidence for an equidistribution
 law.
+
+The remaining two measurements are source-backed and reproducible from this
+release.
+
+### Exact endpoint-certificate probe
+
+Exact range: all `960` pairs `1≤N≤120`, `1≤h≤8`, searching `1≤L≤400`;
+additional `h=1` probes at `N=200,500,1000,2000,5000`; exact LCM-diagonal pairs
+`(N,h)=(lcm(1,…,t),lcm(1,…,t))` for `1≤t≤16`.
+
+Exact failures or mismatches: no failures. Relative to the least arithmetically
+admissible depth `L₀=min{L≥1:2ᴸ>2(N+h+L+2)}`, the rectangle's first
+certificates have excess `0…11` (median `1`, mean `727/480`); the 16 indexed
+diagonal rows have excess `0…4` (median `1`, mean `5/4`), and the 11 distinct
+diagonal scales have mean `14/11`.
+
+Status: MEASURED by exact integer arithmetic. Raw depth must grow with scale
+because the certificate interval is empty below `L₀`; the finite excess
+distributions prove no asymptotic law, equidistribution, bounded-excess
+theorem, or cofinal supply. Reproduce with:
+
+```sh
+python3 scripts/probe_certificate_supply.py --check
+```
+
+### Source-backed checked diagonal depths
+
+Exact range: all 33 distinct `periodLcm` scales covering positive `t≤82`.
+
+Exact failures or mismatches: every checked working depth has excess `0…4` over
+`L₀` (median `1`, mean `40/33`). Five rows have proved least depths, with exact
+excess `0…3`; the other 28 values are upper bounds on least-depth excess.
+
+Status: FINITE SOURCE EXTRACTION from explicit Lean theorem signatures. It
+establishes no bounded-excess law at untested scales and no cofinal supply.
+Reproduce with:
+
+```sh
+python3 scripts/build_checked_diagonal_depth_roster.py --check
+```
 
 ## What was retracted
 
@@ -604,38 +695,123 @@ with, for example,
 python3 scripts/query_semantic.py expert-questions XQ249-pivot-decorrelation
 ```
 
-Each requested input is `OPEN`; the
-consumer named in the last column is a checked theorem. The classification
-matters:
-the first question is the endpoint in exact normal form, the next two are
-sufficient analytic producers for #249, and the last two would produce a
-counterexample to universal #257 rather than prove its positive statement.
-
-| Question | Exact `OPEN` input | Payoff and boundary | `PROVED` consumer |
-|---|---|---|---|
-| `XQ249-lcm-diagonal-supply` | For every `t₀`, find `t ≥ t₀` and `L` with a diagonal certificate at `(lcm(1,…,t), lcm(1,…,t))`. | Equivalent to #249. A proof closes #249; until then this is a restatement, not intermediate progress. | `irrational_totient_series_iff_lcm_diagonal_certificate_supply` |
-| `XQ249-pivot-decorrelation` | Cofinally supply the exact four pivot budgets: centred real correlation `≤14X/25`, supplier mean and bad-supplier norms `≤X/100` each, and non-supplier norm `≤8X/25`, with overlap `h≤L-s` and room `16(2X+h+L+2)≤2^L`. | Sufficient for #249. The missing input is a prime-distribution or residual-decorrelation estimate, not another certificate reformulation. | `irrational_totient_series_of_pivotResidualDecorrelation` |
-| `XQ249-adjacent-phase-separation` | For every `h>0` and `X₀`, find `X≥max(X₀,1)`, a depth `L`, and adjacent `N,N+1∈[X,2X)` such that `16(2X+h+L+2)≤2^L` and their first-harmonic phases have squared chordal separation at least `19/25`. | Sufficient for #249. Finite scans or average separation do not meet the cofinal quantifiers. | `irrational_totient_series_of_adjacentPhaseSeparation` |
-| `XQ257-second-channel-separation` | Prove `HalfSecondChannelSeparatedRat n` for every `n≥7`, i.e. that the exact rational second-channel phase stays at least `1/6+(37/56)2^{-n}` from `1/3`; Lean checks `1,…,6`, and an independent exact probe finds no failure through `n=1000`. | Proves `1/2` attainable. The finite-support exclusion then forces the witness to be infinite, giving a rational counterexample to universal #257. The finite probe does not move the quantifier; failure of this route would not prove universal #257. | `half_mem_mersenneAchievementSet_of_secondChannelSeparationRat_from_seven`; `positiveMersenneSupportValue_coe_finset_ne_half`; `positiveMersenneSupportValue_eq_erdosSupportSeries` |
-| `XQ257-middle-producer-tail-escape` | At every actual middle transition from rank `13`, write `C` for the checked producer carry and `Θ` for its nonnegative coefficient tail. Prove `C=-3` or `(1≤C and Θ<C)`. | Also proves `1/2` attainable; at the putative last-false row the checked `-3` theorem removes the first disjunct, and the finite-support exclusion then forces an infinite witness. The socket must exclude every actual `C≤0`, `C≠-3`, and control `Θ<C` for every positive cell. | `half_mem_mersenneAchievementSet_of_middleProducerTailEscapeExceptNegThree`; `positiveMersenneSupportValue_coe_finset_ne_half`; `positiveMersenneSupportValue_eq_erdosSupportSeries` |
-
-The packet does not make an expert start cold. Every ask also carries a
-low-confidence current hypothesis, enumerated alternatives, current evidence,
-and the observation or theorem that would distinguish them:
-
-| Ask | Current working guess | Evidence that would change the guess |
-|---|---|---|
-| diagonal supply | Certificates occur beyond every scale, equivalently #249 is true. | A rational representation or an eventual-failure theorem decides the opposite branch. The exact rectangle has first-depth excess `0…11`; across all 33 distinct checked diagonal scales covering `t≤82`, working-depth excess is `0…4` (median `1`, mean `40/33`). Only five diagonal depths are proved least, and finite low upper bounds neither prove bounded excess nor decide the cofinal quantifier. |
-| pivot decorrelation | For every shift, fixed `s,η` permit cofinally many blocks satisfying overlap, room, and all four budgets; the centred real term is likely the hard budget. | Exact failure requires one shift for which every `s,η` eventually loses at least one clause. Infinitely many bad blocks do not suffice. An exact four-budget producer proves #249. |
-| adjacent phases | Qualifying adjacent separation occurs cofinally for every shift. | One shift and a cutoff beyond which no admissible block, depth and adjacent pair reaches `19/25` kill this route; infinitely many bad blocks alone do not. A cofinal adjacent-discrepancy theorem at that threshold proves #249. |
-| second channel | The separation continues for all `n≥7`; confidence remains low despite an empty exact failure set on `1≤n≤1000`. | The least measured margin on the open range is `1033253069/8193024` at `n=7`, but `n=1001` onward is unmeasured. One failed level closes only this socket; a global reachability invariant or uniform sign estimate proves membership and, with finite-support exclusion, a counterexample. |
-| middle producer | Every actual middle row lies in the `C=-3` branch or has `1≤C` and `Θ<C`. | One actual nonpositive cell other than `-3`, or one positive cell with `Θ≥C`, refutes this socket. A proof of the displayed disjunction at every actual row proves membership; the final `-2` sieve alone does not. |
+Each requested input is `OPEN`; the consumer named under each question is a
+checked theorem. The classification matters: the first question is the endpoint
+in exact normal form, the next two are sufficient analytic producers for #249,
+and the last two would produce a counterexample to universal #257 rather than
+prove its positive statement.
 
 No checked strictly weaker handoff currently implies the universal positive
 statement of #257 for every infinite support. Named support families,
 half-value analysis, reciprocal-mass bounds, and sublogarithmic zero-window
 constraints are partial; treating any one as a universal proof route would
 overstate what its checked consumer establishes.
+
+The packet does not make an expert start cold. Every ask also carries a
+low-confidence current hypothesis, enumerated alternatives, current evidence,
+and the observation or theorem that would distinguish them; both are recorded
+with each question below.
+
+#### `XQ249-lcm-diagonal-supply` — diagonal supply
+
+Exact `OPEN` input: for every `t₀`, find `t ≥ t₀` and `L` with a diagonal
+certificate at `(lcm(1,…,t), lcm(1,…,t))`.
+
+Payoff and boundary: equivalent to #249. A proof closes #249; until then this
+is a restatement, not intermediate progress.
+
+Current working guess: certificates occur beyond every scale, equivalently #249
+is true.
+
+Evidence that would change the guess: a rational representation or an
+eventual-failure theorem decides the opposite branch. The exact rectangle has
+first-depth excess `0…11`; across all 33 distinct checked diagonal scales
+covering `t≤82`, working-depth excess is `0…4` (median `1`, mean `40/33`). Only
+five diagonal depths are proved least, and finite low upper bounds neither
+prove bounded excess nor decide the cofinal quantifier.
+
+`PROVED` consumer:
+
+```text
+irrational_totient_series_iff_lcm_diagonal_certificate_supply
+```
+
+#### `XQ249-pivot-decorrelation` — pivot decorrelation
+
+Exact `OPEN` input: cofinally supply the exact four pivot budgets: centred real
+correlation `≤14X/25`, supplier mean and bad-supplier norms `≤X/100` each, and
+non-supplier norm `≤8X/25`, with overlap `h≤L-s` and room
+`16(2X+h+L+2)≤2^L`.
+
+Payoff and boundary: sufficient for #249. The missing input is a
+prime-distribution or residual-decorrelation estimate, not another certificate
+reformulation.
+
+Current working guess: for every shift, fixed `s,η` permit cofinally many
+blocks satisfying overlap, room, and all four budgets; the centred real term is
+likely the hard budget.
+
+Evidence that would change the guess: exact failure requires one shift for
+which every `s,η` eventually loses at least one clause. Infinitely many bad
+blocks do not suffice. An exact four-budget producer proves #249.
+
+`PROVED` consumer:
+
+```text
+irrational_totient_series_of_pivotResidualDecorrelation
+```
+
+#### `XQ249-adjacent-phase-separation` — adjacent phases
+
+Exact `OPEN` input: for every `h>0` and `X₀`, find `X≥max(X₀,1)`, a depth `L`,
+and adjacent `N,N+1∈[X,2X)` such that `16(2X+h+L+2)≤2^L` and their
+first-harmonic phases have squared chordal separation at least `19/25`.
+
+Payoff and boundary: sufficient for #249. Finite scans or average separation do
+not meet the cofinal quantifiers.
+
+Current working guess: qualifying adjacent separation occurs cofinally for
+every shift.
+
+Evidence that would change the guess: one shift and a cutoff beyond which no
+admissible block, depth and adjacent pair reaches `19/25` kill this route;
+infinitely many bad blocks alone do not. A cofinal adjacent-discrepancy theorem
+at that threshold proves #249.
+
+`PROVED` consumer:
+
+```text
+irrational_totient_series_of_adjacentPhaseSeparation
+```
+
+#### `XQ257-second-channel-separation` — second channel
+
+Exact `OPEN` input: prove `HalfSecondChannelSeparatedRat n` for every `n≥7`,
+i.e. that the exact rational second-channel phase stays at least
+`1/6+(37/56)2^{-n}` from `1/3`; Lean checks `1,…,6`, and an independent exact
+probe finds no failure through `n=1000`.
+
+Payoff and boundary: proves `1/2` attainable. The finite-support exclusion then
+forces the witness to be infinite, giving a rational counterexample to
+universal #257. The finite probe does not move the quantifier; failure of this
+route would not prove universal #257.
+
+Current working guess: the separation continues for all `n≥7`; confidence
+remains low despite an empty exact failure set on `1≤n≤1000`.
+
+Evidence that would change the guess: the least measured margin on the open
+range is `1033253069/8193024` at `n=7`, but `n=1001` onward is unmeasured. One
+failed level closes only this socket; a global reachability invariant or
+uniform sign estimate proves membership and, with finite-support exclusion, a
+counterexample.
+
+`PROVED` consumers:
+
+```text
+half_mem_mersenneAchievementSet_of_secondChannelSeparationRat_from_seven
+positiveMersenneSupportValue_coe_finset_ne_half
+positiveMersenneSupportValue_eq_erdosSupportSeries
+```
 
 The second-channel measurement is source-bound and reproducible:
 
@@ -649,6 +825,33 @@ for `1≤n≤1000` from the definitions in
 [`docs/measurements/second_channel_separation_probe.json`](measurements/second_channel_separation_probe.json).
 Its status is `MEASURED`, not `PROVED`; in particular, the empty finite failure
 set does not establish the all-`n` hypothesis consumed by the Lean theorem.
+
+#### `XQ257-middle-producer-tail-escape` — middle producer
+
+Exact `OPEN` input: at every actual middle transition from rank `13`, write `C`
+for the checked producer carry and `Θ` for its nonnegative coefficient tail.
+Prove `C=-3` or `(1≤C and Θ<C)`.
+
+Payoff and boundary: also proves `1/2` attainable; at the putative last-false
+row the checked `-3` theorem removes the first disjunct, and the
+finite-support exclusion then forces an infinite witness. The socket must
+exclude every actual `C≤0`, `C≠-3`, and control `Θ<C` for every positive cell.
+
+Current working guess: every actual middle row lies in the `C=-3` branch or has
+`1≤C` and `Θ<C`.
+
+Evidence that would change the guess: one actual nonpositive cell other than
+`-3`, or one positive cell with `Θ≥C`, refutes this socket. A proof of the
+displayed disjunction at every actual row proves membership; the final `-2`
+sieve alone does not.
+
+`PROVED` consumers:
+
+```text
+half_mem_mersenneAchievementSet_of_middleProducerTailEscapeExceptNegThree
+positiveMersenneSupportValue_coe_finset_ne_half
+positiveMersenneSupportValue_eq_erdosSupportSeries
+```
 
 ### Exact systems-review handoff
 
@@ -784,17 +987,17 @@ dependency builds supplied the two missing chains:
 | `lake build ErdosProblems.Three.T1 ErdosProblems.Decl.D4` | 0 | `126.47 s` |
 
 With those objects installed, every direct focused check exited zero with empty
-Lean output:
+Lean output. The directories and files below are relative to `ErdosProblems/`.
 
-| File | Wall time |
-|---|---:|
-| `ErdosProblems/Lift/Recon67.lean` | `69.24 s` |
-| `ErdosProblems/Lift/CertT67.lean` | `98.81 s` |
-| `ErdosProblems/Skip/LadderT67.lean` | `682.69 s` |
-| `ErdosProblems/FreePosition/FreeKill64OneHundredFifteenDI.lean` | `53.05 s` |
-| `ErdosProblems/Three/T1.lean` | `8.83 s` |
-| `ErdosProblems/Decl/D4.lean` | `6.76 s` |
-| `ErdosProblems/Hlow/H2.lean` | `5.27 s` |
+| Directory | File | Wall time |
+|---|---|---:|
+| `Lift` | `Recon67.lean` | `69.24 s` |
+| `Lift` | `CertT67.lean` | `98.81 s` |
+| `Skip` | `LadderT67.lean` | `682.69 s` |
+| `FreePosition` | `FreeKill64OneHundredFifteenDI.lean` | `53.05 s` |
+| `Three` | `T1.lean` | `8.83 s` |
+| `Decl` | `D4.lean` | `6.76 s` |
+| `Hlow` | `H2.lean` | `5.27 s` |
 
 Two commands did not reproduce in the original advertised order. Immediately
 after the root build, checking `LadderT67.lean` failed in `1.74` seconds because
