@@ -92,7 +92,14 @@ def test_paper_questions_route_to_complete_question_first_guide() -> None:
 
     guide = C.comprehend(root=ROOT, mode="papers")
     assert guide["found"]
-    assert len(guide["paper_index"]) == guide["paper_corpus_count"] == 11
+    # Bound to the corpus, not to a literal. This read `== 11` while the corpus
+    # shipped 13, so the assertion had been failing since the twelfth paper
+    # landed and was measuring the day it was written rather than the property
+    # it names: the guide indexes every paper the corpus carries.
+    corpus_count = json.loads(
+        (ROOT / "docs/papers/corpus.json").read_text(encoding="utf-8")
+    )["paper_count"]
+    assert len(guide["paper_index"]) == guide["paper_corpus_count"] == corpus_count
     assert guide["default_sequence"]["paper_ids"] == [
         "plectis-public-system",
         "cold-clone-to-proof-receipt",
