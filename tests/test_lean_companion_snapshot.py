@@ -17,6 +17,13 @@ def _fixture_root(tmp_path: Path) -> Path:
     root = tmp_path / "plectis"
     (root / "docs").mkdir(parents=True)
     shutil.copy2(PLECTIS_ROOT / "README.md", root / "README.md")
+    # The compact agent entry is a governed surface, not decoration: it asserts
+    # the companion's problem scope to every provider adapter that routes here.
+    # A fixture without it would let the surface checks pass vacuously.
+    shutil.copy2(
+        PLECTIS_ROOT / "AGENTS.override.md",
+        root / "AGENTS.override.md",
+    )
     shutil.copy2(
         PLECTIS_ROOT / "docs/lean_companion_snapshot.json",
         root / "docs/lean_companion_snapshot.json",
@@ -68,6 +75,76 @@ def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
     receipt = validate_lean_companion_snapshot(root)
     assert receipt["status"] == "blocked"
     assert "LEAN_COMPANION_README_DRIFT" in {
+        row["code"] for row in receipt["errors"]
+    }
+
+
+def test_blocks_stale_companion_problem_count_in_the_agent_entry(
+    tmp_path: Path,
+) -> None:
+    """The defect this check exists for.
+
+    The README named eight open problems while the compact agent entry -- the
+    file every provider adapter routes to -- named six. The README was bound to
+    the companion registry and the agent entry was not, so an unprimed agent
+    inherited the wrong scope from the one surface written for it.
+    """
+    root = _fixture_root(tmp_path)
+    entry_path = root / "AGENTS.override.md"
+    entry_path.write_text(
+        entry_path.read_text(encoding="utf-8").replace(
+            "eight open Erdős problems",
+            "six open Erdős problems",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    receipt = validate_lean_companion_snapshot(root)
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_FACT_DRIFT" in {row["code"] for row in receipt["errors"]}
+    assert receipt["findings"]["companion_fact_missing_in"] == ["AGENTS.override.md"]
+
+
+def test_blocks_open_problem_claim_once_a_problem_stops_being_open(
+    tmp_path: Path,
+) -> None:
+    """A solved problem must not leave "N open problems" standing anywhere.
+
+    This is the direction that would embarrass the project rather than merely
+    age: prose asserting a problem is open after the registry says otherwise.
+    The validator refuses to spell a phrase it can no longer support.
+    """
+    root = _fixture_root(tmp_path)
+    snapshot_path = root / "docs/lean_companion_snapshot.json"
+    payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    payload["problem_inventory"]["all_open"] = False
+    payload["problem_inventory"]["observed_statuses"] = ["open", "resolved"]
+    snapshot_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    receipt = validate_lean_companion_snapshot(root)
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_PROBLEM_INVENTORY_INVALID" in {
+        row["code"] for row in receipt["errors"]
+    }
+
+
+def test_problem_inventory_tracks_the_companion_registry(tmp_path: Path) -> None:
+    upstream_root = PLECTIS_ROOT.parent / "plectis-lean-erdos249-257"
+    if not (upstream_root / ".git").exists():
+        return
+    root = _fixture_root(tmp_path)
+    snapshot_path = root / "docs/lean_companion_snapshot.json"
+    payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    payload["problem_inventory"]["problem_count"] += 1
+    snapshot_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    receipt = validate_lean_companion_snapshot(root, upstream_root=upstream_root)
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_PROBLEM_INVENTORY_DRIFT" in {
         row["code"] for row in receipt["errors"]
     }
 

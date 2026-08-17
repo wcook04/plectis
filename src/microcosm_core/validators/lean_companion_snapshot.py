@@ -18,6 +18,12 @@ from typing import Any
 
 SNAPSHOT_REL = Path("docs/lean_companion_snapshot.json")
 README_REL = Path("README.md")
+# The compact cold-clone contract. Every provider adapter -- CLAUDE.md,
+# CODEX.md, CURSOR.md and friends -- routes here, so a stale companion fact in
+# this file is the first thing an unprimed agent learns about the mathematics.
+# It sat outside this validator while the README was bound, and drifted: the
+# README named eight open problems while this file said six.
+AGENT_ENTRY_REL = Path("AGENTS.override.md")
 EXPECTED_SCHEMA = "plectis-lean-companion-snapshot/v1"
 EXPECTED_ROLE = "public_companion_scale_projection_not_proof_or_release_authority"
 SCALE_KEYS = (
@@ -27,6 +33,22 @@ SCALE_KEYS = (
     "generated_certificate_declaration_count",
     "principal_claim_link_count",
 )
+# Small enough to be exhaustive on purpose. A count this validator cannot spell
+# is a count it should refuse rather than silently skip the prose check for.
+_NUMBER_WORDS = {
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    10: "ten",
+    11: "eleven",
+    12: "twelve",
+}
 
 
 def _git_output(root: Path, *args: str) -> str:
@@ -70,6 +92,26 @@ def _latest_release_tag(upstream_root: Path, public_ref: str) -> str | None:
         if re.fullmatch(r"v\d+\.\d+\.\d+", tag):
             return tag
     return None
+
+
+def _problem_inventory_from_bytes(problems_bytes: bytes) -> dict[str, Any]:
+    """Reduce the companion's problem registry to the facts prose may assert.
+
+    Only three things travel: how many problems the companion tracks, which
+    ones, and whether every one of them is still open. Those are exactly the
+    claims Plectis prose makes about the companion, and none of them is a
+    mathematical claim -- the registry is the authority, this is a projection.
+    """
+    problems = json.loads(problems_bytes)["problems"]
+    numbers = sorted(int(problem["erdos_number"]) for problem in problems)
+    statuses = {str(problem.get("status")) for problem in problems}
+    return {
+        "problem_count": len(numbers),
+        "problem_numbers": numbers,
+        "all_open": statuses == {"open"},
+        "observed_statuses": sorted(statuses),
+        "problems_sha256": hashlib.sha256(problems_bytes).hexdigest(),
+    }
 
 
 def _build_snapshot_from_upstream(
@@ -129,6 +171,17 @@ def _build_snapshot_from_upstream(
         f"{latest_tag}^{{}}",
     ).strip()
     refreshed["scale"] = {key: int(upstream_scale[key]) for key in SCALE_KEYS}
+    # Derived from the tracked ref on every refresh, never carried forward from
+    # the snapshot being replaced -- the same rule the release tag above had to
+    # learn. If the companion opens a ninth problem or closes one, the count in
+    # Plectis prose stops matching on the next refresh instead of aging quietly.
+    problems_path = str(refreshed_upstream.setdefault("problems_path", "docs/problems.json"))
+    problems_bytes = _git_output(
+        upstream_root,
+        "show",
+        f"{public_ref}:{problems_path}",
+    ).encode("utf-8")
+    refreshed["problem_inventory"] = _problem_inventory_from_bytes(problems_bytes)
     refreshed["refresh"]["local_command"] = (
         "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py "
         "--write --upstream-root ../plectis-lean-erdos249-257"
@@ -228,6 +281,74 @@ def _expected_readme_fragments(payload: dict[str, Any]) -> list[str]:
     ]
 
 
+def _expected_companion_fact_phrase(payload: dict[str, Any]) -> str:
+    """The one sentence fragment any surface asserting the companion's scope owes.
+
+    Deliberately a phrase and not a managed block: the README states this in
+    running prose and the compact agent entry states it in its opening
+    paragraph. Both must agree with the registry; neither should be rewritten
+    wholesale by a refresh.
+    """
+    inventory = payload["problem_inventory"]
+    count = int(inventory["problem_count"])
+    word = _NUMBER_WORDS.get(count)
+    if word is None:
+        raise ValueError(f"no spelled form for problem_count={count}")
+    if inventory["all_open"] is not True:
+        # Not a formatting failure. The companion registry no longer reports
+        # every tracked problem as open, so "N open Erdos problems" has become
+        # a false public claim and a human has to choose the new wording.
+        raise ValueError(
+            "companion registry no longer reports every problem open: "
+            f"{inventory.get('observed_statuses')}"
+        )
+    return f"{word} open Erdős problems"
+
+
+def _validate_companion_facts(
+    payload: dict[str, Any],
+    root: Path,
+    errors: list[dict[str, str]],
+    findings: dict[str, Any],
+) -> None:
+    """Bind every public surface that names the companion's problem scope."""
+    try:
+        phrase = _expected_companion_fact_phrase(payload)
+    except (KeyError, TypeError, ValueError) as exc:
+        errors.append(
+            {
+                "code": "LEAN_COMPANION_PROBLEM_INVENTORY_INVALID",
+                "detail": str(exc),
+            }
+        )
+        return
+
+    findings["companion_fact_phrase"] = phrase
+    surfaces_missing: list[str] = []
+    for rel in (README_REL, AGENT_ENTRY_REL):
+        path = root / rel
+        if not path.is_file():
+            errors.append(
+                {
+                    "code": "LEAN_COMPANION_SURFACE_MISSING",
+                    "detail": str(rel),
+                }
+            )
+            continue
+        if phrase not in path.read_text(encoding="utf-8"):
+            surfaces_missing.append(str(rel))
+    if surfaces_missing:
+        errors.append(
+            {
+                "code": "LEAN_COMPANION_FACT_DRIFT",
+                "detail": (
+                    f"expected {phrase!r} in " + ", ".join(surfaces_missing)
+                ),
+            }
+        )
+    findings["companion_fact_missing_in"] = surfaces_missing
+
+
 def _validate_upstream(
     payload: dict[str, Any],
     upstream_root: Path,
@@ -289,6 +410,26 @@ def _validate_upstream(
                     ),
                 }
             )
+
+        problems_bytes = _git_output(
+            upstream_root,
+            "show",
+            f"{public_ref}:{upstream.get('problems_path', 'docs/problems.json')}",
+        ).encode("utf-8")
+        upstream_inventory = _problem_inventory_from_bytes(problems_bytes)
+        observed["problem_inventory"] = upstream_inventory
+        recorded_inventory = payload.get("problem_inventory", {})
+        for key in ("problem_count", "problem_numbers", "all_open", "problems_sha256"):
+            if recorded_inventory.get(key) != upstream_inventory[key]:
+                errors.append(
+                    {
+                        "code": "LEAN_COMPANION_PROBLEM_INVENTORY_DRIFT",
+                        "detail": (
+                            f"{key}: snapshot {recorded_inventory.get(key)!r} != "
+                            f"upstream {upstream_inventory[key]!r}"
+                        ),
+                    }
+                )
 
         release_commit = _git_output(
             upstream_root,
@@ -443,6 +584,8 @@ def validate_lean_companion_snapshot(
                     "detail": str(README_REL),
                 }
             )
+
+        _validate_companion_facts(payload, root, errors, findings)
 
         if upstream_root is not None:
             findings["upstream"] = _validate_upstream(
