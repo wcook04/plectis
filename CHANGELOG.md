@@ -4,6 +4,46 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-08-17
+
+The release that makes the first screen say what the repository is. Plectis
+publishes 88 runnable mechanisms across seven families; for several versions
+the opening sentence described the local record instead, and every check
+passed, because the checks were looking at presence rather than at order.
+
+### Added
+
+- The front-door validator checks the *order* of the opening screen: the
+  mechanisms the repository publishes must be reached before the record it
+  writes. It previously blocked three specific record-first sentences by
+  matching them literally, which left the same framing free to arrive in
+  different words — and it had.
+- The documented no-install tour is proved against a SHA-256 map of every file
+  in the sample project. The previous proof compared one named file to a
+  string, and stayed green if the run had rewritten a sibling, deleted a file,
+  or left something new behind.
+
+### Changed
+
+- `README.md` opens with the seven families and names the local record as the
+  accountability layer rather than the product. The record layer is still
+  documented and still checked; it is no longer the identity.
+- `pyproject.toml` and `CITATION.cff` carry the same identity as the README.
+  The package summary is what a package index publishes, and it had been
+  describing an earlier framing of the project.
+- Every command on the first screen runs from a clone with no install, not
+  only the first one. One advertised command still required a global
+  `pip install` that PEP 668 refuses on the interpreter most readers have.
+- The paper corpus is bound to the thirteen active manuscripts, with a
+  per-problem route to the strongest checked result and uniform disclosure of
+  AI production across the public paper.
+
+### Fixed
+
+- `scripts/public_repo_profile.py` deep mode works from a source clone.
+- The Lean companion snapshot refreshes its own release tag rather than
+  carrying a pinned one that ages out of agreement with the companion.
+
 ## [0.5.0] - 2026-07-28
 
 ### Added
