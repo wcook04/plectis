@@ -1,17 +1,18 @@
 {
   "schema": "plectis-lean-companion-snapshot/v1",
   "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
-  "observed_at": "2026-08-14",
+  "observed_at": "2026-08-17",
   "upstream": {
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "ff9a4932bffe4f4f03daf98afe366650ef7e6f99",
+    "public_ref": "10f38727ade59c0090b6a807da23fb9a2102259f",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "57044203457f8a954ec5b687628e5bed88ea49016e15eb0b48a9d72c2db33028",
+    "orientation_sha256": "1b63198e6c07815118766a68fa07e19631fa55fb8c3fea2341ed11f6fdc0f8dc",
     "latest_tag": "v0.8.0",
     "release_tag_object": "06467ccc7d842fabec0457d22fdac299b4b15715",
-    "release_commit": "06467ccc7d842fabec0457d22fdac299b4b15715"
+    "release_commit": "06467ccc7d842fabec0457d22fdac299b4b15715",
+    "problems_path": "docs/problems.json"
   },
   "scale": {
     "module_count": 1023,
@@ -35,5 +36,23 @@
       "docs/orientation.json::proof_authority",
       "docs/orientation.json::non_claims"
     ]
+  },
+  "problem_inventory": {
+    "problem_count": 8,
+    "problem_numbers": [
+      68,
+      243,
+      249,
+      251,
+      257,
+      269,
+      1041,
+      1049
+    ],
+    "all_open": true,
+    "observed_statuses": [
+      "open"
+    ],
+    "problems_sha256": "e13e80b5cd74acba27587d4e067e4b9ae9f02160bf706da5bd54da6a7aa780d8"
   }
 }
