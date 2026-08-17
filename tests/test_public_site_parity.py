@@ -65,9 +65,6 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
         },
     )
     for name, payload_counts in (
-        ("microcosm-ai-reader-digest.json", packet_counts),
-        ("microcosm-ai-review-packet.json", packet_counts),
-        ("microcosm-ai-reader-complete.json", complete_counts),
         ("plectis-ai-reader-digest.json", packet_counts),
         ("plectis-ai-review-packet.json", packet_counts),
         ("plectis-ai-reader-complete.json", complete_counts),
@@ -81,6 +78,17 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
                 "site": site,
             },
         )
+    for legacy_path, canonical_path in public_site_parity.LEGACY_PACKET_REDIRECTS.items():
+        _write_json(
+            site_dir / legacy_path,
+            {
+                "canonical_url": public_site_parity.SITE_ROOT_URL + canonical_path,
+                "moved_to": canonical_path,
+                "schema": "plectis_public_moved_artifact_v1",
+                "status": "moved",
+                "this_path": legacy_path,
+            },
+        )
     html = (
         '<span data-mc-fact="component_count">'
         f'{counts["component_count"]}</span> '
@@ -88,7 +96,12 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
         "plectis-ai-reader-digest.json plectis-ai-review-packet.json llms.txt"
     )
     (site_dir / "index.html").write_text(html, encoding="utf-8")
-    (site_dir / "plectis.html").write_text(html, encoding="utf-8")
+    legacy_html = (
+        '<link rel="canonical" href="https://wcook04.github.io/plectis/">'
+        '<meta http-equiv="refresh" content="0; url=https://wcook04.github.io/plectis/">'
+        '<a href="https://wcook04.github.io/plectis/">https://wcook04.github.io/plectis/</a>'
+    )
+    (site_dir / "plectis.html").write_text(legacy_html, encoding="utf-8")
     (site_dir / "llms.txt").write_text("Plectis public packet\n", encoding="utf-8")
 
     hashes = {}
@@ -140,6 +153,46 @@ def test_public_site_parity_blocks_malformed_download_packet(tmp_path: Path) -> 
 
     assert receipt["status"] == "blocked"
     assert any(error["code"] == "json_parse_failed" for error in receipt["errors"])
+
+
+def test_public_site_parity_blocks_legacy_packet_that_is_not_a_pointer(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    _write_json(
+        site_dir / "microcosm-ai-reader-digest.json",
+        {"counts": {"component_count": _source_counts()["component_count"]}},
+    )
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "blocked"
+    assert any(
+        error["code"] == "legacy_packet_pointer_mismatch"
+        and error["path"] == "microcosm-ai-reader-digest.json"
+        for error in receipt["errors"]
+    )
+
+
+def test_public_site_parity_blocks_legacy_html_that_is_not_a_redirect(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    (site_dir / "plectis.html").write_text("<p>stale landing page</p>", encoding="utf-8")
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "blocked"
+    assert any(
+        error["code"] == "legacy_html_redirect_missing"
+        and error["path"] == "plectis.html"
+        for error in receipt["errors"]
+    )
 
 
 def test_public_site_parity_blocks_component_count_drift(tmp_path: Path) -> None:
@@ -205,7 +258,6 @@ def test_public_site_parity_blocks_stale_five_example_claims_on_landing(
         "</div>"
     )
     (site_dir / "index.html").write_text(stale, encoding="utf-8")
-    (site_dir / "plectis.html").write_text(stale, encoding="utf-8")
     _rewrite_projection_hashes(site_dir)
 
     receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
@@ -242,7 +294,6 @@ def test_public_site_parity_accepts_six_card_front_door_landing(
         "</div>"
     )
     (site_dir / "index.html").write_text(landing, encoding="utf-8")
-    (site_dir / "plectis.html").write_text(landing, encoding="utf-8")
     _rewrite_projection_hashes(site_dir)
 
     receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
