@@ -4358,17 +4358,32 @@
     var pointerX = null;
     var pointerY = null;
 
+    function renderTermMarkup(text) {
+      var value = String(text || '');
+      var escaped = value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      escaped = escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+      escaped = escaped.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>');
+      escaped = escaped.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+      return escaped;
+    }
+    function setTermText(node, text) {
+      node.innerHTML = renderTermMarkup(text);
+    }
     function renderTier(data, anchor) {
       tipLabel.textContent = data.preferred_label || data.label || '';
       if (tier === 1) {
         tip.classList.add('is-expanded');
-        tipText.textContent = data.reader_card || data.reader_preview || data.text || '';
+        setTermText(tipText, data.reader_card || data.reader_preview || data.text || '');
         if (data.reader_rule && data.reader_rule !== data.reader_card) {
-          tipRule.textContent = data.reader_rule; tipRule.hidden = false;
+          setTermText(tipRule, data.reader_rule); tipRule.hidden = false;
         } else { tipRule.textContent = ''; tipRule.hidden = true; }
         if (data.reader_deep && data.reader_deep !== data.reader_card &&
             data.reader_deep !== data.reader_rule) {
-          tipDeep.textContent = data.reader_deep; tipDeep.hidden = false;
+          setTermText(tipDeep, data.reader_deep); tipDeep.hidden = false;
         } else { tipDeep.textContent = ''; tipDeep.hidden = true; }
         var href = anchor.getAttribute('href');
         if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
@@ -4377,7 +4392,7 @@
         tipCue.textContent = 'Click the term again, or use the link, to open the complete glossary entry';
       } else {
         tip.classList.remove('is-expanded');
-        tipText.textContent = data.reader_preview || data.text || data.reader_card || '';
+        setTermText(tipText, data.reader_preview || data.text || data.reader_card || '');
         tipRule.textContent = ''; tipRule.hidden = true;
         tipDeep.textContent = ''; tipDeep.hidden = true;
         tipFull.hidden = true;
