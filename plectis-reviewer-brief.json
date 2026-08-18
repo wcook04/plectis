@@ -13,7 +13,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "577f62a8a3e5732f07e53f47e713d65c5ec3cd64cef8d3e41cd30cf21414bb28",
+ "source_fingerprint": "dc4ba6d1272d6d3ae4fbcbf590cd068db00146ce3917a840960ea99edf9f1040",
  "canonical_public_identity": {
   "schema": "plectis_canonical_public_identity_v1",
   "project_name": "Plectis",

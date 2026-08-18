@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:577f62a8a3e5732f07e53f47e713d65c5ec3cd64cef8d3e41cd30cf21414bb28",
-  "byte_count": 14434772,
-  "payload_sha256_excluding_identity": "sha256:ea0f8e419497ec034161e97d24a6263e8c04d84795727ae95b42a8b5cc1517bb",
+  "exact_byte_sha256": "sha256:dc4ba6d1272d6d3ae4fbcbf590cd068db00146ce3917a840960ea99edf9f1040",
+  "byte_count": 14434951,
+  "payload_sha256_excluding_identity": "sha256:5e9d02afb5c417af954b53b4fb770b92f0d6f1d30b9f44ffc93f28aa22a33705",
   "source_fingerprint": "6bb077090257cbf9244a2d04d6f46470",
   "packet_schema": "microcosm_ai_review_packet_v2",
-  "lean_release_version": "0.8.0",
+  "lean_release_version": "0.9.0",
   "formal_source_ref": "9e231ce4371fcda607f81c4520d29b16dcb4482e",
   "formal_source_public_tag": "formal-source-2026-08-12-r2",
   "repository_heads_at_build": {
-    "plectis": "6f7d1796c72b11c079824301f880777a442ac99e",
-    "plectis-lean-erdos249-257": "1962a18eb58827f522657978eeefbdfb1b2b1f73"
+    "plectis": "7d76950b9e3954d908730be5cec28b62f7678448",
+    "plectis-lean-erdos249-257": "a9104f2f12aa0d4e9da8a93574b14990ed02dc2a"
   },
   "source_integrity": "verified_current",
-  "suggested_local_filename": "plectis-ai-review-packet-0.8.0-r2-9e231ce.json",
+  "suggested_local_filename": "plectis-ai-review-packet-0.9.0-r2-9e231ce.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }

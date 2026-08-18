@@ -1073,16 +1073,9 @@ code, kbd, pre { font-family: var(--font-mono); }
      onto the second line; balanced, the two lines come out even. */
   text-wrap: balance;
 }
-/* Editorial kicker: a short leading rule ties each eyebrow to the grid — a
-   gilded tick in the warm reading key (--link-ext), echoing the spine thread
-   down the page while the label itself stays quiet grey. Card-embedded
-   eyebrows opt out — at card scale the rule reads as noise. */
-.eyebrow::before {
-  content: ""; display: inline-block; vertical-align: 0.32em;
-  width: 1.5rem; height: 1px; margin-right: 0.55rem;
-  background: color-mix(in srgb, var(--link-ext) 72%, transparent);
-}
-.claim-card__eyebrow::before { content: none; }
+/* Eyebrows carry no leading rule. The tracked grey capitals already read as a
+   label, and a dash-shaped tick in front of the first line of copy reads as an
+   em dash the page does not use. */
 
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 50;
