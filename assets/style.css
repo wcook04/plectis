@@ -527,7 +527,13 @@ a[data-link-kind="reference"]:hover::after { color: var(--accent-strong); }
    the hand-authored landing participates in the same grammar. */
 a.narrative-ref--term {
   color: inherit;
-  text-decoration-line: underline;
+  /* No rule at rest, anywhere. The mark and the coverage were in tension: every
+     word a confused reader might want defined should carry a definition, and a
+     dotted rule under that many words makes prose look machine-marked. Dropping
+     the rule settles it in favour of coverage. The affordance is the help
+     cursor and the preview that follows the pointer; the anchor is always
+     there for keyboard, screen readers and JS-off. */
+  text-decoration-line: none;
   text-decoration-style: dashed;
   text-decoration-color: color-mix(in srgb, var(--accent) 30%, transparent);
   text-decoration-thickness: 0.06em;
@@ -552,6 +558,7 @@ a.narrative-ref--term:focus-visible {
    and re-inherit muted ink in quiet paragraphs. */
 a.narrative-ref--term.is-term-first {
   color: inherit;
+  text-decoration-line: none;
   text-decoration-style: dotted;
   text-decoration-color: color-mix(in srgb, var(--accent) 32%, transparent);
   text-decoration-thickness: 0.045em;
@@ -580,6 +587,10 @@ a.narrative-ref--term.is-term-again:focus-visible {
    mis-handle invalidation for the mixed list when JS adds the grade classes. */
 html:not(.js) a.narrative-ref--term {
   color: inherit;
+  /* The one place the rule still earns its keep. With JS off there is no
+     preview on hover, so the underline is the only thing telling a reader the
+     word leads to a definition. */
+  text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: color-mix(in srgb, var(--accent) 32%, transparent);
   text-decoration-thickness: 0.045em;

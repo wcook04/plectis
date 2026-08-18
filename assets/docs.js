@@ -4242,6 +4242,22 @@
     document.addEventListener('focusin', onTermIntent, true);
     document.addEventListener('click', onTermIntent, true);
 
+    /* Warm the layer on idle instead of waiting for a hover to pay for it.
+       Loading term-previews.js only on first term intent cost that first hover
+       410 KB decoded and ~670 ms of parse before anything could appear, and the
+       replay in initTermLayer only re-shows the tip when the pointer is STILL on
+       the word once the index lands (it tests :hover). A reader who pointed at a
+       word and moved on within that window saw nothing at all, and reasonably
+       concluded the word had no definition. Every later hover was instant, so
+       the failure fell entirely on the first word anyone tried.
+       ensureLayer(null) stores no pending anchor, so this warms the index and
+       swaps the delegated listeners without ever opening a tip on its own. */
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(function () { ensureLayer(null, null); }, { timeout: 3000 });
+    } else {
+      window.setTimeout(function () { ensureLayer(null, null); }, 1200);
+    }
+
     function initTermLayer(terms) {
     if (layerReady) return;
     layerReady = true;
