@@ -4123,6 +4123,11 @@
       return !!(node.closest && node.closest('[hidden], details:not([open])'));
     }
     function gradeTermAnchors() {
+      // The builder stamps these grades so the page is correct before this
+      // runtime loads. If they are already there, re-grading would only risk
+      // adding the opposite class to the same anchor.
+      if (anchors[0] && (anchors[0].classList.contains('is-term-first') ||
+          anchors[0].classList.contains('is-term-again'))) return;
       var seenTerm = {};
       var hiddenAnchors = [];
       for (var m = 0; m < anchors.length; m++) {
