@@ -582,10 +582,12 @@ a.narrative-ref--term.is-term-again:focus-visible {
   text-decoration-style: dashed;
   text-decoration-color: var(--accent-strong);
 }
-/* No-JS fallback: ungraded term links keep the same quiet first-mention cue. Kept as
+/* No-JS fallback, keyed on .scripting (stamped pre-paint by theme-init.js), not
+   .js (stamped by docs.js when the runtime is ready). Keyed on .js this rule
+   underlined every term until docs.js ran, then flashed them away. Kept as
    standalone rules (not comma-listed with the graded ones above): some engines
    mis-handle invalidation for the mixed list when JS adds the grade classes. */
-html:not(.js) a.narrative-ref--term {
+html:not(.scripting) a.narrative-ref--term {
   color: inherit;
   /* The one place the rule still earns its keep. With JS off there is no
      preview on hover, so the underline is the only thing telling a reader the
@@ -596,7 +598,7 @@ html:not(.js) a.narrative-ref--term {
   text-decoration-thickness: 0.045em;
   text-underline-offset: 0.18em;
 }
-html:not(.js) a.narrative-ref--term:hover {
+html:not(.scripting) a.narrative-ref--term:hover {
   color: var(--accent-strong);
   text-decoration-color: var(--accent-strong);
 }

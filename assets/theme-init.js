@@ -19,4 +19,18 @@
   var root = document.documentElement;
   root.setAttribute('data-theme', t);
   try { root.style.colorScheme = t; } catch (e) {}
+
+  /* Two different questions get two different flags, and conflating them costs
+     something either way.
+       .js       (added by docs.js)   = the shared runtime is READY.
+       .scripting (added right here)  = scripting is AVAILABLE.
+     The stylesheet uses .js to keep the page tools invisible until they
+     actually work, so that one must stay late. But the term layer's JS-off
+     fallback is the opposite: html:not(.scripting) is the one place a term link
+     still draws an underline, because without JS there is no hover preview and
+     the rule is the only signal the word leads to a definition. Keyed on .js it
+     would paint an underline under every term on the page until docs.js ran a
+     second later, then flash them all away. Stamped here, in the blocking head
+     script, a reader with JS never matches the fallback at all. */
+  root.classList.add('scripting');
 })();
