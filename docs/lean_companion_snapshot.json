@@ -1,12 +1,12 @@
 {
   "schema": "plectis-lean-companion-snapshot/v1",
   "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
-  "observed_at": "2026-08-17",
+  "observed_at": "2026-08-19",
   "upstream": {
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "6843a666b2d8db78d41738697532d5ffbc46af55",
+    "public_ref": "9ebd39d4702a430fcfe63124d7752ad77fdfd86e",
     "orientation_path": "docs/orientation.json",
     "orientation_sha256": "ed1a841190c104260be0a354cced4315c4603b7f9176ac3dab081e8f88e97be3",
     "latest_tag": "v0.9.0",
