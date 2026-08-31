@@ -74,7 +74,7 @@
     \vskip 0.55em
     {\large\itshape\@papersubtitle\par}%
     \vskip 1.1em
-    {\scshape\@author\par}%
+    {\scshape\@author\textsuperscript{*}\par}%
     \vskip 0.25em
     {\small\@date\par}%
     \vskip 0.8em
@@ -84,8 +84,15 @@
 
 \newcommand{\provenancenote}[1]{%
   \begingroup
-  \renewcommand{\thefootnote}{}%
+  \renewcommand{\thefootnote}{*}%
   \footnotetext{#1}%
   \endgroup}
+
+% Corpus-wide production disclosure. The private corpus registry checks these
+% exact paragraphs against every rendered active paper.
+\newcommand{\paperprovenance}{\provenancenote{\emph{Authorship and AI use.}
+Will Cook built and directed the research infrastructure and reviewed the claims
+when he could. AI agents did most of the research and drafting. Cook did not
+independently verify every claim.}}
 
 \endinput
