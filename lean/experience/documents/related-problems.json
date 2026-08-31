@@ -1,0 +1,48 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "related-problems",
+  "title": "Related problems",
+  "role": "portfolio_relationship_map",
+  "reading_order": 60,
+  "source_path": "docs/RELATED_PROBLEMS.md",
+  "routes": {
+    "html_mathml": "documents/related-problems.html",
+    "html_exact_tex": "documents/related-problems.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "03819cca7ce5ca4efdf15ddc432d0621f8de72f69ee94e22bdcd4962b2b83612",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "daedc21233a7094f7335fdf23b6f895c358a6f7607471552b978b5af5d1ef113",
+    "html_exact_tex_sha256": "c28bc33e85b47235e7032af2f62362a669f568771497dbf61f266c6315a6be01"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Bounded status route"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Problem map"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Relation in this repository"
+    }
+  ]
+}

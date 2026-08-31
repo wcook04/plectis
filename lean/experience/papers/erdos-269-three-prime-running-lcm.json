@@ -1,0 +1,174 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-269-three-prime-running-lcm",
+  "title": "The Three-Prime Running Least Common Multiple",
+  "subject": "Erdős #269",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 23,
+  "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
+  "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+  "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+  "problem_id": "erdos_269",
+  "routes": {
+    "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
+    "html_exact_tex": "papers/erdos-269-three-prime-running-lcm.mathjax.html",
+    "pdf": "../../papers/erdos-269-three-prime-running-lcm.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-269-three-prime-running-lcm.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
+    "publication_manifest_match": true,
+    "mathml_node_count": 493,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "876a81b1af17ddd6d7c74b0f2dc86c50d58941182a91dcaec9dfa665e083d2dd",
+    "html_exact_tex_sha256": "c656bbcc17252c34726c9e1909ffde25e0cfa82260dbb897a47d60bc5ccd9f64"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Structure"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The running least common multiple as a product of pure powers"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Constancy on logarithmic cells and the jump points"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The two-prime sums are transcendental"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The height-fibre normal form"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A quadratic bound for smooth exponent shells"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Non-separability of the three-prime kernel"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Dyadic blocks and a conditional carry contradiction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The four-element block alphabet"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The denominator reduction and its boundary"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The window recurrence and the residue contradiction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A finite check of the escape condition"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The actual block data and the missing bridge"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The intrinsic tail question"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A denominator-adaptive sufficient criterion"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A literal two-dimensional analytic route"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The structural frontier"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

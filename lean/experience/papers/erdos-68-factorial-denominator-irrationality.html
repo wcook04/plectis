@@ -1,0 +1,1644 @@
+<article class="lean-paper" data-paper-id="erdos-68-factorial-denominator-irrationality" data-math-mode="mathml">
+  <header class="lean-paper__header">
+    <p class="lean-paper__eyebrow">Problem note</p>
+    <h1>Factorial Carries and Finite Channel Obstructions</h1>
+    <p class="lean-paper__subject">Erdős #68</p>
+  </header>
+  <div class="lean-paper__body" data-source="../../../paper/erdos-68-factorial-denominator-irrationality.tex">
+<section id="sec:problem" class="level2">
+<h2>The problem</h2>
+<div class="center">
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l">Contribution</th>
+<th class="ta-l"> Exact scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Denominator exclusion</td>
+<td class="ta-l"> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Integral frontier</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb Q</annotation></semantics></math>
+iff for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">m&gt;B</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">m\nmid Z_m</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Structural reductions</td>
+<td class="ta-l"> Finite channel congruences, a two-term
+prime corrector, and endpoint projections isolate explicit missing
+inputs.</td>
+</tr>
+<tr>
+<td class="ta-l">Not a contribution</td>
+<td class="ta-l"> No cofinal miss, cofinal strict residual
+nonvanishing, or irrationality theorem is proved.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Erdős states the problem on p. 102 of his 1988 survey and, in the
+same passage, records the broader expectation that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_n1/(n!+t)</annotation></semantics></math>
+is irrational—indeed transcendental—for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+<span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span>. This is
+conjectural context, not a theorem proved in that source.</p>
+<p>Numbering and current status follow <a
+href="https://www.erdosproblems.com/68">Bloom’s Erdős problem
+catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>. The
+problem is open. The companion series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><mn>1</mn><mi>/</mi><mi>n</mi><mi>!</mi><mo>=</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}1/n!=e</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\ge2}1/(n!+1)</annotation></semantics></math>
+sit in the same family, and the difficulty here is the same one that
+makes the Erdős–Borwein constant hard: the denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
+grow fast enough that convergence is trivial and slow enough, in the
+arithmetic sense, that no single congruence controls them.</p>
+<p>The definitions and claim boundary are repeated here so that the note
+is self-contained.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l">Statement</th>
+<th class="ta-l"> Status</th>
+<th class="ta-l"> Exact boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Statement</td>
+<td class="ta-l"> Status</td>
+<td class="ta-l"> Exact boundary</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math></p></td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> No proof is claimed.</td>
+</tr>
+<tr>
+<td class="ta-l">Canonical factorial digit kernel</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> Floor formula, digit bounds, remainder
+recurrence, finite expansion, zero-tail propagation.</td>
+</tr>
+<tr>
+<td class="ta-l">Channel integrality</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>∣</mo><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">(d!)^{\lfloor i/d\rfloor}\mid i!</annotation></semantics></math>,
+with exact denominator cancellation.</td>
+</tr>
+<tr>
+<td class="ta-l">Channel congruence and LCM
+obstruction</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>≡</mo><mi>M</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">V_{d}(\lambda)\equiv M\pmod{d!-1}</annotation></semantics></math>;
+annihilating channels through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>D</mi></msub><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L_D\mid M</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Two-term prime channel corrector</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> The pair
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p,-1)</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p-1,p)</annotation></semantics></math>
+has moment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>,
+all channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+except
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">d=p</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-channel
+numerator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p!-1</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Weighted projection rigidity</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>≡</mo><mi>T</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">Z\equiv T\pmod R</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>i</mi></msub><mo>∣</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">Q_i\mid R</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>≤</mo><mi>B</mi><mo>&lt;</mo><msub><mi>Q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Z\le B&lt;Q_i</annotation></semantics></math>,
+then unequal residues
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msub><mi>Q</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">T\operatorname{mod} Q_1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msub><mi>Q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">T\operatorname{mod} Q_2</annotation></semantics></math>
+exclude that endpoint.</td>
+</tr>
+<tr>
+<td class="ta-l">Factor-split projection reduction</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> Two divisor factors of one private
+modulus support the same cancellation and disagreement bounds; coprime
+factors give a branch-free floor and may lie in one private
+quotient.</td>
+</tr>
+<tr>
+<td class="ta-l">Zero plateau and first-exit carry</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> Grid threshold, plateau equality of grid
+integers, forced zero digit, carry
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b\in\{0,-1\}</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Prime-power prefix obstruction</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> Rationality forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mi>k</mi></msup><annotation encoding="application/x-tex">p^k</annotation></semantics></math>
+to divide the strict successor at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">kp</annotation></semantics></math>
+whenever the factorial clears the denominator and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is coprime to it.</td>
+</tr>
+<tr>
+<td class="ta-l">Exact carry characterization</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> The normalized strict successors converge
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is rational exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m=1</annotation></semantics></math>
+eventually, equivalently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is irrational exactly when non-unit carries occur cofinally.</td>
+</tr>
+<tr>
+<td class="ta-l">Explicit denominator bound</td>
+<td class="ta-l"> Checked implication; exact finite
+certificate</td>
+<td class="ta-l"> Exact reduction gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mo>∤</mo><msub><mi>Z</mi><mn>60</mn></msub></mrow><annotation encoding="application/x-tex">60\nmid Z_{60}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>64</mn><mo>∤</mo><msub><mi>Z</mi><mn>64</mn></msub></mrow><annotation encoding="application/x-tex">64\nmid Z_{64}</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>67</mn><mo>∤</mo><msub><mi>Z</mi><mn>67</mn></msub></mrow><annotation encoding="application/x-tex">67\nmid Z_{67}</annotation></semantics></math>.
+An exact GMP computation certifies all carries through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>300000</mn><annotation encoding="application/x-tex">300000</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>300000</mn></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_{300000}\ne1</annotation></semantics></math>;
+the Lean-checked carry theorem gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>
+in every rational representation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Digits eventually zero
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇔</mo><annotation encoding="application/x-tex">\iff</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+rational</td>
+<td class="ta-l"> Returned derivation</td>
+<td class="ta-l"> Complete on the return; not yet
+kernel-checked here.</td>
+</tr>
+<tr>
+<td class="ta-l">Factorial-gap lcm growth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≫</mo><msup><mi>N</mi><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">\gg N^{4/3}\log N</annotation></semantics></math></td>
+<td class="ta-l"> Derived, source-verified</td>
+<td class="ta-l"> Derived below from a cited
+factorial-congruence theorem; not kernel-checked and not used as an
+input to any claim below.</td>
+</tr>
+<tr>
+<td class="ta-l">Finite certificates
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">D=9</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≤</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">D\le12</annotation></semantics></math>)</td>
+<td class="ta-l"> Verified finite instances</td>
+<td class="ta-l"> Each excludes only the denominators it
+names.</td>
+</tr>
+<tr>
+<td class="ta-l">Unbounded strict nonvanishing</td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> Required to turn the channel rounding
+argument into an irrationality proof.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:digits" class="level2">
+<h2>Canonical factorial digits</h2>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>0</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>x</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>x</mi><mo>−</mo><mo stretchy="false" form="prefix">⌊</mo><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\theta_0=\{x\}=x-\lfloor x\rfloor</annotation></semantics></math>
+and, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m\ge1</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>m</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mspace width="0.167em"></mspace><msub><mi>θ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">⌋</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>θ</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><mspace width="0.167em"></mspace><msub><mi>θ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>d</mi><mi>m</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">d_m=\lfloor m\,\theta_{m-1}\rfloor,
+  \qquad
+  \theta_m=m\,\theta_{m-1}-d_m .</annotation></semantics></math> This is
+the factorial base taken in its canonical form. The kernel checks the
+floor formula, the digit bounds
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>d</mi><mi>m</mi></msub><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">0\le d_m&lt;m</annotation></semantics></math>,
+the recurrence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>θ</mi><mi>m</mi></msub><mo>−</mo><msub><mi>d</mi><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\theta_{m+1}=(m+1)\theta_m-d_{m+1}</annotation></semantics></math>,
+the finite telescoping expansion
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>2</mn></mrow><mi>N</mi></munderover><mfrac><msub><mi>d</mi><mi>m</mi></msub><mrow><mi>m</mi><mi>!</mi></mrow></mfrac><mo>+</mo><mfrac><msub><mi>θ</mi><mi>N</mi></msub><mrow><mi>N</mi><mi>!</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">x=\lfloor x\rfloor+\sum_{m=2}^{N}\frac{d_m}{m!}
+   +\frac{\theta_N}{N!},</annotation></semantics></math> and the
+propagation rule: a zero remainder at one index forces every later digit
+to vanish. These are <em></em>, <em></em>, <em></em>, <em></em>, the ,
+and the ; they hold for every real
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,
+not only for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
+<p>The rational direction is also kernel-checked. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">q\le n</annotation></semantics></math>,
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">facFloor</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>q</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{facFloor}(a/q,n)=((n!/q):\mathbb{Z})a,</annotation></semantics></math>
+and the canonical digit at radix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n+1</annotation></semantics></math>
+vanishes. These are the and the . They imply that every rational input
+has an eventually zero canonical factorial-digit expansion. They do not
+decide whether
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is rational and supply no recurrence estimate for its digits or
+remainders.</p>
+<p>The returned derivation additionally gives the converse for this
+particular representation: the digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_m(S)</annotation></semantics></math>
+are eventually zero only if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is rational, equivalently the factorial tail state is eventually
+integral. That converse is not yet kernel-checked here, and nothing
+below uses it as though it were.</p>
+<p>Note what the criterion is not. Canonical normalisation is an exact
+reformulation of rationality. It does not by itself supply an
+obstruction, and a zero digit is not the same event as a zero-branch
+hit: the returned data contain canonical zero digits at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">m=5</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">m=23</annotation></semantics></math>,
+while the zero-branch list is empty through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>100000</mn></mrow><annotation encoding="application/x-tex">m=100000</annotation></semantics></math>.</p>
+<p>A second exact reformulation runs through a defect automaton. For a
+rational centre recurrence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>F</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub><mo>−</mo><msub><mi>C</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">F_m=mF_{m-1}+1+\varepsilon_m-C_m</annotation></semantics></math>,
+the kernel checks that the integer ceiling defect code equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><msub><mi>δ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>ε</mi><mi>m</mi></msub><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor m\delta_{m-1}-\varepsilon_m\rfloor</annotation></semantics></math>
+and that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>δ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>ε</mi><mi>m</mi></msub><mo>−</mo><msub><mi>q</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\delta_m=m\delta_{m-1}-\varepsilon_m-q_m</annotation></semantics></math>,
+with the specialisation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varepsilon_m=1/(m!-1)</annotation></semantics></math>
+written out. What is checked is the algebra of the automaton. Proving
+that the finite-sum residual centre satisfies the premise is a separate
+step and is not done.</p>
+<p>A nearby floor criterion makes one tempting shortcut precise and also
+shows where it breaks. Koepf and Schmersau prove that eventual equality
+between the floors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+times a partial sum and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+times its limit forces irrationality <span class="citation"
+data-cites="koepf-schmersau"><a href="#ref-5">[5]</a></span>; their rational-term version
+obtains that equality from prefix integrality at a scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>n</mi></msub><annotation encoding="application/x-tex">p_n</annotation></semantics></math>
+and the strict tail bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>−</mo><msub><mi>s</mi><mi>n</mi></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mi>p</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a-s_n&lt;1/(np_n)</annotation></semantics></math>
+<span class="citation" data-cites="koepf-schmersau"><a href="#ref-5">[5]</a></span>. For the
+natural termwise clearing choice
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>:</mo><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">p_n=\operatorname{lcm}\{k!-1:2\le k\le n\},</annotation></semantics></math>
+the last two denominators already show the obstruction:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>≥</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">p_n\ge
+  \frac{(n!-1)((n-1)!-1)}{n-1},</annotation></semantics></math> because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(n!-1,(n-1)!-1)=\gcd((n-1)!-1,n-1)\le n-1</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n\ge4</annotation></semantics></math>,
+the first omitted summand
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/((n+1)!-1)</annotation></semantics></math>
+is then already larger than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mi>p</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(np_n)</annotation></semantics></math>,
+so this natural
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>n</mi></msub><annotation encoding="application/x-tex">p_n</annotation></semantics></math>
+cannot satisfy their tail hypothesis. Cancellation in the reduced prefix
+denominator could in principle give a smaller scale, but proving enough
+cancellation is another form of the present denominator problem. Thus
+the source supplies an exact comparison boundary, not a proof of
+Problem #68.</p>
+<p>Duverney’s fast-series criteria fail at a different, equally exact
+boundary. His Theorem 3.1 assumes two-sided quadratic denominator growth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>≤</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><msup><mi>c</mi><mo>′</mo></msup><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">cu_n^2\le u_{n+1}\le c&#39;u_n^2</annotation></semantics></math>,
+while for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u_n=n!-1</annotation></semantics></math>
+one has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{n+1}/u_n^2\to0</annotation></semantics></math>
+<span class="citation" data-cites="duverney"><a href="#ref-6">[6]</a></span>. The all-positive
+specialization in Corollary 3.2 additionally requires
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>n</mi></munder><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_n\left|\frac{u_{n+1}}{u_n^2}-1\right|&lt;\infty,</annotation></semantics></math>
+whereas the summands tend to one here <span class="citation"
+data-cites="duverney"><a href="#ref-6">[6]</a></span>. Neither criterion applies.</p>
+<p>The sharp recent theorem of Barreto, Kang, Kim, Kovač, and Zhang has
+a similarly explicit ceiling. Its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>
+case proves irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">a_n^{1/2^n}\to\infty</annotation></semantics></math>,
+whereas
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(n!-1)^{1/2^n}\longrightarrow1</annotation></semantics></math>
+for the present choice
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n=n!-1</annotation></semantics></math>
+<span class="citation" data-cites="barreto-et-al"><a href="#ref-8">[8]</a></span>. The proof
+nevertheless identifies a useful exact criterion: Mahler’s elementary
+rationality floor is contradicted by prefix-clearing integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>N</mi></msub><annotation encoding="application/x-tex">D_N</annotation></semantics></math>
+for which the cleared positive tails satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><msub><mi>D</mi><mi>N</mi></msub><msub><mi>r</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\liminf_ND_Nr_N=0</annotation></semantics></math>
+<span class="citation" data-cites="barreto-et-al"><a href="#ref-8">[8]</a></span>. The ordinary
+product of the factorial-gap denominators is far too large for that
+estimate; a transfer would need a low-height clearing subsequence, or
+enough exact cancellation in their least common multiple. Thus the new
+theorem supplies a precise target inequality and adaptive-cutoff
+architecture, but not the missing arithmetic bound.</p>
+<p>The ordinary factorial-series direction survives more usefully.
+Dividing the strict-successor recurrence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">Z_m=mZ_{m-1}+1-b_m</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">m!</annotation></semantics></math>
+and telescoping gives the exact finite identity
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>Z</mi><mi>M</mi></msub><mrow><mi>M</mi><mi>!</mi></mrow></mfrac><mo>=</mo><mfrac><msub><mi>Z</mi><mn>2</mn></msub><mrow><mn>2</mn><mi>!</mi></mrow></mfrac><mo>+</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>3</mn></mrow><mi>M</mi></munderover><mfrac><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><mrow><mi>m</mi><mi>!</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{Z_M}{M!}
+  =\frac{Z_2}{2!}
+   +\sum_{m=3}^{M}\frac{1-b_m}{m!}.</annotation></semantics></math> Thus
+the carry defects
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">1-b_m</annotation></semantics></math>
+are genuine factorial-series coefficients. Hančl and Tijdeman give exact
+rationality classifications for polynomial coefficients and
+finite-difference criteria for broader ordinary factorial series <span
+class="citation" data-cites="hancl-tijdeman"></span>. Their denominator
+is the cumulative linear product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mrow><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>n</mi><mo>+</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\prod_{n\le N}(an+b)</annotation></semantics></math>,
+not the individual number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N!-1</annotation></semantics></math>.
+Applied to the display above, the classical Cantor–Oppenheim criterion
+still needs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">1-b_m\ne0</annotation></semantics></math>
+infinitely often—precisely the missing cofinal non-unit-carry assertion
+that remains open. The identity is therefore a rigorous literature
+bridge, not a hidden solution.</p>
+</section>
+<section id="sec:channels" class="level2">
+<h2>Finite channel congruences and the LCM obstruction</h2>
+<p>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>.
+The kernel proves the divisibility
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mspace width="0.222em"></mspace><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">|</mo><mspace width="0.222em"></mspace><mi>i</mi><mi>!</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>≥</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">(d!)^{\lfloor i/d\rfloor}\ \Big|\ i!
+  \qquad(i\ge0),</annotation></semantics></math> defines the integral
+channel weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>i</mi></mrow></msub><annotation encoding="application/x-tex">W_{d,i}</annotation></semantics></math>
+obtained by cancelling that factor, and checks the exact cancellation.
+It also checks the consecutive channel event
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mspace width="0.167em"></mspace><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mo>=</mo><mn>0</mn><mspace width="2.0em"></mspace><mrow><mtext mathvariant="normal">whenever </mtext><mspace width="0.333em"></mspace></mrow><mi>d</mi><mo>∤</mo><mi>n</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">n\,W_{d,n-1}-W_{d,n}=0
+  \qquad\text{whenever } d\nmid n .</annotation></semantics></math> So
+the channel weight is arithmetically inert except at multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
+The formal statements are <em></em>, <em></em>, and <em></em>.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
+be a finitely supported integer vector on indices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M=M(\lambda)</annotation></semantics></math>
+be its factorial moment, and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_{d}(\lambda)</annotation></semantics></math>
+be the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-th
+channel numerator. The kernel checks two facts about them.</p>
+<p>Theorem  is the sharper of the two for design purposes. It says that
+every zero-moment variation of the support changes the normalised
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-th
+channel contribution by an integer only. Zero-moment variations
+therefore cannot manufacture an extra fractional cancellation
+coordinate: the congruence forces every normalised channel defect to be
+integral.</p>
+<p>Theorem  is an obstruction rather than a source of cancellation. Any
+finite family that kills the low channels must have moment divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>
+grows faster than the tail shrinks. The returned analysis proposes the
+quantitative form
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>≫</mo><mspace width="0.222em"></mspace><msup><mi>N</mi><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>→</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log \operatorname{lcm}_{2\le n\le N}(n!-1)\ \gg\ N^{4/3}\log N
+  \qquad(N\to\infty).</annotation></semantics></math> For the derivation
+from the cited multiplicity theorem, put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><munder><mo>∏</mo><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></munder><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>L</mi><mi>N</mi></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Q_N=\prod_{2\le n\le N}(n!-1),
+  \qquad
+  L_N=\operatorname{lcm}_{2\le n\le N}(n!-1).</annotation></semantics></math>
+For an odd prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>p</mi></msub><annotation encoding="application/x-tex">m_p</annotation></semantics></math>
+count the indices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">2\le n\le N</annotation></semantics></math>
+for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p\mid n!-1</annotation></semantics></math>.
+Such an index necessarily satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">n&lt;p</annotation></semantics></math>.
+The factorial congruence multiplicity estimate of Garaev, Luca, and
+Shparlinski <span class="citation"
+data-cites="garaev-luca-shparlinski"><a href="#ref-3">[3]</a></span>, applied on the interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1\le n\le\min(N,p-1)</annotation></semantics></math>,
+therefore gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>p</mi></msub><mo>≪</mo><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m_p\ll N^{2/3}</annotation></semantics></math>.
+(The prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+divides none of these factors.) If
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>p</mi></msub><mo>=</mo><munder><mi mathvariant="normal">max</mi><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></munder><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">E_p=\max_{2\le n\le N}v_p(n!-1),</annotation></semantics></math>
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><munder><mo>∑</mo><mi>p</mi></munder><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>N</mi></munderover><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi><mo>≤</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><munder><mi mathvariant="normal">max</mi><mi>p</mi></munder><msub><mi>m</mi><mi>p</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><munder><mo>∑</mo><mi>p</mi></munder><msub><mi>E</mi><mi>p</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi><mo>≪</mo><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\log Q_N
+  =\sum_p\sum_{n=2}^{N}v_p(n!-1)\log p
+  \le \bigl(\max_p m_p\bigr)\sum_p E_p\log p
+  \ll N^{2/3}\log L_N .</annotation></semantics></math> On the other
+hand, Stirling summation gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>≍</mo><msup><mi>N</mi><mn>2</mn></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">\log Q_N\asymp N^2\log N</annotation></semantics></math>,
+proving the displayed lower bound for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\log L_N</annotation></semantics></math>.
+The source states the multiplicity theorem, not this lcm corollary; the
+latter is derived here and is not kernel-checked. It is recorded because
+it is the shape of the obstruction the returns describe, and it is used
+nowhere below.</p>
+<p>The primitive lcm divisibility after cofactor removal is factorial
+valuations do not remove the obstruction once every common cofactor
+divisor has been removed. A separate corank-one cofactor/determinant
+argument for constructing such primitive kernels remains advisory
+pending Lean formalisation; the divisibility theorem does not establish
+that construction.</p>
+</section>
+<section id="sec:translator" class="level2">
+<h2>A two-term prime channel corrector</h2>
+<p>The channel obstruction raises a natural question: can a finite
+support affect exactly one channel? The following two-term construction
+does so.</p>
+<p>The theorem holds for every prime, not merely for sampled primes. Its
+use is arithmetic rather than analytic: it supplies, at cost zero in the
+moment, a unit in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-channel.
+Adding an integer multiple of this corrector to any candidate kernel
+shifts the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-channel
+numerator by multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p!-1</annotation></semantics></math>
+and leaves every other channel and the moment untouched.</p>
+<p>The consequence is already uniform in the support location. For every
+channel rank and every prescribed cutoff, Lean constructs a
+factorial-grid kernel and a remote prime-corrector pair entirely beyond
+that cutoff, with all requested low channels zero, nonzero factorial
+moment, and residual in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1/2,1/2]</annotation></semantics></math>;
+see <em></em>. What is not available is strict nonvanishing: nothing
+proved here rules out the rounded residual being exactly zero, and no
+cofinal family with a strictly nonzero rounded residual has been
+produced. This is the most direct remaining hypothesis, stated in §.</p>
+</section>
+<section id="sec:plateau" class="level2">
+<h2>Zero plateaux, first exit, and denominator bounds</h2>
+<p>A second, independent route works on the rational grid rather than on
+channels. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+be a partial sum and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+a candidate denominator. The kernel checks the algebraic grid threshold:
+writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mi>H</mi><mo>=</mo><mi>k</mi><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">qH=k+r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">q(S-H)=u</annotation></semantics></math>,
+the next
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">q^{-1}</annotation></semantics></math>
+grid point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">(k+1)/q</annotation></semantics></math>
+lies below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>r</mi><mo>+</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">1\le r+u</annotation></semantics></math>.
+It also checks the factorial plateau theorem: if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>&lt;</mo><mi>G</mi><mo>≤</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">H&lt;G\le S</annotation></semantics></math>,
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>G</mi></mrow><annotation encoding="application/x-tex">n!G</annotation></semantics></math>
+is integral, and if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!(S-H)&lt;1</annotation></semantics></math>,
+then the strict successor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">n!H</annotation></semantics></math>
+and the canonical floor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">n!S</annotation></semantics></math>
+are the same grid integer.</p>
+<p>Two rigidity statements follow. Consecutive plateau floors, scaled by
+the next radix, force the canonical factorial digit to vanish. And any
+first-exit offset
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\delta\in[0,2)</annotation></semantics></math>
+with carry
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">⌊</mo><mi>δ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">b=-\lfloor\delta\rfloor</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b\in\{0,-1\}</annotation></semantics></math>:
+the exit is rigid, with exactly two alternatives.</p>
+<p>The first-crossing argument continues from the exit to a denominator
+lower bound. For a rational grid level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>,
+suppose that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
+is its first crossing by the literal partial sums and write
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><msub><mi>H</mi><mrow><mi>τ</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mfrac><mi>a</mi><mi>v</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>a</mi><mo>,</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">G-H_{\tau-1}=\frac{a}{v},\qquad a,v&gt;0.</annotation></semantics></math>
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mi>τ</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">v\ge\tau!-1</annotation></semantics></math>.
+On the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
+exit branch this strengthens to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mi>τ</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v\ge\tau!(\tau!-1)</annotation></semantics></math>.
+No coprimality hypothesis on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+is required.</p>
+<p>There is also a direct obstruction at prime indices. Let
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>m</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>m</mi></mrow></munder><mfrac><mn>1</mn><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><msub><mi>H</mi><mi>m</mi></msub><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">H_m=\sum_{2\le n\le m}\frac1{n!-1},\qquad
+  Z_m=\lfloor m!H_m\rfloor+1,</annotation></semantics></math> and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\Delta_m</annotation></semantics></math>
+be the distance from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><msub><mi>H</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">(m-1)!H_{m-1}</annotation></semantics></math>
+to its strict integer successor. The kernel checks, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
+the exact criterion
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>∣</mo><msub><mi>Z</mi><mi>m</mi></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mn>1</mn><mo>+</mo><mfrac><mn>1</mn><mrow><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>m</mi><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub><mo>≤</mo><mn>2</mn><mo>+</mo><mfrac><mn>1</mn><mrow><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">m\mid Z_m
+  \quad\Longleftrightarrow\quad
+  1+\frac1{m!-1}&lt;m\Delta_m\le2+\frac1{m!-1}.</annotation></semantics></math>
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
+then for every prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p&gt;q</annotation></semantics></math>
+the tail bound forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><msub><mi>Z</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">p\mid Z_p</annotation></semantics></math>.
+Consequently, one exact missed prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+implies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">q\ge p</annotation></semantics></math>.
+The rational implementation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>p</mi></msub><annotation encoding="application/x-tex">Z_p</annotation></semantics></math>
+agrees with the real-floor definition, and exact kernel reduction gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mo>∤</mo><msub><mi>Z</mi><mn>11</mn></msub></mrow><annotation encoding="application/x-tex">11\nmid Z_{11}</annotation></semantics></math>.
+Thus every rational representation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+has denominator at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math>.</p>
+<p>The all-index recurrence is stronger. Define its exact carry by
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_m=mZ_{m-1}+1-b_m .</annotation></semantics></math>
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn><mo>≥</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">m-1\ge q</annotation></semantics></math>,
+the plateau theorem identifies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><mi>q</mi></mfrac><mspace width="0.167em"></mspace><mi>a</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><mi>m</mi><mi>!</mi></mrow><mi>q</mi></mfrac><mspace width="0.167em"></mspace><mi>a</mi><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">Z_{m-1}=\frac{(m-1)!}{q}\,a,\qquad
+  Z_m=\frac{m!}{q}\,a=mZ_{m-1},</annotation></semantics></math> so
+necessarily
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m=1</annotation></semantics></math>.
+Hence one exact non-unit carry at index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">q\ge m</annotation></semantics></math>.
+Conversely, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m=1</annotation></semantics></math>
+eventually, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">Z_m/m!</annotation></semantics></math>
+is eventually constant. The one-cell bound
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>m</mi></msub><mo>&lt;</mo><mfrac><msub><mi>Z</mi><mi>m</mi></msub><mrow><mi>m</mi><mi>!</mi></mrow></mfrac><mo>≤</mo><msub><mi>H</mi><mi>m</mi></msub><mo>+</mo><mfrac><mn>1</mn><mrow><mi>m</mi><mi>!</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">H_m&lt;\frac{Z_m}{m!}\le H_m+\frac1{m!}</annotation></semantics></math>
+and the exact tail estimate show that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi><mi>!</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">Z_m/m!\to S</annotation></semantics></math>;
+hence that eventual constant is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+and is rational. Thus
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb Q
+  \quad\Longleftrightarrow\quad
+  (\forall B)(\exists m&gt;B)\ b_m\ne1.</annotation></semantics></math>
+The full Erdős problem is now reduced without loss to producing those
+cofinally many non-unit carries. Exact rational normalization gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mo>∤</mo><msub><mi>Z</mi><mn>60</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><mn>64</mn><mo>∤</mo><msub><mi>Z</mi><mn>64</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><mn>67</mn><mo>∤</mo><msub><mi>Z</mi><mn>67</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">60\nmid Z_{60},\qquad 64\nmid Z_{64},\qquad 67\nmid Z_{67}.</annotation></semantics></math>
+At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">m=60</annotation></semantics></math>
+the recurrence also proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>60</mn></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_{60}\ne1</annotation></semantics></math>,
+and hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">q\ge60</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>67</mn><annotation encoding="application/x-tex">67</annotation></semantics></math>
+is prime, the prime-miss theorem applied at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>67</mn><annotation encoding="application/x-tex">67</annotation></semantics></math>
+gives the stronger checked bound
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mfrac><mi>a</mi><mi>q</mi></mfrac><mo>,</mo><mspace width="0.222em"></mspace><mi>q</mi><mo>&gt;</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><mi>q</mi><mo>≥</mo><mn>67</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">S=\frac aq,\ q&gt;0 \quad\Longrightarrow\quad q\ge67.</annotation></semantics></math></p>
+<p>There is a second, more arithmetic mechanism at doubled prime
+indices. For every odd prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+the kernel now specializes the strict-successor prime-power criterion to
+the literal prefixes:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>2</mn></msup><mo>∣</mo><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mn>1</mn><mspace width="0.222em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="0.222em"></mspace><mi>p</mi><mo>∣</mo><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">or</mtext><mspace width="0.222em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>p</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="0.222em"></mspace><mi>p</mi><mo>∣</mo><mn>2</mn><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">p^2\mid Z_{2p}
+  \quad\Longleftrightarrow\quad
+  \bigl(b_{2p}=1\ \text{and}\ p\mid Z_{2p-1}\bigr)
+  \ \text{or}\
+  \bigl(b_{2p}=1+p\ \text{and}\ p\mid 2Z_{2p-1}-1\bigr).</annotation></semantics></math>
+Consequently, failure of both displayed branches for a cofinal family of
+odd primes proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+irrational. This is a sharper two-stage target than a bare square
+nondivisibility assertion: it exposes separately the only two carry
+values and predecessor residues that can survive. It remains a
+criterion, not the missing cofinal input.</p>
+<p>The formal theorem is not restricted to those hand-reduced indices. A
+separately implemented exact GMP integer computation certifies all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>299998</mn><annotation encoding="application/x-tex">299998</annotation></semantics></math>
+carry cells for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">3\le m\le300000</annotation></semantics></math>.
+Its unit carries occur exactly at
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>52</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>591</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>1030</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>1407</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>1438</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>2164</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>4258</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>10991</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>21236</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">52,\ 591,\ 1030,\ 1407,\ 1438,\ 2164,\ 4258,\ 10991,\ 21236,</annotation></semantics></math>
+so no further unit carry occurs through the endpoint, where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>300000</mn></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_{300000}\ne1</annotation></semantics></math>.
+Feeding that exact finite fact to the non-unit-carry theorem strengthens
+the bound to
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mfrac><mi>a</mi><mi>q</mi></mfrac><mo>,</mo><mspace width="0.222em"></mspace><mi>q</mi><mo>&gt;</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><mi>q</mi><mo>≥</mo><mn>300000</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">S=\frac aq,\ q&gt;0 \quad\Longrightarrow\quad q\ge300000.</annotation></semantics></math>
+The computation uses no floating-point arithmetic; its canonical
+payload, Python driver, and GMP backend are hash-bound in the companion
+research packet. This remains a finite exclusion. The new target is to
+rule out an eventual all-unit carry tail.</p>
+<p>There is also a finite peeling identity. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≠</mo><mn>0</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x\ne0,1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mfrac><mn>1</mn><msup><mi>x</mi><mi>j</mi></msup></mfrac><mo>+</mo><mfrac><mn>1</mn><mrow><msup><mi>x</mi><mi>K</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{x-1}
+  =\sum_{j=1}^{K}\frac1{x^j}
+   +\frac1{x^K(x-1)}.</annotation></semantics></math> When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">x=k!</annotation></semantics></math>
+and a chosen factorial scale is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>K</mi></msup></mrow><annotation encoding="application/x-tex">(k!)^K</annotation></semantics></math>,
+the scaled finite sum is integral and only the last term retains the
+factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k!-1</annotation></semantics></math>
+in its denominator. The identity isolates one residual fraction before
+exact bounding; it does not yet give a cofinal family of nonzero
+residuals.</p>
+<p>One proposed strengthening is false and is recorded as such: the
+divisibility
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>V</mi><mi>m</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(m!-1)\mid\operatorname{den}(V_m)</annotation></semantics></math>
+fails at the reported strict events
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">m=52</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>591</mn></mrow><annotation encoding="application/x-tex">m=591</annotation></semantics></math>.
+Only the Archimedean first-crossing lower bound survives.</p>
+</section>
+<section id="sec:projection" class="level2">
+<h2>Weighted projection rigidity</h2>
+<p>The third formal layer converts modular disagreement into
+exclusion.</p>
+<p>The leave-one-out specialisation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>R</mi><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Q=R/r</annotation></semantics></math>
+also follows. More generally, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math>
+divide
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+and take the complementary projection moduli
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">R/a</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">R/b</annotation></semantics></math>.
+Lean checks the same quotient cancellation and collision-cap comparison
+for these factor projections. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(a,b)=1</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mi>/</mi><mi>a</mi><mo>,</mo><mi>R</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(R/a,R/b)=R</annotation></semantics></math>,
+and the resulting branch-free factor-pair floor is at most the global
+complementary residue. The factors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math>
+may both divide one private quotient. Thus the reduction needs no
+analytic input and no pair of distinct denominator indices, only
+suitable factors whose projections or factor-pair floor satisfy the
+stated bound. This is checked in <em></em> and <em></em>.</p>
+<p>The transport to the literal factorial block is established directly
+rather than advisory. Lean builds the collision core
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
+private quotients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>i</mi></msub><annotation encoding="application/x-tex">r_i</annotation></semantics></math>,
+private modulus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>,
+and weighted numerator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+for the actual denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i!-1</annotation></semantics></math>,
+and proves both the endpoint congruence modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+and the required coprimality. Moreover, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m!-1</annotation></semantics></math>
+has canonical large prefix-private primes, then their complete
+prime-power product divides the single quotient owned by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+on the tailored block with parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor m/2\rfloor+1</annotation></semantics></math>,
+hence divides that block’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>.</p>
+<p>The collision core itself has an exact incremental law. For the
+positive factorial-gap denominators, adjoining
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>a</mi></msub><annotation encoding="application/x-tex">d_a</annotation></semantics></math>
+to an old finite family
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi mathvariant="normal">gcd</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>,</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">C(S\cup\{a\})
+ =\operatorname{lcm}\!\left(C(S),\,
+     \gcd\!\left(d_a,\operatorname{lcm}_{j\in S}d_j\right)\right).</annotation></semantics></math>
+Indeed, finite-family gcd–lcm distributivity collapses the lcm of all
+pairwise gcds against
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>a</mi></msub><annotation encoding="application/x-tex">d_a</annotation></semantics></math>
+to this single gcd. The same formula holds after adjoining the
+distinguished base; see <em></em> and <em></em>. Thus each step needs
+only the old denominator lcm and the old collision core, with no
+pairwise rescan.</p>
+<p>There is also an exact product–lcm bound. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>C</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\widetilde C(S)</annotation></semantics></math>
+denotes the collision core after cancelling a positive distinguished
+base, while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">L(S)=\operatorname{lcm}_{j\in S}d_j</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P(S)=\prod_{j\in S}d_j</annotation></semantics></math>,
+then Lean proves
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>C</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">hence</mtext><mspace width="2.0em"></mspace><mover><mi>C</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\widetilde C(S)L(S)\mid P(S),
+ \qquad\text{hence}\qquad
+ \widetilde C(S)\le \frac{P(S)}{L(S)}.</annotation></semantics></math>
+See <em></em>. For the actual factorial block this specializes to
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">factorialBlockNormalizedCollisionCore</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mrow><munder><mo>∏</mo><mrow><mi>n</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub></mrow></munder><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>n</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{factorialBlockNormalizedCollisionCore}(p)
+ \le
+ \frac{\displaystyle\prod_{n\in I_p}(n!-1)}
+      {\displaystyle\operatorname{lcm}_{n\in I_p}(n!-1)},</annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>p</mi></msub><annotation encoding="application/x-tex">I_p</annotation></semantics></math>
+is the block index set; see <em></em>. This is an exact quantitative
+bridge from lower estimates for the factorial-gap lcm to upper estimates
+for the normalized collision core. It does not itself close the local
+scale bound: one still needs cofinal estimates strong enough at the
+selected private factor and factorial scale. A fixed-modulus hit count
+alone does not supply such control.</p>
+<p>The distinguished-base cancellation is now exact prime by prime.
+Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">B=(p-1)!</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+for the unnormalised factorial-block collision core,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>B</mi></mfrac><mo>=</mo><mfrac><mi>C</mi><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\widetilde C_p=\frac{\operatorname{lcm}(B,C)}{B}
+ =\frac{C}{\gcd(B,C)},\qquad
+ v_q(\widetilde C_p)=v_q(C)-\min\{v_q(B),v_q(C)\}.</annotation></semantics></math>
+See <em></em>, <em></em>, and <em></em>. Consequently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">q^e\mid\widetilde C_p</annotation></semantics></math>
+exactly when the pairwise core carries
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">q^{e+v_q(B)}</annotation></semantics></math>;
+in the factorial block this forces two distinct gaps to be divisible by
+that higher power. Lean moreover proves the sharp surviving valuation
+cap
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>q</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)+v_q((p-1)!)&lt;q.</annotation></semantics></math>
+Thus every support prime satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msup><mi>q</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">p-1&lt;q(q-1)&lt;q^2</annotation></semantics></math>,
+and, whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>p</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k(k-1)\le p-1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><annotation encoding="application/x-tex">\widetilde C_p</annotation></semantics></math>
+is coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">k!</annotation></semantics></math>;
+see <em></em>, <em></em>, and <em></em>. This removes every factorial
+channel below the moving square-root cutoff, but does not yet bound the
+aggregate product of the remaining large prime powers at the selected
+quotient, nor force the complementary projections or residues cofinally.
+It therefore supplies a stronger exact reduction, not an irrationality
+proof.</p>
+<p>For collision estimates that already provide an upper-half hit, no
+exponent is lost to normalization. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+divides a displayed factorial gap at some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">n\ge p</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid(p-1)!</annotation></semantics></math>,
+and Lean proves for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>
+that
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mi>C</mi><mi>p</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">q^e\mid\widetilde C_p\quad\Longleftrightarrow\quad q^e\mid C_p.</annotation></semantics></math>
+See <em></em> and <em></em>. Combined with the two-hit theorem, this
+identifies every complete normalized upper-hit contribution with
+repeated full-power load in two distinct displayed gaps. The remaining
+arithmetic task is to aggregate those moving loads strongly enough for
+the normalized collision cap; this equivalence does not provide that
+estimate or the complementary-residue bound.</p>
+<p>This bridge has an exact incidence-count form. For an upper-hit prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
+Lean proves
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mn>1</mn><mo>&lt;</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">q^e\mid\widetilde C_p
+ \quad\Longleftrightarrow\quad
+ 1&lt;\#\{i\in I_p:q^e\mid i!-1\}.</annotation></semantics></math> See
+<em></em>. Hence a source estimate giving at most one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mi>e</mi></msup><annotation encoding="application/x-tex">q^e</annotation></semantics></math>-hit
+deletes that exponent from the normalized core and yields
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)&lt;e</annotation></semantics></math>;
+see <em></em>. The remaining problem is genuinely aggregate: obtain
+sufficiently uniform incidence bounds over all moving support primes and
+exponents, multiply the surviving valuation contributions, and still
+close the complementary-residue coordinate.</p>
+<p>The local aggregation is now exact. For every upper-hit prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+Lean proves
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mrow><mo stretchy="true" form="prefix">{</mo><mi>e</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>q</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>:</mo><mn>1</mn><mo>&lt;</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">}</mo></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)
+ =
+ \#\left\{e\in[1,q-1]:
+   1&lt;\#\{i\in I_p:q^e\mid i!-1\}\right\};</annotation></semantics></math>
+see <em></em>. There is therefore no additional valuation loss between
+prime-power incidence estimates and the complete local collision
+exponent. The open step is to bound these layer counts uniformly as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+move, then control the product over all surviving primes strongly enough
+for the normalized collision cap; this theorem does not supply that
+global estimate.</p>
+<p>The same local load now has a distance-sensitive witness. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">B=(p-1)!</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+is prime,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">q^e\mid\widetilde C_p</annotation></semantics></math>,
+Lean produces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&lt;j</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>p</mi></msub><annotation encoding="application/x-tex">I_p</annotation></semantics></math>
+such that
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msup><mi>q</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>∣</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msup><mi>q</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><msup><mi>j</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">q^{e+v_q(B)}\mid i!-1,\qquad
+ q^{e+v_q(B)}\mid j!-1,\qquad
+ q^{e+v_q(B)}\le j^{\,j-i}.</annotation></semantics></math> See
+<em></em>. Consequently, if
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup><mo>&lt;</mo><msup><mi>q</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">(2p-1)^d&lt;q^{e+v_q(B)},</annotation></semantics></math>
+then some such two hits satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&lt;</mo><mi>j</mi><mo>−</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">d&lt;j-i</annotation></semantics></math>;
+see <em></em>. The spacing hypothesis in that reduction is now
+discharged internally. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+is prime, then any two
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mi>e</mi></msup><annotation encoding="application/x-tex">q^e</annotation></semantics></math>-hits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&lt;j</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&lt;</mo><mi>j</mi><mo>−</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">e&lt;j-i</annotation></semantics></math>,
+without an endpoint or large-prime hypothesis; see <em></em>. The point
+is that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid j!-1</annotation></semantics></math>
+already forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">j&lt;q</annotation></semantics></math>,
+while the preceding gap-power inequality converts this automatic size
+relation into strict separation. Consequently Lean proves the global
+primewise diameter ceiling
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">q\mid\widetilde C_p
+ \quad\Longrightarrow\quad
+ v_q(\widetilde C_p)+v_q((p-1)!)&lt;2p-3</annotation></semantics></math>
+for every prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p\ge2</annotation></semantics></math>;
+see <em></em>. The exponent-level version is <em></em>. Thus the earlier
+endpoint-prime estimate is a special case, and even primes already
+present in the normalization base pay for their base valuation inside
+the same block-diameter budget. This still does not control how many
+collision primes occur or the product of their bounded powers; those
+global estimates, together with the complementary-residue bound, remain
+open.</p>
+<p>The pairwise statement is stronger than the selected-witness form
+used in that proof. For arbitrary
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>,</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">q,e</annotation></semantics></math>
+and any displayed hits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&lt;j</annotation></semantics></math>,
+Lean proves
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><msup><mi>q</mi><mi>e</mi></msup><mo>≤</mo><msup><mi>j</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup><mo>;</mo></mrow><annotation encoding="application/x-tex">q^e\mid(i!-1),\quad q^e\mid(j!-1)
+ \quad\Longrightarrow\quad q^e\le j^{\,j-i};</annotation></semantics></math>
+see <em></em>. Consequently, when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+is prime and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
+every two
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mi>e</mi></msup><annotation encoding="application/x-tex">q^e</annotation></semantics></math>-hits
+in the block—not just one chosen pair—satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&lt;</mo><mi>j</mi><mo>−</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">e&lt;j-i</annotation></semantics></math>;
+see <em></em>. Every prime-power hit layer is therefore an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-separated
+subset of the block. Lean now proves the finite cardinality corollary
+itself:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>≤</mo><mn>2</mn><mi>p</mi><mo>+</mo><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(e+1)\#\{i\in I_p:q^e\mid i!-1\}\le 2p+e-2</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p\ge2</annotation></semantics></math>,
+prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>;
+see <em></em>. The unweighted packing step is therefore complete. What
+remains is to combine it with the exact repeated-layer valuation
+identity, sum the prime-power weights over all moving collision primes,
+and prove a global product bound strong enough for the normalized
+collision cap.</p>
+<p>For an endpoint prime carrying one upper-half hit, Lean now performs
+the first combination exactly. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p\ge2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+is prime, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">2p-1&lt;q</annotation></semantics></math>,
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mrow><mo stretchy="true" form="prefix">{</mo><mi>e</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">]</mo><mo>:</mo><mn>1</mn><mo>&lt;</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">}</mo></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)
+ =
+ \#\left\{e\in[1,2p-4]:
+   1&lt;\#\{i\in I_p:q^e\mid i!-1\}\right\};</annotation></semantics></math>
+see <em></em>. Thus every repeated-hit layer outside the block-diameter
+window has been removed from the exact local valuation formula. The
+remaining estimate is still global and weighted: these truncated layer
+counts must be aggregated over the moving endpoint primes strongly
+enough to bound their complete prime-power product, and the independent
+complementary-residue coordinate remains open.</p>
+<p>The endpoint incidence criterion itself no longer needs a selected
+upper-half anchor. For every prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q&gt;2p-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
+Lean proves
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mn>1</mn><mo>&lt;</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>q</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>;</mo></mrow><annotation encoding="application/x-tex">q^e\mid\widetilde C_p
+ \quad\Longleftrightarrow\quad
+ 1&lt;\#\{i\in I_p:q^e\mid i!-1\};</annotation></semantics></math> see
+<em></em>. Thus an at-most-one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mi>e</mi></msup><annotation encoding="application/x-tex">q^e</annotation></semantics></math>
+incidence estimate forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)&lt;e</annotation></semantics></math>
+without first choosing an upper hit; see <em></em>. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e=2</annotation></semantics></math>
+this gives the conditional squarefree conclusion
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">v_q(\widetilde C_p)\le1</annotation></semantics></math>;
+see <em></em>. More generally the endpoint inequality can be replaced by
+the exact condition
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid(p-1)!</annotation></semantics></math>.
+For every such prime and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
+Lean proves the same hit-count equivalence; see <em></em>. The
+at-most-one estimate cuts the normalized valuation below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>,
+and its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e=2</annotation></semantics></math>
+specialization gives conditional squarefreeness; see <em></em> and
+<em></em>. Every prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">q\ge p</annotation></semantics></math>
+is absent from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(p-1)!</annotation></semantics></math>,
+so this covers the entire moving prime range at and above the block
+parameter. The result remains conditional: no theorem here supplies the
+uniform prime-square incidence premise or the global weighted product
+estimate. The squarefreeness premise is not proved. An exhaustive
+modular scan through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><mn>2</mn><mo>,</mo><mn>000</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">q\le2{,}000{,}000</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>240</mn></mrow><annotation encoding="application/x-tex">n\le240</annotation></semantics></math>
+found four individual square hits and no prime with two such hits.
+Separately, all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>498</mn><mo>,</mo><mn>501</mn></mrow><annotation encoding="application/x-tex">498{,}501</annotation></semantics></math>
+pairs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>a</mi><mo>&lt;</mo><mi>b</mi><mo>≤</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">2\le a&lt;b\le1000</annotation></semantics></math>
+have squarefree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>b</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\gcd(a!-1,b!-1)</annotation></semantics></math>,
+and the aggregate squarefree-collision scan through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>499</mn></mrow><annotation encoding="application/x-tex">p=499</annotation></semantics></math>
+stays below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.374</mn><annotation encoding="application/x-tex">0.374</annotation></semantics></math>
+of the upper-descending-factorial logarithmic scale. These are finite
+exact computations, not theorem authority or an asymptotic incidence
+bound.</p>
+<p>Cofinal prefix-private support itself is unconditional. Given any
+cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+Lean chooses a prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>B</mi><mi>!</mi><mo>+</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">q\ge B!+5</annotation></semantics></math>,
+uses Wilson’s theorem to obtain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid(q-2)!-1</annotation></semantics></math>,
+and takes the least factorial-gap hit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">m\le B</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>≤</mo><mi>B</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">q\le m!-1\le B!</annotation></semantics></math>,
+a contradiction. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">m&gt;B</annotation></semantics></math>;
+see <em></em>. A finite variant compares the product of a chosen set of
+primes, each at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>,
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∏</mo><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>B</mi></mrow></munder><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\prod_{2\le k\le B}(k!-1).</annotation></semantics></math>
+If the prime product is larger, at least one chosen prime has no hit
+through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+while Wilson still bounds its least hit by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q-2</annotation></semantics></math>;
+see <em></em>. These statements supply private factors, but they do not
+prove either scale estimate below. In particular, the unconditional
+construction gives no useful upper bound for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+in terms of its least hit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.</p>
+<p>Wilson reflection also limits what can be inferred from a prime
+factor merely because it is linear in a later index. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is odd,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">n&lt;q</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid n!-1</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid(q-n-1)!-1</annotation></semantics></math>.
+When both indices lie in the same block and the reflected hit is
+earlier, equivalently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&lt;</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q&lt;2n+1</annotation></semantics></math>,
+this repeated hit survives predecessor-factorial normalization and its
+full-block incidence count exceeds one; see <em></em> and <em></em> and
+<em></em>. Thus a linear-size divisor need not be private.</p>
+<p>This warning applies to a genuine source theorem, not an inferred
+change of sign. Stewart states that for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>
+there are infinitely many odd
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+whose least prime factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
+satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mi>q</mi><mo>&lt;</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msqrt><mn>145</mn></msqrt><mo>−</mo><mn>1</mn></mrow><mn>8</mn></mfrac><mo>+</mo><mi>ε</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>n</mi><mo>;</mo></mrow><annotation encoding="application/x-tex">n&lt;q&lt;
+ \left(\frac{\sqrt{145}-1}{8}+\varepsilon\right)n;</annotation></semantics></math>
+the printed text explicitly transfers estimate (9) from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
+<span class="citation" data-cites="stewart2004"><a href="#ref-4">[4]</a></span>. Wilson
+reflection then supplies the earlier hit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid(q-n-1)!-1</annotation></semantics></math>.
+The source controls
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+relative to the later index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+but it does not control
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+relative to the private first-hit index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+Accordingly it is collision-core input, not the missing private-anchor
+or global product estimate.</p>
+<p>In fact one selected prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+already furnishes the exact coprime factor pair
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,q)</annotation></semantics></math>:
+its projection moduli are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">R/q</annotation></semantics></math>,
+whose least common multiple is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>.
+Thus no second selected prime is needed; see <em></em> and <em></em>.
+There is no hidden equality/disagreement branch in this specialization.
+Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+for the global complementary residue, Lean proves that the unit-pair
+floor is exactly
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>ρ</mi><mo>,</mo><mi>R</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">}</mo><mo>;</mo></mrow><annotation encoding="application/x-tex">\min\{\rho,R/q\};</annotation></semantics></math>
+see <em></em>. Consequently the remaining factor-pair scale comparison
+must simultaneously beat the global complementary-residue coordinate and
+the local
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">R/q</annotation></semantics></math>
+coordinate. After using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mi>C</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">L=CR</annotation></semantics></math>,
+the latter is precisely the collision-cap comparison with the selected
+factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+while the former is the global complementary-residue lower bound. Lean
+records this as the exact equivalence
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>L</mi><mo>&lt;</mo><mn>2</mn><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>ρ</mi><mo>,</mo><mi>R</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">}</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" class="ta-l"><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>L</mi><mo>&lt;</mo><mn>2</mn><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mi>ρ</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>C</mi><mi>q</mi><mo>&lt;</mo><mn>2</mn><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>,</mo></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">(2p+1)L &lt; 2p^2(2p-1)!\min\{\rho,R/q\}
+ \quad\Longleftrightarrow\quad
+ \begin{cases}
+  (2p+1)L &lt; 2p^2(2p-1)!\rho,\\
+  (2p+1)Cq &lt; 2p^2(2p-1)!,
+ \end{cases}</annotation></semantics></math> see <em></em>. Thus the
+factor reduction has no opaque floor premise left: the two surviving
+arithmetic estimates are exposed independently and neither follows
+merely from the existence of the selected prime. The irrationality
+implication also works for every natural block parameter at least three,
+not only prime parameters. What remains open is the arithmetic input.
+Wilson supplies cofinal prefix-private factors without analytic input.
+The stronger source-backed large-prime selection remains relevant
+because it supplies a positive-density family and a linear lower bound
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+relative to the original hit; neither result proves the global
+complementary-residue bound or the local collision-core bound. The
+surviving obligation is therefore to prove both sides of this exact
+branch-free scale split cofinally, packaged by <em></em>.</p>
+</section>
+<section id="sec:nogo" class="level2">
+<h2>What the returns rule out</h2>
+<p>The following are closed routes. They are part of the result, not
+caveats attached to it.</p>
+<ul>
+<li><p>Residue vectors, their recurrences, and window widths admit
+synthetic all-hit blocks. They cannot prove irrationality on their
+own.</p></li>
+<li><p>Known pointwise prime congruences, prime-dilation congruences,
+parity, and the exact prime coefficient formula admit a synthetic
+rational countermodel. A congruence family that a rational number could
+also satisfy decides nothing.</p></li>
+<li><p>Wilson quotients, harmonic sums,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+gamma identities, and factorial residues do not control the required
+Archimedean floor without an additional coupling theorem. Every
+prime-window test factors into a sharp Archimedean strict-ceiling
+condition and a modular divisibility condition, and the missing
+ingredient is the coupling between them, not more congruences.</p></li>
+<li><p>Fixed-denominator scalar canonical-product localisers and
+rank-saturated consecutive-jet Hermite–Padé systems pay the full
+factorial-gap denominator. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>z</mi><mi>/</mi><mi>n</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(z)=\prod_{n\ge2}(1-z/n!)</annotation></semantics></math>
+the genus-zero product satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mi>E</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">-E&#39;(1)/E(1)=S</annotation></semantics></math>,
+and the natural scalar linear form carries the coefficient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q_N=\prod_{2\le n\le N}(n!-1)</annotation></semantics></math>,
+for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>
+times the tail diverges. Exact first-order interpolation, scalar residue
+weighting, the natural Wronskian, and rank-saturated consecutive jets
+all reassemble the same prohibitive denominator.</p></li>
+<li><p>Zero-moment variations cannot create an additional fractional
+cancellation coordinate (§), and factorial valuations cannot absorb the
+channel LCM obstruction.</p></li>
+<li><p>A fixed pair of low-index private owners cannot make the
+projection route cofinal. If the owner index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is fixed and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p&gt;n!-1</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">n!-1\mid(p-1)!</annotation></semantics></math>,
+so its private quotient in the factorial block at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is exactly one. Lean checks this uniformly in <em></em> and checks the
+two-owner consequence in <em></em>. Thus the large private quotients
+seen at small blocks—for example the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>719</mn><annotation encoding="application/x-tex">719</annotation></semantics></math>
+owned at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n=6</annotation></semantics></math>—are
+finite-range phenomena. The factor-level reduction does not require two
+moving denominator indices: two factors inside one moving private
+quotient can suffice. It still requires selected nontrivial factors that
+escape with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</p></li>
+</ul>
+</section>
+<section id="sec:finite" class="level2">
+<h2>Finite certificates</h2>
+<p>The following are computations. Each excludes exactly the
+denominators it names and nothing more.</p>
+<p>The finite-support vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>2</mn><msub><mi>e</mi><mn>3</mn></msub><mo>−</mo><msub><mi>e</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">\lambda=2e_3-e_4</annotation></semantics></math>
+has, by kernel check,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=0</annotation></semantics></math>,
+factorial moment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">-12</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>3</mn></msub><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">V_3=-2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>4</mn></msub><mo>=</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">V_4=11</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo>=</mo><mi>−</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">V_d=-12</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">d\ge5</annotation></semantics></math>.
+Under the exact rational tail enclosure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>119</mn><mo>&lt;</mo><msub><mi mathvariant="normal">Θ</mi><mn>4</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>50</mn></mrow><annotation encoding="application/x-tex">1/119&lt;\Theta_4&lt;1/50</annotation></semantics></math>,
+its residual lies strictly between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>93</mn><mi>/</mi><mn>575</mn></mrow><annotation encoding="application/x-tex">-93/575</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>309</mn><mi>/</mi><mn>13685</mn></mrow><annotation encoding="application/x-tex">-309/13685</annotation></semantics></math>;
+in particular it is nonzero and subunit.</p>
+<p>Exact integer regeneration verifies the canonical primitive kernels
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>D</mi><mo>≤</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">2\le D\le12</annotation></semantics></math>:
+channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+vanish, the factorial moment is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>,
+and the coefficient content is one. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">D=9</annotation></semantics></math>
+the moment is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>9</mn></msub><mo>=</mo><mn>31540008254514077395</mn></mrow><annotation encoding="application/x-tex">L_9=31540008254514077395</annotation></semantics></math>
+and, after the stated prime-unit shift,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1353</mn><mi>/</mi><mn>100000</mn><mo>&lt;</mo><msub><mi>R</mi><mn>9</mn></msub><mo>&lt;</mo><mn>1354</mn><mi>/</mi><mn>100000</mn></mrow><annotation encoding="application/x-tex">1353/100000&lt;R_9&lt;1354/100000</annotation></semantics></math>.
+At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=3</annotation></semantics></math>
+the vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>40</mn><mo>,</mo><mn>55</mn><mo>,</mo><mi>−</mi><mn>10</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c=(-40,55,-10,1)</annotation></semantics></math>
+on the support
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(3,4,5,6)</annotation></semantics></math>
+annihilates channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>,
+has moment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>600</mn><annotation encoding="application/x-tex">600</annotation></semantics></math>,
+and satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.09925341997208298</mn><mo>&lt;</mo><msub><mi>L</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>0.09925341997208300</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">0.09925341997208298&lt;L_3(c)&lt;0.09925341997208300 .</annotation></semantics></math>
+This excludes denominators dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>600</mn><annotation encoding="application/x-tex">600</annotation></semantics></math>.</p>
+<p>There are two different computations at the same endpoint. A returned
+interval computation reports the stronger geometric statement that no
+zero-branch event occurs at any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mn>100000</mn></mrow><annotation encoding="application/x-tex">m\le100000</annotation></semantics></math>;
+its cited executable and source digest were not supplied, so that
+zero-branch classification remains external finite evidence. The
+strict-successor carry computation used above is local and independently
+regenerated: its exact source, GMP backend, canonical payload, and
+receipt digests form the certificate archive. The two claims must not be
+conflated. The local certificate establishes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>300000</mn></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_{300000}\ne1</annotation></semantics></math>,
+and the checked theorem converts precisely that fact into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>.</p>
+<p>None of these changes a quantifier.</p>
+</section>
+<section id="sec:open" class="level2">
+<h2>The missing cofinal inputs</h2>
+<p>The exact frontier comes first:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.278em"></mspace><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.278em"></mspace><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb{Q}
+ \quad\Longleftrightarrow\quad
+ (\forall B)(\exists m&gt;B)\;m\nmid Z_m
+ \quad\Longleftrightarrow\quad
+ (\forall B)(\exists m&gt;B)\;b_m\ne1.
+\tag{9.1}\label{eq:exact-frontier68}</annotation></semantics></math>
+This is a formal theorem, not a heuristic reduction. The remaining gap
+is quantified: the finite mechanisms in the preceding sections need one
+of the following cofinal inputs. The table separates those missing
+inputs from the formal results that would consume them.</p>
+<div class="center">
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l">Missing input</th>
+<th class="ta-l"> Available consequence</th>
+<th class="ta-l"> Present limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Cofinal non-unit carries, or equivalently
+cofinal misses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">m\nmid Z_m</annotation></semantics></math></td>
+<td class="ta-l"> Irrationality by </td>
+<td class="ta-l"> Only isolated finite misses are
+known.</td>
+</tr>
+<tr>
+<td class="ta-l">Cofinal quantitative private-residue and
+collision-scale bounds</td>
+<td class="ta-l"> Endpoint exclusion on an unbounded family
+of prime blocks</td>
+<td class="ta-l"> Private-prime hits are qualitative; no
+required lower bound is proved.</td>
+</tr>
+<tr>
+<td class="ta-l">Cofinal lower-endpoint escape or failure
+of both doubled-prime branches</td>
+<td class="ta-l"> A non-unit carry at each selected
+index</td>
+<td class="ta-l"> The relevant cylinder and branch theorems
+are conditional.</td>
+</tr>
+<tr>
+<td class="ta-l">Cofinal strictly nonzero translated Cramer
+residuals</td>
+<td class="ta-l"> Remote finite channel cancellation
+without integral collapse</td>
+<td class="ta-l"> Rounding gives absolute value at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>,
+but the residual may be zero.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each problem below gives a sufficient input for ; none is an
+equivalent reformulation.</p>
+<section id="weighted-collision-mass-and-the-complementary-residue"
+class="level3 unnumbered">
+<h3 class="unnumbered">1. Weighted collision mass and the complementary
+residue</h3>
+<p>For the factorial block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">I_p=\{2,\ldots,2p-1\}</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><annotation encoding="application/x-tex">\widetilde C_p</annotation></semantics></math>
+be the normalised collision core and put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>r</mi><mo>,</mo><mi>e</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>p</mi></msub><mo>:</mo><msup><mi>r</mi><mi>e</mi></msup><mo>∣</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">h_{r,e}(p)=\#\{i\in I_p:r^e\mid i!-1\}.</annotation></semantics></math>
+The formal spacing bound is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>r</mi><mo>,</mo><mi>e</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn><mi>p</mi><mo>+</mo><mi>e</mi><mo>−</mo><mn>2</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">h_{r,e}(p)(e+1)\le2p+e-2,</annotation></semantics></math>
+and on the relevant upper-hit or base-omitted support the complete local
+valuation is the repeated-layer count
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo>≥</mo><mn>1</mn><mo>:</mo><msub><mi>h</mi><mrow><mi>r</mi><mo>,</mo><mi>e</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">v_r(\widetilde C_p)=\#\{e\ge1:h_{r,e}(p)&gt;1\}.</annotation></semantics></math>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>p</mi></msub><annotation encoding="application/x-tex">M_p</annotation></semantics></math>
+denote the moving private modulus, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>M</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">q\mid M_p</annotation></semantics></math>
+be the selected prefix-private factor, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>p</mi></msub><mo>=</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><msub><mi>M</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">L_p=\widetilde C_pM_p</annotation></semantics></math>,
+and write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>T</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msub><mi>M</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\rho_p=(-T_p)\operatorname{mod} M_p</annotation></semantics></math>
+for the least nonnegative complementary residue of the explicit
+reciprocal-tail numerator.</p>
+<p>The first inequality is the local collision-core half of the exact
+factor-pair scale split; the second is its Archimedean half. A count of
+collisions without the weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">\log r</annotation></semantics></math>,
+a terminal Wilson event by itself, or a fixed finite scan does not
+answer the problem. Nor may reflected hits be discarded: the reflection
+theorem shows that they can contribute genuine collision primes.</p>
+</section>
+<section id="nonterminal-prime-power-amplification"
+class="level3 unnumbered">
+<h3 class="unnumbered">2. Nonterminal prime-power amplification</h3>
+<p>Write the reduced predecessor gap as
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>n</mi></msub><mo>=</mo><mfrac><msub><mi>u</mi><mi>n</mi></msub><msub><mi>v</mi><mi>n</mi></msub></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\Delta_n=\frac{u_n}{v_n},</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>n</mi></msub><annotation encoding="application/x-tex">B_n</annotation></semantics></math>
+be the repeated-support part of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>.
+The amplification modulus is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>=</mo><munder><mo>∏</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>q</mi><mo>∣</mo><msub><mi>B</mi><mi>n</mi></msub></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mtd></mtr></mtable></munder><msup><mi>q</mi><mrow><msub><mi>v</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">A_n=\prod_{\substack{q\mid B_n\\
+             v_q(v_n)&lt;v_q(n!-1)}}q^{v_q(n!-1)}.</annotation></semantics></math>
+Lean proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>∣</mo><msub><mi>v</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A_n\mid v_{n+1}</annotation></semantics></math>
+and, when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">A_n&gt;1</annotation></semantics></math>,
+that the new numerator has a nonzero projection modulo the whole
+product.</p>
+<p>Mere nonzero projection is insufficient: the least representative in
+must be of order roughly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">v_m/m</annotation></semantics></math>.
+Fixed-modulus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-adic
+convergence and finitely many record events do not change the
+quantifier.</p>
+</section>
+<section id="escape-from-the-lower-endpoint-interval"
+class="level3 unnumbered">
+<h3 class="unnumbered">3. Escape from the lower endpoint interval</h3>
+<p>Let
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℰ</mi><mi>p</mi></msub><mo>=</mo><mi>p</mi><mi>!</mi><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>p</mi></mrow></munder><mfrac><mn>1</mn><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal E_p=p!\sum_{n&gt;p}\frac1{n!-1}.</annotation></semantics></math>
+The lower unit-carry branch is exactly
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mfrac><mn>1</mn><mrow><mi>p</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>p</mi><msub><mi mathvariant="normal">Δ</mi><mi>p</mi></msub><mo>≤</mo><mn>1</mn><mo>+</mo><mfrac><mn>1</mn><mrow><mi>p</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>+</mo><msub><mi mathvariant="script">ℰ</mi><mi>p</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℰ</mi><mi>p</mi></msub><mo>&lt;</mo><mfrac><mn>2</mn><mi>p</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">1+\frac1{p!-1}&lt;p\Delta_p
+ \le1+\frac1{p!-1}+\mathcal E_p,
+ \qquad \mathcal E_p&lt;\frac2p.</annotation></semantics></math></p>
+<p>Any positive answer yields a non-unit carry directly and proves
+irrationality. Congruence recurrences alone do not count: synthetic
+models satisfy the available congruences while remaining in the
+unit-carry branch. Nor is a zero canonical digit the same statement as
+membership in this narrow Archimedean cylinder.</p>
+</section>
+<section id="failure-of-the-two-exact-doubled-prime-branches"
+class="level3 unnumbered">
+<h3 class="unnumbered">4. Failure of the two exact doubled-prime
+branches</h3>
+<p>For every odd prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+the specialisation is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>2</mn></msup><mo>∣</mo><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" class="ta-l"><msub><mi>b</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mn>1</mn><mspace width="0.222em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="0.222em"></mspace><mi>p</mi><mo>∣</mo><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mtext mathvariant="normal">or</mtext></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><msub><mi>b</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>p</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="0.222em"></mspace><mi>p</mi><mo>∣</mo><mn>2</mn><msub><mi>Z</mi><mrow><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">p^2\mid Z_{2p}
+ \quad\Longleftrightarrow\quad
+ \begin{cases}
+ b_{2p}=1\ \text{and}\ p\mid Z_{2p-1},\\
+ \text{or}\\
+ b_{2p}=1+p\ \text{and}\ p\mid2Z_{2p-1}-1.
+ \end{cases}
+\tag{9.7}\label{eq:double-prime68}</annotation></semantics></math></p>
+<p>Controlling only the predecessor residue or only the possible
+Archimedean carry does not meet the hypotheses; the theorem must couple
+them.</p>
+</section>
+<section id="a-finite-cramer-block-across-floor-discontinuities"
+class="level3 unnumbered">
+<h3 class="unnumbered">5. A finite Cramer block across floor
+discontinuities</h3>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n,t\ge0</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">s_n=((n+2)!)^2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>i</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>s</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">i_{n,t}(j)=(t+j)s_n</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le j\le n+1</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">A_{n,t}</annotation></semantics></math>
+be the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n+2)\times(n+2)</annotation></semantics></math>
+integer matrix whose first row is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>i</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">i_{n,t}(j)!</annotation></semantics></math>
+and whose row indexed by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">d\in\{2,\ldots,n+2\}</annotation></semantics></math>
+is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>i</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mi>i</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{i_{n,t}(j)!}{(d!)^{\lfloor i_{n,t}(j)/d\rfloor}}.</annotation></semantics></math>
+This is the literal augmented factorial-grid channel/moment matrix. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">c_{n,t}</annotation></semantics></math>
+be its Cramer vector, and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>A</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> with its moment row replaced by the </mtext><mspace width="0.333em"></mspace></mrow><mi>d</mi><mtext mathvariant="normal">-channel row</mtext></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">N_d(n,t)=
+ \det\!\bigl(A_{n,t}\text{ with its moment row replaced by the $d$-channel row}\bigr).</annotation></semantics></math>
+The determinant identities give
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℛ</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>&gt;</mo><mi>n</mi><mo>+</mo><mn>2</mn></mrow></munder><mfrac><mrow><msub><mi>N</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>S</mi><mo>+</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>K</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal R_{n,t}
+ =\sum_{d&gt;n+2}\frac{N_d(n,t)}{d!-1}
+ =\det(A_{n,t})S+K_{n,t},
+ \qquad K_{n,t}\in\mathbb{Z},
+\tag{9.9}\label{eq:cramer-residual68}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N_d(n,t)=\det(A_{n,t})\ne0</annotation></semantics></math>
+after the largest support index. The finite intermediate block crosses
+floor discontinuities and has genuine sign changes.</p>
+<p>A termwise sign assertion is not admissible: adjacent signs already
+change. Nor does simply asking for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mrow><mi>n</mi><mo>,</mo><mi>t</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\det(A_{n,t})S\notin\mathbb{Z}</annotation></semantics></math>
+add information to the original scalar problem. A solution must use an
+exact determinant or finite-difference identity, a valuation or parity
+obstruction, a cancellation bound, or a gcd-of-minors argument
+controlling the finite oscillatory block.</p>
+<p>Erdős #68 remains open. No statement above proves irrationality or
+excludes every rational value. The finite checked consequence is
+nevertheless unconditional: every rational representation with positive
+denominator has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>.</p>
+</section>
+</section>
+<section id="statements-and-declarations" class="level2 unnumbered">
+<h2 class="unnumbered">Statements and declarations</h2>
+<section id="declaration-of-generative-ai-use." class="level5">
+<h5>Declaration of generative AI use.</h5>
+<p>Every word of this manuscript was generated by agents based on large
+language models operating within Will Cook’s private research system for
+artificial intelligence. The formal proofs and repository software were
+likewise drafted and revised by the agents through that system under
+Cook’s direction. Cook set the objectives and acceptance criteria,
+selected and reviewed the public claims, and approved the published
+version. Cook assumes responsibility for the accuracy, interpretation,
+and presentation of the work. Generative systems are production tools,
+not authors, and supply no independent authority.</p>
+<p>Lean does not authorise the exposition, the citation choices, or the
+interpretation, for which the author remains responsible. This
+manuscript is authored exposition, not Lean proof authority. The checked
+core is the canonical factorial digit kernel, the finite defect
+automaton algebra, floor-factorial channel arithmetic, the channel
+congruence and its integral normal form, the two-term prime corrector,
+weighted projection rigidity, the factor-split projection reduction, the
+fixed-index factorial-base absorption no-go, the rational-grid plateau
+and first-exit results, the first-crossing denominator bounds, and the
+literal-prefix prime obstruction through the exact
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">p=11</annotation></semantics></math>
+instance, strengthened by the all-index eventual-unit-carry theorem and
+the exact reductions at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>60</mn><mo>,</mo><mn>64</mn><mo>,</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">m=60,64,67</annotation></semantics></math>,
+the bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">q\ge67</annotation></semantics></math>,
+and the finite geometric peeling identity. It also checks the normalized
+strict-successor step and its finite factorial-series expansion in the
+carry defects
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">1-b_m</annotation></semantics></math>,
+the convergence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi><mi>!</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">Z_m/m!\to S</annotation></semantics></math>,
+and the exact equivalence between irrationality and cofinally many
+non-unit carries. The exact GMP carry certificate through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">m=300000</annotation></semantics></math>
+is separately regenerated and hash-bound; combined with the checked
+carry theorem it gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>,
+but it is not itself a Lean evaluation. The converse direction of the
+digit–rationality equivalence, the weighted primitive support
+decomposition, and the determinant-quotient reduction are returned
+derivations that have not been kernel-checked here, and are labelled as
+such wherever they appear. The factorial-gap lcm growth bound is derived
+here from the exact factorial-congruence multiplicity theorem of
+Garaev–Luca–Shparlinski <span class="citation"
+data-cites="garaev-luca-shparlinski"><a href="#ref-3">[3]</a></span>; it is source-verified, not
+a verbatim theorem of that paper, not kernel-checked here, and
+load-bearing for nothing above. The finite computations are finite.</p>
+</section>
+</section>
+<section id="app:sources" class="level2">
+<h2>Guide to the formal sources</h2>
+<p>The public <code>ErdosProblems.Erdos68</code> package contains the
+checked source for this note. The release snapshot contains twelve cited
+modules: <code>CanonicalFactorialDigits</code>,
+<code>ChannelBreakpointRigidity</code>,
+<code>ChannelIntegralCongruence</code>,
+<code>DivisorFactorialCentre</code>,
+<code>EndpointWeightedPrivateSupport</code>,
+<code>FactorialCarry</code>, <code>FactorialChannelCertificate</code>,
+<code>FactorialZeroPlateau</code>, <code>FiniteDefectAutomaton</code>,
+<code>PrimeUnitTranslator</code>, <code>PrimeZeroBranch</code>, and
+<code>StrictSuccessorArithmetic</code>. Only these public modules belong
+to the manuscript source surface; no private auxiliary digit-rigidity
+file is cited or projected. The release root imports every cited module.
+The declaration table below is pinned to the shared formal-source commit
+used throughout this problem-note series.</p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
+doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
+<li id="ref-2"><p>T. F. Bloom, <em>Erdős Problem #68</em>. <a
+href="https://www.erdosproblems.com/68"
+class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
+2026.</p></li>
+<li id="ref-3"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, ,
+Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102.
+<a href="https://doi.org/10.1090/S0002-9947-04-03612-8"
+class="uri">https://doi.org/10.1090/S0002-9947-04-03612-8</a>; arXiv:<a
+href="https://arxiv.org/abs/math/0403422">math/0403422v1</a>.</p></li>
+<li id="ref-4"><p>C. L. Stewart, , Publ. Math. Debrecen <strong>65</strong> (2004),
+no. 3–4, 461–480. <a
+href="https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf"
+class="uri">https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf</a>.</p></li>
+<li id="ref-5"><p>W. Koepf and D. Schmersau, , Analysis <strong>31</strong> (2011),
+117–124. <a href="https://doi.org/10.1524/anly.2011.1094"
+class="uri">https://doi.org/10.1524/anly.2011.1094</a>.</p></li>
+<li id="ref-6"><p>D. Duverney, , J. Math. Sci. Univ. Tokyo <strong>8</strong>
+(2001), 275–316. <a
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"
+class="uri">https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf</a>.</p></li>
+<li id="ref-7"><p>J. Hančl and R. Tijdeman, , Acta Arith. <strong>118</strong>
+(2005), no. 4, 383–401. <a
+href="https://www.impan.pl/shop/en/publication/transaction/download/product/83588"
+class="uri">https://www.impan.pl/shop/en/publication/transaction/download/product/83588</a>.</p></li>
+<li id="ref-8"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
+<em>Irrationality of rapidly converging series: a problem of Erdős and
+Graham</em>, arXiv:<a
+href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>,
+2026.</p></li>
+</ol>
+</section>
+  </div>
+</article>

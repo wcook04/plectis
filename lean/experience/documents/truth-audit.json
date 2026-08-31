@@ -1,0 +1,348 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "truth-audit",
+  "title": "Truth audit",
+  "role": "claim_audit",
+  "reading_order": 130,
+  "source_path": "docs/TRUTH_AUDIT.md",
+  "routes": {
+    "html_mathml": "documents/truth-audit.html",
+    "html_exact_tex": "documents/truth-audit.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "7b5b24c9d815b4c9fc6105a99cfd3e90158888682fb78c41fb5250b24c9e3e28",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "ea3d74891660717209169e0d23bca0b68333a0ba1a2ba8e46cbf1be47ab0c963",
+    "html_exact_tex_sha256": "e2b6bb1dea13273dafafdcccbf34383f02ce84049d9529c1781139795c438eb5"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Census populations are not interchangeable"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Retractions affecting the claimed mathematical status"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleB2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleB3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/Wire1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/Wire2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/Wire3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C6.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/R2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Three/T4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/Corr1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Hlow/H1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Hlow/H2.lean"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Corrections to scope, novelty, and logical strength"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleA1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleA2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleA3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleA4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleA5.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleB1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/AngleB4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/InduceLaw.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/Recon249.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Lift/Recon257.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D5.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Skip/D6.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/H1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/H3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/H4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/FreeWalk1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/FreeWalk2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Half/FreeWalk3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/Corr3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/R1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/R3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Bit/R4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Rem/C5.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Three/T2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Three/T3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Decl/D1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Decl/D2.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Decl/D3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Decl/D4.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Hlow/W1.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/Hlow/W3.lean"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Corrections to repository status and historical snapshots"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/Basic.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/edges/ClusterB.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/edges/ClusterD.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/edges/ClusterF.lean and Bridge3.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/edges/Discharge1_G097.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "ErdosProblems/DemandLedger/edges/Discharge2_G100.lean"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "paper/erdos249-257-main-paper.tex (read-only during this audit)"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Protected systems-paper status"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Statements that remain open"
+    }
+  ]
+}

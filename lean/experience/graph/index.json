@@ -1,0 +1,2560 @@
+{
+  "schema": "plectis_lean_experience_graph_index_v1",
+  "purpose": "Small first-screen navigation graph; fetch graph.json only for the complete Lean universe.",
+  "root_node_id": "universe:plectis-lean",
+  "full_graph": "graph.json",
+  "counts": {
+    "nodes": 192,
+    "edges": 240,
+    "deferred_node_kinds": {
+      "lean_module": 1021,
+      "mathematical_object": 79
+    }
+  },
+  "nodes": [
+    {
+      "id": "claim:actual_foreign_residue_projection",
+      "kind": "public_claim",
+      "label": "Finite foreign-residue projection reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:adelic_height_obstruction",
+      "kind": "public_claim",
+      "label": "Scalar-localisation height obstruction",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:adjacent_phase_separation_reduction",
+      "kind": "public_claim",
+      "label": "Adjacent-pair phase separation reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:affine_transport_annihilation",
+      "kind": "public_claim",
+      "label": "Affine residue state and old-channel annihilation",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:all_base_totient_kernel_index_reduction",
+      "kind": "public_claim",
+      "label": "All-base totient-kernel reduction, spanning, and conditional rank",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:boolean_mobius_carry",
+      "kind": "public_claim",
+      "label": "Boolean–Möbius carry certificate equivalence",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:boundary_pulse_normalization",
+      "kind": "public_claim",
+      "label": "Boundary-pulse normalization at the largest-skip crossing",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:campbell_shift_synchronization_boundary",
+      "kind": "public_claim",
+      "label": "Campbell shift-synchronization strategy boundary",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:canonical_jump_slack_reduction",
+      "kind": "public_claim",
+      "label": "Canonical strict-jump slack reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:certificate_completeness",
+      "kind": "public_claim",
+      "label": "Certificate completeness",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:certificate_reduction",
+      "kind": "public_claim",
+      "label": "Exact reduction of #249 to finite decidable certificates",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:certified_kill_instances",
+      "kind": "public_claim",
+      "label": "Initial certified-kill segment and generated certificates",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:cofinal_strip_return_closure",
+      "kind": "public_claim",
+      "label": "Cofinal square-root-strip return closure",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:composite_dilation_defect_identity",
+      "kind": "public_claim",
+      "label": "Composite dilation defect identity",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:concrete_producer_carry_coordinates",
+      "kind": "public_claim",
+      "label": "Concrete adjacent-cut producer-carry coordinates",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:concrete_seam_adapter",
+      "kind": "public_claim",
+      "label": "Concrete finite seam adapter",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:denominator_exclusion",
+      "kind": "public_claim",
+      "label": "Unconditional denominator exclusion for the totient constant",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:diagonal_fresh_loss_reduction",
+      "kind": "public_claim",
+      "label": "Fresh-loss projection and suffix-supply reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:diagonal_pincer_reduction",
+      "kind": "public_claim",
+      "label": "Exact full-target reduction on the lcm diagonal",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:diagonal_pincer_t64_endpoint_certificate",
+      "kind": "public_claim",
+      "label": "T64 diagonal-pincer endpoint certificate",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:diagonal_pincer_t64_primality_closure",
+      "kind": "public_claim",
+      "label": "T64 diagonal-pincer primality closure",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:dyadic_prefix_block_safety_interfaces",
+      "kind": "public_claim",
+      "label": "Dyadic-prefix, block-safety, and primitive-overshoot interfaces",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:dyadic_totient_basis",
+      "kind": "public_claim",
+      "label": "Explicit basis of the dyadic totient kernel span",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:dyadic_totient_certificate_interface",
+      "kind": "public_claim",
+      "label": "Dyadic totient-kernel finite-level rank",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:eb_constant",
+      "kind": "public_claim",
+      "label": "The Erdős–Borwein constant E is irrational",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:eb_full_support",
+      "kind": "public_claim",
+      "label": "Full-support Erdős–Borwein irrationality, every integer base b ≥ 2",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:erdos_249",
+      "kind": "public_claim",
+      "label": "Erdős #249: irrationality of S = ∑ φ(n)/2ⁿ",
+      "status": "open",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:fatal_gap_right_tail_classification",
+      "kind": "public_claim",
+      "label": "Fatal-gap and eventual-right seam classification",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:final_middle_cell_escape",
+      "kind": "public_claim",
+      "label": "Upper and first middle producers cannot feed an all-right tail",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:final_middle_neg_two_phase_sieve",
+      "kind": "public_claim",
+      "label": "Rank-26 phase sieve for the final middle -2 cell",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:first_harmonic_certificate_interface",
+      "kind": "public_claim",
+      "label": "First-harmonic gap implies a finite certificate",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:first_harmonic_pivot_decomposition",
+      "kind": "public_claim",
+      "label": "Complex first-harmonic pivot decomposition",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:fixed_coefficient_rewind_contraction",
+      "kind": "public_claim",
+      "label": "Fixed-coefficient rewind contraction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:fixed_precision_transport_no_go",
+      "kind": "public_claim",
+      "label": "Fixed-precision valuation-unit no-go theorem",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:fixed_tail_survival_socket",
+      "kind": "public_claim",
+      "label": "Fixed-tail survival equivalence at every actual skip",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:flexible_odd_window_affine_frontier",
+      "kind": "public_claim",
+      "label": "Affine three-scale frontier for the flexible odd window",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:flexible_odd_window_reduction",
+      "kind": "public_claim",
+      "label": "Flexible three-rank odd-window reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:fresh_prime_deficit_decomposition",
+      "kind": "public_claim",
+      "label": "Fresh-prime endpoint-deficit decomposition",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:greedy_achievement_geometry",
+      "kind": "public_claim",
+      "label": "Greedy geometry of the Mersenne achievement set",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_carry_reachability_compactness",
+      "kind": "public_claim",
+      "label": "Half-carry reachability and compactness",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_cylinder_finite_shadow",
+      "kind": "public_claim",
+      "label": "Finite shadows of the half cylinder",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_divisor_unit_drop",
+      "kind": "public_claim",
+      "label": "Half-divisor unit coefficient drop at the feedback row",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_greedy_two_thirds_band",
+      "kind": "public_claim",
+      "label": "Exact band localization of the final skip between two takes",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_membership_seam_classification",
+      "kind": "public_claim",
+      "label": "Positive half-membership classification in seam coordinates",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_second_channel_reduction",
+      "kind": "public_claim",
+      "label": "Exact rational second-channel reduction for the target one half",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:half_trapping_return_carry_interface",
+      "kind": "public_claim",
+      "label": "Half-trapping reverse-carry interface",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:integer_greedy_first_wrap_reduction",
+      "kind": "public_claim",
+      "label": "Integer-greedy first-wrap reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:largest_skip_gap_propagation",
+      "kind": "public_claim",
+      "label": "Largest skipped-rank gap and successor propagation",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:largest_skip_induction_reduction",
+      "kind": "public_claim",
+      "label": "Largest-skip induction from a quantified first-crossing hypothesis",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:last_producer_tail_escape_reduction",
+      "kind": "public_claim",
+      "label": "Last-producer tail-escape reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:lcm_factor_ideal_anchor_pulse_no_go",
+      "kind": "public_claim",
+      "label": "LCM factor-ideal anchor-pulse no-go theorem",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:localized_protected_seam_compactness",
+      "kind": "public_claim",
+      "label": "Localized protected seam compactness",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mersenne_lambert_ladder",
+      "kind": "public_claim",
+      "label": "The Mersenne–Lambert ladder identities",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mersenne_shadow_denominator",
+      "kind": "public_claim",
+      "label": "Exact Mersenne-shadow denominator and survivor bounds",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mersenne_tail_atom_boundary",
+      "kind": "public_claim",
+      "label": "Finite Mersenne tail-atom determinant boundary",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:middle_producer_cardinality_reduction",
+      "kind": "public_claim",
+      "label": "Finite-prefix middle-producer cardinality reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mixed_cofinal_half_carry_fan_in",
+      "kind": "public_claim",
+      "label": "Mixed cofinal half-carry fan-in",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mixed_prime_power_layer_identity",
+      "kind": "public_claim",
+      "label": "Mixed prime-power support-layer identity",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:mobius_sign_support_no_go",
+      "kind": "public_claim",
+      "label": "Möbius-sign support one-half no-go",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:orthogonal_petal_sunflower_reduction",
+      "kind": "public_claim",
+      "label": "Conditional orthogonal-petal sunflower reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:parity_socket_obstruction",
+      "kind": "public_claim",
+      "label": "Parity obstruction for the reduced margin socket",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:period_four_signed_residue_obstruction",
+      "kind": "public_claim",
+      "label": "Period-four signed residue-selection obstruction",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:periodic_nonnegative_weight_irrationality",
+      "kind": "public_claim",
+      "label": "Eventually-periodic nonnegative weighted Lambert irrationality",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:periodic_signed_weight_dichotomy",
+      "kind": "public_claim",
+      "label": "Periodic signed-weight irrational-or-terminating dichotomy",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:pivot_anti_reconstruction_reduction",
+      "kind": "public_claim",
+      "label": "Pivot anti-reconstruction and window-pair reduction",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:power_two_bit_lift",
+      "kind": "public_claim",
+      "label": "Exact power-of-two one-bit lift",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:prime_support_irrationality",
+      "kind": "public_claim",
+      "label": "Irrationality of the prime-support series ∑_p 1/(2^p − 1)",
+      "status": "cited only",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:primitive_coordinate_index_obstruction",
+      "kind": "public_claim",
+      "label": "Primitive Euler-coordinate finite-jet obstruction",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:primitive_unit_gap_ceiling",
+      "kind": "public_claim",
+      "label": "Prime-power reduced-denominator unit-gap ceiling",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:producer_carry_future_tail_socket",
+      "kind": "public_claim",
+      "label": "Exact producer-carry residual and sign criteria",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:quarter_band_endpoint_cells",
+      "kind": "public_claim",
+      "label": "Exact quarter-band failure cells for adjacent seam cuts",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:realized_rewind_phase_identity",
+      "kind": "public_claim",
+      "label": "Realized rewind phase identity",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:reciprocal_mass_bound",
+      "kind": "public_claim",
+      "label": "Rationality-forced reciprocal-mass lower bound",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:reset_deficit_escape_geometry",
+      "kind": "public_claim",
+      "label": "Exact right-branch window and reset-deficit escape law",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:residual_gauge_obstruction",
+      "kind": "public_claim",
+      "label": "Residual-gauge obstruction for monomial minors",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:rewind_boundary_pair_obstruction",
+      "kind": "public_claim",
+      "label": "Finite rewind boundary-pair obstruction",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:rewind_seam_operational_bridge",
+      "kind": "public_claim",
+      "label": "Operational bridge from rewind seams to protected next-row seams",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:seam_producer_carry_alignment",
+      "kind": "public_claim",
+      "label": "Exact seam-hole to producer-carry alignment identity",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:selected_half_carry_window_compactness",
+      "kind": "public_claim",
+      "label": "Selected half-carry windows",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:selected_suffix_cylinder_propagation",
+      "kind": "public_claim",
+      "label": "Conditional suffix-cylinder feedback and child-gap recurrence",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:selected_suffix_pre_feedback_run",
+      "kind": "public_claim",
+      "label": "Verified finite suffix-cylinder stages through depth 52",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:selected_window_depth18_base",
+      "kind": "public_claim",
+      "label": "Computed depth-18 selected half-carry window base",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:sigma_transcendence",
+      "kind": "public_claim",
+      "label": "Transcendence of ∑ σ(m)/2^m",
+      "status": "cited only",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:signed_dyadic_moment_substrate",
+      "kind": "public_claim",
+      "label": "Signed dyadic-moment algebra",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:square_crt_correction_suppression",
+      "kind": "public_claim",
+      "label": "Square-CRT correction suppression",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:squared_lambert_gcd_moments",
+      "kind": "public_claim",
+      "label": "Squared-Lambert identities for divisor count and the first gcd moment",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:squared_mersenne_enclosure",
+      "kind": "public_claim",
+      "label": "Sharp squared-Mersenne diagonal enclosure",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:squarefree_support_irrationality",
+      "kind": "public_claim",
+      "label": "Irrationality of the base-2 squarefree-support series",
+      "status": "cited only",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:stern_brocot_cylinder_law",
+      "kind": "public_claim",
+      "label": "Reduced-direction normalization and Stern–Brocot cylinder law",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:stern_brocot_run_fibonacci_stability",
+      "kind": "public_claim",
+      "label": "Fibonacci and continuant stability of Stern–Brocot runs",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:sublog_zero_windows",
+      "kind": "public_claim",
+      "label": "Sublogarithmic divisor-coverage zero windows",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:support_families",
+      "kind": "public_claim",
+      "label": "Named infinite-support irrationality families toward #257",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:tail_orbit_rigidity",
+      "kind": "public_claim",
+      "label": "Tempered tail-orbit rigidity criterion",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:terminal_only_cofinal_closure",
+      "kind": "public_claim",
+      "label": "Terminal-only cofinal square-root-strip closure",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:terminal_scaled_vanishing_closure",
+      "kind": "public_claim",
+      "label": "Scaled terminal-vanishing closure",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_carry_kernel_anti_compression",
+      "kind": "public_claim",
+      "label": "Unconditional carry-kernel anti-compression",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_coprimality_probability",
+      "kind": "public_claim",
+      "label": "Fair-coin coprimality form of the totient constant",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:transport_certificate_instances",
+      "kind": "public_claim",
+      "label": "Verified transport-window certificates",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:transport_curvature_reductions",
+      "kind": "public_claim",
+      "label": "Transport and curvature reductions for Erdős #249",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:twenty_one_quotient_greedy_frontier",
+      "kind": "public_claim",
+      "label": "Canonical quotient-greedy and scaled-remainder frontier at 1/21",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:unbounded_carry_states",
+      "kind": "public_claim",
+      "label": "Carry states are unbounded over infinite rational-valued supports",
+      "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:universal_257",
+      "kind": "public_claim",
+      "label": "Erdős #257, universal form",
+      "status": "open",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:upper_reset_band_certificates_through_thirty",
+      "kind": "public_claim",
+      "label": "Upper-reset dyadic-band certificates through row 30",
+      "status": "verified finite instance",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "document:architecture",
+      "kind": "human_document",
+      "label": "Repository architecture",
+      "role": "system_explanation",
+      "href": "documents/architecture.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"
+    },
+    {
+      "id": "document:comparator-1049",
+      "kind": "human_document",
+      "label": "Comparator #1049 fixture",
+      "role": "comparator_case_study",
+      "href": "documents/comparator-1049.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+    },
+    {
+      "id": "document:external-verification",
+      "kind": "human_document",
+      "label": "External verification",
+      "role": "comparator_explanation",
+      "href": "documents/external-verification.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION.md"
+    },
+    {
+      "id": "document:methodology",
+      "kind": "human_document",
+      "label": "Methodology",
+      "role": "evidence_method",
+      "href": "documents/methodology.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md"
+    },
+    {
+      "id": "document:orientation",
+      "kind": "human_document",
+      "label": "Corpus orientation",
+      "role": "generated_reader_map",
+      "href": "documents/orientation.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/ORIENTATION.md"
+    },
+    {
+      "id": "document:prior-art",
+      "kind": "human_document",
+      "label": "Prior art",
+      "role": "attribution_and_antecedents",
+      "href": "documents/prior-art.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PRIOR_ART.md"
+    },
+    {
+      "id": "document:readme",
+      "kind": "human_document",
+      "label": "Repository overview",
+      "role": "human_front_door",
+      "href": "documents/readme.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md"
+    },
+    {
+      "id": "document:related-problems",
+      "kind": "human_document",
+      "label": "Related problems",
+      "role": "portfolio_relationship_map",
+      "href": "documents/related-problems.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md"
+    },
+    {
+      "id": "document:residual-progress",
+      "kind": "human_document",
+      "label": "Residual progress",
+      "role": "open_boundary_progress",
+      "href": "documents/residual-progress.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md"
+    },
+    {
+      "id": "document:results",
+      "kind": "human_document",
+      "label": "Results and open boundaries",
+      "role": "mathematical_results_map",
+      "href": "documents/results.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md"
+    },
+    {
+      "id": "document:scope",
+      "kind": "human_document",
+      "label": "Scope and claim boundary",
+      "role": "scope_boundary",
+      "href": "documents/scope.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md"
+    },
+    {
+      "id": "document:source-map",
+      "kind": "human_document",
+      "label": "Source map",
+      "role": "proof_and_exposition_crosswalk",
+      "href": "documents/source-map.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md"
+    },
+    {
+      "id": "document:truth-audit",
+      "kind": "human_document",
+      "label": "Truth audit",
+      "role": "claim_audit",
+      "href": "documents/truth-audit.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md"
+    },
+    {
+      "id": "document:wave-index",
+      "kind": "human_document",
+      "label": "Development index",
+      "role": "development_chronology",
+      "href": "documents/wave-index.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/WAVE_INDEX.md"
+    },
+    {
+      "id": "integration:comparator",
+      "kind": "integration_surface",
+      "label": "Comparator",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/verification/comparator.json"
+    },
+    {
+      "id": "integration:palomar",
+      "kind": "integration_surface",
+      "label": "Palomar",
+      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
+      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+    },
+    {
+      "id": "paper:claim-faithful-publication-systems",
+      "kind": "paper",
+      "label": "From Lean Proofs to Public Claims",
+      "subject": "Systems paper",
+      "form": "Release checks",
+      "href": "papers/claim-faithful-publication-systems.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex"
+    },
+    {
+      "id": "paper:cold-clone-to-proof-receipt",
+      "kind": "paper",
+      "label": "From a Cold Clone to a Proof Receipt",
+      "subject": "Systems paper",
+      "form": "Agent navigation",
+      "href": "papers/cold-clone-to-proof-receipt.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex"
+    },
+    {
+      "id": "paper:erdos-1041-lemniscate-newton-flow",
+      "kind": "paper",
+      "label": "Newton Flow and Critical-Value Ray Separation",
+      "subject": "Erdős #1041",
+      "form": "Problem note",
+      "href": "papers/erdos-1041-lemniscate-newton-flow.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+    },
+    {
+      "id": "paper:erdos-1049-rational-base-lambert",
+      "kind": "paper",
+      "label": "Arithmetic Boundaries at Base 3/2",
+      "subject": "Erdős #1049",
+      "form": "Problem note",
+      "href": "papers/erdos-1049-rational-base-lambert.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex"
+    },
+    {
+      "id": "paper:erdos-243-reciprocal-tail-rigidity",
+      "kind": "paper",
+      "label": "Excluding the Bounded Negative Part",
+      "subject": "Erdős #243",
+      "form": "Problem note",
+      "href": "papers/erdos-243-reciprocal-tail-rigidity.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
+    },
+    {
+      "id": "paper:erdos-249-binary-totient-series",
+      "kind": "paper",
+      "label": "A Basis for the 2-Kernel of Euler's Totient",
+      "subject": "Erdős #249",
+      "form": "Problem note",
+      "href": "papers/erdos-249-binary-totient-series.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex"
+    },
+    {
+      "id": "paper:erdos-251-prime-gap-dyadic-series",
+      "kind": "paper",
+      "label": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+      "subject": "Erdős #251",
+      "form": "Problem note",
+      "href": "papers/erdos-251-prime-gap-dyadic-series.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+    },
+    {
+      "id": "paper:erdos-257-mersenne-support-subseries",
+      "kind": "paper",
+      "label": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+      "subject": "Erdős #257",
+      "form": "Problem note",
+      "href": "papers/erdos-257-mersenne-support-subseries.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex"
+    },
+    {
+      "id": "paper:erdos-269-three-prime-running-lcm",
+      "kind": "paper",
+      "label": "The Three-Prime Running Least Common Multiple",
+      "subject": "Erdős #269",
+      "form": "Problem note",
+      "href": "papers/erdos-269-three-prime-running-lcm.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex"
+    },
+    {
+      "id": "paper:erdos-68-factorial-denominator-irrationality",
+      "kind": "paper",
+      "label": "Factorial Carries and Finite Channel Obstructions",
+      "subject": "Erdős #68",
+      "form": "Problem note",
+      "href": "papers/erdos-68-factorial-denominator-irrationality.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+    },
+    {
+      "id": "paper:erdos249-totient-reasoning-surface",
+      "kind": "paper",
+      "label": "The Binary Totient Series",
+      "subject": "Erdős #249",
+      "form": "Reasoning surface",
+      "href": "papers/erdos249-totient-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos257-mersenne-reasoning-surface",
+      "kind": "paper",
+      "label": "Reciprocal Mersenne Subseries",
+      "subject": "Erdős #257",
+      "form": "Reasoning surface",
+      "href": "papers/erdos257-mersenne-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:plectis-public-system",
+      "kind": "paper",
+      "label": "Plectis: What a Stranger Can Check",
+      "subject": "Systems paper",
+      "form": "Evidence boundary",
+      "href": "papers/plectis-public-system.json",
+      "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex"
+    },
+    {
+      "id": "problem:erdos_1041",
+      "kind": "problem",
+      "label": "Short connections inside polynomial lemniscates",
+      "status": "open",
+      "href": "problems/erdos_1041.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_1049",
+      "kind": "problem",
+      "label": "Lambert-type series at rational bases",
+      "status": "open",
+      "href": "problems/erdos_1049.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_243",
+      "kind": "problem",
+      "label": "Reciprocal-tail rigidity near the Sylvester recurrence",
+      "status": "open",
+      "href": "problems/erdos_243.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_249",
+      "kind": "problem",
+      "label": "The binary totient series",
+      "status": "open",
+      "href": "problems/erdos_249.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_251",
+      "kind": "problem",
+      "label": "The prime-gap dyadic series",
+      "status": "open",
+      "href": "problems/erdos_251.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_257",
+      "kind": "problem",
+      "label": "Reciprocal sums over infinite exponent supports",
+      "status": "open",
+      "href": "problems/erdos_257.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_269",
+      "kind": "problem",
+      "label": "Three-prime running least common multiples",
+      "status": "open",
+      "href": "problems/erdos_269.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "problem:erdos_68",
+      "kind": "problem",
+      "label": "The factorial-denominator series",
+      "status": "open",
+      "href": "problems/erdos_68.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"
+    },
+    {
+      "id": "registry-unit:cmp:249:finrank_totient_kernel",
+      "kind": "registry_review_unit",
+      "label": "Finite totient-kernel rank review unit",
+      "status": "prepared_without_public_outcome",
+      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
+      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+    },
+    {
+      "id": "review-family:erdos_1041:lemniscate_finite_search",
+      "kind": "comparator_review_family",
+      "label": "A bounded search records finite geometric evidence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1041:newton_value_decay",
+      "kind": "comparator_review_family",
+      "label": "The Newton value equation and its exponential first integral are checked exactly.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1041:published_proof_gap",
+      "kind": "comparator_review_family",
+      "label": "The paper identifies an invalid local saddle block in a claimed unrestricted proof.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1041:ray_separation",
+      "kind": "comparator_review_family",
+      "label": "Distinct positive rays exclude a finite Newton connection.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1041:root_retention",
+      "kind": "comparator_review_family",
+      "label": "A quantified small constant perturbation keeps every polynomial root inside the open unit disc.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1041:translation_avoidance",
+      "kind": "comparator_review_family",
+      "label": "Collision translations are parameterised by real affine lines and an arbitrarily small common translation avoids finitely many of them.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:coordinatewise_corridor_no_go",
+      "kind": "comparator_review_family",
+      "label": "The coordinatewise corridor forces a power-versus-linear inequality and cannot occur at base 3/2.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:endpoint_residues",
+      "kind": "comparator_review_family",
+      "label": "Endpoint residues at 2 and 3 exclude a common multiplier under unit-endpoint hypotheses.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:four_jet_collision",
+      "kind": "comparator_review_family",
+      "label": "Binary selectors collide in the four-jet signature at the stated rank and depth.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:height_and_pade_arithmetic",
+      "kind": "comparator_review_family",
+      "label": "Exact height-region inclusions and exclusions, Padé denominator-exponent bounds, and a rectangular Hermite-Padé threshold no-go are checked.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:rational_base_tail_recurrence",
+      "kind": "comparator_review_family",
+      "label": "The exact rational-base cleared-tail recurrence exposes exponential denominator-base forcing absent at integer bases.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:scalar_content_no_go",
+      "kind": "comparator_review_family",
+      "label": "Integer scalar content changes analytic error and exterior determinant by matching factors, yielding no margin by itself.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:seven_halves_irrationality",
+      "kind": "comparator_review_family",
+      "label": "Irrationality at 7/2 is obtained from an external analytic criterion whose elementary height hypothesis is checked in Lean.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_243:bounded_negative_exclusion",
+      "kind": "comparator_review_family",
+      "label": "Normalised vanishing excludes a cofinally bounded negative part and forces eventual Sylvester behaviour.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_243:bounded_rise_coprimality",
+      "kind": "comparator_review_family",
+      "label": "A bounded-rise sequence cannot remain coprime to fresh pairwise-coprime moduli; reduced tails inherit this obstruction.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_243:centered_state_dynamics",
+      "kind": "comparator_review_family",
+      "label": "Exact update and defect identities, scale equivariance, zero absorption, and eventual recovery of the Sylvester recurrence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_243:negative_mass_recovery",
+      "kind": "comparator_review_family",
+      "label": "Finite normalised negative mass forces eventual zero and hence the Sylvester recurrence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_243:negative_orbit_no_go",
+      "kind": "comparator_review_family",
+      "label": "Constant, eventually constant, periodic, and eventually periodic negative-error orbits are excluded in their stated regimes.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:eventually_periodic_lambert",
+      "kind": "comparator_review_family",
+      "label": "Eventually periodic nonnegative rational weights give an irrational Lambert series.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_carry_rank",
+      "kind": "comparator_review_family",
+      "label": "Rationality forces a tempered integral tail orbit with unbounded finite-level carry rank.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_certificate_equivalences",
+      "kind": "comparator_review_family",
+      "label": "Pointwise, cofinal, lcm-diagonal, and separated-window certificate supplies are exact or sufficient reformulations.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_finite_denominator_exclusion",
+      "kind": "comparator_review_family",
+      "label": "A Farey denominator exclusion through 7.96e34, sharp for its selected window, and diagonal certificates through t=82.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_kernel_all_base_index",
+      "kind": "comparator_review_family",
+      "label": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_kernel_basis",
+      "kind": "comparator_review_family",
+      "label": "An explicit odd-core basis and relation normal form for the full dyadic totient kernel.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_kernel_rank",
+      "kind": "comparator_review_family",
+      "label": "An independent constructive proof of exact finite-level dyadic rank 2^e+1, together with a kernel-checked full-kernel infinite-dimensionality corollary already implied by Coons's non-2-regularity theorem.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:totient_lambert_coefficients",
+      "kind": "comparator_review_family",
+      "label": "The totient series is rewritten as a Lambert series with explicit nonnegative, unbounded prime-power coefficients.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_251:coefficient_only_no_go",
+      "kind": "comparator_review_family",
+      "label": "Prime gaps are unbounded and non-eventually-periodic, while an explicit nonperiodic unbounded countermodel still has rational sum.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_251:integral_shift_classification",
+      "kind": "comparator_review_family",
+      "label": "Block identities and exact denominator criteria classify rationality through integral positive tail shifts.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_251:prime_gap_reformulation",
+      "kind": "comparator_review_family",
+      "label": "Exact finite summation by parts, the unconditional infinite prime-gap identity, and irrationality equivalence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_251:small_mismatch_criterion",
+      "kind": "comparator_review_family",
+      "label": "Cofinal adjacent small mismatches would rule out eventual integral shifts for the prime-gap tail.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_251:totient_shift_propagation",
+      "kind": "comparator_review_family",
+      "label": "Odd rational denominators give totient-length integral shifts, and integrality propagates through the recurrence.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:achievement_set_geometry",
+      "kind": "comparator_review_family",
+      "label": "Compactness, perfectness, total disconnectedness, nowhere density, and measure one for the unrestricted achievement set.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:finite_period_noncollapse",
+      "kind": "comparator_review_family",
+      "label": "The multiplicative order of the base modulo a reduced finite-sum denominator is the support lcm, forcing denominator growth.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:half_and_twenty_one_frontiers",
+      "kind": "comparator_review_family",
+      "label": "Exact greedy characterisations and finite-support exclusions isolate the remaining 1/2 and 1/21 alternatives.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:known_irrational_supports",
+      "kind": "comparator_review_family",
+      "label": "Full, factorial, power-of-two, multiple, pairwise-coprime, eventually periodic, residue-class, and odd supports are formalised.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:rational_support_constraints",
+      "kind": "comparator_review_family",
+      "label": "Rational infinite supports force unbounded scaled tails, sublogarithmic zero windows, and reciprocal-mass constraints.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:restricted_achievement_sets",
+      "kind": "comparator_review_family",
+      "label": "Support-restricted coding is injective and the associated achievement set has exact finite-complement measure or zero for infinite complement.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_257:squarefree_support",
+      "kind": "comparator_review_family",
+      "label": "Lean checks squarefree incidence and no-go statements; the irrationality conclusion uses an external analytic theorem in the paper.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:conditional_carry_escape",
+      "kind": "comparator_review_family",
+      "label": "Cofinal local-window residue escape would rule out bounded positive carries after an unproved rationality-to-carry bridge.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:dyadic_block_alphabet",
+      "kind": "comparator_review_family",
+      "label": "The exact dyadic block alphabet is 2, 6, 10, and 30.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:height_fibre_and_shell",
+      "kind": "comparator_review_family",
+      "label": "Finite height-fibre normal form and a quadratic smooth-shell multiplicity bound.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:rank_two_kernel_no_go",
+      "kind": "comparator_review_family",
+      "label": "The 2,3,5 kernel is not rank one and its smallest displayed minor equals -1/15.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:three_prime_finite_search",
+      "kind": "comparator_review_family",
+      "label": "A local-window checker searches 106666 denominator and start pairs and records small certificates.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:three_prime_lcm_cells",
+      "kind": "comparator_review_family",
+      "label": "Exact running-LCM product, logarithmic-cell constancy, coordinate jump ratios, and jump count.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:two_prime_transcendence",
+      "kind": "comparator_review_family",
+      "label": "Both two-prime running-lcm series are proved transcendental by an authored deduction from an external theorem.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_68:factorial_carry_characterisation",
+      "kind": "comparator_review_family",
+      "label": "Exact equivalence between irrationality, cofinally many non-unit carries, and cofinal strict-successor divisibility failures.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_68:factorial_channel_and_projection_rigidity",
+      "kind": "comparator_review_family",
+      "label": "Finite channel congruences, a two-term prime-channel corrector, and endpoint-weighted projection rigidity.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_68:factorial_conditional_producers",
+      "kind": "comparator_review_family",
+      "label": "Cofinal zero-branch or large private-factor hypotheses imply the required irrationality conclusion.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_68:factorial_finite_certificates",
+      "kind": "comparator_review_family",
+      "label": "Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and yields the corresponding finite denominator exclusion.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_68:factorial_lcm_growth",
+      "kind": "comparator_review_family",
+      "label": "A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "universe:plectis-lean",
+      "kind": "universe",
+      "label": "Plectis Lean mathematical universe",
+      "href": "https://github.com/wcook04/plectis-lean-erdos249-257",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257"
+    }
+  ],
+  "edges": [
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:lemniscate_finite_search"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:newton_value_decay"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:published_proof_gap"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:ray_separation"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:root_retention"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1041:translation_avoidance"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:coordinatewise_corridor_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:endpoint_residues"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:four_jet_collision"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:height_and_pade_arithmetic"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:rational_base_tail_recurrence"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:scalar_content_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_1049:seven_halves_irrationality"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_243:bounded_negative_exclusion"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_243:bounded_rise_coprimality"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_243:centered_state_dynamics"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_243:negative_mass_recovery"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_243:negative_orbit_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:eventually_periodic_lambert"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_carry_rank"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_certificate_equivalences"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_finite_denominator_exclusion"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_kernel_all_base_index"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_kernel_basis"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_kernel_rank"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:totient_lambert_coefficients"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_251:coefficient_only_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_251:integral_shift_classification"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_251:prime_gap_reformulation"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_251:small_mismatch_criterion"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_251:totient_shift_propagation"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:achievement_set_geometry"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:half_and_twenty_one_frontiers"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:known_irrational_supports"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:rational_support_constraints"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:restricted_achievement_sets"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:squarefree_support"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:conditional_carry_escape"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:dyadic_block_alphabet"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:height_fibre_and_shell"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:rank_two_kernel_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:three_prime_finite_search"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:three_prime_lcm_cells"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:two_prime_transcendence"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_68:factorial_carry_characterisation"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_68:factorial_channel_and_projection_rigidity"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_68:factorial_conditional_producers"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_68:factorial_finite_certificates"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_68:factorial_lcm_growth"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "may_review",
+      "target": "registry-unit:cmp:249:finrank_totient_kernel"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "explained_by",
+      "target": "paper:erdos-1041-lemniscate-newton-flow"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:lemniscate_finite_search"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:newton_value_decay"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:published_proof_gap"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:ray_separation"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:root_retention"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1041:translation_avoidance"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "explained_by",
+      "target": "paper:erdos-1049-rational-base-lambert"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:coordinatewise_corridor_no_go"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:endpoint_residues"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:four_jet_collision"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:height_and_pade_arithmetic"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:rational_base_tail_recurrence"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:scalar_content_no_go"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:seven_halves_irrationality"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "explained_by",
+      "target": "paper:erdos-243-reciprocal-tail-rigidity"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_243:bounded_negative_exclusion"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_243:bounded_rise_coprimality"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_243:centered_state_dynamics"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_243:negative_mass_recovery"
+    },
+    {
+      "source": "problem:erdos_243",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_243:negative_orbit_no_go"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "explained_by",
+      "target": "paper:erdos-249-binary-totient-series"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_registry_review_unit",
+      "target": "registry-unit:cmp:249:finrank_totient_kernel"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:eventually_periodic_lambert"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_carry_rank"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_certificate_equivalences"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_finite_denominator_exclusion"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_kernel_all_base_index"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_kernel_basis"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_kernel_rank"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:totient_lambert_coefficients"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "explained_by",
+      "target": "paper:erdos-251-prime-gap-dyadic-series"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_251:coefficient_only_no_go"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_251:integral_shift_classification"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_251:prime_gap_reformulation"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_251:small_mismatch_criterion"
+    },
+    {
+      "source": "problem:erdos_251",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_251:totient_shift_propagation"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "explained_by",
+      "target": "paper:erdos-257-mersenne-support-subseries"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:achievement_set_geometry"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:half_and_twenty_one_frontiers"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:known_irrational_supports"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:rational_support_constraints"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:restricted_achievement_sets"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:squarefree_support"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "explained_by",
+      "target": "paper:erdos-269-three-prime-running-lcm"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:conditional_carry_escape"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:dyadic_block_alphabet"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:height_fibre_and_shell"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:rank_two_kernel_no_go"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:three_prime_finite_search"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:three_prime_lcm_cells"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:two_prime_transcendence"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "explained_by",
+      "target": "paper:erdos-68-factorial-denominator-irrationality"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_68:factorial_carry_characterisation"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_68:factorial_channel_and_projection_rigidity"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_68:factorial_conditional_producers"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_68:factorial_finite_certificates"
+    },
+    {
+      "source": "problem:erdos_68",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_68:factorial_lcm_growth"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_1041"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_1049"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_243"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_249"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_251"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_257"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_269"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "problem:erdos_68"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:claim-faithful-publication-systems"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:cold-clone-to-proof-receipt"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos249-totient-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos257-mersenne-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:plectis-public-system"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:architecture"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:comparator-1049"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:external-verification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:methodology"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:orientation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:prior-art"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:readme"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:related-problems"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:residual-progress"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:results"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:scope"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:source-map"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:truth-audit"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:wave-index"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:actual_foreign_residue_projection"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:adelic_height_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:adjacent_phase_separation_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:affine_transport_annihilation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:all_base_totient_kernel_index_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:boolean_mobius_carry"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:boundary_pulse_normalization"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:campbell_shift_synchronization_boundary"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:canonical_jump_slack_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:certificate_completeness"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:certificate_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:certified_kill_instances"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:cofinal_strip_return_closure"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:composite_dilation_defect_identity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:concrete_producer_carry_coordinates"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:concrete_seam_adapter"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:denominator_exclusion"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:diagonal_fresh_loss_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:diagonal_pincer_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:diagonal_pincer_t64_endpoint_certificate"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:diagonal_pincer_t64_primality_closure"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:dyadic_prefix_block_safety_interfaces"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:dyadic_totient_basis"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:dyadic_totient_certificate_interface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:eb_constant"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:eb_full_support"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:erdos_249"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:fatal_gap_right_tail_classification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:final_middle_cell_escape"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:final_middle_neg_two_phase_sieve"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:first_harmonic_certificate_interface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:first_harmonic_pivot_decomposition"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:fixed_coefficient_rewind_contraction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:fixed_precision_transport_no_go"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:fixed_tail_survival_socket"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:flexible_odd_window_affine_frontier"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:flexible_odd_window_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:fresh_prime_deficit_decomposition"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:greedy_achievement_geometry"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_carry_reachability_compactness"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_cylinder_finite_shadow"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_divisor_unit_drop"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_greedy_two_thirds_band"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_membership_seam_classification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_second_channel_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:half_trapping_return_carry_interface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:integer_greedy_first_wrap_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:largest_skip_gap_propagation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:largest_skip_induction_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:last_producer_tail_escape_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:lcm_factor_ideal_anchor_pulse_no_go"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:localized_protected_seam_compactness"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mersenne_lambert_ladder"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mersenne_shadow_denominator"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mersenne_tail_atom_boundary"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:middle_producer_cardinality_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mixed_cofinal_half_carry_fan_in"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mixed_prime_power_layer_identity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:mobius_sign_support_no_go"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:orthogonal_petal_sunflower_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:parity_socket_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:period_four_signed_residue_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:periodic_nonnegative_weight_irrationality"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:periodic_signed_weight_dichotomy"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:pivot_anti_reconstruction_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:power_two_bit_lift"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:prime_support_irrationality"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:primitive_coordinate_index_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:primitive_unit_gap_ceiling"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:producer_carry_future_tail_socket"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:quarter_band_endpoint_cells"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:realized_rewind_phase_identity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:reciprocal_mass_bound"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:reset_deficit_escape_geometry"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:residual_gauge_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:rewind_boundary_pair_obstruction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:rewind_seam_operational_bridge"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:seam_producer_carry_alignment"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:selected_half_carry_window_compactness"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:selected_suffix_cylinder_propagation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:selected_suffix_pre_feedback_run"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:selected_window_depth18_base"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:sigma_transcendence"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:signed_dyadic_moment_substrate"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:square_crt_correction_suppression"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:squared_lambert_gcd_moments"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:squared_mersenne_enclosure"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:squarefree_support_irrationality"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:stern_brocot_cylinder_law"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:stern_brocot_run_fibonacci_stability"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:sublog_zero_windows"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:support_families"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:tail_orbit_rigidity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:terminal_only_cofinal_closure"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:terminal_scaled_vanishing_closure"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_carry_kernel_anti_compression"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_coprimality_probability"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:transport_certificate_instances"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:transport_curvature_reductions"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:twenty_one_quotient_greedy_frontier"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:unbounded_carry_states"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:universal_257"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:upper_reset_band_certificates_through_thirty"
+    }
+  ]
+}

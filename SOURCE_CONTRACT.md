@@ -38,6 +38,146 @@ answer from the repository, this site, and the AI review packet.
   include-subdomains` and `--hsts-mode preload-consented` require explicit
   domain inventory / preload consent evidence before use.
 
+## Audience route contract
+
+The public Contact page is a conversion map, not a generic inbox. Its generated
+route rail must keep distinct, non-invasive next steps for:
+
+- inspection or verification (`evidence.html`);
+- cloning or reproduction (`source.html`);
+- reuse or adaptation (`source.html#license`);
+- correction or critique;
+- collaboration or research review;
+- funding or hiring; and
+- partnership or licensing.
+
+Those links are authored in the owner builder, not by hand in generated HTML.
+After changing the route rail, run the builder's `--write --validate` and
+`--check --validate` passes, then treat any remaining generated-page drift as a
+mechanical re-entry condition rather than silently describing the old page as
+current. Builder/operator credit identifies who assembled and directs the
+system; it is not mathematical authorship or verification.
+
+The route identities are deliberately bidirectional. Destinations are relative
+to the site root; the reverse lookup names the machine contract row that owns
+the destination:
+
+| Route id | Stable destination | Reverse lookup |
+|---|---|---|
+| `cold_reader` | `index.html#decision-routes` | `public_experience_route_contract.routes[cold_reader]` |
+| `proof_auditor` | `docs/evidence.html#why-these-modes` | `public_experience_route_contract.routes[proof_auditor]` |
+| `correction_reporter` | `docs/contact.html#get-in-touch` | `public_experience_route_contract.routes[correction_reporter]` |
+| `permanence` | `docs/updates.html` | `public_experience_route_contract.routes[permanence]` |
+| `operator` | `docs/contact.html#who-built-this` | `public_experience_route_contract.routes[operator]` |
+| `reuse` | `docs/source.html#license` | `public_experience_route_contract.routes[reuse]` |
+| `collaboration` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[collaboration]` |
+| `funding` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[funding]` |
+| `hiring` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[hiring]` |
+| `partnership` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[partnership]` |
+
+### Route namespace boundary
+
+The route ids above belong to the Plectis static-site contract and are the
+stable labels used by the site source contract and its permanence route.
+They are not the same namespace as the nine ids in the separate
+`sites/dissemination-proof/site.config.json` route contract consumed by
+`tools/meta/dissemination/check_publication_boundary.py` (which uses
+`collaborator`, `funder`, `recruiter`, `partner`, and `licensee`).  That
+publication-boundary manifest describes a different generated artifact; its
+route rows must not be merged into, or used as a substitute for, this site's
+route table.  A future cross-artifact join must name both route ids, both
+source configuration paths, and the generation/re-entry evidence explicitly.
+
+The shared contact destination is intentional: the route id preserves the
+reader's stated purpose while the static site keeps one non-invasive handoff
+surface. A future direct destination must update both columns and the builder
+contract together; it must not silently repoint an existing route.
+
+The generated Contact page is part of this contract, not an independent copy.
+The `audience-routes` heading, its seven route labels, and their destinations
+must be present in `sites/microcosm/docs/contact.html` after every builder run.
+If the source contract or builder contains the rail but the committed page does
+not, classify the page as stale projection and re-enter through the owner
+builder (never by editing generated HTML):
+
+```bash
+./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate
+./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate
+```
+
+The route-identity evaluator includes the generated Contact page so a green
+source-only test cannot mask a cold-reader dead end.
+
+The `permanence` route is the companion to `correction_reporter`: start with
+the source-of-record provenance anchor, then follow the updates record for an
+append-only correction or supersession. A new record must carry a new commit
+identity; the route must never imply that an older citation was rewritten.
+
+If a destination or reverse lookup changes, rerun the publication-boundary
+check and the permanence-route identity before describing the route rail as
+current.
+
+The separate dissemination-proof front door has its own generated manifest and
+route-identity receipt. When readiness reports that projection as stale, use
+the owner builder to regenerate it, then rerun the readiness check:
+
+```bash
+./repo-python tools/meta/dissemination/build_github_pages_demo_site.py \
+  --config sites/dissemination-proof/site.config.json \
+  --output-dir sites/dissemination-proof/dist
+./repo-python tools/meta/dissemination/check_public_site_readiness.py --check
+```
+
+This is a mechanical re-entry path, not publication authority. The builder
+must still preserve the configured public/private boundary and the operator
+must separately authorize any external release action.
+
+The repository front door is part of this same audience contract. The
+`microcosm-substrate/README.md` route table must retain the seven labels above
+(`Inspect or verify a claim`, `Clone or reproduce the public slice`, `Use or
+adapt the public source`, `Suggest a correction or critique`, `Collaborate or
+arrange a research review`, `Discuss funding or hiring`, and `Discuss a
+partnership or license`). A site-only route is incomplete: cold readers should
+be able to move from the repository to the human route map without losing the
+purpose they selected. The parity evaluator is
+`tools/meta/dissemination/tests/test_public_site_route_identity_contract.py`.
+
+The curated landing rail at `index.html#decision-routes` carries the same
+seven audience purposes, plus the separate `Cite or supersede a snapshot`
+permanence route. Its labels and destinations are maintained in the landing
+source and must stay aligned with the generated Contact rail: inspection uses
+`docs/evidence.html`, cloning uses `docs/source.html` and
+`docs/quickstart.html`, reuse uses `docs/source.html#license`, correction uses
+the public issue route, citation uses provenance and updates, and the three
+operator-contact purposes use their distinct mail subjects. The route-identity
+evaluator checks this landing-to-Contact join before a site change is described
+as current. The exact landing labels are `Inspect or verify a claim`, `Clone or
+reproduce the public slice`, `Use or adapt the public source`, `Correct or
+challenge a claim`, `Cite or supersede a snapshot`, `Collaborate or arrange a
+research review`, `Discuss funding or hiring`, and `Discuss a partnership or
+license`.
+
+The flagship formal-result handoff is a separate source-to-public join. The
+landing source, the repository `microcosm-substrate/QUICKSTART.md`, and the
+repository index `microcosm-substrate/FLAGSHIP_RESULTS.md` must expose the same
+three canonical handles: `cmp:1041:translation_avoidance`,
+`cmp:1041:root_retention`, and
+`cmp:1049:three_halves_no_coordinatewise_corridor`. Each landing link targets
+its corresponding repository anchor: `FLAGSHIP_RESULTS.md#cmp1041translation_avoidance`,
+`FLAGSHIP_RESULTS.md#cmp1041root_retention`, or
+`FLAGSHIP_RESULTS.md#cmp1049three_halves_no_coordinatewise_corridor`. These handles are
+navigation aids only: generation identity, replay status, and mathematical
+authority remain in the result index and its cited source records. A missing
+handle or link is a re-entry condition for the route-identity evaluator, not a
+reason to infer that the underlying result is stale or incorrect.
+
+Each canonical result section in `FLAGSHIP_RESULTS.md` must also carry its own
+correction re-entry: the section names the result id and pinned commit, links
+to the public correction route, and points to the append-only updates record.
+This per-result handoff keeps a correction or withdrawal request attached to
+the exact identity being reviewed; a global policy paragraph is not sufficient
+for a cold reader who enters through one result anchor.
+
 ## Editorial voice
 
 Two voices live on this site, and only one is open to free rewriting.

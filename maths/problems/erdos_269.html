@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#269 Three-prime running least common multiples · Plectis maths</title>
+  <meta name="description" content="For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_269.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#269 Three-prime running least common multiples · Plectis maths">
+  <meta property="og:description" content="For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_269.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#269 Three-prime running least common multiples · Plectis maths">
+  <meta name="twitter:description" content="For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html" class="is-active" aria-current="page"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#269</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #269</span>
+        <h1>Three-prime running least common multiples</h1>
+        <p class="dossier-head__q">For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>7 Lean modules</span>
+          <span>2 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos269" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>That for three pairwise distinct primes the least common multiple of the smooth prefix equals the product of the three maximal pure prime powers below the cutoff.</li>
+          <li>That equal logarithmic coordinates give an equal prefix least common multiple, so the running value is constant on logarithmic cells.</li>
+          <li>That advancing exactly one logarithmic coordinate multiplies the running value by the corresponding prime.</li>
+          <li>That the positive power channels of distinct primes are disjoint, so the first powers in three channels give an exact jump count.</li>
+          <li>That a finite smooth lattice sum groups exactly by running height, with the height fibre cardinality as coefficient.</li>
+          <li>A quadratic bound on the cardinality of the actual filtered exponent shell.</li>
+          <li>That each dyadic block contains at most one internal pure power from each non-dyadic channel, so the compressed {2,3,5} block radix belongs to the exact alphabet {2,6,10,30} and in particular lies between 2 and 30.</li>
+          <li>That the smallest {2,3,5} kernel rectangle has determinant exactly -1/15, so its two-by-two matrix has rank two over the rationals and no rank-one separation exists.</li>
+          <li>The canonical least-positive-residue interval and congruence facts, including the zero-residue representative.</li>
+          <li>The exact local-window identity for an integral carry.</li>
+          <li>A denominator-dependent CofinalLocalWindowEscape proposition and the full theorem that it rules out every positive reduced integral carry satisfying the matching bound.</li>
+          <li>A bounded-radix dichotomy: under a bounded positive digit alphabet, a nonzero scaled tail must be separated from the integers cofinally.</li>
+          <li>Exact three-channel block-nullity as a coboundary condition, and extinction of a bounded carry lift under two independent anchors.</li>
+          <li>The exact residue-digit plus coboundary form of an integral carry, together with a function-faithful observer criterion and a finite realised-span consequence.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">no-go result</span>
+            <span class="disposition">family: rank_two_kernel_no_go</span>
+          </div>
+          <p class="result-card__statement">The smallest displayed 2,3,5 kernel minor is exactly -1/15.</p>
+          <p class="result-card__boundary">Failure of rank one does not imply irrationality.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos269.kernel_235_minor_eq_neg_one_fifteen</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: three_prime_lcm_cells</span>
+          </div>
+          <p class="result-card__statement">The running lcm of the three-prime smooth prefix equals the exact coordinatewise height.</p>
+          <p class="result-card__boundary">The identity does not supply the missing irrationality bridge.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos269.smoothPrefixLcm_eq_threePrimeHeight</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>Irrationality or transcendence in any three-prime case.</li>
+          <li>The derivation of the actual bounded positive carry, including the divisibility required to cancel the absorbed smooth denominator factor, from a hypothetical rational value of the original series.</li>
+          <li>CofinalLocalWindowEscape for those actual words; it is an explicit hypothesis of the checked consumer, not a theorem.</li>
+          <li>A proof that the actual three-channel word satisfies the block-null, anchor, or factorisation hypotheses of the migrated abstract consumers.</li>
+          <li>The infinite limit of the jump expansion; only its finite core is checked.</li>
+          <li>Any unbounded denominator exclusion. The finite certificates exclude denominators below an explicit bound and no further.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>actual_local_window_residue_escape</code> For every positive B coprime to 30 and every starting index, produce a later actual {2,3,5} window whose least positive forcing residue exceeds the exact denominator-dependent carry bound.</li>
+          <li><code>actual_rational_carry_instantiation</code> Identify the formal radix word with the checked four-symbol dyadic block base, formalize the exact block digit and its link to the original summand multiplicities, and derive the positive reduced carry recurrence and its bound from a hypothetical rational value.</li>
+          <li><code>nonstationary_analytic_theorem</code> Prove a genuinely higher-dimensional analytic theorem for the phase cocycle or the associated contraction.</li>
+          <li><code>unbounded_height_certificate</code> Replace one finite denominator exclusion by a family whose exclusion bound tends to infinity.</li>
+        </ul>
+      </section>
+      <section class="dossier-section" id="finite-search" aria-labelledby="finite-title">
+        <h2 id="finite-title">Finite search evidence</h2>
+        <p class="note">The integer-only dyadic-window checker reproduces three exact packet certificates and, for all 106,666 pairs with denominator B &lt;= 1000 coprime to 30 and dyadic start 100 &lt;= a &lt;= 500, finds an escaping window of length at most 18; the largest first successful length is 14. This is finite proof-consumer evidence only and proves neither unbounded-denominator nor cofinal escape.</p>
+      </section>
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.ThreePrimeRunningLcm</code></a></td>
+              <td class="num">729</td>
+              <td class="num">50</td>
+              <td class="num">34</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ResidueEscape.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.ResidueEscape</code></a></td>
+              <td class="num">164</td>
+              <td class="num">8</td>
+              <td class="num">6</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.RestrictedFloorSum</code></a></td>
+              <td class="num">683</td>
+              <td class="num">42</td>
+              <td class="num">29</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.BoundedRadixTailEscape</code></a></td>
+              <td class="num">207</td>
+              <td class="num">6</td>
+              <td class="num">4</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/CarryLiftExtinction.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.CarryLiftExtinction</code></a></td>
+              <td class="num">351</td>
+              <td class="num">14</td>
+              <td class="num">12</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.ThreeChannelBlockRigidity</code></a></td>
+              <td class="num">128</td>
+              <td class="num">6</td>
+              <td class="num">4</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos269.WeightedPhaseCarry</code></a></td>
+              <td class="num">371</td>
+              <td class="num">23</td>
+              <td class="num">14</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Exact running-LCM product, logarithmic-cell constancy, coordinate jump ratios, and jump count.</p>
+              <p class="boundary-line">Cell structure alone does not prove irrationality.</p>
+              <p class="disposition">three_prime_lcm_cells &middot; targeted_running_lcm_identity</p>
+            </li>
+            <li>
+              <p class="summary-line">The 2,3,5 kernel is not rank one and its smallest displayed minor equals -1/15.</p>
+              <p class="boundary-line">Failure of rank one does not itself imply irrationality.</p>
+              <p class="disposition">rank_two_kernel_no_go &middot; targeted</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Finite height-fibre normal form and a quadratic smooth-shell multiplicity bound.</p>
+              <p class="boundary-line">The fibre bounds do not provide the missing divisibility bridge.</p>
+              <p class="disposition">height_fibre_and_shell &middot; represented_by_three_prime_structure_target</p>
+            </li>
+            <li>
+              <p class="summary-line">The exact dyadic block alphabet is 2, 6, 10, and 30.</p>
+              <p class="boundary-line">The finite alphabet does not supply the needed carry escape.</p>
+              <p class="disposition">dyadic_block_alphabet &middot; represented_by_three_prime_structure_target</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Both two-prime running-lcm series are proved transcendental by an authored deduction from an external theorem.</p>
+              <p class="boundary-line">Comparator cannot certify the external analytic input.</p>
+              <p class="disposition">two_prime_transcendence &middot; not_applicable_not_a_lean_declaration</p>
+            </li>
+            <li>
+              <p class="summary-line">Cofinal local-window residue escape would rule out bounded positive carries after an unproved rationality-to-carry bridge.</p>
+              <p class="boundary-line">The producer and actual-series identification are missing.</p>
+              <p class="disposition">conditional_carry_escape &middot; not_selected_unproved_bridge_and_deep_predicates</p>
+            </li>
+            <li>
+              <p class="summary-line">A local-window checker searches 106666 denominator and start pairs and records small certificates.</p>
+              <p class="boundary-line">Finite search is not a cofinal statement.</p>
+              <p class="disposition">three_prime_finite_search &middot; not_applicable_not_a_lean_theorem</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">23&#8202;pp</span></div>
+          <p class="result-card__statement">The Three-Prime Running Least Common Multiple</p>
+          <p class="result-card__boundary">For every pair of distinct primes, both the de-duplicated sum and Erdős&#x27;s repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-269-three-prime-running-lcm.html">Read it here</a>
+            <a href="../../papers/erdos-269-three-prime-running-lcm.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,327 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_257",
+  "erdos_number": 257,
+  "title": "Reciprocal sums over infinite exponent supports",
+  "status": "open",
+  "question": "Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "That the strict Mersenne tail inequality is hereditary under deleting an arbitrary collection of future weights.",
+    "That binary digit strings restricted to any chosen support retain unique Mersenne coding.",
+    "Restricted sets are compact and nowhere dense; infinite-support sets are perfect; finite-complement measure is 2^(-|F|), otherwise zero."
+  ],
+  "what_is_not_checked": [
+    "The universal irrationality problem, or irrationality for any new infinite support.",
+    "Fair-bit laws, finer singularity results, and periodic-stride dimensions.",
+    "Any bridge from geometric uniqueness or measure rigidity to arithmetic irrationality."
+  ],
+  "open_obligations": [
+    {
+      "id": "arithmetic_rigidity_for_thin_supports",
+      "statement": "Convert hereditary unique coding into an arithmetic obstruction to rational values for every infinite support, including zero-measure Cantor supports."
+    },
+    {
+      "id": "formalise_measure_and_stride_geometry",
+      "statement": "Extend the measure dichotomy to Bernoulli laws and periodic-stride dimensions without implying arithmetic consequences."
+    }
+  ],
+  "finite_search": null,
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos257.MersenneSubseriesRigidity",
+      "path": "ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean",
+      "present": true,
+      "line_count": 421,
+      "declaration_count": 28,
+      "theorem_count": 23,
+      "content_digest": "sha256:7dd147a2bef89f7f23a168c02a8dfb4c7fee887314a7a5367d49336330eb1419",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "mersenne_achievement_measure_one",
+      "problem": 257,
+      "review_family": "achievement_set_geometry",
+      "claim_id": "greedy_achievement_geometry",
+      "contribution_class": "mixed prior-art geometry and locally proved metric result; novelty unassessed",
+      "original_declaration": "Erdos249257.volume_mersenneAchievementSet",
+      "original_source": "Erdos249257/GreedyAchievementSet.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.volume_mersenneAchievementSet",
+      "statement": "The base-2 Mersenne achievement set has Lebesgue measure exactly one.",
+      "boundary": "This does not decide whether every infinite-support sum is irrational.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GreedyAchievementSet.lean"
+    },
+    {
+      "id": "erdos_borwein_full_support",
+      "problem": 257,
+      "review_family": "known_irrational_supports",
+      "claim_id": "eb_full_support",
+      "contribution_class": "formalisation of an existing theorem",
+      "original_declaration": "Erdos249257.irrational_erdosSum_full_support",
+      "original_source": "Erdos249257/CertificateKernel.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSum_full_support",
+      "statement": "For every integer base b >= 2, the full-support Erdos-Borwein series is irrational.",
+      "boundary": "This is the classical full-support theorem, not universal Erdos #257.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"
+    },
+    {
+      "id": "finite_period_noncollapse",
+      "problem": 257,
+      "review_family": "finite_period_noncollapse",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "Erdos249257.finite_period_noncollapse_rat_den",
+      "original_source": "Erdos249257/CertificateKernel.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.finite_period_noncollapse_rat_den_interface",
+      "statement": "For a reduced finite Mersenne sum, the base order modulo the denominator equals the support lcm.",
+      "boundary": "The finite-support theorem does not settle any infinite-support sum.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"
+    },
+    {
+      "id": "supported_achievement_measure_dichotomy",
+      "problem": 257,
+      "review_family": "restricted_achievement_sets",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos257.volume_supportedMersenneAchievementSet_dichotomy",
+      "original_source": "ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.volume_supportedMersenneAchievementSet_dichotomy",
+      "statement": "A support-restricted Mersenne achievement set has exact finite-complement measure or measure zero for infinite complement.",
+      "boundary": "The measure dichotomy does not classify rational points.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 257,
+    "paper": "paper/erdos-257-mersenne-support-subseries.tex",
+    "families": [
+      {
+        "id": "finite_period_noncollapse",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "The multiplicative order of the base modulo a reduced finite-sum denominator is the support lcm, forcing denominator growth.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "A finite-support denominator theorem does not settle an infinite-support sum."
+      },
+      {
+        "id": "rational_support_constraints",
+        "contribution_class": "conditional reduction",
+        "summary": "Rational infinite supports force unbounded scaled tails, sublogarithmic zero windows, and reciprocal-mass constraints.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_support_vocabulary",
+        "boundary": "The constraints do not exclude every infinite support."
+      },
+      {
+        "id": "known_irrational_supports",
+        "contribution_class": "Lean formalisation of existing results",
+        "summary": "Full, factorial, power-of-two, multiple, pairwise-coprime, eventually periodic, residue-class, and odd supports are formalised.",
+        "evidence_mode": "Lean kernel plus Comparator for full support",
+        "comparator_disposition": "targeted_full_support_representative",
+        "boundary": "Structured known families do not cover arbitrary infinite supports."
+      },
+      {
+        "id": "squarefree_support",
+        "contribution_class": "Lean structure plus paper and external theorem",
+        "summary": "Lean checks squarefree incidence and no-go statements; the irrationality conclusion uses an external analytic theorem in the paper.",
+        "evidence_mode": "Lean kernel plus paper argument plus cited theorem",
+        "comparator_disposition": "not_applicable_to_external_irrationality_input",
+        "boundary": "Comparator must not badge the paper-plus-external conclusion."
+      },
+      {
+        "id": "achievement_set_geometry",
+        "contribution_class": "mixed prior-art geometry and locally proved metric result; novelty unassessed",
+        "summary": "Compactness, perfectness, total disconnectedness, nowhere density, and measure one for the unrestricted achievement set.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_measure_theorem",
+        "boundary": "Geometry of the full set does not decide irrationality of every coded point."
+      },
+      {
+        "id": "restricted_achievement_sets",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Support-restricted coding is injective and the associated achievement set has exact finite-complement measure or zero for infinite complement.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_measure_dichotomy",
+        "boundary": "The measure dichotomy does not classify rational points."
+      },
+      {
+        "id": "half_and_twenty_one_frontiers",
+        "contribution_class": "conditional reduction and no-go result",
+        "summary": "Exact greedy characterisations and finite-support exclusions isolate the remaining 1/2 and 1/21 alternatives.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_greedy_state_vocabulary",
+        "boundary": "Neither membership question is decided."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-257-mersenne-support-subseries",
+    "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+    "subject": "Erdős #257",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 21,
+    "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
+    "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+    "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+    "problem_id": "erdos_257",
+    "routes": {
+      "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
+      "html_exact_tex": "papers/erdos-257-mersenne-support-subseries.mathjax.html",
+      "pdf": "../../papers/erdos-257-mersenne-support-subseries.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-257-mersenne-support-subseries.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
+      "publication_manifest_match": true,
+      "mathml_node_count": 498,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "159afee9bcb27b5bcf489a83ab02ab3e2eacda19ba60ea45f702dfd4393c333e",
+      "html_exact_tex_sha256": "48aee7e1809a075fe6b1a572e75dada391f0818cddb869c68d7450f865374804"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Introduction and main results"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The finite-support theorem."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Structure."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Finite-support denominator periods"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Rational values and scaled tails"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Integral scaled tails, and unboundedness."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Divisor coverage cannot have long gaps."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "A reciprocal-sum lower bound."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "A Boolean–Möbius characterisation."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Combined constraints on a rational counterexample."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Representative known irrational supports"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Squarefree support and a coordinate-dependent obstruction"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The values are known at every power-of-two base"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Two block-certificate hypotheses have no instance"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The obstruction is a normalisation, not the value"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Achievement-set geometry and the value 1/21/2"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Geometry after restricting the allowed exponents"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The value 1/21/2"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A second rational target"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The canonical 1/211/21 frontier"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Open problems"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_257",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos257",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

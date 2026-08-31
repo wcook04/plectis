@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Results and open boundaries · Plectis maths</title>
+  <meta name="description" content="Results and open boundaries, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/results.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Results and open boundaries · Plectis maths">
+  <meta property="og:description" content="Results and open boundaries, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/results.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Results and open boundaries · Plectis maths">
+  <meta name="twitter:description" content="Results and open boundaries, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Results and open boundaries</li></ol></nav>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Results map</p>
+        <h1>Results and open boundaries</h1>
+        <p class="doc-source-line">Rendered from <code>docs/RESULTS.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="results" data-document-role="mathematical_results_map" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="docs/RESULTS.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<section class="level1 lean-doc-titled">
+<h2>Results and limits</h2>
+<p>This repository formalises finite results, reductions, equivalences,
+and obstructions related to eight Erdős problems — #68, #243, #249,
+#251, #257, #269, #1041, and #1049 — with #249 and #257 as the two
+reviewed core programmes. It does not solve any of them.</p>
+<p>Lean source checked by the pinned Lean kernel is proof authority. The
+audit log reports the headline declarations below with kernel
+assumptions <code>[propext, Classical.choice, Quot.sound]</code>. A
+theorem with hypotheses proves only the displayed implication; it does
+not prove that its hypotheses occur.</p>
+<section id="ten-minute-verdict" class="level2">
+<h2>Ten-minute verdict</h2>
+<p>All eight Erdős problems remain open. The development is neither a
+partial solution nor an empty collection of restatements. For the two
+reviewed programmes, its checked non-restatement centre includes:</p>
+<ul>
+<li>for #257, exact finite-period noncollapse, eventually-periodic
+support irrationality, a signed periodic-weight dichotomy, feedback and
+rank-gap theorems, and a precisely delimited squarefree-support
+barrier;</li>
+<li>for #249, exact finite-level ranks and infinite-dimensionality for
+dyadic sections of Euler’s totient, denominator growth for a
+Möbius-shadow object, and scoped barriers and case trichotomies;
+and</li>
+<li>finite evidence: a diagonal certificate band through
+<code>t=82</code> and a historical roster of 123 distinct off-diagonal
+certificates (125 verified log rows), neither of which supplies the
+required unbounded family.</li>
+</ul>
+<p>The project also audits its own conditional routes. Of 23 substantial
+Lean propositions extracted from hypotheses of conditional theorems, 17
+are provably equivalent to an endpoint—14 to #249 and 3 to the
+<code>1/2</code> membership test for #257. This is a self-diagnosis of
+reformulation failure, not progress on either endpoint.</p>
+<!-- BEGIN semantic_public_census -->
+<p>Only after those theorem-level facts comes the corpus census. The
+current semantic graph provides three diagnostic views across every
+indexed Erdős problem:</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>View</th>
+<th class="ta-r">#68</th>
+<th class="ta-r">#243</th>
+<th class="ta-r">#249</th>
+<th class="ta-r">#251</th>
+<th class="ta-r">#257</th>
+<th class="ta-r">#269</th>
+<th class="ta-r">#1041</th>
+<th class="ta-r">#1049</th>
+<th class="ta-r">both</th>
+<th class="ta-r">shared</th>
+<th class="ta-r">total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mechanically nonrecurring candidates</td>
+<td class="ta-r">0</td>
+<td class="ta-r">3</td>
+<td class="ta-r">88</td>
+<td class="ta-r">0</td>
+<td class="ta-r">168</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">5</td>
+<td class="ta-r">0</td>
+<td class="ta-r">19</td>
+<td class="ta-r">283</td>
+</tr>
+<tr>
+<td>classical/prior-art formalisations</td>
+<td class="ta-r">0</td>
+<td class="ta-r">1</td>
+<td class="ta-r">36</td>
+<td class="ta-r">0</td>
+<td class="ta-r">23</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">1</td>
+<td class="ta-r">0</td>
+<td class="ta-r">40</td>
+<td class="ta-r">101</td>
+</tr>
+<tr>
+<td>bare open-problem equivalences</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">15</td>
+<td class="ta-r">0</td>
+<td class="ta-r">15</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">0</td>
+<td class="ta-r">2</td>
+<td class="ta-r">32</td>
+</tr>
+</tbody>
+</table>
+<p>The nonrecurring view contains 183 unconditional object theorems, 54
+scoped barriers, and 46 reductions or transports after aliases, open
+antecedents, bare equivalences, finite/generated instances,
+infrastructure, classical results, and routine corollaries are
+removed.</p>
+<p>The internal adjudicated frontier shortlist contains 11 nodes; it is
+distinct from the 8-node public prior-art review queue. 228 nonrecurring
+candidates remain unassessed for prior art. The live authored
+open-antecedent surface has 52 clusters, of which 10 are marked
+endpoint-equivalent. None of these populations is a novelty census.
+<!-- END semantic_public_census --></p>
+<p>The large #249 denominator exclusion is a direct, kernel-checked
+instantiation of the classical neighbouring-fraction/mediant method.
+That method supplies the displayed bound exactly (numerical delta
+<code>0</code>). The local addition is the checked arithmetic instance,
+its transfers, and its sharp first failure.</p>
+<p>The census is reproducible with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py nonrecurring</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py bare-equivalences</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py classical</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py open-antecedents</span></code></pre></div>
+</section>
+<section id="strongest-checked-results-by-problem" class="level2">
+<h2>Strongest checked results by problem</h2>
+<p>One entry per problem: the strongest checked statements, their exact
+status, and where to verify them. Each item carries the independent
+labels used across this repository: what Lean checked, what the
+statement changes, and its literature relationship.
+<code>formalised here</code> renders known mathematics;
+<code>proved here</code> makes no novelty claim — that judgement is a
+human number theorist’s, and no query here supplies it. Reduction
+targets are named with their own status in the same sentence. The
+reviewed claim registry (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>) covers the
+#249/#257 core; entries marked <em>registry: none</em> are
+kernel-checked source whose reviewed claim rows do not yet exist, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json"><code>docs/problems.json</code></a> is the
+per-problem authority for the six expansion problems.</p>
+<p><strong>#68 — is <code>∑_{n≥2} 1/(n!−1)</code>
+irrational?</strong></p>
+<ul>
+<li>Irrationality is equivalent, with no hypotheses, to one integer
+divisibility test on exact rational prefixes failing infinitely often —
+<code>irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</code>,
+<code>ErdosProblems/Erdos68/FactorialZeroPlateau.lean:1090</code>.
+Checked theorem; exact equivalence, transporting the difficulty without
+reducing it; registry: none.</li>
+<li>The kernel-internal denominator bound is <code>q ≥ 67</code>
+(<code>:940</code>); the <code>300000</code> exclusion is a checked
+implication (<code>:876</code>) whose evaluation is an external
+computation, not a kernel result.</li>
+<li>Open: produce infinitely many non-unit carries.</li>
+</ul>
+<p><strong>#243 — does rationality force eventual Sylvester
+recurrence?</strong></p>
+<ul>
+<li>A divergent natural sequence with upward steps bounded by
+<code>B</code> cannot stay coprime to an infinite family of fresh
+pairwise-coprime moduli — <code>no_boundedRise_of_tailAvoidance</code>,
+<code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:897</code>.
+Checked theorem; reusable obstruction; registry: none.</li>
+<li>Given normalised vanishing — supplied for the canonical orbit by
+Koizumi (Integers 26 (2026), A28; cited, prose bridge) — a bounded
+negative part or finite normalised negative mass forces the error to
+vanish and the Sylvester recurrence to begin (<code>:2177</code>,
+<code>:2264</code>; <code>SparseResetRecovery.lean:155</code>,
+<code>:175</code>). Checked conditional theorems; the note concedes its
+absorption and descent lemmas as Koizumi prior art.</li>
+<li>Open: the unbounded mixed-sign regime.</li>
+</ul>
+<p><strong>#249 — is <code>∑ φ(n)/2ⁿ</code> irrational? (reviewed
+core)</strong></p>
+<ul>
+<li>Unconditional: the dyadic sections <code>n ↦ φ(2ʲn+r)</code> of
+Euler’s totient have an explicit rational basis, and the
+level-<code>e</code> span has dimension exactly <code>2ᵉ + 1</code> —
+<code>finrank_canonicalTotientKernel_eq</code>,
+<code>Erdos249257/TotientMahlerDefect.lean:989</code>; basis object at
+<code>:1392</code>. A theorem about the coefficient sequence, not about
+irrationality of <code>S</code>; it quantifies the known qualitative
+fact that <code>φ</code> is not 2-regular (Coons 2008, arXiv:0810.3709,
+via ζ zero-density — no exact rank appears there). Claim
+<code>dyadic_totient_certificate_interface</code> (the basis
+declarations at <code>:1265</code>, <code>:1380</code>,
+<code>:1392</code> — registry: none).</li>
+<li>Irrationality of <code>S</code> has six checked exact
+characterisations, from tail-difference certificates through the
+lcm-diagonal form to window-separated pairs —
+<code>Erdos249257/LcmConeFlatness.lean:316–426</code>,
+<code>Erdos249257/PivotAntiReconstruction.lean:1775</code>; claims
+<code>certificate_completeness</code>,
+<code>certificate_reduction</code>.</li>
+<li>Finite: the classical Farey/mediant window at <code>K = 240</code>
+excludes reduced denominators through <code>7.96 × 10³⁴</code> —
+improvement over the classical bound: zero (claim
+<code>denominator_exclusion</code>) — and diagonal certificates exist at
+every <code>t ≤ 82</code>, with the plateau broken at
+<code>t = 83</code> and a proved depth floor of <code>125</code> there
+(<code>ErdosProblems/Skip/LadderT67.lean:71264</code>,
+<code>:71285</code>, <code>:71294</code>; claim
+<code>certified_kill_instances</code>; no certificate at
+<code>t = 83</code> is claimed).</li>
+<li>Open: the unbounded certificate supply, which is equivalent to #249
+itself; a checked splice construction shows no finite inspection can
+settle it.</li>
+</ul>
+<p><strong>#251 — is <code>∑ pₙ/2ⁿ</code> irrational?</strong></p>
+<ul>
+<li>Unconditional: <code>pₙ ≤ 1250(n+1)⁴</code> by an elementary
+argument, so the series is summable and equals <code>2 +</code> the
+prime-gap dyadic series with no external input
+(<code>ErdosProblems/Erdos251/PrimeGapDyadicTail.lean:360</code>,
+<code>:379</code>, <code>:427</code>); and for any sequence obeying the
+checked integer-digit dyadic tail recurrence, irrationality is exactly
+equivalent to cofinal non-integral tail shifts
+(<code>irrational_initial_iff_cofinalNonintegralTailShifts</code>,
+<code>:1572</code>) — the identification of the concrete prime tail with
+that recurrence is paper-level. Checked theorems; registry: none.</li>
+<li>A checked countermodel closes the periodicity route: an explicit
+unbounded, non-eventually-periodic digit sequence with rational dyadic
+sum (<code>carryCoeff_natCast_not_eventually_periodic</code>,
+<code>:1163</code>).</li>
+<li>Open: cofinally many adjacent index pairs with small tail shifts and
+differing gaps; each smallness condition constrains a complete infinite
+tail.</li>
+</ul>
+<p><strong>#257 — is <code>∑_{n∈A} 1/(2ⁿ−1)</code> irrational for every
+infinite <code>A</code>? (reviewed core)</strong></p>
+<ul>
+<li>Native unconditional: for every finite nonempty support
+<code>F</code> of positive exponents and every base <code>b ≥ 2</code>,
+the reduced denominator of <code>∑_{n∈F} 1/(bⁿ−1)</code> is coprime to
+<code>b</code> and has multiplicative order exactly <code>lcm F</code> —
+<code>finite_period_noncollapse</code>,
+<code>Erdos249257/CertificateKernel.lean:5091</code>, with no
+witness-supply hypothesis. Checked theorem; registry: none.</li>
+<li>Formalised known results: the full-support series is irrational in
+every base <code>b ≥ 2</code> (Erdős 1948; claim
+<code>eb_full_support</code>), as are pairwise-coprime supports with
+summable reciprocals (Erdős 1968) and eventually periodic supports.</li>
+<li>The base-2 Mersenne achievement set — all subsums of
+<code>∑ 1/(2ⁿ−1)</code> — is compact, perfect, totally disconnected,
+nowhere dense, and of Lebesgue measure one (strict-tail Cantor structure
+after Kovač–Tao, Remark 4.1; the measure clause is proved here; positive
+measure was asserted informally by Kovač on the erdosproblems.com #257
+discussion page in August 2025, and no published source computes the
+exact value) — <code>Erdos249257/GreedyAchievementSet.lean:996</code>,
+<code>:1633–1658</code>; claim <code>greedy_achievement_geometry</code>.
+Membership of <code>1/2</code> is equivalent to infinitely many greedy
+skips (<code>:2527</code>) and to the absence of a fatal half-gap
+(<code>Erdos249257/HalfCutLocator.lean:654</code>); the dyadic
+membership question was posed publicly by Kovač in the same discussion,
+and a positive answer would refute universal #257.</li>
+<li>Methodological: a formalised squarefree-support no-go theorem is
+shown to be an artefact of normalisation — adjoining <code>1</code> to
+the support shifts the value by a rational and flips the
+divisor-incidence parity, and the finite-change principle is itself
+checked
+(<code>ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean:94</code>,
+<code>:111</code>, <code>:140</code>;
+<code>Erdos249257/CertificateKernel.lean:9467</code>,
+<code>:9476</code>). The squarefree value itself is settled at
+power-of-two bases in the literature (Duverney–Tachiya 2019; cited, not
+formalised). Registry: none.</li>
+<li>Open: universal #257, and the <code>1/2</code> and <code>1/21</code>
+memberships.</li>
+</ul>
+<p><strong>#269 — are reciprocal sums of running lcms
+irrational?</strong></p>
+<ul>
+<li>For every pair of distinct primes, both the de-duplicated and the
+repeated running-lcm reciprocal sums are transcendental — a paper
+argument in the problem note; the transcendence engine is Loxton–van der
+Poorten 1977, quoted in the modern Bugeaud–Laurent form (Theorem 1.1);
+deliberately not a Lean theorem, and the note says so. Independently
+found and not first: the same reduction and conclusion were posted by
+Steve Fan on the erdosproblems.com #269 discussion page on 26 June 2026,
+before the note was finalised, with follow-ups there extending it to
+arbitrary coprime pairs; the note acknowledges this.</li>
+<li>Lean-checked: the exact running-lcm product
+<code>L(x) = p^⌊log_p x⌋ q^⌊log_q x⌋ r^⌊log_r x⌋</code>
+(<code>ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean:123</code>;
+formalisation of a classical identity), the four-letter block alphabet
+<code>{2, 6, 10, 30}</code> (<code>:699</code>), and a rank-two kernel
+obstruction (<code>:479</code>, <code>:721</code>).</li>
+<li>Open: any three-prime case; the rationality-to-carry bridge and the
+cofinal window escape.</li>
+</ul>
+<p><strong>#1041 — short connections inside polynomial
+lemniscates?</strong></p>
+<ul>
+<li>Checked: quantitative root retention under constant perturbation
+(<code>constant_perturbation_roots_in_unitDisk</code>,
+<code>ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean:287</code>)
+and arbitrarily small translations separating all pairwise ray arguments
+(<code>:197</code>). The ray-separation exclusion is checked in consumer
+form only: the exponential-decay connection equation is its hypothesis,
+not a theorem (<code>:315</code>). Registry: none.</li>
+<li>The note’s main independent contribution is prose, not Lean: a
+specific invalid three-ended local block at an interior Morse saddle in
+a recent manuscript’s load-bearing Proposition 12 — identified as a
+proof gap, not a counterexample.</li>
+<li>Open: repair or refute that decomposition; the planar topology and
+length bookkeeping.</li>
+</ul>
+<p><strong>#1049 — Lambert series at rational bases, beginning with
+<code>3/2</code>?</strong></p>
+<ul>
+<li>Checked exclusions at <code>3/2</code>, each of one named mechanism
+only: the coordinatewise clearing scheme is impossible for all
+parameters (<code>threeHalves_no_coordinatewiseCorridor</code>,
+<code>ErdosProblems/Erdos1049/RationalBaseLambert.lean:155</code>),
+scalar content is neutral for the local-to-Archimedean balance, and unit
+endpoints exclude both <code>2</code> and <code>3</code> from a common
+divisor
+(<code>ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean:293</code>).
+Registry: none.</li>
+<li>The elementary height inequality used by Bundschuh–Väänänen’s
+external irrationality criterion at <code>7/2</code> is checked
+(<code>RationalBaseLambert.lean:83</code>); the analytic theorem itself
+remains external. Formalisation of known inputs.</li>
+<li>The Van Assche moving diagonal fails the Amdeberhan–Zeilberger
+scalar recurrence already at <code>n=0</code>: its exact residual is
+<code>-p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2)</code>, strictly negative for
+every real <code>p&gt;1</code>
+(<code>QAperyDiagonalNonEquivalence.lean:67,94</code>). This finite
+obstruction proves only non-transfer of that recurrence; it supplies no
+general recurrence, endpoint, lattice, valuation, denominator, or
+irrationality theorem. Registry: none.</li>
+<li>Open: irrationality at <code>3/2</code>; the primitive noncollapsed
+construction; analytic remainder control. The note proves no
+irrationality result and says so.</li>
+</ul>
+<p>The semantic corpus marks exactly eight statements
+<code>candidate_new_statement</code> — the only machine novelty marks in
+this release, against 5,460 of 6,036 statement nodes still
+<code>not_assessed</code>. They concentrate in the #249/#257 core (the
+totient Möbius-numerator normal form, a rank-one overshoot barrier, and
+the <code>1/2</code> tail-escape and middle-producer family). Reproduce
+the list from <code>docs/semantic_corpus.json</code>
+(<code>statement_nodes[].prior_art_state</code>); candidate status is a
+search outcome recorded for triage, not a novelty claim.</p>
+</section>
+<section id="what-is-proved" class="level2">
+<h2>What is proved</h2>
+<section id="settled-support-families-for-problem-257" class="level3">
+<h3>Settled support families for Problem 257</h3>
+<p>The universal problem is open, but several infinite supports are
+settled. The formal source proves irrationality in every integer base
+<code>b≥2</code> for the full support, factorials, powers of two,
+multiples of a fixed positive integer, residue classes, the odd numbers,
+eventually periodic supports, and pairwise coprime supports with
+summable reciprocals. The relevant declarations include:</p>
+<ul>
+<li><code>irrational_erdosSum_full_support</code>;</li>
+<li><code>erdos257_family_factorial_instance</code> and
+<code>erdos257_family_two_pow_instance</code>;</li>
+<li><code>irrational_erdosSupportSeries_multiples</code>,
+<code>irrational_erdosSupportSeries_residueClass</code>, and
+<code>irrational_erdosSupportSeries_odd</code>;</li>
+<li><code>irrational_erdosSupportSeries_eventuallyPeriodic</code>;
+and</li>
+<li><code>irrational_erdosSupportSeries_pairwise_coprime</code>.</li>
+</ul>
+<p>These declarations are in
+<code>Erdos249257/CertificateKernel.lean</code>. The prime and
+prime-power supports are literature results cited by the repository, not
+formalised here.</p>
+<p>The squarefree support remains open. Its divisor incidence is proved
+to be <code>2^ω(n)-1</code>, hence odd at every <code>n≥2</code>. The
+certificate engines in this development begin by selecting an
+even-incidence block, so they cannot act on that support at any block
+position. The checked declarations <code>card_squarefreeDivisors</code>,
+<code>squarefreeIncidence_eq</code>, and
+<code>odd_squarefreeIncidence</code> are in
+<code>ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean</code>.
+This is a limitation of the named engines, not evidence that the
+squarefree-support value is rational or irrational.</p>
+</section>
+<section
+id="the-reduction-chain-for-the-one-half-test-case-of-problem-257"
+class="level3">
+<h3>The reduction chain for the one-half test case of Problem 257</h3>
+<p>The Mersenne achievement set consists of subsums of
+<code>1/(2^n-1)</code>. If <code>1/2</code> belongs to it, its support
+gives an infinite set with a rational subseries, which would refute the
+universal statement in Problem 257. The repository does not prove this
+membership.</p>
+<p>The checked chain includes:</p>
+<ul>
+<li><code>half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite</code>
+in <code>Erdos249257/GreedyAchievementSet.lean</code>: membership of
+<code>1/2</code> is equivalent to infinitely many skips in its greedy
+expansion.</li>
+<li><code>half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse</code>
+in
+<code>Erdos249257/HalfCylinderHalfMembershipClassification.lean</code>:
+the same membership is equivalent to terminal false bits beyond every
+bound.</li>
+<li><code>half_mem_iff_unboundedLargestSkipLate</code> in
+<code>ErdosProblems/Skip/D2.lean</code>: membership is equivalent to
+late largest skips beyond every bound.</li>
+<li><code>exists_largestSkipLateAt_of_remainder_le_two_pow</code> in
+<code>ErdosProblems/Bit/R2.lean</code>: a row with remainder at most
+<code>2^N</code> produces a late largest skip in the explicit interval
+<code>[N+1,2N+1]</code>.</li>
+<li><code>half_mem_of_remainderReachesHalfPointCofinally</code> in
+<code>ErdosProblems/Bit/R2.lean</code>: remainders at most
+<code>2^s</code> cofinally are sufficient for membership.</li>
+</ul>
+<p>The final two bullets are one-way sufficient criteria. They are not
+equivalences and are not known to hold cofinally.</p>
+<p>The proposed universal <code>hlow</code> side condition is false:
+<code>not_hlow_seven_five</code> in
+<code>ErdosProblems/Decl/D4.lean</code> and
+<code>not_hlow_of_hhigh</code> in
+<code>ErdosProblems/Hlow/H1.lean</code> give the counterexample
+<code>(s,d) = (7,5)</code>. Its failure is useful rather than
+obstructive: <code>seamRemainder_lt_two_pow_of_not_hlow</code> and
+<code>seven_is_a_hit_from_failure</code> in
+<code>ErdosProblems/Hlow/H2.lean</code> convert that failure into a hit
+certificate.</p>
+</section>
+<section id="exact-ranks-for-dyadic-sections-of-eulers-totient"
+class="level3">
+<h3>Exact ranks for dyadic sections of Euler’s totient</h3>
+<p>For <code>j ≥ 0</code> and <code>0 ≤ r &lt; 2^j</code>, let
+<code>φ_(j,r)(n) = φ(2^j n + r)</code>. The family consisting of
+<code>φ_(0,0)</code>, <code>φ_(1,0)</code>, and all <code>φ_(j,r)</code>
+with odd <code>r</code> is a rational basis for the span of all dyadic
+sections. At level <code>e</code>, the span has dimension exactly
+<code>2^e + 1</code>.</p>
+<p>Lean names and sources:</p>
+<ul>
+<li><code>linearIndependent_oddCoreTotientKernelFamily</code>,
+<code>span_range_fullTotientKernel_eq_span_range_oddCore</code>, and
+<code>totientDyadicSectionBasis</code> in
+<code>Erdos249257/TotientMahlerDefect.lean</code>;</li>
+<li><code>finrank_canonicalTotientKernel_eq</code> in the same
+file.</li>
+</ul>
+<p>These are theorems about the coefficient sequence <code>φ</code>.
+They do not prove that <code>∑ φ(n)/2^n</code> is irrational.</p>
+</section>
+<section id="a-finite-diagonal-certificate-band-for-problem-249"
+class="level3">
+<h3>A finite diagonal certificate band for Problem 249</h3>
+<p>Let <code>periodLcm t = lcm(1,…,t)</code>. The predicate
+<code>certifiedKill h N L</code> is a finite modular-arithmetic
+certificate showing that a specific binary totient-tail difference at
+shift <code>h</code> and position <code>N</code> is not an integer.</p>
+<p><code>exists_diagonalKill_le_82</code> proves</p>
+<pre class="text"><code>for every t ≤ 82, there is an L such that
+certifiedKill (periodLcm t) (periodLcm t) L.</code></pre>
+<p>Lean name and source:</p>
+<ul>
+<li><code>exists_diagonalKill_le_82</code> —
+<code>ErdosProblems/Skip/LadderT67.lean</code></li>
+</ul>
+<p>The exact least depths at the new boundary scales are:</p>
+<table>
+<thead>
+<tr>
+<th class="ta-r">Scale <code>t</code></th>
+<th class="ta-r">Least depth <code>L</code></th>
+<th>Lean name</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-r">67</td>
+<td class="ta-r">100</td>
+<td><code>t67_minimal_depth</code></td>
+<td><code>ErdosProblems/Lift/Recon67.lean</code></td>
+</tr>
+<tr>
+<td class="ta-r">71</td>
+<td class="ta-r">105</td>
+<td><code>t71_minimal_depth</code></td>
+<td><code>ErdosProblems/Lift/CertT67.lean</code></td>
+</tr>
+<tr>
+<td class="ta-r">73</td>
+<td class="ta-r">113</td>
+<td><code>t73_minimal_depth</code></td>
+<td><code>ErdosProblems/Skip/LadderT67.lean</code></td>
+</tr>
+<tr>
+<td class="ta-r">79</td>
+<td class="ta-r">120</td>
+<td><code>t79_minimal_depth</code></td>
+<td><code>ErdosProblems/Skip/LadderT67.lean</code></td>
+</tr>
+<tr>
+<td class="ta-r">81</td>
+<td class="ta-r">120</td>
+<td><code>t81_minimal_depth</code></td>
+<td><code>ErdosProblems/Skip/LadderT67.lean</code></td>
+</tr>
+</tbody>
+</table>
+<p>The same file proves</p>
+<pre class="text"><code>periodLcm 79 = 32433859254793982911622772305630400,</code></pre>
+<p>a 35-digit modulus, as <code>periodLcm_79_value</code>.</p>
+<p>The source-backed <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/checked_diagonal_depth_roster.json"><code>checked_diagonal_depth_roster.json</code></a>
+covers all 33 distinct <code>periodLcm</code> scales whose plateaux fill
+the positive band <code>t≤82</code>. Every recorded working depth lies
+<code>0…4</code> above the arithmetic admissibility floor (median
+<code>1</code>, mean <code>40/33</code>). Only the five boundary scales
+<code>t=67,71,73,79,81</code> have separate theorems proving their
+recorded depths least; for the other 28 scales, the excess is only an
+upper bound on the least-depth excess. Reproduce the roster with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_checked_diagonal_depth_roster.py <span class="at">--check</span></span></code></pre></div>
+<p>This is a bounded result. The reduction for Problem 249 requires
+certificates at arbitrarily large scales. The theorem says nothing at
+<code>t = 83</code>.</p>
+</section>
+<section id="finite-off-diagonal-certificates" class="level3">
+<h3>Finite off-diagonal certificates</h3>
+<p>The historical audit selects 125 verified log rows at positions not
+constrained to equal <code>periodLcm t</code>. Two pairs of rows repeat
+the same <code>(h,N,L)</code> triple, so the roster contains 123
+distinct certificates matched to 123 public Lean theorems across 122
+files. The largest position in that audited set is:</p>
+<pre class="text"><code>freeKill_64OneHundredFifteenDI :
+  certifiedKill 1 135960691671824579163806583999 101</code></pre>
+<p>Source:
+<code>ErdosProblems/FreePosition/FreeKill64OneHundredFifteenDI.lean</code>.</p>
+<p>The generated <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/off_diagonal_certificate_roster.json"><code>off_diagonal_certificate_roster.json</code></a>
+retains all selected source rows and their hashes, identifies both
+duplicate groups, and binds each distinct triple to its exact theorem,
+line, and source hash. Reproduce it with:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_off_diagonal_certificate_roster.py <span class="at">--check</span></span></code></pre></div>
+<p>The source log also contains 54 later verified certificate triples
+above the historical position cutoff. The roster exposes that excluded
+census without silently changing the historical result.</p>
+<p>The relevant sufficient theorem for Problem 249 is
+<code>irrational_totient_series_of_multiple_window_kill_supply</code> in
+<code>Erdos249257/CertificateKernel.lean</code>. Its hypothesis
+requires, for every positive base shift and every lower bound on the
+position, a later certificate at some positive multiple of that shift. A
+finite list of 123 instances does not establish that quantified
+supply.</p>
+</section>
+<section id="direct-farey-comparison" class="level3">
+<h3>Direct Farey comparison</h3>
+<p>The denominator exclusion is exactly the standard Farey/mediant bound
+for the two committed finite windows. The arithmetic below was
+recomputed from</p>
+<pre class="text"><code>V_K = (∑_{r=1}^K φ(r+1) 2^(K-r)) mod 2^K</code></pre>
+<p>and from the explicit neighbouring fractions in
+<code>Erdos249257/GapFareyBound.lean</code>.</p>
+<table>
+<thead>
+<tr>
+<th class="ta-r"><code>K</code></th>
+<th class="ta-r">Interval width</th>
+<th class="ta-r">Delta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-r">120</td>
+<td class="ta-r"><code>123/2^120</code></td>
+<td class="ta-r"><code>0</code></td>
+</tr>
+<tr>
+<td class="ta-r">240</td>
+<td class="ta-r"><code>243/2^240</code></td>
+<td class="ta-r"><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>The exact denominators of each window are:</p>
+<pre class="text"><code>K = 120
+  Farey neighbour denominators b, d   41326538792622579
+                                      207345787569745331
+  b+d-1                               248672326362367909
+  formal exclusion bound              248672326362367909
+  first failing denominator           248672326362367910
+
+K = 240
+  Farey neighbour denominators b, d   66013429300517684370587633721421187
+                                      13626217346183690952768141154409867
+  b+d-1                               79639646646701375323355774875831053
+  formal exclusion bound              79639646646701375323355774875831053
+  first failing denominator           79639646646701375323355774875831054</code></pre>
+<p>For each window, the recomputation gives determinant <code>1</code>
+for the two neighbours, verifies both interval brackets, verifies the
+displayed bound, and verifies failure at the next denominator. The
+corresponding proved declarations are <code>farey_gap</code>,
+<code>gap_check_window_1_120_le_248672326362367909</code>,
+<code>gap_check_window_1_120_first_failure</code>,
+<code>gap_check_window_1_240_le_79639646646701375323355774875831053</code>,
+and <code>gap_check_window_1_240_first_failure</code>.</p>
+<p>The division of credit is exact: Farey supplies the bound directly;
+formalisation supplies a checked arithmetic instance and proves it is
+sharp for that window. Neither finite window proves that the exclusion
+bounds are unbounded, so neither proves Erdős #249.</p>
+<p>The magnitude is also a tunable window output, not an invariant
+measure of progress.
+<code>scripts/check_farey_denominator_scaling.py</code> independently
+reproduces the two formalised constants and cross-checks the producer by
+brute force on six small windows. On this run, choosing
+<code>K=16000</code> produced a 2,406-digit bound in <code>0.08</code>
+seconds for the scaling row (<code>0.18</code> seconds for the complete
+script). Every fixed <code>K</code> still gives only a finite exclusion,
+and increasing <code>K</code> does not supply the unbounded theorem
+required by #249.</p>
+</section>
+<section id="scoped-no-go-theorems" class="level3">
+<h3>Scoped no-go theorems</h3>
+<p>These theorems rule out particular proof mechanisms. They do not rule
+out other arguments.</p>
+<ul>
+<li><code>no_lift_from_lower_totient_data</code>,
+<code>ErdosProblems/Lift/AngleA5.lean</code> — no universal lift of the
+displayed form can follow only from the stated lower totient data,
+pointwise bound, and a lower certificate.</li>
+<li><code>no_window_local_lift</code>,
+<code>ErdosProblems/Lift/InduceLaw.lean</code> — for prime multipliers
+<code>p ≥ 3</code>, agreement on the lower diagonal window does not
+force any certificate in the lifted window.</li>
+<li><code>exists_certifiedKill_antitone</code>,
+<code>ErdosProblems/Lift/AngleA4.lean</code> — a certificate at a larger
+position gives one at a smaller position; the implication runs opposite
+to a forward lift.</li>
+<li><code>consecutiveFail_iff</code>,
+<code>ErdosProblems/Half/FreeWalk2.lean</code> — under its explicit
+depth inequality, a run of <code>K</code> failures at depth
+<code>L</code> is equivalent to failure at depth <code>L+K</code> at the
+base position.</li>
+<li><code>no_absolute_bound_on_consecutive_failures</code>,
+<code>ErdosProblems/Half/FreeWalk1.lean</code> — the abstract
+admissible-run model permits arbitrarily long failure runs under its
+stated budget.</li>
+<li><code>exists_persistent_surplus_model</code>,
+<code>ErdosProblems/Rem/C1.lean</code> — the listed row recurrence and
+ceiling inequalities admit a sequence that stays above the target
+forever.</li>
+<li><code>rowLaw_blind_at_16</code>,
+<code>ErdosProblems/Rem/C1.lean</code> — at one concrete row, every
+listed row-level trigger is silent although the next row has a late
+skip.</li>
+<li><code>IntervalCeiling.four_pow_le</code>,
+<code>ErdosProblems/Three/T1.lean</code> — every ceiling satisfying the
+stated branch-blind rank-recursion obligations must grow on the
+<code>4^s</code> scale.</li>
+<li><code>two_pow_mul_y</code>, <code>ErdosProblems/Three/T2.lean</code>
+— the normalised state used in the doubling route is dyadic at every
+finite row.</li>
+<li><code>exists_persistent_odd_surplus_model</code>,
+<code>ErdosProblems/Three/T3.lean</code> — adding parity to the listed
+row-level constraints still admits a persistent surplus model.</li>
+<li><code>PairCeiling.terminal_ge_of_splits</code>,
+<code>ErdosProblems/Decl/D1.lean</code> — in the stated two-sided
+abstraction, a failed branch prediction forces the terminal upper bound
+above the target scale.</li>
+</ul>
+</section>
+<section id="other-standalone-exact-obstructions" class="level3">
+<h3>Other standalone exact obstructions</h3>
+<p>These five registry claims are not restatements of either endpoint.
+Each has a separate limitation, and none settles an Erdős problem.</p>
+<ul>
+<li><code>totient_carry_kernel_anti_compression</code> — if
+<code>S</code> were rational, one rationality-supplied tempered integral
+carry would have canonical carry-section span dimension at least
+<code>2^e-1</code> for every <code>e</code>. Boundary: no finite-rank
+upper bound for such carries is known, so this does not contradict
+rationality.</li>
+<li><code>primitive_coordinate_index_obstruction</code> — clearing
+<code>(φ*μ)(n)/n</code> through level <code>N</code> forces a two-tier
+primorial divisor; no fixed positive index clears every level. Boundary:
+finite Euler-coordinate obstruction, not an irrationality
+criterion.</li>
+<li><code>lcm_factor_ideal_anchor_pulse_no_go</code> — for every
+<code>t≥3</code>, a synthetic survivor satisfies the factor-ideal and
+whole-ray-anchor constraints and survives every finite integer shift
+polynomial. Boundary: its letters need not be actual totient
+differences; nonlinear fresh-divisor arguments remain possible.</li>
+<li><code>reciprocal_mass_bound</code> — a rational support value with
+odd denominator part <code>v</code> forces reciprocal mass at least
+<code>1/ord_v(2)</code>, or divergence; a dyadic-rational infinite
+support forces divergence or mass greater than one. Boundary: does not
+exclude every rational value.</li>
+<li><code>unbounded_carry_states</code> — every infinite support with
+rational series value has an unbounded positive carry state. Boundary:
+rules out finite-state interpretations, not rationality itself.</li>
+</ul>
+<p>Retrieve their declarations and current source coordinates with
+<code>python3 scripts/query_corpus.py --claim &lt;registry-id&gt;</code>.</p>
+</section>
+<section id="demand-ledger" class="level3">
+<h3>Demand ledger</h3>
+<p>A demand is an unproved hypothesis extracted from a conditional
+theorem and stored as a named Lean proposition.
+<code>ErdosProblems/DemandLedger/Basic.lean</code> contains 101 named
+closed propositions; 23 are labelled substantive and the rest are side
+conditions. The current prose frontier contains 52 entries.</p>
+<p>The extraction snapshot in the audit log records 144 proved
+implication edges among the 23 substantive demands, producing seven
+equivalence classes. Seventeen substantive demands collapse to
+restatements of an open target rather than smaller subproblems. For
+example:</p>
+<ul>
+<li><code>G103_iff_erdos249</code> in
+<code>ErdosProblems/DemandLedger/edges/Discharge3_G103.lean</code>
+proves that the general lcm-window supply <code>G103</code> is
+equivalent to Problem 249 itself.</li>
+<li><code>G103_iff_G097</code> in the same file identifies two supply
+formulations.</li>
+<li><code>e_G083_G084</code> in <code>edges/ClusterE.lean</code> records
+one implication in the Problem 257 chain.</li>
+</ul>
+<p>The ledger classifies obligations. It does not discharge an
+obligation merely by naming it or proving it equivalent to the
+target.</p>
+</section>
+</section>
+<section id="what-is-measured-not-proved" class="level2">
+<h2>What is measured, not proved</h2>
+<p>Only measurements with an explicit tested range and explicit
+exception set are listed here. Counts without preserved sample
+identities are not promoted to release results.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Measurement</th>
+<th>Exact range</th>
+<th>Exact failures or mismatches</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Recon257.seamExcess s = 2</code></td>
+<td><code>s = 5,…,102</code> (two overlapping scans, <code>5…64</code>
+and <code>58…102</code>)</td>
+<td>No occurrence.</td>
+<td>MEASURED. This makes the audited uses at <code>s=D+1</code>,
+<code>D≥60</code>, unobserved.</td>
+</tr>
+<tr>
+<td>Three-row <code>hcof</code> on the seven audited survivor
+values</td>
+<td><code>D = {101,122,164,314,545,629,1112}</code></td>
+<td>Fails at all seven values.</td>
+<td>MEASURED; every audited case satisfying <code>hcof</code> already
+died by depth 3.</td>
+</tr>
+<tr>
+<td>Residual invariant</td>
+<td><code>s = 6,…,3000</code>, <code>d = 2,…,s-1</code></td>
+<td>Exactly <code>(s,d)=(13,7)</code>; residual <code>524419</code>,
+bound <code>524288</code>.</td>
+<td>The exception is also PROVED by
+<code>Three/T1.not_residualInvariant</code>.</td>
+</tr>
+<tr>
+<td><code>hlow</code> and <code>hhigh</code> at late pairs</td>
+<td>all late pairs with <code>s = 5,…,600</code></td>
+<td><code>hlow</code> fails exactly at <code>(7,5)</code>;
+<code>hhigh</code> fails exactly at <code>(5,4)</code>.</td>
+<td>The <code>hlow</code> exception is PROVED in <code>Decl/D4</code>
+and <code>Hlow/H1</code>.</td>
+</tr>
+<tr>
+<td>Remainder-hit/greedy-support correspondence</td>
+<td><code>s = 5,…,900</code></td>
+<td>Zero mismatches.</td>
+<td>MEASURED. It does not prove infinitely many hits.</td>
+</tr>
+<tr>
+<td><code>UnboundedLargestSkipLate</code> row event</td>
+<td><code>s = 5,…,1500</code></td>
+<td>Fails exactly at <code>s = 5,11,12,13</code>.</td>
+<td>MEASURED. A finite interval does not prove eventual or unbounded
+behaviour.</td>
+</tr>
+<tr>
+<td>Residual invariant on adjacent control rows</td>
+<td>every rank of rows <code>s=12</code> and <code>s=14</code></td>
+<td>No failures.</td>
+<td>MEASURED anti-vacuity check for the isolated <code>(13,7)</code>
+counterexample.</td>
+</tr>
+<tr>
+<td>Diophantine height at one scale</td>
+<td><code>d=1000</code></td>
+<td>Denominator bit length <code>253815</code>; comparison value
+<code>d²/4=250000</code>.</td>
+<td>MEASURED single-scale size check, not an asymptotic theorem.</td>
+</tr>
+<tr>
+<td>Relative-margin scan</td>
+<td><code>d = 2,…,2000</code></td>
+<td>Record low <code>1.13×10^-4</code> at <code>d=1136</code>; no
+danger-zone instance.</td>
+<td>MEASURED. It does not establish a positive lower bound.</td>
+</tr>
+</tbody>
+</table>
+<p>For the residual invariant, the maximum ratio away from the exception
+was <code>0.9999807</code> at <code>(606,602)</code>.</p>
+<p>The rows above are carried from a dated audit log whose raw run logs
+and executable scan owners are not preserved in this release. Their
+stated finite domains and exception sets are therefore historical
+measurement records, not independently reproducible artifacts. A
+reported late-bit scan of about 14,000 ranks over
+<code>s=14,…,400</code> is omitted from the table because neither its
+exact sample count nor its sample identities were preserved.</p>
+<p>The audit also records a selection-biased certificate sample: at
+depth excess <code>c=2</code>, 15 of 154 samples failed; at
+<code>c=3</code>, 601 of 5987 failed. The sample identities are not
+preserved in the log, so these counts are not independently
+reconstructible from the release and are not evidence for an
+equidistribution law.</p>
+<p>The remaining two measurements are source-backed and reproducible
+from this release.</p>
+<section id="exact-endpoint-certificate-probe" class="level3">
+<h3>Exact endpoint-certificate probe</h3>
+<p>Exact range: all <code>960</code> pairs <code>1≤N≤120</code>,
+<code>1≤h≤8</code>, searching <code>1≤L≤400</code>; additional
+<code>h=1</code> probes at <code>N=200,500,1000,2000,5000</code>; exact
+LCM-diagonal pairs <code>(N,h)=(lcm(1,…,t),lcm(1,…,t))</code> for
+<code>1≤t≤16</code>.</p>
+<p>Exact failures or mismatches: no failures. Relative to the least
+arithmetically admissible depth
+<code>L₀=min{L≥1:2ᴸ&gt;2(N+h+L+2)}</code>, the rectangle’s first
+certificates have excess <code>0…11</code> (median <code>1</code>, mean
+<code>727/480</code>); the 16 indexed diagonal rows have excess
+<code>0…4</code> (median <code>1</code>, mean <code>5/4</code>), and the
+11 distinct diagonal scales have mean <code>14/11</code>.</p>
+<p>Status: MEASURED by exact integer arithmetic. Raw depth must grow
+with scale because the certificate interval is empty below
+<code>L₀</code>; the finite excess distributions prove no asymptotic
+law, equidistribution, bounded-excess theorem, or cofinal supply.
+Reproduce with:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/probe_certificate_supply.py <span class="at">--check</span></span></code></pre></div>
+</section>
+<section id="source-backed-checked-diagonal-depths" class="level3">
+<h3>Source-backed checked diagonal depths</h3>
+<p>Exact range: all 33 distinct <code>periodLcm</code> scales covering
+positive <code>t≤82</code>.</p>
+<p>Exact failures or mismatches: every checked working depth has excess
+<code>0…4</code> over <code>L₀</code> (median <code>1</code>, mean
+<code>40/33</code>). Five rows have proved least depths, with exact
+excess <code>0…3</code>; the other 28 values are upper bounds on
+least-depth excess.</p>
+<p>Status: FINITE SOURCE EXTRACTION from explicit Lean theorem
+signatures. It establishes no bounded-excess law at untested scales and
+no cofinal supply. Reproduce with:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_checked_diagonal_depth_roster.py <span class="at">--check</span></span></code></pre></div>
+</section>
+</section>
+<section id="what-was-retracted" class="level2">
+<h2>What was retracted</h2>
+<p>The detailed file-by-file record is in <a
+href="truth-audit.html"><code>TRUTH_AUDIT.md</code></a>. The main
+corrections are:</p>
+<ul>
+<li><code>Lift/AngleB2.lean</code> no longer says that the survivor set
+is empty. Its theorem is conditional on a false <code>hcof</code>
+instance at each surviving class and on an unobserved
+<code>seamExcess = 2</code> hypothesis.</li>
+<li><code>Lift/AngleB3.lean</code> no longer presents
+<code>ratchetOrbit_above_universal_barrier</code> as a live universal
+barrier. Its intended hypothesis fails at the initial row, and the
+proved nonrecurrence result covers only offsets <code>b ≥ Q+2</code>,
+not offsets <code>1,…,9</code>. The file now uses an actual Lean bridge
+to <code>Recon257</code>.</li>
+<li><code>Skip/D1.lean</code> and <code>Skip/Wire1-3.lean</code> no
+longer claim to exclude residue classes. Their existential threshold
+exceeds every case admitted by their own hypotheses, and the same
+unobserved seam-excess premise remains.</li>
+<li><code>Rem/C6.lean</code> no longer says the residual invariant is
+empirically true on <code>s = 6,…,3000</code>. It is false at
+<code>(13,7)</code>.</li>
+<li><code>Rem/C3.lean</code> now distinguishes the branch it proved from
+the branch it only measured at the time, and points to
+<code>Three/T2.lean</code>, where the latter branch was subsequently
+proved.</li>
+<li><code>Bit/R2.lean</code> labels <code>badRun_pins_remainder</code>
+as a conditional statement with no observed instance: it needs at least
+12 consecutive bad rows, while the measured maximum was 3.</li>
+<li><code>Three/T4.lean</code> and <code>Bit/Corr1.lean</code> no longer
+call <code>hlow</code> open. It is false at <code>(7,5)</code>, and that
+failure supplies a hit certificate.</li>
+</ul>
+<p>No theorem was weakened or removed to make these corrections. The
+claims were narrowed to the theorem types and the recorded
+counterexamples.</p>
+</section>
+<section id="what-is-open" class="level2">
+<h2>What is open</h2>
+<section id="exact-questions-for-a-human-expert" class="level3">
+<h3>Exact questions for a human expert</h3>
+<p>The command</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py expert-questions</span></code></pre></div>
+<p>returns a bounded index of the validated handoffs. Open one complete
+packet with, for example,</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_semantic.py expert-questions XQ249-pivot-decorrelation</span></code></pre></div>
+<p>Each requested input is <code>OPEN</code>; the consumer named under
+each question is a checked theorem. The classification matters: the
+first question is the endpoint in exact normal form, the next two are
+sufficient analytic producers for #249, and the last two would produce a
+counterexample to universal #257 rather than prove its positive
+statement.</p>
+<p>No checked strictly weaker handoff currently implies the universal
+positive statement of #257 for every infinite support. Named support
+families, half-value analysis, reciprocal-mass bounds, and
+sublogarithmic zero-window constraints are partial; treating any one as
+a universal proof route would overstate what its checked consumer
+establishes.</p>
+<p>The packet does not make an expert start cold. Every ask also carries
+a low-confidence current hypothesis, enumerated alternatives, current
+evidence, and the observation or theorem that would distinguish them;
+both are recorded with each question below.</p>
+<section id="xq249-lcm-diagonal-supply-diagonal-supply" class="level4">
+<h4><code>XQ249-lcm-diagonal-supply</code> — diagonal supply</h4>
+<p>Exact <code>OPEN</code> input: for every <code>t₀</code>, find
+<code>t ≥ t₀</code> and <code>L</code> with a diagonal certificate at
+<code>(lcm(1,…,t), lcm(1,…,t))</code>.</p>
+<p>Payoff and boundary: equivalent to #249. A proof closes #249; until
+then this is a restatement, not intermediate progress.</p>
+<p>Current working guess: certificates occur beyond every scale,
+equivalently #249 is true.</p>
+<p>Evidence that would change the guess: a rational representation or an
+eventual-failure theorem decides the opposite branch. The exact
+rectangle has first-depth excess <code>0…11</code>; across all 33
+distinct checked diagonal scales covering <code>t≤82</code>,
+working-depth excess is <code>0…4</code> (median <code>1</code>, mean
+<code>40/33</code>). Only five diagonal depths are proved least, and
+finite low upper bounds neither prove bounded excess nor decide the
+cofinal quantifier.</p>
+<p><code>PROVED</code> consumer:</p>
+<pre class="text"><code>irrational_totient_series_iff_lcm_diagonal_certificate_supply</code></pre>
+</section>
+<section id="xq249-pivot-decorrelation-pivot-decorrelation"
+class="level4">
+<h4><code>XQ249-pivot-decorrelation</code> — pivot decorrelation</h4>
+<p>Exact <code>OPEN</code> input: cofinally supply the exact four pivot
+budgets: centred real correlation <code>≤14X/25</code>, supplier mean
+and bad-supplier norms <code>≤X/100</code> each, and non-supplier norm
+<code>≤8X/25</code>, with overlap <code>h≤L-s</code> and room
+<code>16(2X+h+L+2)≤2^L</code>.</p>
+<p>Payoff and boundary: sufficient for #249. The missing input is a
+prime-distribution or residual-decorrelation estimate, not another
+certificate reformulation.</p>
+<p>Current working guess: for every shift, fixed <code>s,η</code> permit
+cofinally many blocks satisfying overlap, room, and all four budgets;
+the centred real term is likely the hard budget.</p>
+<p>Evidence that would change the guess: exact failure requires one
+shift for which every <code>s,η</code> eventually loses at least one
+clause. Infinitely many bad blocks do not suffice. An exact four-budget
+producer proves #249.</p>
+<p><code>PROVED</code> consumer:</p>
+<pre class="text"><code>irrational_totient_series_of_pivotResidualDecorrelation</code></pre>
+</section>
+<section id="xq249-adjacent-phase-separation-adjacent-phases"
+class="level4">
+<h4><code>XQ249-adjacent-phase-separation</code> — adjacent phases</h4>
+<p>Exact <code>OPEN</code> input: for every <code>h&gt;0</code> and
+<code>X₀</code>, find <code>X≥max(X₀,1)</code>, a depth <code>L</code>,
+and adjacent <code>N,N+1∈[X,2X)</code> such that
+<code>16(2X+h+L+2)≤2^L</code> and their first-harmonic phases have
+squared chordal separation at least <code>19/25</code>.</p>
+<p>Payoff and boundary: sufficient for #249. Finite scans or average
+separation do not meet the cofinal quantifiers.</p>
+<p>Current working guess: qualifying adjacent separation occurs
+cofinally for every shift.</p>
+<p>Evidence that would change the guess: one shift and a cutoff beyond
+which no admissible block, depth and adjacent pair reaches
+<code>19/25</code> kill this route; infinitely many bad blocks alone do
+not. A cofinal adjacent-discrepancy theorem at that threshold proves
+#249.</p>
+<p><code>PROVED</code> consumer:</p>
+<pre class="text"><code>irrational_totient_series_of_adjacentPhaseSeparation</code></pre>
+</section>
+<section id="xq257-second-channel-separation-second-channel"
+class="level4">
+<h4><code>XQ257-second-channel-separation</code> — second channel</h4>
+<p>Exact <code>OPEN</code> input: prove
+<code>HalfSecondChannelSeparatedRat n</code> for every <code>n≥7</code>,
+i.e. that the exact rational second-channel phase stays at least
+<code>1/6+(37/56)2^{-n}</code> from <code>1/3</code>; Lean checks
+<code>1,…,6</code>, and an independent exact probe finds no failure
+through <code>n=1000</code>.</p>
+<p>Payoff and boundary: proves <code>1/2</code> attainable. The
+finite-support exclusion then forces the witness to be infinite, giving
+a rational counterexample to universal #257. The finite probe does not
+move the quantifier; failure of this route would not prove universal
+#257.</p>
+<p>Current working guess: the separation continues for all
+<code>n≥7</code>; confidence remains low despite an empty exact failure
+set on <code>1≤n≤1000</code>.</p>
+<p>Evidence that would change the guess: the least measured margin on
+the open range is <code>1033253069/8193024</code> at <code>n=7</code>,
+but <code>n=1001</code> onward is unmeasured. One failed level closes
+only this socket; a global reachability invariant or uniform sign
+estimate proves membership and, with finite-support exclusion, a
+counterexample.</p>
+<p><code>PROVED</code> consumers:</p>
+<pre class="text"><code>half_mem_mersenneAchievementSet_of_secondChannelSeparationRat_from_seven
+positiveMersenneSupportValue_coe_finset_ne_half
+positiveMersenneSupportValue_eq_erdosSupportSeries</code></pre>
+<p>The second-channel measurement is source-bound and reproducible:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/probe_second_channel_separation.py <span class="at">--check</span></span></code></pre></div>
+<p>It re-evaluates the rational greedy recurrence and the complete
+failure set for <code>1≤n≤1000</code> from the definitions in
+<code>Erdos249257/GreedyAchievementSet.lean</code>. The generated
+artifact is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/second_channel_separation_probe.json"><code>docs/measurements/second_channel_separation_probe.json</code></a>.
+Its status is <code>MEASURED</code>, not <code>PROVED</code>; in
+particular, the empty finite failure set does not establish the
+all-<code>n</code> hypothesis consumed by the Lean theorem.</p>
+</section>
+<section id="xq257-middle-producer-tail-escape-middle-producer"
+class="level4">
+<h4><code>XQ257-middle-producer-tail-escape</code> — middle
+producer</h4>
+<p>Exact <code>OPEN</code> input: at every actual middle transition from
+rank <code>13</code>, write <code>C</code> for the checked producer
+carry and <code>Θ</code> for its nonnegative coefficient tail. Prove
+<code>C=-3</code> or <code>(1≤C and Θ&lt;C)</code>.</p>
+<p>Payoff and boundary: also proves <code>1/2</code> attainable; at the
+putative last-false row the checked <code>-3</code> theorem removes the
+first disjunct, and the finite-support exclusion then forces an infinite
+witness. The socket must exclude every actual <code>C≤0</code>,
+<code>C≠-3</code>, and control <code>Θ&lt;C</code> for every positive
+cell.</p>
+<p>Current working guess: every actual middle row lies in the
+<code>C=-3</code> branch or has <code>1≤C</code> and
+<code>Θ&lt;C</code>.</p>
+<p>Evidence that would change the guess: one actual nonpositive cell
+other than <code>-3</code>, or one positive cell with <code>Θ≥C</code>,
+refutes this socket. A proof of the displayed disjunction at every
+actual row proves membership; the final <code>-2</code> sieve alone does
+not.</p>
+<p><code>PROVED</code> consumers:</p>
+<pre class="text"><code>half_mem_mersenneAchievementSet_of_middleProducerTailEscapeExceptNegThree
+positiveMersenneSupportValue_coe_finset_ne_half
+positiveMersenneSupportValue_eq_erdosSupportSeries</code></pre>
+</section>
+</section>
+<section id="exact-systems-review-handoff" class="level3">
+<h3>Exact systems-review handoff</h3>
+<p>The repository cannot certify its own human legibility. It therefore
+exposes a second <code>OPEN</code> question: can an independent reader,
+starting from a fresh clone, recover the calibrated verdict in at most
+ten minutes? The request is exact, including the response schema, its
+consumer, payoff, and boundary:</p>
+<p>The low-confidence working guess is that a reader will recover both
+open boundaries and the zero Farey delta, but may still underweight the
+concrete non-restatement results. The protocol distinguishes that
+failure from the opposite error—mistaking finite or conditional results
+for a near-solution.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--domain</span> systems</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--question</span> XQ249-pivot-decorrelation</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--template</span> XQSYS-ten-minute-hostile-reader</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--response</span> RESPONSE.json</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--review-template</span> XQSYS-ten-minute-hostile-reader</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_expert_handoffs.py <span class="at">--review</span> RESPONSE.json REVIEW.json</span></code></pre></div>
+<p>A structurally accepted response from an identified independent
+reader returns an explicit rubric for its result summaries, evidence
+paths and verdict. A second identified evaluator binds a final review to
+the response digest. The validator cannot authenticate either person or
+the elapsed time, and does not pretend to judge free prose by itself.
+Neither receipt validates the mathematics or establishes priority or
+novelty. The same query without a domain filter returns this systems
+question beside the five theorem-connected mathematical questions;
+respondent-facing output omits the evaluator’s scalar answer key.</p>
+</section>
+<section id="erdős-problem-249" class="level3">
+<h3>Erdős Problem 249</h3>
+<p>The irrationality of</p>
+<pre class="text"><code>∑_{n≥1} φ(n)/2^n</code></pre>
+<p>is open. The finite band through <code>t=82</code> and the 123
+distinct certificates in the bounded historical off-diagonal roster do
+not provide the quantified, unbounded certificate supply required by the
+reduction.</p>
+</section>
+<section id="erdős-problem-257" class="level3">
+<h3>Erdős Problem 257</h3>
+<p>The statement that</p>
+<pre class="text"><code>∑_{n∈A} 1/(2^n-1)</code></pre>
+<p>is irrational for every infinite <code>A</code> is open. In
+particular, membership of <code>1/2</code> in the Mersenne achievement
+set is not proved.</p>
+<p>At level <code>d</code>, the rational compared with the remaining
+tail changes with <code>d</code>. A naive common-denominator
+construction gives an upper height bound of the form
+<code>2^O(d^2)</code>, but the repository proves neither a matching
+lower bound nor a <code>Theta(d^2)</code> law for the reduced
+denominator along the actual greedy support. The displayed separation
+boundary has an explicit correction proportional to <code>2^{-d}</code>.
+No registered theorem controls the required sign uniformly at this
+moving boundary, and there is no fixed rational approximation target to
+which a fixed-number theorem applies directly.</p>
+<p>Irrationality alone is insufficient because the open branch asks for
+the sign of a nonzero tail difference, not merely for non-equality.</p>
+</section>
+</section>
+<section id="how-to-verify" class="level2">
+<h2>How to verify</h2>
+<p>Install the pinned Lean toolchain and Mathlib cache, then run:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_declaration_atlas.py <span class="at">--check</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_semantic_corpus.py <span class="at">--check</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_semantic_corpus.py</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/build_corpus_descriptor.py <span class="at">--check</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/test_declaration_head_contract.py</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/test_projection_checkout_independence.py</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_cold_clone_comprehension.py</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_release.py</span></code></pre></div>
+<p>Focused checks for the headline Lean files are:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These dependency chains are not imported by the root build. Install their</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># `.olean` files before running the direct checks downstream.</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build ErdosProblems.Lift.Recon67 ErdosProblems.Lift.CertT67</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build ErdosProblems.Three.T1 ErdosProblems.Decl.D4</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean ErdosProblems/Skip/LadderT67.lean</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean ErdosProblems/FreePosition/FreeKill64OneHundredFifteenDI.lean</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean ErdosProblems/Three/T1.lean</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean ErdosProblems/Decl/D4.lean</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean ErdosProblems/Hlow/H2.lean</span></code></pre></div>
+<p>The <code>lake build</code> step emits build progress and
+kernel-dependency reports. An exit status of zero and empty output is
+expected from each subsequent <code>lake env lean</code> check.</p>
+<section id="isolated-tree-reproduction-record" class="level3">
+<h3>Isolated-tree reproduction record</h3>
+<p>Measured on 2026-07-26 on an Apple M4 host (<code>arm64</code>, 10
+logical CPUs, 24 GiB memory). The source was copied without
+version-control metadata or a prior <code>.lake</code> directory:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run from anywhere inside a clone of this repository.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="va">repo_root</span><span class="op">=</span><span class="va">$(</span><span class="fu">git</span> rev-parse <span class="at">--show-toplevel</span><span class="va">)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="va">repro_dir</span><span class="op">=</span><span class="va">$(</span><span class="fu">mktemp</span> <span class="at">-d</span><span class="va">)</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-a</span> <span class="at">--exclude</span> <span class="st">&#39;.git/&#39;</span> <span class="at">--exclude</span> <span class="st">&#39;.lake/&#39;</span> <span class="st">&quot;</span><span class="va">$repo_root</span><span class="st">&quot;</span>/ <span class="st">&quot;</span><span class="va">$repro_dir</span><span class="st">&quot;</span>/</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$repro_dir</span><span class="st">&quot;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span></code></pre></div>
+<p>The cache fetch exited zero in <code>109.73</code> seconds. The root
+build completed all <code>8,914</code> jobs and exited zero:</p>
+<pre class="text"><code>real 4194.17
+user 15939.05
+sys  4778.79</code></pre>
+<p>The build printed ordinary dependency reports and linter warnings. It
+did not install every object needed by the focused expansion files. The
+following dependency builds supplied the two missing chains:</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th class="ta-r">Exit</th>
+<th class="ta-r">Wall time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lake build ErdosProblems.Lift.Recon67 ErdosProblems.Lift.CertT67</code></td>
+<td class="ta-r">0</td>
+<td class="ta-r"><code>195.37 s</code></td>
+</tr>
+<tr>
+<td><code>lake build ErdosProblems.Three.T1 ErdosProblems.Decl.D4</code></td>
+<td class="ta-r">0</td>
+<td class="ta-r"><code>126.47 s</code></td>
+</tr>
+</tbody>
+</table>
+<p>With those objects installed, every direct focused check exited zero
+with empty Lean output. The directories and files below are relative to
+<code>ErdosProblems/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>File</th>
+<th class="ta-r">Wall time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Lift</code></td>
+<td><code>Recon67.lean</code></td>
+<td class="ta-r"><code>69.24 s</code></td>
+</tr>
+<tr>
+<td><code>Lift</code></td>
+<td><code>CertT67.lean</code></td>
+<td class="ta-r"><code>98.81 s</code></td>
+</tr>
+<tr>
+<td><code>Skip</code></td>
+<td><code>LadderT67.lean</code></td>
+<td class="ta-r"><code>682.69 s</code></td>
+</tr>
+<tr>
+<td><code>FreePosition</code></td>
+<td><code>FreeKill64OneHundredFifteenDI.lean</code></td>
+<td class="ta-r"><code>53.05 s</code></td>
+</tr>
+<tr>
+<td><code>Three</code></td>
+<td><code>T1.lean</code></td>
+<td class="ta-r"><code>8.83 s</code></td>
+</tr>
+<tr>
+<td><code>Decl</code></td>
+<td><code>D4.lean</code></td>
+<td class="ta-r"><code>6.76 s</code></td>
+</tr>
+<tr>
+<td><code>Hlow</code></td>
+<td><code>H2.lean</code></td>
+<td class="ta-r"><code>5.27 s</code></td>
+</tr>
+</tbody>
+</table>
+<p>Two commands did not reproduce in the original advertised order.
+Immediately after the root build, checking <code>LadderT67.lean</code>
+failed in <code>1.74</code> seconds because the <code>Recon67</code>
+object was absent. Directly checking <code>Recon67.lean</code> and
+<code>CertT67.lean</code> did not install their objects, so a second
+<code>LadderT67.lean</code> attempt failed in <code>2.02</code> seconds
+for the same reason. The first direct <code>T1.lean</code> attempt
+likewise failed in <code>1.93</code> seconds because the
+<code>Rem.C6</code> object was absent. The focused recipe above now uses
+<code>lake build</code> for both dependency chains before the direct
+checks.</p>
+<p>The repository also contains a source-bound receipt runner:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/run_source_bound_reproduction.py plan</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/test_source_bound_reproduction.py</span></code></pre></div>
+<p>It hashes the declared source tree, executes the complete command
+plan in an isolated copy, records command vectors, UTC bounds, exit
+codes, wall/user/system times, output digests and bounded tails, and
+validates the resulting receipt against the source identity. The
+release-check row is explicitly marked as requiring version-control
+metadata; a default run refuses that capability unless it is separately
+authorised. No complete receipt is shipped at
+<code>docs/measurements/source_bound_reproduction_receipt.json</code>
+yet. Accordingly, the timings above remain a dated manual record rather
+than a machine-revalidated receipt for the present source tree.</p>
+</section>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="readme.html"><span class="maths-pager__dir">Previous</span>Repository overview</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="orientation.html"><span class="maths-pager__dir">Next</span>Corpus orientation</a></nav>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

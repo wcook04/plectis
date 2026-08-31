@@ -1,0 +1,199 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "plectis-public-system",
+  "title": "Plectis: What a Stranger Can Check",
+  "subject": "Systems paper",
+  "subject_kind": "system",
+  "form": "Evidence boundary",
+  "pages": 21,
+  "question": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
+  "precis": "The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.",
+  "owns": "the evidence boundary: what a passing public run does and does not establish",
+  "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/plectis-public-system.html",
+    "html_exact_tex": "papers/plectis-public-system.mathjax.html",
+    "pdf": "../../papers/plectis-public-system.pdf",
+    "latex": "../../papers/source/plectis/paper/plectis-public-system.tex",
+    "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
+    "publication_manifest_match": true,
+    "mathml_node_count": 13,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "9c45f4d8498344543ab4474b8354f431d6c5e739075ee5222b1bfb380afaf553",
+    "html_exact_tex_sha256": "66baca1d3ab01f3ddab243375b000a5739c5094812acccb36a678a86d7b24580"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The problem"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Who made the decisions."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What I examined."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "One public test before the general design"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The component contract"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "One run, examined"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Five distinctions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Public execution versus where the code came from"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Repeatability versus correctness"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A validator’s rule versus the stated claim"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Selected cases versus general behaviour"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Risk reduction versus guarantee"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the collection contains"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The author’s hand"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What stronger evidence would look like"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A falsifiable comparison"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "From an open question to a falsifiable handoff"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "How the record should age"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Conclusion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Dated reproduction record"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A first review."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Names."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Getting the code and running without installing."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Installing."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The worked example."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A second Python version."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Project-wide checks."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Authority boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

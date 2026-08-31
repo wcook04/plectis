@@ -1,0 +1,58 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "comparator-1049",
+  "title": "Comparator #1049 fixture",
+  "role": "comparator_case_study",
+  "reading_order": 110,
+  "source_path": "docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
+  "routes": {
+    "html_mathml": "documents/comparator-1049.html",
+    "html_exact_tex": "documents/comparator-1049.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "99899742314abca1e433ce29be3aadb3d8294e0ab942a9141f67c501c65ae7bd",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "17c7f90ad90856efdafa4d03a51900f272d2b9966b87e2e4a5ea5e8a05b56da6",
+    "html_exact_tex_sha256": "999e3fa68f4dc197d4dd68731a5075562aae22d982e6f6284350aa62166e852b"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The question"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is checked here"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is not checked here"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Who did what"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Proof handle"
+    }
+  ]
+}

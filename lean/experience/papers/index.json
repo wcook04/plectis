@@ -1,0 +1,3370 @@
+{
+  "schema": "plectis_lean_paper_index_v1",
+  "reading_rule": "Choose a question or problem, then read the HTML paper; use PDF for fixed layout and LaTeX for exact source.",
+  "paper_count": 13,
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-68-factorial-denominator-irrationality",
+      "title": "Factorial Carries and Finite Channel Obstructions",
+      "subject": "Erdős #68",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 20,
+      "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
+      "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
+      "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "problem_id": "erdos_68",
+      "routes": {
+        "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
+        "html_exact_tex": "papers/erdos-68-factorial-denominator-irrationality.mathjax.html",
+        "pdf": "../../papers/erdos-68-factorial-denominator-irrationality.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "7a79a936a41e08af7c2267cecd994e4a7fa9ffd21ef602fc77df91b6e0763ecf",
+        "publication_manifest_match": true,
+        "mathml_node_count": 445,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "5e6ba873b2484fcb615a2980aa4a94a0ba5ec39bb5f5ab27b13a45d2cdcd9165",
+        "html_exact_tex_sha256": "972255d71bb84bffaf3d7e262e411dcac46ea98448c340547c313b27494d3452"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Canonical factorial digits"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite channel congruences and the LCM obstruction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A two-term prime channel corrector"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Zero plateaux, first exit, and denominator bounds"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Weighted projection rigidity"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the returns rule out"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite certificates"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The missing cofinal inputs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "1. Weighted collision mass and the complementary residue"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "2. Nonterminal prime-power amplification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "3. Escape from the lower endpoint interval"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "4. Failure of the two exact doubled-prime branches"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "5. A finite Cramer block across floor discontinuities"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-243-reciprocal-tail-rigidity",
+      "title": "Excluding the Bounded Negative Part",
+      "subject": "Erdős #243",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 22,
+      "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
+      "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
+      "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "problem_id": "erdos_243",
+      "routes": {
+        "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
+        "html_exact_tex": "papers/erdos-243-reciprocal-tail-rigidity.mathjax.html",
+        "pdf": "../../papers/erdos-243-reciprocal-tail-rigidity.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-243-reciprocal-tail-rigidity.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "6412e4483f997e12d87b18f859b2e3cd4a61404e9efa9982e30072cffbb96eb7",
+        "publication_manifest_match": true,
+        "mathml_node_count": 379,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "9d2a65279f8282bf9a0d0ee202e71cafbd844a784707fd304c95852b570ba2f5",
+        "html_exact_tex_sha256": "453e31526d673ea8b6c2ba7a71bd89671dd7475e87cc201d82daf4d827d3f2b5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structure"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The centred integer state"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The intended reading, which is not formalised."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The defect identity and its two consequences"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Descent when the error is nonnegative"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a constant negative magnitude"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a periodic negative magnitude"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Bounded rise cannot remain coprime to fresh moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a bounded negative part"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding finite normalised negative mass"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Global height and old-factor overlap"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The direct analytic question"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A barrier extension"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Formalisation targets"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Erdős–Straus."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Duverney."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A factorial residue reduction for forced orbits"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-249-binary-totient-series",
+      "title": "A Basis for the 2-Kernel of Euler's Totient",
+      "subject": "Erdős #249",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 19,
+      "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
+      "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
+      "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+      "problem_id": "erdos_249",
+      "routes": {
+        "html_mathml": "papers/erdos-249-binary-totient-series.html",
+        "html_exact_tex": "papers/erdos-249-binary-totient-series.mathjax.html",
+        "pdf": "../../papers/erdos-249-binary-totient-series.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-249-binary-totient-series.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+        "publication_manifest_match": true,
+        "mathml_node_count": 496,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "258061e08e99783a94f55e8d197785af19f9277339f5d8ee665f708851462bf4",
+        "html_exact_tex_sha256": "33f1471dabf12a4a4a8cb761a784fd054d3abec6deb132b87508538cbb9ba53e"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction and main results"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The Lambert-series form of Problem #249"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A nearby 2026 totient theorem has different coordinates."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Exact identities and representations."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Proof of the dyadic-section basis theorem"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Prior work"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Parity-separated evaluation matrices"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Carry-rank consequences of rationality"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A Farey-mediant denominator exclusion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Obstructions for fixed-coordinate methods"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Further conditional criteria"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A prime-orbit sufficient condition."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Finite Euler-factor identities."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mixed differences of cyclotomic layers."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Open problems"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact equivalent formulations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Stronger sufficient producer problems"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structural and Diophantine routes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Independent extension"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The independent denominator exclusion."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Logical status and analytic input"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Formal source notes"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Registry coverage."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos249-totient-reasoning-surface",
+      "title": "The Binary Totient Series",
+      "subject": "Erdős #249",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 117,
+      "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
+      "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
+      "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/erdos249-totient-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos249-totient-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos249-totient-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos249-totient-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos249-totient-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "3791c2f8319372eff4b7e7a247b788983ad195af0ec21addfe9d5e9126da6f28",
+        "publication_manifest_match": true,
+        "mathml_node_count": 3168,
+        "raw_math_fallback_count": 4,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
+            "c-section rank of \\mathit{every} rationa",
+            "^",
+            "unexpected \"m\"",
+            "expecting \" \", \"!\", \",\", \":\", \";\" or \">\"",
+            "[WARNING] Could not convert TeX math {\\small\\textsf{scale:bounded}}, rendering as TeX:",
+            "{\\small\\textsf{scale:bounded}}",
+            "^",
+            "unexpected control sequence \\small",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math {\\small\\textsf{scale:cofinal}}, rendering as TeX:",
+            "{\\small\\textsf{scale:cofinal}}",
+            "^",
+            "unexpected control sequence \\small",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\label{eq:mobmers}",
+            "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
+            "\\qquad ({\\small\\textsf{[Math]}};\\ \\text{verified to }16\\ \\text{digits},\\ S=1.3676308019850223\\ldots,\\ {\\small\\textsf{[Cert]}}).",
+            "\\end{equation}, rendering as TeX:",
+            "\\qquad ({\\small\\textsf{[Math]}};\\ \\tex",
+            "^",
+            "unexpected control sequence \\small",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "4941cfa542dec7ee99006336acda5188b104147231bee6cfe7dca076ba3fd43a",
+        "html_exact_tex_sha256": "dbed54ab91cb05f7aac3cfeb50dc1df0478a246474808ef3dffe7139350f3cc1"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to read this document"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem, and what is actually known"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional record"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The wall"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The plane the barriers live on"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "B1: the finite-inspection barrier, as a theorem"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "B2–B7"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The shape"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the wall does not block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Survivor 1: the first-harmonic block cancellation bound"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Why it evades the wall."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Survivor 2: the four-term pivot budget"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Survivor 3: uniform quantitative escape at cofinally many primes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Survivor 4: depth-locked full-depth escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Survivor 5: the rationality-side rank upper bound"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to use this document"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence bands."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The scale axis."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Coordinates, and why obstructions are relative to them."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Map of what follows."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Read this in full before starting."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The object, the target, and the exact record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The object"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The binary-digit reduction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional denominator floor"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The same record, transported: the Möbius-square and coprimality-probability forms"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The Möbius–Mersenne identity and why bounded coefficients matter"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The squared-Lambert gcd-moment identities"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The exact certificate record: the contiguous band through t≤82t\\le82"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Certificate object."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Catalogue of usable premises"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Producers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Converters and exact identities"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Foundational definitions and identities (scale n/a)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Cofinal-scale converters — the certificate-kernel reduction ladder"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Consumers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Invariants"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Killers and countermodels"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Recently published declarations"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The Möbius–Mersenne ladder: unconditional log-concavity"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Generic tail-orbit rigidity: a self-labelled non-claim"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Squared-Mersenne diagonal enclosure"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Old/foreign Möbius channel split (DiagonalFreshLossBridge)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Repunit Möbius numerator is a positive gcd word (T1)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Dyadic prefix compression: exact greedy-carry arithmetic"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Pivot-fibre anti-reconstruction: an exact energy identity"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Actual foreign-residue projection"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Geometric coprimality: a lattice coordinate, and a classical identity beside it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The lcm-diagonal collapse: reduced to one ℕ\\mathbb{N}-indexed predicate"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Cyclotomic anchored kills: unconditional prime support, plus new exclusion certificates"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Prime-ray cyclotomic curvature: the abstract order-consumer producer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Rank-one subrank obstruction: a uniform proved barrier"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Period-multiple escape: the nesting identity and eight new exclusions"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Strict prime-orbit escape: a sharper reduction"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Finite Euler-sieve algebra"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The scale ladder"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Checked negative result: no free promotion from bounded to cofinal"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Coordinate atlas and transport maps"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Obstructions are coordinate-relative: the binary-digit vs. Möbius–Mersenne case"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Interface index: what stands between the corpus and a proof"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reading this index"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The headline: #249 reduces to a single unsupplied exponential-sum bound"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Row-by-row: the remaining near misses against 249-supply"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "SGN-01 — the positive-sign half of the certified-kill band (coord:actual-lcm-sign)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "TE-04 — the one-sided top-edge staircase (coord:actual-lcm-top-edge)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "TE-05-weakest — one scalar inequality at cofinally many odd ranks (coord:actual-lcm-top-edge)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "SEP-02 — separation from an explicit rational approximant (coord:raw-approximant)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "SK-02 — the short-window arithmetic kill, verbatim, truncated at a0≤6a_0\\le 6 (coord:short-window-arithmetic)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "b11 — the diagonal pincer certificate bank (coord:diagonal-pincer)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "a12 — one window, sixteen periods, wrong-way quantifiers (coord:h-uniform-certificate)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "c3 — the Farey denominator floor and its stalled growth law (coord:farey-window)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "TA-01/TA-02 — the two-adic pulse block reaches the arc centre and fails by an exponential (coord:two-adic-pulse)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "d-3a/d-3b — cofinal jump positions, one unproved slack sign (coord:lcm-jump-slack)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "e2 — the prime-jump commutator, one fixed witness (coord:prime-jump-commutator)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "b7 — the Möbius–Mersenne denominator channel: unbounded, but off-coordinate (coord:mobius-mersenne)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "d4/d5 — the parallel rank obligation, and a corrected pair of citations (coord:carry-rank)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Synthesis: where the frontier actually is"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Closed routes, with the mechanism that closed them"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Meta-level: finite inspection cannot certify the supply (the γ\\gamma-splice remark)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The parity-aperiodicity countermodel (TotientParityCoboundaryCountermodel)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two scoped #249 no-go countermodels: square-CRT correction suppression is ambiguous"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The adelic height obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The signed qq-moment machinery — a positive tool, not an obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The residual-gauge obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Cone flatness and cone nonflatness"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Further closed routes, catalogued for completeness"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Why the bounds are load-bearing"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Classification of the sixteen genuine blockers"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The mathematics this problem still needs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One identity, and what it does to every surviving route"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 1: a constant-saving cancellation over a dyadic block"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact statement needed."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What DD is, as an arithmetic object."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Which technique family is even the right shape."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The specific obstacle: what the estimate cannot be deduced from."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Size of the quantity, honestly calibrated."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 2: the four-term pivot budget"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact statement needed."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "One budget has a classical one-sided majorant."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The pivot quantifiers force a deep modulus."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The specific obstacle: the weight is neither Type I nor Type II."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A swing: the predicate needs only cofinally many XX, so average over XX."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 3: uniform quantitative escape at primes"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact statement needed."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What it says, after Lemma ."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The specific obstacle."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Numerical calibration."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A swing: replace the pointwise demand by a canonical fibre."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 4: depth-locked full-depth escape"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact statement needed."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What it says: an anti-self-similarity statement about the digits of SS alone."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Which technique family fits, and why it is unavailable."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What the data says."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A heuristic size computation."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 5: the rationality-side rank bound remains open"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact statement that was wanted."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The right vocabulary, and the audited gap."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the shape of the wall suggests about the object"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "First, a fact rather than an inference: the routes are one route in five coordinates."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Second: the wall is a wall about explicit constants, not about φ\\varphi."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Third: is the object behind the measurements simple or complex?"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What would actually change the picture."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is open, stated exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The certificate-completeness converter"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The base cofinal obligation — the wall"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Collapsing free parameters: the multiple / diagonal / cone chain"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Multiple-period collapse (formally looser, but endpoint-equivalent)."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Diagonal collapse — one free parameter."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Cone collapse — two multipliers, still the same wall."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Pure non-integrality form — certificate vocabulary stripped out."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The exponential-sum form"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The actual-orbit reformulation and the top-edge staircase"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Route-pruning: total staircase collapse is impossible."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The surviving one-sided target."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Five strictly weaker links, each independently proved sufficient."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The weakest known link, and the exact identity pinning it."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A second, independent finite-window target: the short-arithmetic-kill supply."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A Diophantine-flavoured alternative: the raw-approximant separation supply."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A problem-agnostic normal form: the guard-cylinder compression"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One open Farey problem and one failed rank shortcut"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A counterfactual rank criterion."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Obligation 3 (Farey growth law)."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Equivalence map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What new mathematics each surviving form would need"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exponential-sum form."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The staircase form."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Authority boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-251-prime-gap-dyadic-series",
+      "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+      "subject": "Erdős #251",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 18,
+      "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
+      "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+      "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "problem_id": "erdos_251",
+      "routes": {
+        "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
+        "html_exact_tex": "papers/erdos-251-prime-gap-dyadic-series.mathjax.html",
+        "pdf": "../../papers/erdos-251-prime-gap-dyadic-series.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-251-prime-gap-dyadic-series.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "90e3d359d43cd7b9cf7f3239f901a2814a20fa59a4b374d9e85dd9f1500c5559",
+        "publication_manifest_match": true,
+        "mathml_node_count": 300,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d872b832b6318ce86eb70ce6e64837a6575300dbd93e6191b554d51b043414e0",
+        "html_exact_tex_sha256": "ae49e35654d16a8fe89e55623ef5c11bf2785512ea79b1a97dfe6661752994cc"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Notation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The strategy."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Outline."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Summation by parts, with the endpoint retained"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The infinite identity and the irrationality equivalence"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The summability hypothesis."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The tail recurrence and integral shifts"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The actual prime-gap orbit."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two adjacent small shifts cannot both be integral"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Nonperiodic coefficients with a rational sum"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Consequence for the coefficients."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite truncation criterion."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What remains to be formalised."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-257-mersenne-support-subseries",
+      "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+      "subject": "Erdős #257",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 21,
+      "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
+      "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+      "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+      "problem_id": "erdos_257",
+      "routes": {
+        "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
+        "html_exact_tex": "papers/erdos-257-mersenne-support-subseries.mathjax.html",
+        "pdf": "../../papers/erdos-257-mersenne-support-subseries.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-257-mersenne-support-subseries.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
+        "publication_manifest_match": true,
+        "mathml_node_count": 498,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "159afee9bcb27b5bcf489a83ab02ab3e2eacda19ba60ea45f702dfd4393c333e",
+        "html_exact_tex_sha256": "48aee7e1809a075fe6b1a572e75dada391f0818cddb869c68d7450f865374804"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction and main results"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The finite-support theorem."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Structure."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite-support denominator periods"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Rational values and scaled tails"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Integral scaled tails, and unboundedness."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Divisor coverage cannot have long gaps."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A reciprocal-sum lower bound."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A Boolean–Möbius characterisation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Combined constraints on a rational counterexample."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Representative known irrational supports"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Squarefree support and a coordinate-dependent obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The values are known at every power-of-two base"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two block-certificate hypotheses have no instance"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The obstruction is a normalisation, not the value"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Achievement-set geometry and the value 1/21/2"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Geometry after restricting the allowed exponents"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The value 1/21/2"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A second rational target"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The canonical 1/211/21 frontier"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Open problems"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos257-mersenne-reasoning-surface",
+      "title": "Reciprocal Mersenne Subseries",
+      "subject": "Erdős #257",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 107,
+      "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
+      "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
+      "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, whose universal and half-value questions remain open",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos257-mersenne-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos257-mersenne-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos257-mersenne-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos257-mersenne-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "3baddc326432cae58d4e17d092987bd2491a200573c3ec9525f551fd82033ec4",
+        "publication_manifest_match": true,
+        "mathml_node_count": 3027,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
+            "\\leanlink{HalfCylinderMiddleCarryLowerBo",
+            "^",
+            "unexpected control sequence \\leanlink",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "be927672e354123267a6a8c44a142da31fded29ec0db66ed1ddd462f4e6d5fc7",
+        "html_exact_tex_sha256": "f627dbdca212f998dd7e317d9076356447a8f965eb42fd42b47c89d22f7fc439"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to read this document"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem, and what is actually known"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The object and the two exact statements"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional record, universal direction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional record, half-value direction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The wall"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The thesis"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 1: canonicalisation — the witness space is a singleton"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 2: route collapse — every “weaker producer” is the goal"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 3: scale mismatch — the available information is at the wrong resolution"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 4: decision asymmetry — the certificates point the wrong way"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 5: measure and category point in opposite directions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 6: the two-axis certificate box (universal direction)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the six barriers converge on"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the wall does not block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 1: the reset \\sqrt{\\ }-escape / R-run anti-concentration target"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 2: strict endpoint progress for exact rows"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 3 audit: the prime-support theorem is known outside this formal corpus"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 4: land the route-collapse equivalences"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 5: the sparse/dense trichotomy closure"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Ranking, stated plainly"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to use this document"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The object, the two questions, and the exact record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The object"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What is proved"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Full-support irrationality, for every base"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Named infinite-support families"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Topology and measure of the achievement set"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The greedy orbit, exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The seam model and the master identity"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The real form and the master identity’s analytic reading"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dynamics"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Every anchor"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Catalogue of usable premises"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Producers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Converters and exact identities"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Consumers"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The load-bearing definitions"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The two payoff consumers"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The coherent-repair consumer (superseded, kept as a fallback target)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The critical-quotient-supply consumer chain"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two unconditional fill consumers (BooleanMobiusSkipRow)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The dyadic-band quantifier-collapse consumer (HalfUpperResetCriticalBand)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The frozen-margin consumer family (HalfCylinderFullShellSeamBridge, half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two square-root-scale consumers (half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The non-effective horizon consumer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The equivalence CofinalPositiveHalfGreedySkips reduces to"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Invariants"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Endpoint transition algebra (BooleanMobiusExactTransition)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Capacity identities (BooleanMobiusSkippedCoreCriticalCapacity, BooleanMobiusSkippedCoreExactRow)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Doubling-branch invariants (BooleanMobiusExactRowRankTwo)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Base-case fixture (BooleanMobiusExactRowSeed)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Global-repair invariants (BooleanMobiusGlobalRepair)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Greedy-window uniqueness (BooleanMobiusGreedyReduction)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Geometric normal form (BooleanMobiusCriticalCapacityGeometric)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Growth-bound invariants for the generic layer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Rigidity corollaries directly constraining a rational #257 support"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "First-crossing machinery (BooleanMobiusExactRowCrossing)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Möbius-centred carry nonnegativity and the skipped-rank trichotomy (half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Total gap mass (HalfGapMass)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The sharp fatal-gap criterion (HalfGreedyFatalGap)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two-sided dyadic-scale control (HalfCylinderMiddleCarryLowerBound, feeds HalfUpperResetCriticalBand)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Abstract, fully problem-agnostic invariants read alongside this lane"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Killers and countermodels"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Recently published declarations"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The middle-cell update-step chain (HalfCylinderMiddleCarryLowerBound.lean)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Forgetting witnesses: the terminal-only bridge (SuffixCylinderTerminalOnlyBridge.lean)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "A strict weakening chain for the last-producer socket (HalfCylinderLastProducerContradiction.lean)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The governed frozen-margin producer (HalfCylinderFiniteShadow.lean)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Exact carry-pivot normal form (SuffixCylinderCarryPivot.lean)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New tree: ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New tree: ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New tree: Erdos249257/Primitive23Multiplicity.lean"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Current 1/211/21 frontier: Erdos249257/TwentyOneQuotientGreedy.lean"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The scale ladder"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One orbit in four coordinates"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One decision stream, four integerisations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The truncation-rung ladder"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Interface index: what stands between the corpus and a proof"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The three #257 obligations, stated exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reading a row"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-reset: sixteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-cofinal-rows: thirteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-universal: thirteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three theorems assembled from the interface, and where each still stops"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route-collapse findings: four traps to name explicitly"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Closed routes, with the mechanism that closed them"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Four closed attack families on the wall itself"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Branch exclusions at the final producer: the exceptional dyadic cells"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "No-go, countermodel, and rigidity modules that bound the wall from outside"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The scalar-localisation height obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The final-skip band formula, and what it does not show"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The mathematics this problem still needs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R1. Reset \\sqrt{\\ }-escape: anti-concentration of a logarithmically short divisor sum"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it, and the exact arithmetic of ΘL\\Theta_L"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Swings"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R2. Strict endpoint progress: the one place canonicalisation does not bite"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Swings"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R3. Prime support: a known theorem and an internal method boundary"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R4. Landing the route-collapse equivalences, via perfect-square witness depths"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The object, and the swing that supplies it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Why this is a result and not bookkeeping"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R5. The sparse/dense trichotomy — and a proof that the present engine cannot close it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle, proved"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the shape of the wall suggests about the underlying object"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The half-value branch looks pseudorandom, and the failures are the evidence"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Three reasons to distrust that inference, stated plainly"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The universal branch reads differently, and this weakens the one-wall thesis"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What the evidence does and does not determine"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is open, stated exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Notation fixed for this section"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O1 — Universal Erdős #257"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O2 — Half-value membership"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Waypoints that are actually EQUIVALENT to O2, not weaker"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O3 — Cofinal exact local Mersenne half rows"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Sharp critical-capacity conditions — the BooleanMöbius lane’s producer for O3"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O4 — Reset anti-concentration (sqrt-escape) and the R-run form"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O5 — The remaining −2,−1-2,-1 middle-cell exclusion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O2b — Membership of 1/211/21"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Implication table"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What kind of new mathematics each form would need"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Summary"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Authority boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-269-three-prime-running-lcm",
+      "title": "The Three-Prime Running Least Common Multiple",
+      "subject": "Erdős #269",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 23,
+      "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
+      "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+      "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "problem_id": "erdos_269",
+      "routes": {
+        "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
+        "html_exact_tex": "papers/erdos-269-three-prime-running-lcm.mathjax.html",
+        "pdf": "../../papers/erdos-269-three-prime-running-lcm.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-269-three-prime-running-lcm.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
+        "publication_manifest_match": true,
+        "mathml_node_count": 493,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "876a81b1af17ddd6d7c74b0f2dc86c50d58941182a91dcaec9dfa665e083d2dd",
+        "html_exact_tex_sha256": "c656bbcc17252c34726c9e1909ffde25e0cfa82260dbb897a47d60bc5ccd9f64"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structure"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The running least common multiple as a product of pure powers"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Constancy on logarithmic cells and the jump points"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The two-prime sums are transcendental"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The height-fibre normal form"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A quadratic bound for smooth exponent shells"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Non-separability of the three-prime kernel"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Dyadic blocks and a conditional carry contradiction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The four-element block alphabet"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The denominator reduction and its boundary"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The window recurrence and the residue contradiction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A finite check of the escape condition"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The actual block data and the missing bridge"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The intrinsic tail question"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A denominator-adaptive sufficient criterion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A literal two-dimensional analytic route"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The structural frontier"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-1041-lemniscate-newton-flow",
+      "title": "Newton Flow and Critical-Value Ray Separation",
+      "subject": "Erdős #1041",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 10,
+      "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+      "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+      "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "problem_id": "erdos_1041",
+      "routes": {
+        "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
+        "html_exact_tex": "papers/erdos-1041-lemniscate-newton-flow.mathjax.html",
+        "pdf": "../../papers/erdos-1041-lemniscate-newton-flow.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1041-lemniscate-newton-flow.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "18eb45e9bb45836b4df89f6b52f9de5d634755db75ba3b9a2431e5daccad0968",
+        "publication_manifest_match": true,
+        "mathml_node_count": 54,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "4f21422522f8aff6f68ecd5254f09b5ddf9067316e408a6e5235f117cd55ac7e",
+        "html_exact_tex_sha256": "c371a3c30148d0d6a283582b3c3649e34a3bd2a04e914f5e862c55efeb139a8b"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The Newton value equation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Arguments, not moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A proof gap in the unrestricted argument"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "1. Repair or refute the saddle block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "2. The compact ray-cut decomposition"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "3. Metric fan-in without losing the coefficient"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "4. Coefficient perturbation and stability"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "5. The global Newton-flow claim ceiling"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-1049-rational-base-lambert",
+      "title": "Arithmetic Boundaries at Base 3/2",
+      "subject": "Erdős #1049",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 24,
+      "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+      "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
+      "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "problem_id": "erdos_1049",
+      "routes": {
+        "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
+        "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
+        "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
+        "publication_manifest_match": true,
+        "mathml_node_count": 468,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "055ee5091b7ebe1af79ae0a64232a5bd398a1597da7eb34d11697788e7653f7e",
+        "html_exact_tex_sha256": "fdd4e1f08e28412776df58276feffcc6926ab9ea83991731b12c5a62d173e7de"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Erdős’s integer-base argument, in outline."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The direct cut-and-clear attempt studied here."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Terminology."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The shortfall at 3/23/2."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Sharpness."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Structure."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integer scalar content is neutral"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Failure of coordinatewise clearing at 3/23/2"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The cleared-tail recurrence and the size of the forcing term"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The height criterion at 7/27/2"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The 81/20081/200 logarithmic region"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Denominator exponents for a homogenised Padé construction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The first falsifiable families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Asymptotic adequacy after kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One exact alternative-criterion test"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The quantitative height frontier"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "claim-faithful-publication-systems",
+      "title": "From Lean Proofs to Public Claims",
+      "subject": "Systems paper",
+      "subject_kind": "system",
+      "form": "Release checks",
+      "pages": 16,
+      "question": "Lean proves the formal statement. Who checks that the README describes it faithfully?",
+      "precis": "Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement faithfully. For each selected result a mathematician records the public wording, the formal statement said to support it, the range actually proved, and the adjacent stronger statement that remains open; the release workflow then checks that later edits preserve those relationships. A historical README edit that erased the finite-versus-open distinction passed because the relationship had not been registered; after registration, a deliberately false copy was rejected. That is one failure and one repair, not complete claim discovery.",
+      "owns": "the design argument for the release discipline: what is checked, by whom, and when",
+      "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/claim-faithful-publication-systems.html",
+        "html_exact_tex": "papers/claim-faithful-publication-systems.mathjax.html",
+        "pdf": "../../papers/claim-faithful-publication-systems-paper.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/claim-faithful-publication-systems-paper.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "7233962699c0db9f7ba3082a0f3fd8c13b0c7bfedcec48443badf775c1937880",
+        "publication_manifest_match": true,
+        "mathml_node_count": 69,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "3ef28c1c3ca102eb208a86058308cb44f7118785abde96c50bf649ba4a966b49",
+        "html_exact_tex_sha256": "3f5d1d39592ae0efcd44eb6cbff78c40ba6087c42b75b7ac4695e116c2c9e6fa"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The publication gap"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The release workflow"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One claim from Lean theorem to public page"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the certificates are for"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The formal evidence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What “coverage” means here"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The reviewed record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the checker verifies here"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the checks establish"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A boundary the checklist missed"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Historical exercise."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Repair and present test."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Later reconstruction."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Three boundaries the companion papers exposed."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Scope, reuse, and limits"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The failures the design addresses."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The failures it does not address."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The checked boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What another project could reuse."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What is not established."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Related systems"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Proof blueprints."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Reviewing intended mathematical meaning."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Checked documents and traceability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Testing the boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Conclusion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Reproducibility"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Dated navigation counts."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "cold-clone-to-proof-receipt",
+      "title": "From a Cold Clone to a Proof Receipt",
+      "subject": "Systems paper",
+      "subject_kind": "system",
+      "form": "Agent navigation",
+      "pages": 10,
+      "question": "How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?",
+      "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes.",
+      "owns": "the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts",
+      "not_authority_for": "proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/cold-clone-to-proof-receipt.html",
+        "html_exact_tex": "papers/cold-clone-to-proof-receipt.mathjax.html",
+        "pdf": "../../papers/cold-clone-to-proof-receipt.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/cold-clone-to-proof-receipt.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/cold-clone-to-proof-receipt.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "bc3961badf35c5c16b8e0ff883413c4030611006c19ea7b7861c8cc6d13ac4aa",
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "7f16dacc37974638ba01bb1b0967438f869074727357b46427f5d1f9a7d8ec7d",
+        "html_exact_tex_sha256": "e3847a5c097cd0d0fcf67705405a6a69c2184c380a6a7bb228c9a6d6c4565cfd"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The cold-clone problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A layered mathematical option surface"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Exhaustive inventory."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Exact formal neighbourhoods."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Tiered mathematical interpretation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Reviewed public claims."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A bounded tour over an unbounded drilldown"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Crossing from navigation to authority"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Compilation after comprehension"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Dogfood receipt"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Relation to prior work"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Limits and transfer conditions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Authority-preserving agent entry"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Reproduction routes"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "1. Orient without elaborating Lean."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "2. Cross into proof authority."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "3. Audit dependency-index reuse."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "plectis-public-system",
+      "title": "Plectis: What a Stranger Can Check",
+      "subject": "Systems paper",
+      "subject_kind": "system",
+      "form": "Evidence boundary",
+      "pages": 21,
+      "question": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
+      "precis": "The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.",
+      "owns": "the evidence boundary: what a passing public run does and does not establish",
+      "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/plectis-public-system.html",
+        "html_exact_tex": "papers/plectis-public-system.mathjax.html",
+        "pdf": "../../papers/plectis-public-system.pdf",
+        "latex": "../../papers/source/plectis/paper/plectis-public-system.tex",
+        "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "source_sha256": "7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
+        "publication_manifest_match": true,
+        "mathml_node_count": 13,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "9c45f4d8498344543ab4474b8354f431d6c5e739075ee5222b1bfb380afaf553",
+        "html_exact_tex_sha256": "66baca1d3ab01f3ddab243375b000a5739c5094812acccb36a678a86d7b24580"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Who made the decisions."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What I examined."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One public test before the general design"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The component contract"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One run, examined"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Five distinctions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Public execution versus where the code came from"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Repeatability versus correctness"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A validator’s rule versus the stated claim"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Selected cases versus general behaviour"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Risk reduction versus guarantee"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the collection contains"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The author’s hand"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What stronger evidence would look like"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A falsifiable comparison"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "From an open question to a falsifiable handoff"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "How the record should age"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Conclusion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Dated reproduction record"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A first review."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Names."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Getting the code and running without installing."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Installing."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The worked example."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A second Python version."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Project-wide checks."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Declaration of generative AI use."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Authority boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    }
+  ]
+}

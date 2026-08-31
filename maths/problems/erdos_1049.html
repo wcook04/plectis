@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#1049 Lambert-type series at rational bases · Plectis maths</title>
+  <meta name="description" content="For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_1049.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#1049 Lambert-type series at rational bases · Plectis maths">
+  <meta property="og:description" content="For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_1049.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#1049 Lambert-type series at rational bases · Plectis maths">
+  <meta name="twitter:description" content="For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html" class="is-active" aria-current="page"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#1049</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #1049</span>
+        <h1>Lambert-type series at rational bases</h1>
+        <p class="dossier-head__q">For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>6 Lean modules</span>
+          <span>2 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1049" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>That a literal coordinatewise transfer of the integer-base clearing argument forces a power-versus-linear inequality, and that this inequality is impossible at base three halves.</li>
+          <li>The exact denominator-cleared rational-base tail recurrence, including its forcing term.</li>
+          <li>That for every noninteger base with denominator at least two the forcing magnitude grows at least exponentially, while at denominator one it collapses to a bounded expression.</li>
+          <li>The complete elementary Archimedean height inequality used by the published Bundschuh-Väänänen criterion at base seven halves; the analytic irrationality theorem itself remains external.</li>
+          <li>Polynomial bounds on the doubled denominator exponents in the homogenised Padé construction, together with an exact gap identity.</li>
+          <li>The exact exterior-determinant elimination identity, and that rowwise contents scale the Padé errors, exterior determinant, and absolute determinant height by the same factors.</li>
+          <li>The exact Heine-Zudilin cone endpoint exponent arithmetic used to identify the bottom and top coefficient endpoints.</li>
+          <li>That homogeneous evaluation at (3,2) sees only the constant endpoint modulo three and the top endpoint modulo two, so unit endpoints obstruct common local factors.</li>
+          <li>That under unit top and constant endpoint hypotheses, a common multiplier of the two specialised coefficient channels is divisible by neither two nor three; the missing local gain must therefore survive primitive normalisation.</li>
+          <li>That vanishing of the higher bottom and top endpoint jets is exactly divisibility by the corresponding powers of three and two.</li>
+          <li>That the source integer-base ratio inequality implies a strictly negative scalar product-formula margin at three halves.</li>
+          <li>That the four-jet target has exact cardinality (3^R)^2(2^S)^2 and, for positive R, any family with n at least 4R+2S forces two distinct binary selectors to collide; their {-1,0,1} difference cancels all four endpoint jets.</li>
+          <li>That the rectangular Hermite-Pade threshold never improves on the classical one in the checked exponent model, with equality characterised exactly.</li>
+          <li>The exact 81/200 height region: 31/4 and every positive power lie inside it and outside the earlier Bundschuh-Vaananen region, while 3/2 lies outside both.</li>
+          <li>At n = 0, the Amdeberhan-Zeilberger q-Apery operator applied to Van Assche&#x27;s moving diagonal has residual -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2), which is strictly negative and nonzero for every real p &gt; 1.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">no-go result</span>
+            <span class="disposition">family: coordinatewise_corridor_no_go</span>
+          </div>
+          <p class="result-card__statement">The coordinatewise divisibility corridor is impossible at base 3/2.</p>
+          <p class="result-card__boundary">This excludes one proof architecture and proves no irrationality statement.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos1049.threeHalves_no_coordinatewiseCorridor</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: rational_base_tail_recurrence</span>
+          </div>
+          <p class="result-card__statement">The rational-base cleared tail obeys its exact first-order recurrence.</p>
+          <p class="result-card__boundary">The recurrence is not derived from a rationality contradiction.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos1049.rationalBaseClearedTailQ_succ</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>Irrationality at base three halves, or for any rational base.</li>
+          <li>The published analytic height theorem, which is cited and used as an external result and is not formalised here.</li>
+          <li>The all-scale Heine-Zudilin coefficient construction at rational base three halves; the primary source assumes an integer base.</li>
+          <li>The source analytic irrationality theorem inside the 81/200 height region; only its elementary parameter specialisations are formalised.</li>
+          <li>A sufficiently large primitive-normalised, non-collapsed coefficient family meeting the checked n &gt;= 4R+2S threshold at the required quadratic depths.</li>
+          <li>That one of the resulting bounded-coefficient collision vectors has a nonzero polynomial pair, lies outside the analytic remainder nullspace, and has sufficient local gain.</li>
+          <li>Positivity or decay of the elementary Padé remainder; only its exponent arithmetic is checked.</li>
+          <li>Any general recurrence, endpoint, lattice, valuation, denominator, or irrationality conclusion from the n = 0 q-Apery residual; it proves only that the named scalar recurrence does not transfer to Van Assche&#x27;s diagonal.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>three_halves_growing_rank_endpoint_jet_kernel</code> After dividing every coefficient pair by its rowwise common content, at positive quadratic target depths R_n,S_n exhibit at least 4R_n+2S_n primitive coefficient pairs from a genuinely non-collapsed deformation, prove that the required two-adic and three-adic gain survives primitive normalisation, and prove that at least one resulting checked {-1,0,1} collision has a nonzero polynomial pair and lies outside the analytic remainder nullspace; or prove an exact rank obstruction.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.RationalBaseLambert</code></a></td>
+              <td class="num">223</td>
+              <td class="num">16</td>
+              <td class="num">11</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.RationalPadeArithmetic</code></a></td>
+              <td class="num">222</td>
+              <td class="num">19</td>
+              <td class="num">14</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.ZudilinConeArithmetic</code></a></td>
+              <td class="num">450</td>
+              <td class="num">36</td>
+              <td class="num">25</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.HermitePadeNoGo</code></a></td>
+              <td class="num">153</td>
+              <td class="num">10</td>
+              <td class="num">5</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.ZudilinHeightRegion</code></a></td>
+              <td class="num">143</td>
+              <td class="num">13</td>
+              <td class="num">12</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence</code></a></td>
+              <td class="num">102</td>
+              <td class="num">11</td>
+              <td class="num">4</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">The coordinatewise corridor forces a power-versus-linear inequality and cannot occur at base 3/2.</p>
+              <p class="boundary-line">This excludes one proof architecture and proves no irrationality statement.</p>
+              <p class="disposition">coordinatewise_corridor_no_go &middot; targeted</p>
+            </li>
+            <li>
+              <p class="summary-line">The exact rational-base cleared-tail recurrence exposes exponential denominator-base forcing absent at integer bases.</p>
+              <p class="boundary-line">The recurrence is not derived from a rationality contradiction.</p>
+              <p class="disposition">rational_base_tail_recurrence &middot; targeted</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Integer scalar content changes analytic error and exterior determinant by matching factors, yielding no margin by itself.</p>
+              <p class="boundary-line">The conclusion is scoped to one normalisation strategy.</p>
+              <p class="disposition">scalar_content_no_go &middot; represented_by_selected_coordinatewise_no_go</p>
+            </li>
+            <li>
+              <p class="summary-line">Endpoint residues at 2 and 3 exclude a common multiplier under unit-endpoint hypotheses.</p>
+              <p class="boundary-line">Other local or cross-row arithmetic remains possible.</p>
+              <p class="disposition">endpoint_residues &middot; represented_by_selected_coordinatewise_no_go</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Binary selectors collide in the four-jet signature at the stated rank and depth.</p>
+              <p class="boundary-line">A signed relation is not nonzero analytic data.</p>
+              <p class="disposition">four_jet_collision &middot; not_selected_finite_combinatorial_family</p>
+            </li>
+            <li>
+              <p class="summary-line">Irrationality at 7/2 is obtained from an external analytic criterion whose elementary height hypothesis is checked in Lean.</p>
+              <p class="boundary-line">Comparator may check the height inequality, not the cited theorem application.</p>
+              <p class="disposition">seven_halves_irrationality &middot; not_applicable_to_external_irrationality_conclusion</p>
+            </li>
+            <li>
+              <p class="summary-line">Exact height-region inclusions and exclusions, Padé denominator-exponent bounds, and a rectangular Hermite-Padé threshold no-go are checked.</p>
+              <p class="boundary-line">The analytic remainder and nonvanishing input remain untreated.</p>
+              <p class="disposition">height_and_pade_arithmetic &middot; not_selected_multiple_scoped_arithmetic_families</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">24&#8202;pp</span></div>
+          <p class="result-card__statement">Arithmetic Boundaries at Base 3/2</p>
+          <p class="result-card__boundary">At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-1049-rational-base-lambert.html">Read it here</a>
+            <a href="../../papers/erdos-1049-rational-base-lambert.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

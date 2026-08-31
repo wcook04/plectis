@@ -1,0 +1,159 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-251-prime-gap-dyadic-series",
+  "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+  "subject": "Erdős #251",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 18,
+  "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
+  "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+  "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+  "problem_id": "erdos_251",
+  "routes": {
+    "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
+    "html_exact_tex": "papers/erdos-251-prime-gap-dyadic-series.mathjax.html",
+    "pdf": "../../papers/erdos-251-prime-gap-dyadic-series.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-251-prime-gap-dyadic-series.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "90e3d359d43cd7b9cf7f3239f901a2814a20fa59a4b374d9e85dd9f1500c5559",
+    "publication_manifest_match": true,
+    "mathml_node_count": 300,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "d872b832b6318ce86eb70ce6e64837a6575300dbd93e6191b554d51b043414e0",
+    "html_exact_tex_sha256": "ae49e35654d16a8fe89e55623ef5c11bf2785512ea79b1a97dfe6661752994cc"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Notation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation to prior work."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The strategy."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Outline."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Summation by parts, with the endpoint retained"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The infinite identity and the irrationality equivalence"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The summability hypothesis."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The tail recurrence and integral shifts"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The actual prime-gap orbit."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two adjacent small shifts cannot both be integral"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Nonperiodic coefficients with a rational sum"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Consequence for the coefficients."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A finite truncation criterion."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What remains to be formalised."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

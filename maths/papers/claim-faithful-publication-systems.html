@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Lean Proofs to Public Claims · Plectis maths</title>
+  <meta name="description" content="Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/claim-faithful-publication-systems.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="From Lean Proofs to Public Claims · Plectis maths">
+  <meta property="og:description" content="Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/claim-faithful-publication-systems.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="From Lean Proofs to Public Claims · Plectis maths">
+  <meta name="twitter:description" content="Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">From Lean Proofs to Public Claims</li></ol></nav>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Release checks</p>
+        <h1>From Lean Proofs to Public Claims</h1>
+        <div class="paper-head__meta">
+          <span>Systems paper</span>
+          <span>16&#8202;pp</span>
+          <span>Browser-native mathematical notation</span>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--ghost" href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>
+          <a class="btn btn--ghost" href="../../papers/source/plectis-lean-erdos249-257/paper/claim-faithful-publication-systems-paper.tex">LaTeX</a>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p class="eyebrow">Pr&eacute;cis</p>
+        <p>Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement faithfully. For each selected result a mathematician records the public wording, the formal statement said to support it, the range actually proved, and the adjacent stronger statement that remains open; the release workflow then checks that later edits preserve those relationships. A historical README edit that erased the finite-versus-open distinction passed because the relationship had not been registered; after registration, a deliberately false copy was rejected. That is one failure and one repair, not complete claim discovery.</p>
+      </div>
+
+      <div class="authority-card">
+        <p><b>This paper owns</b> the design argument for the release discipline: what is checked, by whom, and when.</p>
+        <p><b>It is not authority for</b> the mathematical content it uses as its worked example, and the correctness of the human review it preserves.</p>
+      </div>
+
+      <div class="paper-stage">
+<article class="lean-paper" data-paper-id="claim-faithful-publication-systems" data-math-mode="mathml">
+  <div class="lean-paper__body" data-source="../../../paper/claim-faithful-publication-systems-paper.tex">
+<section id="sec:gap" class="level2">
+<h2>The publication gap</h2>
+<p>The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257">repository
+studied here</a> is a public development in the Lean 4 proof
+assistant <span class="citation" data-cites="lean4"><a href="#ref-1">[1]</a></span> around eight
+unsolved problems in number theory; the claim registry examined in this
+paper covers its two reviewed problems, Erdős Problems 249 and 257. All
+eight problems remain open. The project proves intermediate results,
+exact reformulations, and finite certificates around them; it does not
+claim a solution to any of them.</p>
+<p> is both a language for writing mathematics precisely and a program
+for checking proofs. A Lean theorem has a formal statement and a proof
+object. Its , the small trusted part of the system, checks the proof
+using the file’s definitions, earlier theorems, and explicit assumptions
+<span class="citation" data-cites="lean4 leanapi"><a href="#ref-1">[1]</a><a href="#ref-4">[4]</a></span>. Acceptance is
+therefore a strong conclusion about the formal statement. A person must
+still judge whether that statement expresses the intended mathematics
+and whether later prose says anything stronger.</p>
+<p>One theorem illustrates the second task. Lean has checked a finite
+certificate at every integer scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le 82</annotation></semantics></math>.
+Here a is finite displayed data from which Lean can decisively verify
+that a particular number is not an integer. The corresponding open
+requirement asks for certificates beyond every fixed cutoff. Whatever
+the largest checked scale is, a cutoff lies beyond it, and a finite list
+says nothing there. The finite theorem therefore does not settle the
+open problem.</p>
+<p>A later README edit can nevertheless overstate the result. By an
+equivalence proved in the development (Section ), certificates beyond
+every fixed cutoff are not merely better evidence. Their existence is
+equivalent to answering Problem 249 affirmatively: the totient constant
+is irrational. Three objects recur throughout this paper: the ,
+certificates at every scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>;
+the , certificates beyond every cutoff; and the between the open
+requirement and the irrationality. Lean has checked the first and the
+third; no Lean theorem carries the first to the second, and proving that
+implication would settle the problem. An edit that presents the finite
+cases as completing the open requirement therefore asserts, in English,
+exactly the bridge the development does not contain; in substance it
+announces a solution to an open problem. Every Lean proof remains valid
+under that edit, because the README is not part of any proof. No program
+in the repository decides whether a line of English has the same meaning
+as a formal statement. Lean acceptance therefore does not verify the
+public description.</p>
+<figure id="fig:finite-open-boundary" data-latex-placement="!t">
+
+<figcaption>The distinction the release design is built to preserve. The
+development proves that the open statement on the right is equivalent to
+the irrationality claim in Erdős Problem 249. The crossed arrow is
+therefore not a missing stylistic qualification: proving it would settle
+the problem.</figcaption>
+</figure>
+<p>The design joins five file-and-workflow parts: Lean source, the
+maintainer-reviewed claim record, authored public documents, generated
+indexes and summaries, and the release program and
+continuous-integration workflow. An additional mathematical index helps
+a reviewer find relevant formal statements, but it has no authority of
+its own. The repository keeps a in <code>docs/claims.json</code>. For
+each selected result the record states the public wording, its status,
+the named Lean theorems or definitions that support it (Lean calls such
+named items ), the bounded domain it covers, and the stronger conclusion
+the record marks as open. A release checker,
+<code>scripts/</code><code>check_</code><code>release.py</code>, then
+verifies that the recorded relationships still hold across the Lean
+source, the record itself, the authored public pages, and the generated
+files. The record covers only , meaning claims entered into it, not
+every line of prose in the repository; software cannot preserve a
+relationship it was never pointed at, and Section  shows this limit
+operating in practice. The shortest accurate summary of the division of
+labour is:</p>
+<blockquote>
+<p>Lean checks the formal proofs. A maintainer reviews what those proofs
+mean and how they may be described. The release machinery checks that
+the recorded relationships remain intact before a release.</p>
+</blockquote>
+<div class="center">
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><strong>Contribution</strong></th>
+<th class="ta-l"> <strong>Evidence in this
+paper</strong></th>
+<th class="ta-l"><p><strong>Not
+established</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Preserve a selected, human-reviewed
+relation between a formal result and public wording.</td>
+<td class="ta-l"><p>One implemented claim record, separate
+proof and release jobs, and one historical escaped edit rejected after
+registration.</p></td>
+<td class="ta-l"><p>Correct semantic interpretation,
+complete discovery of claim-bearing prose, a detection rate, independent
+review, or transfer to another project.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Section  separates human review from automatic checking; Section 
+follows one theorem into its public record; and Sections – state what
+the checks establish, examine the escaped edit, and delimit reuse.
+Readers focused on the release design may skip the calculation in
+Sections –.</p>
+</section>
+<section id="sec:picture" class="level2">
+<h2>The release workflow</h2>
+<figure id="fig:architecture" data-latex-placement="!t">
+
+<figcaption>Configured checks for one saved change. Amber dashed
+connectors are human review; solid connectors are recorded inputs and
+automated checks. Lean checks the formal proof, while the release job
+checks registered names, wording, source files, and generated views. A
+passing workflow still leaves publication as a human action. Neither job
+interprets unrestricted prose.</figcaption>
+</figure>
+<p>Read the upper half of Figure  from left to right. A mathematician
+first reads the Lean source and records the approved public wording and
+its limit in the claim record. A separate mathematical index helps the
+reviewer find formal statements, but it is only a generated navigation
+view and has no authority over the claim. Authored public documents use
+the reviewed wording; generated views merely reorganise source records.
+The dashed arrows show the two human judgements. The lower half is
+automated: each job runs on its own fresh copy. The decision is only
+whether both jobs pass.</p>
+<p>Once a person has compared a formal theorem with its public wording,
+a program can preserve the resulting decision about names, files,
+wording, and limits. It cannot decide whether the decision was correct.
+The workflow does not technically force a second independent
+mathematician: one maintainer can edit the Lean statement, record, and
+prose together so that every comparison agrees with the same
+mistake.</p>
+<p>The two automated jobs answer different questions.
+<code>lake build</code> checks the formal statements and proofs; it
+never reads the README. <code>python3 scripts/check_release.py</code>
+compares the recorded relationships among source, record, public pages,
+and generated files; it does not run Lean. The workflow in
+<code>.github/workflows/lean.yml</code> runs them as two separate jobs
+and begins each from a fresh checkout <span class="citation"
+data-cites="githubrunners"><a href="#ref-2">[2]</a></span>. A checker error stops the program,
+and the workflow treats that exit as a failing job. A pass proves no
+mathematics, and publication remains a human decision.</p>
+<p>Generated views are rebuilt rather than edited and create no new
+mathematics. The complete file map, ownership table, and maintenance
+commands live in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"><code>ARCHITECTURE.md</code></a>;
+this paper gives only what this argument needs.</p>
+</section>
+<section id="sec:example" class="level2">
+<h2>One claim from Lean theorem to public page</h2>
+<p>We now follow one result from Lean source to public page. We begin
+with its public meaning, not its internal name:</p>
+<blockquote>
+<p>Lean has checked a finite certificate at every lcm-diagonal scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>.
+The registered open requirement asks for certificates beyond every fixed
+cutoff. This finite interval does not settle it.</p>
+</blockquote>
+<section id="sec:mathrole" class="level3">
+<h3>What the certificates are for</h3>
+<p>Erdős Problem 249 asks whether the totient constant
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>n</mi></msup></mfrac></mrow><annotation encoding="application/x-tex">S=\sum_{n\ge 1}\frac{\varphi(n)}{2^{n}}</annotation></semantics></math>
+is  <span class="citation" data-cites="erdosgraham"><a href="#ref-3">[3]</a></span>, meaning
+that it is not
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">a/b</annotation></semantics></math>
+for any integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b\ne 0</annotation></semantics></math>.
+Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+is Euler’s totient function:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+counts the integers from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+sharing no factor greater than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The following exact equivalence explains why the certificates matter.
+Multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>N</mi></msup><annotation encoding="application/x-tex">2^N</annotation></semantics></math>
+makes its first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+terms integral; write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>N</mi></msub><annotation encoding="application/x-tex">R_N</annotation></semantics></math>
+for the remaining rescaled tail. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>N</mi></msub><annotation encoding="application/x-tex">R_N</annotation></semantics></math>
+differs from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mi>S</mi></mrow><annotation encoding="application/x-tex">2^N S</annotation></semantics></math>
+by an integer. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>R</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>R</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_{N,h}=R_{N+h}-R_N</annotation></semantics></math>.
+It differs from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">2^N(2^h-1)S</annotation></semantics></math>
+by an integer. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h&gt;0</annotation></semantics></math>,
+the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2^N(2^h-1)</annotation></semantics></math>
+is a nonzero integer, so an integral
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><annotation encoding="application/x-tex">D_{N,h}</annotation></semantics></math>
+would force
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+to be rational. Conversely, every rational number has an eventually
+repeating binary expansion, the base-2 analogue of a repeating decimal.
+Thus some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h&gt;0</annotation></semantics></math>
+makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><annotation encoding="application/x-tex">D_{N,h}</annotation></semantics></math>
+integral for every sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+Lean checks the exact equivalence:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is irrational</mtext></mrow><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mspace width="0.222em"></mspace><mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mrow><mi>h</mi><mo>&gt;</mo><mn>0</mn></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and every </mtext><mspace width="0.333em"></mspace></mrow><mi>N</mi></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">S\text{ is irrational}\quad\Longleftrightarrow\quad
+D_{N,h}\notin\mathbb Z\ \text{ for every $h&gt;0$ and every $N$}.</annotation></semantics></math>
+For fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+Lean proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">D_{N,h}\notin\mathbb Z</annotation></semantics></math>
+exactly when a certificate exists at a finite depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.
+Its integer calculation approximates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">2^L D_{N,h}</annotation></semantics></math>
+with error at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r=N+h+L+2</annotation></semantics></math>.
+The certificate checks that the residue modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>L</mi></msup><annotation encoding="application/x-tex">2^L</annotation></semantics></math>
+lies strictly between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><mo>−</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">2^L-r</annotation></semantics></math>,
+outside both bands compatible with an integral value. The omitted
+infinite tail is thus accounted for by an explicit bound. The claim
+record calls this a . We use the shorter word : it proves only that this
+particular tail difference is not an integer.</p>
+<p>The scales of the finite theorem compress this two-parameter
+requirement to one. The diagonal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>t</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_t=\operatorname{lcm}(1,\dots,t)</annotation></semantics></math>
+is the least common multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">1,\dots,t</annotation></semantics></math>:
+the smallest positive integer divisible by every integer in that list.
+It is therefore divisible by every candidate period up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+were rational, its binary digits would have a period
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mn>0</mn></msub><annotation encoding="application/x-tex">h_0</annotation></semantics></math>
+after a position
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mn>0</mn></msub><mo>,</mo><msub><mi>N</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t\geq\max(h_0,N_0)</annotation></semantics></math>,
+one has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>0</mn></msub><mo>∣</mo><msub><mi>H</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">h_0\mid H_t</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>t</mi></msub><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_t\geq N_0</annotation></semantics></math>,
+so rationality would make
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><msub><mi>H</mi><mi>t</mi></msub></mrow></msub><annotation encoding="application/x-tex">D_{H_t,H_t}</annotation></semantics></math>
+integral; a diagonal certificate rules this out. The development proves
+the reduction exact: certificates along the diagonal beyond every fixed
+cutoff are equivalent to the full two-parameter requirement, and
+therefore, through the chain above, to the irrationality itself.
+Certificates on a finite list, however long, are not.</p>
+<p>Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Cert}(t)</annotation></semantics></math>
+for “a certificate exists at scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>”,
+the two statements then read:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mtext mathvariant="normal">checked:</mtext></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="0.222em"></mspace><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mrow><mrow><mtext mathvariant="normal">for every integer </mtext><mspace width="0.333em"></mspace></mrow><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><mtext mathvariant="normal">;</mtext></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mtext mathvariant="normal">open:</mtext></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="0.222em"></mspace><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">for every cutoff </mtext><mspace width="0.333em"></mspace></mrow><mi>T</mi><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">for
+some </mtext><mspace width="0.333em"></mspace></mrow><mi>t</mi><mo>&gt;</mo><mi>T</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
+\text{checked:}&amp;\ \ \mathrm{Cert}(t)\ \text{for every integer $t\le82$;}\\
+\text{open:}&amp;\ \ \text{for every cutoff }T,\ \mathrm{Cert}(t)\ \text{for
+some }t&gt;T.
+\end{align*}</annotation></semantics></math> The boundary between them
+is a matter of logical form, not of scale. The bound 82, 820, or any
+other fixed bound stands in the same relation to the open requirement: a
+larger cutoff still exists. No finite interval implies the second
+statement without a theorem that produces new witnesses. In particular,
+no certificate at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">t=83</annotation></semantics></math>,
+and no cofinal supply, is claimed. This is the boundary an edit can
+silently delete.</p>
+</section>
+<section id="sec:formal-evidence" class="level3">
+<h3>The formal evidence</h3>
+<p>The historical module deposits certificates at 28 prime-power
+breakpoints through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">t=64</annotation></semantics></math>.
+Because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>t</mi></msub><annotation encoding="application/x-tex">H_t</annotation></semantics></math>
+is constant between breakpoints, its combined theorem already covers
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>66</mn></mrow><annotation encoding="application/x-tex">t\le66</annotation></semantics></math>.
+The later module adds the remaining finite arithmetic and proves : for
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>,
+there is a checking depth and a certificate at period and position
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>t</mi></msub><annotation encoding="application/x-tex">H_t</annotation></semantics></math>.
+The claim record names six supporting declarations across the two Lean
+libraries.</p>
+<p>Lean’s is the small trusted program that checks every accepted proof.
+These finite certificate proofs use <code>decide</code>, which evaluates
+a finite proposition and supplies a proof term for the kernel <span
+class="citation" data-cites="leanapi"></span>. Separately, proves the
+exact tail-difference, pointwise-certificate, and diagonal equivalences,
+ending at . The default <code>lake build</code> compiles the libraries
+rooted at and , including the module that proves the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>
+theorem.</p>
+</section>
+<section id="sec:semantic-coverage" class="level3">
+<h3>What “coverage” means here</h3>
+<p>The word needs an object. This project separately tracks which named
+Lean items exist, where readers can find them, which statements a person
+has described, and which descriptions were approved for public use.
+Those are inventory, navigation, interpretation, and public-claim
+coverage; none implies the next. Lean calls a named theorem or
+definition a . Indexing every declaration is not understanding every
+theorem, and understanding every theorem would still not find every
+sentence that mentions one. Dated inventory counts belong in Appendix ;
+they are navigation facts, not a result.</p>
+</section>
+<section id="sec:record" class="level3">
+<h3>The reviewed record</h3>
+<p>The quoted record entry contains four names specific to this
+repository. A is the certificate defined in Section . The entry
+abbreviates least common multiple as “lcm”, so its are the values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>t</mi></msub><annotation encoding="application/x-tex">H_t</annotation></semantics></math>.
+The are the periods 1 through 8, each handled by one explicit
+certificate. A is the same calculation at a fixed period, position, and
+depth, isolated in another Lean file and checked by
+<code>decide</code>.</p>
+<p>Table  shows the substance of the corresponding entry in
+<code>docs/claims.json</code>, ordered as a reader meets it: what is
+claimed, where it stops, what remains open, then the supporting
+machinery. The entry also records an exact source line for each
+declaration; those coordinates are omitted from the table.</p>
+<div id="tab:record">
+<table>
+<caption>The reviewed claim entry for the worked example, exact source
+coordinates omitted. Together, the positive statement, bounded domain,
+and remaining-open link distinguish the finite result from the open
+problem. In the failure of Section , overstatement came from deleting
+this boundary, not from inventing a theorem.</caption>
+<thead>
+<tr>
+<th class="ta-l">Field</th>
+<th class="ta-l"> Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Public statement</td>
+<td class="ta-l"> “Lean checks every lcm-diagonal scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>
+and the listed finite shards. The historical 28 deposits through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">t=64</annotation></semantics></math>
+already covered
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>66</mn></mrow><annotation encoding="application/x-tex">t\le66</annotation></semantics></math>
+because the lcm is constant between prime powers.”</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Bounded domain</p></td>
+<td class="ta-l"> Listed small periods, every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>,
+and the fixed parameters of each finite shard; no
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">t=83</annotation></semantics></math>
+or cofinal claim.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Remaining open</p></td>
+<td class="ta-l"> A link to the registered open requirement
+: produce a certified witness beyond every fixed cutoff.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Status</p></td>
+<td class="ta-l"> : Lean checked the stated finite
+inputs.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Supporting declarations</p></td>
+<td class="ta-l"> Six named Lean theorems with recorded
+modules and source lines, ending in
+<code>exists_diagonalKill_le_82</code>.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Claim identifier</p></td>
+<td class="ta-l">
+<code>certified_kill_instances</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The table records rather than explains the claim. Its public
+statement, bounded domain, remaining-open link, and status record a
+human judgement about meaning. Under the proved equivalence, the
+remaining-open field is essential: without it, the entry no longer
+separates the finite theorem from an answer to Problem 249. The
+identifier and source lines instead help software find the entry and may
+be refreshed when code moves.</p>
+<p>No field establishes that the English is faithful to Lean. The
+maintainer read the final theorem, judged that the wording claims the
+listed scales and no more, and confirmed that the unbounded requirement
+remains open. The record stores that judgement, not its justification.
+Review asks whether wording is faithful; authorisation decides what the
+project publishes. One maintainer performed both here. A later change to
+either theorem or wording reopens the review; automatic checks can only
+preserve the decision that was recorded.</p>
+</section>
+<section id="what-the-checker-verifies-here" class="level3">
+<h3>What the checker verifies here</h3>
+<p>For this claim, <code>scripts/check_release.py</code> verifies a
+finite list of relationships. Declaration names must remain near their
+recorded source locations, and all checked Lean source must byte-match
+the saved revision. The limitation clause must remain on each registered
+public page, and generated views must equal a fresh rebuild. These tests
+establish presence, identity, and proximity, not implication. Lean
+checks the theorem; the release program checks the recorded description
+around it; a person remains responsible for the claim that the two say
+the same thing.</p>
+</section>
+</section>
+<section id="sec:trust" class="level2">
+<h2>What the checks establish</h2>
+<p>The word “verification” is easy to overread here. Four separate
+questions are involved. Did Lean accept the formal statements and
+proofs? Did a maintainer record a judgement that selected public wording
+describes them within stated limits? Do the configured structural
+comparisons pass at this revision? Did continuous integration run the
+configured jobs on that revision and report success? Each question needs
+different evidence. A yes to one does not settle the others.</p>
+<p>When both jobs pass, Lean has accepted the proofs and each configured
+structural comparison has passed. This does not repeat the maintainer’s
+review, establish that the review was correct, or show that every
+consequential claim was registered. Table  states what each layer can
+and cannot establish. Keeping the layers separate prevents the single
+word “verified” from making their combined guarantee sound stronger than
+it is.</p>
+<div id="tab:trust">
+<table>
+<caption>What each layer establishes and leaves open.</caption>
+<thead>
+<tr>
+<th class="ta-l">Layer</th>
+<th class="ta-l"> What it can establish</th>
+<th class="ta-l"> What it cannot establish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Lean build and kernel</td>
+<td class="ta-l"> The written formal statements are proved
+from their imported definitions and assumptions, using the recorded Lean
+version and dependencies.</td>
+<td class="ta-l"> That a formal statement is the one the
+author intended, or that any English description of it is faithful.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Maintainer review</p></td>
+<td class="ta-l"> A recorded judgement that a named formal
+statement has the intended meaning and selected public wording describes
+it within stated limits.</td>
+<td class="ta-l"> That Lean accepts the proofs; that every
+important claim was registered; or that the review was independent or
+correct.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Release checker</p></td>
+<td class="ta-l"> That recorded names, source lines,
+fields, links, required wording, Lean files, and generated files satisfy
+the declared rules; that prohibited proof shortcuts are absent; and that
+deliberately wrong examples still fail.</td>
+<td class="ta-l"> What unregistered prose means; whether
+the record is complete; or whether the human judgements it preserves are
+correct.</td>
+</tr>
+<tr>
+<td class="ta-l"><p>Continuous integration</p></td>
+<td class="ta-l"> That each job ran on its own fresh copy
+of the uploaded revision and exited successfully.</td>
+<td class="ta-l"> Independent mathematical approval;
+anything beyond what the two jobs themselves establish.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Instantiated on the worked example, the source proves the finite
+theorem and equivalence, not the open requirement. Maintainer-reviewed
+wording confines the theorem to the listed scales. The release checker
+preserves declaration coordinates, revision agreement, the limitation
+clause, and rebuilt views; continuous integration reruns the jobs on
+fresh copies.</p>
+<p>The limits follow the same lines. Lean cannot notice English that
+quietly implies the open requirement met. The recorded review does not
+show that every page repeating the claim was found. The checker cannot
+reject a paraphrase it was never given. Passing both jobs cannot make a
+mistaken reading of the equivalence correct.</p>
+<p>The release checker rejects proof placeholders, project-defined
+axioms, and native evaluation; ordinary <code>decide</code> produces a
+kernel-checked proof term <span class="citation"
+data-cites="leanapi leanref"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a></span>. It compares reviewed sources,
+rebuilds views, verifies paper hashes, and reruns selected deliberately
+false examples (called in the repository). These checks preserve
+recorded relationships, not mathematical meaning or unseen faults.</p>
+<p>For a mathematical change, run <code>lake build</code>; review
+statements, assumptions, and meaning; regenerate views; then run
+<code>python3 scripts/check_release.py</code>. Continuous integration
+reruns the two separate jobs. Prose-only edits still need human and
+release review; stronger wording reopens the judgement. The repository
+guide lists the full commands.</p>
+</section>
+<section id="sec:failure" class="level2">
+<h2>A boundary the checklist missed</h2>
+<p>The evidence comes from three different times. The historical
+exercise, the present post-repair test, and the later executable
+reconstruction answer different questions and must not be merged.
+Appendix  identifies their files and commands.</p>
+<section id="historical-exercise." class="level5">
+<h5>Historical exercise.</h5>
+<p>The structured report in <code>docs/publication_evidence.json</code>
+identifies a saved Git revision. It says that ten deliberate false edits
+were applied to a separate copy one at a time and ran the release
+checker, but not Lean. They covered seven configured relationship kinds,
+including status, source coordinates, boundary wording, generated-file
+freshness, and size budgets. The original run logs were not retained;
+the file is a report, not raw output.</p>
+<p>According to that record, nine of the ten edits were rejected. One
+escaped: the README clause saying that the finite cases the open
+requirement was changed to say that they it, asserting exactly the
+missing bridge to Problem 249. Lean was untouched, and the checker
+passed because the clause was absent from its checklist. The escape
+shows that a passing checker does not certify all public prose; it gives
+no detection rate.</p>
+</section>
+<section id="repair-and-present-test." class="level5">
+<h5>Repair and present test.</h5>
+<p>The repair required the clause and added a deliberately false
+example, called a in the repository: it crosses a consequential public
+boundary while leaving every Lean proof intact. The post-repair witness
+accepts the current README and rejects a test copy containing the false
+clause. The other nine edits were not rerun against the extended
+checklist, so there is no post-repair aggregate result.</p>
+</section>
+<section id="later-reconstruction." class="level5">
+<h5>Later reconstruction.</h5>
+<p>The executable reconstruction preserves three original targets and
+uses seven documented replacements. It is a new experiment, not the
+missing runs.</p>
+<p>The evidence marks a coverage boundary, not a reliability score. The
+edits were authored by the checker’s author; all seven relationship
+kinds were represented, but five of them by one edit each; and no
+controlled comparison with disciplined manual review was run. Reader
+error, ordinary use, and transfer were not measured.</p>
+<p>Requiring a clause to be present does not detect a contradictory
+stronger claim elsewhere on the page. Coverage grows only when a person
+notices and records a relationship; selected high-risk commitments also
+have a negative fixture, that is, a deliberately false version which the
+check must reject. Coverage can also shrink: deleting a registered
+relationship leaves no rule requiring it, so every remaining check
+passes. Retiring a commitment therefore deserves the same review as
+creating one.</p>
+<p>The shape of this limit is familiar from Section . A configured
+checklist, like a finite certificate interval, does not exhaust an
+open-ended domain. The comparison is only structural: prose has no
+equivalence theorem and no diagonal compresses it.</p>
+</section>
+<section id="three-boundaries-the-companion-papers-exposed."
+class="level5">
+<h5>Three boundaries the companion papers exposed.</h5>
+<p>Three later corrections fell outside the checklist for different
+reasons. A kernel-checked headline in the Problem 249 note had no
+claim-record entry, so it carried no reviewed public status. A Problem
+257 support described as open had been settled in the literature in
+2019, outside the repository. A valid parity theorem was presented as a
+frontier until adjoining one support element was seen to remove the
+obstruction: the theorem was correct but its advertised significance was
+not. These are respectively a registration gap, stale external status,
+and representation-dependent significance. They are incidents, not a
+rate, and none is detectable by comparing recorded artefacts with one
+another.</p>
+</section>
+</section>
+<section id="sec:limits" class="level2">
+<h2>Scope, reuse, and limits</h2>
+<section id="the-failures-the-design-addresses." class="level5">
+<h5>The failures the design addresses.</h5>
+<p>The checks address accidental disagreement after a sound review. A
+declaration may move while its recorded line number stays fixed, and a
+generated view may be stale or hand-edited. A rewrite may remove a
+required limitation, a status may be upgraded, or the shipped Lean files
+may cease to be the reviewed ones. A check may also decay until it can
+no longer fail. In each case, one recorded item disagrees with the
+others, which a mechanical comparison can detect.</p>
+</section>
+<section id="the-failures-it-does-not-address." class="level5">
+<h5>The failures it does not address.</h5>
+<p>Three failure modes remain outside the design. a paraphrase can
+strengthen a claim without touching a registered anchor, and a
+contradiction, misleading emphasis, or new public document can escape
+for the same reason. Requiring one clause to be present does not require
+the page to agree with it. a maintainer can alter source, record, and
+prose together, so every comparison agrees. If the certificate
+definition were weakened while the record and prose were updated to
+match, all checks could pass although the public reading of the
+equivalence was wrong. if the original judgement was wrong, the
+machinery preserves the mistake. It checks persistence, not the quality
+of the judgement.</p>
+</section>
+<section id="the-checked-boundary." class="level5">
+<h5>The checked boundary.</h5>
+<p>Only listed relationships are checked. The repository calls their set
+its (historically, its “assurance perimeter”); in ordinary terms, this
+is simply the boundary of the checklist. A recorded commitment inside
+the boundary triggers an automatic check. Outside it, the checker is
+silent. The name must not suggest more: choosing what belongs on the
+checklist remains a human judgement, and a passing check does not make
+the contents true. This repository gives priority to headline results
+and to wording whose accidental strengthening would change the project’s
+public status, as the deleted boundary clause did under the equivalence.
+If the same claim appears on several pages, the checker sees only the
+appearances named in the record.</p>
+<p>Several narrower limits belong to this implementation rather than to
+the general pattern. One maintainer performs both review and
+authorisation; the checker tolerates a theorem name within three lines
+of its recorded location; some prose checks require exact wording; the
+exercise used one edit per relationship type; and the original logs were
+not retained.</p>
+</section>
+<section id="what-another-project-could-reuse." class="level5">
+<h5>What another project could reuse.</h5>
+<p>The file formats are incidental. The pattern applies whenever a
+checked formal result sits beside a tempting stronger public statement:
+finitely many cases beside a statement about all cases; a conditional
+theorem beside its unproved hypothesis; one implication beside an
+alleged equivalence; or a theorem under assumptions beside an
+unconditional headline. What transfers is the reviewed boundary between
+the exact formal result and its nearest unproved strengthening.</p>
+<p>The minimum obligations are concrete. Each selected public claim
+needs its own wording, named formal evidence, exact source version,
+scope, assumptions, and explicit stronger non-conclusions. Human
+mathematical review must be distinguished from automatic consistency
+checking. Every generated public view needs a named builder. Proof
+checking and publication checking must be separate and able to fail
+independently. Every recorded relationship needs a specified mechanical
+check; selected high-risk boundaries should also have a deliberately
+false example which that check rejects. Finally, the project must
+describe its selection as selective rather than complete.</p>
+</section>
+<section id="what-is-not-established." class="level5">
+<h5>What is not established.</h5>
+<p>The architecture does not establish a solution to either Erdős
+problem; that a formal statement is the statement the author intended;
+that software understood any unregistered prose; that the record is
+complete; that one maintainer’s review is independent or adequate; or
+that the design transfers to other projects with its behaviour intact. A
+large number of passing comparisons measure none of those things. What a
+passing workflow establishes is narrower: the configured jobs ran on the
+named revision, Lean accepted the formal proofs, and every configured
+structural comparison passed. This paper is an architecture note with
+one bounded case study and three naturalistic incidents, not an
+empirical evaluation of the design. A credible evaluation would need
+review records naming reviewer and revision, wrong edits authored by
+someone other than the checker’s author, and only then a comparison with
+ordinary review on the same changes. None of those stages exists here,
+and this paper claims none of them.</p>
+</section>
+</section>
+<section id="sec:related" class="level2">
+<h2>Related systems</h2>
+<p>The nearest systems divide into four groups, each solving a different
+part of the problem. Proof blueprints connect an informal proof plan to
+Lean declarations. Semantic-review tools help people compare formal
+statements with intended mathematics. Checked-document and traceability
+systems record relationships among heterogeneous artefacts.
+Software-testing methods probe whether selected checks fail when they
+should. This repository borrows from all four but replaces none of them:
+its narrower purpose is to preserve, after review, the boundary between
+an accepted formal result and a recurring public claim.</p>
+<section id="proof-blueprints." class="level5">
+<h5>Proof blueprints.</h5>
+<p>A pairs an informal outline with Lean declarations and uses
+author-supplied links to record which results depend on which earlier
+results. <code>leanblueprint</code> stores that outline in TeX and its
+<code>checkdecls</code> command checks only that each named declaration
+exists <span class="citation" data-cites="leanblueprint"><a href="#ref-6">[6]</a></span>; it
+neither infers the dependency links nor checks that the informal and
+formal statements agree. LeanArchitect attaches blueprint metadata to
+Lean source, infers dependencies and unfinished-proof status, and
+exports synchronised TeX <span class="citation"
+data-cites="leanarchitect"><a href="#ref-7">[7]</a></span>. Text and unformalised nodes remain
+human responsibilities. Both systems primarily support a formalisation
+in progress. The claim record here instead starts after a selected proof
+has been accepted and asks which public wording was reviewed and which
+stronger conclusion remains open.</p>
+</section>
+<section id="reviewing-intended-mathematical-meaning." class="level5">
+<h5>Reviewing intended mathematical meaning.</h5>
+<p>Lean Atlas and EconCSLib ask whether a formalisation expresses its
+intended source mathematics. Lean Atlas leaves semantic verification to
+people. Given chosen theorem statements, its Lean Compass selects the
+project declarations whose meaning can affect them, narrowing what a
+person must inspect; it assumes Lean’s standard library and the
+mathematical library Mathlib are semantically correct rather than
+inspecting them <span class="citation" data-cites="leanatlas"><a href="#ref-8">[8]</a></span>.
+The authors’ soundness claim is conditional on the semantic correctness
+of every returned declaration and the trusted base; project-level
+coverage additionally requires the chosen theorem set to exhaust the
+intended claims. It does not find every claim occurrence in later public
+prose. EconCSLib instead has a model write Lean. At statement level, one
+context-blind model pass translates Lean back to LaTeX and a second
+compares that translation with the source; a separate holistic audit
+checks cross-statement drift, and a dashboard records human judgements.
+At present all model validations run through one Codex agent stack, so
+errors may correlate. Table 3 lists 865 human-translation review rows
+across 24 papers; only 10 have saved human review, all in one paper, and
+two of those are marked uncertain <span class="citation"
+data-cites="econcs"><a href="#ref-9">[9]</a></span>. This paper addresses a later boundary: it
+starts from accepted Lean proofs and asks how subsequent public wording
+can remain within a reviewed interpretation of them.</p>
+<p>An audit of formal-theorem benchmarks likewise finds that kernel
+acceptance does not establish fidelity to the intended natural-language
+problem. Across five benchmarks and 13 released variants, its static
+checkers produced 4,833 findings, including 398 with machine-checkable
+certificates of unprovability or vacuity; a separate semantic audit
+evaluated a curated 92-problem challenge set across six error categories
+and achieved high recall but low precision, so human adjudication
+remained necessary <span class="citation"
+data-cites="benchmarkfaults"><a href="#ref-10">[10]</a></span>. That work concerns incoming
+benchmark statements; this repository concerns outgoing claims made
+after a proof. Its program is narrower than semantic verification and
+still cannot prove that every claim-bearing passage was selected.</p>
+</section>
+<section id="checked-documents-and-traceability." class="level5">
+<h5>Checked documents and traceability.</h5>
+<p>Isabelle/DOF, a document system built on the Isabelle proof
+assistant, places formal and informal material in one checked document.
+Authors define an : document classes with typed fields and rules. They
+label passages with those classes, and Isabelle’s editor reports rule
+violations as they edit <span class="citation"
+data-cites="isadof"><a href="#ref-11">[11]</a></span>. The bounded domain and open conclusion in
+Table  could be typed fields in such an ontology. This repository keeps
+prose unrestricted and checks a separate record; its checker cannot
+inspect prose that the record does not name.</p>
+</section>
+<section id="testing-the-boundary." class="level5">
+<h5>Testing the boundary.</h5>
+<p>CASCADE derives tests and an alternative implementation from the same
+documentation using language models. It reports a likely inconsistency
+only when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝚏</mi><mn mathvariant="monospace">𝟸</mn><mi mathvariant="monospace">𝚙</mi></mrow><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mathtt{f2p}&gt;0</annotation></semantics></math>
+(at least one generated test fails on the original implementation and
+passes on the generated one) and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝚙</mi><mn mathvariant="monospace">𝟸</mn><mi mathvariant="monospace">𝚏</mi></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mathtt{p2f}=0</annotation></semantics></math>
+(no generated test changes in the opposite direction). A person must
+still confirm the report <span class="citation"
+data-cites="cascade"><a href="#ref-12">[12]</a></span>. Unlike the present checker, it can inspect
+documentation that was not registered in advance.</p>
+<p>Mutation testing deliberately seeds faults and asks whether tests
+distinguish the altered program from the original <span class="citation"
+data-cites="demillo jiaharman"><a href="#ref-13">[13]</a><a href="#ref-14">[14]</a></span>. The ten false edits in Section 
+serve that purpose only. They were selected by hand, and nine were not
+rerun after repair, so they yield neither a post-repair detection rate
+nor a mutation-adequacy score.</p>
+<p>Requirements traceability follows a requirement through development
+and revision. Gotel and Finkelstein distinguish its production before a
+requirements specification from its deployment afterwards <span
+class="citation" data-cites="gotel"></span>. The claim record is closer
+to bounded post- specification traceability: it does not reconstruct
+exploratory requirement production, changing responsibility, or
+contributor access. An assurance case is a reasoned argument supported
+by evidence; Goal Structuring Notation (GSN) is one graphical notation
+for documenting its claims, evidential references, context, and asserted
+support relationships <span class="citation" data-cites="gsn"><a href="#ref-16">[16]</a></span>.
+The standard is explicit about the boundary: the notation documents an
+asserted argument but establishes neither its truth nor that it
+sufficiently supports the top claim <span class="citation"
+data-cites="gsn"><a href="#ref-16">[16]</a></span>. The claim record resembles those elements but
+is not an assurance argument: it contains no chain of reasoning
+asserting that the Lean declarations justify the public wording. It
+records the approved wording, source, scope, and limits; the
+justification remains a human judgement.</p>
+</section>
+</section>
+<section id="sec:conclusion" class="level2">
+<h2>Conclusion</h2>
+<p>Lean has checked certificates at every lcm-diagonal scale
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>.
+It has not checked a certificate at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">t=83</annotation></semantics></math>
+or an unbounded supply. The development proves that an unbounded supply
+would settle Problem 249, so the difference cannot be dismissed as
+cautious wording around essentially the same result. Problems 249 and
+257 remain open.</p>
+<p>The systems result is correspondingly modest and useful. A
+mathematician can record the exact public wording authorised by a formal
+result, the result’s range, and its nearest open strengthening. A
+release program can then reject later edits which violate those recorded
+relationships. In this repository a deliberately false test case—called
+a negative fixture in the repository—now catches the strengthening that
+historically escaped.</p>
+<p>This repository sits in the middle, not at the end, of the longer
+mathematical process. Tao separates proof generation, verification,
+exposition, publication and community acceptance, digestion, and
+eventual canonicalisation <span class="citation"
+data-cites="taoai"><a href="#ref-17">[17]</a></span>. The claim record addresses one transition in
+that process: it preserves a reviewed boundary between a checked formal
+statement and its public exposition. The reasoning papers separately
+name the hard remaining bridge, failed routes, and scope-limited no-go
+results, so an expert can see where attention is still required rather
+than receiving a uniformly polished list of theorems. Those records can
+make the work a candidate for expert digestion. They are not evidence
+that other mathematicians have accepted or absorbed it, and the
+repository cannot declare its own results canonical.</p>
+<p>The failure supplies the governing limit. The registered checking
+boundary is only as wide as the relationships someone chose to record;
+in ordinary language, the checker cannot enforce an item absent from its
+checklist. Retiring an item is therefore as consequential as adding one
+and deserves the same review. The GSN development guidance makes the
+corresponding repair concrete: if evidence does not cover the lowest
+claim, state the claim that it actually supports, weaken or bound that
+claim, and revisit the claims above it <span class="citation"
+data-cites="gsn"><a href="#ref-16">[16]</a></span>. The method preserves selected mathematical
+judgements after they have been made. It does not make those judgements
+correct, discover every public claim, provide a detection rate, or
+establish transfer to another repository. A passing workflow says only
+that Lean accepted the formal proofs and the configured structural
+comparisons passed on the named revision.</p>
+</section>
+<section id="app:repro" class="level2">
+<h2>Reproducibility</h2>
+<section id="dated-navigation-counts." class="level5">
+<h5>Dated navigation counts.</h5>
+<p>At the semantic review’s snapshot, taken before the eight-problem
+consolidation of 2026-08-02 enlarged the corpus to 153,238 declarations,
+all 151,761 then-live declarations were inventoried and routed, and all
+143,098 author-written theorem-like declarations had an exact node link.
+Of those, 139,753 (97.7%) participated in authored mathematical
+interpretations: 3,265 as exact proposition evidence and 136,488 as
+bounded certificate- or module-family context. The remaining 3,345 were
+linked only through exact source-module and normalised-signature
+families, not authored mathematical paraphrases. Every declaration
+selected for a public claim had an authored route. The command
+<code>python3 scripts/query_semantic.py coverage</code> derives these
+volatile navigation counts and checks their references. They do not
+measure semantic review quality or public-claim completeness.</p>
+<p>The reviewed claim record, <code>docs/claims.json</code>, names the
+saved Git revision of the Lean source, which the release checker
+requires to match exactly. This paper omits the changing commit
+identifier so that the claim record is the only place that states
+it.</p>
+</section>
+<section id="declaration-of-generative-ai-use." class="level5">
+<h5>Declaration of generative AI use.</h5>
+<p>Every word of this manuscript was generated by agents based on large
+language models operating within Will Cook’s private research system for
+artificial intelligence. The formal proofs and repository software were
+likewise drafted and revised by the agents through that system under
+Cook’s direction. Cook set the objectives and acceptance criteria,
+selected and reviewed the public claims, and approved the published
+version. Cook assumes responsibility for the accuracy, interpretation,
+and presentation of the work. Generative systems are production tools,
+not authors, and supply no independent authority. That boundary is the
+subject of this paper as well as a condition of it: the checker
+described in Section  tests recorded relationships a person selected, so
+passing it does not make generated wording faithful. The author
+selected, reviewed, and authorised the public claim-to-declaration
+mappings, and remains responsible for connecting the proofs to public
+wording.</p>
+<p>The paper inventory, , records source and PDF cryptographic hashes
+and validation commands. The evidence file for Section , , records the
+protocol, outcomes, and limitations. The reconstruction file, ,
+specifies the ten edits. The script checks that each edit applies once
+(<code>--verify-operators</code>) and, by default, runs all ten in a
+copy of the saved evaluation version (<code>--all</code>). For an edit
+whose exact original target was not preserved, the file names a fixed
+replacement. The original raw outputs were not retained; the
+reconstruction does not claim to be them.</p>
+<p>The papers build with Tectonic or standard LaTeX via
+<code>make -C paper</code>. The tracked root PDF is the shipped copy,
+and the inventory checks its file hash. These identities name artefacts;
+they do not interpret them.</p>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>L. de Moura and S. Ullrich, , in , Lecture Notes in Computer
+Science 12699, 2021, pp. 625–635, <a
+href="https://doi.org/10.1007/978-3-030-79876-5_37">DOI</a>.</p></li>
+<li id="ref-2"><p>GitHub, , <a
+href="https://docs.github.com/actions/concepts/runners/github-hosted-runners">documentation</a>,
+accessed 18 July 2026.</p></li>
+<li id="ref-3"><p>P. Erdős and R. L. Graham, , Monographies de L’Enseignement
+Mathématique 28, L’Enseignement Mathématique, Université de Genève,
+1980, p. 61, <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf">scan</a>.</p></li>
+<li id="ref-4"><p>Lean project, , <a
+href="https://lean-lang.org/doc/reference/latest/ValidatingProofs/">documentation</a>,
+accessed 18 July 2026.</p></li>
+<li id="ref-5"><p>Lean project, , <a
+href="https://lean-lang.org/doc/reference/latest/Axioms/">documentation</a>,
+accessed 18 July 2026.</p></li>
+<li id="ref-6"><p>P. Massot, , plasTeX plugin for Lean formalisation blueprints,
+2020, <a href="https://github.com/PatrickMassot/leanblueprint" data-link-kind="exogenous" rel="external noopener">software
+repository</a>, accessed 18 July 2026.</p></li>
+<li id="ref-7"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad, , in , LIPIcs
+382, 2026, pp. 25:1–25:16, <a
+href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
+<li id="ref-8"><p>B. Yanahama and A. Sannai, , 2026, <a
+href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
+<li id="ref-9"><p>N. Garg, , 2026, <a
+href="https://doi.org/10.48550/arXiv.2606.13306">arXiv:2606.13306</a>.</p></li>
+<li id="ref-10"><p>P. S. Ammanamanchi, S. Bhat, and S. Biderman, , in , PMLR 306,
+2026, <a
+href="https://doi.org/10.48550/arXiv.2606.29493">arXiv:2606.29493</a>.</p></li>
+<li id="ref-11"><p>A. D. Brucker and B. Wolff, , in , Lecture Notes in Computer
+Science 11724, 2019, pp. 275–293, <a
+href="https://doi.org/10.1007/978-3-030-30446-1_15">DOI</a>.</p></li>
+<li id="ref-12"><p>T. Kiecker, J. A. Sparka, M. Reuter, A. Ziegler, and L. Grunske,
+, 3 (FSE), Article FSE168, July 2026, 23 pages, <a
+href="https://doi.org/10.1145/3808175">DOI</a>.</p></li>
+<li id="ref-13"><p>R. A. DeMillo, R. J. Lipton, and F. G. Sayward, , IEEE Computer
+11(4), 1978, pp. 34–41, <a
+href="https://doi.org/10.1109/C-M.1978.218136">DOI</a>.</p></li>
+<li id="ref-14"><p>Y. Jia and M. Harman, , IEEE Transactions on Software Engineering
+37(5), 2011, pp. 649–678, <a
+href="https://doi.org/10.1109/TSE.2010.62">DOI</a>.</p></li>
+<li id="ref-15"><p>O. C. Z. Gotel and A. C. W. Finkelstein, , in , 1994, pp. 94–101,
+<a href="https://doi.org/10.1109/ICRE.1994.292398" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
+<li id="ref-16"><p>SCSC Assurance Case Working Group (ACWG), , SCSC-141C, May 2021,
+<a href="https://scsc.uk/scsc-141c" data-link-kind="exogenous" rel="external noopener">standard</a>.</p></li>
+<li id="ref-17"><p>T. Tao, , preprint, 2026, <a
+href="https://doi.org/10.48550/arXiv.2608.16753">arXiv:2608.16753</a>.</p></li>
+</ol>
+</section>
+  </div>
+</article>
+
+      </div>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:gap">The publication gap</a><a class="toc-l2" href="#sec:picture">The release workflow</a><a class="toc-l2" href="#sec:example">One claim from Lean theorem to public page</a><a class="toc-l3" href="#sec:mathrole">What the certificates are for</a><a class="toc-l3" href="#sec:formal-evidence">The formal evidence</a><a class="toc-l3" href="#sec:semantic-coverage">What “coverage” means here</a><a class="toc-l3" href="#sec:record">The reviewed record</a><a class="toc-l3" href="#what-the-checker-verifies-here">What the checker verifies here</a><a class="toc-l2" href="#sec:trust">What the checks establish</a><a class="toc-l2" href="#sec:failure">A boundary the checklist missed</a><a class="toc-l2" href="#sec:limits">Scope, reuse, and limits</a><a class="toc-l2" href="#sec:related">Related systems</a><a class="toc-l2" href="#sec:conclusion">Conclusion</a><a class="toc-l2" href="#app:repro">Reproducibility</a><a class="toc-l2" href="#references">References</a></aside>
+  </div>
+</body>
+</html>

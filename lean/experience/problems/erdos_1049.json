@@ -1,0 +1,384 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_1049",
+  "erdos_number": 1049,
+  "title": "Lambert-type series at rational bases",
+  "status": "open",
+  "question": "For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "That a literal coordinatewise transfer of the integer-base clearing argument forces a power-versus-linear inequality, and that this inequality is impossible at base three halves.",
+    "The exact denominator-cleared rational-base tail recurrence, including its forcing term.",
+    "That for every noninteger base with denominator at least two the forcing magnitude grows at least exponentially, while at denominator one it collapses to a bounded expression.",
+    "The complete elementary Archimedean height inequality used by the published Bundschuh-Väänänen criterion at base seven halves; the analytic irrationality theorem itself remains external.",
+    "Polynomial bounds on the doubled denominator exponents in the homogenised Padé construction, together with an exact gap identity.",
+    "The exact exterior-determinant elimination identity, and that rowwise contents scale the Padé errors, exterior determinant, and absolute determinant height by the same factors.",
+    "The exact Heine-Zudilin cone endpoint exponent arithmetic used to identify the bottom and top coefficient endpoints.",
+    "That homogeneous evaluation at (3,2) sees only the constant endpoint modulo three and the top endpoint modulo two, so unit endpoints obstruct common local factors.",
+    "That under unit top and constant endpoint hypotheses, a common multiplier of the two specialised coefficient channels is divisible by neither two nor three; the missing local gain must therefore survive primitive normalisation.",
+    "That vanishing of the higher bottom and top endpoint jets is exactly divisibility by the corresponding powers of three and two.",
+    "That the source integer-base ratio inequality implies a strictly negative scalar product-formula margin at three halves.",
+    "That the four-jet target has exact cardinality (3^R)^2(2^S)^2 and, for positive R, any family with n at least 4R+2S forces two distinct binary selectors to collide; their {-1,0,1} difference cancels all four endpoint jets.",
+    "That the rectangular Hermite-Pade threshold never improves on the classical one in the checked exponent model, with equality characterised exactly.",
+    "The exact 81/200 height region: 31/4 and every positive power lie inside it and outside the earlier Bundschuh-Vaananen region, while 3/2 lies outside both.",
+    "At n = 0, the Amdeberhan-Zeilberger q-Apery operator applied to Van Assche's moving diagonal has residual -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2), which is strictly negative and nonzero for every real p > 1."
+  ],
+  "what_is_not_checked": [
+    "Irrationality at base three halves, or for any rational base.",
+    "The published analytic height theorem, which is cited and used as an external result and is not formalised here.",
+    "The all-scale Heine-Zudilin coefficient construction at rational base three halves; the primary source assumes an integer base.",
+    "The source analytic irrationality theorem inside the 81/200 height region; only its elementary parameter specialisations are formalised.",
+    "A sufficiently large primitive-normalised, non-collapsed coefficient family meeting the checked n >= 4R+2S threshold at the required quadratic depths.",
+    "That one of the resulting bounded-coefficient collision vectors has a nonzero polynomial pair, lies outside the analytic remainder nullspace, and has sufficient local gain.",
+    "Positivity or decay of the elementary Padé remainder; only its exponent arithmetic is checked.",
+    "Any general recurrence, endpoint, lattice, valuation, denominator, or irrationality conclusion from the n = 0 q-Apery residual; it proves only that the named scalar recurrence does not transfer to Van Assche's diagonal."
+  ],
+  "open_obligations": [
+    {
+      "id": "three_halves_growing_rank_endpoint_jet_kernel",
+      "statement": "After dividing every coefficient pair by its rowwise common content, at positive quadratic target depths R_n,S_n exhibit at least 4R_n+2S_n primitive coefficient pairs from a genuinely non-collapsed deformation, prove that the required two-adic and three-adic gain survives primitive normalisation, and prove that at least one resulting checked {-1,0,1} collision has a nonzero polynomial pair and lies outside the analytic remainder nullspace; or prove an exact rank obstruction."
+    }
+  ],
+  "finite_search": null,
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos1049.RationalBaseLambert",
+      "path": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+      "present": true,
+      "line_count": 223,
+      "declaration_count": 16,
+      "theorem_count": 11,
+      "content_digest": "sha256:593c3b3e776820de229bad00c7f374bb39416099de60250b375d52cfa5f6e56a",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos1049.RationalPadeArithmetic",
+      "path": "ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+      "present": true,
+      "line_count": 222,
+      "declaration_count": 19,
+      "theorem_count": 14,
+      "content_digest": "sha256:c7b54971556577d73bbc563dcf14eaf62aef8d31e1450c4e7337028e46013690",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
+      "path": "ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+      "present": true,
+      "line_count": 450,
+      "declaration_count": 36,
+      "theorem_count": 25,
+      "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos1049.HermitePadeNoGo",
+      "path": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+      "present": true,
+      "line_count": 153,
+      "declaration_count": 10,
+      "theorem_count": 5,
+      "content_digest": "sha256:812f2ca2ea8b18f8ce8e0a68ae14897aa851fba2e050a07881d839168182f2cc",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos1049.ZudilinHeightRegion",
+      "path": "ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+      "present": true,
+      "line_count": 143,
+      "declaration_count": 13,
+      "theorem_count": 12,
+      "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
+      "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+      "present": true,
+      "line_count": 102,
+      "declaration_count": 11,
+      "theorem_count": 4,
+      "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "three_halves_corridor_no_go",
+      "problem": 1049,
+      "review_family": "coordinatewise_corridor_no_go",
+      "contribution_class": "no-go result",
+      "original_declaration": "ErdosProblems.Erdos1049.threeHalves_no_coordinatewiseCorridor",
+      "original_source": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.threeHalves_no_coordinatewiseCorridor",
+      "statement": "The coordinatewise divisibility corridor is impossible at base 3/2.",
+      "boundary": "This excludes one proof architecture and proves no irrationality statement.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+    },
+    {
+      "id": "rational_base_tail_recurrence",
+      "problem": 1049,
+      "review_family": "rational_base_tail_recurrence",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos1049.rationalBaseClearedTailQ_succ",
+      "original_source": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.rationalBaseClearedTailQ_succ",
+      "statement": "The rational-base cleared tail obeys its exact first-order recurrence.",
+      "boundary": "The recurrence is not derived from a rationality contradiction.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 1049,
+    "paper": "paper/erdos-1049-rational-base-lambert.tex",
+    "families": [
+      {
+        "id": "scalar_content_no_go",
+        "contribution_class": "no-go result",
+        "summary": "Integer scalar content changes analytic error and exterior determinant by matching factors, yielding no margin by itself.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_selected_coordinatewise_no_go",
+        "boundary": "The conclusion is scoped to one normalisation strategy."
+      },
+      {
+        "id": "endpoint_residues",
+        "contribution_class": "no-go result",
+        "summary": "Endpoint residues at 2 and 3 exclude a common multiplier under unit-endpoint hypotheses.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_selected_coordinatewise_no_go",
+        "boundary": "Other local or cross-row arithmetic remains possible."
+      },
+      {
+        "id": "four_jet_collision",
+        "contribution_class": "locally proved result and no-go result; novelty unassessed",
+        "summary": "Binary selectors collide in the four-jet signature at the stated rank and depth.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_finite_combinatorial_family",
+        "boundary": "A signed relation is not nonzero analytic data."
+      },
+      {
+        "id": "coordinatewise_corridor_no_go",
+        "contribution_class": "no-go result",
+        "summary": "The coordinatewise corridor forces a power-versus-linear inequality and cannot occur at base 3/2.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "This excludes one proof architecture and proves no irrationality statement."
+      },
+      {
+        "id": "rational_base_tail_recurrence",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "The exact rational-base cleared-tail recurrence exposes exponential denominator-base forcing absent at integer bases.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The recurrence is not derived from a rationality contradiction."
+      },
+      {
+        "id": "seven_halves_irrationality",
+        "contribution_class": "paper plus external theorem",
+        "summary": "Irrationality at 7/2 is obtained from an external analytic criterion whose elementary height hypothesis is checked in Lean.",
+        "evidence_mode": "paper argument plus cited theorem and Lean arithmetic",
+        "comparator_disposition": "not_applicable_to_external_irrationality_conclusion",
+        "boundary": "Comparator may check the height inequality, not the cited theorem application."
+      },
+      {
+        "id": "height_and_pade_arithmetic",
+        "contribution_class": "locally proved result and finite arithmetic; novelty unassessed",
+        "summary": "Exact height-region inclusions and exclusions, Padé denominator-exponent bounds, and a rectangular Hermite-Padé threshold no-go are checked.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_multiple_scoped_arithmetic_families",
+        "boundary": "The analytic remainder and nonvanishing input remain untreated."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-1049-rational-base-lambert",
+    "title": "Arithmetic Boundaries at Base 3/2",
+    "subject": "Erdős #1049",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 24,
+    "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+    "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
+    "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+    "problem_id": "erdos_1049",
+    "routes": {
+      "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
+      "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
+      "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
+      "publication_manifest_match": true,
+      "mathml_node_count": 468,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "055ee5091b7ebe1af79ae0a64232a5bd398a1597da7eb34d11697788e7653f7e",
+      "html_exact_tex_sha256": "fdd4e1f08e28412776df58276feffcc6926ab9ea83991731b12c5a62d173e7de"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Introduction"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Relation to prior work."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Erdős’s integer-base argument, in outline."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The direct cut-and-clear attempt studied here."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Terminology."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The shortfall at 3/23/2."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Sharpness."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Structure."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Integer scalar content is neutral"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Failure of coordinatewise clearing at 3/23/2"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The cleared-tail recurrence and the size of the forcing term"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The height criterion at 7/27/2"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The 81/20081/200 logarithmic region"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Denominator exponents for a homogenised Padé construction"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Complements and further questions"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Exact kernel escape"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The first falsifiable families"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Asymptotic adequacy after kernel escape"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "One exact alternative-criterion test"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The quantitative height frontier"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Artefact and data availability."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Funding and competing interests."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Acknowledgements."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_1049",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1049",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "scope",
+  "title": "Scope and claim boundary",
+  "role": "scope_boundary",
+  "reading_order": 90,
+  "source_path": "SCOPE.md",
+  "routes": {
+    "html_mathml": "documents/scope.html",
+    "html_exact_tex": "documents/scope.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "bcc403460c1892e621c4e20bdc14a39b2f796c79d7bb11aec959cdc534624bb3",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "371fa790071dc8ec8768236d32ebb5a9c98e5413e359ad83aa6cacea7dc65ff3",
+    "html_exact_tex_sha256": "d61632f0bcea9e2f0ffd6c3e26f9d61ee1cfd403a91e3589d46903bdfbba0d94"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the corpus is, by shape"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Exact open propositions"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Machine identifiers"
+    }
+  ]
+}

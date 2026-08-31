@@ -1,0 +1,323 @@
+<article class="lean-document" data-document-id="source-map" data-document-role="proof_and_exposition_crosswalk" data-math-mode="mathml">
+  <header class="lean-document__header">
+    <p class="lean-document__eyebrow">proof and exposition crosswalk</p>
+    <h1>Source map</h1>
+  </header>
+  <div class="lean-document__body" data-source="docs/SOURCE_MAP.md">
+<!--
+SPDX-FileCopyrightText: 2026 Will Cook
+SPDX-License-Identifier: Apache-2.0
+-->
+<section id="source-map" class="level1">
+<h1>Source map</h1>
+<section id="bounded-reader-route" class="level2">
+<h2>Bounded reader route</h2>
+<p>Start from one mathematical question rather than decoding the
+complete import graph:</p>
+<ol type="1">
+<li>Read <code>docs/orientation.json</code>, or its human projection
+<code>docs/ORIENTATION.md</code>, and select one programme, claim, or
+exact remaining open proposition.</li>
+<li>Run one bounded lookup:
+<code>python3 scripts/query_corpus.py --route &lt;programme_id&gt;</code>,
+<code>python3 scripts/query_corpus.py --claim &lt;claim_id&gt;</code>,
+or
+<code>python3 scripts/query_corpus.py --open &lt;remaining_open.id&gt;</code>.</li>
+<li>Follow the returned paper label into the authored exposition and its
+declaration or source handles into the modules grouped below.</li>
+<li>Read <code>Erdos249257.lean</code> or
+<code>ErdosProblems.lean</code> only when package topology itself is the
+question. Read <code>docs/WAVE_INDEX.md</code> for chronology, not as
+the recommended mathematical reading order.</li>
+</ol>
+<p>Lean source checked by the pinned Lean kernel is proof authority.
+This map is authored navigation: it does not strengthen a claim, replace
+<code>docs/claims.json</code>, or close an exact remaining-open
+proposition. Erdős #249 and the universal form of #257 remain open.</p>
+</section>
+<section id="build-entrypoint" class="level2">
+<h2>Build entrypoint</h2>
+<ul>
+<li><code>Erdos249257.lean</code></li>
+<li><code>ErdosProblems.lean</code></li>
+<li>Lake package: <code>erdos249257</code></li>
+<li>Lean libraries / stable root imports: <code>Erdos249257</code>,
+<code>ErdosProblems</code></li>
+</ul>
+<p><code>Erdos249257</code> is the reviewed #249/#257 corpus.
+<code>ErdosProblems</code> is the problem-owned expansion surface;
+unregistered declarations there remain exact Lean propositions rather
+than reviewed public mathematical claims.</p>
+</section>
+<section id="erdősborwein-families" class="level2">
+<h2>#257 / Erdős–Borwein families</h2>
+<ul>
+<li><code>Erdos249257.CertificateKernel</code></li>
+<li>Relevant declarations include:
+<code>irrational_erdosSum_full_support</code>,
+<code>irrational_erdosBorwein_series</code>,
+<code>irrational_erdosSum_factorial_support</code>,
+<code>irrational_erdosSum_two_pow_support</code>, and
+<code>irrational_erdosSupportSeries_eventuallyPeriodic</code>.</li>
+</ul>
+</section>
+<section id="periodic-weighted-lambert-series" class="level2">
+<h2>Periodic weighted Lambert series</h2>
+<ul>
+<li><code>Erdos249257.CertificateKernel</code></li>
+<li>Nonnegative weights:
+<code>irrational_weightedErdosSeries_periodic</code>,
+<code>irrational_weightedErdosSeries_eventuallyPeriodic</code>, and
+<code>irrational_ratWeightSeries_eventuallyPeriodic</code>.</li>
+<li>Signed weights:
+<code>irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic</code>
+gives the irrational-or-base-terminating dichotomy, while
+<code>irrational_intWeightedErdosSeries_periodic_of_bpow_mul_ne_intCast</code>
+consumes an explicit nontermination hypothesis.</li>
+<li><code>intWeightedCoeff_periodFourSignWeight_eq_zero_of_mod_four_eq_three</code>
+is the residue-selection obstruction explaining why the signed endpoint
+is not unconditional irrationality.</li>
+</ul>
+</section>
+<section id="totient-denominator-exclusions" class="level2">
+<h2>#249 / totient denominator exclusions</h2>
+<ul>
+<li><code>Erdos249257.GapFareyBound</code></li>
+<li><code>Erdos249257.CertificateKernel</code></li>
+</ul>
+</section>
+<section id="certificate-reductions" class="level2">
+<h2>#249 / certificate reductions</h2>
+<ul>
+<li><code>Erdos249257.TotientTailPeriodKiller</code></li>
+<li><code>Erdos249257.CarrySurvivorExtinction</code></li>
+<li><code>Erdos249257.LcmDiagonalReduction</code></li>
+<li><code>Erdos249257.LcmConeFlatness</code></li>
+<li><code>Erdos249257.LcmConeNonflat</code></li>
+</ul>
+<p>Supporting ladder modules:</p>
+<ul>
+<li><code>Erdos249257.MersenneLambertLadder</code></li>
+<li><code>Erdos249257.GeometricCoprimality</code></li>
+<li><code>Erdos249257.GcdMomentCalculus</code></li>
+</ul>
+</section>
+<section id="diagonal-pincer-frontier" class="level2">
+<h2>#249 / diagonal pincer frontier</h2>
+<p>Read this band after the certificate reductions above. It sharpens
+the same open obligation; it does not prove the required unbounded
+supply.</p>
+<ul>
+<li><code>Erdos249257.DiagonalPincerDecomposition</code> — exact
+full-target interval characterisation and the
+target-avoidance-to-irrationality reduction.</li>
+<li><code>Erdos249257.SquaredMersenneDiagonalEnclosure</code> —
+Lambert-projected centre, exact signed square tail, and a sharp
+separation criterion.</li>
+<li><code>Erdos249257.DiagonalFreshLossBridge</code> — exact fresh-loss
+projection and stronger adjacent-suffix supply interfaces.</li>
+<li><code>Erdos249257.DiagonalPincerCertificates</code> and
+<code>Erdos249257.DiagonalPincerCertificatesT*</code>, followed by
+<code>ErdosProblems.Lift</code> and <code>ErdosProblems.Skip</code> —
+the finite diagonal segment supplies a checked working depth for every
+natural <code>t ≤ 82</code>; it supplies nothing at <code>t = 83</code>.
+This is finite source extraction, not a cofinal or asymptotic
+result.</li>
+<li><code>Erdos249257.DiagonalPincerPrimeCertificates.*</code> — finite
+prime certificate shards used by that assembled segment; read the
+aggregators first.</li>
+</ul>
+<p>Algebraic support for the same band:</p>
+<ul>
+<li><code>MersenneShadowCyclotomicNoncollapse → MersenneShadowDenominatorGrowth</code></li>
+<li><code>RadicalMobiusShadow → RepunitMobiusNumerator → CyclicTensorMobiusShadow</code></li>
+<li><code>CyclotomicProjectionOfShadow → PrimePowerJumpDynamics</code></li>
+<li><code>RationalDenominatorSurvival</code>,
+<code>LambertDiagonalEnclosure</code>, and
+<code>FullTargetPrimeAdjunctionNoGo</code></li>
+</ul>
+<p>Exploratory exact interfaces with explicit conditional boundaries
+live in <code>PrimitiveRationalGapSupply</code>,
+<code>PrimitiveSupportBridge</code>,
+<code>ActualForeignResidueProjection</code>,
+<code>SternBrocotRunGeometry</code>, and
+<code>SupportDilationDifferences</code>.</p>
+<section id="transport-and-curvature-companion-band" class="level3">
+<h3>Transport and curvature companion band</h3>
+<p>Read
+<code>CurvatureCarry → ExponentOnlyTransport → JointExponentTransport</code>
+for the main proof spine, then
+<code>PrimeJumpMigration → PrimeJumpWindow</code> and
+<code>ThreeTransportBoundary</code> for the new-prime and balanced
+finite consumers. For the harmonic route, read
+<code>FirstHarmonicGap → FirstHarmonicPivot → AdjacentPhaseSeparation</code>.
+<code>FirstHarmonicGap</code> turns a constant-saving cosine bound into
+a direct certificate. <code>FirstHarmonicPivot</code> decomposes the
+complex harmonic sum exactly into centred supplier-fibre, fibre-mean,
+bad-supplier, and non-supplier terms; the one-sided budgets
+<code>14X/25</code>, <code>X/100</code>, <code>X/100</code>, and
+<code>8X/25</code> give the required <code>9X/10</code> saving.
+<code>AdjacentPhaseSeparation</code> gives a pairwise alternative. No
+cofinal harmonic, prime-distribution, or decorrelation estimate is
+proved. <code>TropicalCurvatureCarry</code> is a proved negative result
+showing that bounded valuation–unit precision alone cannot exclude all
+centred completions.</p>
+<ul>
+<li><code>CurvatureCarry</code> — exact curvature window, sharp radius,
+recurrence, and conditional unbounded-supply endpoints.</li>
+<li><code>ExponentOnlyTransport</code> — squarefree support stability
+and the exact periodic affine slope/intercept state.</li>
+<li><code>JointExponentTransport</code> — universal two-moment
+old-channel annihilation and the anchored <code>(3,5)</code> four-vertex
+consumer.</li>
+<li><code>PrimeJumpMigration</code> / <code>PrimeJumpWindow</code> —
+migrated-channel correction, sharp direct radius, and the finite
+<code>(12,5,15)</code> certificate.</li>
+<li><code>ThreeTransportBoundary</code> — balanced
+<code>(1,2,3,6)</code> consumer and the finite <code>(60,12)</code>
+certificate.</li>
+<li><code>FirstHarmonicGap</code> — deterministic conversion of a
+blockwise harmonic gap into a direct certificate.</li>
+<li><code>FirstHarmonicPivot</code> — exact four-term complex pivot
+decomposition and a conditional cofinal budget-to-irrationality
+socket.</li>
+<li><code>TropicalCurvatureCarry</code> — fixed-precision
+local-signature no-go theorem.</li>
+</ul>
+<p>The former one-sided transport companion is retired. Its exact Lean
+results remain available through the claim registry and source routes;
+no separate active manuscript or rendered companion is part of this
+release.</p>
+</section>
+<section id="paper-curation-boundary" class="level3">
+<h3>Paper-curation boundary</h3>
+<p>The paper treats <code>GcdMomentCalculus</code> as supporting
+mathematical exposition: its squared Lambert transform, gcd moments,
+reduced-direction law, and cylinder recursion explain the representation
+containing the #249 Möbius-square atom.
+<code>FullTargetPrimeAdjunctionNoGo</code> is included as a proved
+negative result because it closes a recurring prime-adjunction strategy
+without changing the open claim. <code>SternBrocotRunGeometry</code> is
+registered as a source-level supporting claim: its continuant/Fibonacci
+stability theorems are stated in the Lambert complements, but no
+endpoint argument currently consumes them. It therefore remains outside
+the paper’s principal result spine; the cylinder law is owned by
+<code>GcdMomentCalculus</code>, while
+<code>SternBrocotRunGeometry</code> owns the induced-run stability
+package.</p>
+</section>
+</section>
+<section id="binary-carry-trunk-post-wave-carry-layer" class="level2">
+<h2>Binary-carry trunk (post-wave carry layer)</h2>
+<p>Builds on <code>Erdos249257.CertificateKernel</code>; not part of the
+wave chronology. Reading order:
+<code>GenericTailOrbitRigidity → GreedyAchievementSet → CampbellShiftSynchronization → BooleanMobiusCarry → RationalSupportCarrySkeleton → DyadicPrefixCompression → SublogDivisorCoverage</code>.</p>
+<ul>
+<li><p><code>Erdos249257.GenericTailOrbitRigidity</code></p></li>
+<li><p>Relevant declarations include:
+<code>temperedBinaryOrbit_eq_scaledTail</code>,
+<code>binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit</code>,
+<code>balancedPulse_fanout_unbounded</code>,
+<code>balancedPulse_no_autonomous_decoder</code></p></li>
+<li><p><code>Erdos249257.GreedyAchievementSet</code></p></li>
+<li><p>Relevant declarations include:
+<code>volume_mersenneAchievementSet</code>,
+<code>perfect_mersenneAchievementSet</code>,
+<code>isNowhereDense_mersenneAchievementSet</code>,
+<code>mem_mersenneAchievementSet_iff_greedy_survival</code>,
+<code>certifiedGreedyMersenneDeath_not_mem</code>,
+<code>three_fourths_not_mem_mersenneAchievementSet</code>,
+<code>rational_member_support_bit_iff</code>,
+<code>half_mem_mersenneAchievementSet_of_prefixForcingChain</code>
+(conditional interface only)</p></li>
+<li><p><code>Erdos249257.CampbellShiftSynchronization</code></p></li>
+<li><p>Relevant declarations include:
+<code>campbellQuarterExponent_periodFreeze_noSync</code>,
+<code>campbellPhaseFreeze_parameters_impossible</code>,
+<code>shiftWindowZero_iff_greedyMersenneSkippedSupport_infinite</code>,
+and <code>shiftWindowZero_iff_half_mem_mersenneAchievementSet</code>.
+These are a synchronization no-go and an exact endpoint re-expression,
+not an independent half-membership producer.</p></li>
+<li><p><code>Erdos249257.BooleanMobiusCarry</code></p></li>
+<li><p>Relevant declarations include:
+<code>erdosSupportSeries_rational_iff_exists_temperedCarry</code>,
+<code>support_fraction_iff_exists_temperedCarry</code>,
+<code>exists_normalized_support_fraction_iff_exists_booleanMobiusCarry</code>,
+<code>mobius_carryQuotient_recovers_support</code>,
+<code>support_half_iff_affineBinaryOrbit_tempered</code></p></li>
+<li><p><code>Erdos249257.RationalSupportCarrySkeleton</code></p></li>
+<li><p>Relevant declarations include:
+<code>sum_doublingResidue_eq_mul_wrapCount</code>,
+<code>one_div_oddOrder_le_reciprocalMass_of_support_fraction</code>,
+<code>reciprocalMass_eq_residueMean_add_excessMean</code>,
+<code>dyadic_support_fraction_reciprocalMass_diverges_or_gt_one</code>,
+<code>exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction</code></p></li>
+<li><p><code>Erdos249257.DyadicPrefixCompression</code></p></li>
+<li><p>This is #257 support, not part of the #249 diagonal band. It
+gives exact finite-fragment dyadic compression inside a hypothetical
+dyadic-rational support value, reduced/raw block-safety coordinates,
+primitive-lattice and support-tail-gap equivalences, conditional
+half-membership consumers, and checked failures of naive induction.
+Start with <code>finiteFragment_dyadicPrefixCompression</code>,
+<code>halfGreedyThreeDepthTakeRunExcessBound_iff_skippedExcessBound</code>,
+<code>greedyHalf_badSkipCapViolation_iff_primitiveLattice</code>,
+<code>halfGreedyPrefixSupportTailGap_eq_excess_div_denominator</code>,
+and <code>unsafeSkipGcdOvershootSupply_iff_primitive</code>. No cofinal
+witness supply is proved.</p></li>
+<li><p><code>Erdos249257.SublogDivisorCoverage</code></p></li>
+<li><p>Relevant declarations include:
+<code>supportCoeffZeroWindow_length_le_eps_logb_add</code></p></li>
+</ul>
+</section>
+<section id="half-value-finite-prefix-and-boundary-analysis"
+class="level2">
+<h2>Half-value finite-prefix and boundary analysis</h2>
+<p>This band studies the test value <code>1/2</code> in ordinary
+finite-prefix language. A greedy prefix is the first <code>n</code>
+include/skip decisions. A seam is a pair of finite words whose values
+bracket <code>1/2</code>. A cylinder is the set of infinite extensions
+of one fixed prefix. A producer is an unproved hypothesis that supplies
+the required seams or return configurations arbitrarily far out.</p>
+<p>Read the band in four layers:</p>
+<ol type="1">
+<li><code>GreedyAchievementSet → HalfCutLocator</code> defines the
+achievement set, greedy coding, and the finite cut around
+<code>1/2</code>.</li>
+<li><code>HalfCarryReachability → HalfCylinderFiniteShadow</code>
+translates finite prefixes into integer carry and finite-shadow
+coordinates.</li>
+<li><code>HalfCylinderIntegerGreedy → HalfCylinderConcreteSeamAdapter → HalfCylinderFullShellSeamBridge → HalfCylinderSkippedEndpointClassifier → HalfCylinderFloorErrorReset → HalfCylinderSeamLimit</code>
+develops the exact boundary arithmetic and limiting seam interface.</li>
+<li><code>HalfCylinderFatalGapRightTail → HalfCylinderHalfMembershipClassification → HalfCylinderLastProducerContradiction → HalfCylinderMiddleCarryLowerBound</code>
+gives the endpoint classification, eliminates the upper and
+<code>-3</code> middle cases, and isolates the remaining carry-tail
+inequality for <code>-2</code> and <code>-1</code>.</li>
+</ol>
+<p>The floor-error and shell modules are supporting arithmetic layers,
+not separate endpoint theorems. The last layer remains conditional: no
+producer supplying the required configurations cofinally is proved.</p>
+</section>
+<section id="claim-registry" class="level2">
+<h2>Claim registry</h2>
+<ul>
+<li><code>docs/claims.json</code> — the single owner of release
+identity, claim statuses, and declaration coordinates (file and line),
+cross-checked by <code>scripts/check_release.py</code></li>
+</ul>
+</section>
+<section id="generated-finite-certificates" class="level2">
+<h2>Generated finite certificates</h2>
+<ul>
+<li><code>Erdos249257.GeneratedCertificates</code></li>
+<li><code>Erdos249257.GeneratedCertificates.*</code></li>
+</ul>
+<p>The complete import graph and every declaration are generated in
+<code>docs/claims.json::machine_readable_paper.module_graph</code> and
+<code>docs/declaration_atlas.json</code>; use those surfaces when a
+grouped route above is not specific enough. Current corpus counts live
+in the generated <code>docs/ORIENTATION.md</code>, not in this authored
+route map.</p>
+</section>
+</section>
+  </div>
+</article>

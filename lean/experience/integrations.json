@@ -1,0 +1,48 @@
+{
+  "schema": "plectis_lean_integration_surfaces_v1",
+  "authority_order": [
+    "lean",
+    "paper",
+    "comparator",
+    "palomar"
+  ],
+  "reading_rule": "The surfaces overlap but do different jobs. Lean checks propositions; papers explain; Comparator checks selected statement/type parity and replay; Palomar is a separate editorial and registry review. No later surface widens the mathematical claim established by its source.",
+  "surfaces": [
+    {
+      "id": "lean",
+      "role": "formal_proof_source",
+      "status_source": "../claims.json",
+      "repository": "https://github.com/wcook04/plectis-lean-erdos249-257"
+    },
+    {
+      "id": "papers",
+      "role": "authored_exposition",
+      "index": "papers/index.json",
+      "authority_boundary": "Papers explain the work and are not Lean proof authority."
+    },
+    {
+      "id": "comparator",
+      "role": "formal_statement_correspondence_and_replay_assurance",
+      "config": "verification/comparator.json",
+      "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ],
+      "pins": {
+        "comparator": "789279735fe44c1c05dc54bb9f46ba4d9b8c7611",
+        "lean4export": "6f4e21dd70c3c11d7fbd07d39e3192792c657448",
+        "landrun": "811cfff51ceaf3d9843708aa6d22e9b84ccac8b4"
+      },
+      "boundary": "All eight covered Erdős problems remain open. Comparator checks exact Lean statements, configured axioms, and kernel acceptance; it does not assess novelty, significance, source fidelity, or whether any open problem is solved.",
+      "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed"
+    },
+    {
+      "id": "palomar",
+      "role": "editorial_registry_review",
+      "status": "no_public_outcome_recorded_by_this_projection",
+      "source": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
+      "boundary": "A prepared review unit is not a submission, Comparator verdict, Palomar review, registration, acceptance, endorsement, novelty assessment, peer review, or solution of an open problem."
+    }
+  ]
+}

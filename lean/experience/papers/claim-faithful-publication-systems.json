@@ -1,0 +1,194 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "claim-faithful-publication-systems",
+  "title": "From Lean Proofs to Public Claims",
+  "subject": "Systems paper",
+  "subject_kind": "system",
+  "form": "Release checks",
+  "pages": 16,
+  "question": "Lean proves the formal statement. Who checks that the README describes it faithfully?",
+  "precis": "Lean checks that a proof establishes the formal statement written in the source. It does not check that a README or paper describes that statement faithfully. For each selected result a mathematician records the public wording, the formal statement said to support it, the range actually proved, and the adjacent stronger statement that remains open; the release workflow then checks that later edits preserve those relationships. A historical README edit that erased the finite-versus-open distinction passed because the relationship had not been registered; after registration, a deliberately false copy was rejected. That is one failure and one repair, not complete claim discovery.",
+  "owns": "the design argument for the release discipline: what is checked, by whom, and when",
+  "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/claim-faithful-publication-systems.html",
+    "html_exact_tex": "papers/claim-faithful-publication-systems.mathjax.html",
+    "pdf": "../../papers/claim-faithful-publication-systems-paper.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/claim-faithful-publication-systems-paper.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "7233962699c0db9f7ba3082a0f3fd8c13b0c7bfedcec48443badf775c1937880",
+    "publication_manifest_match": true,
+    "mathml_node_count": 69,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "3ef28c1c3ca102eb208a86058308cb44f7118785abde96c50bf649ba4a966b49",
+    "html_exact_tex_sha256": "3f5d1d39592ae0efcd44eb6cbff78c40ba6087c42b75b7ac4695e116c2c9e6fa"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The publication gap"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The release workflow"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "One claim from Lean theorem to public page"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What the certificates are for"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The formal evidence"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What “coverage” means here"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The reviewed record"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What the checker verifies here"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the checks establish"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A boundary the checklist missed"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Historical exercise."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Repair and present test."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Later reconstruction."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Three boundaries the companion papers exposed."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Scope, reuse, and limits"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The failures the design addresses."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The failures it does not address."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The checked boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What another project could reuse."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What is not established."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Related systems"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Proof blueprints."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Reviewing intended mathematical meaning."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Checked documents and traceability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Testing the boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Conclusion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Reproducibility"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Dated navigation counts."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

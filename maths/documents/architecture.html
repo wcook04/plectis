@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repository architecture · Plectis maths</title>
+  <meta name="description" content="Repository architecture, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/architecture.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Repository architecture · Plectis maths">
+  <meta property="og:description" content="Repository architecture, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/architecture.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Repository architecture · Plectis maths">
+  <meta name="twitter:description" content="Repository architecture, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Repository architecture</li></ol></nav>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Repository architecture</p>
+        <h1>Repository architecture</h1>
+        <p class="doc-source-line">Rendered from <code>ARCHITECTURE.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="architecture" data-document-role="system_explanation" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="ARCHITECTURE.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<section class="level1 lean-doc-titled">
+<h2>How this repository works</h2>
+<p>This is a public Lean project about eight unsolved problems in
+mathematics. It contains formal source code, papers and summaries for
+readers, and a set of checks that keep those different descriptions
+aligned. The reviewed claim registry covers #249 and #257; a
+problem-owned expansion library covers #68, #243, #251, #269, #1041, and
+#1049 without silently promoting their declarations into that reviewed
+record.</p>
+<p>All eight mathematical problems remain open. The repository proves
+intermediate results, exact reformulations, and bounded examples around
+them. It does not claim a solution to any of them.</p>
+<p>You do not need to know Lean, the project history, or any internal
+naming scheme to use this guide.</p>
+<section id="what-this-repository-is" class="level2">
+<h2>What this repository is</h2>
+<p>The repository has two jobs.</p>
+<ol type="1">
+<li>It stores mathematical statements and proofs in Lean. Lean is a
+proof assistant: a program that checks whether a formal proof
+establishes the precise formal statement written above it.</li>
+<li>It publishes human-readable descriptions of that work. Those
+descriptions include the README, papers, scope statements, source maps,
+and data files used by other programs.</li>
+</ol>
+<p>These jobs need separate checks. Lean checks the formal mathematics.
+It does not read the English sentences in a paper or README. A separate
+release program checks that selected public descriptions still agree
+with the project’s reviewed record of what has and has not been
+proved.</p>
+<p>This is also the boundary of the project. It is a self-contained
+public release, not an interface to a private agent system. No public
+claim depends on private files or unpublished work.</p>
+</section>
+<section id="the-architecture-in-one-page" class="level2">
+<h2>The architecture in one page</h2>
+<pre class="text"><code>                          human mathematical review
+                                      |
+                                      v
+Lean source -----------------&gt; reviewed claim record
+Erdos249257/*.lean              docs/claims.json
+       |                              |
+       | lake build                   | describes what public pages may say
+       v                              v
+formal proof check         README, SCOPE, papers, source maps
+                                      |
+                                      | builders create indexes and summaries
+                                      v
+                            generated navigation files
+
+Lean source + claim record + public documents + generated files
+                                      |
+                                      v
+                         scripts/check_release.py
+                                      |
+                                      v
+                             pass or stop release</code></pre>
+<p>There are three different decisions in this picture:</p>
+<ul>
+<li>Lean decides whether a formal proof has the formal statement claimed
+for it.</li>
+<li>A mathematician decides whether the public wording accurately
+describes that formal statement and whether the wording is important
+enough to protect.</li>
+<li>The release program decides whether the files still satisfy the
+relationships that were explicitly recorded.</li>
+</ul>
+<p>The last decision cannot replace the first two.</p>
+</section>
+<section id="which-file-is-authoritative-for-what" class="level2">
+<h2>Which file is authoritative for what</h2>
+<p>Different questions have different source files. There is
+deliberately no single file that is authoritative for everything.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>Authoritative source</th>
+<th>What it controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What has been formally checked?</td>
+<td><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257.lean" data-link-kind="exogenous" rel="external noopener"><code>Erdos249257.lean</code></a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems.lean"><code>ErdosProblems.lean</code></a>, and the
+Lean modules they import</td>
+<td>Formal statements and proofs; kernel checking alone does not create
+a reviewed public claim</td>
+</tr>
+<tr>
+<td>What may the project publicly say about a result?</td>
+<td><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a></td>
+<td>Claim wording, status, supporting Lean names, bounded ranges, and
+the exact questions that remain open</td>
+</tr>
+<tr>
+<td>What evidence and review are required when a claim changes?</td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/methodology.json"><code>docs/methodology.json</code></a></td>
+<td>Change classes and review requirements</td>
+</tr>
+<tr>
+<td>What does a reader see?</td>
+<td><a href="readme.html"><code>README.md</code></a>, <a
+href="scope.html"><code>SCOPE.md</code></a>, and authored papers such as
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-257-main-paper.tex"><code>paper/erdos249-257-main-paper.tex</code></a></td>
+<td>Human explanation; these files must stay within the claim
+record</td>
+</tr>
+<tr>
+<td>Which manuscripts are shipped?</td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/publication_contract.json"><code>docs/publication_contract.json</code></a></td>
+<td>Paper inventory, file identities, entry routes, and evidence
+boundaries</td>
+</tr>
+<tr>
+<td>What evidence supports the historical checker example?</td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/publication_evidence.json"><code>docs/publication_evidence.json</code></a></td>
+<td>The recorded exercise and its limitations</td>
+</tr>
+<tr>
+<td>How are releases blocked?</td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/scripts/check_release.py"><code>scripts/check_release.py</code></a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a></td>
+<td>Local release checks and continuous integration</td>
+</tr>
+</tbody>
+</table>
+<p>The first row refers to those files at the fixed source version named
+in <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a>.</p>
+<p>Some other files are generated views. For example, <a
+href="orientation.html"><code>docs/ORIENTATION.md</code></a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/orientation.json"><code>docs/orientation.json</code></a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/declaration_atlas.json"><code>docs/declaration_atlas.json</code></a>,
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/corpus_descriptor.json"><code>docs/corpus_descriptor.json</code></a>
+reorganise information from the formal source and the reviewed records
+for a particular reader. They are useful indexes, but they do not create
+new mathematical authority. Their builder scripts say when they should
+be regenerated.</p>
+</section>
+<section id="repository-map" class="level2">
+<h2>Repository map</h2>
+<pre class="text"><code>Erdos249257.lean                 reviewed #249/#257 root import
+Erdos249257/                     reviewed #249/#257 definitions, theorems, and certificates
+ErdosProblems.lean               problem-owned expansion root import
+ErdosProblems/Erdos&lt;N&gt;/          formal work grouped by actual Erdős problem number
+examples/                        a small downstream Lean user of the library
+
+docs/claims.json                 reviewed record of public mathematical claims
+docs/methodology.json            rules for changing those claims
+docs/publication_contract.json   inventory of shipped papers
+docs/publication_evidence.json   evidence and limits for a historical checker exercise
+docs/problems.json               generated index of the problem-owned expansion library
+docs/problem_index_source.json   the authored source that index is built from
+docs/ORIENTATION.md              generated human reading map
+docs/SOURCE_MAP.md               routes from mathematical questions to Lean files
+
+README.md                        front page and short result summary
+SCOPE.md                         short statement of what remains unproved
+paper/                           authored paper sources and rendered PDFs
+
+scripts/                         builders, release checks, queries, and tests
+experiments/                     reproducible test changes for the release checker
+.github/workflows/lean.yml       the checks run by GitHub on pushes and pull requests</code></pre>
+<p>The hundreds of Lean files are implementation detail at first
+contact. Start from a mathematical question or a claim, then follow the
+source map or the read-only query tool to the few relevant modules.</p>
+<section id="two-libraries-two-levels-of-claim" class="level3">
+<h3>Two libraries, two levels of claim</h3>
+<p>The repository holds two Lean roots and they are not
+interchangeable.</p>
+<p><code>Erdos249257.lean</code> is the reviewed corpus. Every public
+mathematical claim made about it has a row in
+<code>docs/claims.json</code>, a status, declaration coordinates, and a
+place in the gateway paper.</p>
+<p><code>ErdosProblems.lean</code> is the problem-owned expansion
+library, currently covering Erdős problems 68, 243, 251, 269, 1041, and
+1049, plus unpromoted expansion lanes for the two reviewed problems. Its
+declarations are checked by the same kernel, and they are
+<strong>not</strong> reviewed public claims: the claim registry has no
+row for them. Building that root proves that its propositions elaborate;
+it does not say that they are the interesting propositions, that they
+are new, or that any of those six problems is closer to being solved.
+Each of the six has a short paper of its own, an Erdős Problem Note in
+<code>paper/</code>, which states its checked results and, in the same
+voice, the obligation that survives them.
+<code>docs/problems.json</code> is the machine-readable form of the same
+thing.</p>
+<p>The split exists so that adding formal material about a new problem
+cannot quietly inflate the repository’s claim record. Promotion out of
+the expansion library into the reviewed corpus is a separate,
+human-reviewed change, governed by
+<code>docs/methodology.json</code>.</p>
+</section>
+</section>
+<section id="a-complete-example" class="level2">
+<h2>A complete example</h2>
+<p>One public claim says that Lean has checked successful finite
+calculations at every scale up to 82, together with eight small periods
+and separate shards.</p>
+<p>In ordinary language, the record says:</p>
+<pre class="text"><code>claim id: certified_kill_instances
+public statement: Lean checked the listed finite cases.
+status: verified finite instance
+bounded range: eight small periods, every scale value up to 82, and the shard parameters, all named in the record. Nothing is asserted at 83.
+formal evidence: six named Lean declarations.
+still open: prove that successful cases exist beyond every fixed cutoff.</code></pre>
+<p>The range is contiguous rather than a sampled list: the scale
+quantity changes only at prime powers and is constant between them, so
+the earlier deposits through 64 already covered every value up to 66.
+Each scale is nevertheless an independent construction — the two
+supporting modules share no prime — so the band buys reach, not
+leverage.</p>
+<p>The phrase <em>verified finite instance</em> is not a score or a
+project-specific milestone. It means only that Lean checked a stated
+finite set of inputs. The open problem requires cases beyond every fixed
+cutoff, so the finite list does not settle it. The development also
+proves an exact equivalence: a supply of cases beyond every fixed cutoff
+would settle the open problem itself. An edit that erased this boundary
+would therefore be a false mathematical announcement, not a small
+wording change.</p>
+<p>This one record connects the layers:</p>
+<ol type="1">
+<li>The named declarations in the Lean files are the formal
+evidence.</li>
+<li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a> records
+the public sentence, the finite range, the Lean declaration names, and
+the question still open.</li>
+<li>The README and mathematical paper explain the result to
+readers.</li>
+<li>Generated indexes provide links and source locations.</li>
+<li>The release program checks that the declaration names still exist,
+the recorded locations remain accurate, the bounded range is present,
+the public limitation has not disappeared, and the generated files are
+current.</li>
+</ol>
+<p>A mathematician is still responsible for judging that the English
+sentence is a faithful description of the Lean statement. The software
+preserves that reviewed relationship after it has been recorded.</p>
+</section>
+<section id="what-happens-when-a-change-is-made" class="level2">
+<h2>What happens when a change is made</h2>
+<section id="a-mathematical-statement-or-proof-changes" class="level3">
+<h3>A mathematical statement or proof changes</h3>
+<ol type="1">
+<li>Edit the relevant file under <code>Erdos249257/</code>.</li>
+<li>Run <code>lake build</code>. This is the proof check.</li>
+<li>Review whether the formal statement, assumptions, or intended
+meaning changed. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/methodology.json"><code>docs/methodology.json</code></a>
+states the minimum evidence and review required for each kind of
+change.</li>
+<li>If the public meaning changed, update <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>.</li>
+<li>Update the authored README, scope statement, or paper where readers
+see the claim.</li>
+<li>Run the relevant builders to refresh generated indexes and source
+coordinates.</li>
+<li>Run <code>python3 scripts/check_release.py</code>. Any failed
+relationship stops the release.</li>
+</ol>
+<p>The order matters. A generated summary cannot author a stronger
+claim, and an English edit cannot change what Lean proved.</p>
+</section>
+<section id="only-explanatory-prose-changes" class="level3">
+<h3>Only explanatory prose changes</h3>
+<p>The Lean build is normally unchanged, but the public boundary still
+matters. Run the release check. If the edit changes the mathematical
+meaning of a claim, it also requires mathematical review and a matching
+claim-record update.</p>
+</section>
+<section id="a-generated-file-is-out-of-date" class="level3">
+<h3>A generated file is out of date</h3>
+<p>Do not repair it by hand. Run the builder named in that file or in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.md"><code>AGENTS.md</code></a>, review the change, and
+rerun the release check.</p>
+</section>
+</section>
+<section id="how-the-checks-run" class="level2">
+<h2>How the checks run</h2>
+<p>GitHub runs two independent jobs on every push and pull request.</p>
+<ul>
+<li>The Lean job installs the pinned Lean and Mathlib environment,
+checks the dependency lock, builds the formal library, and builds a
+small downstream example.</li>
+<li>The release-surface job runs Python checks over claim records,
+source links, generated files, paper identities, licences, query routes,
+and deliberately invalid test inputs.</li>
+</ul>
+<p>The main local commands are:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the newcomer guide itself</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_architecture_guide.py</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the committed first-reading surfaces; no Lean build</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_cold_clone_comprehension.py <span class="at">--quick</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Full check of public claims, documents, generated files, and release rules</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_release.py</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal proof check</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span></code></pre></div>
+<p>The Python release check confirms the identity of the Lean source but
+does not run Lean. The two commands answer different questions and both
+are required after a mathematical change.</p>
+</section>
+<section id="what-the-checks-do-not-prove" class="level2">
+<h2>What the checks do not prove</h2>
+<p>A passing build means that Lean accepted the formal statements and
+proofs in the imported source. It does not prove that the author chose
+the intended formal statement.</p>
+<p>A passing release check means that every recorded comparison
+succeeded. It does not mean that a program understood every sentence in
+the repository. It also does not prove that every important sentence was
+selected for checking.</p>
+<p>Human mathematical review therefore remains part of the architecture.
+The software makes reviewed decisions repeatable; it does not make those
+decisions on its own.</p>
+<p>The printable <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/claim-faithful-publication-systems-paper.pdf"><code>claim-faithful-publication-systems-paper.pdf</code></a>
+expands this guide into a paper: it shows the real file map, release
+flow, trust boundary, and one claim from Lean source to public page. A
+short historical checker example appears only after that architecture
+and illustrates the limit of explicitly recorded checks.</p>
+</section>
+<section id="where-to-start" class="level2">
+<h2>Where to start</h2>
+<ul>
+<li><strong>You want the basic mathematical result and its
+limits:</strong> read <a href="readme.html"><code>README.md</code></a>,
+then <a href="scope.html"><code>SCOPE.md</code></a>.</li>
+<li><strong>You want the mathematical argument:</strong> read the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">mathematics paper</a>.</li>
+<li><strong>You want to find the Lean behind one claim:</strong> use <a
+href="source-map.html"><code>docs/SOURCE_MAP.md</code></a>, or run
+<code>python3 scripts/query_corpus.py --claim &lt;claim_id&gt;</code>.</li>
+<li><strong>You want to change the repository:</strong> read <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.md"><code>AGENTS.md</code></a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>, then run the
+checks for the files you touched.</li>
+<li><strong>You want to inspect the historical release-checking
+exercise:</strong> read <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/publication_evidence.json"><code>docs/publication_evidence.json</code></a>
+and the reproducibility appendix of the systems paper.</li>
+</ul>
+<p>The shortest accurate summary is this: Lean checks the formal proofs,
+people review what the project says about them, and the release
+machinery keeps those two layers from drifting apart where the
+relationship has been explicitly recorded.</p>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="truth-audit.html"><span class="maths-pager__dir">Previous</span>Truth audit</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="residual-progress.html"><span class="maths-pager__dir">Next</span>Residual progress</a></nav>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

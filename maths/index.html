@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maths · Plectis</title>
+  <meta name="description" content="Eight open Erdős problems worked in Lean: machine-checked results with exact boundaries, papers rendered as pages, and the graph that connects them.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Maths · Plectis">
+  <meta property="og:description" content="Eight open Erdős problems worked in Lean: machine-checked results with exact boundaries, papers rendered as pages, and the graph that connects them.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/index.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Maths · Plectis">
+  <meta name="twitter:description" content="Eight open Erdős problems worked in Lean: machine-checked results with exact boundaries, papers rendered as pages, and the graph that connects them.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="assets/maths.css?v=5066a48100d7">
+  <script defer src="assets/maths.js?v=911c79a053aa"></script>
+  <script defer src="assets/universe.js?v=4877dc0150aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="index.html" class="is-active" aria-current="page">Overview</a>
+        <a href="universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="index.html#papers">The papers</a>
+        <a href="index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <header class="maths-hero">
+        <p class="maths-hero__kicker">Machine-checked mathematics</p>
+        <h1>Maths</h1>
+        <p class="maths-hero__lede">Eight open problems posed by Erd&#337;s, worked in Lean. Everything on these pages is generated from the public Lean repository: the problems, the checked results with their exact boundaries, the papers, and the graph that connects them. All eight problems remain open.</p>
+        <p class="maths-hero__boundary">Each problem page names what is proved, under which hypotheses, and what is not. Every object links to its source on GitHub.</p>
+        <ul class="maths-counts">
+          <li><b>8</b> problems</li>
+          <li><b>13</b> papers</li>
+          <li><b>14</b> repository documents</li>
+          <li><b>1,292</b> objects in the universe</li>
+          <li><b>3,246</b> connections</li>
+        </ul>
+      </header>
+
+      <section class="maths-band" id="universe" aria-labelledby="universe-title">
+        <div class="maths-band__head">
+          <p class="eyebrow">The universe</p>
+          <h2 id="universe-title">One corpus, three overlays.</h2>
+          <p>The Lean source is the universe. Papers, the Comparator, and Palomar are overlays that explain, replay, or review parts of it.</p>
+        </div>
+        <div class="universe-panel">
+          <div class="universe-panel__stage" data-universe-stage>
+            <canvas class="universe-canvas" data-universe-src="assets/universe-data.json?v=db36513147c8" data-universe-href="universe.html" aria-label="Map of the Lean corpus: problems, checked claims, papers, documents, and verification surfaces. The universe page lists every object as text."></canvas>
+            <div class="universe-tip" role="status" aria-hidden="true"></div>
+          </div>
+          <p class="universe-nojs">The interactive map needs JavaScript. Every object on it is listed as text on the <a href="universe.html">universe page</a>.</p>
+          <div class="universe-panel__foot">
+            <ul class="universe-legend">
+              <li><span class="dot dot--problem"></span>Problems</li>
+              <li><span class="dot dot--claim"></span>Checked claims</li>
+              <li><span class="dot dot--paper"></span>Papers</li>
+              <li><span class="dot dot--document"></span>Documents</li>
+              <li><span class="dot dot--integration"></span>Verification</li>
+            </ul>
+            <a class="btn btn--ghost universe-panel__cta" href="universe.html">Open the universe map</a>
+          </div>
+        </div>
+        <p class="universe-rule">Papers explain, Comparator replays selected exact interfaces, and Palomar may review a prepared unit. None widens Lean&#x27;s proposition or records peer review or an accepted outcome unless its own source says so.</p>
+      </section>
+
+      <section class="maths-band" id="problems" aria-labelledby="problems-title">
+        <div class="maths-band__head">
+          <p class="eyebrow">The problems</p>
+          <h2 id="problems-title">Eight problems, all of them open.</h2>
+          <p>Each dossier states the question, what the Lean corpus proves about it, and exactly what remains unproved.</p>
+        </div>
+        <ul class="problem-list">
+        <li class="problem-row">
+          <a href="problems/erdos_68.html">
+            <span class="problem-row__num">#68</span>
+            <span class="problem-row__title">The factorial-denominator series
+              <span class="problem-row__q">Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?</span>
+            </span>
+            <span class="problem-row__meta">12 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_243.html">
+            <span class="problem-row__num">#243</span>
+            <span class="problem-row__title">Reciprocal-tail rigidity near the Sylvester recurrence
+              <span class="problem-row__q">Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?</span>
+            </span>
+            <span class="problem-row__meta">9 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_249.html">
+            <span class="problem-row__num">#249</span>
+            <span class="problem-row__title">The binary totient series
+              <span class="problem-row__q">Is the binary Lambert series sum phi(n)/2^n irrational?</span>
+            </span>
+            <span class="problem-row__meta">3 modules &middot; 3 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_251.html">
+            <span class="problem-row__num">#251</span>
+            <span class="problem-row__title">The prime-gap dyadic series
+              <span class="problem-row__q">Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?</span>
+            </span>
+            <span class="problem-row__meta">1 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_257.html">
+            <span class="problem-row__num">#257</span>
+            <span class="problem-row__title">Reciprocal sums over infinite exponent supports
+              <span class="problem-row__q">Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?</span>
+            </span>
+            <span class="problem-row__meta">1 modules &middot; 4 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_269.html">
+            <span class="problem-row__num">#269</span>
+            <span class="problem-row__title">Three-prime running least common multiples
+              <span class="problem-row__q">For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.</span>
+            </span>
+            <span class="problem-row__meta">7 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_1041.html">
+            <span class="problem-row__num">#1041</span>
+            <span class="problem-row__title">Short connections inside polynomial lemniscates
+              <span class="problem-row__q">For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate?</span>
+            </span>
+            <span class="problem-row__meta">1 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        <li class="problem-row">
+          <a href="problems/erdos_1049.html">
+            <span class="problem-row__num">#1049</span>
+            <span class="problem-row__title">Lambert-type series at rational bases
+              <span class="problem-row__q">For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.</span>
+            </span>
+            <span class="problem-row__meta">6 modules &middot; 2 main results
+              <span class="chip chip--open">Open</span>
+            </span>
+          </a>
+        </li>
+        </ul>
+      </section>
+
+      <section class="maths-band" id="papers" aria-labelledby="papers-title">
+        <div class="maths-band__head">
+          <p class="eyebrow">The papers</p>
+          <h2 id="papers-title">Read the mathematics as papers.</h2>
+          <p>Written for a person reading cold, rendered here as pages with native mathematical notation; the PDF and the LaTeX source stay one click away. Papers explain the corpus; they are not the proof authority.</p>
+        </div>
+        <div class="shelf-group">
+          <p class="shelf-group__label">On the problems</p>
+          <ul class="shelf">
+          <li><div class="shelf__row">
+            <a href="papers/erdos-68-factorial-denominator-irrationality.html">Factorial Carries and Finite Channel Obstructions
+              <span class="shelf__sub">Problem note &middot; 20&#8202;pp &middot; Erdős #68</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-68-factorial-denominator-irrationality.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-243-reciprocal-tail-rigidity.html">Excluding the Bounded Negative Part
+              <span class="shelf__sub">Problem note &middot; 22&#8202;pp &middot; Erdős #243</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-243-reciprocal-tail-rigidity.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-249-binary-totient-series.html">A Basis for the 2-Kernel of Euler&#x27;s Totient
+              <span class="shelf__sub">Problem note &middot; 19&#8202;pp &middot; Erdős #249</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-249-binary-totient-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos249-totient-reasoning-surface.html">The Binary Totient Series
+              <span class="shelf__sub">Reasoning surface &middot; 117&#8202;pp &middot; Erdős #249</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos249-totient-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-251-prime-gap-dyadic-series.html">An Integral-Shift Criterion for Dyadic Tail Recurrences
+              <span class="shelf__sub">Problem note &middot; 18&#8202;pp &middot; Erdős #251</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-251-prime-gap-dyadic-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-257-mersenne-support-subseries.html">Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry
+              <span class="shelf__sub">Problem note &middot; 21&#8202;pp &middot; Erdős #257</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-257-mersenne-support-subseries.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos257-mersenne-reasoning-surface.html">Reciprocal Mersenne Subseries
+              <span class="shelf__sub">Reasoning surface &middot; 107&#8202;pp &middot; Erdős #257</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos257-mersenne-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-269-three-prime-running-lcm.html">The Three-Prime Running Least Common Multiple
+              <span class="shelf__sub">Problem note &middot; 23&#8202;pp &middot; Erdős #269</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-269-three-prime-running-lcm.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-1041-lemniscate-newton-flow.html">Newton Flow and Critical-Value Ray Separation
+              <span class="shelf__sub">Problem note &middot; 10&#8202;pp &middot; Erdős #1041</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-1041-lemniscate-newton-flow.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-1049-rational-base-lambert.html">Arithmetic Boundaries at Base 3/2
+              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #1049</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-1049-rational-base-lambert.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          </ul>
+        </div>
+        <div class="shelf-group">
+          <p class="shelf-group__label">On the system</p>
+          <ul class="shelf">
+          <li><div class="shelf__row">
+            <a href="papers/claim-faithful-publication-systems.html">From Lean Proofs to Public Claims
+              <span class="shelf__sub">Release checks &middot; 16&#8202;pp &middot; Systems paper</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/claim-faithful-publication-systems-paper.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/cold-clone-to-proof-receipt.html">From a Cold Clone to a Proof Receipt
+              <span class="shelf__sub">Agent navigation &middot; 10&#8202;pp &middot; Systems paper</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/cold-clone-to-proof-receipt.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/plectis-public-system.html">Plectis: What a Stranger Can Check
+              <span class="shelf__sub">Evidence boundary &middot; 21&#8202;pp &middot; Systems paper</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/plectis-public-system.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="maths-band" id="documents" aria-labelledby="documents-title">
+        <div class="maths-band__head">
+          <p class="eyebrow">The repository, in plain pages</p>
+          <h2 id="documents-title">Read the repository without building it.</h2>
+          <p>A curated human interpretability layer over the Lean repository. It excludes agent instructions, machine-heavy atlases, build artifacts, and maintainer workbenches.</p>
+        </div>
+        <ul class="shelf">
+          <li><div class="shelf__row">
+            <a href="documents/readme.html">Repository overview
+              <span class="shelf__sub">Start here &middot; <code>README.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/results.html">Results and open boundaries
+              <span class="shelf__sub">Results map &middot; <code>docs/RESULTS.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/orientation.html">Corpus orientation
+              <span class="shelf__sub">Corpus orientation &middot; <code>docs/ORIENTATION.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/ORIENTATION.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/source-map.html">Source map
+              <span class="shelf__sub">Source map &middot; <code>docs/SOURCE_MAP.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/related-problems.html">Related problems
+              <span class="shelf__sub">Related problems &middot; <code>docs/RELATED_PROBLEMS.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/prior-art.html">Prior art
+              <span class="shelf__sub">Prior art &middot; <code>docs/PRIOR_ART.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PRIOR_ART.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/methodology.html">Methodology
+              <span class="shelf__sub">Methodology &middot; <code>METHODOLOGY.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/scope.html">Scope and claim boundary
+              <span class="shelf__sub">Scope and claim boundary &middot; <code>SCOPE.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/external-verification.html">External verification
+              <span class="shelf__sub">External verification &middot; <code>docs/EXTERNAL_VERIFICATION.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/comparator-1049.html">Comparator #1049 fixture
+              <span class="shelf__sub">Comparator case study &middot; <code>docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/truth-audit.html">Truth audit
+              <span class="shelf__sub">Truth audit &middot; <code>docs/TRUTH_AUDIT.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/architecture.html">Repository architecture
+              <span class="shelf__sub">Repository architecture &middot; <code>ARCHITECTURE.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/residual-progress.html">Residual progress
+              <span class="shelf__sub">Open-boundary progress &middot; <code>docs/RESIDUAL_PROGRESS.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="documents/wave-index.html">Development index
+              <span class="shelf__sub">Development chronology &middot; <code>docs/WAVE_INDEX.md</code></span>
+            </a>
+            <span class="shelf__meta"><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/WAVE_INDEX.md" data-link-kind="exogenous" rel="external noopener">Source</a></span>
+          </div></li>
+        </ul>
+      </section>
+
+      <section class="maths-receipt" id="receipt" aria-label="How these pages are generated">
+        <p>These pages are generated from the public Lean repository&#8217;s published data layer; nothing here is written by hand. Source generation <code>a18f18bba79573a1</code>, built by <code>tools/meta/dissemination/build_plectis_maths_site.py</code> from the contract in <a href="../lean/experience/manifest.json"><code>lean/experience/manifest.json</code></a>. When the repository changes, a redeploy regenerates every page, count, and map above.</p>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

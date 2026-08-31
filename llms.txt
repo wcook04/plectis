@@ -10,6 +10,12 @@ Every map below is a generated projection of content-graph.json (the canonical o
 - Installed checkout: `plectis hello --reader agent <project>`
 - First behavior card: `plectis tour --card <project>`
 
+## Short-link first contact
+
+If you arrived from a short link, start with the [flagship result index](https://github.com/wcook04/plectis/blob/main/FLAGSHIP_RESULTS.md). The public mathematics is a bounded result slice, not a solution to an Erdős problem: it carries two #1041 statements — finite-family translation avoidance and constant-perturbation root retention — plus a #1049 no-go for one coordinatewise clearing corridor.
+
+That index names each source declaration, evidence scope, exact source commit, evidence pointer, and replay command. Then use the [cold-clone quickstart](https://github.com/wcook04/plectis/blob/main/QUICKSTART.md); a replay checks only the named source slice.
+
 Scope: this is a local-first static/public project doorway. Use it to clone, inspect, and compare source-linked records; release operations, hosted service claims, external model access, source-file changes, claims not supported by the public records, formal-result correctness, production use, financial decisions, and specialist review are outside this doorway's scope.
 
 ## Repository

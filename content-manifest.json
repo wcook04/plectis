@@ -5286,7 +5286,8 @@
       "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_registry.json",
-        "microcosm-substrate/core/organ_atlas.json"
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/FLAGSHIP_RESULTS.md"
       ],
       "title": "What the pass proves"
     },
@@ -5347,11 +5348,14 @@
       "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/README.md",
+        "microcosm-substrate/FLAGSHIP_RESULTS.md",
         "microcosm-substrate/QUICKSTART.md",
         "microcosm-substrate/ARCHITECTURE.md",
         "microcosm-substrate/ORGANS.md",
         "microcosm-substrate/LICENSE",
         "microcosm-substrate/NOTICE",
+        "microcosm-substrate/CITATION.cff",
+        "microcosm-substrate/SECURITY.md",
         "microcosm-substrate/PROVENANCE.md",
         "tools/meta/dissemination/microcosm_public_narratives.json"
       ],
@@ -5468,12 +5472,12 @@
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:829aaec148595752e608dca78210ea1df12588e2ede869e3ba488839abec5756",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:d5fc3a78c4f19baa0cd77d28c160143f8c9029470e2ff4ffc403f1ca63740f87",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
-    "microcosm-substrate/NOTICE": "sha256:5ee35efcac92a6e5009e305e2f662481e2a3b7fb6e6d95a275e519066a0b2375",
+    "microcosm-substrate/NOTICE": "sha256:66c66af7aad9930d0fade2dbf4e376d260ee745eb72a1d5c37ddf5524be1dc12",
     "microcosm-substrate/ORGANS.md": "sha256:f7065e583212ac174148794ee7ef1c92375e819c360e3799fdbe55182c6112d4",
-    "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
-    "microcosm-substrate/QUICKSTART.md": "sha256:6ac6baec6b1d43fbfac424b2520659c04c6c5613775d1f46d548dc051d3bc099",
-    "microcosm-substrate/README.md": "sha256:1b23b97f37488e3201271691a012ecedef651016bdf538207b6d52d25e3b616c",
-    "microcosm-substrate/SECURITY.md": "sha256:794de05308d8b2badc864ac9fe31d574a896eb106c1bc2baad52811e2851a8fc",
+    "microcosm-substrate/PROVENANCE.md": "sha256:66384dcebe699553775ef9855ed6ecaca9754c1efa1ef9e8fe86eeed3d9491ed",
+    "microcosm-substrate/QUICKSTART.md": "sha256:c19f354fdb0b85071c5053921ec7a9f982b49d50c071cdb624f47f384fc3fa35",
+    "microcosm-substrate/README.md": "sha256:7c528c2f6a8b2cb35125ad96fe39c5c0a8fddd839a1d9e253373a8c5c78c1997",
+    "microcosm-substrate/SECURITY.md": "sha256:6696b33a11376a5d775548db2b77456a11abc2569dc912b6b53b3d83c5432901",
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
     "microcosm-substrate/anti_principles/AP-11.json": "sha256:e70d5e5b298ac7be02c3675fce3730ebda327c94a2c63e68cc3ba7bb99bf3e76",
@@ -5755,7 +5759,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:77d162447bf285546ded392228d551cdc44e75af5ad027b4926d5b2836e09f36",
+    "sites/microcosm/index.html": "sha256:80c0c43975fd8126f47ee21e8d98cf526e84d018536a08fe84d48d290a1021d3",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:116a0c8b49bd236e2c5243f7af3670b5a0306314b335e3784390bf68c5d44643"
   },
   "source_of_truth_contract": {

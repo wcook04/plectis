@@ -1,0 +1,818 @@
+/* Plectis — maths subsite layer.
+   Loads after assets/style.css and only on maths/ pages. It reuses the site
+   tokens and the docs-* skeleton (topbar, sidebar, layout, toc) and adds the
+   components this subsite needs: the universe canvas, problem dossiers, the
+   paper reading stage, and the repository shelf. House rules hold here:
+   no inline styles, no entrance animation, colour never the only signal. */
+
+/* ---- Subsite tokens ----------------------------------------------------
+   Canvas node colours are CSS custom properties so the drawing code reads
+   them with getComputedStyle and a theme flip repaints the field without a
+   second palette in JS. Light first, dark mirrors below (same discipline as
+   style.css: the @media block covers system dark, the [data-theme] block
+   covers the explicit choice). */
+:root {
+  --u-universe: #211318;
+  --u-problem: #34508e;
+  --u-claim: #8f6212;
+  --u-paper: #a34d75;
+  --u-document: #786359;
+  --u-integration: #b0512a;
+  --u-module: #a99781;
+  --u-object: #6f83cf;
+  --u-edge: rgba(33, 19, 24, 0.14);
+  --u-edge-hot: rgba(52, 80, 142, 0.55);
+  --u-halo: rgba(226, 168, 62, 0.35);
+  --maths-gold: #8f6212;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --u-universe: #f2e6d4;
+    --u-problem: #a9c0ee;
+    --u-claim: #e6b264;
+    --u-paper: #d78ab5;
+    --u-document: #a18e88;
+    --u-integration: #e08a58;
+    --u-module: #6f6389;
+    --u-object: #8ea2e0;
+    --u-edge: rgba(242, 230, 212, 0.10);
+    --u-edge-hot: rgba(169, 192, 238, 0.55);
+    --u-halo: rgba(230, 178, 100, 0.30);
+    --maths-gold: #e6b264;
+  }
+}
+:root[data-theme="dark"] {
+  --u-universe: #f2e6d4;
+  --u-problem: #a9c0ee;
+  --u-claim: #e6b264;
+  --u-paper: #d78ab5;
+  --u-document: #a18e88;
+  --u-integration: #e08a58;
+  --u-module: #6f6389;
+  --u-object: #8ea2e0;
+  --u-edge: rgba(242, 230, 212, 0.10);
+  --u-edge-hot: rgba(169, 192, 238, 0.55);
+  --u-halo: rgba(230, 178, 100, 0.30);
+  --maths-gold: #e6b264;
+}
+
+/* A grid item refuses to shrink below its content's min-content width, so a
+   wide module table would otherwise force page-level horizontal scroll on
+   small screens; the table's own .table-scroll wrapper is the scroller. */
+.maths-layout .docs-main { min-width: 0; }
+
+/* ---- Maths sidebar refinements ---------------------------------------- */
+.maths-nav-number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--faint);
+  display: inline-block;
+  min-width: 3.6em;
+  margin-right: 0.15em;
+}
+.docs-nav a.is-active .maths-nav-number { color: inherit; }
+
+/* ---- Breadcrumb (docs grammar, restated for pages without docs.js) ------ */
+.maths-layout .docs-breadcrumb { margin: var(--space-4) 0 var(--space-5); }
+.maths-layout .docs-breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-small);
+  color: var(--faint);
+}
+.maths-layout .docs-breadcrumb li + li::before {
+  content: "/";
+  color: var(--faint);
+  margin-right: 0.35rem;
+}
+.maths-layout .docs-breadcrumb a { color: var(--muted); }
+.maths-layout .docs-breadcrumb a:hover { color: var(--accent); }
+.maths-layout .docs-breadcrumb li[aria-current="page"] { color: var(--ink-soft); }
+
+/* ---- Landing ----------------------------------------------------------- */
+.maths-hero { padding: var(--space-7) 0 var(--space-6); }
+.maths-hero__kicker {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--maths-gold);
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+}
+.maths-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0 0 var(--space-4);
+  letter-spacing: -0.015em;
+}
+.maths-hero__lede {
+  font-size: var(--fs-lede);
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+  max-width: var(--measure-note);
+  margin: 0 0 var(--space-3);
+}
+.maths-hero__boundary {
+  color: var(--muted);
+  max-width: var(--measure-note);
+  margin: 0;
+}
+.maths-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.maths-counts li { color: var(--muted); font-size: var(--fs-meta); }
+.maths-counts b {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Section frame shared by the landing bands. */
+.maths-band { margin: var(--space-8) 0; }
+.maths-band__head { margin-bottom: var(--space-5); }
+.maths-band__head .eyebrow { color: var(--maths-gold); }
+.maths-band__head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: var(--space-2) 0 var(--space-2);
+}
+.maths-band__head p { color: var(--muted); max-width: var(--measure-note); margin: 0; }
+
+/* ---- Universe panel ----------------------------------------------------- */
+.universe-panel {
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.universe-panel__stage { position: relative; }
+.universe-canvas {
+  display: block;
+  width: 100%;
+  height: 460px;
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+.universe-canvas--page {
+  height: min(72vh, 760px);
+  cursor: grab;
+  touch-action: none;
+}
+.universe-canvas--page.is-panning { cursor: grabbing; }
+.universe-tip {
+  position: absolute;
+  max-width: 300px;
+  padding: 0.45rem 0.65rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 4;
+}
+.universe-tip.is-shown { visibility: visible; }
+.universe-tip__kind {
+  display: block;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.universe-tip__status { color: var(--muted); }
+.universe-panel__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--rule);
+  background: var(--surface-sunk);
+}
+.universe-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.universe-legend .dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 0.4em;
+  vertical-align: baseline;
+  transform: translateY(0.5px);
+}
+.dot--problem { background: var(--u-problem); }
+.dot--claim { background: var(--u-claim); }
+.dot--paper { background: var(--u-paper); }
+.dot--document { background: var(--u-document); }
+.dot--integration { background: var(--u-integration); }
+.dot--module { background: var(--u-module); }
+.dot--object { background: var(--u-object); }
+.universe-panel__cta { margin-left: auto; }
+.universe-rule {
+  margin: var(--space-3) 0 0;
+  color: var(--faint);
+  font-size: var(--fs-small);
+  max-width: none;
+}
+
+/* No-JS and reduced capability: the canvas is an enhancement. */
+html:not(.scripting) .universe-panel__stage { display: none; }
+html:not(.scripting) .universe-nojs { display: block; }
+.universe-nojs { display: none; padding: var(--space-4); color: var(--muted); }
+
+/* ---- Problem rows (landing) -------------------------------------------- */
+.problem-list { list-style: none; margin: 0; padding: 0; }
+.problem-row { border-top: 1px solid var(--rule); }
+.problem-row:last-child { border-bottom: 1px solid var(--rule); }
+.problem-row a {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-4) var(--space-2);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--ease);
+}
+.problem-row a:hover { background: var(--surface); text-decoration: none; }
+.problem-row__num {
+  font-family: var(--font-serif);
+  font-variant-numeric: oldstyle-nums;
+  font-size: 1.35rem;
+  color: var(--maths-gold);
+}
+.problem-row__title { font-weight: 600; }
+.problem-row__q {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  margin-top: 0.2rem;
+  max-width: 56ch;
+}
+.problem-row__meta {
+  font-size: var(--fs-small);
+  color: var(--faint);
+  text-align: right;
+  white-space: nowrap;
+}
+.problem-row__meta .chip { margin-left: var(--space-2); }
+
+/* Status chips — text carries the meaning; colour assists. */
+.chip {
+  display: inline-block;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-pill);
+  color: var(--muted);
+  max-width: 100%;
+}
+.chip--open { border-color: var(--accent); color: var(--accent); }
+.chip--gold { border-color: var(--maths-gold); color: var(--maths-gold); }
+.chip--warn { border-color: var(--warn-warm, #a8481e); color: var(--warn-warm, #a8481e); }
+
+/* ---- Shelves (papers, documents) ---------------------------------------- */
+.shelf-group { margin: var(--space-5) 0 0; }
+.shelf-group__label {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 var(--space-2);
+}
+.shelf { list-style: none; margin: 0; padding: 0; }
+.shelf li { border-top: 1px solid var(--rule); }
+.shelf li:last-child { border-bottom: 1px solid var(--rule); }
+.shelf__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-3) var(--space-2);
+}
+.shelf__row > a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+.shelf__row > a:hover { color: var(--accent); }
+.shelf__sub {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  margin-top: 0.15rem;
+  max-width: 60ch;
+}
+.shelf__meta {
+  font-size: var(--fs-small);
+  color: var(--faint);
+  white-space: nowrap;
+  text-align: right;
+}
+.shelf__meta a { color: var(--faint); }
+.shelf__meta a:hover { color: var(--accent); }
+
+/* ---- Generation receipt strip ------------------------------------------- */
+.maths-receipt {
+  margin: var(--space-8) 0 var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--maths-gold);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+.maths-receipt code { font-size: var(--fs-small); }
+.maths-receipt p { margin: 0.35rem 0; max-width: none; }
+
+/* ---- Problem dossier pages ---------------------------------------------- */
+.dossier-head { margin: 0 0 var(--space-6); }
+.dossier-head__num {
+  font-family: var(--font-serif);
+  font-variant-numeric: oldstyle-nums;
+  color: var(--maths-gold);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+.dossier-head h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+  line-height: 1.12;
+  margin: 0 0 var(--space-3);
+}
+.dossier-head__q {
+  font-size: var(--fs-lede);
+  color: var(--ink-soft);
+  max-width: var(--measure-note);
+  margin: 0 0 var(--space-3);
+}
+.dossier-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+}
+
+.dossier-section { margin: var(--space-6) 0; }
+.dossier-section > h2 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  margin: 0 0 var(--space-3);
+}
+.dossier-section > p.note { color: var(--muted); max-width: var(--measure-note); }
+
+.fact-list { margin: 0; padding: 0; list-style: none; max-width: 72ch; }
+.fact-list li {
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  position: relative;
+  border-top: 1px solid var(--rule);
+}
+.fact-list li:last-child { border-bottom: 1px solid var(--rule); }
+.fact-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 1.05rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.fact-list--checked li::before { background: var(--maths-gold); }
+.fact-list--unchecked li::before {
+  background: transparent;
+  border: 1.5px solid var(--rule-control);
+}
+
+.result-card {
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-5);
+  margin: 0 0 var(--space-4);
+}
+.result-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+.result-card__head code { font-size: var(--fs-small); color: var(--faint); }
+.result-card__statement { margin: 0 0 var(--space-2); max-width: 72ch; }
+.result-card__boundary {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  font-size: var(--fs-body);
+  max-width: 72ch;
+}
+.result-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--fs-meta);
+}
+
+.source-link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--maths-gold);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--maths-gold) 45%, transparent);
+  overflow-wrap: anywhere;
+}
+.source-link:hover { border-bottom-color: var(--maths-gold); text-decoration: none; }
+
+.module-table { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
+.module-table th {
+  text-align: left;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+  padding: 0 var(--space-3) var(--space-2) 0;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.module-table td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+.module-table td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.module-table code { font-size: var(--fs-small); }
+.table-scroll { overflow-x: auto; }
+
+/* Comparator families grouped by disposition tier. */
+.family-tier { margin: var(--space-4) 0; }
+.family-tier > h3 {
+  font-size: var(--fs-h3);
+  margin: 0 0 var(--space-2);
+}
+.family-tier > p.note { color: var(--faint); font-size: var(--fs-meta); margin: 0 0 var(--space-2); }
+.family-list { list-style: none; margin: 0; padding: 0; }
+.family-list li {
+  border-top: 1px solid var(--rule);
+  padding: var(--space-3) var(--space-2);
+}
+.family-list li:last-child { border-bottom: 1px solid var(--rule); }
+.family-list .summary-line { margin: 0 0 0.25rem; max-width: 72ch; }
+.family-list .boundary-line {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  max-width: 72ch;
+}
+.family-list .disposition {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--faint);
+}
+.disposition { overflow-wrap: anywhere; }
+
+/* ---- Paper reading stage ------------------------------------------------ */
+.paper-head { margin: 0 0 var(--space-5); }
+.paper-head__eyebrow {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--maths-gold);
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+.paper-head h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.14;
+  margin: 0 0 var(--space-3);
+  letter-spacing: -0.01em;
+}
+.paper-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  margin-bottom: var(--space-4);
+}
+.paper-head__routes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.paper-precis {
+  border-left: 3px solid var(--maths-gold);
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  margin: 0 0 var(--space-5);
+  max-width: 72ch;
+}
+.paper-precis p { margin: 0; color: var(--ink-soft); }
+.paper-precis .eyebrow { margin-bottom: var(--space-1); }
+
+.authority-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  background: var(--surface-sunk);
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-6);
+  font-size: var(--fs-body);
+  max-width: 78ch;
+}
+.authority-card p { margin: 0.3rem 0; }
+.authority-card b { font-weight: 600; }
+
+/* The rendered manuscript. Pandoc emits section.levelN wrappers. */
+.paper-stage { max-width: 74ch; }
+.lean-paper__header, .lean-document__header { display: none; }
+/* The fragment repeats title and eyebrow we already set in the page head. */
+.paper-stage h2, .paper-stage h3, .paper-stage h4, .paper-stage h5, .paper-stage h6 {
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  margin: var(--space-6) 0 var(--space-3);
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
+}
+.paper-stage h2 { font-size: 1.5rem; }
+.paper-stage h3 { font-size: 1.2rem; }
+.paper-stage h4, .paper-stage h5 { font-size: 1.05rem; }
+.paper-stage p { line-height: var(--lh-body); }
+.paper-stage math { font-size: 1.05em; }
+/* MathML has no line breaking in current engines, so a long inline formula
+   would otherwise widen the page on small screens. An inline-block with a
+   width cap keeps its own scrollbar and leaves the paragraph intact. */
+.paper-stage math:not([display="block"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.paper-stage math[display="block"] {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-2) 0;
+  max-width: 100%;
+}
+.paper-stage .math.display {
+  display: block;
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+}
+.paper-stage table {
+  border-collapse: collapse;
+  margin: var(--space-4) 0;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.paper-stage table th, .paper-stage table td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.3rem 0.7rem 0.3rem 0;
+  text-align: left;
+  vertical-align: baseline;
+}
+.paper-stage table th { font-weight: 600; }
+.paper-stage pre {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border-radius: var(--r-sm);
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+.paper-stage blockquote {
+  border-left: 3px solid var(--rule-strong);
+  margin: var(--space-4) 0;
+  padding-left: var(--space-4);
+  color: var(--muted);
+}
+.paper-stage .footnotes { color: var(--muted); font-size: var(--fs-body); }
+.paper-stage hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-6) 0; }
+/* Wide display equations should scroll inside their own box, never the page. */
+.paper-stage { overflow-wrap: break-word; }
+
+/* Citations and the rendered References section. */
+.paper-stage .citation a {
+  font-size: 0.85em;
+  vertical-align: 0.08em;
+  text-decoration: none;
+  color: var(--accent);
+}
+.paper-stage .citation a:hover { text-decoration: underline; }
+.paper-stage #references ol { padding-left: 1.6rem; }
+.paper-stage #references li {
+  margin: 0 0 var(--space-2);
+  color: var(--ink-soft);
+  font-size: var(--fs-body);
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
+}
+
+/* MathJax page state: while typesetting, keep layout calm. */
+.paper-stage mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+.paper-stage mjx-container[display="true"] { margin: var(--space-3) 0; }
+
+/* ---- Document pages ------------------------------------------------------ */
+.doc-role-eyebrow {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--maths-gold);
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+.doc-source-line {
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  margin: 0 0 var(--space-4);
+}
+.doc-source-line code { font-size: var(--fs-small); }
+
+/* ---- Universe page ------------------------------------------------------- */
+.universe-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+}
+.universe-controls__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  align-items: center;
+}
+.universe-controls__label {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.lens-btn {
+  font: inherit;
+  font-size: var(--fs-small);
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-pill);
+  padding: 0.22rem 0.75rem;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+.lens-btn:hover { color: var(--ink); border-color: var(--accent); }
+.lens-btn[aria-pressed="true"] {
+  color: var(--on-accent);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.universe-search {
+  font: inherit;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-control);
+  padding: 0.3rem 0.7rem;
+  min-width: 210px;
+}
+.universe-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.universe-count { color: var(--faint); font-size: var(--fs-small); margin-left: auto; }
+
+.universe-inspector {
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-4) 0;
+  min-height: 5.4rem;
+}
+.universe-inspector[hidden] { display: none; }
+.universe-inspector__kind {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 0.2rem;
+}
+.universe-inspector h3 { margin: 0 0 var(--space-2); font-size: var(--fs-h3); }
+.universe-inspector p { margin: 0 0 var(--space-2); color: var(--ink-soft); font-size: var(--fs-body); max-width: 78ch; }
+.universe-inspector__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--fs-meta);
+}
+.universe-hint { color: var(--faint); font-size: var(--fs-small); margin: var(--space-2) 0 0; }
+
+.universe-index { margin: var(--space-7) 0; }
+.universe-index details { border-top: 1px solid var(--rule); }
+.universe-index details:last-child { border-bottom: 1px solid var(--rule); }
+.universe-index summary {
+  cursor: pointer;
+  padding: var(--space-3) var(--space-2);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.universe-index summary:hover { color: var(--accent); }
+.universe-index ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--space-3) var(--space-5);
+  columns: 2;
+  column-gap: var(--space-6);
+}
+.universe-index li { padding: 0.15rem 0; break-inside: avoid; font-size: var(--fs-body); }
+.universe-index a { color: var(--muted); }
+.universe-index a:hover { color: var(--accent); }
+
+/* ---- Pager ---------------------------------------------------------------- */
+.maths-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-7) 0 var(--space-5);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-4);
+}
+.maths-pager__link {
+  color: var(--ink-soft);
+  text-decoration: none;
+  max-width: 46%;
+}
+.maths-pager__link:hover { color: var(--accent); text-decoration: none; }
+.maths-pager__link--next { text-align: right; margin-left: auto; }
+.maths-pager__dir {
+  display: block;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 0.15rem;
+}
+.maths-pager__spacer { flex: 1; }
+
+/* ---- Long tables of contents --------------------------------------------- */
+.maths-layout .docs-toc {
+  max-height: calc(100vh - var(--topbar-h) - 48px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.docs-toc a.toc-l3 { padding-left: 1.6rem; font-size: var(--fs-small); }
+
+/* ---- Pandoc table alignment classes ---------------------------------------
+   The experience builder converts LaTeX/Pandoc inline alignment styles into
+   these classes so the estate's no-inline-style rule holds on fragments. */
+.paper-stage .ta-l { text-align: left; }
+.paper-stage .ta-r { text-align: right; }
+.paper-stage .ta-c { text-align: center; }
+.paper-stage .pl0 { padding-left: 0; }
+.paper-stage .pr0 { padding-right: 0; }
+
+/* ---- Small screens ------------------------------------------------------- */
+@media (max-width: 860px) {
+  .problem-row a { grid-template-columns: 3.4rem 1fr; }
+  .problem-row__meta { grid-column: 2; text-align: left; white-space: normal; }
+  .shelf__row { grid-template-columns: 1fr; }
+  .shelf__meta { text-align: left; }
+  .universe-canvas { height: 340px; }
+  .universe-index ul { columns: 1; }
+  .maths-counts b { font-size: 1.3rem; }
+}
+
+/* ---- Print ---------------------------------------------------------------- */
+@media print {
+  .universe-panel__stage, .universe-controls, .universe-inspector, .universe-hint { display: none !important; }
+  .paper-head__routes, .maths-receipt { display: none !important; }
+  .paper-stage { max-width: none; }
+}

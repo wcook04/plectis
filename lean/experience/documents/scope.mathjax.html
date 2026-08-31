@@ -1,0 +1,147 @@
+<article class="lean-document" data-document-id="scope" data-document-role="scope_boundary" data-math-mode="mathjax">
+  <header class="lean-document__header">
+    <p class="lean-document__eyebrow">scope boundary</p>
+    <h1>Scope and claim boundary</h1>
+  </header>
+  <div class="lean-document__body" data-source="SCOPE.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<section id="scope-of-this-release" class="level1">
+<h1>Scope of this release</h1>
+<p>This release does not prove Erdős #68, #243, #249, #251, #257, #269,
+#1041, or #1049. All eight remain open; their papers give checked
+results and surviving obligations. Claims apply only to the source and
+dependencies at the immutable formal-source checkpoint in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>. The last
+release tag remains the citation identity and can differ from that
+checkpoint.</p>
+<p>Mathematical proof authority is Lean source at that declared
+checkpoint after checking by the pinned Lean kernel. Unreleased work,
+private repositories, generated prose, provider output, and hidden proof
+sketches are not part of the public proof artefact. Work later than the
+declared checkpoint is out of scope even if it checks locally; a later
+tagged release is a separate citation and release action, not a
+substitute for an exact proof-source identity.</p>
+<section id="what-the-corpus-is-by-shape" class="level2">
+<h2>What the corpus is, by shape</h2>
+<p>Size is not evidence. The semantic graph classifies every statement;
+re-derive these with
+<code>python3 scripts/query_semantic.py &lt;shape&gt;</code>.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Shape</th>
+<th class="ta-r">Count</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nonrecurring</code></td>
+<td class="ta-r">283</td>
+<td>substantive content, weighted to #257 (168) over #249 (88)</td>
+</tr>
+<tr>
+<td><code>classical</code></td>
+<td class="ta-r">101</td>
+<td>already in the literature or matched to prior art; formalisation
+value only</td>
+</tr>
+<tr>
+<td><code>bare-equivalences</code></td>
+<td class="ta-r">32</td>
+<td>restatements, labelled by this project’s own audit</td>
+</tr>
+</tbody>
+</table>
+<p>Neither count asserts novelty: <code>nonrecurring</code> means a
+statement does not recur inside this corpus, not that it is new to
+mathematics. That judgement is a human number theorist’s, and no query
+here supplies it.</p>
+<p>The <code>K = 240</code> denominator exclusion is the classical
+Farey/mediant bound on a committed window. Its improvement over that
+argument is zero and the window length is free:
+<code>python3 scripts/check_farey_denominator_scaling.py</code>
+reproduces the formalised constant, then returns a 2,406-digit bound in
+a fraction of a second. Cite it as a finite computation, never as
+progress.</p>
+</section>
+<section id="exact-open-propositions" class="level2">
+<h2>Exact open propositions</h2>
+<p>Machine-resolvable open propositions:</p>
+<ul>
+<li><code>remaining_open.erdos_249_irrationality</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code></li>
+<li><code>remaining_open.unbounded_certificate_supply</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.unbounded_certificate_supply</code></li>
+<li><code>remaining_open.half_value_membership</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.half_value_membership</code></li>
+<li><code>remaining_open.twenty_one_permanent_affine_supercapacity</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.twenty_one_permanent_affine_supercapacity</code></li>
+<li><code>remaining_open.universal_257_all_infinite_supports</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code></li>
+</ul>
+<p>Finite instances, conditional reductions, cited neighbours, and named
+infinite-support families do not discharge these propositions. Only a
+future claim transition recorded against the exact identifier, with the
+evidence required by <code>docs/methodology.json</code>, can change this
+boundary.</p>
+</section>
+<section id="machine-identifiers" class="level2">
+<h2>Machine identifiers</h2>
+<p>These identifiers are the machine-readable form of the scope
+statement above. They are declared once in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> and
+cross-checked against this file by
+<code>scripts/check_release.py</code>, which fails when any public
+surface drifts from them.</p>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Identifier</th>
+<th>Public meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>not_erdos_249_solution</code></td>
+<td>The release does not settle Erdős #249</td>
+</tr>
+<tr>
+<td><code>not_erdos_257_solution</code></td>
+<td>The release does not settle the universal Erdős #257</td>
+</tr>
+<tr>
+<td><code>not_publication_authority</code></td>
+<td>The release is not itself a peer-reviewed publication record</td>
+</tr>
+<tr>
+<td><code>not_private_root_equivalence</code></td>
+<td>The release is not asserted to be equivalent to any private
+development</td>
+</tr>
+<tr>
+<td><code>not_provider_proof_authority</code></td>
+<td>Provider or model output is not proof authority; the Lean kernel
+check is</td>
+</tr>
+<tr>
+<td><code>not_hidden_proof_body_authority</code></td>
+<td>No unpublished proof sketch or hidden artefact carries proof
+authority</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+  </div>
+</article>

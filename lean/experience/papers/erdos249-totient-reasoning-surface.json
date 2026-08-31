@@ -1,0 +1,829 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos249-totient-reasoning-surface",
+  "title": "The Binary Totient Series",
+  "subject": "Erdős #249",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 117,
+  "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
+  "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
+  "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/erdos249-totient-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos249-totient-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos249-totient-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos249-totient-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos249-totient-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "3791c2f8319372eff4b7e7a247b788983ad195af0ec21addfe9d5e9126da6f28",
+    "publication_manifest_match": true,
+    "mathml_node_count": 3168,
+    "raw_math_fallback_count": 4,
+    "warnings": {
+      "mathml": [
+        "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
+        "c-section rank of \\mathit{every} rationa",
+        "^",
+        "unexpected \"m\"",
+        "expecting \" \", \"!\", \",\", \":\", \";\" or \">\"",
+        "[WARNING] Could not convert TeX math {\\small\\textsf{scale:bounded}}, rendering as TeX:",
+        "{\\small\\textsf{scale:bounded}}",
+        "^",
+        "unexpected control sequence \\small",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math {\\small\\textsf{scale:cofinal}}, rendering as TeX:",
+        "{\\small\\textsf{scale:cofinal}}",
+        "^",
+        "unexpected control sequence \\small",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math \\begin{equation}",
+        "\\label{eq:mobmers}",
+        "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
+        "\\qquad ({\\small\\textsf{[Math]}};\\ \\text{verified to }16\\ \\text{digits},\\ S=1.3676308019850223\\ldots,\\ {\\small\\textsf{[Cert]}}).",
+        "\\end{equation}, rendering as TeX:",
+        "\\qquad ({\\small\\textsf{[Math]}};\\ \\tex",
+        "^",
+        "unexpected control sequence \\small",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "4941cfa542dec7ee99006336acda5188b104147231bee6cfe7dca076ba3fd43a",
+    "html_exact_tex_sha256": "dbed54ab91cb05f7aac3cfeb50dc1df0478a246474808ef3dffe7139350f3cc1"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "How to read this document"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The problem, and what is actually known"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The unconditional record"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The wall"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The plane the barriers live on"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "B1: the finite-inspection barrier, as a theorem"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "B2–B7"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The shape"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the wall does not block"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Survivor 1: the first-harmonic block cancellation bound"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Why it evades the wall."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Survivor 2: the four-term pivot budget"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Survivor 3: uniform quantitative escape at cofinally many primes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Survivor 4: depth-locked full-depth escape"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Survivor 5: the rationality-side rank upper bound"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "How to use this document"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence bands."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The scale axis."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Coordinates, and why obstructions are relative to them."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Map of what follows."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Read this in full before starting."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The object, the target, and the exact record"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The object"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The binary-digit reduction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The unconditional denominator floor"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The same record, transported: the Möbius-square and coprimality-probability forms"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The Möbius–Mersenne identity and why bounded coefficients matter"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The squared-Lambert gcd-moment identities"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The exact certificate record: the contiguous band through t≤82t\\le82"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Certificate object."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Catalogue of usable premises"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Producers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Converters and exact identities"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Foundational definitions and identities (scale n/a)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Cofinal-scale converters — the certificate-kernel reduction ladder"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Consumers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Invariants"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Killers and countermodels"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Recently published declarations"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "The Möbius–Mersenne ladder: unconditional log-concavity"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Generic tail-orbit rigidity: a self-labelled non-claim"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Squared-Mersenne diagonal enclosure"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Old/foreign Möbius channel split (DiagonalFreshLossBridge)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Repunit Möbius numerator is a positive gcd word (T1)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Dyadic prefix compression: exact greedy-carry arithmetic"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Pivot-fibre anti-reconstruction: an exact energy identity"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Actual foreign-residue projection"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Geometric coprimality: a lattice coordinate, and a classical identity beside it"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "The lcm-diagonal collapse: reduced to one ℕ\\mathbb{N}-indexed predicate"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Cyclotomic anchored kills: unconditional prime support, plus new exclusion certificates"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Prime-ray cyclotomic curvature: the abstract order-consumer producer"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Rank-one subrank obstruction: a uniform proved barrier"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Period-multiple escape: the nesting identity and eight new exclusions"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Strict prime-orbit escape: a sharper reduction"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Finite Euler-sieve algebra"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The scale ladder"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Checked negative result: no free promotion from bounded to cofinal"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Coordinate atlas and transport maps"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Obstructions are coordinate-relative: the binary-digit vs. Möbius–Mersenne case"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Interface index: what stands between the corpus and a proof"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Reading this index"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The headline: #249 reduces to a single unsupplied exponential-sum bound"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Row-by-row: the remaining near misses against 249-supply"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "SGN-01 — the positive-sign half of the certified-kill band (coord:actual-lcm-sign)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "TE-04 — the one-sided top-edge staircase (coord:actual-lcm-top-edge)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "TE-05-weakest — one scalar inequality at cofinally many odd ranks (coord:actual-lcm-top-edge)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "SEP-02 — separation from an explicit rational approximant (coord:raw-approximant)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "SK-02 — the short-window arithmetic kill, verbatim, truncated at a0≤6a_0\\le 6 (coord:short-window-arithmetic)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "b11 — the diagonal pincer certificate bank (coord:diagonal-pincer)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "a12 — one window, sixteen periods, wrong-way quantifiers (coord:h-uniform-certificate)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "c3 — the Farey denominator floor and its stalled growth law (coord:farey-window)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "TA-01/TA-02 — the two-adic pulse block reaches the arc centre and fails by an exponential (coord:two-adic-pulse)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "d-3a/d-3b — cofinal jump positions, one unproved slack sign (coord:lcm-jump-slack)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "e2 — the prime-jump commutator, one fixed witness (coord:prime-jump-commutator)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "b7 — the Möbius–Mersenne denominator channel: unbounded, but off-coordinate (coord:mobius-mersenne)"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "d4/d5 — the parallel rank obligation, and a corrected pair of citations (coord:carry-rank)"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Synthesis: where the frontier actually is"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Closed routes, with the mechanism that closed them"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Meta-level: finite inspection cannot certify the supply (the γ\\gamma-splice remark)"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The parity-aperiodicity countermodel (TotientParityCoboundaryCountermodel)"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two scoped #249 no-go countermodels: square-CRT correction suppression is ambiguous"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The adelic height obstruction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The signed qq-moment machinery — a positive tool, not an obstruction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The residual-gauge obstruction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Cone flatness and cone nonflatness"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Further closed routes, catalogued for completeness"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Why the bounds are load-bearing"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Classification of the sixteen genuine blockers"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The mathematics this problem still needs"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "One identity, and what it does to every surviving route"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Route 1: a constant-saving cancellation over a dyadic block"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact statement needed."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What DD is, as an arithmetic object."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Which technique family is even the right shape."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The specific obstacle: what the estimate cannot be deduced from."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Size of the quantity, honestly calibrated."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Route 2: the four-term pivot budget"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact statement needed."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "One budget has a classical one-sided majorant."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The pivot quantifiers force a deep modulus."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The specific obstacle: the weight is neither Type I nor Type II."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A swing: the predicate needs only cofinally many XX, so average over XX."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Route 3: uniform quantitative escape at primes"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact statement needed."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What it says, after Lemma ."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The specific obstacle."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Numerical calibration."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A swing: replace the pointwise demand by a canonical fibre."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Route 4: depth-locked full-depth escape"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact statement needed."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What it says: an anti-self-similarity statement about the digits of SS alone."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Which technique family fits, and why it is unavailable."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What the data says."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A heuristic size computation."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Route 5: the rationality-side rank bound remains open"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact statement that was wanted."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The right vocabulary, and the audited gap."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What the shape of the wall suggests about the object"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "First, a fact rather than an inference: the routes are one route in five coordinates."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Second: the wall is a wall about explicit constants, not about φ\\varphi."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Third: is the object behind the measurements simple or complex?"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What would actually change the picture."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is open, stated exactly"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The certificate-completeness converter"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The base cofinal obligation — the wall"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Collapsing free parameters: the multiple / diagonal / cone chain"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Multiple-period collapse (formally looser, but endpoint-equivalent)."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Diagonal collapse — one free parameter."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Cone collapse — two multipliers, still the same wall."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Pure non-integrality form — certificate vocabulary stripped out."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The exponential-sum form"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The actual-orbit reformulation and the top-edge staircase"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Route-pruning: total staircase collapse is impossible."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The surviving one-sided target."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Five strictly weaker links, each independently proved sufficient."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The weakest known link, and the exact identity pinning it."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A second, independent finite-window target: the short-arithmetic-kill supply."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A Diophantine-flavoured alternative: the raw-approximant separation supply."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A problem-agnostic normal form: the guard-cylinder compression"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "One open Farey problem and one failed rank shortcut"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A counterfactual rank criterion."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Obligation 3 (Farey growth law)."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Equivalence map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What new mathematics each surviving form would need"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exponential-sum form."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The staircase form."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Authority boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    }
+  ]
+}

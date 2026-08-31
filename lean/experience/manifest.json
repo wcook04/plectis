@@ -1,0 +1,60 @@
+{
+  "schema": "plectis_lean_experience_manifest_v1",
+  "experience_version": "plectis_lean_experience_v1",
+  "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
+  "source_fingerprint": "a18f18bba79573a1b44b92b6d798c48837147490a4a592763b7e9777bb61901c",
+  "authority_model": {
+    "universe": "Lean source and its import/argument graph",
+    "overlays": [
+      "papers",
+      "comparator",
+      "palomar"
+    ],
+    "rule": "Papers explain, Comparator replays selected exact interfaces, and Palomar may review a prepared unit. None widens Lean's proposition or records peer review/acceptance unless its own source says so."
+  },
+  "routes": {
+    "graph": "graph/index.json",
+    "graph_full": "graph.json",
+    "problems": "problems/index.json",
+    "papers": "papers/index.json",
+    "human_documents": "documents/index.json",
+    "integrations": "integrations.json",
+    "render_receipt": "render-receipt.json"
+  },
+  "route_contract": {
+    "base": "experience_root",
+    "rule": "All generated routes are relative to lean/experience/. Absolute source_github routes always identify the canonical public source."
+  },
+  "counts": {
+    "problems": 8,
+    "papers": 13,
+    "human_documents": 14,
+    "graph_nodes": 1292,
+    "graph_edges": 3246
+  },
+  "source_identity": {
+    "lean_manifest": "82d55fe094bb35666f7040746e3ce9bcf0a2c239389c584e9e53646c6ceeb7ce",
+    "paper_manifest": "772b5afc998a3abac31233db030db3ffd0e6332dc460b989e700fb09951286d1",
+    "claims": "4982d46cbd6df85ce64440b4b540d4e39d55e1e508250e0dcadc8a43aaa27e5c",
+    "problems": "e13e80b5cd74acba27587d4e067e4b9ae9f02160bf706da5bd54da6a7aa780d8",
+    "comparator_palomar_route_map": "086928a1752b84c39225490cdebc3325d1b86548fbe62f473bcf62d2b5cb7085"
+  },
+  "frontend_handoff": {
+    "status": "backend_complete_frontend_unimplemented",
+    "default_entry": "manifest.json",
+    "paper_math_preference": "native MathML with exact TeX/MathJax fallback",
+    "navigation_model": "universe -> problem -> result/module/paper/review overlay"
+  },
+  "performance_contract": {
+    "delivery": "pre-generated static JSON and HTML; no runtime repository analysis",
+    "render_cache": "content-addressed by source hash, renderer version, and Pandoc version",
+    "build_parallelism": "bounded to four Pandoc workers",
+    "frontend_expectation": "fetch manifest first, then only the selected problem or overlay",
+    "progressive_graph": {
+      "first_screen": "graph/index.json",
+      "complete_universe": "graph.json",
+      "first_screen_nodes": 192,
+      "complete_nodes": 1292
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-249-binary-totient-series",
+  "title": "A Basis for the 2-Kernel of Euler's Totient",
+  "subject": "Erdős #249",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 19,
+  "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
+  "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
+  "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+  "problem_id": "erdos_249",
+  "routes": {
+    "html_mathml": "papers/erdos-249-binary-totient-series.html",
+    "html_exact_tex": "papers/erdos-249-binary-totient-series.mathjax.html",
+    "pdf": "../../papers/erdos-249-binary-totient-series.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-249-binary-totient-series.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+    "publication_manifest_match": true,
+    "mathml_node_count": 496,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "258061e08e99783a94f55e8d197785af19f9277339f5d8ee665f708851462bf4",
+    "html_exact_tex_sha256": "33f1471dabf12a4a4a8cb761a784fd054d3abec6deb132b87508538cbb9ba53e"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction and main results"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The Lambert-series form of Problem #249"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A nearby 2026 totient theorem has different coordinates."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Exact identities and representations."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Proof of the dyadic-section basis theorem"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Prior work"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Parity-separated evaluation matrices"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Carry-rank consequences of rationality"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A Farey-mediant denominator exclusion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Obstructions for fixed-coordinate methods"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Further conditional criteria"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A prime-orbit sufficient condition."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Finite Euler-factor identities."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mixed differences of cyclotomic layers."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Open problems"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact equivalent formulations"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Stronger sufficient producer problems"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Structural and Diophantine routes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Independent extension"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The independent denominator exclusion."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Logical status and analytic input"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Formal source notes"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Registry coverage."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

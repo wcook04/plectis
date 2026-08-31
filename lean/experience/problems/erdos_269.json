@@ -1,0 +1,393 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_269",
+  "erdos_number": 269,
+  "title": "Three-prime running least common multiples",
+  "status": "open",
+  "question": "For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "That for three pairwise distinct primes the least common multiple of the smooth prefix equals the product of the three maximal pure prime powers below the cutoff.",
+    "That equal logarithmic coordinates give an equal prefix least common multiple, so the running value is constant on logarithmic cells.",
+    "That advancing exactly one logarithmic coordinate multiplies the running value by the corresponding prime.",
+    "That the positive power channels of distinct primes are disjoint, so the first powers in three channels give an exact jump count.",
+    "That a finite smooth lattice sum groups exactly by running height, with the height fibre cardinality as coefficient.",
+    "A quadratic bound on the cardinality of the actual filtered exponent shell.",
+    "That each dyadic block contains at most one internal pure power from each non-dyadic channel, so the compressed {2,3,5} block radix belongs to the exact alphabet {2,6,10,30} and in particular lies between 2 and 30.",
+    "That the smallest {2,3,5} kernel rectangle has determinant exactly -1/15, so its two-by-two matrix has rank two over the rationals and no rank-one separation exists.",
+    "The canonical least-positive-residue interval and congruence facts, including the zero-residue representative.",
+    "The exact local-window identity for an integral carry.",
+    "A denominator-dependent CofinalLocalWindowEscape proposition and the full theorem that it rules out every positive reduced integral carry satisfying the matching bound.",
+    "A bounded-radix dichotomy: under a bounded positive digit alphabet, a nonzero scaled tail must be separated from the integers cofinally.",
+    "Exact three-channel block-nullity as a coboundary condition, and extinction of a bounded carry lift under two independent anchors.",
+    "The exact residue-digit plus coboundary form of an integral carry, together with a function-faithful observer criterion and a finite realised-span consequence."
+  ],
+  "what_is_not_checked": [
+    "Irrationality or transcendence in any three-prime case.",
+    "The derivation of the actual bounded positive carry, including the divisibility required to cancel the absorbed smooth denominator factor, from a hypothetical rational value of the original series.",
+    "CofinalLocalWindowEscape for those actual words; it is an explicit hypothesis of the checked consumer, not a theorem.",
+    "A proof that the actual three-channel word satisfies the block-null, anchor, or factorisation hypotheses of the migrated abstract consumers.",
+    "The infinite limit of the jump expansion; only its finite core is checked.",
+    "Any unbounded denominator exclusion. The finite certificates exclude denominators below an explicit bound and no further."
+  ],
+  "open_obligations": [
+    {
+      "id": "actual_local_window_residue_escape",
+      "statement": "For every positive B coprime to 30 and every starting index, produce a later actual {2,3,5} window whose least positive forcing residue exceeds the exact denominator-dependent carry bound."
+    },
+    {
+      "id": "actual_rational_carry_instantiation",
+      "statement": "Identify the formal radix word with the checked four-symbol dyadic block base, formalize the exact block digit and its link to the original summand multiplicities, and derive the positive reduced carry recurrence and its bound from a hypothetical rational value."
+    },
+    {
+      "id": "nonstationary_analytic_theorem",
+      "statement": "Prove a genuinely higher-dimensional analytic theorem for the phase cocycle or the associated contraction."
+    },
+    {
+      "id": "unbounded_height_certificate",
+      "statement": "Replace one finite denominator exclusion by a family whose exclusion bound tends to infinity."
+    }
+  ],
+  "finite_search": "The integer-only dyadic-window checker reproduces three exact packet certificates and, for all 106,666 pairs with denominator B <= 1000 coprime to 30 and dyadic start 100 <= a <= 500, finds an escaping window of length at most 18; the largest first successful length is 14. This is finite proof-consumer evidence only and proves neither unbounded-denominator nor cofinal escape.",
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos269.ThreePrimeRunningLcm",
+      "path": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+      "present": true,
+      "line_count": 729,
+      "declaration_count": 50,
+      "theorem_count": 34,
+      "content_digest": "sha256:b3279ce084c98e4e7521e0bb94d3e366de010a30548fab0b326390da16ff6c3c",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.ResidueEscape",
+      "path": "ErdosProblems/Erdos269/ResidueEscape.lean",
+      "present": true,
+      "line_count": 164,
+      "declaration_count": 8,
+      "theorem_count": 6,
+      "content_digest": "sha256:826a3dd901c86f1876c7e03011447dafef8d3cb139a673227e921bef3a9dfe87",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ResidueEscape.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.RestrictedFloorSum",
+      "path": "ErdosProblems/Erdos269/RestrictedFloorSum.lean",
+      "present": true,
+      "line_count": 683,
+      "declaration_count": 42,
+      "theorem_count": 29,
+      "content_digest": "sha256:14085590dfbf9b2dc34d4ac1b446667f3ce249b7c25687801c79f7d55db8189e",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.BoundedRadixTailEscape",
+      "path": "ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
+      "present": true,
+      "line_count": 207,
+      "declaration_count": 6,
+      "theorem_count": 4,
+      "content_digest": "sha256:a3e8b3b5e9723a8de2ea1bc3a3dd4635a1cb06c4d563e0d4d9d55aec947f2c61",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.CarryLiftExtinction",
+      "path": "ErdosProblems/Erdos269/CarryLiftExtinction.lean",
+      "present": true,
+      "line_count": 351,
+      "declaration_count": 14,
+      "theorem_count": 12,
+      "content_digest": "sha256:ace522da1f0a6833a200efbe18d5961cf3562e1e6756055427b85140d25aae4b",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/CarryLiftExtinction.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
+      "path": "ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean",
+      "present": true,
+      "line_count": 128,
+      "declaration_count": 6,
+      "theorem_count": 4,
+      "content_digest": "sha256:5dbd4a448520c6c4de924480e381ee5408a4724a3081837d04bfb4ac1186ae5f",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos269.WeightedPhaseCarry",
+      "path": "ErdosProblems/Erdos269/WeightedPhaseCarry.lean",
+      "present": true,
+      "line_count": 371,
+      "declaration_count": 23,
+      "theorem_count": 14,
+      "content_digest": "sha256:ef3e57a4728534e108bb4e668ceef2cc102c2cf001673d59d9c15cff7f0beb9e",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "three_prime_kernel_minor",
+      "problem": 269,
+      "review_family": "rank_two_kernel_no_go",
+      "contribution_class": "no-go result",
+      "original_declaration": "ErdosProblems.Erdos269.kernel_235_minor_eq_neg_one_fifteen",
+      "original_source": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.kernel_235_minor_eq_neg_one_fifteen",
+      "statement": "The smallest displayed 2,3,5 kernel minor is exactly -1/15.",
+      "boundary": "Failure of rank one does not imply irrationality.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+    },
+    {
+      "id": "three_prime_running_lcm",
+      "problem": 269,
+      "review_family": "three_prime_lcm_cells",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos269.smoothPrefixLcm_eq_threePrimeHeight",
+      "original_source": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.smoothPrefixLcm_eq_threePrimeHeight",
+      "statement": "The running lcm of the three-prime smooth prefix equals the exact coordinatewise height.",
+      "boundary": "The identity does not supply the missing irrationality bridge.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 269,
+    "paper": "paper/erdos-269-three-prime-running-lcm.tex",
+    "families": [
+      {
+        "id": "three_prime_lcm_cells",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Exact running-LCM product, logarithmic-cell constancy, coordinate jump ratios, and jump count.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_running_lcm_identity",
+        "boundary": "Cell structure alone does not prove irrationality."
+      },
+      {
+        "id": "two_prime_transcendence",
+        "contribution_class": "paper plus external theorem",
+        "summary": "Both two-prime running-lcm series are proved transcendental by an authored deduction from an external theorem.",
+        "evidence_mode": "paper argument plus cited theorem",
+        "comparator_disposition": "not_applicable_not_a_lean_declaration",
+        "boundary": "Comparator cannot certify the external analytic input."
+      },
+      {
+        "id": "height_fibre_and_shell",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Finite height-fibre normal form and a quadratic smooth-shell multiplicity bound.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_three_prime_structure_target",
+        "boundary": "The fibre bounds do not provide the missing divisibility bridge."
+      },
+      {
+        "id": "rank_two_kernel_no_go",
+        "contribution_class": "no-go result",
+        "summary": "The 2,3,5 kernel is not rank one and its smallest displayed minor equals -1/15.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "Failure of rank one does not itself imply irrationality."
+      },
+      {
+        "id": "dyadic_block_alphabet",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "The exact dyadic block alphabet is 2, 6, 10, and 30.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_three_prime_structure_target",
+        "boundary": "The finite alphabet does not supply the needed carry escape."
+      },
+      {
+        "id": "conditional_carry_escape",
+        "contribution_class": "conditional reduction",
+        "summary": "Cofinal local-window residue escape would rule out bounded positive carries after an unproved rationality-to-carry bridge.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_unproved_bridge_and_deep_predicates",
+        "boundary": "The producer and actual-series identification are missing."
+      },
+      {
+        "id": "three_prime_finite_search",
+        "contribution_class": "finite computation",
+        "summary": "A local-window checker searches 106666 denominator and start pairs and records small certificates.",
+        "evidence_mode": "external exact computation",
+        "comparator_disposition": "not_applicable_not_a_lean_theorem",
+        "boundary": "Finite search is not a cofinal statement."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-269-three-prime-running-lcm",
+    "title": "The Three-Prime Running Least Common Multiple",
+    "subject": "Erdős #269",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 23,
+    "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
+    "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+    "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+    "problem_id": "erdos_269",
+    "routes": {
+      "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
+      "html_exact_tex": "papers/erdos-269-three-prime-running-lcm.mathjax.html",
+      "pdf": "../../papers/erdos-269-three-prime-running-lcm.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-269-three-prime-running-lcm.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
+      "publication_manifest_match": true,
+      "mathml_node_count": 493,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "876a81b1af17ddd6d7c74b0f2dc86c50d58941182a91dcaec9dfa665e083d2dd",
+      "html_exact_tex_sha256": "c656bbcc17252c34726c9e1909ffde25e0cfa82260dbb897a47d60bc5ccd9f64"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Introduction"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Structure"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The running least common multiple as a product of pure powers"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Constancy on logarithmic cells and the jump points"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The two-prime sums are transcendental"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The height-fibre normal form"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "A quadratic bound for smooth exponent shells"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Non-separability of the three-prime kernel"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Dyadic blocks and a conditional carry contradiction"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The four-element block alphabet"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The denominator reduction and its boundary"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The window recurrence and the residue contradiction"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A finite check of the escape condition"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Complements and further questions"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The actual block data and the missing bridge"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The intrinsic tail question"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A denominator-adaptive sufficient criterion"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A literal two-dimensional analytic route"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The structural frontier"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Artefact and data availability."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Funding and competing interests."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Acknowledgements."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_269",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos269",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

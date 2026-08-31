@@ -1,0 +1,173 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "results",
+  "title": "Results and open boundaries",
+  "role": "mathematical_results_map",
+  "reading_order": 20,
+  "source_path": "docs/RESULTS.md",
+  "routes": {
+    "html_mathml": "documents/results.html",
+    "html_exact_tex": "documents/results.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "c4c49a0c29dbb5daac31b299636795cf0a0e048bd1d5d47089cfba81cfe5f6fb",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "7aaaa5033467edca0b2f72050d739c8094379ac7f6709cd14797a24cde9b7c2c",
+    "html_exact_tex_sha256": "3231816f5b702c11df49fcbaa8932b6f7fc1957b615626ba452c261f5c438be7"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Ten-minute verdict"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Strongest checked results by problem"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is proved"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Settled support families for Problem 257"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The reduction chain for the one-half test case of Problem 257"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact ranks for dyadic sections of Euler’s totient"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A finite diagonal certificate band for Problem 249"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Finite off-diagonal certificates"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Direct Farey comparison"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Scoped no-go theorems"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Other standalone exact obstructions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Demand ledger"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is measured, not proved"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact endpoint-certificate probe"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Source-backed checked diagonal depths"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What was retracted"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is open"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact questions for a human expert"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "XQ249-lcm-diagonal-supply — diagonal supply"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "XQ249-pivot-decorrelation — pivot decorrelation"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "XQ249-adjacent-phase-separation — adjacent phases"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "XQ257-second-channel-separation — second channel"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "XQ257-middle-producer-tail-escape — middle producer"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact systems-review handoff"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Erdős Problem 249"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Erdős Problem 257"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "How to verify"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Isolated-tree reproduction record"
+    }
+  ]
+}

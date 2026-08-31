@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#257 Reciprocal sums over infinite exponent supports · Plectis maths</title>
+  <meta name="description" content="Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_257.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#257 Reciprocal sums over infinite exponent supports · Plectis maths">
+  <meta property="og:description" content="Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_257.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#257 Reciprocal sums over infinite exponent supports · Plectis maths">
+  <meta name="twitter:description" content="Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html" class="is-active" aria-current="page"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#257</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #257</span>
+        <h1>Reciprocal sums over infinite exponent supports</h1>
+        <p class="dossier-head__q">Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>1 Lean modules</span>
+          <span>4 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos257" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>That the strict Mersenne tail inequality is hereditary under deleting an arbitrary collection of future weights.</li>
+          <li>That binary digit strings restricted to any chosen support retain unique Mersenne coding.</li>
+          <li>Restricted sets are compact and nowhere dense; infinite-support sets are perfect; finite-complement measure is 2^(-|F|), otherwise zero.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">mixed prior-art geometry and locally proved metric result; novelty unassessed</span>
+            <span class="disposition">family: achievement_set_geometry</span>
+          </div>
+          <p class="result-card__statement">The base-2 Mersenne achievement set has Lebesgue measure exactly one.</p>
+          <p class="result-card__boundary">This does not decide whether every infinite-support sum is irrational.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GreedyAchievementSet.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.volume_mersenneAchievementSet</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">formalisation of an existing theorem</span>
+            <span class="disposition">family: known_irrational_supports</span>
+          </div>
+          <p class="result-card__statement">For every integer base b &gt;= 2, the full-support Erdos-Borwein series is irrational.</p>
+          <p class="result-card__boundary">This is the classical full-support theorem, not universal Erdos #257.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.irrational_erdosSum_full_support</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: finite_period_noncollapse</span>
+          </div>
+          <p class="result-card__statement">For a reduced finite Mersenne sum, the base order modulo the denominator equals the support lcm.</p>
+          <p class="result-card__boundary">The finite-support theorem does not settle any infinite-support sum.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.finite_period_noncollapse_rat_den</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: restricted_achievement_sets</span>
+          </div>
+          <p class="result-card__statement">A support-restricted Mersenne achievement set has exact finite-complement measure or measure zero for infinite complement.</p>
+          <p class="result-card__boundary">The measure dichotomy does not classify rational points.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos257.volume_supportedMersenneAchievementSet_dichotomy</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>The universal irrationality problem, or irrationality for any new infinite support.</li>
+          <li>Fair-bit laws, finer singularity results, and periodic-stride dimensions.</li>
+          <li>Any bridge from geometric uniqueness or measure rigidity to arithmetic irrationality.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>arithmetic_rigidity_for_thin_supports</code> Convert hereditary unique coding into an arithmetic obstruction to rational values for every infinite support, including zero-measure Cantor supports.</li>
+          <li><code>formalise_measure_and_stride_geometry</code> Extend the measure dichotomy to Bernoulli laws and periodic-stride dimensions without implying arithmetic consequences.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos257.MersenneSubseriesRigidity</code></a></td>
+              <td class="num">421</td>
+              <td class="num">28</td>
+              <td class="num">23</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">The multiplicative order of the base modulo a reduced finite-sum denominator is the support lcm, forcing denominator growth.</p>
+              <p class="boundary-line">A finite-support denominator theorem does not settle an infinite-support sum.</p>
+              <p class="disposition">finite_period_noncollapse &middot; targeted</p>
+            </li>
+            <li>
+              <p class="summary-line">Full, factorial, power-of-two, multiple, pairwise-coprime, eventually periodic, residue-class, and odd supports are formalised.</p>
+              <p class="boundary-line">Structured known families do not cover arbitrary infinite supports.</p>
+              <p class="disposition">known_irrational_supports &middot; targeted_full_support_representative</p>
+            </li>
+            <li>
+              <p class="summary-line">Compactness, perfectness, total disconnectedness, nowhere density, and measure one for the unrestricted achievement set.</p>
+              <p class="boundary-line">Geometry of the full set does not decide irrationality of every coded point.</p>
+              <p class="disposition">achievement_set_geometry &middot; targeted_measure_theorem</p>
+            </li>
+            <li>
+              <p class="summary-line">Support-restricted coding is injective and the associated achievement set has exact finite-complement measure or zero for infinite complement.</p>
+              <p class="boundary-line">The measure dichotomy does not classify rational points.</p>
+              <p class="disposition">restricted_achievement_sets &middot; targeted_measure_dichotomy</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Rational infinite supports force unbounded scaled tails, sublogarithmic zero windows, and reciprocal-mass constraints.</p>
+              <p class="boundary-line">The constraints do not exclude every infinite support.</p>
+              <p class="disposition">rational_support_constraints &middot; not_selected_deep_support_vocabulary</p>
+            </li>
+            <li>
+              <p class="summary-line">Lean checks squarefree incidence and no-go statements; the irrationality conclusion uses an external analytic theorem in the paper.</p>
+              <p class="boundary-line">Comparator must not badge the paper-plus-external conclusion.</p>
+              <p class="disposition">squarefree_support &middot; not_applicable_to_external_irrationality_input</p>
+            </li>
+            <li>
+              <p class="summary-line">Exact greedy characterisations and finite-support exclusions isolate the remaining 1/2 and 1/21 alternatives.</p>
+              <p class="boundary-line">Neither membership question is decided.</p>
+              <p class="disposition">half_and_twenty_one_frontiers &middot; not_selected_deep_greedy_state_vocabulary</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">21&#8202;pp</span></div>
+          <p class="result-card__statement">Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry</p>
+          <p class="result-card__boundary">For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-257-mersenne-support-subseries.html">Read it here</a>
+            <a href="../../papers/erdos-257-mersenne-support-subseries.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

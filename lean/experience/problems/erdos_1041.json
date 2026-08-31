@@ -1,0 +1,265 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_1041",
+  "erdos_number": 1041,
+  "title": "Short connections inside polynomial lemniscates",
+  "status": "open",
+  "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate?",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "Along a trajectory tangent to the complex Newton vector field -f/f', the polynomial value satisfies w' = -w.",
+    "The exponentially rescaled polynomial value is a first integral, so the value of a Newton trajectory remains on one oriented ray.",
+    "A finite Newton-flow connection can only join endpoints whose polynomial values lie on the same positive ray; distinct critical-value arguments therefore exclude such a connection.",
+    "For two translated critical values, the ray-collision locus is a real affine line with an exact one-parameter description.",
+    "A finite family of ray-collision lines can be avoided by an arbitrarily small common translation.",
+    "An explicit root-retention estimate keeps roots of a sufficiently small constant perturbation inside the unit disc."
+  ],
+  "what_is_not_checked": [
+    "Erdos Problem 1041 in unrestricted degree.",
+    "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
+    "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+    "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
+    "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
+  ],
+  "open_obligations": [
+    {
+      "id": "repair_or_refute_saddle_block",
+      "statement": "Replace the false three-ended interior saddle neighbourhood by a valid four-pronged or cut-annulus block and reprove the required incidence statement, or construct a polynomial counterexample to that incidence statement."
+    },
+    {
+      "id": "compact_ray_cut_strip_decomposition",
+      "statement": "Build a compact strip or cell decomposition after cutting along critical-value rays, without presupposing the unproved local valence count."
+    },
+    {
+      "id": "metric_gluing_below_two",
+      "statement": "Glue the local pieces with strict quantitative slack while preserving the sharp one-over-two-pi length bookkeeping."
+    },
+    {
+      "id": "two_stage_stable_perturbation",
+      "statement": "First separate critical values, then apply the checked small translation, while retaining roots, the selected component, collars, ray separation, and a strict length margin."
+    },
+    {
+      "id": "relative_global_newton_flow_theorem",
+      "statement": "Prove the global relative Newton-flow theorem that turns the checked ray separation into the required root-to-root curve inside the original open lemniscate."
+    }
+  ],
+  "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence, not a topology proof or a counterexample certificate.",
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
+      "path": "ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
+      "present": true,
+      "line_count": 323,
+      "declaration_count": 21,
+      "theorem_count": 18,
+      "content_digest": "sha256:8736b05c24517e4568cfdfc49f0180089951cc6397ad720d20271fbc9e5e7351",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "newton_small_translation",
+      "problem": 1041,
+      "review_family": "translation_avoidance",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos1041.exists_small_translation_separating_arguments",
+      "original_source": "ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.exists_small_translation_separating_arguments",
+      "statement": "An arbitrarily small common translation separates a finite injective family from zero and from shared positive rays.",
+      "boundary": "Finite-family avoidance does not provide the global topological or metric gluing.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+    },
+    {
+      "id": "newton_root_retention",
+      "problem": 1041,
+      "review_family": "root_retention",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos1041.constant_perturbation_roots_in_unitDisk",
+      "original_source": "ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.constant_perturbation_roots_in_unitDisk",
+      "statement": "A quantified small constant perturbation keeps every polynomial root inside the open unit disc.",
+      "boundary": "Root retention is only one input to an incomplete global route.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 1041,
+    "paper": "paper/erdos-1041-lemniscate-newton-flow.tex",
+    "families": [
+      {
+        "id": "newton_value_decay",
+        "contribution_class": "locally proved result and formalised calculus; novelty unassessed",
+        "summary": "The Newton value equation and its exponential first integral are checked exactly.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_compact_calculus_family",
+        "boundary": "Value decay alone does not give a short connecting curve."
+      },
+      {
+        "id": "ray_separation",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Distinct positive rays exclude a finite Newton connection.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_translation_avoidance_targets",
+        "boundary": "The result is a route obstruction, not the global theorem."
+      },
+      {
+        "id": "translation_avoidance",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Collision translations are parameterised by real affine lines and an arbitrarily small common translation avoids finitely many of them.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The finite-family avoidance theorem does not perform the global topology or metric gluing."
+      },
+      {
+        "id": "root_retention",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "A quantified small constant perturbation keeps every polynomial root inside the open unit disc.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "Root retention is one input to a still-incomplete route."
+      },
+      {
+        "id": "published_proof_gap",
+        "contribution_class": "paper diagnosis",
+        "summary": "The paper identifies an invalid local saddle block in a claimed unrestricted proof.",
+        "evidence_mode": "authored source analysis",
+        "comparator_disposition": "not_applicable_not_a_lean_proposition",
+        "boundary": "The diagnosis does not prove that no repair exists."
+      },
+      {
+        "id": "lemniscate_finite_search",
+        "contribution_class": "finite computation",
+        "summary": "A bounded search records finite geometric evidence.",
+        "evidence_mode": "external computation",
+        "comparator_disposition": "not_applicable_not_a_lean_theorem",
+        "boundary": "Finite evidence does not settle the universal problem."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-1041-lemniscate-newton-flow",
+    "title": "Newton Flow and Critical-Value Ray Separation",
+    "subject": "Erdős #1041",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 10,
+    "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+    "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+    "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+    "problem_id": "erdos_1041",
+    "routes": {
+      "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
+      "html_exact_tex": "papers/erdos-1041-lemniscate-newton-flow.mathjax.html",
+      "pdf": "../../papers/erdos-1041-lemniscate-newton-flow.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1041-lemniscate-newton-flow.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "18eb45e9bb45836b4df89f6b52f9de5d634755db75ba3b9a2431e5daccad0968",
+      "publication_manifest_match": true,
+      "mathml_node_count": 54,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "4f21422522f8aff6f68ecd5254f09b5ddf9067316e408a6e5235f117cd55ac7e",
+      "html_exact_tex_sha256": "c371a3c30148d0d6a283582b3c3649e34a3bd2a04e914f5e862c55efeb139a8b"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The problem"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The Newton value equation"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Arguments, not moduli"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "A proof gap in the unrestricted argument"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Finite evidence"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Complements and further questions"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "1. Repair or refute the saddle block"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "2. The compact ray-cut decomposition"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "3. Metric fan-in without losing the coefficient"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "4. Coefficient perturbation and stability"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "5. The global Newton-flow claim ceiling"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_1041",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1041",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

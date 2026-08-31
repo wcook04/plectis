@@ -1,0 +1,393 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_243",
+  "erdos_number": 243,
+  "title": "Reciprocal-tail rigidity near the Sylvester recurrence",
+  "status": "open",
+  "question": "Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "The exact product-cleared tail dynamics and the defect identity, as identities in the integer state variables.",
+    "That a vanishing centred state is absorbing under strict centring, so the state is either eventually zero or nowhere zero.",
+    "That eventual vanishing of the centred state, with the next tail state nonvanishing, forces the Sylvester recurrence eventually.",
+    "That a nonnegative centred state vanishes eventually, by descent.",
+    "That the centred state cannot be eventually constant and negative, at any magnitude and any common scale.",
+    "That the negative magnitude cannot be eventually periodic with positive drift, in the regime where each magnitude is below its multiplier.",
+    "A coprimality barrier: a sequence tending to infinity with uniformly bounded upward increments cannot permanently avoid infinitely many fresh pairwise coprime moduli.",
+    "That a reduced exact tail has pairwise coprime multipliers which its numerator permanently avoids, so no such tail has a divergent numerator with bounded rise.",
+    "That the tail gcd stabilises under cofinally bounded negative magnitudes.",
+    "Conditionally: exact dynamics, eventual strict centring, an eventually bounded negative part, and normalised vanishing together force the centred state to vanish eventually.",
+    "That survival through a fixed number of forced updates depends only on the initial state modulo a factorial of the horizon."
+  ],
+  "what_is_not_checked": [
+    "The unrestricted problem.",
+    "That eventual strict centring and normalised vanishing follow from the growth hypothesis and rationality. Both are assumed by the final theorem and neither is derived, so that theorem constrains the state system rather than the original sequence.",
+    "Any exclusion of negative excursions whose magnitudes are unbounded along a cofinal set.",
+    "The criterion of Erdos and Straus and Duverney's conditional characterisation, which are cited rather than formalised and are both stronger than anything checked here."
+  ],
+  "open_obligations": [
+    {
+      "id": "unbounded_negative_excursions",
+      "statement": "Exclude, or construct, an exact orbit whose centred state is negative infinitely often with magnitudes unbounded along that cofinal set. Every checked exclusion consumes some finiteness: a fixed set of prime divisors, a fixed period, or a fixed bound on the negative part."
+    },
+    {
+      "id": "derive_the_two_analytic_hypotheses",
+      "statement": "Derive eventual strict centring and normalised vanishing from the growth hypothesis and rationality, or show that they do not follow."
+    },
+    {
+      "id": "formalise_the_published_criteria",
+      "statement": "Kernel-check the Erdos-Straus weighted criterion and Duverney's conditional characterisation under explicit analytic hypotheses."
+    }
+  ],
+  "finite_search": "An exact search over initial states below five thousand produced forced prefixes of length seventeen and no longer. It is superseded: the constant-negative template is now excluded outright, for every seed and at every scale.",
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos243.ReciprocalTailRigidity",
+      "path": "ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
+      "present": true,
+      "line_count": 2386,
+      "declaration_count": 77,
+      "theorem_count": 67,
+      "content_digest": "sha256:3145b8a5a4c3783fa4c79b726e20f55285a7a43ec58a5e876bf3e4a3d1f88ff9",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.FiniteHorizonResidue",
+      "path": "ErdosProblems/Erdos243/FiniteHorizonResidue.lean",
+      "present": true,
+      "line_count": 141,
+      "declaration_count": 10,
+      "theorem_count": 7,
+      "content_digest": "sha256:61d3b9deeb41875b031a0b50a27b336d3ebbbfe7111eda14450227c142d13006",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/FiniteHorizonResidue.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.SparseResetRecovery",
+      "path": "ErdosProblems/Erdos243/SparseResetRecovery.lean",
+      "present": true,
+      "line_count": 208,
+      "declaration_count": 6,
+      "theorem_count": 5,
+      "content_digest": "sha256:74685dc6ad5abceedd76ea3928b25845a3bdf6070aaa96344d5ac5996a96187a",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.DynamicCancellation",
+      "path": "ErdosProblems/Erdos243/DynamicCancellation.lean",
+      "present": true,
+      "line_count": 399,
+      "declaration_count": 15,
+      "theorem_count": 15,
+      "content_digest": "sha256:82f16b7f678b422b2c939a1587d27c0fc8c3be08272079e6965eb184bb28d2d6",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/DynamicCancellation.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.FeedbackRealizability",
+      "path": "ErdosProblems/Erdos243/FeedbackRealizability.lean",
+      "present": true,
+      "line_count": 165,
+      "declaration_count": 7,
+      "theorem_count": 7,
+      "content_digest": "sha256:b5244899b15e5554ca45d0079023b9ec50622569c607b8ebaaf13ba2eba7c8e3",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/FeedbackRealizability.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.GlobalLcmHeight",
+      "path": "ErdosProblems/Erdos243/GlobalLcmHeight.lean",
+      "present": true,
+      "line_count": 152,
+      "declaration_count": 13,
+      "theorem_count": 9,
+      "content_digest": "sha256:9b9d070b01a39b6685f9aee7b7669e22589b2a2a5dbf57a9c299879429711d02",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/GlobalLcmHeight.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.LcmCriticalBoundary",
+      "path": "ErdosProblems/Erdos243/LcmCriticalBoundary.lean",
+      "present": true,
+      "line_count": 388,
+      "declaration_count": 15,
+      "theorem_count": 14,
+      "content_digest": "sha256:da5323838ee6412f15f2a9a169188edd46d105ba5a9b36a4161a1ca3cff33fbe",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/LcmCriticalBoundary.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.PrimitivePrefixRigidity",
+      "path": "ErdosProblems/Erdos243/PrimitivePrefixRigidity.lean",
+      "present": true,
+      "line_count": 136,
+      "declaration_count": 6,
+      "theorem_count": 4,
+      "content_digest": "sha256:5bb23f80d66cb863e4504775476f0633d6814a749fe26a586596d390a0385327",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/PrimitivePrefixRigidity.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos243.WeightedCRTRepair",
+      "path": "ErdosProblems/Erdos243/WeightedCRTRepair.lean",
+      "present": true,
+      "line_count": 333,
+      "declaration_count": 17,
+      "theorem_count": 11,
+      "content_digest": "sha256:7bd0b18c719d15929bcee8039eb56cc7692853e917853f25e5f74065f603a763",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/WeightedCRTRepair.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "bounded_negative_exclusion",
+      "problem": 243,
+      "review_family": "bounded_negative_exclusion",
+      "contribution_class": "conditional reduction and no-go result",
+      "original_declaration": "ErdosProblems.Erdos243.no_cofinallyBoundedNegative_of_normalizedVanishes",
+      "original_source": "ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.no_cofinallyBoundedNegative_of_normalizedVanishes",
+      "statement": "Normalised vanishing and bounded rise exclude a cofinally bounded negative part.",
+      "boundary": "All dynamics, bounded-rise, positivity, and vanishing hypotheses remain explicit.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+    },
+    {
+      "id": "eventually_periodic_negative_no_go",
+      "problem": 243,
+      "review_family": "negative_orbit_no_go",
+      "contribution_class": "no-go result",
+      "original_declaration": "ErdosProblems.Erdos243.no_eventuallyPeriodicNegative_orbit",
+      "original_source": "ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.no_eventuallyPeriodicNegative_orbit",
+      "statement": "An eventually periodic negative-error orbit with positive phase growth is impossible.",
+      "boundary": "The theorem does not cover arbitrary unbounded negative behaviour.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 243,
+    "paper": "paper/erdos-243-reciprocal-tail-rigidity.tex",
+    "families": [
+      {
+        "id": "centered_state_dynamics",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Exact update and defect identities, scale equivariance, zero absorption, and eventual recovery of the Sylvester recurrence.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_selected_boundary_theorems",
+        "boundary": "The recovery theorem requires eventual centred-state vanishing."
+      },
+      {
+        "id": "negative_orbit_no_go",
+        "contribution_class": "no-go result",
+        "summary": "Constant, eventually constant, periodic, and eventually periodic negative-error orbits are excluded in their stated regimes.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_representative_periodic_theorem",
+        "boundary": "The exclusions do not cover arbitrary unbounded negative behaviour."
+      },
+      {
+        "id": "bounded_rise_coprimality",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "A bounded-rise sequence cannot remain coprime to fresh pairwise-coprime moduli; reduced tails inherit this obstruction.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_stronger_selected_boundary_theorem",
+        "boundary": "The required bounded-rise input is not automatic for the original sequence."
+      },
+      {
+        "id": "bounded_negative_exclusion",
+        "contribution_class": "conditional reduction and no-go result",
+        "summary": "Normalised vanishing excludes a cofinally bounded negative part and forces eventual Sylvester behaviour.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "Every positivity, dynamics, bounded-rise, and vanishing hypothesis remains explicit."
+      },
+      {
+        "id": "negative_mass_recovery",
+        "contribution_class": "conditional reduction",
+        "summary": "Finite normalised negative mass forces eventual zero and hence the Sylvester recurrence.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_state_vocabulary",
+        "boundary": "Summability of the negative mass is unproved for the original problem."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-243-reciprocal-tail-rigidity",
+    "title": "Excluding the Bounded Negative Part",
+    "subject": "Erdős #243",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 22,
+    "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
+    "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
+    "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+    "problem_id": "erdos_243",
+    "routes": {
+      "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
+      "html_exact_tex": "papers/erdos-243-reciprocal-tail-rigidity.mathjax.html",
+      "pdf": "../../papers/erdos-243-reciprocal-tail-rigidity.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-243-reciprocal-tail-rigidity.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "6412e4483f997e12d87b18f859b2e3cd4a61404e9efa9982e30072cffbb96eb7",
+      "publication_manifest_match": true,
+      "mathml_node_count": 379,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "9d2a65279f8282bf9a0d0ee202e71cafbd844a784707fd304c95852b570ba2f5",
+      "html_exact_tex_sha256": "453e31526d673ea8b6c2ba7a71bd89671dd7475e87cc201d82daf4d827d3f2b5"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Introduction"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Relation to prior work."
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Structure"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The centred integer state"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The intended reading, which is not formalised."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The defect identity and its two consequences"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Descent when the error is nonnegative"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Excluding a constant negative magnitude"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Excluding a periodic negative magnitude"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Bounded rise cannot remain coprime to fresh moduli"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Excluding a bounded negative part"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Excluding finite normalised negative mass"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Complements and further questions"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Global height and old-factor overlap"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The direct analytic question"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A barrier extension"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Formalisation targets"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Erdős–Straus."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Duverney."
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Artefact and data availability."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Funding and competing interests."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Acknowledgements."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "A factorial residue reduction for forced orbits"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_243",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos243",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

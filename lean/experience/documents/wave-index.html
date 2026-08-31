@@ -1,0 +1,408 @@
+<article class="lean-document" data-document-id="wave-index" data-document-role="development_chronology" data-math-mode="mathml">
+  <header class="lean-document__header">
+    <p class="lean-document__eyebrow">development chronology</p>
+    <h1>Development index</h1>
+  </header>
+  <div class="lean-document__body" data-source="docs/WAVE_INDEX.md">
+<!--
+SPDX-FileCopyrightText: 2026 Will Cook
+SPDX-License-Identifier: Apache-2.0
+-->
+<section id="wave-index" class="level1">
+<h1>Wave index</h1>
+<p>Wave labels are <strong>development chronology</strong>, not Lean
+import order.</p>
+<p>Read order for humans:</p>
+<ol type="1">
+<li><code>docs/orientation.json</code> or
+<code>docs/ORIENTATION.md</code> — select one mathematical programme,
+claim, or exact remaining open proposition.</li>
+<li><code>docs/SOURCE_MAP.md</code> — follow that selected intention
+into a bounded module route.</li>
+<li><code>paper/erdos249-257-main-paper.tex</code> — read the authored
+mathematical exposition and its source handles.</li>
+<li>this file — recover development chronology only when chronology is
+the question.</li>
+<li><code>Erdos249257.lean</code> and <code>ErdosProblems.lean</code> —
+inspect package topology only when import structure is the
+question.</li>
+</ol>
+<p>Lean source checked by the pinned Lean kernel is proof authority.
+Wave order does not strengthen a claim or close an exact open
+proposition. Erdős #249 and the universal form of #257 remain open.</p>
+<section id="chronology-map" class="level2">
+<h2>Chronology map</h2>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Band</th>
+<th>Where it lives</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-wave / early kernel mass</td>
+<td><code>Erdos249257/CertificateKernel.lean</code></td>
+<td>Core #257 support-family and certificate machinery assembled before
+the separately named #249 modules</td>
+</tr>
+<tr>
+<td>Waves 8–16</td>
+<td>mainly <code>CertificateKernel.lean</code></td>
+<td>Earlier kernel layers retained inside the assembled microkernel</td>
+</tr>
+<tr>
+<td>Waves 17–25</td>
+<td>separately named modules under <code>Erdos249257/</code></td>
+<td>Reader-facing ladder, detailed below</td>
+</tr>
+<tr>
+<td>Wave 26–27</td>
+<td>public material inside <code>CertificateKernel.lean</code></td>
+<td>Not a separate top-level module</td>
+</tr>
+<tr>
+<td>Wave 30</td>
+<td>referenced in <code>LcmConeNonflat.lean</code></td>
+<td>Small-prime support of the cone-window argument</td>
+</tr>
+<tr>
+<td>Generated certificates</td>
+<td><code>GeneratedCertificates.lean</code> +
+<code>GeneratedCertificates/*</code></td>
+<td>Generated finite certificate layers, not waves</td>
+</tr>
+<tr>
+<td>Carry trunk</td>
+<td>five post-wave modules under <code>Erdos249257/</code></td>
+<td>Not waves; a shared binary-carry layer over the kernel, see
+below</td>
+</tr>
+<tr>
+<td>Diagonal pincer frontier</td>
+<td>exact decomposition modules, algebraic support, and finite
+prime-certificate shards</td>
+<td>Post-wave #249 work; sharpens the open certificate-supply obligation
+without closing it</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="waves-1725-named-modules" class="level2">
+<h2>Waves 17–25 (named modules)</h2>
+<p>Each module is a self-contained step with a header docstring stating
+its own honest boundary. The import chain is
+<code>GapFareyBound → MersenneLambertLadder → … → LcmConeNonflat → CertificateKernel ← GeneratedCertificates</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Wave</th>
+<th>Module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17</td>
+<td><code>GapFareyBound.lean</code></td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>MersenneLambertLadder.lean</code></td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>GeometricCoprimality.lean</code></td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>GcdMomentCalculus.lean</code></td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>TotientTailPeriodKiller.lean</code></td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>CarrySurvivorExtinction.lean</code></td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>LcmDiagonalReduction.lean</code></td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>LcmConeFlatness.lean</code></td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>LcmConeNonflat.lean</code></td>
+</tr>
+</tbody>
+</table>
+<section id="wave-17-gapfareybound.lean" class="level3">
+<h3>Wave 17 — <code>GapFareyBound.lean</code></h3>
+<p><strong>Farey-gap denominator bounds.</strong> A mediant/Farey
+argument places any rational <code>m/q</code> inside a forbidden gap, so
+no <code>q</code> below the bound can represent <code>S</code>.
+Elementary and per-window; clears <code>q ≤ 2.49×10¹⁷</code>
+(<code>K=120</code>) and <code>q ≤ 7.96×10³⁴</code>
+(<code>K=240</code>).</p>
+</section>
+<section id="wave-18-mersennelambertladder.lean" class="level3">
+<h3>Wave 18 — <code>MersenneLambertLadder.lean</code></h3>
+<p><strong>The Mersenne–Lambert ladder</strong>, machine-checked: the
+rational rungs <code>L(μ)=1/2</code>, <code>L(φ)=2</code>, the positive
+lift <code>L(A)=S</code>, and the Möbius-square lens
+<code>S = 1/2 + ∑ μ(d)/(2^d−1)²</code>. Engine: a signed, linear-growth
+weighted Lambert rearrangement.</p>
+</section>
+<section id="wave-19-geometriccoprimality.lean" class="level3">
+<h3>Wave 19 — <code>GeometricCoprimality.lean</code></h3>
+<p><strong><code>S</code> as coprime-pair mass.</strong>
+<code>#{(a,b) : a+b=n, 0&lt;a, gcd(a,b)=1} = φ(n)</code>, so at
+<code>r=1/2</code>, <code>S − 1/2 = P(gcd(X,Y)=1)</code> for independent
+fair-coin waiting times. Base 2 is the unique self-normalising point of
+the geometric law.</p>
+</section>
+<section id="wave-20-gcdmomentcalculus.lean" class="level3">
+<h3>Wave 20 — <code>GcdMomentCalculus.lean</code></h3>
+<p><strong>The squared transform</strong>
+<code>L₂(f) = ∑ f(d)/(2^d−1)² = E[(f * ζ)(gcd(X,Y))]</code>, since
+gcd-divisibility factorises across independent coordinates. Yields
+<code>L₂(μ) = S − 1/2</code>, the gcd-moment ladder, and Pillai’s
+gcd-sum function.</p>
+</section>
+<section id="wave-21-totienttailperiodkiller.lean" class="level3">
+<h3>Wave 21 — <code>TotientTailPeriodKiller.lean</code></h3>
+<p><strong>Period, not digits.</strong> Rationality of <code>S</code>
+forces the tail-period law <code>R_{N+h} − R_N ∈ ℤ</code>; missing that
+integer by a decidable margin is a finite “kill”. Reduction:</p>
+<pre><code>irrational_totient_series_of_certificate_supply</code></pre>
+</section>
+<section id="wave-22-carrysurvivorextinction.lean" class="level3">
+<h3>Wave 22 — <code>CarrySurvivorExtinction.lean</code></h3>
+<p><strong>Multiple-period collapse.</strong> Every multiple of a period
+is a period, so the obligation collapses onto the one-parameter family
+<code>periodLcm t = lcm(1..t)</code>. Adds the carry-survivor orbit
+certificate (a bounded integer orbit that must escape a narrow
+strip).</p>
+</section>
+<section id="wave-23-lcmdiagonalreduction.lean" class="level3">
+<h3>Wave 23 — <code>LcmDiagonalReduction.lean</code></h3>
+<p><strong>Diagonal collapse.</strong> Standing on the ray
+(<code>N = periodLcm t</code>) removes the second parameter: #249
+follows from one ℕ-indexed decidable sequence
+<code>∃ L, certifiedKill (periodLcm t) (periodLcm t) L</code> holding
+infinitely often.</p>
+</section>
+<section id="wave-24-lcmconeflatness.lean" class="level3">
+<h3>Wave 24 — <code>LcmConeFlatness.lean</code></h3>
+<p><strong>Cone-flatness law.</strong> Rationality forces one fractional
+constant on the whole lcm cone <code>{k·periodLcm t}</code>. Certificate
+<strong>completeness</strong>: a kill exists iff the tail difference is
+a non-integer:</p>
+<pre><code>exists_certifiedKill_iff_tail_diff_notMem_int</code></pre>
+<p>Plus rank-2 second-difference certificates.</p>
+</section>
+<section id="wave-25-lcmconenonflat.lean" class="level3">
+<h3>Wave 25 — <code>LcmConeNonflat.lean</code></h3>
+<p><strong>Cone non-flatness refuter.</strong> Interrogates a whole menu
+of cone vertices at once: if their one-sided arcs shared a common
+fractional part, the minimal-deep-tail vertex would be a common
+endpoint, and its certificate row denies exactly that. Sharper than
+pairwise; genuinely joint for menus of size ≥ 3.</p>
+</section>
+</section>
+<section id="carry-trunk-post-wave-modules" class="level2">
+<h2>Carry trunk (post-wave modules)</h2>
+<p>These five modules are <strong>not waves</strong>. They form a shared
+binary-carry layer added after the chronology above, building on
+<code>CertificateKernel</code>: what rationality of a binary series
+forces on its integer carry states. Reading order:
+<code>GenericTailOrbitRigidity → GreedyAchievementSet → BooleanMobiusCarry → RationalSupportCarrySkeleton → SublogDivisorCoverage</code>.</p>
+<section id="generictailorbitrigidity" class="level3">
+<h3><code>GenericTailOrbitRigidity</code></h3>
+<p>Depends on <code>CertificateKernel</code>.</p>
+<p>For coefficients <code>c(n) ≤ n</code>, the binary series
+<code>∑ c(n)/2ⁿ</code> is rational exactly when a tempered integer carry
+orbit exists (<code>u(N+1) = 2·u(N) − v·c(N+1)</code> with
+<code>u(N)/2ᴺ → 0</code>); every such orbit is rigid, equal to the
+scaled analytic tail <code>v·T_c(N)</code>. Balanced pulses also prove
+unbounded exact successor fan-out, ruling out a generic autonomous
+finite-state decoder.</p>
+<p>Main theorems:</p>
+<pre><code>temperedBinaryOrbit_eq_scaledTail
+binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit
+balancedPulse_no_autonomous_decoder</code></pre>
+</section>
+<section id="greedyachievementset" class="level3">
+<h3><code>GreedyAchievementSet</code></h3>
+<p>Depends on <code>CertificateKernel</code>.</p>
+<p>Greedy geometry for the Mersenne achievement set (values
+<code>∑_{n∈A} 1/(2ⁿ−1)</code>): strict superincreasing tail
+inequalities, the quantitative gap asymptotic
+<code>(2/3)·4⁻ⁿ + O(8⁻ⁿ)</code>,
+compact/perfect/totally-disconnected/nowhere-dense structure with
+Lebesgue measure one, exact real and rational greedy recurrences,
+membership ⇔ all-level greedy survival, sound one-sided finite rational
+death certificates (the exact level-one certificate excludes
+<code>3/4</code>), and uniqueness of normalised support coding.
+Certificates prove nonmembership only.</p>
+<p>Main theorems:</p>
+<pre><code>volume_mersenneAchievementSet
+isNowhereDense_mersenneAchievementSet
+mem_mersenneAchievementSet_iff_greedy_survival
+certifiedGreedyMersenneDeath_not_mem</code></pre>
+</section>
+<section id="booleanmobiuscarry" class="level3">
+<h3><code>BooleanMobiusCarry</code></h3>
+<p>Depends on <code>GenericTailOrbitRigidity</code>.</p>
+<p>Boolean–Möbius carry coordinates for support series: the Lambert
+coefficient <code>f_A(n) = #{a ∈ A : a ∣ n}</code> satisfies
+<code>f_A = 1_A * ζ</code> and <code>μ * f_A = 1_A</code> on positive
+integers; rationality of the support series is equivalent to a tempered
+carry orbit whose carry quotient is exactly <code>f_A</code>; normalised
+nonempty supports with value <code>p/q</code> correspond exactly to
+quotient-only Boolean Möbius carry certificates. The displayed value
+<code>1/2</code> has a canonical affine-orbit criterion. Worked support
+<code>{2,3}</code>: value <code>10/21</code>, period-six orbit
+<code>10, 20, 19, 17, 13, 26</code>.</p>
+<p>Main theorems:</p>
+<pre><code>erdosSupportSeries_rational_iff_exists_temperedCarry
+exists_normalized_support_fraction_iff_exists_booleanMobiusCarry
+support_half_iff_affineBinaryOrbit_tempered</code></pre>
+</section>
+<section id="rationalsupportcarryskeleton" class="level3">
+<h3><code>RationalSupportCarrySkeleton</code></h3>
+<p>Depends on <code>BooleanMobiusCarry</code>.</p>
+<p>Residue wraps and reciprocal mass: the binary repetend identity
+(least positive residues in a complete doubling cycle sum to odd modulus
+× number of wraps), an algebraic one-wrap classification, the Cesàro
+identification of mean support tails with the reciprocal mass
+<code>∑_{a∈A} 1/a</code>, the exact excess-mean identity, the
+rationality-forced lower bound <code>1/ord_v(2)</code> on reciprocal
+mass, the dyadic strengthening (mass divergent or <code>&gt; 1</code>
+for infinite dyadic-rational supports), and global unboundedness of the
+positive carry state attached to any infinite support with rational
+value.</p>
+<p>Main theorems:</p>
+<pre><code>sum_doublingResidue_eq_mul_wrapCount
+one_div_oddOrder_le_reciprocalMass_of_support_fraction
+dyadic_support_fraction_reciprocalMass_diverges_or_gt_one
+exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction</code></pre>
+</section>
+<section id="sublogdivisorcoverage" class="level3">
+<h3><code>SublogDivisorCoverage</code></h3>
+<p>Depends on <code>RationalSupportCarrySkeleton</code>.</p>
+<p><strong>Sublogarithmic divisor coverage.</strong> If an Erdős support
+series has a rational value, consecutive zero windows in its
+divisor-count coefficient <code>f_A</code> have length at most
+<code>ε log₂(N+1) + B</code> for every <code>ε &gt; 0</code>, with
+<code>B ≥ 0</code> obtained for that support and numerator. The proof
+builds <code>B</code> from <code>ε</code>, <code>c</code> and
+<code>v</code>, but the support and numerator are bound before the
+existential, so this declaration does not export one constant uniform
+across all supports. The proof composes an explicit fixed-power divisor
+bound (<code>τ(n)^k ≤ (k^{2^k})^k n</code>), a binary-tail estimate, and
+the exact carry recurrence. This constrains support coverage; it does
+not solve universal #257.</p>
+<p>Main theorem:</p>
+<pre><code>supportCoeffZeroWindow_length_le_eps_logb_add</code></pre>
+<p>None of these modules claims a solution of Erdős #249 or #257. The
+contribution boundary is theorem-family-specific: the carry recurrence
+and strict-tail geometry have direct prior art (Wang–Grau Ribas;
+Kovač–Tao); Möbius inversion, repetend algebra, and divisor averaging
+are classical; the converse/rigidity, certificate-normal-form, and
+coupled reciprocal-mass families remain exact-source-comparison
+candidates. No priority claim is made.</p>
+<p><code>SupportSunflowerDichotomy</code> is an adjacent conditional
+#257 route. It gives the exact carry conversion for finite-core
+orthogonal-petal bouquets and records an explicit alternating-core
+squared-prime-petal support. Its uniform tail-selection hypothesis is
+not proved, so it adds no unconditional support family.</p>
+<p><code>CompositeDilationDefect</code> supplies the exact finite
+correction when a composite support element dilates the divisor-count
+coefficient, and bounds that correction for orthogonal-petal bouquets.
+It is a local identity, not a correlation or irrationality theorem.</p>
+<p><code>MaximalOmegaLayer</code> extends the one-prime-power identity
+to two distinct prime-power layers. It records finite coefficient
+algebra only, with no bounded-Ω or irrationality endpoint.</p>
+</section>
+</section>
+<section id="diagonal-pincer-frontier-post-wave-249-band"
+class="level2">
+<h2>Diagonal pincer frontier (post-wave #249 band)</h2>
+<p>This band refines the lcm-diagonal reduction. Its main reading chain
+is
+<code>DiagonalPincerDecomposition → SquaredMersenneDiagonalEnclosure → DiagonalFreshLossBridge</code>.
+The first module makes diagonal integrality exactly equivalent to a
+foreign-defect term hitting a full-target interval. The second centres
+the diagonal expression at a Lambert projection and bounds the signed
+squared-Mersenne tail. The third turns the remaining fresh loss into an
+exact integer projection and then into binary suffix conditions. Every
+irrationality theorem in this band retains an explicit unbounded-supply
+hypothesis.</p>
+<p><code>DiagonalPincerCertificates</code> and the
+<code>DiagonalPincerCertificatesT*</code> aggregators assemble 28
+checked scales through <code>t = 64</code>; the many
+<code>DiagonalPincerPrimeCertificates.*</code> files are finite proof
+shards, not separate mathematical claims. The denominator/cyclotomic
+chain
+<code>RadicalMobiusShadow → RepunitMobiusNumerator → CyclicTensorMobiusShadow → CyclotomicProjectionOfShadow → PrimePowerJumpDynamics → MersenneShadowCyclotomicNoncollapse → MersenneShadowDenominatorGrowth</code>
+supplies exact rational-denominator information used by the frontier.
+The remaining named modules provide finite identities or conditional
+interfaces; their headers state the boundary locally.</p>
+</section>
+<section id="transport-and-curvature-companion-band" class="level2">
+<h2>Transport and curvature companion band</h2>
+<p>This post-wave #249 band forms a second, self-contained reading
+chain:
+<code>CurvatureCarry → ExponentOnlyTransport → JointExponentTransport</code>,
+with <code>PrimeJumpMigration → PrimeJumpWindow</code>,
+<code>ThreeTransportBoundary</code>, <code>FirstHarmonicGap</code>,
+<code>TropicalCurvatureCarry</code>, and
+<code>LcmFactorIdealPulseObstruction</code> as adjacent branches. It
+proves exact dyadic window decompositions, affine old-channel
+annihilation, new-channel migration, two concrete finite certificates,
+and two scoped no-go theorems: fixed local precision and finite LCM
+factor/anchor shift algebra. The latter is a synthetic countermodel
+rather than a model of actual totient differences. It does not prove an
+unbounded certificate supply or a first-harmonic estimate, so #249
+remains open. The former one-sided companion is retired; its checked
+declarations remain queryable through the claim registry and source
+map.</p>
+<!-- BEGIN generated_package_shape -->
+<!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
+</section>
+<section id="package-shape" class="level2">
+<h2>Package shape</h2>
+<ul>
+<li><code>CertificateKernel.lean</code> (0.85 MiB, 19,278 lines, 845
+declarations; 519 theorems and 275 lemmas): the assembled microkernel
+and headline interfaces.</li>
+<li><code>GeneratedCertificates.lean</code> (1.18 MiB, 27,728 lines,
+1,174 declarations) plus 3 generated shards: finite certificate
+instances checked by the Lean kernel.</li>
+<li>The diagonal-pincer family contains 481 isolated prime-certificate
+modules and 16 scale aggregators. The shards are indexed through
+aggregators rather than presented as separate mathematical claims.</li>
+<li>Entire checked corpus: 1,023 modules, 153,320 declarations, 151,085
+theorem-like declarations, and 8,171 manifest-marked
+generated-certificate declarations (a classification floor, not the
+generated share). The release gate rejects <code>sorry</code>,
+<code>admit</code>, custom <code>axiom</code> declarations, and
+<code>native_decide</code>.</li>
+</ul>
+<p>These are generated inventory facts, not mathematical claim counts.
+The declaration atlas and Lean source remain the drilldown owners.
+<!-- END generated_package_shape --></p>
+</section>
+</section>
+  </div>
+</article>

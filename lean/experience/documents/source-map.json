@@ -1,0 +1,98 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "source-map",
+  "title": "Source map",
+  "role": "proof_and_exposition_crosswalk",
+  "reading_order": 50,
+  "source_path": "docs/SOURCE_MAP.md",
+  "routes": {
+    "html_mathml": "documents/source-map.html",
+    "html_exact_tex": "documents/source-map.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "1cac27463f6f8a52bc6db7128a8fad7d26a69477e9e383b1246549d5c5e68710",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "819368a83535578f1114efe8b27589df1374e33017250bdd8364337444fadd79",
+    "html_exact_tex_sha256": "a58361f3d2a2b8350afc4f47a739563a61311636091a853512b1cad8993dd7ee"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Bounded reader route"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Build entrypoint"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#257 / Erdős–Borwein families"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Periodic weighted Lambert series"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#249 / totient denominator exclusions"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#249 / certificate reductions"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#249 / diagonal pincer frontier"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Transport and curvature companion band"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Paper-curation boundary"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Binary-carry trunk (post-wave carry layer)"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Half-value finite-prefix and boundary analysis"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Claim registry"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Generated finite certificates"
+    }
+  ]
+}

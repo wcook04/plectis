@@ -1,0 +1,98 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "architecture",
+  "title": "Repository architecture",
+  "role": "system_explanation",
+  "reading_order": 140,
+  "source_path": "ARCHITECTURE.md",
+  "routes": {
+    "html_mathml": "documents/architecture.html",
+    "html_exact_tex": "documents/architecture.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "d3cb495157a7157e6aec7e74ea435b2f78cc8e83f8c38a797603f3f5de3b5816",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "a5e521b6ce85d2001a3bc503dc3f6486e2be5d59c070fb2306381b963b305da6",
+    "html_exact_tex_sha256": "8989dd5565a0af1dfff254758a1dc50658f2a5056bfacccbbd4c8f949b916afc"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What this repository is"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The architecture in one page"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Which file is authoritative for what"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Repository map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two libraries, two levels of claim"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A complete example"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What happens when a change is made"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A mathematical statement or proof changes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Only explanatory prose changes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A generated file is out of date"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "How the checks run"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the checks do not prove"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Where to start"
+    }
+  ]
+}

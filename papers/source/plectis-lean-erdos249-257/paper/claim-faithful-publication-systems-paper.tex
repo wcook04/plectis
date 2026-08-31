@@ -852,6 +852,19 @@ later edits which violate those recorded relationships.  In this repository a
 deliberately false test case---called a negative fixture in the repository---now catches the
 strengthening that historically escaped.
 
+This repository sits in the middle, not at the end, of the longer mathematical
+process.  Tao separates proof generation, verification, exposition,
+publication and community acceptance, digestion, and eventual
+canonicalisation~\cite[pp.~6--9]{taoai}.  The claim record addresses one
+transition in that process: it preserves a reviewed boundary between a checked
+formal statement and its public exposition.  The reasoning papers separately
+name the hard remaining bridge, failed routes, and scope-limited no-go results,
+so an expert can see where attention is still required rather than receiving a
+uniformly polished list of theorems.  Those records can make the work a
+candidate for expert digestion.  They are not evidence that other
+mathematicians have accepted or absorbed it, and the repository cannot declare
+its own results canonical.
+
 The failure supplies the governing limit.  The registered checking boundary is
 only as wide as the relationships someone chose to record; in ordinary
 language, the checker cannot enforce an item absent from its checklist.
@@ -906,12 +919,6 @@ recorded relationships a person selected, so passing it does not make generated
 wording faithful. The author selected, reviewed, and authorised the public
 claim-to-declaration mappings, and remains responsible for connecting the
 proofs to public wording.
-independent authority.  That boundary is the subject of this paper as well as a
-condition of it: the checker described in Section~\ref{sec:trust} tests
-recorded relationships a person selected, so passing it does not make generated
-wording faithful.  The author selected, reviewed, and authorised the public
-claim-to-declaration mappings, and remains responsible for connecting the
-proofs to public wording.
 
 The paper inventory, \path{docs/publication_contract.json}, records source
 and PDF cryptographic hashes and validation commands.  The evidence file for
@@ -932,7 +939,7 @@ interpret them.
 
 {\scriptsize
 \begin{multicols}{2}
-\begin{thebibliography}{16}
+\begin{thebibliography}{17}
 \setlength{\itemsep}{0pt}
 \setlength{\parsep}{0pt}
 \bibitem{lean4} L.~de Moura and S.~Ullrich, \emph{The Lean 4 Theorem Prover
@@ -1001,6 +1008,8 @@ International Conference on Requirements Engineering}, 1994, pp.~94--101,
 \bibitem{gsn} SCSC Assurance Case Working Group (ACWG), \emph{Goal
 Structuring Notation Community Standard, Version 3}, SCSC-141C, May 2021,
 \href{https://scsc.uk/scsc-141c}{standard}.
+\bibitem{taoai} T.~Tao, \emph{Mathematics in the age of AI}, preprint, 2026,
+\href{https://doi.org/10.48550/arXiv.2608.16753}{arXiv:2608.16753}.
 \end{thebibliography}
 \end{multicols}
 }

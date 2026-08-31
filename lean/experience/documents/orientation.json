@@ -1,0 +1,88 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "orientation",
+  "title": "Corpus orientation",
+  "role": "generated_reader_map",
+  "reading_order": 30,
+  "source_path": "docs/ORIENTATION.md",
+  "routes": {
+    "html_mathml": "documents/orientation.html",
+    "html_exact_tex": "documents/orientation.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/ORIENTATION.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "abafa6e1a65fe333b443ac308c3ff5a9f2784b0c8313cb4d8019a9c01cced663",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "6cc3e5fb9051d8e5d7baa19eb3003000c37f9a5a57d01c0b5cc21ad567a07e94",
+    "html_exact_tex_sha256": "77e64cd58764fc29b17250319779d17da8c60162479d2f4f5524ab32565444b5"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Release provenance"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What a claim status asserts"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Exact open boundary"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Where the substance is"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Scale"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Mathematical programmes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Principal claim routes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Read by intent"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Drill down"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "External corpus registration"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Query one handle"
+    }
+  ]
+}

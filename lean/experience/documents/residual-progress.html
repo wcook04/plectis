@@ -1,0 +1,323 @@
+<article class="lean-document" data-document-id="residual-progress" data-document-role="open_boundary_progress" data-math-mode="mathml">
+  <header class="lean-document__header">
+    <p class="lean-document__eyebrow">open boundary progress</p>
+    <h1>Residual progress</h1>
+  </header>
+  <div class="lean-document__body" data-source="docs/RESIDUAL_PROGRESS.md">
+<section
+id="deciding-whether-a-proof-sketch-reduced-its-target-or-renamed-it"
+class="level1">
+<h1>Deciding whether a proof sketch reduced its target or renamed
+it</h1>
+<p>A proof either checks or it does not, and a checker says nothing
+about an incomplete one. An agent that leaves <code>sorry</code> behind
+has produced <em>something</em> — the question is whether what remains
+to prove is easier than what it started with, or the same problem
+wearing different notation. That question is semantic, it is the one a
+search loop has to answer thousands of times, and some instances of it
+are decidable by the kernel.</p>
+<p>This document describes what is decidable, what this repository
+measured, and what the evaluator in
+<code>scripts/residual_evaluator.py</code> does and does not settle.</p>
+<section id="the-reported-failure" class="level2">
+<h2>The reported failure</h2>
+<p>Google DeepMind’s AlphaProof Nexus paper (<a
+href="https://arxiv.org/abs/2605.22763">arXiv:2605.22763</a>) rates
+candidate proof sketches with a language model, because formal
+verification gives a binary signal and evolutionary search needs a
+graded one. Its raters judge, among other things, “the plausibility of
+remaining goals”. Its failure analysis reports:</p>
+<blockquote>
+<p>the agent frequently offloaded a problem’s core difficulty into a
+single <code>sorry</code> within a helper lemma that reiterated the
+target statement in a slightly different form</p>
+</blockquote>
+<p>and, of that behaviour:</p>
+<blockquote>
+<p>Explicitly prompting against this behavior failed to prevent it.</p>
+</blockquote>
+<p>Prompting is the wrong instrument. Whether a helper lemma reiterates
+its target is a relation between two propositions, and a proof assistant
+can sometimes settle it outright.</p>
+</section>
+<section id="where-the-instrument-came-from" class="level2">
+<h2>Where the instrument came from</h2>
+<p>This repository is a formalisation programme over eight open Erdős
+problems, and its output is structural: an exact carry normal form
+equivalent to irrationality for #68, a complete measure classification
+of the Mersenne achievement set for #257, the exact rank
+<code>2^e + 1</code> and an explicit odd-core basis of the dyadic
+totient kernel for #249, a first integral of the complex Newton flow for
+#1041, exact prefix-LCM dynamics for #269, and proved no-go theorems
+that close named strategies rather than gesture at difficulty. <a
+href="results.html">RESULTS</a> states each result and the exact point
+where it stops.</p>
+<p>Holding that line requires deciding, repeatedly, which of a
+programme’s many reformulations are progress. The instrument described
+here was built for that job, and it was turned inward first.</p>
+<p><code>ErdosProblems/DemandLedger/Hyp.lean</code> provides
+<code>hypOf%</code>, a term elaborator that takes the type of a named
+hypothesis binder directly from the kernel’s <code>ConstantInfo</code>
+and returns it as a standalone <code>Prop</code>. It does not
+pretty-print and reparse: the extracted proposition is the binder type
+or elaboration fails. An unresolved mathematical demand, which
+previously existed only in binder position, becomes an object that can
+be named, compared and proved about.</p>
+<p>Applied to the 259 conditional-implication declarations in this
+corpus, it yields 101 distinct closed <code>Prop</code>s, of which 23
+are substantial statements rather than side conditions. The finding,
+recorded in <code>docs/semantic/zones/Z18.json</code>, is blunt:</p>
+<blockquote>
+<p>Fourteen of the substantial open antecedents of #249 — the pointwise,
+ray, multiple, diagonal, cone, jump, window, survivor, rank-two,
+cone-nonflat, prime-jump and nonintegrality supplies — are mutually
+implied, and the class is equivalent to Erdős #249 itself. … These are
+therefore not antecedents of the problem in any useful sense; they are
+the problem restated.</p>
+</blockquote>
+<p>That is not a stylistic judgement about the reformulations. It is a
+proved mutual-implication class, and the reverse direction rests on a
+corpus completeness theorem. Fourteen apparent reductions of an open
+problem were, under the kernel, the open problem.</p>
+<p><code>Basic.lean</code> names those 101 demands and nothing more; the
+relations between them were proved once, by hand, for this corpus. The
+evaluator below is that audit turned into an instrument: the same
+question — does this remaining obligation differ from the target — asked
+per sketch, on demand, against a bounded proof budget.</p>
+</section>
+<section id="restatement-is-also-a-population-effect" class="level2">
+<h2>Restatement is also a population effect</h2>
+<p>The fourteen are one class inside one problem. The wider question —
+whether a reformulation that restates its target is
+<em>systematically</em> less useful than one that does not — needs a
+corpus deep enough for the same problem to have been reformulated
+hundreds of times.</p>
+<p><code>docs/reformulation_productivity.json</code> records what this
+one has: 3,693 authored theorem-like declarations over two problems,
+roughly 1,846 each, against 3.7 Lean statements per Erdős problem in
+Formal Conjectures — a density ratio of 499. Generated certificate
+shards are excluded from the count; they are emitted in bulk and would
+swamp it.</p>
+<p>Over the 654 measured statement nodes, split by whether a node
+restates its open problem:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>n</th>
+<th>mean fan-in</th>
+<th>never cited</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>restates the open problem</td>
+<td>48</td>
+<td>1.21</td>
+<td>18.8%</td>
+</tr>
+<tr>
+<td>does not restate</td>
+<td>606</td>
+<td>1.66</td>
+<td>10.9%</td>
+</tr>
+</tbody>
+</table>
+<p>Restatements are cited less and die more often. The file states its
+own proxy limits, and they are real: later reuse inside one corpus is
+not mathematical importance, and the author chose which routes to
+pursue, so this is a correlation over an unbalanced sample rather than a
+controlled comparison. It is offered as the measurement that exists, not
+as the one that would settle the question.</p>
+</section>
+<section id="what-the-evaluator-decides" class="level2">
+<h2>What the evaluator decides</h2>
+<p><code>scripts/residual_evaluator.py</code> asks Lean three bounded
+questions about a sketch that targets <code>P</code> and leaves residual
+obligations <code>R₁ … Rₙ</code>:</p>
+<ol type="1">
+<li><strong>Sufficiency.</strong> Is <code>R₁ ∧ … ∧ Rₙ → P</code>
+provable within the budget?</li>
+<li><strong>Restatement.</strong> For each <code>Rᵢ</code> separately,
+are <em>both</em> <code>P → Rᵢ</code> and <code>Rᵢ → P</code>
+provable?</li>
+<li><strong>Refutation.</strong> Is the residual demand provably
+false?</li>
+</ol>
+<p>Four outcomes follow, and only two are vetoes:</p>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Verdict</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>endpoint_equivalent</code></td>
+<td>Some single residual is provably equivalent to the target. The
+sketch renamed the problem.</td>
+</tr>
+<tr>
+<td><code>residual_refuted</code></td>
+<td>The residual demand is provably false. The sketch rests on something
+untrue.</td>
+</tr>
+<tr>
+<td><code>strict_decomposition_candidate</code></td>
+<td>The residuals suffice, and no individual residual is provably
+equivalent to the target.</td>
+</tr>
+<tr>
+<td><code>unknown_relation</code></td>
+<td>The budget settled nothing. Not progress, not falsity, not
+separation.</td>
+</tr>
+</tbody>
+</table>
+<p>Two details matter more than they look.</p>
+<p><strong>Restatement is tested per residual and in both
+directions.</strong> Testing <code>P → ⋀Rᵢ</code> instead is wrong: a
+target implies every legitimate consequence, so that criterion convicts
+every correct decomposition. An earlier version of this evaluator did
+exactly that and flagged a textbook base-plus-step induction split as
+the failure it is the opposite of.</p>
+<p><strong>A false accusation is the expensive error.</strong> Requiring
+two kernel proofs on one residual means a well-disguised restatement can
+escape into <code>unknown_relation</code>. That is the intended trade:
+missing one costs a wasted search branch, while falsely rejecting a
+productive change of representation costs the branch that would have
+worked.</p>
+</section>
+<section id="residualbench" class="level2">
+<h2>ResidualBench</h2>
+<p><code>residualbench/ResidualBench.lean</code> holds eight labelled
+sketches over two elementary targets — the sum of the first
+<code>n</code> odd numbers, and a divisor-count identity — including
+deliberate restatement, self-assumption, false-residual and
+hallucinated-literature specimens, plus two controls that must
+<strong>not</strong> be vetoed. Labels live in
+<code>scripts/residualbench_manifest.json</code> and are compared
+against the run; the evaluator refuses a manifest that tries to author a
+verdict rather than declare an expectation.</p>
+<p>Under budget <code>ladder_v3_independent</code>:</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Sketch</th>
+<th>Verdict</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A_notation</code></td>
+<td><code>endpoint_equivalent</code></td>
+<td>veto — notation change only</td>
+</tr>
+<tr>
+<td><code>B_reassociation</code></td>
+<td><code>unknown_relation</code></td>
+<td>equivalent in fact; budget did not reach it</td>
+</tr>
+<tr>
+<td><code>C_induction</code></td>
+<td><code>strict_decomposition_candidate</code></td>
+<td>genuine base-plus-step split, correctly not vetoed</td>
+</tr>
+<tr>
+<td><code>D_self_assumption</code></td>
+<td><code>unknown_relation</code></td>
+<td>residual is a tautology; see below</td>
+</tr>
+<tr>
+<td><code>E_hallucinated</code></td>
+<td><code>residual_refuted</code></td>
+<td>residual is false</td>
+</tr>
+<tr>
+<td><code>F_strengthening</code></td>
+<td><code>unknown_relation</code></td>
+<td><strong>control</strong> — a productive strengthening, not
+vetoed</td>
+</tr>
+<tr>
+<td><code>G_hyperbola</code></td>
+<td><code>endpoint_equivalent</code></td>
+<td>veto — representation change only</td>
+</tr>
+<tr>
+<td><code>H_incomparable</code></td>
+<td><code>unknown_relation</code></td>
+<td><strong>control</strong> — unrelated true residual, not vetoed</td>
+</tr>
+</tbody>
+</table>
+<p>Three vetoes, both controls clean, and the legitimate decomposition
+survives. <code>docs/residualbench_report.json</code> is the run: every
+proposition put to Lean, the tactic that discharged it, and its axiom
+budget. The same eight verdicts came back under this repository’s
+Mathlib and under the older one Formal Conjectures pins, so what the
+budget can and cannot reach is not an artefact of one library
+version.</p>
+<p>Two rows disagree with their labels on budget grounds and are left
+that way. <code>B_reassociation</code> is an equivalent range reindexing
+and <code>F_strengthening</code> specialises a general
+arithmetic-progression formula; the current general tactic ladder does
+not close either. Adding tactics shaped to these fixtures would turn the
+benchmark into a transcript of its own tactic list.</p>
+<p><code>D_self_assumption</code> is an error by the author of the
+bench, kept on the record. Its residual is <code>OddSum → OddSum</code>,
+which is a tautology — equivalent to <code>True</code>, not to the
+target, because it cannot imply the target back. It was labelled
+<code>endpoint_equivalent</code>. The evaluator was right and the label
+was wrong. A residual provable with no assumptions establishes nothing
+and deserves its own verdict; it does not yet have one.</p>
+</section>
+<section id="running-it" class="level2">
+<h2>Running it</h2>
+<p>Requires a built Mathlib for this toolchain.</p>
+<pre><code>lake build ResidualBench
+python3 scripts/residual_evaluator.py \
+  --manifest scripts/residualbench_manifest.json \
+  --lean-root . \
+  --no-cross</code></pre>
+<p>The run emits, per sketch, the propositions it put to Lean, which
+tactic discharged each, and the axiom budget of every accepted proof. A
+tactic attempt counts as proved only when <code>#print axioms</code>
+returns a report free of <code>sorryAx</code>; a failed theorem still
+enters the environment closed by <code>sorryAx</code>, so the presence
+of a report is not sufficient. Each run carries two controls — one
+trivially provable proposition and one unprovable one — and refuses to
+report any verdict if the harness cannot separate them.</p>
+</section>
+<section id="what-this-does-not-establish" class="level2">
+<h2>What this does not establish</h2>
+<p>The evaluator is sound where it speaks and silent elsewhere. It is
+not a proof-difficulty metric: logical strength and proof cost are
+different quantities, and a stronger residual may be easier because it
+has more exploitable structure. It is not complete:
+<code>unknown_relation</code> means the budget proved nothing, never
+that no relation exists. It has not been run against a live proof-search
+loop, so no claim is made here about search efficiency or solve rate.
+And no priority is claimed for the construction; the relation between
+this and existing proof-progress prediction and reward-model work has
+not been surveyed.</p>
+<p>What it does establish is narrower and checkable: for the specimens
+listed above, at the stated budget, in the stated environment, the
+relation between a sketch’s remaining obligations and its target was
+decided by the kernel rather than estimated.</p>
+</section>
+</section>
+  </div>
+</article>

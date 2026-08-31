@@ -1,0 +1,179 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-243-reciprocal-tail-rigidity",
+  "title": "Excluding the Bounded Negative Part",
+  "subject": "Erdős #243",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 22,
+  "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
+  "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
+  "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+  "problem_id": "erdos_243",
+  "routes": {
+    "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
+    "html_exact_tex": "papers/erdos-243-reciprocal-tail-rigidity.mathjax.html",
+    "pdf": "../../papers/erdos-243-reciprocal-tail-rigidity.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-243-reciprocal-tail-rigidity.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "6412e4483f997e12d87b18f859b2e3cd4a61404e9efa9982e30072cffbb96eb7",
+    "publication_manifest_match": true,
+    "mathml_node_count": 379,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "9d2a65279f8282bf9a0d0ee202e71cafbd844a784707fd304c95852b570ba2f5",
+    "html_exact_tex_sha256": "453e31526d673ea8b6c2ba7a71bd89671dd7475e87cc201d82daf4d827d3f2b5"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation to prior work."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Structure"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The centred integer state"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The intended reading, which is not formalised."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The defect identity and its two consequences"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Descent when the error is nonnegative"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a constant negative magnitude"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a periodic negative magnitude"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Bounded rise cannot remain coprime to fresh moduli"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a bounded negative part"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding finite normalised negative mass"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Global height and old-factor overlap"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The direct analytic question"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A barrier extension"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Formalisation targets"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Erdős–Straus."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Duverney."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A factorial residue reduction for forced orbits"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

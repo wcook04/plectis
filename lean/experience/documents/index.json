@@ -1,0 +1,1560 @@
+{
+  "schema": "plectis_lean_human_document_index_v1",
+  "purpose": "A curated human interpretability layer over the Lean repository. It excludes agent instructions, machine-heavy atlases, build artifacts, and maintainer workbenches.",
+  "reading_rule": "Begin with the repository overview, select a mathematical problem, then use results/source/verification documents only as deeply as needed.",
+  "document_count": 14,
+  "documents": [
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "readme",
+      "title": "Repository overview",
+      "role": "human_front_door",
+      "reading_order": 10,
+      "source_path": "README.md",
+      "routes": {
+        "html_mathml": "documents/readme.html",
+        "html_exact_tex": "documents/readme.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "4927c6e376156978f73e96b8550632ebbc58944a231ce163dac877164b348362",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "fc7118acbcd453b772320a73d9d69edfa1fc8df92daa5e57c57bf7dc92e8beff",
+        "html_exact_tex_sha256": "2aeca319ec45c6a97bed791515b5317ad6c63e60c8d82ac634d24116673b08ae"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Problem papers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Public checked frontier; what remains"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "External verification"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the formal source establishes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Other exact mathematics in the corpus"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What remains open"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Corpus at a glance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Read or run it"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How the repository fits together"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Following a result into Lean"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Build and verify"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Use as a Lean package"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Citation and licence"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "results",
+      "title": "Results and open boundaries",
+      "role": "mathematical_results_map",
+      "reading_order": 20,
+      "source_path": "docs/RESULTS.md",
+      "routes": {
+        "html_mathml": "documents/results.html",
+        "html_exact_tex": "documents/results.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "c4c49a0c29dbb5daac31b299636795cf0a0e048bd1d5d47089cfba81cfe5f6fb",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "7aaaa5033467edca0b2f72050d739c8094379ac7f6709cd14797a24cde9b7c2c",
+        "html_exact_tex_sha256": "3231816f5b702c11df49fcbaa8932b6f7fc1957b615626ba452c261f5c438be7"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Ten-minute verdict"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Strongest checked results by problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is proved"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Settled support families for Problem 257"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The reduction chain for the one-half test case of Problem 257"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact ranks for dyadic sections of Euler’s totient"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A finite diagonal certificate band for Problem 249"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite off-diagonal certificates"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Direct Farey comparison"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Scoped no-go theorems"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Other standalone exact obstructions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Demand ledger"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is measured, not proved"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact endpoint-certificate probe"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Source-backed checked diagonal depths"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What was retracted"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is open"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact questions for a human expert"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "XQ249-lcm-diagonal-supply — diagonal supply"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "XQ249-pivot-decorrelation — pivot decorrelation"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "XQ249-adjacent-phase-separation — adjacent phases"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "XQ257-second-channel-separation — second channel"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "XQ257-middle-producer-tail-escape — middle producer"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact systems-review handoff"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Erdős Problem 249"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Erdős Problem 257"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to verify"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Isolated-tree reproduction record"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "orientation",
+      "title": "Corpus orientation",
+      "role": "generated_reader_map",
+      "reading_order": 30,
+      "source_path": "docs/ORIENTATION.md",
+      "routes": {
+        "html_mathml": "documents/orientation.html",
+        "html_exact_tex": "documents/orientation.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/ORIENTATION.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "abafa6e1a65fe333b443ac308c3ff5a9f2784b0c8313cb4d8019a9c01cced663",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "6cc3e5fb9051d8e5d7baa19eb3003000c37f9a5a57d01c0b5cc21ad567a07e94",
+        "html_exact_tex_sha256": "77e64cd58764fc29b17250319779d17da8c60162479d2f4f5524ab32565444b5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Release provenance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What a claim status asserts"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact open boundary"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where the substance is"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Scale"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical programmes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Principal claim routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Read by intent"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Drill down"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "External corpus registration"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Query one handle"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "source-map",
+      "title": "Source map",
+      "role": "proof_and_exposition_crosswalk",
+      "reading_order": 50,
+      "source_path": "docs/SOURCE_MAP.md",
+      "routes": {
+        "html_mathml": "documents/source-map.html",
+        "html_exact_tex": "documents/source-map.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "1cac27463f6f8a52bc6db7128a8fad7d26a69477e9e383b1246549d5c5e68710",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "819368a83535578f1114efe8b27589df1374e33017250bdd8364337444fadd79",
+        "html_exact_tex_sha256": "a58361f3d2a2b8350afc4f47a739563a61311636091a853512b1cad8993dd7ee"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Bounded reader route"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Build entrypoint"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#257 / Erdős–Borwein families"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Periodic weighted Lambert series"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#249 / totient denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#249 / certificate reductions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#249 / diagonal pincer frontier"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Transport and curvature companion band"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Paper-curation boundary"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Binary-carry trunk (post-wave carry layer)"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Half-value finite-prefix and boundary analysis"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Claim registry"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Generated finite certificates"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "related-problems",
+      "title": "Related problems",
+      "role": "portfolio_relationship_map",
+      "reading_order": 60,
+      "source_path": "docs/RELATED_PROBLEMS.md",
+      "routes": {
+        "html_mathml": "documents/related-problems.html",
+        "html_exact_tex": "documents/related-problems.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "03819cca7ce5ca4efdf15ddc432d0621f8de72f69ee94e22bdcd4962b2b83612",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "daedc21233a7094f7335fdf23b6f895c358a6f7607471552b978b5af5d1ef113",
+        "html_exact_tex_sha256": "c28bc33e85b47235e7032af2f62362a669f568771497dbf61f266c6315a6be01"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Bounded status route"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Problem map"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Relation in this repository"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "prior-art",
+      "title": "Prior art",
+      "role": "attribution_and_antecedents",
+      "reading_order": 70,
+      "source_path": "docs/PRIOR_ART.md",
+      "routes": {
+        "html_mathml": "documents/prior-art.html",
+        "html_exact_tex": "documents/prior-art.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PRIOR_ART.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "672312ae882444cbe077e28a7b40d57074a7feeb39c3960ff2e9869f834ee4bb",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 35,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "15a133dcf32f86650b1fac2f001937ad8a5c84f0aca2797cac588bab784dc508",
+        "html_exact_tex_sha256": "894788213abc8a0de8c38ed875a9f1157da8b0e4fdfcb30fa669935ab9832ab2"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Bounded comparison route"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Principal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Expansion-note principal sources (#68, #243, #251, #269, #1041, #1049)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#68"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#243"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#251"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#269"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#1041"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "#1049"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Provisional theorem-specific comparisons"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Audit rule for new sources"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "methodology",
+      "title": "Methodology",
+      "role": "evidence_method",
+      "reading_order": 80,
+      "source_path": "METHODOLOGY.md",
+      "routes": {
+        "html_mathml": "documents/methodology.html",
+        "html_exact_tex": "documents/methodology.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "40812662d57b12285a4532a215936751ba53ea60a17d7859d48fa6f1acfc0092",
+        "html_exact_tex_sha256": "33fb7ff7bc3919af83d12ea28e55d9efa67adc773f18175ab20ee8ddb7849806"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Standing rules"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "1. A formal result is the exact proposition Lean checked"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "2. Formal validity and mathematical faithfulness are separate questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "3. A public claim crosses representations only through proved transport"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "4. A reduction keeps the remaining hypothesis visible"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "5. Finite verification does not change quantifiers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "6. A claim of progress names both the theorem and the outstanding obligation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Evidence responsibilities"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Lean check"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Repository check"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Human mathematical review"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Blinded recovery evaluation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Research and publication paths"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Mathematical research path"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Public claim path"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Working principles"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Proving"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Publishing"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Maintaining"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Three examples from this development"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "An exact reduction that does not close #249"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite verification that stays finite"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Necessary structure that does not yet contradict"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Before changing a public claim"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Rejected inferences"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Authority and machine identifiers"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "scope",
+      "title": "Scope and claim boundary",
+      "role": "scope_boundary",
+      "reading_order": 90,
+      "source_path": "SCOPE.md",
+      "routes": {
+        "html_mathml": "documents/scope.html",
+        "html_exact_tex": "documents/scope.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "bcc403460c1892e621c4e20bdc14a39b2f796c79d7bb11aec959cdc534624bb3",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "371fa790071dc8ec8768236d32ebb5a9c98e5413e359ad83aa6cacea7dc65ff3",
+        "html_exact_tex_sha256": "d61632f0bcea9e2f0ffd6c3e26f9d61ee1cfd403a91e3589d46903bdfbba0d94"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the corpus is, by shape"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact open propositions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Machine identifiers"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "external-verification",
+      "title": "External verification",
+      "role": "comparator_explanation",
+      "reading_order": 100,
+      "source_path": "docs/EXTERNAL_VERIFICATION.md",
+      "routes": {
+        "html_mathml": "documents/external-verification.html",
+        "html_exact_tex": "documents/external-verification.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "2585c5d44650bf66a360ef76233d181bd646d60945a3e985ca06508a12e4a061",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "c55220d5e2c0b0a999015b7fa0adc6d683d9d2d7c36659e4ff320ccaf80036e8",
+        "html_exact_tex_sha256": "883e71f617a2286367eff2c9542a614e88d4e176d8b4f4511005477162de46d5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Comparator interface appendix"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Verification contract and replay"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "comparator-1049",
+      "title": "Comparator #1049 fixture",
+      "role": "comparator_case_study",
+      "reading_order": 110,
+      "source_path": "docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
+      "routes": {
+        "html_mathml": "documents/comparator-1049.html",
+        "html_exact_tex": "documents/comparator-1049.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "99899742314abca1e433ce29be3aadb3d8294e0ab942a9141f67c501c65ae7bd",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "17c7f90ad90856efdafa4d03a51900f272d2b9966b87e2e4a5ea5e8a05b56da6",
+        "html_exact_tex_sha256": "999e3fa68f4dc197d4dd68731a5075562aae22d982e6f6284350aa62166e852b"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The question"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is checked here"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is not checked here"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Who did what"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Proof handle"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "truth-audit",
+      "title": "Truth audit",
+      "role": "claim_audit",
+      "reading_order": 130,
+      "source_path": "docs/TRUTH_AUDIT.md",
+      "routes": {
+        "html_mathml": "documents/truth-audit.html",
+        "html_exact_tex": "documents/truth-audit.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "7b5b24c9d815b4c9fc6105a99cfd3e90158888682fb78c41fb5250b24c9e3e28",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "ea3d74891660717209169e0d23bca0b68333a0ba1a2ba8e46cbf1be47ab0c963",
+        "html_exact_tex_sha256": "e2b6bb1dea13273dafafdcccbf34383f02ce84049d9529c1781139795c438eb5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Census populations are not interchangeable"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Retractions affecting the claimed mathematical status"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleB2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleB3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/Wire1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/Wire2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/Wire3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C6.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/R2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Three/T4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/Corr1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Hlow/H1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Hlow/H2.lean"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Corrections to scope, novelty, and logical strength"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleA1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleA2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleA3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleA4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleA5.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleB1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/AngleB4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/InduceLaw.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/Recon249.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Lift/Recon257.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D5.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Skip/D6.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/H1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/H3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/H4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/FreeWalk1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/FreeWalk2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Half/FreeWalk3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/Corr3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/R1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/R3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Bit/R4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Rem/C5.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Three/T2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Three/T3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Decl/D1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Decl/D2.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Decl/D3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Decl/D4.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Hlow/W1.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/Hlow/W3.lean"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Corrections to repository status and historical snapshots"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/Basic.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/edges/ClusterB.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/edges/ClusterD.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/edges/ClusterF.lean and Bridge3.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/edges/Discharge1_G097.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "ErdosProblems/DemandLedger/edges/Discharge2_G100.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "paper/erdos249-257-main-paper.tex (read-only during this audit)"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Protected systems-paper status"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements that remain open"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "architecture",
+      "title": "Repository architecture",
+      "role": "system_explanation",
+      "reading_order": 140,
+      "source_path": "ARCHITECTURE.md",
+      "routes": {
+        "html_mathml": "documents/architecture.html",
+        "html_exact_tex": "documents/architecture.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "d3cb495157a7157e6aec7e74ea435b2f78cc8e83f8c38a797603f3f5de3b5816",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "a5e521b6ce85d2001a3bc503dc3f6486e2be5d59c070fb2306381b963b305da6",
+        "html_exact_tex_sha256": "8989dd5565a0af1dfff254758a1dc50658f2a5056bfacccbbd4c8f949b916afc"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What this repository is"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The architecture in one page"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Which file is authoritative for what"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Repository map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two libraries, two levels of claim"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A complete example"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What happens when a change is made"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A mathematical statement or proof changes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Only explanatory prose changes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A generated file is out of date"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How the checks run"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the checks do not prove"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where to start"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "residual-progress",
+      "title": "Residual progress",
+      "role": "open_boundary_progress",
+      "reading_order": 150,
+      "source_path": "docs/RESIDUAL_PROGRESS.md",
+      "routes": {
+        "html_mathml": "documents/residual-progress.html",
+        "html_exact_tex": "documents/residual-progress.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "e93931fcff449733b980f38ecee07f83bc5691e8899ea16571e463028771309e",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "40c2bf1d1a401b58e6b0426c5b4819799617c413c3678bc6c0c5236daeccef87",
+        "html_exact_tex_sha256": "c89d6d466eb4edf8789c9cf9653303af18be6dac7c8f0a5b1c4db23a9ec3ccbd"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The reported failure"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where the instrument came from"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Restatement is also a population effect"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the evaluator decides"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "ResidualBench"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Running it"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What this does not establish"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "wave-index",
+      "title": "Development index",
+      "role": "development_chronology",
+      "reading_order": 160,
+      "source_path": "docs/WAVE_INDEX.md",
+      "routes": {
+        "html_mathml": "documents/wave-index.html",
+        "html_exact_tex": "documents/wave-index.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/WAVE_INDEX.md"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "frontend_math_dependency": null,
+        "source_sha256": "ea4a7d8d7c7f7cf62e271649cf885baa4409d5837d446a6cbcf1199e9f791dd4",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 13,
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "41cd537e861e4b1b2f6c644c7123c9219f6cd12c2b4346b45ee13bac06ab52e5",
+        "html_exact_tex_sha256": "7b747b4fea9710dc573c2fba2e7d83a34ac00b4512baa69200ff20d603a2f552"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Chronology map"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Waves 17–25 (named modules)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 17 — GapFareyBound.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 18 — MersenneLambertLadder.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 19 — GeometricCoprimality.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 20 — GcdMomentCalculus.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 21 — TotientTailPeriodKiller.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 22 — CarrySurvivorExtinction.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 23 — LcmDiagonalReduction.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 24 — LcmConeFlatness.lean"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Wave 25 — LcmConeNonflat.lean"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Carry trunk (post-wave modules)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "GenericTailOrbitRigidity"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "GreedyAchievementSet"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "BooleanMobiusCarry"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "RationalSupportCarrySkeleton"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "SublogDivisorCoverage"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Diagonal pincer frontier (post-wave #249 band)"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Transport and curvature companion band"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Package shape"
+        }
+      ]
+    }
+  ]
+}

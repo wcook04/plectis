@@ -1,0 +1,184 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-1049-rational-base-lambert",
+  "title": "Arithmetic Boundaries at Base 3/2",
+  "subject": "Erdős #1049",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 24,
+  "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+  "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
+  "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+  "problem_id": "erdos_1049",
+  "routes": {
+    "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
+    "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
+    "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
+    "publication_manifest_match": true,
+    "mathml_node_count": 468,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "055ee5091b7ebe1af79ae0a64232a5bd398a1597da7eb34d11697788e7653f7e",
+    "html_exact_tex_sha256": "fdd4e1f08e28412776df58276feffcc6926ab9ea83991731b12c5a62d173e7de"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation to prior work."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Erdős’s integer-base argument, in outline."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The direct cut-and-clear attempt studied here."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Terminology."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The shortfall at 3/23/2."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Sharpness."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Structure."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Integer scalar content is neutral"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Failure of coordinatewise clearing at 3/23/2"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The cleared-tail recurrence and the size of the forcing term"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The height criterion at 7/27/2"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The 81/20081/200 logarithmic region"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Denominator exponents for a homogenised Padé construction"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact kernel escape"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The first falsifiable families"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Asymptotic adequacy after kernel escape"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "One exact alternative-criterion test"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The quantitative height frontier"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

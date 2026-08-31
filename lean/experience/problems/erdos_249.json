@@ -1,0 +1,366 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_249",
+  "erdos_number": 249,
+  "title": "The binary totient series",
+  "status": "open",
+  "question": "Is the binary Lambert series sum phi(n)/2^n irrational?",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "Conditionally: a cofinal strict 9/10 gap for the exact natural prime-tail orbit supplies the existing finite pivot-point escape and hence the reviewed irrationality endpoint.",
+    "The local s=1 and s=2 squared Möbius Euler-factor identities and the first two prime-power divisor-sum differences.",
+    "That the two-by-two checkerboard kills separable backgrounds and is unique up to scale under the four row and column cancellations.",
+    "An abstract four-point divisor-layer identity, stated from its four explicit factorisation hypotheses.",
+    "An affine completion no-go: every residue class modulo an even modulus has a digit that recentres one carry step.",
+    "Exact producer and consumer interfaces for prime-ray layer supply, bounded-degree order witnesses, and finite-prime-support escape."
+  ],
+  "what_is_not_checked": [
+    "The strict prime-tail orbit gap, which is the unproved producer consumed by the conditional endpoint.",
+    "The packet's sharp parabolic Stern-Brocot cusp theorem and its passage from a geometric x-parameter to the arithmetic totient series.",
+    "Eventual Hankel nonvanishing for the Möbius-Mersenne power ladder, or its denominator obstruction.",
+    "The natural-boundary and quasimodular-transcendence steps of the infinite Euler-sieve tower.",
+    "Polynomial resultant realisability, exact-order finite-field supply, Frobenius freezing, or the Archimedean growth needed by the prime-ray strategy.",
+    "Unconditional irrationality of the binary totient series."
+  ],
+  "open_obligations": [
+    {
+      "id": "strict_prime_tail_orbit_gap",
+      "statement": "Prove the cofinal strict 9/10 real-part gap for the exact natural prime-tail orbit, or replace it with another producer for the reviewed pivot-escape endpoint."
+    },
+    {
+      "id": "hankel_denominator_fan_in",
+      "statement": "Prove eventual nonvanishing or a usable denominator obstruction for the Möbius-Mersenne power ladder and connect it to the target value."
+    },
+    {
+      "id": "euler_sieve_limit_theorem",
+      "statement": "Control the infinite Euler-sieve limit strongly enough that finite-stage quasimodularity yields a valid arithmetic obstruction."
+    },
+    {
+      "id": "prime_ray_resultant_supply",
+      "statement": "Realise the layer system by cyclic resultants and prove prime-support escape with the growth estimates needed to contradict a rational carry orbit."
+    },
+    {
+      "id": "stern_brocot_arithmetic_bridge",
+      "statement": "Prove the sharp cusp asymptotic and then supply a non-formal bridge from the geometric parameter regime to the exact totient value."
+    }
+  ],
+  "finite_search": "The returned strict-orbit packet reports an exact finite deposit at parameters (147,23), verified through harmonic height 5022. It is research evidence, not a Lean-checked unbounded certificate.",
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos249.TotientStrictPrimeEscape",
+      "path": "ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
+      "present": true,
+      "line_count": 211,
+      "declaration_count": 8,
+      "theorem_count": 5,
+      "content_digest": "sha256:15ebe7ae1ad1fc8c12c85ca4a162689cf29bbe23b4280bb3452e0987694dbbe8",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos249.FiniteEulerSieve",
+      "path": "ErdosProblems/Erdos249/FiniteEulerSieve.lean",
+      "present": true,
+      "line_count": 69,
+      "declaration_count": 6,
+      "theorem_count": 4,
+      "content_digest": "sha256:a0172184d831cb4d6004781027464922460d762c4a93b17b04fefc950dd62e93",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/FiniteEulerSieve.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos249.PrimeRayCyclotomicCurvature",
+      "path": "ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean",
+      "present": true,
+      "line_count": 215,
+      "declaration_count": 14,
+      "theorem_count": 9,
+      "content_digest": "sha256:cf342e0c75045d92e8de7630c704f0ab2ee5035b4d9c40d60540390074258f7e",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "totient_kernel_finite_rank",
+      "problem": 249,
+      "review_family": "totient_kernel_rank",
+      "claim_id": "dyadic_totient_certificate_interface",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "Erdos249257.finrank_totientKernelThroughLevelFamily_eq",
+      "original_source": "Erdos249257/TotientMahlerDefect.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.finrank_totientKernelThroughLevelFamily_eq",
+      "statement": "For every e >= 1, the complete dyadic totient kernel through level e has rational span dimension 2^e + 1.",
+      "boundary": "This does not prove irrationality of the totient series.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean"
+    },
+    {
+      "id": "totient_kernel_infinite_rank",
+      "problem": 249,
+      "review_family": "totient_kernel_rank",
+      "claim_id": "dyadic_totient_certificate_interface",
+      "contribution_class": "Lean formalisation of an existing consequence of Coons",
+      "original_declaration": "Erdos249257.not_finiteDimensional_span_fullTotientKernel",
+      "original_source": "Erdos249257/TotientMahlerDefect.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.not_finiteDimensional_span_fullTotientKernel",
+      "statement": "The rational span of the full dyadic totient kernel is not finite-dimensional.",
+      "boundary": "The declaration is kernel-checked locally, but full-kernel infinite-dimensionality is not an independent contribution of this release; no rationality-to-finite-rank bridge is proved.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean"
+    },
+    {
+      "id": "totient_kernel_basis",
+      "problem": 249,
+      "review_family": "totient_kernel_basis",
+      "claim_id": "dyadic_totient_basis",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "Erdos249257.totientDyadicSectionBasis",
+      "original_source": "Erdos249257/TotientMahlerDefect.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.exists_totientDyadicSectionBasis",
+      "statement": "The full dyadic totient kernel span admits the explicit odd-core-indexed basis.",
+      "boundary": "The basis theorem does not connect rationality to finite kernel rank.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 249,
+    "paper": "paper/erdos-249-binary-totient-series.tex",
+    "families": [
+      {
+        "id": "totient_kernel_basis",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "An explicit odd-core basis and relation normal form for the full dyadic totient kernel.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The basis theorem does not connect rationality of the series to finite kernel rank."
+      },
+      {
+        "id": "totient_kernel_rank",
+        "contribution_class": "mixed local finite-level theorem and formalised prior consequence",
+        "summary": "An independent constructive proof of exact finite-level dyadic rank 2^e+1, together with a kernel-checked full-kernel infinite-dimensionality corollary already implied by Coons's non-2-regularity theorem.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "Only the finite-level rank is presented as an additional result; full-kernel infinite-dimensionality is prior-art context, and no rationality-to-finite-rank bridge is proved."
+      },
+      {
+        "id": "totient_kernel_all_base_index",
+        "contribution_class": "formalised unconditional spanning and conditional rank with external independence input",
+        "summary": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
+        "evidence_mode": "Lean kernel for arithmetic, finite indexing, spanning, and the conditional-rank theorem; paper argument plus Martin's cited theorem for independence",
+        "comparator_disposition": "not_selected_external_independence_boundary",
+        "boundary": "Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input."
+      },
+      {
+        "id": "totient_finite_denominator_exclusion",
+        "contribution_class": "finite computation",
+        "summary": "A Farey denominator exclusion through 7.96e34, sharp for its selected window, and diagonal certificates through t=82.",
+        "evidence_mode": "Lean kernel and generated finite certificates",
+        "comparator_disposition": "not_selected_finite_family_has_separate_receipt",
+        "boundary": "The selected finite window and certificate ceiling do not imply an unbounded producer."
+      },
+      {
+        "id": "totient_carry_rank",
+        "contribution_class": "conditional reduction",
+        "summary": "Rationality forces a tempered integral tail orbit with unbounded finite-level carry rank.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_orbit_vocabulary",
+        "boundary": "This is a necessary consequence, not a contradiction."
+      },
+      {
+        "id": "totient_lambert_coefficients",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "The totient series is rewritten as a Lambert series with explicit nonnegative, unbounded prime-power coefficients.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_basis_and_rank_targets",
+        "boundary": "The coefficient identities do not prove irrationality."
+      },
+      {
+        "id": "eventually_periodic_lambert",
+        "contribution_class": "Lean formalisation of existing result",
+        "summary": "Eventually periodic nonnegative rational weights give an irrational Lambert series.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_prior_result",
+        "boundary": "The totient-derived weights are not eventually periodic."
+      },
+      {
+        "id": "totient_certificate_equivalences",
+        "contribution_class": "exact equivalence and conditional reduction",
+        "summary": "Pointwise, cofinal, lcm-diagonal, and separated-window certificate supplies are exact or sufficient reformulations.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_certificate_vocabulary",
+        "boundary": "Equivalent producer statements are as hard as the unresolved target."
+      }
+    ]
+  },
+  "palomar": {
+    "review_unit": "cmp:249:finrank_totient_kernel",
+    "status": "prepared_without_public_outcome",
+    "source": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+  },
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-249-binary-totient-series",
+    "title": "A Basis for the 2-Kernel of Euler's Totient",
+    "subject": "Erdős #249",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 19,
+    "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
+    "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
+    "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+    "problem_id": "erdos_249",
+    "routes": {
+      "html_mathml": "papers/erdos-249-binary-totient-series.html",
+      "html_exact_tex": "papers/erdos-249-binary-totient-series.mathjax.html",
+      "pdf": "../../papers/erdos-249-binary-totient-series.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-249-binary-totient-series.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+      "publication_manifest_match": true,
+      "mathml_node_count": 496,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "258061e08e99783a94f55e8d197785af19f9277339f5d8ee665f708851462bf4",
+      "html_exact_tex_sha256": "33f1471dabf12a4a4a8cb761a784fd054d3abec6deb132b87508538cbb9ba53e"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Introduction and main results"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The Lambert-series form of Problem #249"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "A nearby 2026 totient theorem has different coordinates."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Exact identities and representations."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Proof of the dyadic-section basis theorem"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Prior work"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Parity-separated evaluation matrices"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Carry-rank consequences of rationality"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "A Farey-mediant denominator exclusion"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Obstructions for fixed-coordinate methods"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Further conditional criteria"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "A prime-orbit sufficient condition."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Finite Euler-factor identities."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Mixed differences of cyclotomic layers."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Open problems"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Exact equivalent formulations"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Stronger sufficient producer problems"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Structural and Diophantine routes"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Independent extension"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The independent denominator exclusion."
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Logical status and analytic input"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Formal source notes"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Registry coverage."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_249",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos249",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

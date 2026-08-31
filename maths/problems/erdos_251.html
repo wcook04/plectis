@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#251 The prime-gap dyadic series · Plectis maths</title>
+  <meta name="description" content="Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_251.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#251 The prime-gap dyadic series · Plectis maths">
+  <meta property="og:description" content="Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_251.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#251 The prime-gap dyadic series · Plectis maths">
+  <meta name="twitter:description" content="Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html" class="is-active" aria-current="page"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#251</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #251</span>
+        <h1>The prime-gap dyadic series</h1>
+        <p class="dossier-head__q">Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>1 Lean modules</span>
+          <span>2 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos251" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>The finite summation-by-parts identity relating the prime dyadic partial sums to the prime-gap dyadic partial sums, with an exact endpoint term and no convergence premise.</li>
+          <li>The factor-of-two normalisation between the two displayed indexings, at every finite horizon.</li>
+          <li>Conditional on summability of the prime dyadic series, the exact infinite prime-gap identity and the equivalence of irrationality of the prime and prime-gap series.</li>
+          <li>For an abstract integer-digit dyadic tail recurrence: the exact block identity, and that a shift of fixed length is integral exactly when an explicit scaled state is.</li>
+          <li>That one integral shift propagates to every later index.</li>
+          <li>That repeated doubling removes the power-of-two denominator, so every rational-valued dyadic recurrence has one fixed positive shift integral at all sufficiently late indices.</li>
+          <li>For a real-valued dyadic recurrence, cofinal non-integrality of every fixed positive shift implies irrationality of the initial state.</li>
+          <li>That the actual consecutive-prime-gap sequence is unbounded, by the factorial prime-free-interval construction, and therefore is not eventually periodic with any positive period.</li>
+          <li>For any integer-digit dyadic tail recurrence, two adjacent fixed-length shifts lying strictly between -1 and 1 cannot both be integral when the corresponding digits differ.</li>
+          <li>For the actual prime gaps, a cofinal supply of adjacent small-shift pairs with a mismatching gap excludes eventual integrality of that fixed shift.</li>
+          <li>The generic distance-to-integers core of the finite-truncation criterion: an approximation farther than its error bound from every integer certifies non-integrality.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">formalisation of existing result</span>
+            <span class="disposition">family: coefficient_only_no_go</span>
+          </div>
+          <p class="result-card__statement">The consecutive prime gaps are unbounded.</p>
+          <p class="result-card__boundary">Unbounded coefficients alone do not force irrationality.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos251.exists_primeGap0_gt</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: prime_gap_reformulation</span>
+          </div>
+          <p class="result-card__statement">The prime-value dyadic series is irrational exactly when the prime-gap dyadic series is irrational.</p>
+          <p class="result-card__boundary">The equivalence does not prove irrationality of either series.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos251.irrational_tsum_primeDyadicTerm_iff_primeGap</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>The target irrationality.</li>
+          <li>The definition and recurrence of the concrete prime-gap tail as Lean infinite sums; the note supplies these at paper level. Summability of the concrete prime series is Lean-checked unconditionally via an elementary polynomial prime bound.</li>
+          <li>A theorem supplying cofinally many adjacent actual-prime-gap tail shifts in the open unit interval with the required gap mismatch.</li>
+          <li>Any theorem forcing periodicity or automaticity of the prime gaps from rationality; the free-carry identity disconfirms that route.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>prime_gap_cofinal_shift_escape</code> For every fixed h &gt;= 1 and every N0, find N &gt;= N0 for which sum_{j&gt;=1} (g_{N+h+j}-g_{N+j})/2^j is not an integer.</li>
+          <li><code>cofinal_adjacent_small_mismatch</code> For every fixed h &gt;= 1 and every N0, find N &gt;= N0 such that both adjacent full tail shifts have absolute value less than 1 and g_{N+h+1} != g_{N+1}. The checked local consumer then excludes eventual integrality of the h-shift.</li>
+          <li><code>actual_prime_gap_tail_formal_bridge</code> Formalise summability of the actual prime and prime-gap dyadic series and identify the concrete infinite prime-gap tail with the checked real/rational dyadic recurrence, so the local consumer reaches the target series without a paper-only analytic bridge.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos251.PrimeGapDyadicTail</code></a></td>
+              <td class="num">1584</td>
+              <td class="num">104</td>
+              <td class="num">82</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Exact finite summation by parts, the unconditional infinite prime-gap identity, and irrationality equivalence.</p>
+              <p class="boundary-line">The equivalence does not prove irrationality of either series.</p>
+              <p class="disposition">prime_gap_reformulation &middot; targeted</p>
+            </li>
+            <li>
+              <p class="summary-line">Prime gaps are unbounded and non-eventually-periodic, while an explicit nonperiodic unbounded countermodel still has rational sum.</p>
+              <p class="boundary-line">Comparator checks the exact theorem, not the broader methodological interpretation.</p>
+              <p class="disposition">coefficient_only_no_go &middot; targeted_unboundedness_theorem_only</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Odd rational denominators give totient-length integral shifts, and integrality propagates through the recurrence.</p>
+              <p class="boundary-line">This describes rational states and supplies no contradiction for actual prime gaps.</p>
+              <p class="disposition">totient_shift_propagation &middot; represented_by_integral_shift_family</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Block identities and exact denominator criteria classify rationality through integral positive tail shifts.</p>
+              <p class="boundary-line">The concrete prime-gap producer remains missing.</p>
+              <p class="disposition">integral_shift_classification &middot; not_selected_abstract_family_represented_in_manifest</p>
+            </li>
+            <li>
+              <p class="summary-line">Cofinal adjacent small mismatches would rule out eventual integral shifts for the prime-gap tail.</p>
+              <p class="boundary-line">The cofinal mismatch producer is unproved.</p>
+              <p class="disposition">small_mismatch_criterion &middot; not_selected_open_producer_hypothesis</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">18&#8202;pp</span></div>
+          <p class="result-card__statement">An Integral-Shift Criterion for Dyadic Tail Recurrences</p>
+          <p class="result-card__boundary">For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-251-prime-gap-dyadic-series.html">Read it here</a>
+            <a href="../../papers/erdos-251-prime-gap-dyadic-series.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

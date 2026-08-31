@@ -1,0 +1,68 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "residual-progress",
+  "title": "Residual progress",
+  "role": "open_boundary_progress",
+  "reading_order": 150,
+  "source_path": "docs/RESIDUAL_PROGRESS.md",
+  "routes": {
+    "html_mathml": "documents/residual-progress.html",
+    "html_exact_tex": "documents/residual-progress.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "e93931fcff449733b980f38ecee07f83bc5691e8899ea16571e463028771309e",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "40c2bf1d1a401b58e6b0426c5b4819799617c413c3678bc6c0c5236daeccef87",
+    "html_exact_tex_sha256": "c89d6d466eb4edf8789c9cf9653303af18be6dac7c8f0a5b1c4db23a9ec3ccbd"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The reported failure"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Where the instrument came from"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Restatement is also a population effect"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What the evaluator decides"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "ResidualBench"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Running it"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What this does not establish"
+    }
+  ]
+}

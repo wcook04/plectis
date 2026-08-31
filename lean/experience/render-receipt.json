@@ -1,0 +1,56 @@
+{
+  "schema": "plectis_lean_html_render_receipt_v1",
+  "papers": {
+    "schema": "plectis_lean_paper_render_receipt_v1",
+    "renderer": "pandoc 3.9.0.2",
+    "paper_count": 13,
+    "papers_with_warnings": 2,
+    "warnings": {
+      "erdos249-totient-reasoning-surface": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
+          "c-section rank of \\mathit{every} rationa",
+          "^",
+          "unexpected \"m\"",
+          "expecting \" \", \"!\", \",\", \":\", \";\" or \">\"",
+          "[WARNING] Could not convert TeX math {\\small\\textsf{scale:bounded}}, rendering as TeX:",
+          "{\\small\\textsf{scale:bounded}}",
+          "^",
+          "unexpected control sequence \\small",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math {\\small\\textsf{scale:cofinal}}, rendering as TeX:",
+          "{\\small\\textsf{scale:cofinal}}",
+          "^",
+          "unexpected control sequence \\small",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math \\begin{equation}",
+          "\\label{eq:mobmers}",
+          "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
+          "\\qquad ({\\small\\textsf{[Math]}};\\ \\text{verified to }16\\ \\text{digits},\\ S=1.3676308019850223\\ldots,\\ {\\small\\textsf{[Cert]}}).",
+          "\\end{equation}, rendering as TeX:",
+          "\\qquad ({\\small\\textsf{[Math]}};\\ \\tex",
+          "^",
+          "unexpected control sequence \\small",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
+      "erdos257-mersenne-reasoning-surface": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
+          "\\leanlink{HalfCylinderMiddleCarryLowerBo",
+          "^",
+          "unexpected control sequence \\leanlink",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      }
+    },
+    "policy": "Native MathML is preferred. The exact TeX-math HTML variant is always generated beside it so a frontend can render every source expression with MathJax/KaTeX when MathML conversion reports a fallback."
+  },
+  "human_documents": {
+    "document_count": 14,
+    "documents_with_warnings": 0,
+    "warnings": {}
+  }
+}

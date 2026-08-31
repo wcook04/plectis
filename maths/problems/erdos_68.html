@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#68 The factorial-denominator series · Plectis maths</title>
+  <meta name="description" content="Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_68.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#68 The factorial-denominator series · Plectis maths">
+  <meta property="og:description" content="Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_68.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#68 The factorial-denominator series · Plectis maths">
+  <meta name="twitter:description" content="Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="is-active" aria-current="page"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#68</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #68</span>
+        <h1>The factorial-denominator series</h1>
+        <p class="dossier-head__q">Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>12 Lean modules</span>
+          <span>2 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos68" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>The exact integral normal form: the series is irrational if and only if the strict factorial successor Z_m misses divisibility by m cofinally.</li>
+          <li>The equivalent carry form: rationality is equivalent to eventual unit carry, so cofinally many non-unit carries imply irrationality.</li>
+          <li>Canonical factorial digits, exact remainder recurrences, zero-tail propagation, and the divisor-factorial centre recurrence.</li>
+          <li>Integral channel congruences, the lcm tax, the prime unit translator, and factorial-grid Cramer residual identities.</li>
+          <li>Weighted projection and factor-split rigidity consumers with their exact modular and Archimedean hypotheses.</li>
+          <li>The zero-plateau and first-exit carry dichotomy, prime-power prefix obstructions, and exact doubled-prime branch characterisations.</li>
+          <li>A Lean-checked implication from one exact non-unit carry to a rational-denominator lower bound; an independently regenerated exact GMP certificate at m = 300000 supplies the finite input.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: factorial_carry_characterisation</span>
+          </div>
+          <p class="result-card__statement">Irrationality is equivalent to cofinally many strict-successor divisibility failures.</p>
+          <p class="result-card__boundary">The equivalence does not prove that the cofinal failures occur.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: factorial_carry_characterisation</span>
+          </div>
+          <p class="result-card__statement">Irrationality is equivalent to cofinally many non-unit carries.</p>
+          <p class="result-card__boundary">The equivalence does not supply a cofinal carry producer.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>Irrationality of the factorial-denominator series.</li>
+          <li>A theorem producing cofinally many divisibility misses or non-unit carries.</li>
+          <li>Cofinal strict nonintegrality of the factorial-grid Cramer residual.</li>
+          <li>The weighted collision-product and complementary-residue estimates needed by the factor-split projection consumer.</li>
+          <li>The GMP computation is an exact finite external certificate, not a Lean evaluation and not an unbounded argument.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>weighted_collision_and_complementary_residue</code> On an unbounded family of tailored prime blocks, prove both the weighted collision-core product bound and the independent complementary-residue inequality consumed by the exact unit-factor scale split.</li>
+          <li><code>cofinal_prime_power_amplification</code> At infinitely many genuinely nonterminal indices, prove quantitative repeated-support valuation amplification strong enough to meet the checked endpoint inequality.</li>
+          <li><code>cofinal_lower_endpoint_escape</code> For infinitely many primes, force the reduced predecessor gap outside the exact lower unit-carry cylinder.</li>
+          <li><code>cofinal_doubled_prime_branch_failure</code> For infinitely many odd primes, rule out both exact p^2-divisibility branches at index 2p by coupling the carry value to the predecessor residue.</li>
+          <li><code>cramer_residual_nonintegrality</code> Construct an unbounded factorial-grid family whose exact Cramer residual is nonintegral, using a determinant, valuation, cancellation, or gcd-of-minors certificate that controls the finite sign-changing block.</li>
+        </ul>
+      </section>
+      <section class="dossier-section" id="finite-search" aria-labelledby="finite-title">
+        <h2 id="finite-title">Finite search evidence</h2>
+        <p class="note">An exact GMP recurrence checks the carry sequence through m = 300000 and finds a non-unit carry at that index. The Lean consumer turns that one certificate into q &gt;= 300000 for any hypothetical positive rational denominator; it does not prove a cofinal statement.</p>
+      </section>
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialZeroPlateau</code></a></td>
+              <td class="num">1756</td>
+              <td class="num">63</td>
+              <td class="num">57</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.CanonicalFactorialDigits</code></a></td>
+              <td class="num">278</td>
+              <td class="num">18</td>
+              <td class="num">15</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelBreakpointRigidity</code></a></td>
+              <td class="num">144</td>
+              <td class="num">10</td>
+              <td class="num">8</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelIntegralCongruence</code></a></td>
+              <td class="num">1133</td>
+              <td class="num">55</td>
+              <td class="num">46</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/DivisorFactorialCentre.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.DivisorFactorialCentre</code></a></td>
+              <td class="num">303</td>
+              <td class="num">18</td>
+              <td class="num">13</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.EndpointWeightedPrivateSupport</code></a></td>
+              <td class="num">6674</td>
+              <td class="num">223</td>
+              <td class="num">183</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialCarry.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialCarry</code></a></td>
+              <td class="num">101</td>
+              <td class="num">8</td>
+              <td class="num">5</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialChannelCertificate.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialChannelCertificate</code></a></td>
+              <td class="num">172</td>
+              <td class="num">17</td>
+              <td class="num">11</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FiniteDefectAutomaton</code></a></td>
+              <td class="num">120</td>
+              <td class="num">10</td>
+              <td class="num">6</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/PrimeUnitTranslator.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeUnitTranslator</code></a></td>
+              <td class="num">1730</td>
+              <td class="num">91</td>
+              <td class="num">70</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/PrimeZeroBranch.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeZeroBranch</code></a></td>
+              <td class="num">7293</td>
+              <td class="num">187</td>
+              <td class="num">155</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.StrictSuccessorArithmetic</code></a></td>
+              <td class="num">204</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Exact equivalence between irrationality, cofinally many non-unit carries, and cofinal strict-successor divisibility failures.</p>
+              <p class="boundary-line">An exact reformulation does not supply the required cofinal failures.</p>
+              <p class="disposition">factorial_carry_characterisation &middot; targeted</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Finite channel congruences, a two-term prime-channel corrector, and endpoint-weighted projection rigidity.</p>
+              <p class="boundary-line">These finite and structural results do not produce a cofinal obstruction.</p>
+              <p class="disposition">factorial_channel_and_projection_rigidity &middot; represented_by_isolated_headline</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Cofinal zero-branch or large private-factor hypotheses imply the required irrationality conclusion.</p>
+              <p class="boundary-line">The producer hypotheses are unproved.</p>
+              <p class="disposition">factorial_conditional_producers &middot; not_selected_deep_project_predicate_stack</p>
+            </li>
+            <li>
+              <p class="summary-line">Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and yields the corresponding finite denominator exclusion.</p>
+              <p class="boundary-line">Finite computation does not change the cofinal quantifier.</p>
+              <p class="disposition">factorial_finite_certificates &middot; not_applicable_to_external_execution</p>
+            </li>
+            <li>
+              <p class="summary-line">A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.</p>
+              <p class="boundary-line">Comparator cannot certify the cited input or authored deduction.</p>
+              <p class="disposition">factorial_lcm_growth &middot; not_applicable_not_a_lean_declaration</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">20&#8202;pp</span></div>
+          <p class="result-card__statement">Factorial Carries and Finite Channel Obstructions</p>
+          <p class="result-card__boundary">For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-68-factorial-denominator-irrationality.html">Read it here</a>
+            <a href="../../papers/erdos-68-factorial-denominator-irrationality.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

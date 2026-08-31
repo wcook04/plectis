@@ -1,0 +1,387 @@
+{
+  "schema": "plectis_lean_problem_v1",
+  "problem_id": "erdos_68",
+  "erdos_number": 68,
+  "title": "The factorial-denominator series",
+  "status": "open",
+  "question": "Is the series sum_{n >= 2} 1/(n! - 1) irrational?",
+  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "what_is_checked": [
+    "The exact integral normal form: the series is irrational if and only if the strict factorial successor Z_m misses divisibility by m cofinally.",
+    "The equivalent carry form: rationality is equivalent to eventual unit carry, so cofinally many non-unit carries imply irrationality.",
+    "Canonical factorial digits, exact remainder recurrences, zero-tail propagation, and the divisor-factorial centre recurrence.",
+    "Integral channel congruences, the lcm tax, the prime unit translator, and factorial-grid Cramer residual identities.",
+    "Weighted projection and factor-split rigidity consumers with their exact modular and Archimedean hypotheses.",
+    "The zero-plateau and first-exit carry dichotomy, prime-power prefix obstructions, and exact doubled-prime branch characterisations.",
+    "A Lean-checked implication from one exact non-unit carry to a rational-denominator lower bound; an independently regenerated exact GMP certificate at m = 300000 supplies the finite input."
+  ],
+  "what_is_not_checked": [
+    "Irrationality of the factorial-denominator series.",
+    "A theorem producing cofinally many divisibility misses or non-unit carries.",
+    "Cofinal strict nonintegrality of the factorial-grid Cramer residual.",
+    "The weighted collision-product and complementary-residue estimates needed by the factor-split projection consumer.",
+    "The GMP computation is an exact finite external certificate, not a Lean evaluation and not an unbounded argument."
+  ],
+  "open_obligations": [
+    {
+      "id": "weighted_collision_and_complementary_residue",
+      "statement": "On an unbounded family of tailored prime blocks, prove both the weighted collision-core product bound and the independent complementary-residue inequality consumed by the exact unit-factor scale split."
+    },
+    {
+      "id": "cofinal_prime_power_amplification",
+      "statement": "At infinitely many genuinely nonterminal indices, prove quantitative repeated-support valuation amplification strong enough to meet the checked endpoint inequality."
+    },
+    {
+      "id": "cofinal_lower_endpoint_escape",
+      "statement": "For infinitely many primes, force the reduced predecessor gap outside the exact lower unit-carry cylinder."
+    },
+    {
+      "id": "cofinal_doubled_prime_branch_failure",
+      "statement": "For infinitely many odd primes, rule out both exact p^2-divisibility branches at index 2p by coupling the carry value to the predecessor residue."
+    },
+    {
+      "id": "cramer_residual_nonintegrality",
+      "statement": "Construct an unbounded factorial-grid family whose exact Cramer residual is nonintegral, using a determinant, valuation, cancellation, or gcd-of-minors certificate that controls the finite sign-changing block."
+    }
+  ],
+  "finite_search": "An exact GMP recurrence checks the carry sequence through m = 300000 and finds a non-unit carry at that index. The Lean consumer turns that one certificate into q >= 300000 for any hypothetical positive rational denominator; it does not prove a cofinal statement.",
+  "modules": [
+    {
+      "module": "ErdosProblems.Erdos68.FactorialZeroPlateau",
+      "path": "ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
+      "present": true,
+      "line_count": 1756,
+      "declaration_count": 63,
+      "theorem_count": 57,
+      "content_digest": "sha256:00225da717d14e616b606a98dbca4469edd31e4bb83ae1504591e45e68755fbf",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.CanonicalFactorialDigits",
+      "path": "ErdosProblems/Erdos68/CanonicalFactorialDigits.lean",
+      "present": true,
+      "line_count": 278,
+      "declaration_count": 18,
+      "theorem_count": 15,
+      "content_digest": "sha256:a0b711c869ded5d04b3f22b27ff57ea574cb28550c27535f3c8b4047f8f14827",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.ChannelBreakpointRigidity",
+      "path": "ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean",
+      "present": true,
+      "line_count": 144,
+      "declaration_count": 10,
+      "theorem_count": 8,
+      "content_digest": "sha256:0f62e658b9964a37ad2bf0310d99ec4fa35f385720932d66e91abac28b65a903",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.ChannelIntegralCongruence",
+      "path": "ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
+      "present": true,
+      "line_count": 1133,
+      "declaration_count": 55,
+      "theorem_count": 46,
+      "content_digest": "sha256:ea7c7f97d774c1cbb9021eb6708da60dcc09ecf6e3c872323aef312b6a026c97",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.DivisorFactorialCentre",
+      "path": "ErdosProblems/Erdos68/DivisorFactorialCentre.lean",
+      "present": true,
+      "line_count": 303,
+      "declaration_count": 18,
+      "theorem_count": 13,
+      "content_digest": "sha256:9fea8662f744c1d4bd948065e7a024315620bec3b3714c82fedea7f1b3de656b",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/DivisorFactorialCentre.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+      "path": "ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
+      "present": true,
+      "line_count": 6674,
+      "declaration_count": 223,
+      "theorem_count": 183,
+      "content_digest": "sha256:e76dee594f84438f2d189e028e6507efdd162b2157ab60eccd5998174d27c026",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.FactorialCarry",
+      "path": "ErdosProblems/Erdos68/FactorialCarry.lean",
+      "present": true,
+      "line_count": 101,
+      "declaration_count": 8,
+      "theorem_count": 5,
+      "content_digest": "sha256:45438410c87c1e0e21e1157cb75e067adf467f89ec0d836d0ab2c569b64da730",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialCarry.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.FactorialChannelCertificate",
+      "path": "ErdosProblems/Erdos68/FactorialChannelCertificate.lean",
+      "present": true,
+      "line_count": 172,
+      "declaration_count": 17,
+      "theorem_count": 11,
+      "content_digest": "sha256:170b6eadada6558fb37892ff30e4fbdb1e1c2474db33241da38867dcbd4213a6",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialChannelCertificate.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.FiniteDefectAutomaton",
+      "path": "ErdosProblems/Erdos68/FiniteDefectAutomaton.lean",
+      "present": true,
+      "line_count": 120,
+      "declaration_count": 10,
+      "theorem_count": 6,
+      "content_digest": "sha256:c072b7c22b1f86b69868db89aa9e2d2626d8637bbe5a08a2ca860c30c28fe6c3",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.PrimeUnitTranslator",
+      "path": "ErdosProblems/Erdos68/PrimeUnitTranslator.lean",
+      "present": true,
+      "line_count": 1730,
+      "declaration_count": 91,
+      "theorem_count": 70,
+      "content_digest": "sha256:ceec4294ac834abb7850fe8732a5eea455328ade40bf9a5eb66c6f37cbef2c9a",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/PrimeUnitTranslator.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.PrimeZeroBranch",
+      "path": "ErdosProblems/Erdos68/PrimeZeroBranch.lean",
+      "present": true,
+      "line_count": 7293,
+      "declaration_count": 187,
+      "theorem_count": 155,
+      "content_digest": "sha256:de5508cb858fdaaa5d9c4b40bcb65a6960f8c7ebb6209887bd57e800c6674900",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/PrimeZeroBranch.lean"
+    },
+    {
+      "module": "ErdosProblems.Erdos68.StrictSuccessorArithmetic",
+      "path": "ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean",
+      "present": true,
+      "line_count": 204,
+      "declaration_count": 4,
+      "theorem_count": 4,
+      "content_digest": "sha256:e03320c57d2ae0d42f52564023f4d62d92e805696bf010d6b48c66ecb053064b",
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean"
+    }
+  ],
+  "main_results": [
+    {
+      "id": "factorial_strict_successor_equivalence",
+      "problem": 68,
+      "review_family": "factorial_carry_characterisation",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses",
+      "original_source": "ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses",
+      "statement": "Irrationality is equivalent to cofinally many strict-successor divisibility failures.",
+      "boundary": "The equivalence does not prove that the cofinal failures occur.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
+    },
+    {
+      "id": "factorial_nonunit_carry_equivalence",
+      "problem": 68,
+      "review_family": "factorial_carry_characterisation",
+      "contribution_class": "locally proved result; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries",
+      "original_source": "ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_factorialGapSeries_iff_cofinal_nonunit_carries",
+      "statement": "Irrationality is equivalent to cofinally many non-unit carries.",
+      "boundary": "The equivalence does not supply a cofinal carry producer.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
+    }
+  ],
+  "comparator_review": {
+    "problem": 68,
+    "paper": "paper/erdos-68-factorial-denominator-irrationality.tex",
+    "families": [
+      {
+        "id": "factorial_carry_characterisation",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Exact equivalence between irrationality, cofinally many non-unit carries, and cofinal strict-successor divisibility failures.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries",
+          "ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses"
+        ],
+        "boundary": "An exact reformulation does not supply the required cofinal failures."
+      },
+      {
+        "id": "factorial_channel_and_projection_rigidity",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "Finite channel congruences, a two-term prime-channel corrector, and endpoint-weighted projection rigidity.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "represented_by_isolated_headline",
+        "boundary": "These finite and structural results do not produce a cofinal obstruction."
+      },
+      {
+        "id": "factorial_conditional_producers",
+        "contribution_class": "conditional reduction",
+        "summary": "Cofinal zero-branch or large private-factor hypotheses imply the required irrationality conclusion.",
+        "evidence_mode": "Lean kernel",
+        "comparator_disposition": "not_selected_deep_project_predicate_stack",
+        "boundary": "The producer hypotheses are unproved."
+      },
+      {
+        "id": "factorial_finite_certificates",
+        "contribution_class": "finite computation",
+        "summary": "Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and yields the corresponding finite denominator exclusion.",
+        "evidence_mode": "Lean finite theorem plus external exact certificate",
+        "comparator_disposition": "not_applicable_to_external_execution",
+        "boundary": "Finite computation does not change the cofinal quantifier."
+      },
+      {
+        "id": "factorial_lcm_growth",
+        "contribution_class": "paper plus external theorem",
+        "summary": "A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.",
+        "evidence_mode": "paper argument plus cited theorem",
+        "comparator_disposition": "not_applicable_not_a_lean_declaration",
+        "boundary": "Comparator cannot certify the cited input or authored deduction."
+      }
+    ]
+  },
+  "palomar": null,
+  "paper": {
+    "schema": "plectis_lean_paper_v1",
+    "paper_id": "erdos-68-factorial-denominator-irrationality",
+    "title": "Factorial Carries and Finite Channel Obstructions",
+    "subject": "Erdős #68",
+    "subject_kind": "problem",
+    "form": "Problem note",
+    "pages": 20,
+    "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
+    "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
+    "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
+    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+    "problem_id": "erdos_68",
+    "routes": {
+      "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
+      "html_exact_tex": "papers/erdos-68-factorial-denominator-irrationality.mathjax.html",
+      "pdf": "../../papers/erdos-68-factorial-denominator-irrationality.pdf",
+      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+    },
+    "render_contract": {
+      "preferred": "html_mathml",
+      "fallback": "html_exact_tex",
+      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+      "frontend_math_dependency": null,
+      "fragment_not_document": true,
+      "executable_scripts_embedded": false,
+      "pandoc": "pandoc 3.9.0.2",
+      "renderer_contract_version": 13,
+      "source_sha256": "7a79a936a41e08af7c2267cecd994e4a7fa9ffd21ef602fc77df91b6e0763ecf",
+      "publication_manifest_match": true,
+      "mathml_node_count": 445,
+      "raw_math_fallback_count": 0,
+      "warnings": {
+        "mathml": [],
+        "mathjax": []
+      },
+      "html_mathml_sha256": "5e6ba873b2484fcb615a2980aa4a94a0ba5ec39bb5f5ab27b13a45d2cdcd9165",
+      "html_exact_tex_sha256": "972255d71bb84bffaf3d7e262e411dcac46ea98448c340547c313b27494d3452"
+    },
+    "sections": [
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The problem"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Canonical factorial digits"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Finite channel congruences and the LCM obstruction"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "A two-term prime channel corrector"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Zero plateaux, first exit, and denominator bounds"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Weighted projection rigidity"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "What the returns rule out"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Finite certificates"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The missing cofinal inputs"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "1. Weighted collision mass and the complementary residue"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "2. Nonterminal prime-power amplification"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "3. Escape from the lower endpoint interval"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "4. Failure of the two exact doubled-prime branches"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "5. A finite Cramer block across floor discontinuities"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Declaration of generative AI use."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "References"
+      }
+    ]
+  },
+  "routes": {
+    "graph_node": "problem:erdos_68",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos68",
+    "claims": "../../claims.json",
+    "problem_source": "../../problems.json"
+  }
+}

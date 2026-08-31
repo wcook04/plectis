@@ -1,0 +1,88 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "prior-art",
+  "title": "Prior art",
+  "role": "attribution_and_antecedents",
+  "reading_order": 70,
+  "source_path": "docs/PRIOR_ART.md",
+  "routes": {
+    "html_mathml": "documents/prior-art.html",
+    "html_exact_tex": "documents/prior-art.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PRIOR_ART.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "672312ae882444cbe077e28a7b40d57074a7feeb39c3960ff2e9869f834ee4bb",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 35,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "15a133dcf32f86650b1fac2f001937ad8a5c84f0aca2797cac588bab784dc508",
+    "html_exact_tex_sha256": "894788213abc8a0de8c38ed875a9f1157da8b0e4fdfcb30fa669935ab9832ab2"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Bounded comparison route"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Principal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Expansion-note principal sources (#68, #243, #251, #269, #1041, #1049)"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#68"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#243"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#251"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#269"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#1041"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#1049"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Provisional theorem-specific comparisons"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Audit rule for new sources"
+    }
+  ]
+}

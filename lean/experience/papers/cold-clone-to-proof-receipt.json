@@ -1,0 +1,139 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "cold-clone-to-proof-receipt",
+  "title": "From a Cold Clone to a Proof Receipt",
+  "subject": "Systems paper",
+  "subject_kind": "system",
+  "form": "Agent navigation",
+  "pages": 10,
+  "question": "How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?",
+  "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes.",
+  "owns": "the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts",
+  "not_authority_for": "proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/cold-clone-to-proof-receipt.html",
+    "html_exact_tex": "papers/cold-clone-to-proof-receipt.mathjax.html",
+    "pdf": "../../papers/cold-clone-to-proof-receipt.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/cold-clone-to-proof-receipt.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/cold-clone-to-proof-receipt.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "bc3961badf35c5c16b8e0ff883413c4030611006c19ea7b7861c8cc6d13ac4aa",
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "7f16dacc37974638ba01bb1b0967438f869074727357b46427f5d1f9a7d8ec7d",
+    "html_exact_tex_sha256": "e3847a5c097cd0d0fcf67705405a6a69c2184c380a6a7bb228c9a6d6c4565cfd"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The cold-clone problem"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A layered mathematical option surface"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Exhaustive inventory."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Exact formal neighbourhoods."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Tiered mathematical interpretation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Reviewed public claims."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A bounded tour over an unbounded drilldown"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Crossing from navigation to authority"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Compilation after comprehension"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Dogfood receipt"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Relation to prior work"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Limits and transfer conditions"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Authority-preserving agent entry"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Reproduction routes"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "1. Orient without elaborating Lean."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "2. Cross into proof authority."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "3. Audit dependency-index reuse."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

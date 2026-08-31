@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scope and claim boundary · Plectis maths</title>
+  <meta name="description" content="Scope and claim boundary, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/scope.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Scope and claim boundary · Plectis maths">
+  <meta property="og:description" content="Scope and claim boundary, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/scope.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scope and claim boundary · Plectis maths">
+  <meta name="twitter:description" content="Scope and claim boundary, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Scope and claim boundary</li></ol></nav>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Scope and claim boundary</p>
+        <h1>Scope and claim boundary</h1>
+        <p class="doc-source-line">Rendered from <code>SCOPE.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="scope" data-document-role="scope_boundary" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="SCOPE.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<section class="level1 lean-doc-titled">
+<h2>Scope of this release</h2>
+<p>This release does not prove Erdős #68, #243, #249, #251, #257, #269,
+#1041, or #1049. All eight remain open; their papers give checked
+results and surviving obligations. Claims apply only to the source and
+dependencies at the immutable formal-source checkpoint in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>. The last
+release tag remains the citation identity and can differ from that
+checkpoint.</p>
+<p>Mathematical proof authority is Lean source at that declared
+checkpoint after checking by the pinned Lean kernel. Unreleased work,
+private repositories, generated prose, provider output, and hidden proof
+sketches are not part of the public proof artefact. Work later than the
+declared checkpoint is out of scope even if it checks locally; a later
+tagged release is a separate citation and release action, not a
+substitute for an exact proof-source identity.</p>
+<section id="what-the-corpus-is-by-shape" class="level2">
+<h2>What the corpus is, by shape</h2>
+<p>Size is not evidence. The semantic graph classifies every statement;
+re-derive these with
+<code>python3 scripts/query_semantic.py &lt;shape&gt;</code>.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Shape</th>
+<th class="ta-r">Count</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nonrecurring</code></td>
+<td class="ta-r">283</td>
+<td>substantive content, weighted to #257 (168) over #249 (88)</td>
+</tr>
+<tr>
+<td><code>classical</code></td>
+<td class="ta-r">101</td>
+<td>already in the literature or matched to prior art; formalisation
+value only</td>
+</tr>
+<tr>
+<td><code>bare-equivalences</code></td>
+<td class="ta-r">32</td>
+<td>restatements, labelled by this project’s own audit</td>
+</tr>
+</tbody>
+</table>
+<p>Neither count asserts novelty: <code>nonrecurring</code> means a
+statement does not recur inside this corpus, not that it is new to
+mathematics. That judgement is a human number theorist’s, and no query
+here supplies it.</p>
+<p>The <code>K = 240</code> denominator exclusion is the classical
+Farey/mediant bound on a committed window. Its improvement over that
+argument is zero and the window length is free:
+<code>python3 scripts/check_farey_denominator_scaling.py</code>
+reproduces the formalised constant, then returns a 2,406-digit bound in
+a fraction of a second. Cite it as a finite computation, never as
+progress.</p>
+</section>
+<section id="exact-open-propositions" class="level2">
+<h2>Exact open propositions</h2>
+<p>Machine-resolvable open propositions:</p>
+<ul>
+<li><code>remaining_open.erdos_249_irrationality</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code></li>
+<li><code>remaining_open.unbounded_certificate_supply</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.unbounded_certificate_supply</code></li>
+<li><code>remaining_open.half_value_membership</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.half_value_membership</code></li>
+<li><code>remaining_open.twenty_one_permanent_affine_supercapacity</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.twenty_one_permanent_affine_supercapacity</code></li>
+<li><code>remaining_open.universal_257_all_infinite_supports</code>:
+<code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code></li>
+</ul>
+<p>Finite instances, conditional reductions, cited neighbours, and named
+infinite-support families do not discharge these propositions. Only a
+future claim transition recorded against the exact identifier, with the
+evidence required by <code>docs/methodology.json</code>, can change this
+boundary.</p>
+</section>
+<section id="machine-identifiers" class="level2">
+<h2>Machine identifiers</h2>
+<p>These identifiers are the machine-readable form of the scope
+statement above. They are declared once in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> and
+cross-checked against this file by
+<code>scripts/check_release.py</code>, which fails when any public
+surface drifts from them.</p>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Identifier</th>
+<th>Public meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>not_erdos_249_solution</code></td>
+<td>The release does not settle Erdős #249</td>
+</tr>
+<tr>
+<td><code>not_erdos_257_solution</code></td>
+<td>The release does not settle the universal Erdős #257</td>
+</tr>
+<tr>
+<td><code>not_publication_authority</code></td>
+<td>The release is not itself a peer-reviewed publication record</td>
+</tr>
+<tr>
+<td><code>not_private_root_equivalence</code></td>
+<td>The release is not asserted to be equivalent to any private
+development</td>
+</tr>
+<tr>
+<td><code>not_provider_proof_authority</code></td>
+<td>Provider or model output is not proof authority; the Lean kernel
+check is</td>
+</tr>
+<tr>
+<td><code>not_hidden_proof_body_authority</code></td>
+<td>No unpublished proof sketch or hidden artefact carries proof
+authority</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="methodology.html"><span class="maths-pager__dir">Previous</span>Methodology</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="external-verification.html"><span class="maths-pager__dir">Next</span>External verification</a></nav>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

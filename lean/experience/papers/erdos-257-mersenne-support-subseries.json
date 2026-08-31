@@ -1,0 +1,164 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos-257-mersenne-support-subseries",
+  "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+  "subject": "Erdős #257",
+  "subject_kind": "problem",
+  "form": "Problem note",
+  "pages": 21,
+  "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
+  "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+  "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+  "problem_id": "erdos_257",
+  "routes": {
+    "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
+    "html_exact_tex": "papers/erdos-257-mersenne-support-subseries.mathjax.html",
+    "pdf": "../../papers/erdos-257-mersenne-support-subseries.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-257-mersenne-support-subseries.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "source_sha256": "03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
+    "publication_manifest_match": true,
+    "mathml_node_count": 498,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "159afee9bcb27b5bcf489a83ab02ab3e2eacda19ba60ea45f702dfd4393c333e",
+    "html_exact_tex_sha256": "48aee7e1809a075fe6b1a572e75dada391f0818cddb869c68d7450f865374804"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction and main results"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The finite-support theorem."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Structure."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Finite-support denominator periods"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Rational values and scaled tails"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Integral scaled tails, and unboundedness."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Divisor coverage cannot have long gaps."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A reciprocal-sum lower bound."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A Boolean–Möbius characterisation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Combined constraints on a rational counterexample."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Representative known irrational supports"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Squarefree support and a coordinate-dependent obstruction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The values are known at every power-of-two base"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two block-certificate hypotheses have no instance"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The obstruction is a normalisation, not the value"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Achievement-set geometry and the value 1/21/2"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Geometry after restricting the allowed exponents"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The value 1/21/2"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A second rational target"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The canonical 1/211/21 frontier"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Open problems"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Declaration of generative AI use."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

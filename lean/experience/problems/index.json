@@ -1,0 +1,94 @@
+{
+  "schema": "plectis_lean_problem_index_v1",
+  "problem_count": 8,
+  "problems": [
+    {
+      "problem_id": "erdos_68",
+      "erdos_number": 68,
+      "title": "The factorial-denominator series",
+      "status": "open",
+      "question": "Is the series sum_{n >= 2} 1/(n! - 1) irrational?",
+      "href": "problems/erdos_68.json",
+      "paper_id": "erdos-68-factorial-denominator-irrationality",
+      "module_count": 12,
+      "main_result_count": 2
+    },
+    {
+      "problem_id": "erdos_243",
+      "erdos_number": 243,
+      "title": "Reciprocal-tail rigidity near the Sylvester recurrence",
+      "status": "open",
+      "question": "Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?",
+      "href": "problems/erdos_243.json",
+      "paper_id": "erdos-243-reciprocal-tail-rigidity",
+      "module_count": 9,
+      "main_result_count": 2
+    },
+    {
+      "problem_id": "erdos_249",
+      "erdos_number": 249,
+      "title": "The binary totient series",
+      "status": "open",
+      "question": "Is the binary Lambert series sum phi(n)/2^n irrational?",
+      "href": "problems/erdos_249.json",
+      "paper_id": "erdos-249-binary-totient-series",
+      "module_count": 3,
+      "main_result_count": 3
+    },
+    {
+      "problem_id": "erdos_251",
+      "erdos_number": 251,
+      "title": "The prime-gap dyadic series",
+      "status": "open",
+      "question": "Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
+      "href": "problems/erdos_251.json",
+      "paper_id": "erdos-251-prime-gap-dyadic-series",
+      "module_count": 1,
+      "main_result_count": 2
+    },
+    {
+      "problem_id": "erdos_257",
+      "erdos_number": 257,
+      "title": "Reciprocal sums over infinite exponent supports",
+      "status": "open",
+      "question": "Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?",
+      "href": "problems/erdos_257.json",
+      "paper_id": "erdos-257-mersenne-support-subseries",
+      "module_count": 1,
+      "main_result_count": 4
+    },
+    {
+      "problem_id": "erdos_269",
+      "erdos_number": 269,
+      "title": "Three-prime running least common multiples",
+      "status": "open",
+      "question": "For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.",
+      "href": "problems/erdos_269.json",
+      "paper_id": "erdos-269-three-prime-running-lcm",
+      "module_count": 7,
+      "main_result_count": 2
+    },
+    {
+      "problem_id": "erdos_1041",
+      "erdos_number": 1041,
+      "title": "Short connections inside polynomial lemniscates",
+      "status": "open",
+      "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate?",
+      "href": "problems/erdos_1041.json",
+      "paper_id": "erdos-1041-lemniscate-newton-flow",
+      "module_count": 1,
+      "main_result_count": 2
+    },
+    {
+      "problem_id": "erdos_1049",
+      "erdos_number": 1049,
+      "title": "Lambert-type series at rational bases",
+      "status": "open",
+      "question": "For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.",
+      "href": "problems/erdos_1049.json",
+      "paper_id": "erdos-1049-rational-base-lambert",
+      "module_count": 6,
+      "main_result_count": 2
+    }
+  ]
+}

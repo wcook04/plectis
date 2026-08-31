@@ -1,0 +1,444 @@
+<article class="lean-paper" data-paper-id="erdos-1041-lemniscate-newton-flow" data-math-mode="mathml">
+  <header class="lean-paper__header">
+    <p class="lean-paper__eyebrow">Problem note</p>
+    <h1>Newton Flow and Critical-Value Ray Separation</h1>
+    <p class="lean-paper__subject">Erdős #1041</p>
+  </header>
+  <div class="lean-paper__body" data-source="../../../paper/erdos-1041-lemniscate-newton-flow.tex">
+<section id="sec:problem" class="level2">
+<h2>The problem</h2>
+<p>Numbering and current status follow Bloom’s Erdős problem catalogue
+<span class="citation" data-cites="bloom"><a href="#ref-1">[1]</a></span>. The problem is open.
+The original source is Problem 5 on printed p. 139 of
+Erdős–Herzog–Piranian <span class="citation"
+data-cites="ehp1958"><a href="#ref-2">[2]</a></span>; the preceding paragraph records the known
+input that one component of the lemniscate contains at least two
+zeros.</p>
+<p>Two recent manuscripts are relevant. The 48-page manuscript posted by
+<code>shtuka</code> on 24 March 2026 <span class="citation"
+data-cites="march2026"><a href="#ref-3">[3]</a></span> claims the unrestricted statement. Its
+Proposition 12 (p. 16, with proof continuing through p. 30) supplies the
+spanning-tree decomposition used in the final proof. The defect was
+located publicly in the problem’s discussion thread: on 25 March 2026
+Tao observed that the invocation of Lemma 8 there is unjustified and
+that the flow lines need not organise into connected trees, and on 26
+March 2026 the manuscript’s author agreed that the statement of
+Proposition 12 itself, not only its printed proof, is incorrect, and set
+the strategy aside. Section  records an independent diagnosis of the
+same failure through the local three-ended saddle model, together with
+possible repairs. No counterexample to the proposition is exhibited
+there. Pendyala’s independent June 2026 preprint <span class="citation"
+data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the degree-four case. The quartic
+theorem does not close the problem.</p>
+<p>The object we work with is not the lemniscate directly but the flow
+that foliates it.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l">Statement</th>
+<th class="ta-l"> Status</th>
+<th class="ta-l"> Exact boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Erdős #1041</td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> No proof is claimed.</td>
+</tr>
+<tr>
+<td class="ta-l">Newton value equation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=-w</annotation></semantics></math></td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> Away from critical points, along any
+trajectory tangent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>f</mi><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">-f/f&#39;</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Exponential first integral</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mstyle><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mi>t</mi></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">Ray separation of critical values</td>
+<td class="ta-l"> Checked (consumer form)</td>
+<td class="ta-l"> Endpoints of a finite connection share
+one oriented ray; distinct rays exclude a connection.</td>
+</tr>
+<tr>
+<td class="ta-l">Ray-collision locus</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>a</mi><mo>−</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta=(ra-b)/(1-r)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r&gt;0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ne1</annotation></semantics></math>:
+one real parameter per pair.</td>
+</tr>
+<tr>
+<td class="ta-l">Quartic case</td>
+<td class="ta-l"> Cited</td>
+<td class="ta-l"> Proved in <span class="citation"
+data-cites="june2026"><a href="#ref-4">[4]</a></span>; does not extend to general degree.</td>
+</tr>
+<tr>
+<td class="ta-l">Unrestricted proof of <span
+class="citation" data-cites="march2026"></span></td>
+<td class="ta-l"> Proof gap</td>
+<td class="ta-l"> Proposition 12 uses a false three-ended
+local saddle block; located publicly by Tao (25 March 2026), conceded by
+the author at statement level (26 March 2026). No counterexample is
+exhibited.</td>
+</tr>
+<tr>
+<td class="ta-l">Constant-translation ray separation and
+root retention</td>
+<td class="ta-l"> Checked</td>
+<td class="ta-l"> After critical-value injectivity,
+arbitrary small ray avoidance and an explicit unit-disc margin.</td>
+</tr>
+<tr>
+<td class="ta-l">Coefficient perturbation and slack
+stability</td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> Must first create injective critical
+values and preserve the component, collars and length budget.</td>
+</tr>
+<tr>
+<td class="ta-l">Reeb decomposition and length fan-in</td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> The two surviving producers.</td>
+</tr>
+<tr>
+<td class="ta-l">Random search to degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math></td>
+<td class="ta-l"> Verified finite instances</td>
+<td class="ta-l"> Upper bounds for sampled configurations
+only.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:newton" class="level2">
+<h2>The Newton value equation</h2>
+<p>Away from the critical set, define the complex Newton field
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">N(z)=-\frac{f(z)}{f&#39;(z)} .</annotation></semantics></math>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z(t)</annotation></semantics></math>
+be differentiable with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=N(z(t))</annotation></semantics></math>,
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w(t)=f(z(t))</annotation></semantics></math>.</p>
+<p>The computation is one line:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msup><mi>z</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w</annotation></semantics></math>.
+The kernel checks it as <em></em>, together with the differential form
+of the first integral, <em></em>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mi>t</mi></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">equivalently</mtext><mspace width="2.0em"></mspace><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
+  \qquad\text{equivalently}\qquad
+  f(z(t))=e^{-t}f(z(0)) .</annotation></semantics></math> Observe what
+this says about the geometry. The value moves radially inward at
+exponential rate and never changes argument. The lemniscate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
+is therefore forward-invariant, and the flow lines are exactly the
+preimages of rays from the origin.</p>
+<p>This is checked in consumer form: the kernel accepts the implication
+from the hypothesis of distinct rays to the absence of a connection. It
+is the statement the topology needs, and it is a genuine sharpening of
+the criterion used in the literature.</p>
+</section>
+<section id="sec:arguments" class="level2">
+<h2>Arguments, not moduli</h2>
+<p>It is tempting to arrange a generic perturbation so that the critical
+values are pairwise distinct, or that their moduli are pairwise
+distinct, and to conclude that saddle connections are excluded. Neither
+is enough.</p>
+<p>Two distinct critical values can lie on one ray, and two critical
+values with distinct moduli certainly can: the ray records the argument,
+and the modulus is exactly the coordinate the flow contracts. By
+Corollary  the invariant that excludes connections is the argument. What
+a perturbation must therefore achieve is pairwise distinct
+critical-value , which is a condition on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>
+points modulo the circle rather than on their positions in the
+plane.</p>
+<p>The cost of that condition is also checked, and it is small.</p>
+<p>So each pair of critical values contributes a one-real-parameter
+forbidden locus in the translation plane, given in closed form
+(<em></em>). A finite union of such loci has empty interior, which is
+the shape one wants for an avoidance argument. Turning that into a
+perturbation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is not immediate: the translation model must be replaced by an actual
+perturbation of the roots that keeps them inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">𝔻</mi><annotation encoding="application/x-tex">\mathbb{D}</annotation></semantics></math>
+and preserves the length slack. That is the first open producer of
+§.</p>
+</section>
+<section id="sec:gap" class="level2">
+<h2>A proof gap in the unrestricted argument</h2>
+<p>The March manuscript’s Proposition 12 claims the following
+load-bearing statement. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">u=-\log|f|</annotation></semantics></math>,
+a connected component
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>&gt;</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{u&gt;c\}</annotation></semantics></math>
+carrying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m\ge2</annotation></semantics></math>
+simple zeros, and the stated regularity and Morse hypotheses, it
+constructs, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>,
+an embedded spanning tree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>ε</mi></msub><mo>⊂</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">G_\varepsilon\subset V</annotation></semantics></math>
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>ε</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>ε</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{len}(G_\varepsilon)
+ \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon.
+\tag{5.1}\label{eq:prop12-bound}</annotation></semantics></math> The
+final theorem uses this estimate, so the issue below cannot be bypassed
+by calling the proposition auxiliary.</p>
+<p>At an interior index-one critical point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+the proof invokes a Morse chart
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>μ</mi><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">u=\mu+x^2-y^2</annotation></semantics></math>
+and replaces the saddle by a three-ended neighbourhood having one
+connected lower cross-section and two connected upper cross-sections.
+That local model is false as written. Because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">p\in V</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+is open, a sufficiently small closed disc around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+lies entirely in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.
+In that disc the full Morse chart has four sectors: two components of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&gt;</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">u&gt;\mu</annotation></semantics></math>
+and two components of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&lt;</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">u&lt;\mu</annotation></semantics></math>.
+A global component argument cannot delete one local sector from a disc
+already contained in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p>
+<p>This diagnoses a proof step, not the proposition’s statement. A
+repair might cut an adjoining regular annulus along a separatrix or
+regular flow arc before forming the block, retain a four-pronged saddle
+neighbourhood and change the assembly, or replace the local construction
+by the ray-cut decomposition proposed below. Any repair must prove that
+its connector cost can be made arbitrarily small uniformly in the
+attachment points and that the repaired blocks still assemble to an
+embedded tree satisfying . The shorter descriptions of the same
+three-ended block do not repair the four-sector topology.</p>
+<p>Corollary  supplies one independent input for a different route:
+distinct critical-value arguments exclude saddle-to-saddle Newton
+connections. It does not itself prove the compact planar decomposition,
+classify all orbit endpoints or provide the metric gluing estimate.
+Those are separate problems below.</p>
+</section>
+<section id="sec:finite" class="level2">
+<h2>Finite evidence</h2>
+<p>A search was run over random monic polynomials with roots in the unit
+disc. For each sample the region
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
+was rasterised and shortest grid paths were computed between every pair
+of roots. The best upper bounds obtained were
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>5</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1.1052648928</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>6</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.8450414343</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>8</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.6203916714</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>10</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.4303640486</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{lrr}
+    \text{degree } 5, &amp; 500 \text{ trials}: &amp; 1.1052648928\\
+    \text{degree } 6, &amp; 1500 \text{ trials}: &amp; 0.8450414343\\
+    \text{degree } 8, &amp; 1500 \text{ trials}: &amp; 0.6203916714\\
+    \text{degree } 10, &amp; 1500 \text{ trials}: &amp; 0.4303640486 .
+  \end{array}</annotation></semantics></math> No counterexample
+candidate was found, and the measured values sit well below the
+threshold
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+These are grid distances for the sampled configurations: upper bounds on
+those samples, not bounds over the family. The apparent decrease with
+degree is a property of the sample, and we draw no conjecture from it.
+Future searches should target named failure modes—near-degenerate
+saddles, thin necks, boundary-critical configurations and
+almost-connected separatrices—and report those diagnostics. Raster paths
+remain candidate finders, never continuous certificates.</p>
+</section>
+<section id="sec:open" class="level2">
+<h2>Complements and further questions</h2>
+<p>The dependency chain has five separate gates. A proof, a minimally
+corrected hypothesis set, or an explicit polynomial or planar
+counterexample is a decisive answer to any one of them.</p>
+<section id="repair-or-refute-the-saddle-block"
+class="level3 unnumbered">
+<h3 class="unnumbered">1. Repair or refute the saddle block</h3>
+<p>The full-disc model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2-y^2</annotation></semantics></math>,
+an annulus in which lower branches rejoin, two saddles joined by a
+separatrix and simultaneous saddle levels are mandatory tests. Repeating
+the one-lower/two-upper assertion does not answer the problem.</p>
+</section>
+<section id="the-compact-ray-cut-decomposition"
+class="level3 unnumbered">
+<h3 class="unnumbered">2. The compact ray-cut decomposition</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+have simple roots, simple nonzero critical points and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">u=-\log|p|</annotation></semantics></math>.
+For regular values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&lt;</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">c&lt;T</annotation></semantics></math>,
+take
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>c</mi><mo>,</mo><mi>T</mi></mrow></msub><mo>=</mo><mover><mrow><mi>V</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>&lt;</mo><mi>u</mi><mo>&lt;</mo><mi>T</mi><mo stretchy="false" form="postfix">}</mo></mrow><mo accent="true">¯</mo></mover><mo>,</mo></mrow><annotation encoding="application/x-tex">M_{c,T}=\overline{V\cap\{c&lt;u&lt;T\}},</annotation></semantics></math>
+and assume explicitly that this is a compact genus-zero surface, its
+lower boundary is one smooth Jordan curve, its upper boundary consists
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+smooth root curves, all interior critical points are nondegenerate
+index-one saddles, the normalised gradient field
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mfrac><mrow><mi>∇</mi><mi>u</mi></mrow><mrow><mo stretchy="false" form="prefix">|</mo><mi>∇</mi><mi>u</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mi>−</mi><mfrac><mi>p</mi><msup><mi>p</mi><mo>′</mo></msup></mfrac></mrow><annotation encoding="application/x-tex">X=\frac{\nabla u}{|\nabla u|^2}=-\frac{p}{p&#39;}</annotation></semantics></math>
+is transverse to the level boundaries, and no maximal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>-trajectory
+has two saddle endpoints.</p>
+<p>No particular formula such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>s</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2s+1</annotation></semantics></math>
+is presumed. Boundary tangencies, simultaneous levels, branch reunion
+through an annulus and non-Hausdorff orbit spaces must be handled rather
+than suppressed.</p>
+</section>
+<section id="metric-fan-in-without-losing-the-coefficient"
+class="level3 unnumbered">
+<h3 class="unnumbered">3. Metric fan-in without losing the
+coefficient</h3>
+<p>For a strip
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+write
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup><mo>=</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>=</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi mathvariant="script">ℋ</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\Gamma_t^S=S\cap\{u=t\},\qquad
+ P_S(t)=\mathcal H^1(\Gamma_t^S),</annotation></semantics></math> and
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>S</mi></msub><annotation encoding="application/x-tex">k_S</annotation></semantics></math>
+be its number of root ends. The flux identity
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup></msub><mo stretchy="false" form="prefix">|</mo><mi>∇</mi><mi>u</mi><mo stretchy="false" form="prefix">|</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo>=</mo><mn>2</mn><mi>π</mi><msub><mi>k</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">\int_{\Gamma_t^S}|\nabla u|\,ds=2\pi k_S</annotation></semantics></math>
+gives the average trajectory estimate
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><msubsup><mi mathvariant="normal">Γ</mi><msub><mi>t</mi><mn>0</mn></msub><mi>S</mi></msubsup></msub><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>x</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><msub><mi>μ</mi><msub><mi>t</mi><mn>0</mn></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi><msub><mi>k</mi><mi>S</mi></msub></mrow></mfrac><msubsup><mo>∫</mo><msub><mi>a</mi><mi>S</mi></msub><msub><mi>b</mi><mi>S</mi></msub></msubsup><msub><mi>P</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\int_{\Gamma_{t_0}^S}\operatorname{len}(\gamma_x)\,d\mu_{t_0}(x)
+ =
+ \frac1{2\pi k_S}\int_{a_S}^{b_S}P_S(t)\,dt.</annotation></semantics></math></p>
+<p>For the final strict inequality, use the actual collar slack
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mi>α</mi><mrow><mn>2</mn><mi>α</mi></mrow></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt&gt;0</annotation></semantics></math>
+and give budgets that keep the perturbation, tree error and transfer
+cost below fixed fractions of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
+Independently choosing a shortest trajectory in each strip is not enough
+unless the attachment mismatch is controlled.</p>
+</section>
+<section id="coefficient-perturbation-and-stability"
+class="level3 unnumbered">
+<h3 class="unnumbered">4. Coefficient perturbation and stability</h3>
+<p>The constant-translation stage is no longer open. Once a finite
+critical-value family is injective, Lean proves an arbitrarily small
+translation making every value nonzero and pairwise positive-ray
+separated (<em></em>). It also proves the explicit root-retention
+estimate; a shift below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+keeps all roots in the unit disc when
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>ε</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>+</mo><mi>ρ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">((n+1)\varepsilon)^{1/n}+\rho&lt;1</annotation></semantics></math>
+(<em></em>). A constant translation cannot separate initially equal
+critical values.</p>
+<p>Finite planar avoidance and the subsequent constant translation must
+not be relisted as missing; coefficient genericity, component stability
+and slack stability are the open content.</p>
+</section>
+<section id="the-global-newton-flow-claim-ceiling"
+class="level3 unnumbered">
+<h3 class="unnumbered">5. The global Newton-flow claim ceiling</h3>
+<p>The checked algebra proves the pointwise value equation and the
+endpoint-ray consumer. It does not supply global solution theory or an
+orbit-space graph. A positive stronger theorem must give the graph and a
+finite edge bound; a negative answer should exhibit the simplest
+ray-separated polynomial carrying the remaining pathology.</p>
+<p>Erdős #1041 remains open. The source now publicly verifies the Newton
+kernel, finite ray avoidance and quantitative constant-translation root
+control; the coefficient perturbation, corrected planar decomposition
+and metric gluing remain the exact unresolved producers.</p>
+</section>
+</section>
+<section id="statements-and-declarations" class="level2 unnumbered">
+<h2 class="unnumbered">Statements and declarations</h2>
+<section id="declaration-of-generative-ai-use." class="level5">
+<h5>Declaration of generative AI use.</h5>
+<p>Every word of this manuscript was generated by agents based on large
+language models operating within Will Cook’s private research system for
+artificial intelligence. The formal proofs and repository software were
+likewise drafted and revised by the agents through that system under
+Cook’s direction. Cook set the objectives and acceptance criteria,
+selected and reviewed the public claims, and approved the published
+version. Cook assumes responsibility for the accuracy, interpretation,
+and presentation of the work. Generative systems are production tools,
+not authors, and supply no independent authority.</p>
+<p>Lean does not authorise the exposition, the citation choices, or the
+interpretation, for which the author remains responsible. This
+manuscript is authored exposition, not Lean proof authority. The checked
+core is the Newton value equation, the exponential first integral, the
+consumer form of ray separation, the finite planar-avoidance theorem,
+quantitative constant-translation root retention, and the ray-collision
+parameterisation. The decomposition and length statements of § are not
+proved. The diagnosis of Proposition 12 in § concerns its printed local
+saddle construction; it does not refute the proposition’s statement. The
+search results of § are computations.</p>
+</section>
+</section>
+<section id="app:sources" class="level2">
+<h2>Guide to the formal sources</h2>
+<p>The public
+<code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> module
+contains the checked source for this note. The search of § is
+<code>scripts/search_counterexample.py</code> in the source package. The
+declaration table below is pinned to the shared formal-source commit
+used throughout this problem-note series.</p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>T. F. Bloom, <em>Erdős Problems</em>, problem 1041. <a
+href="https://www.erdosproblems.com/1041"
+class="uri">https://www.erdosproblems.com/1041</a></p></li>
+<li id="ref-2"><p>P. Erdős, F. Herzog, and G. Piranian, , J. Analyse Math.
+<strong>6</strong> (1958), 125–148. <a
+href="https://doi.org/10.1007/BF02790232"
+class="uri">https://doi.org/10.1007/BF02790232</a></p></li>
+<li id="ref-3"><p><code>shtuka</code>, , manuscript posted 24 March 2026, 48 pp. <a
+href="https://shtuka123.github.io/1041/main.pdf"
+class="uri">https://shtuka123.github.io/1041/main.pdf</a>. The file at
+this URL has since been replaced by a shorter partial version that no
+longer contains Proposition 12; the durable public record of the March
+version, its defect, and the author’s 26 March 2026 concession is the
+discussion thread at <a
+href="https://www.erdosproblems.com/forum/thread/1041"
+class="uri">https://www.erdosproblems.com/forum/thread/1041</a>.</p></li>
+<li id="ref-4"><p>V. S. Pendyala, , arXiv:2606.24875v1 (2026). <a
+href="https://arxiv.org/abs/2606.24875"
+class="uri">https://arxiv.org/abs/2606.24875</a>, doi:<a
+href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.</p></li>
+</ol>
+</section>
+  </div>
+</article>

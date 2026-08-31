@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#249 The binary totient series · Plectis maths</title>
+  <meta name="description" content="Is the binary Lambert series sum phi(n)/2^n irrational?">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_249.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#249 The binary totient series · Plectis maths">
+  <meta property="og:description" content="Is the binary Lambert series sum phi(n)/2^n irrational?">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_249.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#249 The binary totient series · Plectis maths">
+  <meta name="twitter:description" content="Is the binary Lambert series sum phi(n)/2^n irrational?">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html" class="is-active" aria-current="page"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#249</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #249</span>
+        <h1>The binary totient series</h1>
+        <p class="dossier-head__q">Is the binary Lambert series sum phi(n)/2^n irrational?</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>3 Lean modules</span>
+          <span>3 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos249" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>Conditionally: a cofinal strict 9/10 gap for the exact natural prime-tail orbit supplies the existing finite pivot-point escape and hence the reviewed irrationality endpoint.</li>
+          <li>The local s=1 and s=2 squared Möbius Euler-factor identities and the first two prime-power divisor-sum differences.</li>
+          <li>That the two-by-two checkerboard kills separable backgrounds and is unique up to scale under the four row and column cancellations.</li>
+          <li>An abstract four-point divisor-layer identity, stated from its four explicit factorisation hypotheses.</li>
+          <li>An affine completion no-go: every residue class modulo an even modulus has a digit that recentres one carry step.</li>
+          <li>Exact producer and consumer interfaces for prime-ray layer supply, bounded-degree order witnesses, and finite-prime-support escape.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: totient_kernel_rank</span>
+          </div>
+          <p class="result-card__statement">For every e &gt;= 1, the complete dyadic totient kernel through level e has rational span dimension 2^e + 1.</p>
+          <p class="result-card__boundary">This does not prove irrationality of the totient series.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.finrank_totientKernelThroughLevelFamily_eq</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">Lean formalisation of an existing consequence of Coons</span>
+            <span class="disposition">family: totient_kernel_rank</span>
+          </div>
+          <p class="result-card__statement">The rational span of the full dyadic totient kernel is not finite-dimensional.</p>
+          <p class="result-card__boundary">The declaration is kernel-checked locally, but full-kernel infinite-dimensionality is not an independent contribution of this release; no rationality-to-finite-rank bridge is proved.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.not_finiteDimensional_span_fullTotientKernel</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">locally proved result; novelty unassessed</span>
+            <span class="disposition">family: totient_kernel_basis</span>
+          </div>
+          <p class="result-card__statement">The full dyadic totient kernel span admits the explicit odd-core-indexed basis.</p>
+          <p class="result-card__boundary">The basis theorem does not connect rationality to finite kernel rank.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean" data-link-kind="exogenous" rel="external noopener">Erdos249257.totientDyadicSectionBasis</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>The strict prime-tail orbit gap, which is the unproved producer consumed by the conditional endpoint.</li>
+          <li>The packet&#x27;s sharp parabolic Stern-Brocot cusp theorem and its passage from a geometric x-parameter to the arithmetic totient series.</li>
+          <li>Eventual Hankel nonvanishing for the Möbius-Mersenne power ladder, or its denominator obstruction.</li>
+          <li>The natural-boundary and quasimodular-transcendence steps of the infinite Euler-sieve tower.</li>
+          <li>Polynomial resultant realisability, exact-order finite-field supply, Frobenius freezing, or the Archimedean growth needed by the prime-ray strategy.</li>
+          <li>Unconditional irrationality of the binary totient series.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>strict_prime_tail_orbit_gap</code> Prove the cofinal strict 9/10 real-part gap for the exact natural prime-tail orbit, or replace it with another producer for the reviewed pivot-escape endpoint.</li>
+          <li><code>hankel_denominator_fan_in</code> Prove eventual nonvanishing or a usable denominator obstruction for the Möbius-Mersenne power ladder and connect it to the target value.</li>
+          <li><code>euler_sieve_limit_theorem</code> Control the infinite Euler-sieve limit strongly enough that finite-stage quasimodularity yields a valid arithmetic obstruction.</li>
+          <li><code>prime_ray_resultant_supply</code> Realise the layer system by cyclic resultants and prove prime-support escape with the growth estimates needed to contradict a rational carry orbit.</li>
+          <li><code>stern_brocot_arithmetic_bridge</code> Prove the sharp cusp asymptotic and then supply a non-formal bridge from the geometric parameter regime to the exact totient value.</li>
+        </ul>
+      </section>
+      <section class="dossier-section" id="finite-search" aria-labelledby="finite-title">
+        <h2 id="finite-title">Finite search evidence</h2>
+        <p class="note">The returned strict-orbit packet reports an exact finite deposit at parameters (147,23), verified through harmonic height 5022. It is research evidence, not a Lean-checked unbounded certificate.</p>
+      </section>
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos249.TotientStrictPrimeEscape</code></a></td>
+              <td class="num">211</td>
+              <td class="num">8</td>
+              <td class="num">5</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/FiniteEulerSieve.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos249.FiniteEulerSieve</code></a></td>
+              <td class="num">69</td>
+              <td class="num">6</td>
+              <td class="num">4</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos249.PrimeRayCyclotomicCurvature</code></a></td>
+              <td class="num">215</td>
+              <td class="num">14</td>
+              <td class="num">9</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">An explicit odd-core basis and relation normal form for the full dyadic totient kernel.</p>
+              <p class="boundary-line">The basis theorem does not connect rationality of the series to finite kernel rank.</p>
+              <p class="disposition">totient_kernel_basis &middot; targeted</p>
+            </li>
+            <li>
+              <p class="summary-line">An independent constructive proof of exact finite-level dyadic rank 2^e+1, together with a kernel-checked full-kernel infinite-dimensionality corollary already implied by Coons&#x27;s non-2-regularity theorem.</p>
+              <p class="boundary-line">Only the finite-level rank is presented as an additional result; full-kernel infinite-dimensionality is prior-art context, and no rationality-to-finite-rank bridge is proved.</p>
+              <p class="disposition">totient_kernel_rank &middot; targeted</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">The totient series is rewritten as a Lambert series with explicit nonnegative, unbounded prime-power coefficients.</p>
+              <p class="boundary-line">The coefficient identities do not prove irrationality.</p>
+              <p class="disposition">totient_lambert_coefficients &middot; represented_by_basis_and_rank_targets</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.</p>
+              <p class="boundary-line">Lean does not prove all-base affine-section independence or formalise Martin&#x27;s theorem. The unconditional basis and rank conclusions in the paper use that external input.</p>
+              <p class="disposition">totient_kernel_all_base_index &middot; not_selected_external_independence_boundary</p>
+            </li>
+            <li>
+              <p class="summary-line">A Farey denominator exclusion through 7.96e34, sharp for its selected window, and diagonal certificates through t=82.</p>
+              <p class="boundary-line">The selected finite window and certificate ceiling do not imply an unbounded producer.</p>
+              <p class="disposition">totient_finite_denominator_exclusion &middot; not_selected_finite_family_has_separate_receipt</p>
+            </li>
+            <li>
+              <p class="summary-line">Rationality forces a tempered integral tail orbit with unbounded finite-level carry rank.</p>
+              <p class="boundary-line">This is a necessary consequence, not a contradiction.</p>
+              <p class="disposition">totient_carry_rank &middot; not_selected_deep_orbit_vocabulary</p>
+            </li>
+            <li>
+              <p class="summary-line">Eventually periodic nonnegative rational weights give an irrational Lambert series.</p>
+              <p class="boundary-line">The totient-derived weights are not eventually periodic.</p>
+              <p class="disposition">eventually_periodic_lambert &middot; not_selected_prior_result</p>
+            </li>
+            <li>
+              <p class="summary-line">Pointwise, cofinal, lcm-diagonal, and separated-window certificate supplies are exact or sufficient reformulations.</p>
+              <p class="boundary-line">Equivalent producer statements are as hard as the unresolved target.</p>
+              <p class="disposition">totient_certificate_equivalences &middot; not_selected_deep_certificate_vocabulary</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="dossier-section" id="palomar" aria-labelledby="palomar-title">
+        <h2 id="palomar-title">Palomar</h2>
+        <p class="note">One review unit is prepared for the Palomar lane: <code>cmp:249:finrank_totient_kernel</code>, status <code>prepared_without_public_outcome</code>. Preparation is not a submission, a review, or any recorded outcome. <a class="source-link" href="https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md" data-link-kind="exogenous" rel="external noopener">Route description</a></p>
+      </section>
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">19&#8202;pp</span></div>
+          <p class="result-card__statement">A Basis for the 2-Kernel of Euler&#x27;s Totient</p>
+          <p class="result-card__boundary">The dyadic sections of Euler&#x27;s totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-249-binary-totient-series.html">Read it here</a>
+            <a href="../../papers/erdos-249-binary-totient-series.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

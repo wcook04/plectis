@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#243 Reciprocal-tail rigidity near the Sylvester recurrence · Plectis maths</title>
+  <meta name="description" content="Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/problems/erdos_243.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="#243 Reciprocal-tail rigidity near the Sylvester recurrence · Plectis maths">
+  <meta property="og:description" content="Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/problems/erdos_243.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="#243 Reciprocal-tail rigidity near the Sylvester recurrence · Plectis maths">
+  <meta name="twitter:description" content="Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html" class="is-active" aria-current="page"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#problems">Problems</a></li><li aria-current="page">#243</li></ol></nav>
+      <header class="dossier-head">
+        <span class="dossier-head__num">Erd&#337;s problem #243</span>
+        <h1>Reciprocal-tail rigidity near the Sylvester recurrence</h1>
+        <p class="dossier-head__q">Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?</p>
+        <div class="dossier-head__meta">
+          <span class="chip chip--open">Open</span>
+          <span>9 Lean modules</span>
+          <span>2 main results</span>
+          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos243" data-link-kind="exogenous" rel="external noopener">Source directory</a>
+        </div>
+      </header>
+
+      <section class="dossier-section" id="checked" aria-labelledby="checked-title">
+        <h2 id="checked-title">What is checked in Lean</h2>
+        <ul class="fact-list fact-list--checked">
+          <li>The exact product-cleared tail dynamics and the defect identity, as identities in the integer state variables.</li>
+          <li>That a vanishing centred state is absorbing under strict centring, so the state is either eventually zero or nowhere zero.</li>
+          <li>That eventual vanishing of the centred state, with the next tail state nonvanishing, forces the Sylvester recurrence eventually.</li>
+          <li>That a nonnegative centred state vanishes eventually, by descent.</li>
+          <li>That the centred state cannot be eventually constant and negative, at any magnitude and any common scale.</li>
+          <li>That the negative magnitude cannot be eventually periodic with positive drift, in the regime where each magnitude is below its multiplier.</li>
+          <li>A coprimality barrier: a sequence tending to infinity with uniformly bounded upward increments cannot permanently avoid infinitely many fresh pairwise coprime moduli.</li>
+          <li>That a reduced exact tail has pairwise coprime multipliers which its numerator permanently avoids, so no such tail has a divergent numerator with bounded rise.</li>
+          <li>That the tail gcd stabilises under cofinally bounded negative magnitudes.</li>
+          <li>Conditionally: exact dynamics, eventual strict centring, an eventually bounded negative part, and normalised vanishing together force the centred state to vanish eventually.</li>
+          <li>That survival through a fixed number of forced updates depends only on the initial state modulo a factorial of the horizon.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="results" aria-labelledby="results-title">
+        <h2 id="results-title">Main results</h2>
+        <p class="note">Statements and boundaries are copied from the corpus record. Registry status: not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims</p>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">conditional reduction and no-go result</span>
+            <span class="disposition">family: bounded_negative_exclusion</span>
+          </div>
+          <p class="result-card__statement">Normalised vanishing and bounded rise exclude a cofinally bounded negative part.</p>
+          <p class="result-card__boundary">All dynamics, bounded-rise, positivity, and vanishing hypotheses remain explicit.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos243.no_cofinallyBoundedNegative_of_normalizedVanishes</a>
+          </div>
+        </article>
+        <article class="result-card">
+          <div class="result-card__head">
+            <span class="chip chip--gold">no-go result</span>
+            <span class="disposition">family: negative_orbit_no_go</span>
+          </div>
+          <p class="result-card__statement">An eventually periodic negative-error orbit with positive phase growth is impossible.</p>
+          <p class="result-card__boundary">The theorem does not cover arbitrary unbounded negative behaviour.</p>
+          <div class="result-card__links">
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos243.no_eventuallyPeriodicNegative_orbit</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="dossier-section" id="unchecked" aria-labelledby="unchecked-title">
+        <h2 id="unchecked-title">What is not checked</h2>
+        <ul class="fact-list fact-list--unchecked">
+          <li>The unrestricted problem.</li>
+          <li>That eventual strict centring and normalised vanishing follow from the growth hypothesis and rationality. Both are assumed by the final theorem and neither is derived, so that theorem constrains the state system rather than the original sequence.</li>
+          <li>Any exclusion of negative excursions whose magnitudes are unbounded along a cofinal set.</li>
+          <li>The criterion of Erdos and Straus and Duverney&#x27;s conditional characterisation, which are cited rather than formalised and are both stronger than anything checked here.</li>
+        </ul>
+      </section>
+
+      <section class="dossier-section" id="obligations" aria-labelledby="obligations-title">
+        <h2 id="obligations-title">Open obligations</h2>
+        <p class="note">Prove any one of these and the corresponding reduction above becomes unconditional.</p>
+        <ul class="fact-list fact-list--unchecked">
+          <li><code>unbounded_negative_excursions</code> Exclude, or construct, an exact orbit whose centred state is negative infinitely often with magnitudes unbounded along that cofinal set. Every checked exclusion consumes some finiteness: a fixed set of prime divisors, a fixed period, or a fixed bound on the negative part.</li>
+          <li><code>derive_the_two_analytic_hypotheses</code> Derive eventual strict centring and normalised vanishing from the growth hypothesis and rationality, or show that they do not follow.</li>
+          <li><code>formalise_the_published_criteria</code> Kernel-check the Erdos-Straus weighted criterion and Duverney&#x27;s conditional characterisation under explicit analytic hypotheses.</li>
+        </ul>
+      </section>
+      <section class="dossier-section" id="finite-search" aria-labelledby="finite-title">
+        <h2 id="finite-title">Finite search evidence</h2>
+        <p class="note">An exact search over initial states below five thousand produced forced prefixes of length seventeen and no longer. It is superseded: the constant-negative template is now excluded outright, for every seed and at every scale.</p>
+      </section>
+      <section class="dossier-section" id="modules" aria-labelledby="modules-title">
+        <h2 id="modules-title">Lean modules</h2>
+        <div class="table-scroll">
+          <table class="module-table">
+            <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
+            <tbody>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.ReciprocalTailRigidity</code></a></td>
+              <td class="num">2386</td>
+              <td class="num">77</td>
+              <td class="num">67</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/FiniteHorizonResidue.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.FiniteHorizonResidue</code></a></td>
+              <td class="num">141</td>
+              <td class="num">10</td>
+              <td class="num">7</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.SparseResetRecovery</code></a></td>
+              <td class="num">208</td>
+              <td class="num">6</td>
+              <td class="num">5</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/DynamicCancellation.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.DynamicCancellation</code></a></td>
+              <td class="num">399</td>
+              <td class="num">15</td>
+              <td class="num">15</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/FeedbackRealizability.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.FeedbackRealizability</code></a></td>
+              <td class="num">165</td>
+              <td class="num">7</td>
+              <td class="num">7</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/GlobalLcmHeight.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.GlobalLcmHeight</code></a></td>
+              <td class="num">152</td>
+              <td class="num">13</td>
+              <td class="num">9</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/LcmCriticalBoundary.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.LcmCriticalBoundary</code></a></td>
+              <td class="num">388</td>
+              <td class="num">15</td>
+              <td class="num">14</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/PrimitivePrefixRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.PrimitivePrefixRigidity</code></a></td>
+              <td class="num">136</td>
+              <td class="num">6</td>
+              <td class="num">4</td>
+            </tr>
+            <tr>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/WeightedCRTRepair.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos243.WeightedCRTRepair</code></a></td>
+              <td class="num">333</td>
+              <td class="num">17</td>
+              <td class="num">11</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="comparator" aria-labelledby="comparator-title">
+        <h2 id="comparator-title">Comparator review</h2>
+        <p class="note">The Comparator replays selected exact interfaces against a pinned toolchain. It never widens what Lean proved.</p>
+        <div class="family-tier">
+          <h3>Replayed by the Comparator</h3>
+          <p class="note">Statement and type parity replayed against the pinned toolchain.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Constant, eventually constant, periodic, and eventually periodic negative-error orbits are excluded in their stated regimes.</p>
+              <p class="boundary-line">The exclusions do not cover arbitrary unbounded negative behaviour.</p>
+              <p class="disposition">negative_orbit_no_go &middot; targeted_representative_periodic_theorem</p>
+            </li>
+            <li>
+              <p class="summary-line">Normalised vanishing excludes a cofinally bounded negative part and forces eventual Sylvester behaviour.</p>
+              <p class="boundary-line">Every positivity, dynamics, bounded-rise, and vanishing hypothesis remains explicit.</p>
+              <p class="disposition">bounded_negative_exclusion &middot; targeted</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Represented indirectly</h3>
+          <p class="note">Covered through a neighbouring selected interface, not replayed one-to-one.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Exact update and defect identities, scale equivariance, zero absorption, and eventual recovery of the Sylvester recurrence.</p>
+              <p class="boundary-line">The recovery theorem requires eventual centred-state vanishing.</p>
+              <p class="disposition">centered_state_dynamics &middot; represented_by_selected_boundary_theorems</p>
+            </li>
+            <li>
+              <p class="summary-line">A bounded-rise sequence cannot remain coprime to fresh pairwise-coprime moduli; reduced tails inherit this obstruction.</p>
+              <p class="boundary-line">The required bounded-rise input is not automatic for the original sequence.</p>
+              <p class="disposition">bounded_rise_coprimality &middot; represented_by_stronger_selected_boundary_theorem</p>
+            </li>
+          </ul>
+        </div>
+        <div class="family-tier">
+          <h3>Outside the Comparator selection</h3>
+          <p class="note">Stated in the corpus; not part of the replayed interface set.</p>
+          <ul class="family-list">
+            <li>
+              <p class="summary-line">Finite normalised negative mass forces eventual zero and hence the Sylvester recurrence.</p>
+              <p class="boundary-line">Summability of the negative mass is unproved for the original problem.</p>
+              <p class="disposition">negative_mass_recovery &middot; not_selected_deep_state_vocabulary</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="paper" aria-labelledby="paper-title">
+        <h2 id="paper-title">The paper</h2>
+        <article class="result-card">
+          <div class="result-card__head"><span class="chip">Problem note</span> <span class="disposition">22&#8202;pp</span></div>
+          <p class="result-card__statement">Excluding the Bounded Negative Part</p>
+          <p class="result-card__boundary">Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi&#x27;s in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.</p>
+          <div class="result-card__links">
+            <a class="btn btn--ghost" href="../papers/erdos-243-reciprocal-tail-rigidity.html">Read it here</a>
+            <a href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf">PDF</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a>
+          </div>
+        </article>
+      </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

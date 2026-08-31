@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methodology · Plectis maths</title>
+  <meta name="description" content="Methodology, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/methodology.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Methodology · Plectis maths">
+  <meta property="og:description" content="Methodology, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/methodology.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Methodology · Plectis maths">
+  <meta name="twitter:description" content="Methodology, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
+  <link rel="stylesheet" href="../assets/maths.css?v=5066a48100d7">
+  <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Methodology</li></ol></nav>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Methodology</p>
+        <h1>Methodology</h1>
+        <p class="doc-source-line">Rendered from <code>METHODOLOGY.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="methodology" data-document-role="evidence_method" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="METHODOLOGY.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Generated by scripts/build_methodology.py from docs/methodology.json. Do not edit directly. -->
+<section class="level1 lean-doc-titled">
+<h2>Formal proofs, mathematical claims, and what remains open</h2>
+<p>This page records the rules used to relate the Lean development to
+the mathematical claims made in this repository, and to keep partial
+results from being overstated. It is generated from
+<code>docs/methodology.json</code>; run
+<code>python3 scripts/build_methodology.py</code> after changing that
+source. Lean source checked by the pinned Lean kernel remains proof
+authority.</p>
+<p>The machine source calls the six standing rules
+<code>method_axiom</code> records. They are repository rules, not Lean
+<code>axiom</code> declarations.</p>
+<section id="standing-rules" class="level2">
+<h2>Standing rules</h2>
+<section id="a-formal-result-is-the-exact-proposition-lean-checked"
+class="level3">
+<h3>1. A formal result is the exact proposition Lean checked</h3>
+<p>A result is proved here only as the exact elaborated proposition
+accepted by the pinned public Lean environment under its transitive
+assumptions.</p>
+<p>Seen in: Full-support Erdős–Borwein irrationality, every integer base
+b ≥ 2 (<code>eb_full_support</code>).</p>
+<p>Limit: Kernel acceptance does not establish intended meaning,
+relevance, novelty, or claim status.</p>
+</section>
+<section
+id="formal-validity-and-mathematical-faithfulness-are-separate-questions"
+class="level3">
+<h3>2. Formal validity and mathematical faithfulness are separate
+questions</h3>
+<p>A checked Lean declaration and the intended mathematical statement
+remain distinct until human mathematical review records their
+correspondence.</p>
+<p>Seen in: Named infinite-support irrationality families toward #257
+(<code>support_families</code>).</p>
+<p>Recorded boundary: Prove irrationality for every infinite support A,
+not only the named support families formalised here
+(<code>remaining_open.universal_257_all_infinite_supports</code>).</p>
+<p>Limit: The repository can require and route review; it cannot compute
+mathematical faithfulness.</p>
+</section>
+<section
+id="a-public-claim-crosses-representations-only-through-proved-transport"
+class="level3">
+<h3>3. A public claim crosses representations only through proved
+transport</h3>
+<p>A claim may move between coordinates, encodings, normalisations, or
+models only through a checked implication or equivalence whose direction
+and losses are explicit.</p>
+<p>Seen in: The Mersenne–Lambert ladder identities
+(<code>mersenne_lambert_ladder</code>).</p>
+<p>Recorded boundary: Prove that S = ∑ φ(n)/2ⁿ is irrational, with no
+bound on a possible rational denominator
+(<code>remaining_open.erdos_249_irrationality</code>).</p>
+<p>Limit: A transport theorem establishes the stated relation; it does
+not establish that the new representation is useful.</p>
+</section>
+<section id="a-reduction-keeps-the-remaining-hypothesis-visible"
+class="level3">
+<h3>4. A reduction keeps the remaining hypothesis visible</h3>
+<p>Every conditional theorem, criterion, or reduction names the exact
+hypothesis or quantifier that remains open.</p>
+<p>Seen in: Exact reduction of #249 to finite decidable certificates
+(<code>certificate_reduction</code>).</p>
+<p>Recorded boundary: Produce certified non-integrality witnesses at
+unbounded parameters. A sufficient one-parameter form is to produce them
+along the lcm diagonal
+(<code>remaining_open.unbounded_certificate_supply</code>).</p>
+<p>Limit: An exact reduction can expose an open proposition without
+proving it.</p>
+</section>
+<section id="finite-verification-does-not-change-quantifiers"
+class="level3">
+<h3>5. Finite verification does not change quantifiers</h3>
+<p>Finite certificates, bounded searches, and verified initial segments
+remain finite evidence unless a checked theorem supplies the unbounded
+or universal step.</p>
+<p>Seen in: Initial certified-kill segment and generated certificates
+(<code>certified_kill_instances</code>).</p>
+<p>Recorded boundary: Produce certified non-integrality witnesses at
+unbounded parameters. A sufficient one-parameter form is to produce them
+along the lcm diagonal
+(<code>remaining_open.unbounded_certificate_supply</code>).</p>
+<p>Limit: Increasing a checked bound does not change the quantifier of
+the public claim.</p>
+</section>
+<section
+id="a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation"
+class="level3">
+<h3>6. A claim of progress names both the theorem and the outstanding
+obligation</h3>
+<p>A result advances an open target only when it states which remaining
+open proposition it proves, narrows, decomposes, re-expresses, or
+constrains.</p>
+<p>Seen in: Unconditional denominator exclusion for the totient constant
+(<code>denominator_exclusion</code>); Sublogarithmic divisor-coverage
+zero windows (<code>sublog_zero_windows</code>).</p>
+<p>Recorded boundary: This release does not settle Erdős #249
+(<code>not_erdos_249_solution</code>).</p>
+<p>Limit: The repository checks that the claimed effect is explicit;
+human review decides whether the effect is mathematically
+significant.</p>
+</section>
+</section>
+<section id="evidence-responsibilities" class="level2">
+<h2>Evidence responsibilities</h2>
+<section id="lean-check" class="level3">
+<h3>Lean check</h3>
+<p>Decides: Whether the declaration elaborates and its proof term is
+accepted in the pinned environment. The associated axiom audit reports
+the transitive axioms the declaration depends on.</p>
+<p>Does not decide: Whether the proposition expresses the intended
+mathematics, is relevant to an open problem, or is novel.</p>
+</section>
+<section id="repository-check" class="level3">
+<h3>Repository check</h3>
+<p>Decides: Whether identifiers, statuses, source coordinates, routes,
+projections, and generated files agree.</p>
+<p>Does not decide: Whether an informal statement is mathematically
+faithful or significant.</p>
+</section>
+<section id="human-mathematical-review" class="level3">
+<h3>Human mathematical review</h3>
+<p>Records a reviewed judgement about: Whether a formal proposition
+matches the intended statement, how it relates to prior work, what
+public claim it supports, and what remains open.</p>
+<p>Does not decide: Whether the Lean kernel accepts the proof term.</p>
+</section>
+<section id="blinded-recovery-evaluation" class="level3">
+<h3>Blinded recovery evaluation</h3>
+<p>Decides: Whether an agent given the development as it stood before a
+declaration landed, and a stated subset of the derived layers,
+reconstructs that declaration’s statement or proof mechanism. The
+holdout is a git checkout predating the target, so the target is absent
+by construction rather than by the agent’s restraint.</p>
+<p>Does not decide: Whether the recovered statement is novel,
+significant, or correctly proved; whether the mechanism credited for the
+recovery is the one the original proof used; or whether a recovery
+generalises beyond the held-out case.</p>
+</section>
+</section>
+<section id="research-and-publication-paths" class="level2">
+<h2>Research and publication paths</h2>
+<p>The machine source records two bounded paths. They are navigation and
+review order, not additional mathematical implications.</p>
+<section id="mathematical-research-path" class="level3">
+<h3>Mathematical research path</h3>
+<p><code>open_target</code> → <code>representation</code> →
+<code>necessary_consequence</code> → <code>proved_reduction</code> →
+<code>finite_certificate</code> → <code>lean_declaration</code> →
+<code>remaining_open_proposition</code></p>
+<p>A route may stop at any intermediate object. In particular, a
+necessary consequence, reduction, finite certificate, or Lean
+declaration does not remove the final remaining-open proposition unless
+a checked theorem actually does so.</p>
+</section>
+<section id="public-claim-path" class="level3">
+<h3>Public claim path</h3>
+<p><code>lean_declaration</code> → <code>checked_assumptions</code> →
+<code>reviewed_intended_meaning</code> → <code>public_claim</code> →
+<code>authored_exposition</code> → <code>generated_projection</code> →
+<code>public_checkout</code></p>
+<p>This is the authority order for publication. Kernel acceptance
+precedes assumption review; intended meaning is reviewed before a public
+claim; authored exposition precedes generated projections; and the
+public checkout is the final reader-facing surface.</p>
+</section>
+</section>
+<section id="working-principles" class="level2">
+<h2>Working principles</h2>
+<section id="proving" class="level3">
+<h3>Proving</h3>
+<ul>
+<li>Under a hypothetical rational value or counterexample, derive
+checked structural consequences instead of replacing proof with
+plausibility.</li>
+<li>A finite checker needs a soundness theorem; calling it exact
+additionally requires a completeness theorem at the stated
+parameters.</li>
+</ul>
+</section>
+<section id="publishing" class="level3">
+<h3>Publishing</h3>
+<ul>
+<li>Every frontier-facing partial result states both its positive
+conclusion and the exact proposition that survives it.</li>
+<li>Each representation change identifies the checked theorem that
+transfers the claim and states the direction and any loss.</li>
+<li>A reader using only the public checkout must be able to find the
+main argument, proof routes, public claim statuses, and remaining open
+propositions.</li>
+<li>Public claim review checks both ceilings and coverage: prose must
+not exceed the checked theorem chain, and a source-backed high-value
+mechanism, exact reformulation, quantitative reduction, or distinct
+endpoint must be mechanically discoverable when omitting it would
+materially understate the corpus.</li>
+</ul>
+</section>
+<section id="maintaining" class="level3">
+<h3>Maintaining</h3>
+<ul>
+<li>A failed strategy, counterexample, or disproved finite-state
+interpretation is retained when it rules out a recurring mathematical
+route.</li>
+<li>Distinguish proof-body, proposition, assumption, representation,
+finite-range, claim-status, exposition, and projection changes before
+deciding what must be updated.</li>
+<li>Lean owns formal validity; humans own intended meaning,
+significance, and public framing; agents may search, propose, test, and
+expose consequences without inheriting either authority.</li>
+<li>Update Lean source first, then assumption and meaning review, then
+claim status, then authored exposition, then generated projections.</li>
+</ul>
+</section>
+</section>
+<section id="three-examples-from-this-development" class="level2">
+<h2>Three examples from this development</h2>
+<section id="an-exact-reduction-that-does-not-close-249" class="level3">
+<h3>An exact reduction that does not close #249</h3>
+<pre class="text"><code>a hypothetical rational value of S = ∑ φ(n)/2ⁿ
+→ an integrality constraint on totient tail differences
+→ a finite non-integrality certificate at fixed parameters (certifiedKill)
+→ an exact conditional reduction (irrational_totient_series_of_lcm_diagonal_certificate_supply)
+→ the unbounded supply of such certificates, which remains open</code></pre>
+<p>If S were rational, its totient tails would satisfy an integrality
+constraint. The certifiedKill predicate refutes that constraint at fixed
+parameters, and the completeness theorem shows the finite computation
+loses no information at those parameters. The reduction theorem then
+proves: if certificates occur at unbounded parameters, S is irrational.
+Producing that unbounded supply is the remaining open proposition;
+nothing in this repository claims it.</p>
+<p>Claims: Exact reduction of #249 to finite decidable certificates
+(<code>certificate_reduction</code>); Certificate completeness
+(<code>certificate_completeness</code>).</p>
+<p>Remaining open:
+<code>remaining_open.unbounded_certificate_supply</code>.</p>
+</section>
+<section id="finite-verification-that-stays-finite" class="level3">
+<h3>Finite verification that stays finite</h3>
+<p>certifiedKill_all_small and the lcm-diagonal deposits through t = 8
+(certifiedKill_periodLcm_diagonal_upto_six and the t = 7 and t = 8
+endpoints) are kernel-checked with decide at fixed bounds. Each names a
+specific bounded region the checker has cleared; together with the
+generated certificate shards they show the reduction is not vacuous. The
+claim keeps the status verified finite instance and states its bounded
+domain. Raising the checked bound changes the stated bound; it does not
+change the quantifier of any public claim.</p>
+<p>Claims: Initial certified-kill segment and generated certificates
+(<code>certified_kill_instances</code>).</p>
+<p>Remaining open:
+<code>remaining_open.unbounded_certificate_supply</code>.</p>
+</section>
+<section id="necessary-structure-that-does-not-yet-contradict"
+class="level3">
+<h3>Necessary structure that does not yet contradict</h3>
+<p>The carry and zero-window theorems state what a rational series value
+would force: reciprocal-mass lower bounds, unbounded carry states, and
+sublogarithmic zero windows in divisor coverage. These are necessary
+consequences of rationality. They constrain a hypothetical rational
+value; none of them rules it out, and the universal #257 statement
+remains open.</p>
+<p>Claims: Rationality-forced reciprocal-mass lower bound
+(<code>reciprocal_mass_bound</code>); Carry states are unbounded over
+infinite rational-valued supports (<code>unbounded_carry_states</code>);
+Sublogarithmic divisor-coverage zero windows
+(<code>sublog_zero_windows</code>).</p>
+<p>Remaining open:
+<code>remaining_open.universal_257_all_infinite_supports</code>.</p>
+</section>
+</section>
+<section id="before-changing-a-public-claim" class="level2">
+<h2>Before changing a public claim</h2>
+<p>Classify the change first. Each class states its minimum evidence,
+whether human mathematical review is needed, and the public consequence.
+The machine source additionally records, for each class, the effects the
+change must not have.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Change</th>
+<th>Minimum evidence</th>
+<th>Mathematical review</th>
+<th>Public consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A proof body changes; the stated proposition does not</td>
+<td>Lean check, Repository check</td>
+<td>only when intended meaning changed or claim text changed</td>
+<td>No claim or exposition change follows automatically. Compare the
+axiom audit before and after.</td>
+</tr>
+<tr>
+<td>A stated proposition or its hypotheses change</td>
+<td>Lean check, Repository check, Human mathematical review</td>
+<td>required</td>
+<td>Reconcile the claim wording, the remaining-open boundary, and the
+paper statement.</td>
+</tr>
+<tr>
+<td>The transitive assumptions of a declaration change</td>
+<td>Lean check, Repository check, Human mathematical review</td>
+<td>required</td>
+<td>Reassess the proof posture even when the proposition is
+unchanged.</td>
+</tr>
+<tr>
+<td>A claim moves between coordinates, encodings, or models</td>
+<td>Lean check, Human mathematical review</td>
+<td>required</td>
+<td>Record the transport theorem, its direction, and anything not
+preserved.</td>
+</tr>
+<tr>
+<td>A checked bounded range or certificate family is extended</td>
+<td>Lean check, Repository check</td>
+<td>only when claim text changed or claim status changed or intended
+meaning changed or paper statement changed</td>
+<td>Keep the finite status; update only the stated bound.</td>
+</tr>
+<tr>
+<td>A claim’s declaration coordinates or links are corrected; the claim
+is otherwise unchanged</td>
+<td>Lean check, Repository check</td>
+<td>only when claim text changed or claim status changed or intended
+meaning changed</td>
+<td>Link or correct the supporting declarations of an unchanged claim,
+then regenerate dependent projections. The mathematical claim does not
+change; a Lean check confirms the linked declaration exists and
+elaborates.</td>
+</tr>
+<tr>
+<td>An advances-open-target relation is added or changed</td>
+<td>Repository check, Human mathematical review</td>
+<td>required</td>
+<td>Record the outstanding obligation affected and the exact
+relation.</td>
+</tr>
+<tr>
+<td>The status of a public claim changes</td>
+<td>Repository check, Human mathematical review</td>
+<td>required</td>
+<td>State the theorem or review that licenses the new status.</td>
+</tr>
+<tr>
+<td>Authored paper or documentation prose changes mathematically</td>
+<td>Repository check, Human mathematical review</td>
+<td>required</td>
+<td>Prose must not exceed the status recorded in the claim
+registry.</td>
+</tr>
+<tr>
+<td>A generated projection is rebuilt</td>
+<td>Repository check</td>
+<td>not required</td>
+<td>Regenerate below the existing owners; no mathematical effect.</td>
+</tr>
+<tr>
+<td>docs/methodology.json changes</td>
+<td>Repository check</td>
+<td>only when rule semantics changed</td>
+<td>Regenerate METHODOLOGY.md and the corpus descriptor. Rules route
+review; they do not decide mathematics.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rejected-inferences" class="level2">
+<h2>Rejected inferences</h2>
+<ul>
+<li>Do not use a successful Lean check to bypass review of whether the
+proposition expresses the intended mathematics.</li>
+<li>Do not narrate a conditional implication, equivalence, or criterion
+as closure of the original open problem.</li>
+<li>Do not treat a large checked range as evidence for an unbounded or
+universal assertion.</li>
+<li>Do not speak of a transformed representation as the original claim
+unless a checked implication or equivalence supplies that relation.</li>
+<li>A dependency graph, generated explanation, language-model output, or
+private proof sketch is not public proof authority.</li>
+<li>Counts of declarations, proof lines, certificates, or agent activity
+do not by themselves establish progress on an open problem.</li>
+<li>README, generated Markdown, the corpus descriptor, and declaration
+maps must remain below their owning source files.</li>
+<li>A methodology rule is removed if it cannot name the objects or
+changes it applies to, the evidence it requires, the route that
+evaluates it, and what it does not establish.</li>
+</ul>
+</section>
+<section id="authority-and-machine-identifiers" class="level2">
+<h2>Authority and machine identifiers</h2>
+<p>Lean source checked by the pinned Lean kernel remains proof
+authority. <code>docs/claims.json</code> remains the owner of release
+identity, claim status, remaining open propositions, and argument
+relationships. <code>docs/methodology.json</code> owns the rules on this
+page and records, for every rule, its evidence classes, applicability
+bindings, scope limit, local references, and validation guards. The
+authored paper remains the owner of mathematical exposition.</p>
+<p><code>METHODOLOGY.md</code> is generated from
+<code>docs/methodology.json</code>; run
+<code>python3 scripts/build_methodology.py</code> after changing the
+source. <code>python3 scripts/check_release.py</code> checks the source
+schema, typed claim-transition requirements, the change-class matrix,
+local references, exact Markdown projection, descriptor registration,
+and entry routes.</p>
+<p>Machine identifiers for the standing rules, in the order the rules
+appear above:</p>
+<pre class="text"><code>1. A formal result is the exact proposition Lean checked
+   method_axiom.proof_is_exact_checked_proposition
+2. Formal validity and mathematical faithfulness are separate questions
+   method_axiom.formal_proof_does_not_verify_intended_meaning
+3. A public claim crosses representations only through proved transport
+   method_axiom.representation_changes_require_proved_transport
+4. A reduction keeps the remaining hypothesis visible
+   method_axiom.reduction_states_remaining_open_hypothesis
+5. Finite verification does not change quantifiers
+   method_axiom.finite_results_remain_finite_without_uniform_theorem
+6. A claim of progress names both the theorem and the outstanding obligation
+   method_axiom.open_problem_progress_names_changed_open_proposition</code></pre>
+<p>Principles, rejected inferences, change classes, review triggers,
+forbidden effects, and claim-transition contracts keep their full
+identifiers and machine fields in
+<code>docs/methodology.json</code>.</p>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="prior-art.html"><span class="maths-pager__dir">Previous</span>Prior art</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="scope.html"><span class="maths-pager__dir">Next</span>Scope and claim boundary</a></nav>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

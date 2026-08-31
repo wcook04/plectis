@@ -1,0 +1,163 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "methodology",
+  "title": "Methodology",
+  "role": "evidence_method",
+  "reading_order": 80,
+  "source_path": "METHODOLOGY.md",
+  "routes": {
+    "html_mathml": "documents/methodology.html",
+    "html_exact_tex": "documents/methodology.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "frontend_math_dependency": null,
+    "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 13,
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "40812662d57b12285a4532a215936751ba53ea60a17d7859d48fa6f1acfc0092",
+    "html_exact_tex_sha256": "33fb7ff7bc3919af83d12ea28e55d9efa67adc773f18175ab20ee8ddb7849806"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Standing rules"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "1. A formal result is the exact proposition Lean checked"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "2. Formal validity and mathematical faithfulness are separate questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "3. A public claim crosses representations only through proved transport"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "4. A reduction keeps the remaining hypothesis visible"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "5. Finite verification does not change quantifiers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "6. A claim of progress names both the theorem and the outstanding obligation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Evidence responsibilities"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Lean check"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Repository check"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Human mathematical review"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Blinded recovery evaluation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Research and publication paths"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Mathematical research path"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Public claim path"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Working principles"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Proving"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Publishing"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Maintaining"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Three examples from this development"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "An exact reduction that does not close #249"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Finite verification that stays finite"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Necessary structure that does not yet contradict"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Before changing a public claim"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Rejected inferences"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Authority and machine identifiers"
+    }
+  ]
+}
