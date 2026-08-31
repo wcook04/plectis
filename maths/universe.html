@@ -26,9 +26,9 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../assets/style.css?v=3db8cf53b3bd">
-  <link rel="stylesheet" href="assets/maths.css?v=5066a48100d7">
+  <link rel="stylesheet" href="assets/maths.css?v=2b9355d57ff9">
   <script defer src="assets/maths.js?v=911c79a053aa"></script>
-  <script defer src="assets/universe.js?v=4877dc0150aa"></script>
+  <script defer src="assets/universe.js?v=6829c643df3f"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -95,9 +95,16 @@
       </div>
 
       <div class="universe-panel">
-        <div class="universe-panel__stage" data-universe-stage>
-          <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=db36513147c8" aria-label="Interactive map of the Lean corpus. Every object is also listed as text below."></canvas>
-          <div class="universe-tip" role="status" aria-hidden="true"></div>
+        <div class="universe-panel__body">
+          <div class="universe-panel__stage" data-universe-stage>
+            <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=1bbd8aff3aa1" aria-label="Interactive map of the Lean corpus. Every object is also listed as text below."></canvas>
+            <div class="universe-zoom" role="group" aria-label="Zoom">
+              <button type="button" class="universe-zoom__btn" data-universe-zoom="in" aria-label="Zoom in">+</button>
+              <button type="button" class="universe-zoom__btn" data-universe-zoom="out" aria-label="Zoom out">&minus;</button>
+              <button type="button" class="universe-zoom__btn" data-universe-zoom="fit" aria-label="Reset the view">&#8634;</button>
+            </div>
+          </div>
+          <aside class="universe-inspector" data-universe-inspector aria-label="Object details"></aside>
         </div>
         <p class="universe-nojs">The interactive map needs JavaScript. Every object it shows is in the lists below, and the complete graph is published as <a href="../lean/experience/graph.json"><code>graph.json</code></a>.</p>
         <div class="universe-panel__foot">
@@ -113,9 +120,7 @@
           <button type="button" class="btn btn--ghost universe-panel__cta" data-universe-load-full data-graph-src="../lean/experience/graph.json" data-layout-src="assets/universe-layout-full.json?v=ceaad48d101d">Load the complete universe</button>
         </div>
       </div>
-      <p class="universe-hint">Hover an object for its name; click it for links. Drag to pan, scroll to zoom. Loading the complete universe fetches about 1.4&#8202;MB once.</p>
-
-      <div class="universe-inspector" data-universe-inspector hidden></div>
+      <p class="universe-hint">Hover an object to preview it in the side panel; click to pin its card and list its connections. Drag to pan, scroll to zoom, press Esc to unpin. Loading the complete universe fetches about 1.4&#8202;MB once.</p>
 
       <section class="universe-index" aria-label="Every object, as text">
         <details>

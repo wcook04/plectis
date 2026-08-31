@@ -32473,7 +32473,7 @@
       ]
     }
   ],
-  "fingerprint": "5b42f1ef928222d1cfca5c7bb3a4a0e5",
+  "fingerprint": "19cf8cf01cfd9fd362da7775e8466fdc",
   "kind_counts": {
     "anti_principle": 17,
     "area": 7,
@@ -34110,7 +34110,7 @@
       "canonical_id": "cold_reader_route_map",
       "command_linked": true,
       "content": {
-        "command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+        "command": "plectis cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "component_detail_href": "component-cold-reader-route-map.html",
         "links_note": "consumes the first-screen card as a handoff and sequences/binds named sibling components (tour, status, authority, workingness, explain, observe, compile) by requiring each route row to point at their commands and result records. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -34382,8 +34382,8 @@
       "canonical_id": "cold_reader_route_map",
       "command_linked": true,
       "content": {
-        "statement": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
-        "summary": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card"
+        "statement": "plectis cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+        "summary": "plectis cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -34784,7 +34784,7 @@
       "canonical_id": "pattern_binding_contract",
       "command_linked": true,
       "content": {
-        "command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+        "command": "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
         "component_detail_href": "component-pattern-binding-contract.html",
         "links_note": "consumes the route-readiness selector contract via pattern_route_readiness (row-to-component router, route cards, decision matrix, dependency DAG, source validation report) and imports the real pattern ledger + system bindings, atop the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -35020,8 +35020,8 @@
       "canonical_id": "pattern_binding_contract",
       "command_linked": true,
       "content": {
-        "statement": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
-        "summary": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness"
+        "statement": "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+        "summary": "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -37006,7 +37006,7 @@
       "canonical_id": "doctrine_fact_claim_audit",
       "command_linked": true,
       "content": {
-        "command": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
+        "command": "plectis doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
         "component_detail_href": "component-doctrine-fact-claim-audit.html",
         "links_note": "Imports derived fact hologram and paper-module source bodies as provenance, then binds their public fixture truth gate to shared Microcosm result records and standards. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -37170,8 +37170,8 @@
       "canonical_id": "doctrine_fact_claim_audit",
       "command_linked": true,
       "content": {
-        "statement": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
-        "summary": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit"
+        "statement": "plectis doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
+        "summary": "plectis doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -37271,7 +37271,7 @@
       "canonical_id": "self_ignorance_coverage_ledger",
       "command_linked": true,
       "content": {
-        "command": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
+        "command": "plectis self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
         "component_detail_href": "component-self-ignorance-coverage-ledger.html",
         "links_note": "Imports the System Atlas builder source body as provenance and binds coverage-debt projection to public result records, fixture manifest, and atlas rows.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -37397,8 +37397,8 @@
       "canonical_id": "self_ignorance_coverage_ledger",
       "command_linked": true,
       "content": {
-        "statement": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
-        "summary": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger"
+        "statement": "plectis self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
+        "summary": "plectis self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -37498,7 +37498,7 @@
       "canonical_id": "navigation_fitness_benchmark",
       "command_linked": true,
       "content": {
-        "command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "command": "plectis navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
         "component_detail_href": "component-navigation-fitness-benchmark.html",
         "links_note": "Surfaces microcosm_core.engine_room.navigation_fitness_benchmark as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -37680,8 +37680,8 @@
       "canonical_id": "navigation_fitness_benchmark",
       "command_linked": true,
       "content": {
-        "statement": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
-        "summary": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+        "statement": "plectis navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "summary": "plectis navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -37781,7 +37781,7 @@
       "canonical_id": "annex_knowledge_routing",
       "command_linked": true,
       "content": {
-        "command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "command": "plectis annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
         "component_detail_href": "component-annex-knowledge-routing.html",
         "links_note": "Surfaces microcosm_core.engine_room.annex_knowledge_router as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -37963,8 +37963,8 @@
       "canonical_id": "annex_knowledge_routing",
       "command_linked": true,
       "content": {
-        "statement": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
-        "summary": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+        "statement": "plectis annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "summary": "plectis annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -38064,7 +38064,7 @@
       "canonical_id": "certificate_kernel_execution_lab",
       "command_linked": true,
       "content": {
-        "command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "command": "plectis certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
         "component_detail_href": "component-certificate-kernel-execution-lab.html",
         "links_note": "Self-contained Lean replay/validation specimen (CP2 and Evolve are internal reruns over its own certificate rows) that binds only to the shared secret-exclusion scan, result record writer, and scope limit spine.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -38190,8 +38190,8 @@
       "canonical_id": "certificate_kernel_execution_lab",
       "command_linked": true,
       "content": {
-        "statement": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
-        "summary": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab"
+        "statement": "plectis certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "summary": "plectis certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -39176,7 +39176,7 @@
       "canonical_id": "batch4_proof_authority_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
+        "command": "plectis batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
         "component_detail_href": "component-batch4-proof-authority-runtime.html",
         "links_note": "Imports 19 copied source modules into a source-open bundle and binds them to fixture, result record, secret-exclusion, and scope limit checks; it does not feed or invoke live provider, browser, Codex, metabolism, or taskpolicy lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -39302,8 +39302,8 @@
       "canonical_id": "batch4_proof_authority_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
-        "summary": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json"
+        "statement": "plectis batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
+        "summary": "plectis batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -39403,7 +39403,7 @@
       "canonical_id": "proof_diagnostic_evidence_spine",
       "command_linked": true,
       "content": {
-        "command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+        "command": "plectis proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
         "component_detail_href": "component-proof-diagnostic-evidence-spine.html",
         "links_note": "Consumes upstream result records from formal_math_verifier_trace_repair_loop, formal_evidence_cell_anchor_resolver, and Ring2 failure-taxonomy/graph-update runs, and feeds the diagnostic board downstream toward formal_math_lean_proof_witness and the pattern-binding/doctrine-grammar boundary. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -39639,8 +39639,8 @@
       "canonical_id": "proof_diagnostic_evidence_spine",
       "command_linked": true,
       "content": {
-        "statement": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
-        "summary": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card"
+        "statement": "plectis proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+        "summary": "plectis proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -39740,7 +39740,7 @@
       "canonical_id": "formal_math_readiness_gate",
       "command_linked": true,
       "content": {
-        "command": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+        "command": "plectis formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
         "component_detail_href": "component-formal-math-readiness-gate.html",
         "links_note": "consumes the source intake cell formal_math_readiness_extensions and gates the still-bounded formal_math_lean_proof_witness (its next_boundary), atop the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -39976,8 +39976,8 @@
       "canonical_id": "formal_math_readiness_gate",
       "command_linked": true,
       "content": {
-        "statement": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
-        "summary": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate"
+        "statement": "plectis formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+        "summary": "plectis formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -41580,7 +41580,7 @@
       "canonical_id": "formal_math_verifier_trace_repair_loop",
       "command_linked": true,
       "content": {
-        "command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        "command": "plectis formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
         "component_detail_href": "component-formal-math-verifier-trace-repair-loop.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (consuming copied Ring2 run system); the paper module only narratively positions it \"between\" sibling readiness/premise-retrieval/tactic-routing/diagnostic/Lean-witness surfaces, not feeding or consuming their outputs. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -41798,8 +41798,8 @@
       "canonical_id": "formal_math_verifier_trace_repair_loop",
       "command_linked": true,
       "content": {
-        "statement": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
-        "summary": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop"
+        "statement": "plectis formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        "summary": "plectis formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -41899,7 +41899,7 @@
       "canonical_id": "formal_evidence_cell_anchor_resolver",
       "command_linked": true,
       "content": {
-        "command": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+        "command": "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
         "component_detail_href": "component-formal-evidence-cell-anchor-resolver.html",
         "links_note": "its verifier-trace evidence cell consumes the first-wave formal_math_verifier_trace_repair_loop result/board/validation result records plus the Ring2 failure-taxonomy source digest, atop the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -42081,8 +42081,8 @@
       "canonical_id": "formal_evidence_cell_anchor_resolver",
       "command_linked": true,
       "content": {
-        "statement": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
-        "summary": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver"
+        "statement": "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+        "summary": "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -43422,7 +43422,7 @@
       "canonical_id": "finite_erdos_denominator_certificate_strike",
       "command_linked": true,
       "content": {
-        "command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "command": "plectis finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
         "component_detail_href": "component-finite-erdos-denominator-certificate-strike.html",
         "links_note": "Surfaces microcosm_core.engine_room.finite_denominator_order_certificate as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -43604,8 +43604,8 @@
       "canonical_id": "finite_erdos_denominator_certificate_strike",
       "command_linked": true,
       "content": {
-        "statement": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
-        "summary": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+        "statement": "plectis finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "summary": "plectis finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -43705,7 +43705,7 @@
       "canonical_id": "lean_proof_search_lab_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "command": "plectis lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "component_detail_href": "component-lean-proof-search-lab-runtime.html",
         "links_note": "Surfaces microcosm_core.engine_room.lean_proof_search_lab as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -43887,8 +43887,8 @@
       "canonical_id": "lean_proof_search_lab_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-        "summary": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
+        "statement": "plectis lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "summary": "plectis lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -43988,7 +43988,7 @@
       "canonical_id": "agent_closeout_faithfulness_audit",
       "command_linked": true,
       "content": {
-        "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+        "command": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
         "component_detail_href": "component-agent-closeout-faithfulness-audit.html",
         "links_note": "Imports the agent experience diagnostics source body as provenance and binds to the shared result record, secret-exclusion, sign-off, runtime-shell, and component-surface contract spine.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -44114,8 +44114,8 @@
       "canonical_id": "agent_closeout_faithfulness_audit",
       "command_linked": true,
       "content": {
-        "statement": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
-        "summary": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit"
+        "statement": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+        "summary": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -44215,7 +44215,7 @@
       "canonical_id": "bounded_autonomy_campaign_packet",
       "command_linked": true,
       "content": {
-        "command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
+        "command": "plectis bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
         "component_detail_href": "component-bounded-autonomy-campaign-packet.html",
         "links_note": "Imports campaign/reactions builders under tools/meta as provenance and binds proposal-only autonomy to shared result record and scope limit surfaces.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -44341,8 +44341,8 @@
       "canonical_id": "bounded_autonomy_campaign_packet",
       "command_linked": true,
       "content": {
-        "statement": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
-        "summary": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet"
+        "statement": "plectis bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
+        "summary": "plectis bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -44707,7 +44707,7 @@
       "canonical_id": "batch10_cold_eval_honesty_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+        "command": "plectis batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch10-cold-eval-honesty-capsule.html",
         "links_note": "Imports exact copied cold_eval.py body from self-indexing-cognitive-system and binds it to fixture, result record, source-digest, negative-case, CLI/runtime-shell, standard, package-data, and scope limit checks; it does not invoke live agents, external model access, browser UI state, source-file changes, whole-system equivalence, public sharing, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -44833,8 +44833,8 @@
       "canonical_id": "batch10_cold_eval_honesty_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
+        "statement": "plectis batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+        "summary": "plectis batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -44934,7 +44934,7 @@
       "canonical_id": "batch8_validator_checker_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+        "command": "plectis batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch8-validator-checker-capsule.html",
         "links_note": "Imports the exact copied validators.py body from self-indexing-cognitive-system and binds it to fixture, source-digest, negative-case, CLI/runtime-shell, standard, package-data, and scope limit checks; it does not invoke external model access, source-file changes, whole-system equivalence, public sharing, hosted-public, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -45098,8 +45098,8 @@
       "canonical_id": "batch8_validator_checker_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+        "statement": "plectis batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+        "summary": "plectis batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -45199,7 +45199,7 @@
       "canonical_id": "batch7_secondary_runtime_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+        "command": "plectis batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch7-secondary-runtime-capsule.html",
         "links_note": "Binds exact copied runtime view-model, graph, cartography, stockgrid, and Polymarket source bodies to fixture, result record, source-digest, negative-case, CLI/runtime-shell, standards, and scope limit checks; it does not export browser or wallet state, fetch live markets, provide investment-related actions, change source files, publish, launch, or claim whole-system equivalence.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -45325,8 +45325,8 @@
       "canonical_id": "batch7_secondary_runtime_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
+        "statement": "plectis batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+        "summary": "plectis batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -45426,7 +45426,7 @@
       "canonical_id": "agent_benchmark_integrity_anti_gaming_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "command": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
         "component_detail_href": "component-agent-benchmark-integrity-anti-gaming-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (private_state_scan, result records, schemas) plus digest-verified copied source-pattern provenance bodies",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -45590,8 +45590,8 @@
       "canonical_id": "agent_benchmark_integrity_anti_gaming_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
-        "summary": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay"
+        "statement": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "summary": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -45691,7 +45691,7 @@
       "canonical_id": "agent_monitor_redteam_falsification_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
+        "command": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
         "component_detail_href": "component-agent-monitor-redteam-falsification-replay.html",
         "links_note": "binds only to the shared kernel plus evidence/authority spine (private_state_scan, source-module digest checks, public trace recomputation, result records, scope_limit); it remains a drilldown, not product-path live monitor authority. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -45837,8 +45837,8 @@
       "canonical_id": "agent_monitor_redteam_falsification_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
-        "summary": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay"
+        "statement": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
+        "summary": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -45938,7 +45938,7 @@
       "canonical_id": "agent_sabotage_scheming_monitor_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+        "command": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
         "component_detail_href": "component-agent-sabotage-scheming-monitor-replay.html",
         "links_note": "binds only to the shared kernel plus evidence/authority spine (private_state_scan, source-module digest checks, public trace recomputation, result records, schemas) plus the macro_tools.agent_execution_trace recompute helper; it remains a drilldown, not product-path live sabotage or deployment-risk authority",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -46064,8 +46064,8 @@
       "canonical_id": "agent_sabotage_scheming_monitor_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
-        "summary": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay"
+        "statement": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+        "summary": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -47378,7 +47378,7 @@
       "canonical_id": "indirect_prompt_injection_information_flow_policy_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+        "command": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
         "component_detail_href": "component-indirect-prompt-injection-information-flow-policy-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, result records) plus an internal agent_execution_trace source refactor, not other components",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -47504,8 +47504,8 @@
       "canonical_id": "indirect_prompt_injection_information_flow_policy_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
-        "summary": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay"
+        "statement": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+        "summary": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -48350,7 +48350,7 @@
       "canonical_id": "bridge_campaign_dag_validation",
       "command_linked": true,
       "content": {
-        "command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "command": "plectis bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
         "component_detail_href": "component-bridge-campaign-dag-validation.html",
         "links_note": "Surfaces microcosm_core.engine_room.bridge_campaign_dag as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -48532,8 +48532,8 @@
       "canonical_id": "bridge_campaign_dag_validation",
       "command_linked": true,
       "content": {
-        "statement": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
-        "summary": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+        "statement": "plectis bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "summary": "plectis bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -48633,7 +48633,7 @@
       "canonical_id": "metabolism_queue_reconciliation",
       "command_linked": true,
       "content": {
-        "command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "command": "plectis metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
         "component_detail_href": "component-metabolism-queue-reconciliation.html",
         "links_note": "Surfaces microcosm_core.engine_room.metabolism_runtime as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -48815,8 +48815,8 @@
       "canonical_id": "metabolism_queue_reconciliation",
       "command_linked": true,
       "content": {
-        "statement": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
-        "summary": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+        "statement": "plectis metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "summary": "plectis metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -48916,7 +48916,7 @@
       "canonical_id": "egress_self_compliance_audit",
       "command_linked": true,
       "content": {
-        "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "command": "plectis egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
         "component_detail_href": "component-egress-self-compliance-audit.html",
         "links_note": "Surfaces microcosm_core.engine_room.egress_self_compliance_gate as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -49098,8 +49098,8 @@
       "canonical_id": "egress_self_compliance_audit",
       "command_linked": true,
       "content": {
-        "statement": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
-        "summary": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+        "statement": "plectis egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "summary": "plectis egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -49199,7 +49199,7 @@
       "canonical_id": "finance_forecast_evaluation_spine",
       "command_linked": true,
       "content": {
-        "command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+        "command": "plectis finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "component_detail_href": "component-finance-forecast-evaluation-spine.html",
         "links_note": "Extends the finance evaluation bundle with public statistical modules and binds their subprocess witness to strict anti-advice and provenance result records.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -49363,8 +49363,8 @@
       "canonical_id": "finance_forecast_evaluation_spine",
       "command_linked": true,
       "content": {
-        "statement": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
-        "summary": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine"
+        "statement": "plectis finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+        "summary": "plectis finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -49464,7 +49464,7 @@
       "canonical_id": "batch12_prediction_market_board_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
+        "command": "plectis batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
         "component_detail_href": "component-batch12-prediction-market-board-capsule.html",
         "links_note": null,
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -49610,8 +49610,8 @@
       "canonical_id": "batch12_prediction_market_board_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
-        "summary": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule"
+        "statement": "plectis batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
+        "summary": "plectis batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -49711,7 +49711,7 @@
       "canonical_id": "batch12_market_dashboard_read_model_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+        "command": "plectis batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
         "component_detail_href": "component-batch12-market-dashboard-read-model-capsule.html",
         "links_note": null,
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -49857,8 +49857,8 @@
       "canonical_id": "batch12_market_dashboard_read_model_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
-        "summary": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule"
+        "statement": "plectis batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+        "summary": "plectis batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -49958,7 +49958,7 @@
       "canonical_id": "mechanistic_interpretability_circuit_attribution_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+        "command": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
         "component_detail_href": "component-mechanistic-interpretability-circuit-attribution-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (copies source bodies into its own bundle rather than feeding or consuming other named components)",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -50084,8 +50084,8 @@
       "canonical_id": "mechanistic_interpretability_circuit_attribution_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
-        "summary": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay"
+        "statement": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+        "summary": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -50185,7 +50185,7 @@
       "canonical_id": "spatial_world_model_counterfactual_simulation_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+        "command": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
         "component_detail_href": "component-spatial-world-model-counterfactual-simulation-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, public payload boundary, result records), pulling in a copied source body but feeding no other named component",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -50311,8 +50311,8 @@
       "canonical_id": "spatial_world_model_counterfactual_simulation_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
-        "summary": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay"
+        "statement": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+        "summary": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -50731,7 +50731,7 @@
       "canonical_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+        "command": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
         "component_detail_href": "component-materials-chemistry-closed-loop-lab-safety-replay.html",
         "links_note": "Refactors the shared lab_evolve_replay source tool and binds only to the shared kernel + evidence/authority spine (non-public-state scan, result records, schemas); no other named component is fed or consumed. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -50877,8 +50877,8 @@
       "canonical_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
-        "summary": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay"
+        "statement": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+        "summary": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -51261,7 +51261,7 @@
       "canonical_id": "derived_fact_provider_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "command": "plectis derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
         "component_detail_href": "component-derived-fact-provider-runtime.html",
         "links_note": "Surfaces microcosm_core.engine_room.derived_fact_provider_engine as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -51443,8 +51443,8 @@
       "canonical_id": "derived_fact_provider_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
-        "summary": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+        "statement": "plectis derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "summary": "plectis derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -51545,7 +51545,7 @@
       "canonical_id": "macro_projection_import_protocol",
       "command_linked": true,
       "content": {
-        "command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "command": "plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "component_detail_href": "component-macro-projection-import-protocol.html",
         "links_note": "feeds macro_body_import_floor into microcosm status/spine, bridges via microcosm intake to reveal/evidence, and coordinates per-cell import statuses across named components (e.g. formal_math_readiness_gate, agent_route_observability_runtime, mission_transaction_work_spine). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -52105,8 +52105,8 @@
       "canonical_id": "macro_projection_import_protocol",
       "command_linked": true,
       "content": {
-        "statement": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        "summary": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        "statement": "plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "summary": "plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -52206,7 +52206,7 @@
       "canonical_id": "world_model_projection_drift_control_room",
       "command_linked": true,
       "content": {
-        "command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
+        "command": "plectis world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
         "component_detail_href": "component-world-model-projection-drift-control-room.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -52460,8 +52460,8 @@
       "canonical_id": "world_model_projection_drift_control_room",
       "command_linked": true,
       "content": {
-        "statement": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
-        "summary": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room"
+        "statement": "plectis world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
+        "summary": "plectis world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -52561,7 +52561,7 @@
       "canonical_id": "batch6_unsurfaced_primitives_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+        "command": "plectis batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch6-unsurfaced-primitives-capsule.html",
         "links_note": "Imports 14 copied source/support modules into a source-open bundle and binds them to fixture, result record, secret-exclusion, source-exercise, and scope limit checks; it does not feed or invoke live provider, browser, market, operator-memory, prompt-shelf, or media-launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -52687,8 +52687,8 @@
       "canonical_id": "batch6_unsurfaced_primitives_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+        "statement": "plectis batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+        "summary": "plectis batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -53015,7 +53015,7 @@
       "canonical_id": "batch7_macro_engines_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+        "command": "plectis batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch7-macro-engines-capsule.html",
         "links_note": "Imports 15 copied source modules into a source-open bundle and binds them to fixture, result record, source-digest, public-exercise, CLI/runtime-shell, standards, and scope limit checks; it does not feed or invoke live provider, host, approval, market, source-file changes, launch, or private-system lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -53197,8 +53197,8 @@
       "canonical_id": "batch7_macro_engines_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+        "statement": "plectis batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+        "summary": "plectis batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -53810,7 +53810,7 @@
       "canonical_id": "batch8_tools_tail_primitives_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+        "command": "plectis batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch8-tools-tail-primitives-capsule.html",
         "links_note": "Imports four copied tools-tail source modules into a public bundle and binds them to fixture, source-digest, result record, CLI/runtime-shell, standards, and scope limit checks; it does not invoke live oracle, provider, source-file changes, public sharing, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -53936,8 +53936,8 @@
       "canonical_id": "batch8_tools_tail_primitives_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+        "statement": "plectis batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+        "summary": "plectis batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -54037,7 +54037,7 @@
       "canonical_id": "batch8_policy_engines_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+        "command": "plectis batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch8-policy-engines-capsule.html",
         "links_note": "Imports three copied policy-engine modules into a public bundle and binds them to fixture, source-digest, result record, CLI/runtime-shell, standards, and scope limit checks; it does not invoke model dispatch, live campaign execution, source-file changes, public sharing, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -54163,8 +54163,8 @@
       "canonical_id": "batch8_policy_engines_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+        "statement": "plectis batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+        "summary": "plectis batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -54264,7 +54264,7 @@
       "canonical_id": "batch8_audio_level_rms_port",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+        "command": "plectis batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
         "component_detail_href": "component-batch8-audio-level-rms-port.html",
         "links_note": "Ports the pure RMS normalization algorithm into public Python and binds it to fixture, result record, CLI/runtime-shell, standards, and scope limit checks; it does not start macOS audio runtime, capture devices, change source files, publish, or launch.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -54390,8 +54390,8 @@
       "canonical_id": "batch8_audio_level_rms_port",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
-        "summary": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
+        "statement": "plectis batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+        "summary": "plectis batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -54491,7 +54491,7 @@
       "canonical_id": "batch8_structural_theses_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+        "command": "plectis batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch8-structural-theses-capsule.html",
         "links_note": "Imports the structural theses source body into a public bundle and binds it to fixture, source-digest, result record, CLI/runtime-shell, standards, and scope limit checks; it excludes financial decisions, live market data, portfolio action, external model access, public sharing, or launch.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -54637,8 +54637,8 @@
       "canonical_id": "batch8_structural_theses_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
+        "statement": "plectis batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+        "summary": "plectis batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -54738,7 +54738,7 @@
       "canonical_id": "engine_room_demo",
       "command_linked": true,
       "content": {
-        "command": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+        "command": "plectis engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
         "component_detail_href": "component-engine-room-demo.html",
         "links_note": "Wraps microcosm_core.engine_room.demo and the ten staged Engine Room bundle validators into one accepted result record-writing component; it writes public first-wave result records and does not export private source state or mutate shared registries at runtime.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -54902,8 +54902,8 @@
       "canonical_id": "engine_room_demo",
       "command_linked": true,
       "content": {
-        "statement": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
-        "summary": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+        "statement": "plectis engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+        "summary": "plectis engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -55003,7 +55003,7 @@
       "canonical_id": "batch9_macro_engines_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
+        "command": "plectis batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch9-macro-engines-capsule.html",
         "links_note": "Imports 13 copied source modules into a source-open bundle and binds them to fixture, result record, source-digest, public-exercise, CLI/runtime-shell, standards, and scope limit checks; it does not feed or invoke live provider, host, approval, work log, market, doctrine, source-file changes, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -55149,8 +55149,8 @@
       "canonical_id": "batch9_macro_engines_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
+        "statement": "plectis batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
+        "summary": "plectis batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -55250,7 +55250,7 @@
       "canonical_id": "batch10_governance_compilers_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
+        "command": "plectis batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch10-governance-compilers-capsule.html",
         "links_note": "Imports 13 copied source modules plus one source-faithful public refactor into a source-open bundle and binds them to fixture, result record, source-digest, public-exercise, CLI/runtime-shell, standards, and scope limit checks; it does not feed or invoke live ledgers, public sharing/launch lanes, provider/browser state, source-file changes, whole-system equivalence, or Set-9 lane-width authority.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -55376,8 +55376,8 @@
       "canonical_id": "batch10_governance_compilers_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
+        "statement": "plectis batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
+        "summary": "plectis batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -55477,7 +55477,7 @@
       "canonical_id": "batch11_saturation_engines_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+        "command": "plectis batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch11-saturation-engines-capsule.html",
         "links_note": "Imports 12 copied source modules into a source-open bundle and binds them to fixture, result record, source-digest, computed negative-probe, CLI/runtime-shell, standards, package-data, and scope limit checks; it does not invoke live work log, browser, market, provider, source-file changes, public sharing, launch, or whole-system equivalence lanes at runtime.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -55677,8 +55677,8 @@
       "canonical_id": "batch11_saturation_engines_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
+        "statement": "plectis batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+        "summary": "plectis batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -55778,7 +55778,7 @@
       "canonical_id": "tool_server_pressure_inventory",
       "command_linked": true,
       "content": {
-        "command": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+        "command": "plectis tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
         "component_detail_href": "component-tool-server-pressure-inventory.html",
         "links_note": "Imports a source-faithful refactor of tools/meta/control/orphan_reaper.py's read-only pressure inventory path and binds it to fixture, result record, source-digest, CLI/runtime-shell, standard, package-data, and scope limit checks; it does not feed or invoke live process control, helper leasing, work log mutation, launch, provider, source-file changes, or whole-system equivalence lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -55904,8 +55904,8 @@
       "canonical_id": "tool_server_pressure_inventory",
       "command_linked": true,
       "content": {
-        "statement": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
-        "summary": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
+        "statement": "plectis tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+        "summary": "plectis tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -56005,7 +56005,7 @@
       "canonical_id": "batch8_compliance_pipeline_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
+        "command": "plectis batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
         "component_detail_href": "component-batch8-compliance-pipeline-capsule.html",
         "links_note": "Imports exact copied source bodies for system/lib/compliance registry and scanner modules, tools/meta/factory/build_compliance_ledger.py, and system/lib/pipeline observe stages; binds them to fixture, result record, source-digest, CLI/runtime-shell, standard, package-data, and scope limit checks without invoking live ledger writes, external model access, source note mutation, source-file changes, or whole-system equivalence lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -56205,8 +56205,8 @@
       "canonical_id": "batch8_compliance_pipeline_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
-        "summary": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule"
+        "statement": "plectis batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
+        "summary": "plectis batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -56306,7 +56306,7 @@
       "canonical_id": "batch10_live_source_drift_capsule",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+        "command": "plectis batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
         "component_detail_href": "component-batch10-live-source-drift-capsule.html",
         "links_note": "Imports exact copied source bodies for system/lib/standard_option_surface.py, system/lib/mission_transaction_landing_preflight.py, tools/meta/control/work_landing.py, and tools/meta/factory/work_ledger.py; binds them to fixture, result record, source-digest, compile-only, CLI/runtime-shell, standard, package-data, and scope limit checks without invoking route selection, work log mutation, mission transaction execution, git staging, source-file changes, non-public runtime export, public sharing, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -56452,8 +56452,8 @@
       "canonical_id": "batch10_live_source_drift_capsule",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
-        "summary": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
+        "statement": "plectis batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+        "summary": "plectis batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -56553,7 +56553,7 @@
       "canonical_id": "batch12_release_claim_language_gate",
       "command_linked": true,
       "content": {
-        "command": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
+        "command": "plectis batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
         "component_detail_href": "component-batch12-release-claim-language-gate.html",
         "links_note": null,
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -56679,8 +56679,8 @@
       "canonical_id": "batch12_release_claim_language_gate",
       "command_linked": true,
       "content": {
-        "statement": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
-        "summary": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate"
+        "statement": "plectis batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
+        "summary": "plectis batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -56780,7 +56780,7 @@
       "canonical_id": "generated_projection_drift_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "command": "plectis generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
         "component_detail_href": "component-generated-projection-drift-runtime.html",
         "links_note": "Surfaces microcosm_core.engine_room.generated_projection_drift_gate as an accepted formal-math component; it writes public first-wave result records and does not use external model services, solve Erdos #257, or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -56962,8 +56962,8 @@
       "canonical_id": "generated_projection_drift_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
-        "summary": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+        "statement": "plectis generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "summary": "plectis generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -57063,7 +57063,7 @@
       "canonical_id": "mission_transaction_work_spine",
       "command_linked": true,
       "content": {
-        "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+        "command": "plectis mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "component_detail_href": "component-mission-transaction-work-spine.html",
         "links_note": "consumes the shared work_landing, mission_transaction_preflight, and work log source-tool source imports plus the shared secret-exclusion/result records/schemas spine; it supplies the source-import anchor surface that concurrency_mission_control uses for work log seed-speed topology instead of duplicating work log bodies. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -57353,8 +57353,8 @@
       "canonical_id": "mission_transaction_work_spine",
       "command_linked": true,
       "content": {
-        "statement": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-        "summary": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
+        "statement": "plectis mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+        "summary": "plectis mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -57454,7 +57454,7 @@
       "canonical_id": "durable_agent_work_landing_replay",
       "command_linked": true,
       "content": {
-        "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+        "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
         "component_detail_href": "component-durable-agent-work-landing-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (secret_exclusion_scan, result records, schemas). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -57618,8 +57618,8 @@
       "canonical_id": "durable_agent_work_landing_replay",
       "command_linked": true,
       "content": {
-        "statement": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
-        "summary": "microcosm durable-agent-work-landing-replay run-work-landing-bundle"
+        "statement": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
+        "summary": "plectis durable-agent-work-landing-replay run-work-landing-bundle"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -57719,7 +57719,7 @@
       "canonical_id": "bridge_phase_continuity_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
+        "command": "plectis bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
         "component_detail_href": "component-bridge-phase-continuity-runtime.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (result records, non-public-state scan, strict-JSON schemas). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -57883,8 +57883,8 @@
       "canonical_id": "bridge_phase_continuity_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
-        "summary": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity"
+        "statement": "plectis bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
+        "summary": "plectis bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -57984,7 +57984,7 @@
       "canonical_id": "concurrency_mission_control",
       "command_linked": true,
       "content": {
-        "command": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+        "command": "plectis concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
         "component_detail_href": "component-concurrency-mission-control.html",
         "links_note": "Imports exact copied mission-control builder and provider/task-ledger bridge artifacts, then binds them to fixture, source-digest, negative-case, CLI/runtime-shell, standard, package-data, system-ledger, and scope limit checks; its work log seed-speed topology fixture is paired with mission_transaction_work_spine source-import anchor enforcement instead of duplicating work log bodies; it does not invoke live schedulers, providers, browser UI state, source-file changes, hosted orchestration, public sharing, or launch lanes.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -58148,8 +58148,8 @@
       "canonical_id": "concurrency_mission_control",
       "command_linked": true,
       "content": {
-        "statement": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
-        "summary": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
+        "statement": "plectis concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+        "summary": "plectis concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -58249,7 +58249,7 @@
       "canonical_id": "semantic_singleflight_dedup_runtime",
       "command_linked": true,
       "content": {
-        "command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "command": "plectis semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
         "component_detail_href": "component-semantic-singleflight-dedup-runtime.html",
         "links_note": "Surfaces microcosm_core.engine_room.command_run_singleflight as an accepted operational-discipline component; it writes public first-wave result records and does not export private source run state or mutate shared registries at runtime. wires_to names structural sibling navigation only, not live run or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -58449,8 +58449,8 @@
       "canonical_id": "semantic_singleflight_dedup_runtime",
       "command_linked": true,
       "content": {
-        "statement": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
-        "summary": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+        "statement": "plectis semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "summary": "plectis semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {

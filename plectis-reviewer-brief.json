@@ -13,7 +13,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "b27484cee16ace6b24d44ceb4dc1b46300f4a2e2468c31d6eb4cf0472ddc0e25",
+ "source_fingerprint": "a85910c742a81e8ff4688314d8c7c9a3ca1efafce5eca3e327c0097a71ef741c",
  "canonical_public_identity": {
   "schema": "plectis_canonical_public_identity_v1",
   "project_name": "Plectis",
@@ -871,7 +871,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "command": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
       "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
       "source_routes": [
        "component_digest[id=agent_closeout_faithfulness_audit]"
@@ -885,7 +885,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "The bundle demonstrates owner-routed generated projection drift detection over declared artifacts, source authorities, clean-result record fingerprints, and no-write check return codes. It is not semantic drift proof, not full source registry validation, not repair authority, and not launch-scope decision.",
-      "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out /tmp/plectis-public-runs/generated_projection_drift_runtime",
+      "command": "plectis generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out /tmp/plectis-public-runs/generated_projection_drift_runtime",
       "read_it_at": "docs/component-generated-projection-drift-runtime.html",
       "source_routes": [
        "component_digest[id=generated_projection_drift_runtime]"
@@ -918,7 +918,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "command": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
       "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
       "source_routes": [
        "component_digest[id=agent_closeout_faithfulness_audit]"
@@ -932,7 +932,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real completion, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
-      "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "command": "plectis mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
       "read_it_at": "docs/component-mission-transaction-work-spine.html",
       "source_routes": [
        "component_digest[id=mission_transaction_work_spine]"
@@ -965,7 +965,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "command": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
       "read_it_at": "docs/component-agent-closeout-faithfulness-audit.html",
       "source_routes": [
        "component_digest[id=agent_closeout_faithfulness_audit]"
@@ -979,7 +979,7 @@
       "runs_real_tools": true,
       "negative_case": false,
       "scope_limit": "The bundle evaluates egress text through explicit phrase-membership policy. It is not taint analysis, prompt-injection defense, sandboxing, information-flow control, or launch-scope decision.",
-      "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out /tmp/plectis-public-runs/egress_self_compliance_audit",
+      "command": "plectis egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out /tmp/plectis-public-runs/egress_self_compliance_audit",
       "read_it_at": "docs/component-egress-self-compliance-audit.html",
       "source_routes": [
        "component_digest[id=egress_self_compliance_audit]"

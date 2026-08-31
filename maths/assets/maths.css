@@ -23,6 +23,7 @@
   --u-edge: rgba(33, 19, 24, 0.14);
   --u-edge-hot: rgba(52, 80, 142, 0.55);
   --u-halo: rgba(226, 168, 62, 0.35);
+  --u-rim: rgba(33, 19, 24, 0.3);
   --maths-gold: #8f6212;
 }
 @media (prefers-color-scheme: dark) {
@@ -33,11 +34,12 @@
     --u-paper: #d78ab5;
     --u-document: #a18e88;
     --u-integration: #e08a58;
-    --u-module: #6f6389;
+    --u-module: #857aa4;
     --u-object: #8ea2e0;
-    --u-edge: rgba(242, 230, 212, 0.10);
-    --u-edge-hot: rgba(169, 192, 238, 0.55);
+    --u-edge: rgba(242, 230, 212, 0.14);
+    --u-edge-hot: rgba(169, 192, 238, 0.7);
     --u-halo: rgba(230, 178, 100, 0.30);
+    --u-rim: rgba(12, 8, 16, 0.55);
     --maths-gold: #e6b264;
   }
 }
@@ -48,11 +50,12 @@
   --u-paper: #d78ab5;
   --u-document: #a18e88;
   --u-integration: #e08a58;
-  --u-module: #6f6389;
+  --u-module: #857aa4;
   --u-object: #8ea2e0;
-  --u-edge: rgba(242, 230, 212, 0.10);
-  --u-edge-hot: rgba(169, 192, 238, 0.55);
+  --u-edge: rgba(242, 230, 212, 0.14);
+  --u-edge-hot: rgba(169, 192, 238, 0.7);
   --u-halo: rgba(230, 178, 100, 0.30);
+  --u-rim: rgba(12, 8, 16, 0.55);
   --maths-gold: #e6b264;
 }
 
@@ -172,29 +175,62 @@
   touch-action: none;
 }
 .universe-canvas--page.is-panning { cursor: grabbing; }
-.universe-tip {
+.universe-canvas.is-over { cursor: pointer; }
+
+/* The universe page pairs the field with a fixed inspector rail; the panel
+   never chases the cursor. On narrow screens the rail drops below the map. */
+.universe-panel__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: stretch;
+}
+@media (max-width: 1080px) {
+  .universe-panel__body { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* The landing teaser announces the hovered object in one quiet line pinned
+   to the frame instead of a box over the pointer. */
+.universe-caption {
   position: absolute;
-  max-width: 300px;
-  padding: 0.45rem 0.65rem;
-  background: var(--surface);
-  border: 1px solid var(--rule-strong);
-  border-radius: var(--r-sm);
-  box-shadow: var(--shadow);
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-3);
   font-size: var(--fs-small);
-  line-height: var(--lh-snug);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
   visibility: hidden;
-  z-index: 4;
 }
-.universe-tip.is-shown { visibility: visible; }
-.universe-tip__kind {
-  display: block;
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
-  color: var(--faint);
+.universe-caption.is-shown { visibility: visible; }
+
+/* Zoom cluster in the field's corner. */
+.universe-zoom {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  z-index: 3;
 }
-.universe-tip__status { color: var(--muted); }
+.universe-zoom__btn {
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.universe-zoom__btn:hover { color: var(--ink); border-color: var(--accent); }
 .universe-panel__foot {
   display: flex;
   flex-wrap: wrap;
@@ -230,6 +266,7 @@
 .dot--integration { background: var(--u-integration); }
 .dot--module { background: var(--u-module); }
 .dot--object { background: var(--u-object); }
+.dot--universe { background: var(--u-universe); }
 .universe-panel__cta { margin-left: auto; }
 .universe-rule {
   margin: var(--space-3) 0 0;
@@ -240,6 +277,7 @@
 
 /* No-JS and reduced capability: the canvas is an enhancement. */
 html:not(.scripting) .universe-panel__stage { display: none; }
+html:not(.scripting) .universe-panel__body { display: none; }
 html:not(.scripting) .universe-nojs { display: block; }
 .universe-nojs { display: none; padding: var(--space-4); color: var(--muted); }
 
@@ -709,30 +747,163 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .universe-count { color: var(--faint); font-size: var(--fs-small); margin-left: auto; }
 
+/* The inspector rail: overview at rest, preview on hover, full card when
+   pinned. It scrolls inside the panel frame; the map never moves for it. */
 .universe-inspector {
-  border: 1px solid var(--rule-strong);
-  border-radius: var(--r-md);
+  border-left: 1px solid var(--rule);
   background: var(--surface);
-  padding: var(--space-4) var(--space-5);
-  margin: var(--space-4) 0;
-  min-height: 5.4rem;
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  max-height: min(72vh, 760px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
-.universe-inspector[hidden] { display: none; }
+@media (max-width: 1080px) {
+  .universe-inspector {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    max-height: 320px;
+  }
+}
+.universe-inspector__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
 .universe-inspector__kind {
   font-size: var(--fs-micro);
   letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
   color: var(--faint);
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.35rem;
 }
-.universe-inspector h3 { margin: 0 0 var(--space-2); font-size: var(--fs-h3); }
-.universe-inspector p { margin: 0 0 var(--space-2); color: var(--ink-soft); font-size: var(--fs-body); max-width: 78ch; }
+.universe-inspector__kind .dot { margin-right: 0.45em; }
+.universe-inspector__title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: var(--lh-snug);
+  margin: 0 0 var(--space-2);
+}
+.universe-inspector__meta { margin: 0 0 var(--space-3); }
+.universe-chip {
+  display: inline-block;
+  font-size: var(--fs-micro);
+  color: var(--muted);
+  background: var(--surface-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-pill);
+  padding: 0.12rem 0.55rem;
+  margin: 0 0.35rem 0.25rem 0;
+}
+.universe-inspector__body,
+.universe-inspector__boundary,
+.universe-inspector__note {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-soft);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+}
+.universe-inspector__boundary,
+.universe-inspector__note { color: var(--muted); }
+.universe-inspector.is-preview .universe-inspector__body {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.universe-inspector__hint {
+  margin: var(--space-3) 0 0;
+  color: var(--faint);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+}
 .universe-inspector__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-1) var(--space-4);
   font-size: var(--fs-meta);
+  margin: 0 0 var(--space-3);
 }
+.universe-inspector__census {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+}
+.universe-inspector__census li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  padding: 0.28rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.universe-inspector__census li:first-child { border-top: 0; }
+.universe-inspector__census b {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-variant-numeric: oldstyle-nums;
+}
+.universe-inspector__sub {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: var(--space-4) 0 var(--space-1);
+  font-weight: 600;
+}
+.universe-inspector__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.universe-goto {
+  font: inherit;
+  font-size: var(--fs-small);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  width: 100%;
+  text-align: left;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  padding: 0.32rem 0.1rem;
+  cursor: pointer;
+}
+.universe-inspector__list li:first-child .universe-goto { border-top: 0; }
+.universe-goto:hover { color: var(--accent); }
+.universe-goto .dot { flex: none; transform: translateY(-1px); }
+.universe-goto__label { min-width: 0; overflow-wrap: anywhere; }
+.universe-goto__rel {
+  margin-left: auto;
+  flex: none;
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  white-space: nowrap;
+}
+.universe-goto__more {
+  color: var(--faint);
+  font-size: var(--fs-small);
+  padding: 0.32rem 0.1rem;
+  border-top: 1px solid var(--rule);
+}
+.universe-inspector__clear,
+.universe-inspector__copy {
+  font: inherit;
+  font-size: var(--fs-small);
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-pill);
+  padding: 0.14rem 0.7rem;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.universe-inspector__clear:hover,
+.universe-inspector__copy:hover { color: var(--ink); border-color: var(--accent); }
+.universe-inspector__copy { margin-top: var(--space-3); }
 .universe-hint { color: var(--faint); font-size: var(--fs-small); margin: var(--space-2) 0 0; }
 
 .universe-index { margin: var(--space-7) 0; }

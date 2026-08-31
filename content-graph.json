@@ -2586,7 +2586,7 @@
   "components": [
     {
       "anchor": "component-cold_reader_route_map",
-      "command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+      "command": "plectis cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
       "component_detail_href": "component-cold-reader-route-map.html",
       "component_id": "cold_reader_route_map",
       "evidence": {
@@ -2766,7 +2766,7 @@
     },
     {
       "anchor": "component-pattern_binding_contract",
-      "command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+      "command": "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
       "component_detail_href": "component-pattern-binding-contract.html",
       "component_id": "pattern_binding_contract",
       "evidence": {
@@ -3353,7 +3353,7 @@
     },
     {
       "anchor": "component-doctrine_fact_claim_audit",
-      "command": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
+      "command": "plectis doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
       "component_detail_href": "component-doctrine-fact-claim-audit.html",
       "component_id": "doctrine_fact_claim_audit",
       "evidence": {
@@ -3423,7 +3423,7 @@
     },
     {
       "anchor": "component-self_ignorance_coverage_ledger",
-      "command": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
+      "command": "plectis self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
       "component_detail_href": "component-self-ignorance-coverage-ledger.html",
       "component_id": "self_ignorance_coverage_ledger",
       "evidence": {
@@ -3482,7 +3482,7 @@
     },
     {
       "anchor": "component-navigation_fitness_benchmark",
-      "command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "command": "plectis navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
       "component_detail_href": "component-navigation-fitness-benchmark.html",
       "component_id": "navigation_fitness_benchmark",
       "evidence": {
@@ -3557,7 +3557,7 @@
     },
     {
       "anchor": "component-annex_knowledge_routing",
-      "command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "command": "plectis annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
       "component_detail_href": "component-annex-knowledge-routing.html",
       "component_id": "annex_knowledge_routing",
       "evidence": {
@@ -3631,7 +3631,7 @@
     },
     {
       "anchor": "component-certificate_kernel_execution_lab",
-      "command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "command": "plectis certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
       "component_detail_href": "component-certificate-kernel-execution-lab.html",
       "component_id": "certificate_kernel_execution_lab",
       "evidence": {
@@ -3925,7 +3925,7 @@
     },
     {
       "anchor": "component-batch4_proof_authority_runtime",
-      "command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
+      "command": "plectis batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
       "component_detail_href": "component-batch4-proof-authority-runtime.html",
       "component_id": "batch4_proof_authority_runtime",
       "evidence": {
@@ -3984,7 +3984,7 @@
     },
     {
       "anchor": "component-proof_diagnostic_evidence_spine",
-      "command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+      "command": "plectis proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
       "component_detail_href": "component-proof-diagnostic-evidence-spine.html",
       "component_id": "proof_diagnostic_evidence_spine",
       "evidence": {
@@ -4074,7 +4074,7 @@
     },
     {
       "anchor": "component-formal_math_readiness_gate",
-      "command": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+      "command": "plectis formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
       "component_detail_href": "component-formal-math-readiness-gate.html",
       "component_id": "formal_math_readiness_gate",
       "evidence": {
@@ -4563,7 +4563,7 @@
     },
     {
       "anchor": "component-formal_math_verifier_trace_repair_loop",
-      "command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+      "command": "plectis formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
       "component_detail_href": "component-formal-math-verifier-trace-repair-loop.html",
       "component_id": "formal_math_verifier_trace_repair_loop",
       "evidence": {
@@ -4648,7 +4648,7 @@
     },
     {
       "anchor": "component-formal_evidence_cell_anchor_resolver",
-      "command": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+      "command": "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
       "component_detail_href": "component-formal-evidence-cell-anchor-resolver.html",
       "component_id": "formal_evidence_cell_anchor_resolver",
       "evidence": {
@@ -5053,7 +5053,7 @@
     },
     {
       "anchor": "component-finite_erdos_denominator_certificate_strike",
-      "command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "command": "plectis finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
       "component_detail_href": "component-finite-erdos-denominator-certificate-strike.html",
       "component_id": "finite_erdos_denominator_certificate_strike",
       "evidence": {
@@ -5128,7 +5128,7 @@
     },
     {
       "anchor": "component-lean_proof_search_lab_runtime",
-      "command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "command": "plectis lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
       "component_detail_href": "component-lean-proof-search-lab-runtime.html",
       "component_id": "lean_proof_search_lab_runtime",
       "evidence": {
@@ -5203,7 +5203,7 @@
     },
     {
       "anchor": "component-agent_closeout_faithfulness_audit",
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "command": "plectis agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
       "component_detail_href": "component-agent-closeout-faithfulness-audit.html",
       "component_id": "agent_closeout_faithfulness_audit",
       "evidence": {
@@ -5262,7 +5262,7 @@
     },
     {
       "anchor": "component-bounded_autonomy_campaign_packet",
-      "command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
+      "command": "plectis bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
       "component_detail_href": "component-bounded-autonomy-campaign-packet.html",
       "component_id": "bounded_autonomy_campaign_packet",
       "evidence": {
@@ -5391,7 +5391,7 @@
     },
     {
       "anchor": "component-batch10_cold_eval_honesty_capsule",
-      "command": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+      "command": "plectis batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch10-cold-eval-honesty-capsule.html",
       "component_id": "batch10_cold_eval_honesty_capsule",
       "evidence": {
@@ -5450,7 +5450,7 @@
     },
     {
       "anchor": "component-batch8_validator_checker_capsule",
-      "command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+      "command": "plectis batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch8-validator-checker-capsule.html",
       "component_id": "batch8_validator_checker_capsule",
       "evidence": {
@@ -5520,7 +5520,7 @@
     },
     {
       "anchor": "component-batch7_secondary_runtime_capsule",
-      "command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "command": "plectis batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch7-secondary-runtime-capsule.html",
       "component_id": "batch7_secondary_runtime_capsule",
       "evidence": {
@@ -5579,7 +5579,7 @@
     },
     {
       "anchor": "component-agent_benchmark_integrity_anti_gaming_replay",
-      "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+      "command": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
       "component_detail_href": "component-agent-benchmark-integrity-anti-gaming-replay.html",
       "component_id": "agent_benchmark_integrity_anti_gaming_replay",
       "evidence": {
@@ -5649,7 +5649,7 @@
     },
     {
       "anchor": "component-agent_monitor_redteam_falsification_replay",
-      "command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
+      "command": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
       "component_detail_href": "component-agent-monitor-redteam-falsification-replay.html",
       "component_id": "agent_monitor_redteam_falsification_replay",
       "evidence": {
@@ -5714,7 +5714,7 @@
     },
     {
       "anchor": "component-agent_sabotage_scheming_monitor_replay",
-      "command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+      "command": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
       "component_detail_href": "component-agent-sabotage-scheming-monitor-replay.html",
       "component_id": "agent_sabotage_scheming_monitor_replay",
       "evidence": {
@@ -6091,7 +6091,7 @@
     },
     {
       "anchor": "component-indirect_prompt_injection_information_flow_policy_replay",
-      "command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+      "command": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
       "component_detail_href": "component-indirect-prompt-injection-information-flow-policy-replay.html",
       "component_id": "indirect_prompt_injection_information_flow_policy_replay",
       "evidence": {
@@ -6365,7 +6365,7 @@
     },
     {
       "anchor": "component-bridge_campaign_dag_validation",
-      "command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "command": "plectis bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
       "component_detail_href": "component-bridge-campaign-dag-validation.html",
       "component_id": "bridge_campaign_dag_validation",
       "evidence": {
@@ -6440,7 +6440,7 @@
     },
     {
       "anchor": "component-metabolism_queue_reconciliation",
-      "command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "command": "plectis metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
       "component_detail_href": "component-metabolism-queue-reconciliation.html",
       "component_id": "metabolism_queue_reconciliation",
       "evidence": {
@@ -6515,7 +6515,7 @@
     },
     {
       "anchor": "component-egress_self_compliance_audit",
-      "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "command": "plectis egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
       "component_detail_href": "component-egress-self-compliance-audit.html",
       "component_id": "egress_self_compliance_audit",
       "evidence": {
@@ -6590,7 +6590,7 @@
     },
     {
       "anchor": "component-finance_forecast_evaluation_spine",
-      "command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+      "command": "plectis finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
       "component_detail_href": "component-finance-forecast-evaluation-spine.html",
       "component_id": "finance_forecast_evaluation_spine",
       "evidence": {
@@ -6660,7 +6660,7 @@
     },
     {
       "anchor": "component-batch12_prediction_market_board_capsule",
-      "command": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
+      "command": "plectis batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
       "component_detail_href": "component-batch12-prediction-market-board-capsule.html",
       "component_id": "batch12_prediction_market_board_capsule",
       "evidence": {
@@ -6725,7 +6725,7 @@
     },
     {
       "anchor": "component-batch12_market_dashboard_read_model_capsule",
-      "command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+      "command": "plectis batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
       "component_detail_href": "component-batch12-market-dashboard-read-model-capsule.html",
       "component_id": "batch12_market_dashboard_read_model_capsule",
       "evidence": {
@@ -6790,7 +6790,7 @@
     },
     {
       "anchor": "component-mechanistic_interpretability_circuit_attribution_replay",
-      "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "command": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
       "component_detail_href": "component-mechanistic-interpretability-circuit-attribution-replay.html",
       "component_id": "mechanistic_interpretability_circuit_attribution_replay",
       "evidence": {
@@ -6849,7 +6849,7 @@
     },
     {
       "anchor": "component-spatial_world_model_counterfactual_simulation_replay",
-      "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+      "command": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
       "component_detail_href": "component-spatial-world-model-counterfactual-simulation-replay.html",
       "component_id": "spatial_world_model_counterfactual_simulation_replay",
       "evidence": {
@@ -6992,7 +6992,7 @@
     },
     {
       "anchor": "component-materials_chemistry_closed_loop_lab_safety_replay",
-      "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+      "command": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
       "component_detail_href": "component-materials-chemistry-closed-loop-lab-safety-replay.html",
       "component_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "evidence": {
@@ -7131,7 +7131,7 @@
     },
     {
       "anchor": "component-derived_fact_provider_runtime",
-      "command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "command": "plectis derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
       "component_detail_href": "component-derived-fact-provider-runtime.html",
       "component_id": "derived_fact_provider_runtime",
       "evidence": {
@@ -7206,7 +7206,7 @@
     },
     {
       "anchor": "component-macro_projection_import_protocol",
-      "command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "command": "plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
       "component_detail_href": "component-macro-projection-import-protocol.html",
       "component_id": "macro_projection_import_protocol",
       "evidence": {
@@ -7402,7 +7402,7 @@
     },
     {
       "anchor": "component-world_model_projection_drift_control_room",
-      "command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
+      "command": "plectis world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
       "component_detail_href": "component-world-model-projection-drift-control-room.html",
       "component_id": "world_model_projection_drift_control_room",
       "evidence": {
@@ -7497,7 +7497,7 @@
     },
     {
       "anchor": "component-batch6_unsurfaced_primitives_capsule",
-      "command": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+      "command": "plectis batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch6-unsurfaced-primitives-capsule.html",
       "component_id": "batch6_unsurfaced_primitives_capsule",
       "evidence": {
@@ -7615,7 +7615,7 @@
     },
     {
       "anchor": "component-batch7_macro_engines_capsule",
-      "command": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+      "command": "plectis batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch7-macro-engines-capsule.html",
       "component_id": "batch7_macro_engines_capsule",
       "evidence": {
@@ -7825,7 +7825,7 @@
     },
     {
       "anchor": "component-batch8_tools_tail_primitives_capsule",
-      "command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+      "command": "plectis batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch8-tools-tail-primitives-capsule.html",
       "component_id": "batch8_tools_tail_primitives_capsule",
       "evidence": {
@@ -7884,7 +7884,7 @@
     },
     {
       "anchor": "component-batch8_policy_engines_capsule",
-      "command": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+      "command": "plectis batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch8-policy-engines-capsule.html",
       "component_id": "batch8_policy_engines_capsule",
       "evidence": {
@@ -7943,7 +7943,7 @@
     },
     {
       "anchor": "component-batch8_audio_level_rms_port",
-      "command": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+      "command": "plectis batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
       "component_detail_href": "component-batch8-audio-level-rms-port.html",
       "component_id": "batch8_audio_level_rms_port",
       "evidence": {
@@ -8002,7 +8002,7 @@
     },
     {
       "anchor": "component-batch8_structural_theses_capsule",
-      "command": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+      "command": "plectis batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch8-structural-theses-capsule.html",
       "component_id": "batch8_structural_theses_capsule",
       "evidence": {
@@ -8067,7 +8067,7 @@
     },
     {
       "anchor": "component-engine_room_demo",
-      "command": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+      "command": "plectis engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
       "component_detail_href": "component-engine-room-demo.html",
       "component_id": "engine_room_demo",
       "evidence": {
@@ -8137,7 +8137,7 @@
     },
     {
       "anchor": "component-batch9_macro_engines_capsule",
-      "command": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
+      "command": "plectis batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch9-macro-engines-capsule.html",
       "component_id": "batch9_macro_engines_capsule",
       "evidence": {
@@ -8202,7 +8202,7 @@
     },
     {
       "anchor": "component-batch10_governance_compilers_capsule",
-      "command": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
+      "command": "plectis batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch10-governance-compilers-capsule.html",
       "component_id": "batch10_governance_compilers_capsule",
       "evidence": {
@@ -8261,7 +8261,7 @@
     },
     {
       "anchor": "component-batch11_saturation_engines_capsule",
-      "command": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+      "command": "plectis batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch11-saturation-engines-capsule.html",
       "component_id": "batch11_saturation_engines_capsule",
       "evidence": {
@@ -8341,7 +8341,7 @@
     },
     {
       "anchor": "component-tool_server_pressure_inventory",
-      "command": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+      "command": "plectis tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
       "component_detail_href": "component-tool-server-pressure-inventory.html",
       "component_id": "tool_server_pressure_inventory",
       "evidence": {
@@ -8400,7 +8400,7 @@
     },
     {
       "anchor": "component-batch8_compliance_pipeline_capsule",
-      "command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
+      "command": "plectis batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
       "component_detail_href": "component-batch8-compliance-pipeline-capsule.html",
       "component_id": "batch8_compliance_pipeline_capsule",
       "evidence": {
@@ -8480,7 +8480,7 @@
     },
     {
       "anchor": "component-batch10_live_source_drift_capsule",
-      "command": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+      "command": "plectis batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
       "component_detail_href": "component-batch10-live-source-drift-capsule.html",
       "component_id": "batch10_live_source_drift_capsule",
       "evidence": {
@@ -8545,7 +8545,7 @@
     },
     {
       "anchor": "component-batch12_release_claim_language_gate",
-      "command": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
+      "command": "plectis batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
       "component_detail_href": "component-batch12-release-claim-language-gate.html",
       "component_id": "batch12_release_claim_language_gate",
       "evidence": {
@@ -8604,7 +8604,7 @@
     },
     {
       "anchor": "component-generated_projection_drift_runtime",
-      "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "command": "plectis generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
       "component_detail_href": "component-generated-projection-drift-runtime.html",
       "component_id": "generated_projection_drift_runtime",
       "evidence": {
@@ -8679,7 +8679,7 @@
     },
     {
       "anchor": "component-mission_transaction_work_spine",
-      "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "command": "plectis mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
       "component_detail_href": "component-mission-transaction-work-spine.html",
       "component_id": "mission_transaction_work_spine",
       "evidence": {
@@ -8784,7 +8784,7 @@
     },
     {
       "anchor": "component-durable_agent_work_landing_replay",
-      "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+      "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
       "component_detail_href": "component-durable-agent-work-landing-replay.html",
       "component_id": "durable_agent_work_landing_replay",
       "evidence": {
@@ -8853,7 +8853,7 @@
     },
     {
       "anchor": "component-bridge_phase_continuity_runtime",
-      "command": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
+      "command": "plectis bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
       "component_detail_href": "component-bridge-phase-continuity-runtime.html",
       "component_id": "bridge_phase_continuity_runtime",
       "evidence": {
@@ -8922,7 +8922,7 @@
     },
     {
       "anchor": "component-concurrency_mission_control",
-      "command": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+      "command": "plectis concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
       "component_detail_href": "component-concurrency-mission-control.html",
       "component_id": "concurrency_mission_control",
       "evidence": {
@@ -8992,7 +8992,7 @@
     },
     {
       "anchor": "component-semantic_singleflight_dedup_runtime",
-      "command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "command": "plectis semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
       "component_detail_href": "component-semantic-singleflight-dedup-runtime.html",
       "component_id": "semantic_singleflight_dedup_runtime",
       "evidence": {
@@ -131739,7 +131739,7 @@
             "page": "paper-module-world-model-projection-drift-control-room.html"
           }
         ],
-        "total_occurrences": 3663
+        "total_occurrences": 3664
       },
       "visible_text_byte_count": 1545
     },
@@ -132890,7 +132890,7 @@
             "page": "area-agent-reliability.html"
           }
         ],
-        "total_occurrences": 855
+        "total_occurrences": 856
       },
       "visible_text_byte_count": 833
     },
@@ -133787,7 +133787,7 @@
             "page": "paper-module-navigation-hologram-route-plane.html"
           }
         ],
-        "total_occurrences": 119
+        "total_occurrences": 121
       },
       "visible_text_byte_count": 852
     },
@@ -134201,7 +134201,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 318
+        "total_occurrences": 319
       },
       "visible_text_byte_count": 893
     },
@@ -134272,7 +134272,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1361
+        "total_occurrences": 1363
       },
       "visible_text_byte_count": 845
     },
@@ -135177,11 +135177,11 @@
             "page": "components.html"
           },
           {
-            "count": 16,
+            "count": 18,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 936
+        "total_occurrences": 938
       },
       "visible_text_byte_count": 866
     },
@@ -135895,7 +135895,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2161
+        "total_occurrences": 2162
       },
       "visible_text_byte_count": 923
     },
@@ -136138,7 +136138,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 58,
+        "page_count": 59,
         "top_page": "paper-module-macro-projection-import-protocol.html",
         "top_pages": [
           {
@@ -136166,7 +136166,7 @@
             "page": "paper-module-derived-fact-provider-runtime.html"
           }
         ],
-        "total_occurrences": 254
+        "total_occurrences": 255
       },
       "visible_text_byte_count": 926
     },
@@ -136281,7 +136281,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 23,
+        "page_count": 24,
         "top_page": "paper-module-cold-clone-probe.html",
         "top_pages": [
           {
@@ -136309,7 +136309,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 56
+        "total_occurrences": 57
       },
       "visible_text_byte_count": 866
     },
@@ -136844,15 +136844,15 @@
             "page": "paper-modules.html"
           },
           {
-            "count": 2,
-            "page": "doctrine.html"
+            "count": 3,
+            "page": "papers.html"
           },
           {
             "count": 2,
-            "page": "papers.html"
+            "page": "doctrine.html"
           }
         ],
-        "total_occurrences": 27
+        "total_occurrences": 28
       },
       "visible_text_byte_count": 1238
     },
@@ -139341,7 +139341,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 143,
+        "page_count": 144,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -139369,7 +139369,7 @@
             "page": "paper-module-spatial-world-model-counterfactual-simulation-replay.html"
           }
         ],
-        "total_occurrences": 959
+        "total_occurrences": 961
       },
       "visible_text_byte_count": 895
     },
@@ -141653,7 +141653,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 57,
+            "count": 59,
             "page": "papers.html"
           },
           {
@@ -141673,7 +141673,7 @@
             "page": "source.html"
           }
         ],
-        "total_occurrences": 62
+        "total_occurrences": 64
       },
       "visible_text_byte_count": 954
     },
@@ -141955,7 +141955,7 @@
             "page": "area-agent-reliability.html"
           }
         ],
-        "total_occurrences": 2366
+        "total_occurrences": 2367
       },
       "visible_text_byte_count": 908
     },
@@ -142618,7 +142618,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 15,
+            "count": 16,
             "page": "papers.html"
           },
           {
@@ -142638,7 +142638,7 @@
             "page": "open-questions.html"
           }
         ],
-        "total_occurrences": 354
+        "total_occurrences": 355
       },
       "visible_text_byte_count": 853
     },
@@ -142849,7 +142849,7 @@
             "page": "reference.html"
           }
         ],
-        "total_occurrences": 549
+        "total_occurrences": 552
       },
       "visible_text_byte_count": 877
     },
@@ -143908,7 +143908,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 312
+        "total_occurrences": 313
       },
       "visible_text_byte_count": 904
     },
@@ -146714,7 +146714,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1011
+        "total_occurrences": 1012
       },
       "visible_text_byte_count": 1094
     },
@@ -147247,18 +147247,18 @@
           },
           {
             "count": 5,
-            "page": "rules-and-ideas.html"
+            "page": "papers.html"
           },
           {
-            "count": 4,
-            "page": "papers.html"
+            "count": 5,
+            "page": "rules-and-ideas.html"
           },
           {
             "count": 3,
             "page": "paper-module-annex-knowledge-routing.html"
           }
         ],
-        "total_occurrences": 107
+        "total_occurrences": 108
       },
       "visible_text_byte_count": 998
     },
@@ -148384,6 +148384,10 @@
             "page": "paper-module-proof-diagnostic-evidence-spine.html"
           },
           {
+            "count": 3,
+            "page": "papers.html"
+          },
+          {
             "count": 2,
             "page": "paper-module-navigation-fitness-benchmark.html"
           },
@@ -148397,14 +148401,10 @@
           },
           {
             "count": 1,
-            "page": "papers.html"
-          },
-          {
-            "count": 1,
             "page": "tour.html"
           }
         ],
-        "total_occurrences": 9
+        "total_occurrences": 11
       },
       "visible_text_byte_count": 895
     },
@@ -151548,7 +151548,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 45,
+        "page_count": 46,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -151576,7 +151576,7 @@
             "page": "paper-module-bridge-phase-continuity-runtime.html"
           }
         ],
-        "total_occurrences": 324
+        "total_occurrences": 325
       },
       "visible_text_byte_count": 943
     },
@@ -151689,7 +151689,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 27,
+            "count": 32,
             "page": "papers.html"
           },
           {
@@ -151709,7 +151709,7 @@
             "page": "reference.html"
           }
         ],
-        "total_occurrences": 266
+        "total_occurrences": 271
       },
       "visible_text_byte_count": 1467
     },
@@ -152406,10 +152406,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "papers.html",
+        "top_pages": [
+          {
+            "count": 1,
+            "page": "papers.html"
+          }
+        ],
+        "total_occurrences": 1
       },
       "visible_text_byte_count": 819
     },
@@ -154148,7 +154153,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 1903
+        "total_occurrences": 1904
       },
       "visible_text_byte_count": 888
     },
@@ -154499,7 +154504,7 @@
             "page": "paper-module-sleeper-memory-poisoning-quarantine-replay.html"
           }
         ],
-        "total_occurrences": 481
+        "total_occurrences": 482
       },
       "visible_text_byte_count": 966
     },
@@ -154572,7 +154577,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 3635
+        "total_occurrences": 3639
       },
       "visible_text_byte_count": 945
     },
@@ -154617,7 +154622,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 6,
+            "count": 9,
             "page": "papers.html"
           },
           {
@@ -154641,7 +154646,7 @@
             "page": "paper-module-batch8-audio-level-rms-port.html"
           }
         ],
-        "total_occurrences": 23
+        "total_occurrences": 26
       },
       "visible_text_byte_count": 967
     },
@@ -155998,7 +156003,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 124,
+        "page_count": 125,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -156026,7 +156031,7 @@
             "page": "paper-module-cognitive-operator-registry.html"
           }
         ],
-        "total_occurrences": 764
+        "total_occurrences": 766
       },
       "visible_text_byte_count": 750
     },
@@ -156586,7 +156591,7 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           }
         ],
-        "total_occurrences": 147
+        "total_occurrences": 149
       },
       "visible_text_byte_count": 970
     },
@@ -156844,7 +156849,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 33,
+        "page_count": 34,
         "top_page": "reference.html",
         "top_pages": [
           {
@@ -156872,7 +156877,7 @@
             "page": "architecture.html"
           }
         ],
-        "total_occurrences": 144
+        "total_occurrences": 145
       },
       "visible_text_byte_count": 863
     },
@@ -157065,7 +157070,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 87,
+        "page_count": 88,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -157093,7 +157098,7 @@
             "page": "paper-module-formal-math-lean-proof-witness.html"
           }
         ],
-        "total_occurrences": 425
+        "total_occurrences": 427
       },
       "visible_text_byte_count": 786
     },
@@ -159407,7 +159412,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 11,
+            "count": 12,
             "page": "papers.html"
           },
           {
@@ -159431,7 +159436,7 @@
             "page": "component-finite-erdos-denominator-certificate-strike.html"
           }
         ],
-        "total_occurrences": 25
+        "total_occurrences": 26
       },
       "visible_text_byte_count": 843
     },
@@ -159502,7 +159507,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 6321
+        "total_occurrences": 6326
       },
       "visible_text_byte_count": 825
     },
@@ -161195,7 +161200,7 @@
             "page": "reference.html"
           }
         ],
-        "total_occurrences": 1162
+        "total_occurrences": 1163
       },
       "visible_text_byte_count": 830
     },
@@ -163258,7 +163263,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 38,
+        "page_count": 39,
         "top_page": "paper-module-lean-proof-search-lab-runtime.html",
         "top_pages": [
           {
@@ -163286,7 +163291,7 @@
             "page": "open-questions.html"
           }
         ],
-        "total_occurrences": 55
+        "total_occurrences": 56
       },
       "visible_text_byte_count": 969
     },
@@ -263619,7 +263624,7 @@
     "public_glossary_source_hash": "sha256:829aaec148595752e608dca78210ea1df12588e2ede869e3ba488839abec5756",
     "term_registry": "codex/doctrine/system_vocabulary/term_registry.json"
   },
-  "source_fingerprint": "5b42f1ef928222d1cfca5c7bb3a4a0e5",
+  "source_fingerprint": "19cf8cf01cfd9fd362da7775e8466fdc",
   "source_hashes": {
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
@@ -263666,7 +263671,7 @@
     "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:5a6acb05e4385c4afb4532af90937f9f44031e522162cc94eba0d4445b946e60",
     "microcosm-substrate/core/doctrine_lattice_relations.json": "sha256:7ed1b2350f6720ad4b3f114c3e0a2e6249957223d815cf1aca9c027fc3a3d6b3",
     "microcosm-substrate/core/mechanism_sources.json": "sha256:1f833ca8f8908796c5712d5a9d7295fa96ba9e4abf866bef0c50d9663ae6fa96",
-    "microcosm-substrate/core/organ_atlas.json": "sha256:c21930daf0553f2f1a10044b989146676ccdb9952ac97fe252628c476d67eb08",
+    "microcosm-substrate/core/organ_atlas.json": "sha256:62c435f0342d9f50e43f1a9c504619060b5fb5d7e6439deafc5a199d65d2c33a",
     "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
     "microcosm-substrate/core/organ_registry.json": "sha256:b8a4249b14afbf7d72fa7765f5600ed214dfe8c6eec220aa070be46d06bc40ac",
     "microcosm-substrate/core/paper_module_capsules.json": "sha256:235098844c5c49da2ecd02ab1fdf82d68422715a1ac5ae1edc627ca7d375342d",
@@ -264212,7 +264217,7 @@
         "paper-module-verifier-lab-kernel.html": 2,
         "paper-module-work-landing-control-spine.html": 5,
         "paper-modules.html": 44,
-        "papers.html": 5,
+        "papers.html": 6,
         "reference.html": 104,
         "rules-and-ideas.html": 112,
         "tour.html": 4,
@@ -264220,7 +264225,7 @@
       },
       "page_count": 105,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 855
+      "total_occurrences": 856
     },
     "agent_reliability": {
       "by_page": {
@@ -264484,7 +264489,7 @@
         "paper-module-standards-meta-diagnostics.html": 1,
         "paper-module-tool-server-pressure-inventory.html": 1,
         "paper-modules.html": 1,
-        "papers.html": 2,
+        "papers.html": 4,
         "reference.html": 23,
         "rules-and-ideas.html": 22,
         "source.html": 2,
@@ -264492,7 +264497,7 @@
       },
       "page_count": 34,
       "top_page": "reference.html",
-      "total_occurrences": 119
+      "total_occurrences": 121
     },
     "area": {
       "by_page": {
@@ -264661,13 +264666,13 @@
         "paper-module-sleeper-memory-poisoning-quarantine-replay.html": 27,
         "paper-module-tool-server-pressure-inventory.html": 6,
         "paper-modules.html": 18,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 48,
         "rules-and-ideas.html": 49
       },
       "page_count": 50,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 318
+      "total_occurrences": 319
     },
     "authority": {
       "by_page": {
@@ -264822,7 +264827,7 @@
         "paper-module-work-landing-control-spine.html": 9,
         "paper-module-world-model-projection-drift-control-room.html": 14,
         "paper-modules.html": 134,
-        "papers.html": 17,
+        "papers.html": 19,
         "quickstart.html": 2,
         "reference.html": 131,
         "rules-and-ideas.html": 194,
@@ -264831,7 +264836,7 @@
       },
       "page_count": 157,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1361
+      "total_occurrences": 1363
     },
     "axiom": {
       "by_page": {
@@ -265478,14 +265483,14 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 4,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 58,
-        "papers.html": 16,
+        "papers.html": 18,
         "reference.html": 110,
         "rules-and-ideas.html": 155,
         "tour.html": 4
       },
       "page_count": 148,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 936
+      "total_occurrences": 938
     },
     "bridge": {
       "by_page": {
@@ -266072,7 +266077,7 @@
         "paper-module-work-landing-control-spine.html": 14,
         "paper-module-world-model-projection-drift-control-room.html": 12,
         "paper-modules.html": 68,
-        "papers.html": 27,
+        "papers.html": 28,
         "quickstart.html": 2,
         "reference.html": 40,
         "rules-and-ideas.html": 74,
@@ -266082,7 +266087,7 @@
       },
       "page_count": 179,
       "top_page": "doctrine.html",
-      "total_occurrences": 2161
+      "total_occurrences": 2162
     },
     "checker": {
       "by_page": {
@@ -266464,12 +266469,13 @@
         "paper-module-verifier-lab-kernel.html": 7,
         "paper-module-work-landing-control-spine.html": 5,
         "paper-modules.html": 4,
+        "papers.html": 1,
         "rules-and-ideas.html": 7,
         "tour.html": 1
       },
-      "page_count": 58,
+      "page_count": 59,
       "top_page": "paper-module-macro-projection-import-protocol.html",
-      "total_occurrences": 254
+      "total_occurrences": 255
     },
     "clean": {
       "by_page": {
@@ -266566,14 +266572,15 @@
         "paper-module-lean-std-premise-index.html": 2,
         "paper-module-public-reveal-walkthrough.html": 2,
         "paper-modules.html": 3,
+        "papers.html": 1,
         "quickstart.html": 3,
         "rules-and-ideas.html": 2,
         "source.html": 1,
         "tour.html": 1
       },
-      "page_count": 23,
+      "page_count": 24,
       "top_page": "paper-module-cold-clone-probe.html",
-      "total_occurrences": 56
+      "total_occurrences": 57
     },
     "closeout": {
       "by_page": {
@@ -266666,13 +266673,13 @@
         "doctrine.html": 2,
         "paper-module-cold-clone-probe.html": 4,
         "paper-modules.html": 3,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 7,
         "rules-and-ideas.html": 9
       },
       "page_count": 6,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 27
+      "total_occurrences": 28
     },
     "command": {
       "by_page": {
@@ -268541,14 +268548,15 @@
         "paper-module-work-landing-control-spine.html": 5,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 25,
+        "papers.html": 2,
         "reference.html": 22,
         "rules-and-ideas.html": 28,
         "source.html": 1,
         "tour.html": 1
       },
-      "page_count": 143,
+      "page_count": 144,
       "top_page": "doctrine.html",
-      "total_occurrences": 959
+      "total_occurrences": 961
     },
     "definition": {
       "by_page": {
@@ -270099,13 +270107,13 @@
       "by_page": {
         "area-formal-math.html": 1,
         "index.html": 1,
-        "papers.html": 57,
+        "papers.html": 59,
         "source.html": 1,
         "tour.html": 2
       },
       "page_count": 5,
       "top_page": "papers.html",
-      "total_occurrences": 62
+      "total_occurrences": 64
     },
     "error": {
       "by_page": {
@@ -270513,7 +270521,7 @@
         "paper-module-work-landing-control-spine.html": 8,
         "paper-module-world-model-projection-drift-control-room.html": 12,
         "paper-modules.html": 128,
-        "papers.html": 9,
+        "papers.html": 10,
         "reference.html": 112,
         "rules-and-ideas.html": 135,
         "source.html": 1,
@@ -270523,7 +270531,7 @@
       },
       "page_count": 214,
       "top_page": "components.html",
-      "total_occurrences": 2366
+      "total_occurrences": 2367
     },
     "evidence_class": {
       "by_page": {
@@ -271329,7 +271337,7 @@
         "paper-module-work-landing-control-spine.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 1,
-        "papers.html": 15,
+        "papers.html": 16,
         "rules-and-ideas.html": 108,
         "source.html": 1,
         "tour.html": 1,
@@ -271337,7 +271345,7 @@
       },
       "page_count": 204,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 354
+      "total_occurrences": 355
     },
     "exponent": {
       "by_page": {
@@ -271595,13 +271603,13 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 2,
         "paper-module-work-landing-control-spine.html": 2,
         "paper-modules.html": 93,
-        "papers.html": 2,
+        "papers.html": 5,
         "reference.html": 13,
         "rules-and-ideas.html": 46
       },
       "page_count": 147,
       "top_page": "paper-modules.html",
-      "total_occurrences": 549
+      "total_occurrences": 552
     },
     "factor": {
       "by_page": {
@@ -272156,14 +272164,14 @@
         "paper-module-verifier-lab-execution-spine.html": 2,
         "paper-module-verifier-lab-kernel.html": 10,
         "paper-modules.html": 34,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 30,
         "rules-and-ideas.html": 28,
         "source.html": 2
       },
       "page_count": 53,
       "top_page": "paper-modules.html",
-      "total_occurrences": 312
+      "total_occurrences": 313
     },
     "formal_mathematics": {
       "by_page": {
@@ -274419,14 +274427,14 @@
         "paper-module-verifier-lab-execution-spine.html": 35,
         "paper-module-verifier-lab-kernel.html": 8,
         "paper-modules.html": 71,
-        "papers.html": 38,
+        "papers.html": 39,
         "reference.html": 107,
         "rules-and-ideas.html": 88,
         "tour.html": 5
       },
       "page_count": 75,
       "top_page": "reference.html",
-      "total_occurrences": 1011
+      "total_occurrences": 1012
     },
     "lean_kernel": {
       "by_page": {
@@ -274571,13 +274579,13 @@
         "paper-module-work-landing-control-spine.html": 3,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 2,
-        "papers.html": 4,
+        "papers.html": 5,
         "reference.html": 1,
         "rules-and-ideas.html": 5
       },
       "page_count": 49,
       "top_page": "doctrine.html",
-      "total_occurrences": 107
+      "total_occurrences": 108
     },
     "line": {
       "by_page": {
@@ -275417,12 +275425,12 @@
         "coding-agents.html": 1,
         "paper-module-navigation-fitness-benchmark.html": 2,
         "paper-module-proof-diagnostic-evidence-spine.html": 3,
-        "papers.html": 1,
+        "papers.html": 3,
         "tour.html": 1
       },
       "page_count": 6,
       "top_page": "paper-module-proof-diagnostic-evidence-spine.html",
-      "total_occurrences": 9
+      "total_occurrences": 11
     },
     "mathlib": {
       "by_page": {
@@ -277218,14 +277226,15 @@
         "paper-module-verifier-lab-execution-spine.html": 9,
         "paper-module-verifier-lab-kernel.html": 11,
         "paper-modules.html": 21,
+        "papers.html": 1,
         "reference.html": 29,
         "rules-and-ideas.html": 36,
         "source.html": 2,
         "tour.html": 1
       },
-      "page_count": 45,
+      "page_count": 46,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 324
+      "total_occurrences": 325
     },
     "paper": {
       "by_page": {
@@ -277298,7 +277307,7 @@
         "paper-module-verifier-lab-kernel.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 3,
         "paper-modules.html": 9,
-        "papers.html": 27,
+        "papers.html": 32,
         "reference.html": 10,
         "rules-and-ideas.html": 33,
         "source.html": 1,
@@ -277306,7 +277315,7 @@
       },
       "page_count": 74,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 266
+      "total_occurrences": 271
     },
     "paper_module": {
       "by_page": {
@@ -277628,6 +277637,14 @@
       "page_count": 91,
       "top_page": "paper-module-pattern-binding-contract.html",
       "total_occurrences": 523
+    },
+    "peer_review": {
+      "by_page": {
+        "papers.html": 1
+      },
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 1
     },
     "perfect_set": {
       "by_page": {
@@ -278750,7 +278767,7 @@
         "paper-module-verifier-lab-execution-spine.html": 29,
         "paper-module-verifier-lab-kernel.html": 26,
         "paper-modules.html": 151,
-        "papers.html": 21,
+        "papers.html": 22,
         "reference.html": 262,
         "rules-and-ideas.html": 245,
         "source.html": 1,
@@ -278759,7 +278776,7 @@
       },
       "page_count": 125,
       "top_page": "reference.html",
-      "total_occurrences": 1903
+      "total_occurrences": 1904
     },
     "proof_assistant": {
       "by_page": {
@@ -279002,14 +279019,14 @@
         "paper-module-work-landing-control-spine.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 9,
-        "papers.html": 2,
+        "papers.html": 3,
         "reference.html": 55,
         "rules-and-ideas.html": 68,
         "source.html": 2
       },
       "page_count": 115,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 481
+      "total_occurrences": 482
     },
     "public": {
       "by_page": {
@@ -279209,7 +279226,7 @@
         "paper-module-work-landing-control-spine.html": 13,
         "paper-module-world-model-projection-drift-control-room.html": 27,
         "paper-modules.html": 319,
-        "papers.html": 10,
+        "papers.html": 14,
         "reference.html": 539,
         "rules-and-ideas.html": 732,
         "source.html": 14,
@@ -279219,7 +279236,7 @@
       },
       "page_count": 203,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 3635
+      "total_occurrences": 3639
     },
     "published": {
       "by_page": {
@@ -279229,13 +279246,13 @@
         "open-questions.html": 1,
         "paper-module-batch12-release-claim-language-gate.html": 1,
         "paper-module-batch8-audio-level-rms-port.html": 2,
-        "papers.html": 6,
+        "papers.html": 9,
         "tour.html": 1,
         "vulnerability-disclosure.html": 3
       },
       "page_count": 9,
       "top_page": "papers.html",
-      "total_occurrences": 23
+      "total_occurrences": 26
     },
     "pytest": {
       "by_page": {
@@ -279990,7 +280007,7 @@
         "paper-module-work-landing-control-spine.html": 22,
         "paper-module-world-model-projection-drift-control-room.html": 60,
         "paper-modules.html": 191,
-        "papers.html": 5,
+        "papers.html": 6,
         "reference.html": 121,
         "rules-and-ideas.html": 492,
         "source.html": 5,
@@ -280000,7 +280017,7 @@
       },
       "page_count": 213,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 3663
+      "total_occurrences": 3664
     },
     "recurrence": {
       "by_page": {
@@ -280374,12 +280391,13 @@
         "paper-module-work-landing-control-spine.html": 2,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 141,
+        "papers.html": 2,
         "reference.html": 46,
         "rules-and-ideas.html": 146
       },
-      "page_count": 124,
+      "page_count": 125,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 764
+      "total_occurrences": 766
     },
     "regression": {
       "by_page": {
@@ -280747,7 +280765,7 @@
         "paper-module-self-ignorance-coverage-ledger.html": 5,
         "paper-module-work-landing-control-spine.html": 1,
         "paper-modules.html": 13,
-        "papers.html": 1,
+        "papers.html": 3,
         "quickstart.html": 2,
         "reference.html": 4,
         "rules-and-ideas.html": 6,
@@ -280758,7 +280776,7 @@
       },
       "page_count": 47,
       "top_page": "paper-modules.html",
-      "total_occurrences": 147
+      "total_occurrences": 149
     },
     "reproducible": {
       "by_page": {
@@ -281003,14 +281021,15 @@
         "paper-module-provider-context-recipe-budget.html": 1,
         "paper-module-research-replication-rubric-artifact-replay.html": 11,
         "paper-modules.html": 6,
+        "papers.html": 1,
         "reference.html": 35,
         "rules-and-ideas.html": 23,
         "tour.html": 2,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 33,
+      "page_count": 34,
       "top_page": "reference.html",
-      "total_occurrences": 144
+      "total_occurrences": 145
     },
     "result": {
       "by_page": {
@@ -281304,13 +281323,14 @@
         "paper-module-verifier-lab-kernel.html": 3,
         "paper-module-work-landing-control-spine.html": 3,
         "paper-modules.html": 4,
+        "papers.html": 2,
         "reference.html": 1,
         "rules-and-ideas.html": 7,
         "tour.html": 1
       },
-      "page_count": 87,
+      "page_count": 88,
       "top_page": "doctrine.html",
-      "total_occurrences": 425
+      "total_occurrences": 427
     },
     "rigidity": {
       "by_page": {
@@ -282737,11 +282757,11 @@
         "paper-module-finite-erdos-denominator-certificate-strike.html": 2,
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 1,
         "paper-modules.html": 1,
-        "papers.html": 11
+        "papers.html": 12
       },
       "page_count": 10,
       "top_page": "papers.html",
-      "total_occurrences": 25
+      "total_occurrences": 26
     },
     "source": {
       "by_page": {
@@ -282953,7 +282973,7 @@
         "paper-module-work-landing-control-spine.html": 32,
         "paper-module-world-model-projection-drift-control-room.html": 69,
         "paper-modules.html": 637,
-        "papers.html": 17,
+        "papers.html": 22,
         "quickstart.html": 1,
         "reference.html": 697,
         "rules-and-ideas.html": 749,
@@ -282964,7 +282984,7 @@
       },
       "page_count": 216,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 6321
+      "total_occurrences": 6326
     },
     "source_authority": {
       "by_page": {
@@ -284506,7 +284526,7 @@
         "paper-module-work-landing-control-spine.html": 4,
         "paper-module-world-model-projection-drift-control-room.html": 6,
         "paper-modules.html": 158,
-        "papers.html": 8,
+        "papers.html": 9,
         "reference.html": 34,
         "rules-and-ideas.html": 136,
         "source.html": 3,
@@ -284516,7 +284536,7 @@
       },
       "page_count": 155,
       "top_page": "doctrine.html",
-      "total_occurrences": 1162
+      "total_occurrences": 1163
     },
     "target": {
       "by_page": {
@@ -285436,12 +285456,13 @@
         "paper-module-undeclared-library-prior-classifier.html": 1,
         "paper-module-verifier-lab-kernel.html": 1,
         "paper-modules.html": 1,
+        "papers.html": 1,
         "reference.html": 4,
         "rules-and-ideas.html": 5
       },
-      "page_count": 38,
+      "page_count": 39,
       "top_page": "paper-module-lean-proof-search-lab-runtime.html",
-      "total_occurrences": 55
+      "total_occurrences": 56
     },
     "vulnerability": {
       "by_page": {
@@ -285573,5 +285594,5 @@
       "total_occurrences": 4
     }
   },
-  "term_occurrence_term_count": 356
+  "term_occurrence_term_count": 357
 }
