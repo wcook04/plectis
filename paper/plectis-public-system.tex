@@ -3,6 +3,7 @@
 \documentclass[11pt]{article}
 \usepackage{paper-house-style}
 \usepackage{booktabs,array,enumitem}
+\usepackage{adjustbox}
 \usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
   citecolor=linkinternal]{hyperref}
 \usepackage{fancyvrb}
@@ -107,6 +108,16 @@ system and that I developed it by directing coding tools based on artificial
 intelligence (AI).  The argument does not depend on that account or on the
 claimed origin of the published material.
 \end{abstract}
+
+\begin{paperresult}{The result a public rerun can support}
+\textbf{Result.} A claim--evidence--limit contract can make disagreement about
+one selected public test local: the reader can inspect the input, procedure,
+expected answer, decision rule, run record, and stated inference limit.
+\textbf{Evidence.} The worked audio component is rerunnable, and one expected
+value can be derived independently from the published formula.
+\textbf{Boundary.} A matching run does not establish origin, correctness,
+representativeness, or reliability of the private system.
+\end{paperresult}
 
 \section{The problem}
 \label{sec:problem}
@@ -271,6 +282,7 @@ exposed to a stranger.
 
 \begin{figure}[t]
 \centering
+\begin{adjustbox}{max width=\linewidth,center}
 \begin{tikzpicture}[x=1cm,y=1cm]
 % words row
 \node[words] (claim) at (3.45,2.05) {The claim, stated in prose};
@@ -304,6 +316,7 @@ exposed to a stranger.
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a4) -- (rec);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a5) -- (verdict);
 \end{tikzpicture}
+\end{adjustbox}
 \caption{How to read the component contract, at commit
 \code{\snapshotshort}. Read the middle row from left to right: a command applies
 public code to a fixed input and the code writes output. The validator judges it
@@ -475,6 +488,7 @@ At commit \code{\snapshotshort}, the run produced:
 
 \begin{center}
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}}
 \toprule
 \papertablehead
@@ -619,8 +633,8 @@ A run that yields the same checked values and verdict as the stored receipt
 shows that the public code, on the supplied input, in a sufficiently similar
 environment, produces the same result again. Correctness is a different
 property: it needs a standard for
-what the result should have been, and a standard is only worth something if
-it does not merely restate the implementation. The worked example makes the
+what the result should have been. An independent standard must be stated
+separately from the implementation. The worked example makes the
 difference concrete. The first row's expected number comes from arithmetic
 applied to the project's formula, not from the implementation. That supports
 agreement with the formula on one case; it does not validate the formula.
@@ -667,6 +681,7 @@ drawn from stays on the left.
 
 \begin{figure}[H]
 \centering
+\begin{adjustbox}{max width=\linewidth,center}
 \begin{tikzpicture}[x=1cm,y=1cm]
 % private region
 \draw[black!55, dashed, line width=0.7pt, rounded corners=3pt] (0,-0.1) rectangle (5.8,3.7);
@@ -695,6 +710,7 @@ drawn from stays on the left.
 \node[gnote, text width=5.6cm, anchor=north] at (2.9,-0.40) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
 \node[gnote, text width=4.6cm, anchor=north] at (10.95,-0.40) {inside public evidence: files, commands, records, and tests of the published fragments};
 \end{tikzpicture}
+\end{adjustbox}
 \caption{The selection problem. Each square stands for a private
 mechanism; the darker ones were given public form. Each public component
 has the parts shown in Figure~\ref{fig:contract}. The grid trails off
@@ -762,6 +778,7 @@ collection most needs a reader to hold.
 
 \begin{figure}[t]
 \centering
+\begin{adjustbox}{max width=\linewidth,center}
 \begin{tikzpicture}[x=1cm,y=1cm]
 \node[part, text width=3.2cm] (obs) at (1.8,0) {Observed: at one commit, in one environment, a fresh run matches the stored record};
 \draw[black!55, dashed, line width=0.7pt] (4.55,-3.75) -- (4.55,3.75);
@@ -784,6 +801,7 @@ collection most needs a reader to hold.
 \path ([yshift=-11pt]obs.east) -- (g4.west) node[gaplabel, pos=0.60]{reach: cases I did not choose};
 \path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{risk: checks beyond\\the listed patterns};
 \end{tikzpicture}
+\end{adjustbox}
 \caption{Five conclusions a matching run invites and does not license.
 Each dashed arrow needs a further assumption that the observation itself
 cannot supply. From top to bottom, the tags follow the order discussed above:
@@ -806,6 +824,7 @@ At commit \code{\snapshotshort} the \componentcount{} components fall into
 
 \begin{center}
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.38\linewidth}r>{\raggedright\arraybackslash}p{0.47\linewidth}}
 \toprule
 \papertablehead
@@ -834,6 +853,7 @@ records a run, or checks a declared rule. The four routes below cover all
 
 \begin{center}
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
 \toprule
 \papertablehead
@@ -958,6 +978,7 @@ is who makes the choice that matters for that claim.
 
 \begin{figure}[H]
 \centering
+\begin{adjustbox}{max width=\linewidth,center}
 \begin{tikzpicture}[x=1cm,y=1cm]
 % uniform box heights and bottom/top-anchored labels keep every dotted
 % leader the same length
@@ -982,6 +1003,7 @@ is who makes the choice that matters for that claim.
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
   \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
 \end{tikzpicture}
+\end{adjustbox}
 \caption{Five forms of independent evaluation. Above each evaluation, in italic
 blue, the choice that leaves my hands; below it, in grey, what that evaluation
 still cannot show. The evaluations are not cumulative stages. At the commit
