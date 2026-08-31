@@ -34,9 +34,12 @@
 \linespread{1.045}
 \clubpenalty=10000 \widowpenalty=10000 \tolerance=1600
 
-\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[dvipsnames,table]{xcolor}
 \definecolor{linkexternal}{HTML}{275D8C}
 \definecolor{linkinternal}{HTML}{6E2B2B}
+\definecolor{papertableheader}{HTML}{E3EAF0}
+\definecolor{papertablerow}{HTML}{F2F5F7}
+\definecolor{papertablerule}{HTML}{7D8991}
 
 \RequirePackage{titlesec}
 \titleformat{\section}{\Large\bfseries}{\thesection}{0.85em}{}
@@ -57,7 +60,20 @@
 
 \RequirePackage{caption}
 \captionsetup{font=small,labelfont=bf,skip=9pt,width=.92\linewidth}
-\renewcommand{\arraystretch}{1.12}
+\RequirePackage{etoolbox}
+\renewcommand{\arraystretch}{1.20}
+\newcommand{\papertablehead}{\rowcolor{papertableheader}}
+\newcommand{\papertablebody}{\rowcolors{2}{white}{papertablerow}}
+\AtBeginEnvironment{tabular}{%
+  \papertablebody
+  \arrayrulecolor{papertablerule}%
+  \setlength{\extrarowheight}{1.4pt}%
+}
+\AtBeginEnvironment{longtable}{%
+  \papertablebody
+  \arrayrulecolor{papertablerule}%
+  \setlength{\extrarowheight}{1.4pt}%
+}
 
 \newcommand{\subtitle}[1]{\gdef\@papersubtitle{#1}}
 \renewenvironment{abstract}{%

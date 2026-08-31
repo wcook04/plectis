@@ -164,6 +164,7 @@ The boundary of the evidence can be stated before any command is run:
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.67\linewidth}}
 \toprule
+\papertablehead
 \textbf{Status} & \textbf{What belongs in it} \\
 \midrule
 Publicly checkable & The contents of a named public version, the commands listed for its components, the files those commands write, and the results of its public tests. \\
@@ -476,6 +477,7 @@ At commit \code{\snapshotshort}, the run produced:
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}}
 \toprule
+\papertablehead
 \textbf{Case} & \textbf{Input} & \textbf{Expected} & \textbf{Observed} & \textbf{Result} \\
 \midrule
 Decimal samples & 0.0,\ 0.05,\ $-0.05$,\ 0.1 & 0.489897949 & 0.489897949 & pass \\
@@ -518,6 +520,7 @@ support:
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.44\linewidth}>{\raggedright\arraybackslash}p{0.47\linewidth}}
 \toprule
+\papertablehead
 \textbf{Who or what supplies the expected answer} & \textbf{What a matching result then supports} \\
 \midrule
 The project itself: implementation, cases, expectations, and rule from one author-controlled process. & Repeatability under the project's own test; the four readings above all stay open. \\
@@ -805,6 +808,7 @@ At commit \code{\snapshotshort} the \componentcount{} components fall into
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.38\linewidth}r>{\raggedright\arraybackslash}p{0.47\linewidth}}
 \toprule
+\papertablehead
 \textbf{Group} & \textbf{Count} & \textbf{What its components do} \\
 \midrule
 Getting started & \entrycount & Show a new reader where to begin and guide a first inspection. \\
@@ -832,6 +836,7 @@ records a run, or checks a declared rule. The four routes below cover all
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
 \toprule
+\papertablehead
 \textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
 \midrule
 Record-checked copied source & \copiedsourcecount & The exact text of non-secret source files, checked against a public import record. & That the recorded origin is real; record and file share one maintainer. \\
