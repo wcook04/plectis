@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos-1049-rational-base-lambert" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Arithmetic Boundaries at Base 3/2</h1>
+    <h1>Sharp Height and Four-Jet Obstructions at Base 3/2</h1>
     <p class="lean-paper__subject">Erdős #1049</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/erdos-1049-rational-base-lambert.tex">
@@ -12,8 +12,8 @@ and let <span class="math inline">\(\tau(n)\)</span> count the divisors
 of <span class="math inline">\(n\)</span>. Erdős Problem #1049 asks
 whether <span
 class="math display">\[F(t)=\sum_{n\ge1}\frac{1}{t^{n}-1}=\sum_{n\ge1}\frac{\tau(n)}{t^{n}}\]</span>
-is irrational <span class="citation" data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. The
-two forms agree by expanding <span
+is irrational <span class="citation" data-cites="erdos1988"><a href="#ref-2">[2]</a></span>.</p>
+<p>The two forms agree by expanding <span
 class="math inline">\((t^{n}-1)^{-1}=\sum_{k\ge1}t^{-nk}\)</span> and
 collecting the terms with the same exponent, the coefficient of <span
 class="math inline">\(t^{-m}\)</span> being the number of divisors of
@@ -24,7 +24,7 @@ data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. Bloom’s current catalo
 reproduces the displayed rational-<span class="math inline">\(t\)</span>
 question, labels it <em>open</em>, attributes it to Chowla, and points
 to Erdős’s 1988 statement on p. 102 and the 1948 integer-base
-theorem <span class="citation" data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>. The
+theorem <span class="citation" data-cites="erdosproblems"><a href="#ref-16">[16]</a></span>. The
 same record warns that its status is the website owner’s current
 assessment and asks readers to cite the original Erdős sources.
 Accordingly, the catalogue is used here for numbering and current
@@ -60,21 +60,22 @@ branch instead uses Lean’s convention that the <code>tsum</code> of a
 nonsummable series is zero. Thus it supplies genuine checked prior art
 for the identity, but no irrationality theorem. The present note
 formalises propositions about the clearing argument and likewise does
-not answer the conjecture. Erdős’s positive-integer theorem of
-1948 <span class="citation" data-cites="erdos1948"><a href="#ref-1">[1]</a></span> sits inside a
-larger integer-base literature. At the level of functions, Rivin proves
-that if a sequence <span class="math inline">\(\gamma\)</span> and its
-divisor-sum sequence are both eventually linearly recurrent, then <span
+not answer the conjecture.</p>
+<p>Erdős’s positive-integer theorem of 1948 <span class="citation"
+data-cites="erdos1948"><a href="#ref-1">[1]</a></span> sits inside a larger integer-base
+literature. At the level of functions, Rivin proves that if a sequence
+<span class="math inline">\(\gamma\)</span> and its divisor-sum sequence
+are both eventually linearly recurrent, then <span
 class="math inline">\(\gamma\)</span> is finitely supported <span
 class="citation" data-cites="rivin2026"></span>. His
 periodic-coefficient corollary therefore shows that <span
 class="math display">\[\sum_{n\ge1}\frac{z^n}{1-z^n}\]</span> is not a
-rational function <span class="citation" data-cites="rivin2026"><a href="#ref-13">[13]</a></span>.
+rational function <span class="citation" data-cites="rivin2026"><a href="#ref-14">[14]</a></span>.
 This is an exact structural statement about the function underlying
 Problem #1049, but it gives no irrationality statement for a special
 value at <span class="math inline">\(z=1/t\)</span>: a nonrational
-function may take rational values at particular rational points. In 1991
-Borwein proved the irrationality of shifted series <span
+function may take rational values at particular rational points.</p>
+<p>In 1991 Borwein proved the irrationality of shifted series <span
 class="math inline">\(\sum_{n\ge1}(t^{n}+w)^{-1}\)</span> at integer
 bases <span class="math inline">\(t\ge2\)</span>, for every nonzero
 rational <span class="math inline">\(w\)</span> with <span
@@ -106,7 +107,14 @@ uses <span class="math inline">\(q=p^{-1}\)</span>. The two
 constructions share that bivariate little-<span
 class="math inline">\(q\)</span>-Legendre Padé kernel, but Van Assche’s
 diagonal does not satisfy the Amdeberhan–Zeilberger scalar recurrence.
-Amdeberhan–Zeilberger use the moving diagonal <span
+Their Theorems 1 and 2 do prove, respectively, the irrationality of the
+non-alternating <span class="math inline">\(h_p(1)\)</span> and
+alternating <span class="math inline">\(q\)</span>-logarithm values for
+their stated integer parameters, with reported irrationality measure
+<span class="math inline">\(4.80\)</span>; those are external
+integer-parameter results and do not transfer to the rational noninteger
+base <span class="math inline">\(3/2\)</span> studied here.</p>
+<p>Amdeberhan–Zeilberger use the moving diagonal <span
 class="math inline">\(P_n(p^{n+1}\mid p^{-1})\)</span>, whereas Van
 Assche uses <span class="math inline">\(P_n(p^n\mid p^{-1})\)</span>.
 Van Assche also records, citing Borwein’s 1992 Lemma 2, the neighbouring
@@ -121,12 +129,12 @@ Amdeberhan–Zeilberger operator leaves <span
 class="math display">\[-p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2),\]</span>
 which is nonzero for every real <span
 class="math inline">\(p&gt;1\)</span>. One nonzero residual is decisive
-for non-transfer of that recurrence. Lean checks the and its . These are
-finite statements at <span class="math inline">\(n=0\)</span>; they do
-not supply a recurrence for either diagonal. No recurrence, endpoint,
-lattice, or valuation statement for one diagonal is used for the other;
-the displayed exact residual is the sole claim made here about their
-incompatibility.</p>
+for non-transfer of that recurrence.</p>
+<p>Lean checks the and its . These are finite statements at <span
+class="math inline">\(n=0\)</span>; they do not supply a recurrence for
+either diagonal. No recurrence, endpoint, lattice, or valuation
+statement for one diagonal is used for the other; the displayed exact
+residual is the sole claim made here about their incompatibility.</p>
 <p>There is a second distinction at rational base <span
 class="math inline">\(3/2\)</span>. Over the checked range, the raw
 rational approximation errors decrease while the selected cleared
@@ -144,8 +152,14 @@ class="math inline">\(b\le-2\)</span> <span class="citation"
 data-cites="vandehey2013"><a href="#ref-12">[12]</a></span>. His companion theorem permits a
 finite alphabet of nonnegative integers containing zero, provided the
 coefficient sequence is not eventually zero <span class="citation"
-data-cites="vandehey2013"><a href="#ref-12">[12]</a></span>. All three retain an integer base. In
-2004 Zudilin obtained the uniform bound <span
+data-cites="vandehey2013"><a href="#ref-12">[12]</a></span>. All three retain an integer base.
+Luca and Tachiya’s periodic-coefficient theorem likewise proves
+irrationality at every integer base of absolute value greater than one;
+their full-support example strengthens this to joint linear independence
+for finite families of iterated divisor functions <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-13">[13]</a></span>. This is strong integer-base
+evidence, but it does not cover a rational noninteger base.</p>
+<p>In 2004 Zudilin obtained the uniform bound <span
 class="math inline">\(\mu(F(p))\le2.46497868\ldots\)</span> for every
 integer <span class="math inline">\(p\notin\{0,\pm1\}\)</span>, by way
 of Heine’s basic transform and a permutation group <span
@@ -154,21 +168,23 @@ ordinary-hypergeometric antecedent is Rhin and Viola’s <span
 class="math inline">\(S_5\)</span> action and twelve-coset denominator
 reduction for rational forms in <span
 class="math inline">\(\zeta(2)\)</span> <span class="citation"
-data-cites="rhinviola1996"><a href="#ref-10">[10]</a></span>. Those sources motivate the
-permutation, denominator and polynomial- specialisation architecture of
-Section <span class="math inline">\(\ref{sec:endpoints}\)</span>; the
-endpoint lemmas there are abstract and are not yet applied to either
-source’s actual coefficient family. The neighbouring problem of Lambert
-subseries <span class="math inline">\(\sum_{n\in
-A}(t^{n}-1)^{-1}\)</span> over a restricted index set <span
-class="math inline">\(A\)</span> is treated by Kovač and Tao <span
-class="citation" data-cites="kovactao2024"></span>. The rational
-non-integer progress relevant here is instead the height criterion of
-Bundschuh and Väänänen <span class="citation"
+data-cites="rhinviola1996"><a href="#ref-10">[10]</a></span>.</p>
+<p>Those sources motivate the permutation, denominator and polynomial-
+specialisation architecture of Section <span
+class="math inline">\(\ref{sec:endpoints}\)</span>; the endpoint lemmas
+there are abstract and are not yet applied to either source’s actual
+coefficient family.</p>
+<p>The neighbouring problem of Lambert subseries <span
+class="math inline">\(\sum_{n\in A}(t^{n}-1)^{-1}\)</span> over a
+restricted index set <span class="math inline">\(A\)</span> is treated
+by Kovač and Tao <span class="citation"
+data-cites="kovactao2024"><a href="#ref-15">[15]</a></span>.</p>
+<p>The rational non-integer progress relevant here is instead the height
+criterion of Bundschuh and Väänänen <span class="citation"
 data-cites="bv1994"><a href="#ref-6">[6]</a></span>, which remains the strongest explicit
-numerical threshold we know of for this value. It is not the only later
-source admitting non-integral rational bases: Zudilin’s Padé-and-Hankel
-treatment of the generalized <span
+numerical threshold among the sources compared here for this value.
+Zudilin’s later Padé-and-Hankel treatment also admits non-integral
+rational bases: its generalized <span
 class="math inline">\(q\)</span>-logarithm remarks that its results also
 hold for non-integer <span class="math inline">\(p=r/s\)</span> with
 <span class="math inline">\(|p|&gt;1\)</span>, under an assumption <span
@@ -181,8 +197,8 @@ extension was already contemplated, and because any threshold of that
 shape is a statement about <span class="math inline">\(\log s/\log
 r\)</span> of exactly the kind Section <span
 class="math inline">\(\ref{sec:sevenhalves}\)</span> treats. No claim of
-priority is made for anything below, which concerns the formal status of
-an argument rather than a new theorem about <span
+priority is made for the analysis below. It records the formal status
+and limits of the argument; it does not add a theorem about <span
 class="math inline">\(F(t)\)</span>.</p>
 </section>
 <section id="erdőss-integer-base-argument-in-outline." class="level5">
@@ -203,7 +219,7 @@ class="citation" data-cites="erdos1948"></span>.</p>
 <section id="the-direct-cut-and-clear-attempt-studied-here."
 class="level5">
 <h5>The direct cut-and-clear attempt studied here.</h5>
-<p>A more naive route is to suppose <span
+<p>A more naive attempt is to suppose <span
 class="math inline">\(F(b)=p/q\)</span>, cut at <span
 class="math inline">\(N\)</span>, and multiply the remaining identity by
 <span class="math inline">\(qb^N\)</span>. This does not by itself trap
@@ -211,8 +227,8 @@ a positive integer below <span class="math inline">\(1\)</span>: the
 first uncleared tail contribution is <span
 class="math inline">\(q\tau(N+1)/b\)</span>. The sections below isolate
 additional corridor hypotheses under which a bounded-window version of
-this route would work, and then show why those hypotheses fail at <span
-class="math inline">\(3/2\)</span>.</p>
+this attempt would work, and then show why those hypotheses fail at
+<span class="math inline">\(3/2\)</span>.</p>
 <p>Write <span class="math inline">\(\beta=r/s\)</span> for the base and
 <span class="math inline">\(c(n)\)</span> for the coefficient of <span
 class="math inline">\(\beta^{-n}\)</span>, so that <span
@@ -228,9 +244,9 @@ class="math inline">\(2^{n}\)</span>.</p>
 </section>
 <section id="terminology." class="level5">
 <h5>Terminology.</h5>
-<p>The linear-form route uses polynomial pairs before specialisation and
-integer pairs afterwards. We reserve <em>row</em> for an integer pair
-<span class="math inline">\((U,V)\)</span>. Its <em>integer scalar
+<p>The linear-form method uses polynomial pairs before specialisation
+and integer pairs afterwards. We reserve <em>row</em> for an integer
+pair <span class="math inline">\((U,V)\)</span>. Its <em>integer scalar
 content</em> is <span class="math inline">\(\gcd(|U|,|V|)\)</span>; a
 row is <em>primitive</em> when this number is <span
 class="math inline">\(1\)</span>, and dividing by it is <em>primitive
@@ -243,11 +259,11 @@ the <span class="math inline">\(2\times2\)</span> matrix they form. Two
 quantities attached to that determinant are compared throughout: an
 integer dividing it, which is a local gain, and its absolute value,
 which is an Archimedean cost; we call that comparison the
-<em>local-to-Archimedean balance</em>. The <em>endpoints</em> of a
-coefficient polynomial, taken relative to the declared width <span
-class="math inline">\(W\)</span> of Section <span
-class="math inline">\(\ref{sec:endpoints}\)</span>, are its constant
-coefficient and its coefficient at <span
+<em>local-to-Archimedean balance</em>.</p>
+<p>The <em>endpoints</em> of a coefficient polynomial, taken relative to
+the declared width <span class="math inline">\(W\)</span> of
+Section <span class="math inline">\(\ref{sec:endpoints}\)</span>, are
+its constant coefficient and its coefficient at <span
 class="math inline">\(W\)</span>; we call these the <em>constant
 endpoint</em> and the <em>top endpoint</em>, so the top endpoint is the
 coefficient at <span class="math inline">\(W\)</span> and not the
@@ -269,9 +285,23 @@ specialised coefficient.</p>
 </section>
 <section id="the-shortfall-at-32." class="level5">
 <h5>The shortfall at <span class="math inline">\(3/2\)</span>.</h5>
-<p>The elementary route and the linear-form route are both examined
-below. For the coordinatewise clearing scheme the leftover at each step
-is the forcing term of an exact recurrence, of size at least <span
+<p>The elementary method and the linear-form method are both examined
+below. For the height argument, the exact bracket <span
+class="math inline">\(2^{64}&lt;3^{41}&lt;2^{65}\)</span> gives a gap
+greater than <span class="math inline">\(3/13\)</span> across the whole
+admissible rectangular exponent cone and fixes the <span
+class="math inline">\(39/41\)</span> denominator-charge comparison.
+Neither the source scalar factor nor that factor together with the
+universally forced first-order residual border reaches the required
+charge. These comparisons leave higher residual valuations, determinant
+cancellation, and other integral models untouched. For the additive
+argument, the same bracket replaces the generic <span
+class="math inline">\(4R+2S\)</span> threshold by <span
+class="math inline">\(130T+2S\)</span> at depth <span
+class="math inline">\(R=41T\)</span> and gives an exact first-row
+failure at <span class="math inline">\(T=1\)</span>.</p>
+<p>For the coordinatewise clearing scheme the leftover at each step is
+the forcing term of an exact recurrence, of size at least <span
 class="math inline">\(2^{N+1}\)</span> whenever <span
 class="math inline">\(s\ge2\)</span> and the scaling constant <span
 class="math inline">\(B\)</span> and the coefficient <span
@@ -281,9 +311,9 @@ class="math inline">\(\ref{res:forcing}\)</span>), and the scheme itself
 is excluded at <span class="math inline">\(3/2\)</span> for every shift
 <span class="math inline">\(N\ge1\)</span> and every cleared window of
 width <span class="math inline">\(K\ge1\)</span> (Theorem <span
-class="math inline">\(\ref{res:nocorridor}\)</span>). For the
-linear-form constructions we examine two possible sources of <span
-class="math inline">\(2\)</span>-adic and <span
+class="math inline">\(\ref{res:nocorridor}\)</span>).</p>
+<p>For the linear-form constructions we examine two possible sources of
+<span class="math inline">\(2\)</span>-adic and <span
 class="math inline">\(3\)</span>-adic gain. Integer scalar content is
 exactly neutral, since it scales the exterior determinant and its
 absolute height by the same factor (Theorem <span
@@ -297,9 +327,9 @@ class="math inline">\(\ref{res:nomult}\)</span> states the two scoped
 exclusions together; neither is claimed to be necessary for every
 linear-form proof. Separately, the scalar parameter margin is negative
 under the assumed source inequality (Theorem <span
-class="math inline">\(\ref{res:scalar}\)</span>). One candidate pursued
-here is additive: an integer relation among rows that cancels the
-endpoint jets. Theorem <span
+class="math inline">\(\ref{res:scalar}\)</span>).</p>
+<p>One candidate pursued here is additive: an integer relation among
+rows that cancels the endpoint jets. Theorem <span
 class="math inline">\(\ref{res:jetkernel}\)</span> shows that a nonzero
 relation with coefficients in <span
 class="math inline">\(\{-1,0,1\}\)</span> cancelling all four jets
@@ -310,10 +340,10 @@ resulting combination has a nonzero polynomial pair or a nonzero
 remainder. Problem <span
 class="math inline">\(\ref{prob:kernel}\)</span> gives a precise
 sufficient specification for that particular candidate architecture, not
-a necessary condition for solving Problem #1049. Sections <span
-class="math inline">\(\ref{sec:sevenhalves}\)</span> and <span
-class="math inline">\(\ref{sec:pade}\)</span> record two external routes
-and what each leaves unproved at <span
+a necessary condition for solving Problem #1049.</p>
+<p>Sections <span class="math inline">\(\ref{sec:sevenhalves}\)</span>
+and <span class="math inline">\(\ref{sec:pade}\)</span> record two
+external methods and what each leaves unproved at <span
 class="math inline">\(3/2\)</span>.</p>
 </section>
 <section id="sharpness." class="level5">
@@ -332,216 +362,48 @@ height criterion of <span class="citation" data-cites="bv1994"><a href="#ref-6"
 is restricted by a height condition satisfied at <span
 class="math inline">\(7/2\)</span> and not at <span
 class="math inline">\(3/2\)</span>, so the two bases are separated by
-that criterion rather than by anything proved here.</p>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th class="ta-l">Statement</th>
-<th class="ta-l"> Status</th>
-<th class="ta-l"> Treatment here</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="ta-l">Irrationality of <span
-class="math inline">\(F(3/2)\)</span></td>
-<td class="ta-l"> Open</td>
-<td class="ta-l"> Not proved; the results below exclude
-only named proof architectures and imply no arithmetic property of this
-value.</td>
-</tr>
-<tr>
-<td class="ta-l">Irrationality at some rational non-integer
-base</td>
-<td class="ta-l"> Proved elsewhere</td>
-<td class="ta-l"> The height criterion of <span
-class="citation" data-cites="bv1994"></span>; cited, not
-formalised.</td>
-</tr>
-<tr>
-<td class="ta-l">Nonrationality of the Lambert function
-<span class="math inline">\(\sum_{n\ge1}z^n/(1-z^n)\)</span></td>
-<td class="ta-l"> Proved elsewhere</td>
-<td class="ta-l"><p>Rivin’s Corollary 6.4 <span
-class="citation" data-cites="rivin2026"></span>; a functional statement,
-not a special-value theorem.</p></td>
-</tr>
-<tr>
-<td class="ta-l">Integer scalar content is neutral for the
-local-to-Archimedean balance</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:content}\)</span>, including the absolute
-determinant height.</td>
-</tr>
-<tr>
-<td class="ta-l">Homogeneous endpoint residues at <span
-class="math inline">\((3,2)\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:endpoints}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Common divisor of the two specialised
-evaluations avoids <span class="math inline">\(2\)</span> and <span
-class="math inline">\(3\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Proposition <span
-class="math inline">\(\ref{res:commonmult}\)</span>; under unit endpoint
-hypotheses.</td>
-</tr>
-<tr>
-<td class="ta-l">No gain from integer scalar content or
-from the stated common divisor at <span
-class="math inline">\(3/2\)</span></td>
-<td class="ta-l"> Deduced here</td>
-<td class="ta-l"> Corollary <span
-class="math inline">\(\ref{res:nomult}\)</span>; an ordinary deduction
-from the two preceding rows, not separately formalised.</td>
-</tr>
-<tr>
-<td class="ta-l">Four-jet collision at <span
-class="math inline">\(M\ge4R+2S\)</span> coefficient pairs</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:jetkernel}\)</span>; sufficient, at
-positive bottom depth.</td>
-</tr>
-<tr>
-<td class="ta-l">Scalar margin on Zudilin’s parameter
-cone</td>
-<td class="ta-l"> Negative under source input</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:scalar}\)</span>; the source inequality
-is assumed.</td>
-</tr>
-<tr>
-<td class="ta-l">Corridor forces <span
-class="math inline">\(s^{N+K+1}&lt;r(N+K)\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:corridorbound}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">No corridor at base <span
-class="math inline">\(3/2\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:nocorridor}\)</span>; a statement about
-the clearing scheme.</td>
-</tr>
-<tr>
-<td class="ta-l">Cleared-tail recurrence</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:tailrec}\)</span>, an exact
-identity.</td>
-</tr>
-<tr>
-<td class="ta-l">Forcing term at least <span
-class="math inline">\(2^{N+1}\)</span> for <span
-class="math inline">\(s\ge2\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:forcing}\)</span>; at <span
-class="math inline">\(s=1\)</span> the term is <span
-class="math inline">\(Bc(N+1)\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">The elementary <span
-class="math inline">\(7/2\)</span> height condition</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:sevenhalves}\)</span>; the analytic
-theorem of <span class="citation" data-cites="bv1994"><a href="#ref-6">[6]</a></span> remains
-external.</td>
-</tr>
-<tr>
-<td class="ta-l">Membership of <span
-class="math inline">\(31/4\)</span> and its powers in the <span
-class="math inline">\(81/200\)</span> logarithmic region</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Exact elementary inequalities; no
-analytic irrationality theorem is inferred.</td>
-</tr>
-<tr>
-<td class="ta-l">Exclusion of <span
-class="math inline">\(3/2\)</span> from both recorded height
-regions</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> <span
-class="math inline">\(3^{81}&lt;2^{200}\)</span> gives <span
-class="math inline">\(81/200&lt;\log2/\log3\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Explicit rectangular exponent-model
-threshold does not improve the classical margin</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Algebraic statement about the displayed
-exponent formulas, with equality only at the classical endpoint.</td>
-</tr>
-<tr>
-<td class="ta-l">Padé denominator-exponent bounds</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Section <span
-class="math inline">\(\ref{sec:pade}\)</span>; exponent arithmetic
-only.</td>
-</tr>
-<tr>
-<td class="ta-l">Padé remainder positivity and decay</td>
-<td class="ta-l"> Not treated</td>
-<td class="ta-l"> Section <span
-class="math inline">\(\ref{sec:pade}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Common-width simultaneous endpoint-jet
-construction</td>
-<td class="ta-l"> Candidate sufficient route</td>
-<td class="ta-l"> Problem <span
-class="math inline">\(\ref{prob:kernel}\)</span>; not necessary for
-every proof and not supplied by the collision theorem alone.</td>
-</tr>
-<tr>
-<td class="ta-l">Homogenised cyclotomic values are coprime
-to <span class="math inline">\(ab\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Proposition <span
-class="math inline">\(\ref{res:cyclounit}\)</span>; an imported
-cyclotomic factor supplies no <span class="math inline">\(2\)</span>- or
-<span class="math inline">\(3\)</span>-primary gain at <span
-class="math inline">\(3/2\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">No finite <span
-class="math inline">\(\Q(z)\)</span>-space containing <span
-class="math inline">\(\mathcal L\)</span> stable under <span
-class="math inline">\(z\mapsto z^2\)</span> and <span
-class="math inline">\(z\mapsto z^3\)</span></td>
-<td class="ta-l"> Deduced here from cited theorems</td>
-<td class="ta-l"> Proposition <span
-class="math inline">\(\ref{res:nomahler}\)</span>; closes the
-simultaneous Mahler route only, and uses no property of the point <span
-class="math inline">\(2/3\)</span>.</td>
-</tr>
-</tbody>
-</table>
+that criterion rather than by a universal obstruction. The exponent
+<span class="math inline">\(65\)</span> in <span
+class="math inline">\(3^{41}&lt;2^{65}\)</span> cannot be replaced by
+<span class="math inline">\(64\)</span>. The separate direct comparison
+<span class="math inline">\(2^{129}&lt;3^{82}\)</span> then proves that
+the integer four-jet threshold is exactly <span
+class="math inline">\(130+2S\)</span> when <span
+class="math inline">\(R=41\)</span>: <span
+class="math inline">\(129+2S\)</span> does not suffice.</p>
+<p>For <span class="math inline">\(R=41T\)</span> with <span
+class="math inline">\(T&gt;1\)</span>, the displayed <span
+class="math inline">\(130T+2S\)</span> bound is uniform and sufficient,
+but no claim of exact optimality at every <span
+class="math inline">\(T\)</span> is made.</p>
+</section>
+<section id="results-and-boundary." class="level5">
+<h5>Results and boundary.</h5>
+<p>The linked Lean declarations establish exact inequalities,
+congruences, finite collision counts, recurrence identities, and
+exclusions for the named models. Bundschuh and Väänänen’s irrationality
+theorem at <span class="math inline">\(7/2\)</span>, Rivin’s functional
+nonrationality theorem, and the two-variable Mahler theorem used below
+remain external results. None of the formal statements proves an
+irrationality result at a rational noninteger base. At <span
+class="math inline">\(3/2\)</span>, the missing step is still an actual
+primitive approximation family with nonzero remainder and an asymptotic
+height margin.</p>
 </section>
 <section id="structure." class="level5">
 <h5>Structure.</h5>
-<p>Section <span class="math inline">\(\ref{sec:primitive}\)</span>
-proves that integer scalar content is neutral for the
-local-to-Archimedean balance. Section <span
-class="math inline">\(\ref{sec:endpoints}\)</span> proves the endpoint
-congruences at <span class="math inline">\((3,2)\)</span>, deduces from
-them and from Section <span
-class="math inline">\(\ref{sec:primitive}\)</span> that neither integer
-scalar content nor a common divisor of the two specialised evaluations
-supplies the targeted endpoint gain, gives the four-jet collision count,
+<p>Section <span class="math inline">\(\ref{sec:sharp}\)</span> derives
+the height and charge exclusions from the sharp <span
+class="math inline">\(41/65\)</span> power certificate. Section <span
+class="math inline">\(\ref{sec:primitive}\)</span> proves that integer
+scalar content is neutral for the local-to-Archimedean balance.</p>
+<p>Section <span class="math inline">\(\ref{sec:endpoints}\)</span>
+proves the endpoint congruences at <span
+class="math inline">\((3,2)\)</span>, deduces from them and from
+Section <span class="math inline">\(\ref{sec:primitive}\)</span> that
+neither integer scalar content nor a common divisor of the two
+specialised evaluations supplies the targeted endpoint gain, gives the
+four-jet collision count and its conditional Bézout–Plücker compression,
 and records one further exclusion on Zudilin’s scalar parameters.
 Sections <span class="math inline">\(\ref{sec:corridor}\)</span>
 and <span class="math inline">\(\ref{sec:tail}\)</span> return to the
@@ -556,11 +418,80 @@ class="math inline">\(81/200\)</span> logarithmic comparison.
 Section <span class="math inline">\(\ref{sec:open}\)</span> separates
 kernel escape from asymptotic adequacy and states the remaining
 obligations. Linked phrases open the corresponding Lean declaration at
-the pinned source revision .</p>
+the pinned source revision 99f4bf47422a.</p>
 <p><strong>Keywords.</strong> irrationality; Lambert series; rational
 base; Padé approximation; Lean 4. <strong>MSC 2020.</strong> 11J72
 (primary); 11J82, 68V20 (secondary).</p>
 </section>
+</section>
+<section id="sec:sharp" class="level2">
+<h2>The sharp <span class="math inline">\(41/65\)</span>
+certificate</h2>
+<p>The numerical obstruction at <span class="math inline">\(3/2\)</span>
+is controlled by one small exact calculation. Writing it out is useful
+because the upper and lower inequalities play different roles: the upper
+inequality proves every strict analytic threshold below, while the lower
+inequality establishes the sharp rational scale. Exact failure of the
+rank-<span class="math inline">\(41\)</span> selector count one row
+earlier uses the additional integer comparison <span
+class="math inline">\(2^{129}&lt;3^{82}\)</span> below.</p>
+<div class="proof">
+<p><em>Proof.</em> Direct evaluation gives <span
+class="math display">\[\begin{aligned}
+2^{64}&amp;=18446744073709551616,\\
+3^{41}&amp;=36472996377170786403,\\
+2^{65}&amp;=36893488147419103232.
+\end{aligned}\]</span> The logarithmic inequalities follow by taking
+logarithms and dividing by the positive numbers <span
+class="math inline">\(41\log3\)</span> and <span
+class="math inline">\(41\log2\)</span>, respectively. ◻</p>
+</div>
+<p>The integer sides are checked as and .</p>
+<p>The upper half is stronger than the earlier <span
+class="math inline">\(81/200\)</span> comparison in the direction needed
+at <span class="math inline">\(3/2\)</span>. Combining it with the
+elementary bound <span class="math inline">\(1/2-1/\pi^2&lt;2/5\)</span>
+gives the following exact deficits.</p>
+<p>For <span class="math inline">\(\rho,\sigma\in\R\)</span>, write
+<span class="math display">\[\Theta_{\mathrm{HP}}(\rho,\sigma)=
+\frac{(1+\rho^2)/2+\sigma-3\sigma^2/\pi^2}
+{(1+\rho)^2/2+\sigma(1+\rho)+(1+\rho^2)/2+\sigma}.\]</span></p>
+<div class="proof">
+<p><em>Proof.</em> The first inequality follows from <span
+class="math inline">\(41/65-2/5=3/13\)</span>, Theorem <span
+class="math inline">\(\ref{res:powerbracket}\)</span>, and <span
+class="math inline">\(1/2-1/\pi^2&lt;2/5\)</span>. The rectangular
+threshold is no larger than the classical margin <span
+class="math inline">\(1/2-1/\pi^2\)</span>, so the second follows. The
+final inequality is a direct rearrangement of <span
+class="math inline">\(\log3/\log2&lt;65/41\)</span>. ◻</p>
+</div>
+<p>The uniform rectangular bound and cubic charge bound are and .</p>
+<p>The next statement is the source-facing charge comparison. It does
+not prove the degree ceilings: those come from the scalar factor and the
+universally forced first-order southeast-border factor in the Zudilin
+model. It proves that even granting those ceilings, neither extraction
+reaches the required <span class="math inline">\(39/41\)</span> fraction
+of the raw charge.</p>
+<div class="proof">
+<p><em>Proof.</em> After subtraction, the first inequality is <span
+class="math display">\[N(115N^2-117N+41)&gt;0,\]</span> which holds for
+<span class="math inline">\(N&gt;0\)</span>. The second becomes <span
+class="math display">\[N(74N^2-117N+41)&gt;0.\]</span> For <span
+class="math inline">\(N\ge2\)</span> the quadratic factor is positive
+and increasing. The assertions for <span
+class="math inline">\(E\)</span> follow by monotonicity. ◻</p>
+</div>
+<p>The application-facing downward-closed forms are and .</p>
+<p>The formal source checks Theorem <span
+class="math inline">\(\ref{res:powerbracket}\)</span>, Corollary <span
+class="math inline">\(\ref{res:sharpgaps}\)</span>, and Theorem <span
+class="math inline">\(\ref{res:chargeceilings}\)</span> as exact Lean
+propositions. Their role is exclusion: scalar content and the forced
+first-order border do not supply enough charge. Higher residual
+valuations, determinant cancellation, a different integral model, and
+irrationality of <span class="math inline">\(F(3/2)\)</span> remain
+open.</p>
 </section>
 <section id="sec:primitive" class="level2">
 <h2>Integer scalar content is neutral</h2>
@@ -579,8 +510,8 @@ row at <span class="math inline">\(S\)</span>; a good approximation is
 one that makes it small. The second expression is the exterior
 determinant of the two rows, and it eliminates <span
 class="math inline">\(S\)</span> exactly: <span
-class="math display">\[\Delta=U_mL_S(U_n,V_n)-U_nL_S(U_m,V_m).\]</span>
-This identity is what makes the determinant useful. Since <span
+class="math display">\[\Delta=U_mL_S(U_n,V_n)-U_nL_S(U_m,V_m).\]</span></p>
+<p>This identity is what makes the determinant useful. Since <span
 class="math inline">\(\Delta\)</span> is an integer, if it does not
 vanish then <span class="math display">\[1\le|\Delta|
   \le|U_m|\,\bigl|L_S(U_n,V_n)\bigr|+|U_n|\,\bigl|L_S(U_m,V_m)\bigr|,\]</span>
@@ -751,9 +682,9 @@ height, and that is a different account of the same product formula. It
 does say that the <span class="math inline">\(2\)</span>- and <span
 class="math inline">\(3\)</span>-primary gain the architecture of
 Section <span class="math inline">\(\ref{sec:open}\)</span> requires
-must come from somewhere other than an imported cyclotomic factor, and
-it is one reason the exclusions above are not merely local accidents of
-the two primes involved.</p>
+must come from somewhere other than an imported cyclotomic factor. The
+exclusions therefore reflect the architecture itself, beyond the local
+behaviour of the two primes involved.</p>
 <p>Both ingredients are Lean-checked; the combination is an ordinary
 deduction and is not separately formalised. The corollary excludes two
 ways of producing the targeted gain. It does not show that a gain of
@@ -779,8 +710,9 @@ class="math inline">\(\ref{res:endpoints}\)</span> computes them at
 <span class="math inline">\(R=S=1\)</span>. Their vanishing is exactly
 the requested divisibility: <span
 class="math display">\[J_{3,R}(P)=0\iff 3^R\mid H_W(P),\qquad
-J_{2,S}(P)=0\iff 2^S\mid H_W(P).\]</span> These are the checked and .
-The <em>four-jet signature</em> of a coefficient pair <span
+J_{2,S}(P)=0\iff 2^S\mid H_W(P).\]</span> These are the checked and
+.</p>
+<p>The <em>four-jet signature</em> of a coefficient pair <span
 class="math inline">\((U,V)\)</span> is then the quadruple <span
 class="math display">\[\bigl(J_{3,R}(U),J_{3,R}(V),J_{2,S}(U),J_{2,S}(V)\bigr)
 \in(\Z/3^R\Z)^2\times(\Z/2^S\Z)^2 ,\]</span> two residues for each of
@@ -805,6 +737,68 @@ cardinalities. For <span class="math inline">\(R&gt;0\)</span>, <span
 class="math display">\[(3^R)^2(2^S)^2&lt;(4^R)^2(2^S)^2=2^{4R+2S}\le2^M,\]</span>
 which proves the stated sufficient threshold. ◻</p>
 </div>
+<p>The power bracket improves the generic coefficient <span
+class="math inline">\(4R\)</span> when the bottom depth is a multiple of
+<span class="math inline">\(41\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> The upper power inequality gives <span
+class="math display">\[(3^{41T})^2(2^S)^2
+&lt;(2^{65})^{2T}(2^S)^2=2^{130T+2S}\le2^M,\]</span> so Theorem <span
+class="math inline">\(\ref{res:jetkernel}\)</span> applies. For <span
+class="math inline">\(T=1\)</span>, direct integer evaluation gives
+<span class="math inline">\(2^{129}&lt;3^{82}\)</span>; multiplying by
+<span class="math inline">\((2^S)^2\)</span> gives the displayed reverse
+count at <span class="math inline">\(129+2S\)</span>. ◻</p>
+</div>
+<p>The sufficient collision threshold is , while its exact unit-block
+failure one row earlier is .</p>
+<p>Counting alone does not ensure that the two selectors produce
+different analytic remainders. The exact missing step is a bounded-fibre
+estimate.</p>
+<div class="proof">
+<p><em>Proof.</em> If every pair in a common <span
+class="math inline">\(f\)</span>-fibre also had the same <span
+class="math inline">\(g\)</span>-value, each <span
+class="math inline">\(f\)</span>-fibre would lie in one <span
+class="math inline">\(g\)</span>-fibre and hence have size at most <span
+class="math inline">\(k\)</span>. Summing over the at most <span
+class="math inline">\(|B|\)</span> fibres of <span
+class="math inline">\(f\)</span> would give <span
+class="math inline">\(|A|\le |B|k\)</span>, contrary to the
+hypothesis. ◻</p>
+</div>
+<p>This finite escape principle is .</p>
+<div class="proof">
+<p><em>Proof.</em> A unit second coordinate makes each row a unimodular
+anchor. Vanishing of the next minor therefore writes the next row as a
+scalar multiple of the current one; induction places the entire tail on
+the line through <span class="math inline">\(w_0\)</span> and proves the
+pairwise-minor assertion. A determinant-one Bézout shear sends <span
+class="math inline">\(w_0\)</span> to <span
+class="math inline">\((1,0)\)</span>, so all selector sums have only one
+free residue coordinate and occupy at most <span
+class="math inline">\(2^S3^R\)</span> values. Finally <span
+class="math display">\[2^S3^R&lt;2^S4^R=2^{S+2R}\le2^k,\]</span> and
+pigeonhole gives the two selectors. ◻</p>
+</div>
+<p>The minor propagation is ; the one-dimensional collision after a
+Bézout shear is ; and the explicit <span
+class="math inline">\(2\)</span>/<span
+class="math inline">\(3\)</span>-depth endpoint is . This conditional
+theorem is stronger than the ambient four-jet count only after its
+minor-vanishing hypothesis has been established. No such all-tail
+hypothesis is proved here for an actual <span
+class="math inline">\(q\)</span>-Apéry or Zudilin family, and the
+theorem says nothing about whether the resulting selector difference has
+nonzero analytic remainder.</p>
+<p><strong>Boundary.</strong> Corollary <span
+class="math inline">\(\ref{res:rankfortyone}\)</span> is a sharp finite
+kernel statement at <span class="math inline">\(T=1\)</span>, not an
+analytic nonvanishing theorem. Theorem <span
+class="math inline">\(\ref{res:boundedfibre}\)</span> identifies the
+precise extra input needed to escape the nullspace, but this paper does
+not prove a multiplicity bound for the actual <span
+class="math inline">\(q\)</span>-Apéry or Zudilin remainder family.</p>
 <p>The target count is the checked ; the abstract collision is the
 checked , and the linear sufficient condition is the checked . The count
 is a routine pigeonhole; the reformulation above is what makes it
@@ -830,15 +824,16 @@ polynomials.</p>
 class="math inline">\(3^{C_0}&lt;2^{C_1}\)</span>. The inequality is
 immediate from <span class="math inline">\(\log3&lt;2\log2\)</span> and
 <span class="math inline">\(C_1&gt;0\)</span>, and is the checked . The
-interest is in the fence around it. The primary Zudilin theorem <span
-class="citation" data-cites="zudilin2004"></span> supplies an
-integer-base irrationality-exponent estimate on its parameter cone, and
-the elementary inequality <span class="math inline">\(\mu\ge2\)</span>
-then forces <span class="math inline">\(2C_0\le C_1\)</span> whenever
-<span class="math inline">\(C_0&gt;0\)</span>; Lean checks that
-implication separately. The primary theorem assumes an integer base
-<span class="math inline">\(p=1/q\)</span>. It does not state a rational
-<span class="math inline">\(p=3/2\)</span> theorem, so the all-scale
+positive-branch deficit is the checked . The interest is in the fence
+around it. The primary Zudilin theorem <span class="citation"
+data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> supplies an integer-base
+irrationality-exponent estimate on its parameter cone, and the
+elementary inequality <span class="math inline">\(\mu\ge2\)</span> then
+forces <span class="math inline">\(2C_0\le C_1\)</span> whenever <span
+class="math inline">\(C_0&gt;0\)</span>; Lean checks that implication
+separately. The primary theorem assumes an integer base <span
+class="math inline">\(p=1/q\)</span>. It does not state a rational <span
+class="math inline">\(p=3/2\)</span> theorem, so the all-scale
 coefficient construction and rational specialisation remain external to
 the checked result, which is the scalar parameter margin alone.</p>
 </section>
@@ -1129,7 +1124,7 @@ before specialisation, cross-row or determinant-specific arithmetic,
 cyclotomic factors, other additive constructions, and entirely different
 architectures remain outside that corollary and are not decided either
 way.</p>
-<p>The remaining linear-form programme therefore has two independent
+<p>The remaining linear-form argument therefore has two independent
 gates: first find a four-jet collision that does not collapse
 algebraically or analytically; only then ask whether its divisibility
 and decay beat its height. We state those gates separately below.</p>
@@ -1148,8 +1143,8 @@ class="math inline">\(\Z[X]^2\)</span> is divided out before
 specialisation; as the Terminology paragraph records, that is a
 different operation from primitive normalisation of a specialised
 integer row, which is what Problem <span
-class="math inline">\(\ref{prob:kernel}\)</span> imposes. The
-specialised row content <span
+class="math inline">\(\ref{prob:kernel}\)</span> imposes.</p>
+<p>The specialised row content <span
 class="math display">\[g^{\mathrm{spec}}_{n,j}
 =\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)\]</span> and the
 content of a final additive combination are separate quantities; they
@@ -1205,8 +1200,8 @@ class="math inline">\(\ref{prob:kernel}\)</span>: it asks for the two
 nonvanishing conclusions, and not for the analytic condition stated
 there.</p>
 </section>
-<section id="the-first-falsifiable-families" class="level3">
-<h3>The first falsifiable families</h3>
+<section id="determinant-families" class="level3">
+<h3>Determinant families</h3>
 <p>An exploratory calculation suggests a contiguous <span
 class="math inline">\(a_0\)</span>-shift determinant at <span
 class="math inline">\(r_n=13n+2\)</span>, after apparent failure of
@@ -1237,14 +1232,14 @@ excellent formal decay is irrelevant if every jet collision lies in a
 bad nullspace. The exploratory adjacent-exterior calculation leaves a
 positive normalised exponent of about <span
 class="math inline">\(110.850\,n^2\)</span>; this is not a checked
-theorem. Any proposed improvement must remove this explicit deficit
-rather than merely exhibit some extra divisibility.</p>
+theorem. Any proposed improvement must remove this explicit deficit;
+extra divisibility alone is insufficient.</p>
 </section>
 <section id="one-exact-alternative-criterion-test" class="level3">
 <h3>One exact alternative-criterion test</h3>
-<p>A separate possible route is Mahler’s method. Its first applicability
-test has an exact negative answer, which we record here; an earlier
-version of this note left it open.</p>
+<p>A separate possible method is Mahler’s method. Its first
+applicability test has an exact negative answer, which we record here;
+an earlier version of this note left it open.</p>
 <div class="proof">
 <p><em>Proof.</em> Suppose <span class="math inline">\(V\)</span> were
 such a space, of dimension <span class="math inline">\(d\)</span>.
@@ -1279,8 +1274,8 @@ that do not require stability under two multiplicatively independent
 substitutions, or about special-value theorems reached by other means.
 Neither ingredient is proved here; both are cited.</p>
 </section>
-<section id="the-quantitative-height-frontier" class="level3">
-<h3>The quantitative height frontier</h3>
+<section id="the-quantitative-height-limitation" class="level3">
+<h3>The quantitative height limitation</h3>
 <p>The module <code>HermitePadeNoGo</code> defines an explicit
 rectangular two-parameter exponent model. Writing <span
 class="math inline">\(\sigma=1+\rho+u\)</span>, its denominator-cleared
@@ -1305,8 +1300,8 @@ class="math display">\[\frac{81}{200}&lt;\frac{\log2}{\log3}.\]</span>
 Thus “improve the height theorem” has a precise numerical target.</p>
 <p>Reaching <span class="math inline">\(3/2\)</span> requires a
 threshold strictly beyond <span
-class="math inline">\(\log2/\log3\approx0.6309\)</span>, not merely an
-improvement over <span class="math inline">\(81/200=0.405\)</span>. The
+class="math inline">\(\log2/\log3\approx0.6309\)</span>; exceeding <span
+class="math inline">\(81/200=0.405\)</span> is insufficient. The
 unrestricted question of which rational bases give irrational values
 remains open and is not reduced to any one of these problems.</p>
 </section>
@@ -1314,26 +1309,10 @@ remains open and is not reduced to any one of these problems.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. This manuscript provides navigation rather than proof
 authority.</p>
-</section>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority. Lean checks each proof
-term against the fixed library version, and the sources linked here
-contain no proof placeholders and no project-defined axioms; Lean does
-not authorise the exposition, the citation choices, or the
-interpretation, for which the author remains responsible.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -1344,25 +1323,27 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>.</p>
+data-cites="erdosproblems"><a href="#ref-16">[16]</a></span>.</p>
 </section>
 </section>
 </section>
 <section id="app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision . The declarations of this note live in six modules:
-<code>RationalBaseLambert</code>,
+revision 99f4bf47422a. The declarations of this note live in seven
+modules: <code>RationalBaseLambert</code>,
 <code>QAperyDiagonalNonEquivalence</code>,
 <code>RationalPadeArithmetic</code>, <code>ZudilinConeArithmetic</code>,
-<code>ZudilinHeightRegion</code>, and <code>HermitePadeNoGo</code>. The
-first contains the corridor, cleared-tail recurrence, and elementary
-<span class="math inline">\(7/2\)</span> certificate; the second checks
-the finite <span class="math inline">\(n=0\)</span> diagonal residual;
-the remaining four separate the Padé exponent arithmetic, endpoint
-arithmetic, logarithmic comparisons, and rectangular exponent model. The
-link coordinates are validated against that pinned revision, so they
-remain correct as later work moves lines in the working tree.</p>
+<code>ZudilinHeightRegion</code>, <code>HermitePadeNoGo</code>, and
+<code>BezoutPluckerJets</code>. The first contains the corridor,
+cleared-tail recurrence, and elementary <span
+class="math inline">\(7/2\)</span> certificate; the second checks the
+finite <span class="math inline">\(n=0\)</span> diagonal residual; the
+remaining four separate the Padé exponent arithmetic, endpoint
+arithmetic, logarithmic comparisons, rectangular exponent model, and
+Bézout–Plücker tail collapse. The link coordinates are validated against
+that pinned revision, so they remain correct as later work moves lines
+in the working tree.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -1397,11 +1378,11 @@ href="https://numdam.org/item/CM_1994__91_2_175_0.pdf"><em>Arithmetical
 investigations of a certain infinite product</em></a>, Compositio Math.
 <strong>91</strong> (1994), no. 2, 175–199.</p></li>
 <li id="ref-7"><p>W. Zudilin, <a
-href="https://www.impan.pl/shop/en/publication/transaction/download/product/82435"><em>Heine’s
+href="https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/"><em>Heine’s
 basic transform and a permutation group for <span
 class="math inline">\(q\)</span>-harmonic series</em></a>, Acta Arith.
-<strong>111</strong> (2004), no. 2, 153–164, doi:<a
-href="https://doi.org/10.4064/aa111-2-4">10.4064/aa111-2-4</a>.</p></li>
+<strong>111</strong> (2004), no. 2, 153–164,
+doi:10.4064/aa111-2-4.</p></li>
 <li id="ref-8"><p>W. Zudilin, <a
 href="https://arxiv.org/abs/1601.02688"><em>Irrationality of the
 generalized <span class="math inline">\(q\)</span>-logarithm</em></a>,
@@ -1423,10 +1404,12 @@ Theorem 1: over a field of characteristic zero, a power series is both
 class="math inline">\(\ell\)</span>-Mahler for multiplicatively
 independent <span class="math inline">\(k,\ell\)</span> if and only if
 it is a rational function.</p></li>
-<li id="ref-10"><p>G. Rhin and C. Viola, <em>On a permutation group related to <span
-class="math inline">\(\zeta(2)\)</span></em>, Acta Arith.
-<strong>77</strong> (1996), no. 1, 23–56, doi:<a
-href="https://doi.org/10.4064/aa-77-1-23-56">10.4064/aa-77-1-23-56</a>.</p></li>
+<li id="ref-10"><p>G. Rhin and C. Viola, <a
+href="https://geodesic.mathdoc.fr/articles/10.4064/aa-77-1-23-56/"><em>On
+a permutation group related to <span
+class="math inline">\(\zeta(2)\)</span></em></a>, Acta Arith.
+<strong>77</strong> (1996), no. 1, 23–56,
+doi:10.4064/aa-77-1-23-56.</p></li>
 <li id="ref-11"><p>W. Van Assche, <a
 href="https://arxiv.org/abs/math/0101187"><em>Little <span
 class="math inline">\(q\)</span>-Legendre polynomials and irrationality
@@ -1437,16 +1420,22 @@ href="https://doi.org/10.1023/A:1012930828917">10.1023/A:1012930828917</a>.</p><
 incomplete argument of Erdős on the irrationality of Lambert
 series</em></a>, Integers <strong>13</strong> (2013), Paper
 A58.</p></li>
-<li id="ref-13"><p>I. Rivin, <a href="https://arxiv.org/abs/2604.25151"><em>Zero
+<li id="ref-13"><p>F. Luca and Y. Tachiya, <a
+href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"><em>Linear
+independence results for the values of divisor functions
+series</em></a>, RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A on
+p. 139 restates the periodic-coefficient irrationality theorem;
+Example 1 on p. 140 gives the divisor-function specialization.</p></li>
+<li id="ref-14"><p>I. Rivin, <a href="https://arxiv.org/abs/2604.25151"><em>Zero
 Coefficients of Rational Power Series and Rational Lambert
 Series</em></a>, arXiv:2604.25151v1, 2026. Theorem 1.1 is on p. 2 and
 proved on pp. 6–7; the periodic-coefficient Corollary 6.4 is on
 p. 9.</p></li>
-<li id="ref-14"><p>V. Kovač and T. Tao, <a
+<li id="ref-15"><p>V. Kovač and T. Tao, <a
 href="https://arxiv.org/abs/2406.17593"><em>On several irrationality
 problems for Ahmes series</em></a>, Acta Math. Hungar.
 <strong>175</strong> (2025), 572–608; arXiv:2406.17593, 2024.</p></li>
-<li id="ref-15"><p>T. F. Bloom, <a
+<li id="ref-16"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/1049"><em>Erdős Problem
 #1049</em></a>, <code>erdosproblems.com/1049</code>, accessed 28 July
 2026 (page displays “last edited 28 September 2025”). The current record
@@ -1454,7 +1443,7 @@ labels the problem open, cites <span class="upright">[Er88c,
 p. 102]</span> and <span class="upright">[Er48]</span>, and explicitly
 describes its status as the website owner’s present assessment rather
 than a literature-completeness guarantee.</p></li>
-<li id="ref-16"><p>The Formal Conjectures Authors, <a
+<li id="ref-17"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/1049.lean"><em>FormalConjectures.ErdosProblems.<code>1049</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2026, accessed 28 July 2026.
 The irrationality declarations are unproved; the Lambert-series identity

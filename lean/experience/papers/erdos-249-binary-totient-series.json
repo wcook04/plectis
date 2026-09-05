@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 19,
+  "pages": 27,
   "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
   "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+    "renderer_contract_version": 14,
+    "source_sha256": "c0b231a545c4547119ade449712a9b3a7abb5f24f8c86d1bfef52d195c57c2d3",
     "publication_manifest_match": true,
-    "mathml_node_count": 496,
+    "mathml_node_count": 715,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "258061e08e99783a94f55e8d197785af19f9277339f5d8ee665f708851462bf4",
-    "html_exact_tex_sha256": "33f1471dabf12a4a4a8cb761a784fd054d3abec6deb132b87508538cbb9ba53e"
+    "html_mathml_sha256": "f1901e7e5e71a1163d81b55d00fae5494b0396e809eb52210d8574add0163f6c",
+    "html_exact_tex_sha256": "c022626f54a926b73075eb44ae76482aa85b63b086f2332e7de4fedc5983f404"
   },
   "sections": [
     {
@@ -88,12 +88,42 @@
     {
       "level": 2,
       "anchor": null,
+      "label": "Fresh-prime losses in the diagonal probes"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Finite square-CRT correction suppression."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Canonical strict-jump slack."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Finite foreign-residue projection."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The actual LCM orbit: exact frontier and sign trap."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A quantitative separation criterion."
+    },
+    {
+      "level": 2,
+      "anchor": null,
       "label": "Obstructions for fixed-coordinate methods"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Further conditional criteria"
+      "label": "Conditional criteria"
     },
     {
       "level": 5,
@@ -123,7 +153,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "Stronger sufficient producer problems"
+      "label": "Exact full-depth reduction and a stronger sufficient condition"
     },
     {
       "level": 3,
@@ -153,7 +183,7 @@
     {
       "level": 5,
       "anchor": null,
-      "label": "Registry coverage."
+      "label": "Claim status."
     },
     {
       "level": 2,

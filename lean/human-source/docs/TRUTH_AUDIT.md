@@ -32,6 +32,16 @@ The central distinction used below is:
 - **CONDITIONAL** means the Lean implication is proved, but one or more
   hypotheses have no known instance or are known to fail in the intended use.
 
+## #1041 source-frontier supersession
+
+The committed source-only [`research_corpus/Erdos1041/FRONTIER.md`](../research_corpus/Erdos1041/FRONTIER.md)
+is the dated correction route for the current #1041 research state. Read it
+before generated `STRONGEST_RESULTS.json`: the frontier supersedes activation
+rows it records as refuted, while preserving the surviving carriers, exact
+open gaps, and their stated evidence classes. This is source-level research
+lineage, not a transition in `docs/claims.json`; it does not close #1041 or
+establish peer review, priority, novelty, or significance.
+
 ## Census populations are not interchangeable
 
 The corpus-shape queries and the demand lattice answer different questions.
@@ -40,13 +50,15 @@ At this checkpoint the semantic graph yields three diagnostic views across every
 
 | View | #68 | #243 | #249 | #251 | #257 | #269 | #1041 | #1049 | both | shared | total |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| mechanically nonrecurring candidates | 0 | 3 | 88 | 0 | 168 | 0 | 0 | 5 | 0 | 19 | 283 |
+| mechanically nonrecurring candidates | 0 | 3 | 89 | 0 | 168 | 0 | 0 | 5 | 0 | 19 | 284 |
 | classical/prior-art formalisations | 0 | 1 | 36 | 0 | 23 | 0 | 0 | 1 | 0 | 40 | 101 |
 | bare open-problem equivalences | 0 | 0 | 15 | 0 | 15 | 0 | 0 | 0 | 0 | 2 | 32 |
 
-The graph contains 1,113 authored statement nodes above 4,973 exact source-structural families. The views overlap and are not a partition of either tier.
+The graph contains 1,115 authored statement nodes above 5,246 exact source-structural families. The views overlap and are not a partition of either tier.
 
-The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 228 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
+The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 229 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
+
+Of 23 substantial Lean propositions extracted from hypotheses of conditional theorems, 17 are provably equivalent to an endpoint: 14 to #249 and 3 to the `1/2` membership test for #257. Equivalence here is kernel-checked against the extracted proposition, not a claim that either endpoint is settled.
 <!-- END semantic_public_census -->
 
 The `17/23` count is a narrower kernel-checked audit. It starts from 259
@@ -526,9 +538,10 @@ independent theorem content.
 remained read-only in this lane. The publication owner has since updated the
 worked example to the current bounded theorem—one checked certificate at every
 lcm-diagonal scale `t ≤ 82`, with nothing asserted at `t = 83`—while retaining
-the older 28-point aggregator only as historical provenance. The source is
-currently 901 lines, so the requested aggressive compression remains open even
-though the mathematical snapshot is current.
+the older 28-point aggregator only as historical provenance. The requested
+aggressive compression remains open in the protected publication lane; this
+audit deliberately makes no volatile current line-count claim. The mathematical
+snapshot remains bounded at `t ≤ 82`, with the unbounded supply open.
 
 A claim-preserving revision can fit within 462 lines by keeping each argument
 once:

@@ -67,6 +67,45 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"
     },
     {
+      "id": "erdos_support_pairwise_coprime",
+      "problem": 257,
+      "review_family": "pairwise_coprime_support",
+      "claim_id": "support_families",
+      "contribution_class": "formalisation of an existing theorem",
+      "original_declaration": "Erdos249257.irrational_erdosSupportSeries_pairwise_coprime",
+      "original_source": "Erdos249257/CertificateKernel.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSupportSeries_pairwise_coprime",
+      "statement": "For every integer base b >= 2 and every infinite pairwise-coprime support A with summable reciprocal mass, the support-restricted Mersenne series is irrational.",
+      "boundary": "This is the pairwise-coprime support theorem, not universal Erdos #257; the infinitude, pairwise-coprimality, and summable-reciprocal hypotheses remain explicit.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"
+    },
+    {
+      "id": "periodic_nonnegative_weight_irrationality",
+      "problem": 257,
+      "review_family": "periodic_nonnegative_weight_irrationality",
+      "claim_id": "periodic_nonnegative_weight_irrationality",
+      "contribution_class": "formalised here; novelty unassessed",
+      "original_declaration": "Erdos249257.irrational_ratWeightSeries_eventuallyPeriodic",
+      "original_source": "Erdos249257/CertificateKernel.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_ratWeightSeries_eventuallyPeriodic",
+      "statement": "For every integer base b >= 2 and every eventually-periodic nonnegative rational coefficient sequence γ with a positive value at a positive index in its periodic region, the series sum_a γ(a)/(b^a - 1) is irrational.",
+      "boundary": "This is the nonnegative rational eventually-periodic coefficient theorem; its nonnegativity, eventual periodicity, and positive-tail hypotheses remain explicit, and the broader mixed-sign periodic theorem is not claimed.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"
+    },
+    {
+      "id": "orthogonal_petal_sunflower_reduction",
+      "problem": 257,
+      "review_family": "orthogonal_petal_sunflower_reduction",
+      "claim_id": "orthogonal_petal_sunflower_reduction",
+      "contribution_class": "conditional reduction; novelty unassessed",
+      "original_declaration": "Erdos249257.SupportSunflowerDichotomy.irrational_erdosSupportSeries_of_orthogonalPetalBouquet",
+      "original_source": "Erdos249257/SupportSunflowerDichotomy.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSupportSeries_of_orthogonalPetalBouquet",
+      "statement": "For every support A carrying the finite-core OrthogonalPetalBouquet structure and satisfying the exact uniform SunflowerForcedSlotTailSelection predicate, the base-2 support-restricted Mersenne series erdosSupportSeries 2 A is irrational.",
+      "boundary": "This is a conditional reduction: the bouquet structure and uniform tail-selection predicate remain hypotheses; neither is constructed for arbitrary supports, so this does not add an unconditional Erdos #257 support family or solve the universal problem.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/SupportSunflowerDichotomy.lean"
+    },
+    {
       "id": "finite_period_noncollapse",
       "problem": 257,
       "review_family": "finite_period_noncollapse",
@@ -89,6 +128,82 @@
       "statement": "A support-restricted Mersenne achievement set has exact finite-complement measure or measure zero for infinite complement.",
       "boundary": "The measure dichotomy does not classify rational points.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+    },
+    {
+      "id": "shifted_odd_tail_nat_state",
+      "problem": 257,
+      "review_family": "shifted_odd_tail_state",
+      "contribution_class": "conditional reduction",
+      "original_declaration": "Erdos249257.exists_shifted_odd_tail_nat_states_of_support_fraction",
+      "original_source": "Erdos249257/RationalSupportCarrySkeleton.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.exists_shifted_odd_tail_nat_states_of_support_fraction",
+      "statement": "A rational support value with a positive support seed and denominator 2^c*v produces a positive natural shifted tail state with an exact binary recurrence and a modular doubling orbit modulo v.",
+      "boundary": "This state-extraction theorem does not exclude rational infinite supports or settle universal Erdős #257; the support and rational-value hypotheses remain explicit.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/RationalSupportCarrySkeleton.lean"
+    },
+    {
+      "id": "boolean_mobius_carry",
+      "problem": 257,
+      "review_family": "boolean_mobius_carry",
+      "claim_id": "boolean_mobius_carry",
+      "contribution_class": "locally proved exact equivalence plus conditional consequences; novelty unassessed",
+      "original_declaration": "Erdos249257.exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
+      "original_source": "Erdos249257/BooleanMobiusCarry.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
+      "statement": "For p : ℤ and q > 0, a nonempty positive-index support with erdosSupportSeries 2 A = p/q exists exactly when a quotient-only Boolean–Möbius carry certificate exists, with positive square-root-bounded integer orbit, divisible carry differences, and support reconstructed from its Boolean Möbius transform.",
+      "boundary": "The equivalence is stated at the existence level with q > 0, 0 ∉ A, and a positive support witness; it gives no contradiction, no universal Erdős #257 irrationality result, and no producer of cofinally nonintegral shifts for the actual recurrence. The generic tempered-orbit theorem and the reciprocal-mass, unbounded-tail, and zero-window results are subordinate consequences, not separate families; the zero-window constant depends on the support and numerator and is not uniform. This does not settle every infinite support, and no novelty, priority, significance, external-review, or unrestricted #257 endpoint claim is made.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/BooleanMobiusCarry.lean"
+    },
+    {
+      "id": "boolean_mobius_exact_row_dynamics",
+      "problem": 257,
+      "review_family": "boolean_mobius_exact_row_dynamics",
+      "contribution_class": "conditional reduction; novelty unassessed",
+      "original_declaration": "Erdos249257.half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips",
+      "original_source": "Erdos249257/BooleanMobiusSkipRowCofinal.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips",
+      "statement": "If positive rational-greedy skips occur cofinally in the declared sense, the skipped-core construction supplies cofinally many exact local Mersenne half rows and hence (1 / 2 : ℝ) belongs to the Mersenne achievement set.",
+      "boundary": "This route is conditional on the unproved CofinalPositiveHalfGreedySkips premise: for every N there is c ≥ max N 4 with a positive greedy remainder below mersenneWeightRat c. A finite exact row or any finite collection of exact rows does not establish that cofinal supply. The result is a conditional 1/2-membership/counterexample route only, not an unconditional solution of Erdős #257; the exact-row, upper-half Boolean-word, rank-two, and endpoint-defect declarations are subordinate mechanism evidence, and no novelty, priority, significance, or external-review claim is made.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/BooleanMobiusSkipRowCofinal.lean"
+    },
+    {
+      "id": "half_membership_seam_classification",
+      "problem": 257,
+      "review_family": "half_membership_seam_classification",
+      "claim_id": "half_membership_seam_classification",
+      "contribution_class": "locally proved exact endpoint classification; novelty unassessed",
+      "original_declaration": "Erdos249257.half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse",
+      "original_source": "Erdos249257/HalfCylinderHalfMembershipClassification.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse",
+      "statement": "Membership of 1/2 in the Mersenne achievement set is equivalent to unbounded false successor terminal bits, equivalently to an unbounded upper-or-middle successor branch, cofinal terminal-false positions, unbounded skipped ranks along the integer seam, infinite greedy skipped support, and no last half-greedy skip.",
+      "boundary": "This exact endpoint-socket classification does not supply any unbounded terminal-false or upper-or-middle occurrences, cofinal supply, skipped-support producer, or half-membership witness; finite exact rows do not establish the required global supply. It is not an unconditional or universal Erdős #257 result, and no novelty, priority, significance, or external-review claim is made.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/HalfCylinderHalfMembershipClassification.lean"
+    },
+    {
+      "id": "composite_dilation_defect_split",
+      "problem": 257,
+      "review_family": "composite_dilation_defect_identity",
+      "claim_id": "composite_dilation_defect_identity",
+      "contribution_class": "unconditional progress",
+      "original_declaration": "Erdos249257.CompositeDilationDefect.supportCoeff_mul_eq_add_defect",
+      "original_source": "Erdos249257/CompositeDilationDefect.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.supportCoeff_mul_eq_add_defect",
+      "statement": "For a positive support element a and positive x, the divisor-count coefficient at a*x splits into the coefficient at x, the distinguished new divisor when a does not divide x, and an exact finite composite-dilation defect.",
+      "boundary": "The exact defect is not bounded for arbitrary supports and supplies no tail selector or irrationality theorem; the separate bouquet budget remains conditional on its structural hypotheses.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CompositeDilationDefect.lean"
+    },
+    {
+      "id": "half_two_adic_band_bound",
+      "problem": 257,
+      "review_family": "half_and_twenty_one_frontiers",
+      "claim_id": "half_greedy_two_thirds_band",
+      "contribution_class": "no-go result",
+      "original_declaration": "Erdos249257.HalfGreedyTwoThirdsBand.seven_le_of_intBand_odd",
+      "original_source": "Erdos249257/HalfGreedyTwoThirdsBand.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.seven_le_of_intBand_odd",
+      "statement": "For positive odd integers p, D, and q, the integer form of the two-thirds band forces p ≥ 7; the small odd numerator classes 1, 3, and 5 are therefore excluded.",
+      "boundary": "This is local 2-adic band arithmetic: p = 7 is sharp for the stated hypotheses, and the theorem does not prove that an actual half-greedy orbit reaches or avoids the band, nor does it prove half-membership.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/HalfGreedyTwoThirdsBand.lean"
     }
   ],
   "comparator_review": {
@@ -104,20 +219,105 @@
         "boundary": "A finite-support denominator theorem does not settle an infinite-support sum."
       },
       {
-        "id": "rational_support_constraints",
-        "contribution_class": "conditional reduction",
-        "summary": "Rational infinite supports force unbounded scaled tails, sublogarithmic zero windows, and reciprocal-mass constraints.",
+        "id": "boolean_mobius_carry",
+        "contribution_class": "locally proved exact equivalence plus conditional consequences; novelty unassessed",
+        "summary": "For p : ℤ and q > 0, a nonempty normalized positive-index support with erdosSupportSeries 2 A = p/q exists exactly when a quotient-only Boolean–Möbius carry certificate U exists. The certificate has U 0 = p, positive U, the square-root bound U(N) ≤ q(2√N + 4), q-divisible carry differences, and a Boolean Möbius transform; the converse reconstructs the support from that transform. This quotient-level equivalence is distinct from the shifted natural-tail state family.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
+          "Erdos249257.BooleanMobiusCarryCertificate",
+          "Erdos249257.binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit",
+          "Erdos249257.one_div_oddOrder_le_reciprocalMass_of_support_fraction",
+          "Erdos249257.exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction",
+          "Erdos249257.supportCoeffZeroWindow_length_le_eps_logb_add"
+        ],
+        "boundary": "The equivalence is stated at the existence level with q > 0, 0 ∉ A, and a positive support witness; it gives no contradiction, no universal Erdős #257 irrationality result, and no producer of cofinally nonintegral shifts for the actual recurrence. The generic tempered-orbit theorem and the reciprocal-mass, unbounded-tail, and zero-window results are subordinate consequences, not separate families; the zero-window constant depends on the support and numerator and is not uniform. This does not settle every infinite support, and no novelty, priority, significance, external-review, or unrestricted #257 endpoint claim is made."
+      },
+      {
+        "id": "boolean_mobius_exact_row_dynamics",
+        "contribution_class": "conditional reduction; novelty unassessed",
+        "summary": "If CofinalPositiveHalfGreedySkips holds—cofinally many positive rational-greedy remainders below the next Mersenne weight—the skipped-core and upper-half Boolean-word construction supplies cofinally many exact local half rows, yielding (1 / 2 : ℝ) ∈ mersenneAchievementSet. The load-bearing representative is half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips; exact-row construction, endpoint-defect transition, forced rank-two membership, and Boolean-word filling are subordinate mechanisms.",
         "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_deep_support_vocabulary",
-        "boundary": "The constraints do not exclude every infinite support."
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.CofinalPositiveHalfGreedySkips",
+          "Erdos249257.exactLocalMersenneHalfRow_of_positiveHalfGreedySkip",
+          "Erdos249257.cofinalExactLocalMersenneHalfRows_of_positiveHalfGreedySkips",
+          "Erdos249257.half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips",
+          "Erdos249257.two_mem_of_exact_localMersenneQuotient",
+          "Erdos249257.localEndpointDefect_succ",
+          "Erdos249257.exists_upperHalfBooleanWord_of_skippedCore"
+        ],
+        "boundary": "CofinalPositiveHalfGreedySkips is an unproved global supply premise: for every N there must be c ≥ max N 4 with a positive greedy remainder below mersenneWeightRat c. Finite exact rows, including one produced by a skipped core, do not establish cofinality. This is a conditional 1/2-membership/counterexample route, not an unconditional Erdős #257 solution; the rank-two, endpoint-defect, and upper-half Boolean-word declarations remain subordinate evidence, and no novelty, priority, significance, or external-review claim is made."
+      },
+      {
+        "id": "half_membership_seam_classification",
+        "contribution_class": "locally proved exact endpoint classification; novelty unassessed",
+        "summary": "Membership of 1/2 in the Mersenne achievement set is exactly equivalent to unbounded false successor terminal bits, the unbounded upper-or-middle seam branch, cofinal terminal-false positions, unbounded skipped ranks along the integer seam, infinite greedy skipped support, and the absence of a last half-greedy skip. The load-bearing representative is half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse; the remaining equivalences are subordinate endpoint-socket evidence.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse",
+          "Erdos249257.half_mem_mersenneAchievementSet_iff_unboundedUpperOrMiddle",
+          "Erdos249257.unboundedTerminalFalse_iff_not_seamGreedyEventuallyRight",
+          "Erdos249257.cofinalTerminalFalse_of_unboundedTerminalFalse",
+          "Erdos249257.unboundedTerminalFalse_of_cofinalTerminalFalse",
+          "Erdos249257.unboundedTerminalFalse_iff_cofinalTerminalFalse",
+          "Erdos249257.half_mem_mersenneAchievementSet_iff_cofinalTerminalFalse",
+          "Erdos249257.half_mem_mersenneAchievementSet_iff_exists_unboundedSkippedRanksAlong",
+          "Erdos249257.unboundedTerminalFalse_iff_greedyMersenneSkippedSupport_infinite",
+          "Erdos249257.half_mem_mersenneAchievementSet_iff_no_lastHalfGreedySkip"
+        ],
+        "boundary": "This exact endpoint-socket classification does not supply any unbounded terminal-false or upper-or-middle occurrences, cofinal supply, skipped-support producer, or half-membership witness; finite exact rows do not establish the required global supply. It is not an unconditional or universal Erdős #257 result, and no novelty, priority, significance, or external-review claim is made."
+      },
+      {
+        "id": "shifted_odd_tail_state",
+        "contribution_class": "conditional reduction",
+        "summary": "A rational support fraction produces a positive natural shifted tail state satisfying the exact binary recurrence and modular doubling orbit modulo v.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The state-extraction theorem does not exclude rational infinite supports or settle universal Erdős #257; the support and rational-value hypotheses remain explicit."
+      },
+      {
+        "id": "composite_dilation_defect_identity",
+        "contribution_class": "unconditional progress",
+        "summary": "The composite support-dilation identity splits the new divisor count into the old coefficient, the distinguished divisor, and an exact finite defect; its bouquet specialization supplies a separate structural budget.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The exact defect is not bounded for arbitrary supports and supplies no tail selector or irrationality theorem; the bouquet budget remains conditional on its structural hypotheses."
       },
       {
         "id": "known_irrational_supports",
         "contribution_class": "Lean formalisation of existing results",
-        "summary": "Full, factorial, power-of-two, multiple, pairwise-coprime, eventually periodic, residue-class, and odd supports are formalised.",
-        "evidence_mode": "Lean kernel plus Comparator for full support",
+        "summary": "Full, factorial, power-of-two, multiple, eventually periodic, residue-class, and odd supports are formalised; pairwise-coprime support is split out as a dedicated non-dilation representative.",
+        "evidence_mode": "Lean kernel plus Comparator for full and pairwise-coprime support",
         "comparator_disposition": "targeted_full_support_representative",
         "boundary": "Structured known families do not cover arbitrary infinite supports."
+      },
+      {
+        "id": "pairwise_coprime_support",
+        "contribution_class": "formalisation of an existing theorem",
+        "summary": "Infinite pairwise-coprime supports with summable reciprocal mass have irrational Mersenne support series by an adaptive CRT and weighted coefficient certificate argument.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_pairwise_coprime_support",
+        "boundary": "This structured support theorem does not settle arbitrary infinite supports; its infinitude, pairwise-coprimality, and summable-reciprocal hypotheses remain explicit."
+      },
+      {
+        "id": "periodic_nonnegative_weight_irrationality",
+        "contribution_class": "formalised here; novelty unassessed",
+        "summary": "An eventually-periodic nonnegative rational coefficient sequence with a positive value in its periodic region has an irrational Lambert–Mersenne series; denominator clearing reduces the rational sequence to a periodic Nat-weight certificate.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted_strongest_nonnegative_rational_weight",
+        "boundary": "This does not claim the broader mixed-sign periodic theorem; all coefficient, positivity, base, period, and threshold hypotheses remain explicit."
+      },
+      {
+        "id": "orthogonal_petal_sunflower_reduction",
+        "contribution_class": "conditional reduction",
+        "summary": "A finite-core orthogonal-petal bouquet together with the exact uniform tail-selection predicate composes through the forced-carry certificate consumer to irrationality; the explicit alternating-core, squared-prime-petal witness shows the structural class is non-vacuous, but the selector remains open.",
+        "evidence_mode": "Lean kernel plus Comparator plus paper argument",
+        "comparator_disposition": "targeted_conditional_sunflower_reduction",
+        "boundary": "The bouquet and selector hypotheses remain explicit; the selector is not proved, so this is not an unconditional #257 support family."
       },
       {
         "id": "squarefree_support",
@@ -146,11 +346,56 @@
       {
         "id": "half_and_twenty_one_frontiers",
         "contribution_class": "conditional reduction and no-go result",
-        "summary": "Exact greedy characterisations and finite-support exclusions isolate the remaining 1/2 and 1/21 alternatives.",
-        "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_deep_greedy_state_vocabulary",
-        "boundary": "Neither membership question is decided."
+        "summary": "Exact greedy characterisations, finite-support exclusions, the odd 2-adic two-thirds-band bound, and two conditional rational-half countermodel frontiers isolate local constraints around the remaining 1/2 and 1/21 alternatives.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "Neither membership question is decided; the 2-adic bound is sharp locally, and the two countermodel routes require unconstructed terminal-scaled or cofinal-cylinder antecedents."
       }
+    ]
+  },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Prove irrationality of sum_{n in A} 1/(2^n-1) for every infinite support A.",
+    "strongest_theorem": {
+      "claim_id": "erdos257.achievement_set_geometry",
+      "title": "achievement-set topology and exact volume dichotomy",
+      "statement": "For every set J of allowed binary Mersenne coordinates, the supported digit map is injective and has compact nowhere-dense range; the range is perfect when J is infinite. Its Lebesgue measure is exactly 2^(-|F|) when J omits the finite set F, and zero when the omitted coordinates are infinite. This support-uniform geometric classification does not prove universal Mersenne-subseries irrationality or solve Erdős Problem 257.",
+      "altitude": "infrastructure",
+      "band": "P",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification257AchievementSetGeometry"
+    },
+    "strongest_longitudinal_theorem": {
+      "claim_id": "erdos257.divisibility_weighted_support_irrationality",
+      "title": "Finite divisibility-weighted mass implies hereditary all-base irrationality, including explicit reciprocal-divergent short-gap supports.",
+      "statement": "Finite divisibility-weighted mass implies hereditary all-base irrationality, including explicit reciprocal-divergent short-gap supports.",
+      "altitude": "complete_subregime",
+      "band": "U",
+      "evidence_class": "ordinary_proof",
+      "public_entry": null
+    },
+    "live_obstruction": "Every candidate counterexample support now has divergent reciprocal sum, and the surviving fatal branch at the rational target 1/21 is consistent with a permanent affine supercapacity regime, so no theorem forces the cofinal closed returns that would decide membership.",
+    "strongest_open_producer": {
+      "id": "contradict_twenty_one_permanent_affine_supercapacity",
+      "statement": "Contradict the exact permanent affine-supercapacity regime forced by TwentyOneFatalAlignedBranch. Commit bad43508 proves that any unbounded sequence of closed canonical rows s_R<=2^R already gives the compactness decay required for 1/21 membership, so the fatal branch must eventually satisfy 2^R<s_R at every rank. Combined with commit f23727a, the boundary coin is then always taken: support appends R+1 and the scalar follows one literal affine recurrence with no residual Boolean branch. Commit 73f417a additionally proves that an aligned crossing from exact saturation into strict supercapacity must occur at R=3a+2 and omit a canonical ancestor at a+1 or 2(a+1). This restricts one entrance mechanism but does not show that the fatal branch enters late from exact saturation or contradict the regime after entry. One direct producer is an arbitrarily deep closed return, or any checked consequ…"
+    },
+    "how_to_contribute": {
+      "kind": "proof",
+      "note": "Formalise the 1/3 certificate lemma as an inequality chain of roughly two hundred lines, after which finite certificates decide an individual support and rational-target pair."
+    },
+    "what_this_does_not_establish": "Erdős #257 remains open. The programme objective is universal irrationality, or a valid counterexample, for every infinite support; no rational target, mechanism, current frontier, packet order, or recent computation has incumbency. The packet records proved reductions, open producers, and negative results as evidence only. Finite computation cannot settle the universal or cofinal quantifiers. Select each disposable probe by current information gain, structural distinctness, and a clear route back to the problem, then rotate when its stop condition fires.",
+    "failed_approaches": [
+      "Any counterexample support must have divergent reciprocal sum; every candidate support with summable reciprocals is now excluded at every integer base.",
+      "Powerful supports as an independent contribution: subsumed by the reciprocal-summable theorem and removed from public lanes.",
+      "The 4/9 modulus-84 2-3-7 causal producer: false despite explaining all eight observed repair-gap rescues.",
+      "The actual modulus-420 tetraprime repair producer is false at arbitrarily large prime cofactors. EightReturnSynthesis.md section 3 supplies the proof from an exact 80-anchor selected prefix and Dirichlet; the new audit gives jumps >=2 and causal-margin failures >=3. This supersedes the earlier fifty-million finite survival evidence. Unrestricted cofinal repairs remain open."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification257ReciprocalSupport",
+      "ExternalVerification257FinitePeriodNoncollapse",
+      "ExternalVerification257RationalTailRigidity"
     ]
   },
   "palomar": null,
@@ -161,7 +406,7 @@
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 21,
+    "pages": 25,
     "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
     "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -183,17 +428,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
+      "renderer_contract_version": 14,
+      "source_sha256": "008da9c21dbffa7c145d51235227f9bc11d8425f2f1bda4f1b830c352742692a",
       "publication_manifest_match": true,
-      "mathml_node_count": 498,
+      "mathml_node_count": 547,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "159afee9bcb27b5bcf489a83ab02ab3e2eacda19ba60ea45f702dfd4393c333e",
-      "html_exact_tex_sha256": "48aee7e1809a075fe6b1a572e75dada391f0818cddb869c68d7450f865374804"
+      "html_mathml_sha256": "54f766e6d3c7eea9174779dfd3e82e0c663839848007cc3fca947bc86377e652",
+      "html_exact_tex_sha256": "1879f004de9ab0c65bb3a76aee207e674284fc0dc5b8329ca607d2f54e46065c"
     },
     "sections": [
       {
@@ -287,6 +532,11 @@
         "label": "The value 1/21/2"
       },
       {
+        "level": 5,
+        "anchor": null,
+        "label": "Exact-row transport at the endpoint."
+      },
+      {
         "level": 3,
         "anchor": null,
         "label": "A second rational target"
@@ -294,7 +544,7 @@
       {
         "level": 3,
         "anchor": null,
-        "label": "The canonical 1/211/21 frontier"
+        "label": "The scaled-greedy criterion at 1/211/21"
       },
       {
         "level": 2,
@@ -305,11 +555,6 @@
         "level": 2,
         "anchor": null,
         "label": "Statements and declarations"
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 2,

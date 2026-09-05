@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 21,
+  "pages": 25,
   "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
   "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "03784e9745e6f92fef3b72808666c97ee17be0fdc32d725a92e55833272e5a17",
+    "renderer_contract_version": 14,
+    "source_sha256": "008da9c21dbffa7c145d51235227f9bc11d8425f2f1bda4f1b830c352742692a",
     "publication_manifest_match": true,
-    "mathml_node_count": 498,
+    "mathml_node_count": 547,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "159afee9bcb27b5bcf489a83ab02ab3e2eacda19ba60ea45f702dfd4393c333e",
-    "html_exact_tex_sha256": "48aee7e1809a075fe6b1a572e75dada391f0818cddb869c68d7450f865374804"
+    "html_mathml_sha256": "54f766e6d3c7eea9174779dfd3e82e0c663839848007cc3fca947bc86377e652",
+    "html_exact_tex_sha256": "1879f004de9ab0c65bb3a76aee207e674284fc0dc5b8329ca607d2f54e46065c"
   },
   "sections": [
     {
@@ -131,6 +131,11 @@
       "label": "The value 1/21/2"
     },
     {
+      "level": 5,
+      "anchor": null,
+      "label": "Exact-row transport at the endpoint."
+    },
+    {
       "level": 3,
       "anchor": null,
       "label": "A second rational target"
@@ -138,7 +143,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "The canonical 1/211/21 frontier"
+      "label": "The scaled-greedy criterion at 1/211/21"
     },
     {
       "level": 2,
@@ -149,11 +154,6 @@
       "level": 2,
       "anchor": null,
       "label": "Statements and declarations"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 2,

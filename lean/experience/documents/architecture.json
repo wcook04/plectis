@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "d3cb495157a7157e6aec7e74ea435b2f78cc8e83f8c38a797603f3f5de3b5816",
+    "source_sha256": "7b25422b83e479253fb62ca34e539ab178cddd7b61008709dd0dc45b72aa12a5",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,8 +25,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "a5e521b6ce85d2001a3bc503dc3f6486e2be5d59c070fb2306381b963b305da6",
-    "html_exact_tex_sha256": "8989dd5565a0af1dfff254758a1dc50658f2a5056bfacccbbd4c8f949b916afc"
+    "html_mathml_sha256": "790d8fd438f08dca3e3969641215a31ae74e07cdc2a5acf4cad4f2a385589ea8",
+    "html_exact_tex_sha256": "0ea90b87d34707caccba179b39a407292519fefb59f41f5129e360356de451b3"
   },
   "sections": [
     {
@@ -48,6 +48,11 @@
       "level": 2,
       "anchor": null,
       "label": "Repository map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The job lifecycle"
     },
     {
       "level": 3,

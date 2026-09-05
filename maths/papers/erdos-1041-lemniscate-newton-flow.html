@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Newton Flow and Critical-Value Ray Separation · Plectis maths</title>
+  <title>Critical-Value Separation and Admissible Hubs · Plectis maths</title>
   <meta name="description" content="Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the…">
   <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos-1041-lemniscate-newton-flow.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Plectis">
-  <meta property="og:title" content="Newton Flow and Critical-Value Ray Separation · Plectis maths">
+  <meta property="og:title" content="Critical-Value Separation and Admissible Hubs · Plectis maths">
   <meta property="og:description" content="Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the…">
   <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos-1041-lemniscate-newton-flow.html">
   <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
@@ -16,7 +16,7 @@
   <meta property="og:image:height" content="1024">
   <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Newton Flow and Critical-Value Ray Separation · Plectis maths">
+  <meta name="twitter:title" content="Critical-Value Separation and Admissible Hubs · Plectis maths">
   <meta name="twitter:description" content="Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the…">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
@@ -27,7 +27,11 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="../assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=911c79a053aa"></script>
+  <script defer src="../assets/mathjax-config.js?v=31fc1074269e"></script>
+  <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -42,6 +46,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/glossary.html">Glossary</a>
         <a href="../../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -69,14 +74,14 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
-      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Newton Flow and Critical-Value Ray Separation</li></ol></nav>
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Critical-Value Separation and Admissible Hubs</li></ol></nav>
       <header class="paper-head">
-        <p class="paper-head__eyebrow">Problem note</p>
-        <h1>Newton Flow and Critical-Value Ray Separation</h1>
+        <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
+        <h1>Critical-Value Separation and Admissible Hubs</h1>
         <div class="paper-head__meta">
-          <span>Erdős #1041</span>
-          <span>10&#8202;pp</span>
-          <span>Browser-native mathematical notation</span>
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041</span>
+          <span>24&#8202;pp</span>
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a> typeset in the browser from the exact TeX</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--ghost" href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">PDF</a>
@@ -88,44 +93,80 @@
 
       <div class="paper-precis">
         <p class="eyebrow">Pr&eacute;cis</p>
-        <p>Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript&#x27;s load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao&#x27;s public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.</p>
+        <p>Along the complex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton field</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> criterion, the exact translation ray-collision <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-line avoidance, and a root-retention <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. A recent manuscript&#x27;s load-bearing <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 uses an invalid three-ended local block at an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">interior Morse saddle</a>, diagnosed here independently and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matching</a> Tao&#x27;s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> account of the same defect; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.</p>
       </div>
 
       <div class="authority-card">
-        <p><b>This paper owns</b> the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions.</p>
-        <p><b>It is not authority for</b> proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open.</p>
+        <p><b>This paper owns</b> the problem-specific exposition for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041: Newton-flow ray separation, perturbation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">inputs</a>, the exact printed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> gap, and the ranked topology and metric repair questions.</p>
+        <p><b>It is not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for</b> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> validity, which belongs to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">pinned kernel</a>, or a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041, which remains open.</p>
       </div>
 
       <div class="paper-stage">
-<article class="lean-paper" data-paper-id="erdos-1041-lemniscate-newton-flow" data-math-mode="mathml">
+<article class="lean-paper" data-paper-id="erdos-1041-lemniscate-newton-flow" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/erdos-1041-lemniscate-newton-flow.tex">
+<p>The two selected perturbation interfaces have the following exact
+boundaries. For a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> type <span
+class="math inline">\(\iota\)</span>, an injective family of critical
+values <span class="math inline">\(c\colon\iota\to\mathbb C\)</span>,
+and every <span class="math inline">\(\varepsilon&gt;0\)</span>, the row
+<code>exists_small_translation_separating_arguments</code> supplies a
+shift of norm less than <span class="math inline">\(\varepsilon\)</span>
+such that every translated value is nonzero and every two distinct
+translated values lie on different positive rays. Separately, for a
+monic split polynomial of positive degree whose <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> have norm at most
+<span class="math inline">\(\rho\)</span>, the row
+<code>constant_perturbation_roots_in_unitDisk</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> <span
+class="math inline">\(\rho\ge0\)</span>, <span
+class="math inline">\(\varepsilon&gt;0\)</span>, the margin <span
+class="math display">\[((\operatorname{natDegree}f+1)\varepsilon)^{1/\operatorname{natDegree}f}
+   +\rho&lt;1,\]</span> and a shift of norm less than <span
+class="math inline">\(\varepsilon\)</span>; it then places every root of
+<span class="math inline">\(f+\operatorname{C}(\text{shift})\)</span> in
+the open unit disc. These are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> perturbation and stability
+interfaces only: neither row supplies the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> global topology or the
+length-<span class="math inline">\(2\)</span> gluing argument.</p>
 <section id="sec:problem" class="level2">
 <h2>The problem</h2>
-<p>Numbering and current status follow Bloom’s Erdős problem catalogue
-<span class="citation" data-cites="bloom"><a href="#ref-1">[1]</a></span>. The problem is open.
-The original source is Problem 5 on printed p. 139 of
-Erdős–Herzog–Piranian <span class="citation"
-data-cites="ehp1958"><a href="#ref-2">[2]</a></span>; the preceding paragraph records the known
-input that one component of the lemniscate contains at least two
+<p>Numbering and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">current status</a> follow Bloom’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> problem catalogue
+<span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>. The problem is open.
+The original <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> is Problem 5 on printed p. 139 of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Herzog–Piranian <span class="citation"
+data-cites="ehp1958"><a href="#ref-3">[3]</a></span>; the preceding paragraph records the known
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> that one component of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> contains at least two
 zeros.</p>
+<p>Recent work on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">polynomial lemniscates</a> separates component counts from
+metric path questions. Ghosh and Ramachandran characterize the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of
+components through critical points and critical values <span
+class="citation" data-cites="ghosh2023"></span>; for the binomial family
+<span class="math inline">\(z^n-a\)</span>, the condition <span
+class="math inline">\(|a|&lt;1\)</span> puts the filled unit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>
+in the connected regime. Connectedness alone gives no path-length <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.
+Our dynamical terminology is also standard: Sutherland calls <span
+class="math inline">\(\dot z=-f(z)/f&#39;(z)\)</span> the continuous
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton flow</a> and observes that <span
+class="math inline">\(f(z(t))\)</span> moves on a straight radial line
+<span class="citation" data-cites="sutherland1992"><a href="#ref-5">[5]</a></span>. We use this
+value-space identity, not a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> that the global trajectory <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> is a
+tree.</p>
 <p>Two recent manuscripts are relevant. The 48-page manuscript posted by
 <code>shtuka</code> on 24 March 2026 <span class="citation"
-data-cites="march2026"><a href="#ref-3">[3]</a></span> claims the unrestricted statement. Its
-Proposition 12 (p. 16, with proof continuing through p. 30) supplies the
-spanning-tree decomposition used in the final proof. The defect was
+data-cites="march2026"><a href="#ref-6">[6]</a></span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> the unrestricted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. Its
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 (p. 16, with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> continuing through p. 30) supplies the
+spanning-tree decomposition used in the final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The defect was
 located publicly in the problem’s discussion thread: on 25 March 2026
-Tao observed that the invocation of Lemma 8 there is unjustified and
+Tao observed that the invocation of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 8 there is unjustified and
 that the flow lines need not organise into connected trees, and on 26
-March 2026 the manuscript’s author agreed that the statement of
-Proposition 12 itself, not only its printed proof, is incorrect, and set
-the strategy aside. Section  records an independent diagnosis of the
-same failure through the local three-ended saddle model, together with
-possible repairs. No counterexample to the proposition is exhibited
-there. Pendyala’s independent June 2026 preprint <span class="citation"
-data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the degree-four case. The quartic
-theorem does not close the problem.</p>
-<p>The object we work with is not the lemniscate directly but the flow
-that foliates it.</p>
+March 2026 the manuscript’s author agreed that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 itself, not only its printed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, is incorrect, and set
+the strategy aside. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
+class="math inline">\(\ref{sec:gap}\)</span> records an independent
+diagnosis of the same failure through the local three-ended <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a>, together with possible repairs. No <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> is exhibited there. Pendyala’s independent June 2026
+preprint <span class="citation" data-cites="june2026"><a href="#ref-7">[7]</a></span> proves the
+degree-four case. The quartic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> does not close the problem.</p>
+<p>We study the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton flow</a> whose trajectories foliate the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>.</p>
 <table>
 <colgroup>
 <col />
@@ -134,65 +175,102 @@ that foliates it.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="ta-l">Statement</th>
+<th class="ta-l"><p>Statement</p></th>
 <th class="ta-l"> Status</th>
 <th class="ta-l"> Exact boundary</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="ta-l">Erdős #1041</td>
+<td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041</td>
 <td class="ta-l"> Open</td>
-<td class="ta-l"> No proof is claimed.</td>
+<td class="ta-l"> No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</td>
 </tr>
 <tr>
-<td class="ta-l">Newton value equation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=-w</annotation></semantics></math></td>
-<td class="ta-l"> Checked</td>
+<td class="ta-l">Critical-value separation</td>
+<td class="ta-l"> Ordinary all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>; <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean-checked</a>
+numerical kernel</td>
+<td class="ta-l"> A simple nonzero hub and <span
+class="math inline">\((1+S)^{2/n}\log(S/(S-1))&lt;1\)</span>; covering
+and area <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">inputs</a> stay ordinary; near ties and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddles</a> are
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>.</td>
+</tr>
+<tr>
+<td class="ta-l">Newton value <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a> <span
+class="math inline">\(w&#39;=-w\)</span></td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a></td>
 <td class="ta-l"> Away from critical points, along any
-trajectory tangent to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>f</mi><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">-f/f&#39;</annotation></semantics></math>.</td>
+trajectory tangent to <span
+class="math inline">\(-f/f&#39;\)</span>.</td>
 </tr>
 <tr>
 <td class="ta-l">Exponential first integral</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l">
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mstyle><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mi>t</mi></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0</annotation></semantics></math>.</td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a></td>
+<td class="ta-l"> <span
+class="math inline">\(\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0\)</span>.</td>
 </tr>
 <tr>
 <td class="ta-l">Ray separation of critical values</td>
-<td class="ta-l"> Checked (consumer form)</td>
-<td class="ta-l"> Endpoints of a finite connection share
-one oriented ray; distinct rays exclude a connection.</td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a> (consumer form)</td>
+<td class="ta-l"> Endpoints of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> share
+one oriented ray; distinct rays <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a>.</td>
 </tr>
 <tr>
-<td class="ta-l">Ray-collision locus</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l">
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mi>a</mi><mo>−</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta=(ra-b)/(1-r)</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r&gt;0</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ne1</annotation></semantics></math>:
-one real parameter per pair.</td>
+<td class="ta-l">Ray-collision <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a></td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a></td>
+<td class="ta-l"> <span
+class="math inline">\(\beta=(ra-b)/(1-r)\)</span>, <span
+class="math inline">\(r&gt;0\)</span>, <span
+class="math inline">\(r\ne1\)</span>: one real parameter per pair.</td>
 </tr>
 <tr>
 <td class="ta-l">Quartic case</td>
 <td class="ta-l"> Cited</td>
 <td class="ta-l"> Proved in <span class="citation"
-data-cites="june2026"><a href="#ref-4">[4]</a></span>; does not extend to general degree.</td>
+data-cites="june2026"><a href="#ref-7">[7]</a></span>; does not extend to general degree.</td>
 </tr>
 <tr>
-<td class="ta-l">Unrestricted proof of <span
+<td class="ta-l">Translated quartic quotient fibres</td>
+<td class="ta-l"> Ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> with a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean-checked</a>
+metric kernel</td>
+<td class="ta-l"> For <span
+class="math inline">\(f(z)=P((z-h)^q)\)</span>, <span
+class="math inline">\(P\)</span> monic quartic and <span
+class="math inline">\(q\ge2\)</span>; Pendyala supplies the quartic
+geometry, while <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the root-lift density, exact primitive, and
+strict endpoint budget.</td>
+</tr>
+<tr>
+<td class="ta-l">Signed-moment cyclic tetranomials</td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean-checked</a> two-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> safe-spoke
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a></td>
+<td class="ta-l"> For an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> root family of
+<span class="math inline">\(g(w)=w^m+aw^r+bw^s+c\)</span>, an exact
+signed <span class="math inline">\(L^2\)</span> moment budget selects
+two distinct indices whose complete spokes are safe; distinct root
+values <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> injectivity of the indexing <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>.</td>
+</tr>
+<tr>
+<td class="ta-l">Concyclic zeros with <span
+class="math inline">\(2\rho^n\le1\)</span></td>
+<td class="ta-l"> Ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> exact and
+numerical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a></td>
+<td class="ta-l"> Distinct-root <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>; not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>;
+the unrestricted concyclic case remains open.</td>
+</tr>
+<tr>
+<td class="ta-l">Unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of <span
 class="citation" data-cites="march2026"></span></td>
-<td class="ta-l"> Proof gap</td>
-<td class="ta-l"> Proposition 12 uses a false three-ended
-local saddle block; located publicly by Tao (25 March 2026), conceded by
-the author at statement level (26 March 2026). No counterexample is
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> gap</td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 uses a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> three-ended
+local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> block; located publicly by Tao (25 March 2026), conceded by
+the author at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> level (26 March 2026). No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> is
 exhibited.</td>
 </tr>
 <tr>
 <td class="ta-l">Constant-translation ray separation and
 root retention</td>
-<td class="ta-l"> Checked</td>
+<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a></td>
 <td class="ta-l"> After critical-value injectivity,
 arbitrary small ray avoidance and an explicit unit-disc margin.</td>
 </tr>
@@ -201,7 +279,7 @@ arbitrary small ray avoidance and an explicit unit-disc margin.</td>
 stability</td>
 <td class="ta-l"> Open</td>
 <td class="ta-l"> Must first create injective critical
-values and preserve the component, collars and length budget.</td>
+values and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserve</a> the component, collars and length budget.</td>
 </tr>
 <tr>
 <td class="ta-l">Reeb decomposition and length fan-in</td>
@@ -209,282 +287,948 @@ values and preserve the component, collars and length budget.</td>
 <td class="ta-l"> The two surviving producers.</td>
 </tr>
 <tr>
-<td class="ta-l">Random search to degree
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math></td>
-<td class="ta-l"> Verified finite instances</td>
-<td class="ta-l"> Upper bounds for sampled configurations
+<td class="ta-l">Random <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> to degree <span
+class="math inline">\(10\)</span></td>
+<td class="ta-l"> Verified <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> instances</td>
+<td class="ta-l"> Upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> for sampled configurations
 only.</td>
 </tr>
 </tbody>
 </table>
 </section>
+<section id="sec:critical-value-separation" class="level2">
+<h2>An all-degree critical-value separation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a></h2>
+<p>The first <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is the strongest direct parent-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> regime in
+this note. It is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> about a sampled family or a fixed
+degree: the condition is an exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> on the other critical
+values after normalising one simple first-merge hub.</p>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> The simple <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> has local form <span
+class="math inline">\(P(z)=1+Az^2+O(z^3)\)</span> with <span
+class="math inline">\(A\ne0\)</span>, so the substitution <span
+class="math inline">\(P(Z(\xi))=1-\xi^2\)</span> resolves it into two
+local holomorphic sheets. Normalize the algebraic curve <span
+class="math inline">\(X=\{(\xi,z):P(z)=1-\xi^2\}\)</span>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+ramification point of its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> to the <span
+class="math inline">\(\xi\)</span>-plane can occur only at a critical
+point <span class="math inline">\(d\)</span> of <span
+class="math inline">\(P\)</span>, where <span
+class="math inline">\(\xi^2=1-P(d)\)</span>. The node over <span
+class="math inline">\((0,0)\)</span> is replaced in the normalization by
+the two resolved local points, and the separation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> puts every
+other ramification point on or outside <span
+class="math inline">\(|\xi|=\sqrt S\)</span>. Polynomial properness
+makes the normalized <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> and proper. Its inverse image
+over <span class="math inline">\(D_{\sqrt S}\)</span> is therefore an
+unramified <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> cover. Since the disc is simply connected, every
+connected cover component maps biholomorphically to it; in particular
+either resolved local sheet continues as a single holomorphic branch
+<span class="math inline">\(Z\)</span> throughout the disc.</p>
+<p>This branch is also injective as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> into the <span
+class="math inline">\(z\)</span>-plane. Indeed, <span
+class="math inline">\(Z(\xi_1)=Z(\xi_2)\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
+class="math inline">\(\xi_1^2=\xi_2^2\)</span>. The involution <span
+class="math inline">\(\iota(\xi,z)=(-\xi,z)\)</span> exchanges the two
+distinct normalized points over <span
+class="math inline">\((0,0)\)</span> and hence exchanges their two cover
+components. If <span class="math inline">\(\xi_2=-\xi_1\ne0\)</span> and
+<span class="math inline">\(Z(\xi_1)=Z(\xi_2)\)</span>, one component
+would meet its <span class="math inline">\(\iota\)</span>-image;
+connected cover components are disjoint, so they would have to coincide,
+contradicting the two distinct points over <span
+class="math inline">\(0\)</span>. Thus <span
+class="math inline">\(\xi_1=\xi_2\)</span>.</p>
+<p>Write <span
+class="math inline">\(Z(\xi)=\sum_{k\ge1}a_k\xi^k\)</span>. For <span
+class="math inline">\(1&lt;R&lt;\sqrt S\)</span>, injectivity and the
+area formula give <span
+class="math display">\[\pi\sum_{k\ge1}k|a_k|^2R^{2k}
+   =\operatorname{Area}(Z(D_R)).                    \tag{6}\]</span> The
+identity <span class="math inline">\(P(Z(\xi))=1-\xi^2\)</span> places
+the image in <span class="math inline">\(\{|P|&lt;1+R^2\}\)</span>.
+Since the leading coefficient of <span class="math inline">\(P\)</span>
+has modulus one, Pólya’s area–capacity <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span class="citation"
+data-cites="polya1928"><a href="#ref-1">[1]</a></span> yields <span
+class="math display">\[\operatorname{Area}(Z(D_R))
+\le \operatorname{Area}\{|P|&lt;1+R^2\}
+\le \pi(1+R^2)^{2/n}.                              \tag{7}\]</span>
+Cauchy–Schwarz applied to (6)–(7) now gives <span
+class="math display">\[\sum_{k\ge1}|a_k|
+\le (1+R^2)^{1/n}
+      \sqrt{\sum_{k\ge1}\frac1{kR^{2k}}}
+= (1+R^2)^{1/n}\sqrt{\log\!\frac{R^2}{R^2-1}}.   \tag{8}\]</span>
+Termwise integration on <span class="math inline">\([-1,1]\)</span>
+gives <span
+class="math inline">\(\int_{-1}^{1}|Z&#39;|\le2\sum_{k\ge1}|a_k|\)</span>.
+Letting <span class="math inline">\(R\nearrow\sqrt S\)</span> proves
+(4). Injectivity makes <span class="math inline">\(Z(-1)\)</span> and
+<span class="math inline">\(Z(1)\)</span> distinct, while <span
+class="math inline">\(P(Z(\xi))=1-\xi^2\in[0,1]\)</span> on the real
+segment proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> containment. Squaring (4) gives (5). ◻</p>
+</div>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> For <span class="math inline">\(S=4\)</span> and
+<span class="math inline">\(n\ge3\)</span>, <span
+class="math display">\[5^{2/n}\log(4/3)
+\le5^{2/3}\log(1+1/3)&lt;5^{2/3}/3&lt;1,\]</span> where the last radical
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is <span class="math inline">\(25&lt;27\)</span>. For <span
+class="math inline">\(S=3\)</span> and <span
+class="math inline">\(n\ge4\)</span>, <span
+class="math inline">\(4^{2/n}\log(3/2)\le2\log(1+1/2)&lt;1\)</span>. For
+<span class="math inline">\(S=2\)</span> and <span
+class="math inline">\(n\ge7\)</span>, the positive exponential <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
+gives <span
+class="math inline">\(\exp(7/10)&gt;12013/6000&gt;2\)</span>, hence
+<span class="math inline">\(\log2&lt;7/10\)</span>, while <span
+class="math inline">\(9\cdot7^7&lt;10^7\)</span> is exactly <span
+class="math inline">\((3^{2/7}\cdot7/10)^7&lt;1\)</span>.</p>
+<p>For the polynomial <span class="math inline">\(f\)</span>, set <span
+class="math inline">\(z=c+\rho e^{i\theta}w\)</span> with <span
+class="math inline">\(\rho=|v|^{1/n}\)</span> and choose <span
+class="math inline">\(\theta\)</span> so that <span
+class="math inline">\(P(w)=f(z)/v\)</span> has unit-modulus leading
+coefficient. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> gives a connector of length strictly below
+<span class="math inline">\(2|v|^{1/n}\)</span> inside <span
+class="math inline">\(\{|f|\le|v|\}\)</span>. For each displayed
+threshold <span class="math inline">\(S\ge2\)</span>, separation gives
+<span class="math inline">\(|f(d)|\ge(S-1)|v|\ge|v|\)</span> at every
+other critical point, so <span class="math inline">\(|v|=\mu\)</span> is
+the least critical-value modulus. If the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> lie in a disc of radius
+<span class="math inline">\(R&lt;1\)</span>, the resultant identity and
+Fekete’s Vandermonde <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> give, with critical points counted with
+multiplicity, <span class="math display">\[\mu^{n-1}
+\le \prod_{f&#39;(d)=0}|f(d)|
+=\frac{|\operatorname{Disc}(f)|}{n^n}
+=\frac{\prod_{i&lt;j}|z_i-z_j|^2}{n^n}
+\le R^{n(n-1)}.\]</span> Thus <span class="math inline">\(|v|=\mu\le
+R^n&lt;1\)</span>, so both the length and containment are strict at the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> scale. ◻</p>
+</div>
+<section id="bdry:critical-value-separation" class="level5">
+<h5><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a> and exact boundary.</h5>
+<p>The analytic continuation, monodromy, area formula and Pólya
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline">\(\ref{res:critical-value-separation}\)</span> are
+ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. The companion symbolic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the
+branch-value algebra, all three exact constant chains, and the nonempty
+boundary example <span class="math inline">\(P(z)=1-3z^2+z^3\)</span>,
+whose other critical point is <span class="math inline">\(2\)</span> and
+satisfies <span class="math inline">\(1-P(2)=4\)</span>. The companion
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> exttt<span>FirstMergeCriticalValueSeparation</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
+the degree monotonicity, all three exact coefficient thresholds, and the
+abstract <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> from the squared connector estimate to length below
+two. It does not formalize the analytic continuation, univalence, area
+formula, or Pólya <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>, and therefore does not turn the complete
+analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> into a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<p>The boundary is structural, not cosmetic. This <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a> says nothing
+when a second critical value enters the resolved disc, and it assumes
+the selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> is simple. It therefore leaves the near-tie and
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> strata, makes no sharpness <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> for the convenient
+thresholds, and does not prove an unrestricted admissible-hub selector,
+a COVER <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041. No novelty or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a> is made
+here for the use of Pólya’s global area <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>; the contribution
+asserted is the displayed composed sufficient regime and its exact
+constants. Pólya is cited only for that global <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a>, not for the
+square-resolved covering and coefficient assembly.</p>
+</section>
+</section>
+<section id="sec:solved-polynomial-families" class="level2">
+<h2>Three exact solved polynomial families</h2>
+<p>The next three <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> are unconditional subcases of the path
+problem, not proxies for the unrestricted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjecture</a>. They are ordered
+by mathematical signal rather than by the date of their formalization:
+first an all-degree sharp <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> with <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> configurations, then a
+complete degree-five sparse family, and finally an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> tower of
+translated quotient fibres. In each case a displayed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>
+is the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>-selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> endpoint. The ensuing
+normalization and path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> and is stated
+separately.</p>
+<section id="subsec:sharp-collinear-chebyshev" class="level3">
+<h3>Sharp collinear zeros</h3>
+<p>Put <span class="math display">\[r_n=\cos\frac{\pi}{2n},
+\qquad C_n=\frac{1}{2^{n-1}r_n^n}.\]</span></p>
+<p>This is exactly the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> selected as <em></em>. It is the
+kernel-facing alternation endpoint, not yet the geometric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> A repeated zero gives the constant path, so assume
+the zero values are distinct. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigid</a> motion sends their line to the
+real axis, their midpoint to the origin, and their extremes to <span
+class="math inline">\(\pm D/2\)</span>. With <span
+class="math inline">\(R=D/2\)</span>, the normalized polynomial <span
+class="math display">\[q(w)=R^{-n}e^{-in\theta}f(m+Re^{i\theta}w)\]</span>
+is monic with real zeros <span
+class="math inline">\(-1=y_1&lt;\cdots&lt;y_n=1\)</span>, and <span
+class="math inline">\(|f(m+Re^{i\theta}w)|=R^n|q(w)|\)</span>.</p>
+<p>Compare <span class="math inline">\(q\)</span> with the monic
+endpoint-normalized Chebyshev polynomial <span
+class="math display">\[q_*(x)=\frac{T_n(r_nx)}{2^{n-1}r_n^n}.\]</span>
+Both <span class="math inline">\(q\)</span> and <span
+class="math inline">\(q_*\)</span> vanish at <span
+class="math inline">\(\pm1\)</span>, and <span
+class="math inline">\(|q_*|\le C_n\)</span> on <span
+class="math inline">\([-1,1]\)</span>. For each gap <span
+class="math inline">\([y_i,y_{i+1}]\)</span>, choose <span
+class="math inline">\(c_i\)</span> at which <span
+class="math inline">\(|q|\)</span> is maximal. The signs of <span
+class="math inline">\(q(c_i)\)</span> alternate. If every gap maximum
+were larger than <span class="math inline">\(C_n\)</span>, then <span
+class="math inline">\(q-q_*\)</span> would have the same alternating
+signs as <span class="math inline">\(q\)</span> at the <span
+class="math inline">\(c_i\)</span>. It would therefore have a zero
+between each consecutive pair <span
+class="math inline">\(c_i,c_{i+1}\)</span>, as well as the two zeros
+<span class="math inline">\(\pm1\)</span>. These are <span
+class="math inline">\(n\)</span> distinct zeros, whereas the leading
+terms cancel and <span class="math inline">\(\deg(q-q_*)\le
+n-1\)</span>; moreover <span class="math inline">\(q-q_*\)</span> is
+nonzero at every <span class="math inline">\(c_i\)</span>. This
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> selects a gap on which <span class="math inline">\(|q|\le
+C_n\)</span>. Scaling back proves <em>(9)</em>.</p>
+<p>For sharpness, take <span
+class="math display">\[y_k=\frac{\cos((2k-1)\pi/(2n))}{r_n},
+\qquad 1\le k\le n.\]</span> These are the zeros of <span
+class="math inline">\(q_*\)</span>, have extremes <span
+class="math inline">\(\pm1\)</span>, and every adjacent gap contains a
+scaled Chebyshev extremum where <span
+class="math inline">\(|q_*|=C_n\)</span>. No smaller universal constant
+can work. ◻</p>
+</div>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Their diameter satisfies <span
+class="math inline">\(D&lt;2\)</span>. Also <span
+class="math inline">\(C_n\le1\)</span> for <span
+class="math inline">\(n\ge2\)</span>, with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> only at <span
+class="math inline">\(n=2\)</span>, so <em>(9)</em> is strictly below
+one. The selected segment has length at most <span
+class="math inline">\(D&lt;2\)</span>. ◻</p>
+</div>
+<section id="rem:sharp-collinear-formal-boundary" class="level5">
+<h5><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> boundary.</h5>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> sign <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preservation</a>, the alternating root-count mechanism,
+the scaled Chebyshev endpoint and uniform <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline">\(\ref{prop:sharp-collinear-chebyshev-comparator}\)</span>.
+It does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigid</a> normalization, the existence of the gap
+maxima, transport back to the root line, or the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>-node locations
+used in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline">\(\ref{thm:sharp-collinear-diameter}\)</span>. These
+are ordinary steps. The comparison with classical Chebyshev alternation
+is explicit, and no literature-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a> is made for the
+fixed-diameter adjacent-gap assembly.</p>
+</section>
+</section>
+<section id="subsec:primitive-sparse-quintic" class="level3">
+<h3>The primitive sparse quintic</h3>
+<p>The next selector is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> but unusually <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigid</a>. For <span
+class="math inline">\(0&lt;r&lt;2\)</span> and <span
+class="math inline">\(0\le s_i\le1\)</span>, <span
+class="math inline">\(x_i^2\le s_i\)</span>, put <span
+class="math display">\[E_i=s_i^4(s_i+r^2+2rx_i).\]</span></p>
+<p>This is the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> conclusion selected as <em></em>. It selects
+two distinct indices. It does not assert that the corresponding complex
+root values are distinct.</p>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Rotate so that <span
+class="math inline">\(a=re^{i\phi}\)</span> becomes <span
+class="math inline">\(r\ge0\)</span> and write <span
+class="math inline">\(z_i=e^{-i\phi}w_i\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> <span
+class="math inline">\(z^3\)</span> and <span
+class="math inline">\(z^2\)</span> coefficients and Newton’s identities
+give <span class="math display">\[\sum z_i=-r,\qquad \sum
+z_i^2=r^2,\qquad
+\sum z_i^3=-r^3.                                 \tag{12}\]</span> At a
+zero, <span class="math display">\[|bw_i+c|=|w_i|^4|w_i+a|.\]</span>
+Thus, for <span class="math inline">\(x_i=\Re z_i\)</span> and <span
+class="math inline">\(s_i=|z_i|^2\)</span>, the squared tail is exactly
+<span class="math inline">\(E_i\)</span> and <em>(12)</em> becomes
+<em>(10)</em>.</p>
+<p>For completeness, the selector is driven by the harmonic extension
+<span class="math display">\[H_r(x,s)=(-r/2-x)(1-x)^2
++(1-s)\left(1-\frac r4-\frac{3x}{4}\right).\]</span> The three moments
+give the exact sum <span
+class="math display">\[\sum_{i=0}^4H_r(x_i,s_i)=5-2r,                  \tag{13}\]</span>
+while <span class="math inline">\(H_r\le4-2r\)</span> throughout the
+unit disc. If <span class="math inline">\(E_r(x,s)\ge1\)</span>, then
+<span class="math display">\[5(1-s)\le2r(x+r/2).\]</span> After putting
+<span class="math inline">\(d=x+r/2\)</span> and <span
+class="math inline">\(u=1-x\)</span>, the remaining estimate is the
+exact sum-of-squares identity <span class="math display">\[\frac1{31}-P
+=\frac25\left(d-\frac{38}{31}
+               +\frac14(u-\frac3{31})\right)^2
+  +\frac{31}{40}\left(u-\frac3{31}\right)^2\ge0,\]</span> which yields
+<span class="math inline">\(H_r(x,s)\le2/31\)</span> for every unsafe
+tail. If four tails were unsafe, <em>(13)</em> would give <span
+class="math display">\[5-2r\le4-2r+\frac8{31}&lt;5-2r,\]</span> a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a>. This proves the two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> conclusion. The case <span
+class="math inline">\(r=0\)</span> is the direct identity <span
+class="math inline">\(|bw_i+c|=|w_i|^5\)</span>.</p>
+<p>Finally, at a zero <span class="math inline">\(w\)</span>, <span
+class="math display">\[p(tw)=(1-t)c+(t-t^4)(bw+c)-t^4(1-t)w^5.\]</span>
+For <span class="math inline">\(0\le t\le1\)</span> the three
+nonnegative coefficients sum to <span
+class="math inline">\(1-t^5\)</span>. The tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>, <span
+class="math inline">\(|w|\le1\)</span>, and <span
+class="math inline">\(|c|\le1\)</span> therefore give the radial
+unit-sublevel path. Under the open-disc <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> the relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>
+and the total spoke length <span
+class="math inline">\(|w_i|+|w_j|\)</span> are strict. ◻</p>
+</div>
+<section id="rem:primitive-quintic-formal-boundary" class="level5">
+<h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> boundary.</h5>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the five-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> moment hypotheses, the harmonic cap, the
+sum-of-squares unsafe estimate, and the ten-pair conclusion in
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline">\(\ref{prop:primitive-quintic-two-tail-energy-selector}\)</span>.
+The rotation, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-derivation" data-term="derivation" data-term-auto="1">derivation</a> of Newton moments from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, root-tail
+identity, Abel decomposition, path assembly, and any passage from
+distinct indices to distinct complex values remain ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>.
+No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a> is made for the resulting complete sparse family.</p>
+</section>
+</section>
+<section id="subsec:translated-cubic-quotient-fibres" class="level3">
+<h3>Translated cubic quotient fibres</h3>
+<p>This is exactly <em></em>.</p>
+<div class="proof">
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Write <span
+class="math inline">\(P(w)=(w-r)(w-s)(w-v)\)</span> and assign to <span
+class="math inline">\(r\)</span> the charge <span
+class="math inline">\(A_r=\Re(r\overline{s+v})\)</span>, cyclically. The
+exact sum is <span
+class="math display">\[A_r+A_s+A_v=|r+s+v|^2-(|r|^2+|s|^2+|v|^2)&gt;-3,\]</span>
+so one charge, say <span class="math inline">\(A_r\)</span>, exceeds
+<span class="math inline">\(-1\)</span>. For <span
+class="math inline">\(0\le t\le1\)</span>, AM–GM and the distance-square
+identity give <span
+class="math display">\[|tr-s|\,|tr-v|&lt;1+t+t^2.\]</span> Consequently
+<span
+class="math display">\[|P(tr)|&lt;(1-t)(1+t+t^2)=1-t^3&lt;1                 \tag{14}\]</span>
+away from the root endpoint.</p>
+<p>Fix a <span class="math inline">\(q\)</span>th root <span
+class="math inline">\(y\)</span> of a quotient root and a primitive
+<span class="math inline">\(q\)</span>th root of unity <span
+class="math inline">\(\zeta\)</span>. The full fibre consists of <span
+class="math inline">\(h+y\zeta^k\)</span>. Since every fibre point lies
+in the open unit disc, <span
+class="math display">\[\frac1q\sum_{k=0}^{q-1}|h+y\zeta^k|^2
+   =|h|^2+|y|^2&lt;1.                                \tag{15}\]</span>
+Thus <span class="math inline">\(|y|&lt;1\)</span>. For the safe
+quotient root from <em>(14)</em>, two distinct fibre points satisfy
+<span class="math display">\[f(h+ty\zeta^k)=P(t^qr),\]</span> and their
+two spokes through <span class="math inline">\(h\)</span> have total
+length <span class="math inline">\(2|y|&lt;2\)</span>. If the selected
+quotient root is zero, choose a nonzero quotient root and use the direct
+estimate <span class="math inline">\(|P(ts)|&lt;2t(1-t)\le1/2\)</span>;
+if none exists, <span class="math inline">\(f\)</span> has only one
+distinct zero value, contrary to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>. ◻</p>
+</div>
+<section id="rem:cubic-quotient-formal-boundary" class="level5">
+<h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> boundary.</h5>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the charge identity and selection, the two-distance
+envelope, the cubic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>, the safe-spoke disjunction in
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline">\(\ref{lem:cubic-safe-root-spoke}\)</span>, and an
+exact quartic falsifier for this charge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a>. It does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <span class="math inline">\(q\)</span>-fibre construction,
+root-of-unity average <em>(15)</em>, zero-root fallback, pullback, or
+geometric path assembly. These are ordinary steps, and no
+literature-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a> is made.</p>
+</section>
+<section id="bdry:solved-polynomial-families" class="level5">
+<h5>Shared assurance boundary.</h5>
+<p>The three <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> route respectively to
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorems</a> <span
+class="math inline">\(\ref{prop:sharp-collinear-chebyshev-comparator}\)</span>,
+<span
+class="math inline">\(\ref{prop:primitive-quintic-two-tail-energy-selector}\)</span>,
+and <span
+class="math inline">\(\ref{lem:cubic-safe-root-spoke}\)</span>. They
+support, but are strictly weaker than, the ordinary assembled
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorems</a> <span
+class="math inline">\(\ref{thm:sharp-collinear-diameter}\)</span>, <span
+class="math inline">\(\ref{thm:primitive-quintic-two-tail}\)</span>, and
+<span
+class="math inline">\(\ref{thm:translated-cubic-quotient-fibres}\)</span>.
+None of these solved <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scopes</a> proves the unrestricted problem, and none
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-license" data-term="license" data-term-auto="1">licenses</a> a novelty, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>, NanoDa, Palomar, or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
+beyond its separately recorded <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a>.</p>
+</section>
+</section>
+</section>
+<section id="sec:frontier" class="level2">
+<h2>The current frontier: what survives near Fekete configurations</h2>
+<p>The August 29 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">update</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a> the useful first reading
+of this problem. It does not add a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041; it identifies
+the geometric regime in which the remaining difficulty is concentrated
+and kills several attractive but <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> shortcuts. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> of the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">update</a> is pinned to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041"><code>f214a6b4</code></a>
+and the dated synthesis is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/FRONTIER.md"><code>FRONTIER.md</code></a>.
+The distinctions below are part of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, a refutation,
+a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurement</a> do not have interchangeable force.</p>
+<section id="near-fekete-stability-removes-the-radial-distraction"
+class="level3 unnumbered">
+<h3 class="unnumbered">Near-Fekete stability removes the radial
+distraction</h3>
+<p>Write <span class="math inline">\(a_i=\rho_i u_i\)</span>, with <span
+class="math inline">\(|u_i|=1\)</span>, and put <span
+class="math inline">\(D=|\operatorname{disc}(f)|/n^n\)</span>. The
+quantitative Fekete–Hadamard estimate in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>
+says that, when <span class="math inline">\(D\ge1-\eta\)</span> and
+<span class="math inline">\(\eta\le1/(80n^2)\)</span>, <span
+class="math display">\[1-\rho_i^2\le \frac{n\eta}{n-1},\qquad
+  |a_i-a_j|\ge \frac{2-2\sqrt\eta-n\eta}{n-1},\]</span> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>
+lie within <span class="math inline">\(7\sqrt\eta\)</span> of a rotated
+regular <span class="math inline">\(n\)</span>-gon, after a bijection.
+The mechanism is a normalised Vandermonde Gram determinant: near
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> in Hadamard’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> forces both the radii and the angular
+separation to be near extremal. This is an ordinary mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>
+in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, not a new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>.</p>
+<p>The associated radial monotonicity <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is the more important
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> conclusion. Under the stronger near-Fekete condition <span
+class="math inline">\(\eta\le1/(10n^4)\)</span> used by this corollary,
+replacing the radii by one can only increase the values along the
+corresponding radial spoke. Thus radial deficits help containment; the
+unresolved near-Fekete problem is angular. On exact regular-gon
+directions this becomes unconditional for <span
+class="math inline">\(n\le6\)</span>: arbitrary radii in the stated band
+give <span class="math display">\[|f(s\,\omega\zeta^i)|\le1-s^n
+\quad(0\le s\le\rho_i),\]</span> so every two-radii path is contained.
+The good spoke in the general on-circle averaging identity may move with
+<span class="math inline">\(s\)</span>, however; that is why an
+existence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> at one level does not supply a fixed pair of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>.</p>
+</section>
+<section id="a-bounded-radius-concyclic-class"
+class="level3 unnumbered">
+<h3 class="unnumbered">A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-radius concyclic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a></h3>
+<p>There is nevertheless a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clean" data-term="clean" data-term-auto="1">clean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> for a different on-circle
+mechanism. Let <span class="math inline">\(f\)</span> be monic of degree
+<span class="math inline">\(n\ge3\)</span> with distinct zeros on a
+circle of radius <span class="math inline">\(\rho\)</span>. If <span
+class="math inline">\(2\rho^n\le1\)</span>, two adjacent zeros are
+joined by their straight chord, whose length is at most <span
+class="math inline">\(2\rho\sin(\pi/n)&lt;2\)</span>, and the chord lies
+in <span class="math inline">\(\{|f|&lt;1\}\)</span>. (If a zero is
+repeated, the short-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> conclusion is immediate; the distinct
+case is the substantive one.)</p>
+<p>After normalisation to the unit circle, self-inversive realification
+and alternation against <span class="math inline">\(z^n-c\)</span>
+select a zero-free gap on which the polynomial modulus is at most <span
+class="math inline">\(2\)</span>; a harmonic normal-derivative argument
+transfers this arc <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> strictly to the chord. The complete ordinary
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/ConcyclicAlternation.md"><code>ConcyclicAlternation.md</code></a>.</p>
+<p>The argument is an ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> outside <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_exact_witness.py">exact-rational
+checker</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> load-bearing identities and
+configurations, while the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_alternation.py">numerical
+checker</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-regression" data-term="regression" data-term-auto="1">regression</a> and stress-test <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>. The arc constant
+<span class="math inline">\(2\)</span> is sharp on the regular <span
+class="math inline">\(n\)</span>-gon, so this chord argument does not
+reach radii tending to <span class="math inline">\(1\)</span>; the
+unrestricted concyclic case and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041 remain open.</p>
+</section>
+<section id="cyclic-trinomial-fibres" class="level3 unnumbered">
+<h3 class="unnumbered">Cyclic trinomial fibres</h3>
+<p>There is also a positive structured family in every cyclic lift
+degree. Fix <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> <span class="math inline">\(1\le r\le m\)</span>
+and <span class="math inline">\(q\ge1\)</span>, and consider the
+translated polynomial <span
+class="math display">\[f(z)=(z-h)^{qm}+a(z-h)^{qr}+c.\]</span> Writing
+<span class="math inline">\(w=(z-h)^q\)</span> reduces the root <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a>
+to <span class="math inline">\(w^m+aw^r+c=0\)</span>. At such a quotient
+root the middle coefficient can be eliminated exactly: for <span
+class="math inline">\(0\le u\le1\)</span>, <span
+class="math display">\[u^mw^m+au^rw^r+c
+   =(1-u^r)c-(u^r-u^m)w^m.\]</span> The two coefficients on the right
+are nonnegative and have total at most one. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> therefore proves that,
+if <span class="math inline">\(|w|&lt;1\)</span> and <span
+class="math inline">\(|c|&lt;1\)</span>, the complete radial spoke is
+strictly contained in the open unit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>. This is an all-root
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>; no Vieta-small root selection is needed for the containment
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
+<p>For a nontrivial cyclic fibre, two selected displacements <span
+class="math inline">\(y_1,y_2\)</span> with <span
+class="math inline">\(|y_1|,|y_2|&lt;1\)</span> also satisfy <span
+class="math inline">\(|y_1|+|y_2|&lt;2\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorization</a>, strict spoke estimate, and this metric budget.
+It does not yet <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> argument selecting a suitable
+quotient root and two distinct members of its fibre, lifting both
+quotient spokes, or assembling their union as a path in the relevant
+component. Thus the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is the load-bearing analytic kernel for
+this translated cyclic-trinomial family, not the complete path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
+and not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041.</p>
+</section>
+<section id="coefficient-controlled-cyclic-tetranomial-spokes"
+class="level3 unnumbered">
+<h3 class="unnumbered">Coefficient-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> cyclic tetranomial
+spokes</h3>
+<p>The first additional lower monomial admits an exact Abel-tail
+criterion. Let <span class="math display">\[g(w)=w^m+aw^r+bw^s+c,\qquad
+m&gt;r&gt;s\ge1,\]</span> assume all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> of <span
+class="math inline">\(g\)</span> lie in the open unit disk, and let
+<span class="math inline">\(w_1,w_2\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> of the two
+smallest moduli. If <span
+class="math display">\[|c|+|b|\,|w_2|^s&lt;1,\]</span> then the complete
+radial spokes from <span class="math inline">\(w_1\)</span> and <span
+class="math inline">\(w_2\)</span> to the origin lie in <span
+class="math inline">\(\{|g|&lt;1\}\)</span>, and their broken line has
+length strictly below <span class="math inline">\(2\)</span>. The
+simpler coefficient condition <span
+class="math display">\[|b|+|c|\le1\]</span> makes every root spoke safe;
+the coefficient <span class="math inline">\(a\)</span> is
+unrestricted.</p>
+<p>The mechanism is visible in one identity. At a root <span
+class="math inline">\(w\)</span> and for <span
+class="math inline">\(0\le u\le1\)</span>, <span
+class="math display">\[\begin{split}
+g(uw)={}&amp;(1-u^s)c
+  -(u^s-u^r)(aw^r+w^m)
+  -(u^r-u^m)w^m,\\
+aw^r+w^m={}&amp;-(c+bw^s).
+\end{split}\]</span> The three scalar coefficients are nonnegative and
+sum to <span class="math inline">\(1-u^m\)</span>. Thus the
+root-dependent budget <span
+class="math inline">\(|c|+|b||w|^s&lt;1\)</span>, together with <span
+class="math inline">\(|w|&lt;1\)</span> and <span
+class="math inline">\(|c|&lt;1\)</span>, puts every vector in the Abel
+decomposition strictly inside the unit ball. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> this
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorization</a> and the resulting strict spoke <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> under the exact
+weak <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> hypotheses <span class="math inline">\(1\le s\le r\le
+m\)</span>; it also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the coefficient-only corollary above.</p>
+<p>There is a stronger, genuinely two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. Let <span
+class="math inline">\(S\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> family of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, <span
+class="math inline">\(N=|S|\ge2\)</span>, and <span
+class="math display">\[M=\sum_{i\in S}w_i^s.\]</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves the
+exact signed energy identity <span class="math display">\[\sum_{i\in
+S}|c+bw_i^s|^2
+=N|c|^2+|b|^2\sum_{i\in S}|w_i^s|^2
+   +2\mathop{\rm Re}(\overline c\,bM).\]</span> Consequently, if every
+<span class="math inline">\(|w_i|&lt;1\)</span>, <span
+class="math inline">\(|c|&lt;1\)</span>, and <span
+class="math display">\[N\bigl(|b|^2+|c|^2\bigr)
+   +2\mathop{\rm Re}(\overline c\,bM)&lt;N-1,\]</span> then two distinct
+indices <span class="math inline">\(i,j\in S\)</span> satisfy <span
+class="math inline">\(|c+bw_i^s|&lt;1\)</span> and <span
+class="math inline">\(|c+bw_j^s|&lt;1\)</span>. Feeding those
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> into the Abel decomposition proves, in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, that both
+complete root spokes lie strictly in <span
+class="math inline">\(\{|g|&lt;1\}\)</span>. The signed cross term is
+essential: this interface can certify configurations outside the
+coefficient-only triangle <span
+class="math inline">\(|b|+|c|\le1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> hypotheses do not
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> <span class="math inline">\(i\mapsto w_i\)</span> to be
+injective, so distinct indices need not denote distinct root values; the
+ordinary two-root consequence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> a root enumeration without
+repetition.</p>
+<p>For <span class="math inline">\(q\ge2\)</span> and <span
+class="math inline">\(f(z)=g((z-h)^q)\)</span>, the ordinary
+regular-fibre mean-square identity puts every quotient root inside the
+unit disk. Lifting two selected quotient spokes gives a path through
+<span class="math inline">\(h\)</span> whose two displacement lengths
+sum to less than <span class="math inline">\(2\)</span>. The new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> assumes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> root family, its signed moment <span
+class="math inline">\(M\)</span>, and the displayed budget; it does not
+derive that budget from arbitrary tetranomial coefficients, prove that
+the supplied family is a complete root multiset, perform cyclic-fibre
+lifting, or construct the final path object. Without the signed-moment,
+root-dependent, or coefficient-only budget, the tetranomial case remains
+open; this family does not solve unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041.</p>
+</section>
+<section id="translated-quartic-quotient-fibres"
+class="level3 unnumbered">
+<h3 class="unnumbered">Translated quartic quotient fibres</h3>
+<p>Pendyala’s degree-four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> can also be lifted through every
+nontrivial cyclic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>. Let <span class="math inline">\(P\)</span> be a
+monic quartic, let <span class="math inline">\(q\ge2\)</span>, and set
+<span class="math display">\[f(z)=P((z-h)^q).\]</span> If all <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">listed</a>
+zeros of <span class="math inline">\(f\)</span> lie in the open unit
+disk, averaging the squared moduli over each complete <span
+class="math inline">\(q\)</span>-point fibre shows that every quotient
+root <span class="math inline">\(w\)</span> of <span
+class="math inline">\(P\)</span> satisfies <span
+class="math inline">\(|w|&lt;1\)</span>. Pendyala’s chord-or-radial
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> then supplies the quotient geometry. The extra issue is metric: a
+short chord in the <span class="math inline">\(w\)</span>-plane need not
+lift isometrically through <span class="math inline">\(y\mapsto
+y^q\)</span>.</p>
+<p>Put <span class="math inline">\(\alpha=1/q\)</span>. Along a quotient
+chord whose supporting line has distance <span
+class="math inline">\(d\)</span> from the origin, the root-lift density
+is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> pointwise by <span
+class="math display">\[\bigl(\sqrt{d^2+x^2}\bigr)^{\alpha-1}
+    \le x^{\alpha-1}\qquad(x&gt;0),\]</span> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the exact
+primitive <span class="math display">\[\alpha\int_0^A
+x^{\alpha-1}\,dx=A^\alpha.\]</span> Splitting at the perpendicular foot,
+and at the origin when the chord crosses it, yields the ordinary
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> chord-lift estimate <span
+class="math display">\[\operatorname{length}(\widetilde{[a,b]})
+    \le |a|^{1/q}+|b|^{1/q}.\]</span> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the
+strict endpoint consumer: if <span class="math inline">\(0\le
+a,b&lt;1\)</span>, <span class="math inline">\(\alpha&gt;0\)</span>, and
+a candidate length <span class="math inline">\(L\)</span> is at most
+<span class="math inline">\(a^\alpha+b^\alpha\)</span>, then <span
+class="math inline">\(L&lt;2\)</span>. Thus both Pendyala branches
+survive the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> lift, giving the asserted short path for every
+translated quartic quotient fibre, in each degree <span
+class="math inline">\(4q\ge8\)</span>.</p>
+<p>The attribution and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-boundary" data-term="proof_boundary" data-term-auto="1">proof boundary</a> are exact. Pendyala proves the
+quartic geometric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> and its four-point radial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a>. The local
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the antitone density <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>, its integral, the
+strict powered endpoint budget, and the final length fan-in. It does not
+formalize Pendyala’s geometric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a>, the continuous covering-space
+construction of the root lift, or the ordinary chord/radial case
+assembly. This is a structured all-scale family, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of
+unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041.</p>
+</section>
+<section id="the-degree-five-target-is-now-explicit"
+class="level3 unnumbered">
+<h3 class="unnumbered">The degree-five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> is now explicit</h3>
+<p>The degree-five analysis sharpens the two-nearest-spoke threshold. If
+a critical point <span class="math inline">\(c\)</span> satisfies <span
+class="math inline">\(|f(c)|\le1/M_n\)</span>, then both straight
+segments to the two nearest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> remain in <span
+class="math inline">\(\{|f|\le1\}\)</span> and their total length is at
+most <span class="math inline">\(2\)</span>. The envelope is obtained by
+maximising the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> along the second spoke; at degree five,
+<span class="math display">\[M_5=(1-t_*)(1+t_*)^3\sqrt{16t_*^2-4t_*+1},
+\qquad
+t_*={5\over16}+{3\sqrt{105}\over80},
+\qquad
+{1\over M_5}=0.2760461\ldots.\]</span> This is an 11-fold improvement
+over the earlier deep-low threshold, but it does not assert that every
+quintic has a critical value below this level.</p>
+<p>The exact remaining degree-five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is therefore not “improve
+the constant” but the following selection problem:</p>
+<blockquote>
+<p>For every monic quintic with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in the closed unit disc, there is
+a critical point <span class="math inline">\(c\)</span> with <span
+class="math inline">\(|f(c)|\le1\)</span> and two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> <span
+class="math inline">\(a,b\)</span> such that <span
+class="math inline">\(|f|\le1\)</span> on <span
+class="math inline">\([c,a]\cup[c,b]\)</span> and <span
+class="math inline">\(|c-a|+|c-b|\le2\)</span>.</p>
+</blockquote>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> file calls this (SPOKE-5). Together with the existing
+two-segment <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> it would settle degree five, but (SPOKE-5) is not
+proved. Coverage experiments put the residual in rapid, nearly
+simultaneous merging near the regular pentagon: the generic sampled
+families were covered, whereas the surviving band has every named merge
+threshold active and <span class="math inline">\(D\)</span> near <span
+class="math inline">\(1\)</span>. Those percentages locate the work;
+they are not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<p>At the same degree, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> connected component admits a sharper
+area identity. If <span class="math inline">\(K_t=\{|f|\le t\}\)</span>
+is connected and the centred exterior <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> is <span
+class="math display">\[\psi(\zeta)=t^{1/n}\zeta+a_0+
+\sum_{k\ge1}a_k\zeta^{-k},\]</span> then Grönwall’s identity gives <span
+class="math display">\[\operatorname{Area}(K_t)=\pi\left(t^{2/n}-
+\sum_{k\ge1}k|a_k|^2\right),
+\qquad
+a_1=-\frac{c_{n-2}}{n\,t^{1/n}}
+\quad\text{after centring}.\]</span> It replaces a Pólya upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> at
+that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> node, but extending it to proper components and connecting
+it to the parent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> remains open. The degree-five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> and
+their <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence classes</a> are recorded in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md"><code>Degree5AssemblyAndSharpenedCuts.md</code></a>.</p>
+</section>
+<section id="the-no-go-boundaries-force-hub-selection"
+class="level3 unnumbered">
+<h3 class="unnumbered">The no-go boundaries force hub selection</h3>
+<p>The same frontier is useful because it closes off three misleading
+readings. First, the strict-argmin first-merge hub need not have two-arm
+length below <span class="math inline">\(2\)</span>. A degree-five
+tie-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, moved into the open unit disc, has <span
+class="math display">\[L(c_*)=2.0573432753\ldots&gt;2,\]</span> with a
+50-digit two-instrument reconstruction and a margin about 97 times that
+of the earlier degree-four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>. This is computational <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, not an exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>; the parent remains viable
+because a different hub at the same configuration supplies the relevant
+pair.</p>
+<p>Second, the aggregate estimate <span
+class="math inline">\(\sum_cL(c)\le2(n-1)R\)</span> is refuted at degree
+four on an open violating region and at one degree-five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>. Its
+algebraic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <span
+class="math display">\[\sum_{k=1}^{n-1}|f(c_k)|^{1/n}\le(n-1)R\]</span>
+survives as a separate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjecture</a>, but the metric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> is not
+automatic. These two boundaries, including the distinction between the
+surviving algebraic half and the dead aggregate, are in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md"><code>MinimalHubArmBudgetRefutation.md</code></a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md"><code>SeparatrixAggregateReduction.md</code></a>.</p>
+<p>Third, the origin is not a uniform near-Fekete hub. An exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
+quintic with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> scaled by <span
+class="math inline">\(999999/1000000\)</span> has four of five origin
+spokes escaping <span class="math inline">\(\{|f|\le1\}\)</span> at
+explicit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> sample points, even though <span
+class="math inline">\(1-D=3.19991\cdot10^{-4}\)</span>. Consequently no
+fixed <span class="math inline">\(\eta\)</span>-neighbourhood of the
+Fekete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a> can force two contained origin spokes in degree five. The
+mechanism is angular: the first several Fourier modes can point against
+different spokes. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> is exact for the displayed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>;
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> that the phenomenon persists throughout a limiting family is
+computational. The full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> route are in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>.</p>
+</section>
+<section id="the-surviving-carrier-and-the-actual-open-endpoint"
+class="level3 unnumbered">
+<h3 class="unnumbered">The surviving carrier and the actual open
+endpoint</h3>
+<p>These refutations leave a selector as the surviving carrier. On the
+ray-separated dense <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> frontier records the canonical
+open row <span class="math display">\[\min_{c\ \mathrm{admissible}}
+L(c)\le2,\]</span> where admissibility includes the two inverse-ray arms
+being contained in the relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> component. Its measured
+values remain below <span class="math inline">\(2\)</span> at the
+refuting configurations, and the existing attachment and lower
+semicontinuity <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> would turn this row into the parent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.
+No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of the row is currently available. In particular, the nonzero
+hub that rescues the origin-spoke <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> for the
+selector, not a universal construction.</p>
+<p>The honest current endpoint is therefore a containment selector with
+three separate obligations: choose the hub, keep both arms inside the
+component, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> the metric fan-in. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> cited
+elsewhere in this note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the Newton value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a>, ray-collision
+avoidance, and root-retention <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">inputs</a>; the new frontier files above are
+ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, exact-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, and computational <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> records,
+not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for (SPOKE-5), the no-go generalisations, or the
+parent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. Keeping those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> boundaries visible is part of
+making the frontier reusable.</p>
+</section>
+</section>
 <section id="sec:newton" class="level2">
-<h2>The Newton value equation</h2>
-<p>Away from the critical set, define the complex Newton field
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">N(z)=-\frac{f(z)}{f&#39;(z)} .</annotation></semantics></math>
-Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z(t)</annotation></semantics></math>
-be differentiable with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=N(z(t))</annotation></semantics></math>,
-and put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w(t)=f(z(t))</annotation></semantics></math>.</p>
-<p>The computation is one line:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msup><mi>z</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w</annotation></semantics></math>.
-The kernel checks it as <em></em>, together with the differential form
-of the first integral, <em></em>:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mi>t</mi></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">equivalently</mtext><mspace width="2.0em"></mspace><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
+<h2>The Newton value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a></h2>
+<p>Away from the critical set, define the complex <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton field</a> <span
+class="math display">\[N(z)=-\frac{f(z)}{f&#39;(z)} .\]</span> Let <span
+class="math inline">\(z(t)\)</span> be differentiable with <span
+class="math inline">\(z&#39;(t)=N(z(t))\)</span>, and put <span
+class="math inline">\(w(t)=f(z(t))\)</span>.</p>
+<p>The computation is one line: <span
+class="math inline">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
+The kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> it as <em></em>, together with the differential form
+of the first integral, <em></em>: <span
+class="math display">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
   \qquad\text{equivalently}\qquad
-  f(z(t))=e^{-t}f(z(0)) .</annotation></semantics></math> Observe what
-this says about the geometry. The value moves radially inward at
-exponential rate and never changes argument. The lemniscate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
-is therefore forward-invariant, and the flow lines are exactly the
-preimages of rays from the origin.</p>
-<p>This is checked in consumer form: the kernel accepts the implication
-from the hypothesis of distinct rays to the absence of a connection. It
-is the statement the topology needs, and it is a genuine sharpening of
+  f(z(t))=e^{-t}f(z(0)) .\]</span> Observe what this says about the
+geometry. The value moves radially inward at exponential rate and never
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a> argument. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> <span
+class="math inline">\(\{|f|&lt;1\}\)</span> is therefore
+forward-invariant, and the flow lines are exactly the preimages of rays
+from the origin.</p>
+<p>This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in consumer form: the kernel accepts the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a>
+from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> of distinct rays to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">absence</a> of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a>. It
+is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> the topology needs, and it is a genuine sharpening of
 the criterion used in the literature.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
 <p>It is tempting to arrange a generic perturbation so that the critical
 values are pairwise distinct, or that their moduli are pairwise
-distinct, and to conclude that saddle connections are excluded. Neither
+distinct, and to conclude that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>. Neither
 is enough.</p>
 <p>Two distinct critical values can lie on one ray, and two critical
 values with distinct moduli certainly can: the ray records the argument,
 and the modulus is exactly the coordinate the flow contracts. By
-Corollary  the invariant that excludes connections is the argument. What
-a perturbation must therefore achieve is pairwise distinct
-critical-value , which is a condition on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>
-points modulo the circle rather than on their positions in the
-plane.</p>
-<p>The cost of that condition is also checked, and it is small.</p>
+Corollary <span class="math inline">\(\ref{res:ray}\)</span> the
+invariant that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a> is the argument. What a perturbation
+must therefore achieve is pairwise distinct critical-value
+<em>arguments</em>, which is a condition on <span
+class="math inline">\(n-1\)</span> points modulo the circle rather than
+on their positions in the plane.</p>
+<p>The cost of that condition is also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, and it is small.</p>
 <p>So each pair of critical values contributes a one-real-parameter
-forbidden locus in the translation plane, given in closed form
-(<em></em>). A finite union of such loci has empty interior, which is
-the shape one wants for an avoidance argument. Turning that into a
-perturbation of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-is not immediate: the translation model must be replaced by an actual
-perturbation of the roots that keeps them inside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">𝔻</mi><annotation encoding="application/x-tex">\mathbb{D}</annotation></semantics></math>
-and preserves the length slack. That is the first open producer of
-§.</p>
+forbidden <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a> in the translation plane, given in closed form
+(<em></em>). A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> union of such loci has empty interior, which is
+the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> one wants for an avoidance argument. Turning that into a
+perturbation of <span class="math inline">\(f\)</span> is not immediate:
+the translation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> must be replaced by an actual perturbation of the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> that keeps them inside <span
+class="math inline">\(\mathbb{D}\)</span> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserves</a> the length
+slack. That is the first open producer of §<span
+class="math inline">\(\ref{sec:open}\)</span>.</p>
 </section>
 <section id="sec:gap" class="level2">
-<h2>A proof gap in the unrestricted argument</h2>
-<p>The March manuscript’s Proposition 12 claims the following
-load-bearing statement. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">u=-\log|f|</annotation></semantics></math>,
-a connected component
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>&gt;</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{u&gt;c\}</annotation></semantics></math>
-carrying
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m\ge2</annotation></semantics></math>
-simple zeros, and the stated regularity and Morse hypotheses, it
-constructs, for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>,
-an embedded spanning tree
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>ε</mi></msub><mo>⊂</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">G_\varepsilon\subset V</annotation></semantics></math>
-with
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>ε</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>ε</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{len}(G_\varepsilon)
- \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon.
-\tag{5.1}\label{eq:prop12-bound}</annotation></semantics></math> The
-final theorem uses this estimate, so the issue below cannot be bypassed
-by calling the proposition auxiliary.</p>
-<p>At an interior index-one critical point
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
-the proof invokes a Morse chart
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>μ</mi><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">u=\mu+x^2-y^2</annotation></semantics></math>
-and replaces the saddle by a three-ended neighbourhood having one
-connected lower cross-section and two connected upper cross-sections.
-That local model is false as written. Because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">p\in V</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
-is open, a sufficiently small closed disc around
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-lies entirely in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.
-In that disc the full Morse chart has four sectors: two components of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&gt;</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">u&gt;\mu</annotation></semantics></math>
-and two components of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&lt;</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">u&lt;\mu</annotation></semantics></math>.
-A global component argument cannot delete one local sector from a disc
-already contained in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p>
-<p>This diagnoses a proof step, not the proposition’s statement. A
+<h2>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> gap in the unrestricted argument</h2>
+<p>The March manuscript’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> the following
+load-bearing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. For <span
+class="math inline">\(u=-\log|f|\)</span>, a connected component <span
+class="math inline">\(V\)</span> of <span
+class="math inline">\(\{u&gt;c\}\)</span> carrying <span
+class="math inline">\(m\ge2\)</span> simple zeros, and the stated
+regularity and Morse hypotheses, it constructs, for every <span
+class="math inline">\(\varepsilon&gt;0\)</span>, an embedded spanning
+tree <span class="math inline">\(G_\varepsilon\subset V\)</span> with
+<span class="math display">\[\operatorname{len}(G_\varepsilon)
+\le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon.
+\tag{5.1}\label{eq:prop12-bound}\]</span> The final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> uses this
+estimate, so the issue below cannot be bypassed by calling the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> auxiliary.</p>
+<p>At an interior <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>-one critical point <span
+class="math inline">\(p\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> invokes a Morse chart <span
+class="math display">\[u=\mu+x^2-y^2\]</span> and replaces the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> by
+a three-ended neighbourhood having one connected lower cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> and
+two connected upper cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>. That local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> as
+written. Because <span class="math inline">\(p\in V\)</span> and <span
+class="math inline">\(V\)</span> is open, a sufficiently small closed
+disc around <span class="math inline">\(p\)</span> lies entirely in
+<span class="math inline">\(V\)</span>. In that disc the full Morse
+chart has four sectors: two components of <span
+class="math inline">\(u&gt;\mu\)</span> and two components of <span
+class="math inline">\(u&lt;\mu\)</span>. A global component argument
+cannot delete one local sector from a disc already contained in <span
+class="math inline">\(V\)</span>.</p>
+<p>This diagnoses a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> step, not the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. A
 repair might cut an adjoining regular annulus along a separatrix or
-regular flow arc before forming the block, retain a four-pronged saddle
-neighbourhood and change the assembly, or replace the local construction
+regular flow arc before forming the block, retain a four-pronged <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>
+neighbourhood and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> the assembly, or replace the local construction
 by the ray-cut decomposition proposed below. Any repair must prove that
 its connector cost can be made arbitrarily small uniformly in the
 attachment points and that the repaired blocks still assemble to an
-embedded tree satisfying . The shorter descriptions of the same
-three-ended block do not repair the four-sector topology.</p>
-<p>Corollary  supplies one independent input for a different route:
-distinct critical-value arguments exclude saddle-to-saddle Newton
-connections. It does not itself prove the compact planar decomposition,
-classify all orbit endpoints or provide the metric gluing estimate.
-Those are separate problems below.</p>
+embedded tree satisfying <span
+class="math inline">\(\eqref{eq:prop12-bound}\)</span>. The shorter
+descriptions of the same three-ended block do not repair the four-sector
+topology.</p>
+<p>Corollary <span class="math inline">\(\ref{res:ray}\)</span> supplies
+one independent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> for a different route: distinct critical-value
+arguments <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> Newton <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a>. It does not
+itself prove the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> planar decomposition, classify all <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>
+endpoints or provide the metric gluing estimate. Those are separate
+problems below.</p>
 </section>
 <section id="sec:finite" class="level2">
-<h2>Finite evidence</h2>
-<p>A search was run over random monic polynomials with roots in the unit
-disc. For each sample the region
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
-was rasterised and shortest grid paths were computed between every pair
-of roots. The best upper bounds obtained were
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>5</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1.1052648928</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>6</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.8450414343</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>8</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.6203916714</mn></mtd></mtr><mtr><mtd columnalign="left" class="ta-l"><mrow><mtext mathvariant="normal">degree </mtext><mspace width="0.333em"></mspace></mrow><mn>10</mn><mo>,</mo></mtd><mtd columnalign="right" class="ta-r"><mn>1500</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> trials</mtext></mrow><mo>:</mo></mtd><mtd columnalign="right" class="ta-r"><mn>0.4303640486</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{lrr}
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a></h2>
+<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> was run over random monic polynomials with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in the unit
+disc. For each sample the region <span
+class="math inline">\(\{|f|&lt;1\}\)</span> was rasterised and shortest
+grid paths were computed between every pair of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>. The best upper
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> obtained were <span class="math display">\[\begin{array}{lrr}
     \text{degree } 5, &amp; 500 \text{ trials}: &amp; 1.1052648928\\
     \text{degree } 6, &amp; 1500 \text{ trials}: &amp; 0.8450414343\\
     \text{degree } 8, &amp; 1500 \text{ trials}: &amp; 0.6203916714\\
     \text{degree } 10, &amp; 1500 \text{ trials}: &amp; 0.4303640486 .
-  \end{array}</annotation></semantics></math> No counterexample
-candidate was found, and the measured values sit well below the
-threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
-These are grid distances for the sampled configurations: upper bounds on
-those samples, not bounds over the family. The apparent decrease with
-degree is a property of the sample, and we draw no conjecture from it.
-Future searches should target named failure modes—near-degenerate
-saddles, thin necks, boundary-critical configurations and
-almost-connected separatrices—and report those diagnostics. Raster paths
-remain candidate finders, never continuous certificates.</p>
+  \end{array}\]</span> No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> candidate was found, and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measured values</a> sit well below the threshold <span
+class="math inline">\(2\)</span>. These are grid distances for the
+sampled configurations: upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> on those samples, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> over
+the family. The apparent decrease with degree is a property of the
+sample, and we draw no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjecture</a> from it. Future <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">searches</a> should <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>
+named failure modes—near-degenerate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddles</a>, thin necks,
+boundary-critical configurations and almost-connected separatrices—and
+report those diagnostics. Raster paths remain candidate finders, never
+continuous <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Complements and further questions</h2>
-<p>The dependency chain has five separate gates. A proof, a minimally
-corrected hypothesis set, or an explicit polynomial or planar
-counterexample is a decisive answer to any one of them.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> chain has five separate gates. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, a minimally
+corrected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> set, or an explicit polynomial or planar
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> is a decisive answer to any one of them.</p>
 <section id="repair-or-refute-the-saddle-block"
 class="level3 unnumbered">
-<h3 class="unnumbered">1. Repair or refute the saddle block</h3>
-<p>The full-disc model
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2-y^2</annotation></semantics></math>,
-an annulus in which lower branches rejoin, two saddles joined by a
-separatrix and simultaneous saddle levels are mandatory tests. Repeating
+<h3 class="unnumbered">1. Repair or refute the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> block</h3>
+<p>The full-disc <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> <span class="math inline">\(x^2-y^2\)</span>, an
+annulus in which lower branches rejoin, two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddles</a> joined by a
+separatrix and simultaneous <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> levels are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">mandatory</a> tests. Repeating
 the one-lower/two-upper assertion does not answer the problem.</p>
 </section>
 <section id="the-compact-ray-cut-decomposition"
 class="level3 unnumbered">
-<h3 class="unnumbered">2. The compact ray-cut decomposition</h3>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-have simple roots, simple nonzero critical points and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">u=-\log|p|</annotation></semantics></math>.
-For regular values
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&lt;</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">c&lt;T</annotation></semantics></math>,
-take
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>c</mi><mo>,</mo><mi>T</mi></mrow></msub><mo>=</mo><mover><mrow><mi>V</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo>&lt;</mo><mi>u</mi><mo>&lt;</mo><mi>T</mi><mo stretchy="false" form="postfix">}</mo></mrow><mo accent="true">¯</mo></mover><mo>,</mo></mrow><annotation encoding="application/x-tex">M_{c,T}=\overline{V\cap\{c&lt;u&lt;T\}},</annotation></semantics></math>
-and assume explicitly that this is a compact genus-zero surface, its
+<h3 class="unnumbered">2. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> ray-cut decomposition</h3>
+<p>Let <span class="math inline">\(p\)</span> have simple <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, simple
+nonzero critical points and let <span
+class="math inline">\(u=-\log|p|\)</span>. For regular values <span
+class="math inline">\(c&lt;T\)</span>, take <span
+class="math display">\[M_{c,T}=\overline{V\cap\{c&lt;u&lt;T\}},\]</span>
+and assume explicitly that this is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> genus-zero surface, its
 lower boundary is one smooth Jordan curve, its upper boundary consists
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-smooth root curves, all interior critical points are nondegenerate
-index-one saddles, the normalised gradient field
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mfrac><mrow><mi>∇</mi><mi>u</mi></mrow><mrow><mo stretchy="false" form="prefix">|</mo><mi>∇</mi><mi>u</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mi>−</mi><mfrac><mi>p</mi><msup><mi>p</mi><mo>′</mo></msup></mfrac></mrow><annotation encoding="application/x-tex">X=\frac{\nabla u}{|\nabla u|^2}=-\frac{p}{p&#39;}</annotation></semantics></math>
-is transverse to the level boundaries, and no maximal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>-trajectory
-has two saddle endpoints.</p>
-<p>No particular formula such as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>s</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2s+1</annotation></semantics></math>
-is presumed. Boundary tangencies, simultaneous levels, branch reunion
-through an annulus and non-Hausdorff orbit spaces must be handled rather
-than suppressed.</p>
+of <span class="math inline">\(m\)</span> smooth root curves, all
+interior critical points are nondegenerate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>-one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddles</a>, the
+normalised gradient field <span class="math display">\[X=\frac{\nabla
+u}{|\nabla u|^2}=-\frac{p}{p&#39;}\]</span> is transverse to the level
+boundaries, and no maximal <span
+class="math inline">\(X\)</span>-trajectory has two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>
+endpoints.</p>
+<p>No particular formula such as <span
+class="math inline">\(2s+1\)</span> is presumed. Boundary tangencies,
+simultaneous levels, branch reunion through an annulus and non-Hausdorff
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> spaces must be handled rather than suppressed.</p>
 </section>
 <section id="metric-fan-in-without-losing-the-coefficient"
 class="level3 unnumbered">
 <h3 class="unnumbered">3. Metric fan-in without losing the
 coefficient</h3>
-<p>For a strip
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
-write
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup><mo>=</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>=</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>P</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi mathvariant="script">ℋ</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\Gamma_t^S=S\cap\{u=t\},\qquad
- P_S(t)=\mathcal H^1(\Gamma_t^S),</annotation></semantics></math> and
-let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>S</mi></msub><annotation encoding="application/x-tex">k_S</annotation></semantics></math>
-be its number of root ends. The flux identity
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><msubsup><mi mathvariant="normal">Γ</mi><mi>t</mi><mi>S</mi></msubsup></msub><mo stretchy="false" form="prefix">|</mo><mi>∇</mi><mi>u</mi><mo stretchy="false" form="prefix">|</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo>=</mo><mn>2</mn><mi>π</mi><msub><mi>k</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">\int_{\Gamma_t^S}|\nabla u|\,ds=2\pi k_S</annotation></semantics></math>
-gives the average trajectory estimate
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><msubsup><mi mathvariant="normal">Γ</mi><msub><mi>t</mi><mn>0</mn></msub><mi>S</mi></msubsup></msub><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>x</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><msub><mi>μ</mi><msub><mi>t</mi><mn>0</mn></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi><msub><mi>k</mi><mi>S</mi></msub></mrow></mfrac><msubsup><mo>∫</mo><msub><mi>a</mi><mi>S</mi></msub><msub><mi>b</mi><mi>S</mi></msub></msubsup><msub><mi>P</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\int_{\Gamma_{t_0}^S}\operatorname{len}(\gamma_x)\,d\mu_{t_0}(x)
- =
- \frac1{2\pi k_S}\int_{a_S}^{b_S}P_S(t)\,dt.</annotation></semantics></math></p>
-<p>For the final strict inequality, use the actual collar slack
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mi>α</mi><mrow><mn>2</mn><mi>α</mi></mrow></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt&gt;0</annotation></semantics></math>
+<p>For a strip <span class="math inline">\(S\)</span>, write <span
+class="math display">\[\Gamma_t^S=S\cap\{u=t\},\qquad
+P_S(t)=\mathcal H^1(\Gamma_t^S),\]</span> and let <span
+class="math inline">\(k_S\)</span> be its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of root ends. The flux
+identity <span class="math display">\[\int_{\Gamma_t^S}|\nabla
+u|\,ds=2\pi k_S\]</span> gives the average trajectory estimate <span
+class="math display">\[\int_{\Gamma_{t_0}^S}\operatorname{len}(\gamma_x)\,d\mu_{t_0}(x)
+=
+\frac1{2\pi k_S}\int_{a_S}^{b_S}P_S(t)\,dt.\]</span></p>
+<p>For the final strict <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>, use the actual collar slack <span
+class="math display">\[q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt&gt;0\]</span>
 and give budgets that keep the perturbation, tree error and transfer
-cost below fixed fractions of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
+cost below fixed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fractions</a> of <span class="math inline">\(q\)</span>.
 Independently choosing a shortest trajectory in each strip is not enough
-unless the attachment mismatch is controlled.</p>
+unless the attachment mismatch is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a>.</p>
 </section>
 <section id="coefficient-perturbation-and-stability"
 class="level3 unnumbered">
 <h3 class="unnumbered">4. Coefficient perturbation and stability</h3>
-<p>The constant-translation stage is no longer open. Once a finite
-critical-value family is injective, Lean proves an arbitrarily small
+<p>The constant-translation stage is no longer open. Once a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+critical-value family is injective, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves an arbitrarily small
 translation making every value nonzero and pairwise positive-ray
 separated (<em></em>). It also proves the explicit root-retention
-estimate; a shift below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
-keeps all roots in the unit disc when
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>ε</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>+</mo><mi>ρ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">((n+1)\varepsilon)^{1/n}+\rho&lt;1</annotation></semantics></math>
+estimate; a shift below <span class="math inline">\(\varepsilon\)</span>
+keeps all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in the unit disc when <span
+class="math display">\[((n+1)\varepsilon)^{1/n}+\rho&lt;1\]</span>
 (<em></em>). A constant translation cannot separate initially equal
 critical values.</p>
-<p>Finite planar avoidance and the subsequent constant translation must
-not be relisted as missing; coefficient genericity, component stability
-and slack stability are the open content.</p>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> planar avoidance and the subsequent constant translation must
+not be relisted as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a>; coefficient genericity, component stability
+and slack stability are the open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">content</a>.</p>
 </section>
 <section id="the-global-newton-flow-claim-ceiling"
 class="level3 unnumbered">
-<h3 class="unnumbered">5. The global Newton-flow claim ceiling</h3>
-<p>The checked algebra proves the pointwise value equation and the
-endpoint-ray consumer. It does not supply global solution theory or an
-orbit-space graph. A positive stronger theorem must give the graph and a
-finite edge bound; a negative answer should exhibit the simplest
+<h3 class="unnumbered">5. The global Newton-flow <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> ceiling</h3>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> algebra proves the pointwise value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a> and the
+endpoint-ray consumer. It does not supply global <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theory" data-term="theory" data-term-auto="1">theory</a> or an
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>-space <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>. A positive stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> must give the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> and a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> edge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>; a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> answer should exhibit the simplest
 ray-separated polynomial carrying the remaining pathology.</p>
-<p>Erdős #1041 remains open. The source now publicly verifies the Newton
-kernel, finite ray avoidance and quantitative constant-translation root
-control; the coefficient perturbation, corrected planar decomposition
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1041 remains open. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> now publicly verifies the Newton
+kernel, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> ray avoidance and quantitative constant-translation root
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>; the coefficient perturbation, corrected planar decomposition
 and metric gluing remain the exact unresolved producers.</p>
 </section>
 </section>
 <section id="statements-and-declarations" class="level2 unnumbered">
-<h2 class="unnumbered">Statements and declarations</h2>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority.</p>
-<p>Lean does not authorise the exposition, the citation choices, or the
-interpretation, for which the author remains responsible. This
-manuscript is authored exposition, not Lean proof authority. The checked
-core is the Newton value equation, the exponential first integral, the
-consumer form of ray separation, the finite planar-avoidance theorem,
+<h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">Statements</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a></h2>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the exposition, citation choices, or
+interpretation. This manuscript cites <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> only for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">pinned kernel</a> accepts. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> core
+is the Newton value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a>, the exponential first integral, the
+consumer form of ray separation, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> planar-avoidance <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>,
 quantitative constant-translation root retention, and the ray-collision
-parameterisation. The decomposition and length statements of § are not
-proved. The diagnosis of Proposition 12 in § concerns its printed local
-saddle construction; it does not refute the proposition’s statement. The
-search results of § are computations.</p>
-</section>
+parameterisation. The decomposition and length <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> of §<span
+class="math inline">\(\ref{sec:open}\)</span> are not proved. The
+diagnosis of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 in §<span
+class="math inline">\(\ref{sec:gap}\)</span> concerns its printed local
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> construction; it does not refute the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. The
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> of §<span class="math inline">\(\ref{sec:finite}\)</span>
+are computations.</p>
 </section>
 <section id="app:sources" class="level2">
-<h2>Guide to the formal sources</h2>
-<p>The public
-<code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> module
-contains the checked source for this note. The search of § is
-<code>scripts/search_counterexample.py</code> in the source package. The
-declaration table below is pinned to the shared formal-source commit
-used throughout this problem-note series.</p>
+<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a></h2>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>
+<code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>
+contains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> of §<span
+class="math inline">\(\ref{sec:finite}\)</span> is
+<code>scripts/search_counterexample.py</code> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>. The
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> table below is pinned to the shared <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>
+used throughout this problem-note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>
 <ul>
 <li></li>
 <li></li>
@@ -510,26 +1254,39 @@ used throughout this problem-note series.</p>
 </ul>
 </section>
 <section id="references" class="level2 unnumbered">
-<h2 class="unnumbered">References</h2>
+<h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
 <ol>
-<li id="ref-1"><p>T. F. Bloom, <em>Erdős Problems</em>, problem 1041. <a
+<li id="ref-1"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
+auf mehrfach zusammenhängende Gebiete</em>, Sitzungsber. Preuss. Akad.
+Wiss., Phys.-Math. Kl. (1928), 228–232 and 280–282.</p></li>
+<li id="ref-2"><p>T. F. Bloom, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> Problems</em>, problem 1041. <a
 href="https://www.erdosproblems.com/1041"
 class="uri">https://www.erdosproblems.com/1041</a></p></li>
-<li id="ref-2"><p>P. Erdős, F. Herzog, and G. Piranian, , J. Analyse Math.
-<strong>6</strong> (1958), 125–148. <a
-href="https://doi.org/10.1007/BF02790232"
+<li id="ref-3"><p>P. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>, F. Herzog, and G. Piranian, <em>Metric properties of
+polynomials</em>, J. Analyse Math. <strong>6</strong> (1958), 125–148.
+<a href="https://doi.org/10.1007/BF02790232" data-link-kind="exogenous" rel="external noopener"
 class="uri">https://doi.org/10.1007/BF02790232</a></p></li>
-<li id="ref-3"><p><code>shtuka</code>, , manuscript posted 24 March 2026, 48 pp. <a
+<li id="ref-4"><p>S. Ghosh and K. Ramachandran, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">Number</a> of Components of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">Polynomial Lemniscates</a>: A Problem of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>, Herzog, and Piranian</em>,
+arXiv:2312.13673v1 (2023). <a href="https://arxiv.org/abs/2312.13673" data-link-kind="exogenous" rel="external noopener"
+class="uri">https://arxiv.org/abs/2312.13673</a></p></li>
+<li id="ref-5"><p>S. Sutherland, <em>Bad Polynomials for Newton’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">Method</a></em>, in
+B. Bielefeld and M. Lyubich (eds.), <em>Conformal Dynamics Problem
+List</em>, Stony Brook IMS preprint (1992), 42–44. <a
+href="https://www.math.stonybrook.edu/preprints/ims92-7.pdf"
+class="uri">https://www.math.stonybrook.edu/preprints/ims92-7.pdf</a></p></li>
+<li id="ref-6"><p><code>shtuka</code>, <em>A Short Path Joining Two Zeros Inside a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">Polynomial Lemniscate</a></em>, manuscript posted 24 March 2026, 48 pp. <a
 href="https://shtuka123.github.io/1041/main.pdf"
 class="uri">https://shtuka123.github.io/1041/main.pdf</a>. The file at
 this URL has since been replaced by a shorter partial version that no
-longer contains Proposition 12; the durable public record of the March
+longer contains <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12; the durable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> record of the March
 version, its defect, and the author’s 26 March 2026 concession is the
 discussion thread at <a
 href="https://www.erdosproblems.com/forum/thread/1041"
 class="uri">https://www.erdosproblems.com/forum/thread/1041</a>.</p></li>
-<li id="ref-4"><p>V. S. Pendyala, , arXiv:2606.24875v1 (2026). <a
-href="https://arxiv.org/abs/2606.24875"
+<li id="ref-7"><p>V. S. Pendyala, <em>A Degree-Four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">Lemniscate</a> Path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a></em>,
+arXiv:2606.24875v1 (2026). <a href="https://arxiv.org/abs/2606.24875" data-link-kind="exogenous" rel="external noopener"
 class="uri">https://arxiv.org/abs/2606.24875</a>, doi:<a
 href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.</p></li>
 </ol>
@@ -540,7 +1297,10 @@ href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.<
       </div>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">The problem</a><a class="toc-l2" href="#sec:newton">The Newton value equation</a><a class="toc-l2" href="#sec:arguments">Arguments, not moduli</a><a class="toc-l2" href="#sec:gap">A proof gap in the unrestricted argument</a><a class="toc-l2" href="#sec:finite">Finite evidence</a><a class="toc-l2" href="#sec:open">Complements and further questions</a><a class="toc-l3" href="#repair-or-refute-the-saddle-block">1. Repair or refute the saddle block</a><a class="toc-l3" href="#the-compact-ray-cut-decomposition">2. The compact ray-cut decomposition</a><a class="toc-l3" href="#metric-fan-in-without-losing-the-coefficient">3. Metric fan-in without losing the
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">The problem</a><a class="toc-l2" href="#sec:critical-value-separation">An all-degree critical-value separation theorem</a><a class="toc-l2" href="#sec:solved-polynomial-families">Three exact solved polynomial families</a><a class="toc-l3" href="#subsec:sharp-collinear-chebyshev">Sharp collinear zeros</a><a class="toc-l3" href="#subsec:primitive-sparse-quintic">The primitive sparse quintic</a><a class="toc-l3" href="#subsec:translated-cubic-quotient-fibres">Translated cubic quotient fibres</a><a class="toc-l2" href="#sec:frontier">The current frontier: what survives near Fekete configurations</a><a class="toc-l3" href="#near-fekete-stability-removes-the-radial-distraction">Near-Fekete stability removes the radial
+distraction</a><a class="toc-l3" href="#a-bounded-radius-concyclic-class">A bounded-radius concyclic class</a><a class="toc-l3" href="#cyclic-trinomial-fibres">Cyclic trinomial fibres</a><a class="toc-l3" href="#coefficient-controlled-cyclic-tetranomial-spokes">Coefficient-controlled cyclic tetranomial
+spokes</a><a class="toc-l3" href="#translated-quartic-quotient-fibres">Translated quartic quotient fibres</a><a class="toc-l3" href="#the-degree-five-target-is-now-explicit">The degree-five target is now explicit</a><a class="toc-l3" href="#the-no-go-boundaries-force-hub-selection">The no-go boundaries force hub selection</a><a class="toc-l3" href="#the-surviving-carrier-and-the-actual-open-endpoint">The surviving carrier and the actual open
+endpoint</a><a class="toc-l2" href="#sec:newton">The Newton value equation</a><a class="toc-l2" href="#sec:arguments">Arguments, not moduli</a><a class="toc-l2" href="#sec:gap">A proof gap in the unrestricted argument</a><a class="toc-l2" href="#sec:finite">Finite evidence</a><a class="toc-l2" href="#sec:open">Complements and further questions</a><a class="toc-l3" href="#repair-or-refute-the-saddle-block">1. Repair or refute the saddle block</a><a class="toc-l3" href="#the-compact-ray-cut-decomposition">2. The compact ray-cut decomposition</a><a class="toc-l3" href="#metric-fan-in-without-losing-the-coefficient">3. Metric fan-in without losing the
 coefficient</a><a class="toc-l3" href="#coefficient-perturbation-and-stability">4. Coefficient perturbation and stability</a><a class="toc-l3" href="#the-global-newton-flow-claim-ceiling">5. The global Newton-flow claim ceiling</a><a class="toc-l2" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#app:sources">Guide to the formal sources</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>

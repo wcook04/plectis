@@ -16,8 +16,8 @@ class="math inline">\(a_{n-1}\)</span> equals <span
 class="math inline">\(1/(a_{n-1}-1)\)</span>. Erdős Problem #243 asserts
 that this is the only way a sequence of that growth can have a rational
 reciprocal sum:</p>
-<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-3">[3]</a></span>
-and <span class="citation" data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. Bloom’s
+<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-4">[4]</a></span>
+and <span class="citation" data-cites="erdos1988"><a href="#ref-5">[5]</a></span>. Bloom’s
 current catalogue record reproduces the displayed problem and labels it
 open, while explicitly warning that the status is the website owner’s
 present assessment and may not reflect all relevant literature <span
@@ -40,7 +40,7 @@ is implied by nonnegativity of <span class="math inline">\(E\)</span>,
 the hypothesis of Theorem <span
 class="math inline">\(\ref{res:descent}\)</span>, so that criterion
 already covers the descent proved below (see <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span>). Erdős and Straus proved that if <span
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>). Erdős and Straus proved that if <span
 class="math inline">\(\lim a_n/a_{n-1}^{2}=1\)</span>, the reciprocal
 sum is rational, and <span class="math inline">\(a_n\)</span> does not
 satisfy the recurrence, then <span
@@ -54,30 +54,43 @@ followed by the current catalogue summary, instead prints <span
 class="math inline">\(a_n^2/a_{n+1}-1\)</span> in the second factor
 while retaining the same prefix-LCM quotient; that displayed summary is
 off by one and is not followed here <span class="citation"
-data-cites="erdos1988"><a href="#ref-4">[4]</a></span><span class="citation"
-data-cites="erdosproblems"><a href="#ref-7">[7]</a></span>. Koizumi records the convenient
+data-cites="erdos1988"><a href="#ref-5">[5]</a></span><span class="citation"
+data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. Koizumi records the convenient
 sufficient rate <span
 class="math inline">\(a_n^2/a_{n+1}=1+o(1/n)\)</span> under which the
 Erdős–Straus criterion settles the problem <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span>. Duverney proved a conditional signed
-form of the problem itself: if <span
-class="math inline">\(\sum_{n\ge0}\left|a_{n+1}/a_n^{2}-1\right|\)</span>
-converges, then the reciprocal sum, even with numerators in <span
-class="math inline">\(\{-1,1\}\)</span>, is rational if and only if the
-corresponding signed recurrence holds for all large <span
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>.</p>
+<p>Duverney proved a conditional signed form of the problem itself: for
+signs <span class="math inline">\(\epsilon_n\in\{-1,1\}\)</span>, if
+<span class="math inline">\(\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)\)</span>
+converges, then the reciprocal sum with numerators <span
+class="math inline">\(\epsilon_n\)</span> is rational if and only if
+<span
+class="math display">\[a_{n+1}=a_n^2-(\epsilon_{n+1}/\epsilon_n)a_n
+             +\epsilon_{n+2}/\epsilon_{n+1}\]</span> for all large <span
 class="math inline">\(n\)</span> <span class="citation"
-data-cites="duverney2001"><a href="#ref-2">[2]</a></span>. The all-positive specialisation is
-the form relevant here. Neither result is formalised here, and the
-results below do not recover either of them.</p>
+data-cites="duverney2001"><a href="#ref-2">[2]</a></span>. Absolute convergence is a stronger
+sufficient specialisation, not the hypothesis printed in that corollary.
+The all-positive specialisation is the form relevant here.</p>
+<p>Badea’s positive-term criterion is adjacent but different: for
+positive rational terms <span class="math inline">\(b_n/a_n\)</span>,
+eventual strict inequality <span
+class="math display">\[a_{n+1}&gt;\frac{b_{n+1}}{b_n}a_n^2-\frac{b_{n+1}}{b_n}a_n+1\]</span>
+forces irrationality, while rationality under the corresponding
+non-strict inequality forces eventual equality <span class="citation"
+data-cites="badea1993"><a href="#ref-3">[3]</a></span>. These positive-term hypotheses do not
+cover the mixed-sign state orbits studied here. Neither result is
+formalised here, and the results below do not recover either of
+them.</p>
 <p>Koizumi’s work on doubly exponential sequences <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span> bears directly on the state system used
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span> bears directly on the state system used
 below, and supplies the coordinates in which several of the statements
 of this note are most naturally read. For a rational <span
 class="math inline">\(r=p/q\)</span> with pseudo-greedy expansion <span
 class="math inline">\((a_n)\)</span>, remainders <span
 class="math inline">\((x_n)\)</span> and gap sequence <span
 class="math inline">\(\varepsilon_n=x_n^{-1}+1-a_n\)</span>, his
-Lemma 15  <span class="citation" data-cites="koizumi2025"><a href="#ref-6">[6]</a></span>
+Lemma 15  <span class="citation" data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>
 produces integers <span class="math inline">\(c_n&gt;0\)</span>, <span
 class="math inline">\(d_n\)</span> and <span
 class="math inline">\(e_n\)</span> with <span
@@ -99,8 +112,9 @@ denominator update, and the fourth is the tail update. The lower-case
 class="math inline">\(\ref{sec:state}\)</span> is <span
 class="math inline">\(-E_n\)</span>, so it is the negative of Koizumi’s
 <span class="math inline">\(e_n\)</span> at an index where the centred
-state is negative. His Theorem 16  <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span> shows that his Conjecture 6 — that for
+state is negative.</p>
+<p>His Theorem 16  <span class="citation"
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span> shows that his Conjecture 6 — that for
 a positive rational <span class="math inline">\(r\)</span> whose gap
 sequence satisfies <span
 class="math inline">\(\varepsilon_n\to0\)</span> one has <span
@@ -120,7 +134,7 @@ class="math inline">\(\varepsilon_n=0\)</span> for all large <span
 class="math inline">\(n\)</span>, is the descent of Theorem <span
 class="math inline">\(\ref{res:descent}\)</span>. These appear in
 canonical coordinates in <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span>; no question of priority or
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>; no question of priority or
 independence is adjudicated here.</p>
 <p>The growth hypothesis in Problem <span
 class="math inline">\(\ref{res:problem}\)</span> is calibrated by two
@@ -131,11 +145,11 @@ further produces sequences with <span class="math inline">\(a_n\approx
 C^{2^{n}}\)</span> for arbitrarily large <span
 class="math inline">\(C\)</span> whose reciprocals still sum to a
 rational number <span class="citation"
-data-cites="kovactao2024"><a href="#ref-5">[5]</a></span>. The classical sufficient condition
+data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>. The classical sufficient condition
 for irrationality, <span class="math inline">\(\lim_n
 a_n^{1/2^{n}}=\infty\)</span>, is therefore sharp. Kovač and Tao
 identify that condition as folklore  <span class="citation"
-data-cites="kovactao2024"><a href="#ref-5">[5]</a></span>; they attribute the sharpness
+data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>; they attribute the sharpness
 observation to Erdős (1975). A sequence with <span
 class="math inline">\(a_n/a_{n-1}^{2}\to1\)</span> has <span
 class="math inline">\(a_n^{1/2^{n}}\)</span> convergent, so that
@@ -144,7 +158,7 @@ class="math inline">\(\ref{res:problem}\)</span>, and rationality is
 genuinely possible there. Sylvester’s sequence is <code>A000058</code>
 in the OEIS and its shifts <code>A129871</code>. For the recent
 literature on irrationality of Ahmes series we refer to Kovač and
-Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-5">[5]</a></span>, who
+Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>, who
 resolve several problems of Erdős and Graham drawn from the same two
 sources cited above, and whose introduction gives a sample of the
 intermediate work, including Sándor (1984) and Badea (1987). They do not
@@ -157,12 +171,11 @@ is <span class="math inline">\(\Q\)</span>-valued, so Lean’s
 <code>Summable</code> hypothesis asserts the existence of a sum in <span
 class="math inline">\(\Q\)</span>; the finite indexing shift changes
 that sum only by a rational prefix. The declaration therefore does
-encode the rationality premise, but its proof is <code>sorry</code>. We
-use it as statement-level prior art, not as proof authority; the
-development below is independent of it. What is machine-checked below
-concerns the state system rather than the analytic problem: the
-exclusion of constant and periodic negative magnitudes, the bounded-rise
-barrier of Theorem <span
+encode the rationality premise, but its proof is <code>sorry</code>. Its
+role here is statement-level prior art; it supplies no proof authority,
+and the development below is independent of it. The machine-checked
+results concern the state system: they exclude constant and periodic
+negative magnitudes, the bounded-rise barrier of Theorem <span
 class="math inline">\(\ref{res:barrier}\)</span>, and the two
 conditional endpoints (Theorems <span
 class="math inline">\(\ref{res:bounded}\)</span> and <span
@@ -177,146 +190,33 @@ that integer at the value it would take on Sylvester’s sequence. What
 remains is a single integer error <span
 class="math inline">\(E\)</span>, and the whole question is whether
 <span class="math inline">\(E\)</span> can avoid vanishing.</p>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th class="ta-l">Statement</th>
-<th class="ta-l"> Status</th>
-<th class="ta-l"> Treatment here</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="ta-l">Problem #243 as stated</td>
-<td class="ta-l"> Open</td>
-<td class="ta-l"> Not proved.</td>
-</tr>
-<tr>
-<td class="ta-l">Defect identity</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:defect}\)</span>, an identity in <span
-class="math inline">\(\Z[a,a&#39;,D,C]\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Eventual vanishing forces the
-recurrence</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:eventual}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Zero is absorbing</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:absorb}\)</span>, under strict
-centring.</td>
-</tr>
-<tr>
-<td class="ta-l">Nonnegative <span
-class="math inline">\(E\)</span></td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:descent}\)</span>, by descent.</td>
-</tr>
-<tr>
-<td class="ta-l">Constantly negative <span
-class="math inline">\(E\)</span></td>
-<td class="ta-l"> Excluded here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:constant}\)</span>, at any magnitude and
-scale.</td>
-</tr>
-<tr>
-<td class="ta-l">Periodic negative magnitude</td>
-<td class="ta-l"> Excluded here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:periodic}\)</span>, in the regime <span
-class="math inline">\(e_n&lt;a_n\)</span> and with positive drift <span
-class="math inline">\(M&gt;0\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Coprime-modulus barrier</td>
-<td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:barrier}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Bounded negative part</td>
-<td class="ta-l"> Excluded here; conditional</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:bounded}\)</span>; see its
-hypotheses.</td>
-</tr>
-<tr>
-<td class="ta-l">Normalised vanishing alone</td>
-<td class="ta-l"> Gcd changes are sparse</td>
-<td class="ta-l"> Proposition <span
-class="math inline">\(\ref{res:gcdsparse}\)</span>; arbitrarily late
-finite constant blocks, not eventual constancy.</td>
-</tr>
-<tr>
-<td class="ta-l">Finite normalised negative mass</td>
-<td class="ta-l"> Excluded here; conditional</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:mass}\)</span>, Section <span
-class="math inline">\(\ref{sec:mass}\)</span>; normalised vanishing
-remains an input.</td>
-</tr>
-<tr>
-<td class="ta-l">Factorial residue reduction</td>
-<td class="ta-l"> Proved here; superseded for its original
-purpose</td>
-<td class="ta-l"> Theorem <span
-class="math inline">\(\ref{res:residue}\)</span>, Appendix <span
-class="math inline">\(\ref{app:residue}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Normalised vanishing</td>
-<td class="ta-l"> Assumed here; supplied by prior art</td>
-<td class="ta-l"> Section <span
-class="math inline">\(\ref{sec:bounded}\)</span>; derived in <span
-class="citation" data-cites="koizumi2025"></span>, see Section <span
-class="math inline">\(\ref{sec:problem}\)</span>. The separate
-strict-centring hypothesis retained in the Lean-matching statement
-follows eventually by taking <span
-class="math inline">\(K=1\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Unbounded, divergent-mass negative
-excursions</td>
-<td class="ta-l"> Necessary conditions proved here;
-orbit-level case open</td>
-<td class="ta-l"> Section <span
-class="math inline">\(\ref{sec:open}\)</span>: Proposition <span
-class="math inline">\(\ref{res:frontier}\)</span> gives conditions any
-counterexample must satisfy, not a separate open problem; Problem <span
-class="math inline">\(\ref{res:excursions}\)</span> is the surviving
-orbit-level obstruction.</td>
-</tr>
-<tr>
-<td class="ta-l">Erdős–Straus criterion; Duverney</td>
-<td class="ta-l"> Proved elsewhere</td>
-<td class="ta-l"> Cited, not formalised; the Erdős–Straus
-hypothesis is implied by that of Theorem <span
-class="math inline">\(\ref{res:descent}\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">State system equals reciprocal tails</td>
-<td class="ta-l"> Not formalised</td>
-<td class="ta-l"> Section <span
-class="math inline">\(\ref{sec:state}\)</span>.</td>
-</tr>
-</tbody>
-</table>
-<p>Taken together the exclusions constrain the shape of any
-counterexample. By Theorem <span
-class="math inline">\(\ref{res:absorb}\)</span> a counterexample has
+<blockquote>
+<p><strong>Strongest result.</strong> Under the exact integer dynamics,
+positivity, normalised vanishing, and an eventually bounded negative
+part, the centred error <span class="math inline">\(E_n\)</span> is
+eventually zero. The original sequence therefore satisfies the Sylvester
+recurrence from some point onward (Theorem <span
+class="math inline">\(\ref{res:bounded}\)</span>).</p>
+<p><strong>Second endpoint.</strong> The same conclusion holds when the
+normalised negative mass <span
+class="math inline">\(\sum_n(-E_n)_+/C_n\)</span> is finite, provided
+the strict centred-step equation is available (Theorem <span
+class="math inline">\(\ref{res:mass}\)</span>).</p>
+<p><strong>What remains open.</strong> Koizumi’s coordinates provide
+normalised vanishing for the canonical orbit, but they do not provide
+either bounded negative excursions or finite normalised negative mass.
+Any surviving counterexample must therefore have cofinally unbounded
+negative excursions and divergent normalised negative mass
+(Proposition <span
+class="math inline">\(\ref{res:frontier}\)</span>).</p>
+<p><strong>Proof spine.</strong> Bounded negative errors control the
+rise of the integer tail state. A gcd stabilisation reduces the orbit to
+pairwise-coprime fresh moduli, and a block of consecutive multiples then
+gives the contradiction. The finite-mass argument replaces the uniform
+bound by a summable recovery estimate.</p>
+</blockquote>
+<p>The remaining exclusions sharpen this boundary. By Theorem <span
+class="math inline">\(\ref{res:absorb}\)</span>, a counterexample has
 <span class="math inline">\(E_n\ne0\)</span> for every large <span
 class="math inline">\(n\)</span>. By Theorem <span
 class="math inline">\(\ref{res:descent}\)</span> it cannot have <span
@@ -363,7 +263,7 @@ sources, and Appendix <span
 class="math inline">\(\ref{app:residue}\)</span> records an exact
 residue reduction that an earlier finite search used. Linked phrases
 open the corresponding Lean declaration at the pinned source
-revision 64f33f3a134d.</p>
+revision 99f4bf47422a.</p>
 <p><strong>Keywords.</strong> irrationality; Ahmes series; Sylvester’s
 sequence; unit fractions; Lean 4. <strong>MSC 2020.</strong> 11J72
 (primary); 11B37, 11D68, 68V20 (secondary).</p>
@@ -435,9 +335,9 @@ on the Sylvester orbit.</p>
 series, no rationality hypothesis, and no growth hypothesis; it proves
 identities and implications about the integer system above, and about
 its natural-number realisation, for which the bridging identities are
-the , the , and the . A reader should treat the identification with
-reciprocal tails as motivation for the definitions and not as a checked
-step.</p>
+the , the , and the . The identification with reciprocal tails motivates
+the definitions. The formal development does not check that
+identification.</p>
 <p>Formalised as the , the , and the . The system depends only on the
 ray through <span class="math inline">\((D,C)\)</span>. This is used
 twice below: once to normalise the finite search of Appendix <span
@@ -486,6 +386,60 @@ is zero, and the second factor is nonzero by hypothesis. ◻</p>
 class="math inline">\(C_{n+1}\ne0\)</span> is not removable: at <span
 class="math inline">\(C_{n+1}=0\)</span> the identity gives no
 information about <span class="math inline">\(a&#39;\)</span>.</p>
+<section id="two-step-cancellation-and-feedback" class="level3">
+<h3>Two-step cancellation and feedback</h3>
+<p>The one-step state equations hide a second-order constraint once the
+raw numerator is reduced at two consecutive stages. Write <span
+class="math inline">\(u,u_1,u_2\)</span> for the primitive numerator
+coordinates, <span class="math inline">\(v,v_1\)</span> for the
+corresponding denominator coordinates, and <span
+class="math inline">\(h,h_1\)</span> for the two common factors removed
+in reduction. If the two steps have multipliers <span
+class="math inline">\(a,a_1\)</span>, then the exact hypotheses are
+<span class="math display">\[hu_1+v=au,\qquad hv_1=av,\qquad
+h_1u_2+v_1=a_1u_1.\]</span></p>
+<div class="proof">
+<p><em>Proof.</em> Multiply the first equation by <span
+class="math inline">\(a\)</span>, replace <span
+class="math inline">\(av\)</span> using the second equation, and then
+replace <span class="math inline">\(h_1u_2+v_1\)</span> using the third.
+The remaining terms factor as the displayed right-hand side. ◻</p>
+</div>
+<p>This is the . The hard point is keeping both changing cancellation
+factors visible. The result is stronger than a one-step congruence,
+though it remains non-autonomous and cannot by itself force <span
+class="math inline">\(a_1=a^2-a+1\)</span>.</p>
+<p>There is a complementary integer identity when the relevant step is
+cancellation-free. Put <span class="math inline">\(q=ap-p_1\)</span>,
+and suppose the next primitive coordinate satisfies <span
+class="math display">\[p_2+a^2p=(a+a_1)p_1.\]</span> Then</p>
+<p>The square <span class="math inline">\(q^2\)</span> is the local
+remainder, while <span class="math inline">\(pp_2-p_1^2\)</span> is a
+discrete curvature term. The right side records the change in
+multiplier, so the identity supplies a diagnostic for an anti-shadowing
+argument without asserting a sign or a global monotonicity. It is
+checked as ; no global anti-shadowing conclusion is claimed.</p>
+<p>Finally, the reduced denominator transport has a precise
+realizability gate. Let <span class="math inline">\(e,e_1\)</span> be
+centred errors and let <span class="math inline">\(\Delta\)</span> be
+the Sylvester defect. If <span class="math display">\[hu_1=u-e,
+\qquad he_1=a^2e-\Delta(u-e),\]</span> then the transport equality <span
+class="math display">\[h\bigl((a_1-1)u_1+e_1\bigr)
+   =a\bigl((a-1)u+e\bigr)\]</span> has mismatch which factors through
+<span class="math inline">\(u-e\)</span>. Consequently, when <span
+class="math inline">\(u-e\ne0\)</span>, <span
+class="math display">\[h\bigl((a_1-1)u_1+e_1\bigr)
+   =a\bigl((a-1)u+e\bigr)
+\quad\Longleftrightarrow\quad
+a_1=a^2-a+1+\Delta.\]</span> This is the exact , obtained from the
+factored defect at . The nonzero-raw-numerator hypothesis is essential:
+if <span class="math inline">\(u-e=0\)</span>, the factorised mismatch
+cannot identify <span class="math inline">\(a_1\)</span>.</p>
+<p>These three identities require orbit-level hypotheses that remain
+unproved: eventual absence of cancellation, a fixed sign for the
+curvature, or cofinal passage through the feedback gate. The global
+mixed-sign and unbounded-negative regimes of Problem #243 remain
+open.</p>
 <p>Formalised as the . The proof is routine: take the larger of the two
 thresholds and apply Theorem <span
 class="math inline">\(\ref{res:step}\)</span> at each later index. Every
@@ -507,18 +461,16 @@ class="math inline">\(|E_{n+1}|&lt;C_{n+1}\)</span> by hypothesis. ◻</p>
 some index and <span class="math inline">\(E\)</span> does not vanish
 eventually, then <span class="math inline">\(E\)</span> is nowhere zero
 beyond that index.</p>
-<p>Absorption changes the shape of the problem. Without it, one would
-have to exclude an <span class="math inline">\(E\)</span> that dips to
-zero and recovers. With it, either <span
-class="math inline">\(E\)</span> hits zero once and is finished, or it
-is never zero at all. Sections <span
+<p>Absorption changes the shape of the problem. Either <span
+class="math inline">\(E\)</span> hits zero once and stays there, or it
+is never zero. Sections <span
 class="math inline">\(\ref{sec:constant}\)</span> and <span
-class="math inline">\(\ref{sec:periodic}\)</span> then restrict to the
-special all-negative case; this is not a without-loss reduction for a
-mixed-sign tail. The mixed-sign analysis in Sections <span
+class="math inline">\(\ref{sec:periodic}\)</span> address the special
+all-negative case only. The mixed-sign analysis in Sections <span
 class="math inline">\(\ref{sec:bounded}\)</span> and <span
 class="math inline">\(\ref{sec:mass}\)</span> instead separates
 cofinally negative errors from an eventually positive tail.</p>
+</section>
 </section>
 <section id="sec:descent" class="level2">
 <h2>Descent when the error is nonnegative</h2>
@@ -840,11 +792,11 @@ and denominator coprime, that is, a reduced exact tail. ◻</p>
 </div>
 <p>The stabilisation of the tail gcd is the checked statement cited at
 the end of the proof; the last clause, that the divided orbit is a
-reduced exact tail, is exposition and carries no separate label. The
-hypothesis is boundedness <em>along a cofinal set</em> and not
-boundedness at every index. That is what the situation gives: the tail
-gcd is controlled only at the negative indices, and cofinally many of
-them is all the divisibility chain needs.</p>
+reduced exact tail, is exposition and carries no separate label.
+Boundedness is required only <em>along a cofinal set</em>. That is what
+the situation gives: the tail gcd is controlled only at the negative
+indices, and cofinally many of them is all the divisibility chain
+needs.</p>
 <p>Normalised vanishing by itself gives a different, strictly weaker
 conclusion. For an exact natural orbit with <span
 class="math inline">\(C_n&gt;0\)</span>, put <span
@@ -869,15 +821,12 @@ not exclude cofinally unbounded negative excursions.</p>
 <p>Assembling the previous section gives Theorem <span
 class="math inline">\(\ref{res:bounded}\)</span>, the endpoint of the
 barrier argument. Theorem <span
-class="math inline">\(\ref{res:mass}\)</span> in the next section is a
-second endpoint under a different finiteness hypothesis, and neither
-theorem contains the other. Theorem <span
-class="math inline">\(\ref{res:mass}\)</span> assumes no orbit
-structure, only the state recurrence with <span
-class="math inline">\(C_n&gt;0\)</span>, so it is not a special case of
-Theorem <span class="math inline">\(\ref{res:bounded}\)</span>;
-conversely hypothesis (5) below does not imply finite <em>normalised
-negative mass</em>, by which we mean convergence of <span
+class="math inline">\(\ref{res:mass}\)</span> in the next section uses a
+different finiteness hypothesis. The two results are incomparable:
+Theorem <span class="math inline">\(\ref{res:mass}\)</span> assumes only
+the state recurrence with <span class="math inline">\(C_n&gt;0\)</span>,
+while hypothesis (5) below does not imply finite <em>normalised negative
+mass</em>, by which we mean convergence of <span
 class="math inline">\(\sum_n(-E_n)_+/C_n\)</span>, where <span
 class="math inline">\(x_+=\max(x,0)\)</span>, since a constant negative
 part <span class="math inline">\(-b\)</span> gives <span
@@ -961,7 +910,7 @@ about the state system alone. Let <span
 class="math inline">\((a_n)\)</span> satisfy the hypotheses of
 Problem <span class="math inline">\(\ref{res:problem}\)</span>. After
 deleting a finite prefix, Corollary 10 of <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span> makes the sequence the pseudo-greedy
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span> makes the sequence the pseudo-greedy
 expansion of its own reciprocal sum, and Lemma 15 there supplies the
 integers <span class="math inline">\(c_n,d_n,e_n\)</span> of
 Section <span class="math inline">\(\ref{sec:problem}\)</span>.
@@ -976,14 +925,14 @@ class="math inline">\(d_{n+1}=a_nd_n\)</span> of Lemma 15(2), and
 hypothesis (3) is that lemma’s <span
 class="math inline">\(a_n=(d_n-e_n)/c_n+1\)</span> read as <span
 class="math inline">\(e_n=d_n-(a_n-1)c_n\)</span>, which is the map
-<span class="math inline">\(\operatorname{ctr}\)</span>. Hypothesis (4)
-holds at every index, not merely eventually, from the centring range
-<span class="math inline">\(-c_n/2\le e_n&lt;c_n/2\)</span> of the same
-lemma. Hypothesis (6) is the vanishing of the gap sequence in
-Corollary 10, since <span
+<span class="math inline">\(\operatorname{ctr}\)</span>. The centring
+range <span class="math inline">\(-c_n/2\le e_n&lt;c_n/2\)</span> in the
+same lemma gives hypothesis (4) at every index, which is stronger than
+the eventual form used here. Hypothesis (6) is the vanishing of the gap
+sequence in Corollary 10, since <span
 class="math inline">\(\varepsilon_n=e_n/c_n\)</span>. The sole
 hypothesis not supplied is (5), the eventual bound on the negative part;
-nothing in <span class="citation" data-cites="koizumi2025"><a href="#ref-6">[6]</a></span>
+nothing in <span class="citation" data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>
 yields it and nothing here does either, so Problem #243 stays open.</p>
 </section>
 <section id="sec:mass" class="level2">
@@ -1022,7 +971,7 @@ the growth condition of Problem <span
 class="math inline">\(\ref{res:problem}\)</span>.</p>
 <p>The transfer of the previous section applies here as well. On the
 canonical orbit of Corollary 10 of <span class="citation"
-data-cites="koizumi2025"><a href="#ref-6">[6]</a></span> the recurrence <span
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span> the recurrence <span
 class="math inline">\(C_{n+1}=C_n-E_n\)</span> holds with <span
 class="math inline">\(C_n&gt;0\)</span> by Lemma 15  <span
 class="citation" data-cites="koizumi2025"></span>, and normalised
@@ -1086,6 +1035,60 @@ class="math inline">\(D_n=D_0\prod_{j&lt;n}a_j\)</span>, the quotient is
 integral and <span class="math inline">\(M_nL_n=D_n\)</span>. It records
 the multiplicity lost when the full product scale is compressed to an
 LCM.</p>
+</section>
+<section id="repair-entropy-across-a-recovery" class="level3">
+<h3>Repair entropy across a recovery</h3>
+<p>The cumulative quotient does not by itself distinguish one large
+deletion from many small ones. The reduced recurrence does. Let <span
+class="math inline">\(u,h,c:\N\to\N\)</span> and <span
+class="math inline">\(e:\N\to\Z\)</span> satisfy <span
+class="math display">\[h_nu_{n+1}=u_n-e_n,
+\qquad u_n&gt;0,
+\qquad h_n&gt;0.\]</span> Fix <span
+class="math inline">\(K,r,L\in\N\)</span> with <span
+class="math inline">\(K,L&gt;0\)</span>, assume <span
+class="math display">\[K|e_{r+i}|&lt;u_{r+i}\quad(0\le i&lt;L),
+\qquad u_r\le u_{r+L},\]</span> and let <span
+class="math inline">\(R\)</span> be a finite family of moduli. Suppose
+every <span class="math inline">\(m_q\)</span>, <span
+class="math inline">\(q\in R\)</span>, divides the deletion product
+<span class="math inline">\(\prod_{r\le n&lt;r+L}c_n\)</span>, and that
+<span class="math inline">\(c_n^2\mid h_n\)</span> throughout the
+interval. Then <span class="math display">\[\begin{equation}
+\label{eq:repair-entropy}
+K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
+\end{equation}\]</span> This is the
+<span>repairedFamily_recovery_energy_divisionFree</span>
+<span>repair-entropy conservation law</span>.</p>
+<p>The square in <span
+class="math inline">\(\eqref{eq:repair-entropy}\)</span> is the key
+point. Exact denominator reduction charges <span
+class="math inline">\(c_n^2\)</span> to the scale growth, so a repaired
+family whose LCM is at least <span
+class="math inline">\(2^{|R|}\)</span> satisfies <span
+class="math display">\[K^L4^{|R|}&lt;(K+1)^L.\]</span> The formal
+consequence is <span>repaired_card_bound_of_independent</span> <span>the
+independent-repair cardinality bound</span>. It rules out
+positive-density deletion of independent old moduli inside recoveries
+with a fixed relative-error budget.</p>
+<p>There is also an endpoint that does not mention a chosen modulus
+family. If <span class="math inline">\(K|e_n|&lt;u_n\)</span> eventually
+for every <span class="math inline">\(K\)</span>, then for each fixed
+<span class="math inline">\(L&gt;0\)</span> there is an <span
+class="math inline">\(N\)</span> such that every recovery <span
+class="math inline">\(u_r\le u_{r+L}\)</span> with <span
+class="math inline">\(r\ge N\)</span> satisfies <span
+class="math display">\[\prod_{0\le i&lt;L}h_{r+i}=1.\]</span> Thus a
+surviving nontrivial reset must have recovery length tending to
+infinity. Lean checks this as
+<span>eventually_recoveryPayment_eq_one_of_fixedLength</span>
+<span>eventual disappearance of fixed-length reset payments</span>. The
+theorem does not bound a recovery length that varies with <span
+class="math inline">\(r\)</span>, nor does it supply a lower bound for
+the LCM of the moduli repaired in such an interval. Those are the
+missing inputs needed to turn <span
+class="math inline">\(\eqref{eq:repair-entropy}\)</span> into a global
+contradiction.</p>
 <p>The two displayed formulations are equivalent up to changing the
 positive constant; the second is not a weaker target. A positive answer
 is not yet, by itself, a proof of Problem #243: the missing bridge is a
@@ -1116,10 +1119,10 @@ do not answer this question: the gcd uses the complete prefix.</p>
 class="math inline">\(\ref{res:mass}\)</span>. Since <span
 class="math inline">\(\delta_n\to0\)</span>, convergence is equivalently
 expressible as boundedness of the partial products <span
-class="math inline">\(\prod_{n&lt;N}(1+\delta_n)\)</span>; that is an
-explanatory reformulation, not a second success criterion. A negative
-answer must be a sequence satisfying the full growth and rationality
-hypotheses, not merely a locally admissible state orbit.</p>
+class="math inline">\(\prod_{n&lt;N}(1+\delta_n)\)</span>; this is the
+same criterion in multiplicative form. A negative answer requires a
+sequence satisfying the full growth and rationality hypotheses. A
+locally admissible state orbit is insufficient.</p>
 </section>
 <section id="a-barrier-extension" class="level3">
 <h3>A barrier extension</h3>
@@ -1141,7 +1144,7 @@ hypotheses.</p>
 <h5>Duverney.</h5>
 <p>Formalise Corollary 3.2 of <span class="citation"
 data-cites="duverney2001"><a href="#ref-2">[2]</a></span>, including its signed numerators and
-absolute convergence hypothesis, and then recover the all-positive
+its one-sided summability hypothesis, and then recover the all-positive
 specialisation used here. These are useful verification projects, but
 neither is an additional open mathematical problem.</p>
 </section>
@@ -1150,26 +1153,15 @@ neither is an additional open mathematical problem.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/64f33f3a134d3414c18717d37ab8201e1dd1c98a">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
-the verification. This manuscript provides navigation rather than proof
-authority.</p>
-</section>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority. Lean checks each proof
-term against the fixed library version, and the sources linked here
-contain no proof placeholders and no project-defined axioms; Lean does
-not authorise the exposition, the citation choices, or the
-interpretation, for which the author remains responsible.</p>
+the verification. Proof authority remains with those sources; this
+manuscript provides navigation and exposition.</p>
+<p>Lean checks each proof term against the fixed library version, and
+the sources linked here contain no proof placeholders and no
+project-defined axioms; Lean does not authorise the exposition, the
+citation choices, or the interpretation, for which the author remains
+responsible.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -1180,18 +1172,19 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-7">[7]</a></span>.</p>
+data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>.</p>
 </section>
 </section>
 </section>
 <section id="app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision 64f33f3a134d. The state system, the exclusions, the barrier,
+revision 99f4bf47422a. The state system, the exclusions, the barrier,
 and the bounded-negative-part theorem are in
 <code>ReciprocalTailRigidity.lean</code>; the finite-negative-mass
-theorem is in <code>SparseResetRecovery.lean</code>; and the residue
-reduction of Appendix <span
+theorem is in <code>SparseResetRecovery.lean</code>; and the
+repair-entropy inequalities are in <code>RepairEntropy.lean</code>. The
+residue reduction of Appendix <span
 class="math inline">\(\ref{app:residue}\)</span> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the source. The identification of any of these modules
@@ -1276,26 +1269,30 @@ irrationality of certain Ahmes series</em></a>, J. Indian Math. Soc.
 href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"><em>Irrationality
 of fast converging series of rational numbers</em></a>, J. Math. Sci.
 Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
-<li id="ref-3"><p>P. Erdős and R. L. Graham, <a
+<li id="ref-3"><p>C. Badea, <a
+href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"><em>A
+theorem on irrationality of infinite series and applications</em></a>,
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323.</p></li>
+<li id="ref-4"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
-<li id="ref-4"><p>P. Erdős, <em>On the irrationality of certain series: problems
+<li id="ref-5"><p>P. Erdős, <em>On the irrationality of certain series: problems
 and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
 Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-5"><p>V. Kovač and T. Tao, <a
+<li id="ref-6"><p>V. Kovač and T. Tao, <a
 href="https://arxiv.org/abs/2406.17593"><em>On several irrationality
 problems for Ahmes series</em></a>, Acta Math. Hungar.
 <strong>175</strong> (2025), 572–608; preprint
 arXiv:2406.17593v4.</p></li>
-<li id="ref-6"><p>J. Koizumi, <a
+<li id="ref-7"><p>J. Koizumi, <a
 href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
 of the reciprocal sum of doubly exponential sequences</em></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>;
 preprint arXiv:2504.05933v1.</p></li>
-<li id="ref-7"><p>T. F. Bloom, <a
+<li id="ref-8"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/243"><em>Erdős Problem
 #243</em></a>, <code>erdosproblems.com/243</code>, accessed 28 July 2026
 (page displays “last edited 21 January 2026”). The current record labels
@@ -1303,7 +1300,7 @@ the problem open, cites <code>[ErGr80, p. 64]</code> and
 <code>[Er88c, p. 105]</code>, and explicitly describes its status as the
 website owner’s present assessment rather than a literature-completeness
 guarantee.</p></li>
-<li id="ref-8"><p>The Formal Conjectures Authors, <a
+<li id="ref-9"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/243.lean"><em>FormalConjectures.ErdosProblems.<code>243</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July 2026.
 Its <span class="math inline">\(\Q\)</span>-valued <code>Summable</code>

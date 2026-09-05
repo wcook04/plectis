@@ -105,13 +105,12 @@ is irrational whenever
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g_n=o(p_n)</annotation></semantics></math> <span
 class="citation" data-cites="erdos1988"></span>. The latter expectation
-is false: ChatGPT 5.4 Pro, orchestrated by Vjeko Kovač, constructs such
-a sequence
+is false: Kovač reports a construction of such a sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(g_n)</annotation></semantics></math>
 for which the sum is exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
- <span class="citation" data-cites="kovac2026"><a href="#ref-14">[14]</a></span>. Under the
-stronger hypotheses that
+ <span class="citation" data-cites="kovac2026"><a href="#ref-14">[14]</a></span>.</p>
+<p>Under the stronger hypotheses that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(g_n)</annotation></semantics></math>
 is strictly increasing and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>k</mi></msup><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g_n=O(n\log^k n)</annotation></semantics></math>,
@@ -132,8 +131,8 @@ The counterexample evades those hypotheses. It does not address the
 fixed-denominator dyadic series studied here. The current catalogue
 record still repeats this variable-denominator expectation without
 mentioning the counterexample <span class="citation"
-data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>; its warning about possibly missing
-literature is therefore material here, not merely boilerplate.</p>
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Its warning that relevant literature
+may be missing applies directly to this omission.</p>
 <p>There is also a genuinely adjacent proved dyadic theorem. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(m)</annotation></semantics></math>
 denotes the largest prime factor of
@@ -212,28 +211,55 @@ is zero.</p>
 </section>
 <section id="outline." class="level5">
 <h5>Outline.</h5>
-<p>Section  replaces the primes by their consecutive gaps, the natural
+<p>Section  begins with the strongest exact recurrence-level
+conclusions: the lcm-diagonal irrationality criterion, the signed
+two-window normal form, the affine and fixed-lattice circularity
+equivalences, and the quadratic polynomial-shift countermodel. Section 
+then replaces the primes by their consecutive gaps, the natural
 increments studied by prime-distribution theory. Summation by parts with
 the endpoint retained gives an exact finite identity, and the termwise
 relation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">v_n=2u_{n+1}-u_n</annotation></semantics></math>
 between the gap terms and the prime terms makes the passage to the limit
 a matter of summability alone; the explicit polynomial prime bound
-supplies that summability inside the formal development. Section 
-rescales the tails of a dyadic series into a recurrence and develops it:
-the block identity, the integral-shift criterion, the collapse of every
-rational solution onto an eventually integral shift, its contrapositive
-over the reals, and a local obstruction that converts an infinite-tail
-condition into a single comparison of gaps. Section  shows that the tail
-constraint does not by itself make the coefficient sequence eventually
-periodic, and Section  states the remaining obligation. The pinned
-Lean 4 toolchain and Mathlib revision check the formal statements. The
-cited system paper identifies Lean 4 <span class="citation"
-data-cites="lean4"><a href="#ref-8">[8]</a></span>, while the Mathlib paper documents the
-library’s historical Lean 3-era architecture <span class="citation"
-data-cites="mathlib"><a href="#ref-9">[9]</a></span>; it is not authority for the current pinned
-revision. Linked phrases open the corresponding declaration at the
-pinned source revision c8e41c76b4ce.</p>
+supplies that summability inside the formal development.</p>
+<p>Section  rescales the tails of a dyadic series into a recurrence and
+develops it: the block identity, the integral-shift criterion, the
+collapse of every rational solution onto an eventually integral shift,
+its contrapositive over the reals, and a local obstruction that converts
+an infinite-tail condition into a single comparison of gaps. Section 
+shows that the tail constraint does not by itself make the coefficient
+sequence eventually periodic, and Section  states the remaining
+obligation. The pinned Lean 4 toolchain and Mathlib revision check the
+formal statements. The cited system paper identifies Lean 4 <span
+class="citation" data-cites="lean4"></span>, while the Mathlib paper
+documents the library’s historical Lean 3-era architecture <span
+class="citation" data-cites="mathlib"></span>; it is not authority for
+the current pinned revision. Linked phrases open the corresponding
+declaration at the pinned source revision 99f4bf47422a.</p>
+<p>The states
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>M</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.222em"></mspace><mo>∃</mo><mi>n</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>M</mi><mo>&lt;</mo><mrow><mi mathvariant="italic">𝑝</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑚</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝐺</mi><mi mathvariant="italic">𝑎</mi><mi mathvariant="italic">𝑝</mi><mn mathvariant="italic">0</mn></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall M:\mathbb N,\ \exists n,\ M&lt;\mathit{primeGap0}(n)</annotation></semantics></math>,
+and the states, under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Summable</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="italic">𝑝</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑚</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝐷</mi><mi mathvariant="italic">𝑦</mi><mi mathvariant="italic">𝑎</mi><mi mathvariant="italic">𝑑</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑐</mi><mi mathvariant="italic">𝑇</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑚</mi></mrow><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Summable}(\mathit{primeDyadicTerm})</annotation></semantics></math>,
+the equivalence between irrationality of the prime-term and
+prime-gap-term sums. The endpoint-proximate abstract classification is
+represented by : for any real dyadic-tail recurrence with integer
+digits, irrationality of the initial state is equivalent to
+non-integrality of every positive shift, and hence to cofinal
+non-integrality of each fixed shift. Its rational-side mechanism is the
+exact denominator/congruence pair and ; together with the , they explain
+why a rational initial state supplies an eventual integral shift. These
+are recurrence-level results; the cofinal nonintegrality property for
+the actual prime gaps remains unproved, so no irrationality claim for
+Problem #251 follows. The endpoint-adjacent specialisation
+<span>primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch</span>
+<span>the conditional prime-gap small-mismatch theorem</span> preserves
+the actual recurrence, the cofinal adjacent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1,1)</annotation></semantics></math>
+hypotheses, and the unequal gap condition, and concludes failure of
+eventual integrality. The source does not supply those pairs, so this is
+a reduction exposing the missing prime-specific estimate, not a proof of
+Problem #251 irrationality.</p>
 <table>
 <colgroup>
 <col />
@@ -242,7 +268,7 @@ pinned source revision c8e41c76b4ce.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="ta-l">Statement</th>
+<th class="ta-l"><p>Statement</p></th>
 <th class="ta-l"> Status</th>
 <th class="ta-l"> Treatment here</th>
 </tr>
@@ -253,6 +279,32 @@ pinned source revision c8e41c76b4ce.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math></td>
 <td class="ta-l"> Open</td>
 <td class="ta-l"> Not proved.</td>
+</tr>
+<tr>
+<td class="ta-l">Lcm-diagonal irrationality criterion</td>
+<td class="ta-l"> Lean-checked abstractly; an
+equivalence</td>
+<td class="ta-l"> Theorem .</td>
+</tr>
+<tr>
+<td class="ta-l">Signed two-window normal form</td>
+<td class="ta-l"> Lean-checked abstractly; an
+equivalence</td>
+<td class="ta-l"> Theorem .</td>
+</tr>
+<tr>
+<td class="ta-l">Affine and fixed-lattice cofinal escape
+tests</td>
+<td class="ta-l"> Lean-checked abstractly; both
+equivalences</td>
+<td class="ta-l"> Theorem ; neither supplies a
+prime-specific estimate.</td>
+</tr>
+<tr>
+<td class="ta-l">Quadratic polynomial-shift
+countermodel</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Proposition .</td>
 </tr>
 <tr>
 <td class="ta-l">Finite prime-gap identity</td>
@@ -361,6 +413,132 @@ of
 summation by parts; Lean 4. <strong>MSC 2020.</strong> 11J72 (primary);
 11N05, 68V20 (secondary).</p>
 </section>
+</section>
+<section id="sec:diagonal-collapse" class="level2">
+<h2>One diagonal, and two circular escape tests</h2>
+<p>We first record the strongest recurrence-level conclusions. They
+apply to arbitrary integer digits and therefore separate the finite
+algebra from the prime-specific input still missing in Problem #251.</p>
+<p>For a real recurrence put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\Delta_hT(N)=T_{N+h}-T_N,</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">L_0=1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_j=\operatorname{lcm}(1,\ldots,j)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>.</p>
+<div class="proof">
+<p><em>Proof.</em> The exact rationality classification proved in
+Theorem  says that an irrational initial state has no integral positive
+shift at any basepoint. This gives the forward implication. Conversely,
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+is rational, some positive shift length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+is integral at every basepoint beyond an index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>.
+Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+so large that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mn>0</mn></msub><mo>≤</mo><msub><mi>L</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">N_0\le L_j</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∣</mo><msub><mi>L</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">h\mid L_j</annotation></semantics></math>.
+The cocycle identity
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="normal">Δ</mi><mi>a</mi></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mi>b</mi></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{a+b}T(N)=\Delta_aT(N)+\Delta_bT(N+a)</annotation></semantics></math>
+shows by induction that every positive multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+is integral at every such basepoint. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><msub><mi>L</mi><mi>j</mi></msub></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{L_j}T(L_j)</annotation></semantics></math>
+is integral, contradicting the right-hand side. ◻</p>
+</div>
+<p>The factorial schedule
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!</annotation></semantics></math>
+has the same divisibility property, but the lcm schedule is pointwise no
+larger and is the canonical endpoint used here. The theorem is an exact
+one-sequence reformulation; it gives no non-integrality statement for
+the actual prime-gap recurrence.</p>
+<p>The adjacent-small-mismatch condition also admits an exact normal
+form. For a rational recurrence and a fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+write
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>=</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">D_N=\Delta_hT(N),\qquad
+ \delta_N=g_{N+h+1}-g_{N+1}.</annotation></semantics></math> Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>δ</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_{N+1}=2D_N-\delta_N</annotation></semantics></math>.</p>
+<div class="proof">
+<p><em>Proof.</em> The recurrence and the two unit windows give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn><mo>&lt;</mo><msub><mi>δ</mi><mi>N</mi></msub><mo>&lt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">-3&lt;\delta_N&lt;3</annotation></semantics></math>.
+A nonzero even integer in that interval is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>.
+Substitution into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>δ</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_{N+1}=2D_N-\delta_N</annotation></semantics></math>
+gives the stated half-window and, in the reverse direction, recovers the
+second unit window. ◻</p>
+</div>
+<p>For the longer block, set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>r</mi><mo>−</mo><mn>1</mn></mrow></munderover><msup><mn>2</mn><mrow><mi>r</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>i</mi></mrow></msup><msub><mi>δ</mi><mrow><mi>N</mi><mo>+</mo><mi>i</mi></mrow></msub><mo>;</mo><mspace width="2.0em"></mspace><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>=</mo><msup><mn>2</mn><mi>r</mi></msup><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">B_{h,N,r}=\sum_{i=0}^{r-1}2^{r-1-i}\delta_{N+i};
+ \qquad D_{N+r}=2^rD_N-B_{h,N,r}.</annotation></semantics></math> Call
+the data-dependent affine condition
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒜</mi><mrow><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mspace width="2.0em"></mspace><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>∈</mo><mi>−</mi><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>+</mo><msup><mn>2</mn><mrow><mi>r</mi><mo>+</mo><mn>1</mn></mrow></msup><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal A_{N,r}:\qquad
+ D_{N+r}\in -B_{h,N,r}+2^{r+1}\mathbb{Z}.</annotation></semantics></math></p>
+<div class="proof">
+<p><em>Proof.</em> Substituting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>=</mo><msup><mn>2</mn><mi>r</mi></msup><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{N+r}=2^rD_N-B_{h,N,r}</annotation></semantics></math>
+into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒜</mi><mrow><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal A_{N,r}</annotation></semantics></math>
+cancels the observed block from both sides and leaves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>=</mo><mn>2</mn><mi>z</mi></mrow><annotation encoding="application/x-tex">D_N=2z</annotation></semantics></math>.
+This proves . After one recurrence step, evenness of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>N</mi></msub><annotation encoding="application/x-tex">\delta_N</annotation></semantics></math>
+identifies even integrality at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math>
+with ordinary integrality at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+The forward implication in  follows, while the reverse implication
+chooses a nonintegral
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>N</mi></msub><annotation encoding="application/x-tex">D_N</annotation></semantics></math>
+and the legal depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r=0</annotation></semantics></math>.</p>
+<p>For , eventual integrality and the block identity give some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">z\in\mathbb{Z}</annotation></semantics></math>
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>−</mo><msup><mn>2</mn><mi>r</mi></msup><mi>z</mi><mo>=</mo><mi>−</mi><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">B_{h,N,r}-2^rz=-D_{N+r},</annotation></semantics></math>
+so the displayed strict separation contradicts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|D_{N+r}|\le b(N+r)</annotation></semantics></math>.
+Conversely, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>N</mi></msub><annotation encoding="application/x-tex">D_N</annotation></semantics></math>
+is nonintegral and has reduced denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+then its distance from every integer is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">1/q</annotation></semantics></math>.
+Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+from , scale this separation by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>r</mi></msup><annotation encoding="application/x-tex">2^r</annotation></semantics></math>,
+and use the block identity together with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|D_{N+r}|\le b(N+r)</annotation></semantics></math>.
+The triangle inequality gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>−</mo><msup><mn>2</mn><mi>r</mi></msup><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|B_{h,N,r}-2^rz|&gt;b(N+r)</annotation></semantics></math>
+for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>. ◻</p>
+</div>
+<p>The first equivalence shows that the apparent affine hierarchy
+contains no depth-dependent information: it is the pullback of even
+integrality through the recurrence identity. The fixed lattice removes
+that data dependence, but under the stated growth condition rational
+denominator separation already forces every required escape. Hence
+neither cofinal condition is an independent source of information about
+consecutive primes.</p>
+<p>Finally, the coarse coefficient profile itself has an exact infinite
+counterexample.</p>
+<div class="proof">
+<p><em>Proof.</em> All assertions follow by expansion. In particular
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mi>n</mi></msub><mo>=</mo><mn>4</mn><mi>n</mi><mo>+</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">g_{n+1}-g_n=4n+10</annotation></semantics></math>,
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">T_{N+h}-T_N</annotation></semantics></math>
+is the difference of two even integer squares. Strict growth makes the
+word unbounded and nonperiodic. ◻</p>
+</div>
 </section>
 <section id="sec:parts" class="level2">
 <h2>Summation by parts, with the endpoint retained</h2>
@@ -1129,26 +1307,15 @@ supplying those statements.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/c8e41c76b4ce888601213778ddce8b148359d11f">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. This manuscript provides navigation rather than proof
 authority.</p>
-</section>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority. Lean checks each proof
-term against the fixed library version, and the sources linked here
-contain no proof placeholders and no project-defined axioms; Lean does
-not authorise the exposition, the citation choices, or the
-interpretation, for which the author remains responsible.</p>
+<p>Lean checks each proof term against the fixed library version, and
+the sources linked here contain no proof placeholders and no
+project-defined axioms; Lean does not authorise the exposition, the
+citation choices, or the interpretation, for which the author remains
+responsible.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -1166,7 +1333,7 @@ data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 <section id="app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision c8e41c76b4ce. All declarations of this note live in one module.
+revision 99f4bf47422a. All declarations of this note live in one module.
 The summation-by-parts declarations are prime-specific; most of Section 
 is stated for arbitrary integer digits and arbitrary rational or real
 orbits, while Section  records the actual-gap specialisation. The
@@ -1178,8 +1345,8 @@ defined and checked in the pinned Lean module.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>P. Erdős, <a
-href="https://combinatorica.hu/~p_erdos/1958-19.pdf"></a>, Enseign.
-Math. (2) <strong>4</strong> (1958), 93–100, doi:<a
+href="https://users.renyi.hu/~p_erdos/1958-19.pdf"></a>, Enseign. Math.
+(2) <strong>4</strong> (1958), 93–100, doi:<a
 href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>. The
 dyadic prime series is stated as unproved on p. 94; the factorial-prime
 family is stated on p. 93, with only the

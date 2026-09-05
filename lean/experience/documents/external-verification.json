@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "2585c5d44650bf66a360ef76233d181bd646d60945a3e985ca06508a12e4a061",
+    "source_sha256": "806f6c17ba9effe097a8198bca148d8b2a9ff9113f794ea294fa358a5b35e35f",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,10 +25,80 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "c55220d5e2c0b0a999015b7fa0adc6d683d9d2d7c36659e4ff320ccaf80036e8",
-    "html_exact_tex_sha256": "883e71f617a2286367eff2c9542a614e88d4e176d8b4f4511005477162de46d5"
+    "html_mathml_sha256": "145161b99400ed3e5c480280480b424542bb5e072de58e68c1ff505b957c4497",
+    "html_exact_tex_sha256": "1dbc5e30f893863868fe4624bfb037e9fb11f0f9637c0f8738b1fa4468b85e5a"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Mathematical signal spine"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Reader tiers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Source-ranked frontier"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Natural friction and no-go boundaries"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Complete inventory, kept subordinate"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Complete serious-result universe"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "First-contact mathematical order"
+    },
     {
       "level": 2,
       "anchor": null,

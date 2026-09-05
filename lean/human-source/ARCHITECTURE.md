@@ -3,10 +3,9 @@
 
 # How this repository works
 
-This is a public Lean project about eight unsolved problems in mathematics. It
-contains formal source code, papers and summaries for readers, and a set of
-checks that keep those different descriptions aligned. The reviewed claim
-registry covers #249 and #257; a problem-owned expansion library covers #68,
+This is a public Lean project about eight unsolved problems in mathematics. The
+reviewed claim registry covers #249 and #257; a problem-owned expansion library
+covers #68,
 #243, #251, #269, #1041, and #1049 without silently promoting their
 declarations into that reviewed record.
 
@@ -46,7 +45,7 @@ on private files or unpublished work.
 Lean source -----------------> reviewed claim record
 Erdos249257/*.lean              docs/claims.json
        |                              |
-       | lake build                   | describes what public pages may say
+       | lean_fast_build.py           | describes what public pages may say
        v                              v
 formal proof check         README, SCOPE, papers, source maps
                                       |
@@ -83,7 +82,7 @@ single file that is authoritative for everything.
 | What has been formally checked? | [`Erdos249257.lean`](Erdos249257.lean), [`ErdosProblems.lean`](ErdosProblems.lean), and the Lean modules they import | Formal statements and proofs; kernel checking alone does not create a reviewed public claim |
 | What may the project publicly say about a result? | [`docs/claims.json`](docs/claims.json) | Claim wording, status, supporting Lean names, bounded ranges, and the exact questions that remain open |
 | What evidence and review are required when a claim changes? | [`docs/methodology.json`](docs/methodology.json) | Change classes and review requirements |
-| What does a reader see? | [`README.md`](README.md), [`SCOPE.md`](SCOPE.md), and authored papers such as [`paper/erdos249-257-main-paper.tex`](paper/erdos249-257-main-paper.tex) | Human explanation; these files must stay within the claim record |
+| What does a reader see? | [`README.md`](README.md), [`SCOPE.md`](SCOPE.md), and the eight individual problem papers routed by [`docs/papers/README.md`](docs/papers/README.md) | Human explanation; these files must stay within the claim record. The former combined manuscript, [`paper/erdos249-257-main-paper.tex`](paper/erdos249-257-main-paper.tex), is archived provenance only, not an active gateway. |
 | Which manuscripts are shipped? | [`docs/publication_contract.json`](docs/publication_contract.json) | Paper inventory, file identities, entry routes, and evidence boundaries |
 | What evidence supports the historical checker example? | [`docs/publication_evidence.json`](docs/publication_evidence.json) | The recorded exercise and its limitations |
 | How are releases blocked? | [`scripts/check_release.py`](scripts/check_release.py) and [`.github/workflows/lean.yml`](.github/workflows/lean.yml) | Local release checks and continuous integration |
@@ -131,13 +130,63 @@ The hundreds of Lean files are implementation detail at first contact. Start
 from a mathematical question or a claim, then follow the source map or the
 read-only query tool to the few relevant modules.
 
+For a complete problem-to-evidence return route, use the generated problem
+route rather than guessing a headline declaration:
+
+```sh
+python3 scripts/query_corpus.py --route erdos_<problem_number>
+```
+
+The route covers all eight indexed problems and returns the paper record, the
+complete review-matrix family list in its authored order, declaration handles
+where supplied, and the exact open-obligation statements. From there,
+`--declaration`, `--source`, and `--paper-anchor` provide the corresponding
+proof, source, and exposition drilldowns. These are navigation projections;
+Lean source remains proof authority and the family boundaries remain open.
+
+### The job lifecycle
+
+Skills own recurring jobs. A run invokes `mine-open-problem`, continues or
+suspends at a stop condition, uses `lean-concurrent-validation` when Lean
+authority is needed, runs `propagate-research-consequences` after a delta, packages with
+`erdos-research-return`, and prepares the proposal with
+`submit-pull-request`. `add-open-problem` separately owns proposal, incubation,
+and full indexing.
+
+If main advances, Git preserves the original delta. Maintainers review it, reconcile it, and
+rerun validation and propagation. Material conflict resolution remains a
+distinct, credited change.
+
+For module-level source traversal, use the same read-only query surface:
+
+```sh
+python3 scripts/query_corpus.py --module <module_path_or_sigil>
+```
+
+The module path comes from the source inventory, while a paper sigil is the
+short label emitted for paper links. Either selector returns the module
+synopsis, declaration preview, exact source identity, attached claims, paper
+sigil, and any bound route-memory context. The generated
+`docs/module_synopsis_index.json` supplies the header synopsis used by this
+route; it is an index, not proof or claim authority.
+
+For exact statement-identity comparison with the upstream Formal Conjectures
+corpus, use the generated
+[`docs/FORMAL_CONJECTURES_CROSSWALK.md`](docs/FORMAL_CONJECTURES_CROSSWALK.md).
+Each of the eight problem sections binds the pinned upstream declaration,
+source path, byte hash, and proof-status boundary to the matching canonical
+local problem route, so a reader can return from external prior art to local
+evidence without guessing a theorem name.
+
 ### Two libraries, two levels of claim
 
 The repository holds two Lean roots and they are not interchangeable.
 
 `Erdos249257.lean` is the reviewed corpus. Every public mathematical claim made
 about it has a row in `docs/claims.json`, a status, declaration coordinates, and
-a place in the gateway paper.
+a place in its problem-owned paper. The eight individual problem papers are the
+active mathematical routes; the former combined #249/#257 manuscript is retained
+only as provenance.
 
 `ErdosProblems.lean` is the problem-owned expansion library, currently covering
 Erdős problems 68, 243, 251, 269, 1041, and 1049, plus unpromoted expansion
@@ -205,7 +254,7 @@ reviewed relationship after it has been recorded.
 ### A mathematical statement or proof changes
 
 1. Edit the relevant file under `Erdos249257/`.
-2. Run `lake build`. This is the proof check.
+2. Run the `lake build` check below.
 3. Review whether the formal statement, assumptions, or intended meaning
    changed. [`docs/methodology.json`](docs/methodology.json) states the minimum
    evidence and review required for each kind of change.
@@ -249,13 +298,15 @@ The main local commands are:
 python3 scripts/check_architecture_guide.py
 
 # Fast check of the committed first-reading surfaces; no Lean build
+python3 scripts/proof_cockpit.py --check
+python3 scripts/test_proof_cockpit.py
 python3 scripts/check_cold_clone_comprehension.py --quick
 
 # Full check of public claims, documents, generated files, and release rules
 python3 scripts/check_release.py
 
-# Formal proof check
-lake build
+# Changed proof cone; omit flag at release
+python3 scripts/lean_fast_build.py --jobs 2 --changed-from HEAD
 ```
 
 The Python release check confirms the identity of the Lean source but does not
@@ -287,11 +338,15 @@ the limit of explicitly recorded checks.
 
 - **You want the basic mathematical result and its limits:** read
   [`README.md`](README.md), then [`SCOPE.md`](SCOPE.md).
-- **You want the mathematical argument:** read the
-  [mathematics paper](erdos249-257-main-paper.pdf).
+- **You want the mathematical argument:** choose the relevant entry in the
+  [individual problem-paper index](docs/papers/README.md). The archived combined
+  #249/#257 PDF is not a default reading route.
 - **You want to find the Lean behind one claim:** use
   [`docs/SOURCE_MAP.md`](docs/SOURCE_MAP.md), or run
   `python3 scripts/query_corpus.py --claim <claim_id>`.
+- **You want every distinct result family for one problem:** run
+  `python3 scripts/query_corpus.py --route erdos_<problem_number>` and follow
+  its paper, declaration, and open-obligation handles.
 - **You want to change the repository:** read [`AGENTS.md`](AGENTS.md) and
   [`CONTRIBUTING.md`](CONTRIBUTING.md), then run the checks for the files you
   touched.

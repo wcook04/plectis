@@ -74,10 +74,10 @@
       "module": "ErdosProblems.Erdos269.RestrictedFloorSum",
       "path": "ErdosProblems/Erdos269/RestrictedFloorSum.lean",
       "present": true,
-      "line_count": 683,
-      "declaration_count": 42,
-      "theorem_count": 29,
-      "content_digest": "sha256:14085590dfbf9b2dc34d4ac1b446667f3ce249b7c25687801c79f7d55db8189e",
+      "line_count": 709,
+      "declaration_count": 43,
+      "theorem_count": 30,
+      "content_digest": "sha256:7369d105e5cb014188e31fa44fdccb03b2c40bdfe4719f6e227555c1c30b0bd3",
       "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     },
     {
@@ -145,6 +145,18 @@
       "statement": "The running lcm of the three-prime smooth prefix equals the exact coordinatewise height.",
       "boundary": "The identity does not supply the missing irrationality bridge.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+    },
+    {
+      "id": "conditional_carry_escape",
+      "problem": 269,
+      "review_family": "conditional_carry_escape",
+      "contribution_class": "conditional no-go consumer; novelty and significance unassessed",
+      "original_declaration": "ErdosProblems.Erdos269.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
+      "original_source": "ErdosProblems/Erdos269/RestrictedFloorSum.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
+      "statement": "Under the denominator-dependent cofinal local-window residue-escape predicate, no positive reduced carry can satisfy the exact multiplier recurrence together with its short bound.",
+      "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The cofinal local-window escape producer and the bridge from the actual three-prime running-LCM series or its rationality to this reduced carry remain open. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     }
   ],
   "comparator_review": {
@@ -172,6 +184,10 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "Finite height-fibre normal form and a quadratic smooth-shell multiplicity bound.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos269.finiteSmoothKernelSum_groupedByHeight",
+          "ErdosProblems.Erdos269.smoothExponentShell_card_quadratic"
+        ],
         "comparator_disposition": "represented_by_three_prime_structure_target",
         "boundary": "The fibre bounds do not provide the missing divisibility bridge."
       },
@@ -188,16 +204,41 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "The exact dyadic block alphabet is 2, 6, 10, and 30.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos269.dyadicBlockBase235_cases"
+        ],
         "comparator_disposition": "represented_by_three_prime_structure_target",
         "boundary": "The finite alphabet does not supply the needed carry escape."
       },
       {
         "id": "conditional_carry_escape",
-        "contribution_class": "conditional reduction",
-        "summary": "Cofinal local-window residue escape would rule out bounded positive carries after an unproved rationality-to-carry bridge.",
+        "contribution_class": "conditional no-go consumer; novelty and significance unassessed",
+        "summary": "Under the denominator-dependent cofinal local-window residue-escape predicate, no positive reduced carry can satisfy the exact multiplier recurrence together with its short bound. The load-bearing consumer is no_positive_reducedCarry_of_cofinalLocalWindowEscape; an absorbed nonzero common-factor carry reduces exactly to that consumer. CofinalLocalWindowEscape, windowBase, windowForcing, leastPositiveResidue, and the absorbed-carry bridge are subordinate finite-window mechanism evidence.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos269.CofinalLocalWindowEscape",
+          "ErdosProblems.Erdos269.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
+          "ErdosProblems.Erdos269.windowBase",
+          "ErdosProblems.Erdos269.windowForcing",
+          "ErdosProblems.Erdos269.leastPositiveResidue",
+          "ErdosProblems.Erdos269.no_positive_absorbedCarry_of_cofinalLocalWindowEscape"
+        ],
+        "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor ≠ 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The cofinal local-window escape producer and the bridge from the actual three-prime running-LCM series or its rationality to this reduced carry remain open. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families."
+      },
+      {
+        "id": "weighted_phase_carry_observer",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "summary": "An exact weighted-phase carry recurrence splits into a finite residue digit and an uncontrolled integral quotient coboundary; an explicit function-faithful finite-dimensional observer then forces finite realised span.",
         "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_unproved_bridge_and_deep_predicates",
-        "boundary": "The producer and actual-series identification are missing."
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos269.carry_eq_residueDigit_add_coboundary",
+          "ErdosProblems.Erdos269.carryResidue_mem_interval",
+          "ErdosProblems.Erdos269.residueDigit_mem_interval",
+          "ErdosProblems.Erdos269.finite_realisedSpan_of_factorisation"
+        ],
+        "boundary": "The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No rationality or irrationality conclusion follows; the actual three-prime running-LCM bridge and cofinal escape remain open."
       },
       {
         "id": "three_prime_finite_search",
@@ -209,6 +250,40 @@
       }
     ]
   },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Prove irrationality in the first unresolved support case with three distinct prime generators.",
+    "strongest_theorem": {
+      "claim_id": "erdos269.three_prime_structure",
+      "title": "exact running-LCM identity, logarithmic-cell constancy, exact jump count, height-fibre normal form, quadratic shell bound, arbitrary-order nonsingular minors, and no finite exact separation",
+      "statement": "For pairwise distinct primes p, q, r and every nonzero x, the least common multiple of all smooth numbers p^i q^j r^k at most x equals the product of the three maximal pure prime powers below x. The reciprocal-height kernel K(i,j,k) built from that identity is constant on every logarithmic cell, and the first m positive jump values across the three prime channels number exactly 3m. Every finite exponent box sums to the height-fibre normal form, the sum over genuine running-LCM heights of the fibre cardinality divided by the height, and a multiplicative shell of width factor r inside a sorted exponent budget j satisfies 9 times its cardinality at most (j+3)^2. For every order n there are injective index families giving a nonsingular n by n minor of K uniformly in the remaining exponent layer, so K has infinite rank and no finite separable representation K(i,j,k) = sum over l < d of f_l(i) G_l(j,k) exists for any d. The smallest 2,3,5 rectangle has determinant exactly -1/15. Three distinct primes keep the three logarithm floors independent, which is what makes the running-LCM identity exact and the minors nonsingular in every order, and it removes every method that would evaluate the three-prime sum by finitely many separated factors. The running-LCM factorisation identity for every finite prime set, and the two-prime case in which the series factorises and is transcendental by Hecke and Mahler, are due to Steve Fan (erdosproblems.com/269 comment, 26 June 2026), who also records that the factorisation does not extend to three or more primes; the identity theorem here formalises his identity at three primes, and the rank statements are the addition. Priority for the rank statements has not been established, none of the seven theorems yields irrationality or transcendence, and Erdős #269 remains open.",
+      "altitude": "no_go",
+      "band": "U",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification269ThreePrimeStructure"
+    },
+    "strongest_longitudinal_theorem": null,
+    "live_obstruction": "The normalised infinite dyadic shell tail either reaches an exact integral state or returns cofinally at distance at least 1/31 from every integer, and excluding the exact-integral-state branch is the unresolved step.",
+    "strongest_open_producer": {
+      "id": "exclude_exact_integral_dyadic_tails",
+      "statement": "Exclude every exact integral state of the genuine normalized source tail X_a=H(2^a)T_a/2. Lean proves that this orbit either has such a state or returns cofinally 1/31-far from all integers. The denominator-one automaton remains the direct arithmetic representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates now eliminate every direct phase-conditioned source potential of total degree at most two. Analyze longer surviving error cones through a genuinely nonlocal all-scale invariant, prove that an integral carry would force a finite-degree source potential, or move to nonpolynomial/unbounded-memory structure."
+    },
+    "how_to_contribute": {
+      "kind": "proof",
+      "note": "Prove in Lean the telescoping identity that the sum over primes p of (p - 1) times the sum over n of 1/H(p^n) equals 1, where H is the running LCM height, which is a one-line difference identity and is absent from the corpus."
+    },
+    "what_this_does_not_establish": "No three-prime irrationality or transcendence theorem has been proved. Lean identifies the actual compressed dyadic radix with the successive threePrimeHeight and literal smoothPrefixLcm ratio and proves that it lies in {2,6,10,30}. It proves an all-scale quadratic bound for the literal ordered digit, a polynomial-geometric majorant and summability for the actual real shell masses, constructs the genuine infinite dyadic-shell tsum tail, and proves its exact recurrence X_(a+1)=b_a X_a-d_a. The bounded-radix theorem therefore applies directly: the actual normalized infinite tail either reaches an exact integral state or returns cofinally to distance at least 1/31 from every integer. The infin…",
+    "failed_approaches": [
+      "Finite separated-factor decompositions of the three-prime kernel: nonsingular minors exist at every order uniformly in the third layer.",
+      "Adamczewski-Bugeaud stammering criterion: measured simultaneous-approximation exponents fall to ≈ 1.007 while the criterion needs exponent 1 for both slopes at the same denominator; Dirichlet supplies only 1/2.",
+      "Finite Farey boxes and lattice first-hit screens: a measured square-root law with no cofinal quantifier."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification269ThreePrimeStructure"
+    ]
+  },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
@@ -217,7 +292,7 @@
     "subject": "Erdős #269",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 23,
+    "pages": 24,
     "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
     "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -239,23 +314,28 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
+      "renderer_contract_version": 14,
+      "source_sha256": "379f505866b529978ff8289927fed1bf6db669dc62ffc19e397e413638d2bcec",
       "publication_manifest_match": true,
-      "mathml_node_count": 493,
+      "mathml_node_count": 521,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "876a81b1af17ddd6d7c74b0f2dc86c50d58941182a91dcaec9dfa665e083d2dd",
-      "html_exact_tex_sha256": "c656bbcc17252c34726c9e1909ffde25e0cfa82260dbb897a47d60bc5ccd9f64"
+      "html_mathml_sha256": "19e2f0af42a8a3f403052e807cbb6423df16c022e456312b80853a261e418d04",
+      "html_exact_tex_sha256": "9d9e3c7b58ee9b78f8416602b2624523d0b06c6557f75fe436edd495d222f5ef"
     },
     "sections": [
       {
         "level": 2,
         "anchor": null,
         "label": "Introduction"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Results and boundary."
       },
       {
         "level": 3,
@@ -291,6 +371,11 @@
         "level": 2,
         "anchor": null,
         "label": "Non-separability of the three-prime kernel"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The actual shell orbit and its integral branch"
       },
       {
         "level": 2,
@@ -340,12 +425,12 @@
       {
         "level": 3,
         "anchor": null,
-        "label": "A literal two-dimensional analytic route"
+        "label": "A two-dimensional analytic representation"
       },
       {
         "level": 3,
         "anchor": null,
-        "label": "The structural frontier"
+        "label": "Further structural constraints"
       },
       {
         "level": 3,
@@ -356,11 +441,6 @@
         "level": 5,
         "anchor": null,
         "label": "Artefact and data availability."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 5,

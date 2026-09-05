@@ -27,6 +27,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="../assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=911c79a053aa"></script>
 </head>
 <body>
@@ -42,6 +44,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/glossary.html">Glossary</a>
         <a href="../../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -71,9 +74,9 @@
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Source map</li></ol></nav>
       <header class="paper-head">
-        <p class="doc-role-eyebrow">Source map</p>
+        <p class="doc-role-eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></p>
         <h1>Source map</h1>
-        <p class="doc-source-line">Rendered from <code>docs/SOURCE_MAP.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/SOURCE_MAP.md</code> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -84,51 +87,318 @@ SPDX-FileCopyrightText: 2026 Will Cook
 SPDX-License-Identifier: Apache-2.0
 -->
 <section class="level1 lean-doc-titled">
-<h2>Source map</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></h2>
 <section id="bounded-reader-route" class="level2">
-<h2>Bounded reader route</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounded</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> route</h2>
 <p>Start from one mathematical question rather than decoding the
-complete import graph:</p>
+complete <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">import</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>:</p>
 <ol type="1">
-<li>Read <code>docs/orientation.json</code>, or its human projection
-<code>docs/ORIENTATION.md</code>, and select one programme, claim, or
-exact remaining open proposition.</li>
-<li>Run one bounded lookup:
+<li>Read <code>docs/orientation.json</code>, or its human <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a>
+<code>docs/ORIENTATION.md</code>, and select one programme, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, or
+exact remaining open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>.</li>
+<li>Run one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">lookup</a>:
 <code>python3 scripts/query_corpus.py --route &lt;programme_id&gt;</code>,
 <code>python3 scripts/query_corpus.py --claim &lt;claim_id&gt;</code>,
 or
 <code>python3 scripts/query_corpus.py --open &lt;remaining_open.id&gt;</code>.</li>
-<li>Follow the returned paper label into the authored exposition and its
-declaration or source handles into the modules grouped below.</li>
+<li>Follow the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">returned</a> paper <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-label" data-term="label" data-term-auto="1">label</a> into the authored exposition and its
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> handles into the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> grouped below.</li>
 <li>Read <code>Erdos249257.lean</code> or
-<code>ErdosProblems.lean</code> only when package topology itself is the
+<code>ErdosProblems.lean</code> only when <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> topology itself is the
 question. Read <code>docs/WAVE_INDEX.md</code> for chronology, not as
 the recommended mathematical reading order.</li>
 </ol>
-<p>Lean source checked by the pinned Lean kernel is proof authority.
-This map is authored navigation: it does not strengthen a claim, replace
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by the pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.
+This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> is authored navigation: it does not strengthen a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, replace
 <code>docs/claims.json</code>, or close an exact remaining-open
-proposition. Erdős #249 and the universal form of #257 remain open.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #249 and the universal form of #257 remain open.</p>
+</section>
+<section id="signal-first-reviewed-spine" class="level2">
+<h2>Signal-first reviewed spine</h2>
+<p>Use the current <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json" data-link-kind="exogenous" rel="external noopener">Palomar result
+showcase</a> for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-reviewed family universe and its selected,
+represented, subordinate, deferred, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reject" data-term="reject" data-term-auto="1">rejected</a>, and long-tail
+dispositions. It is a selection <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a>, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> count or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>. The generated <a
+href="external-verification.html#mathematical-signal-spine">verification
+dossier</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-expand" data-term="expand" data-term-auto="1">expands</a> the same spine with exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>, hard
+mechanisms, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence classes</a>, and surviving boundaries. Its ranked path
+starts with the completed full-support #257 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>, then the conditional
+actual-LCM and first-harmonic #249 routes, followed by the
+actual-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap #251 and local-window #269 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a>; use the matrix
+below to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> to #68, #243, #1041, or #1049. Support <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a> remain
+subordinate to their family, and every conditional producer or bridge
+remains explicit.</p>
+</section>
+<section id="source-current-frontier" class="level2">
+<h2>#1041 / <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-current frontier</h2>
+<p>Problem #1041 has a second, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-only navigation route in addition
+to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-backed Newton-flow note. Start with the dated <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>, then
+use the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/STRONGEST_RESULTS.json">strongest-result
+map</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/CORPUS_MANIFEST.json">corpus
+manifest</a>. The frontier delta is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for rows refuted after
+the activation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> was generated; do not rebuild those rows merely
+because they remain in the machine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>.</p>
+<p>The high-signal reading routes are:</p>
+<ul>
+<li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/AttachmentAwareReeb.md" data-link-kind="exogenous" rel="external noopener">hub
+selection and generic closure</a> → <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/GenericSufficiencyClosure.md">GenericSufficiencyClosure</a>:
+the surviving parent carrier is <code>min_c L(c) &lt;= 2</code> on the
+ray-separated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a>, followed by lower-semicontinuity closure.</li>
+<li><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">quantitative
+Fekete stability and radial/angular reduction</a> → <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md">degree-five
+sharpened cuts</a>: the new tools localise the residual, but do not
+prove the degree-five or unrestricted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</li>
+<li><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/PartialClusterPreimagePerimeterIdentity.md">partial-cluster
+perimeter identity</a> → <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/TiedNewtonFaceFibreProduct.md">tied-fibre
+moment hierarchy</a>: these are exact geometric/algebraic premises for
+future selection work, not a completed compatible-root selector.</li>
+<li><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/ExteriorRootProductCovering.md">new
+exterior-root product covering</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/SeparatrixAggregateReduction.md">separatrix
+aggregate reduction</a>: read their explicit hypotheses and refutations
+before treating either as a parent route.</li>
+</ul>
+<p>The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">earlier
+paper note</a> remains the paper-facing route to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> in
+<code>ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean</code>. The
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> is not part of <code>docs/claims.json</code>’s reviewed
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>: its files <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserve</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-level premises, computations,
+no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>, and open boundaries. Nothing in this route settles #1041;
+the exact continuation boundary is in <code>FRONTIER.md</code> and must
+be read before any new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a>.</p>
+</section>
+<section id="complete-eight-problem-return-matrix" class="level2">
+<h2>Complete eight-problem <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> matrix</h2>
+<p>The per-problem <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json" data-link-kind="exogenous" rel="external noopener">machine index</a> is the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for the complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>, paper, and open-obligation inventories.
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expand" data-term="expand" data-term-auto="1">Expand</a> each row’s <code>what_is_checked</code> and
+<code>what_is_not_checked</code> fields before treating its strongest
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> as the whole <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> inventory: they are the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>
+ceiling, not additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. This single matrix makes the same route
+bidirectional: start at a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> problem id, reach the strongest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and paper record, then use the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> handles to resume the
+open boundary; a paper or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> with the
+<code>--route</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> in the second column. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a>
+under <code>ErdosProblems.lean</code> are exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, not
+reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a> entries. For #249 and #257, the reviewed route
+is an additional registered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> spine, not a replacement for the
+problem-owned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> route.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Problem return / source back-route</th>
+<th>Strongest checked source</th>
+<th>Paper and source record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#68</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_68</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"><code>FactorialZeroPlateau.lean</code></a></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md">paper
+note</a> · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#243</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_243</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"><code>ReciprocalTailRigidity.lean</code></a></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#249</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_249</code> ·
+reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>:
+<code>python3 scripts/query_corpus.py --route erdos249_certificate_story</code>
+· family <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>:
+<code>python3 scripts/query_corpus.py --route probabilistic_gcd_geometry</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"><code>TotientStrictPrimeEscape.lean</code></a>
+· <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean#L235"><code>GcdMomentCalculus.lean</code></a>
+· <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/SternBrocotRunGeometry.lean#L343"><code>SternBrocotRunGeometry.lean</code></a></td>
+<td><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md" data-link-kind="exogenous" rel="external noopener">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a> · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.">probability/cylinder
+explanation</a></td>
+</tr>
+<tr>
+<td>#251</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_251</code><br>Palomar
+family spine (run
+<code>python3 scripts/query_semantic.py family-relations &lt;family_id&gt;</code>):
+<code>prime_gap_reformulation</code> →
+<code>small_mismatch_criterion</code> →
+<code>dyadic_tail_integrality_classification</code> →
+<code>integral_shift_classification</code> →
+<code>totient_shift_propagation</code> →
+<code>coefficient_only_no_go</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"><code>PrimeGapDyadicTail.lean</code></a></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#257</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_257</code> ·
+reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>:
+<code>python3 scripts/query_corpus.py --route erdos257_half_story</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"><code>MersenneSubseriesRigidity.lean</code></a></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md">paper
+note</a> · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#269</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_269</code><br>Palomar
+family spine (run
+<code>python3 scripts/query_semantic.py family-relations &lt;family_id&gt;</code>):
+<code>conditional_carry_escape</code> →
+<code>weighted_phase_carry_observer</code> →
+<code>rank_two_kernel_no_go</code> → <code>height_fibre_and_shell</code>
+→ <code>dyadic_block_alphabet</code> →
+<code>three_prime_lcm_cells</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"><code>RestrictedFloorSum.lean</code></a>
+· <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean"><code>WeightedPhaseCarry.lean</code></a>
+· <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"><code>ThreePrimeRunningLcm.lean</code></a></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-269-three-prime-running-lcm.md">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#1041</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_1041</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"><code>NewtonFlowRaySeparation.lean</code></a></td>
+<td><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md" data-link-kind="exogenous" rel="external noopener">dated
+frontier</a> → <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a></td>
+</tr>
+<tr>
+<td>#1049</td>
+<td><code>python3 scripts/query_corpus.py --route erdos_1049</code></td>
+<td><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"><code>RationalBaseLambert.lean</code></a></td>
+<td><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md" data-link-kind="exogenous" rel="external noopener">paper
+note</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">TeX
+source</a></td>
+</tr>
+</tbody>
+</table>
+<p>The exact open boundary each row <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stops</a> at, as machine handles. A
+five-column table put these sentences 354px past the rendered column, so
+they read here:</p>
+<ul>
+<li><strong>#68</strong> —
+<code>weighted_collision_and_complementary_residue</code>;
+<code>cofinal_prime_power_amplification</code>;
+<code>cofinal_lower_endpoint_escape</code>;
+<code>cofinal_doubled_prime_branch_failure</code>;
+<code>cramer_residual_nonintegrality</code></li>
+<li><strong>#243</strong> — <code>unbounded_negative_excursions</code>;
+<code>derive_the_two_analytic_hypotheses</code>;
+<code>formalise_the_published_criteria</code></li>
+<li><strong>#249</strong> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">Index</a>:
+<code>strict_prime_tail_orbit_gap</code>;
+<code>hankel_denominator_fan_in</code>;
+<code>euler_sieve_limit_theorem</code>;
+<code>prime_ray_resultant_supply</code>;
+<code>stern_brocot_arithmetic_bridge</code>. Family:
+<code>totient_coprimality_probability</code>;
+<code>squared_lambert_gcd_moments</code>;
+<code>stern_brocot_cylinder_law</code>;
+<code>stern_brocot_run_fibonacci_stability</code>. Reviewed:
+<code>remaining_open.erdos_249_irrationality</code>;
+<code>remaining_open.unbounded_certificate_supply</code></li>
+<li><strong>#251</strong> — <code>prime_gap_cofinal_shift_escape</code>;
+<code>cofinal_adjacent_small_mismatch</code>;
+<code>actual_prime_gap_tail_formal_bridge</code></li>
+<li><strong>#257</strong> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">Index</a>:
+<code>arithmetic_rigidity_for_thin_supports</code>;
+<code>formalise_measure_and_stride_geometry</code>. Reviewed:
+<code>remaining_open.half_value_membership</code>;
+<code>remaining_open.twenty_one_permanent_affine_supercapacity</code>;
+<code>remaining_open.universal_257_all_infinite_supports</code></li>
+<li><strong>#269</strong> —
+<code>actual_local_window_residue_escape</code>;
+<code>actual_rational_carry_instantiation</code>;
+<code>nonstationary_analytic_theorem</code>;
+<code>unbounded_height_certificate</code></li>
+<li><strong>#1041</strong> — <code>repair_or_refute_saddle_block</code>;
+<code>compact_ray_cut_strip_decomposition</code>;
+<code>metric_gluing_below_two</code>;
+<code>two_stage_stable_perturbation</code>;
+<code>relative_global_newton_flow_theorem</code></li>
+<li><strong>#1049</strong> —
+<code>three_halves_growing_rank_endpoint_jet_kernel</code></li>
+</ul>
+<p>From a reviewed route, use the registered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> or paper-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a> query
+to travel back to exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>; use the open query for the
+registered unresolved boundary rather than treating a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> special
+case as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--claim</span> <span class="op">&lt;</span>claim_id<span class="op">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--paper-anchor</span> <span class="op">&lt;</span>TeX_label_or_source_ref<span class="op">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--open</span> <span class="op">&lt;</span>remaining_open.id<span class="op">&gt;</span></span></code></pre></div>
 </section>
 <section id="build-entrypoint" class="level2">
 <h2>Build entrypoint</h2>
 <ul>
 <li><code>Erdos249257.lean</code></li>
 <li><code>ErdosProblems.lean</code></li>
-<li>Lake package: <code>erdos249257</code></li>
-<li>Lean libraries / stable root imports: <code>Erdos249257</code>,
+<li>Lake <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>: <code>erdos249257</code></li>
+<li><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">libraries</a> / stable root <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imports</a>: <code>Erdos249257</code>,
 <code>ErdosProblems</code></li>
 </ul>
-<p><code>Erdos249257</code> is the reviewed #249/#257 corpus.
+<p><code>Erdos249257</code> is the reviewed #249/#257 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.
 <code>ErdosProblems</code> is the problem-owned expansion surface;
-unregistered declarations there remain exact Lean propositions rather
-than reviewed public mathematical claims.</p>
+unregistered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> there remain exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> rather
+than reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
 </section>
 <section id="erdősborwein-families" class="level2">
-<h2>#257 / Erdős–Borwein families</h2>
+<h2>#257 / <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Borwein families</h2>
 <ul>
 <li><code>Erdos249257.CertificateKernel</code></li>
-<li>Relevant declarations include:
+<li>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>irrational_erdosSum_full_support</code>,
 <code>irrational_erdosBorwein_series</code>,
 <code>irrational_erdosSum_factorial_support</code>,
@@ -137,7 +407,7 @@ than reviewed public mathematical claims.</p>
 </ul>
 </section>
 <section id="periodic-weighted-lambert-series" class="level2">
-<h2>Periodic weighted Lambert series</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">Periodic</a> weighted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a></h2>
 <ul>
 <li><code>Erdos249257.CertificateKernel</code></li>
 <li>Nonnegative weights:
@@ -146,23 +416,81 @@ than reviewed public mathematical claims.</p>
 <code>irrational_ratWeightSeries_eventuallyPeriodic</code>.</li>
 <li>Signed weights:
 <code>irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic</code>
-gives the irrational-or-base-terminating dichotomy, while
+gives the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>-or-base-terminating dichotomy, while
 <code>irrational_intWeightedErdosSeries_periodic_of_bpow_mul_ne_intCast</code>
-consumes an explicit nontermination hypothesis.</li>
+consumes an explicit nontermination <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>.</li>
 <li><code>intWeightedCoeff_periodFourSignWeight_eq_zero_of_mod_four_eq_three</code>
-is the residue-selection obstruction explaining why the signed endpoint
-is not unconditional irrationality.</li>
+is the residue-selection <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> explaining why the signed endpoint
+is not unconditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>.</li>
 </ul>
 </section>
 <section id="totient-denominator-exclusions" class="level2">
-<h2>#249 / totient denominator exclusions</h2>
+<h2>#249 / <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a></h2>
 <ul>
-<li><code>Erdos249257.GapFareyBound</code></li>
-<li><code>Erdos249257.CertificateKernel</code></li>
+<li><p><code>Erdos249257.GapFareyBound</code></p></li>
+<li><p><code>Erdos249257.CertificateKernel</code></p></li>
+<li><p><strong>Visible-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> lattice mass</strong>
+(<code>totient_visible_coprime_lattice_mass</code>) — <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean#L349"><code>tsum_pos_coprime_inv_mersenne_eq_one</code></a>
+proves that the positive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> weights on the visible lattice
+sum exactly to one. This is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> normalization behind the
+fair-coin coprimality form of #249, not an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>. Follow
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.">individual-paper
+explanation</a> or the reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> route
+<code>python3 scripts/query_corpus.py --claim stern_brocot_cylinder_law</code>;
+both expose the explanation and reverse <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> links. The exact boundary
+is unchanged: this identity does not settle #249.</p></li>
+<li><p><strong>All-base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>-kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>, spanning, and
+conditional rank</strong>
+(<code>all_base_totient_kernel_index_reduction</code>) — <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientKernelConditional.lean#L102"><code>TotientKernelConditional.lean</code></a>
+gives the unconditional canonical spanning <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, while <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientKernelConditional.lean#L215"><code>finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent</code></a>
+gives rank <code>k^e + 1</code> only under the explicit
+linear-independence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>. That independence, and Martin’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a>
+positive-density <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, are not formalised here; this algebraic
+boundary does not prove <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of #249. Retrieve the full
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>/<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> record with
+<code>python3 scripts/query_corpus.py --claim all_base_totient_kernel_index_reduction</code>,
+then <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a> with
+<code>python3 scripts/query_corpus.py --route erdos_249</code>.</p></li>
+<li><p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-ray cyclotomic support escape</strong>
+(<code>prime_ray_resultant_supply</code>) — <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95"><code>PrimeRayCyclotomicCurvature.lean</code></a>
+turns <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-degree order divisibility and eventual nontrivial <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clean" data-term="clean" data-term-auto="1">clean</a>
+layers into <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-support escape and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> unbounded <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisors</a>.
+Its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> order is an existence of an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not exact
+order. The actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> layer/resultant bridge and the route from
+unbounded <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> support to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> or carry escape remain open; the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a>-only instantiation in
+<code>CyclotomicAnchoredKill.lean:33-105</code> does not close #249 or
+justify novelty.</p></li>
+<li><p><strong>Tail-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> phase-density and natural-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a></strong> (<code>strict_prime_tail_orbit_gap</code>) — <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L25"><code>TotientStrictPrimeEscape.lean</code></a>
+makes the two producer interfaces explicit: an <code>11/100</code>
+nonpositive-phase density on arbitrarily late <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> blocks <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> an
+<code>89/100</code> first-harmonic block saving, while the natural-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
+strict-gap predicate gives a pointwise <code>9/10</code> pivot escape
+through the wrapper
+<code>Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap</code>.
+The same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> records the exact phase <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">update</a> <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L167"><code>tailOrbitFirstExp_succ</code></a>:
+after the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> carry disappears under exponentiation, the first phase
+evolves by squaring. This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>-mechanism <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> only; it supplies
+none of the density, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap, or uniform-margin
+hypotheses. The density, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap, and positive
+truncation-margin producers are unproved for the actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>.
+This is conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>/<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> only: it does
+not close #249, duplicate the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<code>first_harmonic_pivot_decomposition</code> or
+<code>actual_lcm_orbit_separation</code> families, or justify novelty,
+priority, significance, or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> review.</p></li>
 </ul>
 </section>
 <section id="certificate-reductions" class="level2">
-<h2>#249 / certificate reductions</h2>
+<h2>#249 / <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a></h2>
 <ul>
 <li><code>Erdos249257.TotientTailPeriodKiller</code></li>
 <li><code>Erdos249257.CarrySurvivorExtinction</code></li>
@@ -170,7 +498,7 @@ is not unconditional irrationality.</li>
 <li><code>Erdos249257.LcmConeFlatness</code></li>
 <li><code>Erdos249257.LcmConeNonflat</code></li>
 </ul>
-<p>Supporting ladder modules:</p>
+<p>Supporting ladder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>:</p>
 <ul>
 <li><code>Erdos249257.MersenneLambertLadder</code></li>
 <li><code>Erdos249257.GeometricCoprimality</code></li>
@@ -179,27 +507,27 @@ is not unconditional irrationality.</li>
 </section>
 <section id="diagonal-pincer-frontier" class="level2">
 <h2>#249 / diagonal pincer frontier</h2>
-<p>Read this band after the certificate reductions above. It sharpens
-the same open obligation; it does not prove the required unbounded
+<p>Read this band after the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> above. It sharpens
+the same open obligation; it does not prove the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> unbounded
 supply.</p>
 <ul>
 <li><code>Erdos249257.DiagonalPincerDecomposition</code> — exact
-full-target interval characterisation and the
-target-avoidance-to-irrationality reduction.</li>
+full-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> interval characterisation and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>-avoidance-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>.</li>
 <li><code>Erdos249257.SquaredMersenneDiagonalEnclosure</code> —
 Lambert-projected centre, exact signed square tail, and a sharp
 separation criterion.</li>
 <li><code>Erdos249257.DiagonalFreshLossBridge</code> — exact fresh-loss
-projection and stronger adjacent-suffix supply interfaces.</li>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> and stronger adjacent-suffix supply interfaces.</li>
 <li><code>Erdos249257.DiagonalPincerCertificates</code> and
 <code>Erdos249257.DiagonalPincerCertificatesT*</code>, followed by
 <code>ErdosProblems.Lift</code> and <code>ErdosProblems.Skip</code> —
-the finite diagonal segment supplies a checked working depth for every
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> diagonal segment supplies a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> working depth for every
 natural <code>t ≤ 82</code>; it supplies nothing at <code>t = 83</code>.
-This is finite source extraction, not a cofinal or asymptotic
-result.</li>
-<li><code>Erdos249257.DiagonalPincerPrimeCertificates.*</code> — finite
-prime certificate shards used by that assembled segment; read the
+This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> extraction, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> or asymptotic
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>.</li>
+<li><code>Erdos249257.DiagonalPincerPrimeCertificates.*</code> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards used by that assembled segment; read the
 aggregators first.</li>
 </ul>
 <p>Algebraic support for the same band:</p>
@@ -221,48 +549,48 @@ live in <code>PrimitiveRationalGapSupply</code>,
 <h3>Transport and curvature companion band</h3>
 <p>Read
 <code>CurvatureCarry → ExponentOnlyTransport → JointExponentTransport</code>
-for the main proof spine, then
+for the main <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> spine, then
 <code>PrimeJumpMigration → PrimeJumpWindow</code> and
-<code>ThreeTransportBoundary</code> for the new-prime and balanced
-finite consumers. For the harmonic route, read
+<code>ThreeTransportBoundary</code> for the new-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> and balanced
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> consumers. For the harmonic route, read
 <code>FirstHarmonicGap → FirstHarmonicPivot → AdjacentPhaseSeparation</code>.
-<code>FirstHarmonicGap</code> turns a constant-saving cosine bound into
-a direct certificate. <code>FirstHarmonicPivot</code> decomposes the
+<code>FirstHarmonicGap</code> turns a constant-saving cosine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> into
+a direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>. <code>FirstHarmonicPivot</code> decomposes the
 complex harmonic sum exactly into centred supplier-fibre, fibre-mean,
 bad-supplier, and non-supplier terms; the one-sided budgets
 <code>14X/25</code>, <code>X/100</code>, <code>X/100</code>, and
-<code>8X/25</code> give the required <code>9X/10</code> saving.
+<code>8X/25</code> give the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> <code>9X/10</code> saving.
 <code>AdjacentPhaseSeparation</code> gives a pairwise alternative. No
-cofinal harmonic, prime-distribution, or decorrelation estimate is
-proved. <code>TropicalCurvatureCarry</code> is a proved negative result
-showing that bounded valuation–unit precision alone cannot exclude all
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> harmonic, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-distribution, or decorrelation estimate is
+proved. <code>TropicalCurvatureCarry</code> is a proved <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative result</a>
+showing that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> valuation–unit precision alone cannot <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> all
 centred completions.</p>
 <ul>
 <li><code>CurvatureCarry</code> — exact curvature window, sharp radius,
-recurrence, and conditional unbounded-supply endpoints.</li>
-<li><code>ExponentOnlyTransport</code> — squarefree support stability
-and the exact periodic affine slope/intercept state.</li>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>, and conditional unbounded-supply endpoints.</li>
+<li><code>ExponentOnlyTransport</code> — <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> support stability
+and the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> affine slope/intercept state.</li>
 <li><code>JointExponentTransport</code> — universal two-moment
-old-channel annihilation and the anchored <code>(3,5)</code> four-vertex
+old-channel annihilation and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchored</a> <code>(3,5)</code> four-vertex
 consumer.</li>
 <li><code>PrimeJumpMigration</code> / <code>PrimeJumpWindow</code> —
-migrated-channel correction, sharp direct radius, and the finite
-<code>(12,5,15)</code> certificate.</li>
+migrated-channel correction, sharp direct radius, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<code>(12,5,15)</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
 <li><code>ThreeTransportBoundary</code> — balanced
-<code>(1,2,3,6)</code> consumer and the finite <code>(60,12)</code>
-certificate.</li>
-<li><code>FirstHarmonicGap</code> — deterministic conversion of a
-blockwise harmonic gap into a direct certificate.</li>
+<code>(1,2,3,6)</code> consumer and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <code>(60,12)</code>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
+<li><code>FirstHarmonicGap</code> — <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-deterministic" data-term="deterministic" data-term-auto="1">deterministic</a> conversion of a
+blockwise harmonic gap into a direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
 <li><code>FirstHarmonicPivot</code> — exact four-term complex pivot
-decomposition and a conditional cofinal budget-to-irrationality
+decomposition and a conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> budget-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>
 socket.</li>
 <li><code>TropicalCurvatureCarry</code> — fixed-precision
-local-signature no-go theorem.</li>
+local-signature no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</li>
 </ul>
-<p>The former one-sided transport companion is retired. Its exact Lean
-results remain available through the claim registry and source routes;
+<p>The former one-sided transport companion is retired. Its exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> remain available through the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> routes;
 no separate active manuscript or rendered companion is part of this
-release.</p>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>.</p>
 </section>
 <section id="paper-curation-boundary" class="level3">
 <h3>Paper-curation boundary</h3>
@@ -271,15 +599,15 @@ mathematical exposition: its squared Lambert transform, gcd moments,
 reduced-direction law, and cylinder recursion explain the representation
 containing the #249 Möbius-square atom.
 <code>FullTargetPrimeAdjunctionNoGo</code> is included as a proved
-negative result because it closes a recurring prime-adjunction strategy
-without changing the open claim. <code>SternBrocotRunGeometry</code> is
-registered as a source-level supporting claim: its continuant/Fibonacci
-stability theorems are stated in the Lambert complements, but no
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative result</a> because it closes a recurring <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-adjunction strategy
+without <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changing</a> the open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>. <code>SternBrocotRunGeometry</code> is
+registered as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-level supporting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>: its continuant/Fibonacci
+stability <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> are stated in the Lambert complements, but no
 endpoint argument currently consumes them. It therefore remains outside
-the paper’s principal result spine; the cylinder law is owned by
+the paper’s principal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> spine; the cylinder law is owned by
 <code>GcdMomentCalculus</code>, while
 <code>SternBrocotRunGeometry</code> owns the induced-run stability
-package.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>.</p>
 </section>
 </section>
 <section id="binary-carry-trunk-post-wave-carry-layer" class="level2">
@@ -289,13 +617,13 @@ wave chronology. Reading order:
 <code>GenericTailOrbitRigidity → GreedyAchievementSet → CampbellShiftSynchronization → BooleanMobiusCarry → RationalSupportCarrySkeleton → DyadicPrefixCompression → SublogDivisorCoverage</code>.</p>
 <ul>
 <li><p><code>Erdos249257.GenericTailOrbitRigidity</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>temperedBinaryOrbit_eq_scaledTail</code>,
 <code>binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit</code>,
 <code>balancedPulse_fanout_unbounded</code>,
 <code>balancedPulse_no_autonomous_decoder</code></p></li>
 <li><p><code>Erdos249257.GreedyAchievementSet</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>volume_mersenneAchievementSet</code>,
 <code>perfect_mersenneAchievementSet</code>,
 <code>isNowhereDense_mersenneAchievementSet</code>,
@@ -306,7 +634,7 @@ wave chronology. Reading order:
 <code>half_mem_mersenneAchievementSet_of_prefixForcingChain</code>
 (conditional interface only)</p></li>
 <li><p><code>Erdos249257.CampbellShiftSynchronization</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>campbellQuarterExponent_periodFreeze_noSync</code>,
 <code>campbellPhaseFreeze_parameters_impossible</code>,
 <code>shiftWindowZero_iff_greedyMersenneSkippedSupport_infinite</code>,
@@ -314,14 +642,14 @@ and <code>shiftWindowZero_iff_half_mem_mersenneAchievementSet</code>.
 These are a synchronization no-go and an exact endpoint re-expression,
 not an independent half-membership producer.</p></li>
 <li><p><code>Erdos249257.BooleanMobiusCarry</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>erdosSupportSeries_rational_iff_exists_temperedCarry</code>,
 <code>support_fraction_iff_exists_temperedCarry</code>,
 <code>exists_normalized_support_fraction_iff_exists_booleanMobiusCarry</code>,
 <code>mobius_carryQuotient_recovers_support</code>,
 <code>support_half_iff_affineBinaryOrbit_tempered</code></p></li>
 <li><p><code>Erdos249257.RationalSupportCarrySkeleton</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>sum_doublingResidue_eq_mul_wrapCount</code>,
 <code>one_div_oddOrder_le_reciprocalMass_of_support_fraction</code>,
 <code>reciprocalMass_eq_residueMean_add_excessMean</code>,
@@ -329,69 +657,69 @@ not an independent half-membership producer.</p></li>
 <code>exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction</code></p></li>
 <li><p><code>Erdos249257.DyadicPrefixCompression</code></p></li>
 <li><p>This is #257 support, not part of the #249 diagonal band. It
-gives exact finite-fragment dyadic compression inside a hypothetical
-dyadic-rational support value, reduced/raw block-safety coordinates,
+gives exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-fragment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> compression inside a hypothetical
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> support value, reduced/raw block-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-safety" data-term="safety" data-term-auto="1">safety</a> coordinates,
 primitive-lattice and support-tail-gap equivalences, conditional
-half-membership consumers, and checked failures of naive induction.
+half-membership consumers, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> failures of naive induction.
 Start with <code>finiteFragment_dyadicPrefixCompression</code>,
 <code>halfGreedyThreeDepthTakeRunExcessBound_iff_skippedExcessBound</code>,
 <code>greedyHalf_badSkipCapViolation_iff_primitiveLattice</code>,
 <code>halfGreedyPrefixSupportTailGap_eq_excess_div_denominator</code>,
-and <code>unsafeSkipGcdOvershootSupply_iff_primitive</code>. No cofinal
-witness supply is proved.</p></li>
+and <code>unsafeSkipGcdOvershootSupply_iff_primitive</code>. No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> supply is proved.</p></li>
 <li><p><code>Erdos249257.SublogDivisorCoverage</code></p></li>
-<li><p>Relevant declarations include:
+<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
 <code>supportCoeffZeroWindow_length_le_eps_logb_add</code></p></li>
 </ul>
 </section>
 <section id="half-value-finite-prefix-and-boundary-analysis"
 class="level2">
-<h2>Half-value finite-prefix and boundary analysis</h2>
+<h2>Half-value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-prefix and boundary analysis</h2>
 <p>This band studies the test value <code>1/2</code> in ordinary
-finite-prefix language. A greedy prefix is the first <code>n</code>
-include/skip decisions. A seam is a pair of finite words whose values
-bracket <code>1/2</code>. A cylinder is the set of infinite extensions
-of one fixed prefix. A producer is an unproved hypothesis that supplies
-the required seams or return configurations arbitrarily far out.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-prefix language. A greedy prefix is the first <code>n</code>
+include/skip decisions. A seam is a pair of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> words whose values
+bracket <code>1/2</code>. A cylinder is the set of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> extensions
+of one fixed prefix. A producer is an unproved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> that supplies
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> seams or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> configurations arbitrarily far out.</p>
 <p>Read the band in four layers:</p>
 <ol type="1">
 <li><code>GreedyAchievementSet → HalfCutLocator</code> defines the
-achievement set, greedy coding, and the finite cut around
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a>, greedy <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coding" data-term="coding" data-term-auto="1">coding</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> cut around
 <code>1/2</code>.</li>
 <li><code>HalfCarryReachability → HalfCylinderFiniteShadow</code>
-translates finite prefixes into integer carry and finite-shadow
+translates <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> prefixes into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> carry and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-shadow
 coordinates.</li>
 <li><code>HalfCylinderIntegerGreedy → HalfCylinderConcreteSeamAdapter → HalfCylinderFullShellSeamBridge → HalfCylinderSkippedEndpointClassifier → HalfCylinderFloorErrorReset → HalfCylinderSeamLimit</code>
-develops the exact boundary arithmetic and limiting seam interface.</li>
+develops the exact boundary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> and limiting seam interface.</li>
 <li><code>HalfCylinderFatalGapRightTail → HalfCylinderHalfMembershipClassification → HalfCylinderLastProducerContradiction → HalfCylinderMiddleCarryLowerBound</code>
 gives the endpoint classification, eliminates the upper and
 <code>-3</code> middle cases, and isolates the remaining carry-tail
-inequality for <code>-2</code> and <code>-1</code>.</li>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> for <code>-2</code> and <code>-1</code>.</li>
 </ol>
-<p>The floor-error and shell modules are supporting arithmetic layers,
-not separate endpoint theorems. The last layer remains conditional: no
-producer supplying the required configurations cofinally is proved.</p>
+<p>The floor-error and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> are supporting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> layers,
+not separate endpoint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a>. The last layer remains conditional: no
+producer supplying the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> configurations <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a> is proved.</p>
 </section>
 <section id="claim-registry" class="level2">
-<h2>Claim registry</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">Claim registry</a></h2>
 <ul>
-<li><code>docs/claims.json</code> — the single owner of release
-identity, claim statuses, and declaration coordinates (file and line),
-cross-checked by <code>scripts/check_release.py</code></li>
+<li><code>docs/claims.json</code> — the single owner of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>
+identity, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">statuses</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> coordinates (file and line),
+cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by <code>scripts/check_release.py</code></li>
 </ul>
 </section>
 <section id="generated-finite-certificates" class="level2">
-<h2>Generated finite certificates</h2>
+<h2>Generated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a></h2>
 <ul>
 <li><code>Erdos249257.GeneratedCertificates</code></li>
 <li><code>Erdos249257.GeneratedCertificates.*</code></li>
 </ul>
-<p>The complete import graph and every declaration are generated in
+<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">import</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> and every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> are generated in
 <code>docs/claims.json::machine_readable_paper.module_graph</code> and
 <code>docs/declaration_atlas.json</code>; use those surfaces when a
-grouped route above is not specific enough. Current corpus counts live
+grouped route above is not specific enough. Current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> counts live
 in the generated <code>docs/ORIENTATION.md</code>, not in this authored
-route map.</p>
+route <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>.</p>
 </section>
 </section>
   </div>

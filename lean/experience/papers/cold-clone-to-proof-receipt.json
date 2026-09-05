@@ -5,9 +5,9 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Agent navigation",
-  "pages": 10,
+  "pages": 11,
   "question": "How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?",
-  "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes.",
+  "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.",
   "owns": "the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts",
   "not_authority_for": "proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project",
   "problem_id": null,
@@ -27,8 +27,8 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "bc3961badf35c5c16b8e0ff883413c4030611006c19ea7b7861c8cc6d13ac4aa",
+    "renderer_contract_version": 14,
+    "source_sha256": "af53dce269a5911fddd4b2406dcb2425c0373b5aa489f114d90d84525f9ec4ea",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -36,8 +36,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "7f16dacc37974638ba01bb1b0967438f869074727357b46427f5d1f9a7d8ec7d",
-    "html_exact_tex_sha256": "e3847a5c097cd0d0fcf67705405a6a69c2184c380a6a7bb228c9a6d6c4565cfd"
+    "html_mathml_sha256": "f3de5de851da4c4da75de631aeaf330575dcd71378ba64d06462142f134e0140",
+    "html_exact_tex_sha256": "fd16ca8e87c9100d98af36264fab6b94b2a7d5eff9a45cda712e8ac978761cdf"
   },
   "sections": [
     {
@@ -48,12 +48,12 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "A layered mathematical option surface"
+      "label": "Four views of the mathematical library"
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "Exhaustive inventory."
+      "label": "Complete inventory."
     },
     {
       "level": 5,
@@ -63,7 +63,7 @@
     {
       "level": 5,
       "anchor": null,
-      "label": "Tiered mathematical interpretation."
+      "label": "Authored mathematical interpretation."
     },
     {
       "level": 5,
@@ -73,12 +73,12 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "A bounded tour over an unbounded drilldown"
+      "label": "A short tour with exact follow-up queries"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Crossing from navigation to authority"
+      "label": "From navigation to proof authority"
     },
     {
       "level": 2,
@@ -88,7 +88,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Dogfood receipt"
+      "label": "A replayed case study"
     },
     {
       "level": 2,
@@ -98,37 +98,42 @@
     {
       "level": 2,
       "anchor": null,
+      "label": "From a proof receipt to a public return"
+    },
+    {
+      "level": 2,
+      "anchor": null,
       "label": "Limits and transfer conditions"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Authority-preserving agent entry"
+      "label": "What the architecture guarantees"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Reproduction routes"
+      "label": "How to reproduce the audit"
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "Declaration of generative AI use."
+      "label": "1. Orient without compiling Lean."
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "1. Orient without elaborating Lean."
+      "label": "2. Check a proof."
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "2. Cross into proof authority."
+      "label": "3. Check reuse of the dependency index."
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "3. Audit dependency-index reuse."
+      "label": "4. Inspect the return lifecycle."
     },
     {
       "level": 2,

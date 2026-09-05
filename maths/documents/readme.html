@@ -27,6 +27,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="../assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=911c79a053aa"></script>
 </head>
 <body>
@@ -42,6 +44,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/glossary.html">Glossary</a>
         <a href="../../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -73,7 +76,7 @@
       <header class="paper-head">
         <p class="doc-role-eyebrow">Start here</p>
         <h1>Repository overview</h1>
-        <p class="doc-source-line">Rendered from <code>README.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>README.md</code> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -82,437 +85,211 @@
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
-<h2>Plectis: a public frontier across eight open Erdős problems</h2>
-<p>Plectis is an AI-assisted mathematical research system. Its public
-proof corpus for Erdős Problems 68, 243, 249, 251, 257, 269, 1041, and
-1049. It contains exact reductions, model families, theorems,
-countermodels, method boundaries, and certificates. <strong>It does not
-solve them. All eight problems remain open.</strong> Each programme
-states what is checked and what still blocks the question.</p>
-<p><strong>Start with the mathematics.</strong> Read the <a
-href="external-verification.html">eight-programme verification
-map</a>, then inspect one proof handle. No Lean build is needed for the
-first check:</p>
+<h2>Plectis: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> frontier across eight open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> problems</h2>
+<figure>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">System</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>: pipeline, problem-sized <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> worlds, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifacts</a>, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>-work-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>-credit loop
+<figcaption aria-hidden="true"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">System</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>: pipeline, problem-sized <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+worlds, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifacts</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>-work-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>-credit
+loop</figcaption>
+</figure>
+<p>Plectis applies AI <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a>, computation, ordinary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>, and
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> to eight long-standing open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> problems: 68, 243, 249, 251, 257,
+269, 1041, and 1049. <strong>All eight problems remain open.</strong>
+This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> does not solve any of them. They are a hard stress test:
+the aim is to publish exact, reusable progress that another researcher
+can continue.</p>
+<p>Each problem exposes <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>, failed routes, and its open
+obligation. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">formal statements</a>, not intended meaning,
+novelty, or significance.</p>
+<p>Large-language-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> drafted prose, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>. Will
+Cook reviewed the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a> and is responsible for the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>.</p>
+<p>If you solve one, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> and credit are yours. If this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>
+or Plectis materially helped, cite the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> and say so. If useful,
+star or share the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> so another researcher finds it. The
+contribution record keeps solvers, collaborators, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior work</a>, tools, and
+infrastructure distinct.</p>
+<p>Start with <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md" data-link-kind="exogenous" rel="external noopener">A reader’s way in</a>, a
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>-free tour of the problems and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> boundary.</p>
+<p>Choose a checkout. Apply one of the three sparse <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifests</a> to the
+same no-checkout <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> build needs <code>elan</code>; install
+it from the <a
+href="https://leanprover-community.github.io/get_started.html">Lean
+setup guide</a>.</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/verify_claims.py <span class="at">--claim</span> eb_full_support</span></code></pre></div>
-<p>The command prints the statement, re-resolves its declaration, names
-any Comparator interface and paper, shows the release receipts, and
-states where the claim stops. Most claims intentionally have no
-Comparator interface. <code>--verify-all</code> checks all 103 claims
-and 335 declarations in about a fifth of a second. <a
-href="#read-or-run-it">Read or run it</a> lists the routes that do need
-Lean.</p>
-<p><a href="results.html">RESULTS</a> → <a href="scope.html">SCOPE</a>
-→ <a href="source-map.html">SOURCE MAP</a> → <a
-href="prior-art.html">prior art and attribution</a> → <a
-href="architecture.html">architecture and repository guide</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/claim-faithful-publication-systems-paper.pdf">printable PDF</a>.
-It assumes no Lean or project history. The <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/cold-clone-to-proof-receipt.pdf">agent-navigation paper</a> audits
-the cold-clone route and the recorded workbench session.</p>
-<p>The repository began with #249 and #257 and keeps that name so old
-citations continue to resolve. Those are reviewed headline programmes,
-not the whole corpus. The companion <a
-href="https://github.com/wcook04/plectis">Plectis</a> repository owns
-the runnable research tooling and claims no proof authority here. The <a
-href="https://wcook04.github.io/">art-led public front door</a> explains
-how the system, the eight programmes, the papers, and this proof corpus
-fit together.</p>
-<p><strong>AI assistance and responsibility.</strong>
-Large-language-model agents drafted and revised prose, Lean proofs, and
-repository software. Will Cook set the objectives, selected and reviewed
-the public claims and the cited sources, and is responsible for the
-release; the tools are not authors. The pinned Lean kernel checks the
-exact formal propositions. It does not establish that a proposition
-expresses the intended mathematics, that a result is new, or that it
-matters: those remain authored judgements, and the papers state them per
-result.</p>
-<p>Routes: <a href="results.html">mathematics</a> · <a
-href="external-verification.html">verification</a> · <a
-href="architecture.html">systems</a> ·
-<code>query_corpus.py --overview</code> / <code>--papers</code>.</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick proof, full Lean source, or reader files: choose one manifest</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> <span class="at">--no-checkout</span> https://github.com/wcook04/plectis-lean-erdos249-257.git</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/lean-quick-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/lean-quick-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/lean-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/lean-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/reader-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/reader-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 checkout</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete current corpus, fetch its pinned history, then inspect one claim</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-current</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-current</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--unshallow</span> origin main</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/verify_claims.py <span class="at">--claim</span> eb_full_support</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Blobless history for release validation</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-release</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># In the Lean-source checkout, run one bounded proof build</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-lean-erdos249-257</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/lean_fast_build.py <span class="at">--jobs</span> 2 ErdosProblems.Erdos249.PeriodMultipleEscape</span></code></pre></div>
+<p>The verifier links a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> to its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>, paper, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>, and
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stopping</a> point; <code>--verify-all</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> them all. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> gives the smaller
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> checkout, the 43-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> quick <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> checkout, the complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>, and the full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a>. The <a
+href="architecture.html">architecture and repository guide</a> and its <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/claim-faithful-publication-systems-paper.pdf">printable PDF</a>
+assume no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> or project history.</p>
+<p>Cloning runs no project code and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> defines no
+submodules, Git LFS filters, or hooks. The verifier runs tracked Python;
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> builds run the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SECURITY.md">SECURITY</a> explains the boundary and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a>
+reporting route.</p>
+<section id="what-is-here" class="level2">
+<h2>What is here</h2>
+<p>One paper per problem, each pairing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> progress with its open
+obligation.</p>
+</section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
 <p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/corpus.json"><code>docs/papers/corpus.json</code></a>
-indexes them by machine.</p>
-<table>
-<colgroup>
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Mathematical statement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>#68</strong></td>
-<td>Is <code>∑_{n≥2} 1/(n!−1)</code> irrational?</td>
-</tr>
-<tr>
-<td><strong>#243</strong></td>
-<td>Does rationality of a rapidly growing integer sequence’s reciprocal
-sum force eventual Sylvester recurrence?</td>
-</tr>
-<tr>
-<td><strong>#249</strong></td>
-<td>Is <code>∑ φ(n)/2ⁿ</code> irrational?</td>
-</tr>
-<tr>
-<td><strong>#251</strong></td>
-<td>Is <code>∑ p_n/2ⁿ</code> irrational, equivalently the
-consecutive-prime-gap dyadic series?</td>
-</tr>
-<tr>
-<td><strong>#257</strong></td>
-<td>Is <code>∑_{n∈A} 1/(2ⁿ-1)</code> irrational for every infinite
-<code>A ⊆ ℕ_{&gt;0}</code>?</td>
-</tr>
-<tr>
-<td><strong>#269</strong></td>
-<td>For at least two primes, is the reciprocal sum of running lcms of
-the smooth numbers irrational?</td>
-</tr>
-<tr>
-<td><strong>#1041</strong></td>
-<td>Must two roots of a monic polynomial in the unit disc admit a curve
-of length <code>&lt;2</code> inside its open unit lemniscate?</td>
-</tr>
-<tr>
-<td><strong>#1049</strong></td>
-<td>For which rational bases is the corresponding Lambert-type series
-irrational, beginning with <code>3/2</code>?</td>
-</tr>
-</tbody>
-</table>
-<p>This table is the blank-slate agent and reader inventory: no query is
-required to discover which problems exist or what they ask. It is
-navigation, not proof authority or a novelty claim. Drilldown is
-optional and uses only tracked public files; it does not require
-<code>ai_workflow</code>, a sibling checkout, a private cache, or
-network access.</p>
-<section id="public-checked-frontier-what-remains" class="level3">
-<h3>Public checked frontier; what remains</h3>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-68-factorial-denominator-irrationality.pdf"><strong>#68</strong></a>
+reduces <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a> failures of one divisibility
+test; producing them remains open.</p>
 <p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-68-factorial-denominator-irrationality.pdf"><strong>#68:
-factorial-denominator irrationality</strong></a>. A checked
-hypothesis-free equivalence reduces irrationality to one integer
-divisibility test failing infinitely often. The kernel-internal
-denominator bound is <code>67</code>; the <code>300000</code> exclusion
-is a checked implication evaluated externally. Producing infinitely many
-failures remains open.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-243-reciprocal-tail-rigidity.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#243:
-reciprocal-tail rigidity</strong></a>. Koizumi supplies normalised
-vanishing for the canonical orbit. Lean then excludes a bounded negative
-part and finite normalised negative mass; the missing negative-part
-bound and the unbounded mixed-sign regime remain open.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-249-binary-totient-series.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#249: dyadic
-sections of Euler’s totient</strong></a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-totient-reasoning-surface.pdf">claim-bounded reasoning
-surface</a>. For every <code>k≥2</code>, the paper derives section-span
-rank <code>k^e+1</code>, explicit bases, and the relation normal form
-from Martin plus elementary reductions. Lean checks the dyadic theorem
-and all-base arithmetic, residue coordinates, canonical spanning, and
-exact rank conditional on linear independence; Martin and that
-independence are not formalised. Coons already implies infinite rank.
-Reduced denominators through
-<code>79,639,646,646,701,375,323,355,774,875,831,053</code> and diagonal
-scales through <code>t=82</code> are excluded; no <code>t=83</code> or
-unbounded producer is proved.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-251-prime-gap-dyadic-series.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#251:
-prime-gap dyadic series</strong></a>. Summability and the prime-gap
-identity are checked unconditionally via an elementary polynomial prime
-bound; for any sequence obeying the checked tail recurrence,
-irrationality is exactly equivalent to cofinal non-integral tail shifts.
-The concrete prime-tail bridge remains open; no theorem produces the
-required cofinal adjacent small-mismatch gap pairs.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-257-mersenne-support-subseries.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#257:
-reciprocal Mersenne subseries</strong></a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos257-mersenne-reasoning-surface.pdf">claim-bounded reasoning
-surface</a>. Lean checks full support, finite-period noncollapse, and
-exact restricted-set coding, topology, perfectness, and measure. Prime
-support at base <code>2</code> and squarefree support at power-of-two
-bases are cited prior results. Universal #257 and the <code>1/2</code>
-and <code>1/21</code> targets remain open.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-269-three-prime-running-lcm.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#269:
-three-prime running least common multiple</strong></a>. For every
-two-prime set, both the de-duplicated and repeated sums are
-transcendental, by a paper argument using Loxton–van der Poorten in the
-Bugeaud–Laurent form. <strong>This is not first and not
-formalised.</strong> Steve Fan posted the same factorisation and
-conclusion on the erdosproblems.com #269 discussion page on 26 June
-2026; this note was first released publicly on 22 July 2026. This
-project therefore claims no priority for the two-prime theorem, and no
-Lean declaration asserts it. From three primes onward the problem
-remains open; Lean checks exact structure and a conditional carry
-consumer, not the rationality-to-carry bridge, cofinal escape, or
-unbounded denominator exclusion.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1041-lemniscate-newton-flow.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#1041: short
-connections inside polynomial lemniscates</strong></a>. Newton-flow
-value decay, the ray-separation consumer (connection decay is its
-hypothesis), the translation collision locus, and quantitative
-root-retention bounds are checked. The printed proof of a recent claimed
-spanning-tree decomposition has an invalid local saddle block (a proof
-gap, not a counterexample); repairing the topology and metric gluing
-remains open.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1049-rational-base-lambert.pdf" data-link-kind="exogenous" rel="external noopener"><strong>#1049:
-multiplicative obstructions at base 3/2</strong></a>. Lean checks
-construction-specific no-go theorems, four-jet cancellation, and
-direct-clearing obstructions at <code>3/2</code>, plus the elementary
-height inequality used by Bundschuh–Väänänen’s external criterion at
-<code>7/2</code>. It proves no irrationality result; <code>3/2</code>,
-the primitive noncollapsed construction, and analytic remainder control
-remain open.</p>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf" data-link-kind="exogenous" rel="external noopener">Retained joint #249/#257
-exposition</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/actions/workflows/lean.yml">Lean CI</a></p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-243-reciprocal-tail-rigidity.pdf"><strong>#243</strong></a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> part after Koizumi’s normalised vanishing.
+The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> remains open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-249-binary-totient-series.pdf"><strong>#249</strong></a>
+gives explicit <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">rational bases</a> for the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> of Euler’s
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>, exact level rank <code>2ᵉ + 1</code>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> to
+about <code>7.96 × 10³⁴</code>, and diagonal <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a> for every
+<code>t ≤ 82</code>. No unbounded producer is proved.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-251-prime-gap-dyadic-series.pdf"><strong>#251</strong></a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap identity and a tail-shift equivalence. The concrete
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-tail bridge remains open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-257-mersenne-support-subseries.pdf"><strong>#257</strong></a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> full support, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-period noncollapse, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a>’s topology and measure. The universal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> and the
+<code>1/2</code> and <code>1/21</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">targets</a> remain open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-269-three-prime-running-lcm.pdf"><strong>#269</strong></a>
+records a two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">transcendence</a> argument. <strong>This is not first
+and not formalised.</strong> Steve Fan posted the same argument on
+erdosproblems.com on 26 June 2026, before this note; no priority or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>. Three or more <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> remain open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1041-lemniscate-newton-flow.pdf"><strong>#1041</strong></a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> Newton-flow decay, ray separation, collision geometry, and root
+retention. Topology and metric gluing remain open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1049-rational-base-lambert.pdf"><strong>#1049</strong></a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> construction-specific no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> and four-jet cancellation at
+base <code>3/2</code>. It proves no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>, and the
+primitive construction remains open.</p>
 </section>
-</section>
-<section id="external-verification" class="level2">
-<h2>External verification</h2>
-<p>Nineteen selected Lean propositions are declared a second time,
-without proofs, in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
-Comparator checks the proof-bearing module against those separate
-declarations and against a fixed axiom budget of <code>propext</code>,
-<code>Quot.sound</code>, and <code>Classical.choice</code>; an
-adversarial fixture alters one statement and must be rejected. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml"><code>formalization.yaml</code></a> records,
-per selected result, the contribution class, exact statement, source
-declaration, boundary, <code>sorry</code> count, and axioms. Manifest
-and <a href="external-verification.html">verification packet</a>
-cover all eight problem programmes; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md">replay</a> gives the
-reviewer-run Linux route. The same check runs in continuous integration
-against the reviewed source commit. Comparator checks propositions only:
-no paper deduction, cited theorem, external computation, intended
-meaning, novelty, or significance.</p>
-<p><a href="results.html">RESULTS</a> gives each strongest checked
-result and its limit; <a href="prior-art.html">prior art</a> records
-classical, subsuming, and earlier public work. The finite #249 result is
-the classical Farey/mediant bound (numerical delta <code>0</code>):
-Farey’s method supplies the number directly, exactly the Farey bound,
-not an improvement. Full-kernel infinite rank is Coons’s prior result,
-the all-base rank paper theorem uses Martin externally, and #269’s
-two-prime result is not first.</p>
-<p>This self-contained public Plectis checkout is not an entrypoint into
-any private development system. <code>v0.9.0</code> is the latest tagged
-release and citation anchor; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the exact
-formal-source checkpoint this release ships. Lean source checked by the
-pinned Lean kernel is proof authority; do not infer results from private
-or unreleased work.</p>
-</section>
-<section id="what-the-formal-source-establishes" class="level2">
-<h2>What the formal source establishes</h2>
-<p>Labels are descriptions, not scores. <strong>Formalised here</strong>
-means a statement rendered and kernel-checked in Lean, which for a known
-theorem is a checked rendering and not a priority claim; <strong>proved
-here</strong> means the argument is this project’s. <strong>Verified
-finite instance</strong> means Lean checked only the listed inputs;
-<strong>conditional reduction</strong> means the conclusion depends on a
+<section id="what-the-checks-establish" class="level2">
+<h2>What the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a></h2>
+<p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> nineteen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-bearing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> against separately
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declare" data-term="declare" data-term-auto="1">declared</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> and a fixed axiom budget; an altered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> must
+be <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reject" data-term="reject" data-term-auto="1">rejected</a>. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml"><code>formalization.yaml</code></a> records
+each selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>, boundary, <code>sorry</code> count, and
+axioms. The <a href="external-verification.html">verification
+packet</a> covers all eight problem programmes. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> does not
+assess exposition, citations, computation, meaning, novelty, or
+significance.</p>
+<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a> owns
+every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> record and its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>docs/PALOMAR_RESULT_SHOWCASE.json</code></a>
+owns the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>-priority ranking, and <a href="prior-art.html">prior
+art</a> records classical, subsuming, and earlier <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> work. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">Status</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-label" data-term="label" data-term-auto="1">labels</a> describe <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> rather than score it: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> rendering is
+not a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a>, and a conditional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> still depends on its
 named open condition.</p>
-<table>
-<colgroup>
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Status</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>formalised here</strong></td>
-<td>For every integer <code>b ≥ 2</code>, the full-support series
-<code>∑ 1/(bⁿ - 1)</code> is irrational; Erdős (1948) is a checked
-rendering rather than a new result. Several named infinite-support
-families are also formalised; this does not cover every infinite
-support.</td>
-</tr>
-<tr>
-<td><strong>formalised here</strong></td>
-<td>The base-2 Mersenne achievement set is compact, perfect, totally
-disconnected, nowhere dense, and has Lebesgue measure one. Membership is
-equivalent to greedy survival at every level.</td>
-</tr>
-<tr>
-<td><strong>proved here</strong></td>
-<td>For the #257 test value <code>1/2</code>, achievement-set membership
-is equivalent to infinitely many greedy skips and would produce an
-infinite support of rational sum, refuting universal #257. Under the
-last-skip schema’s hypotheses (a rank floor, a carry condition, and a
-strict middle-cell inequality), the upper branch and the middle
-coordinate <code>-3</code> are impossible.</td>
-</tr>
-<tr>
-<td><strong>conditional reduction</strong></td>
-<td>Within that same last-skip contradiction schema, the two
-still-unexcluded middle coordinates, <code>-2</code> and
-<code>-1</code>, would also be ruled out if one current contribution
-were larger than the sum of all later possible contributions. That
-inequality is not proved.</td>
-</tr>
-<tr>
-<td><strong>formalised here</strong></td>
-<td>The dyadic sections of Euler’s totient have an explicit rational
-basis; for <code>e ≥ 1</code> the level-<code>e</code> span has
-dimension exactly <code>2ᵉ + 1</code>. The Lean proof is an independent
-constructive route to an independence consequence of Martin’s stronger
-theorem; this is a theorem about the coefficient sequence, not the
-irrationality of <code>S</code>.</td>
-</tr>
-<tr>
-<td><strong>unconditional progress</strong></td>
-<td>For every integer <code>k ≥ 2</code>, the sections through level
-<code>e ≥ 1</code> have rank <code>kᵉ + 1</code>, with an explicit basis
-and complete scalar relation normal form. The paper combines Martin’s
-external affine-independence theorem with Lean-checked zero-channel and
-composite-base reduction identities, exact fixed-level residue
-coordinates, unconditional spanning, and a <code>kᵉ + 1</code> rank
-theorem parameterised by explicit linear independence. Martin’s theorem
-and the all-base linear-independence premise are not formalised.</td>
-</tr>
-<tr>
-<td><strong>formalised here</strong></td>
-<td>Applying the classical Farey/mediant bound directly to the committed
-<code>K=240</code> interval excludes rational denominators through
-<code>79 639 646 646 701 375 323 355 774 875 831 053</code> (about
-<code>7.96 × 10³⁴</code>). This is exactly the Farey bound, not an
-improvement on it; Lean also checks that the next denominator fails this
-finite window.</td>
-</tr>
-<tr>
-<td><strong>proved here</strong></td>
-<td><code>S</code> is irrational exactly when every positive binary tail
-difference is non-integral, equivalently when every fixed pair has a
-finite certificate. Finishing the argument would require certificates at
-arbitrarily large stages; that step is not proved.</td>
-</tr>
-<tr>
-<td><strong>verified finite instance</strong></td>
-<td>Lean proves a diagonal certificate at every <code>t ≤ 82</code>.
-Historical free-position audit: 125 verified log rows represent 123
-distinct off-diagonal <code>(h,N,L)</code> certificates in 122 Lean
-files. This finite evidence does not prove successful cases beyond every
-fixed cutoff.</td>
-</tr>
-</tbody>
-</table>
-<section id="other-exact-mathematics-in-the-corpus" class="level3">
-<h3>Other exact mathematics in the corpus</h3>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Package</th>
-<th>Exact checked content</th>
-<th>Boundary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Fair-coin coprimality</td>
-<td><code>S = 1/2 + P(gcd(X,Y)=1)</code> for independent
-<code>P(X=n)=2⁻ⁿ</code>.</td>
-<td>Irrationality remains open.</td>
-</tr>
-<tr>
-<td>Squared-Lambert gcd moments</td>
-<td>Two exact divisor-sum identities for squared Lambert
-denominators.</td>
-<td>No transfer to the open Möbius row.</td>
-</tr>
-<tr>
-<td>Stern–Brocot cylinder law</td>
-<td>Exact stop/child splitting; depth error at most
-<code>(2/3)^d</code>.</td>
-<td>Probability law, not irrationality.</td>
-</tr>
-<tr>
-<td>Fibonacci/continuant run stability</td>
-<td>Height at least <code>F_{r+3}</code> with exact defect
-expansion.</td>
-<td>No analytic denominator-clearing theorem.</td>
-</tr>
-<tr>
-<td>Tempered binary tail rigidity</td>
-<td>Exact rationality/carry-orbit classification for
-<code>c(n) ≤ n</code>.</td>
-<td>Needs problem-specific orbit control.</td>
-</tr>
-<tr>
-<td>Exact Möbius-shadow denominator</td>
-<td>Exact reduced denominator and an explicit divisor lower bound.</td>
-<td>No unbounded avoidance supply.</td>
-</tr>
-<tr>
-<td>Scalar-localisation height obstruction</td>
-<td>If <code>H ∣ x.den</code> and <code>(c·x).den ∣ H</code>, then
-<code>x.den/H ∣ |c|</code>.</td>
-<td>Local obstruction only.</td>
-</tr>
-</tbody>
-</table>
-<p>Typed routes expose sources: <code>probabilistic_gcd_geometry</code>
-for the first four rows, <code>boolean_mobius_constraints</code> for
-tail rigidity, and <code>arithmetic_obstruction_interfaces</code> for
-the last two. Orientation also lists eventually-periodic nonnegative
-weighted irrationality, a signed irrational-or-base-terminating
-dichotomy, five binary-carry criteria/consequences, and two scoped #249
-no-go countermodels. Five further obstructions are stated with their
-limits in <a
-href="results.html#other-standalone-exact-obstructions">RESULTS</a>.</p>
-<p>An exact final-skip band formula does not show that the actual orbit
-avoids an unsafe band.</p>
-<p><a href="orientation.html">Orientation</a> routes claims; the
-retained <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf" data-link-kind="exogenous" rel="external noopener">mathematics paper</a>
-preserves the joint #249/#257 exposition.</p>
+<p><code>v0.9.0</code> is the citation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a>, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins its
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> checkpoint. This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> checkout is self-contained; only
+its pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>; do not infer <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> from
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> or unreleased work.</p>
 </section>
+<section id="give-your-agent-a-research-shift" class="level2">
+<h2>Give your <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> shift</h2>
+<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FRONTIER_RELAY.md" data-link-kind="exogenous" rel="external noopener">Start a bounded research shift</a>:
+inspect one exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> revision, attempt a substantive continuation,
+and prepare a checkable local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> with contributor credit. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/.agents/skills/plectis-frontier/SKILL.md">portable
+<code>plectis-frontier</code> skill</a> wraps the existing mining and
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> workflows for OpenClaw and other skill clients. It does not
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> Plectis <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> or a new account. Installation,
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-smoke-check" data-term="smoke_check" data-term-auto="1">smoke tests</a> and actual hosted-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> compatibility remain separate
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>; the guide states what each <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establishes</a>.</p>
 </section>
-<section id="what-remains-open" class="level2">
-<h2>What remains open</h2>
-<ul>
-<li>Prove that <code>S = ∑ φ(n)/2ⁿ</code> is irrational without placing
-a bound on a possible rational denominator.</li>
-<li>Produce the unbounded certificate supply required by the exact #249
-reduction.</li>
-<li>Prove irrationality of <code>∑_{n∈A} 1/(2ⁿ - 1)</code> for every
-infinite <code>A ⊆ ℕ</code>, rather than only the named support families
-formalised here.</li>
-</ul>
-<p>The two working records each close with a section titled “The wall”:
-every attempted argument class is stopped by a stated bound, recorded
-with what it does not rule out.</p>
-<p><a href="scope.html"><code>SCOPE.md</code></a> is the short boundary
-statement. The exact expert handoffs state what input is requested,
-current guess, alternatives, discriminating evidence, checked consumer,
-and endpoint-or-counterexample boundary. See <a
-href="results.html#exact-questions-for-a-human-expert">RESULTS</a>
-and <code>python3 scripts/query_expert_handoffs.py</code>. A refuted
-route is withdrawn in the next edition and the refutation credited.</p>
+<section id="read-or-run-it" class="level2">
+<h2>Read or run it</h2>
+<p>The reading order is <a href="results.html">RESULTS</a>, <a
+href="scope.html">SCOPE</a>, the <a href="source-map.html">source
+map</a>, and <a href="prior-art.html">prior art</a>. <a
+href="methodology.html">METHODOLOGY</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-govern" data-term="govern" data-term-auto="1">governs</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a>.</p>
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/examples/Examples.lean"><code>examples/Examples.lean</code></a> is
+the minimal downstream consumer; its conditional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a>-pressure example
+leaves the analytic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> explicit and does not prove universal
+#257.</p>
+<p>An <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> arriving cold starts at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.override.md"><code>AGENTS.override.md</code></a>. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">The Agent Workbench</a> keeps machine
+routing and kernel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-probe" data-term="probe" data-term-auto="1">probes</a> out of the human reading path; only kernel
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a> assert.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> began with #249 and #257 and keeps that name so old
+citations resolve. The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf" data-link-kind="exogenous" rel="external noopener">joint
+#249/#257 manuscript</a> and the two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> reasoning surfaces
+(<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-totient-reasoning-surface.pdf" data-link-kind="exogenous" rel="external noopener">#249</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos257-mersenne-reasoning-surface.pdf">#257</a>) are kept for
+archive and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">provenance</a>, not as a reading route; the per-problem papers
+are the live route. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/cold-clone-to-proof-receipt.pdf">agent-navigation paper</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audits</a>
+that route.</p>
+</section>
+<section id="citation-and-licence" class="level2">
+<h2>Citation and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-license" data-term="license" data-term-auto="1">licence</a></h2>
+<p>Citation metadata for <code>v0.9.0</code> is in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CITATION.cff"><code>CITATION.cff</code></a>. Code, scripts, and
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-documentation" data-term="documentation" data-term-auto="1">documentation</a> are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-apache-2-0" data-term="apache_2_0" data-term-auto="1">Apache-2.0</a>; the manuscript layer is CC-BY-4.0, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/REUSE.toml"><code>REUSE.toml</code></a> is complete. Corrections
+are received through the issue forms; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a> explains the
+local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> and credit route, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT.md</code></a> states the
+participation standard, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SECURITY.md"><code>SECURITY.md</code></a> gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a>
+route.</p>
+<p>The independently authored
+<code>.agents/skills/plectis-frontier</code> distribution wrapper is the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-narrow" data-term="narrow" data-term-auto="1">narrow</a> MIT-0 exception recorded in <code>REUSE.toml</code>. It does not
+relicense the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> or transfer credit for participants’
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 </section>
 <section id="corpus-at-a-glance" class="level2">
-<h2>Corpus at a glance</h2>
-<p>The layer a mathematician should judge is small: 103 curated claim
-records in 21 contribution families, reaching Lean source through 333
-principal declaration links. <code>SCOPE.md</code> gives its shape and
-<code>docs/RESULTS.md</code> gives the strongest checked result per
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">Corpus</a> at a glance</h2>
+<p>The layer a mathematician should judge is small: 130 curated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
+records in 30 contribution families, reaching <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> through 404
+principal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> links. <code>SCOPE.md</code> gives its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> and
+<code>docs/RESULTS.md</code> gives the strongest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> per
 problem.</p>
-<p>The rest is engineering inventory. About 93% of the 153,320
-declarations (142,668 across 683 modules) are machine-emitted
-certificate shards: one integer checked prime, one position excluded.
+<p>The rest is engineering inventory. About 93% of the 153,671
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> (142,668 across 695 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>) are machine-emitted
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards: one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>, one position <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>.
 The remainder is not all hand-written either.</p>
 <table>
 <thead>
@@ -523,233 +300,44 @@ The remainder is not all hand-written either.</p>
 </thead>
 <tbody>
 <tr>
-<td>Lean modules (the two library roots)</td>
-<td class="ta-r">1,023</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> (the two <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>)</td>
+<td class="ta-r">1,058</td>
 </tr>
 <tr>
-<td>Formal results and supporting lemmas</td>
-<td class="ta-r">151,085</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> and supporting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a></td>
+<td class="ta-r">151,397</td>
 </tr>
 <tr>
-<td>Curated claim records</td>
-<td class="ta-r">103</td>
+<td>Curated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> records</td>
+<td class="ta-r">130</td>
 </tr>
 <tr>
 <td>Contribution families</td>
-<td class="ta-r">21</td>
+<td class="ta-r">30</td>
 </tr>
 </tbody>
 </table>
-<p>Generated shards are counted as formal source and never as separate
-mathematical claims. Claim records span every status, including cited
+<p>Generated shards are counted as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and never as separate
+mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">Claim</a> records span every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a>, including cited
 and open, and are partitioned exactly once. These are navigation counts,
-not novelty claims. <!-- END generated_corpus_at_a_glance --></p>
-</section>
-<section id="read-or-run-it" class="level2">
-<h2>Read or run it</h2>
-<ul>
-<li><strong>Follow one claim, without installing Lean:</strong>
-<code>verify_claims.py</code>, above, also shows the Lean proof text,
-and both it and <code>--verify-all</code> work on a
-<code>git clone --depth 1</code> checkout. Run it with no argument for
-the environment check, which exits <code>2</code> and prints
-<code>git fetch --unshallow</code> when a truncated history cannot reach
-the gates that read pinned commits; never <code>1</code>, so a shallow
-clone can never be misread as a claim that failed.
-<code>check_release.py</code> remains the authority for locators.</li>
-<li><strong>Mathematician:</strong> use the top reading route, then
-follow one result from <a href="source-map.html">SOURCE MAP</a> into
-Lean. The per-problem papers are the live route; the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">joint PDF</a> is retired.</li>
-<li><strong>Coding agent:</strong> read <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.override.md"><code>AGENTS.override.md</code></a>, then the
-bounded <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/orientation.json"><code>docs/orientation.json</code></a>;
-select one programme or claim before expanding the registry. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.md"><code>AGENTS.md</code></a> is the deep one.</li>
-<li><strong>Whole-corpus agent navigation, without a Lean
-build:</strong> run
-<code>python3 scripts/query_corpus.py --tour --format card</code>, then
-follow
-<code>python3 scripts/query_corpus.py --route agent_native_corpus_navigation</code>.
-The no-build tour exposes corpus scale, the mathematical map, canonical
-eight-problem map, the distinct reviewed #249/#257 open-proposition
-frontier, and authority boundaries. Use
-<code>query_semantic.py problem-registry</code> for every indexed
-problem and <code>structural-backlog</code> for authored replacement.
-Committed indexes expose every indexed declaration and exact
-dependencies for both loaded roots; coverage keeps direct evidence,
-family context, and structural discovery distinct. These are navigation
-projections, not proof authority.</li>
-<li><strong>Agent working inside the corpus:</strong> <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">the Agent Workbench</a> gives the
-instrument panel, the typed move grammar, and the three-rung invention
-ladder that fixes what a session may claim. Sessions are append-only
-ledgers under <code>workbench/sessions/</code>;
-<code>python3 scripts/proof_workbench.py show --session &lt;slug&gt;</code>
-reads one without Lean, and <code>replay --session &lt;slug&gt;</code>
-re-runs its stored probes and reports whether the recorded verdicts
-still hold. The one landed prospective session, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/workbench/sessions/carry_pivot_2026_07_27/ledger.jsonl"><code>carry_pivot_2026_07_27</code></a>,
-produced <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/SuffixCylinderCarryPivot.lean"><code>SuffixCylinderCarryPivot.lean</code></a>.
-Only kernel receipts assert; ledger notes and static nominations stay
-advisory.</li>
-<li><strong>Building proof search:</strong> <code>hypOf%</code> lifts an
-unresolved hypothesis out of binder position into a <code>Prop</code>,
-so whether a sketch’s remaining obligation differs from the target it
-started from becomes a question for the kernel rather than for a rater;
-the failure <a href="https://arxiv.org/abs/2605.22763" data-link-kind="exogenous" rel="external noopener">AlphaProof
-Nexus</a> reports prompting could not prevent. <a
-href="residual-progress.html">Deciding whether a sketch reduced its
-target or renamed it</a> has the evaluator, its eight labelled fixtures,
-and what it refuses to decide. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PROOF_STATE_COMPILER.md">The proof-state compiler</a> asks
-the pinned Lean environment which candidate applications it actually
-accepts from a goal, and <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SEMANTIC_COMPILER.md" data-link-kind="exogenous" rel="external noopener">the
-semantic compiler</a> nominates declarations structurally without
-claiming they apply.</li>
-<li><strong>Publication topology:</strong> run
-<code>python3 scripts/query_corpus.py --publication-architecture</code>
-or
-<code>python3 scripts/query_corpus.py --publication-family &lt;id&gt;</code>.</li>
-<li><strong>Placing this against the public benchmark:</strong> the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FORMAL_CONJECTURES_CROSSWALK.md">Formal Conjectures
-crosswalk</a> binds all eight programmes to Google DeepMind’s Formal
-Conjectures statements at a pinned upstream commit, with a SHA-256 per
-source file and the indexing, ambient-type, and cast differences a
-reviewer must inspect. It is statement identity and adapter-review
-metadata, not a Lean equivalence proof or a submission-readiness
-decision; every row is <code>not_ready_to_submit</code>. <a
-href="related-problems.html">Related problems</a> places five of the
-eight programmes among the neighbouring numbered problems, each external
-status as listed on its erdosproblems.com page.</li>
-<li><strong>Verify:</strong>
-<code>python3 scripts/check_cold_clone_comprehension.py --quick</code>
-checks reading surfaces without Lean;
-<code>python3 scripts/check_release.py</code> runs the full
-public-surface/query sweep.</li>
-</ul>
-</section>
-<section id="how-the-repository-fits-together" class="level2">
-<h2>How the repository fits together</h2>
-<p>The package has two compact supported roots. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257.lean"><code>Erdos249257.lean</code></a> preserves the
-reviewed #249/#257 corpus. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems.lean"><code>ErdosProblems.lean</code></a> is the
-problem-owned expansion surface: work lives under its actual Erdős
-problem number instead of being forced into the historical #249/#257
-tree. Kernel checking of that second root establishes its exact Lean
-propositions; it does not by itself promote them into the reviewed claim
-registry or claim that an open problem is solved.</p>
-<p>The source has five reader-facing layers:</p>
-<ul>
-<li><strong>Assembled kernel.</strong> <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/CertificateKernel.lean"><code>CertificateKernel.lean</code></a>
-contains the common series machinery, the full-support Erdős-Borwein
-theorem, named support-family interfaces, and the unconditional #249
-denominator exclusion.</li>
-<li><strong>The #249 reduction spine.</strong> The period-killer,
-lcm-diagonal, cone, diagonal pincer, fresh-loss, and transport modules
-turn the open irrationality problem into exact certificate or avoidance
-obligations. Finite certificate modules verify explicit parameters; they
-do not supply the unbounded family required by the reduction.</li>
-<li><strong>The #257 carry trunk.</strong> The tail-orbit,
-achievement-set, Boolean-Möbius carry, reciprocal-mass, and
-divisor-coverage modules give exact criteria and necessary conditions,
-not the universal #257 theorem.</li>
-<li><strong>Navigation.</strong> The atlas finds every declaration and
-import. Selected semantic meanings carry scoped reviews
-(<code>python3 scripts/query_semantic.py semantic-reviews</code>), not
-human, novelty, or proof authority. The theory lab adds nine mechanisms,
-nine transfer capsules, and three failure receipts; four holdouts have
-no results, so no measured transfer is claimed.</li>
-<li><strong>Problem-owned expansion.</strong>
-<code>ErdosProblems/Erdos&lt;N&gt;/</code> contains bounded results and
-explicit open frontiers for one problem at a time. New entries remain
-outside the reviewed claim registry until mathematical review
-establishes their intended meaning and public framing.</li>
-</ul>
-<p><a href="source-map.html">SOURCE MAP</a> gives module order; <a
-href="methodology.html">METHODOLOGY</a> governs claim changes; <a
-href="wave-index.html">WAVE INDEX</a> gives chronology, not reading
-order.</p>
+not novelty <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. <!-- END generated_corpus_at_a_glance --></p>
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 </section>
 <section id="following-a-result-into-lean" class="level2">
-<h2>Following a result into Lean</h2>
-<p>The paper links each headline result to the relevant source. For a
+<h2>Following a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a></h2>
+<p>The paper links each headline <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> to the relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>. For a
 particular topic, start with the <a href="source-map.html">source
-map</a>; it gives the module order without asking you to decode Lean
-declaration names first.
+map</a>; it gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> order without asking you to decode <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> names first.
 <!-- END generated_principal_declaration_anchors --></p>
 </section>
-<section id="build-and-verify" class="level2">
-<h2>Build and verify</h2>
-<p>Everything above this heading runs with Python alone. Building the
-Lean source needs the toolchain, and <code>lake</code> arrives with it:
-install <code>elan</code>, Lean’s toolchain manager, from the <a
-href="https://leanprover-community.github.io/get_started.html">Lean
-setup guide</a>. <code>elan</code> then reads <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean-toolchain"><code>lean-toolchain</code></a> and selects
-<code>leanprover/lean4:v4.29.1</code>; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lake-manifest.json"><code>lake-manifest.json</code></a> pins the
-matching Mathlib.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get   <span class="co"># fetches the pinned Mathlib build: several GB, once</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span></code></pre></div>
-<p>For a focused build, run
-<code>python3 scripts/lean_fast_build.py --jobs 2 [target]</code>. Add
-<code>--lake-staleness</code> with restored <code>.lake</code> outputs
-so it trusts Lake content traces, not checkout times. Without a target
-it checks both roots; <code>--plan</code> reports waves without
-building. Partial caches stay on that trace-aware path even when a root
-output is absent. One verbose no-build verdict identifies the stale
-frontier, which is expanded through local import dependents; same-wave
-targets then share Lake graph scans in batches capped by
-<code>--jobs</code>. A cold clone can navigate before this step; formal
-editing needs the pinned toolchain. Later builds reuse outputs and
-rebuild only the selected or stale dependency cone;
-<code>--changed-from &lt;git-ref&gt;</code> selects changed modules. The
-dependency-index validator stores an exact <code>.lake</code> receipt:
-unchanged inputs make <code>--check</code> constant-time;
-<code>--check --full-check</code> forces an audit.</p>
-<p>Check the public release surfaces separately:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_cold_clone_comprehension.py <span class="at">--quick</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_release.py</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/test_methodology_contract.py</span></code></pre></div>
-<p>The pinned public Lean proof corpus contains no <code>sorry</code>,
-<code>admit</code>, project-defined <code>axiom</code>, or
-<code>native_decide</code>; finite computations use kernel-checked
-<code>decide</code>. One deliberate exception is outside the default
-build: <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification/Challenge.lean"><code>ExternalVerification/Challenge.lean</code></a>
-states the trusted propositions Comparator checks the solution against;
-they carry <code>sorry</code> by construction.</p>
-</section>
-<section id="use-as-a-lean-package" class="level2">
-<h2>Use as a Lean package</h2>
-<p>Import the reviewed #249/#257 root:</p>
-<pre class="lean"><code>import Erdos249257</code></pre>
-<p>For the problem-owned expansion surface, import:</p>
-<pre class="lean"><code>import ErdosProblems</code></pre>
-<p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/examples/Examples.lean"><code>examples/Examples.lean</code></a> is
-the minimal downstream consumer; its conditional shell-pressure example
-leaves the analytic hypothesis explicit and does not prove universal
-#257.</p>
-</section>
-<section id="citation-and-licence" class="level2">
-<h2>Citation and licence</h2>
-<p>Use <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener"><code>CITATION.cff</code></a> for
-<code>v0.9.0</code>. Code, scripts, and documentation are Apache-2.0.
-The manuscript layer, including the paper source and rendered PDFs, is
-CC-BY-4.0. <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/REUSE.toml" data-link-kind="exogenous" rel="external noopener"><code>REUSE.toml</code></a> is
-complete.</p>
-<p>Use the issue forms for corrections. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a> explains local
-checks; <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SECURITY.md" data-link-kind="exogenous" rel="external noopener"><code>SECURITY.md</code></a> gives the
-private route.</p>
+<section id="where-i-actually-am" class="level2">
+<h2>Where I actually am</h2>
+<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md#where-i-actually-am" data-link-kind="exogenous" rel="external noopener">Where I actually am</a>
+says who wrote this and why it was released in the state it is in. The
+<a href="https://wcook04.github.io/plectis/#contact" data-link-kind="exogenous" rel="external noopener">routes are on the
+site</a>.</p>
 </section>
 </section>
   </div>

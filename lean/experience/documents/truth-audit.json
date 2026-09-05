@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "7b5b24c9d815b4c9fc6105a99cfd3e90158888682fb78c41fb5250b24c9e3e28",
+    "source_sha256": "8d70f9488a3f6e47a5a978e1423873dac17ad92b91ea9fd984d4671131d851aa",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,10 +25,15 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "ea3d74891660717209169e0d23bca0b68333a0ba1a2ba8e46cbf1be47ab0c963",
-    "html_exact_tex_sha256": "e2b6bb1dea13273dafafdcccbf34383f02ce84049d9529c1781139795c438eb5"
+    "html_mathml_sha256": "228be25d17c3107ce0d4478f19689af0fc7f476ecab0a22b58d31c3766b1a0f9",
+    "html_exact_tex_sha256": "631292a14d16be368f2e8d32be4f083f69fcdf329c325e048f461c880ac66fe2"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#1041 source-frontier supersession"
+    },
     {
       "level": 2,
       "anchor": null,

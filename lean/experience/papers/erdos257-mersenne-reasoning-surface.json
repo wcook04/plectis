@@ -5,12 +5,12 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 107,
+  "pages": 111,
   "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
   "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
   "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, whose universal and half-value questions remain open",
-  "problem_id": null,
+  "problem_id": "erdos_257",
   "routes": {
     "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
     "html_exact_tex": "papers/erdos257-mersenne-reasoning-surface.mathjax.html",
@@ -27,10 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "3baddc326432cae58d4e17d092987bd2491a200573c3ec9525f551fd82033ec4",
+    "renderer_contract_version": 14,
+    "source_sha256": "6124c97dd2973e2e4b187c6483648905415b4606da7a173e8c125bf0ca77f7e9",
     "publication_manifest_match": true,
-    "mathml_node_count": 3027,
+    "mathml_node_count": 2969,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -42,8 +42,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "be927672e354123267a6a8c44a142da31fded29ec0db66ed1ddd462f4e6d5fc7",
-    "html_exact_tex_sha256": "f627dbdca212f998dd7e317d9076356447a8f965eb42fd42b47c89d22f7fc439"
+    "html_mathml_sha256": "f4bbe1667e496db438aae672dc570f1d685155ea49c384a60413dbab342e6d96",
+    "html_exact_tex_sha256": "ae137763f9dd6c6e5820f1d43df71aa8e5ac98edab31db17a05579cfbc311e19"
   },
   "sections": [
     {
@@ -154,7 +154,22 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "How to use this document"
+      "label": "Reading the detailed record"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Read linearly."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Use as reference."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Scale and coordinate discipline."
     },
     {
       "level": 2,
@@ -214,22 +229,22 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Catalogue of usable premises"
+      "label": "Catalogue of mathematical ingredients"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Producers"
+      "label": "Open hypotheses and candidate inputs"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Converters and exact identities"
+      "label": "Exact identities and reductions"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Consumers"
+      "label": "Consequence theorems"
     },
     {
       "level": 4,
@@ -364,57 +379,57 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "Killers and countermodels"
+      "label": "Obstructions and countermodels"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Recently published declarations"
+      "label": "Recently added declarations"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "The middle-cell update-step chain (HalfCylinderMiddleCarryLowerBound.lean)"
+      "label": "The middle-cell update-step chain"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "Forgetting witnesses: the terminal-only bridge (SuffixCylinderTerminalOnlyBridge.lean)"
+      "label": "Forgetting witnesses: the terminal-only bridge"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "A strict weakening chain for the last-producer socket (HalfCylinderLastProducerContradiction.lean)"
+      "label": "A strict weakening chain for the last-producer socket"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "The governed frozen-margin producer (HalfCylinderFiniteShadow.lean)"
+      "label": "The governed frozen-margin producer"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "Exact carry-pivot normal form (SuffixCylinderCarryPivot.lean)"
+      "label": "Exact carry-pivot normal form"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "New tree: ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+      "label": "New Mersenne-subseries rigidity tree"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "New tree: ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean"
+      "label": "New half-counterexample frontier tree"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "New tree: Erdos249257/Primitive23Multiplicity.lean"
+      "label": "New primitive-2323 multiplicity tree"
     },
     {
       "level": 4,
       "anchor": null,
-      "label": "Current 1/211/21 frontier: Erdos249257/TwentyOneQuotientGreedy.lean"
+      "label": "Current 1/211/21 frontier"
     },
     {
       "level": 2,
@@ -439,7 +454,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Interface index: what stands between the corpus and a proof"
+      "label": "Frontier index: what stands between the corpus and a proof"
     },
     {
       "level": 3,
@@ -705,11 +720,6 @@
       "level": 5,
       "anchor": null,
       "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 5,

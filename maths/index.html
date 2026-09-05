@@ -27,6 +27,8 @@
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="assets/maths.js?v=911c79a053aa"></script>
   <script defer src="assets/universe.js?v=6829c643df3f"></script>
 </head>
@@ -43,6 +45,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../docs/glossary.html">Glossary</a>
         <a href="../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -71,50 +74,51 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <header class="maths-hero">
-        <p class="maths-hero__kicker">Machine-checked mathematics</p>
+        <p class="maths-hero__kicker"><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Machine-checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a></p>
         <h1>Maths</h1>
-        <p class="maths-hero__lede">Eight open problems posed by Erd&#337;s, worked in Lean. Everything on these pages is generated from the public Lean repository: the problems, the checked results with their exact boundaries, the papers, and the graph that connects them. All eight problems remain open.</p>
-        <p class="maths-hero__boundary">Each problem page names what is proved, under which hypotheses, and what is not. Every object links to its source on GitHub.</p>
+        <p class="maths-hero__lede">Eight open <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erd&#337;s</a> problems, with <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>, papers and remaining questions from the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a> papers explain how the wider project works. All eight original problems remain open.</p>
+        <p class="maths-hero__boundary">Each problem page names what is proved, under which hypotheses, and what is not. Every object links to its <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> on <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-github" data-term="github" data-term-auto="1">GitHub</a>.</p>
+        <p><a href="papers/claim-faithful-publication-systems.html">Read the system paper</a> · <a href="papers/open-source-mathematics-strategy.html">How to contribute</a></p>
         <ul class="maths-counts">
           <li><b>8</b> problems</li>
-          <li><b>13</b> papers</li>
-          <li><b>14</b> repository documents</li>
-          <li><b>1,292</b> objects in the universe</li>
-          <li><b>3,246</b> connections</li>
+          <li><b>14</b> papers</li>
+          <li><b>14</b> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> documents</li>
+          <li><b>1,401</b> objects in the universe</li>
+          <li><b>3,482</b> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a></li>
         </ul>
       </header>
 
       <section class="maths-band" id="universe" aria-labelledby="universe-title">
         <div class="maths-band__head">
           <p class="eyebrow">The universe</p>
-          <h2 id="universe-title">One corpus, three overlays.</h2>
-          <p>The Lean source is the universe. Papers, the Comparator, and Palomar are overlays that explain, replay, or review parts of it.</p>
+          <h2 id="universe-title">Explore the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>.</h2>
+          <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connects</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> to its papers and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">verification records</a>. Open an item to follow its <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</p>
         </div>
         <div class="universe-panel">
           <div class="universe-panel__stage" data-universe-stage>
-            <canvas class="universe-canvas" data-universe-src="assets/universe-data.json?v=1bbd8aff3aa1" data-universe-href="universe.html" aria-label="Map of the Lean corpus: problems, checked claims, papers, documents, and verification surfaces. The universe page lists every object as text."></canvas>
+            <canvas class="universe-canvas" data-universe-src="assets/universe-data.json?v=213a07153acd" data-universe-href="universe.html" aria-label="Map of the Lean corpus: problems, checked claims, papers, documents, and verification surfaces. The universe page lists every object as text."></canvas>
             <div class="universe-caption" aria-hidden="true"></div>
           </div>
-          <p class="universe-nojs">The interactive map needs JavaScript. Every object on it is listed as text on the <a href="universe.html">universe page</a>.</p>
+          <p class="universe-nojs">The interactive <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> needs JavaScript. Every object on it is <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">listed</a> as text on the <a href="universe.html">universe page</a>.</p>
           <div class="universe-panel__foot">
             <ul class="universe-legend">
               <li><span class="dot dot--problem"></span>Problems</li>
-              <li><span class="dot dot--claim"></span>Checked claims</li>
+              <li><span class="dot dot--claim"></span><a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a></li>
               <li><span class="dot dot--paper"></span>Papers</li>
               <li><span class="dot dot--document"></span>Documents</li>
-              <li><span class="dot dot--integration"></span>Verification</li>
+              <li><span class="dot dot--integration"></span><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">Verification</a></li>
             </ul>
             <a class="btn btn--ghost universe-panel__cta" href="universe.html">Open the universe map</a>
           </div>
         </div>
-        <p class="universe-rule">Papers explain, Comparator replays selected exact interfaces, and Palomar may review a prepared unit. None widens Lean&#x27;s proposition or records peer review or an accepted outcome unless its own source says so.</p>
+        <p class="universe-rule">Papers explain, <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replays</a> selected exact interfaces, and Palomar may review a prepared unit. None widens <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>&#x27;s <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> or records <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-peer-review" data-term="peer_review" data-term-auto="1">peer review</a> or an accepted <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">outcome</a> unless its own <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> says so.</p>
       </section>
 
       <section class="maths-band" id="problems" aria-labelledby="problems-title">
         <div class="maths-band__head">
           <p class="eyebrow">The problems</p>
           <h2 id="problems-title">Eight problems, all of them open.</h2>
-          <p>Each dossier states the question, what the Lean corpus proves about it, and exactly what remains unproved.</p>
+          <p>Each dossier states the question, what the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> proves about it, and exactly what remains unproved.</p>
         </div>
         <ul class="problem-list">
         <li class="problem-row">
@@ -134,7 +138,7 @@
             <span class="problem-row__title">Reciprocal-tail rigidity near the Sylvester recurrence
               <span class="problem-row__q">Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?</span>
             </span>
-            <span class="problem-row__meta">9 modules &middot; 2 main results
+            <span class="problem-row__meta">9 modules &middot; 4 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -145,7 +149,7 @@
             <span class="problem-row__title">The binary totient series
               <span class="problem-row__q">Is the binary Lambert series sum phi(n)/2^n irrational?</span>
             </span>
-            <span class="problem-row__meta">3 modules &middot; 3 main results
+            <span class="problem-row__meta">3 modules &middot; 15 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -156,7 +160,7 @@
             <span class="problem-row__title">The prime-gap dyadic series
               <span class="problem-row__q">Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?</span>
             </span>
-            <span class="problem-row__meta">1 modules &middot; 2 main results
+            <span class="problem-row__meta">1 modules &middot; 5 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -167,7 +171,7 @@
             <span class="problem-row__title">Reciprocal sums over infinite exponent supports
               <span class="problem-row__q">Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?</span>
             </span>
-            <span class="problem-row__meta">1 modules &middot; 4 main results
+            <span class="problem-row__meta">1 modules &middot; 13 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -178,7 +182,7 @@
             <span class="problem-row__title">Three-prime running least common multiples
               <span class="problem-row__q">For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case.</span>
             </span>
-            <span class="problem-row__meta">7 modules &middot; 2 main results
+            <span class="problem-row__meta">7 modules &middot; 3 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -200,7 +204,7 @@
             <span class="problem-row__title">Lambert-type series at rational bases
               <span class="problem-row__q">For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.</span>
             </span>
-            <span class="problem-row__meta">6 modules &middot; 2 main results
+            <span class="problem-row__meta">6 modules &middot; 3 main results
               <span class="chip chip--open">Open</span>
             </span>
           </a>
@@ -211,88 +215,29 @@
       <section class="maths-band" id="papers" aria-labelledby="papers-title">
         <div class="maths-band__head">
           <p class="eyebrow">The papers</p>
-          <h2 id="papers-title">Read the mathematics as papers.</h2>
-          <p>Written for a person reading cold, rendered here as pages with native mathematical notation; the PDF and the LaTeX source stay one click away. Papers explain the corpus; they are not the proof authority.</p>
+          <h2 id="papers-title">Read the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> as papers.</h2>
+          <p>Written for a person reading cold, rendered here as pages with native mathematical notation; the PDF and the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX source</a> stay one click away. Papers explain the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>; they are not the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.</p>
         </div>
         <div class="shelf-group">
-          <p class="shelf-group__label">On the problems</p>
+          <p class="shelf-group__label">The <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> and participation</p>
           <ul class="shelf">
           <li><div class="shelf__row">
-            <a href="papers/erdos-68-factorial-denominator-irrationality.html">Factorial Carries and Finite Channel Obstructions
-              <span class="shelf__sub">Problem note &middot; 20&#8202;pp &middot; Erdős #68</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-68-factorial-denominator-irrationality.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-243-reciprocal-tail-rigidity.html">Excluding the Bounded Negative Part
-              <span class="shelf__sub">Problem note &middot; 22&#8202;pp &middot; Erdős #243</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-243-reciprocal-tail-rigidity.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-249-binary-totient-series.html">A Basis for the 2-Kernel of Euler&#x27;s Totient
-              <span class="shelf__sub">Problem note &middot; 19&#8202;pp &middot; Erdős #249</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-249-binary-totient-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos249-totient-reasoning-surface.html">The Binary Totient Series
-              <span class="shelf__sub">Reasoning surface &middot; 117&#8202;pp &middot; Erdős #249</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos249-totient-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-251-prime-gap-dyadic-series.html">An Integral-Shift Criterion for Dyadic Tail Recurrences
-              <span class="shelf__sub">Problem note &middot; 18&#8202;pp &middot; Erdős #251</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-251-prime-gap-dyadic-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-257-mersenne-support-subseries.html">Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry
-              <span class="shelf__sub">Problem note &middot; 21&#8202;pp &middot; Erdős #257</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-257-mersenne-support-subseries.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos257-mersenne-reasoning-surface.html">Reciprocal Mersenne Subseries
-              <span class="shelf__sub">Reasoning surface &middot; 107&#8202;pp &middot; Erdős #257</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos257-mersenne-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-269-three-prime-running-lcm.html">The Three-Prime Running Least Common Multiple
-              <span class="shelf__sub">Problem note &middot; 23&#8202;pp &middot; Erdős #269</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-269-three-prime-running-lcm.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-1041-lemniscate-newton-flow.html">Newton Flow and Critical-Value Ray Separation
-              <span class="shelf__sub">Problem note &middot; 10&#8202;pp &middot; Erdős #1041</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-1041-lemniscate-newton-flow.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          <li><div class="shelf__row">
-            <a href="papers/erdos-1049-rational-base-lambert.html">Arithmetic Boundaries at Base 3/2
-              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #1049</span>
-            </a>
-            <span class="shelf__meta"><a href="../papers/erdos-1049-rational-base-lambert.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
-          </div></li>
-          </ul>
-        </div>
-        <div class="shelf-group">
-          <p class="shelf-group__label">On the system</p>
-          <ul class="shelf">
-          <li><div class="shelf__row">
-            <a href="papers/claim-faithful-publication-systems.html">From Lean Proofs to Public Claims
-              <span class="shelf__sub">Release checks &middot; 16&#8202;pp &middot; Systems paper</span>
+            <a href="papers/claim-faithful-publication-systems.html">Problem-Sized Lean Worlds
+              <span class="shelf__sub">Research architecture &middot; 19&#8202;pp &middot; Systems paper</span>
             </a>
             <span class="shelf__meta"><a href="../papers/claim-faithful-publication-systems-paper.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
           </div></li>
           <li><div class="shelf__row">
             <a href="papers/cold-clone-to-proof-receipt.html">From a Cold Clone to a Proof Receipt
-              <span class="shelf__sub">Agent navigation &middot; 10&#8202;pp &middot; Systems paper</span>
+              <span class="shelf__sub">Agent navigation &middot; 11&#8202;pp &middot; Systems paper</span>
             </a>
             <span class="shelf__meta"><a href="../papers/cold-clone-to-proof-receipt.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/open-source-mathematics-strategy.html">From Spare Compute to Cumulative Mathematics
+              <span class="shelf__sub">Open-source research strategy &middot; 19&#8202;pp &middot; Systems paper</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/open-source-mathematics-strategy.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/open-source-mathematics-strategy.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
           </div></li>
           <li><div class="shelf__row">
             <a href="papers/plectis-public-system.html">Plectis: What a Stranger Can Check
@@ -302,13 +247,78 @@
           </div></li>
           </ul>
         </div>
+        <div class="shelf-group">
+          <p class="shelf-group__label"><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem notes</a> and longer <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">working records</a></p>
+          <ul class="shelf">
+          <li><div class="shelf__row">
+            <a href="papers/erdos-68-factorial-denominator-irrationality.html">Factorial-Channel Obstructions and Exact Orbit Boundaries
+              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #68</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-68-factorial-denominator-irrationality.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-243-reciprocal-tail-rigidity.html">Excluding the Bounded Negative Part
+              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #243</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-243-reciprocal-tail-rigidity.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-249-binary-totient-series.html">A Basis for the 2-Kernel of Euler&#x27;s Totient
+              <span class="shelf__sub">Problem note &middot; 27&#8202;pp &middot; Erdős #249</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-249-binary-totient-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos249-totient-reasoning-surface.html">The Binary Totient Series
+              <span class="shelf__sub">Reasoning surface &middot; 126&#8202;pp &middot; Erdős #249</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos249-totient-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-251-prime-gap-dyadic-series.html">An Integral-Shift Criterion for Dyadic Tail Recurrences
+              <span class="shelf__sub">Problem note &middot; 21&#8202;pp &middot; Erdős #251</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-251-prime-gap-dyadic-series.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-257-mersenne-support-subseries.html">Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry
+              <span class="shelf__sub">Problem note &middot; 25&#8202;pp &middot; Erdős #257</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-257-mersenne-support-subseries.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos257-mersenne-reasoning-surface.html">Reciprocal Mersenne Subseries
+              <span class="shelf__sub">Reasoning surface &middot; 111&#8202;pp &middot; Erdős #257</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos257-mersenne-reasoning-surface.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-269-three-prime-running-lcm.html">The Three-Prime Running Least Common Multiple
+              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #269</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-269-three-prime-running-lcm.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-1041-lemniscate-newton-flow.html">Critical-Value Separation and Admissible Hubs
+              <span class="shelf__sub">Problem note &middot; 24&#8202;pp &middot; Erdős #1041</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-1041-lemniscate-newton-flow.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          <li><div class="shelf__row">
+            <a href="papers/erdos-1049-rational-base-lambert.html">Sharp Height and Four-Jet Obstructions at Base 3/2
+              <span class="shelf__sub">Problem note &middot; 27&#8202;pp &middot; Erdős #1049</span>
+            </a>
+            <span class="shelf__meta"><a href="../papers/erdos-1049-rational-base-lambert.pdf">PDF</a> &middot; <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">TeX source</a></span>
+          </div></li>
+          </ul>
+        </div>
       </section>
 
       <section class="maths-band" id="documents" aria-labelledby="documents-title">
         <div class="maths-band__head">
           <p class="eyebrow">The repository, in plain pages</p>
-          <h2 id="documents-title">Read the repository without building it.</h2>
-          <p>A curated human interpretability layer over the Lean repository. It excludes agent instructions, machine-heavy atlases, build artifacts, and maintainer workbenches.</p>
+          <h2 id="documents-title">Read the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> without building it.</h2>
+          <p>A curated human interpretability layer over the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. It <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> instructions, machine-heavy atlases, build <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifacts</a>, and maintainer workbenches.</p>
         </div>
         <ul class="shelf">
           <li><div class="shelf__row">
@@ -399,7 +409,7 @@
       </section>
 
       <section class="maths-receipt" id="receipt" aria-label="How these pages are generated">
-        <p>These pages are generated from the public Lean repository&#8217;s published data layer; nothing here is written by hand. Source generation <code>a18f18bba79573a1</code>, built by <code>tools/meta/dissemination/build_plectis_maths_site.py</code> from the contract in <a href="../lean/experience/manifest.json"><code>lean/experience/manifest.json</code></a>. When the repository changes, a redeploy regenerates every page, count, and map above.</p>
+        <p>These pages are generated from the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>&#8217;s <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> data layer; nothing here is written by hand. <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a> generation <code>acdbe1d028879896</code>, built by <code>tools/meta/dissemination/build_plectis_maths_site.py</code> from the contract in <a href="../lean/experience/manifest.json"><code>lean/experience/manifest.json</code></a>. When the <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a>, a redeploy regenerates every page, count, and <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> above.</p>
       </section>
       </div>
     </main>

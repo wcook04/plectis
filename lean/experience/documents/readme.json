@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "4927c6e376156978f73e96b8550632ebbc58944a231ce163dac877164b348362",
+    "source_sha256": "05cae5db948344f5d3a1dfd54baafde3e47b11e16c41ef1cc5b3af250f966d20",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,44 +25,29 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "fc7118acbcd453b772320a73d9d69edfa1fc8df92daa5e57c57bf7dc92e8beff",
-    "html_exact_tex_sha256": "2aeca319ec45c6a97bed791515b5317ad6c63e60c8d82ac634d24116673b08ae"
+    "html_mathml_sha256": "aa2a4d3c9127024ba6060e32f5f1f29e38126d0d5b0e50cabb8b58becaa30883",
+    "html_exact_tex_sha256": "66c25bca03f699426c40688c07d2b57d5929ea63cecadfd8193f26c34ff16d9a"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is here"
+    },
     {
       "level": 2,
       "anchor": null,
       "label": "Problem papers"
     },
     {
-      "level": 3,
+      "level": 2,
       "anchor": null,
-      "label": "Public checked frontier; what remains"
+      "label": "What the checks establish"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "External verification"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "What the formal source establishes"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Other exact mathematics in the corpus"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "What remains open"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Corpus at a glance"
+      "label": "Give your agent a research shift"
     },
     {
       "level": 2,
@@ -72,7 +57,12 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "How the repository fits together"
+      "label": "Citation and licence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Corpus at a glance"
     },
     {
       "level": 2,
@@ -82,17 +72,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Build and verify"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Use as a Lean package"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Citation and licence"
+      "label": "Where I actually am"
     }
   ]
 }

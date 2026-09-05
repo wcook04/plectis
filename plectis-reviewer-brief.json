@@ -13,7 +13,7 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "a85910c742a81e8ff4688314d8c7c9a3ca1efafce5eca3e327c0097a71ef741c",
+ "source_fingerprint": "c8c6b97fdc712d36cfec74cdba9863cead8f601e2f203a09aafef4c92004427a",
  "canonical_public_identity": {
   "schema": "plectis_canonical_public_identity_v1",
   "project_name": "Plectis",
@@ -251,7 +251,7 @@
     ]
    },
    {
-    "statement": "3 defects the project's own checks found and published against its own sources, with what to do until each is fixed.",
+    "statement": "4 defects the project's own checks found and published against its own sources, with what to do until each is fixed.",
     "statement_class": "public_fact",
     "source_routes": [
      "upstream_defects.defects"
@@ -892,16 +892,16 @@
       ]
      },
      {
-      "id": "claim:concrete_seam_adapter",
-      "label": "Published defect: claim:concrete_seam_adapter",
+      "id": "claim:actual_lcm_orbit_nonintegrality_frontier",
+      "label": "Published defect: claim:actual_lcm_orbit_nonintegrality_frontier",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
+      "what_it_shows": "the claims registry records 'conditional reduction' while the manuscript the packet cites tags the same result 'exact reformulation'",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
+      "scope_limit": "Treat the weaker of the two labels as the safe reading until the disagreement is resolved.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
+       "upstream_defects.defects[defect_id=claim:actual_lcm_orbit_nonintegrality_frontier]"
       ]
      }
     ]
@@ -939,16 +939,16 @@
       ]
      },
      {
-      "id": "claim:concrete_seam_adapter",
-      "label": "Published defect: claim:concrete_seam_adapter",
+      "id": "claim:actual_lcm_orbit_nonintegrality_frontier",
+      "label": "Published defect: claim:actual_lcm_orbit_nonintegrality_frontier",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
+      "what_it_shows": "the claims registry records 'conditional reduction' while the manuscript the packet cites tags the same result 'exact reformulation'",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
+      "scope_limit": "Treat the weaker of the two labels as the safe reading until the disagreement is resolved.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
+       "upstream_defects.defects[defect_id=claim:actual_lcm_orbit_nonintegrality_frontier]"
       ]
      }
     ]
@@ -986,16 +986,16 @@
       ]
      },
      {
-      "id": "claim:concrete_seam_adapter",
-      "label": "Published defect: claim:concrete_seam_adapter",
+      "id": "claim:actual_lcm_orbit_nonintegrality_frontier",
+      "label": "Published defect: claim:actual_lcm_orbit_nonintegrality_frontier",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
+      "what_it_shows": "the claims registry records 'conditional reduction' while the manuscript the packet cites tags the same result 'exact reformulation'",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
+      "scope_limit": "Treat the weaker of the two labels as the safe reading until the disagreement is resolved.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
+       "upstream_defects.defects[defect_id=claim:actual_lcm_orbit_nonintegrality_frontier]"
       ]
      }
     ]
@@ -1008,7 +1008,7 @@
       "id": "lean_external_verification",
       "label": "Comparator external verification of the Lean repository",
       "why_chosen": "the second checker is run with a fixture built to fail, which is the half of a verification claim that is usually left out",
-      "what_it_shows": "Comparator, pinned by commit, checks 19 propositions declared separately from their proofs against the submitted proofs under a fixed axiom budget of propext, Quot.sound, Classical.choice; the same job runs one altered statement and requires Comparator's exact mismatch diagnostic, naming the theorem, before the commit-bound receipt passes.",
+      "what_it_shows": "Comparator, pinned by commit, checks 51 propositions declared separately from their proofs against the submitted proofs under a fixed axiom budget of propext, Quot.sound, Classical.choice; the same job runs one altered statement and requires Comparator's exact mismatch diagnostic, naming the theorem, before the commit-bound receipt passes.",
       "runs_real_tools": true,
       "negative_case": true,
       "scope_limit": "It establishes that the named propositions type-check as written, under the permitted axioms, at one commit. It checks propositions only: no paper deduction, cited theorem or external computation. It is not peer review, not a novelty assessment, and not evidence that any of the eight problems is solved -- all eight remain open.",
@@ -1033,16 +1033,16 @@
       ]
      },
      {
-      "id": "claim:concrete_seam_adapter",
-      "label": "Published defect: claim:concrete_seam_adapter",
+      "id": "claim:actual_lcm_orbit_nonintegrality_frontier",
+      "label": "Published defect: claim:actual_lcm_orbit_nonintegrality_frontier",
       "why_chosen": "the project's own checks found this, and it is published unfixed with what a reader should do about it in the meantime",
-      "what_it_shows": "the theorem holds for s ≥ 5; the sentence states no range, so it reads as holding for every s. No other surface states the bound either, so this may be a proof-technical range rather than a dropped hypothesis; a mathematician should decide",
+      "what_it_shows": "the claims registry records 'conditional reduction' while the manuscript the packet cites tags the same result 'exact reformulation'",
       "runs_real_tools": false,
       "negative_case": true,
-      "scope_limit": "Neither surface has been shown wrong. Read the sentence with the recorded difference beside it.",
+      "scope_limit": "Treat the weaker of the two labels as the safe reading until the disagreement is resolved.",
       "read_it_at": "docs/rules-and-ideas.html",
       "source_routes": [
-       "upstream_defects.defects[defect_id=claim:concrete_seam_adapter]"
+       "upstream_defects.defects[defect_id=claim:actual_lcm_orbit_nonintegrality_frontier]"
       ]
      }
     ]
@@ -1100,8 +1100,8 @@
      "verification/comparator.json and docs/EXTERNAL_VERIFICATION.md",
      "one interface re-run by docs/EXTERNAL_VERIFICATION_REPLAY.md"
     ],
-    "decision_supported": "whether the nineteen selected propositions are stated separately from their proofs, what each one claims, and whether the submitted proofs pass under the declared axiom budget",
-    "decision_not_supported": "that a proposition expresses the intended mathematics, that any result is new, or that any of the eight open Erdos problems is closer to solved; fourteen of the nineteen interfaces are not registered as canonical claims"
+    "decision_supported": "whether the fifty-one selected propositions are stated separately from their proofs, what each one claims, and whether the submitted proofs pass under the declared axiom budget",
+    "decision_not_supported": "that a proposition expresses the intended mathematics, that any result is new, or that any of the eight open Erdos problems is closer to solved; a Comparator interface is a statement put to the checker, and it carries no registry status of its own"
    },
    {
     "budget": "controlled review",

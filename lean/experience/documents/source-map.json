@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "1cac27463f6f8a52bc6db7128a8fad7d26a69477e9e383b1246549d5c5e68710",
+    "source_sha256": "6b1d17b94420d3c87d83fbd41062f4c5375c3762d1640d0db8d850a60e1757a0",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,14 +25,29 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "819368a83535578f1114efe8b27589df1374e33017250bdd8364337444fadd79",
-    "html_exact_tex_sha256": "a58361f3d2a2b8350afc4f47a739563a61311636091a853512b1cad8993dd7ee"
+    "html_mathml_sha256": "64963b0828ec0053319eb618f08457ce2cabd63c5a1e39ec99239d4700d3a42a",
+    "html_exact_tex_sha256": "1d04a9ab0f50885893cb07be5e3e71c2578b0aa56429e62ea072b465f7ec9b02"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
       "label": "Bounded reader route"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Signal-first reviewed spine"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "#1041 / source-current frontier"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete eight-problem return matrix"
     },
     {
       "level": 2,

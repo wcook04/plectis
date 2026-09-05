@@ -3,8 +3,8 @@
   "papers": {
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
-    "paper_count": 13,
-    "papers_with_warnings": 2,
+    "paper_count": 14,
+    "papers_with_warnings": 4,
     "warnings": {
       "erdos249-totient-reasoning-surface": {
         "mathml": [
@@ -42,6 +42,41 @@
           "^",
           "unexpected control sequence \\leanlink",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
+      "erdos-1041-lemniscate-newton-flow": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+          "\\qquad",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "\\qquad",
+          "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "^",
+          "unexpected control sequence \\over",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
+      "open-source-mathematics-strategy": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\begin{aligned}",
+          "K_{t+1}&=K_t+\\Delta_t^\\mathrm{theorem}",
+          "+\\Delta_t^\\mathrm{counterexample}",
+          "+\\Delta_t^{\\rm no\\mbox{-}go}",
+          "+\\Delta_t^\\mathrm{computation}",
+          "+\\Delta_t^\\mathrm{correction},\\\\",
+          "I_{t+1}&=I_t+\\Delta_t^\\mathrm{navigation}",
+          "+\\Delta_t^\\mathrm{validation}",
+          "+\\Delta_t^\\mathrm{reproducibility}",
+          "+\\Delta_t^\\mathrm{governance}.",
+          "\\end{aligned}",
+          "\\tag{2.3}\\label{eq:feedback}, rendering as TeX:",
+          "+\\Delta_t^{\\rm no\\mbox{-}go}",
+          "^",
+          "unexpected \"^\"",
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
         ],
         "mathjax": []
       }

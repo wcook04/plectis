@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1049-rational-base-lambert",
-  "title": "Arithmetic Boundaries at Base 3/2",
+  "title": "Sharp Height and Four-Jet Obstructions at Base 3/2",
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 24,
+  "pages": 27,
   "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
   "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
   "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
+    "renderer_contract_version": 14,
+    "source_sha256": "b748ded6e65009967fdc1ec157a253d174f5ceb19ab44eba889a35ebb4816418",
     "publication_manifest_match": true,
-    "mathml_node_count": 468,
+    "mathml_node_count": 513,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "055ee5091b7ebe1af79ae0a64232a5bd398a1597da7eb34d11697788e7653f7e",
-    "html_exact_tex_sha256": "fdd4e1f08e28412776df58276feffcc6926ab9ea83991731b12c5a62d173e7de"
+    "html_mathml_sha256": "14b1094cd3498816a51fca5e86c73854285bf0fa7e4628b9f5489f43201fc31e",
+    "html_exact_tex_sha256": "58de90267ae2df38b36d6a720cc90af4515429dee57bba6645545eeb748d4ec3"
   },
   "sections": [
     {
@@ -78,7 +78,17 @@
     {
       "level": 5,
       "anchor": null,
+      "label": "Results and boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
       "label": "Structure."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The sharp 41/6541/65 certificate"
     },
     {
       "level": 2,
@@ -128,7 +138,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "The first falsifiable families"
+      "label": "Determinant families"
     },
     {
       "level": 3,
@@ -143,7 +153,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "The quantitative height frontier"
+      "label": "The quantitative height limitation"
     },
     {
       "level": 3,
@@ -154,11 +164,6 @@
       "level": 5,
       "anchor": null,
       "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 5,

@@ -27,8 +27,8 @@
 % its own status column.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{9e231ce4371fcda607f81c4520d29b16dcb4482e}
-\renewcommand{\commitshort}{9e231ce4371f}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
   pdftitle={A basis for the 2-kernel of Euler's totient},
   pdfsubject={Erdős Problem Notes: Problem 249},
@@ -57,50 +57,57 @@ Problem~\#249}
 
 \begin{abstract}
 \noindent
-For $j\ge0$ and $0\le r<2^j$, write
-$\ph_{j,r}(n)=\ph(2^jn+r)$.  We prove that
+For
+$j\ge0$ and $0\le r<2^j$, write $\ph_{j,r}(n)=\ph(2^jn+r)$.  We prove that
 \[
   \{\ph_{0,0},\ph_{1,0}\}
   \cup
   \{\ph_{j,r}:j\ge1,\ 0<r<2^j,\ r\ {\rm odd}\}
 \]
-is a $\Q$-basis for the span of the $2$-kernel of Euler's totient.
-Consequently, the span of the dyadic sections through level $e$ has dimension
-exactly $2^e+1$ for every $e\ge1$, and the two elementary reduction identities
-generate every $\Q$-linear relation among the sections.  This determines the
-entire dyadic-section span; it does not decide the irrationality question below.
+is a $\Q$-basis for the span of the $2$-kernel of Euler's totient.  Thus the
+dyadic sections through level $e$ have rank exactly $2^e+1$ for every $e\ge1$,
+and two elementary identities generate all their rational linear relations.
+The basis and finite-rank statements are locally proved with novelty
+unassessed; the resulting infinite-dimensionality is also implied by Coons's
+non-$2$-regularity theorem.
 
-Let $\Stot=\sum_{n\ge1}\ph(n)/2^n$.  A rational value would induce a tempered
-integral tail orbit whose dyadic sections through level $e$ have rank at least
-$2^e-1$; no conflicting upper bound is proved.  Independently, every rational
-representation $\Stot=a/q$ must satisfy
+A second unconditional theorem determines the positive rank-one
+M\"obius--Mersenne cone exactly.  Its quotient has the unique minimizer
+$(e,Y)=(1,5)$; every admissible quotient and every nonempty finite positive
+mixture exceeds $\Theta_2=\Stot-1/2$ by more than $21/320$.  This rules out the
+complete positive rank-one and positive direct-sum mechanism, but not signed
+cancellation or genuinely coupled higher-rank approximants.
+
+These structural theorems do not settle Erd\H{o}s Problem~\#249, which asks
+whether
 \[
-  q>79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053,
+  \Stot=\sum_{n\ge1}\frac{\ph(n)}{2^n}
 \]
-the sharp exclusion for the chosen $240$-binary-digit Farey window.  The
-current repository also verifies a diagonal tail certificate at every natural
-scale $t\le82$.  This aggregate is finite: it supplies neither an instance at
-$t=83$ nor an unbounded family.
-
-We also record exact equivalences between irrationality of $\Stot$ and
-cofinal tail-nonintegrality or certificate supplies.  These are lossless
-reformulations of the open problem, not evidence for the missing cofinal
-producer.  Erd\H{o}s Problem~\#249 remains open; formalisation alone is not
-presented as a novelty claim.
+is irrational.  For $H_a=\lcm(1,\ldots,2^a)$ and
+$R_a=\operatorname{totientTail}(2H_a)-\operatorname{totientTail}(H_a)$, we
+prove the exact criterion
+\[
+  \Stot\notin\Q
+  \quad\Longleftrightarrow\quad
+  \forall a_0\ \exists a\ge a_0, R_a\notin\Z
+\]
+Canonical Mersenne-residue and full-depth forms sharpen this equivalence, but
+none supplies the needed nonintegral seed. Two quantitative routes also remain
+conditional: one separates the actual LCM orbit from the integers; the other
+controls four terms in a first-harmonic decomposition. Their cofinal hypotheses
+are unproved. The exact open boundary is therefore arithmetic control of the
+actual tail, not the finite-rank structure of the totient's dyadic sections.
 \end{abstract}
 
-\externalreviewobject{The paper gives an explicit basis and relation normal
-form for the dyadic totient kernel, proves level rank $2^e+1$, derives the
-all-base rank $k^e+1$ from Martin plus explicit reductions, and checks a finite
-denominator exclusion together with its first failing
-certificate scale.}{The rank theorems do not supply a
-rationality-to-finite-rank bridge, while the finite certificate does not
-supply an unbounded producer.  Problem~\#249 remains open.}{Comparator selects
-the explicit odd-core basis and the exact dyadic finite-level rank theorem.
-Full-kernel infinite-dimensionality is prior-art context from Coons, while the
-all-base linear-independence input uses Martin externally; Lean checks the
-rank conclusion conditional on that explicit input.  The finite arithmetic
-certificate retains its separate evidence route.}
+\begin{paperresult}{What is proved here}
+\textbf{Unconditional structure.} The displayed family is a rational basis
+for the $2$-kernel of Euler's totient, so the sections through level $e$
+have rank exactly $2^e+1$.  The positive rank-one
+M\"obius--Mersenne cone also has an exact unique minimizer and a uniform gap.
+\textbf{Series reduction.} Irrationality is equivalent to nonintegrality of
+the actual LCM-tail differences cofinally.  \textbf{Open boundary.} The basis
+theorem and cone obstruction do not supply even one required nonintegral seed.
+\end{paperresult}
 
 \section{Introduction and main results}\label{sec:results}
 
@@ -116,24 +123,25 @@ literature~\cite{erdosproblems}.  We therefore use the catalogue for
 numbering and current reported status only; the two original sources carry
 the problem statement.
 
-The principal result determines the dyadic sections of Euler's totient at
-every finite level: the two zero-residue sections $\ph_{0,0}$ and
-$\ph_{1,0}$, together with the odd-residue sections, form a rational basis,
-and the two reduction identities below generate every rational relation among
-the sections.  Its connection with Erd\H{o}s Problem~\#249 is through the
-integral scaled-tail recurrence displayed below.  The basis theorem gives a
-lower bound for the dyadic-section rank of every such recurrence supplied by a
-hypothetical rational value of $\Stot$, but no corresponding upper bound is
-known.
+The principal unconditional result is structural: the two zero-residue
+sections $\ph_{0,0}$ and $\ph_{1,0}$, together with the odd-residue sections,
+form a rational basis, and the two reduction identities below generate every
+rational relation among the sections.  It gives exact finite-level rank but
+no rationality-to-finite-rank bridge.  The positive rank-one
+M\"obius--Mersenne cone is also determined sharply: one unique minimizer,
+the uniform $21/320$ floor, the $1/16$ versus $1/15$ boundary, and closure
+under arbitrary finite positive mixing.
 
-The other unconditional statements are a finite Farey denominator exclusion,
-finite diagonal certificates at every $t\le82$, identities for the Lambert
-coefficient sequence $\Aw=\ph*\mu$, and a theorem that no fixed common
-denominator clears every $\Aw(n)/n$.  The certificate equivalences have a
-different logical status: \ref{res:equivalences} gives exact characterisations
-of irrationality, while \ref{res:supply} gives a sufficient criterion.  Their
-unbounded hypotheses are not proved, so the finite certificate band is not
-progress on the cofinal obligation.
+The closest results concerning the open series are exact reformulations and
+conditional criteria.  The actual power-two LCM orbit gives a cofinal
+nonintegrality equivalence; the canonical Mersenne formulation removes the
+remote basepoint; and the full-depth theorem shows that one seed gives eventual
+$2$-syndeticity on its ray.  The independent first-harmonic argument turns four
+explicit fibre bounds into a $9X/10$ window estimate, but irrationality requires
+their unproved cofinal form.  The example $38=2\cdot19$ rules out the simplest
+global-isolation argument.  The remaining inventory records finite Farey and
+diagonal certificates, Lambert and gcd-moment identities, and explicit limits
+of fixed-precision methods.  None supplies the required cofinal input.
 
 \statusboundary
 
@@ -211,6 +219,57 @@ rational (Section~\ref{sec:carry-rank}).
 \begin{enumerate}[label=\textbf{R\arabic*.},ref=R\arabic*,leftmargin=2.4em,
   itemsep=0.2em,topsep=0.25em]
 
+\item\label{res:canonicalmersenne} \stag{formalised here}
+\textbf{Canonical Mersenne arithmetic frontier.}  Let
+\[
+ B_{H,N}=\sum_{j=0}^{H-1}\ph(N+1+j)2^{H-1-j},\qquad
+ \rho_{H,N,M}=(-B_{H,N})\bmod M.
+\]
+For every $c,v\in\N$ with $v>0$ and $\gcd(2,v)=1$, the statement that there
+are $H,M\in\N$ with
+\[
+ H>0,\qquad \ph(v)\mid H,\qquad vM=2^H-1,
+ \qquad c+H+1<\rho_{H,c,M}<M-(c+H+1)
+\]
+is equivalent, after quantifying over $c,v$, to irrationality of $\Stot$.
+	The basepoint is exactly $c$, the dyadic valuation of a prospective rational
+	denominator; the older centred-residue condition searched for a remote
+	$N\ge\max(c,N_0)$.  The canonical statement implies that older condition by
+feeding $\max(c,N_0)$ into its $c$-slot.  Moreover, whenever $M\mid2^H-1$,
+the finite residue obeys the exact recurrence
+\[
+ \rho_{H,N+1,M}
+ =\bigl(2\rho_{H,N,M}-(\ph(N+H+1)-\ph(N+1))\bigr)\bmod M.
+\]
+This removes analytic tails, carry trajectories, and remote-basepoint search
+from the equivalent residual, but it does not prove the required central gap.
+{\footnotesize\emph{Checked:}
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{2322}{fullMersenneBlockResidue_succ}{residue recurrence},
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3132}{fullMersenneCenteredResidueGapSupply_of_canonicalBasepoint}{dominance over the remote condition},
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3165}{fullMersenneCanonicalBasepointResidueGapSupply_iff_irrational}{exact equivalence}.}
+
+\item\label{res:fulldepth} \stag{formalised here}
+\textbf{Full-depth ray amplification and exactness.}  Fix $d>0$ and $N$.
+If $(d,N,L)$ is a finite tail-difference certificate at any depth $L$, then
+there is $T>0$ such that every pair $\{t,t+1\}$ with $t\ge T$ contains a
+multiplier $m$ for which $(md,N,md)$ is a certificate.  Thus one seed forces
+an eventually $2$-syndetic family whose depth equals its period.  Pointwise,
+\[
+ \exists t>0:\ (td,N,td)\text{ is certified}
+ \quad\Longleftrightarrow\quad R_{N+d}-R_N\notin\Z.
+\]
+Consequently the predicate demanding such a full-depth certificate for every
+$d>0,N$ is equivalent to irrationality of $\Stot$.  Its cofinal-in-$N$
+	version is equivalent both to the older arbitrary-depth period-multiple
+	condition and to irrationality.  Thus requiring full depth loses no strength;
+it does not produce the first non-integral shift or seed.
+{\footnotesize\emph{Checked:}
+\lword{Erdos249/FullDepthRayAmplifier.lean}{364}{eventually_twoSyndetic_fullDepthKillMultipliers_of_seed}{eventual two-syndeticity},
+\lword{Erdos249/FullDepthRayAmplifier.lean}{388}{exists_fullDepthKill_on_ray_iff_shift_notMem_int}{pointwise equivalence},
+\lword{Erdos249/FullDepthRayAmplifier.lean}{406}{apFullDepthEscape_iff_irrational}{global equivalence},
+\lword{Erdos249/FullDepthRayAmplifier.lean}{421}{cofinalFullDepthKillSupply_iff_periodMultipleKillSupply}{cofinal depth deletion},
+\lword{Erdos249/FullDepthRayAmplifier.lean}{438}{cofinalFullDepthKillSupply_iff_irrational}{cofinal endpoint}.}
+
 \item\label{res:basis} \stag{unconditional progress}
 \textbf{Basis theorem.}  The family
 $\mathcal B=\{\ph_{0,0},\ph_{1,0}\}\cup\{\ph_{j,r}:j\ge1,\ r\ \text{odd},\
@@ -244,7 +303,55 @@ reductions as well.
 {\footnotesize\emph{Checked:}
 \mword{Erdos249257/TotientMahlerDefect.lean}{935}{linearIndependent_canonicalTotientKernelFamily}{independence},
 \mword{Erdos249257/TotientMahlerDefect.lean}{989}{finrank_canonicalTotientKernel_eq}{dimension},
+\mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{the exact finite-truncation rank};
+the latter is the complete truncation wrapper, with its explicit hypothesis $e\ge1$,
+while the canonical-family rank is the intermediary because even residues reduce to
+the odd-core family.
 \mword{Erdos249257/TotientMahlerDefect.lean}{1145}{not_finiteDimensional_span_fullTotientKernel}{infinite-dimensionality directly}.}
+
+\item\label{res:rankonefloor} \stag{unconditional progress}
+\textbf{Sharp positive rank-one and direct-sum floor.}  Put
+\[
+ \Theta_2=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}=\Stot-\frac12,
+ \qquad
+ Q(e,Y)=
+ \frac{\bigl(\sum_{d=1}^{Y}\mu(d)/(2^d-1)^{e+2}\bigr)^2}
+      {\sum_{d=1}^{Y}\mu(d)/(2^d-1)^{2e+2}}.
+\]
+For every $e\ge1$ and $Y\ge4$, the quotient $Q(e,Y)$ is uniquely minimized
+at $(1,5)$ and satisfies $Q(e,Y)-\Theta_2>21/320>1/16$.  The stronger
+unit-fraction floor $1/15$ fails already at $(1,5)$.  Every nonempty finite
+positive weighted average of admissible $Q(e,Y)$ has the same strict
+$21/320$ separation.  In rational-linear-form language, if
+$Q(e,Y)=p/q$ with $p\in\Z$ and $q\ge1$, then
+$|q\Theta_2-p|>21q/320$.  Hence neither adding atoms nor taking positive direct
+sums can repair this rank-one approximation mechanism; signed cancellation
+and genuinely coupled higher-rank kernels remain outside the theorem.
+{\footnotesize\emph{Checked:}
+\lword{Erdos249/RankOneSharpFloor.lean}{534}{rankOneSubrankQuotient_eq_one_five_iff}{unique minimizer},
+\lword{Erdos249/RankOneSharpFloor.lean}{624}{rankOneSubrankQuotient_sub_theta_two_gt_twentyOne_div_threeTwenty}{uniform $21/320$ floor},
+\lword{Erdos249/RankOneSharpFloor.lean}{634}{rankOneSubrankQuotient_sub_theta_two_gt_one_div_sixteen}{$1/16$ floor},
+\lword{Erdos249/RankOneSharpFloor.lean}{645}{not_forall_rankOneSubrankQuotient_sub_theta_two_gt_one_div_fifteen}{$1/15$ failure},
+\lword{Erdos249/RankOneSharpFloor.lean}{655}{positive_direct_sum_sub_theta_two_gt_twentyOne_div_threeTwenty}{positive direct sums},
+\lword{Erdos249/RankOneSharpFloor.lean}{693}{primitive_form_abs_gt_twentyOne_div_threeTwenty}{rational linear-form obstruction}.}
+
+\item\label{res:index} \stag{formalised here}
+\textbf{Canonical all-base index and unique coordinates.}  For every integer
+$k\ge2$ and level $e$, the two zero-residue channels are followed at level
+$j+1$ by the unique coordinates
+$r=kq+(d+1)$ with $q<k^j$ and $d<k-1$.  Equivalently, every integer
+$1\le r<k^{j+1}$ with $k\nmid r$ has one and only one such representation.
+The level block therefore has $k^{j+1}-k^j$ coordinates, and the complete
+finite index has exactly
+$2+\sum_{j<e}k^j(k-1)=k^e+1$ elements.  This is the concrete quotient and
+nonzero-last-digit mechanism behind the all-base rank statement: it counts
+the canonical candidates and proves the reduction coordinates, but it does
+not prove their linear independence.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientKernelIndex.lean}{124}{totientKernelSectionIndex_spec}{coordinate specification},
+\mword{Erdos249257/TotientKernelIndex.lean}{213}{existsUnique_totientKernelResidueAtLevel}{unique representation},
+\mword{Erdos249257/TotientKernelIndex.lean}{241}{card_totientKernelSectionLevel}{level count},
+\mword{Erdos249257/TotientKernelIndex.lean}{277}{card_totientKernelIndex}{full index count}.}
 
 \item\label{res:denominator} \stag{formalised here}
 \textbf{Denominator exclusion, sharp for its window.}  If $\Stot=a/q$ with
@@ -277,6 +384,18 @@ proved for the scaled-tail sequences supplied by rationality.
 \mword{Erdos249257/TotientCarryKernelRigidity.lean}{300}{not_irrational_totientSeries_implies_unbounded_carryRank_unconditional}{the barrier},
 \mword{Erdos249257/TotientCarryKernelRigidity.lean}{211}{finrank_canonicalCarryKernel_ge_of_linearIndependent}{rank transport from \ref{res:rank}}.}
 
+The orbit-level form sharpens this rank barrier without closing it: under the
+same non-irrationality hypothesis, the same carry also has uniformly eventual
+dyadic-section periodicity modulo $v$, as recorded by
+\mword{Erdos249257/TotientTailCarryPeriod.lean}{224}{not_irrational_totientSeries_implies_mod_period_and_unbounded_rank}{the modular-period/rank frontier}.
+This does not turn quotient periodicity into a finite-$\mathbb Q$-rank bound.
+Indeed, if $p\mid v$, the totient forcing disappears modulo $p$ and the carry
+is the homogeneous geometric orbit $u_N\equiv2^N u_0$ modulo $p$
+(\mword{Erdos249257/TotientTailCarryPeriod.lean}{126}{totient_forcing_vanishes_mod_of_dvd_multiplier}{forcing vanishing};
+\mword{Erdos249257/TotientTailCarryPeriod.lean}{140}{totient_carry_modEq_geometric_of_dvd_multiplier}{geometric reduction}).
+This is the natural obstruction to extracting the missing finite-rank upper
+bound, so the irrationality of $\Stot$ remains open.
+
 \item\label{res:weight} \stag{checked; no registry row}
 \textbf{The \#249 weight.}  $\Stot=\sum_{d\ge1}\Aw(d)/(2^d-1)$ with
 $\Aw=\ph*\mu$, the Dirichlet convolution
@@ -291,6 +410,206 @@ $n=1,\dots,10$ are $1,0,1,1,3,0,5,2,4,0$.
 \mword{Erdos249257/MersenneLambertLadder.lean}{321}{primWeight_not_bounded}{unboundedness}.
 \emph{Registry:} the Lambert-ladder row owns the neighbouring rungs, not these
 five declarations; see the formal source notes below.}
+
+\item\label{res:gcdmoment} \stag{proved here}
+\textbf{Squared Lambert layers expose a first gcd moment.}  The two exact
+identities
+\[
+  \sum_{d\ge1}\frac{1}{(2^d-1)^2}
+    =\sum_{n\ge1}(\sigma(n)-\tau(n))2^{-n},
+  \qquad
+  \sum_{d\ge1}\frac{\ph(d)}{(2^d-1)^2}
+    =\sum_{n\ge1}(\mathsf P(n)-n)2^{-n},
+\]
+where $\mathsf P(n)=\sum_{e\mid n}\ph(e)(n/e)$, are checked in the
+source.  For the independent fair-coin geometric waiting times used below,
+the second left-hand side is $\mathbb E[\gcd(X,Y)]$: the factor
+$(2^d-1)^{-2}$ is the mass of the event $d\mid X$ and $d\mid Y$, and
+$\sum_{d\mid g}\ph(d)=g$.  This exact first-moment identity does not imply
+irrationality of $\Stot$; no novelty claim is made for the
+divisor algebra.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/GcdMomentCalculus.lean}{216}{tsum_one_div_mersenne_sq_eq_sigma_sub_tau_series}{divisor-count layer},
+\mword{Erdos249257/GcdMomentCalculus.lean}{235}{tsum_totient_div_mersenne_sq_eq_gcd_moment_series}{first gcd moment}.}
+
+\item\label{res:squareenclosure} \stag{proved here}
+\textbf{A sharp squared-Mersenne diagonal enclosure.}  For the diagonal
+tail difference \(R_{2H}-R_H\), let
+\[
+ C_{H,D}=Z_H+2^H(2^H-1)\left(\frac12+
+   \sum_{1\le d\le D}\frac{\mu(d)}{(2^d-1)^2}\right),
+ \qquad Z_H=\Phi_H-\Phi_{2H}.
+\]
+The exact decomposition is
+\[
+ R_{2H}-R_H-C_{H,D}
+ =2^H(2^H-1)\sum_{d>D}\frac{\mu(d)}{(2^d-1)^2},
+\]
+and the signed remainder has the sharp elementary bound
+\[
+ \left|R_{2H}-R_H-C_{H,D}\right|
+ \le \frac{4\,2^H(2^H-1)}{3(2^{D+1}-1)^2}.
+\]
+Consequently, if this radius is smaller than the distance from \(C_{H,D}\)
+to every integer, the diagonal cannot be integral.  The centre is rational
+and its denominator is explicitly reduced by the gcd with \(2^H(2^H-1)\);
+the separation hypothesis is the remaining arithmetic input.  This finite
+criterion gives neither an unbounded separation family nor irrationality of
+\(\Stot\).
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/SquaredMersenneDiagonalEnclosure.lean}{138}{scaleDiagonalTailDifference_sub_lambertProjectedDiagonal}{exact centre decomposition},
+\mword{Erdos249257/SquaredMersenneDiagonalEnclosure.lean}{408}{abs_scaleDiagonalTailDifference_sub_lambertProjectedDiagonal_le}{sharp enclosure},
+\mword{Erdos249257/SquaredMersenneDiagonalEnclosure.lean}{426}{scaleFullTarget_miss_of_lambert_projected_separation}{separation criterion};
+\mword{Erdos249257/FullTargetPrimeAdjunctionNoGo.lean}{139}{scaleFullTargetHit_iff_integral}{target equivalence}.}
+
+\item\label{res:freshprimedeficit} \stag{proved here}
+\textbf{Fresh-prime support is an explicit endpoint deficit.}  For \(H>0\),
+put \(g_H(s)=\gcd(\operatorname{rad}(H),s)\) and
+\[
+ M_H(k,s)=\frac{kH+s}{g_H(s)}\ph(g_H(s)),
+ \qquad F_H(k,s)=M_H(k,s)-\ph(kH+s).
+\]
+The old-prime mass \(M_H(k,s)\) dominates the actual totient, so
+\(F_H(k,s)\ge0\).  If \(\Delta_H(s)=\ph(2H+s)-\ph(H+s)\), then
+\[
+ \Delta_H(s)=\Delta_H^{\rm old}(s)+F_H(1,s)-F_H(2,s),
+\]
+and the literal foreign channel is exactly the same lower-minus-upper
+deficit.  The second-difference and five-point curvature operators preserve
+this decomposition; the latter is bounded below by the old-prime branch
+minus
+\[
+ 8F_H(1,s)+4F_H(2,s+1)+2F_H(2,s+2)+F_H(2,s+3)+F_H(2,s+4).
+\]
+This isolates the hard issue: new prime support has a known sign, but no
+cofinal bound on its adverse placement is proved.  In particular, this is a
+finite curvature-loss budget, not an irrationality proof.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{91}{endpointFreshDeficit_nonneg}{endpoint nonnegativity},
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{184}{finiteForeignChannelIncrement_eq_endpointFreshDeficit_sub}{foreign-channel identity},
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{269}{oldFivePoint_sub_secondBranchAdverseDeficit_le_actual}{five-point loss bound}.}
+
+\item\label{res:squarecrt} \stag{proved here}
+\textbf{Finite square-CRT correction suppression.}  Let \(E\) be a finite
+family of distinct primes \(p_i\), with anchors \(A_i\), and let \(J<p_i\) for
+every \(i\in E\).  A common square-CRT base \(n\) can be chosen with
+\[
+ n<\left(\prod_{i\in E}p_i^2\right)(\sup_{i\in E}A_i+2),
+ \qquad n=A_i+p_i^2t_i
+\]
+for suitable \(t_i\).  Therefore every \(1\le h\le J\) obeys
+\[
+ \ph(n+p_i h-A_i)=(p_i-1)\ph(p_i t_i+h).
+\]
+The congruence removes the \(p_i\)-divisibility correction on the whole
+finite horizon, simultaneously across the family.  Checked regression
+witnesses show why this is not already a separation theorem: one clean block
+has both displayed coefficients zero (at base \(52\)), while another clean
+block has a displayed coefficient \(-4\) (at base \(27\)).  Thus the CRT
+mechanism controls a finite local error term but supplies neither a cofinal
+gap nor an irrationality criterion.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/SquareCRTCube.lean}{297}{exists_squareCRT_clean_totient_family}{simultaneous finite family},
+\mword{Erdos249257/SquareCRTCube.lean}{327}{exists_squareCRT_clean_horizon}{finite horizon},
+\mword{Erdos249257/SquareCRTCube.lean}{459}{squareCRT_clean_block_can_vanish}{vanishing block},
+\mword{Erdos249257/SquareCRTCube.lean}{477}{squareCRT_clean_block_can_be_nonzero}{nonzero block}.}
+
+\item\label{res:slackcriterion} \stag{conditional reduction}
+\textbf{Canonical strict-jump slack reduction.}  Put
+\[
+ \begin{aligned}
+ m_t&=\operatorname{canonicalAdjacentSuffixDepth}(t),\\
+ d_t&=\operatorname{diagonalAdjacentSuffixResidue}(t,0,m_t),
+ \end{aligned}
+\]
+and define the integer slack
+\[
+ \lambda_t=\min\!\left(d_t-2^{m_t-5},
+       (2^{m_t}-2^{m_t-5})-d_t\right).
+\]
+The two-sided central-band test at $t$ is equivalent to
+$\lambda_t\ge0$.  Moreover, the existence, beyond every threshold, of a
+strict LCM jump $H_t<H_{t+1}$ with $\lambda_t\ge0$ is equivalent to the
+corresponding central-band condition; either cofinal condition implies that
+$\Stot$ is irrational.  This exposes one integer observable for exact
+computation and recurrence arguments, but the cofinal sign assertion itself
+remains open.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2667}{canonicalAdjacentSuffixCentral_iff_slack_nonneg}{centrality equivalence},
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2757}{canonicalAdjacentSuffixJumpCentralSupply_iff_slackSupply}{equivalence of the two conditions},
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2932}{irrational_totientSeries_of_canonicalAdjacentSuffixJumpSlackSupply}{conditional irrationality theorem}.}
+
+\item\label{res:foreignresidue} \stag{conditional reduction}
+\textbf{Finite foreign-residue projection.}  For $H,D\in\N$, split the
+finite Möbius-residue diagonal into the channels whose indices divide $H$ and
+those that do not.  The checked identity is
+\[
+ \begin{aligned}
+ \operatorname{finiteResidueDiagonal}(H,D)
+   &=\operatorname{projectedForeignDefect}(H,D)\\
+   &\quad+\operatorname{projectedDivisorChannels}(H,D).
+ \end{aligned}
+\]
+When $H\le D$, the divisor term is exactly the explicit radical Möbius
+shadow.  If $2H\le D$, every finite omitted window is bounded by
+\[
+ B_{H,D}=\operatorname{diagonalCoefficient}(H)\left(
+       \frac{2}{2^D}+\frac{4}{3\,4^D}\right).
+\]
+Thus a controlled comparison of the limiting foreign defect with $B_{H,D}$,
+together with separation of the projected state from every integer, forces a
+full-target miss.  The analytic comparison and an unbounded supply of
+separated projections remain unproved; this is a conditional reduction, not
+an irrationality theorem.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{276}{abs_foreignTailWindow_le_foreignComplementBound}{finite complement bound},
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{308}{finiteResidueDiagonal_eq_projectedForeign_add_divisor}{exact channel split},
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{414}{scaleFullTarget_miss_of_projected_separation}{conditional target-miss theorem}.}
+
+\item\label{res:actualorbit} \stag{exact reformulation}
+\textbf{Actual LCM orbit frontier.}  Let
+$H_a=\lcm(1,\ldots,2^a)$ and
+$R_a=\operatorname{totientTail}(2H_a)-\operatorname{totientTail}(H_a)$.
+Then $\Stot$ is irrational if and only if, beyond every threshold $a_0$,
+some $a\ge a_0$ has $R_a\notin\Z$.  This is an exact cofinal
+nonintegrality criterion for the actual LCM diagonal, not a quantitative
+separation estimate and not a proof that such indices occur.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{37}{irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply}{exact frontier},
+\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{53}{irrational_totientSeries_of_actualLcmOrbitNonintegralitySupply}{forward implication}.}
+
+\item\label{res:actualsign} \stag{unconditional progress}
+\textbf{Positive LCM corridor and top-edge boundary.}  For $a\ge8$ and
+$J+(a+6)<2\cdot2^a$, the true translated orbit difference
+$\operatorname{totientTail}(2H_a+J)-\operatorname{totientTail}(H_a+J)$ is
+strictly positive.  If it is represented by an integer and the dyadic
+modulus has room for the directed endpoint strip, the carry survivor is
+strictly negative and the discrepancy residue is exactly the top-edge
+representative $2^K-\text{carry}_K$, lying strictly between the strip's lower
+edge and $2^K$.  Thus the positive corridor eliminates the nonnegative true
+survivor but does not itself produce a central-band contradiction; an
+independent arithmetic exclusion of the top boundary is still required.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/TotientActualLcmOrbitSign.lean}{39}{actualLcmTailDiff_shift_pos}{positive corridor},
+\mword{Erdos249257/TotientActualLcmOrbitSign.lean}{172}{actualLcm_trueEndpointSurvivor_neg}{negative survivor},
+\mword{Erdos249257/TotientActualLcmOrbitSign.lean}{211}{actualLcm_integral_forces_topEdgeResidue}{top-edge residue}.}
+
+\item\label{res:factorideal} \stag{unconditional progress}
+\textbf{LCM factor-ideal shift-algebra no-go.}  For every $t\ge3$, with
+$H=\lcm(1,\ldots,t)$, there is a nonzero synthetic dyadic coboundary whose
+forcing letters reproduce the actual totient differences at $t-2$ prescribed
+indices and lie in the ideal generated by $\ph(H)$.  Every finite integer
+shift polynomial preserves the exact coboundary cancellation, the $H$-factor
+ideal and all lower factor ideals, together with uniform state and letter
+bounds.  A sparse-anchor variant also preserves every prescribed whole-ray
+anchor.  Hence factor ideals, finite shift-algebra closure and these bounds
+cannot by themselves force a contradiction.  The witness is synthetic: its
+letters are not claimed to be actual totient differences, nonlinear
+combinations are outside the theorem, and no cofinal family of certificates
+follows.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{798}{lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient}{finite shift-algebra no-go},
+\mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{866}{lcm_factorIdeal_sparseAnchor_not_sufficient}{sparse-anchor no-go}.}
 
 \item\label{res:periodic} \stag{unconditional progress}
 \textbf{Eventually periodic weights are settled.}  For every integer base
@@ -335,7 +654,7 @@ $N$; and the same at the scales $N=h=\lcm(1,\dots,t)$, for arbitrarily large
 $t$.  A fourth equivalence,
 independent of the certificate language, is a counted anti-concentration
 condition on window phases.  These characterisations identify the unbounded
-input exactly; they retain the full difficulty of \#249 and do not supply that
+input exactly; they retain the full difficulty of \#249 and do not prove that
 input.
 {\footnotesize\emph{Checked:}
 \mword{Erdos249257/LcmConeFlatness.lean}{399}{irrational_totient_series_iff_pointwise_certificates}{pointwise},
@@ -352,7 +671,7 @@ the one of \ref{res:equivalences}: the band scales with $q$, and the family is
 indexed by denominators rather than by shifts.  The converse is not proved and
 is not claimed.
 {\footnotesize\emph{Checked:}
-\mword{Erdos249257/CertificateKernel.lean}{16025}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the supply implication}.
+\mword{Erdos249257/CertificateKernel.lean}{16025}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the conditional implication}.
 \emph{Registry:} no row currently owns this declaration.}
 
 \item\label{res:open} \stag{open}
@@ -384,6 +703,7 @@ constant, the weight $g=f*\mu$, and its status.
   >{\raggedright\arraybackslash}p{0.21\linewidth}
   >{\raggedright\arraybackslash}p{0.43\linewidth}@{}}
 \toprule
+\papertablehead
 $f$ & $\sum f(n)/2^n$ & weight $g=f*\mu$ & status \\
 \midrule
 $\tau$ & $1.6066951\ldots=\EB$ & $g\equiv1$ & The Erd\H{o}s--Borwein constant;
@@ -404,7 +724,7 @@ $\ph$ & $1.3676308\ldots=\Stot$ & $g=\Aw=\ph*\mu$ &
 
 \noindent The first three weights are bounded, taking only the values $0$
 and~$1$ (for $\tau$ the weight is the constant $1$).  The fourth is unbounded,
-by \ref{res:weight}.  That difference is the one that matters for the route in
+by \ref{res:weight}.  That difference is the one used in
 \ref{res:periodic}, and we do not claim it is the only difference: $\Aw$ also
 vanishes on $n\equiv2\pmod4$, while $\mathbf 1_{\text{primes}}$ is bounded but
 no more eventually periodic than $\Aw$ is, so the settled $\omega$ row is not
@@ -489,6 +809,28 @@ It is therefore the expectation of the conditional primitive-pair factor
 $1-2^{-(a+b)}$ under the self-similar reduced-slope probability law.  What is
 missing is not structure; it is an arithmetic consequence of the structure.
 
+The squared layer gives a different, genuinely moment-level view of the same
+fair-coin model.  Since
+\[
+  \Pr[d\mid X\text{ and }d\mid Y]=\frac{1}{(2^d-1)^2},
+\]
+the checked identity
+\[
+  \sum_{d\ge1}\frac{\ph(d)}{(2^d-1)^2}
+    =\sum_{n\ge1}(\mathsf P(n)-n)2^{-n},
+  \qquad \mathsf P(n)=\sum_{e\mid n}\ph(e)(n/e),
+\]
+is exactly the divisor expansion of $\mathbb E[\gcd(X,Y)]$.  The companion
+constant-weight identity replaces $\ph$ by $1$ and yields
+$\sum_{n\ge1}(\sigma(n)-\tau(n))2^{-n}$, the corresponding divisor-count
+layer.  These statements are useful because they turn the squared Lambert
+denominators into observables of the same random gcd, but they do not convert
+the first moment into an irrationality certificate for $\Stot$; the missing
+arithmetic consequence remains the open endpoint.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/GcdMomentCalculus.lean}{216}{tsum_one_div_mersenne_sq_eq_sigma_sub_tau_series}{divisor-count layer},
+\mword{Erdos249257/GcdMomentCalculus.lean}{235}{tsum_totient_div_mersenne_sq_eq_gcd_moment_series}{first gcd moment}.}
+
 \section{Proof of the dyadic-section basis theorem}\label{sec:rank}
 
 \subsection{Prior work}
@@ -506,7 +848,7 @@ $\ph$ is not $k$-regular for any $k\ge2$ (\cite{coons}, Theorem~3.2,
 pp.~348--349, in the published version; Theorem~3.3, pp.~8--9, in the
 preprint, which numbers its results on a single running counter).  Bell and
 Smertnig reach a further negative
-conclusion, and by a different route rather than by strengthening that one:
+conclusion, by a different argument rather than by strengthening that one:
 their Theorem~1.3 shows that a $k$-Mahler series with multiplicative
 coefficients has a $k$-regular coefficient sequence in an explicit closed form,
 and that the totient generating series is not $k$-Mahler for any $k\ge2$
@@ -523,6 +865,7 @@ Theorem~1 that for every constant $C>0$ the simultaneous ratio gaps
 \]
 hold on a set of positive lower density; he also notes that the hypotheses are
 symmetric in the forms, so every one of the $m!$ orderings occurs on such a set.
+
 Taking $C>\bigl(\sum_{i\neq t}|c_i|\bigr)/|c_t|$ after moving a channel with
 $c_t\neq0$ to the front shows at once that
 \[
@@ -531,7 +874,9 @@ $c_t\neq0$ to the front shows at once that
 is linearly independent over $\R$, hence over $\Q$.  His Corollary~4 carries
 Theorem~1 and its corollaries to $\sigma$.  Every affine-totient independence
 statement used below is therefore a consequence of Martin's theorem, and no
-originality is claimed for it.  Martin does not state the exact finite-level
+originality is claimed for it.
+
+Martin does not state the exact finite-level
 rank, the explicit basis, or the complete relation normal form; the present
 section derives them by combining his theorem with the reductions below.
 Coons and Bell--Smertnig likewise do not state those finite-level conclusions.
@@ -554,7 +899,7 @@ being finitely generated, cannot occur here: an integer-valued sequence bounds
 its own denominators through its values at small indices.)
 
 Hence \emph{infinite-dimensionality of the full totient kernel is not an
-independent contribution of this release}: it is equivalent to Coons's
+independent contribution of this note}: it is equivalent to Coons's
 non-$k$-regularity and follows from it.  Only the finite-level statements are
 additional.  Knowing that a span is not finitely generated says nothing
 about its dimension at a given truncation, nor about which relations hold
@@ -564,8 +909,8 @@ a basis, and that the two elementary reductions generate every relation.  We
 found no prior source giving any of those three for $\ph$; that is the outcome
 of a search, not a proof of non-existence, and no priority is claimed.
 
-The evaluation-matrix argument of the next subsection is an independent and
-more constructive route to the same independence, which is why it is retained.
+The next subsection gives an independent, constructive proof of the same
+linear independence.
 
 \subsection{Parity-separated evaluation matrices}
 
@@ -582,6 +927,7 @@ entry is odd and every off-diagonal entry is even; call such an $M$ a
 identity modulo $2$; its determinant is odd, hence nonzero, and the sections are
 independent
 (\mword{Erdos249257/TotientMahlerDefect.lean}{823}{paritySeparatedMatrix_det_ne_zero}{checked}).
+
 Producing evaluation points with exactly that parity pattern is what the
 arithmetic input is for, and it is the harder half.  The Chinese remainder
 theorem together with Dirichlet's theorem on primes in arithmetic progressions
@@ -605,10 +951,9 @@ consequence as infinite-dimensionality understated it.  The sharp form is a
 basis.
 
 \begin{remark}
-\ref{res:basis} and \ref{res:rank} are statements about $\ph$, not about
-$\Stot$; they are true, and their proofs are complete, whether or not $\Stot$
-is irrational.  Their connection to \#249 is not thematic but a single proved
-transport, and it is \ref{res:carryrank}.
+\ref{res:basis} and \ref{res:rank} concern $\ph$.  Their complete proofs are
+independent of the arithmetic status of $\Stot$.  The single proved transport
+to \#249 is \ref{res:carryrank}.
 \end{remark}
 
 \section{Carry-rank consequences of rationality}\label{sec:carry-rank}
@@ -646,7 +991,7 @@ and the transport to the series is a tail estimate
 
 Two things should be read off correctly.  First, the scale.  A window of $K$
 computed binary digits yields a mediant bound of order $2^{K/2}$: the same
-pipeline gives $2.49\times10^{17}$ at $K=120$
+calculation gives $2.49\times10^{17}$ at $K=120$
 (\mword{Erdos249257/GapFareyBound.lean}{88}{gap_check_window_1_120_le_248672326362367909}{checked})
 and $7.96\times10^{34}$ at $K=240$.  The constant is a function of how many
 digits were committed, not a measure of how much the problem has moved.
@@ -663,6 +1008,207 @@ $a/d$ with $d\le39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526$
 that number being $(q_0-1)/2$ for the constant $q_0$ of
 \ref{res:denominator}.
 
+\section{Fresh-prime losses in the diagonal probes}\label{sec:fresh-prime}
+
+The finite diagonal and curvature probes have a useful decomposition that
+keeps the effect of new prime support visible.  Fix \(H>0\) and an offset
+\(s\in\N\), and write
+\[
+ g_H(s)=\gcd(\operatorname{rad}(H),s),
+ \qquad
+ M_H(k,s)=\frac{kH+s}{g_H(s)}\ph(g_H(s)).
+\]
+Here \(\operatorname{rad}(H)\) is the squarefree kernel of \(H\).  Since
+\(g_H(s)\) divides both \(H\) and \(s\), it divides \(kH+s\).  The quantity
+\(M_H(k,s)\) is the endpoint mass predicted by retaining only the prime
+support already present in \(H\).  Adding the remaining prime support can only
+lower the totient density, so the integer deficit
+\[
+ F_H(k,s)=M_H(k,s)-\ph(kH+s)
+\]
+is nonnegative.  This sign is the key input: the new primes are not an
+uncontrolled error, even though their placement between endpoints is not
+favourable by default.
+
+Let
+\[
+ \Delta_H(s)=\ph(2H+s)-\ph(H+s),
+ \qquad
+ \Delta_H^{\rm old}(s)=M_H(2,s)-M_H(1,s).
+\]
+The checked endpoint calculation gives the exact identity
+\[
+ \Delta_H(s)=\Delta_H^{\rm old}(s)+F_H(1,s)-F_H(2,s),
+\]
+and the literal foreign channel is precisely the lower-endpoint deficit minus
+the upper-endpoint deficit.  Thus the old-prime model is affine in the
+multiplier \(k\), while the actual diagonal departs from it only through a
+signed difference of two nonnegative quantities.
+
+For the offset second difference
+\(
+ \delta f(s)=f(s+1)-2f(s)+f(s+2)
+\)
+and the five-point branch
+\(Wf(s)=4\delta f(s)+\delta f(s+2)\), the same split remains exact.  Dropping
+the favourable terms using \(F_H(k,s)\ge0\) gives the concrete lower bound
+\[
+ W\Delta_H(s)\ge W\Delta_H^{\rm old}(s)-\mathcal A_H(s),
+\]
+where
+\[
+ \mathcal A_H(s)=8F_H(1,s)+4F_H(2,s+1)+2F_H(2,s+2)
+                  +F_H(2,s+3)+F_H(2,s+4).
+\]
+This is the hard mechanism behind the finite curvature margins: a future
+cofinal argument must control the adverse budget \(\mathcal A_H(s)\).  Control
+of the old-prime margin alone is insufficient.  The current formal result supplies no such cofinal
+bound, so this decomposition is a finite estimate, not an irrationality proof.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{91}{endpointFreshDeficit_nonneg}{endpoint nonnegativity},
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{171}{diagonalHeightIncrement_eq_old_add_endpointFreshDeficits}{diagonal split},
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{184}{finiteForeignChannelIncrement_eq_endpointFreshDeficit_sub}{foreign-channel identity},
+\mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{269}{oldFivePoint_sub_secondBranchAdverseDeficit_le_actual}{five-point loss bound}.}
+
+\paragraph{Finite square-CRT correction suppression.}
+Let \(E\) be a finite family of distinct primes \(p_i\), with anchors \(A_i\),
+and let \(J<p_i\) for every \(i\in E\).  The checked square-CRT construction
+produces a common base \(n\), with
+\[
+ n<\left(\prod_{i\in E}p_i^2\right)(\sup_{i\in E}A_i+2),
+ \qquad n=A_i+p_i^2t_i
+\]
+for suitable \(t_i\) at each index.  Therefore every \(1\le h\le J\) obeys
+\[
+ \ph(n+p_i h-A_i)=(p_i-1)\ph(p_i t_i+h).
+\]
+The congruence has removed the \(p_i\)-divisibility correction on the whole
+finite horizon, simultaneously across the family.  The formal regression
+witnesses show why this is not already a separation theorem: one clean block
+has both displayed coefficients zero (at base \(52\)), while another clean
+block has a displayed coefficient \(-4\) (at base \(27\)).  Thus the CRT
+mechanism controls a finite local error term but supplies neither a cofinal
+gap nor an irrationality criterion.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/SquareCRTCube.lean}{297}{exists_squareCRT_clean_totient_family}{simultaneous finite family},
+\mword{Erdos249257/SquareCRTCube.lean}{327}{exists_squareCRT_clean_horizon}{finite horizon},
+\mword{Erdos249257/SquareCRTCube.lean}{459}{squareCRT_clean_block_can_vanish}{vanishing block},
+\mword{Erdos249257/SquareCRTCube.lean}{477}{squareCRT_clean_block_can_be_nonzero}{nonzero block}.}
+
+\paragraph{Canonical strict-jump slack.}
+At $t$, let $m_t$ be the checked canonical suffix depth and let
+$d_t$ be its residue at offset $0$.  The scalar
+\[
+ \lambda_t=\min\!\left(d_t-2^{m_t-5},
+       (2^{m_t}-2^{m_t-5})-d_t\right)
+\]
+is the signed distance from that residue to the nearer edge of the central
+band.  The two central inequalities therefore collapse exactly to
+$\lambda_t\ge0$.  The formal equivalence says that asking for this
+sign at arbitrarily large strict LCM jumps is neither weaker nor stronger
+than asking for the original two-sided central band there.  The same source
+then deduces irrationality of $\Stot$ from the scalar condition.  The hard
+step has only moved: no cofinal nonnegative-slack supply is proved, so this
+section records a one-integer target for future arithmetic or computational
+work, not a closure of Problem~\#249.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2667}{canonicalAdjacentSuffixCentral_iff_slack_nonneg}{centrality equivalence},
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2757}{canonicalAdjacentSuffixJumpCentralSupply_iff_slackSupply}{equivalence of the two conditions},
+\mword{Erdos249257/DiagonalFreshLossBridge.lean}{2932}{irrational_totientSeries_of_canonicalAdjacentSuffixJumpSlackSupply}{conditional irrationality theorem}.}
+
+\paragraph{Finite foreign-residue projection.}
+For a diagonal height $H$ and cutoff $D$, retain separately the residue
+channels with $d\nmid H$ and those with $d\mid H$.  The formal finite state
+splits exactly as
+\[
+ \begin{aligned}
+ \operatorname{finiteResidueDiagonal}(H,D)
+   &=\operatorname{projectedForeignDefect}(H,D)\\
+   &\quad+\operatorname{projectedDivisorChannels}(H,D).
+ \end{aligned}
+\]
+Once $H\le D$, the second summand is the explicit divisor shadow.  In the
+stable range $2H\le D$, the omitted foreign window has the closed bound
+\[
+ \left|\operatorname{foreignTailWindow}(H,D,L)\right|
+ \le \operatorname{diagonalCoefficient}(H)\left(
+       \frac{2}{2^D}+\frac{4}{3\,4^D}\right).
+\]
+The criterion is now transparent: if the limiting foreign defect is
+controlled by this budget, and the finite projected state is farther from
+every integer than the budget, the full target cannot be hit.  The first
+comparison and a cofinal supply of separated projections are the remaining
+analytic and arithmetic obligations.  No unbounded family is proved here.
+{\footnotesize\emph{Checked:}
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{276}{abs_foreignTailWindow_le_foreignComplementBound}{finite complement bound},
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{308}{finiteResidueDiagonal_eq_projectedForeign_add_divisor}{exact channel split},
+\mword{Erdos249257/ActualForeignResidueProjection.lean}{414}{scaleFullTarget_miss_of_projected_separation}{conditional target-miss theorem}.}
+
+\paragraph{The actual LCM orbit: exact frontier and sign trap.}
+For the actual diagonal, set $H_a=\lcm(1,\ldots,2^a)$ and
+$R_a=\operatorname{totientTail}(2H_a)-\operatorname{totientTail}(H_a)$.
+The formal criterion
+\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{37}{irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply}{is exact}
+says that irrationality is equivalent to finding $R_a\notin\Z$ cofinally in
+$a$.  This is the sharp endpoint reformulation: it does not ask the orbit to
+stay a fixed distance from the integers, but it also supplies no such $a$.
+
+There is nonetheless an unconditional geometric constraint on any attempted
+certificate.  For $a\ge8$ and
+$J+(a+6)<2\cdot2^a$, the first lookahead letter in the short LCM window is
+positive and large enough to dominate the directed infinite remainder; the
+whole translated difference is therefore positive.  The checked argument
+uses the arithmetic positivity of the LCM-ray letters and the directed tail
+bound, not an assumption about the sign of a finite residue.  In an integral
+orbit this positivity is transported by the carry recurrence: the true
+survivor is negative, and, once the dyadic modulus exceeds the endpoint strip,
+the window residue is forced to the top edge rather than the central arc
+\mword{Erdos249257/TotientActualLcmOrbitSign.lean}{211}{actualLcm_integral_forces_topEdgeResidue}{by the exact top-edge theorem}.
+The sign corridor therefore removes one branch but exposes the remaining
+arithmetic task.  A proof must exclude this persistent top boundary (or find
+cofinal non-integrality); a sign-only modular kill is not available.
+
+\paragraph{A quantitative separation criterion.}
+The adjacent arithmetic theorem makes the finite evidence at the actual
+LCM heights explicit rather than treating it as a numerical table:
+\mword{Erdos249257/TotientActualLcmShortKill.lean}{18}{lcmDiagonalArithmeticKill_two_pow_four}{the \(t=2^4\), length-\(23\) kill}
+and
+\mword{Erdos249257/TotientActualLcmShortKill.lean}{27}{lcmDiagonalArithmeticKill_two_pow_six}{the \(t=2^6\), length-\(93\) kill}
+give
+\mword{Erdos249257/TotientActualLcmShortKill.lean}{35}{actualLcmTailOrbit_four_and_six_notMem_int}{actual-orbit non-integrality at both heights}.
+The same file records the latter witness as a short arithmetic result
+through exponent six
+\mword{Erdos249257/TotientActualLcmShortKill.lean}{54}{powerTwoActualLcmShortArithmeticKillSupply_through_six}{but explicitly stops at that finite prefix}; it does not supply the missing cofinal quantifier.
+
+A stronger unbounded approach asks for a quantitative anti-concentration
+bound.  A sign alone gives too little information.  At odd rank \(2q+1\), the exact raw
+LCM block approximates the actual orbit with the elementary error bound
+\mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{141}{abs_actualLcmTailOrbit_sub_rawApprox_lt}{recorded here};
+the raw block itself is an integer half-word divided by \(4^q\)
+\mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{179}{actualLcmRawApprox_eq_half_div_fourPow}{by the normalization identity}.
+Separation of that raw value from every integer by \(1/32\) forces the
+half-word band
+\mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{208}{halfWordBandAt_of_rawApprox_integerSeparation}{through the exact threshold lemma}.
+The formal cofinal hypothesis strengthens this to \(1/32\) plus the orbit
+error. This condition is
+\mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{254}{PowerTwoActualLcmOrbitSeparationSupply}{the cofinal separation hypothesis},
+and it yields irrationality by
+\mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{305}{irrational_totientSeries_of_actualLcmOrbitSeparationSupply}{the conditional endpoint theorem}.
+Thus the hard step is an actual cofinal anti-concentration estimate; finite
+separation, the sign corridor, and the exact endpoint reduction do not imply
+it.
+
+There is also a precise no-go for a tempting substitute.  In the positive
+short LCM window, a terminal dyadic staircase would force the complete
+discrepancy word to vanish modulo its terminal power of two, but the last
+positive arithmetic letter is strictly smaller than that modulus, so
+\mword{Erdos249257/TotientActualLcmTopEdgeStaircase.lean}{251}{not_actualLcmTerminalDyadicStaircase_of_room}{the staircase is impossible under the stated room hypothesis}.
+The companion
+\mword{Erdos249257/TotientActualLcmTopEdgeStaircase.lean}{297}{windowDiscrepancy_emod_two_pow_eq_terminal}{terminal-remainder identity}
+shows what survives: only the final letters control that residue.  This
+prunes total dyadic annihilation, not every top-edge pattern; the remaining
+endpoint problem is still to prove a nonzero cofinal residue gap.
+
 \section{Obstructions for fixed-coordinate methods}\label{sec:nogo}
 
 \ref{res:primindex} has a one-line proof.  Take a prime
@@ -671,18 +1217,24 @@ $D\cdot\Aw(p)/p\notin\Z$.
 
 Two further checked results delimit narrower abstract hypothesis classes.
 
-A fixed-precision transport result
+A fixed-precision transport theorem
 (\mword{Erdos249257/TropicalCurvatureCarry.lean}{137}{fixedPrecisionTropicalNoGo}{checked})
-says that at every fixed positive precision, each finite compatible
-valuation-unit word admits a prefix-locked centred completion.  Its statement
-quantifies over abstract pairs of a two-adic valuation and an odd unit; it
-mentions neither $\ph$ nor $\Stot$, its content is that a congruence class
-meets any interval of the corresponding length, and it is a restatement of a
-lemma printed immediately above it.  The class of arguments it closes ---
-deriving a contradiction from a local signature read at a precision fixed in
-advance, along a finite word --- is not one anybody has proposed for \#249.
+gives an unconditional reusable negative for a whole local escape strategy:
+at every fixed positive precision, every finite odd-unit valuation word admits
+a prefix-locked centred completion.  The hard step is one-step modular
+recentering: the compatible carry is chosen by reducing the shifted state into
+an interval-sized power-of-two window, with an unrestricted quotient.  Induction
+then centres every letter of the finite word, whatever the incoming carry.
+Consequently, no contradiction can be extracted from a finite local
+valuation-unit signature read at a precision fixed in advance; this retires
+that fixed-positive-precision local strategy for good.  The theorem is
+synthetic and finite-word only: its valuation/unit symbols and unrestricted
+high quotients do not encode the actual totient differences, so it mentions
+neither $\ph$ nor $\Stot$.  It does not provide a growing-precision or global
+correlation bridge, nonlinear arithmetic, or a genuinely fresh divisor channel,
+and it does not settle the \#249 endpoint or irrationality.
 
-A factor-ideal result
+The factor-ideal no-go of \ref{res:factorideal}
 (\mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{798}{lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient}{checked},
 with a sparse-anchor companion at
 \mword{Erdos249257/LcmFactorIdealPulseObstruction.lean}{866}{lcm_factorIdeal_sparseAnchor_not_sufficient}{checked})
@@ -699,7 +1251,7 @@ argument that additionally demanded non-vanishing after the shift is not
 excluded.  The theorem contains no whole-ray anchor condition, diagonal bound,
 or strict-survivor condition.
 
-\section{Further conditional criteria}\label{sec:programmes}
+\section{Conditional criteria}\label{sec:conditional-criteria}
 
 The criteria below do not enter the proofs of the unconditional results.
 Each states its unproved hypotheses explicitly.
@@ -709,11 +1261,54 @@ The hypothesis
 \lword{Erdos249/TotientStrictPrimeEscape.lean}{157}{DTWNaturalPrimeTailOrbitStrictGap}{asks}
 for cofinally many primes $p$ at which the first tail-orbit exponential has
 real part strictly below $9/10$.  Granting it,
-\lword{Erdos249/TotientStrictPrimeEscape.lean}{166}{naturalPivotPointEscape_of_naturalPrimeTailOrbitStrictGap}{a positive adaptive truncation budget}
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{485}{naturalPivotPointEscape_of_naturalPrimeTailOrbitStrictGap}{a positive adaptive truncation budget}
 follows, and then
-\lword{Erdos249/TotientStrictPrimeEscape.lean}{205}{irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{$\Stot$ is irrational}.
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{524}{irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{$\Stot$ is irrational}.
 The $9/10$ hypothesis is weaker than the earlier $4/5$ hypothesis, but no
 instance of this cofinal hypothesis is proved.
+
+The companion block branch is recorded in the same family: a nonpositive
+phase-density predicate
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{35}{TotientTailOrbitNonpositiveBlockDensity}{density hypothesis}
+implies the uniform block-gap predicate
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{25}{TotientTailOrbitBlockGap}{block-gap hypothesis}
+by the checked bridge
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{45}{tailOrbitBlockGap_of_nonpositiveBlockDensity}{density-to-gap implication}.
+Both questions reduce to one exact phase
+dynamics: if
+\(\zeta_{h,M}=\operatorname{tailOrbitFirstExp}(h,M)\), then
+\[
+  \zeta_{h,M+1}=\zeta_{h,M}^{\,2}
+\]
+because the integer increment in the tail-difference recurrence disappears
+after exponentiation
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{167}{tailOrbitFirstExp_succ}{exact squaring recurrence}.
+Iteration gives the closed form
+\[
+  \zeta_{h,M+k}=\zeta_{h,M}^{\,2^k},
+  \qquad \zeta_{h,N}=\zeta_{h,0}^{\,2^N},
+\]
+and the formal prime-gap predicate is exactly the same $9/10$ test on these
+initial-phase iterates along the shifted primes
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{191}{tailOrbitFirstExp_add}{iterate formula},
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{201}{tailOrbitFirstExp_eq_initial_pow_two}{initial-phase normal form},
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{278}{naturalPrimeTailOrbitStrictGap_iff_initial_phase}{initial-phase equivalence}.
+
+The same dynamics gives a sharp obstruction: if an iterate is a dyadic root of
+unity, repeated squaring reaches the absorbing phase $1$, so the cofinal strict
+gap is impossible
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{322}{not_naturalPrimeTailOrbitStrictGap_of_dyadic_root}{dyadic-root obstruction}.
+There is also a precise conditional bridge from phase information to the
+prime-index hypothesis: cofinally many nonpositive phases at shifted prime
+indices imply the strict prime-orbit gap
+\lword{Erdos249/TotientStrictPrimeEscape.lean}{465}{naturalPrimeTailOrbitStrictGap_of_cofinal_nonpositive_prime_shift}{prime-alignment implication}.
+The bridge does not supply those prime-aligned visits.
+These are classification and obstruction statements for one conditional
+family, not a classification of the actual initial phase.
+This identifies the missing input as phase-density or prime-index supply for
+that squaring orbit, not another finite certificate theorem.  The identity
+and its root obstruction supply neither anti-concentration, density, nor a
+cofinal prime gap, so no irrationality conclusion follows.
 Section~\ref{sec:frontier} states the sharper form
 in which this hypothesis is now available.
 
@@ -811,7 +1406,7 @@ These are the linked predicates
 \lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{95}{PrimeRayLayerSupply}{Layer},
 \lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{102}{BoundedDegreeOrderConsumer}{BoundedOrder},
 and
-\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{142}{FinitePrimeSupportEscape}{FinitePrimeEscape}.
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{151}{FinitePrimeSupportEscape}{FinitePrimeEscape}.
 The bounded-order condition does not assert an exact multiplicative order; it
 asserts only the displayed divisibility for some $k\le d$.
 
@@ -873,30 +1468,57 @@ and $(hq,p-1,L)$ is a finite tail-difference certificate.
 \end{equivform}
 
 \noindent This is
-\lword{Erdos249/CyclotomicAnchoredKill.lean}{3042}{CyclotomicAnchoredKillSupply}{CyclotomicAnchoredKillSupply}.
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3231}{CyclotomicAnchoredKillSupply}{CyclotomicAnchoredKillSupply}.
 For the binary layers, clean anchors satisfying every condition before the
 certificate are already supplied, and
-\lword{Erdos249/CyclotomicAnchoredKill.lean}{3138}{binaryCyclotomicAnchoredKillSupply_iff_irrational}{the checked equivalence}
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3327}{binaryCyclotomicAnchoredKillSupply_iff_irrational}{the checked equivalence}
 identifies formulation~\ref{prob:cyclotomic} with irrationality of $\Stot$.
 The unknown is phase escape of the totient discrepancy modulo $2^L$, not
 large prime divisors or multiplicative order.  The checked $p=331$ instances
 are finite models of this exact predicate; unbounded support alone does not
 imply it.
 
-\subsection{Stronger sufficient producer problems}
+The
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{1706}{exists_unbounded_binaryCyclotomicSupport_with_periodLock_of_not_irrational}{checked conditional support/period no-go}
+makes that limitation exact.  If $\Stot$ were rational, its eventual integral
+tail-period law would supply some $h>0$, while
+\lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{158}{UnboundedPrimeDivisorSupply}{unbounded prime divisors}
+would persist on the same $h$-ray for the actual binary cyclotomic layers, by
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{1693}{binaryCyclotomicLayer_unboundedPrimeDivisorSupply}{the checked binary-layer theorem}.
+Consequently, unbounded support cannot be the missing contradiction unless an
+additional carry- or phase-escape theorem relates that support to the period
+law.  This is a necessary-state theorem under hypothetical rationality: it
+neither constructs a rational example nor proves that the rationality
+hypothesis is consistent, and Erd\H{o}s \#249 remains open.
 
-\begin{problem}[full-depth period-multiple escape]\label{prob:fulldepth}
-For every $d\ge1$ and every $N\in\N$, is there a $t\ge1$ such that
-$(td,N,td)$ is a finite tail-difference certificate?
-\end{problem}
+\subsection{Exact full-depth reduction and a stronger sufficient condition}
 
-\noindent This is the depth-locked predicate
-\lword{Erdos249/PeriodMultipleEscape.lean}{162}{ApFullDepthEscape}{ApFullDepthEscape}.
-It is stronger than the exact period-multiple characterisation because the
-certificate depth is forced to equal the period.  A positive answer proves
-irrationality through
-\lword{Erdos249/PeriodMultipleEscape.lean}{171}{irrational_totient_series_of_apFullDepthEscape}{the checked consumer};
-a negative answer eliminates this route only.
+The earlier condition
+\lword{Erdos249/PeriodMultipleEscape.lean}{441}{ApFullDepthEscape}{ApFullDepthEscape}
+asks, for every $d\ge1$ and $N$, for a $t\ge1$ such that $(td,N,td)$ is a
+finite tail-difference certificate.  It was originally recorded only as a
+sufficient condition because the certificate depth is forced to equal its
+period.  The full-depth theorem removes that asymmetry completely.
+For fixed $d,N$, one certificate $(d,N,L)$ at any depth yields a threshold
+$T>0$ beyond which every adjacent pair of multipliers contains an $m$ with a
+full-depth certificate $(md,N,md)$
+(\lword{Erdos249/FullDepthRayAmplifier.lean}{364}{eventually_twoSyndetic_fullDepthKillMultipliers_of_seed}{checked}).
+Together with finite-certificate faithfulness, this gives the pointwise
+equivalence
+\[
+ \exists t>0:\ (td,N,td)\text{ is certified}
+ \quad\Longleftrightarrow\quad R_{N+d}-R_N\notin\Z
+\]
+(\lword{Erdos249/FullDepthRayAmplifier.lean}{388}{exists_fullDepthKill_on_ray_iff_shift_notMem_int}{checked}).
+Therefore $\operatorname{ApFullDepthEscape}$ is equivalent to irrationality
+(\lword{Erdos249/FullDepthRayAmplifier.lean}{406}{apFullDepthEscape_iff_irrational}{checked}).
+The cofinal full-depth supply is likewise equivalent to the arbitrary-depth
+period-multiple supply and hence to irrationality
+(\lword{Erdos249/FullDepthRayAmplifier.lean}{421}{cofinalFullDepthKillSupply_iff_periodMultipleKillSupply}{depth deletion};
+\lword{Erdos249/FullDepthRayAmplifier.lean}{438}{cofinalFullDepthKillSupply_iff_irrational}{endpoint equivalence}).
+What remains open is the initial nonintegrality: the theorem converts one
+non-integral shift, equivalently one seed, into a dense ray of full-depth
+certificates but does not furnish that seed.
 
 \begin{problem}[first-harmonic anti-concentration on supplier fibres]
 \label{prob:firstharmonic}
@@ -909,13 +1531,11 @@ $X_0$, there are $X,L$ with
 for which the four bounds below hold?
 \end{problem}
 
-\noindent This four-term problem is a producer-level decomposition beneath
-the direct fixed-full-block first-harmonic gap, not the external theorem
-interface itself.  The constitutional outward question is the full-block
-constant-saving estimate for the first additive character of the totient
-window discrepancy; the supplier-fibre split is one exact way to try to
-produce that estimate.  Failure of this decomposition would retire only this
-producer, not the full-block socket and not Erd\H{o}s Problem~\#249.
+\noindent This four-term decomposition is one way to prove a fixed-full-block
+first-harmonic gap.  The underlying question is whether the first additive
+character of the totient-window discrepancy has a constant saving.  Failure
+of this particular decomposition would not decide that question, still less
+Erd\H{o}s Problem~\#249.
 
 To make the question self-contained, put
 \[
@@ -940,6 +1560,7 @@ every other argument in the window.  At $X=16$, $L=20$, $s=1$, $m=2$, and
 $N=18$, the pivot is $38=2\cdot19$, while the same prime $19$ divides the
 distinct argument $N+1=19$
 (\mword{Erdos249257/FirstHarmonicPivot.lean}{394}{supplierPrime_not_globally_isolated_counterexample}{checked counterexample}).
+
 For a supplier write $z_N$ for its explicit totient pivot phase,
 $w_N=\omega_N/z_N$, and $\bar z_m$ for the mean of $z_N$ on the fibre with
 cofactor $m$.  Define
@@ -963,10 +1584,26 @@ Problem~\ref{prob:firstharmonic} asks precisely for
 The decomposition is
 \mword{Erdos249257/FirstHarmonicPivot.lean}{514}{windowFirstExp_sum_eq_pivot_decomposition}{checked},
 and the four budgets imply irrationality by
-\mword{Erdos249257/FirstHarmonicPivot.lean}{577}{irrational_totient_series_of_pivotResidualDecorrelation}{the checked consumer}.
+\mword{Erdos249257/FirstHarmonicPivot.lean}{577}{irrational_totient_series_of_pivotResidualDecorrelation}{the conditional irrationality theorem}.
+
+More precisely, these four inequalities are the source predicate
+\mword{Erdos249257/FirstHarmonicPivot.lean}{543}{PivotBudgetAt}{the budget condition},
+and its checked consequence
+\mword{Erdos249257/FirstHarmonicPivot.lean}{549}{first_harmonic_gap_of_pivotBudgetAt}{the first-harmonic gap}
+is the explicit estimate
+\[
+ \sum_{X\le N<2X}\cos\!\left(2\pi
+   \frac{D_{h,N,L}\bmod 2^L}{2^L}\right)\le\frac9{10}X.
+\]
+The hard missing step is therefore cofinal centred-correlation
+and error bounds, not the formal addition of the four terms.  In particular,
+the exact supplier-fibre bijection above does not provide global prime
+isolation; the $38=2\cdot19$ witness is the natural friction that the
+correlation estimate must overcome.  We claim neither the budget predicate nor
+the resulting gap without those cofinal bounds.
 An obstruction showing that available first- and second-moment information
 cannot force this modulo-$2^L$ small-ball estimate would also decisively close
-the present harmonic route.
+this harmonic argument.
 
 \subsection{Structural and Diophantine routes}
 
@@ -986,17 +1623,23 @@ A negative answer should ideally construct a control recurrence with the same
 integrality and decay architecture and near-maximal dyadic rank; infinite
 dimension of the totient $2$-kernel alone is not enough.
 
-For a separate denominator-compression route, define the M\"obius--Mersenne
+For a separate denominator-compression argument, define the M\"obius--Mersenne
 ladder
 \[
  \Theta_r=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^r},
  \qquad \Theta_2=\Stot-\frac12.
 \]
-The positive rank-one family has already been excluded at a quantitative
-scale: every admissible monomial quotient, and every positive finite average
-of them, exceeds $\Theta_2$ by more than $1/480$
-(\lword{Erdos249/RankOneSubrankObstruction.lean}{238}{rankOneSubrankQuotient_sub_theta_two_gt}{rank-one gap},
-\lword{Erdos249/RankOneSubrankObstruction.lean}{300}{positive_direct_sum_sub_theta_two_gt}{positive-sum gap}).
+Result~\ref{res:rankonefloor} excludes the positive rank-one family by an
+exact extremal calculation, not a coarse interval screen.  The unique minimum
+is $(e,Y)=(1,5)$, and every admissible quotient, hence every nonempty finite
+positive normalized average of them, satisfies
+\[
+ Q(e,Y)-\Theta_2>\frac{21}{320}>\frac1{16}.
+\]
+The stronger unit-fraction floor $1/15$ fails already at the minimizer.  Thus
+adding atoms or positive rank-one blocks cannot create a small linear form;
+any remaining argument must use signed cancellation, off-diagonal coupling, or
+genuinely higher rank.
 
 \begin{problem}[genuinely coupled denominator compression]\label{prob:hankel}
 Construct integers $P_n$ and $Q_n>0$ from a genuinely off-diagonal,
@@ -1094,15 +1737,15 @@ Unbounded prime support, exact multiplicative order, natural-boundary
 information, ordinary Hankel nonvanishing, and positive rank-one averaging do
 not supply the missing binary phase or denominator compression.  The finite
 Euler-factor and $2\times2$ mixed-difference identities of
-Section~\ref{sec:programmes} are tools rather than open endpoints; no
+Section~\ref{sec:conditional-criteria} are tools rather than open endpoints; no
 growing-level Diophantine conclusion is claimed for them here.
 \end{remark}
 
 A proof of formulation~\ref{prob:diagonal} gives irrationality of $\Stot$ by
 \ref{res:equivalences}.  Its negation settles \#249 in the opposite direction:
 it supplies a positive-shift integral tail difference, which forces
-rationality.  By contrast, failure of the sufficient producer bounds would
-rule out only their respective routes.
+rationality.  By contrast, failure of the sufficient bounds would rule out
+only those particular arguments.
 
 \paragraph{The independent denominator exclusion.}
 The constant $7.96\times10^{34}$ of \ref{res:denominator} is the classical
@@ -1127,9 +1770,9 @@ Section~\ref{sec:open}.
   reach irrationality by a one-way implication; the two families should not be
   counted together.
 \item Full-depth period-multiple escape and the four first-harmonic pivot
-  bounds are stronger sufficient producers; they, and the prime-orbit gap the
+  bounds are stronger sufficient conditions; they, and the prime-orbit gap the
   pivot bounds refine, are unproved.  Failure of either would refute only that
-  route.
+  argument.
 \item Carry-rank compression and genuinely coupled denominator compression
   are separate contradiction targets.  No required upper bound or coupled
   approximant family is proved.
@@ -1181,7 +1824,7 @@ the correlation asymptotic alone.
 
 \section*{Formal source notes}
 
-\paragraph{Registry coverage.}
+\paragraph{Claim status.}
 Two of the items above are checked propositions that no row of the claim
 registry currently owns: the three declarations of \ref{res:basis}, and the
 five of \ref{res:weight}; the supply implication of \ref{res:supply} is
@@ -1199,9 +1842,11 @@ establishes that a proposition was proved, not that it is interesting, novel,
 or sufficient.  The consequence drawn in the last sentence of \ref{res:basis},
 the deduction in \ref{res:periodic} that an unbounded weight is not eventually
 periodic, the mechanism sentence in Section~\ref{sec:nogo}, and the size
-argument in Section~\ref{sec:programmes} are one-line arguments in the prose,
+argument in Section~\ref{sec:conditional-criteria} are one-line arguments in the prose,
 marked as such; the first three are drawn from checked statements, and the
-last assumes the unproved bounded-order condition.  The small numerical
+last assumes the unproved bounded-order condition.
+
+The small numerical
 instances printed above --- the level-three reductions, the certificate at
 $(1,12,16)$, the first values of $\Aw$, the $p=3$ Euler-factor calculation,
 the mixed-difference table, and the values of $H_t$ --- are computations from
@@ -1210,6 +1855,7 @@ checked propositions.  Source theorems attributed to Allouche and Shallit,
 Martin, Coons, Bell and Smertnig, Kaneko--Suzuki--Tachiya, Luca--Tachiya, and
 Tao--Ter\"av\"ainen are cited from the literature.  This development does not
 formalise Martin's positive-density theorem or Coons's non-regularity theorem.
+
 It does kernel-check an independent dyadic basis/rank proof and a full-kernel
 infinite-dimensionality consequence that Coons already implies.  For every
 base it also kernel-checks the arithmetic reduction, unconditional canonical
@@ -1218,18 +1864,6 @@ linear-independence hypothesis; it does not prove that hypothesis.  The
 assessment that no prior source gives an explicit basis, an exact finite-level
 dimension formula, or a relation normal form for the totient $2$-kernel is the
 outcome of a literature search and is not a proof of non-existence.
-
-\emph{Scope of the AI declaration.} Every word of this manuscript was generated
-by agents based on large language models operating within Will Cook's private
-research system for artificial intelligence. The formal proofs and repository
-software were likewise drafted and revised by the agents through that system
-under Cook's direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published version.
-Cook assumes responsibility for the accuracy, interpretation, and presentation
-of the work. Generative systems are production tools, not authors, and supply
-no independent authority. Formal authority is the pinned kernel's acceptance
-of an exact proposition; no model output carries any, and neither does this
-sentence.
 
 Erd\H{o}s Problem~\#249 remains open.
 

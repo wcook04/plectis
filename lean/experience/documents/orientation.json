@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "abafa6e1a65fe333b443ac308c3ff5a9f2784b0c8313cb4d8019a9c01cced663",
+    "source_sha256": "20618d9c307bfa6117975351bc59ac0d1b889aa7ebd4178fff66f044a9d7a7ad",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,14 +25,24 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "6cc3e5fb9051d8e5d7baa19eb3003000c37f9a5a57d01c0b5cc21ad567a07e94",
-    "html_exact_tex_sha256": "77e64cd58764fc29b17250319779d17da8c60162479d2f4f5524ab32565444b5"
+    "html_mathml_sha256": "1de0519156e2ecb0b00817387ffd1f93e4c527172f54730a386e5c07b188dde3",
+    "html_exact_tex_sha256": "5343e36c045294de842439907fe2975f66c209436d34d942031a2b0bbe7665b1"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
       "label": "Release provenance"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Mathematical signal first"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Reader tiers and relational boundaries"
     },
     {
       "level": 2,
@@ -47,6 +57,11 @@
     {
       "level": 2,
       "anchor": null,
+      "label": "Mathematical programmes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
       "label": "Where the substance is"
     },
     {
@@ -57,7 +72,17 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Mathematical programmes"
+      "label": "Mathematical programme routes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Problem and family routes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Selection spine and long tail"
     },
     {
       "level": 2,

@@ -27,6 +27,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="../assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=911c79a053aa"></script>
 </head>
 <body>
@@ -42,6 +44,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/glossary.html">Glossary</a>
         <a href="../../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -71,57 +74,61 @@
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Comparator #1049 fixture</li></ol></nav>
       <header class="paper-head">
-        <p class="doc-role-eyebrow">Comparator case study</p>
+        <p class="doc-role-eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> case study</p>
         <h1>Comparator #1049 fixture</h1>
-        <p class="doc-source-line">Rendered from <code>docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md</code> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
 <article class="lean-document" data-document-id="comparator-1049" data-document-role="comparator_case_study" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md">
 <section class="level1 lean-doc-titled">
-<h2>Erdős #1049: one numerical certificate, exactly scoped</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #1049: one numerical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, exactly scoped</h2>
 <section id="the-question" class="level2">
 <h2>The question</h2>
-<p>For which rational bases is the relevant Lambert-type series
-irrational? The base <code>3/2</code> is the main unresolved target in
+<p>For which <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">rational bases</a> is the relevant <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert-type series</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? The base <code>3/2</code> is the main unresolved <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> in
 this programme.</p>
 </section>
 <section id="what-is-checked-here" class="level2">
-<h2>What is checked here</h2>
-<p>Lean proves the concrete inequality</p>
+<h2>What is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> here</h2>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves the concrete <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a></p>
 <pre class="text"><code>log(2) / log(7) &lt; 1/2 - 1/pi^2.</code></pre>
-<p>Comparator then checks a tiny proof transport from the public source
-theorem to a separately declared Mathlib-only statement. A deliberately
-weakened nearby statement must be rejected.</p>
-<p>This is useful because the inequality is the numerical input used at
-the base <code>7/2</code> in an external theorem of Bundschuh and
-Väänänen. It cleanly separates a kernel-checked arithmetic certificate
-from the literature theorem that consumes it.</p>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> is configured to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> a tiny <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> transport from the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> to a separately <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declare" data-term="declare" data-term-auto="1">declared</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>-only <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>,
+with a deliberately weakened nearby <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> as the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">fixture</a>.
+The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>-in configuration and workflow are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-gate" data-term="gate" data-term-auto="1">release gates</a>, not
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
+<p>This is useful because the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is the numerical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> used at
+the base <code>7/2</code> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> of <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/bundschuh-vaanenen-1994-source-closure.md">Bundschuh
+and Väänänen</a>. It <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clean" data-term="clean" data-term-auto="1">cleanly</a> separates a kernel-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> from the literature <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> that consumes it.</p>
 </section>
 <section id="what-is-not-checked-here" class="level2">
-<h2>What is not checked here</h2>
-<p>Lean does not formalise the full Bundschuh-Väänänen theorem, all of
-its hypotheses, or its irrationality conclusion. This packet does not
+<h2>What is not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> here</h2>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not formalise the full Bundschuh-Väänänen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, all of
+its hypotheses, or its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> conclusion. This <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> does not
 advance the open base <code>3/2</code> case.</p>
 </section>
 <section id="who-did-what" class="level2">
 <h2>Who did what</h2>
-<p>AI agents helped draft the Lean proof, the statement firewall, and
-this exposition. Will Cook directed and reviewed the public release and
-remains responsible for its claims. The Lean kernel checks the source
-proposition. Comparator checks the transport to the separately declared
-statement. The Bundschuh-Väänänen theorem remains a cited external
-result.</p>
+<p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">AI agents</a> helped draft the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> firewall, and
+this exposition. Will Cook directed and reviewed the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a> and
+remains responsible for its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> is configured to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the transport to the
+separately <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declare" data-term="declare" data-term-auto="1">declared</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifact</a>
+is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> before claiming that a particular generation passed. The
+Bundschuh-Väänänen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> remains a cited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>.</p>
 </section>
 <section id="proof-handle" class="level2">
-<h2>Proof handle</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> handle</h2>
 <ul>
 <li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean" data-link-kind="exogenous" rel="external noopener">Public
-Lean source</a>: theorem
+Lean source</a>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
 <code>sevenHalves_bundschuhVaananen_margin</code></li>
-<li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification1049/Challenge.lean" data-link-kind="exogenous" rel="external noopener">Independent
-challenge statement</a>: theorem
+<li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification1049/Challenge.lean" data-link-kind="exogenous" rel="external noopener">Separately
+declared challenge statement</a>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
 <code>comparator_sevenHalves_numericalHeight</code></li>
 <li><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification1049/Solution.lean" data-link-kind="exogenous" rel="external noopener">Source
 transport</a></li>
@@ -132,9 +139,10 @@ mismatch</a></li>
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/verification/comparator-1049-numerical-height.metadata.json">Machine-readable
 scope</a></li>
 </ul>
-<p>The correct badge is: <strong>Comparator-checked numerical
-certificate</strong>. It is not an independently verified irrationality
-theorem.</p>
+<p>Until a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifact</a> is attached, the
+precise badge is: <strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>-configured numerical
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a></strong>. It is not an independently verified <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 </section>
 </section>
   </div>

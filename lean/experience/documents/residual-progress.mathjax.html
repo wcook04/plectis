@@ -48,9 +48,9 @@ equivalent to irrationality for #68, a complete measure classification
 of the Mersenne achievement set for #257, the exact rank
 <code>2^e + 1</code> and an explicit odd-core basis of the dyadic
 totient kernel for #249, a first integral of the complex Newton flow for
-#1041, exact prefix-LCM dynamics for #269, and proved no-go theorems
-that close named strategies rather than gesture at difficulty. <a
-href="results.mathjax.html">RESULTS</a> states each result and the exact point
+#1041, exact three-prime prefix-LCM dynamics for #269, and proved no-go
+theorems that close named strategies rather than gesture at difficulty.
+<a href="results.mathjax.html">RESULTS</a> states each result and the exact point
 where it stops.</p>
 <p>Holding that line requires deciding, repeatedly, which of a
 programme’s many reformulations are progress. The instrument described
@@ -79,6 +79,16 @@ the problem restated.</p>
 proved mutual-implication class, and the reverse direction rests on a
 corpus completeness theorem. Fourteen apparent reductions of an open
 problem were, under the kernel, the open problem.</p>
+<p>The exact boundary is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/DemandLedger/edges/Discharge3_G103.lean#L58"><code>G103_iff_erdos249</code></a>,
+whose reverse direction uses <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/LcmConeFlatness.lean#L399"><code>irrational_totient_series_iff_pointwise_certificates</code></a>.
+Those theorems identify an endpoint-equivalent supply normal form; they
+do not prove Erdős #249. The public problem route
+(<code>python3 scripts/query_corpus.py --route erdos_249</code>) remains
+the source for the open status and continuation obligation, while the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/semantic/frontier.json"><code>semantic frontier</code></a> is the
+route for the fourteen-member equivalence class.</p>
 <p><code>Basic.lean</code> names those 101 demands and nothing more; the
 relations between them were proved once, by hand, for this corpus. The
 evaluator below is that audit turned into an instrument: the same
@@ -266,10 +276,10 @@ vetoed</td>
 <p>Three vetoes, both controls clean, and the legitimate decomposition
 survives. <code>docs/residualbench_report.json</code> is the run: every
 proposition put to Lean, the tactic that discharged it, and its axiom
-budget. The same eight verdicts came back under this repository’s
-Mathlib and under the older one Formal Conjectures pins, so what the
-budget can and cannot reach is not an artefact of one library
-version.</p>
+budget. It records this repository’s pinned Mathlib environment only; no
+cross-pin receipt is registered here, so this note makes no portability
+claim about the older Formal Conjectures pins or other library
+versions.</p>
 <p>Two rows disagree with their labels on budget grounds and are left
 that way. <code>B_reassociation</code> is an equivalent range reindexing
 and <code>F_strengthening</code> specialises a general
@@ -287,7 +297,7 @@ and deserves its own verdict; it does not yet have one.</p>
 <section id="running-it" class="level2">
 <h2>Running it</h2>
 <p>Requires a built Mathlib for this toolchain.</p>
-<pre><code>lake build ResidualBench
+<pre><code>python3 scripts/lean_fast_build.py ResidualBench
 python3 scripts/residual_evaluator.py \
   --manifest scripts/residualbench_manifest.json \
   --lean-root . \

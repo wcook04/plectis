@@ -65,10 +65,10 @@
       "module": "ErdosProblems.Erdos243.SparseResetRecovery",
       "path": "ErdosProblems/Erdos243/SparseResetRecovery.lean",
       "present": true,
-      "line_count": 208,
-      "declaration_count": 6,
-      "theorem_count": 5,
-      "content_digest": "sha256:74685dc6ad5abceedd76ea3928b25845a3bdf6070aaa96344d5ac5996a96187a",
+      "line_count": 543,
+      "declaration_count": 20,
+      "theorem_count": 15,
+      "content_digest": "sha256:9382f94cc6aa852dec4566a1dd1c46451a0178bdd339ca194d99116a1f00381e",
       "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
     },
     {
@@ -146,6 +146,30 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
+      "id": "centered_state_dynamics",
+      "problem": 243,
+      "review_family": "centered_state_dynamics",
+      "contribution_class": "locally proved signed recovery/rigidity theorem; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos243.boundedNegativePart_eventually_zero",
+      "original_source": "ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.boundedNegativePart_eventually_zero",
+      "statement": "Under exact natural C/D dynamics with a > 1, C > 0, E = D - (a - 1)C, strict |E| < C, a uniform lower bound on E, and division-free normalized vanishing, boundedNegativePart_eventually_zero forces E = 0 eventually; centered-zero plus an eventually nonzero next tail recovers eventual Sylvester recurrence.",
+      "boundary": "The signed theorem has a C D : ℕ → ℕ, E : ℕ → ℤ, and B : ℕ with all exact hypotheses explicit: a > 1, C > 0, C(n + 1) + D(n) = a(n) · C(n), D(n + 1) = a(n) · D(n), E is the centered state D − (a − 1)C, |E| < C, a uniform lower bound on E, and division-free normalized vanishing. It excludes persistent bounded negative behaviour and forces eventual centered defect zero; centered-zero plus an eventually nonzero next tail recovers Sylvester, but no reciprocal-tail irrationality follows. The unbounded negative mixed-sign branch and the prime-specific producer remain open. This is distinct from the periodic negative-orbit and cofinally bounded-negative no-go families; no novelty, priority, significance, or external-review claim is made, and no unrestricted #243 solution follows.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+    },
+    {
+      "id": "negative_mass_recovery",
+      "problem": 243,
+      "review_family": "negative_mass_recovery",
+      "contribution_class": "conditional analytic recovery criterion; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos243.sylvesterNext_eventually_of_summable_negativeRelativeMass",
+      "original_source": "ErdosProblems/Erdos243/SparseResetRecovery.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.sylvesterNext_eventually_of_summable_negativeRelativeMass",
+      "statement": "Under exact next-denominator and next-tail C/D dynamics with a, D : ℕ → ℤ, C : ℕ → ℕ, C > 0, the strict centered step equation, division-free normalized vanishing, and Summable normalized negative centered mass, the centered state vanishes eventually and a follows the Sylvester recurrence eventually.",
+      "boundary": "This is a conditional recovery criterion: the source theorem assumes every displayed dynamics, positivity, strict centered-step, normalized-vanishing, and summability hypothesis, and does not prove them for the original Erdős #243 orbit. Any surviving canonical orbit must have divergent normalized negative mass. It supplies no prime-specific producer, unconditional #243 endpoint, or reciprocal-tail irrationality, and makes no novelty, priority, significance, or external-review claim. It is distinct from centered_state_dynamics, which uses a uniform lower-bound hypothesis rather than summability of normalized negative mass.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
+    },
+    {
       "id": "eventually_periodic_negative_no_go",
       "problem": 243,
       "review_family": "negative_orbit_no_go",
@@ -164,11 +188,16 @@
     "families": [
       {
         "id": "centered_state_dynamics",
-        "contribution_class": "locally proved result; novelty unassessed",
-        "summary": "Exact update and defect identities, scale equivariance, zero absorption, and eventual recovery of the Sylvester recurrence.",
-        "evidence_mode": "Lean kernel",
-        "comparator_disposition": "represented_by_selected_boundary_theorems",
-        "boundary": "The recovery theorem requires eventual centred-state vanishing."
+        "contribution_class": "locally proved signed recovery/rigidity theorem; novelty unassessed",
+        "summary": "Under exact natural C/D dynamics with a > 1, C > 0, E = D - (a - 1)C, strict |E| < C, a uniform lower bound on E, and normalized vanishing, boundedNegativePart_eventually_zero forces E = 0 eventually. centeredState_eventually_zero supplies the nonnegative stabilization mechanism, and sylvesterNext_eventually_of_centered_zero recovers eventual Sylvester recurrence when the next tail is nonzero.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos243.boundedNegativePart_eventually_zero",
+          "ErdosProblems.Erdos243.centeredState_eventually_zero",
+          "ErdosProblems.Erdos243.sylvesterNext_eventually_of_centered_zero"
+        ],
+        "boundary": "The signed theorem has a C D : ℕ → ℕ, E : ℕ → ℤ, and B : ℕ with all exact hypotheses explicit: a > 1, C > 0, C(n + 1) + D(n) = a(n) · C(n), D(n + 1) = a(n) · D(n), E is the centered state D − (a − 1)C, |E| < C, a uniform lower bound on E, and division-free normalized vanishing. It excludes persistent bounded negative behaviour and forces eventual centered defect zero; centered-zero plus an eventually nonzero next tail recovers Sylvester, but no reciprocal-tail irrationality follows. The unbounded negative mixed-sign branch and the prime-specific producer remain open. This is distinct from the periodic negative-orbit and cofinally bounded-negative no-go families; no novelty, priority, significance, or external-review claim is made, and no unrestricted #243 solution follows."
       },
       {
         "id": "negative_orbit_no_go",
@@ -183,6 +212,10 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "A bounded-rise sequence cannot remain coprime to fresh pairwise-coprime moduli; reduced tails inherit this obstruction.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos243.no_eventuallyBoundedRise_reducedTail",
+          "ErdosProblems.Erdos243.reducedTail_pairwiseCoprime"
+        ],
         "comparator_disposition": "represented_by_stronger_selected_boundary_theorem",
         "boundary": "The required bounded-rise input is not automatic for the original sequence."
       },
@@ -196,12 +229,59 @@
       },
       {
         "id": "negative_mass_recovery",
-        "contribution_class": "conditional reduction",
-        "summary": "Finite normalised negative mass forces eventual zero and hence the Sylvester recurrence.",
+        "contribution_class": "conditional analytic recovery criterion; novelty unassessed",
+        "summary": "Under exact reciprocal-tail C/D dynamics, positive tail, the strict centered-step equation, and division-free normalized vanishing, summability of the normalized negative centered mass forces centeredState to vanish eventually and recovers the Sylvester recurrence. The load-bearing theorem is supported by the exact tail-growth bound and the finite-negative-mass stabilization theorem.",
         "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_deep_state_vocabulary",
-        "boundary": "Summability of the negative mass is unproved for the original problem."
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos243.tail_growth_le_one_add_negativeRelativeMass",
+          "ErdosProblems.Erdos243.eventually_zero_of_summable_negativeRelativeMass",
+          "ErdosProblems.Erdos243.sylvesterNext_eventually_of_summable_negativeRelativeMass"
+        ],
+        "boundary": "The exact criterion assumes a, D : ℕ → ℤ and C : ℕ → ℕ with the declared next-denominator and next-tail dynamics, C > 0, the strict centered step equation, division-free normalized vanishing, and Summable (negativeRelativeMass C (fun n ↦ centeredState (a n) (D n) (C n))). It does not prove these hypotheses for the original Erdős #243 orbit, supply a prime-specific producer, or establish an unconditional #243 endpoint or reciprocal-tail irrationality. Any surviving canonical orbit must have divergent normalized negative mass. This is distinct from centered_state_dynamics, whose recovery criterion uses a uniform lower-bound hypothesis; no novelty, priority, significance, or external-review claim is made."
       }
+    ]
+  },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Under a_{n+1}/a_n^2 -> 1 and rational reciprocal sum, force eventual Sylvester recurrence.",
+    "strongest_theorem": {
+      "claim_id": "erdos243.crt_bounded_rise_barrier",
+      "title": "CRT bounded-rise barrier: a slowly rising natural state cannot avoid an infinite pairwise-coprime modulus family at every strict rise",
+      "statement": "A natural state tending to infinity with upward increments bounded by B cannot, at every strict rise, avoid all earlier members of an infinite pairwise-coprime modulus family. The proof uses B old moduli, a shifted consecutive CRT block, and the first crossing; avoidance away from strict rises is not assumed.\n\nNo exact reduced tail u_(n+1)+v_n=a_n*u_n, v_(n+1)=a_n*v_n with gcd(u_n,v_n)=1 can have u_n tend to infinity while u_(n+1)<=u_n+B for a fixed positive B. Reduced exactness forces pairwise-coprime multipliers and permanent whole-modulus avoidance; a shifted CRT block and first-crossing argument give the contradiction.",
+      "altitude": "no_go",
+      "band": "U",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": null
+    },
+    "strongest_longitudinal_theorem": {
+      "claim_id": "erdos243.bounded_negative_part_rigidity",
+      "title": "bounded-negative complete rigidity and eventual Sylvester recurrence",
+      "statement": "Exact reciprocal-tail dynamics with eventual strict centering, an eventual one-sided lower bound on the centered error, and division-free normalized vanishing have zero centered defect eventually and obey the exact Sylvester recurrence eventually. No periodicity assumption is used. The theorem is conditional and does not settle unrestricted Erdős #243.",
+      "altitude": "genuine_climb",
+      "band": "P",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification243BoundedNegativePartRigidity"
+    },
+    "live_obstruction": "The surviving signed-state obstruction is cofinally unbounded negative excursions in the exact dynamic cocycle, and the decisive producer is a global negative-mass, cumulative-LCM or repair-payment theorem.",
+    "strongest_open_producer": {
+      "id": "exclude_aperiodic_negative_state_orbits",
+      "statement": "Attack the sole remaining signed-state obstruction, now quantified: any counterexample has negative excursions with -E_n > (1 - delta) log2 log2 C_n infinitely often for every delta > 0 (slow_negative_part_rigidity, counterexample_loglog_negative_excursions), with divergent normalised negative mass and with every multiplier overlap gcd(a_n, D_n) bounded by the next negative magnitude. Coprimality-only arguments are capped at O(log C_n) rises, so the producer must use the congruence E_n = D_n (mod C_n) or a second landing mechanism. Attack the sole remaining signed-state obstruction: cofinally unbounded negative excursions in the exact dynamic cocycle. Corrected unit-field propagation kills the factor-35 branch, forces eight cofinal returns on (31,-10) at factor 41, and forces four more on its (41,-20) child at factor 61. The exact formerly inert factor-25 continuation is now 1061100/292…"
+    },
+    "how_to_contribute": {
+      "kind": "proof",
+      "note": "Formalise the bridge from Koizumi, Irrationality of the reciprocal sum of doubly exponential sequences, arXiv:2504.05933, INTEGERS 26 (2026), A28, so that bounded-negative rigidity becomes a statement about Erdős #243 itself under one added hypothesis."
+    },
+    "what_this_does_not_establish": "Erdős #243 remains open. The packet contains Lean-checked conditional arithmetic results and ordinary global rigidity criteria. The weighted LCM record-excess theorem proves an exact equivalence between the Sylvester endpoint and finiteness of a discounted record-excess series for any fixed decreasing weight with divergent integral. It discards non-record indices, subtracts B M_n from the raw negative error, and permits arbitrary fixed iterated-logarithmic discounts. The missing direction is to establish finiteness from genuine rational denominator feedback. Only the finite arithmetic and charging core is a Lean target; the global weighted theorem is ordinary proof. The earlier inclusive ra…",
+    "failed_approaches": [
+      "Finite-prefix rules: arbitrary finite deviations can precede an exact Sylvester tail.",
+      "Eventually periodic and eventually constant negative orbits: excluded unconditionally, so a counterexample must have aperiodic unbounded negative excursions.",
+      "Working at the 1/n rate: the critical constant-negative template sits exactly at the boundary of Koizumi's rate theorem."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification243PeriodicNegativeOrbit"
     ]
   },
   "palomar": null,
@@ -212,7 +292,7 @@
     "subject": "Erdős #243",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 22,
+    "pages": 24,
     "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
     "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
     "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -234,17 +314,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "6412e4483f997e12d87b18f859b2e3cd4a61404e9efa9982e30072cffbb96eb7",
+      "renderer_contract_version": 14,
+      "source_sha256": "cf6e73efdc61b9740a8a1192ba1c08eb7448af35547b4fa60446a5479ec4c797",
       "publication_manifest_match": true,
-      "mathml_node_count": 379,
+      "mathml_node_count": 423,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "9d2a65279f8282bf9a0d0ee202e71cafbd844a784707fd304c95852b570ba2f5",
-      "html_exact_tex_sha256": "453e31526d673ea8b6c2ba7a71bd89671dd7475e87cc201d82daf4d827d3f2b5"
+      "html_mathml_sha256": "2d57c4bcde39afd9b0fb0f32d83b05dcfa2219d8eb454a8c88da7120aad433e9",
+      "html_exact_tex_sha256": "93ff2f65212619e65386a98285ee271f559c0ad00688bb6ee1509868db8d2b60"
     },
     "sections": [
       {
@@ -276,6 +356,11 @@
         "level": 2,
         "anchor": null,
         "label": "The defect identity and its two consequences"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Two-step cancellation and feedback"
       },
       {
         "level": 2,
@@ -320,6 +405,11 @@
       {
         "level": 3,
         "anchor": null,
+        "label": "Repair entropy across a recovery"
+      },
+      {
+        "level": 3,
+        "anchor": null,
         "label": "The direct analytic question"
       },
       {
@@ -351,11 +441,6 @@
         "level": 5,
         "anchor": null,
         "label": "Artefact and data availability."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 5,

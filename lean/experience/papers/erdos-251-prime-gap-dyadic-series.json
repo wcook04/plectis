@@ -5,7 +5,7 @@
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 18,
+  "pages": 21,
   "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
   "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
   "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "90e3d359d43cd7b9cf7f3239f901a2814a20fa59a4b374d9e85dd9f1500c5559",
+    "renderer_contract_version": 14,
+    "source_sha256": "26ba1ed562faf6f12ee08508015304bdcb928d50b0894134773d3f766561ce06",
     "publication_manifest_match": true,
-    "mathml_node_count": 300,
+    "mathml_node_count": 347,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "d872b832b6318ce86eb70ce6e64837a6575300dbd93e6191b554d51b043414e0",
-    "html_exact_tex_sha256": "ae49e35654d16a8fe89e55623ef5c11bf2785512ea79b1a97dfe6661752994cc"
+    "html_mathml_sha256": "bde3374d2253e57ec10e10fedf052927a42e124b1f1688d97e882721254ee400",
+    "html_exact_tex_sha256": "ff7cc0e3784664c764e9b267f401ffe4e45e260270533e3badbf2e171de56059"
   },
   "sections": [
     {
@@ -64,6 +64,11 @@
       "level": 5,
       "anchor": null,
       "label": "Outline."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "One diagonal, and two circular escape tests"
     },
     {
       "level": 2,
@@ -129,11 +134,6 @@
       "level": 5,
       "anchor": null,
       "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 5,

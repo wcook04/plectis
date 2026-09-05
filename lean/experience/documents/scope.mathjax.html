@@ -9,138 +9,118 @@
 <section id="scope-of-this-release" class="level1">
 <h1>Scope of this release</h1>
 <p>This release does not prove Erdős #68, #243, #249, #251, #257, #269,
-#1041, or #1049. All eight remain open; their papers give checked
-results and surviving obligations. Claims apply only to the source and
-dependencies at the immutable formal-source checkpoint in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>. The last
-release tag remains the citation identity and can differ from that
-checkpoint.</p>
-<p>Mathematical proof authority is Lean source at that declared
-checkpoint after checking by the pinned Lean kernel. Unreleased work,
-private repositories, generated prose, provider output, and hidden proof
-sketches are not part of the public proof artefact. Work later than the
-declared checkpoint is out of scope even if it checks locally; a later
-tagged release is a separate citation and release action, not a
-substitute for an exact proof-source identity.</p>
-<section id="what-the-corpus-is-by-shape" class="level2">
-<h2>What the corpus is, by shape</h2>
-<p>Size is not evidence. The semantic graph classifies every statement;
-re-derive these with
-<code>python3 scripts/query_semantic.py &lt;shape&gt;</code>.</p>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Shape</th>
-<th class="ta-r">Count</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>nonrecurring</code></td>
-<td class="ta-r">283</td>
-<td>substantive content, weighted to #257 (168) over #249 (88)</td>
-</tr>
-<tr>
-<td><code>classical</code></td>
-<td class="ta-r">101</td>
-<td>already in the literature or matched to prior art; formalisation
-value only</td>
-</tr>
-<tr>
-<td><code>bare-equivalences</code></td>
-<td class="ta-r">32</td>
-<td>restatements, labelled by this project’s own audit</td>
-</tr>
-</tbody>
-</table>
-<p>Neither count asserts novelty: <code>nonrecurring</code> means a
-statement does not recur inside this corpus, not that it is new to
-mathematics. That judgement is a human number theorist’s, and no query
-here supplies it.</p>
-<p>The <code>K = 240</code> denominator exclusion is the classical
-Farey/mediant bound on a committed window. Its improvement over that
-argument is zero and the window length is free:
-<code>python3 scripts/check_farey_denominator_scaling.py</code>
-reproduces the formalised constant, then returns a 2,406-digit bound in
-a fraction of a second. Cite it as a finite computation, never as
-progress.</p>
-</section>
+#1041, or #1049. All eight remain open. Claims use only the immutable
+formal-source checkpoint in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>; the last
+release tag is its citation identity, not a substitute for an exact
+proof-source identity.</p>
+<p>Lean source checked by the pinned kernel is proof authority.
+Unreleased work, private repositories, generated/provider output, and
+hidden sketches are not public proof artefact. Committed
+<code>research_corpus/Erdos1041</code> is source-only and extends
+neither the checkpoint nor <code>docs/claims.json</code>; it makes no
+peer-review, priority, novelty, or significance claim. Later work is out
+of scope even if locally checked; a later tag is a separate citation
+action.</p>
+<p>#1041:
+<code>python3 scripts/query_corpus.py --route erdos_1041</code> verifies
+four indexed digests and reports the 35-result/open envelope; resume
+with <code>python3 scripts/query_route_memory.py --problem 1041</code>.
+These navigation/evidence routes do not promote research rows into
+reviewed claims or Comparator or close #1041.</p>
+<p>The <a
+href="source-map.mathjax.html#complete-eight-problem-return-matrix">complete
+eight-problem return matrix</a> binds each problem to its strongest
+source/paper route and frontier. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json">Palomar showcase</a> maps
+source-reviewed family dispositions without adding claims. The generated
+<a href="external-verification.mathjax.html">external-verification
+dossier</a> gives the exact spine and boundaries; neither replaces
+<code>docs/claims.json</code> or Lean proof authority.</p>
 <section id="exact-open-propositions" class="level2">
 <h2>Exact open propositions</h2>
 <p>Machine-resolvable open propositions:</p>
 <ul>
-<li><code>remaining_open.erdos_249_irrationality</code>:
-<code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code></li>
-<li><code>remaining_open.unbounded_certificate_supply</code>:
-<code>python3 scripts/query_corpus.py --open remaining_open.unbounded_certificate_supply</code></li>
-<li><code>remaining_open.half_value_membership</code>:
-<code>python3 scripts/query_corpus.py --open remaining_open.half_value_membership</code></li>
+<li><code>remaining_open.erdos_1041_lemniscate_connection</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_1041_lemniscate_connection</li>
+<li><code>remaining_open.erdos_1049_irrationality</code>: python3
+scripts/query_corpus.py –open
+remaining_open.erdos_1049_irrationality</li>
+<li><code>remaining_open.erdos_243_eventual_recurrence</code>: python3
+scripts/query_corpus.py –open
+remaining_open.erdos_243_eventual_recurrence</li>
+<li><code>remaining_open.erdos_243_overlap_height_growth</code>: python3
+scripts/query_corpus.py –open
+remaining_open.erdos_243_overlap_height_growth</li>
+<li><code>remaining_open.erdos_249_first_harmonic_anti_concentration</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_249_first_harmonic_anti_concentration</li>
+<li><code>remaining_open.erdos_249_irrationality</code>: python3
+scripts/query_corpus.py –open
+remaining_open.erdos_249_irrationality</li>
+<li><code>remaining_open.erdos_251_irrationality</code>: python3
+scripts/query_corpus.py –open
+remaining_open.erdos_251_irrationality</li>
+<li><code>remaining_open.erdos_269_cofinal_local_window_escape</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_269_cofinal_local_window_escape</li>
+<li><code>remaining_open.erdos_269_reduced_tail_nonintegrality</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_269_reduced_tail_nonintegrality</li>
+<li><code>remaining_open.erdos_269_three_prime_irrationality</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_269_three_prime_irrationality</li>
+<li><code>remaining_open.erdos_269_two_dimensional_representation</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.erdos_269_two_dimensional_representation</li>
+<li><code>remaining_open.erdos_68_irrationality</code>: python3
+scripts/query_corpus.py –open remaining_open.erdos_68_irrationality</li>
+<li><code>remaining_open.half_value_membership</code>: python3
+scripts/query_corpus.py –open remaining_open.half_value_membership</li>
+<li><code>remaining_open.twenty_one_actual_orbit_invariant</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.twenty_one_actual_orbit_invariant</li>
+<li><code>remaining_open.twenty_one_final_skip_exclusion</code>: python3
+scripts/query_corpus.py –open
+remaining_open.twenty_one_final_skip_exclusion</li>
 <li><code>remaining_open.twenty_one_permanent_affine_supercapacity</code>:
-<code>python3 scripts/query_corpus.py --open remaining_open.twenty_one_permanent_affine_supercapacity</code></li>
+python3 scripts/query_corpus.py –open
+remaining_open.twenty_one_permanent_affine_supercapacity</li>
+<li><code>remaining_open.twenty_one_scaled_remainder_cofinal_return</code>:
+python3 scripts/query_corpus.py –open
+remaining_open.twenty_one_scaled_remainder_cofinal_return</li>
+<li><code>remaining_open.unbounded_certificate_supply</code>: python3
+scripts/query_corpus.py –open
+remaining_open.unbounded_certificate_supply</li>
 <li><code>remaining_open.universal_257_all_infinite_supports</code>:
-<code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code></li>
+python3 scripts/query_corpus.py –open
+remaining_open.universal_257_all_infinite_supports</li>
 </ul>
 <p>Finite instances, conditional reductions, cited neighbours, and named
 infinite-support families do not discharge these propositions. Only a
-future claim transition recorded against the exact identifier, with the
-evidence required by <code>docs/methodology.json</code>, can change this
+future claim transition against an exact identifier with evidence
+required by <code>docs/methodology.json</code> can change this
 boundary.</p>
 </section>
 <section id="machine-identifiers" class="level2">
 <h2>Machine identifiers</h2>
-<p>These identifiers are the machine-readable form of the scope
-statement above. They are declared once in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> and
-cross-checked against this file by
-<code>scripts/check_release.py</code>, which fails when any public
-surface drifts from them.</p>
-<table>
-<colgroup>
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Identifier</th>
-<th>Public meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>not_erdos_249_solution</code></td>
-<td>The release does not settle Erdős #249</td>
-</tr>
-<tr>
-<td><code>not_erdos_257_solution</code></td>
-<td>The release does not settle the universal Erdős #257</td>
-</tr>
-<tr>
-<td><code>not_publication_authority</code></td>
-<td>The release is not itself a peer-reviewed publication record</td>
-</tr>
-<tr>
-<td><code>not_private_root_equivalence</code></td>
-<td>The release is not asserted to be equivalent to any private
-development</td>
-</tr>
-<tr>
-<td><code>not_provider_proof_authority</code></td>
-<td>Provider or model output is not proof authority; the Lean kernel
-check is</td>
-</tr>
-<tr>
-<td><code>not_hidden_proof_body_authority</code></td>
-<td>No unpublished proof sketch or hidden artefact carries proof
-authority</td>
-</tr>
-</tbody>
-</table>
+<p>Machine IDs in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a>, cross-checked
+by <code>scripts/check_release.py</code>:</p>
+<ul>
+<li><code>not_erdos_249_solution</code> /
+<code>not_erdos_257_solution</code>: #249 and universal #257 remain
+open.</li>
+<li><code>not_publication_authority</code>: not a peer-reviewed
+publication record.</li>
+<li><code>not_private_root_equivalence</code>: no equivalence to private
+work is asserted.</li>
+<li><code>not_provider_proof_authority</code>: provider/model output is
+not proof authority.</li>
+<li><code>not_hidden_proof_body_authority</code>: unpublished sketches
+are not proof authority.</li>
+</ul>
 </section>
 </section>
   </div>

@@ -26,11 +26,24 @@ the external results is re-proved in this repository.</p>
 <p>The external catalogue status and the local release status are
 separate facts. Use the exact local packets before interpreting an
 analogy:</p>
+<p>For a machine-first return from any indexed problem, run
+<code>python3 scripts/query_corpus.py --route erdos_&lt;n&gt;</code> for
+<code>n</code> in <code>68, 243, 249, 251, 257, 269, 1041, 1049</code>,
+then follow the <a
+href="source-map.mathjax.html#complete-eight-problem-return-matrix">complete
+eight-problem return matrix</a>. That matrix binds each public status
+row to its strongest checked source, paper and TeX record, and exact
+open-obligation handles without changing the status or claim
+authority.</p>
 <ul>
 <li>#249 target:
-<code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code></li>
+<code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code>;
+return to its problem-owned evidence with
+<code>python3 scripts/query_corpus.py --route erdos_249</code>.</li>
 <li>#257 target:
-<code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code></li>
+<code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code>;
+return to its problem-owned evidence with
+<code>python3 scripts/query_corpus.py --route erdos_257</code>.</li>
 <li>#69 neighbour:
 <code>python3 scripts/query_corpus.py --claim prime_support_irrationality</code></li>
 <li>#250 neighbour:
@@ -106,19 +119,80 @@ obstructions</td>
 <section id="relation-in-this-repository" class="level2">
 <h2>Relation in this repository</h2>
 <ul>
-<li><strong>#68</strong> — exact factorial-successor and carry
-frontiers, structural consumers, and a finite denominator exclusion; no
-irrationality proof.</li>
-<li><strong>#249</strong> — an unconditional denominator exclusion and
-conditional reductions, no solution.</li>
-<li><strong>#257</strong> — named infinite-support cases and full
-support (<code>A = ℕ</code>), not the universal statement.</li>
-<li><strong>#1041</strong> — Newton-flow ray separation and perturbation
-lemmas are checked; the global topology and metric gluing are open.</li>
-<li><strong>#1049</strong> — the integer-base case <code>b ≥ 2</code> is
-<code>irrational_erdosSum_full_support</code>; at rational noninteger
-bases the public modules check clearing, height-region, and Padé
-obstructions but no irrationality theorem.</li>
+<li><strong>#68</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md">factorial-carry
+note</a> routes to the exact <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">FactorialZeroPlateau
+source</a>: factorial-successor and carry frontiers, structural
+consumers, and a finite denominator exclusion; open boundary: produce
+cofinally many non-unit carries, not merely one finite miss.</li>
+<li><strong>#249</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md">problem-owned
+paper note</a> and <a href="source-map.mathjax.html">canonical source map</a>
+return the unconditional denominator exclusion and conditional
+reductions. The new <a
+href="external-verification.mathjax.html#programme-249">squared-Lambert/GCD-moment
+family</a> routes to the exact first-moment identity in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean#L235">GcdMomentCalculus</a>;
+it is an identity with no irrationality consequence, so #249 remains
+open.</li>
+<li><strong>#257</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md">problem-owned
+paper note</a> and <a href="source-map.mathjax.html">canonical source map</a>
+return the named infinite-support cases and full support
+(<code>A = ℕ</code>), not the universal statement.</li>
+<li><strong>#243</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md">reciprocal-tail
+note</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897">ReciprocalTailRigidity
+source</a> exclude bounded negative-error regimes; open boundary: the
+unbounded mixed-sign/negative-excursion regime.</li>
+<li><strong>#251</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md">prime-gap
+note</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">PrimeGapDyadicTail
+source</a> expose the exact dyadic-tail machinery; open boundary:
+cofinally many adjacent small tail shifts at indices where prime gaps
+differ.</li>
+<li><strong>#269</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-269-three-prime-running-lcm.md">running-lcm
+note</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">ThreePrimeRunningLcm
+source</a> expose exact three-prime identities and a conditional
+residue-escape route; open boundary: the rationality-to-carry bridge and
+cofinal window escape.</li>
+<li><strong>#1041</strong> — the paper-facing route checks Newton-flow
+ray separation and perturbation lemmas. The source-current <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>
+additionally routes the surviving hub-selection, near-Fekete, perimeter,
+inverse-sheet, and degree-five premise families through their exact
+public source notes; it also records the 2026-08-29 refutations that
+must not be rebuilt. The unrestricted topology, attachment-compatible
+selection, and metric gluing remain open. Use the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/STRONGEST_RESULTS.json">machine
+result map</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">paper
+note</a> together, keeping the source-only frontier separate from
+reviewed claim authority.</li>
+<li><strong>#1049</strong> — the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md">rational-base
+note</a> and its checked source family — <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">RationalBaseLambert</a>
+for the <code>3/2</code> corridor and <code>7/2</code> height input, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">ZudilinHeightRegion</a>
+for the <code>81/200</code> region, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">RationalPadeArithmetic</a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">HermitePadeNoGo</a>
+for finite Padé arithmetic and comparison, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67">QAperyDiagonalNonEquivalence</a>
+for the moving-diagonal no-go, with <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286">ZudilinConeArithmetic</a>
+covering the endpoint-unit common-divisor obstruction — route distinct
+mechanisms without claiming irrationality. The integer-base case
+<code>b ≥ 2</code> is <code>irrational_erdosSum_full_support</code>;
+open boundary: irrationality at <code>3/2</code>, the primitive
+noncollapsed construction, and analytic remainder control.</li>
 <li><strong>#69</strong> — the prime-support case of #257; only the
 identity bridge to <code>∑_p 1/(2ᵖ−1)</code> is formalised, not the
 irrationality.</li>

@@ -5,12 +5,12 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 117,
+  "pages": 126,
   "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
   "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
   "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
-  "problem_id": null,
+  "problem_id": "erdos_249",
   "routes": {
     "html_mathml": "papers/erdos249-totient-reasoning-surface.html",
     "html_exact_tex": "papers/erdos249-totient-reasoning-surface.mathjax.html",
@@ -27,10 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "3791c2f8319372eff4b7e7a247b788983ad195af0ec21addfe9d5e9126da6f28",
+    "renderer_contract_version": 14,
+    "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
     "publication_manifest_match": true,
-    "mathml_node_count": 3168,
+    "mathml_node_count": 2869,
     "raw_math_fallback_count": 4,
     "warnings": {
       "mathml": [
@@ -61,8 +61,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "4941cfa542dec7ee99006336acda5188b104147231bee6cfe7dca076ba3fd43a",
-    "html_exact_tex_sha256": "dbed54ab91cb05f7aac3cfeb50dc1df0478a246474808ef3dffe7139350f3cc1"
+    "html_mathml_sha256": "55dffa2c8156e1a96a329897229f329046289604ee858a924b274261de7c8eea",
+    "html_exact_tex_sha256": "f08f7b7461cc88b0ea1a8311db7274db35a6e2d5ea6c0cf026cd9c28c4670973"
   },
   "sections": [
     {
@@ -143,32 +143,17 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "How to use this document"
+      "label": "Reading the detailed record"
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "Evidence bands."
+      "label": "Scale and coordinate discipline."
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "The scale axis."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Coordinates, and why obstructions are relative to them."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Map of what follows."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Read this in full before starting."
+      "label": "Order of dependence."
     },
     {
       "level": 2,
@@ -218,17 +203,17 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Catalogue of usable premises"
+      "label": "Catalogue of mathematical ingredients"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Producers"
+      "label": "Open hypotheses and candidate inputs"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Converters and exact identities"
+      "label": "Exact identities and reductions"
     },
     {
       "level": 4,
@@ -243,7 +228,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "Consumers"
+      "label": "Consequence theorems"
     },
     {
       "level": 3,
@@ -253,12 +238,12 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "Killers and countermodels"
+      "label": "Obstructions and countermodels"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Recently published declarations"
+      "label": "Recently added declarations"
     },
     {
       "level": 4,
@@ -363,7 +348,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Interface index: what stands between the corpus and a proof"
+      "label": "Frontier index: what stands between the corpus and a proof"
     },
     {
       "level": 3,
@@ -809,11 +794,6 @@
       "level": 5,
       "anchor": null,
       "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 5,

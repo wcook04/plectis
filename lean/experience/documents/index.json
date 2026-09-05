@@ -20,9 +20,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "4927c6e376156978f73e96b8550632ebbc58944a231ce163dac877164b348362",
+        "source_sha256": "05cae5db948344f5d3a1dfd54baafde3e47b11e16c41ef1cc5b3af250f966d20",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -31,44 +31,29 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "fc7118acbcd453b772320a73d9d69edfa1fc8df92daa5e57c57bf7dc92e8beff",
-        "html_exact_tex_sha256": "2aeca319ec45c6a97bed791515b5317ad6c63e60c8d82ac634d24116673b08ae"
+        "html_mathml_sha256": "aa2a4d3c9127024ba6060e32f5f1f29e38126d0d5b0e50cabb8b58becaa30883",
+        "html_exact_tex_sha256": "66c25bca03f699426c40688c07d2b57d5929ea63cecadfd8193f26c34ff16d9a"
       },
       "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is here"
+        },
         {
           "level": 2,
           "anchor": null,
           "label": "Problem papers"
         },
         {
-          "level": 3,
+          "level": 2,
           "anchor": null,
-          "label": "Public checked frontier; what remains"
+          "label": "What the checks establish"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "External verification"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "What the formal source establishes"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Other exact mathematics in the corpus"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "What remains open"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Corpus at a glance"
+          "label": "Give your agent a research shift"
         },
         {
           "level": 2,
@@ -78,7 +63,12 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "How the repository fits together"
+          "label": "Citation and licence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Corpus at a glance"
         },
         {
           "level": 2,
@@ -88,17 +78,7 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "Build and verify"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Use as a Lean package"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Citation and licence"
+          "label": "Where I actually am"
         }
       ]
     },
@@ -118,9 +98,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "c4c49a0c29dbb5daac31b299636795cf0a0e048bd1d5d47089cfba81cfe5f6fb",
+        "source_sha256": "6bcee146c31a5acce818a3ee1f3289d3ec230654f2ec7a6423e25d2085517868",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -129,14 +109,29 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "7aaaa5033467edca0b2f72050d739c8094379ac7f6709cd14797a24cde9b7c2c",
-        "html_exact_tex_sha256": "3231816f5b702c11df49fcbaa8932b6f7fc1957b615626ba452c261f5c438be7"
+        "html_mathml_sha256": "8d6e8d4398bc695b6fce589d8f8100c84734e9e2d3eb5de7602a74ca206636a8",
+        "html_exact_tex_sha256": "e8732aad05b1c6187de71d2b3720476af02bbf66f5dff1de6466ae792fbadc5e"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
-          "label": "Ten-minute verdict"
+          "label": "The short version"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Problem-by-problem guide"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Technical verdict"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Signal-audit dispositions"
         },
         {
           "level": 2,
@@ -251,7 +246,7 @@
         {
           "level": 3,
           "anchor": null,
-          "label": "Exact systems-review handoff"
+          "label": "Cold-reader review boundary"
         },
         {
           "level": 3,
@@ -266,12 +261,37 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "How to verify"
+          "label": "Verification and continuation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Recovered from the front page"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Isolated-tree reproduction record"
+          "label": "Problem statements"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "External verification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the formal source establishes"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Other exact mathematics in the corpus"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What remains open"
         }
       ]
     },
@@ -291,9 +311,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "abafa6e1a65fe333b443ac308c3ff5a9f2784b0c8313cb4d8019a9c01cced663",
+        "source_sha256": "20618d9c307bfa6117975351bc59ac0d1b889aa7ebd4178fff66f044a9d7a7ad",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -302,14 +322,24 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "6cc3e5fb9051d8e5d7baa19eb3003000c37f9a5a57d01c0b5cc21ad567a07e94",
-        "html_exact_tex_sha256": "77e64cd58764fc29b17250319779d17da8c60162479d2f4f5524ab32565444b5"
+        "html_mathml_sha256": "1de0519156e2ecb0b00817387ffd1f93e4c527172f54730a386e5c07b188dde3",
+        "html_exact_tex_sha256": "5343e36c045294de842439907fe2975f66c209436d34d942031a2b0bbe7665b1"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
           "label": "Release provenance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical signal first"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reader tiers and relational boundaries"
         },
         {
           "level": 2,
@@ -324,6 +354,11 @@
         {
           "level": 2,
           "anchor": null,
+          "label": "Mathematical programmes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
           "label": "Where the substance is"
         },
         {
@@ -334,7 +369,17 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "Mathematical programmes"
+          "label": "Mathematical programme routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Problem and family routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Selection spine and long tail"
         },
         {
           "level": 2,
@@ -379,9 +424,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "1cac27463f6f8a52bc6db7128a8fad7d26a69477e9e383b1246549d5c5e68710",
+        "source_sha256": "6b1d17b94420d3c87d83fbd41062f4c5375c3762d1640d0db8d850a60e1757a0",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -390,14 +435,29 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "819368a83535578f1114efe8b27589df1374e33017250bdd8364337444fadd79",
-        "html_exact_tex_sha256": "a58361f3d2a2b8350afc4f47a739563a61311636091a853512b1cad8993dd7ee"
+        "html_mathml_sha256": "64963b0828ec0053319eb618f08457ce2cabd63c5a1e39ec99239d4700d3a42a",
+        "html_exact_tex_sha256": "1d04a9ab0f50885893cb07be5e3e71c2578b0aa56429e62ea072b465f7ec9b02"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
           "label": "Bounded reader route"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Signal-first reviewed spine"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#1041 / source-current frontier"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete eight-problem return matrix"
         },
         {
           "level": 2,
@@ -477,9 +537,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "03819cca7ce5ca4efdf15ddc432d0621f8de72f69ee94e22bdcd4962b2b83612",
+        "source_sha256": "0b3bf5e4a968a1f393c1a933f1335e52793ccbcd3654a79e8c9e35ecd9d03667",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -488,8 +548,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "daedc21233a7094f7335fdf23b6f895c358a6f7607471552b978b5af5d1ef113",
-        "html_exact_tex_sha256": "c28bc33e85b47235e7032af2f62362a669f568771497dbf61f266c6315a6be01"
+        "html_mathml_sha256": "0a6278e582a94ff751c2f233e8d4f0448f94a54344ddd4199def31a014b8aa6e",
+        "html_exact_tex_sha256": "b16461a06d2840a6cad27552ab82e9a160eac9e97c05021442352842eb539a80"
       },
       "sections": [
         {
@@ -525,19 +585,19 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "672312ae882444cbe077e28a7b40d57074a7feeb39c3960ff2e9869f834ee4bb",
+        "source_sha256": "6a205343470806e11a419762658a4abd93233a6856dc606bb594255b5c1f631c",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
-        "mathml_node_count": 35,
+        "mathml_node_count": 44,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "15a133dcf32f86650b1fac2f001937ad8a5c84f0aca2797cac588bab784dc508",
-        "html_exact_tex_sha256": "894788213abc8a0de8c38ed875a9f1157da8b0e4fdfcb30fa669935ab9832ab2"
+        "html_mathml_sha256": "356b1393875b33b2e5e2b46e6a263e96f57ebd421fa1a8331f01f90b5f5cf002",
+        "html_exact_tex_sha256": "bd035d16a393dadb87596e8987df43a79794753bf472daa572d80dcc6a248e75"
       },
       "sections": [
         {
@@ -615,7 +675,7 @@
         "frontend_math_dependency": null,
         "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -776,9 +836,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "bcc403460c1892e621c4e20bdc14a39b2f796c79d7bb11aec959cdc534624bb3",
+        "source_sha256": "663a579d4354c3c7df90a5f8e93ff0a3298ffbb4de01170a8059f7b3bce19c62",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -787,15 +847,10 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "371fa790071dc8ec8768236d32ebb5a9c98e5413e359ad83aa6cacea7dc65ff3",
-        "html_exact_tex_sha256": "d61632f0bcea9e2f0ffd6c3e26f9d61ee1cfd403a91e3589d46903bdfbba0d94"
+        "html_mathml_sha256": "5ca99b5a42aa9022017ab3b78f2a57da0ab2cf93787900889496c51ba12a0c4a",
+        "html_exact_tex_sha256": "b6a1956150b6f2df47f46a11b6696c3de6c55adc75a81ea81f47db772d25a225"
       },
       "sections": [
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "What the corpus is, by shape"
-        },
         {
           "level": 2,
           "anchor": null,
@@ -824,9 +879,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "2585c5d44650bf66a360ef76233d181bd646d60945a3e985ca06508a12e4a061",
+        "source_sha256": "806f6c17ba9effe097a8198bca148d8b2a9ff9113f794ea294fa358a5b35e35f",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -835,10 +890,80 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "c55220d5e2c0b0a999015b7fa0adc6d683d9d2d7c36659e4ff320ccaf80036e8",
-        "html_exact_tex_sha256": "883e71f617a2286367eff2c9542a614e88d4e176d8b4f4511005477162de46d5"
+        "html_mathml_sha256": "145161b99400ed3e5c480280480b424542bb5e072de58e68c1ff505b957c4497",
+        "html_exact_tex_sha256": "1dbc5e30f893863868fe4624bfb037e9fb11f0f9637c0f8738b1fa4468b85e5a"
       },
       "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical signal spine"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reader tiers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Source-ranked frontier"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Natural friction and no-go boundaries"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Complete inventory, kept subordinate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Complete serious-result universe"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "First-contact mathematical order"
+        },
         {
           "level": 2,
           "anchor": null,
@@ -867,9 +992,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "99899742314abca1e433ce29be3aadb3d8294e0ab942a9141f67c501c65ae7bd",
+        "source_sha256": "fd1a8a2454a1e9db1d551172f14f732361de0664c94824ecda3cba69c3703a66",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -878,8 +1003,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "17c7f90ad90856efdafa4d03a51900f272d2b9966b87e2e4a5ea5e8a05b56da6",
-        "html_exact_tex_sha256": "999e3fa68f4dc197d4dd68731a5075562aae22d982e6f6284350aa62166e852b"
+        "html_mathml_sha256": "add092ac4da173be393f504d175c15e0f0cdf0ca691c743433543a639e9f435b",
+        "html_exact_tex_sha256": "35e27b11f9ac5ed05c47c79b50975459e138424cb55a40656e6dcbb9881b212a"
       },
       "sections": [
         {
@@ -925,9 +1050,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "7b5b24c9d815b4c9fc6105a99cfd3e90158888682fb78c41fb5250b24c9e3e28",
+        "source_sha256": "8d70f9488a3f6e47a5a978e1423873dac17ad92b91ea9fd984d4671131d851aa",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -936,10 +1061,15 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "ea3d74891660717209169e0d23bca0b68333a0ba1a2ba8e46cbf1be47ab0c963",
-        "html_exact_tex_sha256": "e2b6bb1dea13273dafafdcccbf34383f02ce84049d9529c1781139795c438eb5"
+        "html_mathml_sha256": "228be25d17c3107ce0d4478f19689af0fc7f476ecab0a22b58d31c3766b1a0f9",
+        "html_exact_tex_sha256": "631292a14d16be368f2e8d32be4f083f69fcdf329c325e048f461c880ac66fe2"
       },
       "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "#1041 source-frontier supersession"
+        },
         {
           "level": 2,
           "anchor": null,
@@ -1273,9 +1403,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "d3cb495157a7157e6aec7e74ea435b2f78cc8e83f8c38a797603f3f5de3b5816",
+        "source_sha256": "7b25422b83e479253fb62ca34e539ab178cddd7b61008709dd0dc45b72aa12a5",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1284,8 +1414,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "a5e521b6ce85d2001a3bc503dc3f6486e2be5d59c070fb2306381b963b305da6",
-        "html_exact_tex_sha256": "8989dd5565a0af1dfff254758a1dc50658f2a5056bfacccbbd4c8f949b916afc"
+        "html_mathml_sha256": "790d8fd438f08dca3e3969641215a31ae74e07cdc2a5acf4cad4f2a385589ea8",
+        "html_exact_tex_sha256": "0ea90b87d34707caccba179b39a407292519fefb59f41f5129e360356de451b3"
       },
       "sections": [
         {
@@ -1307,6 +1437,11 @@
           "level": 2,
           "anchor": null,
           "label": "Repository map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The job lifecycle"
         },
         {
           "level": 3,
@@ -1371,9 +1506,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "e93931fcff449733b980f38ecee07f83bc5691e8899ea16571e463028771309e",
+        "source_sha256": "3dc33fe9080152678a66529af9ad514c873ff67a680141575b359274f2251bd4",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1382,8 +1517,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "40c2bf1d1a401b58e6b0426c5b4819799617c413c3678bc6c0c5236daeccef87",
-        "html_exact_tex_sha256": "c89d6d466eb4edf8789c9cf9653303af18be6dac7c8f0a5b1c4db23a9ec3ccbd"
+        "html_mathml_sha256": "6ed49152808c09e221365fbf82f98812e4e610c1dac4feacf172c4d529f0441a",
+        "html_exact_tex_sha256": "e53b4603684d39a766f35109b58a6fe667af0db8c42d329f899531aa6edf899e"
       },
       "sections": [
         {
@@ -1439,9 +1574,9 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "ea4a7d8d7c7f7cf62e271649cf885baa4409d5837d446a6cbcf1199e9f791dd4",
+        "source_sha256": "f148b06d6388f35f87ffe302bd7044b3c7f0a4bebbc8a83f92207b6f5aa5dd4e",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 13,
+        "renderer_contract_version": 14,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1450,8 +1585,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "41cd537e861e4b1b2f6c644c7123c9219f6cd12c2b4346b45ee13bac06ab52e5",
-        "html_exact_tex_sha256": "7b747b4fea9710dc573c2fba2e7d83a34ac00b4512baa69200ff20d603a2f552"
+        "html_mathml_sha256": "2e5f1087d3fb3b75514da155c76992593d6f41be19aa6c6d33b1b94f03fa3c06",
+        "html_exact_tex_sha256": "e500f11c50ea3656076e3dcf735e0157705e9625a0add2d4815bbc7e3108d14d"
       },
       "sections": [
         {
@@ -1548,6 +1683,16 @@
           "level": 2,
           "anchor": null,
           "label": "Transport and curvature companion band"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Source-current #1041 frontier (not a wave)"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Expansion-problem reading handoff (not a wave)"
         },
         {
           "level": 2,

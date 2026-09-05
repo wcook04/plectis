@@ -212,8 +212,15 @@
       {
         "id": "factorial_channel_and_projection_rigidity",
         "contribution_class": "locally proved result; novelty unassessed",
-        "summary": "Finite channel congruences, a two-term prime-channel corrector, and endpoint-weighted projection rigidity.",
+        "summary": "Finite quotient-band channel factorisation and breakpoint, channel congruences, a two-term prime-channel corrector, and endpoint-weighted projection rigidity.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "Erdos68.factorialMoment_eq_factorial_pow_mul_channelNumerator_band",
+          "Erdos68.exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero",
+          "Erdos68.channelNumerator_mod_factorialMoment",
+          "Erdos68.primeTranslator_channelResidual_eq_one",
+          "ErdosProblems.Erdos68.projection_disagreement_excludes_bounded_endpoint"
+        ],
         "comparator_disposition": "represented_by_isolated_headline",
         "boundary": "These finite and structural results do not produce a cofinal obstruction."
       },
@@ -243,15 +250,51 @@
       }
     ]
   },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Prove that the Erdős #68 factorial-denominator series is irrational.",
+    "strongest_theorem": {
+      "claim_id": "erdos68.channel_radius",
+      "title": "quantitative square-subsequence channel-radius lower bound, exclusion of eventual three-halves upper bounds, and exact failure of little-o decay",
+      "statement": "A channel is an index d at least 2 carrying the modulus d! - 1, obtained by reweighting each factorial term of the series so that the powers of d! divide out; the channel test at d compares that reweighted integer with the factorial moment modulo d! - 1. The main theorem is explicit: for every t at least 2^32 and all natural numbers M and R with M positive, M divisible by the least common multiple of d! - 1 over 2 ≤ d ≤ 2t^2, and M < (R+1)! - 1, the support radius satisfies 3t^3 < 2(R+1). Imposing those hypotheses at every large t gives two sequence forms: no radius function can eventually satisfy 2(R(t)+1) ≤ 3t^3, and R(t)+1 is not o(t^3), the second under hypotheses required only from t = 4096 onwards. The entire subcubic range is therefore closed on the square subsequence D = 2t^2, since every finite channel system meeting the hypotheses carries support radius above (3/2)t^3, which prices the method for anyone pursuing irrationality of series with factorial denominators. The nontrivial input is a finite lower estimate for the channel least common multiple, in which consecutive numbers d! - 1 are combined while their pairwise gcd losses are counted explicitly, and a Stirling bound converts that estimate into the cubic radius. This theorem family is the first presentation recorded in the development and its novelty is unassessed. The divisibility and factorial bounds remain hypotheses, so the irrationality question in Erdős Problem 68 is untouched, and the remaining problem is to derive those hypotheses from the factorial-gap series and to prove that the required channels vanish.",
+      "altitude": "no_go",
+      "band": "U",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification68ChannelRadius"
+    },
+    "strongest_longitudinal_theorem": null,
+    "live_obstruction": "No producer supplies the cofinal residue misses, and exact computation of the strict-successor carries through m = 300000 gives only a finite denominator exclusion for any displayed rational representation.",
+    "strongest_open_producer": {
+      "id": "cofinal_exact_prefix_strict_successor_miss",
+      "statement": "Prove that cofinally many integers m fail m | strictFacTopRat(factorialGapPrefix(m),m); Lean proves this is exactly equivalent to Erdős #68. The new full-constant coordinate is an analytically equivalent version of the same producer: for C=sum_{n>=2}1/(n!(n!-1))=S-e+2, prove floor(m!C) not congruent to -2 modulo m cofinally. Lean checks the pointwise equivalence between that residue and the canonical digit d_m(C)=m-2, while the infinite-tail equivalence is recorded analytically. Prime-index misses and the fixed-k two-stage prime-power criterion remain sufficient special cases, but primes are no longer part of the exact frontier statement."
+    },
+    "how_to_contribute": {
+      "kind": "computation",
+      "note": "Extend the exact carry computation beyond m = 300000 and account for the odd-index pattern that has held from index 23 through 300000, since a Lean-checked consumer converts cofinally many non-unit carries into irrationality."
+    },
+    "what_this_does_not_establish": "Erdős #68 remains open. Lean checks the support-independent channel congruence and LCM obstruction, the finite factorial-gap segment inequalities and explicit radius lower bounds, summability and additivity of every finite-support channel residual, and the complete prime-unit translator giving exact integer residual shifts. Lean also checks the strict-successor carry recurrence, its exact normalized factorial-series expansion, and convergence of the normalized strict successors Z_n/n! to the literal series S. Consequently S is non-irrational exactly when the carries are eventually all one, and S is irrational exactly when non-unit carries occur cofinally. This is an exact characterization,…",
+    "failed_approaches": [
+      "One-owner closing route: killed because log lcm_{n≤N}(n!−1) ≫ N^{4/3} log N eventually dominates log((N!)²).",
+      "Koepf-Schmersau floor criterion at the natural clearing scale p_n = lcm(k!−1): its tail hypothesis fails from n ≥ 4.",
+      "Rank-two producer: reclassified as a smoothness exclusion, not an irrationality route; the CF bound already discharges grid size n ≤ 1.",
+      "Square-subsequence logarithmic constraint: provably cannot pass the sharp constant 4√2/9 (Lean sharp_radius_satisfies_square_log_constraint)."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification68ChannelRadius",
+      "ExternalVerification68CompanionOrbitBoundary"
+    ]
+  },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-68-factorial-denominator-irrationality",
-    "title": "Factorial Carries and Finite Channel Obstructions",
+    "title": "Factorial-Channel Obstructions and Exact Orbit Boundaries",
     "subject": "Erdős #68",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 20,
+    "pages": 24,
     "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
     "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
     "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -273,17 +316,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "7a79a936a41e08af7c2267cecd994e4a7fa9ffd21ef602fc77df91b6e0763ecf",
+      "renderer_contract_version": 14,
+      "source_sha256": "6004f99a7a651ce3c417de64481cb4e61435d48d9d663c39c4c10329218df4b3",
       "publication_manifest_match": true,
-      "mathml_node_count": 445,
+      "mathml_node_count": 520,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "5e6ba873b2484fcb615a2980aa4a94a0ba5ec39bb5f5ab27b13a45d2cdcd9165",
-      "html_exact_tex_sha256": "972255d71bb84bffaf3d7e262e411dcac46ea98448c340547c313b27494d3452"
+      "html_mathml_sha256": "53d6ba4f28a948d3f100804fcdfec214140cab0e2e0ca824e2724eed8b473b0d",
+      "html_exact_tex_sha256": "3431799ba9bb2ca4dd02b1b85d4b2f2fde4194caeea6685d49877ff7451714e8"
     },
     "sections": [
       {
@@ -312,6 +355,11 @@
         "label": "Zero plateaux, first exit, and denominator bounds"
       },
       {
+        "level": 3,
+        "anchor": null,
+        "label": "Why the adjacent-unit window is circular"
+      },
+      {
         "level": 2,
         "anchor": null,
         "label": "Weighted projection rigidity"
@@ -319,7 +367,12 @@
       {
         "level": 2,
         "anchor": null,
-        "label": "What the returns rule out"
+        "label": "A fixed companion-orbit coordinate"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Limits of fixed-coordinate arguments"
       },
       {
         "level": 2,
@@ -329,7 +382,7 @@
       {
         "level": 2,
         "anchor": null,
-        "label": "The missing cofinal inputs"
+        "label": "Open problems"
       },
       {
         "level": 3,
@@ -362,14 +415,14 @@
         "label": "Statements and declarations"
       },
       {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
-      },
-      {
         "level": 2,
         "anchor": null,
         "label": "Guide to the formal sources"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Source-current companion orbit and Comparator routes."
       },
       {
         "level": 2,

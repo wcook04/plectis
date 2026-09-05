@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "c4c49a0c29dbb5daac31b299636795cf0a0e048bd1d5d47089cfba81cfe5f6fb",
+    "source_sha256": "6bcee146c31a5acce818a3ee1f3289d3ec230654f2ec7a6423e25d2085517868",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,14 +25,29 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "7aaaa5033467edca0b2f72050d739c8094379ac7f6709cd14797a24cde9b7c2c",
-    "html_exact_tex_sha256": "3231816f5b702c11df49fcbaa8932b6f7fc1957b615626ba452c261f5c438be7"
+    "html_mathml_sha256": "8d6e8d4398bc695b6fce589d8f8100c84734e9e2d3eb5de7602a74ca206636a8",
+    "html_exact_tex_sha256": "e8732aad05b1c6187de71d2b3720476af02bbf66f5dff1de6466ae792fbadc5e"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
-      "label": "Ten-minute verdict"
+      "label": "The short version"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Problem-by-problem guide"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Technical verdict"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Signal-audit dispositions"
     },
     {
       "level": 2,
@@ -147,7 +162,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "Exact systems-review handoff"
+      "label": "Cold-reader review boundary"
     },
     {
       "level": 3,
@@ -162,12 +177,37 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "How to verify"
+      "label": "Verification and continuation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Recovered from the front page"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Isolated-tree reproduction record"
+      "label": "Problem statements"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "External verification"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What the formal source establishes"
+    },
+    {
+      "level": 4,
+      "anchor": null,
+      "label": "Other exact mathematics in the corpus"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What remains open"
     }
   ]
 }

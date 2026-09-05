@@ -40,9 +40,22 @@
     {
       "id": "palomar",
       "role": "editorial_registry_review",
-      "status": "no_public_outcome_recorded_by_this_projection",
+      "status": "submitted_entries_awaiting_registry_review",
       "source": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
-      "boundary": "A prepared review unit is not a submission, Comparator verdict, Palomar review, registration, acceptance, endorsement, novelty assessment, peer review, or solution of an open problem."
+      "boundary": "A prepared review unit is not a submission, Comparator verdict, Palomar review, registration, acceptance, endorsement, novelty assessment, peer review, or solution of an open problem.",
+      "release": {
+        "release_repository": "https://github.com/wcook04/plectis-erdos-lean",
+        "release_commit": "3a108347a146e86667fe124bfad20a145b639596",
+        "packaged_entry_count": 21,
+        "entry_shape": "one self-contained Challenge/Solution pair per entry",
+        "lean_toolchain": "leanprover/lean4:v4.29.0",
+        "observed_at": "2026-09-02T17:10:00Z",
+        "submitted_entry_count_at_observed_at": null,
+        "submission_counts_at_observed_at": {},
+        "receipt": "docs/formal_math/palomar/palomar_release_receipt.json",
+        "reading_rule": "Palomar review is mechanical statement parity, never novelty or peer review.",
+        "count_contract": "Every count here is the state at observed_at. Submissions drain serially under a registry rate limit, so these counts rise over time. Read them with observed_at attached, never as a final tally."
+      }
     }
   ]
 }

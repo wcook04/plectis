@@ -27,7 +27,7 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "source_sha256": "7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
     "publication_manifest_match": true,
     "mathml_node_count": 13,

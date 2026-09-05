@@ -22,8 +22,8 @@
 % useful one.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{9e231ce4371fcda607f81c4520d29b16dcb4482e}
-\renewcommand{\commitshort}{9e231ce4371f}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
   pdftitle={Denominator periods, rational-value constraints and achievement-set geometry for Mersenne subseries (Erdős Problem 257)},
   pdfsubject={Erdős Problem Notes: Problem 257},
@@ -48,64 +48,60 @@ Achievement-Set Geometry}
 
 \begin{abstract}
 \noindent
-For finite nonempty $F\subseteq\Npos$ at base $b\ge2$, let $D_F$ be the
-reduced denominator of $\sum_{n\in F}(b^n-1)^{-1}$.  The checked lead theorem is
-$\operatorname{ord}_{D_F}(b)=\lcm(F)$.  If $\lcm(F)\ge2$, then
-$\lcm(F)<D_F$; the case $b=2$, $F=\{1\}$ shows why that hypothesis is needed.
-
-Erd\H{o}s~\#257 asks whether
-$X_A=\sum_{a\in A}(2^a-1)^{-1}$ is irrational for every infinite
-$A\subseteq\Npos$.  It remains open.  The coordinate used here is the divisor
-incidence $\scA_A(n)=\#\{d\mid n:d\in A\}$, for which
-$X_A=\sum_{n\ge1}\scA_A(n)2^{-n}$; these coefficients are nonnegative divisor
-counts and need not be binary digits.  If $X_A$ is rational, its integral
-scaled-tail sequence satisfies an exact long-division recurrence.  For
-infinite $A$ that sequence is unbounded, and every zero window of
-$\scA_A$ at $c+N$ has length at most
-$\varepsilon\log_2(N+1)+O_{A,p,\varepsilon,c,v}(1)$.  Under the additional
-hypotheses that $\sum_{a\in A}1/a$ converges and that the reduced odd
-denominator part $v>1$ is coprime to the numerator, rationality also forces
+Erd\H{o}s Problem~\#257 asks whether
 \[
-  \sum_{a\in A}\frac1a\ge\frac1{\operatorname{ord}_v(2)}.
+ X_A=\sum_{a\in A}\frac1{2^a-1}
 \]
-At the dyadic endpoint $X_A=p/2^c$, an infinite support instead forces either
-nonsummability of the reciprocal support terms or reciprocal mass greater
-than $1$.  This becomes a contradiction only after an independent proof of
-summability and mass at most $1$.
-Finally, rational values admit an exact Boolean--M\"obius scaled-tail
-characterisation from which the support is reconstructed.  These constraints
-are not known to be contradictory.
+is irrational for every infinite \(A\subseteq\Npos\).  The problem remains
+open.  The strongest unconditional result treated here is the classical
+full-support theorem: for every integer \(b\ge2\),
+\(\sum_{n\ge1}(b^n-1)^{-1}\) is irrational.  The checked proof uses a
+weighted certificate argument.  The same development proves irrationality
+for every infinite pairwise-coprime support of convergent reciprocal mass and
+for every nonzero eventually periodic sequence of nonnegative rational
+weights.
 
-We then record the achievement-set geometry.  Every restriction to a set $J$
-of allowed exponents preserves unique coding, compactness and nowhere
-density, is perfect when $J$ is infinite, and has measure $2^{-|F|}$ when the
-complement $J^c=F$ is finite and measure zero when $J^c$ is infinite.  For the
-squarefree support the incidence is $2^{\omega(n)}-1$; at every even base two
-divisibility-first certificate hypotheses fail already at precision $b^2$,
-while adjoining $1$ preserves irrationality and restores arbitrarily long
-base-$2$ opening blocks.  Since the squarefree values at every power-of-two
-base are jointly controlled by the literature, that failure is internal to a
-normalisation rather than to the value itself.  Finite support represents neither
-$1/2$ nor $1/21$: membership of the first is equivalent to unbounded greedy
-skips, and membership of the second to excluding one explicit fatal aligned
-branch whose eventual affine-supercapacity regime remains possible.  For
-$1/2$, membership would refute \#257, while non-membership would eliminate
-only this one candidate.  Tao--Ter\"av\"ainen's base-$2$
-prime-support theorem and Duverney--Tachiya's power-of-two squarefree theorem
-are cited prior work, not formalised here.  These classifications and scoped
-frontiers do not solve \#257 or either target.
+For a finite nonempty support \(F\), the reduced denominator \(D_F\) of
+\(\sum_{n\in F}(b^n-1)^{-1}\) satisfies
+\[
+ \operatorname{ord}_{D_F}(b)=\operatorname{lcm}(F);
+\]
+if \(\operatorname{lcm}(F)\ge2\), then
+\(\operatorname{lcm}(F)<D_F\).  For a hypothetical rational value on an
+infinite support, binary long division instead produces an unbounded integral
+scaled-tail orbit.  The orbit obeys an exact recurrence, permits only
+sublogarithmic zero windows in the divisor-incidence sequence, and satisfies
+the reciprocal-mass bounds stated below.  Boolean--M\"obius inversion gives an
+exact orbit characterisation of all rational support values, but does not make
+the reconstructed support infinite.
+
+The achievement set of the weights \((2^n-1)^{-1}\) is compact, perfect,
+totally disconnected, nowhere dense, and of Lebesgue measure \(1\).  If the
+allowed exponent set has finite complement \(F\), the restricted achievement
+set has measure \(2^{-|F|}\); if the complement is infinite, it has measure
+zero.  These geometric results classify sets of subsums, not the arithmetic
+nature of their points.
+
+Two rational targets make the remaining difficulty explicit.  Membership of
+\(1/2\) is equivalent to infinitely many omissions in its greedy expansion;
+non-membership is witnessed by one finite fatal gap.  Membership of \(1/21\)
+is equivalent to cofinal crossings of the exact scaled lower separatrix, or
+equivalently to failure of the stated fatal aligned branch.  Neither
+membership question is resolved.  A representation of either value must have
+infinite support.
+
 \end{abstract}
 
-\externalreviewobject{The paper proves finite-support denominator-period
-noncollapse, exact injective coding and a measure dichotomy for restricted
-achievement sets, and formalises the classical full-support irrationality
-theorem for every integer base $b\ge2$.}{These are distinct contribution
-classes: local structure, known achievement-set geometry, and prior
-mathematics.  None treats every infinite support, so universal Problem~\#257
-and the stated rational targets remain open.}{Comparator selects the exact
-finite-period theorem, the restricted-set measure dichotomy, the unrestricted
-measure-one theorem, and the classical full-support theorem;
-the receipt lists the exact theorem set actually checked.}
+\begin{paperresult}{Strongest unconditional results}
+\textbf{Arithmetic.} The full-support series is irrational at every integer
+base $b\ge2$; so are all convergent pairwise-coprime supports and all nonzero
+eventually periodic nonnegative rational weight sequences.  Finite subsums
+have exact denominator order.  \textbf{Geometry.} The achievement set is
+compact, perfect, nowhere dense, and has measure $1$, with an exact measure
+law after restricting exponents.  \textbf{Open boundary.} The target values
+$1/2$ and $1/21$ remain undecided, and the geometric classification does
+not decide the arithmetic nature of individual subsums.
+\end{paperresult}
 
 \section{Introduction and main results}\label{sec:problem}
 
@@ -121,7 +117,9 @@ reproduces the displayed problem and labels it open, while explicitly warning
 that the status is the website owner's present assessment and may omit
 relevant literature~\cite{erdosproblems}.  We therefore use the catalogue for
 numbering and current reported status only; the original publications and the
-later cited papers carry the mathematical claims.  Write
+later cited papers carry the mathematical claims.
+
+Write
 $\wgt n=(2^n-1)^{-1}$.  Expanding each weight as a geometric series and
 interchanging the two nonnegative sums gives the coordinate this note works
 in.  With the \emph{divisor incidence}
@@ -131,9 +129,9 @@ $\scA_A(n)=\#\{d\mid n: d\in A\}$,
   \tag{1}\label{eq:incidence}
 \]
 The transform is worth reading carefully, because it is where the arithmetic
-of the problem enters.  The datum is a $0/1$ selector, the indicator of $A$;
-what appears in~\eqref{eq:incidence} is not that selector but its divisor
-transform, a nonnegative integer sequence bounded by the divisor function,
+of the problem enters.  The datum is the $0/1$ indicator of $A$.
+Equation~\eqref{eq:incidence} contains its divisor transform, a nonnegative
+integer sequence bounded by the divisor function,
 $\scA_A(n)\le d(n)$.  So \#257 is not a generic question about binary digit
 sequences.  Equation~\eqref{eq:incidence} is a power-series representation,
 not a binary expansion: its coefficients are divisor counts drawn from a
@@ -195,13 +193,14 @@ the squarefree support, whose values are known at every power-of-two base and wh
 arguments used here provably cannot reach at any even base.
 Section~\ref{sec:geometry} gives the unrestricted and support-restricted
 topology and measure classifications, followed by the exact $1/2$ and $1/21$
-frontiers.  Section~\ref{sec:open} states what remains.
+membership criteria and unresolved branches.  Section~\ref{sec:open} states
+what remains.
 
 \section{Finite-support denominator periods}\label{sec:period}
 
-A finite support has a rational value, so for a finite support the question is
-not irrationality but arithmetic: how large the denominator is, and how the
-base sits inside it.  Theorem~\ref{res:period} answers the second exactly and,
+A finite support has a rational value.  The relevant arithmetic questions are
+the size of its denominator and the position of the base within that
+denominator.  Theorem~\ref{res:period} answers the second exactly and,
 under its stated hypothesis $\lcm(F)\ge2$, gives a strict lower bound for the
 first.  The omitted boundary is genuine: at $b=2$ and $F=\{1\}$ the two
 quantities are both~$1$.
@@ -211,6 +210,7 @@ $\lcm(F)\ge2$ is for:
 \begin{center}
 \begin{tabular}{@{}lllll@{}}
 \toprule
+\papertablehead
 $F$ & $x_F(2)$ & $D_F$ & $\lcm(F)$ & $\operatorname{ord}_{D_F}(2)$\\
 \midrule
 $\{1\}$   & $1$      & $1$   & $1$  & $1$\\
@@ -233,8 +233,8 @@ excludes.
 The content is a noncollapse statement.  Clearing denominators over
 $b^{\lcm(F)}-1$ makes the period at most $\lcm(F)$ immediately; what is not
 immediate is that cancellation in the numerator cannot bring it below.  The
-mechanism is that each selected exponent $n$ contributes, by the cyclotomic
-route, a prime-power modulus dividing $b^{n}-1$ on which $b$ has order exactly
+mechanism is that each selected exponent $n$ contributes, through cyclotomic
+factorisation, a prime-power modulus dividing $b^{n}-1$ on which $b$ has order exactly
 $n$; no single reduction can remove all of them at once.  Prime powers rather
 than primes is not a technicality.  At $(b,n)=(2,6)$ no prime divisor of
 $2^6-1=63$ has order $6$ --- one of the exceptional cases in Zsigmondy's
@@ -255,10 +255,9 @@ appears in the literature has not been assessed, and no novelty is claimed.
 \section{Rational values and scaled tails}\label{sec:forced}
 
 Section~\ref{sec:map} below lists supports for which irrationality is known.
-This section is the other half, and the half that meets
-Problem~\ref{res:problem} rather than sampling it: statements that hold for
-\emph{every} infinite support whose value is rational.  The base is $2$
-throughout, and each statement carries its own hypotheses.
+The results here instead quantify over \emph{every} infinite support whose
+value is rational, which is the quantifier in Problem~\ref{res:problem}.
+The base is $2$ throughout, and each statement carries its own hypotheses.
 
 \paragraph{Integral scaled tails, and unboundedness.}
 Binary long division turns a hypothetical rational value into an integer
@@ -269,6 +268,7 @@ coefficients.  Call an integer sequence $u\colon\N\to\Z$ a
   u(n+1)=2u(n)-v\,f(n+1)\quad\text{for every }n\ge0,
   \qquad\text{and}\qquad u(n)=o(2^{n}).
 \]
+
 The recurrence is one step of long division in base~$2$: double the remainder,
 then pay out the next coefficient.  The growth condition is what pins the
 solution down, since two solutions of the recurrence differ by $C\,2^{n}$ for a
@@ -278,9 +278,9 @@ the divisor function --- the series $\sum f(n)2^{-n}$ is rational exactly when
 a tempered scaled-tail sequence exists for some $v\ge1$, and every such
 sequence is then
 the scaled tail
-$u(n)=v\sum_{j\ge1}f(n+j)2^{-j}$, so the orbit is unique rather than merely
-available
+$u(n)=v\sum_{j\ge1}f(n+j)2^{-j}$; hence exactly one such orbit exists
 (\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked}).
+
 The next theorem exhibits such an orbit for $X_A$ itself, with the coefficient
 sequence shifted past the power of $2$ in the denominator.
 
@@ -363,6 +363,7 @@ or
 \]
 \end{theorem}
 
+\begin{sloppypar}
 \noindent Checked as
 \mword{Erdos249257/RationalSupportCarrySkeleton.lean}{2210}{dyadic_support_fraction_reciprocalMass_diverges_or_gt_one}{Lean}.
 The two alternatives are an exact necessary consequence of a dyadic rational
@@ -370,6 +371,7 @@ value.  They do not contradict rationality by themselves: a contradiction
 requires separate proofs that the reciprocal terms are summable and that the
 mass is at most $1$.  The formal nonsummability alternative also does not, by
 itself, assert a particular asymptotic law for the partial sums.
+\end{sloppypar}
 
 \paragraph{A Boolean--M\"obius characterisation.}
 The preceding theorems give necessary conditions.  The next statement is an
@@ -457,6 +459,7 @@ classify all known cases.
   >{\raggedright\arraybackslash}p{0.15\linewidth}
   >{\raggedright\arraybackslash}p{0.48\linewidth}@{}}
 \toprule
+\papertablehead
 Support $A$ & Bases & Mechanism and authority \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Classical full support, and base change into it}}\\
@@ -468,7 +471,7 @@ multiples of a fixed $d$ & every $b\ge2$ & dilation: the multiples series at
 \addlinespace
 \multicolumn{3}{@{}l}{\emph{Periodicity of the coefficient sequence}}\\
 eventually periodic & every $b\ge2$ &
-  \mword{Erdos249257/CertificateKernel.lean}{11604}{irrational_erdosSupportSeries_eventuallyPeriodic}{checked here};
+  \mword{Erdos249257/CertificateKernel.lean}{12811}{irrational_ratWeightSeries_eventuallyPeriodic}{checked here};
   Luca--Tachiya prove the nonnegative purely-periodic case
   \cite[Theorem~1, p.~139; proof pp.~149--150]{lucatachiya2017};
   finite rational prefixes give the infinite eventual case \\
@@ -522,14 +525,26 @@ argument, but he does not give that argument; p.~226 repeats that boundary.
 Accordingly the table uses only the fully printed pairwise-coprime
 theorem, not the stronger unproved-in-print extension.
 
+Under the additional hypothesis that the pairwise-coprime exponents are odd,
+Duverney, Suzuki and Tachiya strengthen this conclusion: Corollary~1 gives
+linear independence of (1) and three associated plus/minus reciprocal sums
+at every integer base of absolute value greater than one
+\cite[Corollary~1]{duverneysuzukitachiya2019}.  This is a stronger conclusion
+on a narrower support class; it does not remove the hypothesis from the row
+above.
+
 \noindent Five remarks on the table: one on containment between the
 mechanisms, three on the literature rows, and one on what ``checked here''
 means.
 
+For the full-support row, the weighted certificate theorem is
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{the exact checked statement};
+the support-series formulation displayed in the table is its later corollary.
+
 \emph{The mechanisms are not nested, and one non-containment is proved.}  The
 base-$b$ full-support theorem is exactly the $A=\Npos$ statement; the
 multiples rows genuinely specialise it after a base change, but the sparse
-rows do not, and this is not merely an artefact of how they were proved.  The
+rows do not.  The distinction is intrinsic: the
 denominator-gap criterion behind the factorial and power-of-two rows
 \emph{provably cannot} reach the full support: the prefix lcm grows too slowly
 for its hypothesis to hold
@@ -547,11 +562,13 @@ $F_s(E)$ of products of its members with exponents below $s$, that
 $1$ and the values $\sum_{n\in F_s}(q^{jn^i}-1)^{-1}$ are linearly independent
 over $\Q$ whenever $|q|^{L}\le s$, with $L=\lcm(1,\dots,\ell)$ and $\ell$
 bounding the exponent $i$.  This is a
-row-generating theorem, not an isolated example: with $E$ the primes,
+row-generating theorem, not an isolated example.
+
+With $E$ the primes,
 $s=\infty$ returns the full support at every base, while $s=2$ returns the
 squarefree support.  For \(s=2\), the constraint forces \(\ell=1\) and
 \(|q|\le2\), but the free exponent \(j\) gives every base \(b=2^j\).
-Thus this route excludes bases that are not powers of \(2\), rather than all
+Thus this theorem excludes bases that are not powers of \(2\), rather than all
 bases \(b\ge3\); it also excludes higher monomial degrees \(i\ge2\).
 Their conclusion is stronger than irrationality, being linear independence of
 the whole finite family across the chosen exponents \(j\).
@@ -604,7 +621,7 @@ Tachiya's 2017 RIMS paper explicitly restates their earlier Theorem~1.1 in the
 exact form needed here: $\sum_{n\ge1}a_n/(q^n-1)$ is irrational for every
 integer $q$ with $|q|>1$ and every nonzero purely periodic integer sequence
 $(a_n)$ \cite[Theorem~A, p.~139]{lucatachiya2017}.  Thus the disjunction above
-is an artefact of the route taken, not a feature of the problem: the second
+is a consequence of the chosen argument, not a feature of the problem: the second
 branch is empty, and their author restatement is what shows it.  The RIMS paper
 does not reproduce the earlier proof or verify the broader eventual-rational
 formulation, so neither is claimed here.  The local statement retains only
@@ -743,7 +760,7 @@ $3b^2>b$; if $N=0$ and $L\ge2$, the $r=2$ term gives
 $C\ge b^{L-2}$ and hence $qC\ge b^L$.  These exhaust the cases.
 \end{proof}
 
-\noindent The two engine-facing nonexistence statements are checked directly as
+\noindent The two formal nonexistence statements are checked directly as
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{274}{not_exists_carry_certificates_squarefreeSupport}{the carry-aware no-go}
 and
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{292}{not_exists_digitwise_certificates_squarefreeSupport}{the digitwise no-go}.
@@ -771,13 +788,14 @@ two irrationality questions are checked as
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{314}{supportCoeff_squarefreeShiftedSupport}{$2^{\omega(n)}$ incidence}
 and
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{335}{irrational_erdosSupportSeries_squarefreeSupport_iff_shifted}{the shift iff}.
+
 More is true: the shifted first-block condition at base~$2$ asks for
 $2^{r}\mid 2^{\omega(N+r)}$, that is $\omega(N+r)\ge r$ for $1\le r\le K$, and
 a Chinese-remainder construction reserving $r$ fresh primes for each shift $r$
 supplies such an $N$ for every $K$.  This is checked both as the arithmetic
 block theorem
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{441}{exists_omega_ge_block}{for $\omega$}
-and in the engine-facing form
+and in the corresponding formal statement
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{485}{exists_digitwise_block_squarefreeShiftedSupport}{for the shifted incidence}.
 
 It does \emph{not} follow that either argument certifies the shifted support:
@@ -828,23 +846,30 @@ Lebesgue measure~$1$.
 
 \noindent Checked as
 \mword{Erdos249257/GreedyAchievementSet.lean}{656}{isCompact_mersenneAchievementSet}{compact},
-\mword{Erdos249257/GreedyAchievementSet.lean}{1633}{perfect_mersenneAchievementSet}{perfect},
-\mword{Erdos249257/GreedyAchievementSet.lean}{1649}{isTotallyDisconnected_mersenneAchievementSet}{totally disconnected},
-\mword{Erdos249257/GreedyAchievementSet.lean}{1658}{isNowhereDense_mersenneAchievementSet}{nowhere dense},
+\mword{Erdos249257/GreedyAchievementSet.lean}{1656}{perfect_mersenneAchievementSet}{perfect},
+\mword{Erdos249257/GreedyAchievementSet.lean}{1672}{isTotallyDisconnected_mersenneAchievementSet}{totally disconnected},
+\mword{Erdos249257/GreedyAchievementSet.lean}{1681}{isNowhereDense_mersenneAchievementSet}{nowhere dense},
 and
 \mword{Erdos249257/GreedyAchievementSet.lean}{996}{volume_mersenneAchievementSet}{of measure one}.
 So $\Ach$ is a fat Cantor set: strict tail domination
 $\sum_{\ell>n}\wgt\ell<\wgt n$ opens a gap at every level, while the total
-measure is not lost.  The division of credit is exact.  The strict inequality,
-the resulting distinctness of subsums over distinct supports, and the Cantor
-conclusion for every integer base are Remark 4.1 (p.~13) of Kova\v{c} and
-Tao~\cite{kovactao}; no novelty is
-claimed for any of the three.  That remark makes no metric assertion, and
-strict tail domination does not determine the measure: the weights $3^{-n}$
+measure is not lost.  The classical antecedent is Kakeya's two-page paper: he
+proves perfectness for the subsum set of every absolutely convergent real or
+complex series and gives the real interval criterion; under the present
+strict tail inequality at every index, his result also gives nowhere density
+\cite[p.~251]{kakeya1914}.  The strict inequality, the resulting distinctness
+of subsums over distinct supports, and the Cantor conclusion for every integer
+base are also recorded in Remark~4.1 (p.~13) of Kova\v{c} and
+Tao~\cite{kovactao}; no novelty is claimed for any of these facts.  That
+remark makes no metric assertion.
+
+Strict tail domination does not determine the measure: the weights $3^{-n}$
 satisfy $\sum_{\ell>n}3^{-\ell}=3^{-n}/2<3^{-n}$ and produce a null achievement
 set, the base-$3$ digits-in-$\{0,1\}$ Cantor set.  So the measure-one clause is
 added here rather than formalised from there, and it is the arithmetic of the
-Mersenne weights that supplies it.  With $T_n=\sum_{k>n}\wgt k$, the standard
+Mersenne weights that supplies it.
+
+With $T_n=\sum_{k>n}\wgt k$, the standard
 level-$n$ convex-hull cover consists of $2^n$ disjoint intervals of length
 $T_n$, its nested intersection is $\Ach$, and
 \[
@@ -861,6 +886,7 @@ the remainder unchanged otherwise; call a level at which nothing is subtracted
 remainder after that level is at most the remaining mass $T_n$.  Then
 $x\in\Ach$ if and only if $x\ge0$ and the expansion survives every level
 (\mword{Erdos249257/GreedyAchievementSet.lean}{1458}{mem_mersenneAchievementSet_iff_greedy_survival}{Lean}).
+
 Non-membership of a nonnegative target is therefore visible at a single level,
 and for a rational target strict failure can be certified effectively:
 rational upper bounds for the remaining tail converge to $T_n$, so once one
@@ -869,7 +895,7 @@ example below uses an exact rational upper bound.  For
 $x=3/4$, the greedy algorithm skips $\wgt1=1$ and leaves residual $3/4$,
 while the exact zero-lookahead upper bound for the remaining tail is
 $2\wgt2=2/3<3/4$; hence $3/4\notin\Ach$
-(\mword{Erdos249257/GreedyAchievementSet.lean}{1761}{three_fourths_not_mem_mersenneAchievementSet}{Lean}).
+(\mword{Erdos249257/GreedyAchievementSet.lean}{1784}{three_fourths_not_mem_mersenneAchievementSet}{Lean}).
 
 The selector-to-subsum map sending a $0/1$ string $(\varepsilon_n)$ to
 $\sum_n\varepsilon_n\wgt n$, which the strict tail inequality makes injective,
@@ -880,6 +906,7 @@ offsets write $T_J(n)=\sum_{k\in J}\wgt{n+k+1}$ for the tail restricted to $J$
 (\lword{Erdos257/MersenneSubseriesRigidity.lean}{20}{selectedMersenneTail}{definition},
 summable at
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{24}{summable_selectedMersenneTail}{Lean}).
+
 Then $T_J(n)<\wgt n$ for every $J$ and every $n\ge1$
 (\lword{Erdos257/MersenneSubseriesRigidity.lean}{30}{selectedMersenneTail_lt_weight}{checked}),
 since deleting weights only shrinks a tail that already sits below $\wgt n$ at
@@ -894,6 +921,7 @@ so the statement is about the subseries itself and not a projection of the
 full one.  Thus uniqueness of the selector survives passage to an arbitrary
 subfamily; this is an injectivity statement, not a statement about binary
 digits of the value.
+
 That is a constraint on the shape of an argument, not on the supports: it
 decides no value, and it is weaker than any statement in
 Section~\ref{sec:forced}.
@@ -919,6 +947,7 @@ Consequently $\Ach_J$ is
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{90}{isCompact_supportedMersenneAchievementSet}{compact}
 and
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{96}{isClosed_supportedMersenneAchievementSet}{closed}.
+
 It lies inside $\Ach$ by
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{103}{supportedMersenneAchievementSet_subset}{support restriction}
 and is therefore
@@ -1006,13 +1035,84 @@ Moreover no finite support has value $1/2$.
 \end{theorem}
 
 \noindent Checked as
-\mword{Erdos249257/GreedyAchievementSet.lean}{2527}{half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite}{the greedy form},
+\mword{Erdos249257/GreedyAchievementSet.lean}{2583}{half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite}{the greedy form},
 \mword{Erdos249257/HalfCylinderHalfMembershipClassification.lean}{126}{half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse}{the terminal-bit form},
 \mword{Erdos249257/HalfCylinderHalfMembershipClassification.lean}{213}{half_mem_mersenneAchievementSet_iff_exists_unboundedSkippedRanksAlong}{the skipped-rank form},
 \mword{Erdos249257/HalfCylinderFatalGapRightTail.lean}{781}{seamGreedyEventuallyRight_iff_existsFatalHalfGap}{the fatal-gap equivalence},
 \mword{Erdos249257/HalfCylinderFatalGapRightTail.lean}{787}{seamGreedyEventuallyRight_iff_half_not_mem}{its transfer to non-membership},
 and
 \mword{Erdos249257/HalfCarryReachability.lean}{589}{finite_boolSupport_ne_half}{the finite-support exclusion}.
+
+\paragraph{Exact-row transport at the endpoint.}
+The formal argument exposes the mechanism behind one conditional
+half-membership implication.  Write $r_{c-1}$ for the rational greedy
+remainder after ranks through $c-1$.  Whenever $c\ge4$ and
+
+\[
+  0<r_{c-1}<\wgt c,
+\]
+
+the skipped-core constructor first turns the finite greedy core into an exact
+local quotient row at endpoint $2c-2$,
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{55}{exactLocalMersenneHalfRow_of_positiveHalfGreedySkip}{the local row constructor}.
+The hard finite step is explicit: the deficit below $1/2$ is below the next
+Mersenne weight, so a Boolean word fills the entire upper-half capacity,
+\mword{Erdos249257/BooleanMobiusSkippedCoreExactRow.lean}{228}{exists_upperHalfBooleanWord_of_skippedCore}{the upper-half Boolean fill}.
+The residual cannot vanish at any finite rank,
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{32}{greedyMersenneRemainderRat_half_pos}{the strict-positivity theorem};
+the odd denominator of every finite positive Mersenne sum rules out exact
+finite exhaustion of $1/2$.
+If positive skips occur cofinally in the exact sense
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{22}{CofinalPositiveHalfGreedySkips}{the cofinal-skip hypothesis},
+their endpoints are cofinal by
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{84}{cofinalExactLocalMersenneHalfRows_of_positiveHalfGreedySkips}{the row fan-in}.
+The row-value estimate makes the discrepancy at endpoint $n$ at most
+$(n+1)/2^n$, and closedness then places $1/2$ in $\Ach$,
+\mword{Erdos249257/BooleanMobiusCofinalExactRows.lean}{71}{half_mem_mersenneAchievementSet_of_cofinalExactLocalRows}{the closed-set step}.
+
+No compatibility between the finite witnesses is assumed.  The global
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{97}{half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips}{forward endpoint theorem}
+is in fact reversible.
+
+\begin{theorem}[positive skips characterise the half-value]
+\label{res:positiveskipexact}
+The condition \texttt{CofinalPositiveHalfGreedySkips} holds if and only if
+$1/2\in\Ach$.
+\end{theorem}
+
+\noindent This is
+\mword{Erdos249257/BooleanMobiusSkipRowCofinal.lean}{110}{cofinalPositiveHalfGreedySkips_iff_half_mem}{the checked equivalence}.
+Thus cofinal positive skips are not an independently weaker hypothesis:
+proving them already proves the half-membership endpoint, while
+half-membership forces them because finite residuals never vanish.  Neither
+side is established here, so the theorem identifies the exact obstruction
+without supplying an unconditional counterexample to Problem~\#257.
+
+\begin{theorem}[terminal scaled vanishing implies the half-value]
+\label{res:terminalhalf}
+Let $S$ be a
+\texttt{HalfTerminalOnlyScaledVanishingSequence}: its finite words exclude
+ranks $0$ and $1$, their depths tend to infinity, and the absolute terminal
+carry divided by $2^M$ tends to zero along the depths $M$.  Then there is an
+infinite set $A\subseteq\N$ with
+
+\[
+  \sum_{a\in A}\frac1{2^a-1}=\frac12.
+\]
+Consequently the universal irrationality assertion in
+Problem~\ref{res:problem} is false under this hypothesis.  This is a
+conditional implication, not a construction of $S$ and not a solution
+of Problem~\#257.
+\end{theorem}
+
+\noindent The terminal-only argument first places $1/2$ in the achievement
+set by the vanishing normalized-carry estimate, then uses the finite-support
+exclusion to show that the limiting support is infinite:
+\mword{Erdos249257/TerminalOnlyScaledVanishing.lean}{165}{half_mem_mersenneAchievementSet_of_terminalScaledVanishing}{achievement-set conclusion},
+\mword{Erdos249257/TerminalOnlyScaledVanishing.lean}{221}{exists_infinite_support_half_of_terminalScaledVanishing}{infinite-support lift}.
+The problem-level refutation is the direct formal consequence
+\lword{Erdos257/HalfCounterexampleFrontier.lean}{31}{exists_rational_half_counterexample_of_terminalScaledVanishing}{rational half counterexample},
+\lword{Erdos257/HalfCounterexampleFrontier.lean}{39}{not_universal_of_terminalScaledVanishing}{universal-claim refutation}.
 
 The formal source also proves equivalent terminal-bit and unbounded
 skipped-rank formulations in its internal half-cylinder seam coordinate; the
@@ -1023,7 +1123,161 @@ fatal gap and is therefore semi-decidable, whereas membership is an infinite
 condition.  Computing further can only raise a lower bound on where a fatal
 gap could occur; it cannot establish survival.
 
-One natural route to $1/2$ is closed.  The Boolean support selected by the
+The next local obstruction is sharper than a numerical search.  Suppose a
+take occurs at rank $b$, the next take at rank $c>b+1$, and put
+$q=2^b-1$ and $m=2^{c-1}$.  If $R$ is the reciprocal of the residual just
+before the first take, then the final intervening skip is dyadically unsafe
+exactly when
+
+\[
+  \frac{q(m-1)}{q+m-1}<R<\frac{qm}{q+m}.
+\]
+
+The interval has the exact width
+$q^2/((q+m)(q+m-1))$.  For a single intervening skip, $c=b+2$ and
+$m=2q+2$, giving the two-thirds band
+
+\[
+  \frac{q(2q+1)}{3q+1}<R<\frac{2q(q+1)}{3q+2},
+\]
+
+whose width is below $1/9$.  Thus the band is an exact localization of one
+greedy danger, not a claim that the actual orbit enters it.
+
+\begin{theorem}[the sharp local two-adic obstruction]
+\label{res:twothirdsband}
+Let $p,D,q$ be positive odd integers.  If
+
+\[
+ q(2q+1)p<2D(3q+1),
+ \qquad
+ 2D(3q+2)<2pq(q+1),
+\]
+
+then $p\ge7$.  In particular, the odd numerator classes $p=1,3,5$ cannot
+occupy the cleared two-thirds band.  The bound is sharp for these local
+hypotheses: odd triples with $p=7$ do occur in the band.
+\end{theorem}
+
+\noindent The hard step is genuinely $2$-adic.  The band defect
+$\Delta=6D-2pq$ is positive and divisible by $4$ when $p,D,q$ are odd, so
+$\Delta\ge4$; combining that gap with the band inequalities forces $p>6$.
+The exact formal boundaries are the general localization
+\mword{Erdos249257/HalfGreedyTwoThirdsBand.lean}{88}{postTakeUnsafeAt_iff_band}{general band localization},
+the single-skip equivalence
+\mword{Erdos249257/HalfGreedyTwoThirdsBand.lean}{127}{singletonUnsafe_iff_twoThirdsBand}{two-thirds band},
+and the sharp numerator conclusion
+\mword{Erdos249257/HalfGreedyTwoThirdsBand.lean}{231}{seven_le_of_intBand_odd}{odd numerator bound}.
+Integral reciprocal states are excluded from the same band by
+\mword{Erdos249257/HalfGreedyTwoThirdsBand.lean}{185}{not_twoThirdsBand_of_int}{integral safety}.
+This is a one-step local no-go result: it neither proves that the half-greedy
+orbit reaches or avoids the band nor settles half-membership.
+
+Two further conditional arguments sharpen the boundary around this half-value
+problem.  They are logically distinct from the terminal scaled-vanishing
+question: one seeks irrationality from a structured support, while the other
+would produce a rational counterexample from cofinal geometric stages.
+
+\begin{theorem}[orthogonal-petal sunflower criterion]
+\label{res:sunflower}
+Let $A\subseteq\N$ support an
+\texttt{OrthogonalPetalBouquet} and satisfy
+\texttt{SunflowerForcedSlotTailSelection}.  Then
+
+\[
+  \operatorname{Irrational}\!\left(\sum_{a\in A}\frac{1}{2^a-1}\right).
+\]
+The bouquet hypothesis packages a finite exceptional/core part and residual
+petals that are nontrivial, pairwise coprime, and reciprocal-summable.  The
+remaining selector hypothesis is a uniform tail condition: at every positive
+length $K$ it supplies a shifted block whose binary carry is divisible by
+$2^K$ while its residual tail is bounded.  Neither hypothesis is constructed
+here, so this is a conditional reduction rather than a solution of
+Problem~\#257.
+\end{theorem}
+
+\noindent The hard mechanism is the persistent-reduced-modulus averaging
+argument: the selector supplies carries, and the support-series theorem
+turns that supply into irrationality.  The exact formal consumers are
+\mword{Erdos249257/SupportSunflowerDichotomy.lean}{531}{sunflowerForcedCarrySupply_of_orthogonalPetalBouquet}{forced carry supply}
+and
+\mword{Erdos249257/SupportSunflowerDichotomy.lean}{540}{irrational_erdosSupportSeries_of_orthogonalPetalBouquet}{irrationality endpoint}.
+The source definition of the selector makes the missing analytic obligation
+explicit at
+\mword{Erdos249257/SupportSunflowerDichotomy.lean}{406}{SunflowerForcedSlotTailSelection}{uniform tail selector}.
+
+\begin{theorem}[the composite-dilation defect]
+\label{res:compositedefect}
+Let $A\subseteq\N$ and let $a,x\in\Npos$ with $a\in A$.  Define the foreign-divisor
+defect
+\[
+  \delta_A(a,x)=\#\{d\mid ax:d\in A,\ d\nmid x,\ d\ne a\}.
+\]
+Then the divisor incidence satisfies the exact identity
+\[
+  \scA_A(ax)=\scA_A(x)+\mathbf 1_{a\nmid x}+\delta_A(a,x).
+\]
+If every member of $A$ is prime, then $\delta_A(a,x)=0$, so the familiar
+prime-support dilation formula is recovered.  More generally, if $A$ has an
+\texttt{OrthogonalPetalBouquet} witness $h_B$, then for every $i\in\N$,
+\[
+  \delta_A(\operatorname{ray}_{h_B}(i),x)\le
+  |h_B.\mathrm{exceptional}|+
+  \scA_{\operatorname{range}(h_B.\mathrm{petal})}(x),
+\]
+where $\operatorname{ray}_{h_B}(i)=h_B.\mathrm{core}(i)h_B.\mathrm{petal}(i)$.
+\end{theorem}
+
+\noindent The first identity is the finite divisor partition checked at
+\mword{Erdos249257/CompositeDilationDefect.lean}{30}{supportCoeff_mul_eq_add_defect}{exact dilation identity}.
+The hard point is that a composite multiplier can create support divisors
+which are neither the multiplier itself nor old divisors of $x$; they are
+recorded by $\delta_A$ rather than silently discarded.  The defect vanishes
+under the prime-support hypothesis by
+\mword{Erdos249257/CompositeDilationDefect.lean}{103}{compositeDilationDefect_eq_zero_of_prime_support}{prime-support no-defect},
+and the corresponding incidence formula is
+\mword{Erdos249257/CompositeDilationDefect.lean}{119}{supportCoeff_mul_prime_support}{prime specialization}.
+For a bouquet, every non-exceptional foreign divisor injects into a unique
+petal divisor of $x$, yielding the displayed budget through
+\mword{Erdos249257/CompositeDilationDefect.lean}{133}{mem_compositeDilationDefect_bouquet_imp_exceptional_or_petal_dvd}{foreign-divisor classification}
+and
+\mword{Erdos249257/CompositeDilationDefect.lean}{151}{compositeDilationDefect_le_exceptional_add_petalCoeff}{defect bound}.
+The correction is concrete already for $A=\{2,6\}$: multiplying $x=1$ by
+the composite support element $6$ creates the additional support divisor $2$,
+so $\delta_A(6,1)=1$
+(\mword{Erdos249257/CompositeDilationDefect.lean}{218}{compositeDilationDefect_two_six_fixture}{two-six witness}).
+
+Thus a composite bouquet cannot be analysed by copying the prime formula
+until this explicit foreign channel has been budgeted.  This theorem provides
+that local budget only; it neither bounds defects along an infinite orbit nor
+supplies the uniform tail selector required by Theorem~\ref{res:sunflower}.
+
+\begin{theorem}[cofinal cylinders imply an infinite half-support]
+\label{res:cylinderhalf}
+Suppose that for every $N$ there are $M,K$ with
+$\max\{N,1\}\le M$ and a nonempty
+\texttt{CylinderStage}~$K~M$.  Then there is an infinite set
+$A\subseteq\N$ with $0\notin A$ and
+
+\[
+  \sum_{a\in A}\frac{1}{2^a-1}=\frac12.
+\]
+Thus the universal irrationality assertion in Problem~\#257 is false under
+this cofinal-stage hypothesis.  The formal proof does not construct the
+cofinal family of full-cylinder stages.
+\end{theorem}
+
+\noindent The proof first converts each full-cylinder stage into a weaker
+terminal-only strip, then invokes closedness of the half-achievement set
+and the positive-support lift.  The exact steps are
+\mword{Erdos249257/SuffixCylinderTerminalOnlyBridge.lean}{264}{cofinalTerminalOnlyStrip_of_cofinalCylinderStages}{terminal-only bridge},
+\mword{Erdos249257/SuffixCylinderTerminalOnlyBridge.lean}{277}{exists_infinite_support_half_of_cofinalCylinderStages}{infinite half-support},
+and
+\mword{Erdos249257/SuffixCylinderTerminalOnlyBridge.lean}{287}{exists_infinite_positive_support_half_of_cofinalCylinderStages}{positive-support lift}.
+This is a conditional implication, not evidence that such stages exist;
+proving or refuting their cofinality is the remaining task for this argument.
+
+One natural construction for $1/2$ is ruled out.  The Boolean support selected by the
 negative values of the M\"obius function has value exactly $1/2$ plus the
 positive M\"obius tail, hence at least $1/2+1/63$
 (\mword{Erdos249257/MobiusSignSupportNoGo.lean}{111}{tsum_negativeMobius_eq_half_add_positiveMobiusTail}{identity},
@@ -1052,8 +1306,8 @@ $1/21$ along this rank-$\ge2$ route, if one exists, must be infinite.
 The theorem proves nontermination only: it does not prove that $1/21$ lies
 in $\Ach$.
 
-A separate arithmetic module isolates the primitive cone that appears in one
-candidate expansion route.  Write
+A separate arithmetic lemma isolates the primitive cone that appears in one
+candidate expansion.  Write
 \[
   \mathcal P_{23}(n)=
   \{(p,q)\in\Npos^2:\gcd(p,q)=1,\ 2p+3q=n\}.
@@ -1072,14 +1326,68 @@ already a Boolean expansion: the missing step is a proof that the relevant
 integer multiplicities can be converted into zero--one reciprocal-Mersenne
 digits without changing the value.
 
-\subsection{The canonical \texorpdfstring{$1/21$}{1/21} frontier}
+\subsection{The scaled-greedy criterion at \texorpdfstring{$1/21$}{1/21}}
 
 The finite-support obstruction makes $1/21$ useful only if the infinite
 problem is stated in coordinates that retain the actual greedy orbit.  Let
 \[
  r_N=\operatorname{greedyMersenneRemainder}(1/21,N)
 \]
-be the real remainder after rank $N$, and let
+be the real remainder after rank $N$, put $y_N=2^Nr_N$, and set
+\[
+ c_{N+1}=\frac{2^{N+1}}{2^{N+1}-1}.
+\]
+The scaled recurrence is a nearly doubling map: it sends $y_N$ to
+$2y_N-c_{N+1}$ when $c_{N+1}\le2y_N$, and to $2y_N$ otherwise.  The latter is
+the exact lower branch, so rank $N+1$ is skipped precisely when
+$2y_N<c_{N+1}$.
+
+\begin{theorem}[scaled-greedy trap, escape, and cofinal return]
+\label{res:scaled-greedy-trap}
+For every nonnegative real $x$, writing $y_N(x)=2^N
+\operatorname{greedyMersenneRemainder}(x,N)$,
+\[
+ x\in\Ach\quad\Longleftrightarrow\quad
+ y_N(x)<2\quad\hbox{for every }N.
+\]
+If $x\notin\Ach$, then $y_N(x)\to+\infty$.  Conversely, a single bounded
+cofinal subsequence already characterizes membership:
+\[
+ x\in\Ach\quad\Longleftrightarrow\quad
+ \exists B\in\R\ \forall K\ \exists N\ge K:\qquad y_N(x)\le B.
+\]
+For every nonnegative rational $q$ this is also equivalent to
+\[
+ \forall K\ \exists N\ge K:\qquad
+ 2y_N(q)<\frac{2^{N+1}}{2^{N+1}-1}.
+\]
+In particular, $1/21\in\Ach$ if and only if its scaled greedy orbit crosses
+this moving lower separatrix beyond every cutoff.
+\end{theorem}
+
+\noindent The trap-set equality is
+\mword{Erdos249257/GreedyTrapDynamics.lean}{262}{mersenneAchievementSet_eq_scaledGreedyTrap}{kernel checked},
+the escape theorem is
+\mword{Erdos249257/GreedyTrapDynamics.lean}{189}{scaledGreedyRemainder_tendsto_atTop_of_not_mem}{kernel checked},
+and the bounded-cofinal-return equivalence is
+\mword{Erdos249257/GreedyTrapDynamics.lean}{225}{mem_mersenneAchievementSet_iff_scaledRemainder_cofinallyBounded}{kernel checked}.
+The escape proof locates a fatal rank at which the residual exceeds the
+complete remaining tail by some $\delta>0$.  That excess persists, so the
+scaled residual is at least $2^N\delta$ thereafter.  This is the hard step in
+the reverse bounded-return implication: an orbit with even one bounded
+cofinal subsequence cannot lie outside $\Ach$.
+
+The general rational criterion is
+\mword{Erdos249257/GreedyTrapDynamics.lean}{152}{rat_mem_mersenneAchievementSet_iff_scaledLowerBranchCofinally}{kernel checked},
+and its $1/21$ specialization is
+\mword{Erdos249257/GreedyTrapDynamics.lean}{283}{one_div_twentyOne_mem_iff_scaledLowerBranchCofinally}{kernel checked}.
+The hard direction uses the rational normal form: membership is equivalent to
+infinitely many omitted exponents, and a skip is exactly a lower-separatrix
+crossing.  This is an exact reformulation, not a proof that the crossings
+occur.  It asks for neither convergence nor a prescribed uniform bound.
+
+The quotient coordinate gives a complementary classification of what
+nonmembership would have to look like.  Let
 \[
  Q_N=\left\lfloor\frac{2^N}{21}\right\rfloor-P_N,
 \]
@@ -1090,7 +1398,8 @@ been removed.  These are not independent models: the formal source proves an
 exact identity relating $Q_N$, $2^Nr_N$ and a finite-prefix divisor tail
 (\mword{Erdos249257/BooleanMobiusCarry.lean}{2117}{twentyOneGreedyDefect_add_mod_div_eq_scaled_remainder_add_tail}{checked}).
 
-The sharper route works directly with the denominator-$21$ greedy orbit.
+A finer denominator-specific coordinate works directly with the
+denominator-$21$ quotient-greedy orbit.
 At even depth $2R$, write
 \[
  \begin{aligned}
@@ -1109,7 +1418,7 @@ skipped exponents (hence cofinite eventual selection), eventual
 quotient/rational-greedy alignment, and eventual occupation of every doubling
 block.
 
-\begin{theorem}[canonical quotient-greedy frontier at $1/21$]
+\begin{theorem}[fatal-branch quotient refinement at $1/21$]
 \label{res:one-over-twenty-one-frontier}
 The following statements hold.
 \begin{enumerate}
@@ -1172,7 +1481,12 @@ problem beside it.
 
 \begin{problem}[membership of 1/21 in the Mersenne achievement set]
 \label{prob:one-over-twenty-one-membership}
-Exclude the explicit fatal/cofinite/aligned branch $\mathcal F_{21}$.
+Prove cofinal crossings of the exact moving lower separatrix
+\[
+ 2\,\operatorname{scaledGreedyRemainder}(1/21,N)
+ <\operatorname{mersenneScale}(N+1).
+\]
+Equivalently, exclude the explicit fatal/cofinite/aligned branch $\mathcal F_{21}$.
 It is sufficient either to contradict the eventual permanent
 affine-supercapacity recurrence forced by that branch or to force an unbounded
 sequence of closed canonical quotient rows; neither sufficient route is
@@ -1201,10 +1515,10 @@ claimed to be equivalent by itself.
   promoted to an equivalence.
 \end{enumerate}
 
-\noindent The half-value question remains valid on both sides; the frontier at
+\noindent The half-value question remains valid on both sides; the criterion at
 $1/21$ is at present the sharper of the two.  The questions below refine that
-frontier and the arithmetic interfaces around it, and are ranked by how
-directly an answer would move the checked boundary.
+criterion and the arithmetic constraints around it, in order of how directly
+an answer would move the proved boundary.
 
 \begin{problem}[permanent affine supercapacity]\label{prob:affine-supercapacity}
 Can the \emph{actual} denominator-$21$ greedy orbit satisfy
@@ -1235,13 +1549,14 @@ interval?
 \]
 \end{problem}
 
-\noindent This is not merely sufficient: it is equivalent to
-$1/21\in\Ach$
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{2716}{one_div_twenty_one_mem_iff_scaledGreedyRemainderCofinallyBounded}{checked}).
+\noindent This condition is both necessary and sufficient.  It is the
+$x=1/21$ specialization of the general membership equivalence in
+Theorem~\ref{res:scaled-greedy-trap}
+(\mword{Erdos249257/GreedyTrapDynamics.lean}{275}{one_div_twentyOne_mem_iff_scaledRemainder_cofinallyBounded}{checked}).
 It asks for neither convergence, a prescribed $B$, a global bound nor bounded
 return gaps.  Two concrete stronger targets are cofinal recurrence of
 $Q_N\le1$
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{2843}{one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally}{consumer})
+(\mword{Erdos249257/BooleanMobiusCarry.lean}{2843}{one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally}{sufficient condition})
 and arbitrarily deep closed quotient rows $s_R\le2^R$.  Exact computation
 through rank $200{,}000$ records $96$ zero-defect returns and $4{,}956$ returns
 to $Q_N\le1$, with last observed ranks $193{,}690$ and $199{,}930$ and maximum
@@ -1267,7 +1582,7 @@ with $L_N$ the actual weighted repair load
 The formerly plausible translation-invariant six-step contraction first
 fails at $N=73$; the surviving statement is the slope-aware repair-load iff
 at
-\mword{Erdos249257/BooleanMobiusCarry.lean}{1927}{twentyOneGreedyDefect_add_six_le_div_six_iff_repairLoad}{the checked frontier}.
+\mword{Erdos249257/BooleanMobiusCarry.lean}{1927}{twentyOneGreedyDefect_add_six_le_div_six_iff_repairLoad}{the exact equivalence}.
 
 \begin{problem}[final-skip Diophantine exclusion]\label{prob:fatal-interval}
 Let $E=\sum_{n\ge1}(2^n-1)^{-1}$.  If $1/21\notin\Ach$, let $M$ be the last
@@ -1304,7 +1619,7 @@ For $L\ge1$, classify the reduced rationals
 for which non-membership reduces to an eventually deterministic finite-memory
 or affine quotient recurrence.  In particular, classify $\mathcal T_6$ by
 target-pulse alphabet, finite-support obstruction, weakest membership
-consumer, surviving branch complexity and available Diophantine interface.
+criterion, surviving branch complexity and available Diophantine estimate.
 Is $1/21$ minimal or unique under explicit criteria, or does another target
 have a strictly simpler fatal branch?
 \end{problem}
@@ -1342,10 +1657,14 @@ or sufficient.  The displayed proof of Corollary~\ref{res:blind}, the
 derivation of Corollary~\ref{res:sfsettled} from
 ~\cite[Cor.~1.2 and Ex.~1.1, author-preprint p.~4]{duverneytachiya},
 and the general finite-change argument (from the two checked prefix lemmas) are
-expository arguments rather than named checked statements.  The squarefree
+expository arguments rather than named checked statements.
+
+The squarefree
 no-go interfaces, shifted coefficient, shift equivalence, Chinese-remainder
 block supply, and restricted-selector injectivity are directly checked
-statements linked at their use; they are not prose-only claims.  The numerical
+statements linked at their use; they are not prose-only claims.
+
+The numerical
 instances --- the
 table of finite supports in Section~\ref{sec:period}, the incidence and
 zero-window examples, the reciprocal-mass and Boolean--M\"obius instances, the
@@ -1355,21 +1674,21 @@ Results attributed to Campbell, to Duverney and Tachiya, to Tao and
 Ter\"av\"ainen, to Luca and Tachiya, and to Kova\v{c} and Tao are cited from
 the literature and are not formalised here.
 
-\paragraph{Declaration of generative AI use.} Every word of this manuscript was
-generated by agents based on large language models operating within Will Cook's
-private research system for artificial intelligence. The formal proofs and
-repository software were likewise drafted and revised by the agents through
-that system under Cook's direction. Cook set the objectives and acceptance
-criteria, selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation, and
-presentation of the work. Generative systems are production tools, not authors,
-and supply no independent authority. Formal authority is the pinned kernel's
-acceptance of an exact proposition; no model output carries any, and neither
-does this sentence.
-
 Erd\H{o}s Problem~\#257 remains open.
 
 \begin{thebibliography}{10}
+\bibitem{kakeya1914} S.~Kakeya,
+  \href{https://doi.org/10.11429/ptmps1907.7.14_250}
+  {\emph{On the set of partial sums of an infinite series}},
+  Proc. Tokyo Math.-Phys. Soc., 2nd ser., \textbf{7} (1914), 250--251.
+  The perfectness theorem and the real tail criterion are on p.~251.
+\bibitem{duverneysuzukitachiya2019} D.~Duverney, Y.~Suzuki and Y.~Tachiya,
+  \href{https://arxiv.org/abs/1908.07290}
+  {\emph{Linear independence results for certain sums of reciprocals of
+  Fibonacci and Lucas numbers}}, arXiv:1908.07290, 2019.
+  Corollary~1 gives the stated sparse reciprocal-sum linear independence
+  under the pairwise-coprime, odd-support and reciprocal-summability
+  hypotheses.
 \bibitem{campbell2026} J.~M. Campbell,
   \href{https://arxiv.org/abs/2605.24160}
   {\emph{On the binary digits of the Erd\H{o}s--Borwein constant}},

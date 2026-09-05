@@ -126,6 +126,18 @@
       "statement": "The rational-base cleared tail obeys its exact first-order recurrence.",
       "boundary": "The recurrence is not derived from a rationality contradiction.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+    },
+    {
+      "id": "rectangular_hp_threshold",
+      "problem": 1049,
+      "review_family": "height_and_pade_arithmetic",
+      "contribution_class": "locally proved sharp model-specific no-go; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos1049.rectangular_hp_threshold_eq_classical_iff",
+      "original_source": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.rectangular_hp_threshold_eq_classical_iff",
+      "statement": "For the explicit rectangular two-function exponent model, with real rho and sigma satisfying 0 <= rho and 1 + rho <= sigma, the threshold equals 1/2 - 1/pi^2 exactly when rho = 0 and sigma = 1.",
+      "boundary": "This is a sharp no-go only for the explicit rectangular two-function model under the stated real hypotheses; it constructs no approximating polynomials or remainders and is not a universal Pade or Hermite-Pade no-go. It proves no irrationality at 3/2 or any general rational-base endpoint, and the analytic remainder/nonvanishing input remains untreated. No novelty, priority, significance, external-review, or endpoint claim is made; Erdős #1049 remains open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
     }
   ],
   "comparator_review": {
@@ -137,7 +149,7 @@
         "contribution_class": "no-go result",
         "summary": "Integer scalar content changes analytic error and exterior determinant by matching factors, yielding no margin by itself.",
         "evidence_mode": "Lean kernel",
-        "comparator_disposition": "represented_by_selected_coordinatewise_no_go",
+        "comparator_disposition": "not_selected_scalar_content_scaling_family",
         "boundary": "The conclusion is scoped to one normalisation strategy."
       },
       {
@@ -145,7 +157,7 @@
         "contribution_class": "no-go result",
         "summary": "Endpoint residues at 2 and 3 exclude a common multiplier under unit-endpoint hypotheses.",
         "evidence_mode": "Lean kernel",
-        "comparator_disposition": "represented_by_selected_coordinatewise_no_go",
+        "comparator_disposition": "not_selected_endpoint_residue_and_common_multiplier_family",
         "boundary": "Other local or cross-row arithmetic remains possible."
       },
       {
@@ -182,23 +194,75 @@
       },
       {
         "id": "height_and_pade_arithmetic",
-        "contribution_class": "locally proved result and finite arithmetic; novelty unassessed",
-        "summary": "Exact height-region inclusions and exclusions, Padé denominator-exponent bounds, and a rectangular Hermite-Padé threshold no-go are checked.",
-        "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_multiple_scoped_arithmetic_families",
-        "boundary": "The analytic remainder and nonvanishing input remain untreated."
+        "contribution_class": "locally proved sharp model-specific no-go; novelty unassessed",
+        "summary": "For the explicit rectangular two-function exponent model, the cleared gap is nonpositive throughout rho >= 0 and 1 + rho <= sigma, and the threshold is at most 1/2 - 1/pi^2 with equality exactly at rho = 0, sigma = 1. The gap sign and unique-zero mechanism support this sharp threshold no-go within the wider height-and-Padé arithmetic family.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos1049.hpClearedGap_nonpos",
+          "ErdosProblems.Erdos1049.hpClearedGap_eq_zero_iff",
+          "ErdosProblems.Erdos1049.rectangular_hp_threshold_le_classical",
+          "ErdosProblems.Erdos1049.rectangular_hp_threshold_eq_classical_iff"
+        ],
+        "boundary": "This is a sharp no-go only for the explicit rectangular two-function exponent model under the stated real hypotheses; it constructs no approximating polynomials or remainders and is not a universal Padé or Hermite-Padé no-go. It proves no irrationality at 3/2 or any general rational-base endpoint, and the analytic remainder/nonvanishing input remains untreated. No novelty, priority, significance, external-review, or endpoint claim is made; Erdős #1049 remains open."
       }
+    ]
+  },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open_in_the_requested_generality",
+    "problem_statement": "Determine irrationality of the rational-base Lambert values, with 3/2 as the first resistant explicit base.",
+    "strongest_theorem": {
+      "claim_id": "erdos1049.hankel_qorder_exact_all_rank",
+      "title": "Exact q-order N(N−1)(2N−1)/6 and leading coefficient (N!)²(N+1)!/2^N of Zudilin's normalized Hankel determinant",
+      "statement": "For every rank N, Zudilin's normalized Hankel determinant V_N^* at x = z = 1 has q-order exactly N(N−1)(2N−1)/6 and leading coefficient exactly (N!)²(N+1)!/2^N, where Zudilin 2016 §4 proves only the inequality ord_q V_N^* ≥ N(N−1)(2N−1)/6. Exactness is verified by exact integer power-series computation for 1 ≤ N ≤ 7; the general-N argument is ordinary mathematics whose Lean formalisation covers the first transformed row in every column and the closed-form assembly, with rows j ≥ 2 and the determinant identification open.",
+      "altitude": "no_go",
+      "band": "U",
+      "evidence_class": "ordinary_proof",
+      "public_entry": null
+    },
+    "strongest_longitudinal_theorem": {
+      "claim_id": "erdos1049.rational_base_region_theorem",
+      "title": "F(a/b) is irrational on the region b^μ < a, μ = 2.46497868…; 31/4 is the first new base",
+      "statement": "THEOREM A (region). Let a > b >= 1 be coprime integers with b^mu < a, mu = C_1/C_0 = 2.464978683574975037454488275535521581878..., equivalently log b / log a < theta* = 1/mu = 0.40568302138406054101566030557693017464819107867787.... Then F(a/b) = sum_{m>=1} 1/((a/b)^m - 1) is irrational. In the normalisation of Zudilin 2016 Sec. 2 (p = r/s, log|r| > c log|s|) the constant is c = mu, the irrationality-exponent bound of Zudilin 2004 Theorem 1 itself. Consequences: the strip s^mu < r < s^{mu_BV} (mu_BV = 2 pi^2/(pi^2-2) = 2.508284761994...) of bases beyond Bundschuh-Vaananen 1994 Theorem 2 is infinite; new bases with s <= 12 are 31/4; 53/5, 54/5, 56/5; 83/6, 85/6, 89/6; 122/7,...,131/7 (9 bases); 169/8,...,183/8 (odd r, 8 bases); 15, 12, 37, 17 bases for s = 9, 10, 11, 12; none for s = 2, 3. 31/4 is the new base of smallest denominator and smallest numerator. Among coprime a/b with a <= 60 the region has 137 members; closest misses 52/5 (theta = 0.407324), 51/5, 29/4 (0.411694); tightest members 53/5 (margin 0.000313), 31/4 (0.001985), 54/5.\n\nTHEOREM B. F(31/4) is irrational, and so is F((31/4)^r) for every integer r >= 1. Here log 4 / log 31 = 0.4036981731... < 81/200 < theta*, 4^mu = 30.4835... < 31 < 4^{mu_BV} = 32.3696..., so 31/4 lies outside the Bundschuh-Vaananen region and inside Theorem A's; it is the first base (smallest denominator and numerator) beyond the published region.",
+      "altitude": "genuine_climb",
+      "band": "U",
+      "evidence_class": "ordinary_proof",
+      "public_entry": null
+    },
+    "live_obstruction": "At the base 3/2 the homogenisation ceiling caps every content lane on the fixed diagonal at a > b^2, rank two fails the model even at zero clearing, rank three would require kappa_3 < 0.10721, and no construction supplies a family, integrality, nonvanishing or remainder estimate.",
+    "strongest_open_producer": {
+      "id": "three_halves_pade_height_gap",
+      "statement": "The fixed-prime route is conditional, not an unconditional closure of step 1. The finite harmonic descent gives J_5={4,20,24} by the two-line descent lemma plus an empty level-three check, with eps=v_5(3^2-2^2)=1 and loss blocks [8,9],[40,41],[48,49]. If the all-level q-Apery monodromy/continuity premise (M)/(C5) holds, the weighted transfer gives 5 | B_j for every j >= 50 and hence a window gcd divisible by 5^(1+floor(log_5(s/2))) for every start s >= 50. The premise is certified only at N<=3 and over the finite indices recorded in FixedPrimeInfiniteTailProof.md, so the available evidence does not prove an all-index q-Apery denominator tail or unconditionally close the window-divisor substep. No first-appearance prime, factoring of 3^s-2^s, or effective form of Boyd's heuristic is needed under that explicit conditional premise. Conditional fixed-tail data also exist at p=13 (j>=676), 1…"
+    },
+    "how_to_contribute": {
+      "kind": "infrastructure",
+      "note": "Add the power-certificate compiler, which is Lean-checked and already present in the public source, to the comparator configuration of the entry that consumes it."
+    },
+    "what_this_does_not_establish": "The packet establishes only its individually named results at their recorded evidence classes. At q=7/2, Lean checks the exact numerical admission condition in source-facing and transformed forms; Bundschuh--Vaananen's analytic theorem and inherited hypotheses remain external, so no end-to-end Lean irrationality theorem is claimed. At q=3/2, every finite scan, exact arithmetic identity, no-go theorem, conditional transfer, and computational probe remains bounded by its stated quantifiers; no irrationality theorem or universal rational-base theorem is established. The homogenisation and rank-budget laws are necessary admission tests under explicit exponent assumptions, not constructions. For…",
+    "failed_approaches": [
+      "Scalar q-Apéry Padé family at 3/2: quantitatively dead by a fixed positive proportion at every index, with the shortfall in closed form.",
+      "Rectangular two-function Hermite-Padé thresholds: at most 1/2 − 1/π² on the whole admissible cone ρ ≥ 0, σ ≥ 1 + ρ, with equality only at (0,1).",
+      "Scalar content and scalar-plus-border extraction from Zudilin's Hankel determinant: neither can meet the required charge (Lean).",
+      "Outward scalar diagonal evaluation: the homogenisation ceiling caps every content lane on the fixed diagonal at a > b²."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification1049AdelicHeightBridge",
+      "ExternalVerification1049RationalBaseBarrier",
+      "ExternalVerification1049PrimeSupportSelectors",
+      "ExternalVerification1049HermitePadeNoGo"
     ]
   },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-1049-rational-base-lambert",
-    "title": "Arithmetic Boundaries at Base 3/2",
+    "title": "Sharp Height and Four-Jet Obstructions at Base 3/2",
     "subject": "Erdős #1049",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 24,
+    "pages": 27,
     "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
     "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
     "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -220,17 +284,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "012dab93eebf3478bd31ab41faf4d55ff5f8538e1eb982c20183bd116ba44e77",
+      "renderer_contract_version": 14,
+      "source_sha256": "b748ded6e65009967fdc1ec157a253d174f5ceb19ab44eba889a35ebb4816418",
       "publication_manifest_match": true,
-      "mathml_node_count": 468,
+      "mathml_node_count": 513,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "055ee5091b7ebe1af79ae0a64232a5bd398a1597da7eb34d11697788e7653f7e",
-      "html_exact_tex_sha256": "fdd4e1f08e28412776df58276feffcc6926ab9ea83991731b12c5a62d173e7de"
+      "html_mathml_sha256": "14b1094cd3498816a51fca5e86c73854285bf0fa7e4628b9f5489f43201fc31e",
+      "html_exact_tex_sha256": "58de90267ae2df38b36d6a720cc90af4515429dee57bba6645545eeb748d4ec3"
     },
     "sections": [
       {
@@ -271,7 +335,17 @@
       {
         "level": 5,
         "anchor": null,
+        "label": "Results and boundary."
+      },
+      {
+        "level": 5,
+        "anchor": null,
         "label": "Structure."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The sharp 41/6541/65 certificate"
       },
       {
         "level": 2,
@@ -321,7 +395,7 @@
       {
         "level": 3,
         "anchor": null,
-        "label": "The first falsifiable families"
+        "label": "Determinant families"
       },
       {
         "level": 3,
@@ -336,7 +410,7 @@
       {
         "level": 3,
         "anchor": null,
-        "label": "The quantitative height frontier"
+        "label": "The quantitative height limitation"
       },
       {
         "level": 3,
@@ -347,11 +421,6 @@
         "level": 5,
         "anchor": null,
         "label": "Artefact and data availability."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 5,

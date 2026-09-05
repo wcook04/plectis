@@ -20,6 +20,14 @@ Read order for humans:
 5. `Erdos249257.lean` and `ErdosProblems.lean` — inspect package topology only
    when import structure is the question.
 
+For an external statement-identity handoff, use the generated [Formal
+Conjectures crosswalk](FORMAL_CONJECTURES_CROSSWALK.md). It binds each of the
+eight problem rows to its pinned upstream declaration, source hash, and local
+problem route. For a module or paper handle, use
+`python3 scripts/query_corpus.py --module <module_path_or_sigil>` or
+`--paper-anchor <TeX_label_or_source_ref>` to recover the corresponding
+proof/source context before returning to the problem's exact boundary.
+
 Lean source checked by the pinned Lean kernel is proof authority. Wave order
 does not strengthen a claim or close an exact open proposition. Erdős #249 and
 the universal form of #257 remain open.
@@ -78,6 +86,19 @@ Base 2 is the unique self-normalising point of the geometric law.
 **The squared transform** `L₂(f) = ∑ f(d)/(2^d−1)² = E[(f * ζ)(gcd(X,Y))]`,
 since gcd-divisibility factorises across independent coordinates. Yields
 `L₂(μ) = S − 1/2`, the gcd-moment ladder, and Pillai's gcd-sum function.
+The exact family return is the [probabilistic gcd-geometry route](SOURCE_MAP.md#complete-eight-problem-return-matrix):
+the [totient gcd-moment declaration](../Erdos249257/GcdMomentCalculus.lean#L235)
+and
+the [Stern–Brocot cylinder recursion](../Erdos249257/GcdMomentCalculus.lean#L474),
+[cylinder remainder bound](../Erdos249257/GcdMomentCalculus.lean#L525), and
+[run-stability declaration](../Erdos249257/SternBrocotRunGeometry.lean#L343)
+return to the paper's [probability-coordinate appendix](papers/full-text/erdos249-257-main-paper.md#app:lambert-probability),
+with the stable records `res:directionnormalization`, `res:sternbrocotcylinders`,
+and `res:sternbrocotruns`. The cylinder-law family is also directly recoverable
+through `python3 scripts/query_corpus.py --claim stern_brocot_cylinder_law`,
+which returns the `probabilistic_gcd_geometry` route and its source-fingerprinted
+resume handoff. These exact identities and combinatorial bounds do not close
+the open #249 irrationality or unbounded-certificate obligations.
 
 ### Wave 21 — `TotientTailPeriodKiller.lean`
 
@@ -229,7 +250,7 @@ Main theorem:
 supportCoeffZeroWindow_length_le_eps_logb_add
 ```
 
-None of these modules claims a solution of Erdős #249 or #257. The contribution boundary is theorem-family-specific: the carry recurrence and strict-tail geometry have direct prior art (Wang–Grau Ribas; Kovač–Tao); Möbius inversion, repetend algebra, and divisor averaging are classical; the converse/rigidity, certificate-normal-form, and coupled reciprocal-mass families remain exact-source-comparison candidates. No priority claim is made.
+None of these modules claims a solution of Erdős #249 or #257. The contribution boundary is theorem-family-specific: the carry recurrence and strict-tail geometry have direct prior art (Han Wang; Kovač–Tao); Möbius inversion, repetend algebra, and divisor averaging are classical; the converse/rigidity, certificate-normal-form, and coupled reciprocal-mass families remain exact-source-comparison candidates. No priority claim is made.
 
 `SupportSunflowerDichotomy` is an adjacent conditional #257 route. It gives
 the exact carry conversion for finite-core orthogonal-petal bouquets and
@@ -285,14 +306,94 @@ first-harmonic estimate, so #249 remains open.  The former one-sided companion
 is retired; its checked declarations remain queryable through the claim
 registry and source map.
 
+The finite factor-ideal result is one claim inside the reviewed
+`transport_strategy_no_go_boundaries` family, alongside the fixed-precision
+obstruction.  Retrieve that family with
+`python3 scripts/query_corpus.py --publication-family transport_strategy_no_go_boundaries`, or inspect the factor-ideal claim with
+`python3 scripts/query_corpus.py --claim lcm_factor_ideal_anchor_pulse_no_go`.
+Its exact formal anchors are
+[`lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L798),
+[`lcm_factorIdeal_sparseAnchor_not_sufficient`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L866),
+and [`lcmAnchorPulse_t3_letters`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L895).
+The family remains a synthetic survivor: its forcing letters need not be
+actual totient differences, nonlinear fresh-divisor arguments remain outside
+the result, and no unbounded certificate supply follows.
+
+## Source-current #1041 frontier (not a wave)
+
+The public #1041 research corpus is a dated source projection, not a new Lean
+wave and not a reviewed claim-registry surface. Its source checkpoint is
+`6658deca35adde05f60bd2a19c76da996698bc9a`. Read
+[`research_corpus/Erdos1041/FRONTIER.md`](../research_corpus/Erdos1041/FRONTIER.md)
+first: it supersedes stale activation rows by naming the 2026-08-29
+refutations, the surviving carriers, and the exact open gaps. Then consult
+[`STRONGEST_RESULTS.json`](../research_corpus/Erdos1041/STRONGEST_RESULTS.json)
+for the machine-readable premise/consumer map and
+[`CORPUS_MANIFEST.json`](../research_corpus/Erdos1041/CORPUS_MANIFEST.json)
+for the published-file and digest inventory.
+
+For a machine-first handoff, run
+`python3 scripts/query_corpus.py --route erdos_1041`. The route checks the
+four public frontier files against their indexed digests and returns the
+35-result/open envelope; for a resumable, source-fingerprinted packet use
+`python3 scripts/query_route_memory.py --problem 1041`. Neither route enters
+the reviewed claim registry, Comparator, or Lean proof authority.
+
+Use this compact reading order:
+
+1. [`AttachmentAwareReeb.md`](../research_corpus/Erdos1041/AttachmentAwareReeb.md)
+   and [`GenericSufficiencyClosure.md`](../research_corpus/Erdos1041/GenericSufficiencyClosure.md)
+   for the surviving hub-selection carrier and its generic-to-closed
+   extension.
+2. [`NearFeketeRadialAngularSplit.md`](../research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md)
+   and [`Degree5AssemblyAndSharpenedCuts.md`](../research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md)
+   for the new near-regular and degree-five reductions. The origin-spoke and
+   critical-value-envelope rows refuted in `FRONTIER.md` are not continuation
+   targets.
+3. [`PartialClusterPreimagePerimeterIdentity.md`](../research_corpus/Erdos1041/PartialClusterPreimagePerimeterIdentity.md),
+   [`TiedNewtonFaceFibreProduct.md`](../research_corpus/Erdos1041/TiedNewtonFaceFibreProduct.md),
+   and [`ExteriorRootProductCovering.md`](../research_corpus/Erdos1041/ExteriorRootProductCovering.md)
+   for exact perimeter, moment, and covering premises; each still requires an
+   attachment-compatible selector or metric consumer.
+4. [`MinimalHubArmBudgetRefutation.md`](../research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md)
+   and [`SeparatrixAggregateReduction.md`](../research_corpus/Erdos1041/SeparatrixAggregateReduction.md)
+   for the strongest negative evidence and the machinery that survives only
+   as a possible tool for a different functional.
+
+The paper-facing route remains
+[`erdos-1041-lemniscate-newton-flow.md`](papers/full-text/erdos-1041-lemniscate-newton-flow.md),
+which points to the checked Newton-flow declarations and states the older
+topology/metric boundary. The current source frontier does not change the
+open status of #1041, and its machine rows must not be read as Lean claims.
+
+## Expansion-problem reading handoff (not a wave)
+
+The five expansion roots have no shared Lean-wave chronology. Their exact
+paper/source joins and open boundaries live in the
+[complete eight-problem return matrix](SOURCE_MAP.md#complete-eight-problem-return-matrix)
+and the generated [`problems.json`](problems.json) index. The paper notes are
+the shortest first read:
+
+| Problem | Paper note | Principal source |
+|---|---|---|
+| #68 | [`factorial carries`](papers/full-text/erdos-68-factorial-denominator-irrationality.md) | `ErdosProblems/Erdos68/FactorialZeroPlateau.lean` |
+| #243 | [`reciprocal-tail rigidity`](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) | `ErdosProblems/Erdos243/ReciprocalTailRigidity.lean` |
+| #251 | [`prime-gap dyadic tails`](papers/full-text/erdos-251-prime-gap-dyadic-series.md) | `ErdosProblems/Erdos251/PrimeGapDyadicTail.lean` |
+| #269 | [`three-prime running lcm`](papers/full-text/erdos-269-three-prime-running-lcm.md) | `ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean` |
+| #1049 | [`rational-base Lambert`](papers/full-text/erdos-1049-rational-base-lambert.md) | [`RationalBaseLambert`](../ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155) · [`ZudilinHeightRegion`](../ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91) · [`RationalPadeArithmetic`](../ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30) · [`HermitePadeNoGo`](../ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103) · [`QAperyDiagonalNonEquivalence`](../ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67) · [`ZudilinConeArithmetic`](../ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286) |
+
+These notes preserve their own evidence classes and limitations; the source
+map is the route to the exact continuation obligation, not a chronology or a
+claim-status authority.
+
 <!-- BEGIN generated_package_shape -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 ## Package shape
 
 - `CertificateKernel.lean` (0.85 MiB, 19,278 lines, 845 declarations; 519 theorems and 275 lemmas): the assembled microkernel and headline interfaces.
 - `GeneratedCertificates.lean` (1.18 MiB, 27,728 lines, 1,174 declarations) plus 3 generated shards: finite certificate instances checked by the Lean kernel.
-- The diagonal-pincer family contains 481 isolated prime-certificate modules and 16 scale aggregators. The shards are indexed through aggregators rather than presented as separate mathematical claims.
-- Entire checked corpus: 1,023 modules, 153,320 declarations, 151,085 theorem-like declarations, and 8,171 manifest-marked generated-certificate declarations (a classification floor, not the generated share). The release gate rejects `sorry`, `admit`, custom `axiom` declarations, and `native_decide`.
+- The diagonal-pincer family contains 495 isolated prime-certificate modules and 16 scale aggregators. The shards are indexed through aggregators rather than presented as separate mathematical claims.
+- Entire checked corpus: 1,058 modules, 153,671 declarations, 151,397 theorem-like declarations, and 8,171 manifest-marked generated-certificate declarations (a classification floor, not the generated share). The release gate rejects `sorry`, `admit`, custom `axiom` declarations, and `native_decide`.
 
 These are generated inventory facts, not mathematical claim counts. The declaration atlas
 and Lean source remain the drilldown owners.

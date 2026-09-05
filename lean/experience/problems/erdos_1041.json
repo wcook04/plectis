@@ -91,6 +91,10 @@
         "contribution_class": "locally proved result and formalised calculus; novelty unassessed",
         "summary": "The Newton value equation and its exponential first integral are checked exactly.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos1041.newtonFlow_value_hasDerivAt",
+          "ErdosProblems.Erdos1041.newtonFlow_scaledValue_hasDerivAt_zero"
+        ],
         "comparator_disposition": "not_selected_compact_calculus_family",
         "boundary": "Value decay alone does not give a short connecting curve."
       },
@@ -99,6 +103,10 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "Distinct positive rays exclude a finite Newton connection.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos1041.samePositiveRay_of_real_exp_decay",
+          "ErdosProblems.Erdos1041.no_newtonConnection_of_not_samePositiveRay"
+        ],
         "comparator_disposition": "represented_by_translation_avoidance_targets",
         "boundary": "The result is a route obstruction, not the global theorem."
       },
@@ -136,15 +144,63 @@
       }
     ]
   },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "If a monic polynomial f(z)=product_i(z-z_i) has all roots in the open unit disk, prove that two roots can be joined by a curve of length less than 2 contained in the open lemniscate |f|<1.",
+    "strongest_theorem": {
+      "claim_id": "erdos1041.solved_families",
+      "title": "sharp all-degree collinear root-diameter theorem with equality configurations, complete primitive sparse quintic, and translated cubic quotient fibres",
+      "statement": "The accompanying ordinary mathematics completely solves three structured families of Erdős #1041: collinear root configurations in every degree, the primitive sparse quintics, and translated cubic quotient fibres in every degree 3q with q at least two. This configuration verifies in Lean the three load-bearing kernels of those solutions, and only those three. For every degree n at least two, a monic polynomial of degree n vanishing at -1 and 1, with n-1 increasing interior nodes in the closed interval and values alternating in sign along them, has one node at which the absolute value is at most 2^-(n-1) times cos(pi/2n)^-n. Five real disk coordinates satisfying the first three rotated Newton moments for r strictly between 0 and 2 contain two distinct indices whose tail energy is strictly below one, and three roots in the open unit disc admit one complete radial spoke along which their monic cubic stays inside the closed unit lemniscate. Each family solution is reduced to a single finite inequality, so the delicate step in the geometry of polynomial sublevel sets is the part submitted for checking. The alternation argument sits in the classical Chebyshev context, a bounded search found no earlier form of the quintic selector, and priority is unresolved. Affine transport, the final selection, and the surrounding analytic assembly are ordinary proofs rather than Lean-checked conclusions, and the unrestricted problem is untouched.",
+      "altitude": "complete_subregime",
+      "band": "U",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification1041SolvedFamilies"
+    },
+    "strongest_longitudinal_theorem": {
+      "claim_id": "erdos1041.circle_slice_angular_closure_thirteen_twentyfifths",
+      "title": "Unconditional all-degree regime: least critical value at most 13/25, via the circle-slice angular packing floor",
+      "statement": "Theorem A'': every squarefree monic f of degree n >= 2 whose least critical-value modulus satisfies mu <= 13/25 has two distinct roots joined inside {|f| < 1} by a rectifiable curve of length strictly below 2; no hypothesis on root locations, arity, or capacity. Scale-free form: every squarefree monic f has two distinct roots joined inside {|f| < (25/13) mu} by a curve of length below 2((25/13) mu)^(1/n). Mechanism: the comparison ODE of the 197/1000, 9/25 and 2/5 notes with the arity floor replaced by the maximum of the COVER floor, the ordered profile, the packing floor (P), and the circle-slice dual floor of Theorem 5, with integer ceilings. Certificate: full mode (step 1/400, 12 grid areas, 14 radii per dual, 7 arities, 126 certified duals, 13.5 minutes) X_cert = 317881444799/500000000000 < 0.6357629 and (13/25) exp(X_cert) < 1; quick mode (101 s) certifies 51/100 with X_cert < 0.664374. Floating supremum of the mechanism: mu = 0.5194, and even an exact arity floor caps this mechanism at mu ~ 0.545.\n\nLemma 3 (circle-slice packing): let b_1..b_k lie in the hyperbolic disc with pairwise hyperbolic distance >= D, d_j = d(0,b_j). For every r > 0, sum_j w(d_j, r) <= pi, where w(d,r) = arccos((cosh d cosh r - cosh(D/2))/(sinh d sinh r)) clamped to [0, pi]: the pairwise disjoint balls B(b_j, D/2) cut pairwise disjoint arcs out of the circle of radius r about the observer. sup_r w(d,r) = arcsin(sinh(D/2)/sinh d). Theorem 5 (dual arity floor): for any radii r_i > 0 and weights sigma_i >= 0 with S = sum sigma_i and U = sup_{d >= d_low} [lam(d) - sum_i sigma_i w(d, r_i)], sum_j lam(d_j) <= k U + pi S; hence under the failure inputs of ClusterSeparationLowCriticalClosure.md (sum_j lam(d_j) >= x, d_j >= d_low(a), pairwise separation D = d_min(a)) the arity satisfies k >= (x - pi S)/U for every admissible (r, sigma), the choice of sigma being free (a floating LP proposes, exact arithmetic disposes). Proposition 2 (the consecutive-gap angular budget is empty): ordering the roots by argument about the observer and summing the consecutive-gap law-of-cosines inequalities forces nothing, because Theta(d, d') = 0 whenever |d - d'| >= D, so alternating radii d_low and d_low + D give budget zero at every arity; that relaxation admits sum_j lam(d_j) >= floor(k/2) delta(a)/2, linear in k, and is worse than the packing floor (P) from k = 8.",
+      "altitude": "genuine_climb",
+      "band": "P",
+      "evidence_class": "ordinary_proof",
+      "public_entry": null
+    },
+    "live_obstruction": "The sharp constant is settled in every degree only under the critical-spectrum separation hypothesis, and the two surviving unconditional routes are the componentwise combined-charge lemma, that every nontrivial connected component C of the admissible critical forest satisfies the sum over edges e in C of D_e + K_e being at least 0, and the covering statement COVER, that for monic g with roots in the closed unit disk there is a level lambda in [mu, 1] and a compact connected subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots with every point of Gamma within intrinsic distance 1 of a root.",
+    "strongest_open_producer": {
+      "id": "one_root_covering_of_the_first_merge_component",
+      "statement": "Prove (COVER): for monic g with roots in the closed unit disk there is a level lambda in [mu,1] and a compact CONNECTED subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots, such that every point of Gamma lies within intrinsic distance 1 of a root of g, paths being allowed to run in the whole component. By visibility_overlap_reduction_to_a_one_root_statement this settles Erdos #1041, with no separate length obligation. Take Gamma as SMALL as possible and the ambient as LARGE as possible: the cheapest Gamma is the descending Newton branch pair from c*, on which the covering was measured in its strongest form -- straight segments at level 1 -- with zero uncovered points over 26 scored rows at 283 points per arc, at least 155 overlap points per row, and worst overlap length 1.90422 against a budget of 2. Two guards are mandatory: the level is NOT monotone, so nev…"
+    },
+    "how_to_contribute": {
+      "kind": "computation",
+      "note": "Re-run the degree-five moment computation with directed rounding rather than IEEE double arithmetic, which converts the fifth arithmetic-mean strengthening into a certificate-backed statement and opens the sixth."
+    },
+    "what_this_does_not_establish": "Erdos #1041 remains open. Positive results include degree three, the sharp collinear theorem, the primitive quintic family, cyclic sparse families, and an all-degree constant-factor weakening; none settles the target. Counterexamples retire many direct, hub, coarea/tree, and simple concyclic selectors. The strongest surviving global routes are the admissible critical-branch/combined-charge route and COVER; both are unproved. Near Fekete, all-direction cusp signs, finite cones, and an actual quintic neighbourhood are proved. Degree six closes the anisotropic cubic cone, bounds the genuinely mixed normalized cubic coordinate by 470, sharpens the first-mode overlap from |E1|/|E2|>=4/5 to >=3/4…",
+    "failed_approaches": [
+      "Universal scalar saddle-wall thresholds T ≤ 2√2(βγ)^{1/2n}: false for the actual wall of (z²−a²)(z²+b²).",
+      "Least-critical nearest-pair hub selectors: refuted in the quartic fixed-pair no-go (CEGMQuarticFixedPairNoGo.md).",
+      "Separate critical contours for resolved critical stars: a negative result for the monodromy route.",
+      "The shtuka tree-budget proposition: the Cassini level-length tail 4(√(a²+a) − a) falls below the root distance 2a for a > 4/5 (recorded countermodel, not re-derived on 2026-09-02)."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification1041SolvedFamilies",
+      "ExternalVerification1041CyclicTrinomialFiber",
+      "ExternalVerification1041QuarticQuotientFiber",
+      "ExternalVerification1041CriticalGeometry",
+      "ExternalVerification1041TetranomialSpokes",
+      "ExternalVerification1041FirstMergeCriticalValueSeparation"
+    ]
+  },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-1041-lemniscate-newton-flow",
-    "title": "Newton Flow and Critical-Value Ray Separation",
+    "title": "Critical-Value Separation and Admissible Hubs",
     "subject": "Erdős #1041",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 10,
+    "pages": 24,
     "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
     "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
     "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
@@ -159,30 +215,135 @@
       "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
     },
     "render_contract": {
-      "preferred": "html_mathml",
-      "fallback": "html_exact_tex",
+      "preferred": "html_exact_tex",
+      "fallback": "html_mathml",
       "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-      "frontend_math_dependency": null,
+      "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "18eb45e9bb45836b4df89f6b52f9de5d634755db75ba3b9a2431e5daccad0968",
+      "renderer_contract_version": 14,
+      "source_sha256": "73bd294ddf307371a8115200a3e14b27b640e84edeff625e2f08e6f2f688bbae",
       "publication_manifest_match": true,
-      "mathml_node_count": 54,
-      "raw_math_fallback_count": 0,
+      "mathml_node_count": 350,
+      "raw_math_fallback_count": 1,
       "warnings": {
-        "mathml": [],
+        "mathml": [
+          "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+          "\\qquad",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "\\qquad",
+          "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "^",
+          "unexpected control sequence \\over",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
         "mathjax": []
       },
-      "html_mathml_sha256": "4f21422522f8aff6f68ecd5254f09b5ddf9067316e408a6e5235f117cd55ac7e",
-      "html_exact_tex_sha256": "c371a3c30148d0d6a283582b3c3649e34a3bd2a04e914f5e862c55efeb139a8b"
+      "html_mathml_sha256": "3e84eadb826f576c36cf0d91f09e62fc855b3d9516e7c95ee18b7a59a5b2bee9",
+      "html_exact_tex_sha256": "eb55fb5151647187fd6253e27901cebfe66b882ef92e5fb0ce8a5efe4ca3742f"
     },
     "sections": [
       {
         "level": 2,
         "anchor": null,
         "label": "The problem"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "An all-degree critical-value separation theorem"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Evidence and exact boundary."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Three exact solved polynomial families"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Sharp collinear zeros"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Formal boundary."
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The primitive sparse quintic"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Formal boundary."
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Translated cubic quotient fibres"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Formal boundary."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Shared assurance boundary."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "The current frontier: what survives near Fekete configurations"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Near-Fekete stability removes the radial distraction"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A bounded-radius concyclic class"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Cyclic trinomial fibres"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Coefficient-controlled cyclic tetranomial spokes"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Translated quartic quotient fibres"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The degree-five target is now explicit"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The no-go boundaries force hub selection"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "The surviving carrier and the actual open endpoint"
       },
       {
         "level": 2,
@@ -238,11 +399,6 @@
         "level": 2,
         "anchor": null,
         "label": "Statements and declarations"
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 2,

@@ -84,11 +84,12 @@ He also stated the variable-denominator expectation that <span
 class="math inline">\(\sum_{n\ge1}p_n/(g_1\cdots g_n)\)</span> is
 irrational whenever <span class="math inline">\(g_n\ge2\)</span> and
 <span class="math inline">\(g_n=o(p_n)\)</span> <span class="citation"
-data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. The latter expectation is false:
-ChatGPT 5.4 Pro, orchestrated by Vjeko Kovač, constructs such a sequence
-<span class="math inline">\((g_n)\)</span> for which the sum is exactly
-<span class="math inline">\(1\)</span>  <span class="citation"
-data-cites="kovac2026"><a href="#ref-14">[14]</a></span>. Under the stronger hypotheses that <span
+data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. The latter expectation is false: Kovač
+reports a construction of such a sequence <span
+class="math inline">\((g_n)\)</span> for which the sum is exactly <span
+class="math inline">\(1\)</span>  <span class="citation"
+data-cites="kovac2026"><a href="#ref-14">[14]</a></span>.</p>
+<p>Under the stronger hypotheses that <span
 class="math inline">\((g_n)\)</span> is strictly increasing and <span
 class="math inline">\(g_n=O(n\log^k n)\)</span>, Erdős had already
 classified the rational cases: rationality holds exactly when <span
@@ -104,8 +105,8 @@ hypotheses. It does not address the fixed-denominator dyadic series
 studied here. The current catalogue record still repeats this
 variable-denominator expectation without mentioning the
 counterexample <span class="citation"
-data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>; its warning about possibly missing
-literature is therefore material here, not merely boilerplate.</p>
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Its warning that relevant literature
+may be missing applies directly to this omission.</p>
 <p>There is also a genuinely adjacent proved dyadic theorem. If <span
 class="math inline">\(P(m)\)</span> denotes the largest prime factor of
 <span class="math inline">\(m\)</span>, Erdős and Pomerance proved that
@@ -172,20 +173,26 @@ zero.</p>
 </section>
 <section id="outline." class="level5">
 <h5>Outline.</h5>
-<p>Section <span class="math inline">\(\ref{sec:parts}\)</span> replaces
-the primes by their consecutive gaps, the natural increments studied by
+<p>Section <span
+class="math inline">\(\ref{sec:diagonal-collapse}\)</span> begins with
+the strongest exact recurrence-level conclusions: the lcm-diagonal
+irrationality criterion, the signed two-window normal form, the affine
+and fixed-lattice circularity equivalences, and the quadratic
+polynomial-shift countermodel. Section <span
+class="math inline">\(\ref{sec:parts}\)</span> then replaces the primes
+by their consecutive gaps, the natural increments studied by
 prime-distribution theory. Summation by parts with the endpoint retained
 gives an exact finite identity, and the termwise relation <span
 class="math inline">\(v_n=2u_{n+1}-u_n\)</span> between the gap terms
 and the prime terms makes the passage to the limit a matter of
 summability alone; the explicit polynomial prime bound supplies that
-summability inside the formal development. Section <span
-class="math inline">\(\ref{sec:tail}\)</span> rescales the tails of a
-dyadic series into a recurrence and develops it: the block identity, the
-integral-shift criterion, the collapse of every rational solution onto
-an eventually integral shift, its contrapositive over the reals, and a
-local obstruction that converts an infinite-tail condition into a single
-comparison of gaps. Section <span
+summability inside the formal development.</p>
+<p>Section <span class="math inline">\(\ref{sec:tail}\)</span> rescales
+the tails of a dyadic series into a recurrence and develops it: the
+block identity, the integral-shift criterion, the collapse of every
+rational solution onto an eventually integral shift, its contrapositive
+over the reals, and a local obstruction that converts an infinite-tail
+condition into a single comparison of gaps. Section <span
 class="math inline">\(\ref{sec:carry}\)</span> shows that the tail
 constraint does not by itself make the coefficient sequence eventually
 periodic, and Section <span
@@ -196,7 +203,28 @@ class="citation" data-cites="lean4"></span>, while the Mathlib paper
 documents the library’s historical Lean 3-era architecture <span
 class="citation" data-cites="mathlib"></span>; it is not authority for
 the current pinned revision. Linked phrases open the corresponding
-declaration at the pinned source revision c8e41c76b4ce.</p>
+declaration at the pinned source revision 99f4bf47422a.</p>
+<p>The states <span class="math inline">\(\forall M:\mathbb N,\ \exists
+n,\ M&lt;\mathit{primeGap0}(n)\)</span>, and the states, under <span
+class="math inline">\(\operatorname{Summable}(\mathit{primeDyadicTerm})\)</span>,
+the equivalence between irrationality of the prime-term and
+prime-gap-term sums. The endpoint-proximate abstract classification is
+represented by : for any real dyadic-tail recurrence with integer
+digits, irrationality of the initial state is equivalent to
+non-integrality of every positive shift, and hence to cofinal
+non-integrality of each fixed shift. Its rational-side mechanism is the
+exact denominator/congruence pair and ; together with the , they explain
+why a rational initial state supplies an eventual integral shift. These
+are recurrence-level results; the cofinal nonintegrality property for
+the actual prime gaps remains unproved, so no irrationality claim for
+Problem #251 follows. The endpoint-adjacent specialisation
+<span>primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch</span>
+<span>the conditional prime-gap small-mismatch theorem</span> preserves
+the actual recurrence, the cofinal adjacent <span
+class="math inline">\((-1,1)\)</span> hypotheses, and the unequal gap
+condition, and concludes failure of eventual integrality. The source
+does not supply those pairs, so this is a reduction exposing the missing
+prime-specific estimate, not a proof of Problem #251 irrationality.</p>
 <table>
 <colgroup>
 <col />
@@ -205,7 +233,7 @@ declaration at the pinned source revision c8e41c76b4ce.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="ta-l">Statement</th>
+<th class="ta-l"><p>Statement</p></th>
 <th class="ta-l"> Status</th>
 <th class="ta-l"> Treatment here</th>
 </tr>
@@ -216,6 +244,36 @@ declaration at the pinned source revision c8e41c76b4ce.</p>
 class="math inline">\(\Pi\)</span></td>
 <td class="ta-l"> Open</td>
 <td class="ta-l"> Not proved.</td>
+</tr>
+<tr>
+<td class="ta-l">Lcm-diagonal irrationality criterion</td>
+<td class="ta-l"> Lean-checked abstractly; an
+equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{res:lcmdiagonal}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Signed two-window normal form</td>
+<td class="ta-l"> Lean-checked abstractly; an
+equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{res:signedwindow}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Affine and fixed-lattice cofinal escape
+tests</td>
+<td class="ta-l"> Lean-checked abstractly; both
+equivalences</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{res:affinecollapse}\)</span>; neither
+supplies a prime-specific estimate.</td>
+</tr>
+<tr>
+<td class="ta-l">Quadratic polynomial-shift
+countermodel</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Proposition <span
+class="math inline">\(\ref{res:polynomialcountermodel}\)</span>.</td>
 </tr>
 <tr>
 <td class="ta-l">Finite prime-gap identity</td>
@@ -340,6 +398,107 @@ class="math inline">\(\Pi\)</span>.</p>
 summation by parts; Lean 4. <strong>MSC 2020.</strong> 11J72 (primary);
 11N05, 68V20 (secondary).</p>
 </section>
+</section>
+<section id="sec:diagonal-collapse" class="level2">
+<h2>One diagonal, and two circular escape tests</h2>
+<p>We first record the strongest recurrence-level conclusions. They
+apply to arbitrary integer digits and therefore separate the finite
+algebra from the prime-specific input still missing in Problem #251.</p>
+<p>For a real recurrence put <span
+class="math display">\[\Delta_hT(N)=T_{N+h}-T_N,\]</span> and let <span
+class="math inline">\(L_0=1\)</span>, <span
+class="math inline">\(L_j=\operatorname{lcm}(1,\ldots,j)\)</span> for
+<span class="math inline">\(j\ge1\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> The exact rationality classification proved in
+Theorem <span class="math inline">\(\ref{res:escape-irrational}\)</span>
+says that an irrational initial state has no integral positive shift at
+any basepoint. This gives the forward implication. Conversely, if <span
+class="math inline">\(T_0\)</span> is rational, some positive shift
+length <span class="math inline">\(h\)</span> is integral at every
+basepoint beyond an index <span class="math inline">\(N_0\)</span>.
+Choose <span class="math inline">\(j\)</span> so large that <span
+class="math inline">\(N_0\le L_j\)</span> and <span
+class="math inline">\(h\mid L_j\)</span>. The cocycle identity <span
+class="math display">\[\Delta_{a+b}T(N)=\Delta_aT(N)+\Delta_bT(N+a)\]</span>
+shows by induction that every positive multiple of <span
+class="math inline">\(h\)</span> is integral at every such basepoint.
+Hence <span class="math inline">\(\Delta_{L_j}T(L_j)\)</span> is
+integral, contradicting the right-hand side. ◻</p>
+</div>
+<p>The factorial schedule <span class="math inline">\(j!\)</span> has
+the same divisibility property, but the lcm schedule is pointwise no
+larger and is the canonical endpoint used here. The theorem is an exact
+one-sequence reformulation; it gives no non-integrality statement for
+the actual prime-gap recurrence.</p>
+<p>The adjacent-small-mismatch condition also admits an exact normal
+form. For a rational recurrence and a fixed <span
+class="math inline">\(h\)</span>, write <span
+class="math display">\[D_N=\Delta_hT(N),\qquad
+\delta_N=g_{N+h+1}-g_{N+1}.\]</span> Then <span
+class="math inline">\(D_{N+1}=2D_N-\delta_N\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> The recurrence and the two unit windows give <span
+class="math inline">\(-3&lt;\delta_N&lt;3\)</span>. A nonzero even
+integer in that interval is <span class="math inline">\(2\)</span> or
+<span class="math inline">\(-2\)</span>. Substitution into <span
+class="math inline">\(D_{N+1}=2D_N-\delta_N\)</span> gives the stated
+half-window and, in the reverse direction, recovers the second unit
+window. ◻</p>
+</div>
+<p>For the longer block, set <span
+class="math display">\[B_{h,N,r}=\sum_{i=0}^{r-1}2^{r-1-i}\delta_{N+i};
+\qquad D_{N+r}=2^rD_N-B_{h,N,r}.\]</span> Call the data-dependent affine
+condition <span class="math display">\[\mathcal A_{N,r}:\qquad
+D_{N+r}\in -B_{h,N,r}+2^{r+1}\Z.\]</span></p>
+<div class="proof">
+<p><em>Proof.</em> Substituting <span
+class="math inline">\(D_{N+r}=2^rD_N-B_{h,N,r}\)</span> into <span
+class="math inline">\(\mathcal A_{N,r}\)</span> cancels the observed
+block from both sides and leaves <span
+class="math inline">\(D_N=2z\)</span>. This proves <span
+class="math inline">\(\eqref{eq:affinecollapse}\)</span>. After one
+recurrence step, evenness of <span
+class="math inline">\(\delta_N\)</span> identifies even integrality at
+<span class="math inline">\(N+1\)</span> with ordinary integrality at
+<span class="math inline">\(N\)</span>. The forward implication in <span
+class="math inline">\(\eqref{eq:affinecofinal}\)</span> follows, while
+the reverse implication chooses a nonintegral <span
+class="math inline">\(D_N\)</span> and the legal depth <span
+class="math inline">\(r=0\)</span>.</p>
+<p>For <span class="math inline">\(\eqref{eq:fixedcollapse}\)</span>,
+eventual integrality and the block identity give some <span
+class="math inline">\(z\in\Z\)</span> with <span
+class="math display">\[B_{h,N,r}-2^rz=-D_{N+r},\]</span> so the
+displayed strict separation contradicts <span
+class="math inline">\(|D_{N+r}|\le b(N+r)\)</span>. Conversely, if <span
+class="math inline">\(D_N\)</span> is nonintegral and has reduced
+denominator <span class="math inline">\(q\)</span>, then its distance
+from every integer is at least <span class="math inline">\(1/q\)</span>.
+Choose <span class="math inline">\(r\)</span> from <span
+class="math inline">\(\eqref{eq:dyadicscale}\)</span>, scale this
+separation by <span class="math inline">\(2^r\)</span>, and use the
+block identity together with <span class="math inline">\(|D_{N+r}|\le
+b(N+r)\)</span>. The triangle inequality gives <span
+class="math inline">\(|B_{h,N,r}-2^rz|&gt;b(N+r)\)</span> for every
+integer <span class="math inline">\(z\)</span>. ◻</p>
+</div>
+<p>The first equivalence shows that the apparent affine hierarchy
+contains no depth-dependent information: it is the pullback of even
+integrality through the recurrence identity. The fixed lattice removes
+that data dependence, but under the stated growth condition rational
+denominator separation already forces every required escape. Hence
+neither cofinal condition is an independent source of information about
+consecutive primes.</p>
+<p>Finally, the coarse coefficient profile itself has an exact infinite
+counterexample.</p>
+<div class="proof">
+<p><em>Proof.</em> All assertions follow by expansion. In particular
+<span class="math inline">\(g_{n+1}-g_n=4n+10\)</span>, while <span
+class="math inline">\(T_{N+h}-T_N\)</span> is the difference of two even
+integer squares. Strict growth makes the word unbounded and
+nonperiodic. ◻</p>
+</div>
 </section>
 <section id="sec:parts" class="level2">
 <h2>Summation by parts, with the endpoint retained</h2>
@@ -1002,26 +1161,15 @@ statements.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/c8e41c76b4ce888601213778ddce8b148359d11f">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. This manuscript provides navigation rather than proof
 authority.</p>
-</section>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority. Lean checks each proof
-term against the fixed library version, and the sources linked here
-contain no proof placeholders and no project-defined axioms; Lean does
-not authorise the exposition, the citation choices, or the
-interpretation, for which the author remains responsible.</p>
+<p>Lean checks each proof term against the fixed library version, and
+the sources linked here contain no proof placeholders and no
+project-defined axioms; Lean does not authorise the exposition, the
+citation choices, or the interpretation, for which the author remains
+responsible.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -1039,7 +1187,7 @@ data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 <section id="app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision c8e41c76b4ce. All declarations of this note live in one module.
+revision 99f4bf47422a. All declarations of this note live in one module.
 The summation-by-parts declarations are prime-specific; most of
 Section <span class="math inline">\(\ref{sec:tail}\)</span> is stated
 for arbitrary integer digits and arbitrary rational or real orbits,
@@ -1054,7 +1202,7 @@ pinned Lean module.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>P. Erdős, <a
-href="https://combinatorica.hu/~p_erdos/1958-19.pdf"><em>Sur certaines
+href="https://users.renyi.hu/~p_erdos/1958-19.pdf"><em>Sur certaines
 séries à valeur irrationnelle</em></a>, Enseign. Math. (2)
 <strong>4</strong> (1958), 93–100, doi:<a
 href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>. The

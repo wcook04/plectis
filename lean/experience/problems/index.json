@@ -11,7 +11,8 @@
       "href": "problems/erdos_68.json",
       "paper_id": "erdos-68-factorial-denominator-irrationality",
       "module_count": 12,
-      "main_result_count": 2
+      "main_result_count": 2,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_243",
@@ -22,7 +23,8 @@
       "href": "problems/erdos_243.json",
       "paper_id": "erdos-243-reciprocal-tail-rigidity",
       "module_count": 9,
-      "main_result_count": 2
+      "main_result_count": 4,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_249",
@@ -33,7 +35,8 @@
       "href": "problems/erdos_249.json",
       "paper_id": "erdos-249-binary-totient-series",
       "module_count": 3,
-      "main_result_count": 3
+      "main_result_count": 15,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_251",
@@ -44,7 +47,8 @@
       "href": "problems/erdos_251.json",
       "paper_id": "erdos-251-prime-gap-dyadic-series",
       "module_count": 1,
-      "main_result_count": 2
+      "main_result_count": 5,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_257",
@@ -55,7 +59,8 @@
       "href": "problems/erdos_257.json",
       "paper_id": "erdos-257-mersenne-support-subseries",
       "module_count": 1,
-      "main_result_count": 4
+      "main_result_count": 13,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_269",
@@ -66,7 +71,8 @@
       "href": "problems/erdos_269.json",
       "paper_id": "erdos-269-three-prime-running-lcm",
       "module_count": 7,
-      "main_result_count": 2
+      "main_result_count": 3,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_1041",
@@ -77,7 +83,8 @@
       "href": "problems/erdos_1041.json",
       "paper_id": "erdos-1041-lemniscate-newton-flow",
       "module_count": 1,
-      "main_result_count": 2
+      "main_result_count": 2,
+      "has_frontier": true
     },
     {
       "problem_id": "erdos_1049",
@@ -88,7 +95,8 @@
       "href": "problems/erdos_1049.json",
       "paper_id": "erdos-1049-rational-base-lambert",
       "module_count": 6,
-      "main_result_count": 2
+      "main_result_count": 3,
+      "has_frontier": true
     }
   ]
 }

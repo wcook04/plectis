@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "ea4a7d8d7c7f7cf62e271649cf885baa4409d5837d446a6cbcf1199e9f791dd4",
+    "source_sha256": "f148b06d6388f35f87ffe302bd7044b3c7f0a4bebbc8a83f92207b6f5aa5dd4e",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,8 +25,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "41cd537e861e4b1b2f6c644c7123c9219f6cd12c2b4346b45ee13bac06ab52e5",
-    "html_exact_tex_sha256": "7b747b4fea9710dc573c2fba2e7d83a34ac00b4512baa69200ff20d603a2f552"
+    "html_mathml_sha256": "2e5f1087d3fb3b75514da155c76992593d6f41be19aa6c6d33b1b94f03fa3c06",
+    "html_exact_tex_sha256": "e500f11c50ea3656076e3dcf735e0157705e9625a0add2d4815bbc7e3108d14d"
   },
   "sections": [
     {
@@ -123,6 +123,16 @@
       "level": 2,
       "anchor": null,
       "label": "Transport and curvature companion band"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Source-current #1041 frontier (not a wave)"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Expansion-problem reading handoff (not a wave)"
     },
     {
       "level": 2,

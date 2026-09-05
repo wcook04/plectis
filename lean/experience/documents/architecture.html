@@ -9,9 +9,7 @@
 <section id="how-this-repository-works" class="level1">
 <h1>How this repository works</h1>
 <p>This is a public Lean project about eight unsolved problems in
-mathematics. It contains formal source code, papers and summaries for
-readers, and a set of checks that keep those different descriptions
-aligned. The reviewed claim registry covers #249 and #257; a
+mathematics. The reviewed claim registry covers #249 and #257; a
 problem-owned expansion library covers #68, #243, #251, #269, #1041, and
 #1049 without silently promoting their declarations into that reviewed
 record.</p>
@@ -48,7 +46,7 @@ claim depends on private files or unpublished work.</p>
 Lean source -----------------&gt; reviewed claim record
 Erdos249257/*.lean              docs/claims.json
        |                              |
-       | lake build                   | describes what public pages may say
+       | lean_fast_build.py           | describes what public pages may say
        v                              v
 formal proof check         README, SCOPE, papers, source maps
                                       |
@@ -116,11 +114,13 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/method
 <tr>
 <td>What does a reader see?</td>
 <td><a href="readme.html"><code>README.md</code></a>, <a
-href="scope.html"><code>SCOPE.md</code></a>, and authored papers such as
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-257-main-paper.tex"><code>paper/erdos249-257-main-paper.tex</code></a></td>
-<td>Human explanation; these files must stay within the claim
-record</td>
+href="scope.html"><code>SCOPE.md</code></a>, and the eight individual
+problem papers routed by <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/README.md"><code>docs/papers/README.md</code></a></td>
+<td>Human explanation; these files must stay within the claim record.
+The former combined manuscript, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-257-main-paper.tex"><code>paper/erdos249-257-main-paper.tex</code></a>,
+is archived provenance only, not an active gateway.</td>
 </tr>
 <tr>
 <td>Which manuscripts are shipped?</td>
@@ -185,6 +185,49 @@ experiments/                     reproducible test changes for the release check
 <p>The hundreds of Lean files are implementation detail at first
 contact. Start from a mathematical question or a claim, then follow the
 source map or the read-only query tool to the few relevant modules.</p>
+<p>For a complete problem-to-evidence return route, use the generated
+problem route rather than guessing a headline declaration:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--route</span> erdos_<span class="op">&lt;</span>problem_number<span class="op">&gt;</span></span></code></pre></div>
+<p>The route covers all eight indexed problems and returns the paper
+record, the complete review-matrix family list in its authored order,
+declaration handles where supplied, and the exact open-obligation
+statements. From there, <code>--declaration</code>,
+<code>--source</code>, and <code>--paper-anchor</code> provide the
+corresponding proof, source, and exposition drilldowns. These are
+navigation projections; Lean source remains proof authority and the
+family boundaries remain open.</p>
+<section id="the-job-lifecycle" class="level3">
+<h3>The job lifecycle</h3>
+<p>Skills own recurring jobs. A run invokes
+<code>mine-open-problem</code>, continues or suspends at a stop
+condition, uses <code>lean-concurrent-validation</code> when Lean
+authority is needed, runs <code>propagate-research-consequences</code>
+after a delta, packages with <code>erdos-research-return</code>, and
+prepares the proposal with <code>submit-pull-request</code>.
+<code>add-open-problem</code> separately owns proposal, incubation, and
+full indexing.</p>
+<p>If main advances, Git preserves the original delta. Maintainers
+review it, reconcile it, and rerun validation and propagation. Material
+conflict resolution remains a distinct, credited change.</p>
+<p>For module-level source traversal, use the same read-only query
+surface:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--module</span> <span class="op">&lt;</span>module_path_or_sigil<span class="op">&gt;</span></span></code></pre></div>
+<p>The module path comes from the source inventory, while a paper sigil
+is the short label emitted for paper links. Either selector returns the
+module synopsis, declaration preview, exact source identity, attached
+claims, paper sigil, and any bound route-memory context. The generated
+<code>docs/module_synopsis_index.json</code> supplies the header
+synopsis used by this route; it is an index, not proof or claim
+authority.</p>
+<p>For exact statement-identity comparison with the upstream Formal
+Conjectures corpus, use the generated <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FORMAL_CONJECTURES_CROSSWALK.md"><code>docs/FORMAL_CONJECTURES_CROSSWALK.md</code></a>.
+Each of the eight problem sections binds the pinned upstream
+declaration, source path, byte hash, and proof-status boundary to the
+matching canonical local problem route, so a reader can return from
+external prior art to local evidence without guessing a theorem
+name.</p>
+</section>
 <section id="two-libraries-two-levels-of-claim" class="level3">
 <h3>Two libraries, two levels of claim</h3>
 <p>The repository holds two Lean roots and they are not
@@ -192,7 +235,9 @@ interchangeable.</p>
 <p><code>Erdos249257.lean</code> is the reviewed corpus. Every public
 mathematical claim made about it has a row in
 <code>docs/claims.json</code>, a status, declaration coordinates, and a
-place in the gateway paper.</p>
+place in its problem-owned paper. The eight individual problem papers
+are the active mathematical routes; the former combined #249/#257
+manuscript is retained only as provenance.</p>
 <p><code>ErdosProblems.lean</code> is the problem-owned expansion
 library, currently covering Erdős problems 68, 243, 251, 269, 1041, and
 1049, plus unpromoted expansion lanes for the two reviewed problems. Its
@@ -264,7 +309,7 @@ preserves that reviewed relationship after it has been recorded.</p>
 <h3>A mathematical statement or proof changes</h3>
 <ol type="1">
 <li>Edit the relevant file under <code>Erdos249257/</code>.</li>
-<li>Run <code>lake build</code>. This is the proof check.</li>
+<li>Run the <code>lake build</code> check below.</li>
 <li>Review whether the formal statement, assumptions, or intended
 meaning changed. <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/methodology.json"><code>docs/methodology.json</code></a>
@@ -308,17 +353,19 @@ source links, generated files, paper identities, licences, query routes,
 and deliberately invalid test inputs.</li>
 </ul>
 <p>The main local commands are:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the newcomer guide itself</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_architecture_guide.py</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the committed first-reading surfaces; no Lean build</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_cold_clone_comprehension.py <span class="at">--quick</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Full check of public claims, documents, generated files, and release rules</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_release.py</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal proof check</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the newcomer guide itself</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_architecture_guide.py</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast check of the committed first-reading surfaces; no Lean build</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/proof_cockpit.py <span class="at">--check</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/test_proof_cockpit.py</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_cold_clone_comprehension.py <span class="at">--quick</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Full check of public claims, documents, generated files, and release rules</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_release.py</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Changed proof cone; omit flag at release</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/lean_fast_build.py <span class="at">--jobs</span> 2 <span class="at">--changed-from</span> HEAD</span></code></pre></div>
 <p>The Python release check confirms the identity of the Lean source but
 does not run Lean. The two commands answer different questions and both
 are required after a mathematical change.</p>
@@ -348,11 +395,17 @@ and illustrates the limit of explicitly recorded checks.</p>
 <li><strong>You want the basic mathematical result and its
 limits:</strong> read <a href="readme.html"><code>README.md</code></a>,
 then <a href="scope.html"><code>SCOPE.md</code></a>.</li>
-<li><strong>You want the mathematical argument:</strong> read the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">mathematics paper</a>.</li>
+<li><strong>You want the mathematical argument:</strong> choose the
+relevant entry in the <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/README.md">individual
+problem-paper index</a>. The archived combined #249/#257 PDF is not a
+default reading route.</li>
 <li><strong>You want to find the Lean behind one claim:</strong> use <a
 href="source-map.html"><code>docs/SOURCE_MAP.md</code></a>, or run
 <code>python3 scripts/query_corpus.py --claim &lt;claim_id&gt;</code>.</li>
+<li><strong>You want every distinct result family for one
+problem:</strong> run
+<code>python3 scripts/query_corpus.py --route erdos_&lt;problem_number&gt;</code>
+and follow its paper, declaration, and open-obligation handles.</li>
 <li><strong>You want to change the repository:</strong> read <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.md"><code>AGENTS.md</code></a> and <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>, then run the

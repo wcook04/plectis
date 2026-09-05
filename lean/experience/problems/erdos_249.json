@@ -50,10 +50,10 @@
       "module": "ErdosProblems.Erdos249.TotientStrictPrimeEscape",
       "path": "ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
       "present": true,
-      "line_count": 211,
-      "declaration_count": 8,
-      "theorem_count": 5,
-      "content_digest": "sha256:15ebe7ae1ad1fc8c12c85ca4a162689cf29bbe23b4280bb3452e0987694dbbe8",
+      "line_count": 530,
+      "declaration_count": 25,
+      "theorem_count": 21,
+      "content_digest": "sha256:d1c192d9ea692136eb58382e87fba2fdc61372de70dd7213c6fc083efbf2c09b",
       "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"
     },
     {
@@ -70,10 +70,10 @@
       "module": "ErdosProblems.Erdos249.PrimeRayCyclotomicCurvature",
       "path": "ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean",
       "present": true,
-      "line_count": 215,
-      "declaration_count": 14,
-      "theorem_count": 9,
-      "content_digest": "sha256:cf342e0c75045d92e8de7630c704f0ab2ee5035b4d9c40d60540390074258f7e",
+      "line_count": 268,
+      "declaration_count": 17,
+      "theorem_count": 11,
+      "content_digest": "sha256:7c2833745d718e8efb4d9d824770fa7ce12a2feead633de32cd33cf3f32170e8",
       "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean"
     }
   ],
@@ -116,6 +116,157 @@
       "statement": "The full dyadic totient kernel span admits the explicit odd-core-indexed basis.",
       "boundary": "The basis theorem does not connect rationality to finite kernel rank.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientMahlerDefect.lean"
+    },
+    {
+      "id": "totient_kernel_all_base_rank",
+      "problem": 249,
+      "review_family": "totient_kernel_all_base_index",
+      "contribution_class": "formalised unconditional spanning and conditional rank with external independence input",
+      "original_declaration": "Erdos249257.finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
+      "original_source": "Erdos249257/TotientKernelConditional.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
+      "statement": "Under 2 ≤ k, 1 ≤ e, and linear independence of the explicit canonical all-base family, the actual all-base totient kernel through level e has rational span dimension k^e + 1.",
+      "boundary": "The linear-independence hypothesis is the external affine-ordering boundary and is not proved here; this does not prove irrationality of the binary totient series.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientKernelConditional.lean"
+    },
+    {
+      "id": "totient_visible_coprime_lattice_mass",
+      "problem": 249,
+      "review_family": "totient_visible_coprime_lattice_mass",
+      "contribution_class": "formalised exact visible-lattice normalization identity",
+      "original_declaration": "GcdMomentCalculus.tsum_pos_coprime_inv_mersenne_eq_one",
+      "original_source": "Erdos249257/GcdMomentCalculus.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.tsum_pos_coprime_inv_mersenne_eq_one",
+      "statement": "The positive coprime Mersenne weights over the visible lattice sum exactly to one, giving the reduced-direction mass behind the fair-coin coprimality form of the totient constant.",
+      "boundary": "This is a rational normalization identity and does not prove irrationality of the binary totient series or settle Erdős #249.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean"
+    },
+    {
+      "id": "totient_squared_lambert_gcd_moment",
+      "problem": 249,
+      "review_family": "squared_lambert_gcd_moments",
+      "contribution_class": "formalised exact first-gcd-moment squared-Lambert transfer identity",
+      "original_declaration": "GcdMomentCalculus.tsum_totient_div_mersenne_sq_eq_gcd_moment_series",
+      "original_source": "Erdos249257/GcdMomentCalculus.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.tsum_totient_div_mersenne_sq_eq_gcd_moment_series",
+      "statement": "At base one half, the squared-Mersenne Lambert series weighted by Euler's totient equals the dyadic series of Pillai's gcd-sum function minus n, the exact first gcd-moment transfer.",
+      "boundary": "This exact identity does not prove irrationality of the binary totient series; the constant-weight squared-Lambert irrationality is cited external mathematics, and no Erdős #249 endpoint follows.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean"
+    },
+    {
+      "id": "stern_brocot_run_fibonacci_stability",
+      "problem": 249,
+      "review_family": "stern_brocot_run_fibonacci_stability",
+      "contribution_class": "formalised exact Fibonacci/continuant run stability floor",
+      "original_declaration": "SternBrocotRunGeometry.runHeight_defect_fib_sum_lower",
+      "original_source": "Erdos249257/SternBrocotRunGeometry.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.runHeight_defect_fib_sum_lower",
+      "statement": "For every finite defect list e, the height of the corresponding positive Stern-Brocot run word is at least F_(r+3) + F_(r+1) times the total defect, where r is the number of runs.",
+      "boundary": "This exact combinatorial stability floor does not establish analytic denominator survival, irrationality of the binary totient series, or novelty; no Erdős #249 endpoint follows.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/SternBrocotRunGeometry.lean"
+    },
+    {
+      "id": "stern_brocot_cylinder_mass_split",
+      "problem": 249,
+      "review_family": "stern_brocot_cylinder_law",
+      "contribution_class": "formalised exact Stern-Brocot cylinder telescoping identity",
+      "original_declaration": "GcdMomentCalculus.cylinderMass_split",
+      "original_source": "Erdos249257/GcdMomentCalculus.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.cylinderMass_split",
+      "statement": "At every positive Stern-Brocot node (a,b), the closed cylinder mass splits exactly into the node's stop mass and the two child cylinder masses.",
+      "boundary": "This exact telescoping recursion and its geometric interpretation do not prove irrationality of the binary totient series or novelty; the #249 endpoint remains open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean"
+    },
+    {
+      "id": "lcm_factor_ideal_shift_algebra_no_go",
+      "problem": 249,
+      "review_family": "lcm_factor_ideal_shift_algebra_no_go",
+      "claim_id": "lcm_factor_ideal_anchor_pulse_no_go",
+      "contribution_class": "unconditional progress",
+      "original_declaration": "Erdos249257.TotientTailPeriodKiller.lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient",
+      "original_source": "Erdos249257/LcmFactorIdealPulseObstruction.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient",
+      "statement": "For every t >= 3, a nonzero synthetic dyadic coboundary survives every finite integer shift polynomial while retaining the period-LCM totient factor ideals, exact cleared-prefix cancellation, and uniform state and letter bounds.",
+      "boundary": "The witness is synthetic: it does not assert that its forcing letters are actual totient differences, does not address nonlinear combinations, and leaves the unbounded certificate supply for Erdős #249 open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/LcmFactorIdealPulseObstruction.lean"
+    },
+    {
+      "id": "fixed_precision_transport_no_go",
+      "problem": 249,
+      "review_family": "fixed_precision_transport_no_go",
+      "claim_id": "fixed_precision_transport_no_go",
+      "contribution_class": "unconditional synthetic no-go; novelty unassessed",
+      "original_declaration": "Erdos249257.TotientTailPeriodKiller.fixedPrecisionTropicalNoGo",
+      "original_source": "Erdos249257/TropicalCurvatureCarry.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.fixedPrecisionTropicalNoGo",
+      "statement": "For every positive fixed precision, every finite word of odd valuation-unit symbols and every incoming integer carry state admit a compatible orbit whose successive states stay within the corresponding valuation-unit radii; fixed-precision local signatures therefore do not by themselves exclude finite centred completions.",
+      "boundary": "This is a synthetic finite-word construction with unrestricted incoming/high quotient states. It does not impose the actual totient-difference relation or provide growing-precision/global correlation, and it gives no Erdős #249 endpoint or irrationality result. No novelty or priority claim is made. The one-step and finite-word completion theorems are subordinate mechanisms, not separate families.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TropicalCurvatureCarry.lean"
+    },
+    {
+      "id": "actual_lcm_orbit_separation",
+      "problem": 249,
+      "review_family": "actual_lcm_orbit_separation",
+      "claim_id": "actual_lcm_orbit_nonintegrality_frontier",
+      "contribution_class": "conditional reduction",
+      "original_declaration": "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_of_actualLcmOrbitSeparationSupply",
+      "original_source": "Erdos249257/TotientActualLcmOrbitSeparation.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totientSeries_of_actualLcmOrbitSeparationSupply",
+      "statement": "A cofinal quantitative separation supply for the actual power-two LCM tail orbit implies irrationality of the binary totient series.",
+      "boundary": "The cofinal separation supply is an open premise, stronger than mere non-integrality; this sufficient route is not an equivalence and leaves the punctured/top-edge boundary and the Erdős #249 endpoint open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientActualLcmOrbitSeparation.lean"
+    },
+    {
+      "id": "actual_foreign_residue_projection",
+      "problem": 249,
+      "review_family": "actual_foreign_residue_projection",
+      "claim_id": "actual_foreign_residue_projection",
+      "contribution_class": "conditional reduction",
+      "original_declaration": "Erdos249257.ActualForeignResidueProjection.scaleFullTarget_miss_of_projected_separation",
+      "original_source": "Erdos249257/ActualForeignResidueProjection.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.scaleFullTarget_miss_of_projected_separation",
+      "statement": "The finite Möbius residue diagonal splits into projected foreign and divisor channels, every finite stable foreign-tail window obeys a closed geometric bound, and a controlled projection separated from every integer forces the full target to be missed.",
+      "boundary": "This is a conditional finite partition/geometric-majorant reduction with a generic complement-noncancellation consumer. The ControlledForeignProjection analytic bridge and any unbounded separated-projection supply remain unproved; no Erdős #249 endpoint, novelty, significance, priority, or external-review claim is made.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/ActualForeignResidueProjection.lean"
+    },
+    {
+      "id": "first_harmonic_pivot_decomposition",
+      "problem": 249,
+      "review_family": "first_harmonic_pivot_decomposition",
+      "claim_id": "first_harmonic_pivot_decomposition",
+      "contribution_class": "conditional reduction",
+      "original_declaration": "Erdos249257.TotientTailPeriodKiller.irrational_totient_series_of_pivotResidualDecorrelation",
+      "original_source": "Erdos249257/FirstHarmonicPivot.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totient_series_of_pivotResidualDecorrelation",
+      "statement": "The exact first-harmonic pivot decomposition and its 9X/10 gap yield a finite certificate whenever the stated PivotBudgetAt bounds hold, and the cofinal pivot-residual-decorrelation socket implies irrationality of the binary totient series.",
+      "boundary": "The four-term decomposition and 9X/10 gap remain conditional on the explicit dyadic-room and PivotBudgetAt hypotheses; the cofinal decorrelation producer is unproved. The fibre/image lemmas do not give global supplier-prime isolation or a prime-distribution estimate, and no Erdős #249 irrationality conclusion is claimed.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/FirstHarmonicPivot.lean"
+    },
+    {
+      "id": "strict_prime_tail_orbit_gap",
+      "problem": 249,
+      "review_family": "strict_prime_tail_orbit_gap",
+      "claim_id": "strict_prime_tail_orbit_gap",
+      "contribution_class": "conditional reduction",
+      "original_declaration": "ErdosProblems.Erdos249.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap",
+      "original_source": "ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap",
+      "statement": "An 11/100 nonpositive-phase density on arbitrarily late dyadic blocks yields an 89/100 first-harmonic saving and a finite 9/10 gap; alternatively, a cofinal natural-prime tail-orbit strict gap below 9/10 yields adaptive pivot escape and conditional irrationality. The exact initial phase is the scaled-angle character of (2^h - 1) times the series, and the strict-gap route is an orbit of repeated squaring from that phase.",
+      "boundary": "The phase-density, cofinal natural-prime strict-gap, associated uniform-margin, and cofinal nonpositive-prime-shift producers remain unproved for the actual totient orbit. Exact phase/integrality equivalence, finite dyadic-root exclusion for 1 ≤ h ≤ 16 and k ≤ 14, and non-dyadicity-to-cofinal-nonpositive-phase implications are classification or finite evidence only; they do not supply density or prime alignment, and the source does not prove actual root entry. This is a conditional reduction only: no unconditional Erdős #249 endpoint, novelty, priority, significance, or external-review claim is made. It is distinct from the finite first_harmonic_pivot_decomposition and actual_lcm_orbit_separation families.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"
+    },
+    {
+      "id": "totient_carry_anti_compression",
+      "problem": 249,
+      "review_family": "totient_carry_anti_compression",
+      "claim_id": "totient_carry_kernel_anti_compression",
+      "contribution_class": "locally proved necessary consequence; novelty unassessed",
+      "original_declaration": "Erdos249257.not_irrational_totientSeries_implies_mod_period_and_unbounded_rank",
+      "original_source": "Erdos249257/TotientTailCarryPeriod.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.not_irrational_totientSeries_implies_mod_period_and_unbounded_rank",
+      "statement": "If the binary totient coefficient series were rational, one positive-multiplier tempered integral carry has dyadic sections uniformly eventually periodic modulo its multiplier and canonical carry-section span dimension at least 2^e − 1 for every e.",
+      "boundary": "This is a necessary consequence of rationality only: it gives no contradiction, no finite-rank upper bound for a rationality-supplied carry, and no irrationality proof for Erdős #249. Modulo a divisor of the multiplier, the forcing disappears and the carry becomes geometric, so quotient periodicity alone supplies no finite-ℚ-rank upper bound. The coefficient-side kernel-rank and certificate-equivalence families are not duplicated, and #249 remains open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/TotientTailCarryPeriod.lean"
     }
   ],
   "comparator_review": {
@@ -143,8 +294,154 @@
         "contribution_class": "formalised unconditional spanning and conditional rank with external independence input",
         "summary": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
         "evidence_mode": "Lean kernel for arithmetic, finite indexing, spanning, and the conditional-rank theorem; paper argument plus Martin's cited theorem for independence",
-        "comparator_disposition": "not_selected_external_independence_boundary",
+        "comparator_disposition": "targeted",
         "boundary": "Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input."
+      },
+      {
+        "id": "totient_visible_coprime_lattice_mass",
+        "contribution_class": "formalised exact visible-lattice normalization identity",
+        "summary": "The positive coprime Mersenne weights on the visible lattice sum to one, exposing the reduced-direction mass behind the fair-coin coprimality form of #249.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "This rational normalization identity does not prove irrationality of the binary totient series or settle #249."
+      },
+      {
+        "id": "squared_lambert_gcd_moments",
+        "contribution_class": "formalised exact squared-Lambert first-moment transfer",
+        "summary": "At base one half, the totient-weighted squared-Mersenne Lambert series is the dyadic Pillai gcd-sum-minus-n series, exposing the first fair-coin gcd moment.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "This exact transfer identity does not prove irrationality of the binary totient series; the cited constant-weight q-Padé result remains external and no #249 endpoint follows."
+      },
+      {
+        "id": "stern_brocot_run_fibonacci_stability",
+        "contribution_class": "formalised exact Fibonacci/continuant run stability floor",
+        "summary": "For a positive Stern-Brocot run word, the global height gain from run defects is bounded below by the sharp Fibonacci coefficient F_(r+1) times the total defect.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "This exact combinatorial stability floor does not establish analytic denominator survival, irrationality of the binary totient series, or novelty; no #249 endpoint follows."
+      },
+      {
+        "id": "stern_brocot_cylinder_law",
+        "contribution_class": "formalised exact Stern-Brocot cylinder telescoping identity",
+        "summary": "At every positive Stern-Brocot node, the closed cylinder mass splits into stop mass and the two child cylinders, giving an exact Markov recursion.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "This exact telescoping recursion and its geometric interpretation do not prove irrationality of the binary totient series or novelty; the #249 endpoint remains open."
+      },
+      {
+        "id": "lcm_factor_ideal_shift_algebra_no_go",
+        "contribution_class": "unconditional progress",
+        "summary": "For every t at least 3, a nonzero synthetic dyadic coboundary survives every finite integer shift polynomial while retaining the period-LCM totient factor ideals, exact cleared-prefix cancellation, and uniform state and letter bounds.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "boundary": "The witness is synthetic: it does not assert that its forcing letters are actual totient differences, does not address nonlinear combinations, and leaves the unbounded certificate supply for Erdős #249 open."
+      },
+      {
+        "id": "fixed_precision_transport_no_go",
+        "contribution_class": "unconditional synthetic no-go; novelty unassessed",
+        "summary": "At every fixed positive precision, every finite word of odd valuation-unit symbols admits a compatible centred carry completion from any incoming integer state; bounded local signatures therefore cannot exclude all finite centred endpoints.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.TotientTailPeriodKiller.fixedPrecisionTropicalNoGo",
+          "Erdos249257.TotientTailPeriodKiller.vu_step_has_centred_completion",
+          "Erdos249257.TotientTailPeriodKiller.vu_word_has_prefix_locked_completion"
+        ],
+        "boundary": "This is a synthetic finite-word construction with unrestricted incoming/high quotient states. It does not impose the actual totient-difference relation or provide growing-precision/global correlation, and it gives no Erdős #249 endpoint or irrationality result. No novelty or priority claim is made. The one-step and finite-word completion theorems are subordinate mechanisms, not separate families."
+      },
+      {
+        "id": "actual_lcm_orbit_separation",
+        "contribution_class": "conditional reduction",
+        "summary": "A cofinal quantitative 1/32 separation supply at canonically guarded odd ranks transfers through the explicit raw-block approximation and error radius to the existing half-word/signed-margin irrationality consumer. The landed actual-LCM sign/top-edge analysis is supporting and contrary-boundary evidence: positivity leaves the true survivor negative, and integrality forces the exact top-edge residue.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply",
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_of_actualLcmOrbitNonintegralitySupply",
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_of_actualLcmOrbitSeparationSupply",
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.actualLcm_trueEndpointSurvivor_neg",
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.actualLcm_integral_forces_topEdgeResidue",
+          "Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.actualLcmTailDiff_shift_pos"
+        ],
+        "boundary": "The quantitative 1/32 separation supply is sufficient but stronger than mere non-integrality, is not an equivalence, and remains open. The sign positivity alone does not exclude the negative true survivor; the top-edge forcing does not exclude that residue or supply cofinal non-integrality. These source declarations are supporting/contrary-boundary evidence, not a second actual-LCM family, and the punctured/top-edge boundary and #249 endpoint remain open."
+      },
+      {
+        "id": "actual_foreign_residue_projection",
+        "contribution_class": "conditional reduction",
+        "summary": "The finite Möbius residue diagonal splits exactly into projected foreign and divisor channels, the omitted finite foreign tail has a closed geometric majorant, and the generic complement-noncancellation consumer turns a controlled projection separated from every integer into a full-target miss.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.ActualForeignResidueProjection.scaleFullTarget_miss_of_projected_separation",
+          "Erdos249257.ActualForeignResidueProjection.finiteResidueDiagonal_eq_projectedForeign_add_divisor",
+          "Erdos249257.ActualForeignResidueProjection.abs_foreignTailWindow_le_foreignComplementBound"
+        ],
+        "boundary": "This is only a finite partition/geometric-majorant reduction feeding a generic complement-noncancellation consumer. The ControlledForeignProjection analytic bridge and any unbounded supply of separated projections remain unproved; no Erdős #249 endpoint, novelty, significance, priority, or external-review claim follows."
+      },
+      {
+        "id": "first_harmonic_pivot_decomposition",
+        "contribution_class": "conditional reduction",
+        "summary": "The supplier fibre is an exact prime-image/fibre bijection, while a checked finite counterexample shows that supplier-prime global isolation fails. The load-bearing result is an exact four-term first-harmonic decomposition; under the explicit PivotBudgetAt budgets, the centred real-part bound and three contribution bounds give the 9X/10 gap and a finite certificate, and the conditional pivot-residual-decorrelation theorem transfers a cofinal supply to irrationality.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.TotientTailPeriodKiller.mem_pivotFiber_iff_exists_supplierPrime",
+          "Erdos249257.TotientTailPeriodKiller.pivotBaseOfPrime_injective_on_supplierPrimes",
+          "Erdos249257.TotientTailPeriodKiller.image_pivotSupplierPrimes_eq_pivotFiber",
+          "Erdos249257.TotientTailPeriodKiller.supplierPrime_not_globally_isolated_counterexample",
+          "Erdos249257.TotientTailPeriodKiller.windowFirstExp_sum_eq_pivot_decomposition",
+          "Erdos249257.TotientTailPeriodKiller.PivotBudgetAt",
+          "Erdos249257.TotientTailPeriodKiller.first_harmonic_gap_of_pivotBudgetAt",
+          "Erdos249257.TotientTailPeriodKiller.DTWPivotResidualDecorrelation",
+          "Erdos249257.TotientTailPeriodKiller.irrational_totient_series_of_pivotResidualDecorrelation"
+        ],
+        "boundary": "The fibre/image lemmas and the explicit counterexample establish neither global supplier-prime isolation nor a prime-distribution estimate. The 9X/10 gap is conditional on PivotBudgetAt and the stated dyadic-room inequality; irrationality is conditional on DTWPivotResidualDecorrelation, whose exact cofinal producer remains open. No decorrelation estimate supplying those budgets is proved, and the #249 endpoint remains open."
+      },
+      {
+        "id": "strict_prime_tail_orbit_gap",
+        "contribution_class": "conditional reduction",
+        "summary": "A single two-branch source mechanism gives an 89/100 first-harmonic block saving from an 11/100 nonpositive-phase density, or an adaptive pivot escape from a cofinal natural-prime tail-orbit strict gap below 9/10. The exact squaring law reduces the latter to a power-of-two orbit of one initial phase and shows that an entered dyadic root obstructs that producer, without proving such an entry. The load-bearing representative is the natural-prime irrationality reduction; block-gap, density, and phase-classification declarations remain subordinate.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos249.TotientTailOrbitBlockGap",
+          "ErdosProblems.Erdos249.TotientTailOrbitNonpositiveBlockDensity",
+          "ErdosProblems.Erdos249.tailOrbitBlockGap_of_nonpositiveBlockDensity",
+          "ErdosProblems.Erdos249.irrational_totient_series_of_tailOrbitBlockGap",
+          "ErdosProblems.Erdos249.DTWNaturalPrimeTailOrbitStrictGap",
+          "ErdosProblems.Erdos249.naturalPivotPointEscape_of_naturalPrimeTailOrbitStrictGap",
+          "ErdosProblems.Erdos249.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_succ",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_add",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_eq_initial_pow_two",
+          "ErdosProblems.Erdos249.naturalPrimeTailOrbitStrictGap_iff_initial_phase",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_eq_one_of_le",
+          "ErdosProblems.Erdos249.not_naturalPrimeTailOrbitStrictGap_of_phase_one",
+          "ErdosProblems.Erdos249.not_naturalPrimeTailOrbitStrictGap_of_dyadic_root",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_zero_eq_scaled_angle",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_eq_one_iff_tail_diff_mem_int",
+          "ErdosProblems.Erdos249.exists_tailOrbitFirstExp_zero_pow_two_eq_one_iff_dyadic",
+          "ErdosProblems.Erdos249.tailOrbitFirstExp_zero_pow_two_ne_one_upto_sixteen",
+          "ErdosProblems.Erdos249.cofinally_tailOrbitFirstExp_re_nonpos_of_not_dyadic",
+          "ErdosProblems.Erdos249.naturalPrimeTailOrbitStrictGap_of_cofinal_nonpositive_prime_shift"
+        ],
+        "boundary": "The 11/100 phase-density, cofinal natural-prime strict-gap, associated uniform-margin, and cofinal nonpositive-prime-shift producers remain unproved for the actual totient orbit. The scaled-angle and phase/integrality equivalences, finite 1 ≤ h ≤ 16 and k ≤ 14 root exclusion, and non-dyadicity-to-cofinal-nonpositive-phase theorem provide classification or finite evidence only; they do not prove a density/equidistribution theorem, prime alignment, or actual dyadic-root entry. Both branches are conditional certificate/irrationality reductions only: they do not close Erdős #249, duplicate first_harmonic_pivot_decomposition or actual_lcm_orbit_separation, or justify novelty, priority, significance, or external review."
+      },
+      {
+        "id": "totient_carry_anti_compression",
+        "contribution_class": "locally proved necessary consequence; novelty unassessed",
+        "summary": "If the binary totient coefficient series were rational, one positive-multiplier tempered integral carry would have dyadic sections uniformly eventually periodic modulo its multiplier while its canonical carry-section span has dimension at least 2^e − 1 for every e. This is the orbit-level quotient-periodicity/anti-compression conjunction, distinct from the coefficient-side kernel-rank family.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "Erdos249257.not_irrational_totientSeries_implies_mod_period_and_unbounded_rank",
+          "Erdos249257.finrank_canonicalCarryKernel_ge",
+          "Erdos249257.carrySectionsEventuallyPeriodicMod_of_shift_dvd",
+          "Erdos249257.totient_forcing_vanishes_mod_of_dvd_multiplier",
+          "Erdos249257.totient_carry_modEq_geometric_of_dvd_multiplier"
+        ],
+        "boundary": "This is a necessary consequence of rationality only: it gives no contradiction, no finite-rank upper bound for a rationality-supplied carry, and no irrationality proof for Erdős #249. Modulo a divisor of the multiplier, the forcing disappears and the carry becomes geometric, so quotient periodicity alone supplies no finite-ℚ-rank upper bound. The coefficient-side kernel-rank and certificate-equivalence families are not duplicated, and #249 remains open."
       },
       {
         "id": "totient_finite_denominator_exclusion",
@@ -167,6 +464,10 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "The totient series is rewritten as a Lambert series with explicit nonnegative, unbounded prime-power coefficients.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "MersenneLambertLadder.tsum_primWeight_div_two_pow_sub_one",
+          "Erdos249257.tsum_primWeight_div_two_pow_sub_one_eq_totient_series"
+        ],
         "comparator_disposition": "represented_by_basis_and_rank_targets",
         "boundary": "The coefficient identities do not prove irrationality."
       },
@@ -175,6 +476,9 @@
         "contribution_class": "Lean formalisation of existing result",
         "summary": "Eventually periodic nonnegative rational weights give an irrational Lambert series.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "Erdos249257.irrational_ratWeightSeries_eventuallyPeriodic"
+        ],
         "comparator_disposition": "not_selected_prior_result",
         "boundary": "The totient-derived weights are not eventually periodic."
       },
@@ -183,9 +487,50 @@
         "contribution_class": "exact equivalence and conditional reduction",
         "summary": "Pointwise, cofinal, lcm-diagonal, and separated-window certificate supplies are exact or sufficient reformulations.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "Erdos249257.TotientTailPeriodKiller.irrational_totient_series_iff_lcm_diagonal_certificate_supply",
+          "ErdosProblems.Erdos249.PeriodMultipleEscape.periodMultipleKillSupply_iff_irrational",
+          "Erdos249257.TotientTailPeriodKiller.dtwWindowSeparatedPairs_iff_irrational_totient_series"
+        ],
         "comparator_disposition": "not_selected_deep_certificate_vocabulary",
         "boundary": "Equivalent producer statements are as hard as the unresolved target."
       }
+    ]
+  },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Prove that the binary totient series sum_{n>=1} phi(n)/2^n is irrational.",
+    "strongest_theorem": {
+      "claim_id": "erdos249.dyadic_totient_kernel",
+      "title": "explicit odd-core basis, full-span equality, canonical finite normal form, and exact ranks",
+      "statement": "The two zero-residue base channels and one odd-residue channel at each positive dyadic level form a linearly independent spanning family for all dyadic sections of Euler's totient. The complete family through level e has the same span as the duplicate-free canonical truncation and exact rank 2^e+1. This unconditional structural theorem does not prove irrationality of the binary totient series.",
+      "altitude": "infrastructure",
+      "band": "P",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification249DyadicTotientKernel"
+    },
+    "strongest_longitudinal_theorem": null,
+    "live_obstruction": "Irrationality of the binary totient series is equivalent in Lean to a residue-gap supply statement, that for every c and every positive odd v there exists H > 0 divisible by phi(v) whose canonical totient-block residue modulo (2^H - 1)/v lies in the central interval of radius c + H + 1, and no construction supplies that H.",
+    "strongest_open_producer": {
+      "id": "totient_specific_moving_dyadic_escape",
+      "statement": "Prove FullMersenneCanonicalBasepointResidueGapSupply, the Lean-equivalent arithmetic normal form: for every c and positive odd v, find H>0 divisible by phi(v) such that the canonical residue (-totientBlock(H,c)) mod ((2^H-1)/v) lies in the central interval of radius c+H+1. On the pure-dyadic axis, the Lean-checked signed error E_H=totientBlock(H,c)-k(2^H-1) obeys E_(H+1)=2E_H+phi(c+H+1)-k while the nearest quotient k stays fixed. Exact computation through c<=1000000 finds delay nineteen at c=490794, ruling out caps through seventeen. Pointwise legal-letter methods, the constant-two mode, sublinear errors, and every eventually affine linear-scale error are eliminated. Actual prime positions cofinally force linear excursions; more directionally, if the successor remains upper-trapped then 4E_H+p+phi(p+1)<=4+3k, so any permanent trap is cofinally bottom-locked immediately before large prim…"
+    },
+    "how_to_contribute": {
+      "kind": "literature",
+      "note": "Test whether the Padé construction of Duverney and Tachiya for Lambert series survives a bounded non-periodic Möbius weight, and record the exact step at which it fails."
+    },
+    "what_this_does_not_establish": "Erdos #249 remains open. Lean proves that irrationality of S=sum_{n>=1}phi(n)/2^n is equivalent to FullMersenneCanonicalBasepointResidueGapSupply, and that exact equivalent reduction is the canonical frontier. The finite scans, delay laws, continued-fraction prefix, cyclotomic support, exact 331 certificates, Schur obstructions, and affine-mode exclusions are evidence or finite denominator exclusions only. In particular, the observed delay translation does not promote an irrationality-measure estimate to the target: any quantitative distance bound would be a sufficient stronger route. A lower bound ||v*2^c*S|| >= c^-A uniformly over all positive odd v is not merely unproved but impossible f…",
+    "failed_approaches": [
+      "Uniform bounds ‖v·2^c·S‖ ≥ c^{−A}: impossible for irrational S because odd multiples of 2^c S are dense mod 1.",
+      "Coprime restriction with Stern-Brocot splitting and geometric decay: the visible-lattice sum ∑_{gcd(a,b)=1} 1/(2^{a+b}−1) equals exactly 1, so it cannot force irrationality.",
+      "Positive rank-one Schur blocks: every admissible quotient sits at least 21/320 above Θ₂ (unique minimiser (1,5)).",
+      "Nonnegative Stieltjes representations of the Möbius-Mersenne ladder: strict log-concavity at every rung."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification249BinaryCyclotomicAnchors",
+      "ExternalVerification249RankOneSharpFloor"
     ]
   },
   "palomar": {
@@ -200,7 +545,7 @@
     "subject": "Erdős #249",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 19,
+    "pages": 27,
     "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
     "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -222,17 +567,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "a96cc9413cb362cabe150b6aa6e84049c2277491c4cb7aef6fdda783ff2843fc",
+      "renderer_contract_version": 14,
+      "source_sha256": "c0b231a545c4547119ade449712a9b3a7abb5f24f8c86d1bfef52d195c57c2d3",
       "publication_manifest_match": true,
-      "mathml_node_count": 496,
+      "mathml_node_count": 715,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "258061e08e99783a94f55e8d197785af19f9277339f5d8ee665f708851462bf4",
-      "html_exact_tex_sha256": "33f1471dabf12a4a4a8cb761a784fd054d3abec6deb132b87508538cbb9ba53e"
+      "html_mathml_sha256": "f1901e7e5e71a1163d81b55d00fae5494b0396e809eb52210d8574add0163f6c",
+      "html_exact_tex_sha256": "c022626f54a926b73075eb44ae76482aa85b63b086f2332e7de4fedc5983f404"
     },
     "sections": [
       {
@@ -283,12 +628,42 @@
       {
         "level": 2,
         "anchor": null,
+        "label": "Fresh-prime losses in the diagonal probes"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Finite square-CRT correction suppression."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Canonical strict-jump slack."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Finite foreign-residue projection."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "The actual LCM orbit: exact frontier and sign trap."
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "A quantitative separation criterion."
+      },
+      {
+        "level": 2,
+        "anchor": null,
         "label": "Obstructions for fixed-coordinate methods"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "Further conditional criteria"
+        "label": "Conditional criteria"
       },
       {
         "level": 5,
@@ -318,7 +693,7 @@
       {
         "level": 3,
         "anchor": null,
-        "label": "Stronger sufficient producer problems"
+        "label": "Exact full-depth reduction and a stronger sufficient condition"
       },
       {
         "level": 3,
@@ -348,7 +723,7 @@
       {
         "level": 5,
         "anchor": null,
-        "label": "Registry coverage."
+        "label": "Claim status."
       },
       {
         "level": 2,

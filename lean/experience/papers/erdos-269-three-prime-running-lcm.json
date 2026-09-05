@@ -5,7 +5,7 @@
   "subject": "Erdős #269",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 23,
+  "pages": 24,
   "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
   "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
   "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -27,23 +27,28 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "f1b29aa4a844631bebe8ae136a7116c31120224732d4c05241016f923476aa0f",
+    "renderer_contract_version": 14,
+    "source_sha256": "379f505866b529978ff8289927fed1bf6db669dc62ffc19e397e413638d2bcec",
     "publication_manifest_match": true,
-    "mathml_node_count": 493,
+    "mathml_node_count": 521,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "876a81b1af17ddd6d7c74b0f2dc86c50d58941182a91dcaec9dfa665e083d2dd",
-    "html_exact_tex_sha256": "c656bbcc17252c34726c9e1909ffde25e0cfa82260dbb897a47d60bc5ccd9f64"
+    "html_mathml_sha256": "19e2f0af42a8a3f403052e807cbb6423df16c022e456312b80853a261e418d04",
+    "html_exact_tex_sha256": "9d9e3c7b58ee9b78f8416602b2624523d0b06c6557f75fe436edd495d222f5ef"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
       "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Results and boundary."
     },
     {
       "level": 3,
@@ -79,6 +84,11 @@
       "level": 2,
       "anchor": null,
       "label": "Non-separability of the three-prime kernel"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The actual shell orbit and its integral branch"
     },
     {
       "level": 2,
@@ -128,12 +138,12 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "A literal two-dimensional analytic route"
+      "label": "A two-dimensional analytic representation"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "The structural frontier"
+      "label": "Further structural constraints"
     },
     {
       "level": 3,
@@ -144,11 +154,6 @@
       "level": 5,
       "anchor": null,
       "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 5,

@@ -14,9 +14,9 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "bcc403460c1892e621c4e20bdc14a39b2f796c79d7bb11aec959cdc534624bb3",
+    "source_sha256": "663a579d4354c3c7df90a5f8e93ff0a3298ffbb4de01170a8059f7b3bce19c62",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
+    "renderer_contract_version": 14,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -25,15 +25,10 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "371fa790071dc8ec8768236d32ebb5a9c98e5413e359ad83aa6cacea7dc65ff3",
-    "html_exact_tex_sha256": "d61632f0bcea9e2f0ffd6c3e26f9d61ee1cfd403a91e3589d46903bdfbba0d94"
+    "html_mathml_sha256": "5ca99b5a42aa9022017ab3b78f2a57da0ab2cf93787900889496c51ba12a0c4a",
+    "html_exact_tex_sha256": "b6a1956150b6f2df47f46a11b6696c3de6c55adc75a81ea81f47db772d25a225"
   },
   "sections": [
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "What the corpus is, by shape"
-    },
     {
       "level": 2,
       "anchor": null,

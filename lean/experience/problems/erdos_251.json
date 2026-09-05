@@ -66,6 +66,18 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     },
     {
+      "id": "coefficient_only_no_go",
+      "problem": 251,
+      "review_family": "coefficient_only_no_go",
+      "contribution_class": "formalisation of exact finite identity and nonperiodicity contrast; novelty and significance unassessed",
+      "original_declaration": "ErdosProblems.Erdos251.carryPartialSum_natCast_eq",
+      "original_source": "ErdosProblems/Erdos251/PrimeGapDyadicTail.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.coefficientOnlyNoGo",
+      "statement": "The coefficient-only wrapper records the exact finite carry partial-sum identity together with non-eventual-periodicity of the synthetic coefficient stream and the actual prime-gap stream, exposing the limits of coefficient-only reasoning.",
+      "boundary": "The wrapper proves the finite identity and the two non-eventual-periodicity statements only. It does not assert the infinite rational-sum limit of the synthetic countermodel, identify the synthetic coefficient stream with actual prime gaps, establish a prime-gap tail bridge, prove #251 irrationality, or make novelty, priority, significance, or external-review claims.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+    },
+    {
       "id": "prime_gap_irrationality_equivalence",
       "problem": 251,
       "review_family": "prime_gap_reformulation",
@@ -75,6 +87,30 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_tsum_primeDyadicTerm_iff_primeGap",
       "statement": "The prime-value dyadic series is irrational exactly when the prime-gap dyadic series is irrational.",
       "boundary": "The equivalence does not prove irrationality of either series.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+    },
+    {
+      "id": "dyadic_tail_integrality_classification",
+      "problem": 251,
+      "review_family": "dyadic_tail_integrality_classification",
+      "contribution_class": "abstract Lean-checked classification and normal form; novelty unassessed",
+      "original_declaration": "ErdosProblems.Erdos251.irrational_initial_iff_all_positive_tailShifts_nonintegral",
+      "original_source": "ErdosProblems/Erdos251/PrimeGapDyadicTail.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_initial_iff_all_positive_tailShifts_nonintegral",
+      "statement": "For any integer-digit real dyadic tail recurrence T(N + 1) = 2*T(N) - g(N + 1), the initial value T(0) is irrational exactly when every positive-length tail shift is nonintegral.",
+      "boundary": "This exact normal form covers arbitrary integer-digit dyadic tail recurrences with the declared real state type; it does not supply a cofinal nonintegral shift for the consecutive-prime-gap recurrence. The prime-specific producer remains open, so no prime-gap irrationality, novelty, significance, or external-review claim is made and Erdős #251 remains open.",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+    },
+    {
+      "id": "small_mismatch_criterion",
+      "problem": 251,
+      "review_family": "small_mismatch_criterion",
+      "contribution_class": "conditional actual-prime-gap endpoint reduction; novelty and significance unassessed",
+      "original_declaration": "ErdosProblems.Erdos251.primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch",
+      "original_source": "ErdosProblems/Erdos251/PrimeGapDyadicTail.lean",
+      "wrapper_declaration": "Erdos249257.ExternalVerification.primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch",
+      "statement": "For the actual prime-gap dyadic tail, cofinally many adjacent pairs of strictly small h-shifts with unequal corresponding prime gaps force failure of eventual RatIntegral h-shifts.",
+      "boundary": "The representative assumes T : ℕ → ℚ, the DyadicTailRecurrence for the actual prime-gap digits, and for every N₀ an N ≥ N₀ whose adjacent h-shifts both lie strictly in (-1, 1) while the corresponding prime gaps differ. Under that cofinal small-mismatch supply it excludes eventual RatIntegral h-shifts; it does not prove the supply or actual smallness. rationalPrimeGapTail_has_positive_shift_not_eventually_small records the contrary rational-state obstruction for at least one positive shift. This is a conditional reduction only: no #251 irrationality, infinite rational-sum limit, universal producer, novelty, priority, significance, or external-review claim is made; #251 remains open. The actual-prime-gap specialization is distinct from coefficient_only_no_go and does not duplicate prime_gap_reformulation.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     }
   ],
@@ -95,33 +131,105 @@
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "Block identities and exact denominator criteria classify rationality through integral positive tail shifts.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos251.irrational_initial_iff_all_positive_tailShifts_nonintegral",
+          "ErdosProblems.Erdos251.not_irrational_initial_iff_exists_eventually_integral_positive_tailShift",
+          "ErdosProblems.Erdos251.tailShift_integral_iff_den_dvd_mersenne",
+          "ErdosProblems.Erdos251.tailShift_integral_iff_two_pow_modEq_one"
+        ],
         "comparator_disposition": "not_selected_abstract_family_represented_in_manifest",
         "boundary": "The concrete prime-gap producer remains missing."
+      },
+      {
+        "id": "dyadic_tail_integrality_classification",
+        "contribution_class": "abstract Lean-checked classification and normal form; novelty unassessed",
+        "summary": "For any integer-digit dyadic tail recurrence T(N+1) = 2*T(N) - g(N+1), the rational h-shift is integral exactly when the reduced denominator of T(N) divides 2^h - 1, equivalently when 2^h is congruent to 1 modulo that denominator. For the real recurrence, the load-bearing normal form says that irrationality of T(0) is equivalent to every positive tail shift being nonintegral; the eventual-integrality equivalence and denominator/order laws are supporting mechanism evidence.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos251.tailShift_integral_iff_den_dvd_mersenne",
+          "ErdosProblems.Erdos251.tailShift_integral_iff_two_pow_modEq_one",
+          "ErdosProblems.Erdos251.not_irrational_initial_iff_exists_eventually_integral_positive_tailShift",
+          "ErdosProblems.Erdos251.irrational_initial_iff_all_positive_tailShifts_nonintegral"
+        ],
+        "boundary": "These exact statements cover arbitrary integer-digit dyadic tail recurrences with the declared rational and real state types; they classify integrality and give an irrationality normal form but do not supply a cofinal nonintegral shift for the consecutive-prime-gap recurrence. The generic hypotheses therefore do not close the prime-specific producer gap: no prime-gap irrationality, novelty, significance, or external review is claimed, and Erdős #251 remains open. This is one abstract classification family, distinct from prime_gap_reformulation, not a duplicate frontier claim."
       },
       {
         "id": "totient_shift_propagation",
         "contribution_class": "locally proved result; novelty unassessed",
         "summary": "Odd rational denominators give totient-length integral shifts, and integrality propagates through the recurrence.",
         "evidence_mode": "Lean kernel",
+        "declarations": [
+          "ErdosProblems.Erdos251.tailShift_integral_totient_of_odd_den",
+          "ErdosProblems.Erdos251.tailShift_integral_succ",
+          "ErdosProblems.Erdos251.tailShift_integral_add"
+        ],
         "comparator_disposition": "represented_by_integral_shift_family",
         "boundary": "This describes rational states and supplies no contradiction for actual prime gaps."
       },
       {
         "id": "small_mismatch_criterion",
-        "contribution_class": "conditional reduction",
-        "summary": "Cofinal adjacent small mismatches would rule out eventual integral shifts for the prime-gap tail.",
-        "evidence_mode": "Lean kernel",
-        "comparator_disposition": "not_selected_open_producer_hypothesis",
-        "boundary": "The cofinal mismatch producer is unproved."
+        "contribution_class": "conditional actual-prime-gap endpoint reduction; novelty and significance unassessed",
+        "summary": "For the actual prime-gap dyadic tail, cofinally many adjacent pairs of strictly small h-shifts with unequal corresponding prime gaps force failure of eventual RatIntegral h-shifts. The adjacent-pair zero obstruction is the load-bearing mechanism; exact non-eventual periodicity of consecutive prime gaps supplies the actual-prime-gap contrast.",
+        "evidence_mode": "Lean kernel plus Comparator",
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos251.primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch",
+          "ErdosProblems.Erdos251.not_eventuallyIntegralTailShift_of_cofinal_small_mismatch",
+          "ErdosProblems.Erdos251.tailShift_not_both_integral_of_small_pair_of_digit_ne",
+          "ErdosProblems.Erdos251.primeGap0_not_eventually_periodic",
+          "ErdosProblems.Erdos251.rationalPrimeGapTail_has_positive_shift_not_eventually_small"
+        ],
+        "boundary": "The representative assumes T : ℕ → ℚ, the DyadicTailRecurrence for the actual prime-gap digits, and for every N₀ an N ≥ N₀ whose adjacent h-shifts both lie strictly in (-1, 1) while the corresponding prime gaps differ. Under that cofinal small-mismatch supply it excludes eventual RatIntegral h-shifts; it does not prove the supply or actual smallness. rationalPrimeGapTail_has_positive_shift_not_eventually_small records the contrary rational-state obstruction for at least one positive shift. This is a conditional reduction only: no #251 irrationality, infinite rational-sum limit, universal producer, novelty, priority, significance, or external-review claim is made; #251 remains open. The actual-prime-gap specialization is distinct from coefficient_only_no_go and does not duplicate prime_gap_reformulation."
       },
       {
         "id": "coefficient_only_no_go",
-        "contribution_class": "no-go result",
-        "summary": "Prime gaps are unbounded and non-eventually-periodic, while an explicit nonperiodic unbounded countermodel still has rational sum.",
+        "contribution_class": "coefficient-only barrier; novelty and significance unassessed",
+        "summary": "The exact finite carry identity and the two non-eventual-periodicity statements expose the coefficient-only barrier: irregularity and growth of a coefficient stream do not by themselves force irrationality, while the synthetic carry stream remains distinct from the actual prime-gap stream.",
         "evidence_mode": "Lean kernel plus authored synthesis",
-        "comparator_disposition": "targeted_unboundedness_theorem_only",
-        "boundary": "Comparator checks the exact theorem, not the broader methodological interpretation."
+        "comparator_disposition": "targeted",
+        "declarations": [
+          "ErdosProblems.Erdos251.carryPartialSum_natCast_eq",
+          "ErdosProblems.Erdos251.carryCoeff_natCast_not_eventually_periodic",
+          "ErdosProblems.Erdos251.primeGap0_not_eventually_periodic"
+        ],
+        "boundary": "CoefficientOnlyNoGo checks the exact finite partial-sum identity and the two non-eventual-periodicity statements. It does not assert the infinite limit of the synthetic countermodel, identify its coefficient stream with actual prime gaps, establish a prime-gap tail bridge, prove #251 irrationality, or make novelty, priority, significance, or external-review claims."
       }
+    ]
+  },
+  "frontier": {
+    "source": "state/formal_math/claim_frontier_v1.json",
+    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
+    "target_status": "open",
+    "problem_statement": "Prove irrationality of the dyadic series built from consecutive prime gaps.",
+    "strongest_theorem": {
+      "claim_id": "erdos251.polynomial_shift_countermodel",
+      "title": "exact polynomial shift countermodel eliminating coarse-gap strategies",
+      "statement": "The explicit digit word g(n) = 2(n^2 + 4n + 2) and the explicit rational orbit T(n) = 2(n + 4)^2 satisfy the dyadic tail recurrence T(N + 1) = 2 T(N) - g(N + 1) at every index. The word is positive, even and strictly increasing, hence unbounded and nonperiodic; every fixed tail shift T(N + h) - T(N) is an integer for every h and every N; and every difference of consecutive digits past the first term is at least fourteen, so it is never 2 or -2. The construction is an exact countermodel, and it eliminates every argument that would force the adjacent small-mismatch producer out of positivity, parity, polynomial growth, unboundedness, nonperiodicity, the dyadic recurrence and integrality at every fixed shift taken together. The mechanism is that an integer-valued quadratic orbit turns all-shift integrality into a polynomial identity over the integers while the word has constant second difference, so its adjacent differences grow linearly and clear the small window from the outset. The readers are number theorists working on the irrationality of the dyadic prime-gap series; priority for the construction has not been assessed. The orbit is not the actual consecutive-prime-gap orbit, so the theorem does not decide Erdős Problem 251.",
+      "altitude": "no_go",
+      "band": "P",
+      "evidence_class": "lean_kernel_checked",
+      "public_entry": "ExternalVerification251PolynomialShiftCountermodel"
+    },
+    "strongest_longitudinal_theorem": null,
+    "live_obstruction": "The remaining producer is the cofinal adjacent small mismatch, that for each fixed h at least 1 and every N0 there is an index N at least N0 at which T(N+h) - T(N) and T(N+h+1) - T(N+1) both lie strictly between -1 and 1 while g(N+h+1) differs from g(N+1).",
+    "strongest_open_producer": {
+      "id": "cofinal_adjacent_small_mismatch",
+      "statement": "For each fixed h >= 1 and every N0, produce N >= N0 such that both actual tail shifts T_(N+h)-T_N and T_(N+h+1)-T_(N+1) lie strictly between -1 and 1 while g_(N+h+1) != g_(N+1). The checked finite consumer then excludes eventual integrality of the h-shift."
+    },
+    "how_to_contribute": {
+      "kind": "proof",
+      "note": "Supply the h = 1 cofinal adjacent-small-mismatch producer from actual consecutive-prime arithmetic. Coarse gap properties cannot supply it (the polynomial countermodel), the measured event density of 0.0042 to 0.0082 over 6.8 million primes is finite evidence only, and a Lean-checked consumer converts the producer into irrationality."
+    },
+    "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. The explicit ration…",
+    "failed_approaches": [
+      "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
+      "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
+      "Liouville-flavoured attacks: the certified expansion has irrationality-exponent witness 2.0007."
+    ],
+    "public_entry_ids": [
+      "ExternalVerification251PolynomialShiftCountermodel",
+      "ExternalVerification251ActualPrimeGapTail"
     ]
   },
   "palomar": null,
@@ -132,7 +240,7 @@
     "subject": "Erdős #251",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 18,
+    "pages": 21,
     "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
     "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
     "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -154,17 +262,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 13,
-      "source_sha256": "90e3d359d43cd7b9cf7f3239f901a2814a20fa59a4b374d9e85dd9f1500c5559",
+      "renderer_contract_version": 14,
+      "source_sha256": "26ba1ed562faf6f12ee08508015304bdcb928d50b0894134773d3f766561ce06",
       "publication_manifest_match": true,
-      "mathml_node_count": 300,
+      "mathml_node_count": 347,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "d872b832b6318ce86eb70ce6e64837a6575300dbd93e6191b554d51b043414e0",
-      "html_exact_tex_sha256": "ae49e35654d16a8fe89e55623ef5c11bf2785512ea79b1a97dfe6661752994cc"
+      "html_mathml_sha256": "bde3374d2253e57ec10e10fedf052927a42e124b1f1688d97e882721254ee400",
+      "html_exact_tex_sha256": "ff7cc0e3784664c764e9b267f401ffe4e45e260270533e3badbf2e171de56059"
     },
     "sections": [
       {
@@ -191,6 +299,11 @@
         "level": 5,
         "anchor": null,
         "label": "Outline."
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "One diagonal, and two circular escape tests"
       },
       {
         "level": 2,
@@ -256,11 +369,6 @@
         "level": 5,
         "anchor": null,
         "label": "Artefact and data availability."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Declaration of generative AI use."
       },
       {
         "level": 5,

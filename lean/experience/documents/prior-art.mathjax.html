@@ -52,18 +52,39 @@ then the boundary of that relationship.</p>
 <li><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em>
-(1980)</a>; P. Erdős, <a
+(1980)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/erdos-graham-1980-source-closure.md">read
+source closure</a>); P. Erdős, <a
 href="https://doi.org/10.1017/CBO9780511897184.009"><em>On the
-irrationality of certain series: problems and results</em>
-(1988)</a></p>
-<p>Original published formulations for the #249 and #257 problem
-setting.</p>
-<p><strong>Boundary.</strong> They formulate open problems; they are not
-proofs of either universal statement.</p></li>
+irrationality of certain series: problems and results</em> (1988)</a>
+(<a href="https://users.renyi.hu/~p_erdos/1988-22.pdf">Renyi scan</a>;
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/erdos-1988-source-closure.md">read
+source closure</a>)</p>
+<p>The 1980 monograph records the full-support divisor Lambert value
+<span class="math inline">\(\sum_{n\ge1}d(n)/2^n\)</span> as irrational
+(printed p. 61), states that the analogous binary totient series could
+not then be proved irrational (p. 61), and identifies the full-support
+Mersenne identity <span
+class="math inline">\(\sum_{n\ge1}(2^n-1)^{-1}=\sum_{n\ge1}d(n)/2^n\)</span>
+(p. 62). It also records the squarefree reciprocal question as open
+(p. 63). Erdős’s 1988 article, printed p. 105, explicitly asks whether
+every increasing support gives an irrational <span
+class="math inline">\(\sum_k(2^{n_k}-1)^{-1}\)</span>; its density/LCM
+irrationality theorem is a separate result on pp. 106–108.</p>
+<p><strong>Boundary.</strong> The 1980 full-support identity and the
+1988 p. 105 subseries statement do not prove universal #257; the
+separate LCM theorem does not automatically apply to Mersenne
+denominators. The 1980 source explicitly leaves the binary totient
+irrationality question unresolved, so neither source proves #249, the
+release’s Lean, Comparator, Palomar, geometry, finite-certificate, or
+totient-kernel claims.</p></li>
 <li><p>S. Chowla, <a
 href="https://insa.nic.in/UI/Archivesection.aspx?JID=MA%3D%3D&amp;JYrs=MTk0Nw%3D%3D"><em>On
 Series of the Lambert Type which assume Irrational Values for Rational
-Values of the Argument</em> (1947)</a></p>
+Values of the Argument</em> (1947)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/chowla-1947-source-closure.md">read
+source closure</a>)</p>
 <p>Historical conjectural predecessor: its rational-argument Lambert
 question contains the full-support specialisation <span
 class="math inline">\(x=1/b\)</span>.</p>
@@ -72,27 +93,100 @@ relation, not the proof source; the theorem formalised here is credited
 to Erdős (1948).</p></li>
 <li><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1948-04.pdf"><em>On arithmetical
-properties of Lambert series</em> (1948)</a></p>
-<p>Full-support Erdős–Borwein irrationality formalised here.</p>
-<p><strong>Boundary.</strong> The formalisation is a checked rendering,
-not a priority claim.</p></li>
+properties of Lambert series</em> (1948)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/erdos-1948-lambert-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Full-support divisor row.</strong> Printed p. 63 states
+irrationality of <code>f(1/t) = Σ_{r≥1}d(r)/t^r</code> for every integer
+<code>|t|&gt;1</code>, the Erdős–Borwein divisor-weighted Lambert
+theorem used for the full-support row.</p>
+<p><strong>Boundary.</strong> Printed p. 66 explicitly says the
+analogous Euler-totient series <code>Σφ(n)/t^n</code> “seem[s] to
+present difficulties.” This source therefore does not support
+irrationality of the #249 totient series, any totient-kernel rank/basis,
+or the release’s Lean/Comparator claims; no novelty or priority claim is
+made.</p></li>
 <li><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
-irrationality of certain series</em> (Math. Student 36, 1968)</a></p>
-<p>Pairwise-coprime support condition.</p>
-<p><strong>Boundary.</strong> Only that classical family is attributed
-to this source; it does not settle universal #257.</p></li>
+irrationality of certain series</em> (Math. Student 36, 1968)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/erdos-1968-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Pairwise-coprime support theorem.</strong> Printed p. 222
+states that if <code>n_1 &lt; n_2 &lt; ...</code> are pairwise coprime
+and <code>Σ 1/n_i &lt; ∞</code>, then <code>Σ_i 1/(t^(n_i)-1)</code> is
+irrational for every integer <code>t ≥ 2</code>; the proof occupies
+printed pp. 223–225.</p>
+<p><strong>Boundary.</strong> Printed p. 222 says the
+pairwise-coprimality condition can be removed only by more complicated
+arguments and gives no details; printed p. 226 also says the all-primes
+case is not handled. The source therefore does not support the
+coprimality-free extension, universal #257, the release’s
+Lean/Comparator claims, or any novelty or priority claim.</p></li>
+<li><p>D. Duverney and Y. Tachiya, <a
+href="https://doi.org/10.1515/forum-2018-0299"><em>Refinement of the
+Chowla–Erdős method and linear independence of certain Lambert
+series</em> (2019)</a> (<a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">author
+preprint</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/duverney-tachiya-2019-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Squarefree-support antecedent.</strong> Corollary 1.2 (PDF
+p. 4; proof pp. 10–11), specialised to <code>E</code> equal to the
+primes, <code>s=2</code>, <code>ell=1</code>, and <code>q=2</code>,
+proves linear independence of <code>1</code> and the squarefree Lambert
+values at bases <code>2^j</code>; Example 1.1 displays the family using
+<code>|mu(n)|</code>.</p>
+<p><strong>Boundary.</strong> The condition <code>|q|^L &lt;= s</code>
+is essential to this specialisation, so the result does not give
+squarefree irrationality at every integer base and does not settle
+universal #257. It also does not prove the release’s Lean, Comparator,
+Palomar, geometry, or totient-kernel claims; no novelty or priority
+claim is made.</p></li>
+<li><p>P. B. Borwein, <a
+href="https://doi.org/10.1016/S0022-314X(05)80041-1"><em>On the
+irrationality of ∑ 1/(q^n+r)</em> (1991)</a> (<a
+href="https://www.sciencedirect.com/science/article/pii/S0022314X05800411">publisher
+record</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/borwein-1991-qn-r-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Fixed-base rational-offset antecedent.</strong> Theorem 4
+(printed pp. 257–258) proves that ∑ 1/(q^n+r) is irrational and not a
+Liouville number when q is an integer greater than one and r is a
+nonzero rational avoiding the denominator zeros r = -q^n for n ≥ 1. The
+paper’s Padé/Stieltjes construction is the direct source for this
+full-support family.</p>
+<p><strong>Boundary.</strong> The result is for every positive index
+with an integer base; it does not settle arbitrary infinite supports,
+the release’s rational noninteger-base claim at <code>3/2</code>,
+universal #257, or the release’s Lean results. Its recurrence and Padé
+estimates are not the Amdeberhan–Zeilberger q-WZ operator, and no
+novelty or priority claim is made.</p></li>
 <li><p>P. B. Borwein, <a
 href="https://doi.org/10.1017/S030500410007081X"><em>On the
-irrationality of certain series</em> (1992)</a></p>
-<p>Broader irrationality theorem containing the relevant
-Mersenne–Lambert specialisation.</p>
-<p><strong>Boundary.</strong> Context for the full-support family, not a
-proof route for the new #249 reductions.</p></li>
+irrationality of certain series</em> (1992)</a> (<a
+href="https://www.cecm.sfu.ca/~pborwein/PAPERS/P59.pdf">author PDF</a>;
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/borwein-1992-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Full-support antecedent.</strong> Theorems 1 and 2 (printed
+pp. 142 and 145; proof pp. 142–146) prove irrationality, and
+non-Liouville behavior, for the full-support series <span
+class="math inline">\(\sum_{n\ge1}(q^n+c)^{-1}\)</span> and its
+alternating variant under their stated integer/rational hypotheses.
+Theorem 1 with <span class="math inline">\(q=2\)</span>, <span
+class="math inline">\(c=-1\)</span> contains the full-support
+Mersenne–Lambert specialization.</p>
+<p><strong>Boundary.</strong> The paper sums over every positive index,
+not an arbitrary infinite support, so it does not settle universal #257,
+prime-support or squarefree subseries, or the release’s #249 reductions.
+Its contour-integral proof is not formalised here; no novelty or
+priority claim is made.</p></li>
 <li><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
 href="https://arxiv.org/abs/2601.20743"><em>Refinements of Erdős’s
 irrationality criterion for certain sparse infinite series</em>
-(2026)</a></p>
+(2026)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/kaneko-suzuki-tachiya-2026-source-closure.md">read
+source closure</a>)</p>
 <p>Nearby current work proving irrationality for sparse series such as
 <span class="math inline">\(\sum d(n)^k/t^{\varphi(n)}\)</span>.</p>
 <p><strong>Boundary.</strong> Here <span
@@ -107,16 +201,26 @@ href="https://doi.org/10.1007/s11139-016-9856-3"><em>The Lambert series
 factorization theorem</em> (2017)</a>; M. Merca and M. D. Schmidt, <a
 href="https://doi.org/10.55016/ojs/cdm.v14i1.62425"><em>Generating
 Special Arithmetic Functions by Lambert Series Factorizations</em>
-(2019)</a></p>
+(2019)</a> (<a
+href="https://cdm.ucalgary.ca/article/download/62425/53773">official
+journal PDF</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/merca-schmidt-2017-lambert-factorizations-source-closure.md">read
+source closure</a>)</p>
 <p>Apostol supplies the classical Dirichlet/Möbius background; Merca
 gives the modern factorisation theorem and Merca–Schmidt its
-synthesis/unification treatment.</p>
+synthesis/unification treatment. Merca–Schmidt’s equation (2) records
+the totient Lambert identity used as transform background, while Theorem
+3.2 and Corollary 3.3 give their partition/inverse-matrix mechanism.
+Apostol/Merca 2017 remain cited background without a source closure in
+this pass.</p>
 <p><strong>Boundary.</strong> The release uses classical transforms and
 claims a Lean-checked composition, not new Möbius inversion, Lambert
 identities, or the cited factorisation theorems.</p></li>
 <li><p>Y. V. Nesterenko, <a
 href="https://doi.org/10.1070/SM1996v187n09ABEH000158"><em>Modular
-functions and transcendence questions</em> (1996)</a></p>
+functions and transcendence questions</em> (1996)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/nesterenko-1996-source-closure.md">read
+source closure</a>)</p>
 <p>Direct source for the cited-only transcendence of the divisor-sum
 ladder rung <span
 class="math inline">\(L(\mathrm{Id})=\sum_{m\geq1}\sigma(m)/2^m\)</span>.</p>
@@ -125,7 +229,9 @@ part of its modular-transcendence proof is formalised here.</p></li>
 <li><p>K. Postelmans and W. Van Assche, <a
 href="https://doi.org/10.1016/j.jnt.2006.11.011"><em>Irrationality of
 <span class="math inline">\(\zeta_q(1)\)</span> and <span
-class="math inline">\(\zeta_q(2)\)</span></em> (2007)</a></p>
+class="math inline">\(\zeta_q(2)\)</span></em> (2007)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/postelmans-van-assche-2007-source-closure.md">read
+source closure</a>)</p>
 <p>Primary source for the cited-only linear independence of <span
 class="math inline">\(1,\zeta_q(1),\zeta_q(2)\)</span> when <span
 class="math inline">\(q^{-1}\)</span> is an integer of absolute value
@@ -140,7 +246,9 @@ constant-weight row gives no irrationality transfer to the Möbius row
 open.</p></li>
 <li><p>S. Kakeya, <a
 href="https://doi.org/10.11429/ptmps1907.7.14_250"><em>On the Set of
-Partial Sums of an Infinite Series</em> (1914)</a></p>
+Partial Sums of an Infinite Series</em> (1914)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/kakeya-1914-source-closure.md">read
+source closure</a>)</p>
 <p>Classical strict-tail criterion for subsum sets: domination of every
 remaining tail by its term gives the Cantor-set regime.</p>
 <p><strong>Boundary.</strong> The release uses this as historical
@@ -148,18 +256,52 @@ geometry, not as a claim that Kakeya supplied the local executable
 machinery.</p></li>
 <li><p>V. Kovač and T. Tao, <a
 href="https://doi.org/10.1007/s10474-025-01528-0"><em>On several
-irrationality problems for Ahmes series</em> (2025)</a></p>
-<p>Direct fixed-base antecedent: their Remark 4.1 verifies <span
+irrationality problems for Ahmes series</em> (2025)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/kovac-tao-2025-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Fixed-base strict-tail antecedent.</strong> Their Remark 4.1
+(PDF p. 13) verifies <span
 class="math inline">\(\sum_{\ell&gt;n}(t^\ell-1)^{-1}&lt;(t^n-1)^{-1}\)</span>
 for every integer <span class="math inline">\(t\ge2\)</span>, and
-deduces distinct Lambert subsums and a Cantor set.</p>
+deduces distinct Lambert subsums and a Cantor set. Their Theorem 2.3
+(PDF p. 5; proof pp. 13–14) separately constructs rational
+<em>merged</em> sums from several bases under a mass hypothesis.</p>
 <p><strong>Boundary.</strong> At <span
-class="math inline">\(t=2\)</span> this supplies the known Mersenne
-geometry. The release now formalises compactness, perfection, total
-disconnectedness, nowhere density, and measure one as well as the
+class="math inline">\(t=2\)</span> the strict-tail remark supplies the
+known Mersenne geometry, but it does not assert a measure formula. The
+multi-base theorem allows repeated terms and is not a fixed-base
+counterexample. The release now formalises compactness, perfection,
+total disconnectedness, nowhere density, and measure one as well as the
 two-scale gap, greedy interface, and finite death certificates. It makes
-no novelty claim for those refinements; only the stated strict-tail
-antecedent has been compared here, and none settles #257.</p></li>
+no novelty claim for those refinements, and Kovač–Tao explicitly leave
+the universal fixed-base subseries question open; none of these results
+settles #257.</p></li>
+<li><p>M. Coons, <a
+href="https://jtnb.centre-mersenne.org/articles/10.5802/jtnb.718/"><em>(Non)Automaticity
+of number theoretic functions</em> (Journal de Théorie des Nombres de
+Bordeaux 22 (2010), no. 2, 339–352)</a> (<a
+href="https://jtnb.centre-mersenne.org/item/10.5802/jtnb.718.pdf">official
+PDF</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/coons-2010-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Global totient-kernel boundary.</strong> Coons’s Theorem 3.2,
+printed p. 349, proves that Euler’s totient function is not <span
+class="math inline">\(k\)</span>-regular for any <span
+class="math inline">\(k\ge2\)</span>, using the Dirichlet-series
+identity <span
+class="math inline">\(\sum_{n\ge1}\varphi(n)n^{-s}=\zeta(s-1)/\zeta(s)\)</span>.
+This is the prior-art source for the release’s global
+non-finite-generation context; it does not state the finite-level rank,
+explicit basis, or relation normal form proved or discussed locally.</p>
+<p><strong>Boundary.</strong> The release’s implication from global
+non-<span class="math inline">\(k\)</span>-regularity to
+infinite-dimensionality of its integer-valued totient-kernel span is a
+separately authored/formalised bridge. Coons does not prove the
+release’s Lean declarations, dyadic rank <span
+class="math inline">\(2^e+1\)</span>, CRT–Dirichlet–determinant
+construction, or Erdős Problem #249. No novelty or priority claim is
+made for either the cited theorem or the local finite-level
+results.</p></li>
 <li><p>J. Farey, <a
 href="https://doi.org/10.1080/14786441608628487"><em>On a Curious
 Property of Vulgar Fractions</em> (1816)</a></p>
@@ -175,34 +317,40 @@ is zero.</p></li>
 <li><p>G. Martin, <a
 href="https://arxiv.org/abs/math/0603053"><em>Simultaneous inequalities
 among values of the Euler phi-function</em> (arXiv:math/0603053,
-2006)</a></p>
-<p><strong>Subsuming source for affine-totient linear
-independence.</strong> His Theorem 1 assumes only that the slopes <span
+2006)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/martin-2006-source-closure.md">read
+source closure</a>)</p>
+<p><strong>Subsuming source for affine-totient ratio
+comparisons.</strong> His Theorem 1 assumes only that the slopes <span
 class="math inline">\(a_i\)</span> are positive integers and that <span
 class="math inline">\(a_ib_j\neq a_jb_i\)</span>, and proves that for
 every <span class="math inline">\(C&gt;0\)</span> the simultaneous ratio
 gaps <span
 class="math inline">\(\varphi(a_1n+b_1)/\varphi(a_2n+b_2)&gt;C,\ldots\)</span>
-hold on a set of positive lower density; with his symmetry remark this
-yields linear independence of <span
-class="math inline">\(n\mapsto\varphi(a_in+b_i)\)</span> over <span
-class="math inline">\(\mathbb{R}\)</span> at once. His Corollary 4
-transfers Theorem 1 and Corollaries 2–3 to <span
+hold on a set of positive lower density; the symmetry discussion
+supplies strict ordering patterns. In the local all-base argument this
+is the external comparison input behind the affine-totient independence
+statement; the finite dyadic Lean theorem remains separately formalised,
+not a theorem directly stated by Martin. His Corollary 4 transfers
+Theorem 1 and Corollaries 2–3 to <span
 class="math inline">\(\sigma\)</span>.</p>
-<p><strong>Boundary.</strong> The dyadic Lean independence result is an
-independently formalised corollary of Martin, by a finite
-CRT–Dirichlet–determinant argument, not an original theorem. The
-all-base paper theorem applies Martin directly; Lean checks its
-zero-residue and composite-base arithmetic layers but does not formalise
-Martin’s positive-density theorem or the final all-base independence
-step. Martin needs neither odd slopes, nor primitivity, nor a residue
-bound, and concludes strictly more. A <span
-class="math inline">\(\sigma\)</span> analogue would likewise not be
-new. Exact-title, DOI and venue searches did not locate a separate
-journal publication, so this is cited as a public preprint.</p></li>
+<p><strong>Boundary.</strong> The release’s dyadic Lean independence
+result is separately formalised from this broader comparison input by a
+finite CRT–Dirichlet–determinant argument; Martin does not present the
+release’s Lean statement or proof. The all-base paper theorem applies
+Martin directly; Lean checks its zero-residue and composite-base
+arithmetic layers but does not formalise Martin’s positive-density
+theorem or the final all-base independence step. Martin needs neither
+odd slopes, nor primitivity, nor a residue bound, and concludes strictly
+more. A <span class="math inline">\(\sigma\)</span> analogue would
+likewise not be new. Exact-title, DOI and venue searches did not locate
+a separate journal publication, so this is cited as a public
+preprint.</p></li>
 <li><p>F. Luca and Y. Tachiya, <a
 href="https://doi.org/10.1142/S1793042113501121"><em>Irrationality of
-Lambert series associated with a periodic sequence</em> (2014)</a></p>
+Lambert series associated with a periodic sequence</em> (2014)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/luca-tachiya-2014-source-closure.md">read
+source closure</a>)</p>
 <p>Direct antecedent for the eventually-periodic coefficient family.
 Their rational-coefficient theorem contains the indicator-support case
 and the nonnegative rational weights formalised here.</p>
@@ -215,17 +363,23 @@ theorem.</p></li>
 <li><p>T. Tao and J. Teräväinen, <a
 href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
 and some problems on prime factors of consecutive integers</em> (arXiv
-v2, 2026)</a></p>
+v2, 2026)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/tao-teravainen-2026-source-closure.md">read
+source closure</a>)</p>
 <p>Direct source for the cited-only irrationality of the prime-support
-series, through its <span
-class="math inline">\(\sum_n\omega(n)/2^n\)</span> formulation and this
-release’s separately formalised identity bridge.</p>
-<p><strong>Boundary.</strong> It settles that one support family, not
-universal #257; its quantitative correlation proof is not formalised
-here.</p></li>
-<li><p>H. Wang and J. M. Grau Ribas, <a
-href="https://arxiv.org/abs/2606.24972"><em>Positive dyadic density for
-rational weighted binary expansions</em> (arXiv, 2026)</a></p>
+series: Theorem 1.3, equation (1.7), on PDF p. 4, with proof on
+pp. 44–56. It gives the <span class="math inline">\(\sum_n\omega(n)/2^n
+= \sum_p(2^p-1)^{-1}\)</span> formulation and this release’s separately
+formalised identity bridge.</p>
+<p><strong>Boundary.</strong> It settles the prime-support family at
+base 2, not universal #257. The source only says that other integer
+bases and the prime-power variant can be treated by modifications and
+leaves those details to the reader; its quantitative correlation proof
+is not formalised here.</p></li>
+<li><p>H. Wang, <a href="https://arxiv.org/abs/2606.24972v4"><em>Sparse
+Polynomial-Weighted Expansions</em> (arXiv:2606.24972v4, 2026)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/dyadic-carry/wang-2026-source-closure.md">read
+source closure</a>)</p>
 <p>Direct antecedent for the rationality-forced integral carry
 recurrence in the weighted-binary special case (c(n)=n d_n).</p>
 <p><strong>Boundary.</strong> The public generic criterion is a
@@ -278,13 +432,63 @@ load-bearing for nothing beyond the stated uses.</p></li>
 <section id="section-1" class="level3">
 <h3>#243</h3>
 <ul>
-<li><p>K. Koizumi, <em>Irrationality of the reciprocal sum of doubly
-exponential sequences</em> (Integers 26 (2026), A28; <a
-href="https://arxiv.org/abs/2504.05933">arXiv:2504.05933</a>)</p>
+<li><p>P. Erdős and E. G. Straus, <a
+href="https://users.renyi.hu/~p_erdos/1964-19.pdf"><em>On the
+irrationality of certain Ahmes series</em></a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/erdos-straus-1964-source-closure.md">read
+source closure</a>)</p>
+<p>Original source for the conditional Ahmes-series rationality
+criterion cited at Theorem 3, p. 132. Its printed theorem uses the
+prefix quotient <code>N_k/n_(k+1)</code> and the next-index factor
+<code>n_(k+1)^2/n_(k+2)-1</code>; this is the source boundary for the
+note’s correction of the shifted catalogue/survey display.</p>
+<p><strong>Boundary.</strong> The criterion is conditional and only
+gives eventual Sylvester recurrence. It does not settle unrestricted
+#243, the release’s Lean results, or any novelty/priority
+claim.</p></li>
+<li><p>D. Duverney, <a
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"><em>Irrationality
+of Fast Converging Series of Rational Numbers</em></a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/duverney-2001-source-closure.md">read
+source closure</a>)</p>
+<p>Corollary 3.2, p. 287, gives a conditional signed form of the #243
+criterion: with <code>a_n</code> in <code>{-1,1}</code>, rationality of
+<code>sum a_n/u_n</code> is equivalent to the eventual signed recurrence
+under Duverney’s one-sided condition
+<code>sum (u_(n+1)/u_n^2-1) &lt; infinity</code>.</p>
+<p><strong>Boundary.</strong> The source condition is not written with
+absolute values; absolute convergence is only a stronger sufficient
+specialization. The result remains conditional and does not settle
+unrestricted #243, the release’s Lean results, or any novelty/priority
+claim.</p></li>
+<li><p>C. Badea, <a
+href="https://www.impan.pl/en/publishing-house/journals-and-series/acta-arithmetica/all/63/4/107785/a-theorem-on-irrationality-of-infinite-series-and-applications"><em>A
+theorem on irrationality of infinite series and applications</em></a>
+(<a
+href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf">publisher
+PDF</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/badea-1993-source-closure.md">read
+source closure</a>)</p>
+<p>Adjacent positive-term prior art: Theorem A (p. 313), Theorem 2.10
+and Corollary 2.2 (pp. 315–316) force eventual equality in Badea’s
+explicit term-inequality regime, generalizing the positive Sylvester
+boundary.</p>
+<p><strong>Boundary.</strong> The hypotheses are positive rational terms
+plus an eventual inequality; they do not cover unrestricted #243,
+mixed-sign state orbits, the release’s Lean results, or any
+novelty/priority claim.</p></li>
+<li><p>K. Koizumi, <a
+href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
+of the reciprocal sum of doubly exponential sequences</em> (Integers 26
+(2026), A28)</a>; <a
+href="https://arxiv.org/abs/2504.05933">arXiv:2504.05933</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/koizumi-2026-source-closure.md">read
+source closure</a>)</p>
 <p>Supplies normalised vanishing for the canonical orbit, the sole
 hypothesis of the note’s headline conditional theorems not proved in
-Lean; its Lemma 3 and Proposition 1(2) are conceded in-note as prior art
-for the note’s absorption and descent lemmas.</p>
+Lean; the published Lemma 3 and Proposition 1(2) (the preprint-v1 Lemma
+13 and Proposition 19(2)) are conceded in-note as prior art for the
+note’s absorption and descent lemmas.</p>
 <p><strong>Boundary.</strong> The bridge is prose; only the integer
 state-system theorems are kernel-checked here, and no priority or
 independence is adjudicated.</p></li>
@@ -348,19 +552,35 @@ context only.</p></li>
 <ul>
 <li><p>P. Erdős, F. Herzog, and G. Piranian, <em>Metric properties of
 polynomials</em> (J. Analyse Math. 6 (1958), Problem 5, p. 139),
-doi:10.1007/BF02790232</p>
+doi:10.1007/BF02790232; see the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/bergman-geodesic/erdos-herzog-piranian-1958-source-closure.md">read
+source closure</a></p>
 <p>Original problem source, including the known input that one
 lemniscate component contains at least two zeros.</p>
 <p><strong>Boundary.</strong> Formulation, not proof; the note’s
 saddle-block diagnosis of a recent manuscript is prose, not
 Lean.</p></li>
+<li><p>Current evidence boundary: the committed <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md"><code>research_corpus/Erdos1041/FRONTIER.md</code></a>
+is the dated route for the current source-only research state, not an
+antecedent source. It records certified strategy refutations, surviving
+carriers, and open gaps that are not part of this historical
+bibliography. Read it before generated
+<code>STRONGEST_RESULTS.json</code>, which can lag the dated notes. The
+corpus is not thereby prior art or a reviewed claim: its rows make no
+peer-review, priority, novelty, or significance assertion, and #1041
+remains open.</p></li>
 </ul>
 </section>
 <section id="section-5" class="level3">
 <h3>#1049</h3>
 <ul>
 <li><p>P. Bundschuh and K. Väänänen, <em>Compositio Math.</em> 91
-(1994), Theorem 2, https://numdam.org/item/CM_1994__91_2_175_0.pdf</p>
+(1994), Theorem 2, <a
+href="https://numdam.org/item/CM_1994__91_2_175_0.pdf">official Numdam
+PDF</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/bundschuh-vaanenen-1994-source-closure.md">read
+source closure</a>)</p>
 <p>External irrationality criterion at base <code>7/2</code>; the
 release checks only its elementary Archimedean height inequality.</p>
 <p><strong>Boundary.</strong> The analytic argument remains external,
@@ -368,11 +588,15 @@ and nothing follows at <code>3/2</code>.</p></li>
 <li><p>T. Amdeberhan and D. Zeilberger, <a
 href="https://doi.org/10.1006/aama.1997.0565"><em><span
 class="math inline">\(q\)</span>-Apéry irrationality proofs by <span
-class="math inline">\(q\)</span>-WZ pairs</em> (1998)</a>; W. Van
-Assche, <a href="https://doi.org/10.1023/A:1012930828917"><em>Little
-<span class="math inline">\(q\)</span>-Legendre polynomials and
-irrationality of certain Lambert series</em> (2001)</a>; P. B. Borwein,
-<a href="https://doi.org/10.1017/S030500410007081X"><em>On the
+class="math inline">\(q\)</span>-WZ pairs</em> (1998)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/amdeberhan-zeilberger-1998-q-apery-source-closure.md">read
+source closure</a>); W. Van Assche, <a
+href="https://doi.org/10.1023/A:1012930828917"><em>Little <span
+class="math inline">\(q\)</span>-Legendre polynomials and irrationality
+of certain Lambert series</em> (2001)</a> (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/van-assche-2001-little-q-legendre-source-closure.md">read
+source closure</a>); P. B. Borwein, <a
+href="https://doi.org/10.1017/S030500410007081X"><em>On the
 irrationality of certain series</em> (1992)</a></p>
 <p>Amdeberhan–Zeilberger and Van Assche target the same Lambert value
 with the same little-<span class="math inline">\(q\)</span>-Legendre

@@ -38,9 +38,19 @@
 \linespread{1.045}
 \clubpenalty=10000 \widowpenalty=10000 \tolerance=1600
 
-\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[dvipsnames,table]{xcolor}
 \definecolor{linkexternal}{HTML}{275D8C}
 \definecolor{linkinternal}{HTML}{6E2B2B}
+\definecolor{papertableheader}{HTML}{E3EAF0}
+\definecolor{papertablerow}{HTML}{F2F5F7}
+\definecolor{papertablerule}{HTML}{7D8991}
+\definecolor{paperresultrule}{HTML}{315B72}
+
+% Stable cross-document links between sibling PDFs. A named destination is
+% more durable than a page number: sections may move while their semantic role
+% remains the same. All public PDFs are copied to one directory at release.
+\newcommand{\papersectiontarget}[1]{\hypertarget{#1}{}}
+\newcommand{\papersectionlink}[3]{\href{#1\#nameddest=#2}{#3}}
 
 \RequirePackage{titlesec}
 \titleformat{\section}{\Large\bfseries}{\thesection}{0.85em}{}
@@ -61,7 +71,63 @@
 
 \RequirePackage{caption}
 \captionsetup{font=small,labelfont=bf,skip=9pt,width=.92\linewidth}
-\renewcommand{\arraystretch}{1.12}
+\RequirePackage{etoolbox}
+\RequirePackage{pdflscape}
+\renewcommand{\arraystretch}{1.20}
+\newcommand{\papertablehead}{\rowcolor{papertableheader}}
+\newcommand{\papertablebody}{\rowcolors{2}{white}{papertablerow}}
+\AtBeginEnvironment{tabular}{%
+  \papertablebody
+  \arrayrulecolor{papertablerule}%
+  \setlength{\extrarowheight}{1.4pt}%
+}
+\AtBeginEnvironment{longtable}{%
+  \papertablebody
+  \arrayrulecolor{papertablerule}%
+  \setlength{\extrarowheight}{1.4pt}%
+}
+
+% A compact front-matter panel for the result a scanning reader should retain.
+% It is deliberately short and unbreakable: manuscripts should state one
+% result, its evidence, and its limit here, then supply the argument below.
+\newenvironment{paperresult}[1]{%
+  \par\addvspace{0.7em}
+  \begin{center}\begin{minipage}{0.94\linewidth}
+    {\color{paperresultrule}\rule{\linewidth}{0.8pt}}\par\vspace{4pt}
+    {\small\sffamily\bfseries\color{paperresultrule}#1}\par\smallskip
+    \small\color{black}
+}{%
+    \par\vspace{4pt}{\color{paperresultrule}\rule{\linewidth}{0.45pt}}
+    \end{minipage}\end{center}\par\addvspace{0.5em}
+}
+
+% Shared diagram grammar.  Reader-facing figures use the same restrained
+% hierarchy as the surrounding page: a short eyebrow, a substantial title,
+% one compact explanatory line, and an optional evidence badge.  The styles
+% are installed only when a manuscript loads TikZ.
+\AtBeginDocument{%
+  \@ifpackageloaded{tikz}{%
+    \tikzset{
+      paper box/.style={draw=gray!48, line width=.45pt, rounded corners=3pt,
+        fill=white, align=left, inner xsep=7pt, inner ysep=6pt,
+        font=\small},
+      paper card/.style={paper box, minimum height=13mm},
+      paper stage/.style={paper box, align=center, minimum height=14mm},
+      paper arrow/.style={-{Stealth[length=2.15mm,width=1.45mm]},
+        line width=.7pt, draw=gray!72!black},
+      paper feedback/.style={paper arrow, densely dashed,
+        draw=Violet!72!black},
+      paper eyebrow/.style={font=\scriptsize\sffamily\bfseries,
+        text=gray!70!black},
+      paper label/.style={font=\scriptsize\sffamily,
+        text=gray!72!black, fill=white, inner sep=1.5pt},
+      paper badge/.style={rounded corners=2pt, inner xsep=4pt, inner ysep=2pt,
+        font=\scriptsize\sffamily\bfseries},
+      paper boundary/.style={densely dashed, line width=.55pt,
+        draw=gray!62}
+    }%
+  }{}%
+}
 
 % Front matter: title block with an optional italic subtitle, small-caps
 % author, and a hairline rule; the abstract is set small with a small-caps
@@ -81,7 +147,7 @@
     \vskip 0.55em
     {\large\itshape\@papersubtitle\par}%
     \vskip 1.1em
-    {\scshape\@author\par}%
+    {\scshape\@author\textsuperscript{*}\par}%
     \vskip 0.25em
     {\small\@date\par}%
     \vskip 0.8em
@@ -108,8 +174,16 @@
 % cannot drift into three different accounts of how they were made.
 \newcommand{\provenancenote}[1]{%
   \begingroup
-  \renewcommand{\thefootnote}{}%
+  \renewcommand{\thefootnote}{*}%
   \footnotetext{#1}%
   \endgroup}
+
+% Corpus-wide production disclosure.  It appears in small print on page one so
+% that the byline cannot be mistaken for a claim of unaided authorship.  The
+% longer form is repeated in each paper's declarations section.
+\newcommand{\paperprovenance}{\provenancenote{\emph{Authorship and AI use.}
+Will Cook built and directed the research infrastructure and reviewed the claims
+when he could. AI agents did most of the research and drafting. Cook did not
+independently verify every claim.}}
 
 \endinput

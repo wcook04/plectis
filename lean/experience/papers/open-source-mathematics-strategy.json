@@ -1,0 +1,206 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "open-source-mathematics-strategy",
+  "title": "From Spare Compute to Cumulative Mathematics",
+  "subject": "Systems paper",
+  "subject_kind": "system",
+  "form": "Open-source research strategy",
+  "pages": 19,
+  "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
+  "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
+  "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
+  "not_authority_for": "a solution to any Erdős problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/open-source-mathematics-strategy.html",
+    "html_exact_tex": "papers/open-source-mathematics-strategy.mathjax.html",
+    "pdf": "../../papers/open-source-mathematics-strategy.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/open-source-mathematics-strategy.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/open-source-mathematics-strategy.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/open-source-mathematics-strategy.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 14,
+    "source_sha256": "02b26c5be582d9748db4f2e8a5739666c06685d46477aded795f44dfd9f2a554",
+    "publication_manifest_match": true,
+    "mathml_node_count": 7,
+    "raw_math_fallback_count": 1,
+    "warnings": {
+      "mathml": [
+        "[WARNING] Could not convert TeX math \\begin{aligned}",
+        "K_{t+1}&=K_t+\\Delta_t^\\mathrm{theorem}",
+        "+\\Delta_t^\\mathrm{counterexample}",
+        "+\\Delta_t^{\\rm no\\mbox{-}go}",
+        "+\\Delta_t^\\mathrm{computation}",
+        "+\\Delta_t^\\mathrm{correction},\\\\",
+        "I_{t+1}&=I_t+\\Delta_t^\\mathrm{navigation}",
+        "+\\Delta_t^\\mathrm{validation}",
+        "+\\Delta_t^\\mathrm{reproducibility}",
+        "+\\Delta_t^\\mathrm{governance}.",
+        "\\end{aligned}",
+        "\\tag{2.3}\\label{eq:feedback}, rendering as TeX:",
+        "+\\Delta_t^{\\rm no\\mbox{-}go}",
+        "^",
+        "unexpected \"^\"",
+        "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
+      ],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "45d0547dd9847271affa5e916dfac54ec594247287ec68d1b4cad5e469a465ae",
+    "html_exact_tex_sha256": "0624ed007e0d994786fda8a561a63db0693ca9f98115b537c3430308c9969623"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The strategy"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two coupled goals, not one endless agent"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What one clone lets a contributor do"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A production model for mathematical progress"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Why begin with hard mathematics"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The public research object"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The contribution protocol"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "From an agent claim to mathematical attention"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Progress, provenance, and credit"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Record now, trace consequences later"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Distributed compute without distributed authority"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Precedents and the missing composition"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Distributed compute."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Distributed mathematical insight."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Distributed formalisation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Multi-agent formal research."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Proof abundance."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Adding another problem world"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Participation and growth"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Evaluation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Learning from every run"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The local-to-general track"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A bounded transfer hypothesis beyond mathematics"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Limits and governance"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Execution order"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Conclusion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Public entry routes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Declaration of generative AI use"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

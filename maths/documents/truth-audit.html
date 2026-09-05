@@ -27,6 +27,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=3db8cf53b3bd">
   <link rel="stylesheet" href="../assets/maths.css?v=2b9355d57ff9">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1959cebcb999"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=911c79a053aa"></script>
 </head>
 <body>
@@ -42,6 +44,7 @@
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../../docs/index.html">Docs</a>
         <a href="https://github.com/wcook04/plectis-lean-erdos249-257" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="../../docs/glossary.html">Glossary</a>
         <a href="../../docs/contact.html">Contact</a>
       </nav>
     </div>
@@ -71,50 +74,62 @@
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Truth audit</li></ol></nav>
       <header class="paper-head">
-        <p class="doc-role-eyebrow">Truth audit</p>
+        <p class="doc-role-eyebrow">Truth <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a></p>
         <h1>Truth audit</h1>
-        <p class="doc-source-line">Rendered from <code>docs/TRUTH_AUDIT.md</code> in the public Lean repository. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/TRUTH_AUDIT.md</code> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
 <article class="lean-document" data-document-id="truth-audit" data-document-role="claim_audit" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/TRUTH_AUDIT.md">
 <section class="level1 lean-doc-titled">
-<h2>Truth audit</h2>
-<p>This report records corrections made before public release. It is
-written for a reader who has not seen the development history.</p>
-<p>The Lean declarations were not weakened or removed. The corrections
-are to module descriptions, section headings, and theorem documentation
-that said more than the checked declarations establish. Each edited Lean
-file was checked separately with:</p>
+<h2>Truth <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a></h2>
+<p>This report records corrections made before <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a>. It is
+written for a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> who has not seen the development history.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> were not weakened or removed. The corrections
+are to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> descriptions, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> headings, and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-documentation" data-term="documentation" data-term-auto="1">documentation</a>
+that said more than the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a>. Each edited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+file was <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> separately with:</p>
 <pre class="text"><code>lake env lean &lt;file&gt;</code></pre>
-<p>For every edited Lean file, the command exited successfully and
-produced no output.</p>
-<p>The audit scope was all 122 Lean files in the nine requested
+<p>For every edited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> file, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> exited successfully and
+produced no <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-output" data-term="output" data-term-auto="1">output</a>.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scope</a> was all 122 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> files in the nine requested
 programme families: <code>DemandLedger</code> (14), <code>Lift</code>
 (28), <code>Skip</code> (20), <code>Half</code> (14), <code>Bit</code>
 (12), <code>Rem</code> (12), <code>Three</code> (8), <code>Decl</code>
-(8), and <code>Hlow</code> (6). The three correction sections below list
-every claim in that scope that required correction; files absent from
-those sections had no overstated public claim identified by the audit.
-Each entry there is headed by the file it corrects and gives the claim
-as it stood before the audit, the corrected claim, and the evidence that
+(8), and <code>Hlow</code> (6). The three correction <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> below list
+every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> in that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scope</a> that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> correction; files absent from
+those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> had no overstated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> identified by the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>.
+Each entry there is headed by the file it <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">corrects</a> and gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
+as it stood before the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>, the corrected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> that
 forced the correction.</p>
 <p>The central distinction used below is:</p>
 <ul>
-<li><strong>PROVED</strong> means the cited Lean declaration has the
+<li><strong>PROVED</strong> means the cited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> has the
 stated conclusion.</li>
-<li><strong>MEASURED</strong> means a finite computation produced the
+<li><strong>MEASURED</strong> means a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computation</a> produced the
 stated data. It is not an assertion about all rows or all scales.</li>
-<li><strong>CONDITIONAL</strong> means the Lean implication is proved,
+<li><strong>CONDITIONAL</strong> means the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> is proved,
 but one or more hypotheses have no known instance or are known to fail
 in the intended use.</li>
 </ul>
+<section id="source-frontier-supersession" class="level2">
+<h2>#1041 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-frontier supersession</h2>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-only <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md"><code>research_corpus/Erdos1041/FRONTIER.md</code></a>
+is the dated correction route for the current #1041 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> state. Read
+it before generated <code>STRONGEST_RESULTS.json</code>: the frontier
+supersedes activation rows it records as refuted, while <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserving</a> the
+surviving carriers, exact open gaps, and their stated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence classes</a>.
+This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-level <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lineage" data-term="lineage" data-term-auto="1">lineage</a>, not a transition in
+<code>docs/claims.json</code>; it does not close #1041 or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> peer
+review, priority, novelty, or significance.</p>
+</section>
 <section id="census-populations-are-not-interchangeable" class="level2">
 <h2>Census populations are not interchangeable</h2>
-<p>The corpus-shape queries and the demand lattice answer different
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> queries and the demand lattice answer different
 questions. <!-- BEGIN semantic_public_census --> At this checkpoint the
-semantic graph yields three diagnostic views across every indexed Erdős
+semantic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> yields three diagnostic views across every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>
 problem:</p>
 <table>
 <colgroup>
@@ -152,7 +167,7 @@ problem:</p>
 <td>mechanically nonrecurring candidates</td>
 <td class="ta-r">0</td>
 <td class="ta-r">3</td>
-<td class="ta-r">88</td>
+<td class="ta-r">89</td>
 <td class="ta-r">0</td>
 <td class="ta-r">168</td>
 <td class="ta-r">0</td>
@@ -160,10 +175,10 @@ problem:</p>
 <td class="ta-r">5</td>
 <td class="ta-r">0</td>
 <td class="ta-r">19</td>
-<td class="ta-r">283</td>
+<td class="ta-r">284</td>
 </tr>
 <tr>
-<td>classical/prior-art formalisations</td>
+<td>classical/<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a>-art <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-mathematics" data-term="formal_mathematics" data-term-auto="1">formalisations</a></td>
 <td class="ta-r">0</td>
 <td class="ta-r">1</td>
 <td class="ta-r">36</td>
@@ -192,39 +207,43 @@ problem:</p>
 </tr>
 </tbody>
 </table>
-<p>The graph contains 1,113 authored statement nodes above 4,973 exact
-source-structural families. The views overlap and are not a partition of
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> contains 1,115 authored <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement-node" data-term="statement_node" data-term-auto="1">statement nodes</a> above 5,246 exact
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-structural families. The views overlap and are not a partition of
 either tier.</p>
 <p>The internal adjudicated frontier shortlist contains 11 nodes; it is
-distinct from the 8-node public prior-art review queue. 228 nonrecurring
-candidates remain unassessed for prior art. The live authored
+distinct from the 8-node <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a>-art review queue. 229 nonrecurring
+candidates remain unassessed for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">prior art</a>. The live authored
 open-antecedent surface has 52 clusters, of which 10 are marked
-endpoint-equivalent. None of these populations is a novelty census.
-<!-- END semantic_public_census --></p>
-<p>The <code>17/23</code> count is a narrower kernel-checked audit. It
-starts from 259 conditional declarations, extracts 101 distinct closed
-hypothesis Props, and classifies 23 as substantial; 17 of those 23 are
+endpoint-equivalent. None of these populations is a novelty census.</p>
+<p>Of 23 substantial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> extracted from hypotheses of
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional theorems</a>, 17 are provably equivalent to an endpoint: 14 to
+#249 and 3 to the <code>1/2</code> membership test for #257. Equivalence
+here is kernel-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> against the extracted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
+that either endpoint is settled. <!-- END semantic_public_census --></p>
+<p>The <code>17/23</code> count is a narrower kernel-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>. It
+starts from 259 conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>, extracts 101 distinct closed
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> Props, and classifies 23 as substantial; 17 of those 23 are
 endpoint-equivalent. The prose-level <code>open-antecedents</code> query
-currently lists 52 entries, 10 marked endpoint-equivalent. Repetition,
+currently <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">lists</a> 52 entries, 10 marked endpoint-equivalent. Repetition,
 refinement, and side-condition filtering explain why those populations
-have different denominators. The <code>17/23</code> result diagnoses
-conditional routes; it is not a summary of the repository’s independent
-theorem content.</p>
+have different <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominators</a>. The <code>17/23</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> diagnoses
+conditional routes; it is not a summary of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s independent
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">content</a>.</p>
 </section>
 <section id="retractions-affecting-the-claimed-mathematical-status"
 class="level2">
-<h2>Retractions affecting the claimed mathematical status</h2>
+<h2>Retractions affecting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> mathematical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a></h2>
 <section id="erdosproblemsliftangleb2.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleB2.lean</code></h3>
 <p><strong>Before.</strong> The survivor set is empty; no residue
-classes remain.</p>
-<p><strong>Corrected.</strong> The displayed contradiction is
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a> remain.</p>
+<p><strong>Corrected.</strong> The displayed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> is
 conditional on <code>hcof</code> and on
 <code>Recon257.seamExcess (D+1) = 2</code>. It closes no additional
-class in the audited range.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check7.lean</code>;
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> range.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check7.lean</code>;
 <code>hcof</code> fails at
-<code>D = 101, 122, 164, 314, 545, 629, 1112</code>; every audited
+<code>D = 101, 122, 164, 314, 545, 629, 1112</code>; every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a>
 <code>hcof</code> case already dies by depth <code>3</code>; direct
 evaluation finds no <code>s ∈ [5,102]</code> with
 <code>seamExcess s = 2</code>.</p>
@@ -232,47 +251,47 @@ evaluation finds no <code>s ∈ [5,102]</code> with
 <section id="erdosproblemsliftangleb3.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleB3.lean</code></h3>
 <p><strong>Before.</strong> The concrete ratchet crosses a universal
-barrier, so periodic orbits are excluded.</p>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">barrier</a>, so <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbits</a> are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>.</p>
 <p><strong>Corrected.</strong>
 <code>ratchetOrbit_above_universal_barrier</code> has an impossible
-hypothesis at <code>s = 0</code>. The recurrence no-go applies only for
-<code>b ≥ Q+2</code>; it says nothing about the live finite region
-<code>1,…,9</code>. The concrete connection is now made through an
-import and explicit bridges.</p>
-<p><strong>Evidence.</strong>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> at <code>s = 0</code>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> no-go applies only for
+<code>b ≥ Q+2</code>; it says nothing about the live <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> region
+<code>1,…,9</code>. The concrete <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> is now made through an
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">import</a> and explicit bridges.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Lift/verify/Check8.lean::barrier_theorem_is_vacuous</code>; the
-hypothesis would require <code>P 0 + 4 ≤ 0</code>.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> would <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> <code>P 0 + 4 ≤ 0</code>.</p>
 </section>
 <section id="erdosproblemsskipd1.lean" class="level3">
 <h3><code>ErdosProblems/Skip/D1.lean</code></h3>
 <p><strong>Before.</strong>
-<code>exists_bound_allRight_landingExcess_two_impossible</code> excludes
-the surviving classes.</p>
-<p><strong>Corrected.</strong> The existential bound exceeds every
-<code>D</code> admitted by the same hypotheses, so it excludes zero
-classes. Its landing premise is also unobserved.</p>
-<p><strong>Evidence.</strong> <code>Skip/verify/V1.lean</code>; the
-bound comparison is proved from the theorem’s hypotheses.</p>
+<code>exists_bound_allRight_landingExcess_two_impossible</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a>
+the surviving <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a>.</p>
+<p><strong>Corrected.</strong> The existential <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> exceeds every
+<code>D</code> admitted by the same hypotheses, so it <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> zero
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a>. Its landing premise is also unobserved.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Skip/verify/V1.lean</code>; the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> comparison is proved from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>’s hypotheses.</p>
 </section>
 <section id="erdosproblemsskipwire1.lean" class="level3">
 <h3><code>ErdosProblems/Skip/Wire1.lean</code></h3>
 <p><strong>Before.</strong> The all-right branch is resolved.</p>
-<p><strong>Corrected.</strong> The result is a conditional equivalence.
-The all-right hypothesis is the open endpoint condition, and the landing
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is a conditional equivalence.
+The all-right <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> is the open endpoint condition, and the landing
 condition has no observed instance.</p>
-<p><strong>Evidence.</strong> <code>Skip/verify/V7.lean</code>;
-<code>allRight_branch_resolved_iff_false</code>; the finite landing
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Skip/verify/V7.lean</code>;
+<code>allRight_branch_resolved_iff_false</code>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> landing
 scan.</p>
 </section>
 <section id="erdosproblemsskipwire2.lean" class="level3">
 <h3><code>ErdosProblems/Skip/Wire2.lean</code></h3>
-<p><strong>Before.</strong> Scale arguments exclude the remaining
-all-right classes.</p>
-<p><strong>Corrected.</strong> The exclusions are conditional scale
-inequalities. They do not produce the global all-right hypothesis or a
+<p><strong>Before.</strong> Scale arguments <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> the remaining
+all-right <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a>.</p>
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a> are conditional scale
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a>. They do not produce the global all-right <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> or a
 live landing instance.</p>
-<p><strong>Evidence.</strong> The theorem signatures in
-<code>Wire2.lean</code> and the corresponding finite witnesses.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> signatures in
+<code>Wire2.lean</code> and the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a>.</p>
 </section>
 <section id="erdosproblemsskipwire3.lean" class="level3">
 <h3><code>ErdosProblems/Skip/Wire3.lean</code></h3>
@@ -281,7 +300,7 @@ residue arguments close the frozen right tail.</p>
 <p><strong>Corrected.</strong> Each displayed branch retains the
 all-right and landing hypotheses; in the intended landing configuration
 the branches are vacuous.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Skip/verify/V9.lean::cofFloor_branch_vacuous</code>,
 <code>mod_three_branch_vacuous</code>, and
 <code>residue_branch_vacuous</code>.</p>
@@ -291,10 +310,10 @@ the branches are vacuous.</p>
 <p><strong>Before.</strong> The residual invariant is empirically true
 on <code>s ∈ [6,3000]</code>, with maximum ratio
 <code>0.99989</code>.</p>
-<p><strong>Corrected.</strong> The invariant is false inside that range.
-The file now cites the counterexample and treats its unconditional
-remainder bound separately.</p>
-<p><strong>Evidence.</strong>
+<p><strong>Corrected.</strong> The invariant is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> inside that range.
+The file now cites the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> and treats its unconditional
+remainder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> separately.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Three/T1.not_residualInvariant</code>: at
 <code>(s,d) = (13,7)</code>, the residual is
 <code>524419 &gt; 2^19 = 524288</code>.</p>
@@ -307,8 +326,8 @@ tail.</p>
 <p><strong>Corrected.</strong> The middle and upper branch formulas were
 later proved in <code>Three/T2</code>, with explicit perturbations. The
 global shadowing conclusions remain conditional on open hypotheses, and
-the finite pin-gap measurement does not prove a uniform bound.</p>
-<p><strong>Evidence.</strong>
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> pin-gap <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurement</a> does not prove a uniform <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Three/T2.middleBranch_remainder_succ_eq</code>,
 <code>upperBranch_remainder_succ_eq</code>;
 <code>Three/verify/T2.lean</code>; <code>Rem/verify/C3.lean</code>.</p>
@@ -317,21 +336,21 @@ the finite pin-gap measurement does not prove a uniform bound.</p>
 <h3><code>ErdosProblems/Bit/R2.lean</code></h3>
 <p><strong>Before.</strong> <code>badRun_pins_remainder</code> provides
 a live pinning mechanism for long bad runs.</p>
-<p><strong>Corrected.</strong> The theorem is a valid conditional
-implication, but its antecedent requires at least <code>12</code>
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is a valid conditional
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a>, but its antecedent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> at least <code>12</code>
 consecutive bad rows. The measured bad set is <code>{5,11,12,13}</code>,
 with maximum run length <code>3</code>; no instance is observed.</p>
-<p><strong>Evidence.</strong> <code>Bit/verify/B5.lean</code>; the
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Bit/verify/B5.lean</code>; the
 explicit bad-row computation.</p>
 </section>
 <section id="erdosproblemsthreet4.lean" class="level3">
 <h3><code>ErdosProblems/Three/T4.lean</code></h3>
 <p><strong>Before.</strong> <code>hlow</code> is an open side condition,
-and the long bad-run contrapositive describes a live obstruction.</p>
-<p><strong>Corrected.</strong> Universal <code>hlow</code> is false. Its
-failure is a hit certificate, not an obstruction. The long bad-run
+and the long bad-run contrapositive describes a live <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>.</p>
+<p><strong>Corrected.</strong> Universal <code>hlow</code> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a>. Its
+failure is a hit <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, not an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>. The long bad-run
 antecedent has no instance on rows <code>4,…,300</code>.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>DeclD4.Seven.not_hlow_seven_five</code>;
 <code>HlowH1.not_hlow_of_hhigh</code>;
 <code>HlowH2.seamRemainder_lt_two_pow_of_not_hlow</code>;
@@ -342,20 +361,20 @@ antecedent has no instance on rows <code>4,…,300</code>.</p>
 <p><strong>Before.</strong> The bit correspondence applies subject only
 to an open technical condition.</p>
 <p><strong>Corrected.</strong> The correspondence is conditional on
-<code>hlow</code>, which is false at <code>(7,5)</code>. The file now
-presents its concrete rows as local witnesses, not a universal
+<code>hlow</code>, which is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> at <code>(7,5)</code>. The file now
+presents its concrete rows as local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a>, not a universal
 route.</p>
-<p><strong>Evidence.</strong> <code>Decl/D4.lean</code>,
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Decl/D4.lean</code>,
 <code>Hlow/H1.lean</code>, and <code>Hlow/H2.lean</code>.</p>
 </section>
 <section id="erdosproblemshlowh1.lean" class="level3">
 <h3><code>ErdosProblems/Hlow/H1.lean</code></h3>
 <p><strong>Before.</strong> Proving <code>hlow</code> is the remaining
-route to the half-point bound.</p>
-<p><strong>Corrected.</strong> <code>hlow</code> is false, and only one
+route to the half-point <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
+<p><strong>Corrected.</strong> <code>hlow</code> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a>, and only one
 half of the trapping estimate needs it. The failure at
 <code>(7,5)</code> is compatible with, and certifies, a hit.</p>
-<p><strong>Evidence.</strong> <code>not_hlow_of_hhigh</code>,
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>not_hlow_of_hhigh</code>,
 <code>hlow_fails_seven_five</code>, <code>lateGreedy_lower</code>, and
 <code>upper_trap_needs_hlow</code>.</p>
 </section>
@@ -367,28 +386,28 @@ only equal-binary-length pair.</p>
 <p><strong>Corrected.</strong> At first late ranks the smallest
 surviving margin is <code>30</code> at <code>(6,5)</code>; across all
 late ranks it is <code>3</code> at <code>(7,6)</code>. Equal binary
-length also occurs at <code>(7,6)</code>. The hit theorem is a
+length also occurs at <code>(7,6)</code>. The hit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is a
 quantitative sharpening of a route already available from
 <code>Decl/D4</code>.</p>
-<p><strong>Evidence.</strong> <code>Hlow/verify/V2.lean</code>,
-including kernel proofs for the two counterexamples.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Hlow/verify/V2.lean</code>,
+including kernel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> for the two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexamples</a>.</p>
 </section>
 </section>
 <section id="corrections-to-scope-novelty-and-logical-strength"
 class="level2">
-<h2>Corrections to scope, novelty, and logical strength</h2>
+<h2>Corrections to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scope</a>, novelty, and logical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-strength" data-term="strength" data-term-auto="1">strength</a></h2>
 <section id="erdosproblemsliftanglea1.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleA1.lean</code></h3>
 <p><strong>Before.</strong> Coordinate <code>j</code> needs at least
 <code>j+1</code> bits; the <code>4851</code>-bit and <code>12%</code>
-figures are certificate lower bounds; higher rungs are strictly
+figures are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>; higher rungs are strictly
 stronger.</p>
-<p><strong>Corrected.</strong> The theorem proves single-coordinate
-residue sensitivity. The figures are arithmetic benchmarks, not
-certificate lower bounds. The ladder implication is downward; strictness
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proves single-coordinate
+residue sensitivity. The figures are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmarks</a>, not
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>. The ladder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> is downward; strictness
 is not proved.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check1.lean</code>,
-especially probes C–H.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check1.lean</code>,
+especially <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-probe" data-term="probe" data-term-auto="1">probes</a> C–H.</p>
 </section>
 <section id="erdosproblemsliftanglea2.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleA2.lean</code></h3>
@@ -396,10 +415,10 @@ especially probes C–H.</p>
 frontier, and the measured valuation deficit rules out the valuation
 route.</p>
 <p><strong>Corrected.</strong> <code>t = 67</code> is a historical
-frontier; it is now certified at minimal depth <code>100</code>, and the
-finite band reaches <code>t ≤ 82</code>. The valuation data rule out
+frontier; it is now <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certified</a> at minimal depth <code>100</code>, and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> band reaches <code>t ≤ 82</code>. The valuation data rule out
 only the displayed sufficient criterion on the measured samples.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Lift/Recon67.t67_minimal_depth</code>;
 <code>Skip/LadderT67.exists_diagonalKill_le_82</code>;
 <code>certifiedKill_of_far_end_valuation</code>.</p>
@@ -409,34 +428,34 @@ only the displayed sufficient criterion on the measured samples.</p>
 <p><strong>Before.</strong> The residue criterion closes the relevant
 middle branch.</p>
 <p><strong>Corrected.</strong> The criterion is conditional. In the
-audited configuration its arc hypotheses are mutually contradictory, so
-the theorem does not act on a live class.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check3.lean</code> and
-the explicit arithmetic contradiction in the corrected header.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> configuration its arc hypotheses are mutually contradictory, so
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> does not act on a live <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check3.lean</code> and
+the explicit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> in the corrected header.</p>
 </section>
 <section id="erdosproblemsliftanglea4.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleA4.lean</code></h3>
-<p><strong>Before.</strong> An arbitrary-real counterexample at
+<p><strong>Before.</strong> An arbitrary-real <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> at
 <code>t = 67</code> shows the seed contains no frontier information, and
 localisation imposes a universal depth near <code>7.8·10^28</code>.</p>
-<p><strong>Corrected.</strong> The counterexample shows only that
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> shows only that
 lower-rung period-kill facts do not imply the next one for an arbitrary
-real number. The localisation estimate is a no-go for that strategy, not
-a lower bound on every proof or on the concrete totient series.</p>
-<p><strong>Evidence.</strong>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-real-number" data-term="real_number" data-term-auto="1">real number</a>. The localisation estimate is a no-go for that strategy, not
+a lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> or on the concrete <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Lift/verify/Check4.lean::probe_reduction_is_an_iff</code>;
 <code>frontierWitness_fails_at_67</code>; the current
-depth-<code>100</code> certificate.</p>
+depth-<code>100</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</p>
 </section>
 <section id="erdosproblemsliftanglea5.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleA5.lean</code></h3>
-<p><strong>Before.</strong> A general no-lift theorem blocks all reuse
+<p><strong>Before.</strong> A general no-lift <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> blocks all reuse
 from lower depths.</p>
 <p><strong>Corrected.</strong> The no-go applies to the stated
-bounded-data and surrogate schemas. It does not rule out every lift. At
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-data and surrogate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-schema" data-term="schema" data-term-auto="1">schemas</a>. It does not rule out every lift. At
 <code>t = 67</code>, depth <code>98</code> is only a floor; the actual
-minimal certificate depth is <code>100</code>.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check5.lean</code>;
+minimal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> depth is <code>100</code>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check5.lean</code>;
 <code>Recon67.t67_minimal_depth</code>.</p>
 </section>
 <section id="erdosproblemsliftangleb1.lean" class="level3">
@@ -444,43 +463,43 @@ minimal certificate depth is <code>100</code>.</p>
 <p><strong>Before.</strong> The auxiliary phases and pulse floors
 describe the concrete seam ratchet.</p>
 <p><strong>Corrected.</strong> They are auxiliary transported
-quantities. Any statement about the concrete ratchet is conditional on
+quantities. Any <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> about the concrete ratchet is conditional on
 the explicit bridge hypotheses.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check6.lean</code> and
-the corrected import/bridge boundaries.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check6.lean</code> and
+the corrected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">import</a>/bridge boundaries.</p>
 </section>
 <section id="erdosproblemsliftangleb4.lean" class="level3">
 <h3><code>ErdosProblems/Lift/AngleB4.lean</code></h3>
-<p><strong>Before.</strong> Transported phase exclusions directly remove
-concrete survivor classes.</p>
-<p><strong>Corrected.</strong> The phase exclusions are proved for
+<p><strong>Before.</strong> Transported phase <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a> directly remove
+concrete survivor <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a>.</p>
+<p><strong>Corrected.</strong> The phase <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a> are proved for
 auxiliary transported phases. Concrete soundness remains
 conditional.</p>
-<p><strong>Evidence.</strong> <code>Lift/verify/Check9.lean</code>;
-theorem signatures in <code>AngleB4.lean</code>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/verify/Check9.lean</code>;
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> signatures in <code>AngleB4.lean</code>.</p>
 </section>
 <section id="erdosproblemsliftinducelaw.lean" class="level3">
 <h3><code>ErdosProblems/Lift/InduceLaw.lean</code></h3>
-<p><strong>Before.</strong> The induction no-go excludes every lift
+<p><strong>Before.</strong> The induction no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> every lift
 strategy.</p>
-<p><strong>Corrected.</strong> It excludes only arbitrary sequences and
-window data satisfying the stated recurrence schema. It is not a no-go
-for every argument using the concrete totient function.</p>
-<p><strong>Evidence.</strong> The quantified types of the no-go
-declarations in <code>InduceLaw.lean</code>.</p>
+<p><strong>Corrected.</strong> It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> only arbitrary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequences</a> and
+window data satisfying the stated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-schema" data-term="schema" data-term-auto="1">schema</a>. It is not a no-go
+for every argument using the concrete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The quantified types of the no-go
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> in <code>InduceLaw.lean</code>.</p>
 </section>
 <section id="erdosproblemsliftrecon249.lean" class="level3">
 <h3><code>ErdosProblems/Lift/Recon249.lean</code></h3>
 <p><strong>Before.</strong> Coefficient congruence is necessary and
-sufficient for lifting; coefficient scaling transfers certificates;
-depth <code>98</code> is an existence result.</p>
+sufficient for lifting; coefficient scaling transfers <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>;
+depth <code>98</code> is an existence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>.</p>
 <p><strong>Corrected.</strong> The congruence is a sufficient
 coefficient identity under stated divisibility conditions. The transfer
-theorem runs toward a no-larger radius and cannot implement
-<code>H → pH</code>; scaling need not preserve the excluded arc. Depth
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> runs toward a no-larger radius and cannot implement
+<code>H → pH</code>; scaling need not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserve</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a> arc. Depth
 <code>98</code> is a necessary floor, while <code>t = 67</code> fires at
 <code>100</code>.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Lift/verify/Check12.lean::transfer_direction_blocks_lift</code>,
 <code>transfer_unusable_at_67</code>,
 <code>scaling_does_not_preserve_the_arc</code>;
@@ -488,52 +507,52 @@ theorem runs toward a no-larger radius and cannot implement
 </section>
 <section id="erdosproblemsliftrecon257.lean" class="level3">
 <h3><code>ErdosProblems/Lift/Recon257.lean</code></h3>
-<p><strong>Before.</strong> The finite ratchet reconstruction describes
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> ratchet reconstruction describes
 a live all-right landing.</p>
-<p><strong>Corrected.</strong> The finite-core identities are proved,
-but connection to the concrete landing is conditional on
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-core identities are proved,
+but <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> to the concrete landing is conditional on
 <code>seamExcess (D+1) = 2</code>, which has no observed instance in the
-audited range.</p>
-<p><strong>Evidence.</strong> Direct evaluation recorded in
-<code>NIGHT_LOG.md</code>; the corrected hypothesis-status section.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> range.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> Direct evaluation recorded in
+<code>NIGHT_LOG.md</code>; the corrected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a>.</p>
 </section>
 <section id="erdosproblemsskipd2.lean" class="level3">
 <h3><code>ErdosProblems/Skip/D2.lean</code></h3>
-<p><strong>Before.</strong> The finite row analysis yields an
-unconditional eventual late-skip result.</p>
-<p><strong>Corrected.</strong> Finite scans are measured. The proved
-global result is an eventual logical disjunction; it does not establish
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> row analysis yields an
+unconditional eventual late-skip <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>.</p>
+<p><strong>Corrected.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scan" data-term="scan" data-term-auto="1">scans</a> are measured. The proved
+global <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is an eventual logical disjunction; it does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a>
 which branch occurs.</p>
-<p><strong>Evidence.</strong> The quantified conclusions in
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The quantified conclusions in
 <code>D2.lean</code>.</p>
 </section>
 <section id="erdosproblemsskipd3.lean" class="level3">
 <h3><code>ErdosProblems/Skip/D3.lean</code></h3>
-<p><strong>Before.</strong> The finite checker closes the cofinal
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> closes the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a>
 late-skip supply.</p>
-<p><strong>Corrected.</strong> It certifies finite blocks and spot rows.
+<p><strong>Corrected.</strong> It certifies <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> blocks and spot rows.
 Cofinality is not proved.</p>
-<p><strong>Evidence.</strong> <code>largestSkipLateAt_of_rowChk</code>
-and the finite table bounds.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>largestSkipLateAt_of_rowChk</code>
+and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> table <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>.</p>
 </section>
 <section id="erdosproblemsskipd4.lean" class="level3">
 <h3><code>ErdosProblems/Skip/D4.lean</code></h3>
 <p><strong>Before.</strong> The cofactor-rank premise is a plausible
 unresolved route.</p>
-<p><strong>Corrected.</strong> The proposed universal premise is false.
-The remaining theorems are unconditional dichotomies or conditional
-implications; no disjunction alternative is selected.</p>
-<p><strong>Evidence.</strong> Counterexamples proved in
-<code>D4.lean</code>; finite selection data.</p>
+<p><strong>Corrected.</strong> The proposed universal premise is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a>.
+The remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> are unconditional dichotomies or conditional
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a>; no disjunction alternative is selected.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">Counterexamples</a> proved in
+<code>D4.lean</code>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> selection data.</p>
 </section>
 <section id="erdosproblemsskipd5.lean" class="level3">
 <h3><code>ErdosProblems/Skip/D5.lean</code></h3>
 <p><strong>Before.</strong> Cofactor ranks themselves supply the largest
-false rank.</p>
-<p><strong>Corrected.</strong> A skipped late rank implies that the
-row’s actual largest false rank is late; the cofactor rank need not
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> rank.</p>
+<p><strong>Corrected.</strong> A skipped late rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> that the
+row’s actual largest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> rank is late; the cofactor rank need not
 itself be maximal. Landing consequences remain conditional.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>largestSkipLateAt_of_lateSkip</code>; measured cofactor selection
 data.</p>
 </section>
@@ -541,10 +560,10 @@ data.</p>
 <h3><code>ErdosProblems/Skip/D6.lean</code></h3>
 <p><strong>Before.</strong> Measured cofactor selection rates support
 the all-right landing route.</p>
-<p><strong>Corrected.</strong> The selection data are finite
-measurements. The all-right and landing hypotheses remain unavailable,
-and no cofinal conclusion follows.</p>
-<p><strong>Evidence.</strong> The conditional theorem signatures and the
+<p><strong>Corrected.</strong> The selection data are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurements</a>. The all-right and landing hypotheses remain unavailable,
+and no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> conclusion follows.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional theorem</a> signatures and the
 <code>[5,20000]</code> scan recorded in the file.</p>
 </section>
 <section id="erdosproblemshalfh1.lean" class="level3">
@@ -553,44 +572,44 @@ and no cofinal conclusion follows.</p>
 live <code>seamExcess = 2</code> landing.</p>
 <p><strong>Corrected.</strong> The gap identities are unconditional, but
 the landing specialization has no observed instance and is presented
-only as a consistency statement.</p>
-<p><strong>Evidence.</strong> The finite landing scan and the
-conditional hypothesis of
+only as a consistency <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> landing scan and the
+conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> of
 <code>twentyOne_mul_overshoot_add_fortyTwo_eq_skipHalfGap</code>.</p>
 </section>
 <section id="erdosproblemshalfh3.lean" class="level3">
 <h3><code>ErdosProblems/Half/H3.lean</code></h3>
 <p><strong>Before.</strong> The two-adic analysis proves that no finer
-two-adic obstruction exists.</p>
+two-adic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> exists.</p>
 <p><strong>Corrected.</strong> The file rules out only the
 modulo-<code>2</code> and modulo-<code>4</code> shadows. It computes the
 higher-modulus term but does not prove that the low support absorbs
 it.</p>
-<p><strong>Evidence.</strong> <code>Half/verify/W3.lean</code>;
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Half/verify/W3.lean</code>;
 <code>truncatedMersenneWeight_mod_twoPow_of_late</code>.</p>
 </section>
 <section id="erdosproblemshalfh4.lean" class="level3">
 <h3><code>ErdosProblems/Half/H4.lean</code></h3>
 <p><strong>Before.</strong> The landing-row hypotheses are merely
 difficult to discharge.</p>
-<p><strong>Corrected.</strong> The landing premise is false throughout
-the audited range, so the landing specializations are vacuous there. The
-finite late-skip certificates remain valid.</p>
-<p><strong>Evidence.</strong>
+<p><strong>Corrected.</strong> The landing premise is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> throughout
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> range, so the landing specializations are vacuous there. The
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> late-skip <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a> remain valid.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Half/verify/W4.lean::audit_skipD1_landingRow_premise_is_false</code>
-and its bounded extension.</p>
+and its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> extension.</p>
 </section>
 <section id="erdosproblemshalffreewalk1.lean" class="level3">
 <h3><code>ErdosProblems/Half/FreeWalk1.lean</code></h3>
-<p><strong>Before.</strong> The model proves no absolute bound for
-actual totient failure runs; its thresholds are unit-sharp;
-<code>coverage_fraction_tends_to_zero</code> proves a limit.</p>
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> proves no absolute <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for
+actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> failure runs; its thresholds are unit-sharp;
+<code>coverage_fraction_tends_to_zero</code> proves a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>.</p>
 <p><strong>Corrected.</strong> <code>AdmissibleRun</code> is a coarse
-interval model and omits evenness of genuine totient differences. Its
-permanent walks are not totient orbits. The coverage theorem proves one
-existential base point per multiplier, not a limit or eventual
-statement.</p>
-<p><strong>Evidence.</strong>
+interval <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> and omits evenness of genuine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> differences. Its
+permanent walks are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbits</a>. The coverage <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proves one
+existential base point per multiplier, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a> or eventual
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Half/verify/W5.lean::probe_headline_equiv</code>,
 <code>probe_walkStep_even</code>, and
 <code>probe_coverage_is_only_an_existential</code>.</p>
@@ -600,58 +619,58 @@ statement.</p>
 <p><strong>Before.</strong> The walk gives an unconditional equivalence
 and the displayed long run is extremal.</p>
 <p><strong>Corrected.</strong> The equivalence holds under its exact
-threshold hypotheses. The numerical run is a finite certificate, not an
-extremal theorem.</p>
-<p><strong>Evidence.</strong> <code>Half/verify/W6.lean</code> and the
-theorem signatures in <code>FreeWalk2.lean</code>.</p>
+threshold hypotheses. The numerical run is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, not an
+extremal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Half/verify/W6.lean</code> and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> signatures in <code>FreeWalk2.lean</code>.</p>
 </section>
 <section id="erdosproblemshalffreewalk3.lean" class="level3">
 <h3><code>ErdosProblems/Half/FreeWalk3.lean</code></h3>
 <p><strong>Before.</strong> <code>failure_zone_step_invariant</code>
-constrains totient differences; the seven-run is a minimal or extremal
-obstruction; <code>evenFloor</code> models the full arithmetic
-input.</p>
-<p><strong>Corrected.</strong> The invariant is an arithmetic-free
-cancellation. <code>evenFloor</code> models only crude size/parity data
-and fails stronger totient facts. Longer runs already exist, including
+constrains <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> differences; the seven-run is a minimal or extremal
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>; <code>evenFloor</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">models</a> the full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a>.</p>
+<p><strong>Corrected.</strong> The invariant is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a>-free
+cancellation. <code>evenFloor</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">models</a> only crude size/parity data
+and fails stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> facts. Longer runs already exist, including
 an eight-run at the same parameters.</p>
-<p><strong>Evidence.</strong> <code>Half/verify/W7.lean</code>,
-especially sections 4, 5, and 7.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Half/verify/W7.lean</code>,
+especially <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> 4, 5, and 7.</p>
 </section>
 <section id="erdosproblemsbitcorr3.lean" class="level3">
 <h3><code>ErdosProblems/Bit/Corr3.lean</code></h3>
-<p><strong>Before.</strong> Finite top-run data prove
+<p><strong>Before.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> top-run data prove
 <code>O(log s)</code> behaviour and a geometric law; row <code>5</code>
 is not explained by the top-run equivalence.</p>
-<p><strong>Corrected.</strong> The finite data show a maximum of
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> data show a maximum of
 <code>12</code> on <code>[5,3000]</code>; they prove no asymptotic law.
 At row <code>5</code>, the top run has length <code>1 = K</code>, so the
-proved equivalence is correct; only the separate remainder-bit
+proved equivalence is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correct</a>; only the separate remainder-bit
 interpretation fails there.</p>
-<p><strong>Evidence.</strong> <code>Bit/verify/B3.lean</code> finite
-probes and the row-<code>5</code> tuple <code>(5,3,1,1,true)</code>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Bit/verify/B3.lean</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-probe" data-term="probe" data-term-auto="1">probes</a> and the row-<code>5</code> tuple <code>(5,3,1,1,true)</code>.</p>
 </section>
 <section id="erdosproblemsbitr1.lean" class="level3">
 <h3><code>ErdosProblems/Bit/R1.lean</code></h3>
 <p><strong>Before.</strong> Rows <code>1500,1501</code> extend the
-corpus’s reach without inspecting greedy words.</p>
-<p><strong>Corrected.</strong> The theorem interface uses two scalar
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>’s reach without inspecting greedy words.</p>
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> interface uses two scalar
 remainders, but those are computed through the greedy words.
 <code>Skip/D3</code> already certifies those rows and row
 <code>3000</code>; this is a route comparison, not extra reach.</p>
-<p><strong>Evidence.</strong> <code>Bit/verify/B4.lean</code>;
-definitions of <code>remOf</code> and <code>SkipD3.gb</code>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Bit/verify/B4.lean</code>;
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definitions</a> of <code>remOf</code> and <code>SkipD3.gb</code>.</p>
 </section>
 <section id="erdosproblemsbitr3.lean" class="level3">
 <h3><code>ErdosProblems/Bit/R3.lean</code></h3>
 <p><strong>Before.</strong> The dichotomy exactly classifies the row, a
 success buys a whole window of good rows, and the seam gap is a
-universal factor-four wall.</p>
+universal <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a>-four wall.</p>
 <p><strong>Corrected.</strong> The dichotomy is inclusive; the escape
-theorem yields at least one late-skip row in the interval. The gap
-theorem proves the displayed <code>GapDominates</code> parameter, not
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> yields at least one late-skip row in the interval. The gap
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proves the displayed <code>GapDominates</code> parameter, not
 its optimality or a universal no-go.</p>
-<p><strong>Evidence.</strong> <code>RemC1.rowLaw_blind_at_16</code>;
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>RemC1.rowLaw_blind_at_16</code>;
 <code>exists_largestSkipLateAt_of_deficit</code>; the type of
 <code>gap_is_two_pow_succ</code>.</p>
 </section>
@@ -659,104 +678,104 @@ its optimality or a universal no-go.</p>
 <h3><code>ErdosProblems/Bit/R4.lean</code></h3>
 <p><strong>Before.</strong> The threshold is half the new top weight;
 <code>2^s+1</code> is the exact fixed point; all global hypotheses have
-witnesses.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a>.</p>
 <p><strong>Corrected.</strong> The proved threshold is
 <code>2^(s-1)</code> while the new weight is <code>2^(s+2)+4</code>. The
-rational offset fixed point is <code>4/3</code>; <code>+1</code> is the
-largest integer below it. Only local one-row hypotheses have witnesses;
-cofinal and endpoint hypotheses remain open.</p>
-<p><strong>Evidence.</strong> <code>topWeight_eq</code>; the translated
-recurrence; the corrected §6/§8 witness audit.</p>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> offset fixed point is <code>4/3</code>; <code>+1</code> is the
+largest <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> below it. Only local one-row hypotheses have <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a>;
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> and endpoint hypotheses remain open.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>topWeight_eq</code>; the translated
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>; the corrected §6/§8 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>.</p>
 </section>
 <section id="erdosproblemsremc1.lean" class="level3">
 <h3><code>ErdosProblems/Rem/C1.lean</code></h3>
-<p><strong>Before.</strong> The row recurrence plus any ceiling can
+<p><strong>Before.</strong> The row <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> plus any ceiling can
 never recover lower-rank information.</p>
-<p><strong>Corrected.</strong> The no-go covers the listed row
-inequalities and ceiling classes. It is not a theorem about every
+<p><strong>Corrected.</strong> The no-go covers the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">listed</a> row
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> and ceiling <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">classes</a>. It is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> about every
 possible auxiliary invariant.</p>
-<p><strong>Evidence.</strong> <code>le_of_descent_of_quadrupling</code>,
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>le_of_descent_of_quadrupling</code>,
 <code>surplusModel_constraints</code>, and
 <code>rowLaw_blind_at_16</code>.</p>
 </section>
 <section id="erdosproblemsremc2.lean" class="level3">
 <h3><code>ErdosProblems/Rem/C2.lean</code></h3>
 <p><strong>Before.</strong> Every unconditional <code>O(2^s)</code>
-bound must use growing certificate depth.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> must use growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> depth.</p>
 <p><strong>Corrected.</strong> The conclusion applies to the encoded
-fixed finite subset-certificate method. It is not a no-go for every
-proof method.</p>
-<p><strong>Evidence.</strong>
+fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> subset-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a>. It is not a no-go for every
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>certificate_exceeds_half_point</code> and
 <code>certificate_lt_half_iff</code>.</p>
 </section>
 <section id="erdosproblemsremc4.lean" class="level3">
 <h3><code>ErdosProblems/Rem/C4.lean</code></h3>
-<p><strong>Before.</strong> The theorem supplies a new global
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> supplies a new global
 refinement.</p>
-<p><strong>Corrected.</strong> The result is a genuine conditional
-<code>13/6</code> refinement but does not establish the global
-hypothesis and overlaps earlier machinery.</p>
-<p><strong>Evidence.</strong> <code>Rem/verify/C4.lean</code> redundancy
-and satisfiability audit.</p>
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is a genuine conditional
+<code>13/6</code> refinement but does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> the global
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> and overlaps earlier machinery.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Rem/verify/C4.lean</code> redundancy
+and satisfiability <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>.</p>
 </section>
 <section id="erdosproblemsremc5.lean" class="level3">
 <h3><code>ErdosProblems/Rem/C5.lean</code></h3>
 <p><strong>Before.</strong> The weight-word argument is the universal
-source of remainder bounds.</p>
-<p><strong>Corrected.</strong> It is a generic bound from a supplied
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> of remainder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>.</p>
+<p><strong>Corrected.</strong> It is a generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> from a supplied
 admissible word. <code>Rem/C6</code> later proves a stronger
-unconditional numerical bound; neither statement covers every possible
-method.</p>
-<p><strong>Evidence.</strong>
+unconditional numerical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>; neither <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> covers every possible
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>seamIntegerGreedyRemainder_add_tail_le</code>,
 <code>eight_mul_remainder_le</code>, and the later <code>C6</code>
-theorem.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 </section>
 <section id="erdosproblemsthreet2.lean" class="level3">
 <h3><code>ErdosProblems/Three/T2.lean</code></h3>
-<p><strong>Before.</strong> Every theorem hypothesis except
+<p><strong>Before.</strong> Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> except
 <code>CarryCofinally</code> has a concrete instance; row <code>13</code>
 is the sharp carry defect.</p>
 <p><strong>Corrected.</strong> Two global hypotheses are uninstantiated:
 <code>CarryCofinally</code> and
 <code>1/2 ∉ mersenneAchievementSet</code>. Row <code>13</code> is a
-proved large witness, not a maximum; row <code>5</code> has a larger
+proved large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not a maximum; row <code>5</code> has a larger
 normalized defect.</p>
-<p><strong>Evidence.</strong> <code>Three/verify/T2.lean</code> sections
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Three/verify/T2.lean</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>
 7b and 8.</p>
 </section>
 <section id="erdosproblemsthreet3.lean" class="level3">
 <h3><code>ErdosProblems/Three/T3.lean</code></h3>
-<p><strong>Before.</strong> Finite valuation counts establish a
+<p><strong>Before.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> valuation counts <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> a
 geometric fair-bit law and a new global route.</p>
-<p><strong>Corrected.</strong> The histogram is finite measured data
-with no distribution theorem. The Lean results are conditional
-sufficient criteria plus finite witnesses.</p>
-<p><strong>Evidence.</strong> <code>Three/verify/T3.lean</code>; the
-explicit open-hypothesis list in <code>T3.lean</code>.</p>
+<p><strong>Corrected.</strong> The histogram is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> measured data
+with no distribution <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> are conditional
+sufficient criteria plus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Three/verify/T3.lean</code>; the
+explicit open-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> list in <code>T3.lean</code>.</p>
 </section>
 <section id="erdosproblemsdecld1.lean" class="level3">
 <h3><code>ErdosProblems/Decl/D1.lean</code></h3>
 <p><strong>Before.</strong> The declined-rank condition discharges the
 full side condition used by <code>Three/T4</code>.</p>
 <p><strong>Corrected.</strong> It proves <code>hhigh</code> at declined
-ranks, a strictly narrower input. It does not prove <code>hlow</code>,
-which is false in general.</p>
-<p><strong>Evidence.</strong> <code>Decl/verify/D1.lean</code> section
+ranks, a strictly narrower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a>. It does not prove <code>hlow</code>,
+which is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> in general.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Decl/verify/D1.lean</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a>
 7; <code>DeclD4.Seven.not_hlow_seven_five</code>.</p>
 </section>
 <section id="erdosproblemsdecld2.lean" class="level3">
 <h3><code>ErdosProblems/Decl/D2.lean</code></h3>
 <p><strong>Before.</strong> Decline blocks have an exact full-weight
 ratio, their length is anti-correlated with invariant failure, and the
-block no-go describes reachable corpus residuals.</p>
+block no-go describes reachable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> residuals.</p>
 <p><strong>Corrected.</strong> The exact identity is only between
-leading powers; the full-weight result is an inequality. The no-go uses
+leading <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a>; the full-weight <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>. The no-go uses
 the artificial residual <code>w d - 1</code>, whose reachability is not
-proved. The finite examples do not establish correlation, asymptotic run
+proved. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> examples do not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> correlation, asymptotic run
 length, or universal-word stabilization.</p>
-<p><strong>Evidence.</strong> <code>Decl/verify/D2.lean</code>;
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Decl/verify/D2.lean</code>;
 <code>declineBlock_gain</code>, <code>run_collapse_twenty</code>,
 <code>not_blockMethod_sound</code>, and
 <code>T1.not_residualInvariant</code>.</p>
@@ -764,66 +783,66 @@ length, or universal-word stabilization.</p>
 <section id="erdosproblemsdecld3.lean" class="level3">
 <h3><code>ErdosProblems/Decl/D3.lean</code></h3>
 <p><strong>Before.</strong> The first-late-rank route makes the
-remainder bound unconditional.</p>
+remainder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> unconditional.</p>
 <p><strong>Corrected.</strong> The branch that would remove
-<code>hhigh</code> already assumes enough to imply the target, and no
+<code>hhigh</code> already assumes enough to imply the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, and no
 late-rank failure of <code>hhigh</code> is observed. The route remains
 conditional.</p>
-<p><strong>Evidence.</strong> <code>Decl/verify/D3.lean</code> sections
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Decl/verify/D3.lean</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>
 3–5.</p>
 </section>
 <section id="erdosproblemsdecld4.lean" class="level3">
 <h3><code>ErdosProblems/Decl/D4.lean</code></h3>
-<p><strong>Before.</strong> The cited terminal-rank interval theorem
-proves that no interval induction can establish <code>hhigh</code> at an
+<p><strong>Before.</strong> The cited <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a>-rank interval <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
+proves that no interval induction can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> <code>hhigh</code> at an
 earlier late rank.</p>
 <p><strong>Corrected.</strong> That citation was a non sequitur. The
-verifier supplies a correctly indexed theorem ruling out the stated
-<code>IntervalCeiling</code> method. This is not a no-go for every proof
+verifier supplies a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correctly</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> ruling out the stated
+<code>IntervalCeiling</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a>. This is not a no-go for every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
 of <code>hhigh</code>.</p>
-<p><strong>Evidence.</strong>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
 <code>Decl/verify/D4.lean::IntervalCeiling.four_pow_le_at</code> and
 <code>no_intervalCeiling_certifies_hhigh</code>.</p>
 </section>
 <section id="erdosproblemshloww1.lean" class="level3">
 <h3><code>ErdosProblems/Hlow/W1.lean</code></h3>
-<p><strong>Before.</strong> Finite pulse data establish subpolynomial
-behaviour, a cofinal supply, and a global identification with the real
+<p><strong>Before.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> pulse data <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> subpolynomial
+behaviour, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal supply</a>, and a global identification with the real
 greedy state.</p>
-<p><strong>Corrected.</strong> The divisor-count inequality is proved;
+<p><strong>Corrected.</strong> The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-count <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is proved;
 the asymptotic description is background, not formalized. The
-selected-pulse hits and real-greedy correspondence are finite
-measurements and imply no cofinality or limiting law.</p>
-<p><strong>Evidence.</strong>
-<code>wordPulse_le_divisorPulseBudget</code>; the explicitly bounded
-scans in <code>W1.lean</code>.</p>
+selected-pulse hits and real-greedy correspondence are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurements</a> and imply no cofinality or limiting law.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong>
+<code>wordPulse_le_divisorPulseBudget</code>; the explicitly <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-scan" data-term="scan" data-term-auto="1">scans</a> in <code>W1.lean</code>.</p>
 </section>
 <section id="erdosproblemshloww3.lean" class="level3">
 <h3><code>ErdosProblems/Hlow/W3.lean</code></h3>
-<p><strong>Before.</strong> Finite histograms are
-geometric/equidistributed, all row words form one infinite word, and
+<p><strong>Before.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> histograms are
+geometric/equidistributed, all row words form one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> word, and
 <code>1/2</code> is typical.</p>
-<p><strong>Corrected.</strong> The file records finite measurements
-only: five sampled row words, bounded histograms, and a small target
-sample. No distribution, asymptotic, or typicality theorem is
+<p><strong>Corrected.</strong> The file records <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurements</a>
+only: five sampled row words, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> histograms, and a small <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>
+sample. No distribution, asymptotic, or typicality <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is
 proved.</p>
-<p><strong>Evidence.</strong> The exact finite ranges stated in
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> ranges stated in
 <code>W3.lean</code>.</p>
 </section>
 </section>
 <section id="corrections-to-repository-status-and-historical-snapshots"
 class="level2">
-<h2>Corrections to repository status and historical snapshots</h2>
+<h2>Corrections to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a> and historical snapshots</h2>
 <section id="erdosproblemsdemandledgerbasic.lean" class="level3">
 <h3><code>ErdosProblems/DemandLedger/Basic.lean</code></h3>
-<p><strong>Before.</strong> The current semantic corpus has
-<code>259</code> conditional declarations and the Lean ledger has
-<code>105</code> named propositions.</p>
-<p><strong>Corrected.</strong> Those numbers described the extraction
-snapshot. The checked-in file currently exposes <code>101</code> named
-propositions, <code>23</code> labelled substantial; current
-semantic-corpus totals are generated separately.</p>
-<p><strong>Evidence.</strong> Direct declaration count in
+<p><strong>Before.</strong> The current semantic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> has
+<code>259</code> conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> ledger has
+<code>105</code> named <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>.</p>
+<p><strong>Corrected.</strong> Those <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">numbers</a> described the extraction
+snapshot. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>-in file currently exposes <code>101</code> named
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, <code>23</code> labelled substantial; current
+semantic-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> totals are generated separately.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> Direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> count in
 <code>Basic.lean</code>; current
 <code>docs/semantic_corpus.json</code>.</p>
 </section>
@@ -833,19 +852,19 @@ class="level3">
 <p><strong>Before.</strong> The survivor gaps form a strict one-way
 chain and the reverse edges are unproved.</p>
 <p><strong>Corrected.</strong> This file proves a direct chain only.
-<code>Bridge1.lean</code> later proves reverse implications through the
-irrationality hub, making the gaps equivalent.</p>
-<p><strong>Evidence.</strong> The edge theorems in
+<code>Bridge1.lean</code> later proves reverse <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a> through the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> hub, making the gaps equivalent.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The edge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> in
 <code>Bridge1.lean</code>.</p>
 </section>
 <section id="erdosproblemsdemandledgeredgesclusterd.lean"
 class="level3">
 <h3><code>ErdosProblems/DemandLedger/edges/ClusterD.lean</code></h3>
-<p><strong>Before.</strong> Five logical implications remain open.</p>
-<p><strong>Corrected.</strong> Five direct finite-certificate
+<p><strong>Before.</strong> Five logical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a> remain open.</p>
+<p><strong>Corrected.</strong> Five direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
 conversions are not proved in this file. <code>Bridge2.lean</code> later
-proves the gap statements equivalent by a different route.</p>
-<p><strong>Evidence.</strong> The cross-edge theorems in
+proves the gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> equivalent by a different route.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The cross-edge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> in
 <code>Bridge2.lean</code>.</p>
 </section>
 <section
@@ -854,70 +873,71 @@ class="level3">
 <h3><code>ErdosProblems/DemandLedger/edges/ClusterF.lean</code> and
 <code>Bridge3.lean</code></h3>
 <p><strong>Before.</strong> The block demands are strictly ordered.</p>
-<p><strong>Corrected.</strong> The stated implications are proved;
-strict non-implications are not.</p>
-<p><strong>Evidence.</strong> The files contain implication theorems but
+<p><strong>Corrected.</strong> The stated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a> are proved;
+strict non-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a> are not.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> The files contain <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> but
 no separation countermodels.</p>
 </section>
 <section id="erdosproblemsdemandledgeredgesdischarge1_g097.lean"
 class="level3">
 <h3><code>ErdosProblems/DemandLedger/edges/Discharge1_G097.lean</code></h3>
-<p><strong>Before.</strong> The corpus stops at <code>t = 66</code>;
+<p><strong>Before.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stops</a> at <code>t = 66</code>;
 <code>t = 67</code> is the first untouched diagonal cell.</p>
 <p><strong>Corrected.</strong> This is a historical snapshot.
-<code>t = 67</code> is certified at minimal depth <code>100</code>, and
-the current finite diagonal band reaches <code>t ≤ 82</code>.</p>
-<p><strong>Evidence.</strong> <code>Lift/Recon67.lean</code>;
+<code>t = 67</code> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certified</a> at minimal depth <code>100</code>, and
+the current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> diagonal band reaches <code>t ≤ 82</code>.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/Recon67.lean</code>;
 <code>Skip/LadderT67.lean</code>.</p>
 </section>
 <section id="erdosproblemsdemandledgeredgesdischarge2_g100.lean"
 class="level3">
 <h3><code>ErdosProblems/DemandLedger/edges/Discharge2_G100.lean</code></h3>
-<p><strong>Before.</strong> The proved supply stops at <code>67</code>,
-and the deepest corpus certificate is depth <code>94</code>.</p>
-<p><strong>Corrected.</strong> Those are imported-snapshot facts for
-this module. The repository now has exact minimal depths
+<p><strong>Before.</strong> The proved supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stops</a> at <code>67</code>,
+and the deepest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> is depth <code>94</code>.</p>
+<p><strong>Corrected.</strong> Those are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imported</a>-snapshot facts for
+this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> now has exact minimal depths
 <code>100,105,113,120,120</code> at later jump cells and a band through
-<code>82</code>. The cofinal demand remains open.</p>
-<p><strong>Evidence.</strong> <code>Lift/Recon67.lean</code>,
+<code>82</code>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> demand remains open.</p>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> <code>Lift/Recon67.lean</code>,
 <code>Lift/CertT67.lean</code>, <code>Skip/LadderT67.lean</code>.</p>
 </section>
 <section
 id="papererdos249-257-main-paper.tex-read-only-during-this-audit"
 class="level3">
 <h3><code>paper/erdos249-257-main-paper.tex</code> (read-only during
-this audit)</h3>
+this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a>)</h3>
 <p><strong>Before.</strong> Farey was framed as historical terminology
-rather than as the source of the denominator bound.</p>
+rather than as the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
 <p><strong>Corrected.</strong> The classical
-neighbouring-fraction/mediant argument directly gives
-<code>b+d-1</code>, exactly equal to the formal exclusion bound. The
-numerical improvement over Farey is <code>0</code>; the formal source
-checks the arithmetic instance and its sharp first failure. The
-publication owner has now applied this correction to the protected
-source as well as <code>README.md</code>, <code>docs/RESULTS.md</code>,
-<code>docs/PRIOR_ART.md</code>, and the curated authority
-<code>docs/claims.json</code>. The generated full-text paper projection
+neighbouring-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fraction</a>/mediant argument directly gives
+<code>b+d-1</code>, exactly equal to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. The
+numerical improvement over Farey is <code>0</code>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> instance and its sharp first failure. The
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> owner has now applied this correction to the protected
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> as well as <code>README.md</code>, <code>docs/RESULTS.md</code>,
+<code>docs/PRIOR_ART.md</code>, and the curated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>
+<code>docs/claims.json</code>. The generated full-text paper <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a>
 remains stale until its owner exporter is run against a stable
 manuscript/PDF pair.</p>
-<p><strong>Evidence.</strong> Independent recomputation at
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a>.</strong> Independent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recompute" data-term="recompute" data-term-auto="1">recomputation</a> at
 <code>K=120</code> and <code>K=240</code>;
 <code>GapFareyBound.farey_gap</code> and both
-<code>gap_check_window_*_first_failure</code> declarations.</p>
+<code>gap_check_window_*_first_failure</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>.</p>
 </section>
 </section>
 <section id="protected-systems-paper-status" class="level2">
-<h2>Protected systems-paper status</h2>
+<h2>Protected <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a>-paper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a></h2>
 <p><code>paper/claim-faithful-publication-systems-paper.tex</code> was
-read end to end but remained read-only in this lane. The publication
-owner has since updated the worked example to the current bounded
-theorem—one checked certificate at every lcm-diagonal scale
+read end to end but remained read-only in this lane. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a>
+owner has since <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">updated</a> the worked example to the current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>—one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> at every lcm-diagonal scale
 <code>t ≤ 82</code>, with nothing asserted at <code>t = 83</code>—while
-retaining the older 28-point aggregator only as historical provenance.
-The source is currently 901 lines, so the requested aggressive
-compression remains open even though the mathematical snapshot is
-current.</p>
-<p>A claim-preserving revision can fit within 462 lines by keeping each
+retaining the older 28-point aggregator only as historical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">provenance</a>.
+The requested aggressive compression remains open in the protected
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> lane; this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> deliberately makes no volatile current
+line-count <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>. The mathematical snapshot remains <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> at
+<code>t ≤ 82</code>, with the unbounded supply open.</p>
+<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserving</a> revision can fit within 462 lines by keeping each
 argument once:</p>
 <table>
 <colgroup>
@@ -936,59 +956,59 @@ argument once:</p>
 <tr>
 <td>Front matter and abstract</td>
 <td class="ta-r">45</td>
-<td>Lean checks formal statements; it does not interpret unrestricted
-public prose.</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">formal statements</a>; it does not interpret unrestricted
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> prose.</td>
 </tr>
 <tr>
-<td>Publication gap and one workflow figure</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">Publication</a> gap and one workflow figure</td>
 <td class="ta-r">70</td>
-<td>A reviewed claim record plus a release checker preserves named
+<td>A reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> record plus a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserves</a> named
 relationships; human review remains authoritative.</td>
 </tr>
 <tr>
 <td>One current worked example</td>
 <td class="ta-r">90</td>
-<td>The finite band is now <code>t≤82</code>; the unbounded supply
+<td>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> band is now <code>t≤82</code>; the unbounded supply
 remains open and endpoint-equivalent to #249.</td>
 </tr>
 <tr>
 <td>Trust boundary and escaped mutation</td>
 <td class="ta-r">90</td>
-<td>One of ten historical edits escaped; the repaired witness covers
+<td>One of ten historical edits escaped; the repaired <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> covers
 that one fault and supplies no detection rate.</td>
 </tr>
 <tr>
-<td>Limits, reuse, related work, conclusion</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">Limits</a>, reuse, related work, conclusion</td>
 <td class="ta-r">85</td>
-<td>Unregistered wording, coordinated wrong changes, and mistaken review
+<td>Unregistered wording, coordinated wrong <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a>, and mistaken review
 remain outside the guarantee.</td>
 </tr>
 <tr>
 <td>Reproduction and bibliography</td>
 <td class="ta-r">82</td>
-<td>Exact artifacts and commands remain recoverable.</td>
+<td>Exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifacts</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">commands</a> remain recoverable.</td>
 </tr>
 </tbody>
 </table>
-<p>Compression should remove repeated explanation, not any claim in the
-rightmost column. The generated full-text projection and publication
-digests must be refreshed only after the protected source and rendered
+<p>Compression should remove repeated explanation, not any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> in the
+rightmost column. The generated full-text <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digests</a> must be refreshed only after the protected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and rendered
 PDF stabilize.</p>
 </section>
 <section id="statements-that-remain-open" class="level2">
-<h2>Statements that remain open</h2>
-<p>The audit found no proof of either Erdős problem.</p>
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">Statements</a> that remain open</h2>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> found no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of either <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> problem.</p>
 <ul>
-<li>Erdős #249 remains open. The finite diagonal band
-<code>t ≤ 82</code> and the off-diagonal certificates are finite
-results, not a cofinal supply.</li>
-<li>Erdős #257 remains open. The residue, carry, bit, and late-skip
-criteria are reductions or finite certificates. None proves the required
-cofinal event.</li>
+<li><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #249 remains open. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> diagonal band
+<code>t ≤ 82</code> and the off-diagonal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal supply</a>.</li>
+<li><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> #257 remains open. The residue, carry, bit, and late-skip
+criteria are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>. None proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> event.</li>
 </ul>
-<p>The absence of a correction for a theorem statement means only that
-its Lean type checked. It does not promote a finite measurement to a
-theorem.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">absence</a> of a correction for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> means only that
+its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> type <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>. It does not promote a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurement</a> to a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 </section>
 </section>
   </div>

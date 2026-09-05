@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1041-lemniscate-newton-flow",
-  "title": "Newton Flow and Critical-Value Ray Separation",
+  "title": "Critical-Value Separation and Admissible Hubs",
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 10,
+  "pages": 24,
   "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
   "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
   "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
@@ -20,30 +20,135 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "18eb45e9bb45836b4df89f6b52f9de5d634755db75ba3b9a2431e5daccad0968",
+    "renderer_contract_version": 14,
+    "source_sha256": "73bd294ddf307371a8115200a3e14b27b640e84edeff625e2f08e6f2f688bbae",
     "publication_manifest_match": true,
-    "mathml_node_count": 54,
-    "raw_math_fallback_count": 0,
+    "mathml_node_count": 350,
+    "raw_math_fallback_count": 1,
     "warnings": {
-      "mathml": [],
+      "mathml": [
+        "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+        "\\qquad",
+        "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+        "\\qquad",
+        "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+        "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+        "^",
+        "unexpected control sequence \\over",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
       "mathjax": []
     },
-    "html_mathml_sha256": "4f21422522f8aff6f68ecd5254f09b5ddf9067316e408a6e5235f117cd55ac7e",
-    "html_exact_tex_sha256": "c371a3c30148d0d6a283582b3c3649e34a3bd2a04e914f5e862c55efeb139a8b"
+    "html_mathml_sha256": "3e84eadb826f576c36cf0d91f09e62fc855b3d9516e7c95ee18b7a59a5b2bee9",
+    "html_exact_tex_sha256": "eb55fb5151647187fd6253e27901cebfe66b882ef92e5fb0ce8a5efe4ca3742f"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
       "label": "The problem"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An all-degree critical-value separation theorem"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Three exact solved polynomial families"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Sharp collinear zeros"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The primitive sparse quintic"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Translated cubic quotient fibres"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Shared assurance boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The current frontier: what survives near Fekete configurations"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Near-Fekete stability removes the radial distraction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A bounded-radius concyclic class"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Cyclic trinomial fibres"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Coefficient-controlled cyclic tetranomial spokes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Translated quartic quotient fibres"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The degree-five target is now explicit"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The no-go boundaries force hub selection"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The surviving carrier and the actual open endpoint"
     },
     {
       "level": 2,
@@ -99,11 +204,6 @@
       "level": 2,
       "anchor": null,
       "label": "Statements and declarations"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
     },
     {
       "level": 2,

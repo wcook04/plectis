@@ -7,16 +7,17 @@
   <div class="lean-paper__body" data-source="../../../paper/erdos-257-mersenne-support-subseries.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction and main results</h2>
-<p>See Erdős <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>,
+<p>See Erdős <span class="citation" data-cites="erdos1968"><a href="#ref-9">[9]</a></span>,
 Erdős and Graham <span class="citation"
-data-cites="erdosgraham1980"><a href="#ref-8">[8]</a></span>, and Erdős <span class="citation"
-data-cites="erdos1988"><a href="#ref-9">[9]</a></span>. Bloom’s current catalogue record
+data-cites="erdosgraham1980"><a href="#ref-10">[10]</a></span>, and Erdős <span class="citation"
+data-cites="erdos1988"><a href="#ref-11">[11]</a></span>. Bloom’s current catalogue record
 reproduces the displayed problem and labels it open, while explicitly
 warning that the status is the website owner’s present assessment and
 may omit relevant literature <span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>. We therefore use the catalogue for
+data-cites="erdosproblems"><a href="#ref-12">[12]</a></span>. We therefore use the catalogue for
 numbering and current reported status only; the original publications
-and the later cited papers carry the mathematical claims. Write
+and the later cited papers carry the mathematical claims.</p>
+<p>Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">w_{n}=(2^n-1)^{-1}</annotation></semantics></math>.
 Expanding each weight as a geometric series and interchanging the two
 nonnegative sums gives the coordinate this note works in. With the
@@ -24,12 +25,12 @@ nonnegative sums gives the coordinate this note works in. With the
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mrow><mi mathvariant="normal">sc</mi><mo>&#8289;</mo></mrow><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>n</mi></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">X_A=\sum_{a\in A}\frac1{2^a-1}=\sum_{n\ge1}\frac{\operatorname{sc}_A(n)}{2^n}.
   \tag{1}\label{eq:incidence}</annotation></semantics></math> The
 transform is worth reading carefully, because it is where the arithmetic
-of the problem enters. The datum is a
+of the problem enters. The datum is the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">0/1</annotation></semantics></math>
-selector, the indicator of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
-what appears in  is not that selector but its divisor transform, a
-nonnegative integer sequence bounded by the divisor function,
+indicator of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+Equation  contains its divisor transform, a nonnegative integer sequence
+bounded by the divisor function,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">sc</mi><mo>&#8289;</mo></mrow><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{sc}_A(n)\le d(n)</annotation></semantics></math>.
 So #257 is not a generic question about binary digit sequences.
 Equation  is a power-series representation, not a binary expansion: its
@@ -88,15 +89,16 @@ exact
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
-frontiers. Section  states what remains.</p>
+membership criteria and unresolved branches. Section  states what
+remains.</p>
 </section>
 </section>
 <section id="sec:period" class="level2">
 <h2>Finite-support denominator periods</h2>
-<p>A finite support has a rational value, so for a finite support the
-question is not irrationality but arithmetic: how large the denominator
-is, and how the base sits inside it. Theorem  answers the second exactly
-and, under its stated hypothesis
+<p>A finite support has a rational value. The relevant arithmetic
+questions are the size of its denominator and the position of the base
+within that denominator. Theorem  answers the second exactly and, under
+its stated hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(F)\ge2</annotation></semantics></math>,
 gives a strict lower bound for the first. The omitted boundary is
 genuine: at
@@ -114,7 +116,7 @@ is for:</p>
 <table>
 <thead>
 <tr>
-<th class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math></th>
+<th class="ta-l"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math></p></th>
 <th class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_F(2)</annotation></semantics></math></th>
 <th class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>F</mi></msub><annotation encoding="application/x-tex">D_F</annotation></semantics></math></th>
 <th class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(F)</annotation></semantics></math></th>
@@ -190,7 +192,8 @@ makes the period at most
 immediately; what is not immediate is that cancellation in the numerator
 cannot bring it below. The mechanism is that each selected exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-contributes, by the cyclotomic route, a prime-power modulus dividing
+contributes, through cyclotomic factorisation, a prime-power modulus
+dividing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^{n}-1</annotation></semantics></math>
 on which
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
@@ -233,15 +236,14 @@ support, not a bounded table of examples, and not an implication with an
 open hypothesis; but it settles no infinite support, and no limit of it
 does. Denominator-period control is part of the classical method behind
 Erdős’s 1948 argument <span class="citation"
-data-cites="erdos1948"><a href="#ref-6">[6]</a></span>. Whether this exact sharp form appears in
+data-cites="erdos1948"><a href="#ref-8">[8]</a></span>. Whether this exact sharp form appears in
 the literature has not been assessed, and no novelty is claimed.</p>
 </section>
 <section id="sec:forced" class="level2">
 <h2>Rational values and scaled tails</h2>
-<p>Section  below lists supports for which irrationality is known. This
-section is the other half, and the half that meets Problem  rather than
-sampling it: statements that hold for infinite support whose value is
-rational. The base is
+<p>Section  below lists supports for which irrationality is known. The
+results here instead quantify over infinite support whose value is
+rational, which is the quantifier in Problem . The base is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 throughout, and each statement carries its own hypotheses.</p>
 <section id="integral-scaled-tails-and-unboundedness." class="level5">
@@ -259,8 +261,8 @@ with multiplier
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
 if
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>v</mi><mspace width="0.167em"></mspace><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mo>≥</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="2.0em"></mspace><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">u(n+1)=2u(n)-v\,f(n+1)\quad\text{for every }n\ge0,
-  \qquad\text{and}\qquad u(n)=o(2^{n}).</annotation></semantics></math>
-The recurrence is one step of long division in
+  \qquad\text{and}\qquad u(n)=o(2^{n}).</annotation></semantics></math></p>
+<p>The recurrence is one step of long division in
 base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>:
 double the remainder, then pay out the next coefficient. The growth
 condition is what pins the solution down, since two solutions of the
@@ -283,9 +285,9 @@ being the divisor function — the series
 is rational exactly when a tempered scaled-tail sequence exists for some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">v\ge1</annotation></semantics></math>,
 and every such sequence is then the scaled tail
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>v</mi><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">u(n)=v\sum_{j\ge1}f(n+j)2^{-j}</annotation></semantics></math>,
-so the orbit is unique rather than merely available (). The next theorem
-exhibits such an orbit for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>v</mi><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">u(n)=v\sum_{j\ge1}f(n+j)2^{-j}</annotation></semantics></math>;
+hence exactly one such orbit exists ().</p>
+<p>The next theorem exhibits such an orbit for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>A</mi></msub><annotation encoding="application/x-tex">X_A</annotation></semantics></math>
 itself, with the coefficient sequence shifted past the power of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
@@ -462,8 +464,8 @@ rows classify all known cases.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="ta-l">Support
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></th>
+<th class="ta-l"><p>Support
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></p></th>
 <th class="ta-l"> Bases</th>
 <th class="ta-l"> Mechanism and authority</th>
 </tr>
@@ -480,7 +482,7 @@ rows classify all known cases.</p>
 <td class="ta-l"> every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math></td>
 <td class="ta-l"> Erdős 1948 <span class="citation"
-data-cites="erdos1948"><a href="#ref-6">[6]</a></span>; </td>
+data-cites="erdos1948"><a href="#ref-8">[8]</a></span>; </td>
 </tr>
 <tr>
 <td class="ta-l">multiples of a fixed
@@ -504,7 +506,7 @@ the full-support series at base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math></td>
 <td class="ta-l"><p>; Luca–Tachiya prove the nonnegative
 purely-periodic case <span class="citation"
-data-cites="lucatachiya2017"><a href="#ref-4">[4]</a></span>; finite rational prefixes give the
+data-cites="lucatachiya2017"><a href="#ref-6">[6]</a></span>; finite rational prefixes give the
 infinite eventual case</p></td>
 </tr>
 <tr>
@@ -542,7 +544,7 @@ class="citation" data-cites="lucatachiya2017"></span></td>
 <td class="ta-l"> every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math></td>
 <td class="ta-l"><p>Erdős <span class="citation"
-data-cites="erdos1968"><a href="#ref-7">[7]</a></span>, theorem on p. 222; </p></td>
+data-cites="erdos1968"><a href="#ref-9">[9]</a></span>, theorem on p. 222; </p></td>
 </tr>
 <tr>
 <td class="ta-l"><p></p></td>
@@ -559,7 +561,7 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>q</mi><msup><mo stretchy="false" form="prefix">|</mo><mi>L</mi></msup><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">|q|^L\le s</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L=\operatorname{lcm}(1,\dots,\ell)</annotation></semantics></math></td>
 <td class="ta-l"><p>Duverney–Tachiya <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span>; linear independence, not only
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>; linear independence, not only
 irrationality; not formalised here</p></td>
 </tr>
 <tr>
@@ -584,7 +586,7 @@ changes the value by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">b=2^j</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math></td>
 <td class="ta-l"><p>Duverney–Tachiya <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span>; joint linear independence for
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>; joint linear independence for
 every finite set of such bases; not formalised here</p></td>
 </tr>
 <tr>
@@ -607,7 +609,7 @@ here</p></td>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>
 proved</td>
 <td class="ta-l"> Tao–Teräväinen <span class="citation"
-data-cites="taoteravainen2025"><a href="#ref-3">[3]</a></span>, Thm. 1.3, p. 4; proof pp. 44–56;
+data-cites="taoteravainen2025"><a href="#ref-5">[5]</a></span>, Thm. 1.3, p. 4; proof pp. 44–56;
 not formalised here</td>
 </tr>
 <tr>
@@ -631,23 +633,34 @@ that pairwise coprimality can be removed by a more complicated argument,
 but he does not give that argument; p. 226 repeats that boundary.
 Accordingly the table uses only the fully printed pairwise-coprime
 theorem, not the stronger unproved-in-print extension.</p>
+<p>Under the additional hypothesis that the pairwise-coprime exponents
+are odd, Duverney, Suzuki and Tachiya strengthen this conclusion:
+Corollary 1 gives linear independence of (1) and three associated
+plus/minus reciprocal sums at every integer base of absolute value
+greater than one <span class="citation"
+data-cites="duverneysuzukitachiya2019"><a href="#ref-2">[2]</a></span>. This is a stronger
+conclusion on a narrower support class; it does not remove the
+hypothesis from the row above.</p>
 <p>Five remarks on the table: one on containment between the mechanisms,
 three on the literature rows, and one on what “checked here” means.</p>
+<p>For the full-support row, the weighted certificate theorem is ; the
+support-series formulation displayed in the table is its later
+corollary.</p>
 <p> The
 base-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
 full-support theorem is exactly the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A=\mathbb{N}_{&gt;0}</annotation></semantics></math>
 statement; the multiples rows genuinely specialise it after a base
-change, but the sparse rows do not, and this is not merely an artefact
-of how they were proved. The denominator-gap criterion behind the
-factorial and power-of-two rows reach the full support: the prefix lcm
-grows too slowly for its hypothesis to hold (). Conversely the analytic
-method of <span class="citation" data-cites="taoteravainen2025"><a href="#ref-3">[3]</a></span>
-reaches the primes, which are neither eventually periodic nor pairwise
-coprime with summable reciprocals. No list contains another, and their
-union does not exhaust the infinite supports.</p>
+change, but the sparse rows do not. The distinction is intrinsic: the
+denominator-gap criterion behind the factorial and power-of-two rows
+reach the full support: the prefix lcm grows too slowly for its
+hypothesis to hold (). Conversely the analytic method of <span
+class="citation" data-cites="taoteravainen2025"></span> reaches the
+primes, which are neither eventually periodic nor pairwise coprime with
+summable reciprocals. No list contains another, and their union does not
+exhaust the infinite supports.</p>
 <p>Their refinement of the Chowla–Erdős method  <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span> proves, for a pairwise coprime
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span> proves, for a pairwise coprime
 sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
 of polynomial growth and the set
@@ -668,7 +681,8 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
 bounding the exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-This is a row-generating theorem, not an isolated example: with
+This is a row-generating theorem, not an isolated example.</p>
+<p>With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
 the primes,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">s=\infty</annotation></semantics></math>
@@ -684,7 +698,7 @@ but the free exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
 gives every base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">b=2^j</annotation></semantics></math>.
-Thus this route excludes bases that are not powers of
+Thus this theorem excludes bases that are not powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
 rather than all bases
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">b\ge3</annotation></semantics></math>;
@@ -702,7 +716,7 @@ proves that the binary block
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math>
 occurs infinitely often in its
 base-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-expansion <span class="citation" data-cites="campbell2026"><a href="#ref-1">[1]</a></span>. This
+expansion <span class="citation" data-cites="campbell2026"><a href="#ref-3">[3]</a></span>. This
 adds genuine digit-distribution information to the full-support row, but
 it neither proves normality nor addresses an arbitrary infinite support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
@@ -722,7 +736,7 @@ pinned kernel. For the full support that is a formalisation of Erdős;
 Luca and Tachiya’s RIMS paper already proves the nonnegative
 purely-periodic case; a finite rational-prefix correction gives the
 eventual-periodic extension used here <span class="citation"
-data-cites="lucatachiya2017"><a href="#ref-4">[4]</a></span>, while Theorem A restates the
+data-cites="lucatachiya2017"><a href="#ref-6">[6]</a></span>, while Theorem A restates the
 broader signed purely-periodic theorem without reproducing its earlier
 proof. No priority is claimed anywhere in this table.</p>
 </section>
@@ -782,7 +796,7 @@ their Example 1.1 says that the numbers
   \sum_{n\ge1}\frac{|\mu(n)|}{2^{jn}-1}\quad(1\le j\le h)</annotation></semantics></math>
 are linearly independent over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>
- <span class="citation" data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span>. Since
+ <span class="citation" data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>μ</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|\mu|</annotation></semantics></math>
 is the indicator of the squarefree integers including
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math>,
@@ -942,8 +956,8 @@ and hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mi>C</mi><mo>≥</mo><msup><mi>b</mi><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">qC\ge b^L</annotation></semantics></math>.
 These exhaust the cases. ◻</p>
 </div>
-<p>The two engine-facing nonexistence statements are checked directly as
-and . The displayed proof is retained to expose the empty- and
+<p>The two formal nonexistence statements are checked directly as and .
+The displayed proof is retained to expose the empty- and
 one-position-block boundary cases rather than leaving the scope hidden
 behind the interfaces.</p>
 </section>
@@ -970,7 +984,8 @@ to
 The parity obstruction of Corollary  evaporates under a shift that
 provably cannot change the answer. The shifted coefficient identity and
 the exact equivalence of the two irrationality questions are checked as
-and . More is true: the shifted first-block condition at
+and .</p>
+<p>More is true: the shifted first-block condition at
 base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 asks for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>r</mi></msup><mo>∣</mo><msup><mn>2</mn><mrow><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">2^{r}\mid 2^{\omega(N+r)}</annotation></semantics></math>,
@@ -987,7 +1002,7 @@ supplies such an
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>.
 This is checked both as the arithmetic block theorem and in the
-engine-facing form .</p>
+corresponding formal statement .</p>
 <p>It does follow that either argument certifies the shifted support:
 the opening block is one of the conditions listed above, and the middle
 bound and the arithmetic inequality are untouched by this observation.
@@ -1041,12 +1056,17 @@ and this section is about its geometry.</p>
 is a fat Cantor set: strict tail domination
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><msub><mi>w</mi><mi>ℓ</mi></msub><mo>&lt;</mo><msub><mi>w</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{\ell&gt;n}w_{\ell}&lt;w_{n}</annotation></semantics></math>
 opens a gap at every level, while the total measure is not lost. The
-division of credit is exact. The strict inequality, the resulting
-distinctness of subsums over distinct supports, and the Cantor
-conclusion for every integer base are Remark 4.1 (p. 13) of Kovač and
-Tao <span class="citation" data-cites="kovactao"><a href="#ref-5">[5]</a></span>; no novelty is
-claimed for any of the three. That remark makes no metric assertion, and
-strict tail domination does not determine the measure: the weights
+classical antecedent is Kakeya’s two-page paper: he proves perfectness
+for the subsum set of every absolutely convergent real or complex series
+and gives the real interval criterion; under the present strict tail
+inequality at every index, his result also gives nowhere density <span
+class="citation" data-cites="kakeya1914"></span>. The strict inequality,
+the resulting distinctness of subsums over distinct supports, and the
+Cantor conclusion for every integer base are also recorded in Remark 4.1
+(p. 13) of Kovač and Tao <span class="citation"
+data-cites="kovactao"><a href="#ref-7">[7]</a></span>; no novelty is claimed for any of these
+facts. That remark makes no metric assertion.</p>
+<p>Strict tail domination does not determine the measure: the weights
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>3</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><annotation encoding="application/x-tex">3^{-n}</annotation></semantics></math>
 satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><msup><mn>3</mn><mrow><mi>−</mi><mi>ℓ</mi></mrow></msup><mo>=</mo><msup><mn>3</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>/</mi><mn>2</mn><mo>&lt;</mo><msup><mn>3</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{\ell&gt;n}3^{-\ell}=3^{-n}/2&lt;3^{-n}</annotation></semantics></math>
@@ -1055,7 +1075,8 @@ base-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantic
 digits-in-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{0,1\}</annotation></semantics></math>
 Cantor set. So the measure-one clause is added here rather than
 formalised from there, and it is the arithmetic of the Mersenne weights
-that supplies it. With
+that supplies it.</p>
+<p>With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><msub><mi>w</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">T_n=\sum_{k&gt;n}w_{k}</annotation></semantics></math>,
 the standard
 level-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -1091,10 +1112,10 @@ Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">x\in\mathcal A</annotation></semantics></math>
 if and only if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x\ge0</annotation></semantics></math>
-and the expansion survives every level (). Non-membership of a
-nonnegative target is therefore visible at a single level, and for a
-rational target strict failure can be certified effectively: rational
-upper bounds for the remaining tail converge to
+and the expansion survives every level ().</p>
+<p>Non-membership of a nonnegative target is therefore visible at a
+single level, and for a rational target strict failure can be certified
+effectively: rational upper bounds for the remaining tail converge to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>n</mi></msub><annotation encoding="application/x-tex">T_n</annotation></semantics></math>,
 so once one lies below the rational residual the fatal inequality is
 proved. The finite example below uses an exact rational upper bound. For
@@ -1124,7 +1145,8 @@ of future offsets write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>J</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>∈</mo><mi>J</mi></mrow></msub><msub><mi>w</mi><mrow><mi>n</mi><mo>+</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_J(n)=\sum_{k\in J}w_{n+k+1}</annotation></semantics></math>
 for the tail restricted to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-(, summable at ). Then
+(, summable at ).</p>
+<p>Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>J</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msub><mi>w</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">T_J(n)&lt;w_{n}</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
@@ -1139,7 +1161,8 @@ supported in
 about the subseries itself and not a projection of the full one. Thus
 uniqueness of the selector survives passage to an arbitrary subfamily;
 this is an injectivity statement, not a statement about binary digits of
-the value. That is a constraint on the shape of an argument, not on the
+the value.</p>
+<p>That is a constraint on the shape of an argument, not on the
 supports: it decides no value, and it is weaker than any statement in
 Section .</p>
 <section id="geometry-after-restricting-the-allowed-exponents"
@@ -1154,7 +1177,8 @@ of allowed digit positions. Let
 Formally, the allowed strings form the , which is . Its range is the ;
 the range and image descriptions agree by . Consequently
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒜</mi><mi>J</mi></msub><annotation encoding="application/x-tex">\mathcal A_J</annotation></semantics></math>
-is and . It lies inside
+is and .</p>
+<p>It lies inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>
 by and is therefore . If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
@@ -1223,6 +1247,52 @@ is its value, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><msub><mi>w</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">T_n=\sum_{k&gt;n}w_{k}</annotation></semantics></math>
 as above.</p>
 <p>Checked as , , , , , and .</p>
+<section id="exact-row-transport-at-the-endpoint." class="level5">
+<h5>Exact-row transport at the endpoint.</h5>
+<p>The formal argument exposes the mechanism behind one conditional
+half-membership implication. Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">r_{c-1}</annotation></semantics></math>
+for the rational greedy remainder after ranks through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c-1</annotation></semantics></math>.
+Whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>r</mi><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>&lt;</mo><msub><mi>w</mi><mi>c</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">0&lt;r_{c-1}&lt;w_{c},</annotation></semantics></math></p>
+<p>the skipped-core constructor first turns the finite greedy core into
+an exact local quotient row at endpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2c-2</annotation></semantics></math>,
+. The hard finite step is explicit: the deficit below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+is below the next Mersenne weight, so a Boolean word fills the entire
+upper-half capacity, . The residual cannot vanish at any finite rank, ;
+the odd denominator of every finite positive Mersenne sum rules out
+exact finite exhaustion of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
+If positive skips occur cofinally in the exact sense , their endpoints
+are cofinal by . The row-value estimate makes the discrepancy at
+endpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(n+1)/2^n</annotation></semantics></math>,
+and closedness then places
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>,
+.</p>
+<p>No compatibility between the finite witnesses is assumed. The global
+is in fact reversible.</p>
+<p>This is . Thus cofinal positive skips are not an independently weaker
+hypothesis: proving them already proves the half-membership endpoint,
+while half-membership forces them because finite residuals never vanish.
+Neither side is established here, so the theorem identifies the exact
+obstruction without supplying an unconditional counterexample to
+Problem #257.</p>
+<p>The terminal-only argument first places
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+in the achievement set by the vanishing normalized-carry estimate, then
+uses the finite-support exclusion to show that the limiting support is
+infinite: , . The problem-level refutation is the direct formal
+consequence , .</p>
 <p>The formal source also proves equivalent terminal-bit and unbounded
 skipped-rank formulations in its internal half-cylinder seam coordinate;
 the two middle source links above are those versions. Their definitions
@@ -1231,15 +1301,102 @@ used here. The two sides are asymmetric: non-membership is witnessed by
 a fatal gap and is therefore semi-decidable, whereas membership is an
 infinite condition. Computing further can only raise a lower bound on
 where a fatal gap could occur; it cannot establish survival.</p>
-<p>One natural route to
+<p>The next local obstruction is sharper than a numerical search.
+Suppose a take occurs at rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
+the next take at rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>b</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c&gt;b+1</annotation></semantics></math>,
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><msup><mn>2</mn><mi>b</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q=2^b-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><msup><mn>2</mn><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m=2^{c-1}</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+is the reciprocal of the residual just before the first take, then the
+final intervening skip is dyadically unsafe exactly when</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>q</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>R</mi><mo>&lt;</mo><mfrac><mrow><mi>q</mi><mi>m</mi></mrow><mrow><mi>q</mi><mo>+</mo><mi>m</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{q(m-1)}{q+m-1}&lt;R&lt;\frac{qm}{q+m}.</annotation></semantics></math></p>
+<p>The interval has the exact width
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q^2/((q+m)(q+m-1))</annotation></semantics></math>.
+For a single intervening skip,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>b</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">c=b+2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>2</mn><mi>q</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m=2q+2</annotation></semantics></math>,
+giving the two-thirds band</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>3</mn><mi>q</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>R</mi><mo>&lt;</mo><mfrac><mrow><mn>2</mn><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>3</mn><mi>q</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{q(2q+1)}{3q+1}&lt;R&lt;\frac{2q(q+1)}{3q+2},</annotation></semantics></math></p>
+<p>whose width is below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">1/9</annotation></semantics></math>.
+Thus the band is an exact localization of one greedy danger, not a claim
+that the actual orbit enters it.</p>
+<p>The hard step is genuinely
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-adic.
+The band defect
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mn>6</mn><mi>D</mi><mo>−</mo><mn>2</mn><mi>p</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta=6D-2pq</annotation></semantics></math>
+is positive and divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p,D,q</annotation></semantics></math>
+are odd, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\Delta\ge4</annotation></semantics></math>;
+combining that gap with the band inequalities forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">p&gt;6</annotation></semantics></math>.
+The exact formal boundaries are the general localization , the
+single-skip equivalence , and the sharp numerator conclusion . Integral
+reciprocal states are excluded from the same band by . This is a
+one-step local no-go result: it neither proves that the half-greedy
+orbit reaches or avoids the band nor settles half-membership.</p>
+<p>Two further conditional arguments sharpen the boundary around this
+half-value problem. They are logically distinct from the terminal
+scaled-vanishing question: one seeks irrationality from a structured
+support, while the other would produce a rational counterexample from
+cofinal geometric stages.</p>
+<p>The hard mechanism is the persistent-reduced-modulus averaging
+argument: the selector supplies carries, and the support-series theorem
+turns that supply into irrationality. The exact formal consumers are and
+. The source definition of the selector makes the missing analytic
+obligation explicit at .</p>
+<p>The first identity is the finite divisor partition checked at . The
+hard point is that a composite multiplier can create support divisors
+which are neither the multiplier itself nor old divisors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>;
+they are recorded by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>A</mi></msub><annotation encoding="application/x-tex">\delta_A</annotation></semantics></math>
+rather than silently discarded. The defect vanishes under the
+prime-support hypothesis by , and the corresponding incidence formula is
+. For a bouquet, every non-exceptional foreign divisor injects into a
+unique petal divisor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,
+yielding the displayed budget through and . The correction is concrete
+already for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{2,6\}</annotation></semantics></math>:
+multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x=1</annotation></semantics></math>
+by the composite support element
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>
+creates the additional support divisor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\delta_A(6,1)=1</annotation></semantics></math>
+().</p>
+<p>Thus a composite bouquet cannot be analysed by copying the prime
+formula until this explicit foreign channel has been budgeted. This
+theorem provides that local budget only; it neither bounds defects along
+an infinite orbit nor supplies the uniform tail selector required by
+Theorem .</p>
+<p>The proof first converts each full-cylinder stage into a weaker
+terminal-only strip, then invokes closedness of the half-achievement set
+and the positive-support lift. The exact steps are , , and . This is a
+conditional implication, not evidence that such stages exist; proving or
+refuting their cofinality is the remaining task for this argument.</p>
+<p>One natural construction for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
-is closed. The Boolean support selected by the negative values of the
+is ruled out. The Boolean support selected by the negative values of the
 Möbius function has value exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
 plus the positive Möbius tail, hence at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>63</mn></mrow><annotation encoding="application/x-tex">1/2+1/63</annotation></semantics></math>
 (, ). That closes the sign-truncation construction; it excludes no other
 support.</p>
+</section>
 </section>
 <section id="a-second-rational-target" class="level3">
 <h3>A second rational target</h3>
@@ -1267,8 +1424,8 @@ nontermination only: it does not prove that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
 lies in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>.</p>
-<p>A separate arithmetic module isolates the primitive cone that appears
-in one candidate expansion route. Write
+<p>A separate arithmetic lemma isolates the primitive cone that appears
+in one candidate expansion. Write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒫</mi><mn>23</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><msubsup><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow><mn>2</mn></msubsup><mo>:</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>2</mn><mi>p</mi><mo>+</mo><mn>3</mn><mi>q</mi><mo>=</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal P_{23}(n)=
   \{(p,q)\in\mathbb{N}_{&gt;0}^2:\gcd(p,q)=1,\ 2p+3q=n\}.</annotation></semantics></math>
 Every
@@ -1290,10 +1447,9 @@ not already a Boolean expansion: the missing step is a proof that the
 relevant integer multiplicities can be converted into zero–one
 reciprocal-Mersenne digits without changing the value.</p>
 </section>
-<section id="the-canonical-121-frontier" class="level3">
-<h3>The canonical
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
-frontier</h3>
+<section id="the-scaled-greedy-criterion-at-121" class="level3">
+<h3>The scaled-greedy criterion at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math></h3>
 <p>The finite-support obstruction makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
 useful only if the infinite problem is stated in coordinates that retain
@@ -1301,7 +1457,41 @@ the actual greedy orbit. Let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>N</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">greedyMersenneRemainder</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>21</mn><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r_N=\operatorname{greedyMersenneRemainder}(1/21,N)</annotation></semantics></math>
 be the real remainder after rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
-and let
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>N</mi></msub><mo>=</mo><msup><mn>2</mn><mi>N</mi></msup><msub><mi>r</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">y_N=2^Nr_N</annotation></semantics></math>,
+and set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mfrac><msup><mn>2</mn><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msup><mrow><msup><mn>2</mn><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">c_{N+1}=\frac{2^{N+1}}{2^{N+1}-1}.</annotation></semantics></math>
+The scaled recurrence is a nearly doubling map: it sends
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>N</mi></msub><annotation encoding="application/x-tex">y_N</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>y</mi><mi>N</mi></msub><mo>−</mo><msub><mi>c</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">2y_N-c_{N+1}</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><mn>2</mn><msub><mi>y</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">c_{N+1}\le2y_N</annotation></semantics></math>,
+and to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>y</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">2y_N</annotation></semantics></math>
+otherwise. The latter is the exact lower branch, so rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math>
+is skipped precisely when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>y</mi><mi>N</mi></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">2y_N&lt;c_{N+1}</annotation></semantics></math>.</p>
+<p>The trap-set equality is , the escape theorem is , and the
+bounded-cofinal-return equivalence is . The escape proof locates a fatal
+rank at which the residual exceeds the complete remaining tail by some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta&gt;0</annotation></semantics></math>.
+That excess persists, so the scaled residual is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mi>δ</mi></mrow><annotation encoding="application/x-tex">2^N\delta</annotation></semantics></math>
+thereafter. This is the hard step in the reverse bounded-return
+implication: an orbit with even one bounded cofinal subsequence cannot
+lie outside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>.</p>
+<p>The general rational criterion is , and its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
+specialization is . The hard direction uses the rational normal form:
+membership is equivalent to infinitely many omitted exponents, and a
+skip is exactly a lower-separatrix crossing. This is an exact
+reformulation, not a proof that the crossings occur. It asks for neither
+convergence nor a prescribed uniform bound.</p>
+<p>The quotient coordinate gives a complementary classification of what
+nonmembership would have to look like. Let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><msup><mn>2</mn><mi>N</mi></msup><mn>21</mn></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>−</mo><msub><mi>P</mi><mi>N</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">Q_N=\left\lfloor\frac{2^N}{21}\right\rfloor-P_N,</annotation></semantics></math>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>N</mi></msub><annotation encoding="application/x-tex">P_N</annotation></semantics></math>
@@ -1317,9 +1507,9 @@ proves an exact identity relating
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><msub><mi>r</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">2^Nr_N</annotation></semantics></math>
 and a finite-prefix divisor tail ().</p>
-<p>The sharper route works directly with the
+<p>A finer denominator-specific coordinate works directly with the
 denominator-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>21</mn><annotation encoding="application/x-tex">21</annotation></semantics></math>
-greedy orbit. At even depth
+quotient-greedy orbit. At even depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">2R</annotation></semantics></math>,
 write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>D</mi><mi>R</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mrow><mi mathvariant="normal">twentyOneEvenQuotientGreedySupport</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>s</mi><mi>R</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mrow><mi mathvariant="normal">twentyOneEvenQuotientGreedyRemainder</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -1413,11 +1603,11 @@ Contradicting its forced eventual affine-supercapacity recurrence or
 producing arbitrarily deep closed canonical rows would suffice. Neither
 input is known, and neither is promoted to an equivalence.</p></li>
 </ol>
-<p>The half-value question remains valid on both sides; the frontier at
+<p>The half-value question remains valid on both sides; the criterion at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
 is at present the sharper of the two. The questions below refine that
-frontier and the arithmetic interfaces around it, and are ranked by how
-directly an answer would move the checked boundary.</p>
+criterion and the arithmetic constraints around it, in order of how
+directly an answer would move the proved boundary.</p>
 <p>A contradiction from a Lyapunov function, a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-adic
 obstruction, a divisibility theorem or a recurrence classification would
@@ -1430,9 +1620,10 @@ would prove
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn><mo>∉</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/21\notin\mathcal A</annotation></semantics></math>.
 Constructing only an abstract affine orbit with adversarial pulses does
 neither.</p>
-<p>This is not merely sufficient: it is equivalent to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/21\in\mathcal A</annotation></semantics></math>
-(). It asks for neither convergence, a prescribed
+<p>This condition is both necessary and sufficient. It is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">x=1/21</annotation></semantics></math>
+specialization of the general membership equivalence in Theorem  (). It
+asks for neither convergence, a prescribed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
 a global bound nor bounded return gaps. Two concrete stronger targets
 are cofinal recurrence of
@@ -1478,7 +1669,7 @@ would strengthen the lead theorem and feed height information back into
 Problem .</p>
 <p>For scope, all squarefree values at power-of-two bases, jointly in
 each finite family, are settled by Corollary 1.2 and Example 1.1 of
- <span class="citation" data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span>
+ <span class="citation" data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>
 (Corollary ). Their cited corollary does not cover bases that are not
 powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
@@ -1492,15 +1683,16 @@ linked Lean snapshot is authoritative only for its exact propositions;
 kernel checking establishes that a proposition was proved, not that it
 is interesting, novel, or sufficient. The displayed proof of Corollary ,
 the derivation of Corollary  from  <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-2">[2]</a></span>, and the general finite-change
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>, and the general finite-change
 argument (from the two checked prefix lemmas) are expository arguments
-rather than named checked statements. The squarefree no-go interfaces,
-shifted coefficient, shift equivalence, Chinese-remainder block supply,
-and restricted-selector injectivity are directly checked statements
-linked at their use; they are not prose-only claims. The numerical
-instances — the table of finite supports in Section , the incidence and
-zero-window examples, the reciprocal-mass and Boolean–Möbius instances,
-the
+rather than named checked statements.</p>
+<p>The squarefree no-go interfaces, shifted coefficient, shift
+equivalence, Chinese-remainder block supply, and restricted-selector
+injectivity are directly checked statements linked at their use; they
+are not prose-only claims.</p>
+<p>The numerical instances — the table of finite supports in Section ,
+the incidence and zero-window examples, the reciprocal-mass and
+Boolean–Möbius instances, the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3/4</annotation></semantics></math>
 certificate, and the greedy expansion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
@@ -1510,26 +1702,21 @@ level <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semant
 Results attributed to Campbell, to Duverney and Tachiya, to Tao and
 Teräväinen, to Luca and Tachiya, and to Kovač and Tao are cited from the
 literature and are not formalised here.</p>
-<section id="declaration-of-generative-ai-use." class="level5">
-<h5>Declaration of generative AI use.</h5>
-<p>Every word of this manuscript was generated by agents based on large
-language models operating within Will Cook’s private research system for
-artificial intelligence. The formal proofs and repository software were
-likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority. Formal authority is
-the pinned kernel’s acceptance of an exact proposition; no model output
-carries any, and neither does this sentence.</p>
 <p>Erdős Problem #257 remains open.</p>
-</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>J. M. Campbell, <a href="https://arxiv.org/abs/2605.24160"><em>On
+<li id="ref-1"><p>S. Kakeya, <a
+href="https://doi.org/10.11429/ptmps1907.7.14_250"></a>, Proc. Tokyo
+Math.-Phys. Soc., 2nd ser., <strong>7</strong> (1914), 250–251. The
+perfectness theorem and the real tail criterion are on p. 251.</p></li>
+<li id="ref-2"><p>D. Duverney, Y. Suzuki and Y. Tachiya, <a
+href="https://arxiv.org/abs/1908.07290"></a>, arXiv:1908.07290, 2019.
+Corollary 1 gives the stated sparse reciprocal-sum linear independence
+under the pairwise-coprime, odd-support and reciprocal-summability
+hypotheses.</p></li>
+<li id="ref-3"><p>J. M. Campbell, <a href="https://arxiv.org/abs/2605.24160"><em>On
 the binary digits of the Erdős–Borwein constant</em></a>,
 arXiv:2605.24160v1, 2026. Theorem 1 on p. 12 proves that the binary
 block
@@ -1538,7 +1725,7 @@ occurs infinitely often in the
 base-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 expansion of the full-support value; its proof occupies
 pp. 12–24.</p></li>
-<li id="ref-2"><p>D. Duverney and Y. Tachiya, <a
+<li id="ref-4"><p>D. Duverney and Y. Tachiya, <a
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
@@ -1552,7 +1739,7 @@ Example 1.1 gives the joint squarefree family at all bases
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>.
 Both are on p. 4 of the linked author preprint; the proof is on
 pp. 9–11.</p></li>
-<li id="ref-3"><p>T. Tao and J. Teräväinen, , arXiv:2512.01739 (submitted December
+<li id="ref-5"><p>T. Tao and J. Teräväinen, , arXiv:2512.01739 (submitted December
 2025, revised April 2026). Theorem 1.3 proves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><msub><mo>∑</mo><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>p</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}</annotation></semantics></math>
 irrational, settling the prime-support case of #257 at
@@ -1560,20 +1747,20 @@ base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semanti
 the extension to every integer base and the prime-power support are
 stated as remarks with the modifications left to the reader. The theorem
 is on p. 4 and its proof is Section 5, pp. 44–56, in arXiv v2.</p></li>
-<li id="ref-4"><p>F. Luca and Y. Tachiya, <a
+<li id="ref-6"><p>F. Luca and Y. Tachiya, <a
 href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"></a>,
 RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A on p. 139 explicitly
 restates their earlier Theorem 1.1 for nonzero purely periodic integer
 weights. Theorem 1 is on p. 139, its examples are on p. 140, and its
 proof is on pp. 149–150.</p></li>
-<li id="ref-5"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), 572–608, <a
+<li id="ref-7"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Remark 4.1
 (p. 13) records the strict tail inequality and the Cantor structure.
 Theorem 2.3 (p. 5; proof pp. 13–14) constructs rational merged sums from
 several bases under its mass hypothesis; it is not a fixed-base
 counterexample.</p></li>
-<li id="ref-6"><p>P. Erdős, , J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
-<li id="ref-7"><p>P. Erdős, <a
+<li id="ref-8"><p>P. Erdős, , J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
+<li id="ref-9"><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf"></a>, Math. Student
 36 (1968), 222–226 (issued 1969). The theorem on p. 222 treats
 pairwise-coprime support with convergent reciprocal sum at every integer
@@ -1581,13 +1768,13 @@ base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>;
 the claimed removal of pairwise coprimality is stated without
 proof.</p></li>
-<li id="ref-8"><p>P. Erdős and R. L. Graham, <a
+<li id="ref-10"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 62.</p></li>
-<li id="ref-9"><p>P. Erdős, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
+<li id="ref-11"><p>P. Erdős, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
 doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-10"><p>T. F. Bloom, <a
+<li id="ref-12"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/257"><em>Erdős Problem
 #257</em></a>, <code>erdosproblems.com/257</code>, accessed 28 July 2026
 (page displays “last edited 15 April 2026”). The current record labels

@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-68-factorial-denominator-irrationality",
-  "title": "Factorial Carries and Finite Channel Obstructions",
+  "title": "Factorial-Channel Obstructions and Exact Orbit Boundaries",
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 20,
+  "pages": 24,
   "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
   "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
   "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 13,
-    "source_sha256": "7a79a936a41e08af7c2267cecd994e4a7fa9ffd21ef602fc77df91b6e0763ecf",
+    "renderer_contract_version": 14,
+    "source_sha256": "6004f99a7a651ce3c417de64481cb4e61435d48d9d663c39c4c10329218df4b3",
     "publication_manifest_match": true,
-    "mathml_node_count": 445,
+    "mathml_node_count": 520,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "5e6ba873b2484fcb615a2980aa4a94a0ba5ec39bb5f5ab27b13a45d2cdcd9165",
-    "html_exact_tex_sha256": "972255d71bb84bffaf3d7e262e411dcac46ea98448c340547c313b27494d3452"
+    "html_mathml_sha256": "53d6ba4f28a948d3f100804fcdfec214140cab0e2e0ca824e2724eed8b473b0d",
+    "html_exact_tex_sha256": "3431799ba9bb2ca4dd02b1b85d4b2f2fde4194caeea6685d49877ff7451714e8"
   },
   "sections": [
     {
@@ -66,6 +66,11 @@
       "label": "Zero plateaux, first exit, and denominator bounds"
     },
     {
+      "level": 3,
+      "anchor": null,
+      "label": "Why the adjacent-unit window is circular"
+    },
+    {
       "level": 2,
       "anchor": null,
       "label": "Weighted projection rigidity"
@@ -73,7 +78,12 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "What the returns rule out"
+      "label": "A fixed companion-orbit coordinate"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Limits of fixed-coordinate arguments"
     },
     {
       "level": 2,
@@ -83,7 +93,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "The missing cofinal inputs"
+      "label": "Open problems"
     },
     {
       "level": 3,
@@ -116,14 +126,14 @@
       "label": "Statements and declarations"
     },
     {
-      "level": 5,
-      "anchor": null,
-      "label": "Declaration of generative AI use."
-    },
-    {
       "level": 2,
       "anchor": null,
       "label": "Guide to the formal sources"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Source-current companion orbit and Comparator routes."
     },
     {
       "level": 2,
