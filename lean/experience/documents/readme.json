@@ -14,7 +14,7 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "05cae5db948344f5d3a1dfd54baafde3e47b11e16c41ef1cc5b3af250f966d20",
+    "source_sha256": "f55906199f415e3049d3b8a72dc94f1622847f31d159d3c560d4db1b7e6b928a",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 14,
     "publication_manifest_match": true,
@@ -25,8 +25,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "aa2a4d3c9127024ba6060e32f5f1f29e38126d0d5b0e50cabb8b58becaa30883",
-    "html_exact_tex_sha256": "66c25bca03f699426c40688c07d2b57d5929ea63cecadfd8193f26c34ff16d9a"
+    "html_mathml_sha256": "293477e4300068524412496fd2b5153c8b5e57496f0d9fe6a758cde23279ab27",
+    "html_exact_tex_sha256": "d5afd73892edb32427d3f00c7b51be1057579bb83e087763fb4eb797a21ec3dc"
   },
   "sections": [
     {
@@ -68,6 +68,11 @@
       "level": 2,
       "anchor": null,
       "label": "Following a result into Lean"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Further in"
     },
     {
       "level": 2,

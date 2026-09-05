@@ -204,6 +204,33 @@ topic, start with the [source map](docs/SOURCE_MAP.md); it gives the module
 order without asking you to decode Lean declaration names first.
 <!-- END generated_principal_declaration_anchors -->
 
+## Further in
+
+If the mathematics has held your attention this far, there is more behind
+it, and you can go as deep as you like.
+
+The whole repository is also a website,
+[wcook04.github.io/plectis](https://wcook04.github.io/plectis/): the eight
+problems as pages, every paper readable in the browser with its PDF and LaTeX
+source beside it, and a glossary that explains the vocabulary on hover. The
+[Will Cook page](https://wcook04.github.io/) is the shorter front door to the
+same work.
+
+The mathematics was produced inside a private research system built with
+coding agents. Two public parts of that system are open. The
+[Plectis repository](https://github.com/wcook04/plectis) holds 88 small tools
+taken from it, each stating one claim, taking one fixed input, running one
+local check and writing a receipt you can read; its
+[paper](https://wcook04.github.io/plectis/maths/papers/plectis-public-system.html)
+says what a stranger can and cannot conclude from such a check. Three
+[recorded videos](https://wcook04.github.io/plectis/#demo-videos) show the
+private frontend itself, in one-, five- and thirty-minute cuts. They are
+demonstrations, not validation records.
+
+Down that rabbit hole: the component map, the agent workflows the system runs
+on, and how a claim of finished work is read against the evidence before it
+counts. None of it is needed to read or continue the mathematics above.
+
 ## Where I actually am
 
 [Where I actually am](HUMAN_ENTRY.md#where-i-actually-am) says who wrote this and

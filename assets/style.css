@@ -5737,3 +5737,73 @@ p.muted a:not(.narrative-ref):focus-visible {
 /* Paper gets book margins. The print sheet above sets the ink; this sets the
    page so a printed article does not run edge to edge. */
 @page { margin: 16mm 15mm 20mm; }
+
+/* Front-door regroup (2026-09-05). The wider system sits inside one fold,
+   "Down the rabbit hole". Its three bands keep their own section identity
+   (their ids are inbound targets) but give up the page-level wrap and the
+   band padding, since they now sit inside a wrapped fold body. */
+.section--nested { padding: 1.5rem 0 0.5rem; border-top: 1px solid var(--rule); }
+.fold__body > .section--nested:first-of-type { border-top: 0; padding-top: 0.25rem; }
+.fold__body > .section--nested .fold__summary-main { margin-bottom: 0; }
+
+/* The problem picker reuses the paper-row grammar (meta line, serif title,
+   question), scoped by its own class so the two lists stay in step. One link
+   per row: the title. The row hover says the row is one destination. */
+.landing-problems .link-row { grid-template-columns: minmax(0, 1fr); row-gap: 0.15rem; }
+.landing-problems .paper-row__meta {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.5rem;
+  font-family: var(--font-sans); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--faint);
+}
+.landing-problems .paper-row__meta > * + *::before { content: "\00b7"; margin-right: 0.5rem; color: var(--rule); }
+.landing-problems .paper-row__subject { color: var(--ink-soft); font-weight: 600; }
+.landing-problems .link-row strong {
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.14rem; line-height: 1.28;
+  letter-spacing: -0.005em; color: var(--ink); text-wrap: pretty;
+}
+.landing-problems .link-row strong a { color: inherit; text-decoration: none; }
+.landing-problems .link-row:hover strong a,
+.landing-problems .link-row strong a:focus-visible { text-decoration: underline; text-underline-offset: 0.18em; }
+.landing-problems .link-row .desc { max-width: 62ch; margin-top: 0.15rem; font-size: var(--fs-body); line-height: 1.62; text-wrap: pretty; }
+
+/* Contribute rows: title + one line, no routes cell, exogenous gold on the title. */
+#contribute .link-row { grid-template-columns: minmax(0, 1fr); row-gap: 0.15rem; }
+#contribute .link-row strong { font-size: 1.05rem; }
+#contribute .link-row[data-link-kind="exogenous"] strong a { color: var(--link-ext); }
+#contribute .link-row[data-link-kind="exogenous"] strong a::after { content: " \2197"; font-size: 0.85em; }
+
+/* The check-a-result rows inside Limits. */
+.boundaries__check-title { margin: 1.6rem 0 0.4rem; font-size: 1.05rem; font-weight: 600; }
+
+/* Fold header repairs (2026-09-05). The focus ring belongs on the control, not
+   around the whole summary: after a mouse click some browsers keep
+   :focus-visible on <summary>, which drew a large outlined box around the
+   heading and gist. A cue placed directly in the summary grid must not stretch
+   to the rail's width either. */
+.fold__summary:focus-visible { outline: none; }
+.fold__summary:focus-visible .fold__cue { outline: 2px solid var(--accent); outline-offset: 3px; }
+.fold__summary > .fold__cue { justify-self: start; align-self: start; }
+
+/* Paper rows and problem rows share one grammar at every width: the meta line,
+   a serif title and the question in a reading column, with the routes in a
+   narrow rail at the top right. The lists run wider than the reading measure so
+   a title holds one line and the meta line never breaks; under 640px the routes
+   drop beneath the question. */
+#papers .link-rows, .landing-problems { max-width: 880px; }
+#papers .fold__body { max-inline-size: 880px; }
+#papers .link-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 2rem; row-gap: 0.2rem; align-items: start;
+  padding: 1.05rem 0.6rem;
+}
+#papers .link-row .paper-row__meta { grid-column: 1; grid-row: 1; }
+#papers .link-row strong { grid-column: 1; grid-row: 2; }
+#papers .link-row .desc { grid-column: 1; grid-row: 3; }
+#papers .link-row .go { grid-column: 2; grid-row: 1 / span 3; align-self: start; justify-self: end; padding-top: 0.1rem; }
+#papers .paper-row__meta > *, .landing-problems .paper-row__meta > * { white-space: nowrap; }
+.landing-problems .link-row { padding: 1.05rem 0.6rem; }
+@media (max-width: 640px) {
+  #papers .link-row { grid-template-columns: minmax(0, 1fr); }
+  #papers .link-row .go { grid-column: 1; grid-row: 4; justify-self: start; margin-top: 0.35rem; }
+  #papers .paper-row__meta > *, .landing-problems .paper-row__meta > * { white-space: normal; }
+}

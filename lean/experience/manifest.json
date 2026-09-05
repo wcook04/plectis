@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "acdbe1d0288798963b52cf824c0e0cb1813228acb8b4b02151924ec195649534",
+  "source_fingerprint": "44f59141c42755b063c9532ad2938797997db2abf8f2e10093a6ef26d8f0df6c",
   "authority_model": {
     "universe": "Lean source and its import/argument graph",
     "overlays": [
@@ -33,7 +33,7 @@
     "graph_edges": 3482
   },
   "source_identity": {
-    "lean_manifest": "e1e853c4984a1bdb1a73a197c8fdb99f85859ed440e986278753c7b3b1875567",
+    "lean_manifest": "3e7c94becdee9e8e09ffb087e5d69019fa0fbbe1a7b63615780fdc8a5985a9e0",
     "paper_manifest": "53186aec5e7a20a3571b53e989742e1bef9ca5980e0446651489a45ef38eb2f8",
     "claims": "06461897813ae89686bd7b05ad7eaeffd65a6dc542cf15b00acdd371b57f846a",
     "problems": "669ae15671ac204f882a855679cf6b73c767b57b296239762cb77d6a781ac908",
