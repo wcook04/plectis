@@ -252,17 +252,15 @@
     try { id = decodeURIComponent(raw.slice(1)); } catch (e) { id = raw.slice(1); }
     var target = doc.getElementById(id);
     if (!target) return null;
+    /* Open only the disclosures the target is nested inside, outermost
+       included. A link to a section means the section: it must not open the
+       section's own first disclosure on the reader's behalf, which is how
+       "How the project works" used to unfold a twelve-paper list. */
     var detail = target.closest && target.closest('details');
     while (detail) {
       detail.open = true;
       var parent = detail.parentElement;
       detail = parent && parent.closest ? parent.closest('details') : null;
-    }
-    var section = target.closest && target.closest('section');
-    if (section) {
-      var fold = null;
-      try { fold = section.querySelector(':scope > details.fold'); } catch (e) {}
-      if (fold) fold.open = true;
     }
     return target;
   }

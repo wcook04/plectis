@@ -5807,3 +5807,38 @@ p.muted a:not(.narrative-ref):focus-visible {
   #papers .link-row .go { grid-column: 1; grid-row: 4; justify-self: start; margin-top: 0.35rem; }
   #papers .paper-row__meta > *, .landing-problems .paper-row__meta > * { white-space: normal; }
 }
+
+/* Purpose-first landing (2026-09-06). The hero lost its right-hand map, so the
+   lead column takes the whole measure; the eight problems are a compact
+   two-column list of titles (the question lives on each problem page); the
+   three public parts and the further-reading rows reuse the link-row grammar. */
+.hero__layout--single { grid-template-columns: minmax(0, 1fr); }
+.hero__layout--single .hero__copy--lead { max-width: 760px; }
+.section--tail { padding-top: 0; }
+.section__note { max-width: var(--prose); color: var(--muted); font-size: var(--fs-body); text-wrap: pretty; }
+.public-work .link-row,
+.further-reading .link-row { row-gap: 0.15rem; }
+.public-work .paper-row__meta {
+  font-family: var(--font-sans); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--faint);
+}
+.public-work .link-row strong { font-family: var(--font-serif); font-weight: 600; font-size: 1.14rem; line-height: 1.28; }
+.public-work .link-row strong a { color: inherit; text-decoration: none; }
+.public-work .link-row:hover strong a,
+.public-work .link-row strong a:focus-visible { text-decoration: underline; text-underline-offset: 0.18em; }
+.public-work .link-row .desc { max-width: 62ch; }
+.further-reading .link-row { grid-template-columns: minmax(0, 1fr); }
+.further-reading .link-row strong { font-size: 1.05rem; }
+.landing-problems--compact { max-width: var(--prose); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; }
+.landing-problems--compact .link-row { padding-block: 0.7rem; }
+.landing-problems--compact .link-row strong { font-size: 1.05rem; line-height: 1.3; }
+@media (max-width: 640px) { .landing-problems--compact { grid-template-columns: minmax(0, 1fr); } }
+.demo-block { max-width: var(--prose); }
+.demo-block__title, .specimen-block__title { margin: 1.4rem 0 0.4rem; font-size: 1.15rem; font-weight: 600; }
+.demo-block__lede, .specimen-block__lede { color: var(--muted); text-wrap: pretty; }
+.specimen-block { max-width: var(--prose); }
+.specimen__depth--receipt { margin-top: 1rem; }
+.specimen__depth--receipt > summary { cursor: pointer; font-weight: 600; }
+.review-receipt__log-label { margin-top: 1rem; }
+.ai-questions--open { margin-top: 1.2rem; }
+.fold[data-fold-tone="quiet"] { margin-top: 1.4rem; }

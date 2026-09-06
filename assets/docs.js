@@ -4797,12 +4797,12 @@
 })();
 
 /* Landing folds: reveal the target before the browser jumps to it.
-   Every block below the hero is a <details> whose closed state is a one-line
-   compression, which means an in-page link can otherwise land on collapsed
-   content and look like a dead control -- the hero's own calls to action point
-   at #claim-loop, #papers and #ai-handoff, and #help / #check / #put-to-test
-   sit inside fold bodies. Opening happens during the click, before the default
-   jump, so the anchor still lands in the right place. */
+   A few landing blocks sit inside a <details> (the full AI packet, the
+   component's command and receipt), so an in-page link can otherwise land on
+   collapsed content and look like a dead control. Opening happens during the
+   click, before the default jump, so the anchor still lands in the right
+   place. Only the disclosures the target is nested inside are opened: a link
+   to a section means the section, never its first disclosure. */
 (function () {
   'use strict';
 
@@ -4818,12 +4818,6 @@
       node.open = true;
       var parent = node.parentElement;
       node = parent && parent.closest ? parent.closest('details') : null;
-    }
-    // Linking to a folded section means the fold itself, not something in it.
-    var section = target.closest ? target.closest('section') : null;
-    if (section) {
-      var own = section.querySelector(':scope > details.fold');
-      if (own) own.open = true;
     }
     return target;
   }

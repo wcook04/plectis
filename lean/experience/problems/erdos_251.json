@@ -203,13 +203,13 @@
     "target_status": "open",
     "problem_statement": "Prove irrationality of the dyadic series built from consecutive prime gaps.",
     "strongest_theorem": {
-      "claim_id": "erdos251.polynomial_shift_countermodel",
-      "title": "exact polynomial shift countermodel eliminating coarse-gap strategies",
-      "statement": "The explicit digit word g(n) = 2(n^2 + 4n + 2) and the explicit rational orbit T(n) = 2(n + 4)^2 satisfy the dyadic tail recurrence T(N + 1) = 2 T(N) - g(N + 1) at every index. The word is positive, even and strictly increasing, hence unbounded and nonperiodic; every fixed tail shift T(N + h) - T(N) is an integer for every h and every N; and every difference of consecutive digits past the first term is at least fourteen, so it is never 2 or -2. The construction is an exact countermodel, and it eliminates every argument that would force the adjacent small-mismatch producer out of positivity, parity, polynomial growth, unboundedness, nonperiodicity, the dyadic recurrence and integrality at every fixed shift taken together. The mechanism is that an integer-valued quadratic orbit turns all-shift integrality into a polynomial identity over the integers while the word has constant second difference, so its adjacent differences grow linearly and clear the small window from the outset. The readers are number theorists working on the irrationality of the dyadic prime-gap series; priority for the construction has not been assessed. The orbit is not the actual consecutive-prime-gap orbit, so the theorem does not decide Erdős Problem 251.",
-      "altitude": "no_go",
-      "band": "P",
+      "claim_id": "erdos251.free_pair_equivalence",
+      "title": "Free-pair lattice and the equivalence of irrationality with cofinal free-pair nonintegrality",
+      "statement": "(F) with converse: for any integer-digit dyadic tail recurrence, at and beyond an odd-denominator state with reduced denominator d, T_M - T_N is an integer iff N == M mod orderOf(2 : ZMod d); the offset M - N is free. Every rational-valued orbit therefore has a cutoff N0 and a positive modulus t with T_M - T_N in Z iff M == N mod t beyond N0 (exists_free_pair_lattice), in particular the rational candidate tail of every proposed rational value S of the prime-gap series. (P) is formalised as CofinalFreePairNonintegral T: for every t > 0 and every cutoff there are N, M beyond the cutoff with N == M mod t and T_M - T_N not an integer. Lean proves Irrational (T 0) <-> (P) for every real integer-digit dyadic tail orbit, that (P) is equivalent to the fixed-offset criterion CofinalNonintegralTailShifts, and, with the real tail primeGapRealTail N = 2^(N+1) sum_k g_(k+N+1)/2^(k+N+2) satisfying the recurrence with the actual prime gaps as digits and primeGapRealTail 0 = 2S - 1, that Irrational S <-> CofinalFreePairNonintegral primeGapRealTail for the actual consecutive-prime-gap series S.",
+      "altitude": "equivalence",
+      "band": "C",
       "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification251PolynomialShiftCountermodel"
+      "public_entry": null
     },
     "strongest_longitudinal_theorem": null,
     "live_obstruction": "The remaining producer is the cofinal adjacent small mismatch, that for each fixed h at least 1 and every N0 there is an index N at least N0 at which T(N+h) - T(N) and T(N+h+1) - T(N+1) both lie strictly between -1 and 1 while g(N+h+1) differs from g(N+1).",
@@ -223,8 +223,10 @@
     },
     "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. The explicit ration…",
     "failed_approaches": [
-      "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
-      "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
+      "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n^2+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch. This refutes the proposal that those properties suffice; the density measurement over 6,841,648 primes shows the event does occur in the actual primes, so the countermodel does not transfer to them.",
+      "Bounded additive perturbation invariance: raising every gap by at most M while preserving its residue modulo M and any prescribed prefix already makes the sum rational, so no size-and-residue gap theorem invariant under that perturbation can suffice.",
+      "Data-dependent affine cylinder escape and its fixed-lattice replacement: both are proved equivalent to the non-eventual-integrality they were introduced to derive, so neither is an independent producer.",
+      "State compression by word repetition alone: the margin is recorded so the lane is not re-walked, and the exchanged-summation bound makes equal-tail pairs abundant for free, which leaves nonintegrality as the whole difficulty.",
       "Liouville-flavoured attacks: the certified expansion has irrationality-exponent witness 2.0007."
     ],
     "public_entry_ids": [

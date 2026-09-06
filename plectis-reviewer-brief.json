@@ -13,13 +13,13 @@
   "decision_briefs",
   "reviewer_diligence_ladder"
  ],
- "source_fingerprint": "2da5bf8da234c4af1ba9d3c3a4f468e77fb61c005b8074c54a9ad3b6e21c98a2",
+ "source_fingerprint": "b93bbabc586fa7fad468defc01f5b7d9228abec88704bdf975937c98dcef8489",
  "canonical_public_identity": {
   "schema": "plectis_canonical_public_identity_v1",
   "project_name": "Plectis",
   "artifact_name": "Plectis AI review packet",
   "canonical_repository": "https://github.com/wcook04/plectis",
-  "formal_mathematics_repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+  "formal_mathematics_repository": "https://github.com/wcook04/plectis-erdos",
   "legacy_technical_namespace": "microcosm",
   "one_project": "Microcosm became Plectis. There is no second product, no fork and no predecessor still running: one project, renamed, with its old identifier kept where changing it would break something.",
   "where_the_old_identifier_is_still_correct": [
@@ -1013,7 +1013,7 @@
       "negative_case": true,
       "scope_limit": "It establishes that the named propositions type-check as written, under the permitted axioms, at one commit. It checks propositions only: no paper deduction, cited theorem or external computation. It is not peer review, not a novelty assessment, and not evidence that any of the eight problems is solved -- all eight remain open.",
       "command": "python3 scripts/replay_external_verification.py run --source-commit <commit> --source-tree <tree>",
-      "read_it_at": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md",
+      "read_it_at": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md",
       "source_routes": [
        "lean_corpus_facts.external_verification"
       ]

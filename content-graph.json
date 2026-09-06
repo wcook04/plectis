@@ -141849,7 +141849,7 @@
       "status": "active",
       "term_kind": "person",
       "used_in": {
-        "page_count": 3,
+        "page_count": 2,
         "top_page": "papers.html",
         "top_pages": [
           {
@@ -141858,14 +141858,10 @@
           },
           {
             "count": 1,
-            "page": "area-formal-math.html"
-          },
-          {
-            "count": 1,
             "page": "source.html"
           }
         ],
-        "total_occurrences": 86
+        "total_occurrences": 85
       },
       "visible_text_byte_count": 950
     },
@@ -141910,7 +141906,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 4,
+        "page_count": 5,
         "top_page": "papers.html",
         "top_pages": [
           {
@@ -141923,6 +141919,10 @@
           },
           {
             "count": 1,
+            "page": "area-formal-math.html"
+          },
+          {
+            "count": 1,
             "page": "coding-agents.html"
           },
           {
@@ -141930,7 +141930,7 @@
             "page": "index.html"
           }
         ],
-        "total_occurrences": 9
+        "total_occurrences": 10
       },
       "visible_text_byte_count": 1113
     },
@@ -147215,7 +147215,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           },
           {
-            "count": 60,
+            "count": 59,
             "page": "area-formal-math.html"
           },
           {
@@ -147223,7 +147223,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1019
+        "total_occurrences": 1017
       },
       "visible_text_byte_count": 1094
     },
@@ -271063,24 +271063,24 @@
     },
     "erdos": {
       "by_page": {
-        "area-formal-math.html": 1,
         "papers.html": 84,
         "source.html": 1
       },
-      "page_count": 3,
+      "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 86
+      "total_occurrences": 85
     },
     "erdos_problem": {
       "by_page": {
+        "area-formal-math.html": 1,
         "coding-agents.html": 1,
         "index.html": 1,
         "papers.html": 5,
         "tour.html": 2
       },
-      "page_count": 4,
+      "page_count": 5,
       "top_page": "papers.html",
-      "total_occurrences": 9
+      "total_occurrences": 10
     },
     "error": {
       "by_page": {
@@ -275379,9 +275379,9 @@
         "architecture.html": 10,
         "area-agent-reliability.html": 1,
         "area-entry.html": 1,
-        "area-formal-math.html": 60,
+        "area-formal-math.html": 59,
         "area-import-drift.html": 2,
-        "coding-agents.html": 3,
+        "coding-agents.html": 2,
         "component-annex-knowledge-routing.html": 1,
         "component-batch4-proof-authority-runtime.html": 1,
         "component-batch5-authority-systems-capsule.html": 1,
@@ -275454,7 +275454,7 @@
       },
       "page_count": 75,
       "top_page": "reference.html",
-      "total_occurrences": 1019
+      "total_occurrences": 1017
     },
     "lean_kernel": {
       "by_page": {
