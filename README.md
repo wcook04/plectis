@@ -4,25 +4,29 @@
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [The Plectis paper (PDF)](plectis-public-system.pdf) ·
 [Paper guide](docs/papers/README.md) ·
-[Lean companion](https://github.com/wcook04/plectis-lean-erdos249-257) ·
+[Mathematics companion](https://github.com/wcook04/plectis-erdos) ·
 [Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md) ·
 [All public work](https://wcook04.github.io/)
 
-**Plectis publishes 88 runnable mechanisms from a working AI-native research and
-engineering runtime** — formal proof, agent reliability and safety, research and
-forecasting, projection-drift control, validators, work landing, and continuity.
-Each is a public, executable component that names the code it runs, the evidence
-class its result stands on, and the authority ceiling where that result stops.
+**Plectis is a public Python toolkit of 88 mechanisms taken from the research
+and engineering system I built with AI coding agents.** That system exists so
+that work done with AI can be understood, checked and continued; these are the
+parts of it a stranger can run. They cover formal-proof workflows, checks on
+agent work, research and forecasting replays, keeping public copies consistent
+with their source, validators, work landing, and recovering unfinished work.
+Each component names the code it runs, the evidence its result stands on, and
+the point where that result stops.
 
 It is also a local tool. Point it at a project and it reads the code, picks a
-route through it, and writes an inspectable record beside it. That record is how
-you check a mechanism against what it claims — the accountability layer, not the
-product.
+route through it, and writes an inspectable record beside it. That record is
+how you check a mechanism against what it claims: the accountability layer,
+not the product.
 
-It runs entirely on your machine: no network or model calls, and it never
-changes the source files it reads.
+The tour below runs entirely on your machine, makes no network or model calls,
+and never changes the source files it reads. Some components run external tools
+such as git, pytest or Lean; each says so on its own page.
 
 Two commands, no install, any Python 3.11 or newer:
 
@@ -43,19 +47,22 @@ why the corpus is built the way it is: every component has to leave evidence a
 separate check can read, because the author's own confidence is not the thing
 being offered.
 
-The companion Lean repository,
-[plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
-contains the Lean source and papers for eight open Erdős problems: #68, #243,
-#249, #251, #257, #269, #1041, and #1049. All eight remain open. Plectis carries the runnable
-claim-checking tools; the Lean repository carries the machine-checked
-mathematics. Neither repository establishes anything about the private
-development environment from which the public work was prepared.
+The companion mathematics repository,
+[plectis-erdos](https://github.com/wcook04/plectis-erdos) (formerly
+`plectis-lean-erdos249-257`; the old address redirects), contains the Lean
+source, papers, recorded failed approaches and continuation workflows for eight
+open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. All
+eight remain open. A mathematics task needs only that repository; a software
+task needs only this one. The recorded walkthroughs on the
+[website](https://wcook04.github.io/plectis/#demo-videos) show the private
+interface itself. The three share one origin; each is assessed from its own
+evidence, and none of them establishes the reliability of the private system.
 
 For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
 For a mathematical problem or result, start with the
-[Lean repository README](https://github.com/wcook04/plectis-lean-erdos249-257#readme)
+[Lean repository README](https://github.com/wcook04/plectis-erdos#readme)
 and its per-problem map of strongest checked results,
-[RESULTS.md](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md),
+[RESULTS.md](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md),
 then choose its problem-specific paper. Read
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
 for the boundary between a Lean theorem and a public claim about that theorem.
@@ -239,7 +246,7 @@ read.
 | Verify a specific claim before trusting it | `comprehend --first-action` | The owning component, its authority ceiling, and the command that tests it. |
 | Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for the eight open Erdős problems named above. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-erdos) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for the eight open Erdős problems named above. |
 | Watch it being used rather than read about it | [Demo videos](https://wcook04.github.io/plectis/#demo-videos) | Recorded walkthroughs of the system in use, on the website. |
 | Click through the corpus instead of cloning | [Component browser](https://wcook04.github.io/plectis/docs/components.html) · [Paper browser](https://wcook04.github.io/plectis/docs/papers.html) | The same 88 components and the paper corpus as browsable pages, no install. |
 | Hand the whole thing to a reviewer or a model at once | [Review packet](https://wcook04.github.io/plectis/plectis-ai-review-packet.json) · [reader digest](https://wcook04.github.io/plectis/plectis-ai-reader-digest.json) | One 14.4 MB JSON carrying the public cross-section for a single reading pass; the digest is the smaller cut for pasting. |
@@ -344,7 +351,7 @@ The **Formal Math & Proof** area above includes bounded examples drawn from a
 separate Lean repository. That repository owns the proof source and
 mathematical exposition:
 
-[**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-lean-erdos249-257)
+[**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-erdos)
 contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
 #1041, and #1049**. All eight remain open. Its README gives the statement, checked frontier,
 and remaining obligation for each problem. The pinned Lean kernel checks the
@@ -357,20 +364,20 @@ ships: `make check` rejects proof placeholders, project-defined axioms, native
 evaluation, unsafe/partial declarations, and unbounded kernel limits before
 the broader test suite runs.
 
-- [**Read the strongest checked results, problem by problem**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md):
+- [**Read the strongest checked results, problem by problem**](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md):
   one entry per problem — the strongest checked statements with exact Lean
   anchors, what each does not establish, and the surviving obligation beside
   it. All eight problems remain open.
-- [**Choose a problem paper**](https://github.com/wcook04/plectis-lean-erdos249-257#problem-papers):
+- [**Choose a problem paper**](https://github.com/wcook04/plectis-erdos#problem-papers):
   the companion README lists one short paper for each covered problem and
   states the checked frontier beside it.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/6843a666b2d8db78d41738697532d5ffbc46af55):
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/6843a666b2d8db78d41738697532d5ffbc46af55):
   the recorded public source snapshot contains 1,023 Lean modules and 151,085
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
   mathematical claims; `v0.9.0` remains the tagged citation anchor.
-- [**Release v0.9.0**](https://github.com/wcook04/plectis-lean-erdos249-257/releases/tag/v0.9.0):
+- [**Release v0.9.0**](https://github.com/wcook04/plectis-erdos/releases/tag/v0.9.0):
   the tagged, citable scholarly artefact and citation anchor.

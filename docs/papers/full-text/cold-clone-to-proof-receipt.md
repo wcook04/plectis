@@ -8,25 +8,47 @@
 
 </div>
 
-A large formal library can be mechanically exact and still be practically unreadable to the next human or reasoning agent. This paper presents a repository architecture that separates first-contact comprehension from proof checking. At the audited revision, a cold clone exposes a bounded six-line tour, a mathematical map of ten programmes, a reviewed public claim map with five explicit open propositions, and an elaborated loaded-root reference graph joined to source coordinates. These are committed navigation products: they require no Lean build and make omissions and authority boundaries explicit. The inventory behind them spans 1,019 Lean modules and 153,253 declarations; 503 of those modules and 8,171 of those declarations are explicitly marked machine-generated certificate shards, counted as formal source and never as separate mathematical claims. The marked figures are a classification floor, not the generated share: large emitted families predate the markers, so the true machine-generated share is substantially higher.
+A large formal library can be mechanically exact and still be practically unreadable to the next human or reasoning agent. This paper presents a repository architecture that separates first-contact comprehension from proof checking. At the audited revision, a cold clone exposes a public proof cockpit that composes checkout and toolchain identity, corpus scale, exact open propositions, problem obligations, and committed workbench receipts. Beneath that card sit a bounded six-line tour, a mathematical map of ten programmes, a reviewed public claim map with five explicit open propositions, and an elaborated loaded-root reference graph joined to source coordinates. These are committed navigation products: they require no Lean build and make omissions and authority boundaries explicit. The inventory behind them spans 1,019 Lean modules and 153,253 declarations; 503 of those modules and 8,171 of those declarations are explicitly marked machine-generated certificate shards, counted as formal source and never as separate mathematical claims. The marked figures are a classification floor, not the generated share: large emitted families predate the markers, so the true machine-generated share is substantially higher.
 
-Navigation does not receive proof authority. A session notary records an agent’s observations, falsifiable conjectures, abandoned routes, exact Lean probes, and claims. Probe verdicts come from the pinned Lean process and cannot be authored by the agent; claims must cite an accepted probe, and replay reruns the stored bytes. Compilation is similarly separated from orientation. Lake outputs and content traces support focused or changed-cone builds, while an exact cached receipt prevents an unchanged dependency-index check from repeating a full environment export. A dogfood session records six reasoning notes, one accepted probe, and two claims, and its probe replays at the audited revision.
+Navigation does not receive proof authority. A session notary records an agent’s observations, falsifiable conjectures, abandoned routes, exact Lean probes, and claims. Probe verdicts come from the pinned Lean process and cannot be authored by the agent; claims must cite an accepted probe, and replay reruns the stored bytes. Compilation is similarly separated from orientation. Lake outputs and content traces support focused or changed-cone builds, while an exact cached receipt prevents an unchanged dependency-index check from repeating a full environment export. A recorded case study contains six reasoning notes, one accepted probe, and two claims, and its probe replays at the audited revision.
 
-The contribution is an authority-preserving composition of exhaustive inventory, selective interpretation, bounded intent routing, receipted reasoning, and incremental validation. It is not an autonomous theorem prover, a portability study, or evidence that the agent’s reasoning was optimal or mathematically novel outside the repository history.
+The architecture combines five functions without confusing their roles: complete inventory, selective interpretation, short intent-based routes, recorded reasoning, and incremental validation. It is not an autonomous theorem prover, a portability study, or evidence that the agent’s reasoning was optimal or mathematically novel outside the repository history. It is a prototype audited in the author’s environment. As of 31 August 2026, no completed external cold-clone use had been recorded.
+
+<div class="center">
+
+<div class="minipage">
+
+------------------------------------------------------------------------
+
+**What this paper establishes**
+
+**Result.** A cold clone exposes the library’s complete declaration inventory, reviewed mathematical routes, public claim boundaries, and exact source links before Lean is built. Accepted proof probes are issued by the pinned Lean process and can be replayed byte for byte. **Evidence.** The audited repository contains 1,019 modules and 153,253 declarations; the paper includes a replayed session case study. **Limit.** This is a single-environment prototype with no recorded external cold-clone use.
+
+</div>
+
+</div>
 
 <a id="sec:problem"></a>
 
 # The cold-clone problem
 
+<div id="cold-clone-problem">
+
+</div>
+
 The first interaction with a large Lean repository is usually a filesystem. The reader sees source files, generated files, scripts, papers, and build configuration, but not the shape of the mathematics. A language model can search filenames and text, yet those operations do not answer the questions that matter: Which programmes exist? Which propositions are established, conditional, finite, or open? Where does a declaration sit in the formal dependency graph? Which surface is exhaustive, and which is a human selection? What may be trusted without compiling anything?
 
-This is not only a convenience problem. When an agent cannot see a library’s option surface, it tends to rediscover existing lemmas, confuse a finite result with its open unbounded neighbour, or build a new local index because the existing one was not discoverable. Conversely, loading every declaration, paper, and proof edge into one prompt destroys the distinctions the extra context was meant to reveal. A useful first-contact surface must therefore be small, expandable, and honest about what it omits.
+Poor first-contact navigation changes the mathematics an agent attempts. An agent that cannot see a library’s option surface may rediscover existing lemmas, confuse a finite result with its open unbounded neighbour, or build a new local index because the existing one was not discoverable. Loading every declaration, paper, and proof edge into one prompt destroys the distinctions the extra context was meant to reveal. A useful first-contact surface must therefore be small, expandable, and honest about what it omits.
 
 The [development studied here](https://github.com/wcook04/plectis-lean-erdos249-257) indexes eight open Erdős problems. Problems 249 and 257 are the two principal reviewed programmes; Problems 68, 243, 251, 269, 1041, and 1049 are problem-owned expansion lanes with their own notes and explicit nonclaims. The corpus concentrates its depth around a small number of hard frontiers: exact separation equivalences for Problem 249, a machine-checked rational countermodel agreeing with the totient’s parity at every index, and quotient-greedy classifications for Problem 257, with obstruction theorems recorded beside the routes they close. The generated certificate shards named in the abstract sit underneath these results as checked finite evidence, not beside them as further claims. The design goal is not to replace reasoning with a fixed pipeline. It is to let a capable reader see enough structure to reason well, while reserving mathematical authority for the pinned proof kernel.
 
+The paper first separates the repository’s four navigation layers and then shows how a bounded tour expands into exact source and dependency routes. Sections <a href="#sec:authority" data-reference-type="ref" data-reference="sec:authority">4</a> and <a href="#sec:incremental" data-reference-type="ref" data-reference="sec:incremental">5</a> mark the transition from navigation to kernel authority and explain the incremental validation path. Section <a href="#sec:dogfood" data-reference-type="ref" data-reference="sec:dogfood">6</a> gives a replayed case study; the remaining sections compare related systems and state the limits of transfer.
+
+This paper owns the navigation and validation case study. The wider [claim-transition lifecycle](../mirror/claim-faithful-publication-systems-paper.pdf#nameddest=systems-lifecycle) is described in the systems paper, while the [contribution protocol](../mirror/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol) specifies how an outsider returns a change. These links lead to named destinations in the sibling PDFs rather than to page numbers.
+
 <a id="sec:layers"></a>
 
-# A layered mathematical option surface
+# Four views of the mathematical library
 
 No single graph can serve all readers without hiding an important distinction. The repository therefore commits four related layers (Figure <a href="#fig:layers" data-reference-type="ref" data-reference="fig:layers">1</a>). They are projections with different coverage contracts, not successive claims of understanding.
 
@@ -35,9 +57,9 @@ No single graph can serve all readers without hiding an important distinction. T
 <figcaption>The navigation layers. The dependency index and semantic graph are different partial views of the exhaustive atlas; neither is presented as a complete interpretation.</figcaption>
 </figure>
 
-<a id="exhaustive-inventory."></a>
+<a id="complete-inventory."></a>
 
-#### Exhaustive inventory.
+#### Complete inventory.
 
 The declaration atlas is a source-derived address book. It records every live declaration that its explicit source roots contain. Exhaustiveness here means that a reader can locate a declaration, not that the system understands its mathematical role.
 
@@ -47,11 +69,11 @@ The declaration atlas is a source-derived address book. It records every live de
 
 The dependency index loads the two supported compact roots, extracts direct constant references from elaborated types and values, and joins those constants to atlas coordinates. It reports unresolved rows and edges instead of silently treating absence as independence. Its graph is exact for the loaded environment and stated edge relation, but it is not a transitive proof explanation.
 
-<a id="tiered-mathematical-interpretation."></a>
+<a id="authored-mathematical-interpretation."></a>
 
-#### Tiered mathematical interpretation.
+#### Authored mathematical interpretation.
 
-The semantic graph contains authored statement nodes, typed relations, and an exact source-structural floor. At the audited revision all 143,098 authored theorem-like declarations are linked. Of these, 139,753 (97.7%) participate in authored mathematical interpretations: 3,265 are exact proposition evidence and 136,488 are bounded contextual links to digest- or module-verified families. The remaining 3,345 are grouped only by exact source module and normalised Lean proposition signature. That lower tier is useful navigation, not a mathematical paraphrase. Keeping the tiers visible prevents exhaustive linkage or bulk helper assignment from being misreported as exhaustive direct understanding. A paper-seeded population query continues to rank exact live citations whose best route is structural rather than authored.
+The semantic graph contains authored statement nodes, typed relations, and an exact source-structural floor. At the audited revision all 143,410 authored theorem-like declarations are linked. Of these, 139,772 (97.5%) participate in authored mathematical interpretations: 3,284 are exact proposition evidence and 136,488 are bounded contextual links to digest- or module-verified families. The remaining 3,638 are grouped only by exact source module and normalised Lean proposition signature. That lower tier is useful navigation, not a mathematical paraphrase. Keeping the tiers visible prevents exhaustive linkage or bulk helper assignment from being misreported as exhaustive direct understanding. A paper-seeded population query continues to rank exact live citations whose best route is structural rather than authored.
 
 <a id="reviewed-public-claims."></a>
 
@@ -61,9 +83,11 @@ The claim map selects 101 results for public exposition. It records 37 as proved
 
 <a id="sec:tour"></a>
 
-# A bounded tour over an unbounded drilldown
+# A short tour with exact follow-up queries
 
-The first command returns a six-line card rather than a database dump. It derives corpus scale, formal-graph scale and misses, the authority boundary, the eight-problem map, the open frontier, and the available intent classes from the committed projections. The full packet uses a registry-scaled budget: 18 kB of base context plus 2 kB per indexed problem, hence 34 kB for the present eight-problem registry. It expands the card into a mathematical map, status counts, reader-specific contracts, and typed follow-up commands.
+The public entry command is `python3 scripts/proof_cockpit.py`. Its compact card combines the checkout, pinned toolchain, corpus scale, exact open frontier, problem-local obligations, recorded workbench outcomes, and the next typed commands. Every field comes from the public clone. No private task ledger, provider trace, memory, or operator state is required. The cockpit is an observation and routing surface: even its `--check` mode runs public structural checks, not Lean, and cannot promote a navigation result or workbench note into a theorem.
+
+The underlying tour command returns a six-line card rather than a database dump. It derives corpus scale, formal-graph scale and misses, the authority boundary, the eight-problem map, the open frontier, and the available intent classes from the committed projections. The full packet uses a registry-scaled budget: 18 kB of base context plus 2 kB per indexed problem, hence 34 kB for the present eight-problem registry. It expands the card into a mathematical map, status counts, reader-specific contracts, and typed follow-up commands.
 
 Five intent lenses cover the main transitions:
 
@@ -85,7 +109,11 @@ The packet also answers four different cold readers. A research mathematician ge
 
 <a id="sec:authority"></a>
 
-# Crossing from navigation to authority
+# From navigation to proof authority
+
+<div id="cold-clone-authority">
+
+</div>
 
 The architecture treats navigation and proof as separate capabilities (Figure <a href="#fig:sequence" data-reference-type="ref" data-reference="fig:sequence">2</a>). A static query may nominate a theorem or dependency path. It cannot establish that a proposed application typechecks, that a proof closes a goal, or that an English interpretation is mathematically faithful.
 
@@ -114,7 +142,7 @@ This is intentionally conservative. The receipt does not claim that the environm
 
 <a id="sec:dogfood"></a>
 
-# Dogfood receipt
+# A replayed case study
 
 The committed prospective session is a naturalistic use of the workbench, not a synthetic benchmark. The ledger contains six reasoning notes, one kernel-accepted probe, and two claims bound to that probe. It produced a binary carry-pivot normal form for numeral-adjacent boundary words and an exact divisor-incidence identity that sharpens a previously landed one-sided coefficient bound to equality. At the audited revision, replay reruns the stored probe and returns the same accepted verdict.
 
@@ -136,11 +164,31 @@ Large-library maintenance supplies the relevant compilation lesson. *Growing Mat
 
 Lean Atlas narrows the declarations whose meaning can affect selected theorem statements and leaves semantic verification to people \[leanatlas\]. That is close to the authority distinction here: formal dependency can focus human inspection without deciding intended meaning. The cold-clone tour adds a front-door contract across exhaustive inventory, selective semantics, public claims, and agent receipts.
 
+<a id="sec:return"></a>
+
+# From a proof receipt to a public return
+
+<div id="cold-clone-return-lifecycle">
+
+</div>
+
+A proof receipt closes only the validation job. It does not say whether a claim record, paper, computation, open frontier, query route, or contributor surface has become stale. The clone therefore continues through an explicit sequence: invoke a bounded route with `mine-open-problem`; continue, suspend, or close the research run at its stated stopping condition; validate the stable delta; classify its downstream consumers with `propagate-research-consequences`; package the evidence and provenance with `erdos-research-return`; and prepare the proposed upstream change with `submit-pull-request`. Pushing a branch or opening the pull request still requires the contributor’s authorisation.
+
+The sequence is deliberately independent of the agent harness. A contributor may use Codex, Claude Code, Cursor, another runner, ordinary scripts, or no agent. The shared contract is the starting commit, changed source, evidence, claim ceiling, surviving limitation, consequence dispositions, and stop or re-entry condition. A suspended run can therefore be resumed without being misreported as either failure or proof.
+
+The starting commit also permits work from an older clone to survive current development. Git retains the common ancestor and hence the original delta. Maintainers first reproduce that delta in its stated context, then reconcile the reviewed substance with current main. Validation and consequence propagation are repeated on the integration delta. Material conflict resolution is recorded and credited as new work; the contributor’s original authorship is preserved. The complete governance sequence appears in the [companion contribution protocol](../mirror/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol), while the wider job map appears in the [systems lifecycle](../mirror/claim-faithful-publication-systems-paper.pdf#nameddest=systems-job-lifecycle).
+
 <a id="sec:limits"></a>
 
 # Limits and transfer conditions
 
+<div id="cold-clone-limits">
+
+</div>
+
 This is a case study of one repository at one audited revision. Its projection schemas and routing engine are reusable mechanisms, but another project must supply its own source roots, programme map, claim vocabulary, frontier statements, and authority owners. The paper gives no evidence that a new project can adopt the architecture cheaply or that agents using it outperform agents with an ordinary README.
+
+The audit was author-operated. No external contributor had yet completed the tour, attempted the documented return path, or reported where the first-contact explanation failed. Cold-clone usability and maintainer burden are therefore open empirical questions, not properties established by the internal replay.
 
 Counts describe artifact coverage, not mathematical understanding. Direct dependency edges are not proof explanations. Authored semantic nodes may be wrong or incomplete. Maintainer-reviewed claims may also be wrong; automation preserves recorded relationships but does not judge unrestricted prose.
 
@@ -150,41 +198,35 @@ Finally, the first full project build and the first elaborated graph export rema
 
 <a id="sec:conclusion"></a>
 
-# Authority-preserving agent entry
+# What the architecture guarantees
 
-An agent-native formal repository should not merely contain many proofs. It should reveal, from a cold clone, what mathematics exists, what each navigation layer knows, what remains open, and which next action crosses into proof authority. The architecture here realises that sequence with committed projections, a bounded intent tour, exact loaded-root dependency data, a session notary, focused builds, and cache-bound validation receipts.
+An agent-native formal repository needs to reveal, from a cold clone, what mathematics exists, what each navigation layer knows, what remains open, and which next action crosses into proof authority. The architecture here realises that sequence with committed projections, a public proof cockpit, a bounded intent tour, exact loaded-root dependency data, a session notary, focused builds, and cache-bound validation receipts.
 
 The central design choice is separation. Comprehension comes before compilation; nomination comes before application; reasoning notes remain distinct from kernel verdicts; exhaustive routing remains distinct from selective interpretation; and a public claim remains distinct from the formal statement it describes. Those boundaries let a capable agent move quickly without making speed look like authority.
 
 <a id="app:repro"></a>
 
-# Reproduction routes
+# How to reproduce the audit
 
-<a id="declaration-of-generative-ai-use."></a>
+The public repository commits the tour, route, projections, workbench session, and validators used in this paper. The shortest reproduction route has four bounded tasks.
 
-#### Declaration of generative AI use.
+<a id="orient-without-compiling-lean."></a>
 
-Every word of this manuscript was generated by agents based on large language models operating within Will Cook’s private research system for artificial intelligence. The formal proofs and repository software were likewise drafted and revised by the agents through that system under Cook’s direction. Cook set the objectives and acceptance criteria, selected and reviewed the public claims, and approved the published version. Cook assumes responsibility for the accuracy, interpretation, and presentation of the work. Generative systems are production tools, not authors, and supply no independent authority.
-
-The public repository commits the tour, route, projections, workbench session, and validators used in this paper. The shortest reproduction route has three bounded tasks.
-
-<a id="orient-without-elaborating-lean."></a>
-
-#### 1. Orient without elaborating Lean.
+#### 1. Orient without compiling Lean.
 
 These commands inspect committed projections only:
 
 <div class="routeblock">
 
-python3 scripts/query_corpus.py –tour –format card python3 scripts/query_corpus.py –route agent_native_corpus_navigation python3 scripts/query_corpus.py –search \<ordinary-language-query\> python3 scripts/query_semantic.py inventory \<candidate-name\> –limit 1 python3 scripts/check_cold_clone_comprehension.py –quick
+python3 scripts/proof_cockpit.py –check python3 scripts/query_corpus.py –tour –format card python3 scripts/query_corpus.py –route agent_native_corpus_navigation python3 scripts/query_corpus.py –search \<ordinary-language-query\> python3 scripts/query_semantic.py inventory \<candidate-name\> –limit 1 python3 scripts/check_cold_clone_comprehension.py –quick
 
 </div>
 
-The full tour packet is obtained by omitting the format flag. A declaration name returned by inventory can be expanded into a direct neighbourhood or bounded proof cone.
+The cockpit check validates the public claim registry, cold-clone contract, and generated-orientation freshness; it does not run Lean. The full tour packet is obtained by omitting the format flag. A declaration name returned by inventory can be expanded into a direct neighbourhood or bounded proof cone.
 
-<a id="cross-into-proof-authority."></a>
+<a id="check-a-proof."></a>
 
-#### 2. Cross into proof authority.
+#### 2. Check a proof.
 
 Beginning formal work enters the notary and then the focused builder:
 
@@ -194,9 +236,9 @@ python3 scripts/proof_workbench.py open –help python3 scripts/lean_fast_build.
 
 </div>
 
-<a id="audit-dependency-index-reuse."></a>
+<a id="check-reuse-of-the-dependency-index."></a>
 
-#### 3. Audit dependency-index reuse.
+#### 3. Check reuse of the dependency index.
 
 The ordinary check may reuse an exact cache receipt; the full check bypasses it:
 
@@ -207,6 +249,20 @@ python3 scripts/test_lean_dependency_index_cache.py python3 scripts/build_lean_d
 </div>
 
 The first ordinary check after a cold clone may perform the full export; a matching restored Lake cache can carry the exact receipt. The full-check form always bypasses it.
+
+<a id="inspect-the-return-lifecycle."></a>
+
+#### 4. Inspect the return lifecycle.
+
+The clone-local owners can be read without installing them globally:
+
+<div class="routeblock">
+
+cat skills/mine-open-problem/SKILL.md cat skills/propagate-research-consequences/SKILL.md cat skills/erdos-research-return/SKILL.md cat skills/submit-pull-request/SKILL.md python3 scripts/test_clone_skills.py python3 scripts/test_contribution_entry.py
+
+</div>
+
+These commands inspect and test the route. They do not push a branch, open a pull request, accept a contribution, or alter mathematical status.
 
 <div class="multicols">
 
