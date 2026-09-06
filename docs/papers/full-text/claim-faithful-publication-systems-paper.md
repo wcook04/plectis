@@ -56,7 +56,7 @@ The [public repository studied here](https://github.com/wcook04/plectis-lean-erd
 
 #### The novelty claim and its ceiling.
 
-This paper does not claim to have invented agents, queues, file locks, theorem graphs, Lean checking, pull requests, or credit records. Its candidate contribution is an executable *claim-transition architecture*. It models reasoning, mutation, validation, interpretation, publication, and review as separately scarce and separately authorised operations. The operations are recombined only at explicit fan-in gates. The same machinery carries proofs, counterexamples, no-gos, and unresolved obligations while preserving their different evidence classes. Crucially, a local failure may alter the next agent’s route, context, lease, experiment, or validator, but never the truth status of a mathematical statement. The related-work section compares this chain with neighbouring systems along stated dimensions; that comparison is bounded to the cited versions and is neither a priority claim nor an independent evaluation.
+This paper does not claim to have invented agents, queues, file locks, theorem graphs, Lean checking, pull requests, or credit records. Its candidate contribution is an executable *claim-transition architecture*. It models reasoning, mutation, validation, interpretation, publication, and review as separately scarce and separately authorised operations. The operations are recombined only at explicit fan-in gates. The same machinery carries proofs, counterexamples, no-gos, and unresolved obligations while preserving their different evidence classes. Crucially, a local failure may alter the next agent’s route, context, lease, experiment, or validator, but never the truth status of a mathematical statement.
 
 Four status words are used deliberately. *Implemented* means source and an executable check or receipt exist. *Projection* means a generated view over more authoritative records. *Inactive* means implemented machinery was not running at the reported snapshot. *Hypothesis* means a proposed experiment, not a reported capability. Thus the router, work leases, corpus maps, Lean gates, Comparator, review-selection records, and release checks are implemented; dashboards and graph views are projections; the resident maintenance daemon was inactive at one recorded snapshot; and mass frontier-model mining or training on the no-go graph remain hypotheses.
 
@@ -357,7 +357,7 @@ Comparator therefore answers: “Does the proof-bearing corpus still implement t
 
 ## Review selection, and what the Palomar registry is not
 
-Comparator’s roster is an evidence inventory, not a ranking. A local review-selection layer adds the missing editorial step. It groups declarations into result families, ranks them by mathematical signal, keeps the hard mechanism and surviving boundary adjacent, and selects a small review portfolio. A qualification check can say that the local packet satisfies its structural requirements. Its records are kept under a Palomar-named showcase file because selected families may then be submitted to the external Palomar registry of Lean-verified mathematics. The two must not be confused. Palomar’s own documentation describes mechanical proof checks and automated editorial filtering; it performs no human peer review and does not rank the significance of a result. Local readiness, external registration, and human mathematical review are three separate events, and none of them is acceptance.
+Comparator’s roster is an evidence inventory, not a ranking. A local review-selection layer adds the missing editorial step. It groups declarations into result families, ranks them by mathematical signal, keeps the hard mechanism and surviving boundary adjacent, and selects a small review portfolio. A qualification check can say that the local packet satisfies its structural requirements. Its records sit under a Palomar-named showcase file because selected families may then be submitted to the external Palomar registry of Lean-verified mathematics. Palomar’s own documentation describes mechanical proof checks and automated editorial filtering; it performs no human peer review and does not rank significance. Local qualification, registry inclusion, and human mathematical review are different events. None, by itself, establishes broad acceptance or significance within the mathematical community.
 
 This separation matters under proof abundance. Counting theorems rewards generated volume and routine closure. The local selection instead asks which result changes the mathematical picture, which conditional route is closest to an endpoint, which obstruction prevents wasted work, and which explanation will help an expert assess the claim. The ranking may guide attention; it cannot alter proof status.
 
@@ -368,8 +368,6 @@ This separation matters under proof abundance. Counting theorems rewards generat
 After formal proof and statement reconciliation, a result may enter an authored paper, a claim record, a Comparator packet, and a local review unit. Each is a separate projection with a separate ceiling. A public release is made only after the Lean build and the release-surface checks pass, and publication remains a human action.
 
 The return path is equally important. A proof failure may improve a formalisation heuristic. A counterexample may close a family of tempting routes. A reviewer objection may require a narrower public claim. A release drift may create a stronger check. Those lessons propagate to the smallest durable owner—a theorem, experiment record, skill, standard, route, or claim boundary. They do not rewrite raw intent, generated views, or mathematical status by implication.
-
-This places the repository inside a longer mathematical lifecycle: candidate, proof, exact checking, exposition, independent assurance, publication, expert digestion, and eventual community canonicalisation \[taoai\]. The system directly supports the early and middle stages. It can prepare later stages but cannot award them to itself.
 
 <a id="from-formal-checking-to-mathematical-use"></a>
 
@@ -467,10 +465,10 @@ A reader can keep those limits straight by asking, for any capability named in t
 
 | Kind of support | Example | What may be said |
 |:---|:---|:---|
-| Executable check | Validation of a session or return against required fields and source identity; a Comparator interface match | The program checks the stated conditions on the stated inputs |
-| Agent workflow instruction | The discovery and stewardship responsibilities in a public skill | The workflow directs the agent to perform these tasks; it does not show that every agent did |
-| Mathematical judgement | Whether a result expresses the intended mathematics or improves on prior work | A named assessment is required; structural agreement between source, record, and prose is not one |
-| External outcome | Another researcher reproduces, adopts, corrects, or builds on the work | An actual external event must be recorded; none is implied by the architecture |
+| Executable check | A session or return validated against required fields and source identity; a Comparator interface match | The program checks the stated conditions on the stated inputs |
+| Agent workflow instruction | The discovery and stewardship responsibilities in a public skill | The workflow directs the agent; it does not show that every agent complied |
+| Mathematical judgement | Whether a result expresses the intended mathematics or improves on prior work | A named assessment is required; agreement between source, record, and prose is not one |
+| External outcome | Another researcher reproduces, adopts, corrects, or builds on the work | A recorded external event is required; the architecture implies none |
 
 </div>
 
