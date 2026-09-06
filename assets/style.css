@@ -5812,8 +5812,8 @@ p.muted a:not(.narrative-ref):focus-visible {
    lead column takes the whole measure; the eight problems are a compact
    two-column list of titles (the question lives on each problem page); the
    three public parts and the further-reading rows reuse the link-row grammar. */
-.hero__layout--single { grid-template-columns: minmax(0, 1fr); }
-.hero__layout--single .hero__copy--lead { max-width: 760px; }
+.hero__map-repos { margin: 0.9rem 0 0 0.55rem; font-size: var(--fs-meta); color: var(--muted); }
+.hero__map-repos a { color: var(--link-ext); }
 .section--tail { padding-top: 0; }
 .section__note { max-width: var(--prose); color: var(--muted); font-size: var(--fs-body); text-wrap: pretty; }
 .public-work .link-row,
