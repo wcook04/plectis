@@ -3,7 +3,7 @@
   "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
   "observed_at": "2026-08-17",
   "upstream": {
-    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "repository": "https://github.com/wcook04/plectis-erdos",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
     "public_ref": "6843a666b2d8db78d41738697532d5ffbc46af55",

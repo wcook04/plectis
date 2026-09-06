@@ -220,16 +220,14 @@ def _check_readme_first_screen(root: Path, mode: str, report: dict[str, Any]) ->
     # system, two public demonstrations), so each mode admits exactly its
     # sibling. Compare exact owner/repo slugs, not substrings
     # (plectis-lean-... must not pass as plectis).
-    own_slug = (
-        "wcook04/plectis"
-        if mode == "python_research_tool"
-        else "wcook04/plectis-lean-erdos249-257"
-    )
-    companion_slugs = {
-        "wcook04/plectis": {"wcook04/plectis-lean-erdos249-257"},
-        "wcook04/plectis-lean-erdos249-257": {"wcook04/plectis"},
-    }
-    allowed_slugs = {own_slug} | companion_slugs.get(own_slug, set())
+    # The mathematics repository was renamed from plectis-lean-erdos249-257 to
+    # plectis-erdos; GitHub redirects the old name, and both spellings still
+    # appear in pinned citations, so both count as the same sibling.
+    lean_slugs = {"wcook04/plectis-erdos", "wcook04/plectis-lean-erdos249-257"}
+    if mode == "python_research_tool":
+        allowed_slugs = {"wcook04/plectis"} | lean_slugs
+    else:
+        allowed_slugs = lean_slugs | {"wcook04/plectis"}
     foreign = []
     for _label, dest in links:
         slug = re.search(r"github\.com/([\w.-]+/[\w.-]+)", dest)
