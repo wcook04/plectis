@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Evidence boundary",
-  "pages": 21,
+  "pages": 22,
   "question": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
   "precis": "The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.",
   "owns": "the evidence boundary: what a passing public run does and does not establish",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 14,
-    "source_sha256": "7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
+    "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
     "publication_manifest_match": true,
     "mathml_node_count": 13,
     "raw_math_fallback_count": 0,
@@ -36,8 +36,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "9c45f4d8498344543ab4474b8354f431d6c5e739075ee5222b1bfb380afaf553",
-    "html_exact_tex_sha256": "66baca1d3ab01f3ddab243375b000a5739c5094812acccb36a678a86d7b24580"
+    "html_mathml_sha256": "b0b495ca3de3af437eed9882ba44d61dae7610442b6c0d61736ab508f43f648b",
+    "html_exact_tex_sha256": "8a683de2f8127f6ce0a1785bfb628764b9c1649b0faf8526e2a52048e43b9ca4"
   },
   "sections": [
     {

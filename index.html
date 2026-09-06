@@ -128,7 +128,7 @@
        saved/system theme on <html> before the stylesheet applies, so a
        returning visitor never flashes the other theme. Toggle logic is in docs.js. -->
   <script src="assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="assets/style.css?v=e7d97fa64410">
+  <link rel="stylesheet" href="assets/style.css?v=656b06879b49">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -163,10 +163,12 @@
       </div>
     </div>
 
-    <!-- Hero: the purpose first, in the author's voice, then what is public
-         and the standing status of the mathematics. One primary action and one
-         quieter route to the short recording. No counts, no repository tree,
-         no credit policy up here: each of those has a band of its own below.
+    <!-- Hero: the purpose first, in the author's voice, then what the work is
+         and what a reader receives, the standing status of the mathematics,
+         and the three public parts with the limit of what they establish. One
+         primary action, named for where it goes, and one quieter route to the
+         short recording. No counts, no repository tree, no credit policy, no
+         repeated boundary band up here: each has a band of its own below.
          Glossary linking is off for the whole hero on purpose: an introduction
          chooses its words; it does not decorate them. -->
     <section class="wrap hero" data-term-auto="off">
@@ -175,12 +177,12 @@
           <p class="eyebrow hero__kicker">Research with AI</p>
           <h1>Plectis</h1>
           <p class="hero__lede">I am building a research system so that work done with AI can be understood, checked and continued.</p>
-          <p class="hero__sub"><a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-plectis" data-term="plectis">Plectis</a> is its public side. The software repository holds selected mechanisms from the wider system. The mathematics repository holds results, papers, recorded failed approaches and the tools for checking and continuing the work.</p>
-          <p class="hero__sub">The mathematics concerns eight open Erdős problems. All eight original problems remain open.</p>
+          <p class="hero__sub">I use it for hard mathematical questions and for research software. <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-plectis" data-term="plectis">Plectis</a> is its public side: selected mechanisms and the mathematical work, with the tools to examine and continue it.</p>
+          <p class="hero__sub">The mathematics concerns eight Erdős problems. All eight original problems remain open.</p>
           <ol class="hero__modes" aria-label="Where to start">
             <li class="hero__mode hero__mode--lead">
-              <a class="btn btn--gold" href="#problems">Explore the public work</a>
-              <p class="hero__mode-note">The eight problems first, then the software and the recordings.</p>
+              <a class="btn btn--gold" href="#problems">Explore the mathematics</a>
+              <p class="hero__mode-note">The eight problems: what is proved, which routes failed, what remains open.</p>
             </li>
             <li class="hero__mode">
               <a class="btn btn--ghost" href="#why">Watch the introduction · 1:25</a>
@@ -189,7 +191,7 @@
           </ol>
         </div>
         <aside class="hero__map" aria-label="What is public">
-          <p class="hero__map-root"><span class="hero__map-role hero__map-role--root">Three public parts</span><span class="hero__map-rootname">One origin. Each is assessed from its own source and evidence, and none of them proves the others.</span></p>
+          <p class="hero__map-root"><span class="hero__map-role hero__map-role--root">Three public parts</span><span class="hero__map-rootname">One origin. The recordings show the private interface; the repositories carry source and checks for the released work. Neither establishes the reliability of the private system as a whole.</span></p>
           <ol class="hero__map-rows">
             <li><a href="maths/index.html">
               <span class="hero__map-role">Mathematics</span>
@@ -199,7 +201,7 @@
             <li><a href="#software">
               <span class="hero__map-role">Software</span>
               <span class="hero__map-name">Plectis software</span>
-              <span class="hero__map-desc"><span data-mc-fact="component_count">88</span> components from the private system, each with one check you can run and a stated limit.</span>
+              <span class="hero__map-desc">Selected components from the private system, each with one check you can run and a stated limit.</span>
             </a></li>
             <li><a href="#demo-videos">
               <span class="hero__map-role">Inside the system</span>
@@ -210,11 +212,6 @@
           <p class="hero__map-repos">Repositories: <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">mathematics</a> · <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">software</a></p>
         </aside>
       </div>
-      <p class="boundary-band" role="note" aria-label="Standing boundaries">
-        <span>all eight problems open</span>
-        <span>proofs checked in Lean</span>
-        <span>credit by role</span>
-      </p>
     </section>
 
     <!-- Why: the author's reasons, in his own sentences, then the recordings.
@@ -242,7 +239,7 @@
             <h3 class="demo-row__title">The one-minute version</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/R_--vExxWyk" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the one-minute version on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in four steps</summary>
+              <summary data-term-auto="off">TL;DW: the whole argument in four steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>I built a large Python <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, with <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> helping me build and inspect it. It has more moving parts than I can hold in my head, and more than any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in its <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-context-window" data-term="context_window">context window</a>.</li>
@@ -253,7 +250,7 @@
               </div>
             </details>
             <details class="demo-row__note">
-              <summary>Read the <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcript</a></summary>
+              <summary data-term-auto="off">Read the transcript</summary>
               <div class="demo-row__note-body">
                 <p>I built a large Python <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can keep in its <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-context-window" data-term="context_window" data-term-auto="1">context window</a> at any one moment. And building got easier before being able to understand what has been built could catch up.</p>
                 <p>So it exists because an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> saying "I <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> the fix" is pretty ephemeral and doesn't really mean anything. <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">Agents</a> can lie, or <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> can misunderstand, or they can forget.</p>
@@ -264,6 +261,10 @@
             </details>
           </div>
         </li>
+        <li class="demo-rows__more">
+          <details class="demo-more">
+            <summary data-term-auto="off">The longer walkthroughs: 4:57 and 28:58, each with a summary and a transcript</summary>
+            <ol class="demo-rows demo-rows--more">
         <li class="demo-row" data-video-id="ai-lab-5m">
           <span class="demo-row__thumb" aria-hidden="true">
             <img class="demo-row__still" src="assets/video/plectis-5m.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
@@ -274,7 +275,7 @@
             <h3 class="demo-row__title">The five-minute walk-through</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/VoWByIOIuBE" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the five-minute walk-through on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in eight steps</summary>
+              <summary data-term-auto="off">TL;DW: the whole argument in eight steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>The <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> has more moving parts than I can hold in my head, or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-context" data-term="context" data-term-auto="1">context</a>. Building got easier faster than understanding did.</li>
@@ -289,12 +290,12 @@
               </div>
             </details>
             <details class="demo-row__note">
-              <summary>Read the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcript</a></summary>
+              <summary data-term-auto="off">Read the transcript</summary>
               <div class="demo-row__note-body">
                 <p>I built a large Python <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can keep in its <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-context-window" data-term="context_window" data-term-auto="1">context window</a> at any one moment. And building got easier before being able to understand what has been built could catch up.</p>
                 <p>So it exists because an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> saying "I <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> the fix" is pretty ephemeral and doesn't really mean anything. <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">Agents</a> can lie, or <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> can misunderstand, or they can forget.</p>
                 <p>To sum the whole thing up in one sentence: I built a large Python <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>-work <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-front-end" data-term="front_end" data-term-auto="1">front end</a> is the inspection layer that lets a human, or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> through its own routes, move from maps to files to traces to <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, so that <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> stay auditable as the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> outgrows comprehension.</p>
-                <p>I'm actually recording this video on what I call the Demo Take Console. It's a bit like <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-obs-studio" data-term="obs_studio">OBS</a>, but it's integrated into the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>. It uses <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-whisper" data-term="whisper" data-term-auto="1">Whisper</a> to get the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcripts</a> and timestamp them, and then it uses screenshots of frames in the middle of each word to correspond what's said to what's shown. It <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexes</a> all of that, and then it can compile videos without me having to edit them, because I'm that lazy.</p>
+                <p>I'm actually recording this video on what I call the Demo Take Console. It's a bit like <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-obs-studio" data-term="obs_studio">OBS</a>, but it's integrated into the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>. It uses <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-whisper" data-term="whisper" data-term-auto="1">Whisper</a> to get the <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcripts</a> and timestamp them, and then it uses screenshots of frames in the middle of each word to correspond what's said to what's shown. It <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexes</a> all of that, and then it can compile videos without me having to edit them, because I'm that lazy.</p>
                 <p><a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent-trace" data-term="agent_trace" data-term-auto="1">Agent Trace</a> lets you see what's happening, or what happened: the thinking summaries, the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">commands</a> running, the metadata, the files read and the edits made.</p>
                 <p>If we have a look at Code <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">Map</a> first, I think this is the best example of the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>'s core <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-principle" data-term="principle" data-term-auto="1">principle</a>: don't hard-code anything, derive everything from the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-back-end" data-term="back_end" data-term-auto="1">backend</a>. We'll start with the Atlas. This is the full <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, most of which I haven't released. There's many different parts. This is like a <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">contents</a> page, in a way, and an example of presenting information in a human-interpretable way.</p>
                 <p>You can project the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> into a readable <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a>, select a <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, route to that object, open the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> or work <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-record" data-term="record" data-term-auto="1">record</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and trace.</p>
@@ -319,7 +320,7 @@
             <h3 class="demo-row__title">The long version</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/jA_xC8gmdSs" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the long version on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in ten steps</summary>
+              <summary data-term-auto="off">TL;DW: the whole argument in ten steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>A large Python <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, built with <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a>, now with more moving parts than I can hold in my head or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-context" data-term="context" data-term-auto="1">context</a>.</li>
@@ -332,11 +333,14 @@
                   <li>It also covers <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-forecasting" data-term="forecasting" data-term-auto="1">forecasting</a> and finance work, and <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">machine-checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. Built solo, over about a year.</li>
                   <li>Don't trust the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-front-end" data-term="front_end" data-term-auto="1">front end</a>. Appearances are easy to fake. Where I could get it to run real tools I did, and where I couldn't, I say so.</li>
                   <li>It ends on one question: can any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> survive the path from the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> to the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>? That's the thing to go and test.</li>
+            </ol>
+          </details>
+        </li>
                 </ol>
               </div>
             </details>
             <details class="demo-row__note">
-              <summary>Read the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcript</a></summary>
+              <summary data-term-auto="off">Read the transcript</summary>
               <div class="demo-row__note-body">
                 <p>The long version runs half an hour, so what follows is the route it takes rather than every word. The one- and five-minute <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcripts</a> above carry the same argument verbatim.</p>
                 <p><strong>The problem.</strong> The <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> has outgrown what I can hold in my head or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-context" data-term="context" data-term-auto="1">context</a>, and building got easier before understanding could catch up. So the priority became inspection: what ran, what <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changed</a>, what <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> backs a <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, what's <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a>, and what the <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">unknown</a> <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">unknowns</a> are.</p>
@@ -417,7 +421,8 @@
         <p><span data-mc-fact="component_count">88</span> public components from the private system: formal proof, checks on agent work, research and forecasting replays, source consistency, validators and recovering unfinished work. Each names the check you can run and what a pass establishes.</p>
       </div>
       <div class="specimen-block" id="claim-loop">
-        <h3 class="specimen-block__title" data-term-auto="off">One example: checking a report that work is complete</h3>
+        <h3 class="specimen-block__title" data-term-auto="off">One example: did the reported work happen?</h3>
+        <p class="specimen-block__lede" data-term-auto="off">It checks completion reports against commit and test evidence in a sample project, and names the false ones.</p>
 <div class="specimen">
         <ol class="claim-loop" aria-label="The five steps of the test loop">
           <li><a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">Claim</a></li>
@@ -439,15 +444,15 @@
             </div>
           </dl>
           <details class="specimen__depth">
-            <summary>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> it writes</summary>
+            <summary data-term-auto="off">The exact command, and the receipt it writes</summary>
             <dl class="specimen__body">
             <div class="specimen__row">
               <dt>Run</dt>
               <dd>
                 <pre class="specimen__code"><code>plectis agent-closeout-faithfulness-audit run \
   --input fixtures/first_wave/agent_closeout_faithfulness_audit/input \
-  --out receipts/first_wave/agent_closeout_faithfulness_audit</code></pre>
-                <span class="specimen__note">This <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> runs six git calls and one <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-pytest" data-term="pytest" data-term-auto="1">pytest</a> process <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-local" data-term="local" data-term-auto="1">locally</a>.</span>
+  --out /tmp/plectis-closeout-audit</code></pre>
+                <span class="specimen__note">Six git calls and one <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-pytest" data-term="pytest" data-term-auto="1">pytest</a> process, run <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-local" data-term="local" data-term-auto="1">locally</a>. Compare the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> it writes with the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>-in one under <code>receipts/first_wave/agent_closeout_faithfulness_audit</code>.</span>
               </dd>
             </div>
             <div class="specimen__row">
@@ -467,7 +472,7 @@
           <dl class="specimen__body">
             <div class="specimen__row">
               <dt><a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">Limit</a></dt>
-              <dd><a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">Fixture</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> accountability. Verified means the referenced <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> object exists or a test span ran with its <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-exit-code" data-term="exit_code" data-term-auto="1">exit status</a> <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>; a pass means the note <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matches</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, not that the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> was good.</dd>
+              <dd><a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">Fixture</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> accountability. Verified means the referenced <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> object exists or a test span ran with its <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-exit-code" data-term="exit_code" data-term-auto="1">exit status</a> <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>; a pass means the note <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matches</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, not that the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> was good. If <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-pytest" data-term="pytest" data-term-auto="1">pytest</a> is absent the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> refuses that lane by name; a <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> tool is never read as a <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> report.</dd>
             </div>
           </dl>
           <p class="specimen__links"><a href="docs/component-agent-closeout-faithfulness-audit.html">The component's page</a> names its <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> path, <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence class</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">scope limit</a>.</p>
@@ -511,9 +516,9 @@
         <p>Read any of them online, or open the PDF.</p>
       </div>
       <div class="link-rows" data-paper-row-count="3">
-<div class="link-row" data-paper-id="open-source-mathematics-strategy" data-subject-kind="system"><span class="paper-row__meta">19-page <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a></span><strong data-term-auto="off"><a href="maths/papers/open-source-mathematics-strategy.html">Why make the work public?</a></strong><span class="desc">The shared <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> resource, how people contribute, and how <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> is recorded. <em>From Spare Compute to Cumulative <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>.</span><span class="go paper-row__routes"><a class="paper-row__route" href="https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf">PDF</a></span></div>
+<div class="link-row" data-paper-id="open-source-mathematics-strategy" data-subject-kind="system"><span class="paper-row__meta">20-page <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a></span><strong data-term-auto="off"><a href="maths/papers/open-source-mathematics-strategy.html">Why make the work public?</a></strong><span class="desc">The shared <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> resource, how people contribute, and how <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> is recorded. <em>From Spare Compute to Cumulative <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>.</span><span class="go paper-row__routes"><a class="paper-row__route" href="https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf">PDF</a></span></div>
 <div class="link-row" data-paper-id="claim-faithful-publication-systems" data-subject-kind="system"><span class="paper-row__meta">19-page <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a></span><strong data-term-auto="off"><a href="maths/papers/claim-faithful-publication-systems.html">How is the research organised?</a></strong><span class="desc">How <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-finding" data-term="finding" data-term-auto="1">finding</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>, checking it and deciding what may be <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> stay separate. <em>Problem-Sized <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Worlds</em>.</span><span class="go paper-row__routes"><a class="paper-row__route" href="https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf">PDF</a></span></div>
-<div class="link-row" data-paper-id="plectis-public-system" data-subject-kind="system"><span class="paper-row__meta">21-page <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a></span><strong data-term-auto="off"><a href="maths/papers/plectis-public-system.html">What can you check in the software?</a></strong><span class="desc">What the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> tests show, who chose them, and what stays unsupported. <em>Plectis: What a Stranger Can <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a></em>.</span><span class="go paper-row__routes"><a class="paper-row__route" href="https://wcook04.github.io/plectis/papers/plectis-public-system.pdf">PDF</a></span></div>
+<div class="link-row" data-paper-id="plectis-public-system" data-subject-kind="system"><span class="paper-row__meta">22-page <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a></span><strong data-term-auto="off"><a href="maths/papers/plectis-public-system.html">What can you check in the software?</a></strong><span class="desc">What the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> tests show, who chose them, and what stays unsupported. <em>Plectis: What a Stranger Can <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a></em>.</span><span class="go paper-row__routes"><a class="paper-row__route" href="https://wcook04.github.io/plectis/papers/plectis-public-system.pdf">PDF</a></span></div>
       </div>
       <p class="corpus-route"><a href="docs/papers.html" data-paper-registry-count="14">Browse all fourteen papers, with abstracts and sources &rarr;</a></p>
       <p class="corpus-facts__note" data-term-auto="off">These are author-released manuscripts. Lean checks the formal statements; novelty and significance need separate assessment against earlier work.</p>

@@ -5111,6 +5111,10 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .demo-row__note { max-width: var(--prose); }
 .demo-row__note summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
 .demo-row__note summary:hover { color: var(--accent-strong); }
+.demo-rows__more { padding: 0.9rem 0 0; }
+.demo-more summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
+.demo-more summary:hover { color: var(--accent-strong); }
+.demo-rows--more { margin-top: 0.4rem; }
 .demo-row__note-body { padding: 0.45rem 0 0.6rem; color: var(--muted); font-size: var(--fs-body); }
 .demo-row__note-body p + p { margin-top: 0.6rem; }
 .demo-row__note-body ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }

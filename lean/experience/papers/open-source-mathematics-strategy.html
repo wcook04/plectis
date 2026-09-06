@@ -16,7 +16,9 @@ bring different scarce inputs?</p>
 <p>The intended answer is an open research commons. A mathematician may
 supply a theorem, counterexample, reference, or correction. A Lean
 contributor may formalise or audit one statement. A person with spare
-compute may run an agent against a bounded public frontier. An
+compute may run an agent against a bounded public frontier; at present
+that means choosing a bounded task, operating it through a runner of
+their own, and returning evidence, not installing a turnkey client. An
 infrastructure contributor may improve navigation, experiments,
 validation, reproducibility, or the public contribution path. A reviewer
 may reconcile a formal statement with its intended meaning or decide
@@ -251,6 +253,13 @@ source, experiments, known counterexamples, failed mechanisms, source
 literature, and exact open obligations. A bounded task is a
 neighbourhood in that world, not an invitation to read the repository
 indiscriminately.</p>
+<p>The research was initially developed inside a private workbench. The
+public release carries both the mathematical corpus and the workflows
+needed to inspect, validate, and return a contribution. A contributor
+uses the public checkout as the working environment; access to the
+private workbench is not part of the contribution protocol, and the
+workbench grants no proof or publication authority to a returned
+result.</p>
 <p>The public layers carry different kinds of evidence. Their order is
 easier to read as an authority ladder than as one all-purpose badge.</p>
 <figure id="fig:authority-ladder" data-latex-placement="H">
@@ -639,7 +648,17 @@ that proof abundance will create bottlenecks between these stages <span
 class="citation" data-cites="tao2026"></span>. The strategy here treats
 those bottlenecks as contribution surfaces. A reviewer who prevents an
 overclaim or an expositor who makes a hard step recoverable is not
-ancillary to the research pipeline.</p>
+ancillary to the research pipeline. Tao’s rule of thumb, that a result
+whose authors cannot give a clear, correct, properly attributed
+expert-level account of it is incomplete even when formally verified,
+sets the bar for the exposition layer here. Two questions are kept
+apart: whether the record lets a reader learn the result, and whether
+the people responsible for its publication have given that account. The
+record is designed for the first; the second is a per-result event. At
+the time of writing no selected result carries a recorded expert account
+of that kind, and adopting the standard is not compliance with it.
+Whether the record supports such an account is one of the measures in
+Section .</p>
 <p>The proposed composition joins these precedents. It combines
 volunteer compute, small shared insights, formal task decomposition,
 agent-native problem worlds, explicit negative knowledge, untrusted
@@ -755,7 +774,13 @@ may be more useful than hundreds of generated lemmas. Generated
 certificate shards must not be counted as independent discoveries. A
 theorem accepted by Lean but rejected on intended meaning is not a
 successful public transition. Likewise, a strong negative result can
-improve the corpus even though the endpoint problem remains open.</p>
+improve the corpus even though the endpoint problem remains open. A
+retained attempt is not yet knowledge: a failed route may rest on a
+mistaken diagnosis, duplicate known work, or add nothing actionable. It
+counts only through a justified interpretation, such as a
+counterexample, a scoped obstruction, a reproducible stopping point, or
+a specific correction to the next task, and the record separates what
+happened from what was learned.</p>
 <p>Longitudinal model comparisons should use immutable problem snapshots
 and held-out variants where possible. Public hard problems are
 susceptible to training-data contamination, and the repository itself
@@ -766,6 +791,21 @@ model improvement.</p>
 <p>The present work supplies no such evaluation. It establishes an
 implemented case, an explicit protocol, and falsifiable measures for a
 later study.</p>
+<p>The first study should be small and diagnostic rather than a
+population estimate. An outside researcher receives one problem world
+and is asked to recover its strongest established statement, explain the
+main idea, state what remains unproved, distinguish a genuine
+obstruction from an unsuccessful attempt, and then undertake one bounded
+task and return it in a form the maintainer can assess without
+substantial reconstruction. Three presentations of the same material
+should be compared: the source, papers, and records in an ordinary
+repository; an information-equivalent static briefing written with care;
+and the navigation and record surfaces described here. The second
+condition is what separates the effect of the mechanisms from the effect
+of a better introductory paragraph. Failures are recorded at their own
+level: a command that could not be run, a source that could not be
+located, an interpretation that was corrected, or a result judged
+uninteresting are four different findings.</p>
 </section>
 <section id="sec:learning" class="level2">
 <h2>Learning from every run</h2>

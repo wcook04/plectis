@@ -55,8 +55,10 @@ claim stronger. An agent enters a world through a compiled comprehension
 packet: it federates the corpora by content digest, states the endpoint and
 claim ceiling before any route, separates proved results from open producers
 and closed routes, and declares both what it omitted and when it exceeded its
-context budget. Among the systems compared here, none implements this full
-route from a question to the strongest public claim its evidence supports.
+context budget. The contribution is an implemented architecture that connects
+research state, scoped changes, formal checks, and public explanation while
+keeping their evidential roles distinct; the related-work section compares it
+with neighbouring systems along stated dimensions and claims no priority.
 
 The mathematical workflow keeps conjecture, computation, formal proof,
 interpretation, public wording, and external review distinct. Computation may
@@ -64,9 +66,10 @@ reject a route or supply finite evidence; it does not prove an unbounded
 theorem. Lean verifies that a proof establishes the formal statement written in
 the source; it does not verify whether that statement captures the intended
 mathematics or whether the paper describes it
-well. Comparator checks selected propositions and their axiom boundary;
-Palomar selects result families for review. Neither tool decides novelty,
-importance, acceptance, or whether an open problem has been solved.
+well. Comparator checks selected propositions and their axiom boundary; a
+local review-selection layer prepares result families for external
+registration and review. Neither decides novelty, importance, acceptance, or
+whether an open problem has been solved.
 
 The public repository is a self-contained output whose Lean source, claim
 record, papers, navigation, and release checks can be inspected from a fresh
@@ -134,17 +137,14 @@ recombined only at explicit fan-in gates. The same machinery carries proofs,
 counterexamples, no-gos, and unresolved obligations while preserving their
 different evidence classes. Crucially, a local failure may alter the next
 agent's route, context, lease, experiment, or validator, but never the truth
-status of a mathematical statement. Among the systems compared in this paper,
-none spans this complete chain. This is a
-bounded claim over the cited systems, not a proof of universal priority or an
-independent evaluation.
+status of a mathematical statement.
 
 Four status words are used deliberately. \emph{Implemented} means source and
 an executable check or receipt exist. \emph{Projection} means a generated view
 over more authoritative records. \emph{Inactive} means implemented machinery
 was not running at the reported snapshot. \emph{Hypothesis} means a proposed
 experiment, not a reported capability. Thus the router, work leases, corpus
-maps, Lean gates, Comparator, Palomar records, and release checks are
+maps, Lean gates, Comparator, review-selection records, and release checks are
 implemented; dashboards and graph views are projections; the resident
 maintenance daemon was inactive at one recorded snapshot; and mass
 frontier-model mining or training on the no-go graph remain hypotheses.
@@ -886,18 +886,24 @@ whether the theorem is new or important, or whether an independent human has
 reviewed the proof. ``Comparator-checked'' is accurate; ``independently
 verified'' is not.
 
-\subsection{Palomar: selecting what deserves review}
+\subsection{Review selection, and what the Palomar registry is not}
 
-Comparator's roster is an evidence inventory, not a ranking. Palomar adds the
-missing editorial layer. It groups declarations into result families, ranks
-them by mathematical signal, keeps the hard mechanism and surviving boundary
-adjacent, and selects a small review portfolio. A qualification check can say
-that the local packet satisfies its structural requirements. Submission,
-registration, acceptance, publication, and community uptake remain separate
-events.
+Comparator's roster is an evidence inventory, not a ranking. A local
+review-selection layer adds the missing editorial step. It groups declarations
+into result families, ranks them by mathematical signal, keeps the hard
+mechanism and surviving boundary adjacent, and selects a small review
+portfolio. A qualification check can say that the local packet satisfies its
+structural requirements. Its records sit under a Palomar-named showcase file
+because selected families may then be submitted to the external Palomar
+registry of Lean-verified mathematics. Palomar's own documentation describes
+mechanical proof checks and automated editorial filtering; it performs no human
+peer review and does not rank significance. Local qualification, registry
+inclusion, and human mathematical review are different events. None, by
+itself, establishes broad acceptance or significance within the mathematical
+community.
 
 This separation matters under proof abundance. Counting theorems rewards
-generated volume and routine closure. Palomar instead asks which result changes
+generated volume and routine closure. The local selection instead asks which result changes
 the mathematical picture, which conditional route is closest to an endpoint,
 which obstruction prevents wasted work, and which explanation will help an
 expert assess the claim. The ranking may guide attention; it cannot alter proof
@@ -906,7 +912,7 @@ status.
 \subsection{Publication and propagation}
 
 After formal proof and statement reconciliation, a result may enter an authored
-paper, a claim record, a Comparator packet, and a Palomar review unit. Each is a
+paper, a claim record, a Comparator packet, and a local review unit. Each is a
 separate projection with a separate ceiling. A public release is made only
 after the Lean build and the release-surface checks pass, and publication
 remains a human action.
@@ -919,13 +925,7 @@ durable owner---a theorem, experiment record, skill, standard, route, or claim
 boundary. They do not rewrite raw intent, generated views, or mathematical
 status by implication.
 
-This places the repository inside a longer mathematical lifecycle:
-candidate, proof, exact checking, exposition, independent assurance,
-publication, expert digestion, and eventual community canonicalisation
-\cite{taoai}. The system directly supports the early and middle stages. It can
-prepare later stages but cannot award them to itself.
-
-\subsection{Applying Tao's proof-abundance programme}
+\subsection{From formal checking to mathematical use}
 
 Tao argues that AI mathematics should be judged along a chain: proof
 generation, verification, exposition, publication and community digestion,
@@ -933,7 +933,7 @@ then eventual canonicalisation \cite{taoai}. This architecture is a concrete
 attempt to build for that whole chain. The private reasoning and experiment
 loops support generation. Lean checks formal proofs, while Comparator protects
 selected exact interfaces. The problem papers, reasoning surfaces, graphs, and
-claim records support exposition. Palomar triages scarce expert attention, and
+claim records support exposition. Local review selection triages scarce expert attention, and
 the contribution and release paths support attributable publication. Digestion,
 acceptance, and canonicalisation remain achievements of the mathematical
 community, never local status fields.
@@ -998,7 +998,7 @@ Lean checks the certificate predicate and the finite theorem. The formal graph
 records its dependencies. The semantic graph identifies its role. The claim
 record states the finite range and names the unbounded requirement as open.
 The paper explains why the quantifiers differ. Comparator checks selected exact
-interfaces. Palomar may rank the result family for review. The release checker
+interfaces. The local review selection may rank the result family for review. The release checker
 requires the limitation to remain visible.
 
 The last check was added because the boundary once escaped. A historical README
@@ -1060,7 +1060,7 @@ How can I navigate without reading the whole corpus? &
 What exactly does Comparator check? &
 \repolink{docs/EXTERNAL_VERIFICATION.md}{docs/EXTERNAL\_VERIFICATION.md} and
 \repolink{verification/comparator.json}{verification/comparator.json} \\
-What does Palomar select and qualify? &
+What does the local review selection qualify? &
 \repolink{docs/PALOMAR_QUALIFICATION.md}{docs/PALOMAR\_QUALIFICATION.md} and
 \repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{docs/PALOMAR\_RESULT\_SHOWCASE.json} \\
 Which papers exist and what question does each answer? &
@@ -1089,8 +1089,8 @@ The architecture supports a chain of narrow conclusions:
 \item a maintainer approved a selected interpretation and public boundary;
 \item Comparator matched selected proof-bearing declarations to separately
       stated interfaces and an axiom budget;
-\item Palomar's local checks validated the structure of a selected review
-      packet;
+\item the local review-selection checks validated the structure of a selected
+      review packet;
 \item the release program found every configured public relationship intact on
       the named revision.
 \end{enumerate}
@@ -1110,6 +1110,23 @@ mathematician to review the result. This is the same limit encountered in
 assurance cases: a formal notation can record an asserted support relationship
 without proving that the evidence is true or sufficient for the top claim
 \cite{gsn}.
+
+A reader can keep those limits straight by asking, for any capability named
+in this paper, which of four kinds of support stands behind it.
+
+\begin{center}
+\small
+\begin{tabular}{p{3.1cm}p{5.2cm}p{5.2cm}}
+\toprule
+Kind of support & Example & What may be said \\
+\midrule
+Executable check & A session or return validated against required fields and source identity; a Comparator interface match & The program checks the stated conditions on the stated inputs \\
+Agent workflow instruction & The discovery and stewardship responsibilities in a public skill & The workflow directs the agent; it does not show that every agent complied \\
+Mathematical judgement & Whether a result expresses the intended mathematics or improves on prior work & A named assessment is required; agreement between source, record, and prose is not one \\
+External outcome & Another researcher reproduces, adopts, corrects, or builds on the work & A recorded external event is required; the architecture implies none \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \section{Scaling from one clone to a search network}\label{sec:scaling}
 \papersectiontarget{systems-scaling}
@@ -1131,9 +1148,9 @@ return exact artefacts. Fan-in then checks Lean, reconciles statements, records
 negative evidence, and ranks the mathematically strongest surviving result
 families. The useful unit is not a model answer or a theorem count. It is a
 result packet with provenance, scope, formal status, mathematical role, and a
-nearest stronger open statement. Palomar can allocate scarce expert attention
-to those packets; Comparator can protect selected exact interfaces; neither is
-replaced by scale.
+nearest stronger open statement. Local review selection can allocate scarce
+expert attention to those packets; Comparator can protect selected exact
+interfaces; neither is replaced by scale.
 
 At scale, fan-in is a persistent stewardship role rather than an end-of-run
 cleanup task. It consumes each stable delta, compares it with the complete
@@ -1170,7 +1187,7 @@ agent as a queue supervisor.
 There are consequently four separate scaling limits: logical search width,
 safe concurrent mutation, mechanical validation throughput, and scarce expert
 review. Path leases govern the second, the Lean queue governs the third, and
-Palomar-style ranking governs the fourth. Fan-in joins their outputs only after
+review-selection ranking governs the fourth. Fan-in joins their outputs only after
 the appropriate receipts exist. This separation is what allows additional
 models and compute to enlarge exploration without silently enlarging any
 model's authority.
@@ -1323,7 +1340,7 @@ The contribution is architectural composition, not a claim that each component
 was invented here and not evidence of better proof-search performance. The
 system joins a private authority-aware workbench to a self-contained public
 Lean repository, then keeps formal dependencies, semantic interpretation,
-reviewed claims, Comparator interfaces, Palomar selection, and release
+reviewed claims, Comparator interfaces, review selection, and release
 relationships visibly separate. It also carries deeply investigated failure
 modes and formal no-gos through the same public path as positive theorems,
 without discarding the stronger endpoint that survives. Failure logging and
@@ -1367,8 +1384,9 @@ actors mutate live substrate under claims and checks; Type B actors contribute
 bounded external reasoning without hidden write authority. Computational
 experiments prune and prioritise routes. Lean supplies exact formal authority.
 Graphs make a large corpus navigable without collapsing inventory into meaning.
-Comparator checks exact statement interfaces. Palomar directs scarce review
-attention. The public repository then packages source, claims, papers, and
+Comparator checks exact statement interfaces. Local review selection directs
+scarce review attention, and the external Palomar registry checks and filters
+what is submitted to it. The public repository then packages source, claims, papers, and
 release receipts into a clone that stands on its own.
 
 The useful result is not an automatic mathematician and not a universal
@@ -1414,7 +1432,7 @@ and PDF cryptographic hashes and validation commands. The worked-example evidenc
 \path{docs/publication_evidence.json}. The reconstruction file
 \path{experiments/publication_mutations.json} specifies the deliberately false
 edits and their limitations. Comparator's public configuration and receipt are
-named by \path{verification/comparator.json}; Palomar's local readiness and
+named by \path{verification/comparator.json}; the local review-selection readiness and
 ranking surfaces are named by the corresponding files under \path{docs/}.
 These artefacts identify what was checked. They do not interpret unrestricted
 prose or confer external acceptance.

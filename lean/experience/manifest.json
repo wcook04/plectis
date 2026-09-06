@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "44f59141c42755b063c9532ad2938797997db2abf8f2e10093a6ef26d8f0df6c",
+  "source_fingerprint": "277a89ad9657b3efe8b39b89e3d9ccf4eb0a466d1439530d2b77a423f6f9164c",
   "authority_model": {
     "universe": "Lean source and its import/argument graph",
     "overlays": [
@@ -33,8 +33,8 @@
     "graph_edges": 3482
   },
   "source_identity": {
-    "lean_manifest": "3e7c94becdee9e8e09ffb087e5d69019fa0fbbe1a7b63615780fdc8a5985a9e0",
-    "paper_manifest": "53186aec5e7a20a3571b53e989742e1bef9ca5980e0446651489a45ef38eb2f8",
+    "lean_manifest": "899199c8b21dde2dfe7b959c2e48caa8a6a60dd1b246f02c782f18e9eccd3ef9",
+    "paper_manifest": "a3c9744effacfe6bb86a3f7300c452e2cb7dd25caaec5c74faed100658936343",
     "claims": "06461897813ae89686bd7b05ad7eaeffd65a6dc542cf15b00acdd371b57f846a",
     "problems": "669ae15671ac204f882a855679cf6b73c767b57b296239762cb77d6a781ac908",
     "comparator_palomar_route_map": "086928a1752b84c39225490cdebc3325d1b86548fbe62f473bcf62d2b5cb7085",

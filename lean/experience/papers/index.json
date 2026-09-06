@@ -3009,7 +3009,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 14,
-        "source_sha256": "9affc936d64f39dc9e71ec468688ed4d3bae638f042f8e1924529dda1ecc930c",
+        "source_sha256": "36431013833c1100758194e835e7bced30d4d8fc5dcd7e9b57e17956aa9d8414",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
         "raw_math_fallback_count": 0,
@@ -3017,8 +3017,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "c44b6924617ec1749c42f3cc5a2b2fefc1a84e84fd2428622fcb2fb9b7eb9e29",
-        "html_exact_tex_sha256": "a330523fbbe602890a68dbb8aa299fde02c469e268993daccc6e7b3cb30cb1f8"
+        "html_mathml_sha256": "95e637ad0afa0e07c0f05f9f5a4e14f4129466ef9ca40ee2756ccea9912a77c9",
+        "html_exact_tex_sha256": "c0e9f3c458ee46dc2cd40e578d2fdd9512f06373b156e35ddf199f3baad95109"
       },
       "sections": [
         {
@@ -3149,7 +3149,7 @@
         {
           "level": 3,
           "anchor": null,
-          "label": "Palomar: selecting what deserves review"
+          "label": "Review selection, and what the Palomar registry is not"
         },
         {
           "level": 3,
@@ -3159,7 +3159,7 @@
         {
           "level": 3,
           "anchor": null,
-          "label": "Applying Tao’s proof-abundance programme"
+          "label": "From formal checking to mathematical use"
         },
         {
           "level": 2,
@@ -3404,7 +3404,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Open-source research strategy",
-      "pages": 19,
+      "pages": 20,
       "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
       "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
       "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -3427,7 +3427,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 14,
-        "source_sha256": "02b26c5be582d9748db4f2e8a5739666c06685d46477aded795f44dfd9f2a554",
+        "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
         "raw_math_fallback_count": 1,
@@ -3452,8 +3452,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "45d0547dd9847271affa5e916dfac54ec594247287ec68d1b4cad5e469a465ae",
-        "html_exact_tex_sha256": "0624ed007e0d994786fda8a561a63db0693ca9f98115b537c3430308c9969623"
+        "html_mathml_sha256": "666654bed9db6b054fbcb02bc3280c554d89bd378985fc9831c4a4475d36474d",
+        "html_exact_tex_sha256": "85559ead91faf8d747c8da8c1560006e1a52988ce51dbd3844976d01dbdefed7"
       },
       "sections": [
         {
@@ -3610,7 +3610,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Evidence boundary",
-      "pages": 21,
+      "pages": 22,
       "question": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
       "precis": "The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.",
       "owns": "the evidence boundary: what a passing public run does and does not establish",
@@ -3633,7 +3633,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 14,
-        "source_sha256": "7eca74747a786b89fc075bed33c54abe46c79ec25e3c4488197a405ea1645e30",
+        "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,
         "raw_math_fallback_count": 0,
@@ -3641,8 +3641,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "9c45f4d8498344543ab4474b8354f431d6c5e739075ee5222b1bfb380afaf553",
-        "html_exact_tex_sha256": "66baca1d3ab01f3ddab243375b000a5739c5094812acccb36a678a86d7b24580"
+        "html_mathml_sha256": "b0b495ca3de3af437eed9882ba44d61dae7610442b6c0d61736ab508f43f648b",
+        "html_exact_tex_sha256": "8a683de2f8127f6ce0a1785bfb628764b9c1649b0faf8526e2a52048e43b9ca4"
       },
       "sections": [
         {

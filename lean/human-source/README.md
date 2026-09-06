@@ -1,18 +1,24 @@
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-# Plectis: a public frontier across eight open Erdős problems
+# Plectis: research on eight open Erdős problems
 
 ![System map: pipeline, problem-sized Lean worlds, public artifacts, and the clone-work-return-credit loop](.github/system-map.png)
 
-Plectis applies AI search, computation, ordinary mathematics, and Lean to eight
-long-standing open Erdős problems: 68, 243, 249, 251, 257, 269, 1041, and 1049.
-**All eight problems remain open.** This repository does not solve any of them.
-They are a hard stress test: the aim is to publish exact, reusable progress
-that another researcher can continue.
+This repository holds research on eight open Erdős problems: 68, 243, 249,
+251, 257, 269, 1041, and 1049. **All eight problems remain open.** It does not
+solve any of them. It contains formal statements and proofs checked in Lean,
+computations, papers, recorded failed approaches, and the exact questions that
+remain unresolved, so that another researcher can inspect the work and continue
+it.
 
-Each problem exposes checked results, failed routes, and its open obligation.
-Lean checks formal statements, not intended meaning, novelty, or significance.
+The work was developed inside a private research system built with coding
+agents. This public repository carries its own navigation, validation, and
+contribution workflows, so the released work can be read, checked, and
+continued without that system. Individual results have different statuses,
+stated in [RESULTS](docs/RESULTS.md) and in their source records. Lean checks
+formal statements; what a result means, whether it is new, and whether it
+matters need separate mathematical judgement.
 
 Large-language-model agents drafted prose, proofs, and software. Will Cook
 reviewed the claims and sources and is responsible for the release.
@@ -23,35 +29,51 @@ the repository so another researcher finds it.
 The contribution record keeps solvers, collaborators, prior work, tools, and
 infrastructure distinct.
 
-Start with [A reader's way in](HUMAN_ENTRY.md), a command-free tour of the
-problems and evidence boundary.
+Three ways in, each sufficient on its own. Read a problem:
+[A reader's way in](HUMAN_ENTRY.md) is a command-free tour of the problems and
+the evidence boundary. Check a stated result: the second block below runs the
+claim verifier. Continue the work: [start a bounded research shift](docs/FRONTIER_RELAY.md)
+from one exact public revision.
 
-Choose a checkout. Apply one of the three sparse manifests to the same
-no-checkout clone.
-The proof build needs `elan`; install it from the
-[Lean setup guide](https://leanprover-community.github.io/get_started.html).
+Choose one checkout. Make one no-checkout clone, then apply exactly one of
+the three sparse manifests to it; they are alternatives, and applying two
+leaves the last one in place. The proof build needs `elan`; install it from
+the [Lean setup guide](https://leanprover-community.github.io/get_started.html).
 
 ```bash
-# Quick proof, full Lean source, or reader files: choose one manifest
-git clone --depth=1 --filter=blob:none --single-branch --no-checkout https://github.com/wcook04/plectis-lean-erdos249-257.git
-git -C plectis-lean-erdos249-257 cat-file -e HEAD:scripts/lean-quick-sparse-checkout && git -C plectis-lean-erdos249-257 show HEAD:scripts/lean-quick-sparse-checkout | git -C plectis-lean-erdos249-257 sparse-checkout set --no-cone --stdin
-git -C plectis-lean-erdos249-257 cat-file -e HEAD:scripts/lean-sparse-checkout && git -C plectis-lean-erdos249-257 show HEAD:scripts/lean-sparse-checkout | git -C plectis-lean-erdos249-257 sparse-checkout set --no-cone --stdin
-git -C plectis-lean-erdos249-257 cat-file -e HEAD:scripts/reader-sparse-checkout && git -C plectis-lean-erdos249-257 show HEAD:scripts/reader-sparse-checkout | git -C plectis-lean-erdos249-257 sparse-checkout set --no-cone --stdin
-git -C plectis-lean-erdos249-257 checkout
+# One no-checkout clone. Then apply ONE manifest from the three blocks below.
+git clone --depth=1 --filter=blob:none --single-branch --no-checkout https://github.com/wcook04/plectis-erdos.git
+```
 
+```bash
+# Manifest 1 of 3: the 43-module quick proof checkout
+git -C plectis-erdos cat-file -e HEAD:scripts/lean-quick-sparse-checkout && git -C plectis-erdos show HEAD:scripts/lean-quick-sparse-checkout | git -C plectis-erdos sparse-checkout set --no-cone --stdin
+git -C plectis-erdos checkout
+```
+
+```bash
+# Manifest 2 of 3: the full Lean source, then one bounded proof build
+git -C plectis-erdos cat-file -e HEAD:scripts/lean-sparse-checkout && git -C plectis-erdos show HEAD:scripts/lean-sparse-checkout | git -C plectis-erdos sparse-checkout set --no-cone --stdin
+git -C plectis-erdos checkout
+cd plectis-erdos && python3 scripts/lean_fast_build.py --jobs 2 ErdosProblems.Erdos249.PeriodMultipleEscape
+```
+
+```bash
+# Manifest 3 of 3: reader files (papers, maps, claim records; no Lean source)
+git -C plectis-erdos cat-file -e HEAD:scripts/reader-sparse-checkout && git -C plectis-erdos show HEAD:scripts/reader-sparse-checkout | git -C plectis-erdos sparse-checkout set --no-cone --stdin
+git -C plectis-erdos checkout
+```
+
+```bash
 # Complete current corpus, fetch its pinned history, then inspect one claim
-git clone --depth=1 --filter=blob:none --single-branch https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-current
+git clone --depth=1 --filter=blob:none --single-branch https://github.com/wcook04/plectis-erdos.git plectis-current
 cd plectis-current
 git fetch --filter=blob:none --unshallow origin main
 python3 scripts/verify_claims.py --claim eb_full_support
 cd ..
 
 # Blobless history for release validation
-git clone --filter=blob:none --single-branch https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-release
-
-# In the Lean-source checkout, run one bounded proof build
-cd plectis-lean-erdos249-257
-python3 scripts/lean_fast_build.py --jobs 2 ErdosProblems.Erdos249.PeriodMultipleEscape
+git clone --filter=blob:none --single-branch https://github.com/wcook04/plectis-erdos.git plectis-release
 ```
 
 The verifier links a claim to its declaration, paper, receipts, and stopping
@@ -152,8 +174,9 @@ An agent arriving cold starts at [`AGENTS.override.md`](AGENTS.override.md).
 [The Agent Workbench](docs/AGENT_WORKBENCH.md) keeps machine routing and kernel
 probes out of the human reading path; only kernel receipts assert.
 
-The repository began with #249 and #257 and keeps that name so old citations
-resolve. The [joint #249/#257 manuscript](erdos249-257-main-paper.pdf) and the
+The repository began with #249 and #257 and was named for them; it is now
+`plectis-erdos`, and the old address `plectis-lean-erdos249-257` redirects, so
+existing citations resolve. The [joint #249/#257 manuscript](erdos249-257-main-paper.pdf) and the
 two claim-bounded reasoning surfaces
 ([#249](erdos249-totient-reasoning-surface.pdf),
 [#257](erdos257-mersenne-reasoning-surface.pdf)) are kept
@@ -217,10 +240,11 @@ source beside it, and a glossary that explains the vocabulary on hover. The
 same work.
 
 The mathematics was produced inside a private research system built with
-coding agents. Two public parts of that system are open. The
-[Plectis repository](https://github.com/wcook04/plectis) holds 88 small tools
-taken from it, each stating one claim, taking one fixed input, running one
-local check and writing a receipt you can read; its
+coding agents. The site's front page says why that system exists: so that work
+done with AI can be understood, checked, and continued. Two public parts of it
+are open. The [Plectis repository](https://github.com/wcook04/plectis) holds
+88 small tools taken from it, each stating one claim, taking one fixed input,
+running one local check and writing a receipt you can read; its
 [paper](https://wcook04.github.io/plectis/maths/papers/plectis-public-system.html)
 says what a stranger can and cannot conclude from such a check. Three
 [recorded videos](https://wcook04.github.io/plectis/#demo-videos) show the

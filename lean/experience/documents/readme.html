@@ -6,24 +6,29 @@
   <div class="lean-document__body" data-source="README.md">
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-<section id="plectis-a-public-frontier-across-eight-open-erdős-problems"
+<section id="plectis-research-on-eight-open-erdős-problems"
 class="level1">
-<h1>Plectis: a public frontier across eight open Erdős problems</h1>
+<h1>Plectis: research on eight open Erdős problems</h1>
 <figure>
 System map: pipeline, problem-sized Lean worlds, public artifacts, and the clone-work-return-credit loop
 <figcaption aria-hidden="true">System map: pipeline, problem-sized Lean
 worlds, public artifacts, and the clone-work-return-credit
 loop</figcaption>
 </figure>
-<p>Plectis applies AI search, computation, ordinary mathematics, and
-Lean to eight long-standing open Erdős problems: 68, 243, 249, 251, 257,
-269, 1041, and 1049. <strong>All eight problems remain open.</strong>
-This repository does not solve any of them. They are a hard stress test:
-the aim is to publish exact, reusable progress that another researcher
-can continue.</p>
-<p>Each problem exposes checked results, failed routes, and its open
-obligation. Lean checks formal statements, not intended meaning,
-novelty, or significance.</p>
+<p>This repository holds research on eight open Erdős problems: 68, 243,
+249, 251, 257, 269, 1041, and 1049. <strong>All eight problems remain
+open.</strong> It does not solve any of them. It contains formal
+statements and proofs checked in Lean, computations, papers, recorded
+failed approaches, and the exact questions that remain unresolved, so
+that another researcher can inspect the work and continue it.</p>
+<p>The work was developed inside a private research system built with
+coding agents. This public repository carries its own navigation,
+validation, and contribution workflows, so the released work can be
+read, checked, and continued without that system. Individual results
+have different statuses, stated in <a href="results.html">RESULTS</a>
+and in their source records. Lean checks formal statements; what a
+result means, whether it is new, and whether it matters need separate
+mathematical judgement.</p>
 <p>Large-language-model agents drafted prose, proofs, and software. Will
 Cook reviewed the claims and sources and is responsible for the
 release.</p>
@@ -32,34 +37,44 @@ or Plectis materially helped, cite the release and say so. If useful,
 star or share the repository so another researcher finds it. The
 contribution record keeps solvers, collaborators, prior work, tools, and
 infrastructure distinct.</p>
-<p>Start with <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md">A reader’s way in</a>, a
-command-free tour of the problems and evidence boundary.</p>
-<p>Choose a checkout. Apply one of the three sparse manifests to the
-same no-checkout clone. The proof build needs <code>elan</code>; install
-it from the <a
+<p>Three ways in, each sufficient on its own. Read a problem: <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md">A reader’s way in</a> is a command-free tour of
+the problems and the evidence boundary. Check a stated result: the
+second block below runs the claim verifier. Continue the work: <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FRONTIER_RELAY.md">start a bounded research shift</a> from
+one exact public revision.</p>
+<p>Choose one checkout. Make one no-checkout clone, then apply exactly
+one of the three sparse manifests to it; they are alternatives, and
+applying two leaves the last one in place. The proof build needs
+<code>elan</code>; install it from the <a
 href="https://leanprover-community.github.io/get_started.html">Lean
 setup guide</a>.</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick proof, full Lean source, or reader files: choose one manifest</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> <span class="at">--no-checkout</span> https://github.com/wcook04/plectis-lean-erdos249-257.git</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/lean-quick-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/lean-quick-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/lean-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/lean-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 cat-file <span class="at">-e</span> HEAD:scripts/reader-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 show HEAD:scripts/reader-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-lean-erdos249-257 checkout</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete current corpus, fetch its pinned history, then inspect one claim</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-current</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-current</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--unshallow</span> origin main</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/verify_claims.py <span class="at">--claim</span> eb_full_support</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Blobless history for release validation</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-lean-erdos249-257.git plectis-release</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># In the Lean-source checkout, run one bounded proof build</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-lean-erdos249-257</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/lean_fast_build.py <span class="at">--jobs</span> 2 ErdosProblems.Erdos249.PeriodMultipleEscape</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One no-checkout clone. Then apply ONE manifest from the three blocks below.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> <span class="at">--no-checkout</span> https://github.com/wcook04/plectis-erdos.git</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manifest 1 of 3: the 43-module quick proof checkout</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos cat-file <span class="at">-e</span> HEAD:scripts/lean-quick-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos show HEAD:scripts/lean-quick-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos checkout</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manifest 2 of 3: the full Lean source, then one bounded proof build</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos cat-file <span class="at">-e</span> HEAD:scripts/lean-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos show HEAD:scripts/lean-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos checkout</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-erdos <span class="kw">&amp;&amp;</span> <span class="ex">python3</span> scripts/lean_fast_build.py <span class="at">--jobs</span> 2 ErdosProblems.Erdos249.PeriodMultipleEscape</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manifest 3 of 3: reader files (papers, maps, claim records; no Lean source)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos cat-file <span class="at">-e</span> HEAD:scripts/reader-sparse-checkout <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos show HEAD:scripts/reader-sparse-checkout <span class="kw">|</span> <span class="fu">git</span> <span class="at">-C</span> plectis-erdos sparse-checkout set <span class="at">--no-cone</span> <span class="at">--stdin</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> plectis-erdos checkout</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete current corpus, fetch its pinned history, then inspect one claim</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span><span class="op">=</span>1 <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-erdos.git plectis-current</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plectis-current</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--unshallow</span> origin main</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/verify_claims.py <span class="at">--claim</span> eb_full_support</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Blobless history for release validation</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--filter</span><span class="op">=</span>blob:none <span class="at">--single-branch</span> https://github.com/wcook04/plectis-erdos.git plectis-release</span></code></pre></div>
 <p>The verifier links a claim to its declaration, paper, receipts, and
 stopping point; <code>--verify-all</code> checks them all. <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> gives the smaller
@@ -172,10 +187,12 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.over
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">The Agent Workbench</a> keeps machine
 routing and kernel probes out of the human reading path; only kernel
 receipts assert.</p>
-<p>The repository began with #249 and #257 and keeps that name so old
-citations resolve. The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">joint
-#249/#257 manuscript</a> and the two claim-bounded reasoning surfaces
-(<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-totient-reasoning-surface.pdf">#249</a>, <a
+<p>The repository began with #249 and #257 and was named for them; it is
+now <code>plectis-erdos</code>, and the old address
+<code>plectis-lean-erdos249-257</code> redirects, so existing citations
+resolve. The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">joint #249/#257
+manuscript</a> and the two claim-bounded reasoning surfaces (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-totient-reasoning-surface.pdf">#249</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos257-mersenne-reasoning-surface.pdf">#257</a>) are kept for
 archive and provenance, not as a reading route; the per-problem papers
 are the live route. The <a
@@ -266,7 +283,9 @@ its PDF and LaTeX source beside it, and a glossary that explains the
 vocabulary on hover. The <a href="https://wcook04.github.io/">Will Cook
 page</a> is the shorter front door to the same work.</p>
 <p>The mathematics was produced inside a private research system built
-with coding agents. Two public parts of that system are open. The <a
+with coding agents. The site’s front page says why that system exists:
+so that work done with AI can be understood, checked, and continued. Two
+public parts of it are open. The <a
 href="https://github.com/wcook04/plectis">Plectis repository</a> holds
 88 small tools taken from it, each stating one claim, taking one fixed
 input, running one local check and writing a receipt you can read; its

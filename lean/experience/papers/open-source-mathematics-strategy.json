@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Open-source research strategy",
-  "pages": 19,
+  "pages": 20,
   "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
   "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
   "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 14,
-    "source_sha256": "02b26c5be582d9748db4f2e8a5739666c06685d46477aded795f44dfd9f2a554",
+    "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
     "publication_manifest_match": true,
     "mathml_node_count": 7,
     "raw_math_fallback_count": 1,
@@ -53,8 +53,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "45d0547dd9847271affa5e916dfac54ec594247287ec68d1b4cad5e469a465ae",
-    "html_exact_tex_sha256": "0624ed007e0d994786fda8a561a63db0693ca9f98115b537c3430308c9969623"
+    "html_mathml_sha256": "666654bed9db6b054fbcb02bc3280c554d89bd378985fc9831c4a4475d36474d",
+    "html_exact_tex_sha256": "85559ead91faf8d747c8da8c1560006e1a52988ce51dbd3844976d01dbdefed7"
   },
   "sections": [
     {
