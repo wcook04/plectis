@@ -9,21 +9,25 @@ public repositories. A retired manuscript that remains shipped as a root
 PDF is carried only by its home repository for provenance; it is not
 mirrored or restored to an active publication route.
 
-This checkout carries 13 active papers. Pick the question you are actually asking:
+This checkout carries 14 active papers. Pick the question you are actually asking:
+
+## Problem portfolio (complete 14-paper inventory)
+
+The active mathematical notes form a growing problem-by-problem portfolio: Erdős #68, Erdős #243, Erdős #249, Erdős #251, Erdős #257, Erdős #269, Erdős #1041, Erdős #1049. Start with the named problem, then use its note for the exact checked results and remaining obligation. Retired combined manuscripts are provenance, not the portfolio's front door.
 
 ### What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?
 
-**Factorial Carries and Finite Channel Obstructions**
+**Factorial-Channel Obstructions and Exact Orbit Boundaries**
 
-[full text](full-text/erdos-68-factorial-denominator-irrationality.md) · [PDF](mirror/erdos-68-factorial-denominator-irrationality.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-68-factorial-denominator-irrationality.tex) · 18 sections · `erdos-68-factorial-denominator-irrationality` · mirror to this repository
+[full text](full-text/erdos-68-factorial-denominator-irrationality.md) · [PDF](mirror/erdos-68-factorial-denominator-irrationality.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex) · 20 sections · `erdos-68-factorial-denominator-irrationality` · mirror to this repository
 
-This paper states no reading route. Its evidence boundary is in [The problem](full-text/erdos-68-factorial-denominator-irrationality.md#sec:problem), [Finite channel congruences and the LCM obstruction](full-text/erdos-68-factorial-denominator-irrationality.md#sec:channels), [Weighted projection rigidity](full-text/erdos-68-factorial-denominator-irrationality.md#sec:projection), [The missing cofinal inputs](full-text/erdos-68-factorial-denominator-irrationality.md#sec:open).
+This paper states no reading route. Its evidence boundary is in [The problem](full-text/erdos-68-factorial-denominator-irrationality.md#sec:problem), [Finite channel congruences and the LCM obstruction](full-text/erdos-68-factorial-denominator-irrationality.md#sec:channels), [Weighted projection rigidity](full-text/erdos-68-factorial-denominator-irrationality.md#sec:projection), [Open problems](full-text/erdos-68-factorial-denominator-irrationality.md#sec:open).
 
 ### Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?
 
 **Excluding the Bounded Negative Part**
 
-[full text](full-text/erdos-243-reciprocal-tail-rigidity.md) · [PDF](mirror/erdos-243-reciprocal-tail-rigidity.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-243-reciprocal-tail-rigidity.tex) · 27 sections · `erdos-243-reciprocal-tail-rigidity` · mirror to this repository
+[full text](full-text/erdos-243-reciprocal-tail-rigidity.md) · [PDF](mirror/erdos-243-reciprocal-tail-rigidity.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex) · 28 sections · `erdos-243-reciprocal-tail-rigidity` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Introduction](full-text/erdos-243-reciprocal-tail-rigidity.md#sec:problem), [Excluding a bounded negative part](full-text/erdos-243-reciprocal-tail-rigidity.md#sec:bounded), [Complements and further questions](full-text/erdos-243-reciprocal-tail-rigidity.md#sec:open).
 
@@ -31,7 +35,7 @@ This paper states no reading route. Its evidence boundary is in [Introduction](f
 
 **A Basis for the 2-Kernel of Euler’s Totient**
 
-[full text](full-text/erdos-249-binary-totient-series.md) · [PDF](mirror/erdos-249-binary-totient-series.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-249-binary-totient-series.tex) · 24 sections · `erdos-249-binary-totient-series` · mirror to this repository
+[full text](full-text/erdos-249-binary-totient-series.md) · [PDF](mirror/erdos-249-binary-totient-series.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex) · 30 sections · `erdos-249-binary-totient-series` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Introduction and main results](full-text/erdos-249-binary-totient-series.md#sec:results), [Logical status and analytic input](full-text/erdos-249-binary-totient-series.md#sec:open).
 
@@ -39,15 +43,15 @@ This paper states no reading route. Its evidence boundary is in [Introduction an
 
 **The Binary Totient Series**
 
-[full text](full-text/erdos249-totient-reasoning-surface.md) · [PDF](mirror/erdos249-totient-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos249-totient-reasoning-surface.tex) · 153 sections · `erdos249-totient-reasoning-surface` · mirror to this repository
+[full text](full-text/erdos249-totient-reasoning-surface.md) · [PDF](mirror/erdos249-totient-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex) · 149 sections · `erdos249-totient-reasoning-surface` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The wall](full-text/erdos249-totient-reasoning-surface.md#sec:wall), [What the wall does not block](full-text/erdos249-totient-reasoning-surface.md#sec:survivors).
 
-### What tail-shift condition would prove irrationality in Erdős #251, and what prime-gap input is still missing?
+### What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?
 
 **An Integral-Shift Criterion for Dyadic Tail Recurrences**
 
-[full text](full-text/erdos-251-prime-gap-dyadic-series.md) · [PDF](mirror/erdos-251-prime-gap-dyadic-series.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-251-prime-gap-dyadic-series.tex) · 23 sections · `erdos-251-prime-gap-dyadic-series` · mirror to this repository
+[full text](full-text/erdos-251-prime-gap-dyadic-series.md) · [PDF](mirror/erdos-251-prime-gap-dyadic-series.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex) · 23 sections · `erdos-251-prime-gap-dyadic-series` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Introduction](full-text/erdos-251-prime-gap-dyadic-series.md#sec:problem), [The tail recurrence and integral shifts](full-text/erdos-251-prime-gap-dyadic-series.md#sec:tail), [Complements and further questions](full-text/erdos-251-prime-gap-dyadic-series.md#sec:open).
 
@@ -55,7 +59,7 @@ This paper states no reading route. Its evidence boundary is in [Introduction](f
 
 **Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry**
 
-[full text](full-text/erdos-257-mersenne-support-subseries.md) · [PDF](mirror/erdos-257-mersenne-support-subseries.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-257-mersenne-support-subseries.tex) · 24 sections · `erdos-257-mersenne-support-subseries` · mirror to this repository
+[full text](full-text/erdos-257-mersenne-support-subseries.md) · [PDF](mirror/erdos-257-mersenne-support-subseries.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex) · 24 sections · `erdos-257-mersenne-support-subseries` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Finite-support denominator periods](full-text/erdos-257-mersenne-support-subseries.md#sec:period), [Representative known irrational supports](full-text/erdos-257-mersenne-support-subseries.md#sec:map), [Open problems](full-text/erdos-257-mersenne-support-subseries.md#sec:open).
 
@@ -63,7 +67,7 @@ This paper states no reading route. Its evidence boundary is in [Finite-support 
 
 **Reciprocal Mersenne Subseries**
 
-[full text](full-text/erdos257-mersenne-reasoning-surface.md) · [PDF](mirror/erdos257-mersenne-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos257-mersenne-reasoning-surface.tex) · 136 sections · `erdos257-mersenne-reasoning-surface` · mirror to this repository
+[full text](full-text/erdos257-mersenne-reasoning-surface.md) · [PDF](mirror/erdos257-mersenne-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex) · 138 sections · `erdos257-mersenne-reasoning-surface` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem, and what is actually known](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-problem), [The wall](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-wall), [What the wall does not block](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-survivors).
 
@@ -71,47 +75,55 @@ This paper states no reading route. Its evidence boundary is in [The problem, an
 
 **The Three-Prime Running Least Common Multiple**
 
-[full text](full-text/erdos-269-three-prime-running-lcm.md) · [PDF](mirror/erdos-269-three-prime-running-lcm.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-269-three-prime-running-lcm.tex) · 26 sections · `erdos-269-three-prime-running-lcm` · mirror to this repository
+[full text](full-text/erdos-269-three-prime-running-lcm.md) · [PDF](mirror/erdos-269-three-prime-running-lcm.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex) · 27 sections · `erdos-269-three-prime-running-lcm` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Introduction](full-text/erdos-269-three-prime-running-lcm.md#sec:problem), [The running least common multiple as a product of pure powers](full-text/erdos-269-three-prime-running-lcm.md#sec:lcm), [Dyadic blocks and a conditional carry contradiction](full-text/erdos-269-three-prime-running-lcm.md#sec:escape), [Complements and further questions](full-text/erdos-269-three-prime-running-lcm.md#sec:open).
 
 ### Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?
 
-**Newton Flow and Critical-Value Ray Separation**
+**Critical-Value Separation and Admissible Hubs**
 
-[full text](full-text/erdos-1041-lemniscate-newton-flow.md) · [PDF](mirror/erdos-1041-lemniscate-newton-flow.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1041-lemniscate-newton-flow.tex) · 15 sections · `erdos-1041-lemniscate-newton-flow` · mirror to this repository
+[full text](full-text/erdos-1041-lemniscate-newton-flow.md) · [PDF](mirror/erdos-1041-lemniscate-newton-flow.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex) · 33 sections · `erdos-1041-lemniscate-newton-flow` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem](full-text/erdos-1041-lemniscate-newton-flow.md#sec:problem), [The Newton value equation](full-text/erdos-1041-lemniscate-newton-flow.md#sec:newton), [A proof gap in the unrestricted argument](full-text/erdos-1041-lemniscate-newton-flow.md#sec:gap), [Complements and further questions](full-text/erdos-1041-lemniscate-newton-flow.md#sec:open).
 
 ### Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?
 
-**Arithmetic Boundaries at Base 3/2**
+**Sharp Height and Four-Jet Obstructions at Base 3/2**
 
-[full text](full-text/erdos-1049-rational-base-lambert.md) · [PDF](mirror/erdos-1049-rational-base-lambert.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/erdos-1049-rational-base-lambert.tex) · 28 sections · `erdos-1049-rational-base-lambert` · mirror to this repository
+[full text](full-text/erdos-1049-rational-base-lambert.md) · [PDF](mirror/erdos-1049-rational-base-lambert.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex) · 29 sections · `erdos-1049-rational-base-lambert` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [Introduction](full-text/erdos-1049-rational-base-lambert.md#sec:problem), [Integer scalar content is neutral](full-text/erdos-1049-rational-base-lambert.md#sec:primitive), [Endpoint residues at (3,2) and the four-jet kernel](full-text/erdos-1049-rational-base-lambert.md#sec:endpoints), [Complements and further questions](full-text/erdos-1049-rational-base-lambert.md#sec:open).
 
-### Lean proves the formal statement — but who checks that the README describes it faithfully?
+### How does a research system turn agent work into inspectable mathematical claims?
 
-**From Lean Proofs to Public Claims**
+**Problem-Sized Lean Worlds**
 
-[full text](full-text/claim-faithful-publication-systems-paper.md) · [PDF](mirror/claim-faithful-publication-systems-paper.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/claim-faithful-publication-systems-paper.tex) · 30 sections · `claim-faithful-publication-systems` · mirror to this repository
+[full text](full-text/claim-faithful-publication-systems-paper.md) · [PDF](mirror/claim-faithful-publication-systems-paper.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex) · 46 sections · `claim-faithful-publication-systems` · mirror to this repository
 
-The paper's own reading map sends a first pass to [The release workflow](full-text/claim-faithful-publication-systems-paper.md#sec:picture), [The reviewed record](full-text/claim-faithful-publication-systems-paper.md#sec:record), [What the checks establish](full-text/claim-faithful-publication-systems-paper.md#sec:trust), [Scope, reuse, and limits](full-text/claim-faithful-publication-systems-paper.md#sec:limits).
+This paper states no reading route. Its evidence boundary is in [The whole lifecycle in one picture](full-text/claim-faithful-publication-systems-paper.md#sec:lifecycle), [The public Lean repository](full-text/claim-faithful-publication-systems-paper.md#sec:public), [Inspection routes](full-text/claim-faithful-publication-systems-paper.md#sec:routes), [What can be trusted](full-text/claim-faithful-publication-systems-paper.md#sec:trust).
 
 ### How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?
 
 **From a Cold Clone to a Proof Receipt**
 
-[full text](full-text/cold-clone-to-proof-receipt.md) · [PDF](mirror/cold-clone-to-proof-receipt.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/07fc2560d0d40550f1a74b1daff4e197eab1f11e/paper/cold-clone-to-proof-receipt.tex) · 19 sections · `cold-clone-to-proof-receipt` · mirror to this repository
+[full text](full-text/cold-clone-to-proof-receipt.md) · [PDF](mirror/cold-clone-to-proof-receipt.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex) · 20 sections · `cold-clone-to-proof-receipt` · mirror to this repository
 
-This paper states no reading route. Its evidence boundary is in [The cold-clone problem](full-text/cold-clone-to-proof-receipt.md#sec:problem), [A layered mathematical option surface](full-text/cold-clone-to-proof-receipt.md#sec:layers), [Crossing from navigation to authority](full-text/cold-clone-to-proof-receipt.md#sec:authority), [Compilation after comprehension](full-text/cold-clone-to-proof-receipt.md#sec:incremental), [Limits and transfer conditions](full-text/cold-clone-to-proof-receipt.md#sec:limits).
+This paper states no reading route. Its evidence boundary is in [The cold-clone problem](full-text/cold-clone-to-proof-receipt.md#sec:problem), [Four views of the mathematical library](full-text/cold-clone-to-proof-receipt.md#sec:layers), [From navigation to proof authority](full-text/cold-clone-to-proof-receipt.md#sec:authority), [Compilation after comprehension](full-text/cold-clone-to-proof-receipt.md#sec:incremental), [Limits and transfer conditions](full-text/cold-clone-to-proof-receipt.md#sec:limits).
+
+### How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?
+
+**From Spare Compute to Cumulative Mathematics**
+
+[full text](full-text/open-source-mathematics-strategy.md) · [PDF](mirror/open-source-mathematics-strategy.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/open-source-mathematics-strategy.tex) · 29 sections · `open-source-mathematics-strategy` · mirror to this repository
+
+This paper states no reading route. Its evidence boundary is in [The strategy](full-text/open-source-mathematics-strategy.md#sec:strategy), [The public research object](full-text/open-source-mathematics-strategy.md#sec:object), [The contribution protocol](full-text/open-source-mathematics-strategy.md#sec:protocol), [From an agent claim to mathematical attention](full-text/open-source-mathematics-strategy.md#sec:attention), [Distributed compute without distributed authority](full-text/open-source-mathematics-strategy.md#sec:security), [Participation and growth](full-text/open-source-mathematics-strategy.md#sec:growth), [Limits and governance](full-text/open-source-mathematics-strategy.md#sec:limits).
 
 ### What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?
 
 **Plectis: What a Stranger Can Check**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/e6be605bc81015d37896145081eb4b5727212fcb/paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem](full-text/plectis-public-system.md#sec:problem), [Five distinctions](full-text/plectis-public-system.md#sec:distinctions).
 
@@ -134,6 +146,7 @@ is proof authority. In order:
 - `erdos-1049-rational-base-lambert` is not authority for proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open.
 - `claim-faithful-publication-systems` is not authority for the mathematical content it uses as its worked example, and the correctness of the human review it preserves.
 - `cold-clone-to-proof-receipt` is not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project.
+- `open-source-mathematics-strategy` is not authority for a solution to any Erdős problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement.
 - `plectis-public-system` is not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence.
 
 ## For agents

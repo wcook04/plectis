@@ -259,7 +259,7 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "**Plectis publishes 88 runnable mechanisms",
+        "**Plectis is a public Python toolkit of 88 mechanisms",
         "**Plectis is a local evidence router.**  It publishes 88 mechanisms",
     )
     receipt = validate_readme_front_door(root)
@@ -278,7 +278,7 @@ def test_blocks_record_layer_before_mechanisms(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "**Plectis publishes 88 runnable mechanisms",
+        "**Plectis is a public Python toolkit of 88 mechanisms",
         "**Plectis writes an inspectable record of any project you point it at.**"
         "  It also publishes 88 runnable mechanisms",
     )

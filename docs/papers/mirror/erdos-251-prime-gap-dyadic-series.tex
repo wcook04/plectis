@@ -8,10 +8,10 @@
 \input{problem-note-preamble}
 % Problem-specific source pin: #251 advances independently of the corpus
 % default, while the #249/#257 notes retain their own reviewed snapshot.
-\renewcommand{\commit}{c8e41c76b4ce888601213778ddce8b148359d11f}
-\renewcommand{\commitshort}{c8e41c76b4ce}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
-  pdftitle={An integral-shift criterion for dyadic tail recurrences, and the prime-gap series of Erdős Problem 251},
+  pdftitle={An integral-shift criterion for dyadic tail recurrences},
   pdfsubject={Erdős Problem Notes: Problem 251},
   pdfkeywords={irrationality, prime gaps, dyadic series, summation by parts, Lean 4},
 }
@@ -28,25 +28,6 @@
 
 \begin{abstract}
 \noindent
-Call a sequence $(T_N)_{N\ge0}$ of rational numbers a \emph{dyadic tail
-recurrence with digits $g$} when $T_{N+1}=2T_N-g_{N+1}$ for every $N$, with
-integer digits $g_N$.  Its block identity is
-\[
- T_{N+h}=2^{h}T_N-
- \bigl(g_{N+1}2^{h-1}+\cdots+g_{N+h}\bigr).
-\]
-Thus $T_{N+h}-T_N$ is integral exactly when $(2^h-1)T_N$ is.  Integrality of
-one shift propagates forward, and Euler's congruence shows that a rational
-term with odd reduced denominator $d$ has an integral shift of length
-$\ph(d)$.  More precisely, for a real sequence obeying the same recurrence
-with integer digits, the initial state is rational if and only if one
-positive-length shift is integral at one index, equivalently if and only if
-one positive shift is eventually integral.  Dually, the initial state is
-irrational exactly when every positive shift is non-integral at every index,
-equivalently when every fixed shift is non-integral cofinally.  This abstract
-criterion is proved; the required cofinal property for the actual prime-gap
-tails is not.
-
 Let $p_0=2,p_1=3,\ldots$ enumerate the primes and let
 $g_n=p_{n+1}-p_n$.  The polynomial bound $p_n\le1250(n+1)^4$ gives summability
 of the prime and gap terms.  Summation by parts, with the endpoint retained,
@@ -63,26 +44,61 @@ and therefore the unconditional identity and irrationality equivalence
  \Longleftrightarrow
  \operatorname{Irr}\!\left(\sum_{i\ge0}\frac{g_i}{2^{\,i+1}}\right).
 \]
-Problem~\#251 remains open.  Under non-irrationality, the denominator
-decomposition selects a positive fixed shift that is eventually integral but
-not eventually confined to $(-1,1)$.  This is compatible with rationality,
-not a contradiction.  A contradiction would require eventual smallness for
-that shift, or cofinally many adjacent small shifts at indices where the prime
-gaps differ; neither is proved.  Unboundedness and nonperiodicity of the prime
-gaps, although both Lean-checked, do not supply either property.  Indeed, an
-explicit unbounded, non-eventually-periodic integer sequence has a rational
-dyadic sum, so the missing argument must control the full prime-gap tails
-rather than the coefficients alone.
+This exact identity reduces Problem~\#251 to the dyadic gap series; it does not
+prove its irrationality.
+
+The rescaled tails satisfy $T_{N+1}=2T_N-g_{N+1}$.  For any real recurrence
+with integer digits,
+\[
+ T_{N+h}=2^hT_N-
+ \bigl(g_{N+1}2^{h-1}+\cdots+g_{N+h}\bigr),
+\]
+so $T_{N+h}-T_N$ is integral exactly when $(2^h-1)T_N$ is.  Consequently,
+$T_0$ is rational if and only if one positive shift is integral at one index,
+equivalently if one fixed shift is eventually integral.  Dually, $T_0$ is
+irrational exactly when every positive shift is nonintegral everywhere,
+equivalently when every fixed shift is nonintegral cofinally.  If
+$L_0=1$ and $L_j=\operatorname{lcm}(1,\ldots,j)$, all shift lengths and
+basepoints collapse to the single diagonal criterion
+\[
+ \operatorname{Irr}(T_0)
+ \quad\Longleftrightarrow\quad
+ T_{2L_j}-T_{L_j}\notin\Z\quad\hbox{for every }j\ge0.
+\]
+The missing step is to prove these nonintegralities for the actual prime-gap
+tails.
+
+There is an exact finite obstruction.  Two adjacent $h$-shifts in $(-1,1)$
+whose corresponding prime gaps differ cannot both be integral.  Hence
+cofinally many such pairs would exclude eventual integrality
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1112}
+      {primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch}
+      {the conditional prime-gap small-mismatch theorem}.
+Neither smallness nor its cofinal occurrence is proved.  The quadratic example
+$g_n=2(n^2+4n+2)$, $T_n=2(n+4)^2$ shows that positivity, parity, polynomial
+growth, unboundedness, and nonperiodicity cannot force this mechanism.  A
+second example has finite sum $-n/2^n$ and non-eventually-periodic coefficients
+(\lword{Erdos251/PrimeGapDyadicTail.lean}{1157}
+      {carryPartialSum_natCast_eq}{finite endpoint};
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1163}
+      {carryCoeff_natCast_not_eventually_periodic}{coefficient nonperiodicity}).
+The actual prime gaps are also not eventually periodic
+(\lword{Erdos251/PrimeGapDyadicTail.lean}{1023}
+      {primeGap0_not_eventually_periodic}{prime-gap nonperiodicity}),
+but that fact alone is insufficient.  Problem~\#251 remains open: the exact
+unproved input is cofinal nonintegrality, or a prime-gap estimate strong enough
+to imply the adjacent-small-mismatch condition.
 \end{abstract}
 
-\externalreviewobject{The paper proves the exact prime/prime-gap summation
-identity, classifies rationality through integral tail shifts, proves that
-actual prime gaps are unbounded, and gives a nonperiodic rational countermodel
-to a tempting coefficient-only route.}{These results expose the missing
-cofinal nonintegrality statement for the actual prime gaps without proving it.
-Problem~\#251 remains open.}{Comparator selects the prime-gap unboundedness
-theorem and the exact irrationality equivalence between the two infinite
-series, with the summability hypothesis retained.}
+\begin{paperresult}{Exact reduction and missing input}
+\textbf{Reduction.} Summation by parts identifies the prime series with two
+plus the dyadic prime-gap series, so their irrationality questions are
+equivalent.  Tail rationality is equivalent to one integral shift and to one
+diagonal LCM-tail integrality.  \textbf{Finite obstruction.} Adjacent small
+shifts with unequal gaps cannot both be integral.  \textbf{Open boundary.}
+No result here proves the required cofinal smallness or nonintegrality for the
+actual prime gaps.
+\end{paperresult}
 
 \section{Introduction}\label{sec:problem}
 
@@ -149,9 +165,11 @@ the case $k=1$ was probably already very difficult.  He also stated the
 variable-denominator expectation that
 $\sum_{n\ge1}p_n/(g_1\cdots g_n)$ is irrational whenever $g_n\ge2$ and
 $g_n=o(p_n)$~\cite[p.~103]{erdos1988}.  The latter expectation is false:
-ChatGPT~5.4 Pro, orchestrated by Vjeko Kova\v{c}, constructs such a sequence
-$(g_n)$ for which the sum is exactly $1$
-~\cite[Theorem~1 and proof, pp.~1--2]{kovac2026}.  Under the stronger
+Kova\v{c} reports a construction of such a sequence $(g_n)$ for which the sum
+is exactly $1$
+~\cite[Theorem~1 and proof, pp.~1--2]{kovac2026}.
+
+Under the stronger
 hypotheses that $(g_n)$ is strictly increasing and
 $g_n=O(n\log^k n)$, Erd\H{o}s had already classified the rational cases:
 rationality holds exactly when $g_n=q p_n+1$ eventually for one fixed integer
@@ -162,9 +180,8 @@ The counterexample evades those
 hypotheses.  It
 does not address the fixed-denominator dyadic series studied here.  The
 current catalogue record still repeats this variable-denominator expectation
-without mentioning the counterexample~\cite{erdosproblems}; its warning about
-possibly missing literature is therefore material here, not merely
-boilerplate.
+without mentioning the counterexample~\cite{erdosproblems}.  Its warning that
+relevant literature may be missing applies directly to this omission.
 
 There is also a genuinely adjacent proved dyadic theorem.  If $P(m)$ denotes
 the largest prime factor of $m$, Erd\H{o}s and Pomerance proved that
@@ -216,12 +233,17 @@ sequence $\kappa_n=n-1$, which is unbounded and hence not eventually periodic,
 and whose dyadic sum $\sum_{n\ge0}\kappa_n2^{-(n+1)}$ is zero.
 
 \paragraph{Outline.}
-Section~\ref{sec:parts} replaces the primes by their consecutive gaps, the
+Section~\ref{sec:diagonal-collapse} begins with the strongest exact
+recurrence-level conclusions: the lcm-diagonal irrationality criterion, the
+signed two-window normal form, the affine and fixed-lattice circularity
+equivalences, and the quadratic polynomial-shift countermodel.
+Section~\ref{sec:parts} then replaces the primes by their consecutive gaps, the
 natural increments studied by prime-distribution theory.  Summation by parts
 with the endpoint retained gives an exact finite identity, and the termwise
 relation $v_n=2u_{n+1}-u_n$ between the gap terms and the prime terms makes the
 passage to the limit a matter of summability alone; the explicit polynomial
 prime bound supplies that summability inside the formal development.
+
 Section~\ref{sec:tail} rescales the tails of a dyadic series into a recurrence
 and develops it: the block identity, the integral-shift criterion, the
 collapse of every rational solution onto an eventually integral shift, its
@@ -237,6 +259,38 @@ the library's historical Lean~3-era architecture
 pinned revision.  Linked phrases open the corresponding declaration at the
 pinned source revision~\commitshort.
 
+The
+\lword{Erdos251/PrimeGapDyadicTail.lean}{57}{exists_primeGap0_gt}{unbounded-gap
+theorem} states $\forall M:\mathbb N,\ \exists n,\ M<\mathit{primeGap0}(n)$,
+and the
+\lword{Erdos251/PrimeGapDyadicTail.lean}{435}{irrational_tsum_primeDyadicTerm_iff_primeGap}{prime/gap
+irrationality equivalence} states, under
+$\operatorname{Summable}(\mathit{primeDyadicTerm})$, the equivalence between
+irrationality of the prime-term and prime-gap-term sums.  The endpoint-proximate
+abstract classification is represented by
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1551}{irrational_initial_iff_all_positive_tailShifts_nonintegral}{the
+pointwise shift classifier}: for any real dyadic-tail recurrence with integer
+digits, irrationality of the initial state is equivalent to non-integrality of
+every positive shift, and hence to cofinal non-integrality of each fixed shift.
+Its rational-side mechanism is the exact denominator/congruence pair
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1279}{tailShift_integral_iff_den_dvd_mersenne}{denominator
+divisibility} and
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1291}{tailShift_integral_iff_two_pow_modEq_one}{power-of-two
+congruence}; together with the
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1525}{not_irrational_initial_iff_exists_eventually_integral_positive_tailShift}{eventual-integrality
+classifier}, they explain why a rational initial state supplies an eventual
+integral shift.  These are recurrence-level results; the cofinal
+nonintegrality property for the actual prime gaps remains unproved, so no
+irrationality claim for Problem~\#251 follows.  The endpoint-adjacent
+specialisation
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1112}
+      {primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch}
+      {the conditional prime-gap small-mismatch theorem} preserves the
+actual recurrence, the cofinal adjacent $(-1,1)$ hypotheses, and the unequal
+gap condition, and concludes failure of eventual integrality.  The source
+does not supply those pairs, so this is a reduction exposing the missing
+prime-specific estimate, not a proof of Problem~\#251 irrationality.
+
 \statusboundary
 
 \begin{table}[!t]
@@ -247,9 +301,14 @@ pinned source revision~\commitshort.
   >{\raggedright\arraybackslash}p{0.18\linewidth}
   >{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
 \toprule
+\papertablehead
 Statement & Status & Treatment here \\
 \midrule
 Irrationality of $\Pi$ & Open & Not proved. \\
+Lcm-diagonal irrationality criterion & Lean-checked abstractly; an equivalence & Theorem~\ref{res:lcmdiagonal}. \\
+Signed two-window normal form & Lean-checked abstractly; an equivalence & Theorem~\ref{res:signedwindow}. \\
+Affine and fixed-lattice cofinal escape tests & Lean-checked abstractly; both equivalences & Theorem~\ref{res:affinecollapse}; neither supplies a prime-specific estimate. \\
+Quadratic polynomial-shift countermodel & Lean-checked & Proposition~\ref{res:polynomialcountermodel}. \\
 Finite prime-gap identity & Proved here & Theorem~\ref{res:parts}, with the endpoint retained. \\
 Infinite prime-gap identity & Lean-checked unconditionally & Theorem~\ref{res:infinite}, with summability discharged by the polynomial prime bound. \\
 Prime-series/gap-series irrationality equivalence & Lean-checked unconditionally & Corollary~\ref{res:irr-equivalence}. \\
@@ -288,6 +347,172 @@ which, if proved, would give irrationality of $\Pi$.
 summation by parts; Lean~4.
 \qquad
 \textbf{MSC 2020.} 11J72 (primary); 11N05, 68V20 (secondary).
+
+\section{One diagonal, and two circular escape tests}\label{sec:diagonal-collapse}
+
+We first record the strongest recurrence-level conclusions.  They apply to
+arbitrary integer digits and therefore separate the finite algebra from the
+prime-specific input still missing in Problem~\#251.
+
+For a real recurrence put
+\[
+ \Delta_hT(N)=T_{N+h}-T_N,
+\]
+and let $L_0=1$, $L_j=\operatorname{lcm}(1,\ldots,j)$ for $j\ge1$.
+
+\begin{theorem}[lcm-diagonal criterion]\label{res:lcmdiagonal}
+Let $g:\N\to\Z$ and $T:\N\to\R$ satisfy
+$T_{N+1}=2T_N-g_{N+1}$ for every $N$.  Then
+\[
+ \operatorname{Irr}(T_0)
+ \quad\Longleftrightarrow\quad
+ \Delta_{L_j}T(L_j)\notin\Z
+ \quad\hbox{for every }j\ge0.
+\]
+\end{theorem}
+
+\begin{proof}
+The exact rationality classification proved in
+Theorem~\ref{res:escape-irrational} says that an irrational initial state has
+no integral positive shift at any basepoint.  This gives the forward
+implication.  Conversely, if $T_0$ is rational, some positive shift length
+$h$ is integral at every basepoint beyond an index $N_0$.  Choose $j$ so large
+that $N_0\le L_j$ and $h\mid L_j$.  The cocycle identity
+\[
+ \Delta_{a+b}T(N)=\Delta_aT(N)+\Delta_bT(N+a)
+\]
+shows by induction that every positive multiple of $h$ is integral at every
+such basepoint.  Hence $\Delta_{L_j}T(L_j)$ is integral, contradicting the
+right-hand side.
+\end{proof}
+
+The factorial schedule $j!$ has the same divisibility property, but the lcm
+schedule is pointwise no larger and is the canonical endpoint used here.  The
+theorem is an exact one-sequence reformulation; it gives no non-integrality
+statement for the actual prime-gap recurrence.
+
+The adjacent-small-mismatch condition also admits an exact normal form.  For a
+rational recurrence and a fixed $h$, write
+\[
+ D_N=\Delta_hT(N),\qquad
+ \delta_N=g_{N+h+1}-g_{N+1}.
+\]
+Then $D_{N+1}=2D_N-\delta_N$.
+
+\begin{theorem}[signed two-window normal form]\label{res:signedwindow}
+Assume that $\delta_N$ is even.  The conjunction
+\[
+ -1<D_N<1,\qquad -1<D_{N+1}<1,\qquad \delta_N\ne0
+\]
+is equivalent to
+\[
+ \bigl(\delta_N=2\ \hbox{ and }\tfrac12<D_N<1\bigr)
+ \quad\hbox{or}\quad
+ \bigl(\delta_N=-2\ \hbox{ and }-1<D_N<-\tfrac12\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+The recurrence and the two unit windows give $-3<\delta_N<3$.  A nonzero even
+integer in that interval is $2$ or $-2$.  Substitution into
+$D_{N+1}=2D_N-\delta_N$ gives the stated half-window and, in the reverse
+direction, recovers the second unit window.
+\end{proof}
+
+For the longer block, set
+\[
+ B_{h,N,r}=\sum_{i=0}^{r-1}2^{r-1-i}\delta_{N+i};
+ \qquad D_{N+r}=2^rD_N-B_{h,N,r}.
+\]
+Call the data-dependent affine condition
+\[
+ \mathcal A_{N,r}:\qquad
+ D_{N+r}\in -B_{h,N,r}+2^{r+1}\Z.
+\]
+
+\begin{theorem}[affine and fixed-lattice circularity]\label{res:affinecollapse}
+For every rational dyadic tail recurrence and all $h,N,r\ge0$,
+\[
+ \mathcal A_{N,r}\quad\Longleftrightarrow\quad D_N\in2\Z.
+\tag{2.1}\label{eq:affinecollapse}
+\]
+Consequently, if every $\delta_N$ is even, then
+\[
+ \bigl(\forall N_0\ \exists N,r:\ N_0<N\text{ and }\neg\mathcal A_{N,r}\bigr)
+ \quad\Longleftrightarrow\quad
+ D_N\notin\Z\text{ for arbitrarily large }N.
+\tag{2.2}\label{eq:affinecofinal}
+\]
+
+There is a second equivalence.  Let $b:\N\to\Q$ satisfy
+$|D_N|\le b(N)$ for every $N$, and suppose that for every $N$ and every
+positive integer $q$ there is an $r$ with
+\[
+ 2b(N+r)q<2^r.
+\tag{2.3}\label{eq:dyadicscale}
+\]
+Then
+\[
+ \begin{split}
+ &\forall N_0\ \exists N,r:\ N_0<N\text{ and }
+   \forall z\in\Z,\quad
+   b(N+r)<|B_{h,N,r}-2^rz|\\
+ &\hspace{35mm}\Longleftrightarrow\quad
+ D_N\notin\Z\text{ for arbitrarily large }N.
+ \end{split}
+\tag{2.4}\label{eq:fixedcollapse}
+\]
+\end{theorem}
+
+\begin{proof}
+Substituting $D_{N+r}=2^rD_N-B_{h,N,r}$ into $\mathcal A_{N,r}$ cancels the
+observed block from both sides and leaves $D_N=2z$.  This proves
+\eqref{eq:affinecollapse}.  After one recurrence step, evenness of
+$\delta_N$ identifies even integrality at $N+1$ with ordinary integrality at
+$N$.  The forward implication in~\eqref{eq:affinecofinal} follows, while the
+reverse implication chooses a nonintegral $D_N$ and the legal depth $r=0$.
+
+For~\eqref{eq:fixedcollapse}, eventual integrality and the block identity give
+some $z\in\Z$ with
+\[
+ B_{h,N,r}-2^rz=-D_{N+r},
+\]
+so the displayed strict separation contradicts $|D_{N+r}|\le b(N+r)$.
+Conversely, if $D_N$ is nonintegral and has reduced denominator $q$, then its
+distance from every integer is at least $1/q$.  Choose $r$ from
+\eqref{eq:dyadicscale}, scale this separation by $2^r$, and use the block
+identity together with $|D_{N+r}|\le b(N+r)$.  The triangle inequality gives
+$|B_{h,N,r}-2^rz|>b(N+r)$ for every integer $z$.
+\end{proof}
+
+The first equivalence shows that the apparent affine hierarchy contains no
+depth-dependent information: it is the pullback of even integrality through
+the recurrence identity.  The fixed lattice removes that data dependence, but
+under the stated growth condition rational denominator separation already
+forces every required escape.  Hence neither cofinal condition is an
+independent source of information about consecutive primes.
+
+Finally, the coarse coefficient profile itself has an exact infinite
+counterexample.
+
+\begin{proposition}[quadratic polynomial-shift countermodel]\label{res:polynomialcountermodel}
+Put
+\[
+ g_n=2(n^2+4n+2),\qquad T_n=2(n+4)^2.
+\]
+Then $g_n$ is positive, even and strictly increasing,
+$T_{n+1}=2T_n-g_{n+1}$, every shift $T_{N+h}-T_N$ is integral, and
+\[
+ g_{N+2}-g_{N+1}\ne2,-2
+ \qquad\hbox{for every }N.
+\]
+\end{proposition}
+
+\begin{proof}
+All assertions follow by expansion.  In particular
+$g_{n+1}-g_n=4n+10$, while $T_{N+h}-T_N$ is the difference of two even
+integer squares.  Strict growth makes the word unbounded and nonperiodic.
+\end{proof}
 
 \section{Summation by parts, with the endpoint retained}\label{sec:parts}
 
@@ -1107,15 +1332,7 @@ statements.
 fixed toolchain, and the library manifest used in the verification.  This
 manuscript provides navigation rather than proof authority.
 
-\paragraph{Declaration of generative AI use.} Every word of this manuscript was
-generated by agents based on large language models operating within Will Cook's
-private research system for artificial intelligence. The formal proofs and
-repository software were likewise drafted and revised by the agents through
-that system under Cook's direction. Cook set the objectives and acceptance
-criteria, selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation, and
-presentation of the work. Generative systems are production tools, not authors,
-and supply no independent authority. Lean checks each proof term against the fixed library
+Lean checks each proof term against the fixed library
 version, and the sources linked here contain no proof placeholders and no
 project-defined axioms; Lean does not authorise the exposition, the citation
 choices, or the interpretation, for which the author remains responsible.
@@ -1215,7 +1432,7 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
 \raggedright
 \setlength{\itemsep}{0pt}
 \bibitem{erdos1958} P.~Erd\H{o}s,
-  \href{https://combinatorica.hu/~p_erdos/1958-19.pdf}{\emph{Sur certaines
+  \href{https://users.renyi.hu/~p_erdos/1958-19.pdf}{\emph{Sur certaines
   s\'eries \`a valeur irrationnelle}},
   Enseign. Math. (2) \textbf{4} (1958), 93--100,
   doi:\href{https://doi.org/10.5169/seals-34629}{10.5169/seals-34629}.

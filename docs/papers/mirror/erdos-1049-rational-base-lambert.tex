@@ -6,15 +6,17 @@
 % `tectonic erdos-1049-rational-base-lambert.tex` or `make`.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
-  pdftitle={Arithmetic boundaries at base 3/2: coordinatewise clearing and endpoint congruences for Erdős Problem 1049},
+  pdftitle={Sharp height and four-jet obstructions at base 3/2 for Erdős Problem 1049},
   pdfsubject={Erdős Problem Notes: Problem 1049},
   pdfkeywords={irrationality, Lambert series, rational base, Padé approximation, Lean 4},
 }
 
-\runninghead{Erd\H{o}s \#1049: arithmetic boundaries at base 3/2}
-\title{Arithmetic Boundaries at Base $3/2$}
-\subtitle{Coordinatewise clearing and endpoint congruences for Erd\H{o}s
+\runninghead{Erd\H{o}s \#1049: sharp obstructions at base 3/2}
+\title{Sharp Height and Four-Jet Obstructions at Base $3/2$}
+\subtitle{An exact $41/65$ certificate for Erd\H{o}s
 Problem~\#1049}
 \author{Will Cook}
 \date{July 2026}
@@ -25,56 +27,66 @@ Problem~\#1049}
 
 \begin{abstract}
 \noindent
-Let $F(t)=\sum_{n\ge1}(t^{n}-1)^{-1}$.  Problem~\#1049 asks whether $F(t)$ is
-irrational for every rational $t>1$; it remains open, and we prove no
-irrationality result.  At the rational base $3/2$ we instead prove two scoped
-arithmetic obstructions.  The first concerns a common-width
-integer-linear-form approach.  Integer scalar multiplication changes the
-analytic error and the exterior determinant by the same factors, including
-determinant height, so scalar content alone gives no local-to-Archimedean gain.
-Homogeneous specialisation at $(3,2)$ detects the constant endpoint modulo $3$
-and the top endpoint modulo $2$; under unit-endpoint hypotheses, neither prime
-can divide both specialised evaluations.  Thus an argument using this
-particular local-divisibility strategy must obtain its $2$- and $3$-primary
-gain after primitive normalisation.  These results exclude only those
-mechanisms; they neither prove that local gain is necessary nor rule out
-polynomial factors before specialisation, cross-row arithmetic, or another
-proof architecture.  We also give a finite-group collision lemma: for positive
-bottom depth $R$, any $M\ge4R+2S$ coefficient pairs admit a nonzero selector
-difference cancelling four prescribed endpoint residues, that is, both endpoint
-jets in both sequences.  This constructs only the signed relation; it does not
-ensure that the resulting polynomial pair or analytic remainder is nonzero.
+Let
+\[
+ F(t)=\sum_{n\ge1}\frac1{t^n-1}.
+\]
+Erd\H{o}s Problem~\#1049 asks whether \(F(t)\) is irrational for every
+rational \(t>1\).  The problem remains open, and this paper proves no
+irrationality result at \(t=3/2\).
 
-Second, we isolate a six-condition coordinatewise clearing scheme at a
-rational base $r/s$.  Its hypotheses force
-$s^{N+K+1}<r(N+K)$, which is impossible at $3/2$ when the shift and cleared
-window are nonempty.  The associated cleared-tail recurrence
-$U_{N+1}=rU_N-Bc(N+1)s^{N+1}$ is recorded as an explanatory identity; its
-forcing term satisfies $2^{N+1}\le Bc(N+1)s^{N+1}$ for $s\ge2$ and positive
-data, whereas at $s=1$ that term is $Bc(N+1)$.  The recurrence is
-not derived from rationality and does not exclude other clearing or
-linear-form constructions.
+The main exact input is
+\[
+ 2^{64}<3^{41}<2^{65}.
+\]
+It yields a uniform gap greater than \(3/13\) between
+\(\log 2/\log 3\) and every threshold in the rectangular
+Hermite--Pad\'e exponent model considered here.  It also shows that the scalar
+factor, and the scalar factor together with the universally forced
+first-order border, fall short of the required \(39/41\) charge.  These
+inequalities exclude the stated height mechanisms only; they do not exclude
+other Pad\'e or determinant constructions.
 
-For comparison, Bundschuh and V\"a\"an\"anen's published theorem settles a
-restricted family containing $7/2$; Lean checks only the elementary height
-inequality required by that 1994 criterion~\cite{bv1994}, leaving its analytic
-irrationality argument external.  Polynomial denominator-exponent bounds for a
-homogenised Pad\'e construction likewise leave the analytic remainder
-untreated.  We also verify elementary membership
-and exclusion statements for the logarithmic region
-$\log b/\log a<81/200$, but cite no analytic irrationality theorem for that
-cutoff.  Problem~\#1049 remains open: nothing here proves rationality or
-irrationality at $3/2$, or supplies a method-wide obstruction.
+The same bracket sharpens a finite four-jet count.  At bottom depth
+\(R=41T\), any \(M\ge130T+2S\) integral polynomial pairs have two binary
+selectors with the same two endpoint jets in both coordinates.  For \(T=1\)
+this counting threshold is exact.  A bounded-fibre lemma shows how a uniform
+bound on analytic-remainder multiplicities would force one collision outside
+the remainder nullspace.  No such bound is proved for an actual
+\(q\)-Ap\'ery or Zudilin family.  Under the additional hypothesis that adjacent
+minors vanish and the second coordinates are units, a B\'ezout shear reduces
+the sufficient selector width from \(2S+4R\) to \(S+2R\).
+
+Two further obstructions explain why direct integer-base arguments do not
+transfer automatically to \(3/2\).  Integer scalar content scales local
+divisibility and Archimedean determinant height by the same factor, while unit
+endpoint coefficients keep both \(2\) and \(3\) out of a common divisor after
+specialisation.  A six-condition coordinatewise clearing scheme forces
+\(s^{N+K+1}<r(N+K)\); at \(r/s=3/2\) this is impossible for every
+\(N,K\ge1\).  The exact cleared-tail recurrence contains the forcing term
+\(Bc(N+1)s^{N+1}\), which is at least \(2^{N+1}\) when \(s\ge2\) and the
+integer data are positive.
+
+For comparison, Bundschuh and V\"a\"an\"anen's published criterion proves
+irrationality for a restricted rational-base family containing \(7/2\); only
+its elementary height check is formalised here.  The Pad\'e exponent bounds and
+the \(81/200\) logarithmic-region calculations below likewise supply no
+analytic remainder estimate at \(3/2\).  The unresolved task is to construct a
+primitive, noncollapsed approximation family whose endpoint divisibility
+survives normalisation, whose selected polynomial pair and remainder are
+nonzero, and whose decay beats its height.
 \end{abstract}
 
-\externalreviewobject{The paper proves the exact rational-base tail recurrence,
-rules out literal coordinatewise clearing at $3/2$, and checks endpoint,
-Pad\'e, collision, and height obstructions for several proposed proof
-architectures.}{These are scoped no-go and arithmetic statements.  They prove
-no irrationality result and leave Problem~\#1049 open.}{Comparator selects the
-exact rational-base cleared-tail recurrence and the $3/2$
-coordinatewise-corridor exclusion with its nonempty-shift and nonempty-window
-hypotheses.}
+\begin{paperresult}{What the paper rules out}
+\textbf{Exact arithmetic.} The bracket $2^{64}<3^{41}<2^{65}$ excludes the
+stated scalar and first-order Hermite--Pad\'e height mechanisms at $3/2$.
+It also yields the sharp finite four-jet count at bottom depth $41$, with a
+B\'ezout--Pl\"ucker reduction under explicit minor and unit hypotheses.
+\textbf{Transfer obstruction.} Direct integer-base clearing fails by an exact
+growth inequality and forcing recurrence.  \textbf{Open boundary.} No
+primitive noncollapsed approximation family with a sufficiently small
+nonzero remainder is constructed, so no irrationality at $3/2$ is proved.
+\end{paperresult}
 
 \section{Introduction}\label{sec:problem}
 
@@ -83,7 +95,9 @@ Erd\H{o}s Problem~\#1049 asks whether
 \[
  F(t)=\sum_{n\ge1}\frac{1}{t^{n}-1}=\sum_{n\ge1}\frac{\tau(n)}{t^{n}}
 \]
-is irrational~\cite[p.~102]{erdos1988}.  The two forms agree by expanding
+is irrational~\cite[p.~102]{erdos1988}.
+
+The two forms agree by expanding
 $(t^{n}-1)^{-1}=\sum_{k\ge1}t^{-nk}$ and collecting the terms with the same
 exponent, the coefficient of $t^{-m}$ being the number of divisors of $m$.
 The question is a conjecture of Chowla; Erd\H{o}s proved it for every integer
@@ -117,7 +131,9 @@ the same file's $|t|\le1$ branch instead uses Lean's convention that the
 \texttt{tsum} of a nonsummable series is zero.  Thus it supplies genuine
 checked prior art for the identity, but no irrationality theorem.  The present
 note formalises propositions about the clearing argument and likewise does
-not answer the conjecture.  Erd\H{o}s's positive-integer theorem of
+not answer the conjecture.
+
+Erd\H{o}s's positive-integer theorem of
 1948~\cite{erdos1948} sits inside a larger integer-base literature.
 At the level of functions, Rivin proves that if a sequence \(\gamma\) and its
 divisor-sum sequence are both eventually linearly recurrent, then \(\gamma\)
@@ -131,7 +147,9 @@ is not a rational function~\cite[Corollary~6.4, p.~9]{rivin2026}.
 This is an exact structural statement about the function underlying
 Problem~\#1049, but it gives no irrationality statement for a special value
 at \(z=1/t\): a nonrational function may take rational values at particular
-rational points.  In 1991
+rational points.
+
+In 1991
 Borwein proved the irrationality of shifted series
 $\sum_{n\ge1}(t^{n}+w)^{-1}$ at integer bases $t\ge2$, for every nonzero
 rational $w$ with $w\ne-t^m$ for all $m\ge1$, by Pad\'e approximation rather
@@ -152,6 +170,12 @@ Zeilberger's $q$-WZ construction~\cite{az1998}.  Here $p>1$ is the integer-base
 parameter and the little-$q$ kernel uses $q=p^{-1}$.  The two constructions
 share that bivariate little-$q$-Legendre Pad\'e kernel, but Van Assche's
 diagonal does not satisfy the Amdeberhan--Zeilberger scalar recurrence.
+Their Theorems~1 and~2 do prove, respectively, the irrationality of the
+non-alternating $h_p(1)$ and alternating $q$-logarithm values for their stated
+integer parameters, with reported irrationality measure $4.80$; those are
+external integer-parameter results and do not transfer to the rational
+noninteger base $3/2$ studied here.
+
 Amdeberhan--Zeilberger use the moving diagonal
 $P_n(p^{n+1}\mid p^{-1})$, whereas Van Assche uses
 $P_n(p^n\mid p^{-1})$.  Van Assche also records, citing
@@ -165,7 +189,9 @@ Amdeberhan--Zeilberger operator leaves
  -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2),
 \]
 which is nonzero for every real $p>1$.  One nonzero residual is decisive for
-non-transfer of that recurrence.  Lean checks the
+non-transfer of that recurrence.
+
+Lean checks the
 \lword{Erdos1049/QAperyDiagonalNonEquivalence.lean}{67}{vanAsscheQAperyResidualAtZero_eq}{exact
 residual factorisation} and its
 \lword{Erdos1049/QAperyDiagonalNonEquivalence.lean}{94}{vanAsscheQAperyResidualAtZero_ne_zero}{nonvanishing
@@ -188,23 +214,35 @@ $b\le-2$~\cite[Thm.~1.2, p.~2]{vandehey2013}.  His companion theorem permits
 a finite alphabet of nonnegative integers containing zero, provided the
 coefficient sequence is not eventually zero
 \cite[Thm.~1.1, p.~2]{vandehey2013}.  All
-three retain an integer base.  In 2004 Zudilin obtained the uniform bound
+three retain an integer base.  Luca and Tachiya's periodic-coefficient theorem
+likewise proves irrationality at every integer base of absolute value greater
+than one; their full-support example strengthens this to joint linear
+independence for finite families of iterated divisor functions
+\cite[Theorem~A, p.~139; Example~1, p.~140]{lucatachiya2017}.  This is strong
+integer-base evidence, but it does not cover a rational noninteger base.
+
+In 2004 Zudilin obtained the uniform bound
 $\mu(F(p))\le2.46497868\ldots$ for every integer
 $p\notin\{0,\pm1\}$, by way of Heine's basic transform and a permutation
 group~\cite[Thm.~1, p.~154; Secs.~4--5, pp.~159--162]{zudilin2004}.
 The ordinary-hypergeometric antecedent is Rhin and Viola's $S_5$ action and
 twelve-coset denominator reduction for rational forms in
 $\zeta(2)$~\cite[Sec.~3, pp.~38--42; Sec.~4, pp.~46--51]{rhinviola1996}.
+
 Those sources motivate the permutation, denominator and polynomial-
 specialisation architecture of Section~\ref{sec:endpoints}; the endpoint
 lemmas there are abstract and are not yet applied to either source's actual
-coefficient family.  The neighbouring problem of Lambert
+coefficient family.
+
+The neighbouring problem of Lambert
 subseries $\sum_{n\in A}(t^{n}-1)^{-1}$ over a restricted index set $A$ is
-treated by Kova\v{c} and Tao~\cite{kovactao2024}.  The rational non-integer
+treated by Kova\v{c} and Tao~\cite{kovactao2024}.
+
+The rational non-integer
 progress relevant here is instead the height criterion of Bundschuh and
 V\"a\"an\"anen~\cite{bv1994}, which remains the strongest explicit numerical
-threshold we know of for this value.  It is not the only later source admitting
-non-integral rational bases: Zudilin's Pad\'e-and-Hankel treatment of the
+threshold among the sources compared here for this value.  Zudilin's later
+Pad\'e-and-Hankel treatment also admits non-integral rational bases: its
 generalized $q$-logarithm remarks that its results also hold for non-integer
 $p=r/s$ with $|p|>1$, under an assumption $\log|r|>c\log|s|$ for some computable
 $c>0$~\cite{zudilin2016}.  No value of $c$ is computed there, and we do not
@@ -212,9 +250,8 @@ compute one; we record the remark because it shows the rational-base extension
 was already contemplated, and because any threshold of that shape is a
 statement about $\log s/\log r$ of exactly the kind
 Section~\ref{sec:sevenhalves} treats.
-No claim of priority is made for anything below,
-which concerns the formal status of an argument rather than a new theorem
-about $F(t)$.
+No claim of priority is made for the analysis below.  It records the formal
+status and limits of the argument; it does not add a theorem about $F(t)$.
 
 \paragraph{Erd\H{o}s's integer-base argument, in outline.}
 For an integer $b\ge2$, Erd\H{o}s rewrites
@@ -227,11 +264,11 @@ zero blocks without being eventually zero and is therefore irrational
 ~\cite[pp.~63--66]{erdos1948}.
 
 \paragraph{The direct cut-and-clear attempt studied here.}
-A more naive route is to suppose $F(b)=p/q$, cut at $N$, and multiply the
+A more naive attempt is to suppose $F(b)=p/q$, cut at $N$, and multiply the
 remaining identity by $qb^N$.  This does not by itself trap a positive integer
 below $1$: the first uncleared tail contribution is
 $q\tau(N+1)/b$.  The sections below isolate additional corridor hypotheses
-under which a bounded-window version of this route would work, and then show
+under which a bounded-window version of this attempt would work, and then show
 why those hypotheses fail at $3/2$.
 
 Write $\beta=r/s$ for the base and $c(n)$ for the coefficient of $\beta^{-n}$,
@@ -242,7 +279,7 @@ invisible when $s=1$ and grows geometrically when $s\ge2$.  At $3/2$ it is
 $2^{n}$.
 
 \paragraph{Terminology.}
-The linear-form route uses polynomial pairs before specialisation and integer
+The linear-form method uses polynomial pairs before specialisation and integer
 pairs afterwards.  We reserve \emph{row} for an integer pair $(U,V)$.  Its
 \emph{integer scalar content} is $\gcd(|U|,|V|)$; a row is \emph{primitive}
 when this number is $1$, and dividing by it is \emph{primitive normalisation}.
@@ -253,7 +290,9 @@ $U_{n}V_{m}-U_{m}V_{n}$, the determinant of the $2\times2$ matrix they form.
 Two quantities attached to that determinant are compared throughout: an
 integer dividing it, which is a local gain, and its absolute value, which is an
 Archimedean cost; we call that comparison the \emph{local-to-Archimedean
-balance}.  The \emph{endpoints} of a coefficient polynomial, taken relative to
+balance}.
+
+The \emph{endpoints} of a coefficient polynomial, taken relative to
 the declared width $W$ of Section~\ref{sec:endpoints}, are its constant
 coefficient and its coefficient at $W$; we call these the \emph{constant
 endpoint} and the \emph{top endpoint}, so the top endpoint is the coefficient
@@ -268,14 +307,27 @@ and $S$ are the bottom and top \emph{depths}.  A jet vanishes exactly when the
 prime power in question divides the specialised coefficient.
 
 \paragraph{The shortfall at $3/2$.}
-The elementary route and the linear-form route are both examined below.  For
+The elementary method and the linear-form method are both examined below.  For
+the height argument, the exact bracket $2^{64}<3^{41}<2^{65}$ gives a gap greater
+than $3/13$ across the whole admissible rectangular exponent cone and fixes the
+$39/41$ denominator-charge comparison.  Neither the source scalar factor nor
+that factor together with the universally forced first-order residual border
+reaches the required charge.  These comparisons leave higher residual
+valuations, determinant cancellation, and other integral models untouched.
+For the additive argument, the same bracket replaces the generic
+$4R+2S$ threshold by $130T+2S$ at depth $R=41T$ and gives an exact first-row
+failure at $T=1$.
+
+For
 the coordinatewise clearing scheme the leftover at each step is the forcing
 term of an exact recurrence, of size at least
 $2^{N+1}$ whenever $s\ge2$ and the scaling constant $B$ and the coefficient
 $c(N+1)$ are at least $1$
 (Theorem~\ref{res:forcing}), and the
 scheme itself is excluded at $3/2$ for every shift $N\ge1$ and every cleared
-window of width $K\ge1$ (Theorem~\ref{res:nocorridor}).  For the linear-form
+window of width $K\ge1$ (Theorem~\ref{res:nocorridor}).
+
+For the linear-form
 constructions we examine two possible sources of $2$-adic and $3$-adic gain.
 Integer scalar content is exactly neutral, since it scales the exterior
 determinant and its absolute height by the same factor
@@ -285,7 +337,9 @@ any common divisor of the two specialised evaluations
 Corollary~\ref{res:nomult} states the two scoped exclusions together; neither
 is claimed to be necessary for every linear-form proof.  Separately, the scalar
 parameter margin is negative under the assumed source inequality
-(Theorem~\ref{res:scalar}).  One candidate pursued here is additive: an
+(Theorem~\ref{res:scalar}).
+
+One candidate pursued here is additive: an
 integer relation among rows that cancels the endpoint jets.
 Theorem~\ref{res:jetkernel} shows that a nonzero relation with coefficients in
 $\{-1,0,1\}$ cancelling all four jets exists whenever the bottom depth is
@@ -294,7 +348,8 @@ show that the resulting combination has a nonzero polynomial pair or a nonzero
 remainder.  Problem~\ref{prob:kernel} gives a precise sufficient specification
 for that particular candidate architecture, not a necessary condition for
 solving Problem~\#1049.
-Sections~\ref{sec:sevenhalves} and~\ref{sec:pade} record two external routes
+
+Sections~\ref{sec:sevenhalves} and~\ref{sec:pade} record two external methods
 and what each leaves unproved at $3/2$.
 
 \paragraph{Sharpness.}
@@ -306,56 +361,36 @@ happened at the smallest admissible window, which is why the exclusion there
 holds for all $N\ge1$ and $K\ge1$ with no further restriction.  The height
 criterion of~\cite{bv1994} is restricted by a height condition satisfied at
 $7/2$ and not at $3/2$, so the two bases are separated by that criterion rather
-than by anything proved here.
+than by a universal obstruction.  The exponent $65$ in
+$3^{41}<2^{65}$ cannot be replaced by $64$.  The separate direct comparison
+$2^{129}<3^{82}$ then proves that the integer four-jet threshold is exactly
+$130+2S$ when $R=41$: $129+2S$ does not suffice.
+
+For $R=41T$ with $T>1$, the displayed $130T+2S$ bound is uniform and sufficient,
+but no claim of exact optimality at every $T$ is made.
 
 \statusboundary
 
-\begin{table}[!t]
-\centering
-\small
-\begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{0.34\linewidth}
-  >{\raggedright\arraybackslash}p{0.18\linewidth}
-  >{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
-\toprule
-Statement & Status & Treatment here \\
-\midrule
-Irrationality of $F(3/2)$ & Open & Not proved; the results below exclude only named proof architectures and imply no arithmetic property of this value. \\
-Irrationality at some rational non-integer base & Proved elsewhere & The height criterion of~\cite{bv1994}; cited, not formalised. \\
-Nonrationality of the Lambert function
-\(\sum_{n\ge1}z^n/(1-z^n)\) & Proved elsewhere &
-Rivin's Corollary~6.4~\cite[p.~9]{rivin2026}; a functional statement, not a
-special-value theorem. \\
-Integer scalar content is neutral for the local-to-Archimedean balance & Proved here & Theorem~\ref{res:content}, including the absolute determinant height. \\
-Homogeneous endpoint residues at $(3,2)$ & Proved here & Theorem~\ref{res:endpoints}. \\
-Common divisor of the two specialised evaluations avoids $2$ and $3$ & Proved here & Proposition~\ref{res:commonmult}; under unit endpoint hypotheses. \\
-No gain from integer scalar content or from the stated common divisor at $3/2$ & Deduced here & Corollary~\ref{res:nomult}; an ordinary deduction from the two preceding rows, not separately formalised. \\
-Four-jet collision at $M\ge4R+2S$ coefficient pairs & Proved here & Theorem~\ref{res:jetkernel}; sufficient, at positive bottom depth. \\
-Scalar margin on Zudilin's parameter cone & Negative under source input & Theorem~\ref{res:scalar}; the source inequality is assumed. \\
-Corridor forces $s^{N+K+1}<r(N+K)$ & Proved here & Theorem~\ref{res:corridorbound}. \\
-No corridor at base $3/2$ & Proved here & Theorem~\ref{res:nocorridor}; a statement about the clearing scheme. \\
-Cleared-tail recurrence & Proved here & Theorem~\ref{res:tailrec}, an exact identity. \\
-Forcing term at least $2^{N+1}$ for $s\ge2$ & Proved here & Theorem~\ref{res:forcing}; at $s=1$ the term is $Bc(N+1)$. \\
-The elementary $7/2$ height condition & Proved here & Theorem~\ref{res:sevenhalves}; the analytic theorem of~\cite{bv1994} remains external. \\
-Membership of $31/4$ and its powers in the $81/200$ logarithmic region & Proved here & Exact elementary inequalities; no analytic irrationality theorem is inferred. \\
-Exclusion of $3/2$ from both recorded height regions & Proved here & $3^{81}<2^{200}$ gives $81/200<\log2/\log3$. \\
-Explicit rectangular exponent-model threshold does not improve the classical margin & Proved here & Algebraic statement about the displayed exponent formulas, with equality only at the classical endpoint. \\
-Pad\'e denominator-exponent bounds & Proved here & Section~\ref{sec:pade}; exponent arithmetic only. \\
-Pad\'e remainder positivity and decay & Not treated & Section~\ref{sec:pade}. \\
-Common-width simultaneous endpoint-jet construction & Candidate sufficient route & Problem~\ref{prob:kernel}; not necessary for every proof and not supplied by the collision theorem alone. \\
-Homogenised cyclotomic values are coprime to $ab$ & Proved here & Proposition~\ref{res:cyclounit}; an imported cyclotomic factor supplies no $2$- or $3$-primary gain at $3/2$. \\
-No finite $\Q(z)$-space containing $\mathcal L$ stable under $z\mapsto z^2$ and $z\mapsto z^3$ & Deduced here from cited theorems & Proposition~\ref{res:nomahler}; closes the simultaneous Mahler route only, and uses no property of the point $2/3$. \\
-\bottomrule
-\end{tabular}
-\end{table}
+\paragraph{Results and boundary.}
+The linked Lean declarations establish exact inequalities, congruences,
+finite collision counts, recurrence identities, and exclusions for the named
+models.  Bundschuh and V\"a\"an\"anen's irrationality theorem at \(7/2\),
+Rivin's functional nonrationality theorem, and the two-variable Mahler theorem
+used below remain external results.  None of the formal statements proves an
+irrationality result at a rational noninteger base.  At \(3/2\), the missing
+step is still an actual primitive approximation family with nonzero remainder
+and an asymptotic height margin.
 
 \paragraph{Structure.}
-Section~\ref{sec:primitive} proves that integer scalar content is neutral for the
-local-to-Archimedean balance.  Section~\ref{sec:endpoints} proves the endpoint
+Section~\ref{sec:sharp} derives the height and charge exclusions from the sharp
+$41/65$ power certificate.  Section~\ref{sec:primitive} proves that integer scalar content is neutral for the
+local-to-Archimedean balance.
+
+Section~\ref{sec:endpoints} proves the endpoint
 congruences at $(3,2)$, deduces from them and from
 Section~\ref{sec:primitive} that neither integer scalar content nor a common divisor
 of the two specialised evaluations supplies the targeted endpoint gain, gives the
-four-jet collision count, and records one further
+four-jet collision count and its conditional B\'ezout--Pl\"ucker compression, and records one further
 exclusion on Zudilin's scalar parameters.
 Sections~\ref{sec:corridor} and~\ref{sec:tail} return to the elementary
 clearing scheme and record what the residue $s^{n}$ costs there, first as an
@@ -372,6 +407,128 @@ Pad\'e approximation; Lean~4.
 \qquad
 \textbf{MSC 2020.} 11J72 (primary); 11J82, 68V20 (secondary).
 
+\section{The sharp $41/65$ certificate}\label{sec:sharp}
+
+The numerical obstruction at $3/2$ is controlled by one small exact
+calculation.  Writing it out is useful because the upper and lower inequalities
+play different roles: the upper inequality proves every strict analytic
+threshold below, while the lower inequality establishes the sharp rational
+scale.  Exact failure of the rank-$41$ selector count one row earlier uses the
+additional integer comparison $2^{129}<3^{82}$ below.
+
+\begin{theorem}[sharp power bracket]\label{res:powerbracket}
+One has
+\[
+ 2^{64}<3^{41}<2^{65}.
+\]
+Consequently
+\[
+ \frac{41}{65}<\frac{\log2}{\log3},
+ \qquad
+ \frac{\log3}{\log2}<\frac{65}{41}.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct evaluation gives
+\[
+ \begin{aligned}
+ 2^{64}&=18446744073709551616,\\
+ 3^{41}&=36472996377170786403,\\
+ 2^{65}&=36893488147419103232.
+ \end{aligned}
+\]
+The logarithmic inequalities follow by taking logarithms and dividing by the
+positive numbers $41\log3$ and $41\log2$, respectively.
+\end{proof}
+
+\noindent The integer sides are checked as
+\lword{Erdos1049/AdelicHeightBridge.lean}{42}{threePow_fortyOne_lt_twoPow_sixtyFive}{the upper certificate}
+and
+\lword{Erdos1049/AdelicHeightBridge.lean}{45}{twoPow_sixtyFour_lt_threePow_fortyOne}{the sharp lower certificate}.
+
+The upper half is stronger than the earlier $81/200$ comparison in the
+direction needed at $3/2$.  Combining it with the elementary bound
+$1/2-1/\pi^2<2/5$ gives the following exact deficits.
+
+For $\rho,\sigma\in\R$, write
+\[
+ \Theta_{\mathrm{HP}}(\rho,\sigma)=
+ \frac{(1+\rho^2)/2+\sigma-3\sigma^2/\pi^2}
+ {(1+\rho)^2/2+\sigma(1+\rho)+(1+\rho^2)/2+\sigma}.
+\]
+
+\begin{corollary}[height and Hankel deficits]\label{res:sharpgaps}
+For every $\rho,\sigma\in\R$ with $0\le\rho$ and $1+\rho\le\sigma$,
+\[
+ \frac3{13}<\frac{\log2}{\log3}
+   -\left(\frac12-\frac1{\pi^2}\right),
+ \qquad
+ \frac3{13}<\frac{\log2}{\log3}-\Theta_{\mathrm{HP}}(\rho,\sigma),
+\]
+where $\Theta_{\mathrm{HP}}$ is the rectangular exponent threshold.  Moreover
+\[
+ \frac{\log3/\log2-1}{3}<\frac8{41}.
+\]
+\end{corollary}
+
+\begin{proof}
+The first inequality follows from
+$41/65-2/5=3/13$, Theorem~\ref{res:powerbracket}, and
+$1/2-1/\pi^2<2/5$.  The rectangular threshold is no larger than the classical
+margin $1/2-1/\pi^2$, so the second follows.  The final inequality is a direct
+rearrangement of $\log3/\log2<65/41$.
+\end{proof}
+
+\noindent The uniform rectangular bound and cubic charge bound are
+\lword{Erdos1049/AdelicHeightBridge.lean}{86}{threeHalves_rectangular_hp_gap_gt_threeThirteenths}{checked here}
+and
+\lword{Erdos1049/AdelicHeightBridge.lean}{97}{threeHalves_hankelChargeThreshold_lt_eightFortyOne}{checked here}.
+
+The next statement is the source-facing charge comparison.  It does not prove
+the degree ceilings: those come from the scalar factor and the universally
+forced first-order southeast-border factor in the Zudilin model.  It proves
+that even granting those ceilings, neither extraction reaches the required
+$39/41$ fraction of the raw charge.
+
+\begin{theorem}[scalar and border charge no-go]\label{res:chargeceilings}
+For every integer $N>0$,
+\[
+ 41(N^3-N)<39(4N^3-3N^2).
+\]
+For every integer $N\ge2$,
+\[
+ 41(2N^3-N)<39(4N^3-3N^2).
+\]
+Hence the same strict inequalities hold with the left side replaced by
+$41E$ whenever, respectively, $E\le N^3-N$ or $E\le2N^3-N$.
+\end{theorem}
+
+\begin{proof}
+After subtraction, the first inequality is
+\[
+ N(115N^2-117N+41)>0,
+\]
+which holds for $N>0$.  The second becomes
+\[
+ N(74N^2-117N+41)>0.
+\]
+For $N\ge2$ the quadratic factor is positive and increasing.  The assertions
+for $E$ follow by monotonicity.
+\end{proof}
+
+\noindent The application-facing downward-closed forms are
+\lword{Erdos1049/AdelicHeightBridge.lean}{123}{zudilinScalarContent_cannot_meet_required_charge}{the scalar no-go}
+and
+\lword{Erdos1049/AdelicHeightBridge.lean}{153}{zudilinScalarPlusBorder_cannot_meet_required_charge}{the scalar-plus-border no-go}.
+
+The formal source checks Theorem~\ref{res:powerbracket},
+Corollary~\ref{res:sharpgaps}, and Theorem~\ref{res:chargeceilings} as exact
+Lean propositions.  Their role is exclusion: scalar content and the forced
+first-order border do not supply enough charge.  Higher residual valuations,
+determinant cancellation, a different integral model, and irrationality of
+$F(3/2)$ remain open.
+
 \section{Integer scalar content is neutral}\label{sec:primitive}
 
 An irrationality argument by linear forms replaces the clearing scheme by
@@ -387,8 +544,9 @@ We call \(L_S(U,V)\) the \emph{error} of the row at \(S\); a good approximation
 is one that makes it small.  The second expression is the exterior determinant
 of the two rows, and it eliminates \(S\) exactly:
 \[
- \Delta=U_mL_S(U_n,V_n)-U_nL_S(U_m,V_m).
+\Delta=U_mL_S(U_n,V_n)-U_nL_S(U_m,V_m).
 \]
+
 This identity is what makes the determinant useful.  Since \(\Delta\) is an
 integer, if it does not vanish then
 \[
@@ -535,6 +693,7 @@ Take \(W=2\).  The three polynomials below differ only at an endpoint.
 \begin{center}
 \begin{tabular}{@{}llcc@{}}
 \toprule
+\papertablehead
 \(P\) & \(H_2(P)\) & \(3\mid H_2(P)\) & \(2\mid H_2(P)\)\\
 \midrule
 \(X^2+1\)  & \(1\cdot4+0\cdot6+1\cdot9=13\) & no  & no \\
@@ -644,8 +803,8 @@ whatever its size.  This does not make such factors useless: a large odd
 divisor still reduces Archimedean height, and that is a different account of the
 same product formula.  It does say that the $2$- and $3$-primary gain the
 architecture of Section~\ref{sec:open} requires must come from somewhere other
-than an imported cyclotomic factor, and it is one reason the exclusions above
-are not merely local accidents of the two primes involved.
+than an imported cyclotomic factor.  The exclusions therefore reflect the
+architecture itself, beyond the local behaviour of the two primes involved.
 
 \noindent Both ingredients are Lean-checked; the combination is an ordinary
 deduction and is not separately formalised.  The corollary excludes two ways of
@@ -673,7 +832,9 @@ These are the checked
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}{bottom-jet
 divisibility criterion} and
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}{top-jet
-divisibility criterion}.  The \emph{four-jet signature} of a coefficient pair
+divisibility criterion}.
+
+The \emph{four-jet signature} of a coefficient pair
 \((U,V)\) is then the quadruple
 \[
  \bigl(J_{3,R}(U),J_{3,R}(V),J_{2,S}(U),J_{2,S}(V)\bigr)
@@ -718,6 +879,114 @@ of the four cyclic-modulus cardinalities.  For \(R>0\),
 which proves the stated sufficient threshold.
 \end{proof}
 
+The power bracket improves the generic coefficient $4R$ when the bottom depth
+is a multiple of $41$.
+
+\begin{corollary}[sharp rank-$41$ four-jet threshold]\label{res:rankfortyone}
+Let $T>0$.  At bottom depth $R=41T$, any family of
+$M\ge130T+2S$ integral polynomial pairs has two distinct binary selectors
+with the same four-jet sum.  For $T=1$ the coefficient $130$ is exact for
+this counting argument:
+\[
+ 2^{129+2S}<\bigl| (\Z/3^{41}\Z)^2\times
+                       (\Z/2^S\Z)^2\bigr|.
+\]
+No exact-optimality assertion is made here for $T>1$.
+\end{corollary}
+
+\begin{proof}
+The upper power inequality gives
+\[
+ (3^{41T})^2(2^S)^2
+ <(2^{65})^{2T}(2^S)^2=2^{130T+2S}\le2^M,
+\]
+so Theorem~\ref{res:jetkernel} applies.  For $T=1$, direct integer
+evaluation gives $2^{129}<3^{82}$; multiplying by $(2^S)^2$ gives the
+displayed reverse count at $129+2S$.
+\end{proof}
+
+\noindent The sufficient collision threshold is
+\lword{Erdos1049/AdelicHeightBridge.lean}{279}{exists_distinct_binary_selectors_same_fourJet_of_rank_41}{checked here},
+while its exact unit-block failure one row earlier is
+\lword{Erdos1049/AdelicHeightBridge.lean}{292}{fourJet_card_gt_two_pow_of_rank_41}{checked here}.
+
+Counting alone does not ensure that the two selectors produce different
+analytic remainders.  The exact missing step is a bounded-fibre estimate.
+
+\begin{theorem}[bounded-fibre escape]\label{res:boundedfibre}
+Let $A$ and $B$ be finite sets, let $f:A\to B$, and let $g:A\to C$ be any
+map into a set $C$.  Suppose every fibre of $g$ has at most $k$ elements.  If
+\[
+ |B|k<|A|,
+\]
+then there exist distinct $x,y\in A$ such that
+\[
+ f(x)=f(y)\qquad\hbox{and}\qquad g(x)\ne g(y).
+\]
+Thus, with $f$ the four-jet sum and $g$ the analytic remainder, a uniform
+remainder-multiplicity bound converts surplus selector entropy into a
+four-jet collision outside the remainder nullspace.
+\end{theorem}
+
+\begin{proof}
+If every pair in a common $f$-fibre also had the same $g$-value, each
+$f$-fibre would lie in one $g$-fibre and hence have size at most $k$.
+Summing over the at most $|B|$ fibres of $f$ would give
+$|A|\le |B|k$, contrary to the hypothesis.
+\end{proof}
+
+\noindent This finite escape principle is
+\lword{Erdos1049/AdelicHeightBridge.lean}{311}{exists_ne_map_eq_map_ne_of_card_mul_lt}{checked here}.
+
+\begin{theorem}[B\'ezout--Pl\"ucker tail collapse]
+\label{res:plucker-collapse}
+Let $R_0$ be a commutative ring and let $w_n=(A_n,B_n)\in R_0^2$.  Suppose
+that every $B_n$ is a unit and every adjacent minor vanishes:
+\[
+ A_nB_{n+1}-B_nA_{n+1}=0\qquad(n\ge0).
+\]
+Then every pairwise minor $A_iB_j-B_iA_j$ vanishes.  In particular, take
+$R_0=\Z/(2^S3^R)\Z$ with $R>0$.  If $S+2R\le k$, there are two distinct
+binary selectors $s,t\in\{0,1\}^{k}$ such that
+\[
+ \sum_{i<k}s_iw_i=\sum_{i<k}t_iw_i.
+\]
+Thus the sufficient width is $S+2R$, rather than the ambient two-coordinate
+width $2S+4R$.
+\end{theorem}
+
+\begin{proof}
+A unit second coordinate makes each row a unimodular anchor.  Vanishing of the
+next minor therefore writes the next row as a scalar multiple of the current
+one; induction places the entire tail on the line through $w_0$ and proves the
+pairwise-minor assertion.  A determinant-one B\'ezout shear sends $w_0$ to
+$(1,0)$, so all selector sums have only one free residue coordinate and occupy
+at most $2^S3^R$ values.  Finally
+\[
+ 2^S3^R<2^S4^R=2^{S+2R}\le2^k,
+\]
+and pigeonhole gives the two selectors.
+\end{proof}
+
+\noindent The minor propagation is
+\lword{Erdos1049/BezoutPluckerJets.lean}{191}{adjacent_det_zero_forces_all_det_zero}{kernel checked};
+the one-dimensional collision after a B\'ezout shear is
+\lword{Erdos1049/BezoutPluckerJets.lean}{145}{binary_row_collision_of_anchor_det_zero}{kernel checked};
+and the explicit $2$/$3$-depth endpoint is
+\lword{Erdos1049/BezoutPluckerJets.lean}{249}{zmod_binary_tail_collision_of_two_three_depth}{kernel checked}.
+This conditional theorem is stronger than the ambient four-jet count only
+after its minor-vanishing hypothesis has been established.  No such all-tail
+hypothesis is proved here for an actual $q$-Ap\'ery or Zudilin family, and the
+theorem says nothing about whether the resulting selector difference has
+nonzero analytic remainder.
+
+\noindent\textbf{Boundary.}
+Corollary~\ref{res:rankfortyone} is a sharp finite kernel statement at
+$T=1$, not an analytic nonvanishing theorem.  Theorem~\ref{res:boundedfibre}
+identifies the precise extra input needed to escape the nullspace, but this
+paper does not prove a multiplicity bound for the actual $q$-Ap\'ery or
+Zudilin remainder family.
+
 \noindent The target count is the checked
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}{four-jet
 target cardinality}; the abstract collision is the checked
@@ -754,13 +1023,19 @@ Let \(C_1>0\).  If \(C_0\le0\) or \(2C_0\le C_1\), then
 \[
  C_0\log 3-C_1\log 2<0.
 \]
+In the positive branch $C_0>0$ and $2C_0\le C_1$, the stronger estimate is
+\[
+ C_0\log3-C_1\log2< -\frac{17}{41}C_0\log2.
+\]
 \end{theorem}
 
 \noindent Written multiplicatively, the conclusion is \(3^{C_0}<2^{C_1}\).  The
 inequality is immediate from \(\log3<2\log2\) and \(C_1>0\), and
 is the checked
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}{three-halves
-scalar margin}.  The interest is in the fence around it.  The primary Zudilin
+scalar margin}.  The positive-branch deficit is the checked
+\lword{Erdos1049/AdelicHeightBridge.lean}{242}{three_two_scalar_margin_lt_explicit}{$17/41$ margin}.
+The interest is in the fence around it.  The primary Zudilin
 theorem~\cite[Theorem~1, p.~154; Sec.~5, pp.~161--162]{zudilin2004} supplies an integer-base
 irrationality-exponent estimate on its parameter cone, and the elementary
 inequality \(\mu\ge2\) then forces \(2C_0\le C_1\) whenever \(C_0>0\); Lean
@@ -1193,7 +1468,7 @@ before specialisation, cross-row or determinant-specific arithmetic,
 cyclotomic factors, other additive constructions, and entirely different
 architectures remain outside that corollary and are not decided either way.
 
-The remaining linear-form programme therefore has two
+The remaining linear-form argument therefore has two
 independent gates: first find a four-jet collision that does not collapse
 algebraically or analytically; only then ask whether its divisibility and decay
 beat its height.  We state those gates separately below.
@@ -1210,7 +1485,9 @@ Call the family \emph{polynomially primitive} when the common coefficient
 content of the pair in $\Z[X]^2$ is divided out before specialisation; as the
 Terminology paragraph records, that is a different operation from primitive
 normalisation of a specialised integer row, which is what
-Problem~\ref{prob:kernel} imposes.  The specialised row content
+Problem~\ref{prob:kernel} imposes.
+
+The specialised row content
 \[
  g^{\mathrm{spec}}_{n,j}
  =\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)
@@ -1285,7 +1562,7 @@ algebra and normality; it makes no asymptotic product-formula claim.  It is the
 first of the two gates in Problem~\ref{prob:kernel}: it asks for the two
 nonvanishing conclusions, and not for the analytic condition stated there.
 
-\subsection{The first falsifiable families}
+\subsection{Determinant families}
 
 An exploratory calculation suggests a contiguous $a_0$-shift determinant at
 $r_n=13n+2$, after apparent failure of lower ranks $r\le13n+1$.  These
@@ -1345,12 +1622,12 @@ Nonvanishing alone does not address~\eqref{eq:negative-margin}.  Conversely,
 excellent formal decay is irrelevant if every jet collision lies in a bad
 nullspace.  The exploratory adjacent-exterior calculation leaves a positive
 normalised exponent of about $110.850\,n^2$; this is not a checked theorem.
-Any proposed improvement must remove this explicit deficit rather than merely
-exhibit some extra divisibility.
+Any proposed improvement must remove this explicit deficit; extra divisibility
+alone is insufficient.
 
 \subsection{One exact alternative-criterion test}
 
-A separate possible route is Mahler's method.  Its first applicability test has
+A separate possible method is Mahler's method.  Its first applicability test has
 an exact negative answer, which we record here; an earlier version of this note
 left it open.
 
@@ -1384,7 +1661,7 @@ require stability under two multiplicatively independent substitutions, or about
 special-value theorems reached by other means.  Neither ingredient is proved
 here; both are cited.
 
-\subsection{The quantitative height frontier}
+\subsection{The quantitative height limitation}
 
 The module \texttt{HermitePadeNoGo} defines an explicit rectangular
 two-parameter exponent model.  Writing $\sigma=1+\rho+u$, its
@@ -1428,7 +1705,7 @@ one of the checked scalar or rectangular no-go mechanisms.
 \end{problem}
 
 Reaching $3/2$ requires a threshold strictly beyond
-$\log2/\log3\approx0.6309$, not merely an improvement over $81/200=0.405$.
+$\log2/\log3\approx0.6309$; exceeding $81/200=0.405$ is insufficient.
 The unrestricted question of which rational bases give irrational values
 remains open and is not reduced to any one of these problems.
 
@@ -1440,19 +1717,6 @@ remains open and is not reduced to any one of these problems.
 fixed toolchain, and the library manifest used in the verification.  This
 manuscript provides navigation rather than proof authority.
 
-\paragraph{Declaration of generative AI use.} Every word of this manuscript was
-generated by agents based on large language models operating within Will Cook's
-private research system for artificial intelligence. The formal proofs and
-repository software were likewise drafted and revised by the agents through
-that system under Cook's direction. Cook set the objectives and acceptance
-criteria, selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation, and
-presentation of the work. Generative systems are production tools, not authors,
-and supply no independent authority. Lean checks each proof term against the fixed library
-version, and the sources linked here contain no proof placeholders and no
-project-defined axioms; Lean does not authorise the exposition, the citation
-choices, or the interpretation, for which the author remains responsible.
-
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
 
@@ -1463,14 +1727,15 @@ Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 \section{Guide to the formal sources}\label{app:index}
 
 Each linked phrase opens its Lean declaration at the pinned source
-revision~\commitshort.  The declarations of this note live in six modules:
+revision~\commitshort.  The declarations of this note live in seven modules:
 \texttt{RationalBaseLambert}, \texttt{QAperyDiagonalNonEquivalence},
 \texttt{RationalPadeArithmetic}, \texttt{ZudilinConeArithmetic},
-\texttt{ZudilinHeightRegion}, and \texttt{HermitePadeNoGo}.  The first contains
+\texttt{ZudilinHeightRegion}, \texttt{HermitePadeNoGo}, and
+\texttt{BezoutPluckerJets}.  The first contains
 the corridor, cleared-tail recurrence, and elementary $7/2$ certificate; the
 second checks the finite $n=0$ diagonal residual; the remaining four separate
 the Pad\'e exponent arithmetic, endpoint arithmetic, logarithmic comparisons,
-and rectangular exponent model.  The link
+rectangular exponent model, and B\'ezout--Pl\"ucker tail collapse.  The link
 coordinates are validated against that pinned revision, so they remain correct
 as later work moves lines in the working tree.
 
@@ -1573,10 +1838,10 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   investigations of a certain infinite product}},
   Compositio Math. \textbf{91} (1994), no.~2, 175--199.
 \bibitem{zudilin2004} W.~Zudilin,
-  \href{https://www.impan.pl/shop/en/publication/transaction/download/product/82435}{\emph{Heine's
+  \href{https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/}{\emph{Heine's
   basic transform and a permutation group for \(q\)-harmonic series}},
   Acta Arith. \textbf{111} (2004), no.~2, 153--164,
-  doi:\href{https://doi.org/10.4064/aa111-2-4}{10.4064/aa111-2-4}.
+  doi:10.4064/aa111-2-4.
 \bibitem{zudilin2016} W.~Zudilin,
   \href{https://arxiv.org/abs/1601.02688}{\emph{Irrationality of the generalized
   \(q\)-logarithm}}, Res. Number Theory \textbf{2} (2016), Paper 24,
@@ -1591,9 +1856,10 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   zero, a power series is both \(k\)- and \(\ell\)-Mahler for multiplicatively
   independent \(k,\ell\) if and only if it is a rational function.
 \bibitem{rhinviola1996} G.~Rhin and C.~Viola,
-  \emph{On a permutation group related to $\zeta(2)$},
+  \href{https://geodesic.mathdoc.fr/articles/10.4064/aa-77-1-23-56/}
+  {\emph{On a permutation group related to $\zeta(2)$}},
   Acta Arith. \textbf{77} (1996), no.~1, 23--56,
-  doi:\href{https://doi.org/10.4064/aa-77-1-23-56}{10.4064/aa-77-1-23-56}.
+  doi:10.4064/aa-77-1-23-56.
 \bibitem{vanassche2001} W.~Van Assche,
   \href{https://arxiv.org/abs/math/0101187}{\emph{Little \(q\)-Legendre
   polynomials and irrationality of certain Lambert series}},
@@ -1603,6 +1869,12 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   \href{https://arxiv.org/abs/1206.0340}{\emph{On an incomplete argument of
   Erd\H{o}s on the irrationality of Lambert series}},
   Integers \textbf{13} (2013), Paper A58.
+\bibitem{lucatachiya2017} F.~Luca and Y.~Tachiya,
+  \href{https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf}
+  {\emph{Linear independence results for the values of divisor functions
+  series}}, RIMS K\^oky\^uroku No.~2014 (2017), 138--150.
+  Theorem~A on p.~139 restates the periodic-coefficient irrationality theorem;
+  Example~1 on p.~140 gives the divisor-function specialization.
 \bibitem{rivin2026} I.~Rivin,
 \href{https://arxiv.org/abs/2604.25151}{\emph{Zero Coefficients of Rational
   Power Series and Rational Lambert Series}}, arXiv:2604.25151v1, 2026.

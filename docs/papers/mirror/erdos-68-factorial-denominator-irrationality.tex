@@ -7,13 +7,13 @@
 % Build from the public paper directory with `make`.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{8c455842bcc5d17e861816391ec75e85e76a57d3}
-\renewcommand{\commitshort}{8c455842bcc5}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
 \usepackage{longtable}
 \hypersetup{
-  pdftitle={Factorial carries and finite channel obstructions for Erdős Problem 68},
+  pdftitle={Factorial-channel obstructions and exact orbit boundaries for Erdős Problem 68},
   pdfsubject={Erdős Problem Notes: Problem 68},
-  pdfkeywords={irrationality, factorial denominators, Lambert-type series, least common multiple, Hermite-Pade, Lean 4},
+  pdfkeywords={irrationality, factorial denominators, channel radius, moving private factors, companion orbit, strict successor, Lean 4},
 }
 
 % The prose keeps compact declaration labels; the source appendix supplies the
@@ -23,11 +23,11 @@
 \newcommand{\chn}[2]{V_{#1}(#2)}
 \newcommand{\Lc}{L}
 
-\runninghead{Erd\H{o}s \#68: factorial carries and finite channel obstructions}
-\title{Factorial Carries and Finite Channel Obstructions}
-\subtitle{Arithmetic reductions for Erd\H{o}s Problem~\#68}
+\runninghead{Erd\H{o}s \#68: channel obstructions and exact orbit boundaries}
+\title{Factorial-Channel Obstructions and Exact Orbit Boundaries}
+\subtitle{Partial advances for Erd\H{o}s Problem~\#68}
 \author{Will Cook}
-\date{July 2026}
+\date{1 September 2026}
 
 \begin{document}
 \maketitle
@@ -39,47 +39,55 @@ Erd\H{o}s asked whether
 \[
   \Ser=\sum_{n\ge2}\frac1{n!-1}
 \]
-is irrational.  The problem remains open.  Put
-$H_m=\sum_{2\le n\le m}(n!-1)^{-1}$ and let
-$Z_m=\lfloor m!H_m\rfloor+1$ be its strict factorial successor.  Write $b_m$
-for the integer in $Z_m=mZ_{m-1}+1-b_m$.  The central formal equivalence is
+is irrational.  The problem remains open.  The strongest unconditional
+partial result here is a quantitative obstruction to the finite-channel
+strategy.  If a positive factorial moment $M$ is divisible by every channel
+modulus through $D=2t^2$ and satisfies $M<(R+1)!-1$, then, for $t\ge2^{32}$,
 \[
-  \Ser\notin\mathbb Q
-  \quad\Longleftrightarrow\quad
-  (\forall B)(\exists m>B)\;b_m\ne1
-  \quad\Longleftrightarrow\quad
-  (\forall B)(\exists m>B)\;m\nmid Z_m .
+  3t^3<2(R+1).
 \]
-An independently regenerated exact GMP certificate supplies a miss at
-$m=300000$; the corresponding Lean theorem proves that
-every representation $\Ser=a/q$ with $q>0$ has $q\ge300000$.
+It excludes eventual $3/2$ upper bounds for the normalized channel radius and
+little-$o(t^3)$ growth in this architecture.  A complementary conditional
+advance proves that one moving prefix-private prime, together with explicit
+global complementary-residue and local collision-core scale bounds, implies
+irrationality; arbitrary factors of one moving private modulus suffice under
+the corresponding normalized projection hypotheses.  Wilson's theorem
+supplies the moving private factors cofinally.  The two quantitative producers
+remain open.
 
-The finite channel algebra gives a second rigorous layer.  In each channel
-$d$, the channel numerator is congruent to the factorial moment modulo
-$d!-1$; simultaneous cancellation through a cutoff $D$ therefore forces a
-specified least common multiple to divide that moment.  A two-term prime
-correction isolates one channel, and a Cramer construction gives arbitrarily
-remote finite supports that cancel any prescribed finite set of channels and
-have residual of absolute value at most $1/2$.  That rounded residual may be
-zero.  Separately, endpoint congruences turn sufficiently large residues or
-disagreement between two projections into finite exclusions.
+The note also proves two finite denominator exclusions and an exact prime-pole
+cancellation law.  A GMP certificate gives $300000\nmid Z_{300000}$ and hence
+$q\nmid299999!$ in any representation $\Ser=a/q$ with $q>0$; an independent
+continued-fraction certificate gives $q\ge2^{39991}>10^{12039}$.  For a finite
+prefix, the complete maximal power $q^e$ of a prime survives reduction exactly
+when a reciprocal maximal-hit cofactor sum is nonzero; full cancellations occur
+at $q=139$ and $q=2593$.
 
-No theorem constructs cofinally many non-unit carries, a cofinal family of
-strictly nonzero translated residuals, or the quantitative residue and scale
-bounds required by the endpoint arguments.  The note therefore proves a carry
-normal form, finite channel obstructions, and a denominator exclusion---not
-irrationality of $\Ser$.
+Two exact coordinates are recorded after these advances.  For
+$C=\sum_{n\ge2}(n!(n!-1))^{-1}$, one has
+\[
+ \Ser\in\mathbb Q\iff \lfloor m!C\rfloor\equiv-2\pmod m
+ \quad\hbox{eventually}.
+\]
+For $H_m=\sum_{2\le n\le m}(n!-1)^{-1}$ and
+$Z_m=\lfloor m!H_m\rfloor+1$, irrationality is equivalent to cofinally many
+failures of $m\mid Z_m$.  These equivalences isolate the producer but do not
+supply it.  Finally, two consecutive unit carries reduce to the universal
+inequality $0<U_{m+2}\le V_{m+2}$, so a divisibility obstruction derived only
+after assuming that pair cannot exclude it.
 \end{abstract}
 
-\externalreviewobject{The paper proves exact carry and divisibility
-equivalences for the factorial-gap series and records a finite denominator
-exclusion through $q<300000$, whose arithmetic certificate is checked outside
-Lean.}{The equivalences identify the missing cofinal input without supplying
-it.  A finite denominator exclusion does not change the quantifier, and
-Problem~\#68 remains open.}{Comparator selects both exact equivalences:
-cofinal failure of the strict factorial-successor divisibility test and
-cofinally many non-unit carries.  The mixed Lean-plus-certificate denominator
-computation is reported separately.}
+\begin{paperresult}{Main results and exact open boundary}
+\textbf{Unconditional obstruction.} The square-subsequence channel radius is
+at least $3/2$ under the exact cancellation architecture, excluding eventual
+$3/2$ upper bounds and little-$o$ decay.  \textbf{Conditional advance.} One
+moving prefix-private factor plus two explicit scale bounds implies
+irrationality; the moving factors exist cofinally, while the scale bounds are
+open.  \textbf{Exact coordinates.} The fixed companion orbit and strict
+successor give lossless eventual/cofinal reformulations, not the missing
+producer.  \textbf{Open boundary.} No result here proves a cofinal miss or
+irrationality of $\Ser$.
+\end{paperresult}
 
 \section{The problem}\label{sec:problem}
 
@@ -97,11 +105,16 @@ irrational?
   >{\raggedright\arraybackslash}p{0.23\linewidth}
   >{\raggedright\arraybackslash}p{0.69\linewidth}@{}}
 \toprule
+\papertablehead
 Contribution & Exact scope \\
 \midrule
-Denominator exclusion & If $\Ser=a/q$ with $q>0$, then $q\ge300000$. \\
+Channel-radius obstruction & Under the exact cancellation and factorial-size hypotheses, the square-subsequence normalized radius is at least $3/2$; eventual $3/2$ upper bounds and little-$o$ decay are impossible. \\
+Moving-factor criteria & One moving prefix-private prime plus two explicit scale bounds implies irrationality; arbitrary factors of one moving private modulus suffice under normalized projection disagreement.  The scale producers remain open. \\
+Finite denominator exclusions & If $\Ser=a/q$ with $q>0$, then $q\nmid299999!$ and independently $q\ge2^{39991}>10^{12039}$. \\
+Prime-pole cancellation law & A maximal prime power survives finite-prefix reduction exactly when its reciprocal maximal-hit cofactor sum is nonzero. \\
+Fixed companion orbit & $\Ser$ is rational iff $\lfloor m!C\rfloor\equiv-2\pmod m$ eventually; this is an exact coordinate, not the missing producer. \\
 Integral frontier & $\Ser\notin\mathbb Q$ iff for every $B$ some $m>B$ satisfies $m\nmid Z_m$. \\
-Structural reductions & Finite channel congruences, a two-term prime corrector, and endpoint projections isolate explicit missing inputs. \\
+Adjacent-unit no-go & Under two consecutive unit carries, the complete cleared window cancels to the universal bound $0<U_{m+2}\le V_{m+2}$; it cannot exclude the pair. \\
 Not a contribution & No cofinal miss, cofinal strict residual nonvanishing, or irrationality theorem is proved. \\
 \bottomrule
 \end{tabular}
@@ -133,25 +146,31 @@ self-contained.
   >{\raggedright\arraybackslash}p{0.20\linewidth}
   >{\raggedright\arraybackslash}p{0.38\linewidth}@{}}
 \toprule
+\papertablehead
 Statement & Status & Exact boundary \\
 \midrule
 \endfirsthead
 \toprule
+\papertablehead
 Statement & Status & Exact boundary \\
 \midrule
 \endhead
 \bottomrule
 \endfoot
 Irrationality of $\Ser$ & Open & No proof is claimed. \\
+Moving-factor irrationality criteria & Checked conditional theorems & Moving private factors exist cofinally, but the global complementary-residue and local collision-core scale bounds are not proved. \\
 Canonical factorial digit kernel & Checked & Floor formula, digit bounds, remainder recurrence, finite expansion, zero-tail propagation. \\
 Channel integrality & Checked & $(d!)^{\lfloor i/d\rfloor}\mid i!$, with exact denominator cancellation. \\
 Channel congruence and LCM obstruction & Checked & $\chn d\lambda\equiv M\pmod{d!-1}$; annihilating channels through $D$ forces $\Lc_D\mid M$. \\
+Square-subsequence channel radius & Checked & If $M>0$, $\Lc_{2t^2}\mid M$, and $M<(R+1)!-1$, then $3t^3<2(R+1)$ for $t\ge2^{32}$; the reverse cubic bound cannot hold eventually. \\
 Two-term prime channel corrector & Checked & The pair $(p,-1)$ on $(p-1,p)$ has moment $0$, all channels $0$ except $d=p$, and $p$-channel numerator $p!-1$. \\
 Weighted projection rigidity & Checked & If $Z\equiv T\pmod R$, $Q_i\mid R$, and $Z\le B<Q_i$, then unequal residues $T\bmod Q_1$ and $T\bmod Q_2$ exclude that endpoint. \\
 Factor-split projection reduction & Checked & Two divisor factors of one private modulus support the same cancellation and disagreement bounds; coprime factors give a branch-free floor and may lie in one private quotient. \\
 Zero plateau and first-exit carry & Checked & Grid threshold, plateau equality of grid integers, forced zero digit, carry $b\in\{0,-1\}$. \\
 Prime-power prefix obstruction & Checked & Rationality forces $p^k$ to divide the strict successor at $kp$ whenever the factorial clears the denominator and $p$ is coprime to it. \\
 Exact carry characterization & Checked & The normalized strict successors converge to $\Ser$; $\Ser$ is rational exactly when $b_m=1$ eventually, equivalently $\Ser$ is irrational exactly when non-unit carries occur cofinally. \\
+Fixed companion-orbit boundary & Checked & Rationality is equivalent to eventual residue $-2$ for the fixed factorial orbit; irrationality is equivalent to cofinal misses.  No theorem produces those misses. \\
+Adjacent-unit cancellation normalizer & Checked & Under consecutive unit carries, the exact offset and denominator share the same positive two-step normalizer, so their window inequality reduces to the universal future numerator bound. \\
 Explicit denominator bound & Checked implication; exact finite certificate & Exact reduction gives $60\nmid Z_{60}$, $64\nmid Z_{64}$, and $67\nmid Z_{67}$.  An exact GMP computation certifies all carries through $300000$ and $b_{300000}\ne1$; the Lean-checked carry theorem gives $q\ge300000$ in every rational representation $\Ser=a/q$ with $q>0$. \\
 Digits eventually zero $\iff$ $\Ser$ rational & Returned derivation & Complete on the return; not yet kernel-checked here. \\
 Factorial-gap lcm growth $\gg N^{4/3}\log N$ & Derived, source-verified & Derived below from a cited factorial-congruence theorem; not kernel-checked and not used as an input to any claim below. \\
@@ -184,8 +203,7 @@ the
 \lword{Erdos68/CanonicalFactorialDigits.lean}{196}{factorial_expansion_partial}{finite
 factorial expansion}, and the
 \lword{Erdos68/CanonicalFactorialDigits.lean}{269}{zero_remainder_forces_zero_digit_tail}{zero-remainder
-termination theorem}; they hold for every real $x$,
-not only for $\Ser$.
+termination theorem}; they hold for every real $x$, including $\Ser$.
 
 The rational direction is also kernel-checked.  If $q>0$ and $q\le n$, then
 \[
@@ -312,6 +330,43 @@ The formal statements are
 \pdecl{channelWeight_mul_denominator}, and
 \pdecl{channelEvent_eq_zero_of_not_dvd}.
 
+There is a separate finite rigidity before any congruence is taken.  For a
+finite coefficient family $(c_j,i_j)$, write
+
+\[
+  M=\sum_j c_j i_j!,\qquad
+  C_d=\sum_j c_j\frac{i_j!}{(d!)^{\lfloor i_j/d\rfloor}}.
+\]
+If all indices lie in one quotient band
+$kd\le i_j<(k+1)d$, then the quotient $\lfloor i_j/d\rfloor$ is constant
+and the factorial moment factors exactly:
+
+\begin{theorem}[quotient-band breakpoint]
+\label{res:bandbreakpoint}
+Under the band hypothesis,
+\[
+  M=(d!)^k C_d.
+\]
+In particular, in the first band $d\le i_j<2d$, channel cancellation
+$C_d=0$ forces $M=0$.  If all indices are at least $d$, channel cancellation
+and $M\ne0$ therefore force at least one index $i_j\ge2d$.
+\end{theorem}
+
+\noindent The exact factorisation is checked for every quotient band at
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{71}{factorialMoment_eq_factorial_pow_mul_channelNumerator_band}{the band identity},
+and its zero-channel consequence is
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{91}{factorialMoment_eq_zero_of_channelNumerator_eq_zero_band}{band cancellation}.
+The first-band form is explicit at
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{101}{factorialMoment_eq_factorial_mul_channelNumerator_firstBand}{first-band factorisation};
+the final breakpoint alternative is
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{130}{exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero}{breakpoint witness}.
+The hard step is the constant quotient, not a valuation estimate: within one
+band every factorial has the same extracted power of $d!$.  Thus a nonzero
+moment cannot be hidden entirely below $2d$ while the $d$-channel cancels.
+This is a finite-family obstruction only.  It constructs no cancelling
+family, says nothing about simultaneous channels or residual size, and does
+not by itself address the cofinal non-unit-carry input for Problem~\#68.
+
 Let $\lambda$ be a finitely supported integer vector on indices $n\ge2$, let
 $M=M(\lambda)$ be its factorial moment, and let $\chn d\lambda$ be the $d$-th
 channel numerator.  The kernel checks two facts about them.
@@ -342,8 +397,45 @@ the congruence forces every normalised channel defect to be integral.
 
 Theorem~\ref{res:congruence} is an obstruction rather than a source of
 cancellation.  Any finite family that kills the low channels must have moment
-divisible by $\Lc_D$, and $\Lc_D$ grows faster than the tail shrinks.  The
-returned analysis proposes the quantitative form
+divisible by $\Lc_D$.  The following checked theorem quantifies the resulting
+radius cost without assuming an unproved asymptotic for $\Lc_D$.
+
+\begin{theorem}[square-subsequence channel radius]\label{res:channel-radius}
+Let $t,M,R\in\mathbb N$.  Suppose that $t\ge2^{32}$, $M>0$,
+\[
+  \Lc_{2t^2}\mid M,
+  \qquad
+  M<(R+1)!-1.
+\]
+Then
+\[
+  3t^3<2(R+1).
+\]
+Consequently, for sequences $M(t),R(t)$ satisfying the same three hypotheses
+for every sufficiently large $t$, there is no $T$ such that
+$2(R(t)+1)\le3t^3$ for all $t\ge T$.
+\end{theorem}
+
+The proof is finite.  It takes the final block of $2t$ factorial gaps below
+$D=2t^2$, bounds their product by $\Lc_D$ times an explicit power of $D$, and
+counts the loss from pairwise gcds by the cubic exponent
+$\binom{2t+1}{3}$.  A Stirling estimate then converts the factorial upper bound
+on $M$ into the displayed lower bound for $R$.  The pointwise statement is
+checked at
+\lword{Erdos68/ChannelIntegralCongruence.lean}{1084}{square_subsequence_radius_three_halves_lower}{the sharp radius theorem},
+and its sequence form at
+\lword{Erdos68/ChannelIntegralCongruence.lean}{1103}{no_eventual_square_subsequence_three_halves_upper}{the eventual no-go theorem}.
+A coarser checked form says that $R(t)+1$ cannot be $o(t^3)$ under the
+corresponding hypotheses from $t\ge4096$ onward
+\lword{Erdos68/ChannelIntegralCongruence.lean}{905}{not_isLittleO_square_subsequence_radius}{the little-o obstruction}.
+
+The theorem does not show that a kernel attached to the factorial-gap series
+has vanishing channels through $2t^2$, nor does it construct the positive
+moment $M$ and radius $R$ with the stated factorial inequality.  It therefore
+restricts any such channel construction but does not supply the missing
+cofinal non-unit carries.
+
+For comparison, the returned analysis also proposes the asymptotic form
 \[
   \log \lcm_{2\le n\le N}(n!-1)\ \gg\ N^{4/3}\log N
   \qquad(N\to\infty).
@@ -377,11 +469,11 @@ corollary; the latter is derived here and is not kernel-checked.  It is recorded
 because it is the shape of the obstruction the returns describe, and it is used
 nowhere below.
 
-The primitive lcm divisibility after cofactor removal is
-factorial valuations do not remove the obstruction once every common cofactor
-divisor has been removed.  A separate corank-one cofactor/determinant argument
-for constructing such primitive kernels remains advisory pending Lean
-formalisation; the divisibility theorem does not establish that construction.
+The primitive lcm divisibility survives cofactor removal: factorial valuations
+do not remove the obstruction once every common cofactor divisor has been
+removed.  A separate corank-one cofactor/determinant argument for constructing
+such primitive kernels has not yet been formalised; the divisibility theorem
+does not establish that construction.
 
 \section{A two-term prime channel corrector}\label{sec:translator}
 
@@ -396,8 +488,8 @@ every channel $d>p$ vanishes, because both indices lie below $d$; and the
 $p$-channel numerator is exactly $p!-1$.
 \end{theorem}
 
-\noindent The theorem holds for every prime, not merely for sampled primes.  Its use is
-arithmetic rather than analytic: it supplies, at cost zero in the moment, a unit
+\noindent The theorem holds uniformly over all primes.  Its use is arithmetic:
+at zero cost in the moment it supplies a unit
 in the $p$-channel.  Adding an integer multiple of this corrector to any
 candidate kernel shifts the $p$-channel numerator by multiples of $p!-1$ and
 leaves every other channel and the moment untouched.
@@ -414,7 +506,7 @@ hypothesis, stated in \S\ref{sec:open}.
 
 \section{Zero plateaux, first exit, and denominator bounds}\label{sec:plateau}
 
-A second, independent route works on the rational grid rather than on channels.
+A second, independent argument works on the rational grid rather than on channels.
 Let $H$ be a partial sum and $q$ a candidate denominator.  The kernel checks
 the algebraic grid threshold: writing $qH=k+r$ and $q(\Ser-H)=u$, the next
 $q^{-1}$ grid point $(k+1)/q$ lies below $\Ser$ exactly when $1\le r+u$.  It
@@ -454,6 +546,7 @@ The rational implementation of $Z_p$ agrees with the real-floor definition,
 and exact kernel reduction gives $11\nmid Z_{11}$.  Thus every rational
 representation of $\Ser$ has denominator at least $11$.
 
+\phantomsection\label{res:strict-successor-complete-characterization}
 The all-index recurrence is stronger.  Define its exact carry by
 \[
   Z_m=mZ_{m-1}+1-b_m .
@@ -482,12 +575,68 @@ rational normalization gives
 \[
   60\nmid Z_{60},\qquad 64\nmid Z_{64},\qquad 67\nmid Z_{67}.
 \]
+
+\subsection{Why the adjacent-unit window is circular}
+\label{sec:adjacent-unit-no-go}
+
+One proposed argument tries to exclude two consecutive unit carries by
+extracting a prime-power or quotient-gcd obstruction from their cleared
+width-one window.  The exact two-step recurrence shows why this cannot work.
+Let $U_k$ and $V_k$ be the positive numerator and denominator of the reduced
+predecessor gap, and let $G_k>0$ be the exact transition normalizer.  For
+$m\ge3$, the two unit carries are equivalent to an integer offset $\Omega_m$
+satisfying
+\[
+  0<\Omega_m\le D_m.
+\]
+The window denominator telescopes independently of the carry values:
+\[
+  D_m=V_{m+2}G_{m+1}G_m
+     =V_m(m!-1)((m+1)!-1).
+\]
+Under the adjacent-unit assumption, the offset has the matching
+factorization
+\[
+  \Omega_m=U_{m+2}G_{m+1}G_m.
+\]
+Cancelling the common positive normalizer therefore reduces the complete
+window to
+\[
+  0<U_{m+2}\le V_{m+2},
+\]
+the universal numerator bound for a reduced strict-successor gap.
+
+The four load-bearing formal statements are the
+\lword{Erdos68/AdjacentUnitCarryWindow.lean}{148}{consecutive_unit_carries_iff_positive_offset_le_den}{positive-offset window},
+\lword{Erdos68/AdjacentUnitCarryWindow.lean}{215}{twoStep_den_mul_transitionNormalizers}{denominator telescope},
+\lword{Erdos68/AdjacentUnitCarryWindow.lean}{243}{adjacentUnitCarryWindowDen_eq_twoStep_den}{window-denominator identity}, and
+\lword{Erdos68/AdjacentUnitCarryWindow.lean}{337}{adjacentUnitCarryWindowOffset_eq_twoStep_reducedNumerator}{unit-pair offset factorization}.
+They do not disprove adjacent unit carries.  They prove that a surviving-prime,
+prime-power, or quotient-gcd obstruction obtained only after imposing the pair
+is circular: it rewrites a bound that every reduced positive fraction already
+satisfies.  A successful cofinal argument must constrain the raw predecessor
+state before the pair assumption, for example through independent prefix
+arithmetic or an Archimedean non-concentration estimate.
+
 At $m=60$ the recurrence also proves $b_{60}\ne1$, and hence $q\ge60$.
 Since $67$ is prime, the prime-miss theorem applied at $67$ gives the stronger
 checked bound
 \[
   \Ser=\frac aq,\ q>0 \quad\Longrightarrow\quad q\ge67.
 \]
+The two formal declarations behind this finite bound make its hypotheses
+explicit.  The generic theorem
+\lword{Erdos68/FactorialZeroPlateau.lean}{876}
+{rational_denominator_ge_of_nonunit_carry}{single non-unit carry bound}
+assumes $m\ge3$, an exact carry miss at that index, a positive denominator,
+and the displayed rational representation, then concludes $m\le q$.  The
+source-level specialization
+\lword{Erdos68/FactorialZeroPlateau.lean}{940}
+{sixty_seven_le_rational_denominator}{index-$67$ denominator bound}
+supplies the prime-index miss used above.  These are finite implications:
+they do not manufacture misses at arbitrarily large indices, and they do not
+turn the separately checked $300000$-cell GMP computation into a Lean
+evaluation or a cofinal theorem.
 
 There is a second, more arithmetic mechanism at doubled prime indices.  For
 every odd prime $p$, the kernel now specializes the strict-successor
@@ -560,6 +709,7 @@ pair of distinct denominator indices, only suitable factors whose projections
 or factor-pair floor satisfy the stated bound.  This is checked in
 \pdecl{factorialBlock_factorProjection_lcm_eq_privateModulus} and
 \pdecl{factorialBlock_complementaryFactorPairFloor_le_global}.
+\phantomsection\label{res:split-factor-normalized-collision}
 
 The transport to the literal factorial block is established directly rather than
 advisory.  Lean builds the collision core $C$, private quotients $r_i$, private
@@ -704,11 +854,13 @@ Consequently, if
 then some such two hits satisfy $d<j-i$; see
 \pdecl{exists_factorialBlock_hitPair_distance_gt_of_endpointPow_lt_normalizedPrimePower}.
 The spacing hypothesis in that reduction is now discharged internally.
+
 If $q$ is prime, then any two $q^e$-hits $i<j$ satisfy
 $e<j-i$, without an endpoint or large-prime hypothesis; see
 \pdecl{factorialBlock_prime_hitPair_distance_gt_exponent}.  The point is
 that $q\mid j!-1$ already forces $j<q$, while the preceding gap-power
 inequality converts this automatic size relation into strict separation.
+
 Consequently Lean proves the global primewise diameter ceiling
 \[
  q\mid\widetilde C_p
@@ -779,6 +931,7 @@ $v_q(\widetilde C_p)<e$ without first choosing an upper hit; see
 At $e=2$ this gives the conditional squarefree conclusion
 $v_q(\widetilde C_p)\le1$; see
 \pdecl{factorialBlock_normalizedCollisionCore_factorization_le_one_of_endpoint_lt_base_of_primeSqHitCount_le_one}.
+
 More generally the endpoint inequality can be replaced by the exact condition
 $q\nmid(p-1)!$.  For every such prime and every $e>0$, Lean proves the same
 hit-count equivalence; see
@@ -792,6 +945,7 @@ Every prime $q\ge p$ is absent from $(p-1)!$, so this covers the entire moving
 prime range at and above the block parameter.  The result remains conditional:
 no theorem here supplies the uniform prime-square incidence premise or the
 global weighted product estimate.
+
 The squarefreeness premise is not proved.  An exhaustive modular scan through
 $q\le2{,}000{,}000$ and $n\le240$ found four individual square hits and no
 prime with two such hits.  Separately, all $498{,}501$ pairs
@@ -848,6 +1002,7 @@ least common multiple is $R$.  Thus no second selected prime is needed; see
 and
 \pdecl{factorialGapLargePrefixPrivatePrimes_unit_factor_pair_tailoredBlock}.
 There is no hidden equality/disagreement branch in this specialization.
+
 Writing $\rho$ for the global complementary residue, Lean proves that the
 unit-pair floor is exactly
 \[
@@ -871,8 +1026,10 @@ see \pdecl{factorialBlock_unitFactorPairFloor_scale_iff}.  Thus the
 factor reduction has no opaque floor premise left: the two surviving
 arithmetic estimates are exposed independently and neither follows merely
 from the existence of the selected prime.
-The irrationality implication also works for every natural block parameter at
-least three, not only prime parameters.  What remains open is the arithmetic
+
+\phantomsection\label{res:moving-factor-scale-split}
+The irrationality implication works for every natural block parameter at
+least three, including composite parameters.  What remains open is the arithmetic
 input.  Wilson supplies cofinal prefix-private factors without analytic
 input.  The stronger source-backed large-prime selection remains relevant
 because it supplies a positive-density family and a linear lower bound for
@@ -882,7 +1039,96 @@ obligation is therefore to prove both sides of this exact
 branch-free scale split cofinally, packaged by
 \pdecl{irrational_factorialGapSeries_of_cofinal_largePrefixPrivate_unitScaleSplit}.
 
-\section{What the returns rule out}\label{sec:nogo}
+\section{A fixed companion-orbit coordinate}\label{sec:companion-orbit}
+
+The preceding criteria and obstructions change what an attack must prove.
+There is also a particularly clean exact coordinate for the surviving open
+problem.  Define
+\[
+ C=\sum_{n\ge2}\frac1{n!(n!-1)}.
+\]
+The elementary identity
+\[
+ \frac1{n!-1}=\frac1{n!}+\frac1{n!(n!-1)}
+\]
+and absolute convergence give
+\begin{equation}
+ C+(e-2)=\Ser.                                      \label{eq:companion-decomposition}
+\end{equation}
+
+\begin{theorem}[fixed companion-orbit rationality boundary]
+\label{res:companion-orbit-rationality-boundary}
+The following statements are equivalent:
+\begin{enumerate}
+\item $\Ser\in\mathbb Q$;
+\item $(\lfloor m!C\rfloor+2)\bmod m=0$ for every sufficiently large $m$.
+\end{enumerate}
+Consequently,
+\begin{equation}
+ \Ser\notin\mathbb Q
+ \quad\Longleftrightarrow\quad
+ (\forall B)(\exists m>B)\;
+   (\lfloor m!C\rfloor+2)\bmod m\ne0 .
+ \label{eq:companion-cofinal}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+First suppose $\Ser=a/q$ with $q>0$, and take $m$ so large that
+$q\mid(m-1)!$.  Write
+\[
+ E_m=m!\sum_{2\le n\le m}\frac1{n!},
+ \qquad
+ \varepsilon_m=m!\sum_{n>m}\frac1{n!}.
+\]
+Then $E_m$ is an integer, $0<\varepsilon_m<1$, and $m!\Ser$ is an integer
+divisible by $m$.  Multiplying \eqref{eq:companion-decomposition} by $m!$
+therefore gives
+\[
+ \lfloor m!C\rfloor=m!\Ser-E_m-1.
+\]
+Every summand of $E_m$ except the endpoint $m!/m!=1$ is divisible by $m$.
+Thus $E_m\equiv1\pmod m$ and
+$\lfloor m!C\rfloor\equiv-2\pmod m$.
+
+Conversely, assume the displayed congruence from some index onward.  Let
+$d_m(C)=\lfloor m!C\rfloor-m\lfloor(m-1)!C\rfloor$ be the canonical
+factorial digit.  Since $0\le d_m(C)<m$, for $m\ge3$ the congruence is
+equivalent to
+\[
+ d_m(C)=m-2.
+\]
+Choose $N$ beyond the exceptional indices.  The canonical factorial
+expansion of $C$ then has the form
+\[
+ C=\lfloor C\rfloor+
+   \sum_{m=2}^{N}\frac{d_m(C)}{m!}+
+   \sum_{m>N}\frac{m-2}{m!}.
+\]
+Adding $e-2=\sum_{m\ge2}1/m!$ and using the telescoping identity
+\[
+ \sum_{m>N}\frac{m-1}{m!}
+ =\sum_{m>N}\left(\frac1{(m-1)!}-\frac1{m!}\right)
+ =\frac1{N!}
+\]
+gives
+\[
+ \Ser=\lfloor C\rfloor+
+   \sum_{m=2}^{N}\frac{d_m(C)+1}{m!}+\frac1{N!},
+\]
+which is rational.  Negating the eventual statement yields the cofinal
+formulation above.
+\end{proof}
+
+\begin{remark}[the exact remaining boundary]
+\label{bdry:companion-orbit-nonconcentration}
+The theorem isolates the problem without solving it.  A proof of Problem~\#68
+must still show that the orbit $\lfloor m!C\rfloor\bmod m$ does not eventually
+concentrate at $-2$.  Finite computation can measure this concentration but
+cannot discharge the cofinal quantifier.
+\end{remark}
+
+\section{Limits of fixed-coordinate arguments}\label{sec:nogo}
 
 The following are closed routes.  They are part of the result, not caveats
 attached to it.
@@ -909,8 +1155,8 @@ attached to it.
 \item Zero-moment variations cannot create an additional fractional
   cancellation coordinate (\S\ref{sec:channels}), and factorial valuations
   cannot absorb the channel LCM obstruction.
-\item A fixed pair of low-index private owners cannot make the projection
-  route cofinal.  If the owner index $n$ is fixed and $p>n!-1$, then
+\item \phantomsection\label{bdry:fixed-owner-absorption}A fixed pair of low-index private owners cannot make the projection
+  the argument cofinal.  If the owner index $n$ is fixed and $p>n!-1$, then
   $n!-1\mid(p-1)!$, so its private quotient in the factorial block at $p$ is
   exactly one.  Lean checks this uniformly in
   \pdecl{factorialBlockPrivateQuotient_eq_one_of_gap_lt} and checks the
@@ -959,7 +1205,7 @@ $q\ge300000$.
 
 None of these changes a quantifier.
 
-\section{The missing cofinal inputs}\label{sec:open}
+\section{Open problems}\label{sec:open}
 
 The exact frontier comes first:
 \[
@@ -982,6 +1228,7 @@ formal results that would consume them.
   >{\raggedright\arraybackslash}p{0.31\linewidth}
   >{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
 \toprule
+\papertablehead
 Missing input & Available consequence & Present limitation \\
 \midrule
 Cofinal non-unit carries, or equivalently cofinal misses $m\nmid Z_m$
@@ -1215,16 +1462,6 @@ $q\ge300000$.
 
 \section*{Statements and declarations}
 
-\paragraph{Declaration of generative AI use.} Every word of this manuscript was
-generated by agents based on large language models operating within Will Cook's
-private research system for artificial intelligence. The formal proofs and
-repository software were likewise drafted and revised by the agents through
-that system under Cook's direction. Cook set the objectives and acceptance
-criteria, selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation, and
-presentation of the work. Generative systems are production tools, not authors,
-and supply no independent authority.
-
 Lean does not authorise the exposition, the citation choices, or the
 interpretation, for which the author remains responsible.  This manuscript is
 authored exposition, not Lean proof authority.  The checked
@@ -1240,10 +1477,15 @@ exact reductions at $m=60,64,67$, the bound $q\ge67$, and the finite geometric
 peeling identity.  It also checks the normalized strict-successor step and its
 finite factorial-series expansion in the carry defects $1-b_m$, the convergence
 $Z_m/m!\to\Ser$, and the exact equivalence between irrationality and cofinally
-many non-unit carries.  The exact
-GMP carry certificate through $m=300000$ is separately regenerated and
+many non-unit carries.  Source-current Lean additionally checks the fixed
+companion-orbit rationality boundary and its cofinal-miss dual; the staged
+Comparator package exposes those endpoints as one concise composite and keeps
+them subordinate to the actual channel and moving-factor advances.  The
+GMP carry certificate through $m=300000$ is regenerated separately and
 hash-bound; combined with the checked carry theorem it gives $q\ge300000$,
-but it is not itself a Lean evaluation.  The converse direction of the
+but it is not itself a Lean evaluation.
+
+The converse direction of the
 digit--rationality equivalence, the weighted primitive support decomposition,
 and the determinant-quotient reduction are returned derivations that have not
 been kernel-checked here, and are labelled as such wherever they appear.  The
@@ -1257,7 +1499,8 @@ for nothing above.  The finite computations are finite.
 \section{Guide to the formal sources}\label{app:sources}
 
 The public \texttt{ErdosProblems.Erdos68} package contains the checked source
-for this note.  The release snapshot contains twelve cited modules:
+for this note.  The pinned snapshot contains fifteen cited modules:
+\texttt{AdjacentUnitCarryWindow},
 \texttt{CanonicalFactorialDigits},
 \texttt{ChannelBreakpointRigidity},
 \texttt{ChannelIntegralCongruence},
@@ -1267,33 +1510,41 @@ for this note.  The release snapshot contains twelve cited modules:
 \texttt{FactorialChannelCertificate},
 \texttt{FactorialZeroPlateau},
 \texttt{FiniteDefectAutomaton},
+\texttt{GapScalarNormalForm},
+\texttt{PrimeThresholdParity},
 \texttt{PrimeUnitTranslator},
 \texttt{PrimeZeroBranch}, and
 \texttt{StrictSuccessorArithmetic}.
 Only these public modules belong to the manuscript source surface; no private
-auxiliary digit-rigidity file is cited or projected.  The release root imports
+auxiliary digit-rigidity file is cited or projected.  The public root imports
 every cited module.  The declaration table below is
 pinned to the shared formal-source commit used throughout this problem-note
 series.
 
 \begin{itemize}[leftmargin=*]
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{148}{consecutive_unit_carries_iff_positive_offset_le_den}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{215}{twoStep_den_mul_transitionNormalizers}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{243}{adjacentUnitCarryWindowDen_eq_twoStep_den}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{337}{adjacentUnitCarryWindowOffset_eq_twoStep_reducedNumerator}
+\item \lref{Erdos68/FactorialZeroPlateau.lean}{876}{rational_denominator_ge_of_nonunit_carry}
+\item \lref{Erdos68/FactorialZeroPlateau.lean}{940}{sixty_seven_le_rational_denominator}
 \item \lref{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}
 \item \lref{Erdos68/FactorialZeroPlateau.lean}{953}{irrational_factorialGapSeries_of_cofinal_nonunit_carries}
 \item \lref{Erdos68/PrimeZeroBranch.lean}{6099}{factorialGap_zero_branch_iff_lower_endpoint_cylinder}
 \item \lref{Erdos68/EndpointWeightedPrivateSupport.lean}{4766}{factorialBlock_unitFactorPairFloor_scale_iff}
 \item \lref{Erdos68/PrimeUnitTranslator.lean}{1559}{exists_cramerFactorialGridResidual_eq_det_mul_factorialGapSeries_add_int}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{32}{residualCentreTerm}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{37}{factorialCoeffTerm}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{42}{residualCentre}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{47}{factorialCoeffRat}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{50}{factorial_eq_mul_pred_factorial}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{58}{pred_div_eq_of_not_dvd}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{72}{pred_div_add_one_eq_of_dvd}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{99}{residualCentreTerm_of_not_dvd}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{116}{residualCentreTerm_of_dvd}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{140}{residualCentreTerm_self}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{149}{factorialCoeffTerm_self}
-\item \lref{Erdos68/DivisorFactorialCentre.lean}{158}{residualCentre_recurrence}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{34}{residualCentreTerm}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{39}{factorialCoeffTerm}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{44}{residualCentre}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{49}{factorialCoeffRat}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{80}{factorial_eq_mul_pred_factorial}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{88}{pred_div_eq_of_not_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{102}{pred_div_add_one_eq_of_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{129}{residualCentreTerm_of_not_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{146}{residualCentreTerm_of_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{170}{residualCentreTerm_self}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{179}{factorialCoeffTerm_self}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{188}{residualCentre_recurrence}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{25}{factorial_pow_floor_dvd_factorial}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{39}{channelWeight}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{43}{channelWeight_mul_denominator}
@@ -1311,7 +1562,33 @@ series.
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{140}{lambda34_channel_ge_five}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{151}{lambda34ResidualOfTail}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{156}{lambda34_residual_bounds}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{868}{square_subsequence_radius_cubic_lower}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{885}{no_eventual_square_subsequence_cubic_upper}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{905}{not_isLittleO_square_subsequence_radius}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1084}{square_subsequence_radius_three_halves_lower}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1103}{no_eventual_square_subsequence_three_halves_upper}
 \end{itemize}
+
+\begingroup
+\raggedright
+\paragraph{Source-current companion orbit and Comparator routes.}
+The complete infinite rationality boundary is checked in
+\path{ErdosProblems/Erdos68/CompanionOrbitRationality.lean}.  Its paper-facing
+endpoints are
+\path{not_irrational_factorialGapSeries_iff_eventually_companion_floor_neg_two}
+and
+\path{irrational_factorialGapSeries_iff_cofinal_companion_floor_misses}.
+The coherent Comparator composite
+\path{companionOrbit_completeCharacterization} routes to
+Theorem~\ref{res:companion-orbit-rationality-boundary} and
+Remark~\ref{bdry:companion-orbit-nonconcentration}.  The moving-factor
+Comparator endpoints route to \ref{res:moving-factor-scale-split},
+\ref{res:split-factor-normalized-collision}, and
+\ref{bdry:fixed-owner-absorption}.  These source-current modules, Comparator
+packages, and this manuscript stage require one common immutable public
+checkpoint before terminal external replay or Palomar readiness is claimed.
+\par
+\endgroup
 
 \clearpage
 \begin{thebibliography}{9}
@@ -1348,9 +1625,10 @@ series.
   \url{https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf}.
 \bibitem{hancl-tijdeman}
   J.~Han\v{c}l and R.~Tijdeman,
-  \emph{On the irrationality of factorial series},
+  \href{https://geodesic.mathdoc.fr/articles/10.4064/aa118-4-5/}
+  {\emph{On the irrationality of factorial series}},
   Acta Arith.\ \textbf{118} (2005), no.~4, 383--401.
-  \url{https://www.impan.pl/shop/en/publication/transaction/download/product/83588}.
+  doi:10.4064/aa118-4-5.
 \bibitem{barreto-et-al}
   K.~Barreto, J.~Kang, S.-h.~Kim, V.~Kova\v{c}, and S.~Zhang,
   \emph{Irrationality of rapidly converging series: a problem of Erd\H{o}s
