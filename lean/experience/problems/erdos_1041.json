@@ -167,16 +167,17 @@
       "evidence_class": "ordinary_proof",
       "public_entry": null
     },
+    "no_longitudinal_reason": null,
     "live_obstruction": "The sharp constant is settled in every degree only under the critical-spectrum separation hypothesis, and the two surviving unconditional routes are the componentwise combined-charge lemma, that every nontrivial connected component C of the admissible critical forest satisfies the sum over edges e in C of D_e + K_e being at least 0, and the covering statement COVER, that for monic g with roots in the closed unit disk there is a level lambda in [mu, 1] and a compact connected subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots with every point of Gamma within intrinsic distance 1 of a root.",
     "strongest_open_producer": {
       "id": "one_root_covering_of_the_first_merge_component",
-      "statement": "Prove (COVER): for monic g with roots in the closed unit disk there is a level lambda in [mu,1] and a compact CONNECTED subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots, such that every point of Gamma lies within intrinsic distance 1 of a root of g, paths being allowed to run in the whole component. By visibility_overlap_reduction_to_a_one_root_statement this settles Erdos #1041, with no separate length obligation. Take Gamma as SMALL as possible and the ambient as LARGE as possible: the cheapest Gamma is the descending Newton branch pair from c*, on which the covering was measured in its strongest form -- straight segments at level 1 -- with zero uncovered points over 26 scored rows at 283 points per arc, at least 155 overlap points per row, and worst overlap length 1.90422 against a budget of 2. Two guards are mandatory: the level is NOT monotone, so nev…"
+      "statement": "Prove (COVER): for monic g with roots in the closed unit disk there is a level lambda in [mu,1] and a compact CONNECTED subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots, such that every point of Gamma lies within intrinsic distance 1 of a root of g, paths being allowed to run in the whole component. By visibility_overlap_reduction_to_a_one_root_statement this settles Erdos #1041, with no separate length obligation. Take Gamma as SMALL as possible and the ambient as LARGE as possible: the cheapest Gamma is the descending Newton branch pair from c*, on which the covering was measured in its strongest form -- straight segments at level 1 -- with zero uncovered points over 26 scored rows at 283 points per arc, at least 155 overlap points per row, and worst overlap length 1.90422 against a budget of 2. …"
     },
     "how_to_contribute": {
       "kind": "computation",
       "note": "Re-run the degree-five moment computation with directed rounding rather than IEEE double arithmetic, which converts the fifth arithmetic-mean strengthening into a certificate-backed statement and opens the sixth."
     },
-    "what_this_does_not_establish": "Erdos #1041 remains open. Positive results include degree three, the sharp collinear theorem, the primitive quintic family, cyclic sparse families, and an all-degree constant-factor weakening; none settles the target. Counterexamples retire many direct, hub, coarea/tree, and simple concyclic selectors. The strongest surviving global routes are the admissible critical-branch/combined-charge route and COVER; both are unproved. Near Fekete, all-direction cusp signs, finite cones, and an actual quintic neighbourhood are proved. Degree six closes the anisotropic cubic cone, bounds the genuinely mixed normalized cubic coordinate by 470, sharpens the first-mode overlap from |E1|/|E2|>=4/5 to >=3/4…",
+    "what_this_does_not_establish": "Erdos #1041 remains open. Positive results include degree three, the sharp collinear theorem, the primitive quintic family, cyclic sparse families, and an all-degree constant-factor weakening; none settles the target. Counterexamples retire many direct, hub, coarea/tree, and simple concyclic selectors. The strongest surviving global routes are the admissible critical-branch/combined-charge route and COVER; both are unproved. Near Fekete, all-direction cusp signs, finite cones, and an actual quintic neighbourhood are proved. …",
     "failed_approaches": [
       "Universal scalar saddle-wall thresholds T ≤ 2√2(βγ)^{1/2n}: false for the actual wall of (z²−a²)(z²+b²).",
       "Least-critical nearest-pair hub selectors: refuted in the quartic fixed-pair no-go (CEGMQuarticFixedPairNoGo.md).",
@@ -225,6 +226,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
       "publication_manifest_match": true,
       "mathml_node_count": 348,

@@ -265,16 +265,17 @@
       "public_entry": "ExternalVerification269ThreePrimeStructure"
     },
     "strongest_longitudinal_theorem": null,
+    "no_longitudinal_reason": "No genuine climb: a two-branch reduction on the actual orbit (B = 1 corner decidable per index and refuted to 6000; B > 1 corner a lattice statement certified to 10^105), the rank phase transition, and q > 10^6768; the LCM identity and two-prime transcendence are Steve Fan's (longitudinal_truth_2026_09_01 §1, prior_art_adjudication_2026_09_02 §4).",
     "live_obstruction": "The normalised infinite dyadic shell tail either reaches an exact integral state or returns cofinally at distance at least 1/31 from every integer, and excluding the exact-integral-state branch is the unresolved step.",
     "strongest_open_producer": {
       "id": "exclude_exact_integral_dyadic_tails",
-      "statement": "For every positive B coprime to 30 and every a>=1, prove that the actual normalised state B X_a is nonintegral. Clearing and the rationality-to-reduced-carry bridge make this equivalent to irrationality of the {2,3,5} series; it is not a strictly stronger producer. The B=1 corner (integral X_a) is included but is not the whole target. Lean proves that the unscaled orbit either hits an integer or returns cofinally 1/31-far from all integers. The denominator-one automaton remains a direct B=1 representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates eliminate every direct phase-conditioned source potential of total degree at most two. The registered onset in the manuscript remains u+1+2v+3w until a sharper onset is independently checked. UPDATE 2026-09-07: finite cut-r…"
+      "statement": "For every positive B coprime to 30 and every a>=1, prove that the actual normalised state B X_a is nonintegral. Clearing and the rationality-to-reduced-carry bridge make this equivalent to irrationality of the {2,3,5} series; it is not a strictly stronger producer. The B=1 corner (integral X_a) is included but is not the whole target. Lean proves that the unscaled orbit either hits an integer or returns cofinally 1/31-far from all integers. The denominator-one automaton remains a direct B=1 representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates eliminate every direct phase-conditioned source potential of total degree at most two. The registered onset in the manuscript remains u+1+2v+3w until a sharper onset is independently checked. …"
     },
     "how_to_contribute": {
       "kind": "proof",
       "note": "Prove in Lean the telescoping identity that the sum over primes p of (p - 1) times the sum over n of 1/H(p^n) equals 1, where H is the running LCM height, which is a one-line difference identity and is absent from the corpus."
     },
-    "what_this_does_not_establish": "No three-prime irrationality or transcendence theorem has been proved. Lean identifies the actual compressed dyadic radix with the successive threePrimeHeight and literal smoothPrefixLcm ratio and proves that it lies in {2,6,10,30}. It proves an all-scale quadratic bound for the literal ordered digit, a polynomial-geometric majorant and summability for the actual real shell masses, constructs the genuine infinite dyadic-shell tsum tail, and proves its exact recurrence X_(a+1)=b_a X_a-d_a. The bounded-radix theorem therefore applies directly: the actual normalized infinite tail either reaches an exact integral state or returns cofinally to distance at least 1/31 from every integer. The infin…",
+    "what_this_does_not_establish": "No three-prime irrationality or transcendence theorem has been proved. Lean identifies the actual compressed dyadic radix with the successive threePrimeHeight and literal smoothPrefixLcm ratio and proves that it lies in {2,6,10,30}. It proves an all-scale quadratic bound for the literal ordered digit, a polynomial-geometric majorant and summability for the actual real shell masses, constructs the genuine infinite dyadic-shell tsum tail, and proves its exact recurrence X_(a+1)=b_a X_a-d_a. The bounded-radix theorem therefore applies directly: the actual normalized infinite tail either reaches an exact integral state or returns cofinally to distance at least 1/31 from every integer. …",
     "failed_approaches": [
       "Finite separated-factor decompositions of the three-prime kernel: nonsingular minors exist at every order uniformly in the third layer.",
       "Adamczewski-Bugeaud stammering criterion: measured simultaneous-approximation exponents fall to ≈ 1.007 while the criterion needs exponent 1 for both slopes at the same denominator; Dirichlet supplies only 1/2.",
@@ -317,6 +318,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
       "publication_manifest_match": true,
       "mathml_node_count": 181,

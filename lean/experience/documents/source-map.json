@@ -17,6 +17,7 @@
     "source_sha256": "6b1d17b94420d3c87d83fbd41062f4c5375c3762d1640d0db8d850a60e1757a0",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
+    "renderer_fingerprint": "4b61a5881f3708b0",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,

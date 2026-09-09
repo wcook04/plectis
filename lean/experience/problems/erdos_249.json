@@ -512,16 +512,17 @@
       "public_entry": "ExternalVerification249DyadicTotientKernel"
     },
     "strongest_longitudinal_theorem": null,
+    "no_longitudinal_reason": "No genuine climb: rationality is forced into a tempered carry of dyadic rank ≥ 2^e−1 against the proved kernel rank 2^e+1, plus finite exclusions; no producer supplies the residue-gap H (longitudinal_truth_2026_09_01 §1).",
     "live_obstruction": "Irrationality of the binary totient series is equivalent in Lean to a residue-gap supply statement, that for every c and every positive odd v there exists H > 0 divisible by phi(v) whose canonical totient-block residue modulo (2^H - 1)/v lies in the central interval of radius c + H + 1, and no construction supplies that H.",
     "strongest_open_producer": {
       "id": "totient_specific_moving_dyadic_escape",
-      "statement": "Prove FullMersenneCanonicalBasepointResidueGapSupply, the Lean-equivalent arithmetic normal form: for every c and positive odd v, find H>0 divisible by phi(v) such that the canonical residue (-totientBlock(H,c)) mod ((2^H-1)/v) lies in the central interval of radius c+H+1. On the pure-dyadic axis, the Lean-checked signed error E_H=totientBlock(H,c)-k(2^H-1) obeys E_(H+1)=2E_H+phi(c+H+1)-k while the nearest quotient k stays fixed. Exact computation through c<=1000000 finds delay nineteen at c=490794, ruling out caps through seventeen. Pointwise legal-letter methods, the constant-two mode, sublinear errors, and every eventually affine linear-scale error are eliminated. Actual prime positions cofinally force linear excursions; more directionally, if the successor remains upper-trapped then 4E_H+p+phi(p+1)<=4+3k, so any permanent trap is cofinally bottom-locked immediately before large prim…"
+      "statement": "Prove FullMersenneCanonicalBasepointResidueGapSupply, the Lean-equivalent arithmetic normal form: for every c and positive odd v, find H>0 divisible by phi(v) such that the canonical residue (-totientBlock(H,c)) mod ((2^H-1)/v) lies in the central interval of radius c+H+1. On the pure-dyadic axis, the Lean-checked signed error E_H=totientBlock(H,c)-k(2^H-1) obeys E_(H+1)=2E_H+phi(c+H+1)-k while the nearest quotient k stays fixed. Exact computation through c<=1000000 finds delay nineteen at c=490794, ruling out caps through seventeen. Pointwise legal-letter methods, the constant-two mode, sublinear errors, and every eventually affine linear-scale error are eliminated. Actual prime positions cofinally force linear excursions; …"
     },
     "how_to_contribute": {
       "kind": "literature",
       "note": "Test whether the Padé construction of Duverney and Tachiya for Lambert series survives a bounded non-periodic Möbius weight, and record the exact step at which it fails."
     },
-    "what_this_does_not_establish": "Erdos #249 remains open. Lean proves that irrationality of S=sum_{n>=1}phi(n)/2^n is equivalent to FullMersenneCanonicalBasepointResidueGapSupply, and that exact equivalent reduction is the canonical frontier. The finite scans, delay laws, continued-fraction prefix, cyclotomic support, exact 331 certificates, Schur obstructions, and affine-mode exclusions are evidence or finite denominator exclusions only. In particular, the observed delay translation does not promote an irrationality-measure estimate to the target: any quantitative distance bound would be a sufficient stronger route. A lower bound ||v*2^c*S|| >= c^-A uniformly over all positive odd v is not merely unproved but impossible f…",
+    "what_this_does_not_establish": "Erdos #249 remains open. Lean proves that irrationality of S=sum_{n>=1}phi(n)/2^n is equivalent to FullMersenneCanonicalBasepointResidueGapSupply, and that exact equivalent reduction is the canonical frontier. The finite scans, delay laws, continued-fraction prefix, cyclotomic support, exact 331 certificates, Schur obstructions, and affine-mode exclusions are evidence or finite denominator exclusions only. In particular, the observed delay translation does not promote an irrationality-measure estimate to the target: any quantitative distance bound would be a sufficient stronger route. …",
     "failed_approaches": [
       "Uniform bounds ‖v·2^c·S‖ ≥ c^{−A}: impossible for irrational S because odd multiples of 2^c S are dense mod 1.",
       "Coprime restriction with Stern-Brocot splitting and geometric decay: the visible-lattice sum ∑_{gcd(a,b)=1} 1/(2^{a+b}−1) equals exactly 1, so it cannot force irrationality.",
@@ -572,6 +573,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
       "publication_manifest_match": true,
       "mathml_node_count": 221,

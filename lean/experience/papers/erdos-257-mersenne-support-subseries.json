@@ -28,6 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
+    "renderer_fingerprint": "4b61a5881f3708b0",
     "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
     "publication_manifest_match": true,
     "mathml_node_count": 274,

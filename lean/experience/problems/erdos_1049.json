@@ -231,16 +231,17 @@
       "evidence_class": "ordinary_proof",
       "public_entry": null
     },
+    "no_longitudinal_reason": null,
     "live_obstruction": "At the base 3/2 the homogenisation ceiling caps every content lane on the fixed diagonal at a > b^2, rank two fails the model even at zero clearing, rank three would require kappa_3 < 0.10721, and no construction supplies a family, integrality, nonvanishing or remainder estimate.",
     "strongest_open_producer": {
       "id": "three_halves_pade_height_gap",
-      "statement": "The fixed-prime route is conditional, not an unconditional closure of step 1. The finite harmonic descent gives J_5={4,20,24} by the two-line descent lemma plus an empty level-three check, with eps=v_5(3^2-2^2)=1 and loss blocks [8,9],[40,41],[48,49]. If the all-level q-Apery monodromy/continuity premise (M)/(C5) holds, the weighted transfer gives 5 | B_j for every j >= 50 and hence a window gcd divisible by 5^(1+floor(log_5(s/2))) for every start s >= 50. The premise is certified only at N<=3 and over the finite indices recorded in FixedPrimeInfiniteTailProof.md, so the available evidence does not prove an all-index q-Apery denominator tail or unconditionally close the window-divisor substep. No first-appearance prime, factoring of 3^s-2^s, or effective form of Boyd's heuristic is needed under that explicit conditional premise. Conditional fixed-tail data also exist at p=13 (j>=676), 1…"
+      "statement": "The fixed-prime route is conditional, not an unconditional closure of step 1. The finite harmonic descent gives J_5={4,20,24} by the two-line descent lemma plus an empty level-three check, with eps=v_5(3^2-2^2)=1 and loss blocks [8,9],[40,41],[48,49]. If the all-level q-Apery monodromy/continuity premise (M)/(C5) holds, the weighted transfer gives 5 | B_j for every j >= 50 and hence a window gcd divisible by 5^(1+floor(log_5(s/2))) for every start s >= 50. The premise is certified only at N<=3 and over the finite indices recorded in FixedPrimeInfiniteTailProof.md, so the available evidence does not prove an all-index q-Apery denominator tail or unconditionally close the window-divisor substep. No first-appearance prime, factoring of 3^s-2^s, or effective form of Boyd's heuristic is needed under that explicit conditional premise. …"
     },
     "how_to_contribute": {
       "kind": "infrastructure",
       "note": "Add the power-certificate compiler, which is Lean-checked and already present in the public source, to the comparator configuration of the entry that consumes it."
     },
-    "what_this_does_not_establish": "The packet establishes only its individually named results at their recorded evidence classes. At q=7/2, Lean checks the exact numerical admission condition in source-facing and transformed forms; Bundschuh--Vaananen's analytic theorem and inherited hypotheses remain external, so no end-to-end Lean irrationality theorem is claimed. At q=3/2, every finite scan, exact arithmetic identity, no-go theorem, conditional transfer, and computational probe remains bounded by its stated quantifiers; no irrationality theorem or universal rational-base theorem is established. The homogenisation and rank-budget laws are necessary admission tests under explicit exponent assumptions, not constructions. For…",
+    "what_this_does_not_establish": "The packet establishes only its individually named results at their recorded evidence classes. At q=7/2, Lean checks the exact numerical admission condition in source-facing and transformed forms; Bundschuh--Vaananen's analytic theorem and inherited hypotheses remain external, so no end-to-end Lean irrationality theorem is claimed. At q=3/2, every finite scan, exact arithmetic identity, no-go theorem, conditional transfer, and computational probe remains bounded by its stated quantifiers; no irrationality theorem or universal rational-base theorem is established. The homogenisation and rank-budget laws are necessary admission tests under explicit exponent assumptions, not constructions. …",
     "failed_approaches": [
       "Scalar q-Apéry Padé family at 3/2: quantitatively dead by a fixed positive proportion at every index, with the shortfall in closed form.",
       "Rectangular two-function Hermite-Padé thresholds: at most 1/2 − 1/π² on the whole admissible cone ρ ≥ 0, σ ≥ 1 + ρ, with equality only at (0,1).",
@@ -286,6 +287,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
       "publication_manifest_match": true,
       "mathml_node_count": 284,

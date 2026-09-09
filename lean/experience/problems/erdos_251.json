@@ -212,16 +212,17 @@
       "public_entry": "ExternalVerification251PolynomialShiftCountermodel"
     },
     "strongest_longitudinal_theorem": null,
+    "no_longitudinal_reason": "No genuine climb: the rational-tail normal form is pinned to one located obstruction (cofinal adjacent small mismatch), the coarse-gap route is closed by an explicit countermodel, and q > 10^12041 is a finite exclusion (longitudinal_truth_2026_09_01 §1).",
     "live_obstruction": "The remaining producer is the cofinal adjacent small mismatch, that for each fixed h at least 1 and every N0 there is an index N at least N0 at which T(N+h) - T(N) and T(N+h+1) - T(N+1) both lie strictly between -1 and 1 while g(N+h+1) differs from g(N+1).",
     "strongest_open_producer": {
       "id": "cofinal_adjacent_small_mismatch",
-      "statement": "For each fixed h >= 1 and every N0, produce N >= N0 such that both actual tail shifts T_(N+h)-T_N and T_(N+h+1)-T_(N+1) lie strictly between -1 and 1 while g_(N+h+1) != g_(N+1). The checked finite consumer then excludes eventual integrality of the h-shift. The quantifier is every positive h, not only h=1. Digit mismatch and smallness are a joint event. A preferred unproved substitute is a positive finite phase-variance lower bound V_t(X,L) on the schedule t=lcm(1..floor(log log X)), L~(1+ε)log_2 log X (PhaseVarianceLab.md); that lower bound is not proved. r5 sparse rationalisation preserves all unnormalised blocks of length o(log log X) and therefore does not supply this joint event; a distinguishing actual-prime estimate must exceed the block-change error or use a longer window. r6 residue-feedback / sharp δ_* construction is a stronger countermodel in the polylogarithmic regime; it st…"
+      "statement": "For each fixed h >= 1 and every N0, produce N >= N0 such that both actual tail shifts T_(N+h)-T_N and T_(N+h+1)-T_(N+1) lie strictly between -1 and 1 while g_(N+h+1) != g_(N+1). The checked finite consumer then excludes eventual integrality of the h-shift. The quantifier is every positive h, not only h=1. Digit mismatch and smallness are a joint event. A preferred unproved substitute is a positive finite phase-variance lower bound V_t(X,L) on the schedule t=lcm(1..floor(log log X)), L~(1+ε)log_2 log X (PhaseVarianceLab.md); that lower bound is not proved. r5 sparse rationalisation preserves all unnormalised blocks of length o(log log X) and therefore does not supply this joint event; a distinguishing actual-prime estimate must exceed the block-change error or use a longer window. r6 residue-feedback / sharp δ_* construction is a stronger countermodel in the polylogarithmic regime; …"
     },
     "how_to_contribute": {
       "kind": "proof",
       "note": "Supply the h = 1 cofinal adjacent-small-mismatch producer from actual consecutive-prime arithmetic. Coarse gap properties cannot supply it (the polynomial countermodel), the measured event density of 0.0042 to 0.0082 over 6.8 million primes is finite evidence only, and a Lean-checked consumer converts the producer into irrationality."
     },
-    "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. The explicit ration…",
+    "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. …",
     "failed_approaches": [
       "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
       "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
@@ -267,6 +268,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
       "publication_manifest_match": true,
       "mathml_node_count": 337,

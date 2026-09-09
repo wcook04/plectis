@@ -265,16 +265,17 @@
       "evidence_class": "lean_kernel_checked",
       "public_entry": "ExternalVerification243BoundedNegativePartRigidity"
     },
+    "no_longitudinal_reason": null,
     "live_obstruction": "The surviving signed-state obstruction is cofinally unbounded negative excursions in the exact dynamic cocycle, and the decisive producer is a global negative-mass, cumulative-LCM or repair-payment theorem.",
     "strongest_open_producer": {
       "id": "exclude_aperiodic_negative_state_orbits",
-      "statement": "Attack the sole remaining signed-state obstruction, now quantified: any counterexample has negative excursions with -E_n > (1 - delta) log2 log2 C_n infinitely often for every delta > 0 (slow_negative_part_rigidity, counterexample_loglog_negative_excursions), with divergent normalised negative mass and with every multiplier overlap gcd(a_n, D_n) bounded by the next negative magnitude. Coprimality-only arguments are capped at O(log C_n) rises, so the producer must use the congruence E_n = D_n (mod C_n) or a second landing mechanism. Attack the sole remaining signed-state obstruction: cofinally unbounded negative excursions in the exact dynamic cocycle. Corrected unit-field propagation kills the factor-35 branch, forces eight cofinal returns on (31,-10) at factor 41, and forces four more on its (41,-20) child at factor 61. The exact formerly inert factor-25 continuation is now 1061100/292…"
+      "statement": "Attack the sole remaining signed-state obstruction, now quantified: any counterexample has negative excursions with -E_n > (1 - delta) log2 log2 C_n infinitely often for every delta > 0 (slow_negative_part_rigidity, counterexample_loglog_negative_excursions), with divergent normalised negative mass and with every multiplier overlap gcd(a_n, D_n) bounded by the next negative magnitude. Coprimality-only arguments are capped at O(log C_n) rises, so the producer must use the congruence E_n = D_n (mod C_n) or a second landing mechanism. Attack the sole remaining signed-state obstruction: cofinally unbounded negative excursions in the exact dynamic cocycle. Corrected unit-field propagation kills the factor-35 branch, forces eight cofinal returns on (31,-10) at factor 41, and forces four more on its (41,-20) child at factor 61. …"
     },
     "how_to_contribute": {
       "kind": "proof",
       "note": "Formalise the bridge from Koizumi, Irrationality of the reciprocal sum of doubly exponential sequences, arXiv:2504.05933, INTEGERS 26 (2026), A28, so that bounded-negative rigidity becomes a statement about Erdős #243 itself under one added hypothesis."
     },
-    "what_this_does_not_establish": "Erdős #243 remains open. The packet contains Lean-checked conditional arithmetic results and ordinary global rigidity criteria. The weighted LCM record-excess theorem proves an exact equivalence between the Sylvester endpoint and finiteness of a discounted record-excess series for any fixed decreasing weight with divergent integral. It discards non-record indices, subtracts B M_n from the raw negative error, and permits arbitrary fixed iterated-logarithmic discounts. The missing direction is to establish finiteness from genuine rational denominator feedback. Only the finite arithmetic and charging core is a Lean target; the global weighted theorem is ordinary proof. The earlier inclusive ra…",
+    "what_this_does_not_establish": "Erdős #243 remains open. The packet contains Lean-checked conditional arithmetic results and ordinary global rigidity criteria. The weighted LCM record-excess theorem proves an exact equivalence between the Sylvester endpoint and finiteness of a discounted record-excess series for any fixed decreasing weight with divergent integral. It discards non-record indices, subtracts B M_n from the raw negative error, and permits arbitrary fixed iterated-logarithmic discounts. The missing direction is to establish finiteness from genuine rational denominator feedback. Only the finite arithmetic and charging core is a Lean target; the global weighted theorem is ordinary proof. …",
     "failed_approaches": [
       "Finite-prefix rules: arbitrary finite deviations can precede an exact Sylvester tail.",
       "Eventually periodic and eventually constant negative orbits: excluded unconditionally, so a counterexample must have aperiodic unbounded negative excursions.",
@@ -317,6 +318,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
+      "renderer_fingerprint": "4b61a5881f3708b0",
       "source_sha256": "bbad3e8929c50fefb86aa81250095c5cead267d5ad22def620c5e85bebb2b9d9",
       "publication_manifest_match": true,
       "mathml_node_count": 190,

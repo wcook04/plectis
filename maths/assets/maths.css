@@ -154,6 +154,37 @@
 }
 .maths-band__head p { color: var(--muted); max-width: var(--measure-note); margin: 0; }
 
+.maths-route-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: var(--space-5);
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.maths-route {
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.maths-route h3 { margin: var(--space-1) 0 var(--space-3); }
+.maths-route__step {
+  margin: 0;
+  color: var(--maths-gold);
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 650;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.maths-route__links { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .maths-route-grid { grid-template-columns: 1fr; }
+}
+
 /* ---- Universe panel ----------------------------------------------------- */
 .universe-panel {
   border: 1px solid var(--rule-strong);
@@ -969,6 +1000,48 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .ta-c { text-align: center; }
 .paper-stage .pl0 { padding-left: 0; }
 .paper-stage .pr0 { padding-right: 0; }
+
+/* ---- The frontier block ---------------------------------------------------
+   The dossier's argument, in the order a reader asks for it: what this work
+   added, what stands on its own, what has already failed, what would close it,
+   and only then what it does not establish. The limits are set apart rather
+   than played down -- a boundary that looks like body copy gets skimmed, and
+   this one is load-bearing. */
+.result-card__boundary + .result-card__boundary { margin-top: calc(-1 * var(--space-1)); }
+.result-card--absence { background: none; border-style: dashed; }
+.result-card--absence .result-card__boundary { color: var(--ink-soft); }
+.result-card .fact-list { margin: var(--space-2) 0 0; }
+.frontier-limit {
+  border-left: 3px solid var(--rule-strong);
+  padding-left: var(--space-4);
+  margin: var(--space-5) 0;
+}
+.frontier-limit .eyebrow {
+  color: var(--muted);
+  margin: 0 0 var(--space-2);
+}
+.frontier-limit .result-card__boundary:last-child { margin-bottom: 0; }
+/* The authority note is true and it is not the news. It sits under the results
+   it bounds, at the size of a footnote, because a reader who arrived to find
+   out what was proved should meet a finding first. */
+.note--authority {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-meta);
+  color: var(--faint);
+}
+/* A closed disclosure should say what is behind it. */
+.dossier-details > summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.dossier-details > summary:hover { color: var(--ink); }
+.dossier-details[open] > summary { border-bottom-color: transparent; }
 
 /* ---- Mathematical notation ------------------------------------------------
    Expressions detected in the corpus records are wrapped in .math by
