@@ -5846,3 +5846,16 @@ p.muted a:not(.narrative-ref):focus-visible {
 .review-receipt__log-label { margin-top: 1rem; }
 .ai-questions--open { margin-top: 1.2rem; }
 .fold[data-fold-tone="quiet"] { margin-top: 1.4rem; }
+
+/* Keep the front door short, and the routes between sections visible. */
+.hero--simple { max-width: 1060px; padding-bottom: 2rem; }
+.hero--simple .hero__lede { max-width: 760px; }
+.hero--simple .hero__sub { max-width: 680px; }
+.hero--simple .hero__modes { display: flex; flex-wrap: wrap; gap: .8rem; }
+.landing-example { margin-top: 1.5rem; }
+.landing-example > summary { cursor: pointer; color: var(--ink-soft); padding: .75rem 0; }
+@media (max-width: 600px) {
+  .docs-topbar__inner { flex-wrap: wrap; height: auto; min-height: 58px; padding-block: .65rem; }
+  .docs-topbar__links { display: flex; flex-wrap: wrap; gap: 1rem; width: 100%; margin: .35rem 0 0; }
+  .docs-topbar__links a { padding: .4rem 0; }
+}

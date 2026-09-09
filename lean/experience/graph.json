@@ -3,15 +3,15 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 1401,
-    "edges": 3482,
+    "nodes": 1407,
+    "edges": 3488,
     "node_kinds": {
       "comparator_review_family": 70,
       "human_document": 14,
       "integration_surface": 2,
       "lean_module": 1056,
       "mathematical_object": 105,
-      "paper": 14,
+      "paper": 20,
       "problem": 8,
       "public_claim": 130,
       "registry_review_unit": 1,
@@ -23,7 +23,7 @@
       "contains": 1064,
       "corollary_of": 1,
       "eliminates_case": 1,
-      "explained_by": 14,
+      "explained_by": 20,
       "formalized_in": 40,
       "has_public_claim": 15,
       "has_registry_review_unit": 1,
@@ -11511,6 +11511,33 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex"
     },
     {
+      "id": "paper:erdos1041-lemniscate-reasoning-surface",
+      "kind": "paper",
+      "label": "Lemniscates and Newton Flow: Complete Reasoning Record",
+      "subject": "Erdős #1041",
+      "form": "Reasoning surface",
+      "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
+      "kind": "paper",
+      "label": "Rational-Base Lambert Series: Complete Reasoning Record",
+      "subject": "Erdős #1049",
+      "form": "Reasoning surface",
+      "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos243-reciprocal-tail-reasoning-surface",
+      "kind": "paper",
+      "label": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+      "subject": "Erdős #243",
+      "form": "Reasoning surface",
+      "href": "papers/erdos243-reciprocal-tail-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
+    },
+    {
       "id": "paper:erdos249-totient-reasoning-surface",
       "kind": "paper",
       "label": "The Binary Totient Series",
@@ -11520,6 +11547,15 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex"
     },
     {
+      "id": "paper:erdos251-prime-gap-reasoning-surface",
+      "kind": "paper",
+      "label": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "subject": "Erdős #251",
+      "form": "Reasoning surface",
+      "href": "papers/erdos251-prime-gap-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex"
+    },
+    {
       "id": "paper:erdos257-mersenne-reasoning-surface",
       "kind": "paper",
       "label": "Reciprocal Mersenne Subseries",
@@ -11527,6 +11563,24 @@
       "form": "Reasoning surface",
       "href": "papers/erdos257-mersenne-reasoning-surface.json",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos269-running-lcm-reasoning-surface",
+      "kind": "paper",
+      "label": "The Three-Prime Running LCM: Complete Reasoning Record",
+      "subject": "Erdős #269",
+      "form": "Reasoning surface",
+      "href": "papers/erdos269-running-lcm-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos68-factorial-reasoning-surface",
+      "kind": "paper",
+      "label": "The Factorial-Denominator Series: Complete Reasoning Record",
+      "subject": "Erdős #68",
+      "form": "Reasoning surface",
+      "href": "papers/erdos68-factorial-reasoning-surface.json",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex"
     },
     {
       "id": "paper:open-source-mathematics-strategy",
@@ -29358,12 +29412,42 @@
     {
       "source": "universe:plectis-lean",
       "relation": "explained_by",
+      "target": "paper:erdos1041-lemniscate-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos1049-rational-base-lambert-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos243-reciprocal-tail-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
       "target": "paper:erdos249-totient-reasoning-surface"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "explained_by",
+      "target": "paper:erdos251-prime-gap-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
       "target": "paper:erdos257-mersenne-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos269-running-lcm-reasoning-surface"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:erdos68-factorial-reasoning-surface"
     },
     {
       "source": "universe:plectis-lean",

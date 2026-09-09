@@ -3,8 +3,8 @@
   "papers": {
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
-    "paper_count": 14,
-    "papers_with_warnings": 5,
+    "paper_count": 20,
+    "papers_with_warnings": 8,
     "warnings": {
       "erdos249-totient-reasoning-surface": {
         "mathml": [
@@ -31,6 +31,18 @@
           "\\qquad ({\\small\\textsf{[Math]}};\\ \\tex",
           "^",
           "unexpected control sequence \\small",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
+      "erdos251-prime-gap-reasoning-surface": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
+          "=2\\left(\\sum_{n\\ge0}u_n-u_0\\right)-\\sum_{n\\ge0}u_n",
+          "=\\sum_{n\\ge0}u_n-2 . \\qedhere, rendering as TeX:",
+          "e0}u_n-2 . \\qedhere",
+          "^",
+          "unexpected control sequence \\qedhere",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
         ],
         "mathjax": []
@@ -66,12 +78,47 @@
         ],
         "mathjax": []
       },
+      "erdos269-running-lcm-reasoning-surface": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\resizebox{\\linewidth}{!}{$\\begin{array}{c|rrrrrrrrrrrrrrr}",
+          "h&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18\\\\ \\hline",
+          "\\#&1&104&812&5437&51409&237423&735450&1431226&1132756&236752&34910&3076&521&49&8",
+          "\\end{array}$}, rendering as TeX:",
+          "\\resizebox{\\linewidth}{!}{$\\begin{array}",
+          "^",
+          "unexpected control sequence \\resizebox",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
       "erdos-1041-lemniscate-newton-flow": {
         "mathml": [
           "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
           "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
           "^",
           "unexpected control sequence \\emph",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
+      "erdos1041-lemniscate-reasoning-surface": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math x\\le\\sum_j\\lambda(d_j)",
+          "=\\sum_j\\Bigl[\\lambda(d_j)-\\sum_i\\sigma_i w(d_j,r_i)\\Bigr]",
+          "+\\sum_i\\sigma_i\\sum_j w(d_j,r_i)",
+          "\\le kU+\\pi\\Sigma. \\qedhere, rendering as TeX:",
+          "\\pi\\Sigma. \\qedhere",
+          "^",
+          "unexpected control sequence \\qedhere",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+          "\\qquad",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "\\qquad",
+          "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "^",
+          "unexpected control sequence \\over",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
         ],
         "mathjax": []

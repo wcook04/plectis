@@ -431,7 +431,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
       "publication_manifest_match": true,
       "mathml_node_count": 274,
@@ -558,5 +558,1631 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos257",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-257-mersenne-support-subseries",
+      "title": "Reciprocal-Summable Support Irrationality at Every Integer Base",
+      "subject": "Erdős #257",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 13,
+      "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
+      "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+      "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+      "problem_id": "erdos_257",
+      "routes": {
+        "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
+        "html_exact_tex": "papers/erdos-257-mersenne-support-subseries.mathjax.html",
+        "pdf": "../../papers/erdos-257-mersenne-support-subseries.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-257-mersenne-support-subseries.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
+        "publication_manifest_match": true,
+        "mathml_node_count": 274,
+        "raw_math_fallback_count": 3,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
+            ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math f_A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\ge1), rendering as TeX:",
+            "A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\g",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\operatorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_{2q\\mid n})",
+            "=\\frac1{4pq}\\qquad(p\\ne q\\text{ odd primes}),, rendering as TeX:",
+            "ratorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
+        "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction and main results"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Reciprocal-summable supports at every integer base"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extensions beyond reciprocal summability"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Divisibility-weighted and quantitative criteria"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A finite estimate on common observation scales"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Positive fractional divisor covers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What every positive cover must pay"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Combining the two support criteria"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The prime-power regime."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite-support denominator periods"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Rational values and scaled tails"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where the return mechanism stops"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Unique coding and arithmetic membership"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The actual greedy return inequality"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Further questions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-257-mersenne-support-subseries.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos257-mersenne-reasoning-surface",
+      "title": "Reciprocal Mersenne Subseries",
+      "subject": "Erdős #257",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 111,
+      "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
+      "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
+      "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, whose universal and half-value questions remain open",
+      "problem_id": "erdos_257",
+      "routes": {
+        "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos257-mersenne-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos257-mersenne-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos257-mersenne-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos257-mersenne-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "4b64b5fba33cfb3559cd04749cf9e17734d80053f68e11bc7430b05247196759",
+        "publication_manifest_match": true,
+        "mathml_node_count": 2969,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
+            "\\leanlink{HalfCylinderMiddleCarryLowerBo",
+            "^",
+            "unexpected control sequence \\leanlink",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "78138a42bb166e9c75edc7c454abc24403847aba003621513684ee07962ccb21",
+        "html_exact_tex_sha256": "c8d7da7627461ae161a5c1e9473617c5ed46dd35a9c9acd7d81cf15492e93fe2"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to read this document"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem, and what is actually known"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The object and the two exact statements"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional record, universal direction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The unconditional record, half-value direction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The wall"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The thesis"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 1: canonicalisation — the witness space is a singleton"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 2: route collapse — every “weaker producer” is the goal"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 3: scale mismatch — the available information is at the wrong resolution"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 4: decision asymmetry — the certificates point the wrong way"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 5: measure and category point in opposite directions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Barrier 6: the two-axis certificate box (universal direction)"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the six barriers converge on"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What the wall does not block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 1: the reset \\sqrt{\\ }-escape / R-run anti-concentration target"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 2: strict endpoint progress for exact rows"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 3 audit: the prime-support theorem is known outside this formal corpus"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 4: land the route-collapse equivalences"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route 5: the sparse/dense trichotomy closure"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Ranking, stated plainly"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Reading the detailed record"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Read linearly."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Use as reference."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Scale and coordinate discipline."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The object, the two questions, and the exact record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The object"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What is proved"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Full-support irrationality, for every base"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Named infinite-support families"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Topology and measure of the achievement set"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The greedy orbit, exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The seam model and the master identity"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The real form and the master identity’s analytic reading"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dynamics"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Every anchor"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Catalogue of mathematical ingredients"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Open hypotheses and candidate inputs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact identities and reductions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Consequence theorems"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The load-bearing definitions"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The two payoff consumers"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The coherent-repair consumer (superseded, kept as a fallback target)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The critical-quotient-supply consumer chain"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two unconditional fill consumers (BooleanMobiusSkipRow)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The dyadic-band quantifier-collapse consumer (HalfUpperResetCriticalBand)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The frozen-margin consumer family (HalfCylinderFullShellSeamBridge, half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two square-root-scale consumers (half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The non-effective horizon consumer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The equivalence CofinalPositiveHalfGreedySkips reduces to"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Invariants"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Endpoint transition algebra (BooleanMobiusExactTransition)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Capacity identities (BooleanMobiusSkippedCoreCriticalCapacity, BooleanMobiusSkippedCoreExactRow)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Doubling-branch invariants (BooleanMobiusExactRowRankTwo)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Base-case fixture (BooleanMobiusExactRowSeed)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Global-repair invariants (BooleanMobiusGlobalRepair)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Greedy-window uniqueness (BooleanMobiusGreedyReduction)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Geometric normal form (BooleanMobiusCriticalCapacityGeometric)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Growth-bound invariants for the generic layer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Rigidity corollaries directly constraining a rational #257 support"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "First-crossing machinery (BooleanMobiusExactRowCrossing)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Möbius-centred carry nonnegativity and the skipped-rank trichotomy (half-membership track)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Total gap mass (HalfGapMass)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The sharp fatal-gap criterion (HalfGreedyFatalGap)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Two-sided dyadic-scale control (HalfCylinderMiddleCarryLowerBound, feeds HalfUpperResetCriticalBand)"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Abstract, fully problem-agnostic invariants read alongside this lane"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Obstructions and countermodels"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Recently added declarations"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The middle-cell update-step chain"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Forgetting witnesses: the terminal-only bridge"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "A strict weakening chain for the last-producer socket"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The governed frozen-margin producer"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Exact carry-pivot normal form"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New Mersenne-subseries rigidity tree"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New half-counterexample frontier tree"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "New primitive-2323 multiplicity tree"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Current 1/211/21 frontier"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The scale ladder"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One orbit in four coordinates"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One decision stream, four integerisations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The truncation-rung ladder"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Frontier index: what stands between the corpus and a proof"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The three #257 obligations, stated exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reading a row"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-reset: sixteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-cofinal-rows: thirteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "257-universal: thirteen near misses"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three theorems assembled from the interface, and where each still stops"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Route-collapse findings: four traps to name explicitly"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Closed routes, with the mechanism that closed them"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Four closed attack families on the wall itself"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Branch exclusions at the final producer: the exceptional dyadic cells"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "No-go, countermodel, and rigidity modules that bound the wall from outside"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The scalar-localisation height obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The final-skip band formula, and what it does not show"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The mathematics this problem still needs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R1. Reset \\sqrt{\\ }-escape: anti-concentration of a logarithmically short divisor sum"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it, and the exact arithmetic of ΘL\\Theta_L"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Swings"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R2. Strict endpoint progress: the one place canonicalisation does not bite"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Swings"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R3. Prime support: a known theorem and an internal method boundary"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R4. Landing the route-collapse equivalences, via perfect-square witness depths"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The object, and the swing that supplies it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Why this is a result and not bookkeeping"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "R5. The sparse/dense trichotomy — and a proof that the present engine cannot close it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The statement needed"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What kind of object would furnish it"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The specific obstacle, proved"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the shape of the wall suggests about the underlying object"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The half-value branch looks pseudorandom, and the failures are the evidence"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Three reasons to distrust that inference, stated plainly"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "The universal branch reads differently, and this weakens the one-wall thesis"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "What the evidence does and does not determine"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is open, stated exactly"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Notation fixed for this section"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O1 — Universal Erdős #257"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O2 — Half-value membership"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Waypoints that are actually EQUIVALENT to O2, not weaker"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O3 — Cofinal exact local Mersenne half rows"
+        },
+        {
+          "level": 4,
+          "anchor": null,
+          "label": "Sharp critical-capacity conditions — the BooleanMöbius lane’s producer for O3"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O4 — Reset anti-concentration (sqrt-escape) and the R-run form"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O5 — The remaining −2,−1-2,-1 middle-cell exclusion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Target O2b — Membership of 1/211/21"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Implication table"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What kind of new mathematics each form would need"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Summary"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Authority boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos257-mersenne-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos257-mersenne-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos257-mersenne-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-257-mersenne-support-subseries"
+    ],
+    "long": [
+      "erdos257-mersenne-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusCarry",
+        "label": "Erdos249257.BooleanMobiusCarry",
+        "path": "Erdos249257/BooleanMobiusCarry.lean",
+        "direct": true,
+        "content_digest": "sha256:b796db336e0227e3f5199bbc08107df8be764d391d138439d0f818d437dd4fe6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusCarry.lean",
+        "role": "Boolean-Mobius carry coordinates"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusCofinalExactRows",
+        "label": "Erdos249257.BooleanMobiusCofinalExactRows",
+        "path": "Erdos249257/BooleanMobiusCofinalExactRows.lean",
+        "direct": false,
+        "content_digest": "sha256:acafb37a1d472a69b9c777adcb28d01775f2b3f78de490eff5c72494829b600d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusCofinalExactRows.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
+        "label": "Erdos249257.BooleanMobiusGlobalRepair",
+        "path": "Erdos249257/BooleanMobiusGlobalRepair.lean",
+        "direct": false,
+        "content_digest": "sha256:17c708c78aa16e2bdb893d11c453cada8955c5d494697c13b8c377521de3e318",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusGlobalRepair.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusLocalRepair",
+        "label": "Erdos249257.BooleanMobiusLocalRepair",
+        "path": "Erdos249257/BooleanMobiusLocalRepair.lean",
+        "direct": false,
+        "content_digest": "sha256:526925939ba6f45e57291bc0f9b5764f08a806f6bce655331d2f2bd6f5a820b3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusLocalRepair.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusSkipRow",
+        "label": "Erdos249257.BooleanMobiusSkipRow",
+        "path": "Erdos249257/BooleanMobiusSkipRow.lean",
+        "direct": false,
+        "content_digest": "sha256:60b632a85ca0073a82e538d0c017c6491b9893614333e5e9a525881a30adaf00",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusSkipRow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal",
+        "label": "Erdos249257.BooleanMobiusSkipRowCofinal",
+        "path": "Erdos249257/BooleanMobiusSkipRowCofinal.lean",
+        "direct": true,
+        "content_digest": "sha256:575467e41bf4268ea033df542ed6bdb4aae36d9a2a6900c5c0706f7ad5859539",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusSkipRowCofinal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusSkippedCoreExactRow",
+        "label": "Erdos249257.BooleanMobiusSkippedCoreExactRow",
+        "path": "Erdos249257/BooleanMobiusSkippedCoreExactRow.lean",
+        "direct": false,
+        "content_digest": "sha256:d3a9b7432de16069ce95e2e128c07b1aa65d0f88ebf4620509032f9ecd65c740",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusSkippedCoreExactRow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.CampbellShiftSynchronization",
+        "label": "Erdos249257.CampbellShiftSynchronization",
+        "path": "Erdos249257/CampbellShiftSynchronization.lean",
+        "direct": false,
+        "content_digest": "sha256:6d393a00fc6e6075dc13ab5e38285193a94de309a35ccc04dd0186ad1d0db3b3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CampbellShiftSynchronization.lean",
+        "role": "Campbell shift synchronization for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.CarrySurvivorExtinction",
+        "label": "Erdos249257.CarrySurvivorExtinction",
+        "path": "Erdos249257/CarrySurvivorExtinction.lean",
+        "direct": false,
+        "content_digest": "sha256:6baa1dc557dec8babc2635af8dcd461e4af8742313a21f00959219f439bee644",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CarrySurvivorExtinction.lean",
+        "role": "Multiple-period collapse"
+      },
+      {
+        "id": "lean-module:Erdos249257.CertificateKernel",
+        "label": "Erdos249257.CertificateKernel",
+        "path": "Erdos249257/CertificateKernel.lean",
+        "direct": true,
+        "content_digest": "sha256:90e9be09a22c200314c29c63afdb48969491ef30ff040b0910a2fbc0c049c38a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean",
+        "role": "Assembled theorem kernel and headline interfaces"
+      },
+      {
+        "id": "lean-module:Erdos249257.CompositeDilationDefect",
+        "label": "Erdos249257.CompositeDilationDefect",
+        "path": "Erdos249257/CompositeDilationDefect.lean",
+        "direct": true,
+        "content_digest": "sha256:bc9dcf0d17886e68cf13100fd32857db5ee66b1871cc6e54629a305cb4150479",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CompositeDilationDefect.lean",
+        "role": "Composite support-dilation defect identity"
+      },
+      {
+        "id": "lean-module:Erdos249257.DyadicPrefixCompression",
+        "label": "Erdos249257.DyadicPrefixCompression",
+        "path": "Erdos249257/DyadicPrefixCompression.lean",
+        "direct": false,
+        "content_digest": "sha256:51f902551a59f61cffad20e28bb0520dfee213b01d250a194ea85ad77cb5f36e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DyadicPrefixCompression.lean",
+        "role": "Dyadic prefix compression identities"
+      },
+      {
+        "id": "lean-module:Erdos249257.GapFareyBound",
+        "label": "Erdos249257.GapFareyBound",
+        "path": "Erdos249257/GapFareyBound.lean",
+        "direct": false,
+        "content_digest": "sha256:076397176d7ca70d0ab4771872bd415ef5487d90f55e389f4250d7f3f43abc25",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GapFareyBound.lean",
+        "role": "Farey-gap denominator exclusions"
+      },
+      {
+        "id": "lean-module:Erdos249257.GcdMomentCalculus",
+        "label": "Erdos249257.GcdMomentCalculus",
+        "path": "Erdos249257/GcdMomentCalculus.lean",
+        "direct": false,
+        "content_digest": "sha256:e535c90b20cf4c424df5503efbd33159a2fcff3f2dc1b901f035d5b2ce297369",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean",
+        "role": "GCD moment transform"
+      },
+      {
+        "id": "lean-module:Erdos249257.GenericTailOrbitRigidity",
+        "label": "Erdos249257.GenericTailOrbitRigidity",
+        "path": "Erdos249257/GenericTailOrbitRigidity.lean",
+        "direct": false,
+        "content_digest": "sha256:89b4b0ebd2799ee359193be66852c394486ef39251c2f278df10c6de88a5e291",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GenericTailOrbitRigidity.lean",
+        "role": "Tempered tail-orbit rationality criterion"
+      },
+      {
+        "id": "lean-module:Erdos249257.GeometricCoprimality",
+        "label": "Erdos249257.GeometricCoprimality",
+        "path": "Erdos249257/GeometricCoprimality.lean",
+        "direct": false,
+        "content_digest": "sha256:ad2a7ff4fefefdf6374c3a8d9ea2afd1d27b638883e9a1625d1049cadf21a0b7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GeometricCoprimality.lean",
+        "role": "Coprime-pair interpretation of the totient series"
+      },
+      {
+        "id": "lean-module:Erdos249257.GreedyAchievementSet",
+        "label": "Erdos249257.GreedyAchievementSet",
+        "path": "Erdos249257/GreedyAchievementSet.lean",
+        "direct": true,
+        "content_digest": "sha256:ab3f56adfb60182d0bf4d7a2ec6e6276b3bf5c69879c9f73b16fbfa9ec6567e8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GreedyAchievementSet.lean",
+        "role": "Greedy geometry and finite death certificates"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCarryReachability",
+        "label": "Erdos249257.HalfCarryReachability",
+        "path": "Erdos249257/HalfCarryReachability.lean",
+        "direct": true,
+        "content_digest": "sha256:abaddc4c5a162925a65b857f2cc9f0ceec590418b5cd7441891b77b4727d1dbd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryReachability.lean",
+        "role": "Half-carry reachability and compactness"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCutLocator",
+        "label": "Erdos249257.HalfCutLocator",
+        "path": "Erdos249257/HalfCutLocator.lean",
+        "direct": false,
+        "content_digest": "sha256:51e598e2e76f29ea20c0396fe0e82b2f5745cc9f62ccbffd0ef6ee112fb4f0d0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCutLocator.lean",
+        "role": "Fatal-gap locator for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter",
+        "label": "Erdos249257.HalfCylinderConcreteSeamAdapter",
+        "path": "Erdos249257/HalfCylinderConcreteSeamAdapter.lean",
+        "direct": false,
+        "content_digest": "sha256:b58fd058c80e7e34d920613195f2e7674654947fa40f63758f39bb45f6806fb6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderConcreteSeamAdapter.lean",
+        "role": "Concrete finite seam adapter"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFalseBitSupply",
+        "label": "Erdos249257.HalfCylinderFalseBitSupply",
+        "path": "Erdos249257/HalfCylinderFalseBitSupply.lean",
+        "direct": false,
+        "content_digest": "sha256:9bc5d641596ab886f45b5ae58953c5d68811ae635ee3317d8af8c2acf30957cf",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFalseBitSupply.lean",
+        "role": "False-bit supply for the half seam"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail",
+        "label": "Erdos249257.HalfCylinderFatalGapRightTail",
+        "path": "Erdos249257/HalfCylinderFatalGapRightTail.lean",
+        "direct": false,
+        "content_digest": "sha256:42c43b95b21cd9ab116eb71b42e7078e413b603aded1f2f09a111f612ac0506f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFatalGapRightTail.lean",
+        "role": "Fatal-gap and eventual-right seam classification for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
+        "label": "Erdos249257.HalfCylinderFiniteShadow",
+        "path": "Erdos249257/HalfCylinderFiniteShadow.lean",
+        "direct": false,
+        "content_digest": "sha256:35d1c3b0fea0c31acfedc9120096ebf3506b6d940e8613e77a45c07254b3f0f7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFiniteShadow.lean",
+        "role": "Finite shadows of the half cylinder"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFloorErrorReset",
+        "label": "Erdos249257.HalfCylinderFloorErrorReset",
+        "path": "Erdos249257/HalfCylinderFloorErrorReset.lean",
+        "direct": false,
+        "content_digest": "sha256:eb9cda686a947791d7ec6ab059dd540b052c251af5a0f624c2beaa36d406c271",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFloorErrorReset.lean",
+        "role": "Floor-error reset for the half seam"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge",
+        "label": "Erdos249257.HalfCylinderFullShellSeamBridge",
+        "path": "Erdos249257/HalfCylinderFullShellSeamBridge.lean",
+        "direct": false,
+        "content_digest": "sha256:b8101efc29e15387cc6ceeb0a9ed677377b6a4a7a846cdce0231738284079b8b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFullShellSeamBridge.lean",
+        "role": "Full-shell seam bridge for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification",
+        "label": "Erdos249257.HalfCylinderHalfMembershipClassification",
+        "path": "Erdos249257/HalfCylinderHalfMembershipClassification.lean",
+        "direct": true,
+        "content_digest": "sha256:51a91be9f0c2978acc3c6c4f8e9dad058b8fb3acf5589f11d68771437e4794c6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderHalfMembershipClassification.lean",
+        "role": "Positive half-membership classification in seam coordinates"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderIntegerGreedy",
+        "label": "Erdos249257.HalfCylinderIntegerGreedy",
+        "path": "Erdos249257/HalfCylinderIntegerGreedy.lean",
+        "direct": false,
+        "content_digest": "sha256:201e15a812c11b0fb5357c1e36960bbba3df69c59cec29d205726009866eec25",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderIntegerGreedy.lean",
+        "role": "Integer-greedy first-wrap seam reduction"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderSeamLimit",
+        "label": "Erdos249257.HalfCylinderSeamLimit",
+        "path": "Erdos249257/HalfCylinderSeamLimit.lean",
+        "direct": false,
+        "content_digest": "sha256:2a012214070cfff73fdb5d51e11cc89fba79056f7d0f5cb9ce9785c4a4c39b40",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderSeamLimit.lean",
+        "role": "Seam-limit reduction for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier",
+        "label": "Erdos249257.HalfCylinderSkippedEndpointClassifier",
+        "path": "Erdos249257/HalfCylinderSkippedEndpointClassifier.lean",
+        "direct": false,
+        "content_digest": "sha256:caa444d567dfa7aaa3cb6a246ae934daf6840e03da79a8f40a61543ebad11b6b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderSkippedEndpointClassifier.lean",
+        "role": "Skipped-endpoint classifier for the half seam"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderSkippedRankLimit",
+        "label": "Erdos249257.HalfCylinderSkippedRankLimit",
+        "path": "Erdos249257/HalfCylinderSkippedRankLimit.lean",
+        "direct": false,
+        "content_digest": "sha256:ffdccbd616cf3b7e4e2a6afbea1b8c3a7aefd97d903acc2dc4f7afa2453f7eee",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderSkippedRankLimit.lean",
+        "role": "Skipped-rank limit for the half seam"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfGreedyTwoThirdsBand",
+        "label": "Erdos249257.HalfGreedyTwoThirdsBand",
+        "path": "Erdos249257/HalfGreedyTwoThirdsBand.lean",
+        "direct": true,
+        "content_digest": "sha256:7e132f8d14a77e30873ef2c5dd81f84f4fddd1485f9fc15a2daf8ad7de7370db",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfGreedyTwoThirdsBand.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.LcmConeFlatness",
+        "label": "Erdos249257.LcmConeFlatness",
+        "path": "Erdos249257/LcmConeFlatness.lean",
+        "direct": false,
+        "content_digest": "sha256:977b61323d775a8f4305691ae966c851a3b752f544a4f3f9293a5b7ee2fc0347",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmConeFlatness.lean",
+        "role": "Cone-flatness and certificate completeness"
+      },
+      {
+        "id": "lean-module:Erdos249257.LcmConeNonflat",
+        "label": "Erdos249257.LcmConeNonflat",
+        "path": "Erdos249257/LcmConeNonflat.lean",
+        "direct": false,
+        "content_digest": "sha256:b113c51081a5a926c635dd8f192c4915e1f2a3a6ad6768ea9ed9d03954991af0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmConeNonflat.lean",
+        "role": "Joint cone non-flatness refuter"
+      },
+      {
+        "id": "lean-module:Erdos249257.LcmDiagonalReduction",
+        "label": "Erdos249257.LcmDiagonalReduction",
+        "path": "Erdos249257/LcmDiagonalReduction.lean",
+        "direct": false,
+        "content_digest": "sha256:1c87948ec072687e0516e4f603f11e0938c692588cfb9bf3e459d7e91c80d801",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmDiagonalReduction.lean",
+        "role": "One-parameter lcm-diagonal reduction"
+      },
+      {
+        "id": "lean-module:Erdos249257.MersenneLambertLadder",
+        "label": "Erdos249257.MersenneLambertLadder",
+        "path": "Erdos249257/MersenneLambertLadder.lean",
+        "direct": false,
+        "content_digest": "sha256:bfc03595228b61b5b5b4a7ff1e23723b827e21587277a67deb4879b9068429ed",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MersenneLambertLadder.lean",
+        "role": "Mersenne-Lambert identities"
+      },
+      {
+        "id": "lean-module:Erdos249257.MersenneTailAtoms",
+        "label": "Erdos249257.MersenneTailAtoms",
+        "path": "Erdos249257/MersenneTailAtoms.lean",
+        "direct": false,
+        "content_digest": "sha256:dd64ab2bd2e044149bd19e19d14818c922783646460bb2d36e9df589fff11530",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MersenneTailAtoms.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.PrimitiveSupportBridge",
+        "label": "Erdos249257.PrimitiveSupportBridge",
+        "path": "Erdos249257/PrimitiveSupportBridge.lean",
+        "direct": false,
+        "content_digest": "sha256:382171fe8b8a52912829f8d14dae7fa67307ae4741b873f0926265b2ad48e4e2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimitiveSupportBridge.lean",
+        "role": "Conditional primitive-support bridge"
+      },
+      {
+        "id": "lean-module:Erdos249257.RationalSupportCarrySkeleton",
+        "label": "Erdos249257.RationalSupportCarrySkeleton",
+        "path": "Erdos249257/RationalSupportCarrySkeleton.lean",
+        "direct": true,
+        "content_digest": "sha256:1738231c9d07b24c404a436b4559571a4b26c36c50c34fa3c0dc77fb7d4d47be",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RationalSupportCarrySkeleton.lean",
+        "role": "Residue wraps, reciprocal mass, and unbounded carries"
+      },
+      {
+        "id": "lean-module:Erdos249257.SternBrocotRunGeometry",
+        "label": "Erdos249257.SternBrocotRunGeometry",
+        "path": "Erdos249257/SternBrocotRunGeometry.lean",
+        "direct": false,
+        "content_digest": "sha256:fcb72bd7eb8a4d0edbf068357e49dfdba9196ad0a897ceaa9d878f0b2bb58ff0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SternBrocotRunGeometry.lean",
+        "role": "Stern-Brocot run geometry"
+      },
+      {
+        "id": "lean-module:Erdos249257.SupportDilationDifferences",
+        "label": "Erdos249257.SupportDilationDifferences",
+        "path": "Erdos249257/SupportDilationDifferences.lean",
+        "direct": false,
+        "content_digest": "sha256:ac62e7bc173d505b54b4f00303dc994ef348593eda5bd2f7624f290d726c895b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SupportDilationDifferences.lean",
+        "role": "Finite support-dilation difference identities"
+      },
+      {
+        "id": "lean-module:Erdos249257.SupportSunflowerDichotomy",
+        "label": "Erdos249257.SupportSunflowerDichotomy",
+        "path": "Erdos249257/SupportSunflowerDichotomy.lean",
+        "direct": true,
+        "content_digest": "sha256:c037cc98901e8b79a42ba04cb9c49656ab6c01e13c298a433dd136208ae954b8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SupportSunflowerDichotomy.lean",
+        "role": "Conditional orthogonal-petal support reduction"
+      },
+      {
+        "id": "lean-module:Erdos249257.TerminalOnlyCofinal",
+        "label": "Erdos249257.TerminalOnlyCofinal",
+        "path": "Erdos249257/TerminalOnlyCofinal.lean",
+        "direct": false,
+        "content_digest": "sha256:b1f6a18f41b2b9c97b1ba15bbce7449259ee55a8b509f4739f1c5e9c3d0a25a5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TerminalOnlyCofinal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.TerminalOnlyScaledVanishing",
+        "label": "Erdos249257.TerminalOnlyScaledVanishing",
+        "path": "Erdos249257/TerminalOnlyScaledVanishing.lean",
+        "direct": false,
+        "content_digest": "sha256:e2f8188758021c71d1435e36f8e34c8e51e5fbad489c2aff0c525ab6b1fc7a88",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TerminalOnlyScaledVanishing.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.TotientTailPeriodKiller",
+        "label": "Erdos249257.TotientTailPeriodKiller",
+        "path": "Erdos249257/TotientTailPeriodKiller.lean",
+        "direct": false,
+        "content_digest": "sha256:1e30899a37d017c8b83d54b61e101be920a86d9ae01e612c31ffce1dd6217b8f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientTailPeriodKiller.lean",
+        "role": "Tail-period certificate reduction"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
+        "label": "ErdosProblems.Erdos257.HalfCounterexampleFrontier",
+        "path": "ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean",
+        "direct": true,
+        "content_digest": "sha256:33295748432356b8bc2a0c75120ad0cc8b3e591a4f7cd52ba2b1ec7a80628897",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.MersenneSubseriesRigidity",
+        "label": "ErdosProblems.Erdos257.MersenneSubseriesRigidity",
+        "path": "ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean",
+        "direct": true,
+        "content_digest": "sha256:7dd147a2bef89f7f23a168c02a8dfb4c7fee887314a7a5367d49336330eb1419",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.SquarefreeSupportIncidence",
+        "label": "ErdosProblems.Erdos257.SquarefreeSupportIncidence",
+        "path": "ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean",
+        "direct": true,
+        "content_digest": "sha256:ef3c0443acad216f82faccc72173f98d8cc776db8f41cb9fa139f7be03aa0e51",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": [
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCarry",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCarry",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCofinalExactRows",
+        "target": "lean-module:Erdos249257.BooleanMobiusGlobalRepair"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
+        "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusLocalRepair",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusLocalRepair",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkipRow",
+        "target": "lean-module:Erdos249257.BooleanMobiusCofinalExactRows"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkipRow",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkippedCoreExactRow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkippedCoreExactRow",
+        "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
+      },
+      {
+        "source": "lean-module:Erdos249257.CampbellShiftSynchronization",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.CampbellShiftSynchronization",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:Erdos249257.CarrySurvivorExtinction",
+        "target": "lean-module:Erdos249257.TotientTailPeriodKiller"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.CarrySurvivorExtinction"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.GapFareyBound"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.GcdMomentCalculus"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.GeometricCoprimality"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.LcmConeFlatness"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.LcmConeNonflat"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.LcmDiagonalReduction"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.SternBrocotRunGeometry"
+      },
+      {
+        "source": "lean-module:Erdos249257.CertificateKernel",
+        "target": "lean-module:Erdos249257.TotientTailPeriodKiller"
+      },
+      {
+        "source": "lean-module:Erdos249257.CompositeDilationDefect",
+        "target": "lean-module:Erdos249257.SupportDilationDifferences"
+      },
+      {
+        "source": "lean-module:Erdos249257.CompositeDilationDefect",
+        "target": "lean-module:Erdos249257.SupportSunflowerDichotomy"
+      },
+      {
+        "source": "lean-module:Erdos249257.DyadicPrefixCompression",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.DyadicPrefixCompression",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:Erdos249257.DyadicPrefixCompression",
+        "target": "lean-module:Erdos249257.RationalSupportCarrySkeleton"
+      },
+      {
+        "source": "lean-module:Erdos249257.GcdMomentCalculus",
+        "target": "lean-module:Erdos249257.GeometricCoprimality"
+      },
+      {
+        "source": "lean-module:Erdos249257.GenericTailOrbitRigidity",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:Erdos249257.GenericTailOrbitRigidity",
+        "target": "lean-module:Erdos249257.MersenneTailAtoms"
+      },
+      {
+        "source": "lean-module:Erdos249257.GeometricCoprimality",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.GreedyAchievementSet",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarryReachability",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarryReachability",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarryReachability",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCutLocator",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFalseBitSupply",
+        "target": "lean-module:Erdos249257.HalfCylinderSkippedRankLimit"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail",
+        "target": "lean-module:Erdos249257.CampbellShiftSynchronization"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail",
+        "target": "lean-module:Erdos249257.HalfCylinderFalseBitSupply"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
+        "target": "lean-module:Erdos249257.PrimitiveSupportBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFloorErrorReset",
+        "target": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge",
+        "target": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification",
+        "target": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderIntegerGreedy",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderSeamLimit",
+        "target": "lean-module:Erdos249257.HalfCylinderFloorErrorReset"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderSkippedRankLimit",
+        "target": "lean-module:Erdos249257.HalfCylinderSeamLimit"
+      },
+      {
+        "source": "lean-module:Erdos249257.LcmConeFlatness",
+        "target": "lean-module:Erdos249257.LcmDiagonalReduction"
+      },
+      {
+        "source": "lean-module:Erdos249257.LcmConeNonflat",
+        "target": "lean-module:Erdos249257.LcmConeFlatness"
+      },
+      {
+        "source": "lean-module:Erdos249257.LcmDiagonalReduction",
+        "target": "lean-module:Erdos249257.CarrySurvivorExtinction"
+      },
+      {
+        "source": "lean-module:Erdos249257.MersenneTailAtoms",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.PrimitiveSupportBridge",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.RationalSupportCarrySkeleton",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.SternBrocotRunGeometry",
+        "target": "lean-module:Erdos249257.GcdMomentCalculus"
+      },
+      {
+        "source": "lean-module:Erdos249257.SupportDilationDifferences",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.SupportSunflowerDichotomy",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:Erdos249257.SupportSunflowerDichotomy",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:Erdos249257.SupportSunflowerDichotomy",
+        "target": "lean-module:Erdos249257.SupportDilationDifferences"
+      },
+      {
+        "source": "lean-module:Erdos249257.TerminalOnlyCofinal",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.TerminalOnlyScaledVanishing",
+        "target": "lean-module:Erdos249257.TerminalOnlyCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
+        "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.MersenneSubseriesRigidity",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.SquarefreeSupportIncidence",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      }
+    ]
+  },
+  "library_source": "docs/problem_library.json"
 }

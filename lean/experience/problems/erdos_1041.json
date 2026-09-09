@@ -226,7 +226,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
       "publication_manifest_match": true,
       "mathml_node_count": 348,
@@ -412,5 +412,759 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1041",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-1041-lemniscate-newton-flow",
+      "title": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
+      "subject": "Erdős #1041",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 20,
+      "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+      "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+      "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "problem_id": "erdos_1041",
+      "routes": {
+        "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
+        "html_exact_tex": "papers/erdos-1041-lemniscate-newton-flow.mathjax.html",
+        "pdf": "../../papers/erdos-1041-lemniscate-newton-flow.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1041-lemniscate-newton-flow.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
+        "publication_manifest_match": true,
+        "mathml_node_count": 348,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
+            "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
+            "^",
+            "unexpected control sequence \\emph",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "399596792b0b18d0f84cf1a8dd475d4f33088f196edfadfd9da84e2536247731",
+        "html_exact_tex_sha256": "42ef3d3665ae05f35f511a87f9963955c3ad68c79d4bb9224e3e6e989caf823a"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Monic trinomials, in every degree"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite convex certificate."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem and the general regimes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Low critical values and a uniform path bound"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The geometric step behind 13/2513/25."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "An independent area proof."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Critical proximity and straight-path obstructions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Solved polynomial families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translated cubic quotient fibres"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Primitive sparse quintics"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sharp collinear roots"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Critical-value separation in every degree"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Three exact covering obstructions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The Newton value equation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Arguments, not moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Local coordinates for perturbative competitors"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A proof gap in the unrestricted argument"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Computational searches"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact symmetric benchmark: complementary chords for every binomial degree"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The sharp collinear theorem: order buys an exact Chebyshev extremal"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A Poisson identity for critical-value means"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The exact nonlinear lifetime currency"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining geometric selection problem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A dense generic class suffices."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A sufficient canonical-arc estimate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The attachment obstruction is quantitative."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Which information is insufficient."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Proof boundaries"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sources and adjacent results"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-1041-lemniscate-newton-flow.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos1041-lemniscate-reasoning-surface",
+      "title": "Lemniscates and Newton Flow: Complete Reasoning Record",
+      "subject": "Erdős #1041",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 46,
+      "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #1041. It retains Newton-flow decay, ray separation, translation geometry, root retention, solved structured families, the diagnosed saddle-argument defect, and every registered family. The general spanning-tree topology and metric gluing remain open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "problem_id": "erdos_1041",
+      "routes": {
+        "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos1041-lemniscate-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos1041-lemniscate-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "27ca9a32515680d6e041449b4d4127b5cfef3e23d3c22e9e572715f00f8fa9d0",
+        "publication_manifest_match": true,
+        "mathml_node_count": 1014,
+        "raw_math_fallback_count": 2,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math x\\le\\sum_j\\lambda(d_j)",
+            "=\\sum_j\\Bigl[\\lambda(d_j)-\\sum_i\\sigma_i w(d_j,r_i)\\Bigr]",
+            "+\\sum_i\\sigma_i\\sum_j w(d_j,r_i)",
+            "\\le kU+\\pi\\Sigma. \\qedhere, rendering as TeX:",
+            "\\pi\\Sigma. \\qedhere",
+            "^",
+            "unexpected control sequence \\qedhere",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+            "\\qquad",
+            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+            "\\qquad",
+            "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+            "^",
+            "unexpected control sequence \\over",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d65233fec09b3c09e97a9b2df14425e364e87647b874c17bae5a9e4ceb9d34e6",
+        "html_exact_tex_sha256": "9ccc1a8b808b89dacafabc75260800ef97afa587b109b786ce63eb1ecaf8e9aa"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Trinomials"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The cancellation mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An unconditional regime: a small least critical value"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The failure inequalities."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The arity floor."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "From the arity floor to forced area growth."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Certificate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An unconditional all-degree constant-factor path theorem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Degree three"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An all-degree critical-value separation theorem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Three exact solved polynomial families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sharp collinear zeros"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The primitive sparse quintic"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translated cubic quotient fibres"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Shared assurance boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The current frontier: what survives near Fekete configurations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Near-Fekete stability removes the radial distraction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A bounded-radius concyclic class"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Cyclic trinomial fibres"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coefficient-controlled cyclic tetranomial spokes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translated quartic quotient fibres"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A critical-value budget in every degree"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The weighted Poisson proof and the small-cardinality conclusions."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Poisson majorization and termwise integration."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A uniform central region in every degree."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Four points without a matching or numerical split."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The degree-five target is now explicit"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The no-go boundaries force hub selection"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The surviving carrier and the actual open endpoint"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The Newton value equation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Arguments, not moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A proof gap in the unrestricted argument"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "1. Repair or refute the saddle block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "2. The compact ray-cut decomposition"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "3. Metric fan-in without losing the coefficient"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "4. Coefficient perturbation and stability"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "5. The global Newton-flow claim ceiling"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Checked declarations behind the translated quotient-fibre families."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Record: the circle-slice arity floor in numbers"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Root retention"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Newton value decay"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Ray separation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Published proof gap"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Lemniscate finite search"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translation avoidance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos1041-lemniscate-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos1041-lemniscate-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-1041-lemniscate-newton-flow"
+    ],
+    "long": [
+      "erdos1041-lemniscate-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.CriticalTwoRootProximity",
+        "label": "ErdosProblems.Erdos1041.CriticalTwoRootProximity",
+        "path": "ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean",
+        "direct": true,
+        "content_digest": "sha256:e62da6357daf11741dc8176c1f4566145d2de2baee76efc98008ab8b898105e1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.CubicQuotientFiberCase",
+        "label": "ErdosProblems.Erdos1041.CubicQuotientFiberCase",
+        "path": "ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean",
+        "direct": true,
+        "content_digest": "sha256:8d48e206629d9d6283b7f1c66aa01651d9ff45314c0ed541f566c329131fa6dd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.CyclicTetranomialCoefficientCase",
+        "label": "ErdosProblems.Erdos1041.CyclicTetranomialCoefficientCase",
+        "path": "ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean",
+        "direct": true,
+        "content_digest": "sha256:7a0de6ca9655f8fd75be23cd24daae5907184ed8fa6594f3429cc03df3574053",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.CyclicTrinomialFiberCase",
+        "label": "ErdosProblems.Erdos1041.CyclicTrinomialFiberCase",
+        "path": "ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean",
+        "direct": true,
+        "content_digest": "sha256:6c7d5f5bbdae7466b61dea88bd628ca7d4e49d28f9a4267302a0a0f6df68b853",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
+        "label": "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
+        "path": "ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
+        "direct": true,
+        "content_digest": "sha256:8736b05c24517e4568cfdfc49f0180089951cc6397ad720d20271fbc9e5e7351",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticBoundaryTail",
+        "label": "ErdosProblems.Erdos1041.PrimitiveQuinticBoundaryTail",
+        "path": "ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean",
+        "direct": true,
+        "content_digest": "sha256:25adf76b6e209c54688d5878f0524943dd85312a2a09a59673f56a9ba74d67dc",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticInteriorTail",
+        "label": "ErdosProblems.Erdos1041.PrimitiveQuinticInteriorTail",
+        "path": "ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean",
+        "direct": true,
+        "content_digest": "sha256:62346892d5a137e02a193774dff0d79b9583e59581f1341d1b78ecfef21a9ee7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.SharpCollinearAlternation",
+        "label": "ErdosProblems.Erdos1041.SharpCollinearAlternation",
+        "path": "ErdosProblems/Erdos1041/SharpCollinearAlternation.lean",
+        "direct": true,
+        "content_digest": "sha256:5c49a2c0859f07fa6ee5e3ade4e405bf892d70b38e90b64d9a057d7cc007f8c4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/SharpCollinearAlternation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.SharpCollinearChebyshev",
+        "label": "ErdosProblems.Erdos1041.SharpCollinearChebyshev",
+        "path": "ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean",
+        "direct": true,
+        "content_digest": "sha256:7a5caeceff9b667bf70241e90d7a40483ba0c5a9bfdad2115a069937a90af2cc",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.TetranomialElementarySymmetricSelector",
+        "label": "ErdosProblems.Erdos1041.TetranomialElementarySymmetricSelector",
+        "path": "ErdosProblems/Erdos1041/TetranomialElementarySymmetricSelector.lean",
+        "direct": true,
+        "content_digest": "sha256:17c97e1b99b20eeaf2f2286f8744379bcbdd9bfa75c2b9b4c45dbd96b6e987a0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/TetranomialElementarySymmetricSelector.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.TetranomialL2Selector",
+        "label": "ErdosProblems.Erdos1041.TetranomialL2Selector",
+        "path": "ErdosProblems/Erdos1041/TetranomialL2Selector.lean",
+        "direct": true,
+        "content_digest": "sha256:883371f85bd3033a69dbe09bf53d0f9bec202c31ef4b14c4ae78cb0f904ce978",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/TetranomialL2Selector.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.TetranomialProductSensitiveSelector",
+        "label": "ErdosProblems.Erdos1041.TetranomialProductSensitiveSelector",
+        "path": "ErdosProblems/Erdos1041/TetranomialProductSensitiveSelector.lean",
+        "direct": true,
+        "content_digest": "sha256:5c85ec742f1c7b2f5bd1295c9db533274e141f1077fc3f37439a0482a299cae2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/TetranomialProductSensitiveSelector.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.TetranomialTailProductSelector",
+        "label": "ErdosProblems.Erdos1041.TetranomialTailProductSelector",
+        "path": "ErdosProblems/Erdos1041/TetranomialTailProductSelector.lean",
+        "direct": true,
+        "content_digest": "sha256:a2144b4fdacf466d68be3908870e0e721a5cd24a651072530a253b52770df875",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/TetranomialTailProductSelector.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": [
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.CyclicTetranomialCoefficientCase",
+        "target": "lean-module:ErdosProblems.Erdos1041.CyclicTrinomialFiberCase"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticBoundaryTail",
+        "target": "lean-module:ErdosProblems.Erdos1041.TetranomialElementarySymmetricSelector"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticInteriorTail",
+        "target": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticBoundaryTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.SharpCollinearChebyshev",
+        "target": "lean-module:ErdosProblems.Erdos1041.SharpCollinearAlternation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.TetranomialElementarySymmetricSelector",
+        "target": "lean-module:ErdosProblems.Erdos1041.TetranomialTailProductSelector"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.TetranomialL2Selector",
+        "target": "lean-module:ErdosProblems.Erdos1041.CyclicTetranomialCoefficientCase"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.TetranomialProductSensitiveSelector",
+        "target": "lean-module:ErdosProblems.Erdos1041.TetranomialL2Selector"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.TetranomialTailProductSelector",
+        "target": "lean-module:ErdosProblems.Erdos1041.TetranomialProductSensitiveSelector"
+      }
+    ]
+  },
+  "library_source": "docs/problem_library.json"
 }

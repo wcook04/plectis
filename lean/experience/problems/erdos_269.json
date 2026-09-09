@@ -318,7 +318,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
       "publication_manifest_match": true,
       "mathml_node_count": 181,
@@ -413,5 +413,489 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos269",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-269-three-prime-running-lcm",
+      "title": "No Finite Separable Representation at Three Prime Generators",
+      "subject": "Erdős #269",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 10,
+      "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
+      "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+      "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "problem_id": "erdos_269",
+      "routes": {
+        "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
+        "html_exact_tex": "papers/erdos-269-three-prime-running-lcm.mathjax.html",
+        "pdf": "../../papers/erdos-269-three-prime-running-lcm.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-269-three-prime-running-lcm.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
+        "publication_manifest_match": true,
+        "mathml_node_count": 181,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
+        "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The binary carry and arbitrary-order rank"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The indices must be selected."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The norm matters."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The two-prime comparison"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact multiplicities and normalised tails"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A window test and the remaining arithmetic"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The information the remaining argument must use."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Proof sources."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-269-three-prime-running-lcm.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-269-three-prime-running-lcm.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos269-running-lcm-reasoning-surface",
+      "title": "The Three-Prime Running LCM: Complete Reasoning Record",
+      "subject": "Erdős #269",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 33,
+      "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "problem_id": "erdos_269",
+      "routes": {
+        "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos269-running-lcm-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos269-running-lcm-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos269-running-lcm-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos269-running-lcm-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "bc2bb3e931591dab362565be749ed5b6966babc33e27dcd6cab0172af4bb1bb0",
+        "publication_manifest_match": true,
+        "mathml_node_count": 775,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\resizebox{\\linewidth}{!}{$\\begin{array}{c|rrrrrrrrrrrrrrr}",
+            "h&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18\\\\ \\hline",
+            "\\#&1&104&812&5437&51409&237423&735450&1431226&1132756&236752&34910&3076&521&49&8",
+            "\\end{array}$}, rendering as TeX:",
+            "\\resizebox{\\linewidth}{!}{$\\begin{array}",
+            "^",
+            "unexpected control sequence \\resizebox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "bc50fbfc8514e291f8c172ca5c9deb9146183bf0122252bcad267549f6d67a7c",
+        "html_exact_tex_sha256": "e40eef6d87c5d83daa1a679420468d2d5ac54d7d16d96d31a0592528a66b43d5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem, and what is settled"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What the third prime does."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The finite geometry of the running value"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One Hecke–Mahler value controls both two-prime sums"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The rank phase transition"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution and reach."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A sharp uniform obstruction for the normalised carry matrix"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Dyadic blocks and the literal infinite tail"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A quadratic tail bound and denominator cancellation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Residue windows and the equivalence band"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "How fast the window base grows"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The finite evidence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The dyadic-window scan"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two finite denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining arithmetic questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The analytic route and what it would need"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structural constraints already in place"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Where the problem stands"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record: migrated arguments and finite evidence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The historical and catalogue record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The abstract carry lemmas in their general form"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Worked finite examples"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The finite-scan histogram"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Source inventory"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three prime lcm cells"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two prime transcendence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Weighted phase carry observer"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Height fibre and shell"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Conditional carry escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Rank two kernel no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dyadic block alphabet"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three prime finite search"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos269-running-lcm-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos269-running-lcm-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-269-three-prime-running-lcm"
+    ],
+    "long": [
+      "erdos269-running-lcm-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.BoundedRadixTailEscape",
+        "label": "ErdosProblems.Erdos269.BoundedRadixTailEscape",
+        "path": "ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
+        "direct": true,
+        "content_digest": "sha256:a3e8b3b5e9723a8de2ea1bc3a3dd4635a1cb06c4d563e0d4d9d55aec947f2c61",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.CarryLiftExtinction",
+        "label": "ErdosProblems.Erdos269.CarryLiftExtinction",
+        "path": "ErdosProblems/Erdos269/CarryLiftExtinction.lean",
+        "direct": true,
+        "content_digest": "sha256:ace522da1f0a6833a200efbe18d5961cf3562e1e6756055427b85140d25aae4b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CarryLiftExtinction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.ResidueEscape",
+        "label": "ErdosProblems.Erdos269.ResidueEscape",
+        "path": "ErdosProblems/Erdos269/ResidueEscape.lean",
+        "direct": true,
+        "content_digest": "sha256:826a3dd901c86f1876c7e03011447dafef8d3cb139a673227e921bef3a9dfe87",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ResidueEscape.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
+        "label": "ErdosProblems.Erdos269.RestrictedFloorSum",
+        "path": "ErdosProblems/Erdos269/RestrictedFloorSum.lean",
+        "direct": true,
+        "content_digest": "sha256:7369d105e5cb014188e31fa44fdccb03b2c40bdfe4719f6e227555c1c30b0bd3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
+        "label": "ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
+        "path": "ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean",
+        "direct": true,
+        "content_digest": "sha256:5dbd4a448520c6c4de924480e381ee5408a4724a3081837d04bfb4ac1186ae5f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm",
+        "label": "ErdosProblems.Erdos269.ThreePrimeRunningLcm",
+        "path": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+        "direct": true,
+        "content_digest": "sha256:b3279ce084c98e4e7521e0bb94d3e366de010a30548fab0b326390da16ff6c3c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.WeightedPhaseCarry",
+        "label": "ErdosProblems.Erdos269.WeightedPhaseCarry",
+        "path": "ErdosProblems/Erdos269/WeightedPhaseCarry.lean",
+        "direct": true,
+        "content_digest": "sha256:ef3e57a4728534e108bb4e668ceef2cc102c2cf001673d59d9c15cff7f0beb9e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": [
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.CarryLiftExtinction",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreeChannelBlockRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
+        "target": "lean-module:ErdosProblems.Erdos269.ResidueEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.WeightedPhaseCarry",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      }
+    ]
+  },
+  "library_source": "docs/problem_library.json"
 }

@@ -268,7 +268,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
       "publication_manifest_match": true,
       "mathml_node_count": 337,
@@ -418,5 +418,527 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos251",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-251-prime-gap-dyadic-series",
+      "title": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
+      "subject": "Erdős #251",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 19,
+      "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
+      "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+      "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "problem_id": "erdos_251",
+      "routes": {
+        "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
+        "html_exact_tex": "papers/erdos-251-prime-gap-dyadic-series.mathjax.html",
+        "pdf": "../../papers/erdos-251-prime-gap-dyadic-series.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-251-prime-gap-dyadic-series.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
+        "publication_manifest_match": true,
+        "mathml_node_count": 337,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "0747de03349d56aefad2168ce3d646df30b40f4314a27bd77824a83bb3d5c345",
+        "html_exact_tex_sha256": "ee8e1905afb30e17231938879942fa274a6d1e2061e3fcba93c7cbeb4f4f83a3"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The complete countermodel in one calculation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Preserving more of the actual gaps."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Sparse corrections and local information."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The prime series and its tails."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What remains to be distinguished."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Notation and organisation."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integral shifts and recurrence obstructions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Summation by parts, with the endpoint retained"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The infinite identity and the irrationality equivalence"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The summability hypothesis."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The tail recurrence and integral shifts"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The actual prime-gap orbit."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two adjacent small shifts cannot both be integral"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Nonperiodic coefficients with a rational sum"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Consequence for the coefficients."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite truncation criterion."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The remaining estimate."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-251-prime-gap-dyadic-series.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos251-prime-gap-reasoning-surface",
+      "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "subject": "Erdős #251",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 35,
+      "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "problem_id": "erdos_251",
+      "routes": {
+        "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos251-prime-gap-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos251-prime-gap-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos251-prime-gap-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos251-prime-gap-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "d052c0aac9e60aa5e19f1e77a585bff47f97588d9d6e48be43351e7c42e7f3d3",
+        "publication_manifest_match": true,
+        "mathml_node_count": 704,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
+            "=2\\left(\\sum_{n\\ge0}u_n-u_0\\right)-\\sum_{n\\ge0}u_n",
+            "=\\sum_{n\\ge0}u_n-2 . \\qedhere, rendering as TeX:",
+            "e0}u_n-2 . \\qedhere",
+            "^",
+            "unexpected control sequence \\qedhere",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "9e0fac24bcb153c347c70729b0c8db5249b714c0c91e0abcdcca11eb6ca94edc",
+        "html_exact_tex_sha256": "183b8290caf152fb2ac56c5856cace1f0d655b15d1209020484c4f1ff901abcb"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Notation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The strategy."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Outline."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Summation by parts, with the endpoint retained"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The infinite identity and the irrationality equivalence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The tail recurrence and the exact criteria"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The actual prime-gap orbit."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The free-pair criterion and the lcm diagonal"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A local certificate, and one actual pair"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "An explicit remainder and a certified actual pair"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Two denominator floors"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What cannot supply the missing input"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Bounded residue-preserving perturbations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Algebraic nonconcentration survives the rationalising perturbation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The producer is an event of density zero"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Recurring gap values differing by two do not suffice"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A complete countermodel in every residue class"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two further boundaries"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is measured"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining obligation"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What remains to be formalised."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An elementary polynomial bound for the primes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integer certificates"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record: displaced results, ordinary proofs and corrections"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The totient witness and forward propagation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The finite truncation criterion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A weaker recurrence-level target"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two ordinary proofs about the free-pair producer"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "State compression."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Redundancy of the gap condition."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A bounded companion to the recurring-values countermodel"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The measured densities in full"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Corrections to earlier records"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The superseded exclusion."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The named missing input."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The formal boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Prime gap reformulation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dyadic tail integrality classification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Integral shift classification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Small mismatch criterion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coefficient only no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Totient shift propagation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos251-prime-gap-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos251-prime-gap-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-251-prime-gap-dyadic-series"
+    ],
+    "long": [
+      "erdos251-prime-gap-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PrimeGapDyadicTail",
+        "label": "ErdosProblems.Erdos251.PrimeGapDyadicTail",
+        "path": "ErdosProblems/Erdos251/PrimeGapDyadicTail.lean",
+        "direct": true,
+        "content_digest": "sha256:453629d554e1f3b45b2dcb3e2d26431d5d0bf61c541be5506b1af24bd852e975",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": []
+  },
+  "library_source": "docs/problem_library.json"
 }

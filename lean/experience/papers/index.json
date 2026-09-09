@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_index_v1",
   "reading_rule": "Choose a question or problem, then read the HTML paper; use PDF for fixed layout and LaTeX for exact source.",
-  "paper_count": 14,
+  "paper_count": 20,
   "papers": [
     {
       "schema": "plectis_lean_paper_v1",
@@ -33,7 +33,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
         "publication_manifest_match": true,
         "mathml_node_count": 264,
@@ -140,6 +140,236 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos68-factorial-reasoning-surface",
+      "title": "The Factorial-Denominator Series: Complete Reasoning Record",
+      "subject": "Erdős #68",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 31,
+      "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "problem_id": "erdos_68",
+      "routes": {
+        "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos68-factorial-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos68-factorial-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos68-factorial-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "0ca14ded4b7c259c244c3722be25c2690feb0df4ef3fb07d1ff1e69e5350861b",
+        "publication_manifest_match": true,
+        "mathml_node_count": 772,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "fa1f3a4582f74d253e6b5d971e6adb4d49aa09f745edea8fc645facd21bbf6cc",
+        "html_exact_tex_sha256": "b41711060c1896510e4941c1a8bc6bd4ce9e5c3fefcefa9f69f205f78cf78b0c"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Which prime powers survive reduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Two complete cancellations."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The growth of the common denominator"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Carries and the rationality boundary"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Why one proposed window argument is circular"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The companion coordinate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Escape from a smaller interval"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The whole shifted family"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "From denominator structure to a scale criterion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A limitation of finite-channel cancellation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The exact low-channel lattice and residual class"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining arithmetic inputs"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Weighted collisions and complementary residues."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Repeated-support valuation amplification."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Lower-interval escape."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Doubled-prime branch failure."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A remote Cramer residual."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Criteria from the literature that do not apply."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Sources and evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The canonical factorial digit kernel"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Criteria from the literature, in full"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A superseded deduction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Plateaux, first exit, and the finite denominator ladder"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The collision-core interfaces"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite channel and carry certificates"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Limits of fixed-coordinate arguments"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The generic shape behind the lower-interval form"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial carry characterisation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial channel and projection rigidity"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial conditional producers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial lcm growth"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial finite certificates"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-243-reciprocal-tail-rigidity",
       "title": "Excluding the Bounded Negative Part",
       "subject": "Erdős #243",
@@ -168,7 +398,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "bbad3e8929c50fefb86aa81250095c5cead267d5ad22def620c5e85bebb2b9d9",
         "publication_manifest_match": true,
         "mathml_node_count": 190,
@@ -270,6 +500,421 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos243-reciprocal-tail-reasoning-surface",
+      "title": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+      "subject": "Erdős #243",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 44,
+      "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "problem_id": "erdos_243",
+      "routes": {
+        "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos243-reciprocal-tail-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "ed0477376d0ff7932910d3acf2fbb9c3cf6b08e42ae2545c8ba4fd61bee4a6fe",
+        "publication_manifest_match": true,
+        "mathml_node_count": 1078,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "318ac215adf8db64d4ba8352e7e8b102a64ab166bf49c451ef36d84698edf355",
+        "html_exact_tex_sha256": "9af01682e3af306310c0b536063312759d287d72e59debfed79ca8a91efe33ea"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An unconditional irrationality theorem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The canonical integer tail."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sparse agreement forces a primitive integral cubic"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The square forced by the transport"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The cubic field leaves one scale"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Both survivors fail modulo seven"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "From a regular rate to an exact cubic"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Position."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Prior work, and the status of the note"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Two published sufficient conditions."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structure"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The centred integer state"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The intended reading, which is not formalised."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The defect identity and its two consequences"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two-step cancellation and feedback"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Weighted first crossings of LCM records"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What the record coordinates transfer."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Remaining obligation."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Criteria in the record coordinates"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Primitive coordinates."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Source and evidence conventions for this section."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The record-increment coefficient"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Remaining obligation."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two exact equivalences under arbitrary cancellation"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Remaining obligation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Protected epochs and the energy criterion"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A slow negative part, and the original coordinates"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What the method cannot reach"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Reading."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Reading."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact remaining obstacle."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Descent when the error is nonnegative"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a constant negative magnitude"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a periodic negative magnitude"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Bounded rise cannot remain coprime to fresh moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding a bounded negative part"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Excluding finite normalised negative mass"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Global height and old-factor overlap"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Repair entropy across a recovery"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The direct analytic question"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A barrier extension"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Formalisation targets"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Erdős–Straus."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Duverney."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A factorial residue reduction for forced orbits"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Centered state dynamics"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Negative mass recovery"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Bounded negative exclusion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Bounded rise coprimality"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Negative orbit no go"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-249-binary-totient-series",
       "title": "A Basis for the 2-Kernel of Euler's Totient",
       "subject": "Erdős #249",
@@ -298,7 +943,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
         "publication_manifest_match": true,
         "mathml_node_count": 221,
@@ -398,7 +1043,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
         "publication_manifest_match": true,
         "mathml_node_count": 2869,
@@ -1208,7 +1853,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
         "publication_manifest_match": true,
         "mathml_node_count": 337,
@@ -1355,6 +2000,314 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos251-prime-gap-reasoning-surface",
+      "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "subject": "Erdős #251",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 35,
+      "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "problem_id": "erdos_251",
+      "routes": {
+        "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos251-prime-gap-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos251-prime-gap-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos251-prime-gap-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos251-prime-gap-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "d052c0aac9e60aa5e19f1e77a585bff47f97588d9d6e48be43351e7c42e7f3d3",
+        "publication_manifest_match": true,
+        "mathml_node_count": 704,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
+            "=2\\left(\\sum_{n\\ge0}u_n-u_0\\right)-\\sum_{n\\ge0}u_n",
+            "=\\sum_{n\\ge0}u_n-2 . \\qedhere, rendering as TeX:",
+            "e0}u_n-2 . \\qedhere",
+            "^",
+            "unexpected control sequence \\qedhere",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "9e0fac24bcb153c347c70729b0c8db5249b714c0c91e0abcdcca11eb6ca94edc",
+        "html_exact_tex_sha256": "183b8290caf152fb2ac56c5856cace1f0d655b15d1209020484c4f1ff901abcb"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Notation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The strategy."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Outline."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Summation by parts, with the endpoint retained"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The infinite identity and the irrationality equivalence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The tail recurrence and the exact criteria"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The actual prime-gap orbit."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The free-pair criterion and the lcm diagonal"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A local certificate, and one actual pair"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "An explicit remainder and a certified actual pair"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Two denominator floors"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What cannot supply the missing input"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Bounded residue-preserving perturbations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Algebraic nonconcentration survives the rationalising perturbation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The producer is an event of density zero"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Recurring gap values differing by two do not suffice"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A complete countermodel in every residue class"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two further boundaries"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is measured"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining obligation"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What remains to be formalised."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An elementary polynomial bound for the primes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integer certificates"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record: displaced results, ordinary proofs and corrections"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The totient witness and forward propagation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The finite truncation criterion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A weaker recurrence-level target"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two ordinary proofs about the free-pair producer"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "State compression."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Redundancy of the gap condition."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A bounded companion to the recurring-values countermodel"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The measured densities in full"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Corrections to earlier records"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The superseded exclusion."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The named missing input."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The formal boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Prime gap reformulation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dyadic tail integrality classification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Integral shift classification"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Small mismatch criterion"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coefficient only no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Totient shift propagation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-257-mersenne-support-subseries",
       "title": "Reciprocal-Summable Support Irrationality at Every Integer Base",
       "subject": "Erdős #257",
@@ -1383,7 +2336,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
         "publication_manifest_match": true,
         "mathml_node_count": 274,
@@ -1535,7 +2488,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "4b64b5fba33cfb3559cd04749cf9e17734d80053f68e11bc7430b05247196759",
         "publication_manifest_match": true,
         "mathml_node_count": 2969,
@@ -2243,6 +3196,260 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos269-running-lcm-reasoning-surface",
+      "title": "The Three-Prime Running LCM: Complete Reasoning Record",
+      "subject": "Erdős #269",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 33,
+      "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "problem_id": "erdos_269",
+      "routes": {
+        "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos269-running-lcm-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos269-running-lcm-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos269-running-lcm-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos269-running-lcm-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "bc2bb3e931591dab362565be749ed5b6966babc33e27dcd6cab0172af4bb1bb0",
+        "publication_manifest_match": true,
+        "mathml_node_count": 775,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math \\resizebox{\\linewidth}{!}{$\\begin{array}{c|rrrrrrrrrrrrrrr}",
+            "h&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18\\\\ \\hline",
+            "\\#&1&104&812&5437&51409&237423&735450&1431226&1132756&236752&34910&3076&521&49&8",
+            "\\end{array}$}, rendering as TeX:",
+            "\\resizebox{\\linewidth}{!}{$\\begin{array}",
+            "^",
+            "unexpected control sequence \\resizebox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "bc50fbfc8514e291f8c172ca5c9deb9146183bf0122252bcad267549f6d67a7c",
+        "html_exact_tex_sha256": "e40eef6d87c5d83daa1a679420468d2d5ac54d7d16d96d31a0592528a66b43d5"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem, and what is settled"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What the third prime does."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The finite geometry of the running value"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One Hecke–Mahler value controls both two-prime sums"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The rank phase transition"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution and reach."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A sharp uniform obstruction for the normalised carry matrix"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Dyadic blocks and the literal infinite tail"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A quadratic tail bound and denominator cancellation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Residue windows and the equivalence band"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "How fast the window base grows"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The finite evidence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The dyadic-window scan"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two finite denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining arithmetic questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The analytic route and what it would need"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Structural constraints already in place"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Where the problem stands"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record: migrated arguments and finite evidence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The historical and catalogue record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The abstract carry lemmas in their general form"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Worked finite examples"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The finite-scan histogram"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Source inventory"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three prime lcm cells"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Two prime transcendence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Weighted phase carry observer"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Height fibre and shell"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Conditional carry escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Rank two kernel no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Dyadic block alphabet"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Three prime finite search"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-269-three-prime-running-lcm",
       "title": "No Finite Separable Representation at Three Prime Generators",
       "subject": "Erdős #269",
@@ -2271,7 +3478,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
         "publication_manifest_match": true,
         "mathml_node_count": 181,
@@ -2391,7 +3598,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
         "publication_manifest_match": true,
         "mathml_node_count": 348,
@@ -2574,6 +3781,369 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos1041-lemniscate-reasoning-surface",
+      "title": "Lemniscates and Newton Flow: Complete Reasoning Record",
+      "subject": "Erdős #1041",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 46,
+      "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #1041. It retains Newton-flow decay, ray separation, translation geometry, root retention, solved structured families, the diagnosed saddle-argument defect, and every registered family. The general spanning-tree topology and metric gluing remain open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "problem_id": "erdos_1041",
+      "routes": {
+        "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos1041-lemniscate-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos1041-lemniscate-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "27ca9a32515680d6e041449b4d4127b5cfef3e23d3c22e9e572715f00f8fa9d0",
+        "publication_manifest_match": true,
+        "mathml_node_count": 1014,
+        "raw_math_fallback_count": 2,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math x\\le\\sum_j\\lambda(d_j)",
+            "=\\sum_j\\Bigl[\\lambda(d_j)-\\sum_i\\sigma_i w(d_j,r_i)\\Bigr]",
+            "+\\sum_i\\sigma_i\\sum_j w(d_j,r_i)",
+            "\\le kU+\\pi\\Sigma. \\qedhere, rendering as TeX:",
+            "\\pi\\Sigma. \\qedhere",
+            "^",
+            "unexpected control sequence \\qedhere",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+            "\\qquad",
+            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+            "\\qquad",
+            "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+            "^",
+            "unexpected control sequence \\over",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d65233fec09b3c09e97a9b2df14425e364e87647b874c17bae5a9e4ceb9d34e6",
+        "html_exact_tex_sha256": "9ccc1a8b808b89dacafabc75260800ef97afa587b109b786ce63eb1ecaf8e9aa"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The problem"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Trinomials"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The cancellation mechanism."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An unconditional regime: a small least critical value"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The failure inequalities."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The arity floor."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "From the arity floor to forced area growth."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Certificate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An unconditional all-degree constant-factor path theorem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Degree three"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An all-degree critical-value separation theorem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence and exact boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Three exact solved polynomial families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sharp collinear zeros"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The primitive sparse quintic"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translated cubic quotient fibres"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Shared assurance boundary."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The current frontier: what survives near Fekete configurations"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Near-Fekete stability removes the radial distraction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A bounded-radius concyclic class"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Cyclic trinomial fibres"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coefficient-controlled cyclic tetranomial spokes"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translated quartic quotient fibres"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A critical-value budget in every degree"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The weighted Poisson proof and the small-cardinality conclusions."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Poisson majorization and termwise integration."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A uniform central region in every degree."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Four points without a matching or numerical split."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The degree-five target is now explicit"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The no-go boundaries force hub selection"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The surviving carrier and the actual open endpoint"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The Newton value equation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Arguments, not moduli"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A proof gap in the unrestricted argument"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "1. Repair or refute the saddle block"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "2. The compact ray-cut decomposition"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "3. Metric fan-in without losing the coefficient"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "4. Coefficient perturbation and stability"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "5. The global Newton-flow claim ceiling"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Checked declarations behind the translated quotient-fibre families."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Record: the circle-slice arity floor in numbers"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Root retention"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Newton value decay"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Ray separation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Published proof gap"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Lemniscate finite search"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Translation avoidance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-1049-rational-base-lambert",
       "title": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
       "subject": "Erdős #1049",
@@ -2602,7 +4172,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
         "publication_manifest_match": true,
         "mathml_node_count": 284,
@@ -2724,6 +4294,341 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos1049-rational-base-lambert-reasoning-surface",
+      "title": "Rational-Base Lambert Series: Complete Reasoning Record",
+      "subject": "Erdős #1049",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 47,
+      "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "problem_id": "erdos_1049",
+      "routes": {
+        "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "5605088544379c0110b29f34f27526eccfe63d3c3fd8f5127e782fcc76e4af6c",
+        "publication_manifest_match": true,
+        "mathml_node_count": 1215,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d641866eabe2829260e52958197779d5f3d12e6e56351fbfde8f6c2e9d0bb335",
+        "html_exact_tex_sha256": "f96daca7242776ab61b295dc5fcfa260cc8af3ffa912d740a47acaf19d42c8c4"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Erdős’s integer-base argument, in outline."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The direct cut-and-clear attempt studied here."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Terminology."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The shortfall at 3/23/2."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Sharpness."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Results and boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Structure."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The region bμ<ab^{\\mu}<a and the base 31/431/4"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The source forms as polynomial identities"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact degrees"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The cyclotomic limit"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Positive integral forms and the contradiction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The rational bracket around θ*\\theta^{*}"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Evidence, attribution and the remaining obligation"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence decomposition."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Where the earlier criterion stops."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact remaining obligation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The region, explicitly."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The direction is optimal in its box."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite receipts"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The sharp 41/6541/65 certificate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The sharp qq-order of the normalised Hankel determinant"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The row identity."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal order and analytic size are different questions."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A separate positive-measure estimate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence decomposition."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution and remaining obligation."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integer scalar content is neutral"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Failure of coordinatewise clearing at 3/23/2"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The cleared-tail recurrence and the size of the forcing term"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The height criterion at 7/27/2"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The 81/20081/200 logarithmic region"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Denominator exponents for a homogenised Padé construction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Determinant families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Asymptotic adequacy after kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One exact alternative-criterion test"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The quantitative height limitation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Checked declarations behind the four-jet collision family."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Rational base tail recurrence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Seven halves irrationality"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Endpoint residues"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Height and pade arithmetic"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coordinatewise corridor no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Scalar content no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Four jet collision"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "claim-faithful-publication-systems",
       "title": "Problem-Sized Lean Worlds",
       "subject": "Systems paper",
@@ -2752,7 +4657,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "36431013833c1100758194e835e7bced30d4d8fc5dcd7e9b57e17956aa9d8414",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -3027,7 +4932,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "af53dce269a5911fddd4b2406dcb2425c0373b5aa489f114d90d84525f9ec4ea",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -3172,7 +5077,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -3379,7 +5284,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
-        "renderer_fingerprint": "4b61a5881f3708b0",
+        "renderer_fingerprint": "dfc4d6626c337fa5",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,

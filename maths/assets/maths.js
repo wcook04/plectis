@@ -97,3 +97,91 @@
     mountDrawer();
   }
 })();
+
+/* Problem-local import map. All data and file links are built into the page. */
+(function () {
+  'use strict';
+  document.querySelectorAll('[data-source-map]').forEach(function (map) {
+    var graph = JSON.parse(map.dataset.sourceMap);
+    var nodes = new Map(graph.nodes.map(function (n) { return [n.id, n]; }));
+    var panel = map.querySelector('[data-connections]');
+    var entries = Array.from(map.querySelectorAll('[data-module]'));
+    var search = map.querySelector('[data-module-search]');
+    var direct = map.querySelector('[data-direct-only]');
+    function element(tag, text, cls) {
+      var el = document.createElement(tag);
+      if (text) el.textContent = text;
+      if (cls) el.className = cls;
+      return el;
+    }
+    function column(title, ids) {
+      var col = element('div', '', 'connection-column');
+      col.appendChild(element('h3', title));
+      if (!ids.length) col.appendChild(element('p', 'None in this map', 'note'));
+      var list = element('ul');
+      ids.forEach(function (id) {
+        var n = nodes.get(id);
+        var li = element('li');
+        var button = element('button', n.label.split('.').pop());
+        button.type = 'button';
+        button.title = n.path || n.label;
+        button.dataset.selectModule = id;
+        li.appendChild(button);
+        list.appendChild(li);
+      });
+      col.appendChild(list);
+      return col;
+    }
+    function select(id) {
+      var n = nodes.get(id);
+      if (!n) return;
+      panel.replaceChildren();
+      panel.appendChild(column('Imported by', graph.edges.filter(function (e) { return e.target === id; }).map(function (e) { return e.source; })));
+      var selected = element('div', '', 'connection-selected');
+      selected.appendChild(element('span', 'Selected file', 'eyebrow'));
+      selected.appendChild(element('h3', n.label.split('.').pop()));
+      selected.appendChild(element('p', n.role || n.path || n.label));
+      var link = element('a', 'Open on GitHub ↗', 'btn btn--primary');
+      link.href = n.source_github;
+      link.rel = 'external noopener';
+      selected.appendChild(link);
+      panel.appendChild(selected);
+      panel.appendChild(column('Imports', graph.edges.filter(function (e) { return e.source === id; }).map(function (e) { return e.target; })));
+      panel.hidden = false;
+      entries.forEach(function (row) {
+        row.querySelector('button').setAttribute('aria-pressed', row.dataset.module === id ? 'true' : 'false');
+      });
+    }
+    map.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-select-module]');
+      if (button) select(button.dataset.selectModule);
+    });
+    function filter() {
+      var q = search.value.trim().toLowerCase();
+      var shown = 0;
+      entries.forEach(function (row) {
+        row.hidden = (direct.checked && row.dataset.direct !== 'true') || row.textContent.toLowerCase().indexOf(q) === -1;
+        if (!row.hidden) shown++;
+      });
+      map.querySelector('[data-map-count]').textContent = shown + ' of ' + entries.length + ' files';
+    }
+    search.addEventListener('input', filter);
+    direct.addEventListener('change', filter);
+    map.querySelector('[data-map-controls]').hidden = false;
+    filter();
+    if (entries.length) select(entries[0].dataset.module);
+  });
+  // Deep links into a collapsed research section reveal their destination.
+  function revealHash() {
+    if (!location.hash) return;
+    var target;
+    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { return; }
+    if (!target) return;
+    for (var parent = target; parent; parent = parent.parentElement) {
+      if (parent.tagName === 'DETAILS') parent.open = true;
+    }
+    target.scrollIntoView();
+  }
+  window.addEventListener('hashchange', revealHash);
+  revealHash();
+})();

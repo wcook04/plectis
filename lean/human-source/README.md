@@ -29,6 +29,10 @@ the repository so another researcher finds it.
 The contribution record keeps solvers, collaborators, prior work, tools, and
 infrastructure distinct.
 
+Choose a problem on the [website](https://wcook04.github.io/plectis/maths/):
+each has a short paper, a long paper, and a map linking to its Lean source.
+The [paper and source-map API](docs/PROBLEM_LIBRARY.md) is built in this repository.
+
 Three ways in, each sufficient on its own. Read a problem:
 [A reader's way in](HUMAN_ENTRY.md) is a command-free tour of the problems and
 the evidence boundary. Check a stated result: the second block below runs the

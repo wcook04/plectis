@@ -1,0 +1,335 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos1049-rational-base-lambert-reasoning-surface",
+  "title": "Rational-Base Lambert Series: Complete Reasoning Record",
+  "subject": "Erdős #1049",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 47,
+  "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
+  "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
+  "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+  "problem_id": "erdos_1049",
+  "routes": {
+    "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 15,
+    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "source_sha256": "5605088544379c0110b29f34f27526eccfe63d3c3fd8f5127e782fcc76e4af6c",
+    "publication_manifest_match": true,
+    "mathml_node_count": 1215,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "d641866eabe2829260e52958197779d5f3d12e6e56351fbfde8f6c2e9d0bb335",
+    "html_exact_tex_sha256": "f96daca7242776ab61b295dc5fcfa260cc8af3ffa912d740a47acaf19d42c8c4"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation to prior work."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Erdős’s integer-base argument, in outline."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The direct cut-and-clear attempt studied here."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Terminology."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The shortfall at 3/23/2."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Sharpness."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Results and boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Structure."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The region bμ<ab^{\\mu}<a and the base 31/431/4"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The source forms as polynomial identities"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact degrees"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The cyclotomic limit"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Positive integral forms and the contradiction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The rational bracket around θ*\\theta^{*}"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Evidence, attribution and the remaining obligation"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence decomposition."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Attribution."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Where the earlier criterion stops."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact remaining obligation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The region, explicitly."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The direction is optimal in its box."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Finite receipts"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The sharp 41/6541/65 certificate"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The sharp qq-order of the normalised Hankel determinant"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The row identity."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal order and analytic size are different questions."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A separate positive-measure estimate."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence decomposition."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Attribution and remaining obligation."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Integer scalar content is neutral"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Failure of coordinatewise clearing at 3/23/2"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The cleared-tail recurrence and the size of the forcing term"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The height criterion at 7/27/2"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The 81/20081/200 logarithmic region"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Denominator exponents for a homogenised Padé construction"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Exact kernel escape"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Determinant families"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Asymptotic adequacy after kernel escape"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "One exact alternative-criterion test"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The quantitative height limitation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Checked declarations behind the four-jet collision family."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete result-family map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Rational base tail recurrence"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Seven halves irrationality"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Endpoint residues"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Height and pade arithmetic"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Coordinatewise corridor no go"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Scalar content no go"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Four jet collision"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

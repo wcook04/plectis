@@ -319,7 +319,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
       "publication_manifest_match": true,
       "mathml_node_count": 264,
@@ -429,5 +429,604 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos68",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-68-factorial-denominator-irrationality",
+      "title": "Two Incomparable Denominator Exclusions for $\\sum_{n\\ge2}(n!-1)^{-1}$",
+      "subject": "Erdős #68",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 14,
+      "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
+      "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
+      "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "problem_id": "erdos_68",
+      "routes": {
+        "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
+        "html_exact_tex": "papers/erdos-68-factorial-denominator-irrationality.mathjax.html",
+        "pdf": "../../papers/erdos-68-factorial-denominator-irrationality.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
+        "publication_manifest_match": true,
+        "mathml_node_count": 264,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "95b18398a187e2dbe62152f55516c2628bbb86d78fe141298bf54d8d5e919b6a",
+        "html_exact_tex_sha256": "9c040e59f0be234ef231a669ce4daf8a91bc5d62a359fc726f18af553cb3d51e"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The fixed companion orbit"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The carry and its wrap correction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "An integral basis for factorial channels"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The support restriction and the residual"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite certificate for the infinite moment ideal."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The moment cost and the choice of support"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Growth of the compulsory factor"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Remote primitive kernels"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Cancellation in a reduced prefix"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "One joint collision and residue estimate"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining real comparison"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The limit of short supports."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The finite evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Source-current companion orbit and Comparator routes."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-68-factorial-denominator-irrationality.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos68-factorial-reasoning-surface",
+      "title": "The Factorial-Denominator Series: Complete Reasoning Record",
+      "subject": "Erdős #68",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 31,
+      "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "problem_id": "erdos_68",
+      "routes": {
+        "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos68-factorial-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos68-factorial-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos68-factorial-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "0ca14ded4b7c259c244c3722be25c2690feb0df4ef3fb07d1ff1e69e5350861b",
+        "publication_manifest_match": true,
+        "mathml_node_count": 772,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "fa1f3a4582f74d253e6b5d971e6adb4d49aa09f745edea8fc645facd21bbf6cc",
+        "html_exact_tex_sha256": "b41711060c1896510e4941c1a8bc6bd4ce9e5c3fefcefa9f69f205f78cf78b0c"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Which prime powers survive reduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Two complete cancellations."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The growth of the common denominator"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Carries and the rationality boundary"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Why one proposed window argument is circular"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The companion coordinate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Escape from a smaller interval"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The whole shifted family"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "From denominator structure to a scale criterion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A limitation of finite-channel cancellation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The exact low-channel lattice and residual class"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Finite denominator exclusions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining arithmetic inputs"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Weighted collisions and complementary residues."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Repeated-support valuation amplification."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Lower-interval escape."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Doubled-prime branch failure."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A remote Cramer residual."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Criteria from the literature that do not apply."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Sources and evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extended record"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The canonical factorial digit kernel"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Criteria from the literature, in full"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A superseded deduction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Plateaux, first exit, and the finite denominator ladder"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The collision-core interfaces"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite channel and carry certificates"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Limits of fixed-coordinate arguments"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The generic shape behind the lower-interval form"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial carry characterisation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial channel and projection rigidity"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial conditional producers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial lcm growth"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Factorial finite certificates"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos68-factorial-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos68-factorial-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos68-factorial-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-68-factorial-denominator-irrationality"
+    ],
+    "long": [
+      "erdos68-factorial-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow",
+        "label": "ErdosProblems.Erdos68.AdjacentUnitCarryWindow",
+        "path": "ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean",
+        "direct": true,
+        "content_digest": "sha256:f79fb3a2a4bdb32a6776bb38f638012a6b61fae37b4ebe407e00ce35779277e1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits",
+        "label": "ErdosProblems.Erdos68.CanonicalFactorialDigits",
+        "path": "ErdosProblems/Erdos68/CanonicalFactorialDigits.lean",
+        "direct": true,
+        "content_digest": "sha256:a0b711c869ded5d04b3f22b27ff57ea574cb28550c27535f3c8b4047f8f14827",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity",
+        "label": "ErdosProblems.Erdos68.ChannelBreakpointRigidity",
+        "path": "ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean",
+        "direct": true,
+        "content_digest": "sha256:0f62e658b9964a37ad2bf0310d99ec4fa35f385720932d66e91abac28b65a903",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence",
+        "label": "ErdosProblems.Erdos68.ChannelIntegralCongruence",
+        "path": "ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
+        "direct": true,
+        "content_digest": "sha256:ea7c7f97d774c1cbb9021eb6708da60dcc09ecf6e3c872323aef312b6a026c97",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre",
+        "label": "ErdosProblems.Erdos68.DivisorFactorialCentre",
+        "path": "ErdosProblems/Erdos68/DivisorFactorialCentre.lean",
+        "direct": true,
+        "content_digest": "sha256:9fea8662f744c1d4bd948065e7a024315620bec3b3714c82fedea7f1b3de656b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/DivisorFactorialCentre.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "label": "ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "path": "ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
+        "direct": true,
+        "content_digest": "sha256:e76dee594f84438f2d189e028e6507efdd162b2157ab60eccd5998174d27c026",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.FactorialCarry",
+        "label": "ErdosProblems.Erdos68.FactorialCarry",
+        "path": "ErdosProblems/Erdos68/FactorialCarry.lean",
+        "direct": true,
+        "content_digest": "sha256:45438410c87c1e0e21e1157cb75e067adf467f89ec0d836d0ab2c569b64da730",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialCarry.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate",
+        "label": "ErdosProblems.Erdos68.FactorialChannelCertificate",
+        "path": "ErdosProblems/Erdos68/FactorialChannelCertificate.lean",
+        "direct": true,
+        "content_digest": "sha256:170b6eadada6558fb37892ff30e4fbdb1e1c2474db33241da38867dcbd4213a6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialChannelCertificate.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
+        "label": "ErdosProblems.Erdos68.FactorialZeroPlateau",
+        "path": "ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
+        "direct": true,
+        "content_digest": "sha256:00225da717d14e616b606a98dbca4469edd31e4bb83ae1504591e45e68755fbf",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.FiniteDefectAutomaton",
+        "label": "ErdosProblems.Erdos68.FiniteDefectAutomaton",
+        "path": "ErdosProblems/Erdos68/FiniteDefectAutomaton.lean",
+        "direct": true,
+        "content_digest": "sha256:c072b7c22b1f86b69868db89aa9e2d2626d8637bbe5a08a2ca860c30c28fe6c3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.GapScalarNormalForm",
+        "label": "ErdosProblems.Erdos68.GapScalarNormalForm",
+        "path": "ErdosProblems/Erdos68/GapScalarNormalForm.lean",
+        "direct": true,
+        "content_digest": "sha256:9dc4edcd1f0852d6a38667c8ccebd1ffd3acd23b883875c2b836b6f233689826",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/GapScalarNormalForm.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PrimeThresholdParity",
+        "label": "ErdosProblems.Erdos68.PrimeThresholdParity",
+        "path": "ErdosProblems/Erdos68/PrimeThresholdParity.lean",
+        "direct": true,
+        "content_digest": "sha256:44075cf0f2bfb06b0d18cd166c36c838a470d964f8c95cf27aed4e9198450925",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/PrimeThresholdParity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator",
+        "label": "ErdosProblems.Erdos68.PrimeUnitTranslator",
+        "path": "ErdosProblems/Erdos68/PrimeUnitTranslator.lean",
+        "direct": true,
+        "content_digest": "sha256:ceec4294ac834abb7850fe8732a5eea455328ade40bf9a5eb66c6f37cbef2c9a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/PrimeUnitTranslator.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PrimeZeroBranch",
+        "label": "ErdosProblems.Erdos68.PrimeZeroBranch",
+        "path": "ErdosProblems/Erdos68/PrimeZeroBranch.lean",
+        "direct": true,
+        "content_digest": "sha256:de5508cb858fdaaa5d9c4b40bcb65a6960f8c7ebb6209887bd57e800c6674900",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/PrimeZeroBranch.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.StrictSuccessorArithmetic",
+        "label": "ErdosProblems.Erdos68.StrictSuccessorArithmetic",
+        "path": "ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean",
+        "direct": true,
+        "content_digest": "sha256:e03320c57d2ae0d42f52564023f4d62d92e805696bf010d6b48c66ecb053064b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": [
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow",
+        "target": "lean-module:ErdosProblems.Erdos68.PrimeThresholdParity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence",
+        "target": "lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre",
+        "target": "lean-module:ErdosProblems.Erdos68.FiniteDefectAutomaton"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "target": "lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
+        "target": "lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
+        "target": "lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
+        "target": "lean-module:ErdosProblems.Erdos68.StrictSuccessorArithmetic"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.FiniteDefectAutomaton",
+        "target": "lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.GapScalarNormalForm",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PrimeThresholdParity",
+        "target": "lean-module:ErdosProblems.Erdos68.GapScalarNormalForm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PrimeThresholdParity",
+        "target": "lean-module:ErdosProblems.Erdos68.PrimeZeroBranch"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator",
+        "target": "lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PrimeZeroBranch",
+        "target": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport"
+      }
+    ]
+  },
+  "library_source": "docs/problem_library.json"
 }

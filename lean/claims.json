@@ -1034,6 +1034,53 @@
             "res:terminalhalf",
             "res:cylinderhalf"
           ]
+        },
+        {
+          "title": "Lemniscates and Newton Flow: Complete Reasoning Record",
+          "source": "paper/erdos1041-lemniscate-reasoning-surface.tex",
+          "rendered": "erdos1041-lemniscate-reasoning-surface.pdf",
+          "role": "Full problem-specific reasoning record for Erdős #1041.",
+          "anchor_owner": "paper/erdos-1041-lemniscate-newton-flow.tex",
+          "anchor_label_allowlist": [
+            "res:degree-three",
+            "res:reflected-critical-value"
+          ],
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
+        },
+        {
+          "title": "Rational-Base Lambert Series: Complete Reasoning Record",
+          "source": "paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+          "rendered": "erdos1049-rational-base-lambert-reasoning-surface.pdf",
+          "role": "Historical full reasoning record for Erdős #1049.",
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
+        },
+        {
+          "title": "The Factorial-Denominator Series: Complete Reasoning Record",
+          "source": "paper/erdos68-factorial-reasoning-surface.tex",
+          "rendered": "erdos68-factorial-reasoning-surface.pdf",
+          "role": "Historical full reasoning record for Erdős #68.",
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
+        },
+        {
+          "title": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+          "source": "paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+          "rendered": "erdos243-reciprocal-tail-reasoning-surface.pdf",
+          "role": "Historical full reasoning record for Erdős #243.",
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
+        },
+        {
+          "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+          "source": "paper/erdos251-prime-gap-reasoning-surface.tex",
+          "rendered": "erdos251-prime-gap-reasoning-surface.pdf",
+          "role": "Historical full reasoning record for Erdős #251.",
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
+        },
+        {
+          "title": "The Three-Prime Running LCM: Complete Reasoning Record",
+          "source": "paper/erdos269-running-lcm-reasoning-surface.tex",
+          "rendered": "erdos269-running-lcm-reasoning-surface.pdf",
+          "role": "Historical full reasoning record for Erdős #269.",
+          "formal_source_ref": "1da2a504f8d8aa3cdc2cf686ec48bc8a67457984"
         }
       ]
     },
@@ -1058,6 +1105,42 @@
             "source": "paper/erdos257-mersenne-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
             "thesis": "Complete working record for Erdős #257: checked premises, finite computations, route relations, evidence bands, and surviving obligations."
+          },
+          {
+            "id": "erdos_1041_reasoning_record",
+            "source": "paper/erdos1041-lemniscate-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete working record for Erdős #1041: Newton-flow decay, ray separation, translation geometry, solved structural families, and the unresolved global topology and metric gluing."
+          },
+          {
+            "id": "erdos_1049_reasoning_record",
+            "source": "paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete reasoning record for Erdős #1049, restored from c8e2560cdfd0e43e68e5ad091644b2052495d12a and revised. Results distinguish compiled proofs, conditional reductions and external results. The problem remains open."
+          },
+          {
+            "id": "erdos_68_reasoning_record",
+            "source": "paper/erdos68-factorial-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete reasoning record for Erdős #68, restored from c8e2560cdfd0e43e68e5ad091644b2052495d12a and revised. Results distinguish compiled proofs, conditional reductions and external results. The problem remains open."
+          },
+          {
+            "id": "erdos_243_reasoning_record",
+            "source": "paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete reasoning record for Erdős #243, restored from c8e2560cdfd0e43e68e5ad091644b2052495d12a and revised. Includes the scalar finite-negative-mass criterion without a normalised-vanishing premise. Results distinguish compiled proofs, conditional reductions and external results. The problem remains open."
+          },
+          {
+            "id": "erdos_251_reasoning_record",
+            "source": "paper/erdos251-prime-gap-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete reasoning record for Erdős #251, restored from c8e2560cdfd0e43e68e5ad091644b2052495d12a and revised. Includes the finite counting reduction for shifted prime-gap differences; the analytic sieve estimates remain assumptions. Results distinguish compiled proofs, conditional reductions and external results. The problem remains open."
+          },
+          {
+            "id": "erdos_269_reasoning_record",
+            "source": "paper/erdos269-running-lcm-reasoning-surface.tex",
+            "decision": "retain_as_full_problem_reasoning_record",
+            "thesis": "Complete reasoning record for Erdős #269, restored from c8e2560cdfd0e43e68e5ad091644b2052495d12a and revised. Results distinguish compiled proofs, conditional reductions and external results. The problem remains open."
           }
         ],
         "problem_series": [

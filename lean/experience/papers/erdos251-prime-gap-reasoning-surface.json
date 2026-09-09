@@ -1,0 +1,308 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos251-prime-gap-reasoning-surface",
+  "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+  "subject": "Erdős #251",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 35,
+  "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
+  "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
+  "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+  "problem_id": "erdos_251",
+  "routes": {
+    "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos251-prime-gap-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos251-prime-gap-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos251-prime-gap-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos251-prime-gap-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 15,
+    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "source_sha256": "d052c0aac9e60aa5e19f1e77a585bff47f97588d9d6e48be43351e7c42e7f3d3",
+    "publication_manifest_match": true,
+    "mathml_node_count": 704,
+    "raw_math_fallback_count": 1,
+    "warnings": {
+      "mathml": [
+        "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
+        "=2\\left(\\sum_{n\\ge0}u_n-u_0\\right)-\\sum_{n\\ge0}u_n",
+        "=\\sum_{n\\ge0}u_n-2 . \\qedhere, rendering as TeX:",
+        "e0}u_n-2 . \\qedhere",
+        "^",
+        "unexpected control sequence \\qedhere",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "9e0fac24bcb153c347c70729b0c8db5249b714c0c91e0abcdcca11eb6ca94edc",
+    "html_exact_tex_sha256": "183b8290caf152fb2ac56c5856cace1f0d655b15d1209020484c4f1ff901abcb"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Notation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation to prior work."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The strategy."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Outline."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Summation by parts, with the endpoint retained"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The infinite identity and the irrationality equivalence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The tail recurrence and the exact criteria"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The actual prime-gap orbit."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The free-pair criterion and the lcm diagonal"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A local certificate, and one actual pair"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "An explicit remainder and a certified actual pair"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Two denominator floors"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What cannot supply the missing input"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Bounded residue-preserving perturbations"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Algebraic nonconcentration survives the rationalising perturbation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The producer is an event of density zero"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Recurring gap values differing by two do not suffice"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A complete countermodel in every residue class"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two further boundaries"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is measured"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The remaining obligation"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What remains to be formalised."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An elementary polynomial bound for the primes"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Integer certificates"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Extended record: displaced results, ordinary proofs and corrections"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The totient witness and forward propagation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The finite truncation criterion"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A weaker recurrence-level target"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two ordinary proofs about the free-pair producer"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "State compression."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Redundancy of the gap condition."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A bounded companion to the recurring-values countermodel"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The measured densities in full"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Corrections to earlier records"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The superseded exclusion."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The named missing input."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The formal boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete result-family map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Prime gap reformulation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Dyadic tail integrality classification"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Integral shift classification"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Small mismatch criterion"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Coefficient only no go"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Totient shift propagation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

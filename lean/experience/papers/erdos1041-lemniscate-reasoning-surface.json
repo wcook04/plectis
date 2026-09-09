@@ -1,0 +1,363 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos1041-lemniscate-reasoning-surface",
+  "title": "Lemniscates and Newton Flow: Complete Reasoning Record",
+  "subject": "Erdős #1041",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 46,
+  "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
+  "precis": "A claim-bounded complete reasoning record for Erdős #1041. It retains Newton-flow decay, ray separation, translation geometry, root retention, solved structured families, the diagnosed saddle-argument defect, and every registered family. The general spanning-tree topology and metric gluing remain open.",
+  "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+  "problem_id": "erdos_1041",
+  "routes": {
+    "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos1041-lemniscate-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos1041-lemniscate-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 15,
+    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "source_sha256": "27ca9a32515680d6e041449b4d4127b5cfef3e23d3c22e9e572715f00f8fa9d0",
+    "publication_manifest_match": true,
+    "mathml_node_count": 1014,
+    "raw_math_fallback_count": 2,
+    "warnings": {
+      "mathml": [
+        "[WARNING] Could not convert TeX math x\\le\\sum_j\\lambda(d_j)",
+        "=\\sum_j\\Bigl[\\lambda(d_j)-\\sum_i\\sigma_i w(d_j,r_i)\\Bigr]",
+        "+\\sum_i\\sigma_i\\sum_j w(d_j,r_i)",
+        "\\le kU+\\pi\\Sigma. \\qedhere, rendering as TeX:",
+        "\\pi\\Sigma. \\qedhere",
+        "^",
+        "unexpected control sequence \\qedhere",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
+        "\\qquad",
+        "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+        "\\qquad",
+        "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
+        "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+        "^",
+        "unexpected control sequence \\over",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "d65233fec09b3c09e97a9b2df14425e364e87647b874c17bae5a9e4ceb9d34e6",
+    "html_exact_tex_sha256": "9ccc1a8b808b89dacafabc75260800ef97afa587b109b786ce63eb1ecaf8e9aa"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The problem"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Trinomials"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The cancellation mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An unconditional regime: a small least critical value"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The failure inequalities."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The arity floor."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "From the arity floor to forced area growth."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Certificate."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An unconditional all-degree constant-factor path theorem"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Degree three"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An all-degree critical-value separation theorem"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence and exact boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Three exact solved polynomial families"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Sharp collinear zeros"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The primitive sparse quintic"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Translated cubic quotient fibres"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal boundary."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Shared assurance boundary."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The current frontier: what survives near Fekete configurations"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Near-Fekete stability removes the radial distraction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A bounded-radius concyclic class"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Cyclic trinomial fibres"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Coefficient-controlled cyclic tetranomial spokes"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Translated quartic quotient fibres"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A critical-value budget in every degree"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The weighted Poisson proof and the small-cardinality conclusions."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Poisson majorization and termwise integration."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A uniform central region in every degree."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Four points without a matching or numerical split."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The degree-five target is now explicit"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The no-go boundaries force hub selection"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The surviving carrier and the actual open endpoint"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The Newton value equation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Arguments, not moduli"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A proof gap in the unrestricted argument"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Finite evidence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "1. Repair or refute the saddle block"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "2. The compact ray-cut decomposition"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "3. Metric fan-in without losing the coefficient"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "4. Coefficient perturbation and stability"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "5. The global Newton-flow claim ceiling"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Checked declarations behind the translated quotient-fibre families."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Record: the circle-slice arity floor in numbers"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete result-family map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Root retention"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Newton value decay"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Ray separation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Published proof gap"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Lemniscate finite search"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Translation avoidance"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

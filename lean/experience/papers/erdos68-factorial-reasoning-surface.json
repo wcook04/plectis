@@ -1,0 +1,230 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos68-factorial-reasoning-surface",
+  "title": "The Factorial-Denominator Series: Complete Reasoning Record",
+  "subject": "Erdős #68",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 31,
+  "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
+  "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
+  "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+  "problem_id": "erdos_68",
+  "routes": {
+    "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos68-factorial-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos68-factorial-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos68-factorial-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 15,
+    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "source_sha256": "0ca14ded4b7c259c244c3722be25c2690feb0df4ef3fb07d1ff1e69e5350861b",
+    "publication_manifest_match": true,
+    "mathml_node_count": 772,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "fa1f3a4582f74d253e6b5d971e6adb4d49aa09f745edea8fc645facd21bbf6cc",
+    "html_exact_tex_sha256": "b41711060c1896510e4941c1a8bc6bd4ce9e5c3fefcefa9f69f205f78cf78b0c"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Which prime powers survive reduction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Two complete cancellations."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The growth of the common denominator"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Carries and the rationality boundary"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Why one proposed window argument is circular"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The companion coordinate"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Escape from a smaller interval"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The whole shifted family"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "From denominator structure to a scale criterion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A limitation of finite-channel cancellation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The exact low-channel lattice and residual class"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Finite denominator exclusions"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The remaining arithmetic inputs"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Weighted collisions and complementary residues."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Repeated-support valuation amplification."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Lower-interval escape."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Doubled-prime branch failure."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A remote Cramer residual."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Criteria from the literature that do not apply."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Sources and evidence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Extended record"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The canonical factorial digit kernel"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Criteria from the literature, in full"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A superseded deduction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Plateaux, first exit, and the finite denominator ladder"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The collision-core interfaces"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Finite channel and carry certificates"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Limits of fixed-coordinate arguments"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The generic shape behind the lower-interval form"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete result-family map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Factorial carry characterisation"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Factorial channel and projection rigidity"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Factorial conditional producers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Factorial lcm growth"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Factorial finite certificates"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

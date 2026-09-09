@@ -287,7 +287,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
-      "renderer_fingerprint": "4b61a5881f3708b0",
+      "renderer_fingerprint": "dfc4d6626c337fa5",
       "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
       "publication_manifest_match": true,
       "mathml_node_count": 284,
@@ -412,5 +412,609 @@
     "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1049",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
-  }
+  },
+  "papers": [
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos-1049-rational-base-lambert",
+      "title": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
+      "subject": "Erdős #1049",
+      "subject_kind": "problem",
+      "form": "Problem note",
+      "pages": 12,
+      "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+      "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
+      "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "problem_id": "erdos_1049",
+      "routes": {
+        "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
+        "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
+        "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
+        "publication_manifest_match": true,
+        "mathml_node_count": 284,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "a55c3af58e571633f6331b2e447a6c07ea6a0b2618d54599710718bd3c808d1b",
+        "html_exact_tex_sha256": "03111de412e3c0719663305901bc5f0095aed6ea84909d8cb646a94040ba7f81"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A rational base at which FF is irrational"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Integral polynomials and their degrees."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The limiting degree cost."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A positive remainder at every fixed real base."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Homogenisation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Comparison and scope."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The base-uniform degree restriction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact normalized-Hankel order in Zudilin’s construction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal order and fixed-base size."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Local cancellation and the remaining real estimate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One minor gcd controls two different costs"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A collision must have a small nonzero real remainder"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The source-specific endpoint question"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Functional equations."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "short",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-1049-rational-base-lambert.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-1049-rational-base-lambert.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md"
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
+      "paper_id": "erdos1049-rational-base-lambert-reasoning-surface",
+      "title": "Rational-Base Lambert Series: Complete Reasoning Record",
+      "subject": "Erdős #1049",
+      "subject_kind": "problem",
+      "form": "Reasoning surface",
+      "pages": 47,
+      "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
+      "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
+      "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "problem_id": "erdos_1049",
+      "routes": {
+        "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
+        "html_exact_tex": "papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html",
+        "pdf": "../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
+        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+      },
+      "render_contract": {
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 15,
+        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "source_sha256": "5605088544379c0110b29f34f27526eccfe63d3c3fd8f5127e782fcc76e4af6c",
+        "publication_manifest_match": true,
+        "mathml_node_count": 1215,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "d641866eabe2829260e52958197779d5f3d12e6e56351fbfde8f6c2e9d0bb335",
+        "html_exact_tex_sha256": "f96daca7242776ab61b295dc5fcfa260cc8af3ffa912d740a47acaf19d42c8c4"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Erdős’s integer-base argument, in outline."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The direct cut-and-clear attempt studied here."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Terminology."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The shortfall at 3/23/2."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Sharpness."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Results and boundary."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Structure."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The region bμ<ab^{\\mu}<a and the base 31/431/4"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The source forms as polynomial identities"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact degrees"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The cyclotomic limit"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Positive integral forms and the contradiction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The rational bracket around θ*\\theta^{*}"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Evidence, attribution and the remaining obligation"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence decomposition."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Where the earlier criterion stops."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The exact remaining obligation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The region, explicitly."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The direction is optimal in its box."
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Finite receipts"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The sharp 41/6541/65 certificate"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The sharp qq-order of the normalised Hankel determinant"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The row identity."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal order and analytic size are different questions."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A separate positive-measure estimate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Evidence decomposition."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Attribution and remaining obligation."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Integer scalar content is neutral"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Failure of coordinatewise clearing at 3/23/2"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The cleared-tail recurrence and the size of the forcing term"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The height criterion at 7/27/2"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The 81/20081/200 logarithmic region"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Denominator exponents for a homogenised Padé construction"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complements and further questions"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Exact kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Determinant families"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Asymptotic adequacy after kernel escape"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "One exact alternative-criterion test"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The quantitative height limitation"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Artefact and data availability."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Funding and competing interests."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Acknowledgements."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Checked declarations behind the four-jet collision family."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Complete result-family map"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Rational base tail recurrence"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Seven halves irrationality"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Endpoint residues"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Height and pade arithmetic"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Coordinatewise corridor no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Scalar content no go"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Four jet collision"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "References"
+        }
+      ],
+      "hosted": true,
+      "reading_role": "long",
+      "current_github": {
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos1049-rational-base-lambert-reasoning-surface.pdf",
+        "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos1049-rational-base-lambert-reasoning-surface.md"
+      }
+    }
+  ],
+  "paper_roles": {
+    "short": [
+      "erdos-1049-rational-base-lambert"
+    ],
+    "long": [
+      "erdos1049-rational-base-lambert-reasoning-surface"
+    ]
+  },
+  "source_map": {
+    "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
+        "label": "ErdosProblems.Erdos1049.AdelicHeightBridge",
+        "path": "ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
+        "direct": true,
+        "content_digest": "sha256:3bfdcfd11ca443e6555f95261122334bffb18f686c22542d44bd60270309e4d3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.BezoutPluckerJets",
+        "label": "ErdosProblems.Erdos1049.BezoutPluckerJets",
+        "path": "ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
+        "direct": true,
+        "content_digest": "sha256:4579858b1b497ca1c9a377a202bb3bf84d4cdaad20c0e3f5ba2730740cbccdb3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo",
+        "label": "ErdosProblems.Erdos1049.HermitePadeNoGo",
+        "path": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+        "direct": true,
+        "content_digest": "sha256:812f2ca2ea8b18f8ce8e0a68ae14897aa851fba2e050a07881d839168182f2cc",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
+        "label": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
+        "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+        "direct": true,
+        "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert",
+        "label": "ErdosProblems.Erdos1049.RationalBaseLambert",
+        "path": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+        "direct": true,
+        "content_digest": "sha256:593c3b3e776820de229bad00c7f374bb39416099de60250b375d52cfa5f6e56a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.RationalPadeArithmetic",
+        "label": "ErdosProblems.Erdos1049.RationalPadeArithmetic",
+        "path": "ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+        "direct": true,
+        "content_digest": "sha256:c7b54971556577d73bbc563dcf14eaf62aef8d31e1450c4e7337028e46013690",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic",
+        "label": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
+        "path": "ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+        "direct": true,
+        "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion",
+        "label": "ErdosProblems.Erdos1049.ZudilinHeightRegion",
+        "path": "ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+        "direct": true,
+        "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+        "role": "Lean proof module"
+      }
+    ],
+    "edges": [
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
+        "target": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
+        "target": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
+        "target": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion",
+        "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert"
+      }
+    ]
+  },
+  "library_source": "docs/problem_library.json"
 }

@@ -1,0 +1,415 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos243-reciprocal-tail-reasoning-surface",
+  "title": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+  "subject": "Erdős #243",
+  "subject_kind": "problem",
+  "form": "Reasoning surface",
+  "pages": 44,
+  "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
+  "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
+  "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
+  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+  "problem_id": "erdos_243",
+  "routes": {
+    "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
+    "html_exact_tex": "papers/erdos243-reciprocal-tail-reasoning-surface.mathjax.html",
+    "pdf": "../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf",
+    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
+  },
+  "render_contract": {
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 15,
+    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "source_sha256": "ed0477376d0ff7932910d3acf2fbb9c3cf6b08e42ae2545c8ba4fd61bee4a6fe",
+    "publication_manifest_match": true,
+    "mathml_node_count": 1078,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "318ac215adf8db64d4ba8352e7e8b102a64ab166bf49c451ef36d84698edf355",
+    "html_exact_tex_sha256": "9af01682e3af306310c0b536063312759d287d72e59debfed79ca8a91efe33ea"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Introduction"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "An unconditional irrationality theorem"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The canonical integer tail."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Sparse agreement forces a primitive integral cubic"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The square forced by the transport"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The cubic field leaves one scale"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Both survivors fail modulo seven"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "From a regular rate to an exact cubic"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Position."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Prior work, and the status of the note"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Two published sufficient conditions."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Structure"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The centred integer state"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The intended reading, which is not formalised."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The defect identity and its two consequences"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two-step cancellation and feedback"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Weighted first crossings of LCM records"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "What the record coordinates transfer."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Remaining obligation."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Criteria in the record coordinates"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Primitive coordinates."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Source and evidence conventions for this section."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The record-increment coefficient"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Remaining obligation."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Two exact equivalences under arbitrary cancellation"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Remaining obligation."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Relation."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Protected epochs and the energy criterion"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A slow negative part, and the original coordinates"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Mechanism."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Attribution."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Evidence."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "What the method cannot reach"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Reading."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Reading."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "The exact remaining obstacle."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Descent when the error is nonnegative"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a constant negative magnitude"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a periodic negative magnitude"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Bounded rise cannot remain coprime to fresh moduli"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding a bounded negative part"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Excluding finite normalised negative mass"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complements and further questions"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Global height and old-factor overlap"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Repair entropy across a recovery"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The direct analytic question"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "A barrier extension"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Formalisation targets"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Erdős–Straus."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Duverney."
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Statements and declarations"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Artefact and data availability."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Funding and competing interests."
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Acknowledgements."
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A factorial residue reduction for forced orbits"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Complete result-family map"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Centered state dynamics"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Negative mass recovery"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Bounded negative exclusion"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Bounded rise coprimality"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Negative orbit no go"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "References"
+    }
+  ]
+}

@@ -15,8 +15,8 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json",
-      "source_sha256": "cc953301ee8c1ee2af9e391e05ff57e0fa306680ad2aab943037bcc9e6562e01",
-      "bytes": 828442
+      "source_sha256": "b026e595e2fb82a352cb12d733ff4cac55763acc188a317d90a38904f5e25e0b",
+      "bytes": 833898
     },
     {
       "hosted_path": "lean/problems.json",
@@ -24,8 +24,17 @@
       "source_ref": "main",
       "source_path": "docs/problems.json",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problems.json",
-      "source_sha256": "762b794702b8b9701e27e4065b56a49a6e8d08f68b22cc0eec6686fa380ec7ec",
-      "bytes": 55777
+      "source_sha256": "32c3f1e3370889fd022cc360e7a0b4a587058c7ae63afff074a08d8ff38a13f2",
+      "bytes": 55823
+    },
+    {
+      "hosted_path": "lean/problem-library.json",
+      "source_repo": "plectis-lean-erdos249-257",
+      "source_ref": "main",
+      "source_path": "docs/problem_library.json",
+      "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/problem_library.json",
+      "source_sha256": "1d5f69bedf62a72bc52d531c787965ba1fec48a286d4cd63871a977d39080da4",
+      "bytes": 233540
     },
     {
       "hosted_path": "lean/RESULTS.md",
@@ -42,8 +51,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md",
-      "source_sha256": "b58cafdb12f8863884963fcb8c4e79b6857ad77d0ebfae76b64518eec628869d",
-      "bytes": 13541
+      "source_sha256": "3172f9a4addc1e2d17f348f0d593a9a6ead7025daeb1ba612cc06788536a4ecc",
+      "bytes": 13780
     },
     {
       "hosted_path": "lean/human-source/docs/RESULTS.md",

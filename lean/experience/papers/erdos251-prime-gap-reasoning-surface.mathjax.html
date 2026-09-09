@@ -1,0 +1,2332 @@
+<article class="lean-paper" data-paper-id="erdos251-prime-gap-reasoning-surface" data-math-mode="mathjax">
+  <header class="lean-paper__header">
+    <p class="lean-paper__eyebrow">Reasoning surface</p>
+    <h1>Prime Gaps and Dyadic Tails: Complete Reasoning Record</h1>
+    <p class="lean-paper__subject">Erdős #251</p>
+  </header>
+  <div class="lean-paper__body" data-source="../../../paper/erdos251-prime-gap-reasoning-surface.tex">
+<section id="long251:sec:problem" class="level2">
+<h2>Introduction</h2>
+<p>Let <span class="math inline">\(p_n\)</span> denote the <span
+class="math inline">\(n\)</span>th prime. Erdős Problem #251 asks
+whether <span
+class="math display">\[\Pi=\sum_{n\ge1}\frac{p_n}{2^{\,n}}\]</span> is
+irrational <span class="citation" data-cites="erdos1958"><a href="#ref-1">[1]</a></span><span
+class="citation" data-cites="erdosgraham1980"></span> <span
+class="citation" data-cites="erdos1988"></span>. Bloom’s catalogue
+records the problem as open <span class="citation"
+data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>. Numerically <span
+class="math inline">\(\Pi=2/2+3/4+5/8+7/16+11/32+\cdots=3.674643966\ldots\)</span>.</p>
+<p>Throughout the formal development the primes are indexed from zero,
+so that <span class="math inline">\(p^{(0)}_0=2\)</span>, <span
+class="math inline">\(p^{(0)}_1=3\)</span>, <span
+class="math inline">\(p^{(0)}_2=5\)</span>, and the gaps are <span
+class="math inline">\(g_i=p^{(0)}_{i+1}-p^{(0)}_i\)</span>. In that
+indexing <span
+class="math display">\[\Pi=\sum_{i\ge0}\frac{p^{(0)}_i}{2^{\,i+1}}
+,\]</span> which is the convention every statement below uses; we drop
+the superscript from here on. The first values are <span
+class="math display">\[\begin{array}{c|cccccccccc}
+  i   &amp; 0&amp;1&amp;2&amp;3&amp;4 &amp;5 &amp;6 &amp;7 &amp;8
+&amp;9\\\hline
+  p_i &amp;
+2&amp;3&amp;5&amp;7&amp;11&amp;13&amp;17&amp;19&amp;23&amp;29\\
+  g_i &amp; 1&amp;2&amp;2&amp;4&amp;2 &amp;4 &amp;2 &amp;4 &amp;6 &amp;2
+\end{array}\]</span> so <span class="math inline">\(g_0=1\)</span> and
+every later gap is even, the primes after <span
+class="math inline">\(2\)</span> being odd. A second normalisation with
+denominator <span class="math inline">\(2^{\,i}\)</span> also occurs,
+and at every finite horizon it is exactly twice this one, <span
+class="math display">\[\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i}}
+=2\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i+1}} ,\]</span> the . A factor of two
+does not change rationality, so no result below depends on the choice;
+the identity is stated so that the indexing cannot drift silently.</p>
+<section id="notation." class="level5">
+<h5>Notation.</h5>
+<p><span class="math inline">\(\N=\{0,1,2,\ldots\}\)</span> and <span
+class="math inline">\(\Npos=\{1,2,\ldots\}\)</span>. We write <span
+class="math inline">\(\ph\)</span> for Euler’s totient function, <span
+class="math inline">\(\operatorname{den}q\)</span> for the denominator
+of a rational number <span class="math inline">\(q\)</span> written in
+lowest terms, <span
+class="math inline">\(\operatorname{dist}(x,\Z)\)</span> for the
+distance from a real number <span class="math inline">\(x\)</span> to
+the nearest integer, and <span
+class="math inline">\(\operatorname{Irr}(x)\)</span> for the assertion
+that <span class="math inline">\(x\)</span> is irrational. A rational
+number is called <em>integral</em> when it is the image of an integer. A
+sequence <span class="math inline">\((a_n)\)</span> is <em>eventually
+periodic with period <span class="math inline">\(h\ge1\)</span></em>
+when <span class="math inline">\(a_{n+h}=a_n\)</span> for every
+sufficiently large <span class="math inline">\(n\)</span>. A set <span
+class="math inline">\(A\subseteq\N\)</span> has <em>density zero</em>
+when <span class="math inline">\(|A\cap[1,x]|=o(x)\)</span>, and a
+property holds for <em>almost all</em> indices when its exceptional set
+has density zero. A sum over an empty range of indices is zero.</p>
+</section>
+<section id="relation-to-prior-work." class="level5">
+<h5>Relation to prior work.</h5>
+<p>The passage from the primes to their gaps is already public. Tao
+recorded on the problem page that summation by parts makes the question
+equivalent to irrationality of <span
+class="math inline">\(\sum_n(p_{n+1}-p_n)2^{-n}\)</span>, and named the
+shape of the missing input as a sufficiently quantitative and uniform
+prime-tuples hypothesis giving statistical control of the binary
+expansion of about <span class="math inline">\(\log\log n\)</span>
+consecutive gaps <span class="citation"
+data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>. Theorem <span
+class="math inline">\(\ref{long251:res:infinite}\)</span> below is that
+reduction in exact form, with the endpoint retained, with convergence
+supplied by an elementary bound, and with the statement checked by the
+Lean kernel. The elementary bound replaces the prime number theorem. No
+priority is claimed for the reduction.</p>
+<p>Land has since posted a conditional proof of irrationality assuming
+Kuperberg’s uniform Hardy-Littlewood prime-tuples conjecture, together
+with a Lean formalisation of that conditional argument <span
+class="citation" data-cites="land2026"></span>. His route constructs
+weighted prime-gap tails converging to <span
+class="math inline">\(6\)</span> from above, imposes a consecutive
+quadratic prime pattern by a mixed prime-counting moment, and averages
+over later prime indices to control the unprescribed tail. Nothing in
+this note is conditional on a prime-tuples hypothesis, and nothing in
+this note proves the unconditional statement his argument would
+need.</p>
+<p>Erdős stated on p. 93 of the 1958 article that <span
+class="math inline">\(\sum_n p_n^{k}/n!\)</span> is irrational for every
+<span class="math inline">\(k\ge1\)</span>, and wrote there that the
+proof for <span class="math inline">\(k&gt;1\)</span> is complicated
+enough that only the case <span class="math inline">\(k=1\)</span> is
+printed <span class="citation" data-cites="erdos1958"><a href="#ref-1">[1]</a></span>. A proof
+of the full family appears in Schlage-Puchta’s Theorem 3, which gives
+the stronger statement that <span
+class="math inline">\(1,S_0,S_1,S_2,\ldots\)</span> are linearly
+independent over <span class="math inline">\(\Q\)</span>, where <span
+class="math inline">\(S_k=\sum_{n\ge1}p_n^{k}/n!\)</span> <span
+class="citation" data-cites="schlagepuchta2011"></span>. The catalogue
+entry still attributes the whole family to the 1958 article <span
+class="citation" data-cites="erdosproblems"></span>.</p>
+<p>On page 103 of his 1988 problem paper Erdős separately stated the
+fixed-denominator problem: he could not prove that <span
+class="math inline">\(\sum_n p_n^{k}/2^{n}\)</span> is irrational for
+every <span class="math inline">\(k\ge1\)</span>, and wrote that the
+case <span class="math inline">\(k=1\)</span> was probably already very
+difficult. He also stated the variable-denominator expectation that
+<span class="math inline">\(\sum_{n\ge1}p_n/(g_1\cdots g_n)\)</span> is
+irrational whenever <span class="math inline">\(g_n\ge2\)</span> and
+<span class="math inline">\(g_n=o(p_n)\)</span> <span class="citation"
+data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. That expectation is false: Kovač posted
+a construction of such a sequence <span
+class="math inline">\((g_n)\)</span> for which the sum is exactly <span
+class="math inline">\(1\)</span>, on 15 April 2026 <span
+class="citation" data-cites="kovac2026"></span>. The catalogue record
+still repeats the refuted expectation without mentioning the
+counterexample, as checked on 6 September 2026 <span class="citation"
+data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>; its warning that relevant literature
+may be missing applies directly to this omission.</p>
+<p>Section 3 of the 1958 article proves a classification for the
+variable-denominator family, and the hypotheses matter. Let <span
+class="math inline">\(1&lt;q_1\le q_2\le\cdots\)</span> be integers
+satisfying, for some <span class="math inline">\(k&gt;0\)</span>, the
+lower growth condition <span
+class="math inline">\(q_n&gt;o(n/\log^{k}n)\)</span>. Then <span
+class="math inline">\(\sum_{n\ge1}p_n/(q_1\cdots q_n)\)</span> is
+rational if and only if <span
+class="math inline">\(q_n=q\,p_n+1\)</span> for one fixed integer <span
+class="math inline">\(q\ge1\)</span> and all large <span
+class="math inline">\(n\)</span> <span class="citation"
+data-cites="erdos1958"><a href="#ref-1">[1]</a></span>. The denominators are nondecreasing, and
+the printed condition bounds them from below. Strict increase is not
+assumed, and no upper bound is imposed. The endpoint <span
+class="math inline">\(q=1\)</span> is attained: if <span
+class="math inline">\(G_n=\prod_{j=1}^{n}(p_j+1)\)</span> then <span
+class="math inline">\(p_n/G_n=1/G_{n-1}-1/G_n\)</span>, so the
+corresponding series telescopes to <span
+class="math inline">\(1\)</span>. Kovač’s sequence evades the lower
+growth condition, and neither statement addresses the fixed-denominator
+dyadic series studied here.</p>
+<p>There is also a genuinely adjacent proved dyadic theorem. If <span
+class="math inline">\(P(m)\)</span> denotes the largest prime factor of
+<span class="math inline">\(m\)</span>, Erdős and Pomerance proved that
+<span class="math display">\[\sum_{m\ge2}\frac{\mathbf
+1_{\{P(m)&gt;P(m+1)\}}}{2^m}\]</span> is irrational <span
+class="citation" data-cites="erdospomerance1978"></span>. Erdős and
+Graham record the complementary indicator on p. 62: equality of the two
+largest prime factors is impossible for consecutive integers, so its
+series is <span class="math inline">\(1/2\)</span> minus the displayed
+one and is irrational as well. That is a theorem about a bounded
+prime-factor comparison digit sequence, and the numerators in <span
+class="math inline">\(\Pi\)</span> are unbounded.</p>
+<p>Two further results of Schlage-Puchta enter below. His Theorem 2
+classifies rationality for numbers whose base-<span
+class="math inline">\(b\)</span> digit string concatenates the
+representations of a slowly growing integer sequence, and is a different
+object from the tail criterion here; it was already pointed at this
+problem in the catalogue thread on 15 April 2026. His Lemma 4 is the
+input this note actually uses. It states that for every polynomial <span
+class="math inline">\(F\in\Z[x_0,\ldots,x_k]\)</span> which does not
+vanish identically, <span
+class="math inline">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> for almost all
+<span class="math inline">\(n\)</span>, where <span
+class="math inline">\(g_n\)</span> are the actual consecutive prime
+gaps <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>. Its
+proof runs through Selberg’s sieve. Sections <span
+class="math inline">\(\ref{long251:sec:obstructions}\)</span> draws two
+consequences from it.</p>
+<p>Problem #251 also appears as the unproved declaration
+<code>erdos_251</code> in the <em>Formal Conjectures</em>
+repository <span class="citation"
+data-cites="formalconjectures251"><a href="#ref-18">[18]</a></span>. Its zero-based Lean sum
+starts with the zeroth prime over <span
+class="math inline">\(2^0\)</span>, so it is twice the displayed
+normalisation and has equivalent irrationality status; its proof is
+<code>sorry</code>.</p>
+</section>
+<section id="the-strategy." class="level5">
+<h5>The strategy.</h5>
+<p>The digits <span class="math inline">\(p_n\)</span> grow, so the
+series is not a digit expansion in any bounded alphabet, and the
+standard rationality criteria for such expansions do not apply directly.
+The classical elementary criteria for series of this kind instead
+control irrationality through the growth of the denominators. Erdős and
+Straus named a sum <span class="math inline">\(\sum_k 1/a_k\)</span>
+over a strictly increasing sequence of positive integers an <em>Ahmes
+series</em> <span class="citation" data-cites="erdosstraus1963"><a href="#ref-5">[5]</a></span>;
+for such a series the condition <span
+class="math inline">\(a_k^{1/2^k}\to\infty\)</span> is sufficient for
+irrationality, and it is sharp, since shifted Sylvester sequences grow
+like <span class="math inline">\(C^{2^{k}}\)</span> for arbitrarily
+large <span class="math inline">\(C\)</span> and have rational
+reciprocal sum. Both statements and their attribution are recorded in
+the introduction of Kovač and Tao <span class="citation"
+data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. Splitting each term <span
+class="math inline">\(p_i/2^{\,i+1}\)</span> into <span
+class="math inline">\(p_i\)</span> copies of <span
+class="math inline">\(2^{-(i+1)}\)</span> writes <span
+class="math inline">\(\Pi\)</span> as a sum of unit fractions with
+repetitions, and the denominators occurring in it are exactly the powers
+of two. Even ignoring the repetitions the growth hypothesis fails by
+every available margin, since <span
+class="math inline">\((2^{\,n})^{1/2^{\,n}}\to1\)</span>, and every
+arithmetic constraint has to come from the numerators instead.</p>
+<p>What replaces growth control is denominator control on the sequence
+of rescaled tails. Rationality of the sum is equivalent to an eventual
+integrality condition on differences of those tails, and that condition
+uses nothing about the numerators beyond the fact that they are
+integers. The condition does not by itself force the numerators to
+repeat: Proposition <span
+class="math inline">\(\ref{long251:res:telescope}\)</span>, applied to
+<span class="math inline">\(K_n=n\)</span>, produces the integer
+sequence <span class="math inline">\(\kappa_n=n-1\)</span>, which is
+unbounded and hence not eventually periodic, and whose dyadic sum is
+zero.</p>
+</section>
+<section id="outline." class="level5">
+<h5>Outline.</h5>
+<p>Section <span class="math inline">\(\ref{long251:sec:parts}\)</span>
+proves the identity and the irrationality equivalence. Section <span
+class="math inline">\(\ref{long251:sec:tail}\)</span> develops the tail
+recurrence and states the three exact criteria: pointwise shift escape,
+the free-pair form with a free offset, and the lcm diagonal.
+Section <span
+class="math inline">\(\ref{long251:sec:local-certificate}\)</span> gives
+the local obstruction, its signed normal form, the explicit remainder
+bound and one certified actual pair. Section <span
+class="math inline">\(\ref{long251:sec:denominator-floor}\)</span>
+records the two denominator floors. Section <span
+class="math inline">\(\ref{long251:sec:obstructions}\)</span> proves the
+four obstructions. Section <span
+class="math inline">\(\ref{long251:sec:measurements}\)</span> reports
+the two finite measurements. Section <span
+class="math inline">\(\ref{long251:sec:open}\)</span> states the
+remaining obligation. All declarations linked below are checked by the
+Lean 4 kernel against the pinned Mathlib revision at the formal-source
+commit 1da2a504f8d8, and the pinned sources contain no proof
+placeholders and no project-defined axioms. The cited system paper
+identifies Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-10">[10]</a></span>,
+while the Mathlib paper documents the library’s historical Lean 3-era
+architecture <span class="citation" data-cites="mathlib"><a href="#ref-11">[11]</a></span>; it is
+not authority for the current pinned revision.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p>Statement</p></th>
+<th class="ta-l"> Status</th>
+<th class="ta-l"> Treatment here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Irrationality of <span
+class="math inline">\(\Pi\)</span></td>
+<td class="ta-l"> Open</td>
+<td class="ta-l"> Not proved.</td>
+</tr>
+<tr>
+<td class="ta-l">Finite prime-gap identity</td>
+<td class="ta-l"> Proved here</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:parts}\)</span>, with the
+endpoint retained.</td>
+</tr>
+<tr>
+<td class="ta-l">Infinite prime-gap identity</td>
+<td class="ta-l"> Lean-checked unconditionally</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:infinite}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Prime-series/gap-series irrationality
+equivalence</td>
+<td class="ta-l"> Lean-checked unconditionally</td>
+<td class="ta-l"> Corollary <span
+class="math inline">\(\ref{long251:res:irr-equivalence}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Elementary polynomial prime bound <span
+class="math inline">\(p_n\le1250(n+1)^4\)</span></td>
+<td class="ta-l"> Lean-checked; proof reprinted here</td>
+<td class="ta-l"> Appendix <span
+class="math inline">\(\ref{long251:app:prime-bound}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Actual real prime-gap tail and its
+recurrence</td>
+<td class="ta-l"> Lean-checked unconditionally</td>
+<td class="ta-l"> Section <span
+class="math inline">\(\ref{long251:sec:tail}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Rationality/integral-shift
+classification</td>
+<td class="ta-l"> Lean-checked; an equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:escape-irrational}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Free-pair irrationality criterion</td>
+<td class="ta-l"> Lean-checked; an equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:freepair}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Lcm-diagonal irrationality criterion</td>
+<td class="ta-l"> Lean-checked; an equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:lcmdiagonal}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Adjacent small-shift obstruction, rational
+and real</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:smallpair}\)</span>,
+Corollary <span
+class="math inline">\(\ref{long251:res:smallpair-real}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Signed two-window normal form</td>
+<td class="ta-l"> Lean-checked; an equivalence</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Explicit remainder bound and the certified
+pair at <span class="math inline">\(h=1\)</span>, <span
+class="math inline">\(N=2\)</span></td>
+<td class="ta-l"> Ordinary proof; exact integer replay in
+Appendix <span
+class="math inline">\(\ref{long251:app:certificates}\)</span></td>
+<td class="ta-l"> Propositions <span
+class="math inline">\(\ref{long251:res:explicit-remainder}\)</span>
+and <span
+class="math inline">\(\ref{long251:res:finite-smallpair}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Denominator floor <span
+class="math inline">\(b\ge2^{589}\)</span></td>
+<td class="ta-l"> Lean-checked by
+<code>decide +kernel</code>; ordinary proof reprinted here</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:denominatorfloor}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Certified continued-fraction exclusion
+<span class="math inline">\(q\ge2^{39997}\)</span></td>
+<td class="ta-l"> Exact computation over a Lean-checked
+tail bound</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:cfexclusion}\)</span>; no Lean
+declaration.</td>
+</tr>
+<tr>
+<td class="ta-l">Bounded-perturbation obstruction</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:boundedperturbation}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Nonconcentration survives the
+rationalising perturbation</td>
+<td class="ta-l"> Ordinary proof; external lemma cited</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:nonconcentration}\)</span> and
+Corollary <span
+class="math inline">\(\ref{long251:res:nonconc-primes}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">The two-window event has density zero</td>
+<td class="ta-l"> Ordinary proof; external lemma cited</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:sparse}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Recurring gap values differing by <span
+class="math inline">\(2\)</span> do not suffice</td>
+<td class="ta-l"> Ordinary proof</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:polignacfail}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Quadratic polynomial-shift
+countermodel</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Proposition <span
+class="math inline">\(\ref{long251:res:polynomialcountermodel}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Rationality alone forces periodic integer
+coefficients</td>
+<td class="ta-l"> False</td>
+<td class="ta-l"> Proposition <span
+class="math inline">\(\ref{long251:res:telescope}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Affine and fixed-lattice cofinal escape
+tests</td>
+<td class="ta-l"> Lean-checked; both equivalences</td>
+<td class="ta-l"> Theorem <span
+class="math inline">\(\ref{long251:res:affinecollapse}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Actual prime gaps are unbounded and not
+eventually periodic</td>
+<td class="ta-l"> Lean-checked</td>
+<td class="ta-l"> Proposition <span
+class="math inline">\(\ref{long251:res:gap-nonperiodic}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Adjacent-mismatch event density below
+<span class="math inline">\(1.2\times10^{8}\)</span></td>
+<td class="ta-l"> Finite measurement, floating-point
+tails</td>
+<td class="ta-l"> Section <span
+class="math inline">\(\ref{long251:sec:measurements}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Free-pair witnesses for every <span
+class="math inline">\(t\le20\)</span> below <span
+class="math inline">\(2\times10^{7}\)</span></td>
+<td class="ta-l"> Finite measurement</td>
+<td class="ta-l"> Section <span
+class="math inline">\(\ref{long251:sec:measurements}\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Cofinal adjacent small mismatch</td>
+<td class="ta-l"> Sufficient condition; not proved</td>
+<td class="ta-l"> Problem <span
+class="math inline">\(\ref{long251:prob:smallpair}\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p><strong>Keywords.</strong> irrationality; prime gaps; dyadic series;
+summation by parts; Lean 4. <strong>MSC 2020.</strong> 11J72 (primary);
+11N05, 68V20 (secondary).</p>
+</section>
+</section>
+<section id="long251:sec:parts" class="level2">
+<h2>Summation by parts, with the endpoint retained</h2>
+<p>Summation by parts trades a sequence for its consecutive differences.
+The form recorded here is exact: it carries no error term, it assumes
+nothing about the sequence, and it retains the endpoint term. No
+endpoint is absorbed into an estimate. For a sequence <span
+class="math inline">\(P\)</span> of rational numbers and <span
+class="math inline">\(n\ge0\)</span> put <span
+class="math display">\[D(P,n)=\sum_{i=0}^{n-1}\frac{P(i)}{2^{\,i+1}},
+\qquad
+\Delta(P,n)=\sum_{i=0}^{n-1}\frac{P(i+1)-P(i)}{2^{\,i+1}} ,\]</span>
+both empty, hence zero, at <span class="math inline">\(n=0\)</span>. We
+call these the and the of <span class="math inline">\(P\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> A routine induction on <span
+class="math inline">\(n\)</span>. At <span
+class="math inline">\(n=0\)</span> both sides equal <span
+class="math inline">\(P(0)/2\)</span>. For the step, adding <span
+class="math inline">\(P(n+1)/2^{\,n+2}\)</span> to the left and <span
+class="math inline">\(\bigl(P(n+1)-P(n)\bigr)/2^{\,n+1}\)</span> to the
+difference sum changes the endpoint term from <span
+class="math inline">\(P(n)/2^{\,n+1}\)</span> to <span
+class="math inline">\(P(n+1)/2^{\,n+2}\)</span>, and the two adjustments
+agree. ◻</p>
+</div>
+<p>Formalised as the . Nothing is assumed about <span
+class="math inline">\(P\)</span>: no positivity, no monotonicity, and no
+convergence.</p>
+<p>Specialising to <span class="math inline">\(P(i)=p_i\)</span>, whose
+first value is <span class="math inline">\(p_0=2\)</span>, and writing
+<span class="math inline">\(g_i=p_{i+1}-p_i\)</span> for the zero-based
+gaps, gives the reformulation.</p>
+<p>Formalised as the , using the and the ; the latter records that the
+natural-number difference <span
+class="math inline">\(p_{n+1}-p_n\)</span> agrees with the difference
+taken in <span class="math inline">\(\Q\)</span>, which needs <span
+class="math inline">\(p_n\le p_{n+1}\)</span>, the . The leading <span
+class="math inline">\(2\)</span> is the first prime, not a normalising
+constant. At <span class="math inline">\(n=2\)</span>, for instance, the
+left side is <span class="math inline">\(2/2+3/4+5/8=19/8\)</span> and
+the right side is <span
+class="math inline">\(2+(1/2+2/4)-5/8=19/8\)</span>.</p>
+<section id="long251:sec:infinite" class="level3">
+<h3>The infinite identity and the irrationality equivalence</h3>
+<p>Write <span class="math display">\[u_n=\frac{p_n}{2^{\,n+1}},\qquad
+v_n=\frac{g_n}{2^{\,n+1}}\]</span> for the terms of the prime series and
+of the gap series, so that <span
+class="math inline">\(\sum_{n\ge0}u_n=\Pi\)</span>. The termwise
+identity <span class="math inline">\(v_n=2u_{n+1}-u_n\)</span> is the .
+It expresses each gap term as an integer combination of two consecutive
+prime terms, so once <span class="math inline">\((u_n)\)</span> is
+summable the gap series can be summed by rearranging two copies of the
+prime series.</p>
+<div class="proof">
+<p><em>Proof.</em> The bound <span
+class="math inline">\(p_n\le1250(n+1)^4\)</span> of Appendix <span
+class="math inline">\(\ref{long251:app:prime-bound}\)</span> makes <span
+class="math inline">\((u_n)\)</span> summable, and <span
+class="math inline">\(0&lt;g_n\le p_{n+1}\)</span> then makes <span
+class="math inline">\((v_n)\)</span> summable. The shifted sequence
+<span class="math inline">\((u_{n+1})\)</span> is summable, so summing
+<span class="math inline">\(v_n=2u_{n+1}-u_n\)</span> and using <span
+class="math inline">\(u_0=1\)</span> gives <span
+class="math display">\[\sum_{n\ge0}v_n
+=2\left(\sum_{n\ge0}u_n-u_0\right)-\sum_{n\ge0}u_n
+=\sum_{n\ge0}u_n-2 . \qedhere\]</span> ◻</p>
+</div>
+<p>The polynomial bound is , summability of the prime series , the
+summability transfer is the , and the displayed identity is the . The
+prime number theorem is not a dependency at any point.</p>
+<p>These are the , the , and the . Concretely, <span
+class="math inline">\(\Pi=3.674643966\ldots\)</span> is irrational if
+and only if <span class="math inline">\(S=1.674643966\ldots\)</span> is,
+and neither is known.</p>
+</section>
+</section>
+<section id="long251:sec:tail" class="level2">
+<h2>The tail recurrence and the exact criteria</h2>
+<p>The series is not attacked directly. Suppose <span
+class="math inline">\(\sum_{i\ge0}a_i2^{-(i+1)}\)</span> converges with
+every <span class="math inline">\(a_i\)</span> an integer, and rescale
+its tails by putting <span
+class="math display">\[T_N=2^{\,N+1}\sum_{i&gt;N}\frac{a_i}{2^{\,i+1}}
+    =\sum_{j\ge1}\frac{a_{N+j}}{2^{\,j}} .\]</span> Two facts follow
+immediately. First <span
+class="math inline">\(T_{N+1}=2T_N-a_{N+1}\)</span>, so moving one level
+along doubles the rescaled tail and subtracts a single coefficient.
+Second <span
+class="math inline">\(T_0=2\sum_{i\ge0}a_i2^{-(i+1)}-a_0\)</span>, so
+the sum is rational exactly when <span
+class="math inline">\(T_0\)</span> is. This section studies that
+recurrence, assuming nothing about the coefficients beyond the fact that
+they are integers, and resumes the prime-gap instance at the end.</p>
+<p>These are the , the , and . One small orbit is worth having in view.
+Take every digit <span class="math inline">\(g_N=0\)</span> and <span
+class="math inline">\(T_0=1/12\)</span>. Then the orbit is <span
+class="math inline">\(\tfrac1{12},\tfrac16,\tfrac13,\tfrac23,\tfrac43,\ldots\)</span>
+and <span
+class="math inline">\(\sigma_h(N)=(2^{h}-1)2^{\,N}/12\)</span>. The
+shift of length <span class="math inline">\(2\)</span> is not integral
+at <span class="math inline">\(N=0\)</span> and is integral at <span
+class="math inline">\(N=2\)</span>; the shift of length <span
+class="math inline">\(1\)</span> is never integral. Nonintegrality at
+one prescribed shift length therefore does not imply irrationality.</p>
+<p>Iterating the recurrence <span class="math inline">\(h\)</span> times
+multiplies <span class="math inline">\(T_N\)</span> by <span
+class="math inline">\(2^{h}\)</span> and accumulates an explicit
+integer. Define <span class="math inline">\(B_{0,N}=0\)</span> and <span
+class="math inline">\(B_{h+1,N}=2B_{h,N}+g_{N+h+1}\)</span>, so that
+<span
+class="math inline">\(B_{h,N}=g_{N+1}2^{\,h-1}+\cdots+g_{N+h}\)</span>:
+the .</p>
+<div class="proof">
+<p><em>Proof.</em> A routine induction on <span
+class="math inline">\(h\)</span>; the step is one application of the
+recurrence together with the recursion defining <span
+class="math inline">\(B\)</span>. The second identity is the first minus
+<span class="math inline">\(T_N\)</span>. ◻</p>
+</div>
+<p>Formalised as the and the . The shift also obeys the recurrence in
+its own right, <span class="math display">\[\begin{equation}
+\label{long251:eq:shift-step}
+\sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr),
+\end{equation}\]</span> the . Since <span
+class="math inline">\(B_{h,N}\)</span> is an integer, Theorem <span
+class="math inline">\(\ref{long251:res:block}\)</span> converts a
+question about the shift into a question about <span
+class="math inline">\((2^{h}-1)T_N\)</span>: the shift <span
+class="math inline">\(\sigma_h(N)\)</span> is integral if and only if
+<span class="math inline">\((2^{h}-1)T_N\)</span> is, the . The
+criterion holds in both directions, so once <span
+class="math inline">\(T_N\)</span> is fixed no choice of the digits
+after index <span class="math inline">\(N\)</span> can change whether
+<span class="math inline">\(\sigma_h(N)\)</span> is an integer.</p>
+<p>For a rational orbit the denominator settles the matter exactly:
+<span class="math display">\[\begin{equation}
+\operatorname{den}(T_{N+1})
+=\frac{\operatorname{den}(T_N)}{\gcd(2,\operatorname{den}(T_N))},
+\qquad
+\sigma_h(N)\in\Z
+\iff
+\operatorname{den}(T_N)\mid 2^h-1 .
+\tag{3.1}\label{long251:eq:den-law}
+\end{equation}\]</span> Each even denominator loses exactly one factor
+of <span class="math inline">\(2\)</span> and an odd denominator is
+unchanged, so after finitely many steps the denominator is an odd
+integer <span class="math inline">\(d\)</span>; Euler’s congruence then
+gives <span class="math inline">\(d\mid2^{\ph(d)}-1\)</span>, and the
+multiplicative order of <span class="math inline">\(2\)</span> modulo
+<span class="math inline">\(d\)</span> is the least such exponent. These
+are the , its and , the , the , and the . The hypothesis that <span
+class="math inline">\(d\)</span> is odd cannot be dropped: if <span
+class="math inline">\(T_N=1/2\)</span> then <span
+class="math inline">\(2^{h}-1\)</span> is odd for every <span
+class="math inline">\(h\ge1\)</span>, so no shift at <span
+class="math inline">\(N\)</span> is integral.</p>
+<div class="proof">
+<p><em>Proof.</em> For <span class="upright">(i)</span><span
+class="math inline">\(\Rightarrow\)</span><span
+class="upright">(iii)</span>, the block identity identifies the whole
+orbit with the cast of the rational recurrence starting at <span
+class="math inline">\(T_0\)</span>; apply <span
+class="math inline">\(\eqref{long251:eq:den-law}\)</span> at an index
+where the denominator has become odd, and propagate forward. The
+implication <span class="upright">(iii)</span><span
+class="math inline">\(\Rightarrow\)</span><span
+class="upright">(ii)</span> is immediate. For <span
+class="upright">(ii)</span><span
+class="math inline">\(\Rightarrow\)</span><span
+class="upright">(i)</span>, the block identity gives <span
+class="math inline">\(\sigma_h(N)=(2^h-1)T_N-B_{h,N}\)</span> with <span
+class="math inline">\(B_{h,N}\)</span> and <span
+class="math inline">\(\sigma_h(N)\)</span> integers and <span
+class="math inline">\(2^h-1\ne0\)</span>, so <span
+class="math inline">\(T_N\)</span> is rational, and <span
+class="math inline">\(T_N=2^NT_0-B_{N,0}\)</span> then makes <span
+class="math inline">\(T_0\)</span> rational. Negating the three
+conditions gives the two irrationality formulations. ◻</p>
+</div>
+<p>The exact real classifiers are , , , and .</p>
+<section id="the-actual-prime-gap-orbit." class="level5">
+<h5>The actual prime-gap orbit.</h5>
+<p>Put <span
+class="math display">\[T_N=\sum_{j\ge1}\frac{g_{N+j}}{2^{\,j}},\]</span>
+which converges by Theorem <span
+class="math inline">\(\ref{long251:res:infinite}\)</span>. The scaled
+tail equals its shifted-gap series, the , and satisfies <span
+class="math inline">\(T_{N+1}=2T_N-g_{N+1}\)</span> with no rationality
+hypothesis, the . Since <span
+class="math inline">\(T_0=2S-1=2.349287932\ldots\)</span>, the numbers
+<span class="math inline">\(\Pi\)</span>, <span
+class="math inline">\(S\)</span> and <span
+class="math inline">\(T_0\)</span> have the same rationality status, and
+Theorem <span
+class="math inline">\(\ref{long251:res:escape-irrational}\)</span>
+specialises to the actual series: irrationality of <span
+class="math inline">\(\Pi\)</span> is equivalent to cofinal
+nonintegrality of the positive shifts of <span
+class="math inline">\(T\)</span>, the . Nothing about the bridge from
+the series to its actual tail is left open; the open content is the
+escape hypothesis itself.</p>
+</section>
+<section id="long251:sec:freepair" class="level3">
+<h3>The free-pair criterion and the lcm diagonal</h3>
+<p>The escape condition quantifies over a fixed shift length. Freeing
+the offset gives an equivalent condition with a weaker-looking
+producer.</p>
+<div class="proof">
+<p><em>Proof.</em> If <span class="math inline">\(S\)</span> is
+irrational, take <span class="math inline">\(M=N+t\)</span> for the
+<span class="math inline">\(N\)</span> supplied by Theorem <span
+class="math inline">\(\ref{long251:res:escape-irrational}\)</span> at
+shift length <span class="math inline">\(t\)</span>. Conversely, suppose
+<span class="math inline">\(S\)</span> is rational. By <span
+class="math inline">\(\eqref{long251:eq:den-law}\)</span> the orbit
+reaches an index <span class="math inline">\(N_0\)</span> beyond which
+the reduced denominator is a fixed odd <span
+class="math inline">\(d\)</span>; let <span
+class="math inline">\(t\)</span> be the multiplicative order of <span
+class="math inline">\(2\)</span> modulo <span
+class="math inline">\(d\)</span>. For <span class="math inline">\(N,M\ge
+N_0\)</span> with <span class="math inline">\(M\equiv N\)</span> modulo
+<span class="math inline">\(t\)</span>, the difference <span
+class="math inline">\(T_M-T_N\)</span> is then an integer, contradicting
+the stated property at this <span class="math inline">\(t\)</span> and
+this cutoff. ◻</p>
+</div>
+<p>The offset <span class="math inline">\(M-N\)</span> is free, so one
+nonintegral congruent pair for each modulus and each cutoff suffices in
+place of a supply at a single fixed offset. The mechanism is exact:
+beyond a rational state with odd reduced denominator <span
+class="math inline">\(d\)</span>, the difference <span
+class="math inline">\(T_M-T_N\)</span> is integral precisely when <span
+class="math inline">\(M\equiv N\)</span> modulo the order of <span
+class="math inline">\(2\)</span> in <span
+class="math inline">\(\Z/d\Z\)</span>, the , so every rational orbit has
+a cutoff and a modulus at which integrality holds exactly on the
+congruence classes, the . The criterion for the actual series is checked
+as the , over the . No antecedent for this packaging has been located;
+the nearest located neighbour is Schlage-Puchta’s Theorem 2 <span
+class="citation" data-cites="schlagepuchta2011"></span>, which treats
+periodic base-<span class="math inline">\(b\)</span> digit expansions
+and is a different object, and the sweep of the dyadic tail-recurrence
+and Bézivin-style functional-equation literature has not been run.</p>
+<p>The criterion rules out two shortcuts. Rationality makes the tail a
+finite-state object at every scale, so pairs with <span
+class="math inline">\(T_M=T_N\)</span> are abundant for free and the
+whole difficulty sits in nonintegrality of the difference. And under the
+free-pair lattice the difference is an integer whenever the modulus
+divides the offset, and an integer cannot lie in <span
+class="math inline">\((\tfrac12,1)\)</span>, so the window component of
+the reduced event below is already a contradiction on its own. Both
+derivations are ordinary proofs, recorded in the long record and not
+formalised.</p>
+<p>A second exact reformulation collapses all shift lengths and
+basepoints onto a single schedule. Let <span
+class="math inline">\(L_0=1\)</span> and <span
+class="math inline">\(L_j=\lcm(1,\ldots,j)\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> Theorem <span
+class="math inline">\(\ref{long251:res:escape-irrational}\)</span> gives
+the forward implication. Conversely, if <span
+class="math inline">\(T_0\)</span> is rational then some positive shift
+length <span class="math inline">\(h\)</span> is integral at every
+basepoint beyond an index <span class="math inline">\(N_0\)</span>.
+Choose <span class="math inline">\(j\)</span> so large that <span
+class="math inline">\(N_0\le L_j\)</span> and <span
+class="math inline">\(h\mid L_j\)</span>. The cocycle identity <span
+class="math inline">\(\sigma_{a+b}(N)=\sigma_a(N)+\sigma_b(N+a)\)</span>
+shows by induction that every positive multiple of <span
+class="math inline">\(h\)</span> is integral at every such basepoint, so
+<span class="math inline">\(T_{2L_j}-T_{L_j}\)</span> is an
+integer. ◻</p>
+</div>
+<p>The factorial schedule has the same divisibility property; the lcm
+schedule is pointwise no larger and is the endpoint used here.
+Theorems <span class="math inline">\(\ref{long251:res:freepair}\)</span>
+and <span class="math inline">\(\ref{long251:res:lcmdiagonal}\)</span>
+are exact reformulations on the class of integer-digit orbits. They
+change the shape of the required producer and they supply no
+nonintegrality statement for the actual prime gaps.</p>
+</section>
+</section>
+<section id="long251:sec:local-certificate" class="level2">
+<h2>A local certificate, and one actual pair</h2>
+<p>The classifiers reduce irrationality to a condition of infinite
+precision imposed on a complete tail. Inside <span
+class="math inline">\((-1,1)\)</span> integrality is equality with zero,
+so on that range the shift step identity <span
+class="math inline">\(\eqref{long251:eq:shift-step}\)</span> turns
+simultaneous integrality of two adjacent shifts into a single comparison
+of digits. What this buys is a certificate attached to one pair of
+adjacent indices, whose verification already contradicts integrality
+there. The distance of a shift from the integers never has to be
+estimated.</p>
+<div class="proof">
+<p><em>Proof.</em> An integer strictly between <span
+class="math inline">\(-1\)</span> and <span
+class="math inline">\(1\)</span> is zero. If both shifts were integers,
+both would vanish, and <span
+class="math inline">\(\eqref{long251:eq:shift-step}\)</span> would give
+<span class="math inline">\(g_{N+h+1}=g_{N+1}\)</span>. The cofinal
+statement chooses one such adjacent pair after the alleged onset of
+integrality. ◻</p>
+</div>
+<p>The rational finite contradiction is the with its ; the real form is
+the , and the implication to irrationality of the actual series is the .
+The third hypothesis alone is available for the actual gaps: it reads
+<span class="math inline">\(g_4=2\ne4=g_3\)</span> at <span
+class="math inline">\(h=1\)</span>, <span
+class="math inline">\(N=2\)</span>, and by Proposition <span
+class="math inline">\(\ref{long251:res:gap-nonperiodic}\)</span> it
+holds for arbitrarily large <span class="math inline">\(N\)</span> at
+every fixed <span class="math inline">\(h\)</span>. What is missing is
+the pair of inequalities, each of which constrains a complete infinite
+tail.</p>
+<div class="proof">
+<p><em>Proof.</em> For <span class="math inline">\(m\ge2\)</span> the
+integers <span class="math inline">\((m+1)!+2,\ldots,(m+1)!+m+1\)</span>
+are composite, so the gaps are unbounded. An eventually periodic
+sequence of natural numbers has finite range after its preperiod and a
+bounded initial segment, hence is bounded. ◻</p>
+</div>
+<p>Lean checks the factorial argument as and the conclusion as . Far
+stronger lower bounds for large gaps are known <span class="citation"
+data-cites="fgkmt2018"><a href="#ref-6">[6]</a></span>; unboundedness is all that is needed.</p>
+<p>The conjunction in Theorem <span
+class="math inline">\(\ref{long251:res:smallpair}\)</span> has an exact
+normal form. For fixed <span class="math inline">\(h\)</span> write
+<span class="math inline">\(D_N=\sigma_h(N)\)</span> and <span
+class="math inline">\(\delta_N=g_{N+h+1}-g_{N+1}\)</span>, so that <span
+class="math inline">\(D_{N+1}=2D_N-\delta_N\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> The recurrence and the two unit windows give <span
+class="math inline">\(-3&lt;\delta_N&lt;3\)</span>. A nonzero even
+integer in that interval is <span class="math inline">\(2\)</span> or
+<span class="math inline">\(-2\)</span>. Substitution into <span
+class="math inline">\(D_{N+1}=2D_N-\delta_N\)</span> gives the stated
+half-window and, in the reverse direction, recovers the second unit
+window. ◻</p>
+</div>
+<p>For the actual gaps and <span class="math inline">\(N\ge1\)</span>
+every <span class="math inline">\(\delta_N\)</span> is even, so
+Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span> applies
+throughout the range where the local certificate is sought. The same
+computation for a real orbit is one line and is used in Theorem <span
+class="math inline">\(\ref{long251:res:sparse}\)</span> below.</p>
+<section id="an-explicit-remainder-and-a-certified-actual-pair"
+class="level3">
+<h3>An explicit remainder and a certified actual pair</h3>
+<p>Both window conditions involve complete infinite tails. A dominated
+truncation reduces each of them to a finite integer comparison.</p>
+<div class="proof">
+<p><em>Proof.</em> The checked bound <span
+class="math inline">\(p_n\le1250(n+1)^4\)</span> gives <span
+class="math inline">\(0\le g_m\le p_{m+1}\le1250(m+2)^4\)</span>, so the
+omitted absolute tail is at most <span
+class="math display">\[1250\sum_{j&gt;L}\frac{(N+h+j+2)^4+(N+j+2)^4}{2^{\,j}}
+.\]</span> The polynomial identity <span
+class="math inline">\(2P(x)=(x+1)^4+P(x+1)\)</span> telescopes to <span
+class="math inline">\(\sum_{k=1}^{J}(m+k)^42^{-k}=P(m)-P(m+J)2^{-J}\)</span>,
+whose last term tends to zero. Apply it with <span
+class="math inline">\(m=N+h+L+2\)</span> and <span
+class="math inline">\(m=N+L+2\)</span> after writing <span
+class="math inline">\(j=L+k\)</span>. The two tests follow from the
+triangle inequality and the definition of distance to <span
+class="math inline">\(\Z\)</span>. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Take <span class="math inline">\(L=40\)</span> and
+<span class="math inline">\(Q=2^{40}=1099511627776\)</span>. Exact
+integer arithmetic over the first <span
+class="math inline">\(46\)</span> primes gives <span
+class="math display">\[\begin{array}{c|r|r}
+N&amp;Q\,F_{1,N,40}&amp;Q\,E_{1,N,40}\\\hline
+2&amp;-662838684750&amp;11764181250\\
+3&amp; 873345886050&amp;12805761250
+\end{array}\]</span> In each row <span
+class="math inline">\(|QF|+QE&lt;Q\)</span>, which puts the whole
+certified interval inside <span class="math inline">\((-1,1)\)</span>,
+and <span class="math inline">\(QE\)</span> is smaller than the distance
+from <span class="math inline">\(QF\)</span> to the nearest multiple of
+<span class="math inline">\(Q\)</span>, which excludes every integer.
+The margins are <span class="math inline">\(424908761776\)</span> and
+<span class="math inline">\(213359980476\)</span> respectively. These
+are strict integer comparisons rather than inferences from rounded
+numerical tails. Appendix <span
+class="math inline">\(\ref{long251:app:certificates}\)</span> replays
+them. ◻</p>
+</div>
+<p>This witness proves the local condition at one pair of indices. The
+quantifiers over every <span class="math inline">\(h\)</span> and every
+cutoff remain.</p>
+</section>
+</section>
+<section id="long251:sec:denominator-floor" class="level2">
+<h2>Two denominator floors</h2>
+<p>The same polynomial bound yields an exact rational enclosure of <span
+class="math inline">\(\Pi\)</span>, and any such enclosure excludes an
+initial range of denominators.</p>
+<div class="proof">
+<p><em>Proof.</em> Put <span class="math inline">\(c=1229\)</span>, the
+number of primes below <span class="math inline">\(10^4\)</span>, and
+<span class="math inline">\(A=\sum_{i=0}^{c-1}p_i2^{\,c-i-1}\)</span>,
+so that <span class="math inline">\(A/2^{c}\)</span> is the <span
+class="math inline">\(c\)</span>th partial sum of <span
+class="math inline">\(\Pi\)</span>. All terms are positive, so <span
+class="math inline">\(A/2^{c}\le\Pi\)</span>. For the upper bound, <span
+class="math inline">\(p_{c+j}\le1250(c+j+1)^4\)</span> and <span
+class="math inline">\((c+1+j)^4\le(c+1)^4(3/2)^{j}\)</span> for <span
+class="math inline">\(j\ge0\)</span>, valid because <span
+class="math inline">\(c\ge9\)</span>; summing the resulting geometric
+tail with ratio <span class="math inline">\(3/4\)</span> gives <span
+class="math display">\[\frac{A}{2^{c}}\;\le\;\Pi\;\le\;\frac{2A+5000(c+1)^4}{2^{\,c+1}}
+.\]</span> The four positive integers <span
+class="math inline">\(u,v,u&#39;,v&#39;\)</span> printed in
+Appendix <span
+class="math inline">\(\ref{long251:app:certificates}\)</span> satisfy
+<span class="math display">\[u&#39;v-uv&#39;=1,\qquad
+\frac uv&lt;\frac{A}{2^{c}},\qquad
+\frac{2A+5000(c+1)^4}{2^{\,c+1}}&lt;\frac{u&#39;}{v&#39;},\qquad
+v+v&#39;\ge2^{589},\]</span> all four being integer comparisons after
+clearing the positive denominators. If <span
+class="math inline">\(\Pi=a/b\)</span> then <span
+class="math inline">\(av-bu\ge1\)</span> and <span
+class="math inline">\(bu&#39;-av&#39;\ge1\)</span>, and the determinant
+identity gives <span
+class="math display">\[b=b(u&#39;v-uv&#39;)=(av-bu)v&#39;+(bu&#39;-av&#39;)v\ge
+v+v&#39; \ge 2^{589}.\]</span> Since <span
+class="math inline">\(589\log_{10}2&gt;177\)</span>, the floor exceeds
+<span class="math inline">\(10^{177}\)</span>. If <span
+class="math inline">\(S=a/b\)</span>, apply the same argument to <span
+class="math inline">\(\Pi=(a+2b)/b\)</span>. ◻</p>
+</div>
+<p>The Lean kernel decides the four inequalities on the same literals by
+<code>decide +kernel</code> with no <code>native_decide</code>, over a
+trial-division sieve it re-runs on <span
+class="math inline">\([2,10^4)\)</span>: the , the , and the . Its
+analytic input is the same enclosure, over the polynomial bound at . The
+four Farey literals have <span class="math inline">\(175\)</span> to
+<span class="math inline">\(181\)</span> digits.</p>
+<p><em>Evidence.</em> This is an exact finite computation and no Lean
+declaration carries it. The continued-fraction expansion of <span
+class="math inline">\(\Pi\)</span> is developed to <span
+class="math inline">\(23369\)</span> partial quotients at a working
+scale of <span class="math inline">\(80000\)</span> bits. Each quotient
+is forced by a rational bracket of width <span
+class="math inline">\(1\)</span> in those scaled integer units around
+the true value, and the separation <span
+class="math inline">\(|q_n\Pi-p_n|&gt;0\)</span> is verified against
+that bracket, so the prefix is the true prefix. No floating-point
+reconstruction enters it. The bracket uses the Lean-checked tail
+estimate <span class="math inline">\(p_n\le1250(n+1)^4\)</span>, so no
+conjecture enters. The classical theorem that a best approximation of
+the second kind is a convergent then converts the certified prefix into
+the denominator bound <span class="citation"
+data-cites="khinchin1964"><a href="#ref-7">[7]</a></span>. The receipt is
+<code>state/formal_math/probes/erdos251_certified_cf_receipt.json</code>,
+which records the generating program and its digest, the power-of-two
+exponent <span class="math inline">\(39997\)</span>, the bit length
+<span class="math inline">\(39998\)</span>, the strict decimal power
+<span class="math inline">\(12040\)</span>, the decimal digit count
+<span class="math inline">\(12041\)</span>, the largest partial quotient
+<span class="math inline">\(973919\)</span> at index <span
+class="math inline">\(16442\)</span>, and an arithmetic self-check of
+the same routine against the known expansions of <span
+class="math inline">\(e\)</span> and <span
+class="math inline">\(\pi\)</span>. The certified statement is <span
+class="math inline">\(q\ge2^{39997}\)</span> and <span
+class="math inline">\(q&gt;10^{12040}\)</span>. Printing the bit length
+or the digit count as an exponent overstates the bound by one power of
+two and one decimal order.</p>
+<p>Each floor is finite, and extending either one raises the excluded
+range and reproduces the same statement form. Neither decides the
+problem.</p>
+</section>
+<section id="long251:sec:obstructions" class="level2">
+<h2>What cannot supply the missing input</h2>
+<p>This section proves four boundaries. Each says that a named class of
+hypotheses about the prime gaps is compatible with a rational dyadic
+value, or that a named event is too sparse for a named method.</p>
+<section id="bounded-residue-preserving-perturbations" class="level3">
+<h3>Bounded residue-preserving perturbations</h3>
+<div class="proof">
+<p><em>Proof.</em> Write <span
+class="math inline">\(A=\sum_{n\ge0}a_n2^{-(n+1)}\)</span> and choose a
+rational <span
+class="math inline">\(r\in\bigl(A,A+M2^{-K}\bigr)\)</span>. A binary
+expansion of <span class="math inline">\((r-A)/M\)</span> has the form
+<span class="math inline">\(\sum_{n\ge
+K}\varepsilon_n2^{-(n+1)}\)</span> with <span
+class="math inline">\(\varepsilon_n\in\{0,1\}\)</span>; set <span
+class="math inline">\(\varepsilon_n=0\)</span> for <span
+class="math inline">\(n&lt;K\)</span>. The perturbed series converges
+and equals <span class="math inline">\(r\)</span>. ◻</p>
+</div>
+<p>The and its are kernel checked: a property shared by every admissible
+perturbation cannot by itself force irrationality. The construction is
+also checked at the actual consecutive prime gaps for every <span
+class="math inline">\(M\ge1\)</span> and every <span
+class="math inline">\(K\)</span>, the , with the perturbed gap lying in
+<span class="math inline">\([g_n,g_n+M]\)</span> and congruent to <span
+class="math inline">\(g_n\)</span> modulo <span
+class="math inline">\(M\)</span>, the . Consequently no theorem about
+the size or the residue of prime gaps that survives such a perturbation
+can suffice for Problem #251; that class includes the bounded-gap and
+large-gap theorems cited in Section <span
+class="math inline">\(\ref{long251:sec:open}\)</span> and
+equidistribution of <span class="math inline">\(p_n\)</span> modulo any
+fixed <span class="math inline">\(q\)</span>, on taking <span
+class="math inline">\(M=2q\)</span>. The perturbed digits need not
+remain prime gaps.</p>
+</section>
+<section
+id="algebraic-nonconcentration-survives-the-rationalising-perturbation"
+class="level3">
+<h3>Algebraic nonconcentration survives the rationalising
+perturbation</h3>
+<p>The obvious reply to Theorem <span
+class="math inline">\(\ref{long251:res:boundedperturbation}\)</span> is
+to demand a finer property of the actual gaps than size and residue. A
+relevant such property is Schlage-Puchta’s Lemma 4: for every polynomial
+<span class="math inline">\(F\in\Z[x_0,\ldots,x_k]\)</span> which does
+not vanish identically, <span
+class="math inline">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> for almost all
+<span class="math inline">\(n\)</span> <span class="citation"
+data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>. Say that an integer sequence
+<span class="math inline">\(a\)</span> has <em>fixed-block
+nonconcentration</em> when it satisfies that conclusion for every <span
+class="math inline">\(k\ge0\)</span> and every nonzero <span
+class="math inline">\(F\in\Z[x_0,\ldots,x_k]\)</span>. The property
+transfers across bounded perturbations with no independence or
+randomness assumption.</p>
+<div class="proof">
+<p><em>Proof.</em> Windows of total span at most <span
+class="math inline">\(H\)</span> inject into these four-prime
+configurations; the sum of all length-<span
+class="math inline">\((h+1)\)</span> spans is at most <span
+class="math inline">\((h+1)p_{N+h+1}\)</span>, which bounds the number
+of larger spans. ◻</p>
+</div>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/d058b9150218ae23d2cfd975580088d6167e9da8/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152">finite
+shifted-count bound</a> is unconditional. To deduce zero density one
+still needs, for every <span
+class="math inline">\(\varepsilon&gt;0\)</span> and all large <span
+class="math inline">\(N\)</span>, a choice of <span
+class="math inline">\(H\)</span> making the right side less than <span
+class="math inline">\(\varepsilon N(H+1)\)</span>. The adjacent case
+<span class="math inline">\(h=1\)</span> instead requires the
+corresponding three-prime estimate, because two of the four positions
+would coincide. The all-shift implication records these analytic
+premises explicitly; it supplies neither estimate and does not prove
+irrationality.</p>
+<div class="proof">
+<p><em>Proof.</em> Fix <span class="math inline">\(k\ge0\)</span> and a
+nonzero <span class="math inline">\(F\in\Z[x_0,\ldots,x_k]\)</span>. For
+a tuple <span class="math inline">\(\mathbf
+e=(e^{(0)},\ldots,e^{(k)})\in E^{k+1}\)</span> put <span
+class="math inline">\(F_{\mathbf
+e}(x_0,\ldots,x_k)=F(x_0+e^{(0)},\ldots,x_k+e^{(k)})\)</span>. The
+substitution <span class="math inline">\(x_i\mapsto x_i+e^{(i)}\)</span>
+is a ring automorphism of <span
+class="math inline">\(\Z[x_0,\ldots,x_k]\)</span> with inverse <span
+class="math inline">\(x_i\mapsto x_i-e^{(i)}\)</span>, so <span
+class="math inline">\(F_{\mathbf e}\ne0\)</span>. If <span
+class="math inline">\(F(b_n,\ldots,b_{n+k})=0\)</span> then <span
+class="math inline">\(F_{\mathbf e}(a_n,\ldots,a_{n+k})=0\)</span> for
+the tuple <span class="math inline">\(\mathbf
+e=(e_n,\ldots,e_{n+k})\)</span>, whence <span
+class="math display">\[\{\,n:F(b_n,\ldots,b_{n+k})=0\,\}
+\;\subseteq\!\!
+\bigcup_{\mathbf e\in E^{k+1}}\!\!
+\{\,n:F_{\mathbf e}(a_n,\ldots,a_{n+k})=0\,\}.\]</span> Each set on the
+right has density zero by hypothesis, and the union is over the finite
+index set <span class="math inline">\(E^{k+1}\)</span>, so a finite
+union of density-zero sets has density zero. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Everything except nonconcentration is Theorem <span
+class="math inline">\(\ref{long251:res:boundedperturbation}\)</span>
+together with <span
+class="math inline">\(\sum_{i&lt;n}g_i=p_n-2\)</span>. The perturbation
+takes values in the fixed two-element set <span
+class="math inline">\(E=\{0,M\}\)</span>, so Theorem <span
+class="math inline">\(\ref{long251:res:nonconcentration}\)</span>
+applies to the actual gaps, which have fixed-block nonconcentration by
+Schlage-Puchta’s Lemma 4. ◻</p>
+</div>
+<p>Fixed-block polynomial nonconcentration, taken together with a
+prescribed finite prefix of actual gaps, a pointwise bound <span
+class="math inline">\(b_n\le g_n+M\)</span>, every residue modulo <span
+class="math inline">\(M\)</span>, positivity and cumulative growth at
+the prime-number-theorem scale, is therefore compatible with a rational
+dyadic value. Taking <span class="math inline">\(M\)</span> even also
+preserves eventual evenness. To preserve a prescribed modulus <span
+class="math inline">\(q\)</span> together with parity, take <span
+class="math inline">\(M=2q\)</span>, with the corresponding pointwise
+bound <span class="math inline">\(b_n\le g_n+2q\)</span>. The boundary
+is exact: the terms <span class="math inline">\(P_n\)</span> are not
+asserted to be prime, and the conclusion says nothing about constraints
+with a block length or a polynomial family growing with the index.</p>
+</section>
+<section id="the-producer-is-an-event-of-density-zero" class="level3">
+<h3>The producer is an event of density zero</h3>
+<p>The same lemma bounds the event that the local certificate
+consumes.</p>
+<div class="proof">
+<p><em>Proof.</em> For <span class="math inline">\(N\ge1\)</span> every
+gap involved is even, so <span
+class="math inline">\(\delta_N=g_{N+h+1}-g_{N+1}\)</span> is even. If
+<span class="math inline">\(|\sigma_h(N)|&lt;1\)</span>, <span
+class="math inline">\(|\sigma_h(N+1)|&lt;1\)</span> and <span
+class="math inline">\(\delta_N\ne0\)</span>, then <span
+class="math inline">\(\delta_N=2\sigma_h(N)-\sigma_h(N+1)\)</span> lies
+in <span class="math inline">\((-3,3)\)</span>, so <span
+class="math inline">\(\delta_N=\pm2\)</span>. Apply Schlage-Puchta’s
+Lemma 4 at index <span class="math inline">\(n=N+1\)</span> with <span
+class="math inline">\(k=h\)</span> to the two polynomials <span
+class="math inline">\(F_\pm(x_0,\ldots,x_h)=x_h-x_0\mp2\)</span>,
+neither of which vanishes identically: each of <span
+class="math inline">\(\{N:\delta_N=2\}\)</span> and <span
+class="math inline">\(\{N:\delta_N=-2\}\)</span> has density zero, and
+the event is contained in their union. The second assertion is the same
+lemma applied to <span
+class="math inline">\(F(x_0,\ldots,x_h)=x_h-x_0\)</span>. ◻</p>
+</div>
+<p>The two halves point in opposite directions and both are useful. The
+mismatch hypothesis on its own holds for almost all <span
+class="math inline">\(N\)</span>, which is strictly stronger than the
+cofinal statement Proposition <span
+class="math inline">\(\ref{long251:res:gap-nonperiodic}\)</span>
+supplies. The full conjunction is confined to a set of density zero,
+because the two window conditions force the mismatch to be exactly <span
+class="math inline">\(\pm2\)</span>. A producer for Problem <span
+class="math inline">\(\ref{long251:prob:smallpair}\)</span> therefore
+has to be a cofinality statement about a sparse set. Consequently, this
+event cannot be supplied on a set of positive lower density. A
+sufficient producer would have to yield cofinally many witnesses in a
+density-zero set; density zero alone does not exclude an averaging
+argument capable of detecting such sparse witnesses. The measurement
+reported in Section <span
+class="math inline">\(\ref{long251:sec:measurements}\)</span> is
+consistent with this: the observed density at <span
+class="math inline">\(h=1\)</span> declines like <span
+class="math inline">\(1/\log p\)</span>, and the observed count up to
+<span class="math inline">\(X\)</span> grows like <span
+class="math inline">\(X/(\log X)^2\)</span>.</p>
+</section>
+<section id="recurring-gap-values-differing-by-two-do-not-suffice"
+class="level3">
+<h3>Recurring gap values differing by two do not suffice</h3>
+<p>Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span> reduces
+the producer to a <span class="math inline">\(\pm2\)</span> mismatch
+together with a half-window condition. It is tempting to hope that the
+mismatch half is the substance, and that two even values differing by
+<span class="math inline">\(2\)</span>, each occurring infinitely often
+as a consecutive prime gap inside a common index residue class, would
+suffice. At the level of integer-digit recurrences that implication is
+false, and it stays false under growth at the scale the primes actually
+have.</p>
+<div class="proof">
+<p><em>Proof.</em> Let logarithms be natural and put <span
+class="math inline">\(b_n=2\lceil\tfrac12\log(n+64)\rceil\)</span>, so
+that <span class="math inline">\(b_n\)</span> is even, <span
+class="math inline">\(b_n\ge6\)</span>, and <span
+class="math inline">\(b_n=\log(n+64)+O(1)\)</span>. Since <span
+class="math inline">\(\tfrac12\log(n+65)-\tfrac12\log(n+63)&lt;1\)</span>
+for every <span class="math inline">\(n\ge1\)</span>, consecutive
+increments of <span class="math inline">\(b\)</span> lie in <span
+class="math inline">\(\{0,2\}\)</span> and <span
+class="math inline">\(b_{n+1}-b_{n-1}\le2\)</span>. Call an index <span
+class="math inline">\(n\)</span> <em>special</em> when <span
+class="math inline">\(n=k!\)</span> or <span
+class="math inline">\(n=2\,k!\)</span> for some <span
+class="math inline">\(k\ge5\)</span>, and define <span
+class="math display">\[U_n=\begin{cases}
+  2b_{n-1}-2,&amp; n=k!,\ k\ge5,\\
+  2b_{n-1}-4,&amp; n=2\,k!,\ k\ge5,\\
+  b_n,&amp;\text{otherwise},
+\end{cases}
+\qquad a_n=2U_{n-1}-U_n\quad(n\ge1).\]</span> The special indices are
+distinct and never adjacent, since <span
+class="math inline">\(k!\)</span> and <span
+class="math inline">\(2\,k!\)</span> are even and differ by more than
+one from each other and from the neighbouring special indices. Each
+<span class="math inline">\(U_n\)</span> is an even integer by
+construction, so each <span class="math inline">\(a_n\)</span> is an
+even integer.</p>
+<p>At an ordinary index whose predecessor is also ordinary, <span
+class="math inline">\(a_n=2b_{n-1}-b_n=b_{n-1}-(b_n-b_{n-1})\ge6-2=4\)</span>.
+At a special index the predecessor is ordinary and <span
+class="math inline">\(a_n=2b_{n-1}-(2b_{n-1}-r)=r\)</span>, which is
+<span class="math inline">\(2\)</span> at <span
+class="math inline">\(n=k!\)</span> and <span
+class="math inline">\(4\)</span> at <span
+class="math inline">\(n=2\,k!\)</span>. Immediately after a special
+index carrying <span class="math inline">\(r\)</span>, <span
+class="math display">\[a_{n+1}=2(2b_{n-1}-r)-b_{n+1}\ge4b_{n-1}-2r-(b_{n-1}+2)
+=3b_{n-1}-2r-2\ge8 .\]</span> Every <span
+class="math inline">\(a_n\)</span> is therefore a positive even integer,
+and <span class="math inline">\(U_n=O(\log n)\)</span> gives <span
+class="math inline">\(a_n=O(\log n)\)</span>. At ordinary indices with
+ordinary predecessors <span class="math inline">\(a_n\ge
+b_{n-1}-2\to\infty\)</span>, so <span
+class="math inline">\((a_n)\)</span> is unbounded and hence not
+eventually periodic.</p>
+<p>The definition <span class="math inline">\(a_n=2U_{n-1}-U_n\)</span>
+is exactly <span
+class="math inline">\(a_n2^{-n}=U_{n-1}2^{-(n-1)}-U_n2^{-n}\)</span>, so
+for every <span class="math inline">\(N\ge0\)</span> and <span
+class="math inline">\(m\ge1\)</span> <span
+class="math display">\[\sum_{j=1}^{m}\frac{a_{N+j}}{2^{\,j}}=U_N-\frac{U_{N+m}}{2^{\,m}}
+.\]</span> Since <span class="math inline">\(U_n=O(\log n)\)</span> the
+endpoint tends to zero, so the tail at <span
+class="math inline">\(N\)</span> equals the integer <span
+class="math inline">\(U_N\)</span>; at <span
+class="math inline">\(N=0\)</span> the series equals <span
+class="math inline">\(U_0=b_0=6\)</span>. Every difference <span
+class="math inline">\(U_{N+h}-U_N\)</span> is an integer, so every tail
+shift is integral.</p>
+<p>For each <span class="math inline">\(t\)</span> and every
+sufficiently large <span class="math inline">\(k\)</span> we have <span
+class="math inline">\(t\mid k!\)</span>, hence <span
+class="math inline">\(t\mid2\,k!\)</span>, and <span
+class="math inline">\(a_{k!}=2\)</span> while <span
+class="math inline">\(a_{2k!}=4\)</span>: both values recur infinitely
+often at indices congruent to <span class="math inline">\(0\)</span>
+modulo <span class="math inline">\(t\)</span>.</p>
+<p>Finally, summing <span
+class="math inline">\(a_j=2U_{j-1}-U_j\)</span> gives <span
+class="math inline">\(\sum_{j=1}^{n}a_j=2U_0+\sum_{j=1}^{n-1}U_j-U_n\)</span>.
+The baseline <span class="math inline">\(\sum_{j&lt;n}b_j=n\log
+n+O(n)\)</span>. The special indices up to <span
+class="math inline">\(n\)</span> number <span
+class="math inline">\(O(\log n/\log\log n)\)</span> and each changes the
+summand by <span class="math inline">\(O(\log n)\)</span>, so their
+total contribution is <span class="math inline">\(O((\log
+n)^2)=o(n)\)</span>. Hence <span class="math inline">\(P_n=3+\sum_{j\le
+n}a_j\sim n\log n\)</span>, and <span class="math inline">\(P_n\)</span>
+is odd and increasing. ◻</p>
+</div>
+<p>The factorial schedule above proves recurrence in the zero residue
+class. The following separate construction strengthens this to every
+residue class.</p>
+</section>
+<section id="long251:res:all-residue-log-countermodel" class="level3">
+<h3>A complete countermodel in every residue class</h3>
+<p>There is a synthetic integer sequence <span
+class="math inline">\((a_n)_{n\ge1}\)</span> with all of the following
+properties. Each <span class="math inline">\(a_n\)</span> is positive
+and divisible by <span class="math inline">\(2\)</span>, and <span
+class="math display">\[a_n\le 4\log(n+1)+24.\]</span> For every <span
+class="math inline">\(t\ge1\)</span>, every <span
+class="math inline">\(0\le r&lt;t\)</span>, and every cutoff <span
+class="math inline">\(N\)</span>, there are <span
+class="math inline">\(i,j\ge N\)</span> such that <span
+class="math display">\[i\equiv j\equiv r\pmod t,\qquad a_i=2,\quad
+a_j=4.\]</span> For every integer <span class="math inline">\(B\)</span>
+and cutoff <span class="math inline">\(N\)</span>, some <span
+class="math inline">\(n\ge N\)</span> satisfies <span
+class="math inline">\(a_n&gt;B\)</span>. For every <span
+class="math inline">\(h\ge1\)</span> there is no cutoff after which
+<span class="math inline">\(a_{n+h}=a_n\)</span> for all <span
+class="math inline">\(n\)</span>. Nevertheless, all the complete tails
+<span
+class="math display">\[U_N=\sum_{j\ge1}\frac{a_{N+j}}{2^j}\quad(N\ge0)\]</span>
+are integers, <span class="math inline">\(U_0=6\)</span>, and <span
+class="math inline">\(U_{N+h}-U_N\in\mathbb Z\)</span> for every <span
+class="math inline">\(N,h\ge0\)</span>. The sequence <span
+class="math display">\[P_N=3+\sum_{j=1}^{N}a_j\]</span> is strictly
+increasing and odd, with <span class="math inline">\(P_N/(N\log
+N)\to1\)</span>. These are synthetic positions; no <span
+class="math inline">\(P_N\)</span> is asserted to be prime.</p>
+<p>To obtain every residue class, enumerate triples consisting of a
+positive modulus, a residue, and a repetition index. Choose the
+corresponding centres <span class="math inline">\(c_k\)</span> in the
+prescribed classes with <span class="math inline">\(c_0\ge100\)</span>,
+<span class="math inline">\(c_{k+1}\ge c_k+3\)</span> and <span
+class="math inline">\(c_k\ge2^{k^2}\)</span> for <span
+class="math inline">\(k\ge1\)</span>. The parity of the repetition index
+selects the desired value <span class="math inline">\(v_k=2\)</span> or
+<span class="math inline">\(4\)</span>. Use the even baseline <span
+class="math display">\[b_n=6+2\left\lfloor\frac{\log(n+1)}2\right\rfloor,
+\qquad
+U_n=\begin{cases}2b_{n-1}-v_k,&amp;n=c_k,\\b_n,&amp;n\notin\{c_k:k\ge0\},\end{cases}\]</span>
+and define <span class="math inline">\(a_n=2U_{n-1}-U_n\)</span>. The
+separation of the centres and the baseline increment bound give
+positivity and the displayed logarithmic bound. Finite telescoping
+leaves <span class="math inline">\(U_{N+m}/2^m\)</span>, which tends to
+zero; thus these carries are the complete tails. The sparse changes to
+the baseline have negligible contribution after division by <span
+class="math inline">\(N\log N\)</span>, which gives the stated growth of
+<span class="math inline">\(P_N\)</span>.</p>
+<p>The full statement is <a
+href="https://github.com/wcook04/plectis-erdos/blob/d4fed71423840f70f10edf27b9ad27c22fc4f49a/ErdosProblems/Erdos251/AllResidueLogarithmicR9.lean#L503">kernel-checked
+in Lean</a>.</p>
+<p>This rules out an inference from these coefficient properties alone
+to nonintegral tail shifts. It gives no counterexample to the prime-gap
+problem and does not reproduce the extreme large gaps of the primes.</p>
+<p>The consequence is exact. Positivity, evenness, unboundedness,
+non-eventual periodicity, a pointwise logarithmic bound, cumulative
+growth at the prime-number-theorem scale, and the recurrence of two even
+values differing by <span class="math inline">\(2\)</span> inside every
+index residue class are jointly compatible with an integral tail at
+every index. Any route through that input must use a property of the
+consecutive primes beyond this list. The sequence <span
+class="math inline">\((a_n)\)</span> is synthetic and the <span
+class="math inline">\(P_n\)</span> are not asserted to be prime. The
+pointwise logarithmic bound also precludes the known large-gap
+behaviour, so the theorem does not speak to hypotheses that use extreme
+gaps.</p>
+</section>
+<section id="two-further-boundaries" class="level3">
+<h3>Two further boundaries</h3>
+<div class="proof">
+<p><em>Proof.</em> Direct expansion gives the recurrence, and the finite
+telescope is <span
+class="math inline">\(\sum_{j=1}^{n}c_j2^{-j}=32-2(n+4)^22^{-n}\)</span>,
+whose last term tends to zero. The remaining assertions follow from the
+integer values of <span class="math inline">\(U_n\)</span> and from
+<span class="math inline">\(c_{n+1}-c_n=4n+10\ge10\)</span>. ◻</p>
+</div>
+<p>The series is the one starting at <span
+class="math inline">\(j=1\)</span>, whose initial tail state is <span
+class="math inline">\(U_0=32\)</span>; under the opening convention
+<span class="math inline">\(\sum_{n\ge0}c_n2^{-(n+1)}\)</span> the same
+word has value <span class="math inline">\(18\)</span>, and the two
+ranges must be kept apart. The formal construction checks the , , , ,
+and the , whose summand is <span
+class="math inline">\(c_{n+1}/2^{\,n+1}\)</span>; the rational value is
+recorded at . Positivity, parity, strict growth, unboundedness and
+nonperiodicity are therefore jointly compatible with rationality, and
+the adjacent trigger of Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span> fails at
+every index. The telescoping mechanism is the one Kovač used against the
+variable-denominator conjecture printed under the problem <span
+class="citation" data-cites="kovac2026"></span>; the word carries no
+priority claim and is not a result about Problem #251.</p>
+<p>Rationality also fails to force the coefficients to repeat. Let <span
+class="math inline">\(K:\N\to\Q\)</span> be arbitrary and put <span
+class="math inline">\(\kappa_n=2K_n-K_{n+1}\)</span>: the .</p>
+<div class="proof">
+<p><em>Proof.</em> A routine induction; the added term is <span
+class="math inline">\((2K_n-K_{n+1})2^{-(n+1)}=K_n2^{-n}-K_{n+1}2^{-(n+1)}\)</span>. ◻</p>
+</div>
+<p>Formalised as the . Taking <span
+class="math inline">\(K_0=\tfrac52\)</span> and <span
+class="math inline">\(K_n=2n+2\)</span> for <span
+class="math inline">\(n\ge1\)</span> gives <span
+class="math inline">\(\kappa_0=1\)</span> and <span
+class="math inline">\(\kappa_n=2n\)</span>, so the coefficients <span
+class="math inline">\(1,2,4,6,8,\ldots\)</span> are positive, even after
+the first term, unbounded and not eventually periodic, while their
+dyadic sum is <span class="math inline">\(\tfrac52\)</span>. Rationality
+alone therefore cannot imply eventual periodicity even for a positive,
+parity-correct integer coefficient sequence, and no argument may play
+periodicity of a rational value against Proposition <span
+class="math inline">\(\ref{long251:res:gap-nonperiodic}\)</span>.</p>
+<p>Finally, two escape tests that look like independent producers are
+equivalent to the conclusion they were introduced to supply. For fixed
+<span class="math inline">\(h\)</span> write <span
+class="math inline">\(\delta_N=g_{N+h+1}-g_{N+1}\)</span>, <span
+class="math inline">\(D_N=\sigma_h(N)\)</span> and <span
+class="math inline">\(B_{h,N,r}=\sum_{i=0}^{r-1}2^{\,r-1-i}\delta_{N+i}\)</span>,
+so that <span class="math inline">\(D_{N+r}=2^{r}D_N-B_{h,N,r}\)</span>,
+and call the data-dependent affine condition <span
+class="math inline">\(\mathcal A_{N,r}\)</span> the assertion <span
+class="math inline">\(D_{N+r}\in-B_{h,N,r}+2^{\,r+1}\Z\)</span>.</p>
+<div class="proof">
+<p><em>Proof.</em> Substituting <span
+class="math inline">\(D_{N+r}=2^{r}D_N-B_{h,N,r}\)</span> into <span
+class="math inline">\(\mathcal A_{N,r}\)</span> cancels the observed
+block and leaves <span class="math inline">\(D_N=2z\)</span>. After one
+recurrence step, evenness of <span
+class="math inline">\(\delta_N\)</span> identifies even integrality at
+<span class="math inline">\(N+1\)</span> with ordinary integrality at
+<span class="math inline">\(N\)</span>; the reverse implication chooses
+a nonintegral <span class="math inline">\(D_N\)</span> and depth <span
+class="math inline">\(r=0\)</span>. For the fixed-lattice form, eventual
+integrality and the block identity give <span
+class="math inline">\(B_{h,N,r}-2^{r}z=-D_{N+r}\)</span>, so a strict
+separation exceeding <span class="math inline">\(b(N+r)\)</span> is
+contradictory; conversely a nonintegral <span
+class="math inline">\(D_N\)</span> with reduced denominator <span
+class="math inline">\(q\)</span> has distance at least <span
+class="math inline">\(1/q\)</span> from every integer, and scaling that
+separation by <span class="math inline">\(2^{r}\)</span> at a legal
+depth gives the required strict inequality. ◻</p>
+</div>
+<p>These are the , its , and the . The apparent affine hierarchy
+contains no depth-dependent information, and the fixed lattice removes
+the data dependence at the cost of a growth condition under which
+rational denominator separation already forces every required escape.
+Neither is an independent source of information about consecutive
+primes.</p>
+</section>
+</section>
+<section id="long251:sec:measurements" class="level2">
+<h2>What is measured</h2>
+<p>Two finite computations report on the two producers. Each covers one
+bounded range and supplies no cofinal statement.</p>
+<p>Over the <span class="math inline">\(6\,841\,648\)</span> primes
+below <span class="math inline">\(1.2\times10^{8}\)</span> and offsets
+<span class="math inline">\(h=1,\ldots,16\)</span>, the reduced
+two-window event of Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span> occurs at
+every offset, with density between <span
+class="math inline">\(0.00418\)</span> and <span
+class="math inline">\(0.008248\)</span> and the two signs near balanced;
+at <span class="math inline">\(h=1\)</span> there are <span
+class="math inline">\(56\,427\)</span> occurrences among <span
+class="math inline">\(6\,841\,564\)</span> candidate indices, the last
+at the prime <span class="math inline">\(119\,995\,753\)</span>.
+Rescaled by <span class="math inline">\(\log p\)</span> the band
+densities run from <span class="math inline">\(0.17671\)</span> down to
+<span class="math inline">\(0.13148\)</span> with decelerating drift, so
+the count up to <span class="math inline">\(X\)</span> still grows like
+<span class="math inline">\(X/(\log X)^2\)</span>, which is the rate
+Theorem <span class="math inline">\(\ref{long251:res:sparse}\)</span>
+permits. The tails in this scan are double-precision floating-point, so
+an individual hit is a numerical observation and carries no certificate;
+the median distance from the shift to the nearer window boundary is
+<span class="math inline">\(0.127\)</span> and the worst case over <span
+class="math inline">\(34\,000\)</span> hits is <span
+class="math inline">\(6.1\times10^{-7}\)</span>, eight orders above the
+working resolution, and <span class="math inline">\(3\,200\)</span>
+sampled hits across <span class="math inline">\(h=1,\ldots,8\)</span>
+were rechecked against the literal three-part statement with no
+violations. Proposition <span
+class="math inline">\(\ref{long251:res:finite-smallpair}\)</span> is the
+one pair certified by exact integer arithmetic. The receipt is
+<code>state/formal_math/probes/erdos251_adjacent_mismatch_receipt.json</code>.</p>
+<p>Over the <span class="math inline">\(1\,270\,607\)</span> primes
+below <span class="math inline">\(2\times10^{7}\)</span>, and for every
+modulus <span class="math inline">\(t\le20\)</span> and every residue
+class modulo <span class="math inline">\(t\)</span>, the free-pair event
+of Theorem <span
+class="math inline">\(\ref{long251:res:freepair}\)</span> has witnesses
+running to the last usable index: the leanest class at <span
+class="math inline">\(t=20\)</span> carries <span
+class="math inline">\(90\,150\)</span> witnesses and the latest witness
+sits at index <span class="math inline">\(1\,270\,519\)</span> of <span
+class="math inline">\(1\,270\,540\)</span>. Every recorded witness
+satisfies the stronger two-window event, so it certifies both producers
+at once. What the scan does not supply is uniformity in <span
+class="math inline">\(t\)</span> and in the cutoff. The receipt is
+<code>state/formal_math/erdos257_period_noncollapse/</code>
+<code>erdos251_free_pair_receipt.json</code>.</p>
+</section>
+<section id="long251:sec:open" class="level2">
+<h2>The remaining obligation</h2>
+<p>Problem #251 is open. The exact unresolved condition, equivalent to
+irrationality by Theorem <span
+class="math inline">\(\ref{long251:res:escape-irrational}\)</span> and
+the escape equivalence for the actual tail, is the following.</p>
+<p>Corollary <span
+class="math inline">\(\ref{long251:res:smallpair-real}\)</span> makes
+Problem <span
+class="math inline">\(\ref{long251:prob:smallpair}\)</span> sufficient
+for Problem <span
+class="math inline">\(\ref{long251:prob:escape}\)</span>, and
+Theorem <span class="math inline">\(\ref{long251:res:freepair}\)</span>
+supplies an equivalent target in which the offset is free. The three
+formulations are equivalent or ordered by implication; none of them is
+an analytic saving on its own.</p>
+<p>What the proved obstructions leave. By Theorem <span
+class="math inline">\(\ref{long251:res:boundedperturbation}\)</span> no
+hypothesis stable under bounded residue-preserving perturbation can
+work; by Corollary <span
+class="math inline">\(\ref{long251:res:nonconc-primes}\)</span> adding
+fixed-block polynomial nonconcentration to that list does not repair it;
+the construction in Section <span
+class="math inline">\(\ref{long251:res:all-residue-log-countermodel}\)</span>
+shows that recurring gap values differing by <span
+class="math inline">\(2\)</span> in every residue class do not work at
+the level of integer recurrences; and by Theorem <span
+class="math inline">\(\ref{long251:res:sparse}\)</span> the event in
+<span class="math inline">\(\eqref{long251:eq:smallpair}\)</span> has
+density zero, so it must be produced cofinally on a sparse set. Isolated
+small gaps, isolated large gaps and average gap estimates are
+insufficient. Any prescribed finite prefix can be preserved while the
+complete sum is rationalised, so that prefix alone cannot force
+irrationality or a cofinal small-tail producer. A finite block together
+with a proved tail bound can still certify one window: both inequalities
+in <span class="math inline">\(\eqref{long251:eq:smallpair}\)</span>
+contain the complete infinite continuation, and Proposition <span
+class="math inline">\(\ref{long251:res:explicit-remainder}\)</span>
+supplies the corresponding finite reduction. Nor does parity help, since
+after the first gap every <span class="math inline">\(g_n\)</span> is
+even.</p>
+<p>The finite reduction is available. Proposition <span
+class="math inline">\(\ref{long251:res:explicit-remainder}\)</span>
+turns each window condition into an integer comparison at truncation
+length <span class="math inline">\(L\)</span>, and for fixed <span
+class="math inline">\(h\)</span> and <span
+class="math inline">\(\varepsilon&gt;0\)</span> the choice <span
+class="math inline">\(L=\lceil(4+\varepsilon)\log_2(N+2)\rceil\)</span>
+makes <span
+class="math inline">\(E_{h,N,L}=O_h(N^{-\varepsilon})\)</span>. A
+prescribed positive margin <span class="math inline">\(\eta_h\)</span>
+therefore converts <span
+class="math inline">\(\eqref{long251:eq:smallpair}\)</span> into a
+statement about the joint distribution modulo powers of two of the
+finite block <span
+class="math inline">\((g_{N+h+1}-g_{N+1},\ldots,g_{N+h+L}-g_{N+L})\)</span>
+over a window of logarithmic length. Deciding one instance costs <span
+class="math inline">\(O(\log N)\)</span> gaps together with the
+elementary prime bound; producing them cofinally, with uniformity in
+<span class="math inline">\(h\)</span> and in the cutoff, is the open
+work.</p>
+<p>The strongest published results on prime gaps address a different
+shape of question. Zhang’s bounded-gap theorem <span class="citation"
+data-cites="zhang2014"><a href="#ref-14">[14]</a></span> produces infinitely many bounded
+consecutive-prime gaps. Maynard bounds <span
+class="math inline">\(\liminf_n(p_{n+m}-p_n)\)</span> for every fixed
+<span class="math inline">\(m\)</span>, giving bounded clusters of every
+fixed size <span class="citation" data-cites="maynard2015"><a href="#ref-12">[12]</a></span>, with
+the explicit unconditional bound <span
+class="math inline">\(\liminf_n(p_{n+1}-p_n)\le600\)</span> <span
+class="citation" data-cites="maynard2015"></span>. The large-gap theorem
+of Ford, Green, Konyagin, Maynard and Tao bounds the largest single
+consecutive-prime gap below <span class="math inline">\(X\)</span> <span
+class="citation" data-cites="fgkmt2018"></span>. A theorem giving
+bounded clusters at each fixed cluster size does not by itself supply a
+weighted condition on windows whose length grows with the basepoint, and
+none of these results is used as a proof input here.</p>
+<p>Conditionally the picture is different. Tao’s comment names uniform
+quantitative prime-tuples control of about <span
+class="math inline">\(\log\log n\)</span> consecutive gaps as the
+plausible route <span class="citation"
+data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>, and Land’s draft carries
+that out under Kuperberg’s uniform prime-tuples conjecture <span
+class="citation" data-cites="land2026"></span>. The obstructions of
+Section <span
+class="math inline">\(\ref{long251:sec:obstructions}\)</span> say which
+unconditional substitutes cannot replace that hypothesis.</p>
+<section id="what-remains-to-be-formalised." class="level5">
+<h5>What remains to be formalised.</h5>
+<p>The two finite certificates of Propositions <span
+class="math inline">\(\ref{long251:res:explicit-remainder}\)</span>
+and <span
+class="math inline">\(\ref{long251:res:finite-smallpair}\)</span>, the
+continued-fraction exclusion of Theorem <span
+class="math inline">\(\ref{long251:res:cfexclusion}\)</span>, the
+nonconcentration transfer of Theorem <span
+class="math inline">\(\ref{long251:res:nonconcentration}\)</span> with
+its corollary, the sparsity statement of Theorem <span
+class="math inline">\(\ref{long251:res:sparse}\)</span>, and the
+construction of Theorem <span
+class="math inline">\(\ref{long251:res:polignacfail}\)</span> are
+ordinary mathematical proofs with exact arithmetic replay and no Lean
+declaration. Everything else linked above is checked by the kernel at
+the pinned commit.</p>
+</section>
+<section id="statements-and-declarations" class="level3 unnumbered">
+<h3 class="unnumbered">Statements and declarations</h3>
+<section id="artefact-and-data-availability." class="level5">
+<h5>Artefact and data availability.</h5>
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984">pinned formal-source revision</a> contains
+the Lean sources, the fixed toolchain, and the library manifest used in
+the verification. Proof authority rests in those pinned sources. The
+present text is exposition and navigation.</p>
+<p>Lean checks each proof term against the fixed library version, and
+the sources linked here contain no proof placeholders and no
+project-defined axioms; Lean does not authorise the exposition, the
+citation choices, or the interpretation, for which the author remains
+responsible. The two receipts named in Section <span
+class="math inline">\(\ref{long251:sec:measurements}\)</span> and the
+continued-fraction receipt of Theorem <span
+class="math inline">\(\ref{long251:res:cfexclusion}\)</span> record
+their generating programs with digests and are held in the private
+research development.</p>
+</section>
+<section id="funding-and-competing-interests." class="level5">
+<h5>Funding and competing interests.</h5>
+<p>This work received no external funding. The author declares no
+competing interests.</p>
+</section>
+<section id="acknowledgements." class="level5">
+<h5>Acknowledgements.</h5>
+<p>The problem numbering and status follow the Erdős Problems catalogue
+maintained by Thomas Bloom <span class="citation"
+data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>. The logarithmic-scale construction
+of Theorem <span
+class="math inline">\(\ref{long251:res:polignacfail}\)</span> and the
+transfer argument of Theorem <span
+class="math inline">\(\ref{long251:res:nonconcentration}\)</span> arose
+in an external review of an earlier draft of this note; both proofs
+printed here were checked independently.</p>
+</section>
+</section>
+</section>
+<section id="long251:app:prime-bound" class="level2">
+<h2>An elementary polynomial bound for the primes</h2>
+<p>We prove <span class="math inline">\(p_n\le1250(n+1)^4\)</span> for
+every <span class="math inline">\(n\ge0\)</span>. Let <span
+class="math inline">\(\pi(x)\)</span> count the primes at most <span
+class="math inline">\(x\)</span>. For an integer <span
+class="math inline">\(m\ge4\)</span>, <span
+class="math display">\[\begin{equation}
+\label{long251:eq:binomial-bound}
+4^m&lt;m\binom{2m}{m}\le m(2m)^{\pi(2m)} .
+\end{equation}\]</span> For the first inequality, <span
+class="math inline">\(m\binom{2m}{m}/4^{m}\)</span> equals <span
+class="math inline">\(70/64\)</span> at <span
+class="math inline">\(m=4\)</span> and its ratio at successive indices
+is <span class="math inline">\((2m+1)/(2m)&gt;1\)</span>. For the
+second, the exponent of a prime <span
+class="math inline">\(\ell\)</span> in <span
+class="math inline">\(\binom{2m}{m}\)</span> is <span
+class="math inline">\(\sum_{k\ge1}\bigl(\lfloor2m/\ell^{k}\rfloor-2\lfloor
+m/\ell^{k}\rfloor\bigr)\)</span>, each summand is <span
+class="math inline">\(0\)</span> or <span
+class="math inline">\(1\)</span>, and every summand with <span
+class="math inline">\(\ell^{k}&gt;2m\)</span> vanishes; hence each prime
+power dividing <span class="math inline">\(\binom{2m}{m}\)</span> is at
+most <span class="math inline">\(2m\)</span>, and there are <span
+class="math inline">\(\pi(2m)\)</span> of them.</p>
+<p>Now fix <span class="math inline">\(n\ge0\)</span>, put <span
+class="math inline">\(x=n+5\)</span> and <span
+class="math inline">\(m=x^4\ge625\)</span>, and suppose <span
+class="math inline">\(\pi(2m)\le n\)</span>. Since <span
+class="math inline">\(x\le2^{x}\)</span> and <span
+class="math inline">\(n+4(n+1)x=4x^2-15x-5\le2x^4\)</span>, <span
+class="math display">\[m(2m)^{n}=2^{n}x^{4(n+1)}
+\le2^{\,n+4(n+1)x}\le2^{\,2x^4}=4^{m},\]</span> contradicting <span
+class="math inline">\(\eqref{long251:eq:binomial-bound}\)</span>. Hence
+<span class="math inline">\(\pi(2m)&gt;n\)</span>, so at least <span
+class="math inline">\(n+1\)</span> primes lie below <span
+class="math inline">\(2m\)</span> and therefore <span
+class="math display">\[p_n\le2(n+5)^4\le1250(n+1)^4 ,\]</span> the last
+step because <span class="math inline">\((n+5)\le5(n+1)\)</span> for
+<span class="math inline">\(n\ge0\)</span>. The same bound is checked by
+the kernel at .</p>
+</section>
+<section id="long251:app:certificates" class="level2">
+<h2>Integer certificates</h2>
+<p>The following calculation uses trial division and integer arithmetic
+only. It reproduces the two rows of Proposition <span
+class="math inline">\(\ref{long251:res:finite-smallpair}\)</span> and
+every inequality used in Theorem <span
+class="math inline">\(\ref{long251:res:denominatorfloor}\)</span>. The
+four literals are the certificate the Lean kernel decides in
+<code>KernelDenominatorFloor.lean</code>; their use here requires no
+floating-point approximation. Adjacent quoted strings are concatenated
+by Python.</p>
+<pre><code>from math import isqrt
+
+primes = [n for n in range(2, 10000)
+          if all(n % d for d in range(2, isqrt(n) + 1))]
+gaps = [q - p for p, q in zip(primes, primes[1:])]
+P = lambda x: x**4 + 8*x**3 + 36*x*x + 104*x + 150
+Q = 2**40
+expected = [(-662838684750, 11764181250),
+            (873345886050, 12805761250)]
+for N, target in zip((2, 3), expected):
+    D = sum((gaps[N+1+j] - gaps[N+j])*2**(40-j)
+            for j in range(1, 41))
+    B = 1250*(P(N+43) + P(N+42))
+    distance = min(D % Q, Q - D % Q)
+    if (D, B) != target or not (abs(D)+B &lt; Q and B &lt; distance):
+        raise ArithmeticError(&quot;tail certificate failed&quot;)
+if gaps[4] == gaps[3]:
+    raise ArithmeticError(&quot;gap mismatch failed&quot;)
+
+u = int(
+    &quot;8065641857152652932176019632186898003271162829171466334827&quot;
+    &quot;3083607794415278717445033509407855988903369988525550746159&quot;
+    &quot;7355889792250084202344821020139160956663658789718168152662&quot;
+    &quot;0217&quot;
+)
+
+v = int(
+    &quot;2194945124413663232143970924541263312422069524635615360518&quot;
+    &quot;4247077351958221816830720189289904831662955084392690248683&quot;
+    &quot;1216291723988537733235173040607254496838530213867781442335&quot;
+    &quot;1745&quot;
+)
+
+up = int(
+    &quot;6539437101498162626882411892470905222108260008568555445975&quot;
+    &quot;3026163315521784668689909712759876562484620059098138417469&quot;
+    &quot;5232839888185316374272333277389611483117334000493867584923&quot;
+    &quot;912&quot;
+)
+
+vp = int(
+    &quot;1779611075789866551198427241621709630120136323281598176637&quot;
+    &quot;8490605249229735501968764904036152970729491656650873938580&quot;
+    &quot;6203025466313389810291243786005499164537499383612081805160&quot;
+    &quot;767&quot;
+)
+
+c = len(primes)
+A = sum(p*2**(c-1-i) for i, p in enumerate(primes))
+checks = (c == 1229,
+          u &gt; 0 and v &gt; 0 and up &gt; 0 and vp &gt; 0,
+          up*v - u*vp == 1,
+          u*2**c &lt; A*v,
+          (2*A + 5000*(c+1)**4)*vp &lt; up*2**(c+1),
+          v+vp &gt;= 2**589,
+          2**589 &gt; 10**177)
+if not all(checks):
+    raise ArithmeticError(&quot;denominator certificate failed&quot;)
+print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pre>
+</section>
+<section id="long251:app:index" class="level2">
+<h2>Guide to the formal sources</h2>
+<p>Each linked phrase opens its Lean declaration at the pinned source
+revision 1da2a504f8d8. The summation-by-parts and prime-bound
+declarations are prime-specific. Section <span
+class="math inline">\(\ref{long251:sec:tail}\)</span> is stated for
+arbitrary integer digits and arbitrary rational or real orbits, while
+Section <span
+class="math inline">\(\ref{long251:sec:local-certificate}\)</span>
+records the actual-gap specialisation. The concrete prime-gap tail, its
+unconditional convergence, its recurrence and the real-to-rational
+scaled-tail bridge are defined and checked in
+<code>RealPrimeGapTail.lean</code> and
+<code>PrimeGapDyadicTail.lean</code>; the free-pair lattice and its
+actual-series equivalence in <code>FreePairReduction.lean</code>; the
+kernel-decided denominator certificate in
+<code>KernelDenominatorFloor.lean</code>; the rational countermodels in
+<code>BoundedPerturbationCountermodel.lean</code> and
+<code>PolynomialGapSeriesValue.lean</code>; and the two circularity
+theorems in <code>AffineCylinderCollapse.lean</code>, with the signed
+normal form in <code>AffineShiftEscape.lean</code> and the lcm diagonal
+in <code>OrderLatticeDiagonal.lean</code>.</p>
+</section>
+<section id="long251:sec:erdos-251-extended-record" class="level2">
+<h2>Extended record: displaced results, ordinary proofs and
+corrections</h2>
+<p>This section holds mathematics that belongs to the complete record
+for Problem #251 and sits outside the short note. Every statement here
+is labelled by its evidence class in the same vocabulary the note
+uses.</p>
+<section id="long251:sec:xr-totient" class="level3">
+<h3>The totient witness and forward propagation</h3>
+<p>The note states the exact denominator law <span
+class="math inline">\(\eqref{long251:eq:den-law}\)</span> and uses it
+directly. The classical witness that produced it is worth recording,
+because it is the form in which the shift length first appears.</p>
+<div class="proof">
+<p><em>Proof.</em> Since <span class="math inline">\(d\)</span> is odd,
+<span class="math inline">\(2\)</span> and <span
+class="math inline">\(d\)</span> are coprime, so Euler’s congruence
+gives <span class="math inline">\(d\mid2^{\ph(d)}-1\)</span>. Writing
+<span class="math inline">\(2^{\ph(d)}-1=dk\)</span> and <span
+class="math inline">\(T_N=u/d\)</span> in lowest terms, <span
+class="math inline">\((2^{\ph(d)}-1)T_N=ku\)</span> is an integer, and
+the integral-shift criterion transfers this to the shift. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> The shift step identity gives <span
+class="math inline">\(\sigma_h(N+1)=2\sigma_h(N)-(g_{N+h+1}-g_{N+1})\)</span>,
+an integer combination of an integer and two digits. Induct on <span
+class="math inline">\(k\)</span>. ◻</p>
+</div>
+<p>These are the totient shift and the propagation theorems cited in the
+note. Two worked instances. If <span
+class="math inline">\(\operatorname{den}T_N=3\)</span> then <span
+class="math inline">\(\ph(3)=2\)</span> and <span
+class="math inline">\(3T_N\)</span> is an integer, so <span
+class="math inline">\(\sigma_2(N)\)</span> is integral while <span
+class="math inline">\(\sigma_1(N)\)</span> is not; if <span
+class="math inline">\(\operatorname{den}T_N=5\)</span> then <span
+class="math inline">\(\sigma_4(N)\)</span> is integral. In the orbit
+with every digit zero and <span class="math inline">\(T_0=1/12\)</span>,
+the denominator is <span class="math inline">\(12=2^2\cdot3\)</span>,
+the orbit reaches <span class="math inline">\(T_2=1/3\)</span> with odd
+denominator at <span class="math inline">\(s=2\)</span>, and <span
+class="math inline">\(h=\ph(3)=2\)</span> is exactly the shift length
+seen to be integral from index <span class="math inline">\(2\)</span>
+onwards. The totient is a witness rather than the classification: the
+exact criterion is <span
+class="math inline">\(\operatorname{den}(T_N)\mid2^{h}-1\)</span>, and
+the least admissible <span class="math inline">\(h\)</span> is the
+multiplicative order of <span class="math inline">\(2\)</span> modulo
+the odd part.</p>
+</section>
+<section id="long251:sec:xr-truncation" class="level3">
+<h3>The finite truncation criterion</h3>
+<p>The note gives the explicit remainder bound for the actual gaps. The
+general truncation statement behind it, valid for any dominating
+majorant, is the following.</p>
+<div class="proof">
+<p><em>Proof.</em> The part of <span
+class="math inline">\(\sum_{j\ge1}(g_{N+h+j}-g_{N+j})2^{-j}\)</span>
+omitted from <span class="math inline">\(S_{h,N,L}\)</span> has absolute
+value at most <span class="math inline">\(R_{h,N,L}(M)\)</span>, so
+under the displayed inequality the full sum lies at positive distance
+from every integer. ◻</p>
+</div>
+<p>The truncation is an exact modular small-arc problem. Writing the
+integral dyadic block <span
+class="math display">\[D_{h,N,L}=\sum_{j=1}^{L}2^{\,L-j}(g_{N+h+j}-g_{N+j}),
+\qquad S_{h,N,L}=\frac{D_{h,N,L}}{2^{L}},\]</span> one has <span
+class="math display">\[\operatorname{dist}(S_{h,N,L},\Z)
+=2^{-L}\min\bigl\{D_{h,N,L}\bmod2^{L},\;
+2^{L}-(D_{h,N,L}\bmod2^{L})\bigr\},\]</span> where <span
+class="math inline">\(D_{h,N,L}\bmod2^{L}\)</span> is the least
+nonnegative residue, including when <span
+class="math inline">\(D_{h,N,L}&lt;0\)</span>. The finite criterion
+therefore asks the residue of <span
+class="math inline">\(D_{h,N,L}\)</span> to avoid the two arcs of radius
+<span class="math inline">\(2^{L}R_{h,N,L}(M)\)</span> around <span
+class="math inline">\(0\)</span> modulo <span
+class="math inline">\(2^{L}\)</span>. A one-block certificate would be a
+prime-gap theorem producing such an avoided arc on a logarithmic block.
+This rewriting is paper-level and carries no Lean declaration.</p>
+</section>
+<section id="long251:sec:xr-divisorhit" class="level3">
+<h3>A weaker recurrence-level target</h3>
+<p>A hypothetical rational value produces an eventually integral fixed
+shift, and the tail-shift cocycle propagates integrality forward and
+through positive multiples of that shift, so hitting one compatible
+multiple suffices in place of escaping at every prescribed <span
+class="math inline">\(h\)</span>. Forward propagation is Lean-checked;
+the short multiple-in-shift closure is an elementary paper-level
+derivation with no named declaration, so this is recorded as a sharper
+proposed criterion rather than a registered equivalence.</p>
+</section>
+<section id="long251:sec:xr-compression" class="level3">
+<h3>Two ordinary proofs about the free-pair producer</h3>
+<p>Both statements below are ordinary proofs recorded in the private
+research development. Neither is formalised and neither carries an
+independent check.</p>
+<section id="state-compression." class="level5">
+<h5>State compression.</h5>
+<p>Exchanging the order of summation gives <span
+class="math inline">\(\sum_{N\le X}T_N\le(p_{X+1}-p_0)+2T_X\)</span>.
+Under rationality with reduced odd denominator <span
+class="math inline">\(d\)</span>, Markov’s inequality supplies for each
+<span class="math inline">\(C&gt;1\)</span> a set <span
+class="math inline">\(B\subseteq(X,2X]\)</span> of density at least
+<span class="math inline">\(1-1/C\)</span> on which <span
+class="math inline">\(T_N\le C\log p_{2X}\)</span>; on that set <span
+class="math inline">\(T_N\)</span> lies in <span
+class="math inline">\(\tfrac1d\Z\)</span> and takes at most <span
+class="math inline">\(dC\log p_{2X}+1\)</span> values, so some single
+value is attained more than a constant multiple of <span
+class="math inline">\(X/\log X\)</span> times. Rationality therefore
+makes the tail a finite-state object at every scale: pairs with <span
+class="math inline">\(T_M=T_N\)</span> are abundant for free, and the
+whole difficulty in the free-pair producer is nonintegrality of the
+difference. The naive form <span class="math inline">\(\sum_{N\le
+X}T_N\le p_{X+1}\)</span> is false.</p>
+</section>
+<section id="redundancy-of-the-gap-condition." class="level5">
+<h5>Redundancy of the gap condition.</h5>
+<p>Under the free-pair lattice the difference <span
+class="math inline">\(T_M-T_N\)</span> is an integer whenever the
+modulus divides the offset, and an integer cannot lie in <span
+class="math inline">\((\tfrac12,1)\)</span>. The half-window component
+of the reduced event of Theorem <span
+class="math inline">\(\ref{long251:res:signedwindow}\)</span> is
+therefore already a contradiction on its own, and the gap-mismatch
+condition adds nothing to it. That changes which component a proof has
+to produce.</p>
+</section>
+</section>
+<section id="long251:sec:xr-boundedpolignac" class="level3">
+<h3>A bounded companion to the recurring-values countermodel</h3>
+<p>Theorem <span
+class="math inline">\(\ref{long251:res:polignacfail}\)</span> carries a
+logarithmic growth profile so that its cumulative sequence matches the
+primes. The mechanism is visible in a much smaller example, which is
+recorded here because it is checkable by hand.</p>
+<div class="proof">
+<p><em>Proof.</em> For <span class="math inline">\(k\ge3\)</span> the
+index <span class="math inline">\(k!\)</span> is even and at least <span
+class="math inline">\(6\)</span>, and <span
+class="math inline">\(k!-1\)</span> is odd, so the predecessor of a
+spike is an ordinary index; hence <span
+class="math inline">\(a_{k!}=8-6=2\)</span>, <span
+class="math inline">\(a_{k!+1}=12-4=8\)</span>, and <span
+class="math inline">\(a_n=8-4=4\)</span> elsewhere. For <span
+class="math inline">\(k\ge2\)</span> one has <span
+class="math inline">\(k!&lt;2\,k!&lt;(k+1)!\)</span>, so <span
+class="math inline">\(2\,k!\)</span> is not a factorial, and <span
+class="math inline">\(2\,k!-1\)</span> is odd so it is not a factorial
+either; therefore <span class="math inline">\(a_{2k!}=4\)</span>. Since
+<span class="math inline">\(t\mid k!\)</span> for every large <span
+class="math inline">\(k\)</span>, both values recur in the residue class
+<span class="math inline">\(0\)</span> modulo <span
+class="math inline">\(t\)</span>. The identity <span
+class="math inline">\(a_n2^{-n}=U_{n-1}2^{-(n-1)}-U_n2^{-n}\)</span>
+telescopes to <span
+class="math inline">\(\sum_{j=1}^{m}a_{N+j}2^{-j}=U_N-U_{N+m}2^{-m}\)</span>,
+and <span class="math inline">\(U\)</span> is bounded, so the endpoint
+vanishes. ◻</p>
+</div>
+<p>The cumulative sequence of this word grows linearly, which is the one
+property that separates it from the primes and the reason the note
+carries the logarithmic version instead. Both refute the same generic
+implication.</p>
+</section>
+<section id="long251:sec:xr-densities" class="level3">
+<h3>The measured densities in full</h3>
+<p>The note reports the range of the adjacent-mismatch density. The
+per-offset figures below come from the same scan over the <span
+class="math inline">\(6\,841\,648\)</span> primes under <span
+class="math inline">\(1.2\times10^{8}\)</span>, with double-precision
+tails.</p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th class="ta-r"><span
+class="math inline">\(h\)</span></th>
+<th class="ta-r">events</th>
+<th class="ta-r">density</th>
+<th class="ta-r"><span
+class="math inline">\(\delta=+2\)</span></th>
+<th class="ta-r"><span
+class="math inline">\(\delta=-2\)</span></th>
+<th class="ta-r">last event at prime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-r">1</td>
+<td class="ta-r">56 427</td>
+<td class="ta-r">0.008248</td>
+<td class="ta-r">28 022</td>
+<td class="ta-r">28 405</td>
+<td class="ta-r">119 995 753</td>
+</tr>
+<tr>
+<td class="ta-r">2</td>
+<td class="ta-r">31 979</td>
+<td class="ta-r">0.004674</td>
+<td class="ta-r">15 742</td>
+<td class="ta-r">16 237</td>
+<td class="ta-r">119 993 807</td>
+</tr>
+<tr>
+<td class="ta-r">3</td>
+<td class="ta-r">30 233</td>
+<td class="ta-r">0.004419</td>
+<td class="ta-r">15 093</td>
+<td class="ta-r">15 140</td>
+<td class="ta-r">119 998 321</td>
+</tr>
+<tr>
+<td class="ta-r">4</td>
+<td class="ta-r">29 262</td>
+<td class="ta-r">0.004277</td>
+<td class="ta-r">14 606</td>
+<td class="ta-r">14 656</td>
+<td class="ta-r">119 993 473</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every offset <span class="math inline">\(h\le16\)</span> has events,
+with minimum density <span class="math inline">\(0.00418\)</span> and
+maximum <span class="math inline">\(0.008248\)</span>; the two signs are
+near balanced at every offset. For <span
+class="math inline">\(h=1\)</span> the eight band densities, and the
+same figures after rescaling by the band mean of <span
+class="math inline">\(\log p\)</span>, run <span
+class="math display">\[\begin{array}{l}
+0.011285,\;0.008951,\;0.008303,\;0.007936,\;0.007651,\;0.007507,\;0.007253,\;0.007094;\\[2pt]
+0.17671,\;0.15058,\;0.14420,\;0.14067,\;0.13766,\;0.13667,\;0.13333,\;0.13148
+.
+\end{array}\]</span> The rescaled drift is <span
+class="math inline">\(0.744\)</span> at <span
+class="math inline">\(h=1\)</span> and lies between <span
+class="math inline">\(0.744\)</span> and <span
+class="math inline">\(0.8121\)</span> across all offsets. Theorem <span
+class="math inline">\(\ref{long251:res:sparse}\)</span> proves that the
+limiting density is zero, so the observed decline is the expected
+behaviour rather than a failure of the event.</p>
+</section>
+<section id="long251:sec:xr-corrections" class="level3">
+<h3>Corrections to earlier records</h3>
+<section id="the-superseded-exclusion." class="level5">
+<h5>The superseded exclusion.</h5>
+<p>An earlier internal record narrated a denominator exclusion at <span
+class="math inline">\(10^{602}\)</span>. That figure is correct as
+written and is superseded twice over: by the kernel-decided floor <span
+class="math inline">\(2^{589}&gt;10^{177}\)</span> of Theorem <span
+class="math inline">\(\ref{long251:res:denominatorfloor}\)</span>, which
+is smaller but kernel-checked, and by the certified continued-fraction
+exclusion <span class="math inline">\(2^{39997}&gt;10^{12040}\)</span>
+of Theorem <span
+class="math inline">\(\ref{long251:res:cfexclusion}\)</span>, which
+supersedes it in strength. The receipt records the decimal digit count
+<span class="math inline">\(12041\)</span>; the certified decimal
+statement uses the exponent <span
+class="math inline">\(12040\)</span>.</p>
+</section>
+<section id="the-named-missing-input." class="level5">
+<h5>The named missing input.</h5>
+<p>An earlier record named Hardy-Littlewood <span
+class="math inline">\(k\)</span>-tuple correlation of consecutive gaps
+at a fixed offset as the missing input. With the offset freed by
+Theorem <span class="math inline">\(\ref{long251:res:freepair}\)</span>
+the route needs, for each modulus <span
+class="math inline">\(t\)</span>, cofinally many congruent pairs with
+certified nonintegral tail difference. A further record proposed that
+two even values differing by <span class="math inline">\(2\)</span>,
+each occurring infinitely often inside a common index residue class,
+would supply the two-condition form. No proof of that implication was
+ever produced, and Theorem <span
+class="math inline">\(\ref{long251:res:polignacfail}\)</span> shows that
+no proof exists at the level of integer-digit recurrences. That entry is
+withdrawn.</p>
+</section>
+<section id="the-formal-boundary." class="level5">
+<h5>The formal boundary.</h5>
+<p>An earlier reading of the short note placed the real-tail bridge and
+the real form of the adjacent-pair consumer on the paper side. Both are
+kernel-checked, at and of the real prime-gap tail module. A second
+reading placed the kernel-decided denominator floor and the free-pair
+criterion outside the source revision the note pins. Both modules are
+present at that revision, and both are linked from the note.</p>
+</section>
+</section>
+</section>
+<section id="sec:erdos-251-complete-family-map" class="level2">
+<h2>Complete result-family map</h2>
+<p>This section places every registered family for this problem in the
+shared 70-family reader order. The five display bands control exposition
+only; the separate promotion state currently covers 6 families and is
+reported but does not hide or strengthen any family. Mathematical
+statements and evidence modes come from the public claim registry.
+Across all eight problems the public result-atom catalog contains 681
+exact packet coordinates; this problem contributes 30. The recovered
+source catalog contains 682 rows; 1 row(s) belong to families absent
+from the current claim registry and remain disclosed as detached source
+rows. Catalog rows expose bounded statement excerpts plus full-source
+digests, not a claim that every complete packet statement is reproduced
+here.</p>
+<section id="prime-gap-reformulation" class="level3">
+<h3>Prime gap reformulation</h3>
+<p><strong>Reader position.</strong> 4 of 70; display band: front door.
+Formal editorial disposition: promote. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> Exact finite summation by parts, the
+unconditional infinite prime-gap identity, and irrationality
+equivalence.</p>
+<p>Exact finite summation by parts, the unconditional infinite prime-gap
+identity, and irrationality equivalence.</p>
+<p><strong>Authority and reach.</strong> Lean kernel;
+Comparator-selected; locally proved result; novelty unassessed.</p>
+<p><strong>Exact boundary.</strong> The equivalence does not prove
+irrationality of either series.</p>
+<p><strong>Result-atom population.</strong> 4 of 681 public coordinates.
+The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> exact selected interface; 1
+executable interface(s), 1 repository-registered selected result
+interface(s).</p>
+<p><strong>Publication placement.</strong> This family remains in the
+complete long record and is not a short-note headline.</p>
+</section>
+<section id="dyadic-tail-integrality-classification" class="level3">
+<h3>Dyadic tail integrality classification</h3>
+<p><strong>Reader position.</strong> 11 of 70; display band: major
+result. Formal editorial disposition: merge. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> For any integer-digit dyadic tail
+recurrence T(N+1) = 2*T(N) - g(N+1), the rational h-shift is integral
+exactly when the reduced denominator of T(N) divides 2^h - 1,
+equivalently when 2^h is congruent to 1 modulo that denominator. For the
+real recurrence, the load-bearing normal form says that irrationality of
+T(0) is equivalent to every positive tail shift being nonintegral; the
+eventual-integrality equivalence and denominator/order laws are
+supporting mechanism evidence.</p>
+<p>For any integer-digit dyadic tail recurrence T(N+1) = 2*T(N) -
+g(N+1), the rational h-shift is integral exactly when the reduced
+denominator of T(N) divides 2^h - 1, equivalently when 2^h is congruent
+to 1 modulo that denominator. For the real recurrence, the load-bearing
+normal form says that irrationality of T(0) is equivalent to every
+positive tail shift being nonintegral; the eventual-integrality
+equivalence and denominator/order laws are supporting mechanism
+evidence.</p>
+<p><strong>Authority and reach.</strong> Lean kernel;
+Comparator-selected; abstract Lean-checked classification and normal
+form; novelty unassessed.</p>
+<p><strong>Exact boundary.</strong> These exact statements cover
+arbitrary integer-digit dyadic tail recurrences with the declared
+rational and real state types; they classify integrality and give an
+irrationality normal form but do not supply a cofinal nonintegral shift
+for the consecutive-prime-gap recurrence. The generic hypotheses
+therefore do not close the prime-specific producer gap: no prime-gap
+irrationality, novelty, significance, or external review is claimed, and
+Erdős #251 remains open. This is one abstract classification family,
+distinct from prime_gap_reformulation, not a duplicate frontier
+claim.</p>
+<p><strong>Result-atom population.</strong> 10 of 681 public
+coordinates. The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> exact selected interface; 1
+executable interface(s), 1 repository-registered selected result
+interface(s).</p>
+<p><strong>Publication placement.</strong> This family remains in the
+complete long record and is not a short-note headline.</p>
+<ul>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_iff_den_dvd_mersenne</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_iff_two_pow_modEq_one</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.not_irrational_initial_iff_exists_eventually_integral_positive_tailShift</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.irrational_initial_iff_all_positive_tailShifts_nonintegral</code></p></li>
+</ul>
+</section>
+<section id="integral-shift-classification" class="level3">
+<h3>Integral shift classification</h3>
+<p><strong>Reader position.</strong> 27 of 70; display band: mechanism.
+Formal editorial disposition: merge. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> Block identities and exact denominator
+criteria classify rationality through integral positive tail shifts.</p>
+<p>Block identities and exact denominator criteria classify rationality
+through integral positive tail shifts.</p>
+<p><strong>Authority and reach.</strong> Lean kernel; locally proved
+result; novelty unassessed.</p>
+<p><strong>Exact boundary.</strong> The concrete prime-gap producer
+remains missing.</p>
+<p><strong>Result-atom population.</strong> 1 of 681 public coordinates.
+The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> not selected for comparator; 0
+executable interface(s), 0 repository-registered selected result
+interface(s).</p>
+<p><strong>Publication placement.</strong> This family is also admitted
+to the short note.</p>
+<ul>
+<li><p><code>ErdosProblems.Erdos251.irrational_initial_iff_all_positive_tailShifts_nonintegral</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.not_irrational_initial_iff_exists_eventually_integral_positive_tailShift</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_iff_den_dvd_mersenne</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_iff_two_pow_modEq_one</code></p></li>
+</ul>
+</section>
+<section id="small-mismatch-criterion" class="level3">
+<h3>Small mismatch criterion</h3>
+<p><strong>Reader position.</strong> 45 of 70; display band: frontier.
+Formal editorial disposition: hold. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> For the actual prime-gap dyadic tail,
+cofinally many adjacent pairs of strictly small h-shifts with unequal
+corresponding prime gaps force failure of eventual RatIntegral h-shifts.
+The adjacent-pair zero obstruction is the load-bearing mechanism; exact
+non-eventual periodicity of consecutive prime gaps supplies the
+actual-prime-gap contrast.</p>
+<p>For the actual prime-gap dyadic tail, cofinally many adjacent pairs
+of strictly small h-shifts with unequal corresponding prime gaps force
+failure of eventual RatIntegral h-shifts. The adjacent-pair zero
+obstruction is the load-bearing mechanism; exact non-eventual
+periodicity of consecutive prime gaps supplies the actual-prime-gap
+contrast.</p>
+<p><strong>Authority and reach.</strong> Lean kernel;
+Comparator-selected; conditional actual-prime-gap endpoint reduction;
+novelty and significance unassessed.</p>
+<p><strong>Exact boundary.</strong> The representative assumes T : <span
+class="math inline">\(\mathbb{N}\)</span> <span
+class="math inline">\(\to\)</span> <span
+class="math inline">\(\mathbb{Q}\)</span>, the DyadicTailRecurrence for
+the actual prime-gap digits, and for every N<span
+class="math inline">\(_{0}\)</span> an N <span
+class="math inline">\(\ge\)</span> N<span
+class="math inline">\(_{0}\)</span> whose adjacent h-shifts both lie
+strictly in (-1, 1) while the corresponding prime gaps differ. Under
+that cofinal small-mismatch supply it excludes eventual RatIntegral
+h-shifts; it does not prove the supply or actual smallness.
+rationalPrimeGapTail_has_positive_shift_not_eventually_small records the
+contrary rational-state obstruction for at least one positive shift.
+This is a conditional reduction only: no #251 irrationality, infinite
+rational-sum limit, universal producer, novelty, priority, significance,
+or external-review claim is made; #251 remains open. The
+actual-prime-gap specialization is distinct from coefficient_only_no_go
+and does not duplicate prime_gap_reformulation.</p>
+<p><strong>Result-atom population.</strong> 10 of 681 public
+coordinates. The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> exact selected interface; 1
+executable interface(s), 1 repository-registered selected result
+interface(s).</p>
+<p><strong>Publication placement.</strong> This family is also admitted
+to the short note.</p>
+<ul>
+<li><p><code>ErdosProblems.Erdos251.primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.not_eventuallyIntegralTailShift_of_cofinal_small_mismatch</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_not_both_integral_of_small_pair_of_digit_ne</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.primeGap0_not_eventually_periodic</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.rationalPrimeGapTail_has_positive_shift_not_eventually_small</code></p></li>
+</ul>
+</section>
+<section id="coefficient-only-no-go" class="level3">
+<h3>Coefficient only no go</h3>
+<p><strong>Reader position.</strong> 51 of 70; display band: frontier.
+Formal editorial disposition: hold. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> The exact finite carry identity and
+the two non-eventual-periodicity statements expose the coefficient-only
+barrier: irregularity and growth of a coefficient stream do not by
+themselves force irrationality, while the synthetic carry stream remains
+distinct from the actual prime-gap stream.</p>
+<p>The exact finite carry identity and the two non-eventual-periodicity
+statements expose the coefficient-only barrier: irregularity and growth
+of a coefficient stream do not by themselves force irrationality, while
+the synthetic carry stream remains distinct from the actual prime-gap
+stream.</p>
+<p><strong>Authority and reach.</strong> Lean kernel plus authored
+synthesis; coefficient-only barrier; novelty and significance
+unassessed.</p>
+<p><strong>Exact boundary.</strong> CoefficientOnlyNoGo checks the exact
+finite partial-sum identity and the two non-eventual-periodicity
+statements. It does not assert the infinite limit of the synthetic
+countermodel, identify its coefficient stream with actual prime gaps,
+establish a prime-gap tail bridge, prove #251 irrationality, or make
+novelty, priority, significance, or external-review claims.</p>
+<p><strong>Result-atom population.</strong> 3 of 681 public coordinates.
+The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> exact selected interface; 2
+executable interface(s), 2 repository-registered selected result
+interface(s).</p>
+<p><strong>Publication placement.</strong> This family is also admitted
+to the short note.</p>
+<ul>
+<li><p><code>ErdosProblems.Erdos251.carryPartialSum_natCast_eq</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.carryCoeff_natCast_not_eventually_periodic</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.primeGap0_not_eventually_periodic</code></p></li>
+</ul>
+</section>
+<section id="totient-shift-propagation" class="level3">
+<h3>Totient shift propagation</h3>
+<p><strong>Reader position.</strong> 60 of 70; display band: technical
+support. Formal editorial disposition: merge. These are separate
+classifications.</p>
+<p><strong>Reader entry.</strong> Odd rational denominators give
+totient-length integral shifts, and integrality propagates through the
+recurrence.</p>
+<p>Odd rational denominators give totient-length integral shifts, and
+integrality propagates through the recurrence.</p>
+<p><strong>Authority and reach.</strong> Lean kernel; locally proved
+result; novelty unassessed.</p>
+<p><strong>Exact boundary.</strong> This describes rational states and
+supplies no contradiction for actual prime gaps.</p>
+<p><strong>Result-atom population.</strong> 2 of 681 public coordinates.
+The public atom catalog groups them under this family.</p>
+<p><strong>Comparator assurance.</strong> represented by selected
+interface; 0 executable interface(s), 0 repository-registered selected
+result interface(s).</p>
+<p><strong>Publication placement.</strong> This family remains in the
+complete long record and is not a short-note headline.</p>
+<ul>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_totient_of_odd_den</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_succ</code></p></li>
+<li><p><code>ErdosProblems.Erdos251.tailShift_integral_add</code></p></li>
+</ul>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1958-19.pdf"><em>Sur certaines
+séries à valeur irrationnelle</em></a>, Enseign. Math. (2)
+<strong>4</strong> (1958), 93–100, doi:<a
+href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>. The
+dyadic prime series is stated as unproved on p. 94; the factorial-prime
+family is stated on p. 93, with only the <span
+class="math inline">\(k=1\)</span> proof printed on pp. 94–95; the
+variable-denominator classification, with nondecreasing denominators and
+a lower growth condition, is Theorem §3 on pp. 96–97.</p></li>
+<li id="ref-2"><p>P. Erdős and R. L. Graham, <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
+Monogr. Enseign. Math. 28, Geneva, 1980, p. 62.</p></li>
+<li id="ref-3"><p>P. Erdős and C. Pomerance, <a
+href="https://doi.org/10.1007/BF01818569"><em>On the largest prime
+factors of <span class="math inline">\(n\)</span> and <span
+class="math inline">\(n+1\)</span></em></a>, Aequationes Math.
+<strong>17</strong> (1978), 311–321, doi:<a
+href="https://doi.org/10.1007/BF01818569">10.1007/BF01818569</a>. The
+unnumbered dyadic irrationality theorem and its complete proof are in §7
+on p. 320.</p></li>
+<li id="ref-4"><p>P. Erdős, <em>On the irrationality of certain series: problems
+and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
+Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
+<li id="ref-5"><p>P. Erdős and E. G. Straus, <em>On the irrationality of certain
+Ahmes series</em>, J. Indian Math. Soc. (N.S.) <strong>27</strong>
+(1964), 129–133. MR 175848.</p></li>
+<li id="ref-6"><p>K. Ford, B. Green, S. Konyagin, J. Maynard and T. Tao, <em>Long
+gaps between primes</em>, J. Amer. Math. Soc. <strong>31</strong>
+(2018), 65–105, doi:<a
+href="https://doi.org/10.1090/jams/876">10.1090/jams/876</a>. Theorem 1
+on p. 66 gives the effective lower bound for the largest single
+consecutive-prime gap below <span
+class="math inline">\(X\)</span>.</p></li>
+<li id="ref-7"><p>A. Ya. Khinchin, <em>Continued Fractions</em>, University of
+Chicago Press, Chicago, 1964. Cited for the classical fact that a best
+approximation of the second kind is a convergent, which converts a
+certified partial-quotient prefix into a denominator lower
+bound.</p></li>
+<li id="ref-8"><p>V. Kovač and T. Tao, <a
+href="https://doi.org/10.1007/s10474-025-01528-0"><em>On several
+irrationality problems for Ahmes series</em></a>, Acta Math. Hungar.
+<strong>175</strong> (2025), 572–608.</p></li>
+<li id="ref-9"><p>J. Land, <a
+href="https://github.com/beetree/math_erdos_251"><em>A conditional proof
+of the irrationality of <span
+class="math inline">\(\sum_{n\ge1}p_n2^{-n}\)</span> under a uniform
+Hardy-Littlewood prime-tuples conjecture</em></a>, research draft, 5
+September 2026, with an accompanying Lean formalisation of the
+conditional argument. Its Conjecture 1 is the large-<span
+class="math inline">\(x\)</span> form of Conjecture 1.3 of V. Kuperberg,
+<em>Sums of singular series with large sets and the tail of the
+distribution of primes</em>, arXiv:2210.09775v2, 15 June 2023.</p></li>
+<li id="ref-10"><p>L. de Moura and S. Ullrich, <a
+href="https://doi.org/10.1007/978-3-030-79876-5_37"><em>The Lean 4
+theorem prover and programming language</em></a>, in A. Platzer and
+G. Sutcliffe (eds.), CADE 28, Lecture Notes in Comput. Sci. 12699,
+Springer, 2021, pp. 625–635, doi:<a
+href="https://doi.org/10.1007/978-3-030-79876-5_37">10.1007/978-3-030-79876-5_37</a>.</p></li>
+<li id="ref-11"><p>The mathlib Community, <a
+href="https://doi.org/10.1145/3372885.3373824"><em>The Lean mathematical
+library</em></a>, in CPP 2020, ACM, 2020, pp. 367–381, doi:<a
+href="https://doi.org/10.1145/3372885.3373824">10.1145/3372885.3373824</a>.
+The article describes a December 2019 Lean 3-era snapshot; the current
+revision is the one named in the repository lock.</p></li>
+<li id="ref-12"><p>J. Maynard, <a
+href="https://doi.org/10.4007/annals.2015.181.1.7"><em>Small gaps
+between primes</em></a>, Ann. of Math. (2) <strong>181</strong> (2015),
+383–413.</p></li>
+<li id="ref-13"><p>J.-C. Schlage-Puchta, <a
+href="https://arxiv.org/abs/1105.1451"><em>The irrationality of some
+number theoretical series</em></a>, arXiv:1105.1451, 2011. Theorem 2
+treats base-<span class="math inline">\(b\)</span> digit strings that
+concatenate the representations of a slowly growing integer sequence;
+Theorem 3 gives the <span class="math inline">\(\Q\)</span>-linear
+independence of <span class="math inline">\(1,S_0,S_1,\ldots\)</span>
+with <span class="math inline">\(S_k=\sum_{n\ge1}p_n^{k}/n!\)</span>;
+Lemma 4, on pp. 5–6, states that for every nonzero <span
+class="math inline">\(F\in\Z[x_0,\ldots,x_k]\)</span> the equation <span
+class="math inline">\(F(\delta_n,\ldots,\delta_{n+k})=0\)</span> holds
+for a set of <span class="math inline">\(n\)</span> of density zero,
+where <span class="math inline">\(\delta_n=p_{n+1}-p_n\)</span>, and its
+proof uses Selberg’s sieve.</p></li>
+<li id="ref-14"><p>Y. Zhang, <a
+href="https://doi.org/10.4007/annals.2014.179.3.7"><em>Bounded gaps
+between primes</em></a>, Ann. of Math. (2) <strong>179</strong> (2014),
+1121–1174.</p></li>
+<li id="ref-15"><p>T. F. Bloom, <a
+href="https://www.erdosproblems.com/251"><em>Erdős Problem
+#251</em></a>, <code>erdosproblems.com/251</code>, accessed 6 September
+2026 (page displays “last edited 28 September 2025”). The current record
+labels the main dyadic problem open, cites <code>[Er58b]</code>,
+<code>[ErGr80, p. 62]</code> and <code>[Er88c, p. 103]</code>,
+attributes the whole factorial-prime family to the 1958 article, and
+explicitly describes its status as the website owner’s present
+assessment, with no guarantee of literature completeness; it does not
+mention the 2026 counterexample in <span class="citation"
+data-cites="kovac2026"><a href="#ref-17">[17]</a></span> to the adjacent variable-denominator
+conjecture.</p></li>
+<li id="ref-16"><p><em>Erdős Problem #251 discussion thread</em>,
+<code>erdosproblems.com/forum/thread/251</code>, accessed 6 September
+2026. Cited for T. Tao’s comment of 17:17 on 7 October 2025 recording
+the summation-by-parts equivalence and naming a uniform quantitative
+prime-tuples hypothesis as a plausible route, and for the two comments
+of J. Land of 6 September 2026 announcing <span class="citation"
+data-cites="land2026"><a href="#ref-9">[9]</a></span>. Comments on that site are the
+responsibility of their authors and are not verified for correctness by
+the catalogue.</p></li>
+<li id="ref-17"><p>ChatGPT 5.4 Pro (orchestrated by V. Kovač), <a
+href="https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf"><em>On
+the Erdős problem #251</em></a>, unpublished note, 2026, hosted by the
+Department of Mathematics, University of Zagreb,
+<code>web.math.pmf.unizg.hr</code>, accessed 6 September 2026; posted as
+a thread comment at 11:13 on 15 April 2026 <span class="citation"
+data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>.</p></li>
+<li id="ref-18"><p>The Formal Conjectures Authors, <a
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"><em>FormalConjectures.ErdosProblems.<code>251</code></em></a>,
+Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
+2026.</p></li>
+</ol>
+</section>
+  </div>
+</article>
