@@ -1164,4 +1164,4 @@ html:not(.scripting) .universe-nojs { display: block; }
 .source-browser:target { background: transparent; box-shadow: none; }
 
 /* Long theorem identifiers must fit the same mobile column as their prose. */
-.dossier-head, .result-card, .fact-list { overflow-wrap: anywhere; }
+.maths-layout { overflow-wrap: anywhere; }
