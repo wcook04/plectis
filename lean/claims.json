@@ -13482,7 +13482,7 @@
         "source": "paper/erdos-68-factorial-denominator-irrationality.tex",
         "environment": "problem",
         "title": "Erdős #68",
-        "line": 94
+        "line": 36
       }
     },
     {
@@ -13506,7 +13506,7 @@
         "source": "paper/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 103
+        "line": 57
       }
     },
     {
@@ -13542,7 +13542,7 @@
         "source": "paper/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1482
+        "line": 700
       }
     },
     {
@@ -13566,7 +13566,7 @@
         "source": "paper/erdos-269-three-prime-running-lcm.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 104
+        "line": 55
       }
     },
     {
@@ -13578,7 +13578,7 @@
         "source": "paper/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 161
+        "line": 119
       }
     },
     {
@@ -13590,7 +13590,7 @@
         "source": "paper/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 91
+        "line": 49
       }
     },
     {
@@ -13602,7 +13602,7 @@
         "source": "paper/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 96
+        "line": 102
       }
     },
     {
@@ -13614,7 +13614,7 @@
         "source": "paper/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "exact nonintegrality of every reduced tail",
-        "line": 1409
+        "line": 486
       }
     },
     {
@@ -13626,7 +13626,7 @@
         "source": "paper/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "actual cofinal local-window escape",
-        "line": 1443
+        "line": 492
       }
     },
     {
@@ -13638,7 +13638,7 @@
         "source": "paper/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "function-faithful two-dimensional representation",
-        "line": 1502
+        "line": 501
       }
     },
     {
@@ -13650,7 +13650,7 @@
         "source": "paper/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "global overlap-height growth",
-        "line": 1381
+        "line": 534
       }
     },
     {
@@ -13662,7 +13662,7 @@
         "source": "paper/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 1523
+        "line": 33
       }
     },
     {
@@ -13674,7 +13674,7 @@
         "source": "paper/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 1543
+        "line": 714
       }
     },
     {
@@ -13686,7 +13686,7 @@
         "source": "paper/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 1565
+        "line": 723
       }
     },
     {
@@ -13698,7 +13698,7 @@
         "source": "paper/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1587
+        "line": 733
       }
     }
   ],

@@ -11441,7 +11441,7 @@
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Critical-Value Separation and Admissible Hubs",
+      "label": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -11450,7 +11450,7 @@
     {
       "id": "paper:erdos-1049-rational-base-lambert",
       "kind": "paper",
-      "label": "Sharp Height and Four-Jet Obstructions at Base 3/2",
+      "label": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
@@ -11477,7 +11477,7 @@
     {
       "id": "paper:erdos-251-prime-gap-dyadic-series",
       "kind": "paper",
-      "label": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+      "label": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
       "subject": "Erdős #251",
       "form": "Problem note",
       "href": "papers/erdos-251-prime-gap-dyadic-series.json",
@@ -11486,7 +11486,7 @@
     {
       "id": "paper:erdos-257-mersenne-support-subseries",
       "kind": "paper",
-      "label": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+      "label": "Reciprocal-Summable Support Irrationality at Every Integer Base",
       "subject": "Erdős #257",
       "form": "Problem note",
       "href": "papers/erdos-257-mersenne-support-subseries.json",
@@ -11495,7 +11495,7 @@
     {
       "id": "paper:erdos-269-three-prime-running-lcm",
       "kind": "paper",
-      "label": "The Three-Prime Running Least Common Multiple",
+      "label": "No Finite Separable Representation at Three Prime Generators",
       "subject": "Erdős #269",
       "form": "Problem note",
       "href": "papers/erdos-269-three-prime-running-lcm.json",
@@ -11504,7 +11504,7 @@
     {
       "id": "paper:erdos-68-factorial-denominator-irrationality",
       "kind": "paper",
-      "label": "Factorial-Channel Obstructions and Exact Orbit Boundaries",
+      "label": "Two Incomparable Denominator Exclusions for $\\sum_{n\\ge2}(n!-1)^{-1}$",
       "subject": "Erdős #68",
       "form": "Problem note",
       "href": "papers/erdos-68-factorial-denominator-irrationality.json",

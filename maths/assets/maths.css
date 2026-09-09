@@ -970,6 +970,56 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .pl0 { padding-left: 0; }
 .paper-stage .pr0 { padding-right: 0; }
 
+/* ---- Mathematical notation ------------------------------------------------
+   Expressions detected in the corpus records are wrapped in .math by
+   plectis_math_notation and given real sub/superscripts. The face shift is
+   deliberate but small: a reader should register "this is an expression"
+   without the line changing colour or weight, because the surrounding sentence
+   is usually half of the statement. Expressions never break across a line if
+   they can help it -- a summation sign orphaned from its summand reads as a
+   rendering fault. */
+.math {
+  font-family: var(--font-math, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  white-space: nowrap;
+}
+.math sub, .math sup {
+  font-size: 0.72em;
+  line-height: 0;
+  /* Scripts inside a script stay legible rather than compounding to nothing. */
+  font-feature-settings: inherit;
+}
+.math sub { vertical-align: -0.28em; }
+.math sup { vertical-align: 0.5em; }
+.math sub .math sub, .math sup .math sup { font-size: 0.85em; }
+/* A long expression is allowed to wrap rather than push the page sideways. */
+.dossier-head__q .math, .result-card__statement .math,
+.result-card__boundary .math, .fact-list .math { white-space: normal; }
+
+/* ---- File routes ----------------------------------------------------------
+   The PDF is a first-class destination, not a footnote after the reading page:
+   a stranger who wants the manuscript should never have to open a website page
+   to find the file. Both routes are buttons, on every surface that offers a
+   paper. */
+.btn--file { gap: 0.45rem; }
+.result-card__links--routes {
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+.shelf__meta .btn { font-size: 0.78rem; padding: 0.34rem 0.7rem; }
+.paper-foot {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+.paper-foot__label {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  margin: 0 0 var(--space-3);
+}
+.maths-receipt--inline { margin-top: var(--space-4); }
+
 /* ---- Small screens ------------------------------------------------------- */
 @media (max-width: 860px) {
   .problem-row a { grid-template-columns: 3.4rem 1fr; }

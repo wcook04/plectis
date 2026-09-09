@@ -6,11 +6,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-68-factorial-denominator-irrationality",
-      "title": "Factorial-Channel Obstructions and Exact Orbit Boundaries",
+      "title": "Two Incomparable Denominator Exclusions for $\\sum_{n\\ge2}(n!-1)^{-1}$",
       "subject": "Erdős #68",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 24,
+      "pages": 14,
       "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
       "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
       "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -32,98 +32,88 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "6004f99a7a651ce3c417de64481cb4e61435d48d9d663c39c4c10329218df4b3",
+        "renderer_contract_version": 15,
+        "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
         "publication_manifest_match": true,
-        "mathml_node_count": 520,
+        "mathml_node_count": 264,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "53d6ba4f28a948d3f100804fcdfec214140cab0e2e0ca824e2724eed8b473b0d",
-        "html_exact_tex_sha256": "3431799ba9bb2ca4dd02b1b85d4b2f2fde4194caeea6685d49877ff7451714e8"
+        "html_mathml_sha256": "95b18398a187e2dbe62152f55516c2628bbb86d78fe141298bf54d8d5e919b6a",
+        "html_exact_tex_sha256": "9c040e59f0be234ef231a669ce4daf8a91bc5d62a359fc726f18af553cb3d51e"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
-          "label": "The problem"
+          "label": "The denominator exclusions"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Canonical factorial digits"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Finite channel congruences and the LCM obstruction"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "A two-term prime channel corrector"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Zero plateaux, first exit, and denominator bounds"
+          "label": "The fixed companion orbit"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Why the adjacent-unit window is circular"
+          "label": "The carry and its wrap correction"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Weighted projection rigidity"
+          "label": "An integral basis for factorial channels"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The support restriction and the residual"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite certificate for the infinite moment ideal."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "A fixed companion-orbit coordinate"
+          "label": "The moment cost and the choice of support"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Growth of the compulsory factor"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Remote primitive kernels"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Limits of fixed-coordinate arguments"
+          "label": "Cancellation in a reduced prefix"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Finite certificates"
+          "label": "One joint collision and residue estimate"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Open problems"
+          "label": "The remaining real comparison"
         },
         {
-          "level": 3,
+          "level": 5,
           "anchor": null,
-          "label": "1. Weighted collision mass and the complementary residue"
+          "label": "The limit of short supports."
         },
         {
-          "level": 3,
+          "level": 2,
           "anchor": null,
-          "label": "2. Nonterminal prime-power amplification"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "3. Escape from the lower endpoint interval"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "4. Failure of the two exact doubled-prime branches"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "5. A finite Cramer block across floor discontinuities"
+          "label": "The finite evidence"
         },
         {
           "level": 2,
@@ -154,7 +144,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 24,
+      "pages": 11,
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -176,17 +166,17 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "cf6e73efdc61b9740a8a1192ba1c08eb7448af35547b4fa60446a5479ec4c797",
+        "renderer_contract_version": 15,
+        "source_sha256": "bbad3e8929c50fefb86aa81250095c5cead267d5ad22def620c5e85bebb2b9d9",
         "publication_manifest_match": true,
-        "mathml_node_count": 423,
+        "mathml_node_count": 190,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "2d57c4bcde39afd9b0fb0f32d83b05dcfa2219d8eb454a8c88da7120aad433e9",
-        "html_exact_tex_sha256": "93ff2f65212619e65386a98285ee271f559c0ad00688bb6ee1509868db8d2b60"
+        "html_mathml_sha256": "7cc54a5d5c8e9abc59463603d51d9937e42d3c8644636f13b553218364de3ab5",
+        "html_exact_tex_sha256": "6989cd14cfc5d8787a60a6cf139ce02622ebb18387c392424b2f882f6ea6b410"
       },
       "sections": [
         {
@@ -197,122 +187,67 @@
         {
           "level": 5,
           "anchor": null,
-          "label": "Relation to prior work."
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Structure"
+          "label": "The obstruction."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "The centred integer state"
+          "label": "Proof of bounded-negative rigidity"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The arithmetic ingredients"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Error, absorption and descent"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "The first-crossing obstruction"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reduction and stabilisation"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Transfer to a reciprocal series"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A scalar finite-mass criterion"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Weighted first crossings of LCM records"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Further consequences"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining arithmetic estimate"
         },
         {
           "level": 5,
           "anchor": null,
-          "label": "The intended reading, which is not formalised."
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "The defect identity and its two consequences"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Two-step cancellation and feedback"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Descent when the error is nonnegative"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Excluding a constant negative magnitude"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Excluding a periodic negative magnitude"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Bounded rise cannot remain coprime to fresh moduli"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Excluding a bounded negative part"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Excluding finite normalised negative mass"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Complements and further questions"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Global height and old-factor overlap"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Repair entropy across a recovery"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The direct analytic question"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "A barrier extension"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Formalisation targets"
+          "label": "Formal scope and supporting record."
         },
         {
           "level": 5,
           "anchor": null,
-          "label": "Erdős–Straus."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Duverney."
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Statements and declarations"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Artefact and data availability."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Funding and competing interests."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Acknowledgements."
+          "label": "Declarations."
         },
         {
           "level": 2,
@@ -338,7 +273,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 27,
+      "pages": 9,
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
       "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -360,163 +295,68 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "c0b231a545c4547119ade449712a9b3a7abb5f24f8c86d1bfef52d195c57c2d3",
+        "renderer_contract_version": 15,
+        "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
         "publication_manifest_match": true,
-        "mathml_node_count": 715,
+        "mathml_node_count": 221,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f1901e7e5e71a1163d81b55d00fae5494b0396e809eb52210d8574add0163f6c",
-        "html_exact_tex_sha256": "c022626f54a926b73075eb44ae76482aa85b63b086f2332e7de4fedc5983f404"
+        "html_mathml_sha256": "119e342bb726074886825108de1a930cbecd3f75d96ff6decb4c48a2ee8b17b3",
+        "html_exact_tex_sha256": "19408f8a6a90179d1e3bb30881f92cfc7dedf9a4d4cc27661fbbe6bbe1b01540"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
-          "label": "Introduction and main results"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "The Lambert-series form of Problem #249"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "A nearby 2026 totient theorem has different coordinates."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Exact identities and representations."
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Proof of the dyadic-section basis theorem"
+          "label": "A basis and all its relations"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Prior work"
+          "label": "The evaluation matrix"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Parity-separated evaluation matrices"
+          "label": "A reusable consequence"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Carry-rank consequences of rationality"
+          "label": "Bounded residues and rationality"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "A Farey-mediant denominator exclusion"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Fresh-prime losses in the diagonal probes"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Finite square-CRT correction suppression."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Canonical strict-jump slack."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Finite foreign-residue projection."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "The actual LCM orbit: exact frontier and sign trap."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "A quantitative separation criterion."
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Obstructions for fixed-coordinate methods"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Conditional criteria"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "A prime-orbit sufficient condition."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Finite Euler-factor identities."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Mixed differences of cyclotomic layers."
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Open problems"
+          "label": "The actual series and the remaining residue gap"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Exact equivalent formulations"
+          "label": "One seed removes the full-depth restriction"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Exact full-depth reduction and a stronger sufficient condition"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Structural and Diophantine routes"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Independent extension"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "The independent denominator exclusion."
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Logical status and analytic input"
+          "label": "A single canonical endpoint"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Formal source notes"
+          "label": "Information that does not force the gap"
         },
         {
-          "level": 5,
+          "level": 2,
           "anchor": null,
-          "label": "Claim status."
+          "label": "Antecedents and proof record"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
         },
         {
           "level": 2,
@@ -554,7 +394,7 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
+        "renderer_contract_version": 15,
         "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
         "publication_manifest_match": true,
         "mathml_node_count": 2869,
@@ -1337,11 +1177,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-251-prime-gap-dyadic-series",
-      "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+      "title": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 21,
+      "pages": 19,
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
       "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -1363,17 +1203,17 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "26ba1ed562faf6f12ee08508015304bdcb928d50b0894134773d3f766561ce06",
+        "renderer_contract_version": 15,
+        "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
         "publication_manifest_match": true,
-        "mathml_node_count": 347,
+        "mathml_node_count": 337,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "bde3374d2253e57ec10e10fedf052927a42e124b1f1688d97e882721254ee400",
-        "html_exact_tex_sha256": "ff7cc0e3784664c764e9b267f401ffe4e45e260270533e3badbf2e171de56059"
+        "html_mathml_sha256": "0747de03349d56aefad2168ce3d646df30b40f4314a27bd77824a83bb3d5c345",
+        "html_exact_tex_sha256": "ee8e1905afb30e17231938879942fa274a6d1e2061e3fcba93c7cbeb4f4f83a3"
       },
       "sections": [
         {
@@ -1384,7 +1224,27 @@
         {
           "level": 5,
           "anchor": null,
-          "label": "Notation."
+          "label": "The complete countermodel in one calculation."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Preserving more of the actual gaps."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Sparse corrections and local information."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The prime series and its tails."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "What remains to be distinguished."
         },
         {
           "level": 5,
@@ -1394,17 +1254,12 @@
         {
           "level": 5,
           "anchor": null,
-          "label": "The strategy."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Outline."
+          "label": "Notation and organisation."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "One diagonal, and two circular escape tests"
+          "label": "Integral shifts and recurrence obstructions"
         },
         {
           "level": 2,
@@ -1459,7 +1314,7 @@
         {
           "level": 5,
           "anchor": null,
-          "label": "What remains to be formalised."
+          "label": "The remaining estimate."
         },
         {
           "level": 3,
@@ -1496,11 +1351,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-257-mersenne-support-subseries",
-      "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+      "title": "Reciprocal-Summable Support Irrationality at Every Integer Base",
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 25,
+      "pages": 13,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
       "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -1515,24 +1370,41 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "008da9c21dbffa7c145d51235227f9bc11d8425f2f1bda4f1b830c352742692a",
+        "renderer_contract_version": 15,
+        "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
         "publication_manifest_match": true,
-        "mathml_node_count": 547,
-        "raw_math_fallback_count": 0,
+        "mathml_node_count": 274,
+        "raw_math_fallback_count": 3,
         "warnings": {
-          "mathml": [],
+          "mathml": [
+            "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
+            ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math f_A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\ge1), rendering as TeX:",
+            "A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\g",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\operatorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_{2q\\mid n})",
+            "=\\frac1{4pq}\\qquad(p\\ne q\\text{ odd primes}),, rendering as TeX:",
+            "ratorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
           "mathjax": []
         },
-        "html_mathml_sha256": "54f766e6d3c7eea9174779dfd3e82e0c663839848007cc3fca947bc86377e652",
-        "html_exact_tex_sha256": "1879f004de9ab0c65bb3a76aee207e674284fc0dc5b8329ca607d2f54e46065c"
+        "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
+        "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
       },
       "sections": [
         {
@@ -1541,14 +1413,44 @@
           "label": "Introduction and main results"
         },
         {
-          "level": 5,
+          "level": 2,
           "anchor": null,
-          "label": "The finite-support theorem."
+          "label": "Reciprocal-summable supports at every integer base"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Extensions beyond reciprocal summability"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Divisibility-weighted and quantitative criteria"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "A finite estimate on common observation scales"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Positive fractional divisor covers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "What every positive cover must pay"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Combining the two support criteria"
         },
         {
           "level": 5,
           "anchor": null,
-          "label": "Structure."
+          "label": "The prime-power regime."
         },
         {
           "level": 2,
@@ -1561,94 +1463,34 @@
           "label": "Rational values and scaled tails"
         },
         {
-          "level": 5,
+          "level": 2,
           "anchor": null,
-          "label": "Integral scaled tails, and unboundedness."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Divisor coverage cannot have long gaps."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "A reciprocal-sum lower bound."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "A Boolean–Möbius characterisation."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Combined constraints on a rational counterexample."
+          "label": "Where the return mechanism stops"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Representative known irrational supports"
+          "label": "Unique coding and arithmetic membership"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Squarefree support and a coordinate-dependent obstruction"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The values are known at every power-of-two base"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Two block-certificate hypotheses have no instance"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The obstruction is a normalisation, not the value"
+          "label": "The actual greedy return inequality"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Achievement-set geometry and the value 1/21/2"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Geometry after restricting the allowed exponents"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The value 1/21/2"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Exact-row transport at the endpoint."
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "A second rational target"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The scaled-greedy criterion at 1/211/21"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Open problems"
+          "label": "Further questions"
         },
         {
           "level": 2,
           "anchor": null,
           "label": "Statements and declarations"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Guide to the formal sources"
         },
         {
           "level": 2,
@@ -1686,8 +1528,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "6124c97dd2973e2e4b187c6483648905415b4606da7a173e8c125bf0ca77f7e9",
+        "renderer_contract_version": 15,
+        "source_sha256": "4b64b5fba33cfb3559cd04749cf9e17734d80053f68e11bc7430b05247196759",
         "publication_manifest_match": true,
         "mathml_node_count": 2969,
         "raw_math_fallback_count": 1,
@@ -1701,8 +1543,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f4bbe1667e496db438aae672dc570f1d685155ea49c384a60413dbab342e6d96",
-        "html_exact_tex_sha256": "ae137763f9dd6c6e5820f1d43df71aa8e5ac98edab31db17a05579cfbc311e19"
+        "html_mathml_sha256": "78138a42bb166e9c75edc7c454abc24403847aba003621513684ee07962ccb21",
+        "html_exact_tex_sha256": "c8d7da7627461ae161a5c1e9473617c5ed46dd35a9c9acd7d81cf15492e93fe2"
       },
       "sections": [
         {
@@ -2395,11 +2237,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-269-three-prime-running-lcm",
-      "title": "The Three-Prime Running Least Common Multiple",
+      "title": "No Finite Separable Representation at Three Prime Generators",
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 24,
+      "pages": 10,
       "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
       "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -2421,17 +2263,17 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "379f505866b529978ff8289927fed1bf6db669dc62ffc19e397e413638d2bcec",
+        "renderer_contract_version": 15,
+        "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
         "publication_manifest_match": true,
-        "mathml_node_count": 521,
+        "mathml_node_count": 181,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "19e2f0af42a8a3f403052e807cbb6423df16c022e456312b80853a261e418d04",
-        "html_exact_tex_sha256": "9d9e3c7b58ee9b78f8416602b2624523d0b06c6557f75fe436edd495d222f5ef"
+        "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
+        "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
       },
       "sections": [
         {
@@ -2440,109 +2282,49 @@
           "label": "Introduction"
         },
         {
+          "level": 2,
+          "anchor": null,
+          "label": "The binary carry and arbitrary-order rank"
+        },
+        {
           "level": 5,
           "anchor": null,
-          "label": "Results and boundary."
+          "label": "The indices must be selected."
         },
         {
-          "level": 3,
+          "level": 5,
           "anchor": null,
-          "label": "Structure"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "The running least common multiple as a product of pure powers"
+          "label": "The norm matters."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Constancy on logarithmic cells and the jump points"
+          "label": "The two-prime comparison"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "The two-prime sums are transcendental"
+          "label": "Exact multiplicities and normalised tails"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "The height-fibre normal form"
+          "label": "A window test and the remaining arithmetic"
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "A quadratic bound for smooth exponent shells"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Non-separability of the three-prime kernel"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "The actual shell orbit and its integral branch"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Dyadic blocks and a conditional carry contradiction"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The four-element block alphabet"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The denominator reduction and its boundary"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The window recurrence and the residue contradiction"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "A finite check of the escape condition"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Complements and further questions"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The actual block data and the missing bridge"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The intrinsic tail question"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "A denominator-adaptive sufficient criterion"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "A two-dimensional analytic representation"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Further structural constraints"
+          "label": "The information the remaining argument must use."
         },
         {
           "level": 3,
           "anchor": null,
           "label": "Statements and declarations"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Proof sources."
         },
         {
           "level": 5,
@@ -2574,11 +2356,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-1041-lemniscate-newton-flow",
-      "title": "Critical-Value Separation and Admissible Hubs",
+      "title": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 24,
+      "pages": 20,
       "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
       "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
       "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
@@ -2600,68 +2382,64 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "73bd294ddf307371a8115200a3e14b27b640e84edeff625e2f08e6f2f688bbae",
+        "renderer_contract_version": 15,
+        "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
         "publication_manifest_match": true,
-        "mathml_node_count": 350,
+        "mathml_node_count": 348,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
-            "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
-            "\\qquad",
-            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
-            "\\qquad",
-            "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
-            "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+            "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
+            "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
             "^",
-            "unexpected control sequence \\over",
+            "unexpected control sequence \\emph",
             "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "3e84eadb826f576c36cf0d91f09e62fc855b3d9516e7c95ee18b7a59a5b2bee9",
-        "html_exact_tex_sha256": "eb55fb5151647187fd6253e27901cebfe66b882ef92e5fb0ce8a5efe4ca3742f"
+        "html_mathml_sha256": "399596792b0b18d0f84cf1a8dd475d4f33088f196edfadfd9da84e2536247731",
+        "html_exact_tex_sha256": "42ef3d3665ae05f35f511a87f9963955c3ad68c79d4bb9224e3e6e989caf823a"
       },
       "sections": [
         {
           "level": 2,
           "anchor": null,
-          "label": "The problem"
+          "label": "Monic trinomials, in every degree"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A finite convex certificate."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "An all-degree critical-value separation theorem"
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Evidence and exact boundary."
+          "label": "The problem and the general regimes"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Three exact solved polynomial families"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Sharp collinear zeros"
+          "label": "Low critical values and a uniform path bound"
         },
         {
           "level": 5,
           "anchor": null,
-          "label": "Formal boundary."
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The primitive sparse quintic"
+          "label": "The geometric step behind 13/2513/25."
         },
         {
           "level": 5,
           "anchor": null,
-          "label": "Formal boundary."
+          "label": "An independent area proof."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Critical proximity and straight-path obstructions"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Solved polynomial families"
         },
         {
           "level": 3,
@@ -2669,59 +2447,29 @@
           "label": "Translated cubic quotient fibres"
         },
         {
-          "level": 5,
+          "level": 3,
           "anchor": null,
-          "label": "Formal boundary."
+          "label": "Primitive sparse quintics"
         },
         {
-          "level": 5,
+          "level": 3,
           "anchor": null,
-          "label": "Shared assurance boundary."
+          "label": "Sharp collinear roots"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "The current frontier: what survives near Fekete configurations"
+          "label": "Critical-value separation in every degree"
         },
         {
-          "level": 3,
+          "level": 5,
           "anchor": null,
-          "label": "Near-Fekete stability removes the radial distraction"
+          "label": "Boundary."
         },
         {
-          "level": 3,
+          "level": 2,
           "anchor": null,
-          "label": "A bounded-radius concyclic class"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Cyclic trinomial fibres"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Coefficient-controlled cyclic tetranomial spokes"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Translated quartic quotient fibres"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The degree-five target is now explicit"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The no-go boundaries force hub selection"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The surviving carrier and the actual open endpoint"
+          "label": "Three exact covering obstructions"
         },
         {
           "level": 2,
@@ -2736,47 +2484,72 @@
         {
           "level": 2,
           "anchor": null,
+          "label": "Local coordinates for perturbative competitors"
+        },
+        {
+          "level": 2,
+          "anchor": null,
           "label": "A proof gap in the unrestricted argument"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Finite evidence"
+          "label": "Computational searches"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Complements and further questions"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "1. Repair or refute the saddle block"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "2. The compact ray-cut decomposition"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "3. Metric fan-in without losing the coefficient"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "4. Coefficient perturbation and stability"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "5. The global Newton-flow claim ceiling"
+          "label": "Exact symmetric benchmark: complementary chords for every binomial degree"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Statements and declarations"
+          "label": "The sharp collinear theorem: order buys an exact Chebyshev extremal"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "A Poisson identity for critical-value means"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The exact nonlinear lifetime currency"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The remaining geometric selection problem"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A dense generic class suffices."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "A sufficient canonical-arc estimate."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "The attachment obstruction is quantitative."
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Which information is insufficient."
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Proof boundaries"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Sources and adjacent results"
         },
         {
           "level": 2,
@@ -2793,11 +2566,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-1049-rational-base-lambert",
-      "title": "Sharp Height and Four-Jet Obstructions at Base 3/2",
+      "title": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 27,
+      "pages": 12,
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -2819,17 +2592,17 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
-        "source_sha256": "b748ded6e65009967fdc1ec157a253d174f5ceb19ab44eba889a35ebb4816418",
+        "renderer_contract_version": 15,
+        "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
         "publication_manifest_match": true,
-        "mathml_node_count": 513,
+        "mathml_node_count": 284,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "14b1094cd3498816a51fca5e86c73854285bf0fa7e4628b9f5489f43201fc31e",
-        "html_exact_tex_sha256": "58de90267ae2df38b36d6a720cc90af4515429dee57bba6645545eeb748d4ec3"
+        "html_mathml_sha256": "a55c3af58e571633f6331b2e447a6c07ea6a0b2618d54599710718bd3c808d1b",
+        "html_exact_tex_sha256": "03111de412e3c0719663305901bc5f0095aed6ea84909d8cb646a94040ba7f81"
       },
       "sections": [
         {
@@ -2838,114 +2611,74 @@
           "label": "Introduction"
         },
         {
-          "level": 5,
-          "anchor": null,
-          "label": "Relation to prior work."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Erdős’s integer-base argument, in outline."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "The direct cut-and-clear attempt studied here."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Terminology."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "The shortfall at 3/23/2."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Sharpness."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Results and boundary."
-        },
-        {
-          "level": 5,
-          "anchor": null,
-          "label": "Structure."
-        },
-        {
           "level": 2,
           "anchor": null,
-          "label": "The sharp 41/6541/65 certificate"
+          "label": "A rational base at which FF is irrational"
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "Integer scalar content is neutral"
+          "label": "Integral polynomials and their degrees."
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+          "label": "The limiting degree cost."
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "Failure of coordinatewise clearing at 3/23/2"
+          "label": "A positive remainder at every fixed real base."
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "The cleared-tail recurrence and the size of the forcing term"
+          "label": "Homogenisation."
         },
         {
-          "level": 2,
+          "level": 5,
           "anchor": null,
-          "label": "The height criterion at 7/27/2"
+          "label": "Comparison and scope."
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "The 81/20081/200 logarithmic region"
+          "label": "The base-uniform degree restriction"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Denominator exponents for a homogenised Padé construction"
+          "label": "Exact normalized-Hankel order in Zudilin’s construction"
+        },
+        {
+          "level": 5,
+          "anchor": null,
+          "label": "Formal order and fixed-base size."
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Complements and further questions"
+          "label": "Local cancellation and the remaining real estimate"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Exact kernel escape"
+          "label": "One minor gcd controls two different costs"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Determinant families"
+          "label": "A collision must have a small nonzero real remainder"
         },
         {
           "level": 3,
           "anchor": null,
-          "label": "Asymptotic adequacy after kernel escape"
+          "label": "The source-specific endpoint question"
         },
         {
-          "level": 3,
+          "level": 5,
           "anchor": null,
-          "label": "One exact alternative-criterion test"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "The quantitative height limitation"
+          "label": "Functional equations."
         },
         {
           "level": 3,
@@ -3008,7 +2741,7 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
+        "renderer_contract_version": 15,
         "source_sha256": "36431013833c1100758194e835e7bced30d4d8fc5dcd7e9b57e17956aa9d8414",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -3282,7 +3015,7 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
+        "renderer_contract_version": 15,
         "source_sha256": "af53dce269a5911fddd4b2406dcb2425c0373b5aa489f114d90d84525f9ec4ea",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -3426,7 +3159,7 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
+        "renderer_contract_version": 15,
         "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -3632,7 +3365,7 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 14,
+        "renderer_contract_version": 15,
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,

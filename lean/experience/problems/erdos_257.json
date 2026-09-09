@@ -361,8 +361,8 @@
     "strongest_theorem": {
       "claim_id": "erdos257.achievement_set_geometry",
       "title": "achievement-set topology and exact volume dichotomy",
-      "statement": "A supported Mersenne achievement set is the set of reals coded by binary strings whose support lies in a fixed set J of allowed digit positions, where digit position k contributes the Mersenne weight 1 / (2^(k+1) - 1). Two declarations are compared. The first is a measure no-go on rational fibres. If 0 is not in J and the sum of 1 / (2^m - 1) over m in J is a rational number, the achievement set supported on J has Lebesgue measure zero. Positive-measure selection over a rational fibre is excluded by that measure-zero conclusion. An exceptional null point stays unexcluded. In that first declaration the set J indexes exponents in the hypothesis and digit positions in the conclusion. The second declaration classifies the whole family, with no hypothesis on J. The supported digit map is injective, its range is compact, its range is nowhere dense, the range is perfect whenever J is infinite, and the Lebesgue measure of the range satisfies an exact dichotomy: when the omitted digit positions form a finite set F the measure is the reciprocal of 2^|F|, and when infinitely many digit positions are omitted the measure is zero. Both statements are proved for the literal Mathlib-only definitions repeated in the Challenge module. The compared declarations establish no irrationality of any infinite Mersenne subseries, and Erdős Problem 257 remains open.",
-      "altitude": "genuine_climb",
+      "statement": "A supported Mersenne achievement set is the set of reals coded by binary strings whose support lies in a fixed set J of allowed digit positions, where digit position k contributes the Mersenne weight 1 / (2^(k+1) - 1). The original support and rational-fibre declarations are retained. The first is a measure no-go on rational fibres. If 0 is not in J and the sum of 1 / (2^m - 1) over m in J is a rational number, the achievement set supported on J has Lebesgue measure zero. Positive-measure selection over a rational fibre is excluded by that measure-zero conclusion. An exceptional null point stays unexcluded. In that first declaration the set J indexes exponents in the hypothesis and digit positions in the conclusion. The second declaration classifies the whole family, with no hypothesis on J. The supported digit map is injective, its range is compact, its range is nowhere dense, the range is perfect whenever J is infinite, and the Lebesgue measure of the range satisfies an exact dichotomy: when the omitted digit positions form a finite set F the measure is the reciprocal of 2^|F|, and when infinitely many digit positions are omitted the measure is zero. Both statements are proved for the literal Mathlib-only definitions repeated in the Challenge module. The compared declarations establish no irrationality of any infinite Mersenne subseries, and Erdős Problem 257 remains open. The extended selection also includes the full achievement geometry with exact span and relative-density bounds, a finite-prefix nonmembership criterion with an explicit tail upper bound, and exclusion of the entire interval (2/3,1). These do not imply universal subseries irrationality.",
+      "altitude": "infrastructure",
       "band": "P",
       "evidence_class": "lean_kernel_checked",
       "public_entry": "ExternalVerification257AchievementSetGeometry"
@@ -370,10 +370,10 @@
     "strongest_longitudinal_theorem": {
       "claim_id": "erdos257.divisibility_weighted_support_irrationality",
       "title": "Finite divisibility-weighted mass implies hereditary all-base irrationality, including explicit reciprocal-divergent short-gap supports.",
-      "statement": "Finite divisibility-weighted mass implies hereditary all-base irrationality, including explicit reciprocal-divergent short-gap supports.",
+      "statement": "Finite prime-part weighted mass gives fixed-base irrationality and, at binary weighted mass, hereditary irrationality for every infinite subhost at every integer base at least two.",
       "altitude": "complete_subregime",
       "band": "U",
-      "evidence_class": "ordinary_proof",
+      "evidence_class": "lean_kernel_checked",
       "public_entry": null
     },
     "live_obstruction": "Every candidate counterexample support now has divergent reciprocal sum, and the surviving fatal branch at the rational target 1/21 is consistent with a permanent affine supercapacity regime, so no theorem forces the cofinal closed returns that would decide membership.",
@@ -395,18 +395,19 @@
     "public_entry_ids": [
       "ExternalVerification257ReciprocalSupport",
       "ExternalVerification257FinitePeriodNoncollapse",
-      "ExternalVerification257RationalTailRigidity"
+      "ExternalVerification257RationalTailRigidity",
+      "ExternalVerification257AchievementSetGeometry"
     ]
   },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-257-mersenne-support-subseries",
-    "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+    "title": "Reciprocal-Summable Support Irrationality at Every Integer Base",
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 25,
+    "pages": 13,
     "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
     "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -421,24 +422,41 @@
       "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
     },
     "render_contract": {
-      "preferred": "html_mathml",
-      "fallback": "html_exact_tex",
+      "preferred": "html_exact_tex",
+      "fallback": "html_mathml",
       "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-      "frontend_math_dependency": null,
+      "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 14,
-      "source_sha256": "008da9c21dbffa7c145d51235227f9bc11d8425f2f1bda4f1b830c352742692a",
+      "renderer_contract_version": 15,
+      "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
       "publication_manifest_match": true,
-      "mathml_node_count": 547,
-      "raw_math_fallback_count": 0,
+      "mathml_node_count": 274,
+      "raw_math_fallback_count": 3,
       "warnings": {
-        "mathml": [],
+        "mathml": [
+          "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
+          ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math f_A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\ge1), rendering as TeX:",
+          "A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\g",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math \\operatorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_{2q\\mid n})",
+          "=\\frac1{4pq}\\qquad(p\\ne q\\text{ odd primes}),, rendering as TeX:",
+          "ratorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
         "mathjax": []
       },
-      "html_mathml_sha256": "54f766e6d3c7eea9174779dfd3e82e0c663839848007cc3fca947bc86377e652",
-      "html_exact_tex_sha256": "1879f004de9ab0c65bb3a76aee207e674284fc0dc5b8329ca607d2f54e46065c"
+      "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
+      "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
     },
     "sections": [
       {
@@ -447,14 +465,44 @@
         "label": "Introduction and main results"
       },
       {
-        "level": 5,
+        "level": 2,
         "anchor": null,
-        "label": "The finite-support theorem."
+        "label": "Reciprocal-summable supports at every integer base"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Extensions beyond reciprocal summability"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Divisibility-weighted and quantitative criteria"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "A finite estimate on common observation scales"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Positive fractional divisor covers"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "What every positive cover must pay"
+      },
+      {
+        "level": 3,
+        "anchor": null,
+        "label": "Combining the two support criteria"
       },
       {
         "level": 5,
         "anchor": null,
-        "label": "Structure."
+        "label": "The prime-power regime."
       },
       {
         "level": 2,
@@ -467,94 +515,34 @@
         "label": "Rational values and scaled tails"
       },
       {
-        "level": 5,
+        "level": 2,
         "anchor": null,
-        "label": "Integral scaled tails, and unboundedness."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Divisor coverage cannot have long gaps."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "A reciprocal-sum lower bound."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "A Boolean–Möbius characterisation."
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Combined constraints on a rational counterexample."
+        "label": "Where the return mechanism stops"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "Representative known irrational supports"
+        "label": "Unique coding and arithmetic membership"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "Squarefree support and a coordinate-dependent obstruction"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The values are known at every power-of-two base"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "Two block-certificate hypotheses have no instance"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The obstruction is a normalisation, not the value"
+        "label": "The actual greedy return inequality"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "Achievement-set geometry and the value 1/21/2"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "Geometry after restricting the allowed exponents"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The value 1/21/2"
-      },
-      {
-        "level": 5,
-        "anchor": null,
-        "label": "Exact-row transport at the endpoint."
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "A second rational target"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The scaled-greedy criterion at 1/211/21"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "Open problems"
+        "label": "Further questions"
       },
       {
         "level": 2,
         "anchor": null,
         "label": "Statements and declarations"
+      },
+      {
+        "level": 2,
+        "anchor": null,
+        "label": "Guide to the formal sources"
       },
       {
         "level": 2,

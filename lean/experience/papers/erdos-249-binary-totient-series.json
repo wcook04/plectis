@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 27,
+  "pages": 9,
   "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
   "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -27,163 +27,68 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 14,
-    "source_sha256": "c0b231a545c4547119ade449712a9b3a7abb5f24f8c86d1bfef52d195c57c2d3",
+    "renderer_contract_version": 15,
+    "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
     "publication_manifest_match": true,
-    "mathml_node_count": 715,
+    "mathml_node_count": 221,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "f1901e7e5e71a1163d81b55d00fae5494b0396e809eb52210d8574add0163f6c",
-    "html_exact_tex_sha256": "c022626f54a926b73075eb44ae76482aa85b63b086f2332e7de4fedc5983f404"
+    "html_mathml_sha256": "119e342bb726074886825108de1a930cbecd3f75d96ff6decb4c48a2ee8b17b3",
+    "html_exact_tex_sha256": "19408f8a6a90179d1e3bb30881f92cfc7dedf9a4d4cc27661fbbe6bbe1b01540"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
-      "label": "Introduction and main results"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "The Lambert-series form of Problem #249"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "A nearby 2026 totient theorem has different coordinates."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Exact identities and representations."
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Proof of the dyadic-section basis theorem"
+      "label": "A basis and all its relations"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Prior work"
+      "label": "The evaluation matrix"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Parity-separated evaluation matrices"
+      "label": "A reusable consequence"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Carry-rank consequences of rationality"
+      "label": "Bounded residues and rationality"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "A Farey-mediant denominator exclusion"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Fresh-prime losses in the diagonal probes"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Finite square-CRT correction suppression."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Canonical strict-jump slack."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Finite foreign-residue projection."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "The actual LCM orbit: exact frontier and sign trap."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "A quantitative separation criterion."
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Obstructions for fixed-coordinate methods"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Conditional criteria"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "A prime-orbit sufficient condition."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Finite Euler-factor identities."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Mixed differences of cyclotomic layers."
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Open problems"
+      "label": "The actual series and the remaining residue gap"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Exact equivalent formulations"
+      "label": "One seed removes the full-depth restriction"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Exact full-depth reduction and a stronger sufficient condition"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Structural and Diophantine routes"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Independent extension"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "The independent denominator exclusion."
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Logical status and analytic input"
+      "label": "A single canonical endpoint"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Formal source notes"
+      "label": "Information that does not force the gap"
     },
     {
-      "level": 5,
+      "level": 2,
       "anchor": null,
-      "label": "Claim status."
+      "label": "Antecedents and proof record"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Guide to the formal sources"
     },
     {
       "level": 2,

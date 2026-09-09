@@ -16,7 +16,7 @@
     "frontend_math_dependency": null,
     "source_sha256": "f148b06d6388f35f87ffe302bd7044b3c7f0a4bebbc8a83f92207b6f5aa5dd4e",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 14,
+    "renderer_contract_version": 15,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,

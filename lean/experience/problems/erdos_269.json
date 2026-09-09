@@ -268,7 +268,7 @@
     "live_obstruction": "The normalised infinite dyadic shell tail either reaches an exact integral state or returns cofinally at distance at least 1/31 from every integer, and excluding the exact-integral-state branch is the unresolved step.",
     "strongest_open_producer": {
       "id": "exclude_exact_integral_dyadic_tails",
-      "statement": "Exclude every exact integral state of the genuine normalized source tail X_a=H(2^a)T_a/2. Lean proves that this orbit either has such a state or returns cofinally 1/31-far from all integers. The denominator-one automaton remains the direct arithmetic representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates now eliminate every direct phase-conditioned source potential of total degree at most two. Analyze longer surviving error cones through a genuinely nonlocal all-scale invariant, prove that an integral carry would force a finite-degree source potential, or move to nonpolynomial/unbounded-memory structure."
+      "statement": "For every positive B coprime to 30 and every a>=1, prove that the actual normalised state B X_a is nonintegral. Clearing and the rationality-to-reduced-carry bridge make this equivalent to irrationality of the {2,3,5} series; it is not a strictly stronger producer. The B=1 corner (integral X_a) is included but is not the whole target. Lean proves that the unscaled orbit either hits an integer or returns cofinally 1/31-far from all integers. The denominator-one automaton remains a direct B=1 representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates eliminate every direct phase-conditioned source potential of total degree at most two. The registered onset in the manuscript remains u+1+2v+3w until a sharper onset is independently checked. UPDATE 2026-09-07: finite cut-r…"
     },
     "how_to_contribute": {
       "kind": "proof",
@@ -281,18 +281,20 @@
       "Finite Farey boxes and lattice first-hit screens: a measured square-root law with no cofinal quantifier."
     ],
     "public_entry_ids": [
-      "ExternalVerification269ThreePrimeStructure"
+      "ExternalVerification269ThreePrimeStructure",
+      "ExternalVerification269WindowEscapeEquivalence",
+      "ExternalVerification269ActualShellOrbit"
     ]
   },
   "palomar": null,
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-269-three-prime-running-lcm",
-    "title": "The Three-Prime Running Least Common Multiple",
+    "title": "No Finite Separable Representation at Three Prime Generators",
     "subject": "Erdős #269",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 24,
+    "pages": 10,
     "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
     "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -314,17 +316,17 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 14,
-      "source_sha256": "379f505866b529978ff8289927fed1bf6db669dc62ffc19e397e413638d2bcec",
+      "renderer_contract_version": 15,
+      "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
       "publication_manifest_match": true,
-      "mathml_node_count": 521,
+      "mathml_node_count": 181,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "19e2f0af42a8a3f403052e807cbb6423df16c022e456312b80853a261e418d04",
-      "html_exact_tex_sha256": "9d9e3c7b58ee9b78f8416602b2624523d0b06c6557f75fe436edd495d222f5ef"
+      "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
+      "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
     },
     "sections": [
       {
@@ -333,109 +335,49 @@
         "label": "Introduction"
       },
       {
+        "level": 2,
+        "anchor": null,
+        "label": "The binary carry and arbitrary-order rank"
+      },
+      {
         "level": 5,
         "anchor": null,
-        "label": "Results and boundary."
+        "label": "The indices must be selected."
       },
       {
-        "level": 3,
+        "level": 5,
         "anchor": null,
-        "label": "Structure"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "The running least common multiple as a product of pure powers"
+        "label": "The norm matters."
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "Constancy on logarithmic cells and the jump points"
+        "label": "The two-prime comparison"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "The two-prime sums are transcendental"
+        "label": "Exact multiplicities and normalised tails"
       },
       {
         "level": 2,
         "anchor": null,
-        "label": "The height-fibre normal form"
+        "label": "A window test and the remaining arithmetic"
       },
       {
-        "level": 2,
+        "level": 5,
         "anchor": null,
-        "label": "A quadratic bound for smooth exponent shells"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "Non-separability of the three-prime kernel"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "The actual shell orbit and its integral branch"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "Dyadic blocks and a conditional carry contradiction"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The four-element block alphabet"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The denominator reduction and its boundary"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The window recurrence and the residue contradiction"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "A finite check of the escape condition"
-      },
-      {
-        "level": 2,
-        "anchor": null,
-        "label": "Complements and further questions"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The actual block data and the missing bridge"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "The intrinsic tail question"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "A denominator-adaptive sufficient criterion"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "A two-dimensional analytic representation"
-      },
-      {
-        "level": 3,
-        "anchor": null,
-        "label": "Further structural constraints"
+        "label": "The information the remaining argument must use."
       },
       {
         "level": 3,
         "anchor": null,
         "label": "Statements and declarations"
+      },
+      {
+        "level": 5,
+        "anchor": null,
+        "label": "Proof sources."
       },
       {
         "level": 5,

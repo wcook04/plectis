@@ -1,6 +1,12 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
 %
+% PROVENANCE: superseded local copy.  The published successor is
+% paper/problem-note-preamble.tex in the public release repository
+% wcook04/plectis-lean-erdos249-257 at 8df0dda280 (release/final-20260905),
+% which additionally loads longtable.  Builds in this directory use the public
+% copy through the tectonic search path; do not export or promote from here.
+%
 % Shared preamble for the Erdős Problem Notes: the short, standalone,
 % problem-owned manuscripts covering the expansion library `ErdosProblems`.
 %
@@ -29,8 +35,8 @@
 % against; the checker reads that snapshot rather than the working tree, so the
 % printed coordinates stay correct however later waves move declarations.
 % ---------------------------------------------------------------------------
-\newcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\newcommand{\commitshort}{99f4bf47422a}
+\newcommand{\commit}{8e58c395e9807ef3374d7365c62cf04d20ee6331}
+\newcommand{\commitshort}{9e231ce4371f}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
 \newcommand{\sourceurl}{https://github.com/wcook04/plectis-lean-erdos249-257/tree/\commit}
 \newcommand{\PX}{ErdosProblems}
@@ -54,6 +60,7 @@
 \newcommand{\leanlabel}[1]{\noteleanlabel{#1}}
 \newcommand{\lref}[3]{\href{\repobase/\PX/#1\#L#2}{\leanlabel{#3}}}
 \newcommand{\lword}[4]{\href{\repobase/\PX/#1\#L#2}{#4}}
+\usepackage{longtable}  % the notes' declaration tables; loaded here so the assembled records inherit it
 \newcommand{\lloc}[2]{\href{\repobase/\PX/#1\#L#2}{Lean source}}
 
 % Links into a sibling library, named repository-relative.  The expansion

@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1049-rational-base-lambert",
-  "title": "Sharp Height and Four-Jet Obstructions at Base 3/2",
+  "title": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 27,
+  "pages": 12,
   "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
   "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
   "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 14,
-    "source_sha256": "b748ded6e65009967fdc1ec157a253d174f5ceb19ab44eba889a35ebb4816418",
+    "renderer_contract_version": 15,
+    "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
     "publication_manifest_match": true,
-    "mathml_node_count": 513,
+    "mathml_node_count": 284,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "14b1094cd3498816a51fca5e86c73854285bf0fa7e4628b9f5489f43201fc31e",
-    "html_exact_tex_sha256": "58de90267ae2df38b36d6a720cc90af4515429dee57bba6645545eeb748d4ec3"
+    "html_mathml_sha256": "a55c3af58e571633f6331b2e447a6c07ea6a0b2618d54599710718bd3c808d1b",
+    "html_exact_tex_sha256": "03111de412e3c0719663305901bc5f0095aed6ea84909d8cb646a94040ba7f81"
   },
   "sections": [
     {
@@ -46,114 +46,74 @@
       "label": "Introduction"
     },
     {
-      "level": 5,
-      "anchor": null,
-      "label": "Relation to prior work."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Erdős’s integer-base argument, in outline."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "The direct cut-and-clear attempt studied here."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Terminology."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "The shortfall at 3/23/2."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Sharpness."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Results and boundary."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Structure."
-    },
-    {
       "level": 2,
       "anchor": null,
-      "label": "The sharp 41/6541/65 certificate"
+      "label": "A rational base at which FF is irrational"
     },
     {
-      "level": 2,
+      "level": 5,
       "anchor": null,
-      "label": "Integer scalar content is neutral"
+      "label": "Integral polynomials and their degrees."
     },
     {
-      "level": 2,
+      "level": 5,
       "anchor": null,
-      "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+      "label": "The limiting degree cost."
     },
     {
-      "level": 2,
+      "level": 5,
       "anchor": null,
-      "label": "Failure of coordinatewise clearing at 3/23/2"
+      "label": "A positive remainder at every fixed real base."
     },
     {
-      "level": 2,
+      "level": 5,
       "anchor": null,
-      "label": "The cleared-tail recurrence and the size of the forcing term"
+      "label": "Homogenisation."
     },
     {
-      "level": 2,
+      "level": 5,
       "anchor": null,
-      "label": "The height criterion at 7/27/2"
+      "label": "Comparison and scope."
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "The 81/20081/200 logarithmic region"
+      "label": "The base-uniform degree restriction"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Denominator exponents for a homogenised Padé construction"
+      "label": "Exact normalized-Hankel order in Zudilin’s construction"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Formal order and fixed-base size."
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Complements and further questions"
+      "label": "Local cancellation and the remaining real estimate"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Exact kernel escape"
+      "label": "One minor gcd controls two different costs"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Determinant families"
+      "label": "A collision must have a small nonzero real remainder"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Asymptotic adequacy after kernel escape"
+      "label": "The source-specific endpoint question"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": null,
-      "label": "One exact alternative-criterion test"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "The quantitative height limitation"
+      "label": "Functional equations."
     },
     {
       "level": 3,

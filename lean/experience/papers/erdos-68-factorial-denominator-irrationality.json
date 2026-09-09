@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-68-factorial-denominator-irrationality",
-  "title": "Factorial-Channel Obstructions and Exact Orbit Boundaries",
+  "title": "Two Incomparable Denominator Exclusions for $\\sum_{n\\ge2}(n!-1)^{-1}$",
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 24,
+  "pages": 14,
   "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
   "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
   "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -27,98 +27,88 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 14,
-    "source_sha256": "6004f99a7a651ce3c417de64481cb4e61435d48d9d663c39c4c10329218df4b3",
+    "renderer_contract_version": 15,
+    "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
     "publication_manifest_match": true,
-    "mathml_node_count": 520,
+    "mathml_node_count": 264,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "53d6ba4f28a948d3f100804fcdfec214140cab0e2e0ca824e2724eed8b473b0d",
-    "html_exact_tex_sha256": "3431799ba9bb2ca4dd02b1b85d4b2f2fde4194caeea6685d49877ff7451714e8"
+    "html_mathml_sha256": "95b18398a187e2dbe62152f55516c2628bbb86d78fe141298bf54d8d5e919b6a",
+    "html_exact_tex_sha256": "9c040e59f0be234ef231a669ce4daf8a91bc5d62a359fc726f18af553cb3d51e"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
-      "label": "The problem"
+      "label": "The denominator exclusions"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Canonical factorial digits"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Finite channel congruences and the LCM obstruction"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "A two-term prime channel corrector"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Zero plateaux, first exit, and denominator bounds"
+      "label": "The fixed companion orbit"
     },
     {
       "level": 3,
       "anchor": null,
-      "label": "Why the adjacent-unit window is circular"
+      "label": "The carry and its wrap correction"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Weighted projection rigidity"
+      "label": "An integral basis for factorial channels"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The support restriction and the residual"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "A finite certificate for the infinite moment ideal."
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "A fixed companion-orbit coordinate"
+      "label": "The moment cost and the choice of support"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Growth of the compulsory factor"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Remote primitive kernels"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Limits of fixed-coordinate arguments"
+      "label": "Cancellation in a reduced prefix"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Finite certificates"
+      "label": "One joint collision and residue estimate"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Open problems"
+      "label": "The remaining real comparison"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": null,
-      "label": "1. Weighted collision mass and the complementary residue"
+      "label": "The limit of short supports."
     },
     {
-      "level": 3,
+      "level": 2,
       "anchor": null,
-      "label": "2. Nonterminal prime-power amplification"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "3. Escape from the lower endpoint interval"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "4. Failure of the two exact doubled-prime branches"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "5. A finite Cramer block across floor discontinuities"
+      "label": "The finite evidence"
     },
     {
       "level": 2,

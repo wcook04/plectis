@@ -4,7 +4,7 @@
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
     "paper_count": 14,
-    "papers_with_warnings": 4,
+    "papers_with_warnings": 5,
     "warnings": {
       "erdos249-totient-reasoning-surface": {
         "mathml": [
@@ -35,6 +35,27 @@
         ],
         "mathjax": []
       },
+      "erdos-257-mersenne-support-subseries": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
+          ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math f_A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\ge1), rendering as TeX:",
+          "A(an)-f_A(n)=1-{\\bf1}_{a\\mid n}\\quad(n\\g",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math \\operatorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_{2q\\mid n})",
+          "=\\frac1{4pq}\\qquad(p\\ne q\\text{ odd primes}),, rendering as TeX:",
+          "ratorname{Cov}({\\bf1}_{2p\\mid n},{\\bf1}_",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
       "erdos257-mersenne-reasoning-surface": {
         "mathml": [
           "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
@@ -47,14 +68,10 @@
       },
       "erdos-1041-lemniscate-newton-flow": {
         "mathml": [
-          "[WARNING] Could not convert TeX math M_5=(1-t_*)(1+t_*)^3\\sqrt{16t_*^2-4t_*+1},",
-          "\\qquad",
-          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
-          "\\qquad",
-          "{1\\over M_5}=0.2760461\\ldots., rendering as TeX:",
-          "t_*={5\\over16}+{3\\sqrt{105}\\over80},",
+          "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
+          "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
           "^",
-          "unexpected control sequence \\over",
+          "unexpected control sequence \\emph",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
         ],
         "mathjax": []

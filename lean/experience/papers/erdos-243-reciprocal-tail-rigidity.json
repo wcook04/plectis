@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 24,
+  "pages": 11,
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
   "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -27,17 +27,17 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 14,
-    "source_sha256": "cf6e73efdc61b9740a8a1192ba1c08eb7448af35547b4fa60446a5479ec4c797",
+    "renderer_contract_version": 15,
+    "source_sha256": "bbad3e8929c50fefb86aa81250095c5cead267d5ad22def620c5e85bebb2b9d9",
     "publication_manifest_match": true,
-    "mathml_node_count": 423,
+    "mathml_node_count": 190,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "2d57c4bcde39afd9b0fb0f32d83b05dcfa2219d8eb454a8c88da7120aad433e9",
-    "html_exact_tex_sha256": "93ff2f65212619e65386a98285ee271f559c0ad00688bb6ee1509868db8d2b60"
+    "html_mathml_sha256": "7cc54a5d5c8e9abc59463603d51d9937e42d3c8644636f13b553218364de3ab5",
+    "html_exact_tex_sha256": "6989cd14cfc5d8787a60a6cf139ce02622ebb18387c392424b2f882f6ea6b410"
   },
   "sections": [
     {
@@ -48,122 +48,67 @@
     {
       "level": 5,
       "anchor": null,
-      "label": "Relation to prior work."
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Structure"
+      "label": "The obstruction."
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "The centred integer state"
+      "label": "Proof of bounded-negative rigidity"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The arithmetic ingredients"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Error, absorption and descent"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "The first-crossing obstruction"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Reduction and stabilisation"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Transfer to a reciprocal series"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "A scalar finite-mass criterion"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Weighted first crossings of LCM records"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Further consequences"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The remaining arithmetic estimate"
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "The intended reading, which is not formalised."
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "The defect identity and its two consequences"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Two-step cancellation and feedback"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Descent when the error is nonnegative"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Excluding a constant negative magnitude"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Excluding a periodic negative magnitude"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Bounded rise cannot remain coprime to fresh moduli"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Excluding a bounded negative part"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Excluding finite normalised negative mass"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Complements and further questions"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Global height and old-factor overlap"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Repair entropy across a recovery"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "The direct analytic question"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "A barrier extension"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Formalisation targets"
+      "label": "Formal scope and supporting record."
     },
     {
       "level": 5,
       "anchor": null,
-      "label": "Erdős–Straus."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Duverney."
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Statements and declarations"
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Funding and competing interests."
-    },
-    {
-      "level": 5,
-      "anchor": null,
-      "label": "Acknowledgements."
+      "label": "Declarations."
     },
     {
       "level": 2,
