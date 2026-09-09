@@ -1362,6 +1362,11 @@ main.hero {
    The buttons carry the hierarchy (primary / ghost / text); the notes say what
    each mode can establish, so the route decision happens here, once. */
 .hero__modes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.95rem; max-width: 740px; }
+/* One line of contact under the hero buttons, so a reader never has to hunt
+   for an address. Both addresses are given; the contact section says which
+   to prefer and why. */
+.hero__contact { margin: 1.4rem 0 0; font-size: var(--fs-meta); color: var(--muted); line-height: var(--lh-snug); overflow-wrap: anywhere; }
+.hero__contact a { color: inherit; text-underline-offset: 0.18em; }
 .hero__mode { display: grid; grid-template-columns: 16.5rem minmax(0, 1fr); gap: 0.35rem 1.15rem; align-items: center; }
 .hero__mode > .btn { justify-self: start; margin: 0; }
 .hero__mode-note { margin: 0; font-size: var(--fs-meta); color: var(--muted); line-height: var(--lh-snug); text-wrap: pretty; }
