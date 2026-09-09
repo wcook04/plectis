@@ -145228,7 +145228,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 110,
+        "page_count": 109,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -145256,7 +145256,7 @@
             "page": "paper-module-formal-math-premise-retrieval.html"
           }
         ],
-        "total_occurrences": 869
+        "total_occurrences": 868
       },
       "visible_text_byte_count": 889
     },
@@ -273552,7 +273552,6 @@
       "by_page": {
         "component-batch7-oracle-sibling-capsule.html": 1,
         "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
-        "contact.html": 1,
         "doctrine.html": 55,
         "open-questions.html": 2,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 1,
@@ -273661,9 +273660,9 @@
         "reference.html": 269,
         "rules-and-ideas.html": 404
       },
-      "page_count": 110,
+      "page_count": 109,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 869
+      "total_occurrences": 868
     },
     "hard_coded": {
       "by_page": {
