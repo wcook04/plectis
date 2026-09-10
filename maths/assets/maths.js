@@ -161,36 +161,47 @@
         if (extra) extra.remove();
       });
     }
-    function select(id) {
-      var node = nodes.get(id);
-      if (!node) return;
-      if (selectedId === id) {
-        clearSelection();
-        return;
-      }
-      clearSelection();
-      selectedId = id;
-      var row = null;
+    function rowFor(id) {
       for (var i = 0; i < entries.length; i++) {
-        if (entries[i].dataset.module === id) { row = entries[i]; break; }
+        if (entries[i].dataset.module === id) return entries[i];
       }
-      if (!row) return;
-      row.classList.add('is-selected');
-      var name = nameButton(row);
-      if (name) name.setAttribute('aria-pressed', 'true');
-      var box = element('div', '', 'source-file__rels');
-      box.setAttribute('aria-live', 'polite');
-      box.appendChild(relLine('Imports', related(id, true)));
-      box.appendChild(relLine('Used by', related(id, false)));
-      row.appendChild(box);
-      if (row.scrollIntoView) {
-        try { row.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (err) { row.scrollIntoView(); }
-      }
+      return null;
     }
-    map.addEventListener('click', function (event) {
-      var button = event.target.closest('[data-select-module]');
-      if (button) select(button.dataset.selectModule);
-    });
+    function showRow(row, fromPaper) {
+      if (!row || !row.scrollIntoView) return;
+      var block = fromPaper ? 'center' : 'nearest';
+      try { row.scrollIntoView({ block: block, inline: 'nearest' }); } catch (err) { row.scrollIntoView(); }
+    }
+    function select(id, opts) {
+      opts = opts || {};
+      var node = nodes.get(id);
+      if (!node) return false;
+      if (!opts.force && selectedId === id) {
+        clearSelection();
+        return true;
+      }
+      var row = rowFor(id);
+      if (!row) return false;
+      if (selectedId !== id) {
+        clearSelection();
+        selectedId = id;
+        row.classList.add('is-selected');
+        var name = nameButton(row);
+        if (name) name.setAttribute('aria-pressed', 'true');
+        var box = element('div', '', 'source-file__rels');
+        box.setAttribute('aria-live', 'polite');
+        box.appendChild(relLine('Imports', related(id, true)));
+        box.appendChild(relLine('Used by', related(id, false)));
+        row.appendChild(box);
+      }
+      if (opts.fromPaper) {
+        try { map.scrollIntoView({ block: 'start' }); } catch (err) { map.scrollIntoView(); }
+      }
+      showRow(row, !!opts.fromPaper);
+      return true;
+    }
+    map.__selectModule = select;
+    map.__hasModule = function (id) { return nodes.has(id); };
     function filter() {
       var q = (search && search.value || '').trim().toLowerCase();
       var onlyDirect = !!(direct && direct.checked);
@@ -219,16 +230,60 @@
     if (list && entries.length > 18) list.classList.add('is-long');
     filter();
   });
+
+  function moduleIdFromGithub(href) {
+    var match = String(href || '').match(/\/(ErdosProblems\/.+?\.lean)(?:#|$)/);
+    if (!match) return '';
+    return 'lean-module:' + match[1].replace(/\.lean$/, '').replace(/\//g, '.');
+  }
+  function hashModuleId() {
+    if (!location.hash) return '';
+    try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return location.hash.slice(1); }
+  }
+  function selectFromPage(id, fromPaper) {
+    if (!id) return false;
+    var maps = document.querySelectorAll('[data-source-map]');
+    var found = false;
+    for (var i = 0; i < maps.length; i++) {
+      if (typeof maps[i].__selectModule === 'function' && maps[i].__selectModule(id, { force: fromPaper, fromPaper: fromPaper })) {
+        found = true;
+      }
+    }
+    return found;
+  }
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-select-module], a[href*="/ErdosProblems/"]');
+    if (!trigger) return;
+    var id = trigger.getAttribute('data-select-module') || '';
+    if (!id) id = moduleIdFromGithub(trigger.getAttribute('href') || '');
+    if (!id) return;
+    var map = document.querySelector('[data-source-map]');
+    if (!map || typeof map.__hasModule !== 'function' || !map.__hasModule(id)) return;
+    var fromPaper = !map.contains(trigger);
+    if (fromPaper && trigger.tagName === 'A') {
+      var href = trigger.getAttribute('href') || '';
+      if (href.indexOf('github.com') !== -1 && !trigger.getAttribute('data-select-module')) {
+        event.preventDefault();
+        if (history.replaceState) history.replaceState(null, '', '#' + id);
+        else location.hash = id;
+      }
+    }
+    selectFromPage(id, fromPaper);
+  });
   // Deep links into a collapsed research section reveal their destination.
+  // Module hashes also select the matching Lean map row.
   function revealHash() {
     if (!location.hash) return;
+    var raw = hashModuleId();
     var target;
-    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { return; }
-    if (!target) return;
-    for (var parent = target; parent; parent = parent.parentElement) {
-      if (parent.tagName === 'DETAILS') parent.open = true;
+    try { target = document.getElementById(raw); } catch (e) { target = null; }
+    if (target) {
+      for (var parent = target; parent; parent = parent.parentElement) {
+        if (parent.tagName === 'DETAILS') parent.open = true;
+      }
+      target.scrollIntoView();
     }
-    target.scrollIntoView();
+    selectFromPage(raw, true);
   }
   window.addEventListener('hashchange', revealHash);
   revealHash();
