@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:ba3f1355d19d591c164e90a11f4d059f6e108ab2bfb41942f1a010da2c7f8632",
-  "byte_count": 16216682,
-  "payload_sha256_excluding_identity": "sha256:18f46a393374c820a75c4074b0981a05327199c07ce788fa1c890066535e4656",
-  "source_fingerprint": "17dd69862f0348a9ef61661c03979fbc",
+  "exact_byte_sha256": "sha256:6b50859d585a35fc049fd31d06f612782840673af3908718892a4d597a04bcba",
+  "byte_count": 16391504,
+  "payload_sha256_excluding_identity": "sha256:7d5190a142afa448feebdaa239badc9d00b4d40d7b759c05c02cb1852b3a35b7",
+  "source_fingerprint": "cee50fa56e7cf5ad449accd25acbd7c3",
   "packet_schema": "microcosm_ai_review_packet_v2",
   "lean_release_version": "0.9.0",
-  "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
-  "formal_source_public_tag": "formal-source-2026-09-04",
+  "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334",
+  "formal_source_public_tag": "formal-source-2026-09-10-r2",
   "repository_heads_at_build": {
-    "plectis": "ce44d0fd67a99c0867af9cf52c9f3d2343f2470e",
-    "plectis-lean-erdos249-257": "e3e8da0e380e19084111d598befb8341a4e85a6a"
+    "plectis": "a5b7d4c5c91b1b6b004f9c86e84536825b87f592",
+    "plectis-lean-erdos249-257": "6a8e8c4d4652176ab5f6ba36d0d517f0334effe3"
   },
   "source_integrity": "verified_current",
-  "suggested_local_filename": "plectis-ai-review-packet-0.9.0-99f4bf4.json",
+  "suggested_local_filename": "plectis-ai-review-packet-0.9.0-r2-92b88dc.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }
