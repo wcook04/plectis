@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
     "publication_manifest_match": true,
     "mathml_node_count": 13,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "b0b495ca3de3af437eed9882ba44d61dae7610442b6c0d61736ab508f43f648b",
-    "html_exact_tex_sha256": "8a683de2f8127f6ce0a1785bfb628764b9c1649b0faf8526e2a52048e43b9ca4"
+    "html_exact_tex_sha256": "19c50b879e958a1d277f8d35d51a5d62f2873cc1e72024c32c673df39e3bc021"
   },
   "sections": [
     {

@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
     "publication_manifest_match": true,
     "mathml_node_count": 181,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "003a343d885776b07fd4416cc4059fa30488918ea8ba396b240856d0d3528402",
-    "html_exact_tex_sha256": "5df104bdfad22d56019d84a3a6e46a7d37c96914e9a7fb3ac6f92bbafbe3fbae"
+    "html_exact_tex_sha256": "c8ad38e4672bfc44210463bd37574adfcb0deead6f6c704d3b347c92891c19d6"
   },
   "sections": [
     {

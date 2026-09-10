@@ -7,51 +7,51 @@
   <div class="lean-paper__body" data-source="../../../paper/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
-<p>Let <span class="math inline">\(P\)</span> be a finite set of at
-least two primes and <span class="math inline">\(\mathcal S_P\)</span>
+<p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a finite set of at
+least two primes and <span class="math inline" data-term-auto="off">\(\mathcal S_P\)</span>
 its positive smooth integers. Put <span
-class="math display">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
+class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
 x\},\qquad
 \mathcal R_P=\sum_{u\in\mathcal S_P}\operatorname{L}(u)^{-1}.\]</span>
-Erdős asks whether <span class="math inline">\(\mathcal R_P\)</span> is
+Erdős asks whether <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> is
 irrational <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
 data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. For <span
-class="math inline">\(P=\{p,q,r\}\)</span>, define <span
-class="math display">\[\operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}
+class="math inline" data-term-auto="off">\(P=\{p,q,r\}\)</span>, define <span
+class="math display" data-term-auto="off">\[\operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}
 q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
 \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span>
 Prime-power divisibility gives <span
-class="math inline">\(\operatorname{L}=\operatorname{H}\)</span>
-(Proposition <span class="math inline">\(\ref{res:lcm}\)</span>).</p>
+class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
+(Proposition <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>).</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
 <div class="proof">
-<p><em>Proof.</em> Put <span class="math inline">\(c=r^{-1}\)</span>,
-<span class="math inline">\(x_i=\{i\log_r p\}\)</span> and <span
-class="math inline">\(y_j=\{j\log_r q\}\)</span>. Splitting the floor
+<p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(c=r^{-1}\)</span>,
+<span class="math inline" data-term-auto="off">\(x_i=\{i\log_r p\}\)</span> and <span
+class="math inline" data-term-auto="off">\(y_j=\{j\log_r q\}\)</span>. Splitting the floor
 exponents gives <span
-class="math display">\[\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
+class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
 C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},\]</span> where <span
-class="math display">\[\begin{aligned}
+class="math display" data-term-auto="off">\[\begin{aligned}
 U_i(k)&amp;=p^i q^{\lfloor\log_q(p^ir^k)\rfloor}
             r^{k+\lfloor\log_r p^i\rfloor},\\
 V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
             r^{\lfloor\log_r q^j\rfloor}.
 \end{aligned}\]</span> Both factors are positive. Distinct primes make
-<span class="math inline">\(\log_r p\)</span> and <span
-class="math inline">\(\log_r q\)</span> irrational, so each individual
-rotation is dense. For <span class="math inline">\(n\ge1\)</span>,
+<span class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
+class="math inline" data-term-auto="off">\(\log_r q\)</span> irrational, so each individual
+rotation is dense. For <span class="math inline" data-term-auto="off">\(n\ge1\)</span>,
 choose distinct row indices with <span
-class="math inline">\(0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1\)</span>.
-Choose <span class="math inline">\(1-y_{J(0)}\)</span> in <span
-class="math inline">\((0,x_{I(0)})\)</span>, and, for <span
-class="math inline">\(1\le b&lt;n\)</span>, choose <span
-class="math inline">\(1-y_{J(b)}\)</span> in <span
-class="math inline">\((x_{I(b-1)},x_{I(b)})\)</span>. The intervals are
+class="math inline" data-term-auto="off">\(0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1\)</span>.
+Choose <span class="math inline" data-term-auto="off">\(1-y_{J(0)}\)</span> in <span
+class="math inline" data-term-auto="off">\((0,x_{I(0)})\)</span>, and, for <span
+class="math inline" data-term-auto="off">\(1\le b&lt;n\)</span>, choose <span
+class="math inline" data-term-auto="off">\(1-y_{J(b)}\)</span> in <span
+class="math inline" data-term-auto="off">\((x_{I(b-1)},x_{I(b)})\)</span>. The intervals are
 disjoint, so the column indices are distinct. These choices give <span
-class="math display">\[T_n(c)=\begin{pmatrix}
+class="math display" data-term-auto="off">\[T_n(c)=\begin{pmatrix}
 c&amp;1&amp;\cdots&amp;1\\
 c&amp;c&amp;\cdots&amp;1\\
 \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
@@ -59,15 +59,15 @@ c&amp;c&amp;\cdots&amp;c
 \end{pmatrix},\qquad
 \det T_n(c)=c(c-1)^{n-1}.\]</span> Indeed, subtracting each preceding
 row from the next, working upwards from the last row, leaves diagonal
-entries <span class="math inline">\(c,c-1,\ldots,c-1\)</span>. The same
-<span class="math inline">\(I,J\)</span> work for every <span
-class="math inline">\(k\)</span>, whose only effect is multiplication by
+entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The same
+<span class="math inline" data-term-auto="off">\(I,J\)</span> work for every <span
+class="math inline" data-term-auto="off">\(k\)</span>, whose only effect is multiplication by
 nonzero row and column factors. The empty minor for <span
-class="math inline">\(n=0\)</span> equals <span
-class="math inline">\(1\)</span>. Finally, <span
-class="math inline">\(d\)</span> separated summands would factor every
-<span class="math inline">\((d+1)\times(d+1)\)</span> restriction
-through a <span class="math inline">\(d\)</span>-dimensional space,
+class="math inline" data-term-auto="off">\(n=0\)</span> equals <span
+class="math inline" data-term-auto="off">\(1\)</span>. Finally, <span
+class="math inline" data-term-auto="off">\(d\)</span> separated summands would factor every
+<span class="math inline" data-term-auto="off">\((d+1)\times(d+1)\)</span> restriction
+through a <span class="math inline" data-term-auto="off">\(d\)</span>-dimensional space,
 contradicting the nonzero minor. ◻</p>
 </div>
 <p>Both clauses are <a
@@ -75,11 +75,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 source</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Every row and column factor is a unit modulo <span
-class="math inline">\(B\)</span>. The normalised determinant is <span
-class="math inline">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. The
-choices of <span class="math inline">\(I,J\)</span> are independent of
-both <span class="math inline">\(B\)</span> and <span
-class="math inline">\(k\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(B\)</span>. The normalised determinant is <span
+class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. The
+choices of <span class="math inline" data-term-auto="off">\(I,J\)</span> are independent of
+both <span class="math inline" data-term-auto="off">\(B\)</span> and <span
+class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">Lean
@@ -89,71 +89,71 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 source</a>.</p>
 <section id="the-indices-must-be-selected." class="level5">
 <h5>The indices must be selected.</h5>
-<p>The leading <span class="math inline">\(4\times4\)</span> block at
-<span class="math inline">\(\{2,3,5\}\)</span> is singular: <span
-class="math display">\[\operatorname{K}(3,j,0)=\frac1{120}\operatorname{K}(0,j,0)\qquad(0\le
+<p>The leading <span class="math inline" data-term-auto="off">\(4\times4\)</span> block at
+<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> is singular: <span
+class="math display" data-term-auto="off">\[\operatorname{K}(3,j,0)=\frac1{120}\operatorname{K}(0,j,0)\qquad(0\le
 j&lt;4).\]</span> These equalities follow by evaluating the height at
-<span class="math inline">\(3^j\)</span> and <span
-class="math inline">\(8\cdot3^j\)</span>. At <span
-class="math inline">\(j=4\)</span> the difference is <span
-class="math inline">\(-1/19440000\)</span>. Thus the leading minors do
+<span class="math inline" data-term-auto="off">\(3^j\)</span> and <span
+class="math inline" data-term-auto="off">\(8\cdot3^j\)</span>. At <span
+class="math inline" data-term-auto="off">\(j=4\)</span> the difference is <span
+class="math inline" data-term-auto="off">\(-1/19440000\)</span>. Thus the leading minors do
 not supply the arbitrary-order theorem.</p>
 <div class="proof">
 <p><em>Proof.</em> List <span
-class="math inline">\(E=\{k_1&lt;\cdots&lt;k_t\}\)</span>. The <span
-class="math inline">\(t-1\)</span> differences <span
-class="math inline">\(v_{k_{j+1}}-v_{k_j}=(1-c)\mathbf
+class="math inline" data-term-auto="off">\(E=\{k_1&lt;\cdots&lt;k_t\}\)</span>. The <span
+class="math inline" data-term-auto="off">\(t-1\)</span> differences <span
+class="math inline" data-term-auto="off">\(v_{k_{j+1}}-v_{k_j}=(1-c)\mathbf
 1_{\{k_j,\ldots,k_{j+1}-1\}}\)</span> have disjoint nonempty supports,
 hence are linearly independent. If <span
-class="math inline">\(k_1&gt;0\)</span> or <span
-class="math inline">\(k_t&lt;m\)</span>, their union misses a coordinate
-where <span class="math inline">\(v_{k_1}\)</span> is nonzero, so the
-rank is <span class="math inline">\(t\)</span>. If <span
-class="math inline">\(k_1=0\)</span> and <span
-class="math inline">\(k_t=m\)</span>, then <span
-class="math inline">\(v_0=c\,\mathbf 1\)</span> lies in the span of the
-differences (their sum is <span class="math inline">\((1-c)\mathbf
+class="math inline" data-term-auto="off">\(k_1&gt;0\)</span> or <span
+class="math inline" data-term-auto="off">\(k_t&lt;m\)</span>, their union misses a coordinate
+where <span class="math inline" data-term-auto="off">\(v_{k_1}\)</span> is nonzero, so the
+rank is <span class="math inline" data-term-auto="off">\(t\)</span>. If <span
+class="math inline" data-term-auto="off">\(k_1=0\)</span> and <span
+class="math inline" data-term-auto="off">\(k_t=m\)</span>, then <span
+class="math inline" data-term-auto="off">\(v_0=c\,\mathbf 1\)</span> lies in the span of the
+differences (their sum is <span class="math inline" data-term-auto="off">\((1-c)\mathbf
 1\)</span>), so the rank is <span
-class="math inline">\(t-1\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">Lean
 source</a>.</p>
 <p>The formula classifies every finite sampled kernel rank after the row
 and column factors of Theorem <span
-class="math inline">\(\ref{res:infinite-rank}\)</span>, independently of
+class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span>, independently of
 the third coordinate. An exact logarithm-free algorithm orders the
-rationals <span class="math inline">\(p^i/r^{\lfloor\log_r
+rationals <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
 p^i\rfloor}\)</span>, counts those strictly below each <span
-class="math inline">\(r^{\lfloor\log_r q^j\rfloor+1}/q^j\)</span>, and
+class="math inline" data-term-auto="off">\(r^{\lfloor\log_r q^j\rfloor+1}/q^j\)</span>, and
 applies the displayed correction. Direct elimination on the <span
-class="math inline">\(\{2,3,5\}\)</span> kernel agrees with the formula
-through order <span class="math inline">\(24\)</span>; larger leading
+class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> kernel agrees with the formula
+through order <span class="math inline" data-term-auto="off">\(24\)</span>; larger leading
 ranks recorded with the accompanying checker use the formula and exact
 integer phase comparisons.</p>
 </section>
 <section id="the-norm-matters." class="level5">
 <h5>The norm matters.</h5>
 <p>For the infinite normalised carry matrix, <span
-class="math display">\[\inf_{F\text{ of finite separated
+class="math display" data-term-auto="off">\[\inf_{F\text{ of finite separated
 rank}}\|C-F\|_\infty=(1-c)/2.\]</span> Distinct columns are exactly
-<span class="math inline">\(1-c\)</span> apart in the supremum norm, by
+<span class="math inline" data-term-auto="off">\(1-c\)</span> apart in the supremum norm, by
 density of the row phases. An approximation below half that distance
 would give infinitely many bounded, uniformly separated columns in a
 finite-dimensional space. Compactness excludes this. The constant <span
-class="math inline">\((1+c)/2\)</span> attains the bound.</p>
+class="math inline" data-term-auto="off">\((1+c)/2\)</span> attains the bound.</p>
 <p>Finite restrictions have a different behaviour. At <span
-class="math inline">\(c=1/5\)</span>, <span
-class="math display">\[T=\begin{pmatrix}1/5&amp;1\\1/5&amp;1/5\end{pmatrix},\qquad
+class="math inline" data-term-auto="off">\(c=1/5\)</span>, <span
+class="math display" data-term-auto="off">\[T=\begin{pmatrix}1/5&amp;1\\1/5&amp;1/5\end{pmatrix},\qquad
 A=\begin{pmatrix}3/10&amp;9/10\\1/10&amp;3/10\end{pmatrix}\]</span>
-satisfy <span class="math inline">\(\det A=0\)</span> and <span
-class="math inline">\(\|T-A\|_{\max}=1/10&lt;2/5\)</span>. For the
+satisfy <span class="math inline" data-term-auto="off">\(\det A=0\)</span> and <span
+class="math inline" data-term-auto="off">\(\|T-A\|_{\max}=1/10&lt;2/5\)</span>. For the
 original kernel, truncating the first coordinate at <span
-class="math inline">\(N\)</span> gives separated rank at most <span
-class="math inline">\(N\)</span> and <span
-class="math display">\[\|K-K^{(N)}\|_{\ell^1}
+class="math inline" data-term-auto="off">\(N\)</span> gives separated rank at most <span
+class="math inline" data-term-auto="off">\(N\)</span> and <span
+class="math display" data-term-auto="off">\[\|K-K^{(N)}\|_{\ell^1}
 \le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.\]</span> This
-follows from <span class="math inline">\(H(x)&gt;x^3/(pqr)\)</span>.
+follows from <span class="math inline" data-term-auto="off">\(H(x)&gt;x^3/(pqr)\)</span>.
 Thus the infinite uniform obstruction coexists with geometric
 approximation in the summation norm. The scalar irrationality question
 requires arithmetic information about the actual multiplicities.</p>
@@ -161,12 +161,12 @@ requires arithmetic information about the actual multiplicities.</p>
 </section>
 <section id="sec:two-prime" class="level2">
 <h2>The two-prime comparison</h2>
-<p>For distinct primes <span class="math inline">\(p&lt;q\)</span>,
-write <span class="math inline">\(L_{p,q}(t)=p^{\lfloor\log_p
+<p>For distinct primes <span class="math inline" data-term-auto="off">\(p&lt;q\)</span>,
+write <span class="math inline" data-term-auto="off">\(L_{p,q}(t)=p^{\lfloor\log_p
 t\rfloor}q^{\lfloor\log_q t\rfloor}\)</span>. Prime-power divisibility
 identifies this product with the running LCM. Let <span
-class="math inline">\(\mathcal R_{p,q}\)</span> retain every
-smooth-number multiplicity, and let <span class="math inline">\(\mathcal
+class="math inline" data-term-auto="off">\(\mathcal R_{p,q}\)</span> retain every
+smooth-number multiplicity, and let <span class="math inline" data-term-auto="off">\(\mathcal
 D_{p,q}\)</span> retain the initial value and one reciprocal at each
 positive pure-power jump. Fan’s argument gives the repeated two-prime
 factorisation and its quadratic reduction to a single Hecke–Mahler
@@ -174,58 +174,58 @@ value. The same boundary-channel calculation also yields the
 de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="proof">
-<p><em>Proof.</em> Set <span class="math inline">\(x=1/p\)</span>, <span
-class="math inline">\(y=1/q\)</span>, <span
-class="math inline">\(m_n=\lfloor n\theta\rfloor\)</span> and <span
-class="math inline">\(\delta_n=m_{n+1}-m_n\)</span>. Unique
-factorisation makes <span class="math inline">\(\theta\)</span>
-irrational, and <span class="math inline">\(0&lt;\theta&lt;1\)</span>
-gives <span class="math inline">\(\delta_n\in\{0,1\}\)</span>. The
-initial value and the <span class="math inline">\(p\)</span>-channel
+<p><em>Proof.</em> Set <span class="math inline" data-term-auto="off">\(x=1/p\)</span>, <span
+class="math inline" data-term-auto="off">\(y=1/q\)</span>, <span
+class="math inline" data-term-auto="off">\(m_n=\lfloor n\theta\rfloor\)</span> and <span
+class="math inline" data-term-auto="off">\(\delta_n=m_{n+1}-m_n\)</span>. Unique
+factorisation makes <span class="math inline" data-term-auto="off">\(\theta\)</span>
+irrational, and <span class="math inline" data-term-auto="off">\(0&lt;\theta&lt;1\)</span>
+gives <span class="math inline" data-term-auto="off">\(\delta_n\in\{0,1\}\)</span>. The
+initial value and the <span class="math inline" data-term-auto="off">\(p\)</span>-channel
 contribute <span
-class="math inline">\(A=\sum_{n\ge0}x^ny^{m_n}\)</span>. There is one
-<span class="math inline">\(q\)</span>-power between <span
-class="math inline">\(p^n\)</span> and <span
-class="math inline">\(p^{n+1}\)</span> precisely when <span
-class="math inline">\(\delta_n=1\)</span>, so the other channel
+class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}x^ny^{m_n}\)</span>. There is one
+<span class="math inline" data-term-auto="off">\(q\)</span>-power between <span
+class="math inline" data-term-auto="off">\(p^n\)</span> and <span
+class="math inline" data-term-auto="off">\(p^{n+1}\)</span> precisely when <span
+class="math inline" data-term-auto="off">\(\delta_n=1\)</span>, so the other channel
 contributes <span
-class="math display">\[B=\sum_{n\ge0}\delta_nx^ny^{m_n+1},\qquad
+class="math display" data-term-auto="off">\[B=\sum_{n\ge0}\delta_nx^ny^{m_n+1},\qquad
 \mathcal D_{p,q}=A+B.\]</span> All these series converge absolutely.
 Since <span
-class="math inline">\(y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y-1)\)</span>,
-shifting the series for <span class="math inline">\(A\)</span> gives
-<span class="math inline">\(A-1-xA=x(y-1)B/y\)</span>. Therefore <span
-class="math display">\[B=\frac{p-(p-1)A}{q-1}.\]</span> At <span
-class="math inline">\(p^iq^j\)</span> the height is <span
-class="math inline">\(p^{i+\lfloor j/\theta\rfloor}q^{j+m_i}\)</span>,
-hence <span class="math display">\[\mathcal R_{p,q}
+class="math inline" data-term-auto="off">\(y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y-1)\)</span>,
+shifting the series for <span class="math inline" data-term-auto="off">\(A\)</span> gives
+<span class="math inline" data-term-auto="off">\(A-1-xA=x(y-1)B/y\)</span>. Therefore <span
+class="math display" data-term-auto="off">\[B=\frac{p-(p-1)A}{q-1}.\]</span> At <span
+class="math inline" data-term-auto="off">\(p^iq^j\)</span> the height is <span
+class="math inline" data-term-auto="off">\(p^{i+\lfloor j/\theta\rfloor}q^{j+m_i}\)</span>,
+hence <span class="math display" data-term-auto="off">\[\mathcal R_{p,q}
 =A\sum_{j\ge0}y^jx^{\lfloor j/\theta\rfloor}=A(1+B).\]</span> For the
-last equality, each <span class="math inline">\(j\ge1\)</span>
-corresponds to <span class="math inline">\(n=\lfloor
+last equality, each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>
+corresponds to <span class="math inline" data-term-auto="off">\(n=\lfloor
 j/\theta\rfloor\)</span> with <span
-class="math inline">\(m_n=j-1\)</span> and <span
-class="math inline">\(\delta_n=1\)</span>. These identities prove <span
-class="math inline">\(\eqref{eq:two-prime-affine}\)</span>.</p>
+class="math inline" data-term-auto="off">\(m_n=j-1\)</span> and <span
+class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. These identities prove <span
+class="math inline" data-term-auto="off">\(\eqref{eq:two-prime-affine}\)</span>.</p>
 <p>For the Hecke–Mahler series <span
-class="math inline">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>,
-geometric summation gives <span class="math display">\[\begin{equation}
+class="math inline" data-term-auto="off">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>,
+geometric summation gives <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:hecke-mahler-boundary}
 A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}\]</span> Bugeaud and Laurent’s Theorem 1.1 applies to
-these nonzero algebraic <span class="math inline">\(x,y\)</span> <span
+these nonzero algebraic <span class="math inline" data-term-auto="off">\(x,y\)</span> <span
 class="citation" data-cites="bugeaudlaurent2023"></span>: <span
-class="math inline">\(|x|&lt;1\)</span> and <span
-class="math inline">\(|xy^\theta|=p^{-2}&lt;1\)</span>; the zero-shift
+class="math inline" data-term-auto="off">\(|x|&lt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(|xy^\theta|=p^{-2}&lt;1\)</span>; the zero-shift
 case goes back to Loxton and van der Poorten <span class="citation"
 data-cites="bugeaudlaurent2023 loxtonvdp1977"><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Thus <span
-class="math inline">\(A\)</span> is transcendental. The displayed affine
+class="math inline" data-term-auto="off">\(A\)</span> is transcendental. The displayed affine
 and quadratic polynomials are nonconstant, so an algebraic value of
-either would force <span class="math inline">\(A\)</span> to be
+either would force <span class="math inline" data-term-auto="off">\(A\)</span> to be
 algebraic. ◻</p>
 </div>
 <p>The two-prime reduction expresses both sums through one value. The
 third prime leaves the binary carry of Section <span
-class="math inline">\(\ref{sec:rank}\)</span>. Its rank theorem concerns
+class="math inline" data-term-auto="off">\(\ref{sec:rank}\)</span>. Its rank theorem concerns
 that function; the scalar arithmetic depends on the multiplicities
 introduced next. The de-duplicated irrationality assertion is historical
 <span class="citation" data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>.</p>
@@ -234,57 +234,57 @@ introduced next. The de-duplicated irrationality assertion is historical
 <h2>Exact multiplicities and normalised tails</h2>
 <p> </p>
 <div class="proof">
-<p><em>Proof.</em> Every smooth <span class="math inline">\(n\le
+<p><em>Proof.</em> Every smooth <span class="math inline" data-term-auto="off">\(n\le
 x\)</span> has prime exponents bounded by the corresponding integer
 logarithms, so <span
-class="math inline">\(n\mid\operatorname{H}(x)\)</span>. Conversely the
+class="math inline" data-term-auto="off">\(n\mid\operatorname{H}(x)\)</span>. Conversely the
 three maximal pure powers occur among those smooth numbers; their
 product divides the running LCM because they are pairwise coprime. ◻</p>
 </div>
 <p>The statement is . The same definition gives <span
-class="math display">\[\begin{equation}
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:cube}
 x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
 \end{equation}\]</span> Both inequalities are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">Lean
 source</a>. The height is constant between consecutive pure-power
 boundaries and gains a factor equal to the prime at each boundary. If
-<span class="math inline">\(F(H)\)</span> is a height fibre in a finite
-exponent box <span class="math inline">\(\mathcal B\)</span>, exact
-regrouping gives <span class="math display">\[\begin{equation}
+<span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a finite
+exponent box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, exact
+regrouping gives <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:fibre}
 \sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
 \end{equation}\]</span> Each term in <span
-class="math inline">\(F(H)\)</span> equals <span
-class="math inline">\(1/H\)</span>, which proves the identity. The
+class="math inline" data-term-auto="off">\(F(H)\)</span> equals <span
+class="math inline" data-term-auto="off">\(1/H\)</span>, which proves the identity. The
 multiplicities remain present in every subsequent infinite sum. The
 regrouping is .</p>
-<p>From now on let <span class="math inline">\(P=\{2,3,5\}\)</span> and
-<span class="math inline">\(S=\mathcal R_P\)</span>. For <span
-class="math inline">\(a\ge0\)</span> define <span
-class="math display">\[s_a=\sum_{\substack{x\text{ smooth}\\2^a\le
+<p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
+<span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
+class="math inline" data-term-auto="off">\(a\ge0\)</span> define <span
+class="math display" data-term-auto="off">\[s_a=\sum_{\substack{x\text{ smooth}\\2^a\le
 x&lt;2^{a+1}}}\frac1{\operatorname{H}(x)},
 \quad T_a=\sum_{j\ge0}s_{a+j},\quad
 h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.\]</span> Thus <span
-class="math inline">\(T_a\)</span> is the raw tail and <span
-class="math inline">\(X_a\)</span> its normalised state. The literal
+class="math inline" data-term-auto="off">\(T_a\)</span> is the raw tail and <span
+class="math inline" data-term-auto="off">\(X_a\)</span> its normalised state. The literal
 radix and forcing digit are <span
-class="math display">\[\begin{equation}
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-digit}
 b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
 m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></p>
 <div class="proof">
-<p><em>Proof.</em> If <span class="math inline">\(x&lt;2^{a+1}\)</span>,
+<p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(x&lt;2^{a+1}\)</span>,
 the two-exponent of <span
-class="math inline">\(\operatorname{H}(x)\)</span> is at most <span
-class="math inline">\(a\)</span>, while the other exponents are bounded
+class="math inline" data-term-auto="off">\(\operatorname{H}(x)\)</span> is at most <span
+class="math inline" data-term-auto="off">\(a\)</span>, while the other exponents are bounded
 by those of <span
-class="math inline">\(\operatorname{H}(2^{a+1})\)</span>. Hence <span
-class="math inline">\(2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})\)</span>.
+class="math inline" data-term-auto="off">\(\operatorname{H}(2^{a+1})\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})\)</span>.
 Each forcing summand is an integer, and the shell contains <span
-class="math inline">\(2^a\)</span>. Between consecutive two-powers there
+class="math inline" data-term-auto="off">\(2^a\)</span>. Between consecutive two-powers there
 is at most one three-power and at most one five-power. Their optional
 factors, together with the terminal factor two, give the four
 radices. ◻</p>
@@ -295,56 +295,56 @@ source</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> A dyadic shell contains at most one two-exponent for
 each pair of three- and five-exponents. Each of the latter lies between
-<span class="math inline">\(0\)</span> and <span
-class="math inline">\(a\)</span>, so its count is at most <span
-class="math inline">\((a+1)^2\)</span>. By <span
-class="math inline">\(\eqref{res:cube}\)</span>, <span
-class="math inline">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore <span
-class="math display">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
+<span class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(a\)</span>, so its count is at most <span
+class="math inline" data-term-auto="off">\((a+1)^2\)</span>. By <span
+class="math inline" data-term-auto="off">\(\eqref{res:cube}\)</span>, <span
+class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore <span
+class="math display" data-term-auto="off">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
       =\frac{8640}{343}(a+1)^2.\]</span> This proves convergence and the
 bound. Splitting the first shell gives the recurrence because <span
-class="math inline">\(m_a=h_{a+1}s_a\)</span> and <span
-class="math inline">\(h_{a+1}=b_ah_a\)</span>. All four clauses are <a
+class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span> and <span
+class="math inline" data-term-auto="off">\(h_{a+1}=b_ah_a\)</span>. All four clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">Lean
 source</a>.</p>
-<p>Put <span class="math inline">\(Y_a=BX_a\)</span>. If all
+<p>Put <span class="math inline" data-term-auto="off">\(Y_a=BX_a\)</span>. If all
 sufficiently late distances are strictly below <span
-class="math inline">\(1/31\)</span>, write <span
-class="math inline">\(Y_a=z_a+e_a\)</span> with <span
-class="math inline">\(z_a\in\mathbb Z\)</span> and <span
-class="math inline">\(|e_a|&lt;1/31\)</span>. Then <span
-class="math inline">\(e_{a+1}-b_ae_a\)</span> is an integer of absolute
+class="math inline" data-term-auto="off">\(1/31\)</span>, write <span
+class="math inline" data-term-auto="off">\(Y_a=z_a+e_a\)</span> with <span
+class="math inline" data-term-auto="off">\(z_a\in\mathbb Z\)</span> and <span
+class="math inline" data-term-auto="off">\(|e_a|&lt;1/31\)</span>. Then <span
+class="math inline" data-term-auto="off">\(e_{a+1}-b_ae_a\)</span> is an integer of absolute
 value less than one, so <span
-class="math inline">\(e_{a+1}=b_ae_a\)</span>. The factors <span
-class="math inline">\(b_a\ge2\)</span> force a bounded such error to be
+class="math inline" data-term-auto="off">\(e_{a+1}=b_ae_a\)</span>. The factors <span
+class="math inline" data-term-auto="off">\(b_a\ge2\)</span> force a bounded such error to be
 zero. An integral state propagates by the integer recurrence. ◻</p>
 </div>
 <p>The constant above is a simple bound for the cap used below. The
-stronger source estimate <span class="math inline">\(\widetilde
+stronger source estimate <span class="math inline" data-term-auto="off">\(\widetilde
 Q(n)=(1210n^2+9130n+18847)/11979\)</span> uses the exclusion of three
 successive two-jumps and has a separate ordinary proof. The present cap
 suffices for the criterion; the sharper argument belongs in the extended
 record rather than in this proof.</p>
 <div class="proof">
-<p><em>Proof.</em> For <span class="math inline">\(a\ge1\)</span>,
+<p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(a\ge1\)</span>,
 strict boundary clearing gives <span
-class="math display">\[\begin{equation}
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:prefix-lattice}
 X_a=h_aS-Z_a,\qquad
 Z_a=\sum_{\substack{x\text{
 smooth}\\x&lt;2^a}}\frac{h_a}{\operatorname{H}(x)}\in\mathbb Z.
 \end{equation}\]</span> The two-exponent of <span
-class="math inline">\(h_a\)</span> is <span
-class="math inline">\(a-1\)</span>. Moreover <span
-class="math inline">\(a\ge2v\)</span> gives <span
-class="math inline">\(2^a\ge3^v\)</span>, and <span
-class="math inline">\(a\ge3w\)</span> gives <span
-class="math inline">\(2^a\ge5^w\)</span>. Thus <span
-class="math inline">\(2^u3^v5^w\mid h_a\)</span> after the stated onset,
-and <span class="math inline">\(BX_a=h_aA/(2^u3^v5^w)-BZ_a\)</span> is
+class="math inline" data-term-auto="off">\(h_a\)</span> is <span
+class="math inline" data-term-auto="off">\(a-1\)</span>. Moreover <span
+class="math inline" data-term-auto="off">\(a\ge2v\)</span> gives <span
+class="math inline" data-term-auto="off">\(2^a\ge3^v\)</span>, and <span
+class="math inline" data-term-auto="off">\(a\ge3w\)</span> gives <span
+class="math inline" data-term-auto="off">\(2^a\ge5^w\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(2^u3^v5^w\mid h_a\)</span> after the stated onset,
+and <span class="math inline" data-term-auto="off">\(BX_a=h_aA/(2^u3^v5^w)-BZ_a\)</span> is
 integral. Positivity, the recurrence and the bound follow from
 Proposition <span
-class="math inline">\(\ref{res:actual-orbit}\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(\ref{res:actual-orbit}\)</span>. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">Lean
@@ -353,61 +353,61 @@ source</a>.</p>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining arithmetic</h2>
 <p> The actual digits in <span
-class="math inline">\(\eqref{eq:actual-digit}\)</span> define <span
-class="math display">\[W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
+class="math inline" data-term-auto="off">\(\eqref{eq:actual-digit}\)</span> define <span
+class="math display" data-term-auto="off">\[W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
 W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
 F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span> Induction on
-<span class="math inline">\(h\)</span> gives <span
-class="math display">\[\begin{equation}
+<span class="math inline" data-term-auto="off">\(h\)</span> gives <span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-tail}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}\]</span> Let <span
-class="math inline">\(\operatorname{lpr}_W(t)\)</span> be the
-representative in <span class="math inline">\(\{1,\ldots,W\}\)</span> of
-<span class="math inline">\(t\bmod W\)</span>, representing a zero
-residue by <span class="math inline">\(W\)</span>. Throughout this
-section use the valid cap <span class="math display">\[\begin{equation}
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)\)</span> be the
+representative in <span class="math inline" data-term-auto="off">\(\{1,\ldots,W\}\)</span> of
+<span class="math inline" data-term-auto="off">\(t\bmod W\)</span>, representing a zero
+residue by <span class="math inline" data-term-auto="off">\(W\)</span>. Throughout this
+section use the valid cap <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></p>
 <div class="proof">
 <p><em>Proof.</em> Every positive representative of the residue is at
 least its least positive representative, so <span
-class="math inline">\(\operatorname{lpr}_W(-BF)\le d\le
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le d\le
 K\)</span>. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">Lean
 source</a>.</p>
 <div class="proof">
-<p><em>Proof.</em> If <span class="math inline">\(S\)</span> is
+<p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
 rational, Theorem <span
-class="math inline">\(\ref{res:denominator-reduction}\)</span> supplies
-a positive integral carry <span class="math inline">\(d_a=BX_a\)</span>
+class="math inline" data-term-auto="off">\(\ref{res:denominator-reduction}\)</span> supplies
+a positive integral carry <span class="math inline" data-term-auto="off">\(d_a=BX_a\)</span>
 after its onset. Choose a window in <span
-class="math inline">\(\eqref{eq:escape}\)</span> beyond that onset.
-Equation <span class="math inline">\(\eqref{eq:actual-tail}\)</span>
+class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span> beyond that onset.
+Equation <span class="math inline" data-term-auto="off">\(\eqref{eq:actual-tail}\)</span>
 gives <span
-class="math inline">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
+class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
 contradicting Lemma <span
-class="math inline">\(\ref{res:consumer}\)</span> and the valid cap.</p>
-<p>Conversely, let <span class="math inline">\(S\)</span> be irrational
-and fix <span class="math inline">\(B,\ell\ge1\)</span>. Equation <span
-class="math inline">\(\eqref{eq:prefix-lattice}\)</span> makes <span
-class="math inline">\(BX_\ell\)</span> nonintegral. Put <span
-class="math inline">\(\delta=\lceil
+class="math inline" data-term-auto="off">\(\ref{res:consumer}\)</span> and the valid cap.</p>
+<p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be irrational
+and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. Equation <span
+class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span> makes <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span> nonintegral. Put <span
+class="math inline" data-term-auto="off">\(\delta=\lceil
 BX_\ell\rceil-BX_\ell\in(0,1)\)</span>. Since <span
-class="math inline">\(W_{\ell,h}\ge2^h\)</span> and <span
-class="math inline">\(X_{\ell+h}=O((\ell+h+1)^2)\)</span>, for all
-sufficiently large <span class="math inline">\(h\)</span> the number
-<span class="math inline">\(\delta+BX_{\ell+h}/W_{\ell,h}\)</span> lies
-in <span class="math inline">\((0,1)\)</span>. The window identity then
+class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^h\)</span> and <span
+class="math inline" data-term-auto="off">\(X_{\ell+h}=O((\ell+h+1)^2)\)</span>, for all
+sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span> the number
+<span class="math inline" data-term-auto="off">\(\delta+BX_{\ell+h}/W_{\ell,h}\)</span> lies
+in <span class="math inline" data-term-auto="off">\((0,1)\)</span>. The window identity then
 gives the exact equality <span
-class="math display">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
+class="math display" data-term-auto="off">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
 =\delta W_{\ell,h}+BX_{\ell+h}.\]</span> Its exponentially growing first
 term eventually exceeds <span
-class="math inline">\(K(B,\ell+h)\)</span>. This proves <span
-class="math inline">\(\eqref{eq:escape}\)</span>, in fact from each
+class="math inline" data-term-auto="off">\(K(B,\ell+h)\)</span>. This proves <span
+class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span>, in fact from each
 fixed start. ◻</p>
 </div>
 <p>The equivalence, at the literal smooth-number series, is <a
@@ -418,8 +418,8 @@ polynomial growth condition by itself would not suffice. The zero cap,
 for example, makes positive-residue escape automatic. The criterion
 identifies the target in window coordinates. The unresolved point is the
 source-specific exclusion below.</p>
-<p>By <span class="math inline">\(\eqref{eq:prefix-lattice}\)</span>,
-one integral value would make <span class="math inline">\(S\)</span>
+<p>By <span class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span>,
+one integral value would make <span class="math inline" data-term-auto="off">\(S\)</span>
 rational; the bridge proves the reverse implication after clearing its
 denominator. Thus the pointwise formulation is equivalent to the
 irrationality question.</p>
@@ -428,7 +428,7 @@ class="level5">
 <h5>The information the remaining argument must use.</h5>
 <p>The bounded-radix alternative permits the integral branch. Infinite
 rank and the modular minors of Corollary <span
-class="math inline">\(\ref{res:admissible-modular-minors}\)</span>
+class="math inline" data-term-auto="off">\(\ref{res:admissible-modular-minors}\)</span>
 constrain the kernel, while a scalar argument must also use its exact
 multiplicities. In the existing three-channel rigidity result,
 preservation of every complete same-channel block makes a perturbation a
@@ -494,9 +494,9 @@ extinction theorem</a>, , , , , , , , , , , , .</p>
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 65. For a possibly infinite
-prime set <span class="math inline">\(Q\)</span>, the page states the
-infinite-<span class="math inline">\(Q\)</span> irrationality and asks
-what happens for finite <span class="math inline">\(Q\)</span> with more
+prime set <span class="math inline" data-term-auto="off">\(Q\)</span>, the page states the
+infinite-<span class="math inline" data-term-auto="off">\(Q\)</span> irrationality and asks
+what happens for finite <span class="math inline" data-term-auto="off">\(Q\)</span> with more
 than one element.</p></li>
 <li id="ref-2"><p>P. Erdős, <em>On the irrationality of certain series: problems
 and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
@@ -526,7 +526,7 @@ Online First PDF</a>, <a
 href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
 Theorem 1.1 is on p. 3 of the inspected Online First PDF; the journal
 publication is pp. 59–90. The authors note there that its <span
-class="math inline">\(\rho=0\)</span> case was already obtained by
+class="math inline" data-term-auto="off">\(\rho=0\)</span> case was already obtained by
 Loxton and van der Poorten.</p></li>
 <li id="ref-6"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
 of certain functions in several variables III</em>, Bull. Austral. Math.
@@ -535,7 +535,7 @@ Soc. <strong>16</strong> (1977), 15–47.</p></li>
 href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
 forum, thread 269</a>, 26 June 2026. The comment gives the two-channel
 factorisation, the Hecke–Mahler reduction, and the transcendence
-conclusion for <span class="math inline">\(|P|=2\)</span>; follow-up
+conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>; follow-up
 comments there note the extension to arbitrary coprime pairs.</p></li>
 </ol>
 </section>

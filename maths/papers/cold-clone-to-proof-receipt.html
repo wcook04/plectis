@@ -30,6 +30,8 @@
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=c41c5b379b20"></script>
+  <script defer src="../assets/mathjax-config.js?v=34367ad2ce75"></script>
+  <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -79,7 +81,7 @@
         <div class="paper-head__meta">
           <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">Systems</a> paper</span>
           <span>11&#8202;pp</span>
-          <span>Browser-native mathematical notation</span>
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a> typeset in the browser from the exact TeX</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/cold-clone-to-proof-receipt.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 11&#8202;pp</a>
@@ -100,13 +102,13 @@
       </div>
 
       <div class="paper-stage">
-<article class="lean-paper" data-paper-id="cold-clone-to-proof-receipt" data-math-mode="mathml">
+<article class="lean-paper" data-paper-id="cold-clone-to-proof-receipt" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/cold-clone-to-proof-receipt.tex">
 <section id="sec:problem" class="level2">
 <h2>The cold-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> problem</h2>
 <p>The first interaction with a large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is usually a
 filesystem. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> sees <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source-file" data-term="source_file" data-term-auto="1">source files</a>, generated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-file" data-term="file" data-term-auto="1">files</a>, scripts,
-papers, and build configuration, but not the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. A
+papers, and build configuration, but not the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. A
 language <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> filenames and text, yet those <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-operation" data-term="operation" data-term-auto="1">operations</a> do
 not answer the questions that matter: Which programmes exist? Which
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">established</a>, conditional, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>, or open? Where does a
@@ -139,10 +141,14 @@ well, while reserving mathematical <a class="narrative-ref narrative-ref--term i
 kernel.</p>
 <p>The paper first separates the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s four navigation layers and
 then shows how a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> tour <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-expand" data-term="expand" data-term-auto="1">expands</a> into exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>
-routes. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a>  and  mark the transition from navigation to kernel
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> and explain the incremental <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> path. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a>  gives a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case study; the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> compare related <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a> and
-state the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> of transfer.</p>
+routes. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a> <span
+class="math inline" data-term-auto="off">\(\ref{sec:authority}\)</span> and <span
+class="math inline" data-term-auto="off">\(\ref{sec:incremental}\)</span> mark the transition
+from navigation to kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> and explain the incremental
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> path. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
+class="math inline" data-term-auto="off">\(\ref{sec:dogfood}\)</span> gives a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case
+study; the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> compare related <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a> and state the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> of transfer.</p>
 <p>This paper owns the navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> case study. The wider
 <span><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a>-lifecycle</span><span><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-transition lifecycle</span> is
 described in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a> paper, while the
@@ -154,8 +160,9 @@ destinations in the sibling PDFs rather than to page <a class="narrative-ref nar
 <h2>Four views of the mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a></h2>
 <p>No single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> can serve all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a> without hiding an important
 distinction. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> therefore <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a> four related layers
-(Figure ). They are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a> with different coverage contracts, not
-successive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> of understanding.</p>
+(Figure <span class="math inline" data-term-auto="off">\(\ref{fig:layers}\)</span>). They are
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a> with different coverage contracts, not successive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> of
+understanding.</p>
 <figure id="fig:layers" data-latex-placement="!t">
 
 <figcaption>The navigation layers. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> and semantic
@@ -265,10 +272,10 @@ example.</p>
 <section id="sec:authority" class="level2">
 <h2>From navigation to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> treats navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> as separate capabilities
-(Figure ). A static query may nominate a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> path. It
-cannot <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that a proposed application typechecks, that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
-closes a goal, or that an English interpretation is mathematically
-faithful.</p>
+(Figure <span class="math inline" data-term-auto="off">\(\ref{fig:sequence}\)</span>). A
+static query may nominate a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> path. It cannot
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that a proposed application typechecks, that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> closes a
+goal, or that an English interpretation is mathematically faithful.</p>
 <figure id="fig:sequence" data-latex-placement="!t">
 
 <figcaption>The shortest path from first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contact" data-term="contact" data-term-auto="1">contact</a> to an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authoritative</a>
@@ -402,12 +409,13 @@ semantics, <a class="narrative-ref narrative-ref--term is-term-again" href="../.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a> without <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requiring</a> a hosted service or an initial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
 build.</p>
 <p>Large-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> maintenance supplies the relevant compilation lesson.
-describes performance-aware <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-design" data-term="design" data-term-auto="1">design</a>, deprecation, semantic
-linters, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmarks</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> tooling, and explicit technical-debt
-management <span class="citation" data-cites="growingmathlib"><a href="#ref-10">[10]</a></span>.
-The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changed</a>-cone planner and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> cache apply a smaller-scale version
-of that maintenance posture. The local <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurements</a> do not transfer
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>’s scale or social <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</p>
+<em>Growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a></em> describes performance-aware <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-design" data-term="design" data-term-auto="1">design</a>,
+deprecation, semantic linters, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmarks</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> tooling, and explicit
+technical-debt management <span class="citation"
+data-cites="growingmathlib"><a href="#ref-10">[10]</a></span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changed</a>-cone planner and
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> cache apply a smaller-scale version of that maintenance posture.
+The local <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurements</a> do not transfer <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>’s scale or social
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</p>
 <p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Atlas <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-narrow" data-term="narrow" data-term-auto="1">narrows</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> whose meaning can affect selected
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> and leaves semantic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> to people <span
 class="citation" data-cites="leanatlas"></span>. That is close to the
@@ -535,32 +543,49 @@ open a <a class="narrative-ref narrative-ref--term is-term-again" href="../../do
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
 <ol>
-<li id="ref-1"><p>P. Massot, , plasTeX plugin for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> formalisation blueprints,
-2020, <a href="https://github.com/PatrickMassot/leanblueprint" data-link-kind="exogenous" rel="external noopener">software
+<li id="ref-1"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+formalisation blueprints, 2020, <a
+href="https://github.com/PatrickMassot/leanblueprint">software
 repository</a>, accessed 28 July 2026.</p></li>
-<li id="ref-2"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad, , in , LIPIcs
-382, 2026, pp. 25:1–25:16, <a
+<li id="ref-2"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad,
+<em>LeanArchitect: Automating Blueprint Generation for Humans and
+AI</em>, in <em>17th International Conference on Interactive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a>
+Proving</em>, LIPIcs 382, 2026, pp. 25:1–25:16, <a
 href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
-<li id="ref-3"><p>L. Becker et al., , 2025, <a
+<li id="ref-3"><p>L. Becker et al., <em>A Blueprint for the Formalization of
+Carleson’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> on <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">Convergence</a> of Fourier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">Series</a></em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2405.06423">arXiv:2405.06423</a>.</p></li>
 <li id="ref-4"><p>K. Yang, A. M. Swope, A. Gu, R. Chalamala, P. Song, S. Yu,
-S. Godil, R. Prenger, and A. Anandkumar, , in , 2023, <a
+S. Godil, R. Prenger, and A. Anandkumar, <em>LeanDojo: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving
+with Retrieval-Augmented Language <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">Models</a></em>, in <em>Advances in Neural
+Information Processing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">Systems</a> 36</em>, 2023, <a
 href="https://doi.org/10.48550/arXiv.2306.15626">arXiv:2306.15626</a>.</p></li>
-<li id="ref-5"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo, , in ,
-2025, pp. 116–137, <a
+<li id="ref-5"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
+<em>Pantograph: A Machine-to-Machine Interaction Interface for Advanced
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving, High Level Reasoning, and Data Extraction in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+4</em>, in <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-tool" data-term="tool" data-term-auto="1">Tools</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">Algorithms</a> for the Construction and Analysis of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">Systems</a></em>, 2025, pp. 116–137, <a
 href="https://doi.org/10.1007/978-3-031-90643-5_6">DOI</a>.</p></li>
-<li id="ref-6"><p>S. Kurgan et al., , 2026, <a
+<li id="ref-6"><p>S. Kurgan et al., <em>TheoremGraph: Bridging <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> and Informal
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2606.25363">arXiv:2606.25363</a>.</p></li>
-<li id="ref-7"><p>X. Li, N. Peng, S. Severini, and P. Shafto, , 2026, <a
+<li id="ref-7"><p>X. Li, N. Peng, S. Severini, and P. Shafto, <em>The Network
+Structure of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a></em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.24797">arXiv:2604.24797</a>.</p></li>
-<li id="ref-8"><p>J. Asher, , 2025, <a
+<li id="ref-8"><p>J. Asher, <em>LeanExplore: A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">Search</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-engine" data-term="engine" data-term-auto="1">Engine</a> for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> 4
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">Declarations</a></em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2506.11085">arXiv:2506.11085</a>.</p></li>
-<li id="ref-9"><p>G. Gao et al., , 2026, <a
+<li id="ref-9"><p>G. Gao et al., <em>LeanSearch v2: Global Premise Retrieval for
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> 4 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2605.13137">arXiv:2605.13137</a>.</p></li>
 <li id="ref-10"><p>A. Baanen, M. R. Ballard, J. Commelin, B. Gin-ge Chen,
-M. Rothgang, and D. Testa, , in , 2025, <a
+M. Rothgang, and D. Testa, <em>Growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>: Maintenance of a Large
+Scale Mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">Library</a></em>, in <em>Intelligent Computer
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2508.21593">arXiv:2508.21593</a>.</p></li>
-<li id="ref-11"><p>B. Yanahama and A. Sannai, , 2026, <a
+<li id="ref-11"><p>B. Yanahama and A. Sannai, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Atlas: An Integrated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">Environment</a> for Scalable Human–AI Collaborative Formalization</em>,
+2026, <a
 href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
 </ol>
 </section>

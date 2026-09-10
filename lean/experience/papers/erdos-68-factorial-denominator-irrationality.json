@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "9b54aebff7460c36743c971e147c2baf8f24128bdeb88bd4ba6f495100c1727f",
     "publication_manifest_match": true,
     "mathml_node_count": 268,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "c41dfff2f1ebf48712ab664903668e2e02e6c8d9e3c65a9014489ac7f5220c4e",
-    "html_exact_tex_sha256": "86a396ea700d9e87030ae967307c3d134da05d5d5a13d91dc212059355da8d2b"
+    "html_exact_tex_sha256": "796c61e8236d3598c8b1389a910e1d5e79168f681daf556b8a1ac4b1e009652d"
   },
   "sections": [
     {

@@ -108,16 +108,16 @@
 <h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">Monic</a> trinomials, in every degree</h2>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span
-class="math inline">\(\zeta^n+a\zeta^m+b=0\)</span>, then <span
-class="math display">\[f(t\zeta)=b(1-t^m)+\zeta^n(t^n-t^m).\]</span>
-Vieta gives <span class="math inline">\(|b|&lt;1\)</span>. For <span
-class="math inline">\(0\le t&lt;1\)</span>, the weights <span
-class="math inline">\(1-t^m\)</span> and <span
-class="math inline">\(t^m-t^n\)</span> are nonnegative, so <span
-class="math display">\[|f(t\zeta)|\le |b|(1-t^m)+|\zeta|^n(t^m-t^n)
-&lt;1-t^n\le1.\]</span> At <span class="math inline">\(t=1\)</span> the
+class="math inline" data-term-auto="off">\(\zeta^n+a\zeta^m+b=0\)</span>, then <span
+class="math display" data-term-auto="off">\[f(t\zeta)=b(1-t^m)+\zeta^n(t^n-t^m).\]</span>
+Vieta gives <span class="math inline" data-term-auto="off">\(|b|&lt;1\)</span>. For <span
+class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the weights <span
+class="math inline" data-term-auto="off">\(1-t^m\)</span> and <span
+class="math inline" data-term-auto="off">\(t^m-t^n\)</span> are nonnegative, so <span
+class="math display" data-term-auto="off">\[|f(t\zeta)|\le |b|(1-t^m)+|\zeta|^n(t^m-t^n)
+&lt;1-t^n\le1.\]</span> At <span class="math inline" data-term-auto="off">\(t=1\)</span> the
 value is zero. Concatenating the two segments gives length <span
-class="math inline">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. The displayed
+class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. The displayed
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>, with the broken line as a continuous curve of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
 variation and its length read as extended variation, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperTrinomial.lean#L38">Lean
@@ -125,27 +125,27 @@ source</a>. ◻</p>
 </div>
 <section id="a-finite-convex-certificate." class="level5">
 <h5>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> convex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</h5>
-<p>For <span class="math inline">\(f(z)=\sum_{k=0}^n a_kz^k\)</span> and
-<span class="math inline">\(f(\zeta)=0\)</span>, put <span
-class="math inline">\(S_j=\sum_{k=0}^j a_k\zeta^k\)</span>. Abel
+<p>For <span class="math inline" data-term-auto="off">\(f(z)=\sum_{k=0}^n a_kz^k\)</span> and
+<span class="math inline" data-term-auto="off">\(f(\zeta)=0\)</span>, put <span
+class="math inline" data-term-auto="off">\(S_j=\sum_{k=0}^j a_k\zeta^k\)</span>. Abel
 summation gives <span
-class="math display">\[f(t\zeta)=\sum_{j=0}^{n-1}(t^j-t^{j+1})S_j.\]</span>
-For <span class="math inline">\(0\le t&lt;1\)</span>, the normalised
-value <span class="math inline">\(f(t\zeta)/(1-t^n)\)</span> lies in the
-convex hull of <span class="math inline">\(S_0,\ldots,S_{n-1}\)</span>.
+class="math display" data-term-auto="off">\[f(t\zeta)=\sum_{j=0}^{n-1}(t^j-t^{j+1})S_j.\]</span>
+For <span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the normalised
+value <span class="math inline" data-term-auto="off">\(f(t\zeta)/(1-t^n)\)</span> lies in the
+convex hull of <span class="math inline" data-term-auto="off">\(S_0,\ldots,S_{n-1}\)</span>.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounds</a> on these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> values therefore certify a whole segment.
 In the trinomial case the distinct <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> values are <span
-class="math inline">\(b\)</span> and <span
-class="math inline">\(-\zeta^n\)</span>, both strictly inside the unit
+class="math inline" data-term-auto="off">\(b\)</span> and <span
+class="math inline" data-term-auto="off">\(-\zeta^n\)</span>, both strictly inside the unit
 disc. With more <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, the additional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-partial-sum" data-term="partial_sum" data-term-auto="1">partial sums</a> need their own
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>.</p>
-<p>Indeed, after <span class="math inline">\(z=rw\)</span>, the
+<p>Indeed, after <span class="math inline" data-term-auto="off">\(z=rw\)</span>, the
 polynomial <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> as <span
-class="math inline">\(r^6(w^2-1)(w^4+\tfrac65 w^2+1)\)</span>, so all
-six <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> have modulus <span class="math inline">\(r\)</span>. However
-<span class="math inline">\(f_r(r/2)=-(327/320)r^6\)</span>. Any <span
-class="math inline">\(r\)</span> with <span
-class="math inline">\(320/327&lt;r^6&lt;1\)</span> proves the assertion.
+class="math inline" data-term-auto="off">\(r^6(w^2-1)(w^4+\tfrac65 w^2+1)\)</span>, so all
+six <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> have modulus <span class="math inline" data-term-auto="off">\(r\)</span>. However
+<span class="math inline" data-term-auto="off">\(f_r(r/2)=-(327/320)r^6\)</span>. Any <span
+class="math inline" data-term-auto="off">\(r\)</span> with <span
+class="math inline" data-term-auto="off">\(320/327&lt;r^6&lt;1\)</span> proves the assertion.
 Only this prescribed spoke is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>; other connectors remain
 available. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> with the radius supplied is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperTrinomial.lean#L79">Lean
@@ -160,26 +160,26 @@ question is Problem 5 of <a class="narrative-ref narrative-ref--term is-term-fi
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. Pendyala <span class="citation"
 data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete degree-four case.</p>
 <p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline">\(\ref{res:low-critical-thirteen-twentyfifths}\)</span>
+class="math inline" data-term-auto="off">\(\ref{res:low-critical-thirteen-twentyfifths}\)</span>
 treats arbitrary geometry when <span
-class="math inline">\(\mu\le13/25\)</span>, without a root-location
+class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>, without a root-location
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumption</a>. Its scaling corollary gives length less than <span
-class="math inline">\((5/2)\mu^{1/n}\)</span> in the open level <span
-class="math inline">\((25/13)\mu\)</span> for every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a>
-polynomial. The independent <span class="math inline">\(71/10\)</span>
+class="math inline" data-term-auto="off">\((5/2)\mu^{1/n}\)</span> in the open level <span
+class="math inline" data-term-auto="off">\((25/13)\mu\)</span> for every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a>
+polynomial. The independent <span class="math inline" data-term-auto="off">\(71/10\)</span>
 argument below exhibits how inverse lifts and boundary arcs spend area.
 The disk-family <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> gives a different sufficient condition, using a
-simple critical value <span class="math inline">\(v\)</span> with <span
-class="math inline">\(0&lt;|v|&lt;1\)</span> and normalised separation
-radius <span class="math inline">\(4/3\)</span>. The collinear and
+simple critical value <span class="math inline" data-term-auto="off">\(v\)</span> with <span
+class="math inline" data-term-auto="off">\(0&lt;|v|&lt;1\)</span> and normalised separation
+radius <span class="math inline" data-term-auto="off">\(4/3\)</span>. The collinear and
 sparse families retain the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> length <span
-class="math inline">\(2\)</span>.</p>
+class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <p>Two constructions organise the general estimates. Averaging inverse
 lifts and boundary arcs converts area into a freely selected connector.
 Resolving a simple <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> gives a holomorphic inverse whose Dirichlet
 energy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> its diameter trace. The weighted free-point <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
 isolates a complementary critical-value estimate. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:open}\)</span> states the remaining
+class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> states the remaining
 selection question and the examples showing which information is
 insufficient.</p>
 </section>
@@ -188,58 +188,58 @@ insufficient.</p>
 <p>The least critical value is the natural scale for the first merger of
 root components. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> at one fixed critical level therefore
 supplies a scale-invariant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> for arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomials</a>. For
-a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> degree-<span class="math inline">\(n\)</span> polynomial put
-<span class="math display">\[K_t=\{z:|f(z)|\le t\},\qquad
+a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> degree-<span class="math inline" data-term-auto="off">\(n\)</span> polynomial put
+<span class="math display" data-term-auto="off">\[K_t=\{z:|f(z)|\le t\},\qquad
 \mu=\min_{f&#39;(c)=0}|f(c)|,\qquad \rho=\mu^{1/n}.\]</span></p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Put <span
-class="math inline">\(s=((25/13)\mu)^{1/n}\)</span> and <span
-class="math inline">\(g(z)=s^{-n}f(sz)\)</span>. Then <span
-class="math inline">\(g\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> and its least critical-value
-modulus is <span class="math inline">\(13/25\)</span>. Apply the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
-and scale the curve back by <span class="math inline">\(s\)</span>. The
+class="math inline" data-term-auto="off">\(s=((25/13)\mu)^{1/n}\)</span> and <span
+class="math inline" data-term-auto="off">\(g(z)=s^{-n}f(sz)\)</span>. Then <span
+class="math inline" data-term-auto="off">\(g\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> and its least critical-value
+modulus is <span class="math inline" data-term-auto="off">\(13/25\)</span>. Apply the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
+and scale the curve back by <span class="math inline" data-term-auto="off">\(s\)</span>. The
 rescaling step, transporting both the level and the extended variation
-of an arbitrary curve under <span class="math inline">\(z\mapsto
+of an arbitrary curve under <span class="math inline" data-term-auto="off">\(z\mapsto
 h+cz\)</span>, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperMetricScaling.lean#L40">the
 affine transport of a contained rectifiable connector</a>; the
 low-critical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> remains ordinary. For <span
-class="math inline">\(n\ge3\)</span>, <span
-class="math inline">\((25/13)^{1/n}\le(25/13)^{1/3}&lt;5/4\)</span>. For
-<span class="math inline">\(n=2\)</span>, the segment between the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>
-has length <span class="math inline">\(2\sqrt\mu\)</span> and lies in
-<span class="math inline">\(K_\mu\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, <span
+class="math inline" data-term-auto="off">\((25/13)^{1/n}\le(25/13)^{1/3}&lt;5/4\)</span>. For
+<span class="math inline" data-term-auto="off">\(n=2\)</span>, the segment between the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>
+has length <span class="math inline" data-term-auto="off">\(2\sqrt\mu\)</span> and lies in
+<span class="math inline" data-term-auto="off">\(K_\mu\)</span>. ◻</p>
 </div>
 <section id="the-geometric-step-behind-1325." class="level5">
 <h5>The geometric step behind <span
-class="math inline">\(13/25\)</span>.</h5>
+class="math inline" data-term-auto="off">\(13/25\)</span>.</h5>
 <p>Suppose no curve of length less than <span
-class="math inline">\(2\)</span> joins two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> below level <span
-class="math inline">\(1\)</span>. Conformal normalisation of an ancestor
+class="math inline" data-term-auto="off">\(2\)</span> joins two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> below level <span
+class="math inline" data-term-auto="off">\(1\)</span>. Conformal normalisation of an ancestor
 component gives points <span
-class="math inline">\(b_1,\ldots,b_k\)</span> in the hyperbolic disc
-with pairwise distance at least <span class="math inline">\(D\)</span>.
-Write <span class="math inline">\(d_j=d_{\mathrm{hyp}}(0,b_j)\)</span>.
+class="math inline" data-term-auto="off">\(b_1,\ldots,b_k\)</span> in the hyperbolic disc
+with pairwise distance at least <span class="math inline" data-term-auto="off">\(D\)</span>.
+Write <span class="math inline" data-term-auto="off">\(d_j=d_{\mathrm{hyp}}(0,b_j)\)</span>.
 The inverse-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> estimates also give a lower radius <span
-class="math inline">\(d_*&gt;0\)</span> and <span
-class="math display">\[d_j\ge d_*,\qquad
+class="math inline" data-term-auto="off">\(d_*&gt;0\)</span> and <span
+class="math display" data-term-auto="off">\[d_j\ge d_*,\qquad
 \sum_j\ell(d_j)\ge x:=\log(t/\mu),\qquad
 \ell(d)=-\log\tanh(d/2).\]</span> The open balls of radius <span
-class="math inline">\(D/2\)</span> around the <span
-class="math inline">\(b_j\)</span> are disjoint. Their intersections
+class="math inline" data-term-auto="off">\(D/2\)</span> around the <span
+class="math inline" data-term-auto="off">\(b_j\)</span> are disjoint. Their intersections
 with any fixed hyperbolic circle of radius <span
-class="math inline">\(r\)</span> are therefore disjoint arcs. The
+class="math inline" data-term-auto="off">\(r\)</span> are therefore disjoint arcs. The
 hyperbolic cosine law gives their angular half-widths <span
-class="math display">\[w(d,r)=\arccos\!\left[\frac{\cosh d\cosh
+class="math display" data-term-auto="off">\[w(d,r)=\arccos\!\left[\frac{\cosh d\cosh
 r-\cosh(D/2)}
                               {\sinh d\sinh r}\right]_{-1}^{1},
 \qquad \sum_j w(d_j,r)\le\pi,\]</span> where brackets denote truncation
-to <span class="math inline">\([-1,1]\)</span>. Choose radii <span
-class="math inline">\(r_i\)</span> and weights <span
-class="math inline">\(\sigma_i\ge0\)</span>. If <span
-class="math display">\[\ell(d)\le U+\sum_i\sigma_iw(d,r_i)\quad(d\ge
+to <span class="math inline" data-term-auto="off">\([-1,1]\)</span>. Choose radii <span
+class="math inline" data-term-auto="off">\(r_i\)</span> and weights <span
+class="math inline" data-term-auto="off">\(\sigma_i\ge0\)</span>. If <span
+class="math display" data-term-auto="off">\[\ell(d)\le U+\sum_i\sigma_iw(d,r_i)\quad(d\ge
 d_*),\qquad U&gt;0,\]</span> then summing over the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> proves the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> dual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span class="math display">\[\boxed{\quad
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> dual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span class="math display" data-term-auto="off">\[\boxed{\quad
 k\ge\frac{x-\pi\sum_i\sigma_i}{U}.\quad}\]</span> The summation and
 supremum step from the majorant and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> to the boxed
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is <a
@@ -249,11 +249,11 @@ the dual values as premises</a>; the hyperbolic supplier of those
 premises is ordinary. Angular <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> alone loses the disjointness
 used here: balls at different radii may have overlapping shadows. Common
 circle <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slices</a> retain it. The resulting lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for <span
-class="math inline">\(k\)</span> feeds the length–area comparison until
+class="math inline" data-term-auto="off">\(k\)</span> feeds the length–area comparison until
 a short boundary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a> is forced. The complete comparison <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> and
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> are in . The certified <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> time is <span
-class="math inline">\(635762889599/10^{12}\)</span>, and <span
-class="math inline">\((13/25)\exp(635762889599/10^{12})&lt;1\)</span>.</p>
+class="math inline" data-term-auto="off">\(635762889599/10^{12}\)</span>, and <span
+class="math inline" data-term-auto="off">\((13/25)\exp(635762889599/10^{12})&lt;1\)</span>.</p>
 </section>
 <section id="an-independent-area-proof." class="level5">
 <h5>An independent area <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</h5>
@@ -262,83 +262,83 @@ that needs no circle-<a class="narrative-ref narrative-ref--term is-term-again" 
 explicit.</p>
 <p>The constant is the rationally certified specialization of a
 two-parameter <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. If the selected working component contains <span
-class="math inline">\(k\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, then for every <span
-class="math inline">\(r\in(0,1)\)</span> and <span
-class="math inline">\(\lambda&gt;1\)</span> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> constructs a path
-in <span class="math inline">\(K_{\lambda\mu}\)</span> whose length is
-at most <span class="math display">\[\sqrt{\frac2k}\left(
+class="math inline" data-term-auto="off">\(k\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, then for every <span
+class="math inline" data-term-auto="off">\(r\in(0,1)\)</span> and <span
+class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> constructs a path
+in <span class="math inline" data-term-auto="off">\(K_{\lambda\mu}\)</span> whose length is
+at most <span class="math display" data-term-auto="off">\[\sqrt{\frac2k}\left(
    \frac{\sqrt2\,r}{(1-r)^2}
    +\lambda^{1/n}\left(
       \sqrt{\log(\lambda/r)}+
       \frac{\pi}{\sqrt{\log\lambda}}
     \right)
 \right)\rho.                                      \tag{CF}\]</span> For
-<span class="math inline">\(n\ge3\)</span>, the choice <span
-class="math inline">\(\lambda=2\)</span>, <span
-class="math inline">\(r=3/20\)</span> makes the bracket less than <span
-class="math inline">\(71/10\)</span>; degree two has the exact
-root-segment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span class="math inline">\(2\rho\)</span>.</p>
+<span class="math inline" data-term-auto="off">\(n\ge3\)</span>, the choice <span
+class="math inline" data-term-auto="off">\(\lambda=2\)</span>, <span
+class="math inline" data-term-auto="off">\(r=3/20\)</span> makes the bracket less than <span
+class="math inline" data-term-auto="off">\(71/10\)</span>; degree two has the exact
+root-segment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span class="math inline" data-term-auto="off">\(2\rho\)</span>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Write <span class="math inline">\(K_t=\{|f|\le
-t\}\)</span>, <span class="math inline">\(C_T\)</span> for the component
-of <span class="math inline">\(K_T\)</span> containing a minimising
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Write <span class="math inline" data-term-auto="off">\(K_t=\{|f|\le
+t\}\)</span>, <span class="math inline" data-term-auto="off">\(C_T\)</span> for the component
+of <span class="math inline" data-term-auto="off">\(K_T\)</span> containing a minimising
 critical point, and <span
-class="math inline">\(A(\sigma)=\operatorname{Area}(K_\sigma\cap
+class="math inline" data-term-auto="off">\(A(\sigma)=\operatorname{Area}(K_\sigma\cap
 C_T)\)</span>. Degree two is the root segment of length <span
-class="math inline">\(2\rho\)</span> inside <span
-class="math inline">\(K_\mu\)</span>; assume <span
-class="math inline">\(n\ge3\)</span>.</p>
-<p>If a regular component <span class="math inline">\(C&#39;\)</span> of
-<span class="math inline">\(K_\sigma\cap C_T\)</span> holds <span
-class="math inline">\(k&#39;\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, then <span
-class="math inline">\(|dz|=\sigma\,d\varphi/|f&#39;|\)</span> on <span
-class="math inline">\(\partial C&#39;\)</span> and <span
-class="math inline">\(\int d\varphi=2\pi k&#39;\)</span>. Cauchy–Schwarz
-and coarea give <span class="math display">\[\mathcal H^1(\partial
+class="math inline" data-term-auto="off">\(2\rho\)</span> inside <span
+class="math inline" data-term-auto="off">\(K_\mu\)</span>; assume <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span>.</p>
+<p>If a regular component <span class="math inline" data-term-auto="off">\(C&#39;\)</span> of
+<span class="math inline" data-term-auto="off">\(K_\sigma\cap C_T\)</span> holds <span
+class="math inline" data-term-auto="off">\(k&#39;\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, then <span
+class="math inline" data-term-auto="off">\(|dz|=\sigma\,d\varphi/|f&#39;|\)</span> on <span
+class="math inline" data-term-auto="off">\(\partial C&#39;\)</span> and <span
+class="math inline" data-term-auto="off">\(\int d\varphi=2\pi k&#39;\)</span>. Cauchy–Schwarz
+and coarea give <span class="math display" data-term-auto="off">\[\mathcal H^1(\partial
 C&#39;)^2
 \le2\pi k&#39;\,\sigma
 A&#39;(\sigma).                     \tag{CF1}\]</span> Pólya’s
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span class="math inline">\(A(T)\le\pi T^{2/n}\)</span> and
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span class="math inline" data-term-auto="off">\(A(T)\le\pi T^{2/n}\)</span> and
 the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> of measure <span
-class="math inline">\(d\sigma/\sigma\)</span> on <span
-class="math inline">\([\mu,T]\)</span>, <span
-class="math inline">\(T=\lambda\mu\)</span>, produce a non-critical
-level <span class="math inline">\(t\in[\mu,T]\)</span> with <span
-class="math inline">\(t A&#39;(t)\le\pi T^{2/n}/\log\lambda\)</span>.
-The component <span class="math inline">\(C_t\subseteq C_T\)</span>
-still holds <span class="math inline">\(k\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, and <span
-class="math display">\[\mathcal H^1(\partial C_t)
+class="math inline" data-term-auto="off">\(d\sigma/\sigma\)</span> on <span
+class="math inline" data-term-auto="off">\([\mu,T]\)</span>, <span
+class="math inline" data-term-auto="off">\(T=\lambda\mu\)</span>, produce a non-critical
+level <span class="math inline" data-term-auto="off">\(t\in[\mu,T]\)</span> with <span
+class="math inline" data-term-auto="off">\(t A&#39;(t)\le\pi T^{2/n}/\log\lambda\)</span>.
+The component <span class="math inline" data-term-auto="off">\(C_t\subseteq C_T\)</span>
+still holds <span class="math inline" data-term-auto="off">\(k\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, and <span
+class="math display" data-term-auto="off">\[\mathcal H^1(\partial C_t)
 \le\pi\sqrt{2k/\log\lambda}\,T^{1/n}.\]</span> The level <span
-class="math inline">\(t\)</span> is chosen from the mean of <span
-class="math inline">\(\sigma A&#39;(\sigma)\)</span> <em>before</em> any
+class="math inline" data-term-auto="off">\(t\)</span> is chosen from the mean of <span
+class="math inline" data-term-auto="off">\(\sigma A&#39;(\sigma)\)</span> <em>before</em> any
 path is assembled. That is the only device that removes the logarithmic
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergence</a> of <span class="math inline">\(A&#39;\)</span> at a critical
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergence</a> of <span class="math inline" data-term-auto="off">\(A&#39;\)</span> at a critical
 level.</p>
 <p>For arguments avoiding the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> critical-value rays, each
-root in <span class="math inline">\(C_t\)</span> lifts along a value-ray
-to <span class="math inline">\(\partial C_t\)</span>. Split every lift
-at level <span class="math inline">\(r\mu\)</span>. On a one-root lobe
-the inverse of <span class="math inline">\(f/\mu\)</span> is univalent,
+root in <span class="math inline" data-term-auto="off">\(C_t\)</span> lifts along a value-ray
+to <span class="math inline" data-term-auto="off">\(\partial C_t\)</span>. Split every lift
+at level <span class="math inline" data-term-auto="off">\(r\mu\)</span>. On a one-root lobe
+the inverse of <span class="math inline" data-term-auto="off">\(f/\mu\)</span> is univalent,
 so Koebe distortion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the low pieces pointwise; the precritical
 identity <span
-class="math display">\[\sum_i\frac{\mu^2}{|f&#39;(z_i)|^2}\le\rho^2          \tag{CF2}\]</span>
+class="math display" data-term-auto="off">\[\sum_i\frac{\mu^2}{|f&#39;(z_i)|^2}\le\rho^2          \tag{CF2}\]</span>
 then aggregates them by Cauchy–Schwarz, paying <span
-class="math inline">\(\sqrt{2/k}\)</span> rather than once per root.
+class="math inline" data-term-auto="off">\(\sqrt{2/k}\)</span> rather than once per root.
 Coarea and (CF1) <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> the high pieces only after averaging in the
 argument. Choose one argument realising that average, order the lift
-endpoints cyclically on <span class="math inline">\(\partial
+endpoints cyclically on <span class="math inline" data-term-auto="off">\(\partial
 C_t\)</span>, and hop along the shortest adjacent boundary arc.
-Averaging the two lifts and the <span class="math inline">\(k\)</span>
+Averaging the two lifts and the <span class="math inline" data-term-auto="off">\(k\)</span>
 arcs over adjacent pairs gives (CF). When <span
-class="math inline">\(\lambda\mu\le1\)</span> the same mean-value choice
+class="math inline" data-term-auto="off">\(\lambda\mu\le1\)</span> the same mean-value choice
 may be taken strictly below the top of the window, so the path lies in
-<span class="math inline">\(\{|f|&lt;1\}\)</span>. ◻</p>
+<span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>. ◻</p>
 </div>
 <p>The component-arity, capacity and two-root persistence-window
 refinements are retained with their complete hypotheses in and . Their
-parent conclusions under <span class="math inline">\(\mu\le1/2\)</span>
+parent conclusions under <span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>
 are already covered by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline">\(\ref{res:low-critical-thirteen-twentyfifths}\)</span>;
+class="math inline" data-term-auto="off">\(\ref{res:low-critical-thirteen-twentyfifths}\)</span>;
 their additional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">content</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of a specified component or a
 specified descent arc. The exact distinction between a simple minimum
 and a unique minimum is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserved</a> with the persistence-window
@@ -352,12 +352,12 @@ a sharp metric selection principle at a critical point. It consumes the
 complete logarithmic-derivative balance rather than a degree-specific
 coefficient <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-pattern" data-term="pattern" data-term-auto="1">pattern</a>.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> chooses the two smallest distances <span
-class="math inline">\(d_i\le d_j\)</span>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> balance gives
-<span class="math inline">\(d_j\le(n-1)d_i\)</span>, while minimality
-and the geometric-mean identity give <span class="math inline">\(d_i
+class="math inline" data-term-auto="off">\(d_i\le d_j\)</span>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> balance gives
+<span class="math inline" data-term-auto="off">\(d_j\le(n-1)d_i\)</span>, while minimality
+and the geometric-mean identity give <span class="math inline" data-term-auto="off">\(d_i
 d_j^{\,n-1}\le r^n\)</span>. After normalising by <span
-class="math inline">\(r\)</span>, a sharp two-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">variable</a> Bernoulli
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> yields <span class="math inline">\(d_i+d_j\le2r\)</span>. The
+class="math inline" data-term-auto="off">\(r\)</span>, a sharp two-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">variable</a> Bernoulli
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> yields <span class="math inline" data-term-auto="off">\(d_i+d_j\le2r\)</span>. The
 complete complex <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, including the selector and both <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a>,
 is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> as <em></em>.</p>
 <p>This is not silently promoted to a path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. The same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
@@ -369,7 +369,7 @@ condition quantified over every zero, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178">Lean
 source</a>. The first defeats a tie-breaking escape hatch; the second
 defeats every straight root-pair segment. Together with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline">\(\ref{res:critical-proximity}\)</span>, they
+class="math inline" data-term-auto="off">\(\ref{res:critical-proximity}\)</span>, they
 isolate the real gap: critical-point proximity selects a short metric
 pair, but universal containment <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> curved or topological
 geometry.</p>
@@ -382,38 +382,38 @@ complete paper <a class="narrative-ref narrative-ref--term is-term-again" href="
 explicit.</p>
 <section id="translated-cubic-quotient-fibres" class="level3">
 <h3>Translated cubic quotient fibres</h3>
-<p>For cubic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> <span class="math inline">\(r,s,v\)</span>, the real
-charges <span class="math inline">\(\Re(r\overline{s+v})\)</span> sum to
-more than <span class="math inline">\(-3\)</span>, so one is greater
-than <span class="math inline">\(-1\)</span>. For that root, AM–GM and
+<p>For cubic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> <span class="math inline" data-term-auto="off">\(r,s,v\)</span>, the real
+charges <span class="math inline" data-term-auto="off">\(\Re(r\overline{s+v})\)</span> sum to
+more than <span class="math inline" data-term-auto="off">\(-3\)</span>, so one is greater
+than <span class="math inline" data-term-auto="off">\(-1\)</span>. For that root, AM–GM and
 the exact cyclotomic cancellation <span
-class="math inline">\((1-t)(1+t+t^2)=1-t^3\)</span> prove that its
+class="math inline" data-term-auto="off">\((1-t)(1+t+t^2)=1-t^3\)</span> prove that its
 complete origin spoke is safe. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> this fan-in as <em></em>.
-Pulling the spoke back under <span class="math inline">\(y\mapsto
-y^q\)</span> gives <span class="math inline">\(q\)</span> safe spokes
-from <span class="math inline">\(h\)</span>; two different fibre points
-are joined through <span class="math inline">\(h\)</span> with length
-<span class="math inline">\(2|y|&lt;2\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> root-of-unity
+Pulling the spoke back under <span class="math inline" data-term-auto="off">\(y\mapsto
+y^q\)</span> gives <span class="math inline" data-term-auto="off">\(q\)</span> safe spokes
+from <span class="math inline" data-term-auto="off">\(h\)</span>; two different fibre points
+are joined through <span class="math inline" data-term-auto="off">\(h\)</span> with length
+<span class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> root-of-unity
 mean-square argument and fibre assembly are ordinary, not hidden <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
 </section>
 <section id="primitive-sparse-quintics" class="level3">
 <h3>Primitive sparse quintics</h3>
 <p>The stronger closed-disc selector has non-strict tails; if <span
-class="math inline">\(a\ne0\)</span> the selected tails are strict,
-while for <span class="math inline">\(a=0\)</span> strictness is exactly
+class="math inline" data-term-auto="off">\(a\ne0\)</span> the selected tails are strict,
+while for <span class="math inline" data-term-auto="off">\(a=0\)</span> strictness is exactly
 the interior-root condition. The phase-sensitive boundary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> uses
 the first three Newton moments and a cubic separator. Its harmonic
 extension <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> mixed interior/boundary configurations and shows that
 an unsafe interior tail contributes at most <span
-class="math inline">\(2/31\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> selectors
+class="math inline" data-term-auto="off">\(2/31\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> selectors
 <em></em> and <em></em>; the rotation, moment identification, Abel path
 estimate, and two-spoke assembly are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>.</p>
 </section>
 <section id="bdry:solved-polynomial-families" class="level3">
 <h3>Sharp collinear <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a></h3>
 <p>The complete all-degree collinear <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> appears in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:collinear}\)</span>. It gives the sharp
+class="math inline" data-term-auto="off">\(\ref{sec:collinear}\)</span>. It gives the sharp
 Chebyshev constant, not merely an existence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>, and therefore belongs
 to the solved-family layer rather than the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> layer. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
 the constrained alternation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-engine" data-term="engine" data-term-auto="1">engine</a> <em></em> and its Chebyshev consumer
@@ -424,91 +424,91 @@ to the original line are ordinary.</p>
 <section id="sec:separation" class="level2">
 <h2>Critical-value separation in every degree</h2>
 <p>The solved families of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:solved-families}\)</span> are
+class="math inline" data-term-auto="off">\(\ref{sec:solved-families}\)</span> are
 unconditional and complete, and each is confined to a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> of root
 configuration. This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> gives a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> that is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> at
 all. It constrains only the critical spectrum, it holds in every degree
 above an exact cutoff, and where it holds it gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>
-constant <span class="math inline">\(2\)</span> rather than a constant
+constant <span class="math inline" data-term-auto="off">\(2\)</span> rather than a constant
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> of it.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> <span class="math inline">\(|v|&lt;1\)</span> is
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> <span class="math inline" data-term-auto="off">\(|v|&lt;1\)</span> is
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a>: normalised separation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> a connector in <span
-class="math inline">\(\{|f|\le|v|\}\)</span>, which lies in the unit
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> only when <span class="math inline">\(|v|&lt;1\)</span>. The
-Fekete chain supplies <span class="math inline">\(|v|&lt;1\)</span> at a
+class="math inline" data-term-auto="off">\(\{|f|\le|v|\}\)</span>, which lies in the unit
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> only when <span class="math inline" data-term-auto="off">\(|v|&lt;1\)</span>. The
+Fekete chain supplies <span class="math inline" data-term-auto="off">\(|v|&lt;1\)</span> at a
 minimum-modulus critical point, but an arbitrary selected critical value
 need not. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> is sufficient, not necessary: it does not
 assert that some critical value is always separated by two, and the
-cubic <span class="math inline">\(z^3+(3/100)z-3/4\)</span> shows that
+cubic <span class="math inline" data-term-auto="off">\(z^3+(3/100)z-3/4\)</span> shows that
 no such covering <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is true.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline">\(\ref{res:critical-value-separation}\)</span> is
+class="math inline" data-term-auto="off">\(\ref{res:critical-value-separation}\)</span> is
 the same area–capacity argument used in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:constant-factor}\)</span>, run at a
+class="math inline" data-term-auto="off">\(\ref{sec:constant-factor}\)</span>, run at a
 single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> instead of over a merge tree. Normalise so that <span
-class="math inline">\(c=0\)</span>, <span
-class="math inline">\(v=1\)</span>, and <span
-class="math inline">\(|f&#39;&#39;(0)|\ne0\)</span>. The square
+class="math inline" data-term-auto="off">\(c=0\)</span>, <span
+class="math inline" data-term-auto="off">\(v=1\)</span>, and <span
+class="math inline" data-term-auto="off">\(|f&#39;&#39;(0)|\ne0\)</span>. The square
 substitution resolves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>, so <span
-class="math inline">\(f(Z(\xi))=1-\xi^2\)</span> has two local
+class="math inline" data-term-auto="off">\(f(Z(\xi))=1-\xi^2\)</span> has two local
 holomorphic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solutions</a> interchanged by <span
-class="math inline">\(\xi\mapsto-\xi\)</span>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> branch point of
-the algebraic continuation of <span class="math inline">\(Z\)</span>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> <span class="math inline">\(f&#39;(d)=0\)</span> and <span
-class="math inline">\(\xi^2=1-f(d)\)</span>, and the separation
+class="math inline" data-term-auto="off">\(\xi\mapsto-\xi\)</span>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> branch point of
+the algebraic continuation of <span class="math inline" data-term-auto="off">\(Z\)</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> <span class="math inline" data-term-auto="off">\(f&#39;(d)=0\)</span> and <span
+class="math inline" data-term-auto="off">\(\xi^2=1-f(d)\)</span>, and the separation
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> puts every such point on or outside <span
-class="math inline">\(|\xi|=\sqrt S\)</span>; properness of a polynomial
+class="math inline" data-term-auto="off">\(|\xi|=\sqrt S\)</span>; properness of a polynomial
 rules out escape to infinity over a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> value set, so the monodromy
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> continues <span class="math inline">\(Z\)</span> holomorphically
-through <span class="math inline">\(|\xi|&lt;\sqrt S\)</span>. It is
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> continues <span class="math inline" data-term-auto="off">\(Z\)</span> holomorphically
+through <span class="math inline" data-term-auto="off">\(|\xi|&lt;\sqrt S\)</span>. It is
 injective there, because <span
-class="math inline">\(Z(\xi_1)=Z(\xi_2)\)</span> forces <span
-class="math inline">\(\xi_1^2=\xi_2^2\)</span>, and the two inverse
+class="math inline" data-term-auto="off">\(Z(\xi_1)=Z(\xi_2)\)</span> forces <span
+class="math inline" data-term-auto="off">\(\xi_1^2=\xi_2^2\)</span>, and the two inverse
 sheets can meet only at an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a> branch point. Writing <span
-class="math inline">\(Z(\xi)=\sum_{k\ge1}a_k\xi^k\)</span> and fixing
-<span class="math inline">\(1&lt;R&lt;\sqrt S\)</span>, injectivity and
+class="math inline" data-term-auto="off">\(Z(\xi)=\sum_{k\ge1}a_k\xi^k\)</span> and fixing
+<span class="math inline" data-term-auto="off">\(1&lt;R&lt;\sqrt S\)</span>, injectivity and
 the area formula give <span
-class="math display">\[\pi\sum_{k\ge1}k|a_k|^2R^{2k}=\operatorname{Area}Z(D_R),\]</span>
-while <span class="math inline">\(f(Z(\xi))=1-\xi^2\)</span> confines
-the image to <span class="math inline">\(\{|f|&lt;1+R^2\}\)</span>,
+class="math display" data-term-auto="off">\[\pi\sum_{k\ge1}k|a_k|^2R^{2k}=\operatorname{Area}Z(D_R),\]</span>
+while <span class="math inline" data-term-auto="off">\(f(Z(\xi))=1-\xi^2\)</span> confines
+the image to <span class="math inline" data-term-auto="off">\(\{|f|&lt;1+R^2\}\)</span>,
 whose area is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> by <span
-class="math inline">\(\pi(1+R^2)^{2/n}\)</span> for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> <span
-class="math inline">\(f\)</span>. That <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is the absolute area
+class="math inline" data-term-auto="off">\(\pi(1+R^2)^{2/n}\)</span> for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> <span
+class="math inline" data-term-auto="off">\(f\)</span>. That <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is the absolute area
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span
-class="math inline">\(\operatorname{Area}\{|f|&lt;T\}\le\pi
+class="math inline" data-term-auto="off">\(\operatorname{Area}\{|f|&lt;T\}\le\pi
 T^{2/n}\)</span> for a polynomial with unit-modulus leading coefficient,
 taken from Pólya <span class="citation" data-cites="polya1928"><a href="#ref-7">[7]</a></span>.
 No relative area <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is used here; the disposition of Dubinin’s
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1 is recorded in the bibliography entry <span class="citation"
 data-cites="dubinin"><a href="#ref-6">[6]</a></span>. Cauchy–Schwarz then gives <span
-class="math display">\[\sum_{k\ge1}|a_k|
+class="math display" data-term-auto="off">\[\sum_{k\ge1}|a_k|
     \le(1+R^2)^{1/n}\Bigl(\sum_{k\ge1}\frac1{kR^{2k}}\Bigr)^{1/2}
     =(1+R^2)^{1/n}\sqrt{\log\frac{R^2}{R^2-1}},\]</span> and termwise
-integration of <span class="math inline">\(|Z&#39;|\)</span> over <span
-class="math inline">\([-1,1]\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the connector length by
-<span class="math inline">\(2\sum_{k\ge1}|a_k|\)</span>. Letting <span
-class="math inline">\(R\uparrow\sqrt S\)</span> proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+integration of <span class="math inline" data-term-auto="off">\(|Z&#39;|\)</span> over <span
+class="math inline" data-term-auto="off">\([-1,1]\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the connector length by
+<span class="math inline" data-term-auto="off">\(2\sum_{k\ge1}|a_k|\)</span>. Letting <span
+class="math inline" data-term-auto="off">\(R\uparrow\sqrt S\)</span> proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 <section id="bdry:critical-value-separation" class="level5">
 <h5>Boundary.</h5>
 <p>The analytic continuation, the univalence, the area formula, and the
 area–capacity <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>; they are proved in
 and are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal-mathematics" data-term="formal_mathematics" data-term-auto="1">formalised</a>. What <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> is the numerical half of the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>, in : the squared coefficient <span
-class="math inline">\(\emph{\leanlabel{firstMergeSquaredCoefficient}}\)</span>
+class="math inline" data-term-auto="off">\(\emph{\leanlabel{firstMergeSquaredCoefficient}}\)</span>
 is antitone in the degree (<em></em>), a squared connector length below
-<span class="math inline">\(4\)</span> times a coefficient below <span
-class="math inline">\(1\)</span> forces length below <span
-class="math inline">\(2\)</span> (<em></em>), and the older three
+<span class="math inline" data-term-auto="off">\(4\)</span> times a coefficient below <span
+class="math inline" data-term-auto="off">\(1\)</span> forces length below <span
+class="math inline" data-term-auto="off">\(2\)</span> (<em></em>), and the older three
 coefficientwise regimes hold exactly (<em></em>), while the live uniform
-radius <span class="math inline">\(4/3\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in . The
+radius <span class="math inline" data-term-auto="off">\(4/3\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in . The
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> entry is . <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not prove the analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> <span
-class="math inline">\(\ell^2\le4\,\mathrm{c}(n,S)\)</span> that those
+class="math inline" data-term-auto="off">\(\ell^2\le4\,\mathrm{c}(n,S)\)</span> that those
 consumers take as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a>, and nothing in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> asserts the
 unrestricted problem or the complementary near-tie regime.</p>
 <p>Pendyala’s degree-four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <span class="citation"
 data-cites="june2026"><a href="#ref-4">[4]</a></span> has no critical-spectrum <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>. The
 present separation criterion applies in every degree <span
-class="math inline">\(n\ge3\)</span> and supplies an explicit
+class="math inline" data-term-auto="off">\(n\ge3\)</span> and supplies an explicit
 inverse-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> length estimate.</p>
 </section>
 </section>
@@ -522,37 +522,37 @@ than a supplied minimum, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean#L189">Lean
 source</a>.</p>
 <p>A degree-uniform one-root perimeter constant, if one exists, must be
-at least <span class="math inline">\(2\pi\)</span>. For each fixed <span
-class="math inline">\(a&gt;1\)</span>, the one-root component of <span
-class="math inline">\(\{|z^N-az|\le1\}\)</span> contains every disc of
-radius <span class="math inline">\(r&lt;1/a\)</span> for all
-sufficiently large <span class="math inline">\(N\)</span>. A circle of
-radius between <span class="math inline">\(1/a\)</span> and <span
-class="math inline">\(1\)</span> isolates that component by Rouché’s
+at least <span class="math inline" data-term-auto="off">\(2\pi\)</span>. For each fixed <span
+class="math inline" data-term-auto="off">\(a&gt;1\)</span>, the one-root component of <span
+class="math inline" data-term-auto="off">\(\{|z^N-az|\le1\}\)</span> contains every disc of
+radius <span class="math inline" data-term-auto="off">\(r&lt;1/a\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(N\)</span>. A circle of
+radius between <span class="math inline" data-term-auto="off">\(1/a\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span> isolates that component by Rouché’s
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. Its perimeter is therefore at least <span
-class="math inline">\(2\pi/a\)</span> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>; now let <span
-class="math inline">\(a\downarrow1\)</span>. The family <span
-class="math inline">\(z^N-z\)</span> at level <span
-class="math inline">\(1\)</span> does not supply a one-root component.
+class="math inline" data-term-auto="off">\(2\pi/a\)</span> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>; now let <span
+class="math inline" data-term-auto="off">\(a\downarrow1\)</span>. The family <span
+class="math inline" data-term-auto="off">\(z^N-z\)</span> at level <span
+class="math inline" data-term-auto="off">\(1\)</span> does not supply a one-root component.
 Neither general path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> uses the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reject" data-term="reject" data-term-auto="1">rejected</a> perimeter <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
 </section>
 <section id="sec:newton" class="level2">
 <h2>The Newton value <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a></h2>
 <p>Away from the critical set, define the complex <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton field</a> <span
-class="math display">\[N(z)=-\frac{f(z)}{f&#39;(z)} .\]</span> Let <span
-class="math inline">\(z(t)\)</span> be differentiable with <span
-class="math inline">\(z&#39;(t)=N(z(t))\)</span>, and put <span
-class="math inline">\(w(t)=f(z(t))\)</span>.</p>
+class="math display" data-term-auto="off">\[N(z)=-\frac{f(z)}{f&#39;(z)} .\]</span> Let <span
+class="math inline" data-term-auto="off">\(z(t)\)</span> be differentiable with <span
+class="math inline" data-term-auto="off">\(z&#39;(t)=N(z(t))\)</span>, and put <span
+class="math inline" data-term-auto="off">\(w(t)=f(z(t))\)</span>.</p>
 <p>The computation is one line: <span
-class="math inline">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
+class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
 The kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> it as <em></em>, together with the differential form
 of the first integral, <em></em>: <span
-class="math display">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
+class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
   \qquad\text{equivalently}\qquad
   f(z(t))=e^{-t}f(z(0)) .\]</span> Observe what this says about the
 geometry. The value moves radially inward at exponential rate and never
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a> argument. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> <span
-class="math inline">\(\{|f|&lt;1\}\)</span> is therefore
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> is therefore
 forward-invariant, and the flow lines are exactly the preimages of rays
 from the origin.</p>
 <p>This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in consumer form: the kernel accepts the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a>
@@ -569,11 +569,11 @@ is enough.</p>
 <p>Two distinct critical values can lie on one ray, and two critical
 values with distinct moduli certainly can: the ray records the argument,
 and the modulus is exactly the coordinate the flow contracts. By
-Corollary <span class="math inline">\(\ref{res:ray}\)</span> the
+Corollary <span class="math inline" data-term-auto="off">\(\ref{res:ray}\)</span> the
 invariant that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a> is the argument. What a perturbation
 must therefore achieve is pairwise distinct critical-value
 <em>arguments</em>, which is a condition on <span
-class="math inline">\(n-1\)</span> points modulo the circle rather than
+class="math inline" data-term-auto="off">\(n-1\)</span> points modulo the circle rather than
 on their positions in the plane.</p>
 <p>The cost of that condition is also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, and it is small.</p>
 <p>So each pair of critical values contributes a one-real-parameter
@@ -581,23 +581,23 @@ forbidden <a class="narrative-ref narrative-ref--term is-term-again" href="../..
 (<em></em>). A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> union of such loci has empty interior, so
 arbitrarily small translations avoid the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> ray collisions.
 Fixed-degree lower semicontinuity in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:open}\)</span> passes a dense-generic
+class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> passes a dense-generic
 closed-level length <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> to the whole coefficient <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>. Quantitative
 forward transport of a selected curve <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>, but
 is not a premise of that existence argument.</p>
 </section>
 <section id="sec:reciprocal" class="level2">
 <h2>Local coordinates for perturbative competitors</h2>
-<p>For <span class="math inline">\(f(z)=\prod_j(z-a_j)\)</span> with
-<span class="math inline">\(a_j\ne0\)</span>, put <span
-class="math inline">\(r=\min_j|a_j|\)</span> and <span
-class="math inline">\(p_m=\sum_j a_j^{-m}\)</span>. On <span
-class="math inline">\(|z|&lt;r\)</span>, the exact expansion <span
-class="math display">\[\log|f(z)|=\log|f(0)|-\Re\sum_{m\ge1}\frac{p_m}{m}z^m\]</span>
+<p>For <span class="math inline" data-term-auto="off">\(f(z)=\prod_j(z-a_j)\)</span> with
+<span class="math inline" data-term-auto="off">\(a_j\ne0\)</span>, put <span
+class="math inline" data-term-auto="off">\(r=\min_j|a_j|\)</span> and <span
+class="math inline" data-term-auto="off">\(p_m=\sum_j a_j^{-m}\)</span>. On <span
+class="math inline" data-term-auto="off">\(|z|&lt;r\)</span>, the exact expansion <span
+class="math display" data-term-auto="off">\[\log|f(z)|=\log|f(0)|-\Re\sum_{m\ge1}\frac{p_m}{m}z^m\]</span>
 keeps the nonlinear <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a> as coefficient coordinates. If <span
-class="math inline">\(q=|z|/r&lt;1\)</span>, the tail after <span
-class="math inline">\(N\)</span> has modulus at most <span
-class="math inline">\(nq^{N+1}/((N+1)(1-q))\)</span>; differentiated
+class="math inline" data-term-auto="off">\(q=|z|/r&lt;1\)</span>, the tail after <span
+class="math inline" data-term-auto="off">\(N\)</span> has modulus at most <span
+class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span>; differentiated
 geometric <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> give the corresponding first and second derivative
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>. The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrences</a>, zero-margin staple
 construction, and quadratic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contact" data-term="contact" data-term-auto="1">contact</a> test are proved in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>
@@ -608,66 +608,66 @@ supplies no global root-pair selection.</p>
 <h2>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> gap in the unrestricted argument</h2>
 <p>The March manuscript’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 12 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> the following
 load-bearing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. For <span
-class="math inline">\(u=-\log|f|\)</span>, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> component <span
-class="math inline">\(V\)</span> of <span
-class="math inline">\(\{u&gt;c\}\)</span> carrying <span
-class="math inline">\(m\ge2\)</span> simple zeros, and the stated
+class="math inline" data-term-auto="off">\(u=-\log|f|\)</span>, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> component <span
+class="math inline" data-term-auto="off">\(V\)</span> of <span
+class="math inline" data-term-auto="off">\(\{u&gt;c\}\)</span> carrying <span
+class="math inline" data-term-auto="off">\(m\ge2\)</span> simple zeros, and the stated
 regularity and Morse hypotheses, it constructs, for every <span
-class="math inline">\(\varepsilon&gt;0\)</span>, an embedded spanning
-tree <span class="math inline">\(G_\varepsilon\subset V\)</span> with
-<span class="math display">\[\operatorname{len}(G_\varepsilon)
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, an embedded spanning
+tree <span class="math inline" data-term-auto="off">\(G_\varepsilon\subset V\)</span> with
+<span class="math display" data-term-auto="off">\[\operatorname{len}(G_\varepsilon)
 \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon.
 \tag{5.1}\label{eq:prop12-bound}\]</span> The final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> uses this
 estimate, so the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-issue-report" data-term="issue_report" data-term-auto="1">issue</a> below cannot be bypassed by calling the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> auxiliary. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 7 of the unattributed local revision
 repeats the same estimate.</p>
 <p>The estimate itself is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a>. Take the Cassini polynomial <span
-class="math inline">\(f_a(z)=z^2-a^2\)</span> at <span
-class="math inline">\(a=9/10\)</span>. Its component contains the two
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> at distance <span class="math inline">\(9/5\)</span> and satisfies
+class="math inline" data-term-auto="off">\(f_a(z)=z^2-a^2\)</span> at <span
+class="math inline" data-term-auto="off">\(a=9/10\)</span>. Its component contains the two
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> at distance <span class="math inline" data-term-auto="off">\(9/5\)</span> and satisfies
 the relevant Morse and critical-value hypotheses. Direct level-length
 calculation gives the upper majorant <span
-class="math display">\[4\bigl(\sqrt{a^2+a}-a\bigr)&lt;\frac{41}{25}\]</span>
+class="math display" data-term-auto="off">\[4\bigl(\sqrt{a^2+a}-a\bigr)&lt;\frac{41}{25}\]</span>
 for the right side of <span
-class="math inline">\(\eqref{eq:prop12-bound}\)</span> before <span
-class="math inline">\(\varepsilon\)</span>, whereas every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> set
+class="math inline" data-term-auto="off">\(\eqref{eq:prop12-bound}\)</span> before <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>, whereas every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> set
 containing both <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> has length at least <span
-class="math inline">\(9/5\)</span>. Since <span
-class="math inline">\(9/5-41/25=4/25\)</span>, choosing a smaller
-positive <span class="math inline">\(\varepsilon\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradicts</a>
+class="math inline" data-term-auto="off">\(9/5\)</span>. Since <span
+class="math inline" data-term-auto="off">\(9/5-41/25=4/25\)</span>, choosing a smaller
+positive <span class="math inline" data-term-auto="off">\(\varepsilon\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradicts</a>
 the assertion. Thus neither a different local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> neighbourhood nor a
 perfect topological decomposition can recover the printed coefficient
-<span class="math inline">\(1/(2\pi)\)</span>. The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> and
+<span class="math inline" data-term-auto="off">\(1/(2\pi)\)</span>. The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> and
 its abstract tree-budget <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in
 <code>ErdosProblems.Erdos1041.CassiniTreeBudget</code>; the level-length
 majorant is an explicit analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a>, not a kernel-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> integral
 evaluation.</p>
 <p>At an interior <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>-one critical point <span
-class="math inline">\(p\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> invokes a Morse chart <span
-class="math display">\[u=\mu+x^2-y^2\]</span> and replaces the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> by
+class="math inline" data-term-auto="off">\(p\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> invokes a Morse chart <span
+class="math display" data-term-auto="off">\[u=\mu+x^2-y^2\]</span> and replaces the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> by
 a three-ended neighbourhood having one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> lower cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> and
 two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connected</a> upper cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>. That local <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> as
-written. Because <span class="math inline">\(p\in V\)</span> and <span
-class="math inline">\(V\)</span> is open, a sufficiently small closed
-disc around <span class="math inline">\(p\)</span> lies entirely in
-<span class="math inline">\(V\)</span>. In that disc the full Morse
+written. Because <span class="math inline" data-term-auto="off">\(p\in V\)</span> and <span
+class="math inline" data-term-auto="off">\(V\)</span> is open, a sufficiently small closed
+disc around <span class="math inline" data-term-auto="off">\(p\)</span> lies entirely in
+<span class="math inline" data-term-auto="off">\(V\)</span>. In that disc the full Morse
 chart has four sectors: two components of <span
-class="math inline">\(u&gt;\mu\)</span> and two components of <span
-class="math inline">\(u&lt;\mu\)</span>. A global component argument
+class="math inline" data-term-auto="off">\(u&gt;\mu\)</span> and two components of <span
+class="math inline" data-term-auto="off">\(u&lt;\mu\)</span>. A global component argument
 cannot delete one local sector from a disc already contained in <span
-class="math inline">\(V\)</span>.</p>
+class="math inline" data-term-auto="off">\(V\)</span>.</p>
 <p>This independently diagnoses a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> step, but the Cassini <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>
 above also refutes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. A different route might
 cut an adjoining regular annulus along a separatrix or regular flow arc
 before forming the block, retain a four-pronged <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> neighbourhood and
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> the assembly, or replace the local construction by the ray-cut
 decomposition proposed below. But no repair can retain <span
-class="math inline">\(\eqref{eq:prop12-bound}\)</span>; it must pay a
+class="math inline" data-term-auto="off">\(\eqref{eq:prop12-bound}\)</span>; it must pay a
 positive attachment cost, select only one short pair instead of spanning
 every root, or use a different global metric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>. The shorter
 descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
-<p>Corollary <span class="math inline">\(\ref{res:ray}\)</span> supplies
+<p>Corollary <span class="math inline" data-term-auto="off">\(\ref{res:ray}\)</span> supplies
 one independent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> for a different route: distinct critical-value
 arguments <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a>-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> Newton <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a>. It does not
 itself prove the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> planar decomposition, classify all <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>
@@ -690,34 +690,34 @@ the unit level.</p>
 degree</h2>
 <p>There is a complete all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> family which isolates the metric
 geometry without pretending to select paths for arbitrary polynomials.
-Let <span class="math inline">\(f(z)=z^n-a\)</span>, where <span
-class="math inline">\(n\ge2\)</span> and <span
-class="math inline">\(0&lt;|a|&lt;1\)</span>. After rotation write <span
-class="math inline">\(a=r^n&gt;0\)</span>, put <span
-class="math inline">\(c=\cos(\pi/n)\)</span>, and set <span
-class="math display">\[r_*=(1+c^n)^{-1/n},\qquad
+Let <span class="math inline" data-term-auto="off">\(f(z)=z^n-a\)</span>, where <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(0&lt;|a|&lt;1\)</span>. After rotation write <span
+class="math inline" data-term-auto="off">\(a=r^n&gt;0\)</span>, put <span
+class="math inline" data-term-auto="off">\(c=\cos(\pi/n)\)</span>, and set <span
+class="math display" data-term-auto="off">\[r_*=(1+c^n)^{-1/n},\qquad
 \varepsilon=(1-r^n)^{1/n}.\]</span></p>
 <p>The central chord calculation is exact. On the chord between adjacent
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, <span class="math display">\[\max |z^n-r^n|=r^n(1+c^n),\]</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>, <span class="math display" data-term-auto="off">\[\max |z^n-r^n|=r^n(1+c^n),\]</span>
 with the maximum at the midpoint; hence the first construction has
-precisely the threshold <span class="math inline">\(r_*\)</span>. Above
-it, put <span class="math inline">\(t=\varepsilon/c\)</span>. The path
-from <span class="math inline">\(r\)</span> to <span
-class="math inline">\(t\)</span> to <span
-class="math inline">\(t\omega\)</span> to <span
-class="math inline">\(r\omega\)</span> has its crossing chord in the
+precisely the threshold <span class="math inline" data-term-auto="off">\(r_*\)</span>. Above
+it, put <span class="math inline" data-term-auto="off">\(t=\varepsilon/c\)</span>. The path
+from <span class="math inline" data-term-auto="off">\(r\)</span> to <span
+class="math inline" data-term-auto="off">\(t\)</span> to <span
+class="math inline" data-term-auto="off">\(t\omega\)</span> to <span
+class="math inline" data-term-auto="off">\(r\omega\)</span> has its crossing chord in the
 closed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>, and its length is <span
-class="math display">\[2r-2\varepsilon\tan\!\left(\frac\pi4-\frac\pi{2n}\right)&lt;2r&lt;2.\]</span>
-The radius <span class="math inline">\(t\)</span> is maximal: a larger
+class="math display" data-term-auto="off">\[2r-2\varepsilon\tan\!\left(\frac\pi4-\frac\pi{2n}\right)&lt;2r&lt;2.\]</span>
+The radius <span class="math inline" data-term-auto="off">\(t\)</span> is maximal: a larger
 crossing chord already escapes at its midpoint. Contracting that chord
-to radius <span class="math inline">\(\lambda t\)</span> with <span
-class="math inline">\(0&lt;\lambda&lt;1\)</span> makes the containment
+to radius <span class="math inline" data-term-auto="off">\(\lambda t\)</span> with <span
+class="math inline" data-term-auto="off">\(0&lt;\lambda&lt;1\)</span> makes the containment
 strict while keeping the two radial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connections</a> and the strict length
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. For <span class="math inline">\(n=2\)</span>, the adjacent-root
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. For <span class="math inline" data-term-auto="off">\(n=2\)</span>, the adjacent-root
 diameter is already a strict path of length <span
-class="math inline">\(2r&lt;2\)</span>.</p>
+class="math inline" data-term-auto="off">\(2r&lt;2\)</span>.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> uses the sharp <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span
-class="math display">\[1+\cos(n\theta)\le2\cos^n\theta
+class="math display" data-term-auto="off">\[1+\cos(n\theta)\le2\cos^n\theta
   \qquad (|\theta|\le\pi/n),\]</span> followed by elementary chord
 geometry and the disk <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> that justifies the contraction. It is
 an authored ordinary all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> numerical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a>, not
@@ -725,52 +725,52 @@ a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/gl
 the exact transition says why a direct outer chord fails and why the
 complementary inner chord repairs it. It gives no path optimality, no
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> for arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomials</a>, and no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>
-Problem <span class="math inline">\(\ref{res:problem}\)</span>.</p>
+Problem <span class="math inline" data-term-auto="off">\(\ref{res:problem}\)</span>.</p>
 </section>
 <section id="sec:collinear" class="level2">
 <h2>The sharp collinear <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>: order buys an exact Chebyshev
 extremal</h2>
 <p>Collinearity supplies the global ordering that arbitrary complex root
 sets lack, and it yields a sharp all-degree solved subcase. Put <span
-class="math display">\[C_n=\frac{1}{2^{n-1}\cos^n(\pi/(2n))}.\]</span></p>
+class="math display" data-term-auto="off">\[C_n=\frac{1}{2^{n-1}\cos^n(\pi/(2n))}.\]</span></p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Repeated zeros give the constant path, so suppose the
 zeros are distinct. Translation, rotation, and scaling by <span
-class="math inline">\(R=D/2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduce to</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> real-rooted
-polynomial <span class="math inline">\(q\)</span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> <span
-class="math display">\[-1=y_1&lt;\cdots&lt;y_n=1,
+class="math inline" data-term-auto="off">\(R=D/2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduce to</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> real-rooted
+polynomial <span class="math inline" data-term-auto="off">\(q\)</span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> <span
+class="math display" data-term-auto="off">\[-1=y_1&lt;\cdots&lt;y_n=1,
 \qquad |f|=R^n|q|\ \text{on the root line}.\]</span> Set <span
-class="math inline">\(r_n=\cos(\pi/(2n))\)</span> and compare <span
-class="math inline">\(q\)</span> with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomial</a> <span
-class="math display">\[q_*(x)=\frac{T_n(r_nx)}{2^{n-1}r_n^n}.\]</span>
-It vanishes at <span class="math inline">\(\pm1\)</span> and has <span
-class="math inline">\(|q_*|\le C_n\)</span> on <span
-class="math inline">\([-1,1]\)</span>. Choose a point <span
-class="math inline">\(c_i\)</span> of maximum <span
-class="math inline">\(|q|\)</span> in each adjacent gap. If every gap
-maximum exceeded <span class="math inline">\(C_n\)</span>, then <span
-class="math inline">\(h=q-q_*\)</span> would have the alternating signs
-of <span class="math inline">\(q(c_i)\)</span> at the <span
-class="math inline">\(c_i\)</span>, hence a zero between each
+class="math inline" data-term-auto="off">\(r_n=\cos(\pi/(2n))\)</span> and compare <span
+class="math inline" data-term-auto="off">\(q\)</span> with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomial</a> <span
+class="math display" data-term-auto="off">\[q_*(x)=\frac{T_n(r_nx)}{2^{n-1}r_n^n}.\]</span>
+It vanishes at <span class="math inline" data-term-auto="off">\(\pm1\)</span> and has <span
+class="math inline" data-term-auto="off">\(|q_*|\le C_n\)</span> on <span
+class="math inline" data-term-auto="off">\([-1,1]\)</span>. Choose a point <span
+class="math inline" data-term-auto="off">\(c_i\)</span> of maximum <span
+class="math inline" data-term-auto="off">\(|q|\)</span> in each adjacent gap. If every gap
+maximum exceeded <span class="math inline" data-term-auto="off">\(C_n\)</span>, then <span
+class="math inline" data-term-auto="off">\(h=q-q_*\)</span> would have the alternating signs
+of <span class="math inline" data-term-auto="off">\(q(c_i)\)</span> at the <span
+class="math inline" data-term-auto="off">\(c_i\)</span>, hence a zero between each
 consecutive pair, as well as zeros at <span
-class="math inline">\(-1\)</span> and <span
-class="math inline">\(1\)</span>. These are <span
-class="math inline">\(n\)</span> distinct zeros, whereas the leading
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a> cancel and <span class="math inline">\(\deg h\le n-1\)</span>, a
+class="math inline" data-term-auto="off">\(-1\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span>. These are <span
+class="math inline" data-term-auto="off">\(n\)</span> distinct zeros, whereas the leading
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a> cancel and <span class="math inline" data-term-auto="off">\(\deg h\le n-1\)</span>, a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a>. Thus one selected gap has <span
-class="math inline">\(|q|\le C_n\)</span> throughout, and scaling back
+class="math inline" data-term-auto="off">\(|q|\le C_n\)</span> throughout, and scaling back
 proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
 <p>For sharpness take the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> of <span
-class="math inline">\(q_*\)</span>, namely <span
-class="math display">\[\frac{\cos((2k-1)\pi/(2n))}{r_n},\qquad 1\le k\le
+class="math inline" data-term-auto="off">\(q_*\)</span>, namely <span
+class="math display" data-term-auto="off">\[\frac{\cos((2k-1)\pi/(2n))}{r_n},\qquad 1\le k\le
 n.\]</span> Their extreme <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> are <span
-class="math inline">\(\pm1\)</span>, and every adjacent gap reaches
-<span class="math inline">\(C_n\)</span> at a Chebyshev extremum. ◻</p>
+class="math inline" data-term-auto="off">\(\pm1\)</span>, and every adjacent gap reaches
+<span class="math inline" data-term-auto="off">\(C_n\)</span> at a Chebyshev extremum. ◻</p>
 </div>
-<p>If <span class="math inline">\(D&lt;2\)</span>, the displayed level
+<p>If <span class="math inline" data-term-auto="off">\(D&lt;2\)</span>, the displayed level
 is below one and this segment lies in the open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>. For <span
-class="math inline">\(n\ge3\)</span>, the same strict level holds
-already at <span class="math inline">\(D=2\)</span>; degree two is the
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, the same strict level holds
+already at <span class="math inline" data-term-auto="off">\(D=2\)</span>; degree two is the
 exact boundary case. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> is a complete authored ordinary argument.
 Two load-bearing alternation and Chebyshev-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">comparator</a> kernels are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, while the affine normalization and transport remain ordinary;
@@ -781,9 +781,9 @@ problem lacks.</p>
 </section>
 <section id="sec:freepoint" class="level2">
 <h2>A Poisson identity for critical-value means</h2>
-<p>Write <span class="math inline">\(\mathrm{FP}_m\)</span> for the
+<p>Write <span class="math inline" data-term-auto="off">\(\mathrm{FP}_m\)</span> for the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a>-weight <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span
-class="math inline">\(\sum_j(\prod_k|1-\overline{c_k}c_j|)^{1/m}\le
+class="math inline" data-term-auto="off">\(\sum_j(\prod_k|1-\overline{c_k}c_j|)^{1/m}\le
 m\)</span>.</p>
 <p>The same points can define both an analytic geometric mean and a
 positive Poisson mixture. Their logarithmic-derivative relation converts
@@ -791,66 +791,66 @@ the desired nonlinear estimate into a diagonal Taylor-coefficient
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> First assume <span
-class="math inline">\(|c_j|&lt;1\)</span> and choose analytic logarithms
+class="math inline" data-term-auto="off">\(|c_j|&lt;1\)</span> and choose analytic logarithms
 zero at the origin. Put <span
-class="math display">\[g(z)=\exp\sum_jw_j\log(1-\overline{c_j}z)
+class="math display" data-term-auto="off">\[g(z)=\exp\sum_jw_j\log(1-\overline{c_j}z)
       =1+\sum_{\nu\ge1}a_\nu z^\nu,
 \qquad P=\sum_jw_jP_{c_j},\]</span> where <span
-class="math inline">\(P_c(\zeta)=(1-|c|^2)/|\zeta-c|^2\)</span> and
-<span class="math inline">\(dm\)</span> denotes normalised arclength. On
-the unit circle, <span class="math display">\[P=1-2\Re\frac{\zeta
+class="math inline" data-term-auto="off">\(P_c(\zeta)=(1-|c|^2)/|\zeta-c|^2\)</span> and
+<span class="math inline" data-term-auto="off">\(dm\)</span> denotes normalised arclength. On
+the unit circle, <span class="math display" data-term-auto="off">\[P=1-2\Re\frac{\zeta
 g&#39;}g.\]</span> Subharmonicity and Taylor orthogonality therefore
-give <span class="math display">\[\begin{align*}
+give <span class="math display" data-term-auto="off">\[\begin{align*}
 \sum_jw_jG(c_j)^2
 &amp;\le\int |g|^2P\,dm\\
 &amp;=\int\bigl(|g|^2-2\Re(\zeta g&#39;\overline g)\bigr)\,dm\\
 &amp;=1-\sum_{\nu\ge1}(2\nu-1)|a_\nu|^2.
 \end{align*}\]</span> All <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> converge on a neighbourhood of the
 closed disc in this case. For boundary points, replace <span
-class="math inline">\(c_j\)</span> by <span
-class="math inline">\(rc_j\)</span> and let <span
-class="math inline">\(r\uparrow1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> left sum and every
+class="math inline" data-term-auto="off">\(c_j\)</span> by <span
+class="math inline" data-term-auto="off">\(rc_j\)</span> and let <span
+class="math inline" data-term-auto="off">\(r\uparrow1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> left sum and every
 fixed Taylor coefficient converge; passing first with a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 coefficient sum proves the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">Equality</a> forces
-<span class="math inline">\(g=1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> <span
-class="math inline">\(\sum_jw_j\overline{c_j}/(1-\overline{c_j}z)\)</span>
+<span class="math inline" data-term-auto="off">\(g=1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> <span
+class="math inline" data-term-auto="off">\(\sum_jw_j\overline{c_j}/(1-\overline{c_j}z)\)</span>
 then vanishes identically. A nonzero point would give a pole with
 nonzero total positive weight, so all points are zero. Weighted
 Cauchy–Schwarz gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a>-weight linear <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>. ◻</p>
 </div>
 <p>The coefficient <span
-class="math inline">\(a_1=-\overline{\sum_jw_jc_j}\)</span> gives the
+class="math inline" data-term-auto="off">\(a_1=-\overline{\sum_jw_jc_j}\)</span> gives the
 immediate refinement <span
-class="math display">\[\sum_jw_jG(c_j)^2\le1-\left|\sum_jw_jc_j\right|^2.\]</span>
+class="math display" data-term-auto="off">\[\sum_jw_jG(c_j)^2\le1-\left|\sum_jw_jc_j\right|^2.\]</span>
 Thus the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> records a quantitative loss when the point centroid is
 nonzero. The specialised four-point and central-radius <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> are
 retained in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>; the all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> above removes
 their cardinality restriction.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Translation and scaling <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduce to</a> <span
-class="math inline">\(R=1\)</span>; the case <span
-class="math inline">\(R=0\)</span> is immediate. Write <span
-class="math inline">\(q=f&#39;/n=\prod_j(z-c_j)\)</span> and <span
-class="math inline">\(q^\#(z)=\prod_j(1-\overline{c_j}z)\)</span>. For
+class="math inline" data-term-auto="off">\(R=1\)</span>; the case <span
+class="math inline" data-term-auto="off">\(R=0\)</span> is immediate. Write <span
+class="math inline" data-term-auto="off">\(q=f&#39;/n=\prod_j(z-c_j)\)</span> and <span
+class="math inline" data-term-auto="off">\(q^\#(z)=\prod_j(1-\overline{c_j}z)\)</span>. For
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> strictly inside the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-unit-disc" data-term="unit_disc" data-term-auto="1">unit disc</a>, on <span
-class="math inline">\(|\zeta|=1\)</span>, <span
-class="math display">\[\Re\frac{\zeta f&#39;(\zeta)}{f(\zeta)}
+class="math inline" data-term-auto="off">\(|\zeta|=1\)</span>, <span
+class="math display" data-term-auto="off">\[\Re\frac{\zeta f&#39;(\zeta)}{f(\zeta)}
 =\sum_i\Re\frac{\zeta}{\zeta-z_i}&gt;\frac n2.\]</span> Hence <span
-class="math inline">\(|f-\zeta q|&lt;|q|=|q^\#|\)</span> there.
-Gauss–Lucas makes <span class="math inline">\(q^\#\)</span> zero-free on
+class="math inline" data-term-auto="off">\(|f-\zeta q|&lt;|q|=|q^\#|\)</span> there.
+Gauss–Lucas makes <span class="math inline" data-term-auto="off">\(q^\#\)</span> zero-free on
 the closed disc, so the maximum principle gives <span
-class="math inline">\(|(f-zq)/q^\#|&lt;1\)</span> inside. At a critical
+class="math inline" data-term-auto="off">\(|(f-zq)/q^\#|&lt;1\)</span> inside. At a critical
 point, <span
-class="math display">\[|f(c_j)|\le\prod_k|1-\overline{c_k}c_j|.\]</span>
+class="math display" data-term-auto="off">\[|f(c_j)|\le\prod_k|1-\overline{c_k}c_j|.\]</span>
 The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a>-weight quadratic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.
 Contracting a closed-disc root configuration and taking a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a> treats
 its boundary. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">Power</a> means give <span
-class="math inline">\((S)_n\)</span>, and scaling restores <span
-class="math inline">\(R\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\((S)_n\)</span>, and scaling restores <span
+class="math inline" data-term-auto="off">\(R\)</span>. ◻</p>
 </div>
 <p>The constant is attained by <span
-class="math inline">\(f(z)=(z-h)^n-\lambda\)</span> with <span
-class="math inline">\(|\lambda|=R^n\)</span>. These ordinary analytic
+class="math inline" data-term-auto="off">\(f(z)=(z-h)^n-\lambda\)</span> with <span
+class="math inline" data-term-auto="off">\(|\lambda|=R^n\)</span>. These ordinary analytic
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> are recorded in and . The circle comparison and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 Taylor-coefficient identity have <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> kernels; Poisson integration
 and the maximum-principle assembly remain ordinary. A critical-value
@@ -859,50 +859,50 @@ mean supplies no attachment or path-length estimate by itself.</p>
 <section id="sec:orlicz" class="level2">
 <h2>The exact nonlinear lifetime currency</h2>
 <p>The merge-tree route has its own exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. For each nontrivial
-child component <span class="math inline">\(u\)</span>, let <span
-class="math inline">\(k_u\)</span> be its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> and let <span
-class="math inline">\(r_u=\beta_u/\beta_{\operatorname{parent}(u)}\in(0,1]\)</span>
+child component <span class="math inline" data-term-auto="off">\(u\)</span>, let <span
+class="math inline" data-term-auto="off">\(k_u\)</span> be its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> and let <span
+class="math inline" data-term-auto="off">\(r_u=\beta_u/\beta_{\operatorname{parent}(u)}\in(0,1]\)</span>
 be its merge-scale ratio. Its contribution to the attachment age of each
 descendant root is <span
-class="math display">\[x_u=\frac1{k_u}\log\frac1{r_u}.\]</span> The edge
+class="math display" data-term-auto="off">\[x_u=\frac1{k_u}\log\frac1{r_u}.\]</span> The edge
 lifetime is written <span
-class="math display">\[\lambda_k(q)=\log\frac{1+q^{2/k}}{1-q^{2/k}},
+class="math display" data-term-auto="off">\[\lambda_k(q)=\log\frac{1+q^{2/k}}{1-q^{2/k}},
 \qquad
 I_k(r)=\int_r^1\frac{dq}{q\lambda_k(q)}.\]</span></p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set <span class="math inline">\(q=e^{-kt}\)</span>.
-Then <span class="math inline">\(dq/q=-k\,dt\)</span>, the endpoints
-<span class="math inline">\(q=1,r\)</span> become <span
-class="math inline">\(t=0,x\)</span>, and <span
-class="math display">\[\frac{1+e^{-2t}}{1-e^{-2t}}=\coth t,\]</span>
-which proves (O1). Since <span class="math inline">\(\coth t\)</span>,
-and hence <span class="math inline">\(\log(\coth t)\)</span>, is
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set <span class="math inline" data-term-auto="off">\(q=e^{-kt}\)</span>.
+Then <span class="math inline" data-term-auto="off">\(dq/q=-k\,dt\)</span>, the endpoints
+<span class="math inline" data-term-auto="off">\(q=1,r\)</span> become <span
+class="math inline" data-term-auto="off">\(t=0,x\)</span>, and <span
+class="math display" data-term-auto="off">\[\frac{1+e^{-2t}}{1-e^{-2t}}=\coth t,\]</span>
+which proves (O1). Since <span class="math inline" data-term-auto="off">\(\coth t\)</span>,
+and hence <span class="math inline" data-term-auto="off">\(\log(\coth t)\)</span>, is
 strictly decreasing, the positive integrand <span
-class="math inline">\(1/\log(\coth t)\)</span> is strictly increasing.
+class="math inline" data-term-auto="off">\(1/\log(\coth t)\)</span> is strictly increasing.
 This proves monotonicity and strict convexity. Moreover <span
-class="math display">\[0\le\frac{\Phi(x)}x\le\frac1{\log(\coth
+class="math display" data-term-auto="off">\[0\le\frac{\Phi(x)}x\le\frac1{\log(\coth
 x)}\longrightarrow0,\]</span> which gives (O2); taking <span
-class="math inline">\(r=e^{-kx}\)</span> gives (O3). ◻</p>
+class="math inline" data-term-auto="off">\(r=e^{-kx}\)</span> gives (O3). ◻</p>
 </div>
 <p>The identity explains why a linear charge per attachment age loses
 the behaviour of very young <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-edge" data-term="edge" data-term-auto="1">edges</a>. Chain allocation must retain the
 distribution of ages and the convex <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> <span
-class="math inline">\(\Phi\)</span>. The weighted Jensen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> and the
+class="math inline" data-term-auto="off">\(\Phi\)</span>. The weighted Jensen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> and the
 two-young-root selector are retained in . They still <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> a geometric
 compatibility estimate before they produce a contained connector.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>The remaining geometric selection problem</h2>
-<p>Let <span class="math inline">\(\mathcal K_n\)</span> be the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a>
-coefficient <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> degree-<span class="math inline">\(n\)</span>
+<p>Let <span class="math inline" data-term-auto="off">\(\mathcal K_n\)</span> be the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a>
+coefficient <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> degree-<span class="math inline" data-term-auto="off">\(n\)</span>
 polynomials with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in the closed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-unit-disc" data-term="unit_disc" data-term-auto="1">unit disc</a>. Define <span
-class="math display">\[\Lambda(f)=\inf_\gamma\operatorname{length}(\gamma),\]</span>
-where <span class="math inline">\(\gamma\subset\{|f|\le1\}\)</span>
+class="math display" data-term-auto="off">\[\Lambda(f)=\inf_\gamma\operatorname{length}(\gamma),\]</span>
+where <span class="math inline" data-term-auto="off">\(\gamma\subset\{|f|\le1\}\)</span>
 joins two different <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">listed</a> root occurrences. A repeated root permits a
 constant curve.</p>
 <section id="a-dense-generic-class-suffices." class="level5">
 <h5>A dense generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> suffices.</h5>
-<p>The functional <span class="math inline">\(\Lambda\)</span> is lower
+<p>The functional <span class="math inline" data-term-auto="off">\(\Lambda\)</span> is lower
 semicontinuous. Indeed, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-length competitors have uniformly
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> images and admit constant-speed parametrisations with uniformly
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> Lipschitz constants. Arzelà–Ascoli, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> of root
@@ -910,18 +910,18 @@ multisets, and uniform <a class="narrative-ref narrative-ref--term is-term-again
 produce a limiting competitor. Its length is no larger than the lower
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a> of the approximating lengths, and closed sublevel containment
 passes to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>. Thus a dense generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span
-class="math inline">\(\Lambda\le2\)</span> proves that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on all of
-<span class="math inline">\(\mathcal K_n\)</span>. For an open-disc
+class="math inline" data-term-auto="off">\(\Lambda\le2\)</span> proves that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on all of
+<span class="math inline" data-term-auto="off">\(\mathcal K_n\)</span>. For an open-disc
 polynomial, enclosing its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in a disc of radius <span
-class="math inline">\(R&lt;1\)</span> and scaling gives a path with
-length at most <span class="math inline">\(2R&lt;2\)</span> in <span
-class="math inline">\(\{|f|\le R^n\}\subset\{|f|&lt;1\}\)</span>.</p>
-<p>For <span class="math inline">\(f(z)=z^n-1\)</span>, the punctured
+class="math inline" data-term-auto="off">\(R&lt;1\)</span> and scaling gives a path with
+length at most <span class="math inline" data-term-auto="off">\(2R&lt;2\)</span> in <span
+class="math inline" data-term-auto="off">\(\{|f|\le R^n\}\subset\{|f|&lt;1\}\)</span>.</p>
+<p>For <span class="math inline" data-term-auto="off">\(f(z)=z^n-1\)</span>, the punctured
 unit sublevel has separate root sectors. Every path between distinct
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> passes through zero, and the two radial segments attain length
-<span class="math inline">\(2\)</span>. The exact closed-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> question
+<span class="math inline" data-term-auto="off">\(2\)</span>. The exact closed-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> question
 is therefore <span
-class="math display">\[\boxed{\Lambda(f)\le\Lambda(z^n-1)=2\qquad(f\in\mathcal
+class="math display" data-term-auto="off">\[\boxed{\Lambda(f)\le\Lambda(z^n-1)=2\qquad(f\in\mathcal
 K_n).}\]</span> The lower-semicontinuity argument is proved in .</p>
 </section>
 <section id="a-sufficient-canonical-arc-estimate." class="level5">
@@ -929,15 +929,15 @@ K_n).}\]</span> The lower-semicontinuity argument is proved in .</p>
 <p>On the generic simple-critical, ray-separated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>, cutting the
 value plane along critical rays gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> inverse-sheet
 construction recorded in . Let <span
-class="math inline">\(L_f(c)\)</span> be the length of the canonical
+class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the length of the canonical
 two-root descent arc through a critical point <span
-class="math inline">\(c\)</span>. Only critical points with <span
-class="math inline">\(|f(c)|\le1\)</span> give admissible unit-level
+class="math inline" data-term-auto="off">\(c\)</span>. Only critical points with <span
+class="math inline" data-term-auto="off">\(|f(c)|\le1\)</span> give admissible unit-level
 candidates. The sufficient metric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> is <span
-class="math display">\[\min_{\substack{f&#39;(c)=0\\|f(c)|\le1}}L_f(c)\le2.\]</span>
-Since <span class="math inline">\(\Lambda\)</span> minimises over all
+class="math display" data-term-auto="off">\[\min_{\substack{f&#39;(c)=0\\|f(c)|\le1}}L_f(c)\le2.\]</span>
+Since <span class="math inline" data-term-auto="off">\(\Lambda\)</span> minimises over all
 curves, this canonical minimum is an upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for <span
-class="math inline">\(\Lambda\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">Equality</a> between the two
+class="math inline" data-term-auto="off">\(\Lambda\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">Equality</a> between the two
 minimisations is not assumed. The ordinary slit-sheet construction
 closes its stated generic topology problem; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalising</a> that
 construction remains a separate task.</p>
@@ -945,16 +945,16 @@ construction remains a separate task.</p>
 <section id="the-attachment-obstruction-is-quantitative."
 class="level5">
 <h5>The attachment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> is quantitative.</h5>
-<p>For <span class="math inline">\(f(z)=z^n-r^n\)</span>, the inverse
+<p>For <span class="math inline" data-term-auto="off">\(f(z)=z^n-r^n\)</span>, the inverse
 image of the positive value ray with argument <span
-class="math inline">\(\theta\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">approaches</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> at zero only
+class="math inline" data-term-auto="off">\(\theta\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">approaches</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> at zero only
 if its value-plane direction <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">approaches</a> <span
-class="math inline">\(\pi\)</span>. A lift meets <span
-class="math inline">\(B(0,\varepsilon)\)</span>, with <span
-class="math inline">\(0&lt;\varepsilon&lt;r\)</span>, precisely when
-<span class="math display">\[\cos\theta&lt;0,\qquad
+class="math inline" data-term-auto="off">\(\pi\)</span>. A lift meets <span
+class="math inline" data-term-auto="off">\(B(0,\varepsilon)\)</span>, with <span
+class="math inline" data-term-auto="off">\(0&lt;\varepsilon&lt;r\)</span>, precisely when
+<span class="math display" data-term-auto="off">\[\cos\theta&lt;0,\qquad
 |\sin\theta|&lt;(\varepsilon/r)^n.\]</span> The total angular window is
-<span class="math inline">\(2\arcsin((\varepsilon/r)^n)\)</span>. An
+<span class="math inline" data-term-auto="off">\(2\arcsin((\varepsilon/r)^n)\)</span>. An
 angular mean length <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> therefore gives no uniform <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> at the
 shrinking set of attachable directions. A successful fixed-attachment
 estimate needs this angular concentration or a construction free to
@@ -964,33 +964,33 @@ segments.</p>
 <section id="which-information-is-insufficient." class="level5">
 <h5>Which information is insufficient.</h5>
 <p>The sextic of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline">\(\ref{res:sextic-spoke}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> automatic
+class="math inline" data-term-auto="off">\(\ref{res:sextic-spoke}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> automatic
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of every prescribed root spoke once further <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-partial-sum" data-term="partial_sum" data-term-auto="1">partial sums</a> occur.
 The exact Cassini example in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:gap}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> the historical
+class="math inline" data-term-auto="off">\(\ref{sec:gap}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> the historical
 global strip-tree budget even after a local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> is corrected.
 The examples in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline">\(\ref{sec:exact-obstructions}\)</span> show that
+class="math inline" data-term-auto="off">\(\ref{sec:exact-obstructions}\)</span> show that
 the least critical modulus and a separation-two test do not cover all
 polynomials, and that initial merge arity does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> capacity
 after subsequent mergers. The all-degree critical-value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> a marginal distribution; it does not identify compatible
 inverse branches. The ordinary note records Blaschke-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> polynomials
-<span class="math inline">\(F_N=A^N-D^N\)</span> that realise the sharp
-critical-value moment numerator <span class="math inline">\(4s\)</span>
+<span class="math inline" data-term-auto="off">\(F_N=A^N-D^N\)</span> that realise the sharp
+critical-value moment numerator <span class="math inline" data-term-auto="off">\(4s\)</span>
 inside the polynomial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>, including a high-critical nonseparated
 regime with exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>. The same family has ordinary
-short connectors of length <span class="math inline">\(O(1/N)\)</span>
+short connectors of length <span class="math inline" data-term-auto="off">\(O(1/N)\)</span>
 and an exact degree-dependent degeneration of <span
-class="math inline">\(\Lambda\)</span>. These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> are not parent
+class="math inline" data-term-auto="off">\(\Lambda\)</span>. These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> are not parent
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> as analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a>, and do not replace
 the trinomial flagship.</p>
 <p>The remaining parent regime has <span
-class="math inline">\(\mu&gt;13/25\)</span> and lies outside the solved
+class="math inline" data-term-auto="off">\(\mu&gt;13/25\)</span> and lies outside the solved
 families and the applicable separation conditions. Further progress
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> a contained pair selected with its geometric cost, a
 quantitative attachment estimate, or a different competitor for <span
-class="math inline">\(\Lambda\)</span>. The failed scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a>
+class="math inline" data-term-auto="off">\(\Lambda\)</span>. The failed scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implications</a>
 and their exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserved</a> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>.</p>
 </section>
 </section>
@@ -1001,9 +1001,9 @@ proximity selector, the exact spoke <a class="narrative-ref narrative-ref--term 
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> kernels are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> at their linked <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> revisions.
 Their geometric assemblies are identified separately in the
 corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>.</p>
-<p>The <span class="math inline">\(13/25\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is ordinary
+<p>The <span class="math inline" data-term-auto="off">\(13/25\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is ordinary
 analysis with an exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>. The <span
-class="math inline">\(71/10\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, the analytic inverse-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>
+class="math inline" data-term-auto="off">\(71/10\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, the analytic inverse-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>
 construction, the all-degree Poisson argument, and the generic
 slit-sheet construction are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> coefficient
 identity and the polar circle comparison have <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> kernels; neither
@@ -1024,7 +1024,7 @@ class="citation" data-cites="june2026"></span> is directly comparable.
 His marked-point-to-boundary problem <span class="citation"
 data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> has different endpoints and
 does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> the root-pair conclusion. The exact Cassini <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>
-in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline">\(\ref{sec:gap}\)</span> concerns
+in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:gap}\)</span> concerns
 the metric assertion of <span class="citation"
 data-cites="march2026"><a href="#ref-3">[3]</a></span>. Downloaded-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digests</a>, precise
 locators, and withdrawal history are retained in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>. No
@@ -1036,7 +1036,7 @@ uniqueness or <a class="narrative-ref narrative-ref--term is-term-again" href=".
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>
 <code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>
 contains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> of §<span
-class="math inline">\(\ref{sec:finite}\)</span> is
+class="math inline" data-term-auto="off">\(\ref{sec:finite}\)</span> is
 <code>scripts/search_counterexample.py</code> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>. The
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> table below is pinned to the shared <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>
 used throughout this problem-note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>

@@ -163,7 +163,7 @@
         "mathjax": []
       }
     },
-    "policy": "Native MathML is preferred. The exact TeX-math HTML variant is always generated beside it so a frontend can render every source expression with MathJax/KaTeX when MathML conversion reports a fallback."
+    "policy": "Exact TeX HTML is the public page. Native MathML is always generated beside it as a no-JS fallback artifact; it is not the reader-facing route because Chromium MathML plus display overrides flatten the corpus, and Pandoc MathML drops \\eqref/\\ref."
   },
   "human_documents": {
     "document_count": 14,

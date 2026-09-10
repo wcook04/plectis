@@ -30,6 +30,8 @@
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=c41c5b379b20"></script>
+  <script defer src="../assets/mathjax-config.js?v=34367ad2ce75"></script>
+  <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -79,7 +81,7 @@
         <div class="paper-head__meta">
           <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #269</a></span>
           <span>10&#8202;pp</span>
-          <span>Browser-native mathematical notation</span>
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a> typeset in the browser from the exact TeX</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 10&#8202;pp</a>
@@ -100,110 +102,83 @@
       </div>
 
       <div class="paper-stage">
-<article class="lean-paper" data-paper-id="erdos-269-three-prime-running-lcm" data-math-mode="mathml">
+<article class="lean-paper" data-paper-id="erdos-269-three-prime-running-lcm" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-be a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of at least two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒮</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal S_P</annotation></semantics></math>
-its positive smooth <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>. Put
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>∈</mo><msub><mi mathvariant="script">𝒮</mi><mi>P</mi></msub><mo>:</mo><mi>u</mi><mo>≤</mo><mi>x</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>u</mi><mo>∈</mo><msub><mi mathvariant="script">𝒮</mi><mi>P</mi></msub></mrow></munder><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>u</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)=\operatorname{lcm}\{u\in\mathcal S_P:u\le x\},\qquad
- \mathcal R_P=\sum_{u\in\mathcal S_P}\operatorname{L}(u)^{-1}.</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> asks whether
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal R_P</annotation></semantics></math>
-is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> <span class="citation"
+<p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of at
+least two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> and <span class="math inline" data-term-auto="off">\(\mathcal S_P\)</span>
+its positive smooth <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>. Put <span
+class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
+x\},\qquad
+\mathcal R_P=\sum_{u\in\mathcal S_P}\operatorname{L}(u)^{-1}.\]</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> asks whether <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> is
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
-data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{p,q,r\}</annotation></semantics></math>,
-define
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>r</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><msup><mi>r</mi><mi>k</mi></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}
- q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
- \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi mathvariant="normal">H</mi></mrow><annotation encoding="application/x-tex">\operatorname{L}=\operatorname{H}</annotation></semantics></math>
-(<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> ).</p>
+data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. For <span
+class="math inline" data-term-auto="off">\(P=\{p,q,r\}\)</span>, define <span
+class="math display" data-term-auto="off">\[\operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}
+q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
+\operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility gives <span
+class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
+(<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>).</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry and arbitrary-order rank</h2>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><msup><mi>r</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">c=r^{-1}</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">x_i=\{i\log_r p\}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">y_j=\{j\log_r q\}</annotation></semantics></math>.
-Splitting the floor <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>U</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>V</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msup><mi>c</mi><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mi>j</mi></msub><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
- C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},</annotation></semantics></math>
-where
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>U</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>r</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>r</mi><mrow><mi>k</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>V</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><msup><mi>q</mi><mi>j</mi></msup><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mi>j</mi></msup><msup><mi>r</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>r</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
- U_i(k)&amp;=p^i q^{\lfloor\log_q(p^ir^k)\rfloor}
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Put <span class="math inline" data-term-auto="off">\(c=r^{-1}\)</span>,
+<span class="math inline" data-term-auto="off">\(x_i=\{i\log_r p\}\)</span> and <span
+class="math inline" data-term-auto="off">\(y_j=\{j\log_r q\}\)</span>. Splitting the floor
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> gives <span
+class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
+C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},\]</span> where <span
+class="math display" data-term-auto="off">\[\begin{aligned}
+U_i(k)&amp;=p^i q^{\lfloor\log_q(p^ir^k)\rfloor}
             r^{k+\lfloor\log_r p^i\rfloor},\\
- V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
+V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
             r^{\lfloor\log_r q^j\rfloor}.
-\end{aligned}</annotation></semantics></math> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> are positive.
-Distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> make
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_r p</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\log_r q</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, so each individual rotation is dense. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
-choose distinct row <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1</annotation></semantics></math>.
-Choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">1-y_{J(0)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,x_{I(0)})</annotation></semantics></math>,
-and, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1\le b&lt;n</annotation></semantics></math>,
-choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">1-y_{J(b)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_{I(b-1)},x_{I(b)})</annotation></semantics></math>.
-The intervals are disjoint, so the column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> are distinct. These
-choices give
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mo>⋱</mo></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">T_n(c)=\begin{pmatrix}
- c&amp;1&amp;\cdots&amp;1\\
- c&amp;c&amp;\cdots&amp;1\\
- \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
- c&amp;c&amp;\cdots&amp;c
- \end{pmatrix},\qquad
- \det T_n(c)=c(c-1)^{n-1}.</annotation></semantics></math> Indeed,
-subtracting each preceding row from the next, working upwards from the
-last row, leaves diagonal entries
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c,c-1,\ldots,c-1</annotation></semantics></math>.
-The same
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">I,J</annotation></semantics></math>
-work for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-whose only effect is multiplication by nonzero row and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>.
-The empty minor for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-Finally,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-separated summands would <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d+1)\times(d+1)</annotation></semantics></math>
-restriction through a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
-space, contradicting the nonzero minor. ◻</p>
+\end{aligned}\]</span> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> are positive. Distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> make
+<span class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
+class="math inline" data-term-auto="off">\(\log_r q\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, so each individual
+rotation is dense. For <span class="math inline" data-term-auto="off">\(n\ge1\)</span>,
+choose distinct row <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> with <span
+class="math inline" data-term-auto="off">\(0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1\)</span>.
+Choose <span class="math inline" data-term-auto="off">\(1-y_{J(0)}\)</span> in <span
+class="math inline" data-term-auto="off">\((0,x_{I(0)})\)</span>, and, for <span
+class="math inline" data-term-auto="off">\(1\le b&lt;n\)</span>, choose <span
+class="math inline" data-term-auto="off">\(1-y_{J(b)}\)</span> in <span
+class="math inline" data-term-auto="off">\((x_{I(b-1)},x_{I(b)})\)</span>. The intervals are
+disjoint, so the column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> are distinct. These choices give <span
+class="math display" data-term-auto="off">\[T_n(c)=\begin{pmatrix}
+c&amp;1&amp;\cdots&amp;1\\
+c&amp;c&amp;\cdots&amp;1\\
+\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+c&amp;c&amp;\cdots&amp;c
+\end{pmatrix},\qquad
+\det T_n(c)=c(c-1)^{n-1}.\]</span> Indeed, subtracting each preceding
+row from the next, working upwards from the last row, leaves diagonal
+entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The same
+<span class="math inline" data-term-auto="off">\(I,J\)</span> work for every <span
+class="math inline" data-term-auto="off">\(k\)</span>, whose only effect is multiplication by
+nonzero row and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>. The empty minor for <span
+class="math inline" data-term-auto="off">\(n=0\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> <span
+class="math inline" data-term-auto="off">\(1\)</span>. Finally, <span
+class="math inline" data-term-auto="off">\(d\)</span> separated summands would <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> every
+<span class="math inline" data-term-auto="off">\((d+1)\times(d+1)\)</span> restriction
+through a <span class="math inline" data-term-auto="off">\(d\)</span>-dimensional space,
+contradicting the nonzero minor. ◻</p>
 </div>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">Lean
 source</a>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every row and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> is a unit modulo
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
-The normalised determinant is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>5</mn><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>4</mn><mi>/</mi><mn>5</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">5^{-1}(-4/5)^{n-1}</annotation></semantics></math>,
-also a unit. The choices of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">I,J</annotation></semantics></math>
-are independent of both
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every row and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> is a unit modulo <span
+class="math inline" data-term-auto="off">\(B\)</span>. The normalised determinant is <span
+class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. The
+choices of <span class="math inline" data-term-auto="off">\(I,J\)</span> are independent of
+both <span class="math inline" data-term-auto="off">\(B\)</span> and <span
+class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">Lean
@@ -213,92 +188,71 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 source</a>.</p>
 <section id="the-indices-must-be-selected." class="level5">
 <h5>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> must be selected.</h5>
-<p>The leading
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times4</annotation></semantics></math>
-block at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
-is singular:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mi>j</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>120</mn></mfrac><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>j</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{K}(3,j,0)=\frac1{120}\operatorname{K}(0,j,0)\qquad(0\le j&lt;4).</annotation></semantics></math>
-These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> follow by evaluating the height at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>3</mn><mi>j</mi></msup><annotation encoding="application/x-tex">3^j</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mo>⋅</mo><msup><mn>3</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">8\cdot3^j</annotation></semantics></math>.
-At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">j=4</annotation></semantics></math>
-the difference is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>19440000</mn></mrow><annotation encoding="application/x-tex">-1/19440000</annotation></semantics></math>.
-Thus the leading minors do not supply the arbitrary-order <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<p>The leading <span class="math inline" data-term-auto="off">\(4\times4\)</span> block at
+<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> is singular: <span
+class="math display" data-term-auto="off">\[\operatorname{K}(3,j,0)=\frac1{120}\operatorname{K}(0,j,0)\qquad(0\le
+j&lt;4).\]</span> These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> follow by evaluating the height at
+<span class="math inline" data-term-auto="off">\(3^j\)</span> and <span
+class="math inline" data-term-auto="off">\(8\cdot3^j\)</span>. At <span
+class="math inline" data-term-auto="off">\(j=4\)</span> the difference is <span
+class="math inline" data-term-auto="off">\(-1/19440000\)</span>. Thus the leading minors do
+not supply the arbitrary-order <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> List
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>k</mi><mn>1</mn></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>k</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E=\{k_1&lt;\cdots&lt;k_t\}</annotation></semantics></math>.
-The
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t-1</annotation></semantics></math>
-differences
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><msub><mi>k</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></msub><mo>−</mo><msub><mi>v</mi><msub><mi>k</mi><mi>j</mi></msub></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>k</mi><mi>j</mi></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>k</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub></mrow><annotation encoding="application/x-tex">v_{k_{j+1}}-v_{k_j}=(1-c)\mathbf 1_{\{k_j,\ldots,k_{j+1}-1\}}</annotation></semantics></math>
-have disjoint nonempty supports, hence are linearly independent. If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k_1&gt;0</annotation></semantics></math>
-or
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>t</mi></msub><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">k_t&lt;m</annotation></semantics></math>,
-their union misses a coordinate where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><msub><mi>k</mi><mn>1</mn></msub></msub><annotation encoding="application/x-tex">v_{k_1}</annotation></semantics></math>
-is nonzero, so the rank is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
-If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k_1=0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>t</mi></msub><mo>=</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">k_t=m</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>=</mo><mi>c</mi><mspace width="0.167em"></mspace><mn mathvariant="bold">𝟏</mn></mrow><annotation encoding="application/x-tex">v_0=c\,\mathbf 1</annotation></semantics></math>
-lies in the span of the differences (their sum is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mn mathvariant="bold">𝟏</mn></mrow><annotation encoding="application/x-tex">(1-c)\mathbf 1</annotation></semantics></math>),
-so the rank is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t-1</annotation></semantics></math>. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> List <span
+class="math inline" data-term-auto="off">\(E=\{k_1&lt;\cdots&lt;k_t\}\)</span>. The <span
+class="math inline" data-term-auto="off">\(t-1\)</span> differences <span
+class="math inline" data-term-auto="off">\(v_{k_{j+1}}-v_{k_j}=(1-c)\mathbf
+1_{\{k_j,\ldots,k_{j+1}-1\}}\)</span> have disjoint nonempty supports,
+hence are linearly independent. If <span
+class="math inline" data-term-auto="off">\(k_1&gt;0\)</span> or <span
+class="math inline" data-term-auto="off">\(k_t&lt;m\)</span>, their union misses a coordinate
+where <span class="math inline" data-term-auto="off">\(v_{k_1}\)</span> is nonzero, so the
+rank is <span class="math inline" data-term-auto="off">\(t\)</span>. If <span
+class="math inline" data-term-auto="off">\(k_1=0\)</span> and <span
+class="math inline" data-term-auto="off">\(k_t=m\)</span>, then <span
+class="math inline" data-term-auto="off">\(v_0=c\,\mathbf 1\)</span> lies in the span of the
+differences (their sum is <span class="math inline" data-term-auto="off">\((1-c)\mathbf
+1\)</span>), so the rank is <span
+class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">Lean
 source</a>.</p>
 <p>The formula classifies every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> sampled kernel rank after the row
-and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> , independently of the third coordinate.
-An exact logarithm-free <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">algorithm</a> orders the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationals</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>i</mi></msup><mi>/</mi><msup><mi>r</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">p^i/r^{\lfloor\log_r p^i\rfloor}</annotation></semantics></math>,
-counts those strictly below each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow></msup><mi>/</mi><msup><mi>q</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">r^{\lfloor\log_r q^j\rfloor+1}/q^j</annotation></semantics></math>,
-and applies the displayed correction. Direct elimination on the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
-kernel agrees with the formula through order
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>;
-larger leading ranks recorded with the accompanying <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> use the
-formula and exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> phase comparisons.</p>
+and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span>, independently of
+the third coordinate. An exact logarithm-free <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">algorithm</a> orders the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationals</a> <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
+p^i\rfloor}\)</span>, counts those strictly below each <span
+class="math inline" data-term-auto="off">\(r^{\lfloor\log_r q^j\rfloor+1}/q^j\)</span>, and
+applies the displayed correction. Direct elimination on the <span
+class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> kernel agrees with the formula
+through order <span class="math inline" data-term-auto="off">\(24\)</span>; larger leading
+ranks recorded with the accompanying <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> use the formula and exact
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> phase comparisons.</p>
 </section>
 <section id="the-norm-matters." class="level5">
 <h5>The norm matters.</h5>
-<p>For the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> normalised carry matrix,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">inf</mi><mrow><mi>F</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> of finite separated rank</mtext></mrow></mrow></munder><mo stretchy="false" form="postfix">∥</mo><mi>C</mi><mo>−</mo><mi>F</mi><msub><mo stretchy="false" form="postfix">∥</mo><mi>∞</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\inf_{F\text{ of finite separated rank}}\|C-F\|_\infty=(1-c)/2.</annotation></semantics></math>
-Distinct columns are exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">1-c</annotation></semantics></math>
-apart in the supremum norm, by density of the row phases. An
-approximation below half that distance would give <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>, uniformly separated columns in a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-dimensional space.
-Compactness <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> this. The constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1+c)/2</annotation></semantics></math>
-attains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> restrictions have a different behaviour. At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">c=1/5</annotation></semantics></math>,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>5</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>5</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>5</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>A</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mn>3</mn><mi>/</mi><mn>10</mn></mtd><mtd columnalign="center" class="ta-c"><mn>9</mn><mi>/</mi><mn>10</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>10</mn></mtd><mtd columnalign="center" class="ta-c"><mn>3</mn><mi>/</mi><mn>10</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">T=\begin{pmatrix}1/5&amp;1\\1/5&amp;1/5\end{pmatrix},\qquad
- A=\begin{pmatrix}3/10&amp;9/10\\1/10&amp;3/10\end{pmatrix}</annotation></semantics></math>
-satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>A</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\det A=0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><mi>T</mi><mo>−</mo><mi>A</mi><msub><mo stretchy="false" form="postfix">∥</mo><mi mathvariant="normal">max</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn><mo>&lt;</mo><mn>2</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">\|T-A\|_{\max}=1/10&lt;2/5</annotation></semantics></math>.
-For the original kernel, truncating the first coordinate at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-gives separated rank at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-and
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><mi>K</mi><mo>−</mo><msup><mi>K</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><msub><mo stretchy="false" form="postfix">∥</mo><msup><mi>ℓ</mi><mn>1</mn></msup></msub><mo>≤</mo><mfrac><mrow><mi>p</mi><mi>q</mi><mi>r</mi><mspace width="0.167em"></mspace><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn><mi>N</mi></mrow></msup></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\|K-K^{(N)}\|_{\ell^1}
- \le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.</annotation></semantics></math>
-This follows from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msup><mi>x</mi><mn>3</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(x)&gt;x^3/(pqr)</annotation></semantics></math>.
+<p>For the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> normalised carry matrix, <span
+class="math display" data-term-auto="off">\[\inf_{F\text{ of finite separated
+rank}}\|C-F\|_\infty=(1-c)/2.\]</span> Distinct columns are exactly
+<span class="math inline" data-term-auto="off">\(1-c\)</span> apart in the supremum norm, by
+density of the row phases. An approximation below half that distance
+would give <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>, uniformly separated columns in a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-dimensional space. Compactness <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> this. The constant <span
+class="math inline" data-term-auto="off">\((1+c)/2\)</span> attains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> restrictions have a different behaviour. At <span
+class="math inline" data-term-auto="off">\(c=1/5\)</span>, <span
+class="math display" data-term-auto="off">\[T=\begin{pmatrix}1/5&amp;1\\1/5&amp;1/5\end{pmatrix},\qquad
+A=\begin{pmatrix}3/10&amp;9/10\\1/10&amp;3/10\end{pmatrix}\]</span>
+satisfy <span class="math inline" data-term-auto="off">\(\det A=0\)</span> and <span
+class="math inline" data-term-auto="off">\(\|T-A\|_{\max}=1/10&lt;2/5\)</span>. For the
+original kernel, truncating the first coordinate at <span
+class="math inline" data-term-auto="off">\(N\)</span> gives separated rank at most <span
+class="math inline" data-term-auto="off">\(N\)</span> and <span
+class="math display" data-term-auto="off">\[\|K-K^{(N)}\|_{\ell^1}
+\le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.\]</span> This
+follows from <span class="math inline" data-term-auto="off">\(H(x)&gt;x^3/(pqr)\)</span>.
 Thus the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> uniform <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> coexists with geometric
 approximation in the summation norm. The scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> question
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> information about the actual multiplicities.</p>
@@ -306,171 +260,133 @@ approximation in the summation norm. The scalar <a class="narrative-ref narrativ
 </section>
 <section id="sec:two-prime" class="level2">
 <h2>The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> comparison</h2>
-<p>For distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p&lt;q</annotation></semantics></math>,
-write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>t</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mi>t</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">L_{p,q}(t)=p^{\lfloor\log_p t\rfloor}q^{\lfloor\log_q t\rfloor}</annotation></semantics></math>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility identifies this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> with the running LCM.
-Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal R_{p,q}</annotation></semantics></math>
-retain every smooth-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> multiplicity, and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{p,q}</annotation></semantics></math>
-retain the initial value and one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> at each positive pure-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>
-jump. Fan’s argument gives the repeated two-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">prime factorisation</a> and its
-quadratic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> to a single Hecke–Mahler value. The same
-boundary-channel calculation also yields the de-duplicated affine
-formula displayed below <span class="citation"
+<p>For distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> <span class="math inline" data-term-auto="off">\(p&lt;q\)</span>,
+write <span class="math inline" data-term-auto="off">\(L_{p,q}(t)=p^{\lfloor\log_p
+t\rfloor}q^{\lfloor\log_q t\rfloor}\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility
+identifies this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> with the running LCM. Let <span
+class="math inline" data-term-auto="off">\(\mathcal R_{p,q}\)</span> retain every
+smooth-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> multiplicity, and let <span class="math inline" data-term-auto="off">\(\mathcal
+D_{p,q}\)</span> retain the initial value and one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> at each
+positive pure-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> jump. Fan’s argument gives the repeated two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorisation</a> and its quadratic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> to a single Hecke–Mahler
+value. The same boundary-channel calculation also yields the
+de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">x=1/p</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">y=1/q</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>θ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">m_n=\lfloor n\theta\rfloor</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><msub><mi>m</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>m</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\delta_n=m_{n+1}-m_n</annotation></semantics></math>.
-Unique <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorisation</a> makes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>θ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\theta&lt;1</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\delta_n\in\{0,1\}</annotation></semantics></math>.
-The initial value and the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-channel
-contribute
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msup><mi>x</mi><mi>n</mi></msup><msup><mi>y</mi><msub><mi>m</mi><mi>n</mi></msub></msup></mrow><annotation encoding="application/x-tex">A=\sum_{n\ge0}x^ny^{m_n}</annotation></semantics></math>.
-There is one
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>
-between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mi>n</mi></msup><annotation encoding="application/x-tex">p^n</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">p^{n+1}</annotation></semantics></math>
-precisely when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\delta_n=1</annotation></semantics></math>,
-so the other channel contributes
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>δ</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><msup><mi>y</mi><mrow><msub><mi>m</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">𝒟</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo>=</mo><mi>A</mi><mo>+</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">B=\sum_{n\ge0}\delta_nx^ny^{m_n+1},\qquad \mathcal D_{p,q}=A+B.</annotation></semantics></math>
-All these <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> converge absolutely. Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><msub><mi>m</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></msup><mo>−</mo><msup><mi>y</mi><msub><mi>m</mi><mi>n</mi></msub></msup><mo>=</mo><msub><mi>δ</mi><mi>n</mi></msub><msup><mi>y</mi><msub><mi>m</mi><mi>n</mi></msub></msup><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y-1)</annotation></semantics></math>,
-shifting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>x</mi><mi>A</mi><mo>=</mo><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>B</mi><mi>/</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">A-1-xA=x(y-1)B/y</annotation></semantics></math>.
-Therefore
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mfrac><mrow><mi>p</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>A</mi></mrow><mrow><mi>q</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">B=\frac{p-(p-1)A}{q-1}.</annotation></semantics></math>
-At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">p^iq^j</annotation></semantics></math>
-the height is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><mi>j</mi><mi>/</mi><mi>θ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mrow><mi>j</mi><mo>+</mo><msub><mi>m</mi><mi>i</mi></msub></mrow></msup></mrow><annotation encoding="application/x-tex">p^{i+\lfloor j/\theta\rfloor}q^{j+m_i}</annotation></semantics></math>,
-hence
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℛ</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo>=</mo><mi>A</mi><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><msup><mi>y</mi><mi>j</mi></msup><msup><mi>x</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>j</mi><mi>/</mi><mi>θ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>=</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal R_{p,q}
- =A\sum_{j\ge0}y^jx^{\lfloor j/\theta\rfloor}=A(1+B).</annotation></semantics></math>
-For the last <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>, each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>
-corresponds to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>j</mi><mi>/</mi><mi>θ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">n=\lfloor j/\theta\rfloor</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m_n=j-1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\delta_n=1</annotation></semantics></math>.
-These identities prove .</p>
-<p>For the Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>m</mi><mi>n</mi></msub></msubsup><msup><mi>x</mi><mi>n</mi></msup><msup><mi>y</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k</annotation></semantics></math>,
-geometric summation gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>y</mi></mrow><mi>y</mi></mfrac><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set <span class="math inline" data-term-auto="off">\(x=1/p\)</span>, <span
+class="math inline" data-term-auto="off">\(y=1/q\)</span>, <span
+class="math inline" data-term-auto="off">\(m_n=\lfloor n\theta\rfloor\)</span> and <span
+class="math inline" data-term-auto="off">\(\delta_n=m_{n+1}-m_n\)</span>. Unique
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorisation</a> makes <span class="math inline" data-term-auto="off">\(\theta\)</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, and <span class="math inline" data-term-auto="off">\(0&lt;\theta&lt;1\)</span>
+gives <span class="math inline" data-term-auto="off">\(\delta_n\in\{0,1\}\)</span>. The
+initial value and the <span class="math inline" data-term-auto="off">\(p\)</span>-channel
+contribute <span
+class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}x^ny^{m_n}\)</span>. There is one
+<span class="math inline" data-term-auto="off">\(q\)</span>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> between <span
+class="math inline" data-term-auto="off">\(p^n\)</span> and <span
+class="math inline" data-term-auto="off">\(p^{n+1}\)</span> precisely when <span
+class="math inline" data-term-auto="off">\(\delta_n=1\)</span>, so the other channel
+contributes <span
+class="math display" data-term-auto="off">\[B=\sum_{n\ge0}\delta_nx^ny^{m_n+1},\qquad
+\mathcal D_{p,q}=A+B.\]</span> All these <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> converge absolutely.
+Since <span
+class="math inline" data-term-auto="off">\(y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y-1)\)</span>,
+shifting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> for <span class="math inline" data-term-auto="off">\(A\)</span> gives
+<span class="math inline" data-term-auto="off">\(A-1-xA=x(y-1)B/y\)</span>. Therefore <span
+class="math display" data-term-auto="off">\[B=\frac{p-(p-1)A}{q-1}.\]</span> At <span
+class="math inline" data-term-auto="off">\(p^iq^j\)</span> the height is <span
+class="math inline" data-term-auto="off">\(p^{i+\lfloor j/\theta\rfloor}q^{j+m_i}\)</span>,
+hence <span class="math display" data-term-auto="off">\[\mathcal R_{p,q}
+=A\sum_{j\ge0}y^jx^{\lfloor j/\theta\rfloor}=A(1+B).\]</span> For the
+last <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>, each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>
+corresponds to <span class="math inline" data-term-auto="off">\(n=\lfloor
+j/\theta\rfloor\)</span> with <span
+class="math inline" data-term-auto="off">\(m_n=j-1\)</span> and <span
+class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. These identities prove <span
+class="math inline" data-term-auto="off">\(\eqref{eq:two-prime-affine}\)</span>.</p>
+<p>For the Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <span
+class="math inline" data-term-auto="off">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>,
+geometric summation gives <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:hecke-mahler-boundary}
- A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
-\end{equation}</annotation></semantics></math> Bugeaud and Laurent’s
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1.1 applies to these nonzero algebraic
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math>
-<span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-5">[5]</a></span>:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|x|&lt;1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><msup><mi>y</mi><mi>θ</mi></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|xy^\theta|=p^{-2}&lt;1</annotation></semantics></math>;
-the zero-shift case goes back to Loxton and van der Poorten <span
-class="citation" data-cites="bugeaudlaurent2023 loxtonvdp1977"></span>.
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">transcendental</a>. The displayed affine and quadratic polynomials are
-nonconstant, so an algebraic value of either would force
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-to be algebraic. ◻</p>
+A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
+\end{equation}\]</span> Bugeaud and Laurent’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1.1 applies to
+these nonzero algebraic <span class="math inline" data-term-auto="off">\(x,y\)</span> <span
+class="citation" data-cites="bugeaudlaurent2023"></span>: <span
+class="math inline" data-term-auto="off">\(|x|&lt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(|xy^\theta|=p^{-2}&lt;1\)</span>; the zero-shift
+case goes back to Loxton and van der Poorten <span class="citation"
+data-cites="bugeaudlaurent2023 loxtonvdp1977"><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Thus <span
+class="math inline" data-term-auto="off">\(A\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">transcendental</a>. The displayed affine
+and quadratic polynomials are nonconstant, so an algebraic value of
+either would force <span class="math inline" data-term-auto="off">\(A\)</span> to be
+algebraic. ◻</p>
 </div>
 <p>The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> expresses both sums through one value. The
-third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> leaves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> . Its rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
-concerns that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>; the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> depends on the
-multiplicities introduced next. The de-duplicated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>
-assertion is historical <span class="citation"
-data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>.</p>
+third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> leaves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
+class="math inline" data-term-auto="off">\(\ref{sec:rank}\)</span>. Its rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> concerns
+that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>; the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> depends on the multiplicities
+introduced next. The de-duplicated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> assertion is historical
+<span class="citation" data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>.</p>
 </section>
 <section id="sec:lcm" class="level2">
 <h2>Exact multiplicities and normalised tails</h2>
 <p> </p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every smooth
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">n\le x</annotation></semantics></math>
-has <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> by the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> logarithms, so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∣</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\mid\operatorname{H}(x)</annotation></semantics></math>.
-Conversely the three maximal pure <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> occur among those smooth
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">numbers</a>; their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a> the running LCM because they are pairwise
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every smooth <span class="math inline" data-term-auto="off">\(n\le
+x\)</span> has <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> by the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>
+logarithms, so <span
+class="math inline" data-term-auto="off">\(n\mid\operatorname{H}(x)\)</span>. Conversely the
+three maximal pure <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> occur among those <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-smooth-number" data-term="smooth_number" data-term-auto="1">smooth numbers</a>; their
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a> the running LCM because they are pairwise <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>. ◻</p>
 </div>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is . The same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>x</mi><mn>3</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is . The same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> gives <span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:cube}
- x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
-\end{equation}</annotation></semantics></math> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are <a
+x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
+\end{equation}\]</span> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">Lean
 source</a>. The height is constant between consecutive pure-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>
 boundaries and gains a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a> to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> at each boundary. If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(H)</annotation></semantics></math>
-is a height fibre in a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> box
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>,
-exact regrouping gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi></mrow></munder><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mi>H</mi></munder><mfrac><mrow><mi>#</mi><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>H</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, exact
+regrouping gives <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:fibre}
- \sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
-\end{equation}</annotation></semantics></math> Each term in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(H)</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">1/H</annotation></semantics></math>,
-which proves the identity. The multiplicities remain present in every
-subsequent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> sum. The regrouping is .</p>
-<p>From now on let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub></mrow><annotation encoding="application/x-tex">S=\mathcal R_P</annotation></semantics></math>.
-For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>
-define
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>a</mi></msub><mo>=</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>x</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> smooth</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>≤</mo><mi>x</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow></mtd></mtr></mtable></munder><mfrac><mn>1</mn><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>T</mi><mi>a</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>s</mi><mrow><mi>a</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>h</mi><mi>a</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><msub><mi>T</mi><mi>a</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">s_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}\frac1{\operatorname{H}(x)},
- \quad T_a=\sum_{j\ge0}s_{a+j},\quad
- h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.</annotation></semantics></math>
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>a</mi></msub><annotation encoding="application/x-tex">T_a</annotation></semantics></math>
-is the raw tail and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>
-its normalised state. The literal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> and forcing digit are
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>m</mi><mi>a</mi></msub><mo>=</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>x</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> smooth</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>≤</mo><mi>x</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow></mtd></mtr></mtable></munder><mfrac><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>2</mn><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
+\end{equation}\]</span> Each term in <span
+class="math inline" data-term-auto="off">\(F(H)\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> <span
+class="math inline" data-term-auto="off">\(1/H\)</span>, which proves the identity. The
+multiplicities remain present in every subsequent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> sum. The
+regrouping is .</p>
+<p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
+<span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
+class="math inline" data-term-auto="off">\(a\ge0\)</span> define <span
+class="math display" data-term-auto="off">\[s_a=\sum_{\substack{x\text{ smooth}\\2^a\le
+x&lt;2^{a+1}}}\frac1{\operatorname{H}(x)},
+\quad T_a=\sum_{j\ge0}s_{a+j},\quad
+h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.\]</span> Thus <span
+class="math inline" data-term-auto="off">\(T_a\)</span> is the raw tail and <span
+class="math inline" data-term-auto="off">\(X_a\)</span> its normalised state. The literal
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> and forcing digit are <span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-digit}
- b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
- m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
+b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
+m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
-\end{equation}</annotation></semantics></math></p>
+\end{equation}\]</span></p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">x&lt;2^{a+1}</annotation></semantics></math>,
-the two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{H}(x)</annotation></semantics></math>
-is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
-while the other <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> by those of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{H}(2^{a+1})</annotation></semantics></math>.
-Hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})</annotation></semantics></math>.
-Each forcing summand is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> contains
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^a</annotation></semantics></math>.
-Between consecutive two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> there is at most one three-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> and at
-most one five-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>. Their optional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>, together with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> two, give the four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radices</a>. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span class="math inline" data-term-auto="off">\(x&lt;2^{a+1}\)</span>,
+the two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of <span
+class="math inline" data-term-auto="off">\(\operatorname{H}(x)\)</span> is at most <span
+class="math inline" data-term-auto="off">\(a\)</span>, while the other <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
+by those of <span
+class="math inline" data-term-auto="off">\(\operatorname{H}(2^{a+1})\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})\)</span>.
+Each forcing summand is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> contains <span
+class="math inline" data-term-auto="off">\(2^a\)</span>. Between consecutive two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> there
+is at most one three-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> and at most one five-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>. Their optional
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>, together with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> two, give the four
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radices</a>. ◻</p>
 </div>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">Lean
@@ -478,75 +394,56 @@ source</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> contains at most one two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> for
 each pair of three- and five-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a>. Each of the latter lies between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
-so its count is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(a+1)^2</annotation></semantics></math>.
-By ,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>a</mi></msub><mo>≤</mo><mn>30</mn><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><msup><mn>8</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">s_a\le30(a+1)^2/8^a</annotation></semantics></math>.
-Therefore
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mn>15</mn><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><msup><mn>8</mn><mi>j</mi></msup></mfrac><mo>=</mo><mfrac><mn>8640</mn><mn>343</mn></mfrac><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
-      =\frac{8640}{343}(a+1)^2.</annotation></semantics></math> This
-proves <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Splitting the first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> gives the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>s</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">m_a=h_{a+1}s_a</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>h</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">h_{a+1}=b_ah_a</annotation></semantics></math>.
-All four clauses are <a
+<span class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(a\)</span>, so its count is at most <span
+class="math inline" data-term-auto="off">\((a+1)^2\)</span>. By <span
+class="math inline" data-term-auto="off">\(\eqref{res:cube}\)</span>, <span
+class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore <span
+class="math display" data-term-auto="off">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
+      =\frac{8640}{343}(a+1)^2.\]</span> This proves <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Splitting the first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> gives the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> because <span
+class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span> and <span
+class="math inline" data-term-auto="off">\(h_{a+1}=b_ah_a\)</span>. All four clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">Lean
 source</a>.</p>
-<p>Put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">Y_a=BX_a</annotation></semantics></math>.
-If all sufficiently late distances are strictly below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>31</mn></mrow><annotation encoding="application/x-tex">1/31</annotation></semantics></math>,
-write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>a</mi></msub><mo>=</mo><msub><mi>z</mi><mi>a</mi></msub><mo>+</mo><msub><mi>e</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">Y_a=z_a+e_a</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">z_a\in\mathbb Z</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>e</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>31</mn></mrow><annotation encoding="application/x-tex">|e_a|&lt;1/31</annotation></semantics></math>.
-Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>e</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">e_{a+1}-b_ae_a</annotation></semantics></math>
-is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> of absolute value less than one, so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>e</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">e_{a+1}=b_ae_a</annotation></semantics></math>.
-The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b_a\ge2</annotation></semantics></math>
-force a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> such error to be zero. An integral state propagates by
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>. ◻</p>
+<p>Put <span class="math inline" data-term-auto="off">\(Y_a=BX_a\)</span>. If all
+sufficiently late distances are strictly below <span
+class="math inline" data-term-auto="off">\(1/31\)</span>, write <span
+class="math inline" data-term-auto="off">\(Y_a=z_a+e_a\)</span> with <span
+class="math inline" data-term-auto="off">\(z_a\in\mathbb Z\)</span> and <span
+class="math inline" data-term-auto="off">\(|e_a|&lt;1/31\)</span>. Then <span
+class="math inline" data-term-auto="off">\(e_{a+1}-b_ae_a\)</span> is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> of absolute
+value less than one, so <span
+class="math inline" data-term-auto="off">\(e_{a+1}=b_ae_a\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> <span
+class="math inline" data-term-auto="off">\(b_a\ge2\)</span> force a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> such error to be
+zero. An integral state propagates by the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>. ◻</p>
 </div>
 <p>The constant above is a simple <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for the cap used below. The
-stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> estimate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1210</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>9130</mn><mi>n</mi><mo>+</mo><mn>18847</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>11979</mn></mrow><annotation encoding="application/x-tex">\widetilde Q(n)=(1210n^2+9130n+18847)/11979</annotation></semantics></math>
-uses the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> of three successive two-jumps and has a separate
-ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The present cap suffices for the criterion; the sharper
-argument belongs in the extended record rather than in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
+stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> estimate <span class="math inline" data-term-auto="off">\(\widetilde
+Q(n)=(1210n^2+9130n+18847)/11979\)</span> uses the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> of three
+successive two-jumps and has a separate ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The present cap
+suffices for the criterion; the sharper argument belongs in the extended
+record rather than in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
-strict boundary clearing gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><mi>S</mi><mo>−</mo><msub><mi>Z</mi><mi>a</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>Z</mi><mi>a</mi></msub><mo>=</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>x</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> smooth</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>x</mi><mo>&lt;</mo><msup><mn>2</mn><mi>a</mi></msup></mrow></mtd></mtr></mtable></munder><mfrac><msub><mi>h</mi><mi>a</mi></msub><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> For <span class="math inline" data-term-auto="off">\(a\ge1\)</span>,
+strict boundary clearing gives <span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:prefix-lattice}
- X_a=h_aS-Z_a,\qquad
- Z_a=\sum_{\substack{x\text{ smooth}\\x&lt;2^a}}\frac{h_a}{\operatorname{H}(x)}\in\mathbb Z.
-\end{equation}</annotation></semantics></math> The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>a</mi></msub><annotation encoding="application/x-tex">h_a</annotation></semantics></math>
-is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a-1</annotation></semantics></math>.
-Moreover
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>2</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">a\ge2v</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>≥</mo><msup><mn>3</mn><mi>v</mi></msup></mrow><annotation encoding="application/x-tex">2^a\ge3^v</annotation></semantics></math>,
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>3</mn><mi>w</mi></mrow><annotation encoding="application/x-tex">a\ge3w</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>≥</mo><msup><mn>5</mn><mi>w</mi></msup></mrow><annotation encoding="application/x-tex">2^a\ge5^w</annotation></semantics></math>.
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup><mo>∣</mo><msub><mi>h</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">2^u3^v5^w\mid h_a</annotation></semantics></math>
-after the stated onset, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><mi>A</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>B</mi><msub><mi>Z</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">BX_a=h_aA/(2^u3^v5^w)-BZ_a</annotation></semantics></math>
-is integral. Positivity, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> follow from
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> . ◻</p>
+X_a=h_aS-Z_a,\qquad
+Z_a=\sum_{\substack{x\text{
+smooth}\\x&lt;2^a}}\frac{h_a}{\operatorname{H}(x)}\in\mathbb Z.
+\end{equation}\]</span> The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of <span
+class="math inline" data-term-auto="off">\(h_a\)</span> is <span
+class="math inline" data-term-auto="off">\(a-1\)</span>. Moreover <span
+class="math inline" data-term-auto="off">\(a\ge2v\)</span> gives <span
+class="math inline" data-term-auto="off">\(2^a\ge3^v\)</span>, and <span
+class="math inline" data-term-auto="off">\(a\ge3w\)</span> gives <span
+class="math inline" data-term-auto="off">\(2^a\ge5^w\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(2^u3^v5^w\mid h_a\)</span> after the stated onset,
+and <span class="math inline" data-term-auto="off">\(BX_a=h_aA/(2^u3^v5^w)-BZ_a\)</span> is
+integral. Positivity, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> follow from
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
+class="math inline" data-term-auto="off">\(\ref{res:actual-orbit}\)</span>. ◻</p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">Lean
@@ -554,69 +451,63 @@ source</a>.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a></h2>
-<p> The actual digits in  define
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><msub><mi>m</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
- W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
- F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.</annotation></semantics></math>
-Induction on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
-gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p> The actual digits in <span
+class="math inline" data-term-auto="off">\(\eqref{eq:actual-digit}\)</span> define <span
+class="math display" data-term-auto="off">\[W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
+W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
+F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span> Induction on
+<span class="math inline" data-term-auto="off">\(h\)</span> gives <span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-tail}
- X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
-\end{equation}</annotation></semantics></math> Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_W(t)</annotation></semantics></math>
-be the representative in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>W</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1,\ldots,W\}</annotation></semantics></math>
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">t\operatorname{mod} W</annotation></semantics></math>,
-representing a zero residue by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>.
-Throughout this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> use the valid cap
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
+\end{equation}\]</span> Let <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)\)</span> be the
+representative in <span class="math inline" data-term-auto="off">\(\{1,\ldots,W\}\)</span> of
+<span class="math inline" data-term-auto="off">\(t\bmod W\)</span>, representing a zero
+residue by <span class="math inline" data-term-auto="off">\(W\)</span>. Throughout this
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> use the valid cap <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
- K(B,a)=90B(a+1)^2.
-\end{equation}</annotation></semantics></math></p>
+K(B,a)=90B(a+1)^2.
+\end{equation}\]</span></p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every positive representative of the residue is at
-least its least positive representative, so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>B</mi><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>d</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_W(-BF)\le d\le K</annotation></semantics></math>. ◻</p>
+least its least positive representative, so <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le d\le
+K\)</span>. ◻</p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">Lean
 source</a>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a>  supplies a positive integral carry
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">d_a=BX_a</annotation></semantics></math>
-after its onset. Choose a window in beyond that onset. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a>  gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>≡</mo><mi>−</mi><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}</annotation></semantics></math>,
-contradicting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a>  and the valid cap.</p>
-<p>Conversely, let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> and fix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B,\ell\ge1</annotation></semantics></math>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a>  makes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
-nonintegral. Put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo stretchy="false" form="postfix">⌉</mo><mo>−</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\delta=\lceil BX_\ell\rceil-BX_\ell\in(0,1)</annotation></semantics></math>.
-Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>≥</mo><msup><mn>2</mn><mi>h</mi></msup></mrow><annotation encoding="application/x-tex">W_{\ell,h}\ge2^h</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_{\ell+h}=O((\ell+h+1)^2)</annotation></semantics></math>,
-for all sufficiently large
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>+</mo><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\delta+BX_{\ell+h}/W_{\ell,h}</annotation></semantics></math>
-lies in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>.
-The window identity then gives the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>δ</mi><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
- =\delta W_{\ell,h}+BX_{\ell+h}.</annotation></semantics></math> Its
-exponentially growing first term eventually exceeds
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(B,\ell+h)</annotation></semantics></math>.
-This proves , in fact from each fixed start. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline" data-term-auto="off">\(\ref{res:denominator-reduction}\)</span> supplies
+a positive integral carry <span class="math inline" data-term-auto="off">\(d_a=BX_a\)</span>
+after its onset. Choose a window in <span
+class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span> beyond that onset.
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span class="math inline" data-term-auto="off">\(\eqref{eq:actual-tail}\)</span>
+gives <span
+class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
+contradicting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span
+class="math inline" data-term-auto="off">\(\ref{res:consumer}\)</span> and the valid cap.</p>
+<p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>
+and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
+class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span> makes <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span> nonintegral. Put <span
+class="math inline" data-term-auto="off">\(\delta=\lceil
+BX_\ell\rceil-BX_\ell\in(0,1)\)</span>. Since <span
+class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^h\)</span> and <span
+class="math inline" data-term-auto="off">\(X_{\ell+h}=O((\ell+h+1)^2)\)</span>, for all
+sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a>
+<span class="math inline" data-term-auto="off">\(\delta+BX_{\ell+h}/W_{\ell,h}\)</span> lies
+in <span class="math inline" data-term-auto="off">\((0,1)\)</span>. The window identity then
+gives the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> <span
+class="math display" data-term-auto="off">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
+=\delta W_{\ell,h}+BX_{\ell+h}.\]</span> Its exponentially growing first
+term eventually exceeds <span
+class="math inline" data-term-auto="off">\(K(B,\ell+h)\)</span>. This proves <span
+class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span>, in fact from each
+fixed start. ◻</p>
 </div>
 <p>The equivalence, at the literal smooth-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51">Lean
@@ -626,8 +517,8 @@ polynomial growth condition by itself would not suffice. The zero cap,
 for example, makes positive-residue escape automatic. The criterion
 identifies the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> in window coordinates. The unresolved point is the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-specific <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> below.</p>
-<p>By , one integral value would make
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+<p>By <span class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span>,
+one integral value would make <span class="math inline" data-term-auto="off">\(S\)</span>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>; the bridge proves the reverse <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> after clearing its
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>. Thus the pointwise formulation is equivalent to the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> question.</p>
@@ -635,16 +526,18 @@ identifies the <a class="narrative-ref narrative-ref--term is-term-first" href="
 class="level5">
 <h5>The information the remaining argument must use.</h5>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> alternative permits the integral branch. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">Infinite</a>
-rank and the modular minors of Corollary  constrain the kernel, while a
-scalar argument must also use its exact multiplicities. In the existing
-three-channel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigidity</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preservation</a> of every complete
-same-channel block makes a perturbation a difference of three channel
-potentials. Two zero <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a> transitions make that potential constant. A
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> rationalising lift does not automatically supply those
-unweighted block identities: its actual block defect is weighted. A
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> using this route must <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that extra <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-faithful
-condition. The extended record retains the exact countermodels and the
-other proposed representations at their stated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scopes</a>.</p>
+rank and the modular minors of Corollary <span
+class="math inline" data-term-auto="off">\(\ref{res:admissible-modular-minors}\)</span>
+constrain the kernel, while a scalar argument must also use its exact
+multiplicities. In the existing three-channel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigidity</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>,
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preservation</a> of every complete same-channel block makes a perturbation a
+difference of three channel potentials. Two zero <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a> transitions make
+that potential constant. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> rationalising lift does not
+automatically supply those unweighted block identities: its actual block
+defect is weighted. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> using this route must <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that extra
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-faithful condition. The extended record retains the exact
+countermodels and the other proposed representations at their stated
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scopes</a>.</p>
 </section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">Statements</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a></h3>
@@ -697,24 +590,23 @@ extinction theorem</a>, , , , , , , , , , , , .</p>
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
 <ol>
 <li id="ref-1"><p>P. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> and R. L. Graham, <a
-href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>,
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 65. For a possibly <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
-the page states the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> and asks what happens for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-with more than one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-element" data-term="element" data-term-auto="1">element</a>.</p></li>
-<li id="ref-2"><p>P. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
-doi:<a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> set <span class="math inline" data-term-auto="off">\(Q\)</span>, the page states the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>-<span class="math inline" data-term-auto="off">\(Q\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> and asks
+what happens for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <span class="math inline" data-term-auto="off">\(Q\)</span> with more
+than one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-element" data-term="element" data-term-auto="1">element</a>.</p></li>
+<li id="ref-2"><p>P. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>, <em>On the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of certain <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>: problems
+and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a></em>, in A. Baker (ed.), <em>New Advances in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">Transcendence</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theory" data-term="theory" data-term-auto="1">Theory</a></em>, Cambridge UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
 <li id="ref-3"><p>P. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>, <a
-href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"></a> (written
-1 January 1973), Fibonacci Quart. <strong>12</strong> (1974), no. 4,
-p. 335. The letter poses the full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjecture</a> and asserts
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> after retaining only the distinct running-LCM
-values.</p></li>
+href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"><em>Letter to the
+Editor</em></a> (written 1 January 1973), Fibonacci Quart.
+<strong>12</strong> (1974), no. 4, p. 335. The letter poses the full
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjecture</a> and asserts <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> after retaining only
+the distinct running-LCM values.</p></li>
 <li id="ref-4"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/269"><em>Erdős Problem
 #269</em></a>, <code>erdosproblems.com/269</code>, accessed 28 July 2026
@@ -725,25 +617,25 @@ the 1974 letter on p. 335, records the <a class="narrative-ref narrative-ref--t
 variants, and explicitly describes its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a> as the website owner’s
 present assessment rather than a literature-completeness
 guarantee.</p></li>
-<li id="ref-5"><p>Y. Bugeaud and M. Laurent, , Acta Arith. <strong>209</strong>
-(2023), 59–90, doi:10.4064/aa220323-18-1; <a
+<li id="ref-5"><p>Y. Bugeaud and M. Laurent, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">Transcendence</a> and continued
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fraction</a> expansion of values of Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a></em>, Acta Arith.
+<strong>209</strong> (2023), 59–90, doi:10.4064/aa220323-18-1; <a
 href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf">authors’
 Online First PDF</a>, <a
 href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1.1 is on p. 3 of the inspected Online First PDF; the journal
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> is pp. 59–90. The authors note there that its
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>
-case was already obtained by Loxton and van der Poorten.</p></li>
-<li id="ref-6"><p>J. H. Loxton and A. J. van der Poorten, , Bull. Austral. Math.
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> is pp. 59–90. The authors note there that its <span
+class="math inline" data-term-auto="off">\(\rho=0\)</span> case was already obtained by
+Loxton and van der Poorten.</p></li>
+<li id="ref-6"><p>J. H. Loxton and A. J. van der Poorten, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">Arithmetic</a> properties
+of certain <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">functions</a> in several <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">variables</a> III</em>, Bull. Austral. Math.
 Soc. <strong>16</strong> (1977), 15–47.</p></li>
 <li id="ref-7"><p>S. Fan, comment on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős Problem</a> #269, <a
 href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
 forum, thread 269</a>, 26 June 2026. The comment gives the two-channel
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorisation</a>, the Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">transcendence</a>
-conclusion for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|=2</annotation></semantics></math>;
-follow-up comments there note the extension to arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>
-pairs.</p></li>
+conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>; follow-up
+comments there note the extension to arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> pairs.</p></li>
 </ol>
 </section>
   </div>

@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
     "publication_manifest_match": true,
     "mathml_node_count": 236,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "0a49b8fd4b98ca4419e9468efa4f60ed93e61338d2816924c0db8749b94de4ed",
-    "html_exact_tex_sha256": "cf203f69f57e3c8c17d1439f0628a4fea6e78a1edea128deeae95cfbc5398bd9"
+    "html_exact_tex_sha256": "d28437865d00bba4313f5e2ae8b1528a38f6d82cb729aae707f2eb1ee87262fd"
   },
   "sections": [
     {

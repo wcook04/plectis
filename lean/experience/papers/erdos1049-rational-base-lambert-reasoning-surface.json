@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
     "publication_manifest_match": true,
     "mathml_node_count": 1215,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "5d97a75c9fd937d1c030e9826a0977ac5a16267985767a873077d598db7cc612",
-    "html_exact_tex_sha256": "06b73ebf5313a12db4530b102de0374b33f61907d6957d779e65b5e09e591735"
+    "html_exact_tex_sha256": "33a3a8860a34a4a8345290c0bc721f97476a7e97e6c2508af6fa0dc0f3050dcc"
   },
   "sections": [
     {

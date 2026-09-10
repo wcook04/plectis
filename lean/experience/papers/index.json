@@ -25,15 +25,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "9b54aebff7460c36743c971e147c2baf8f24128bdeb88bd4ba6f495100c1727f",
         "publication_manifest_match": true,
         "mathml_node_count": 268,
@@ -43,7 +43,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "c41dfff2f1ebf48712ab664903668e2e02e6c8d9e3c65a9014489ac7f5220c4e",
-        "html_exact_tex_sha256": "86a396ea700d9e87030ae967307c3d134da05d5d5a13d91dc212059355da8d2b"
+        "html_exact_tex_sha256": "796c61e8236d3598c8b1389a910e1d5e79168f681daf556b8a1ac4b1e009652d"
       },
       "sections": [
         {
@@ -160,15 +160,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "744e49cf9503f5b699d1b96a11c85e4301a35a795a6d146c0acafb11716059fb",
         "publication_manifest_match": true,
         "mathml_node_count": 775,
@@ -178,7 +178,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "6b0a055a214f202fa457f547c95ac490947fbf232bf043e5cca50c8dd8f8af55",
-        "html_exact_tex_sha256": "cd18ac5a0fdd912131d1b4be3536081ea8408984ee6cbf32938a07f435591480"
+        "html_exact_tex_sha256": "7262751ca118750a9f4503e4ce724f060f1a969fe66c212e0c4904ed4592acba"
       },
       "sections": [
         {
@@ -390,15 +390,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "00bd33bee965b9d38fff8924348c78c14bfa32b77ae22118b11475b8505deb1f",
         "publication_manifest_match": true,
         "mathml_node_count": 190,
@@ -408,7 +408,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "7cc54a5d5c8e9abc59463603d51d9937e42d3c8644636f13b553218364de3ab5",
-        "html_exact_tex_sha256": "6989cd14cfc5d8787a60a6cf139ce02622ebb18387c392424b2f882f6ea6b410"
+        "html_exact_tex_sha256": "c8ddd18c2c5866d85a907ce5beb61a93552a1c0e00ce1de8c206fa1a6f7120c4"
       },
       "sections": [
         {
@@ -520,15 +520,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "ed0477376d0ff7932910d3acf2fbb9c3cf6b08e42ae2545c8ba4fd61bee4a6fe",
         "publication_manifest_match": true,
         "mathml_node_count": 1078,
@@ -538,7 +538,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "318ac215adf8db64d4ba8352e7e8b102a64ab166bf49c451ef36d84698edf355",
-        "html_exact_tex_sha256": "9af01682e3af306310c0b536063312759d287d72e59debfed79ca8a91efe33ea"
+        "html_exact_tex_sha256": "92945b4b11ab2afc77755a15a58ef9062e90735cba6ffce32dd34e9e372e77f5"
       },
       "sections": [
         {
@@ -935,15 +935,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
         "publication_manifest_match": true,
         "mathml_node_count": 236,
@@ -953,7 +953,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "0a49b8fd4b98ca4419e9468efa4f60ed93e61338d2816924c0db8749b94de4ed",
-        "html_exact_tex_sha256": "cf203f69f57e3c8c17d1439f0628a4fea6e78a1edea128deeae95cfbc5398bd9"
+        "html_exact_tex_sha256": "d28437865d00bba4313f5e2ae8b1528a38f6d82cb729aae707f2eb1ee87262fd"
       },
       "sections": [
         {
@@ -1037,13 +1037,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
         "publication_manifest_match": true,
         "mathml_node_count": 2893,
@@ -1095,8 +1095,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "b8cc351554be8ad5afebb2c29570a0bbb12c2b6ffd72c6db44ae8611b3a07754",
-        "html_exact_tex_sha256": "137308d48993fa8b29710dc2eb7ecf506a1a19b738c6233ae847c5d45bfda8a6"
+        "html_mathml_sha256": "85baa29d175763ca713c9deddc34ff7bf08e9bb0371679d3c16cab490072eb71",
+        "html_exact_tex_sha256": "37242bf6eaf750e32b712d7bec45c767e1cd0b650b2164c00c77d225f5f20070"
       },
       "sections": [
         {
@@ -1868,15 +1868,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
         "publication_manifest_match": true,
         "mathml_node_count": 337,
@@ -1886,7 +1886,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "0747de03349d56aefad2168ce3d646df30b40f4314a27bd77824a83bb3d5c345",
-        "html_exact_tex_sha256": "ee8e1905afb30e17231938879942fa274a6d1e2061e3fcba93c7cbeb4f4f83a3"
+        "html_exact_tex_sha256": "fb09f2680e6f8e23c383698f9f8ccd4d6ecaa83f4c67c3d604f8cc812b6a9bed"
       },
       "sections": [
         {
@@ -2045,13 +2045,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 704,
@@ -2068,8 +2068,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "ac4240142881e468fb8c831ec69ed8be75d7bf86b9c97d575e6c5fc2238c51cd",
-        "html_exact_tex_sha256": "cd9c515e3f54fb2eb40a67883caae47a4efc060bffed0f7247162e8bbe91d030"
+        "html_mathml_sha256": "3ba06d2d8ddd3b19b30836419e1a8af6137881d804d1553ba045f0b2ae4b9d95",
+        "html_exact_tex_sha256": "2180612762341124fe04f0dbcccd372748ef7ca5af63319a50d87c9feae99555"
       },
       "sections": [
         {
@@ -2353,13 +2353,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
         "publication_manifest_match": true,
         "mathml_node_count": 274,
@@ -2385,8 +2385,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "a6289e60f96e5d85e51705c32e02b88f5572e97623ade61c725258c85583d0c3",
-        "html_exact_tex_sha256": "73afd2183d4a7906261945274d4a80ff47fadbb33d909177c67ad656a2adbef6"
+        "html_mathml_sha256": "dc068d8a5cf6adf8064b0a2823ed587baf4ebbec0c65a5c64ab9326a070089b7",
+        "html_exact_tex_sha256": "434989b55faacdd156a0e95ff0d76c25b5d5efd42abb9b8490a408ad988fb551"
       },
       "sections": [
         {
@@ -2505,13 +2505,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "e6ca051b1acf26b99809796daa32f0f5becdf032404c1d78c2859a8bd8a2e7bb",
         "publication_manifest_match": true,
         "mathml_node_count": 2919,
@@ -2526,8 +2526,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "6a61a8cd5e399a58ec5efefd6c707b2086fd78745980371caa482d2c5f3afe27",
-        "html_exact_tex_sha256": "6bc586bf681f5c49dfcef2a1bc07479bbc0e9d99c0008abc80bf91eb2773546e"
+        "html_mathml_sha256": "4da25838723a0dcc994d00b9fb4de659359759cc7b7902a469df8753c8b44f9b",
+        "html_exact_tex_sha256": "5892fe90790279fe636f48986b2cd4e2004c39c3fa531829643685136519d6d7"
       },
       "sections": [
         {
@@ -3241,13 +3241,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
         "publication_manifest_match": true,
         "mathml_node_count": 777,
@@ -3265,8 +3265,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "4dca20f83dc0739592b4bd7c97b090ca0333c4173f52a2858ffcf19f22093a83",
-        "html_exact_tex_sha256": "5514ca811ffc89754abea9114bcfd3b1fcb4ed06bfa5bed93b94e2d95e95258d"
+        "html_mathml_sha256": "dc4b5249efd9a82cbf08c4843953e2c89328cd25440fa9507dbe3d07931e2971",
+        "html_exact_tex_sha256": "b30300b9142e929b72f6cb08d2411c20e6e64d6a06998727be1ac4c1a7c82308"
       },
       "sections": [
         {
@@ -3493,15 +3493,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
         "publication_manifest_match": true,
         "mathml_node_count": 181,
@@ -3511,7 +3511,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "003a343d885776b07fd4416cc4059fa30488918ea8ba396b240856d0d3528402",
-        "html_exact_tex_sha256": "5df104bdfad22d56019d84a3a6e46a7d37c96914e9a7fb3ac6f92bbafbe3fbae"
+        "html_exact_tex_sha256": "c8ad38e4672bfc44210463bd37574adfcb0deead6f6c704d3b347c92891c19d6"
       },
       "sections": [
         {
@@ -3615,13 +3615,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "9a36d21bfa3560bbcaea4fc162d6f98801fa6ca43803890ed2488f0f687f595f",
         "publication_manifest_match": true,
         "mathml_node_count": 348,
@@ -3636,8 +3636,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "399596792b0b18d0f84cf1a8dd475d4f33088f196edfadfd9da84e2536247731",
-        "html_exact_tex_sha256": "42ef3d3665ae05f35f511a87f9963955c3ad68c79d4bb9224e3e6e989caf823a"
+        "html_mathml_sha256": "68b955430a7f854071f36f98f4bcc79de892815fd2f17e7794e81312a2760400",
+        "html_exact_tex_sha256": "a6efea8f933a2365d667ab378e26263cfa79999402822a8caa4db4e82d3d229f"
       },
       "sections": [
         {
@@ -3826,13 +3826,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "27ca9a32515680d6e041449b4d4127b5cfef3e23d3c22e9e572715f00f8fa9d0",
         "publication_manifest_match": true,
         "mathml_node_count": 1014,
@@ -3859,8 +3859,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "d65233fec09b3c09e97a9b2df14425e364e87647b874c17bae5a9e4ceb9d34e6",
-        "html_exact_tex_sha256": "9ccc1a8b808b89dacafabc75260800ef97afa587b109b786ce63eb1ecaf8e9aa"
+        "html_mathml_sha256": "6224c26fee7c6ff97576798d056d7323605da3b5247a95b8fb064ec5d1eb1df3",
+        "html_exact_tex_sha256": "b229c7502124f9fdb8c4bee815195f14635c18049dd7854617cf4b81a8b6921f"
       },
       "sections": [
         {
@@ -4187,15 +4187,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
         "publication_manifest_match": true,
         "mathml_node_count": 284,
@@ -4205,7 +4205,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "a55c3af58e571633f6331b2e447a6c07ea6a0b2618d54599710718bd3c808d1b",
-        "html_exact_tex_sha256": "03111de412e3c0719663305901bc5f0095aed6ea84909d8cb646a94040ba7f81"
+        "html_exact_tex_sha256": "e38e51e9bb404791fc52704d0ac8c42025cf6edaabdb8e4281aba86de8c4a138"
       },
       "sections": [
         {
@@ -4337,15 +4337,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
         "publication_manifest_match": true,
         "mathml_node_count": 1215,
@@ -4355,7 +4355,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "5d97a75c9fd937d1c030e9826a0977ac5a16267985767a873077d598db7cc612",
-        "html_exact_tex_sha256": "06b73ebf5313a12db4530b102de0374b33f61907d6957d779e65b5e09e591735"
+        "html_exact_tex_sha256": "33a3a8860a34a4a8345290c0bc721f97476a7e97e6c2508af6fa0dc0f3050dcc"
       },
       "sections": [
         {
@@ -4672,15 +4672,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "d8a3179c2e59904e4b792a5da08ffe0d221368357807d393d3a7ef62047b1548",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -4690,7 +4690,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "21fffec36b7a8cbcdcca8426b373ec065683ecfeb2d5dd987af68718130c54b4",
-        "html_exact_tex_sha256": "aa37f9ecad3768f3036402d1a2402e6bfbca97a50a8fd407aed2ac9b6b533700"
+        "html_exact_tex_sha256": "a4566a91f7a4b196fb25775e2f0f3128348a62bbf43ed78dbc32a6d0795d94ba"
       },
       "sections": [
         {
@@ -4947,15 +4947,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/cold-clone-to-proof-receipt.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -4965,7 +4965,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "db6bb828e77d8f4f3c2dbc5f5c379c3e12a0be6ce3584e79bbb08ac1fd2cd22a",
-        "html_exact_tex_sha256": "80170b02f5d1f87efd146f9c44f4088229136c303b696d880d50f5eb71456dd9"
+        "html_exact_tex_sha256": "b3409621c27b6067aa341b885de1fcec4a7d9c69190a51967e47e8a19261832a"
       },
       "sections": [
         {
@@ -5094,13 +5094,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -5126,8 +5126,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "666654bed9db6b054fbcb02bc3280c554d89bd378985fc9831c4a4475d36474d",
-        "html_exact_tex_sha256": "85559ead91faf8d747c8da8c1560006e1a52988ce51dbd3844976d01dbdefed7"
+        "html_mathml_sha256": "2ac0911b4e972be36bb674ae8ebfb4c4779962ac8ff9fdad4aa751c112c3cb06",
+        "html_exact_tex_sha256": "f1834ea4057c218d081dfd351e0f340587e4e0a28eb212d1d196d8fd980efd35"
       },
       "sections": [
         {
@@ -5299,15 +5299,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,
@@ -5317,7 +5317,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "b0b495ca3de3af437eed9882ba44d61dae7610442b6c0d61736ab508f43f648b",
-        "html_exact_tex_sha256": "8a683de2f8127f6ce0a1785bfb628764b9c1649b0faf8526e2a52048e43b9ca4"
+        "html_exact_tex_sha256": "19c50b879e958a1d277f8d35d51a5d62f2873cc1e72024c32c673df39e3bc021"
       },
       "sections": [
         {

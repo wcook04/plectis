@@ -260,15 +260,15 @@
       "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
     },
     "render_contract": {
-      "preferred": "html_mathml",
-      "fallback": "html_exact_tex",
-      "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-      "frontend_math_dependency": null,
+      "preferred": "html_exact_tex",
+      "fallback": "html_mathml",
+      "fallback_renderer": "native MathML",
+      "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 15,
-      "renderer_fingerprint": "dfc4d6626c337fa5",
+      "renderer_contract_version": 16,
+      "renderer_fingerprint": "1d7dc613a2ca3f87",
       "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
       "publication_manifest_match": true,
       "mathml_node_count": 337,
@@ -278,7 +278,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "0747de03349d56aefad2168ce3d646df30b40f4314a27bd77824a83bb3d5c345",
-      "html_exact_tex_sha256": "ee8e1905afb30e17231938879942fa274a6d1e2061e3fcba93c7cbeb4f4f83a3"
+      "html_exact_tex_sha256": "fb09f2680e6f8e23c383698f9f8ccd4d6ecaa83f4c67c3d604f8cc812b6a9bed"
     },
     "sections": [
       {
@@ -442,15 +442,15 @@
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
       },
       "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
         "publication_manifest_match": true,
         "mathml_node_count": 337,
@@ -460,7 +460,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "0747de03349d56aefad2168ce3d646df30b40f4314a27bd77824a83bb3d5c345",
-        "html_exact_tex_sha256": "ee8e1905afb30e17231938879942fa274a6d1e2061e3fcba93c7cbeb4f4f83a3"
+        "html_exact_tex_sha256": "fb09f2680e6f8e23c383698f9f8ccd4d6ecaa83f4c67c3d604f8cc812b6a9bed"
       },
       "sections": [
         {
@@ -626,13 +626,13 @@
       "render_contract": {
         "preferred": "html_exact_tex",
         "fallback": "html_mathml",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "fallback_renderer": "native MathML",
         "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 15,
-        "renderer_fingerprint": "dfc4d6626c337fa5",
+        "renderer_contract_version": 16,
+        "renderer_fingerprint": "1d7dc613a2ca3f87",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 704,
@@ -649,8 +649,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "ac4240142881e468fb8c831ec69ed8be75d7bf86b9c97d575e6c5fc2238c51cd",
-        "html_exact_tex_sha256": "cd9c515e3f54fb2eb40a67883caae47a4efc060bffed0f7247162e8bbe91d030"
+        "html_mathml_sha256": "3ba06d2d8ddd3b19b30836419e1a8af6137881d804d1553ba045f0b2ae4b9d95",
+        "html_exact_tex_sha256": "2180612762341124fe04f0dbcccd372748ef7ca5af63319a50d87c9feae99555"
       },
       "sections": [
         {

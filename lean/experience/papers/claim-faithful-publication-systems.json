@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "d8a3179c2e59904e4b792a5da08ffe0d221368357807d393d3a7ef62047b1548",
     "publication_manifest_match": true,
     "mathml_node_count": 7,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "21fffec36b7a8cbcdcca8426b373ec065683ecfeb2d5dd987af68718130c54b4",
-    "html_exact_tex_sha256": "aa37f9ecad3768f3036402d1a2402e6bfbca97a50a8fd407aed2ac9b6b533700"
+    "html_exact_tex_sha256": "a4566a91f7a4b196fb25775e2f0f3128348a62bbf43ed78dbc32a6d0795d94ba"
   },
   "sections": [
     {

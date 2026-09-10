@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "ed0477376d0ff7932910d3acf2fbb9c3cf6b08e42ae2545c8ba4fd61bee4a6fe",
     "publication_manifest_match": true,
     "mathml_node_count": 1078,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "318ac215adf8db64d4ba8352e7e8b102a64ab166bf49c451ef36d84698edf355",
-    "html_exact_tex_sha256": "9af01682e3af306310c0b536063312759d287d72e59debfed79ca8a91efe33ea"
+    "html_exact_tex_sha256": "92945b4b11ab2afc77755a15a58ef9062e90735cba6ffce32dd34e9e372e77f5"
   },
   "sections": [
     {

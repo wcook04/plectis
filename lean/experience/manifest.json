@@ -44,7 +44,7 @@
   "frontend_handoff": {
     "status": "backend_complete_frontend_unimplemented",
     "default_entry": "manifest.json",
-    "paper_math_preference": "native MathML with exact TeX/MathJax fallback",
+    "paper_math_preference": "exact TeX/MathJax with native MathML fallback artifact",
     "navigation_model": "universe -> problem -> result/module/paper/review overlay"
   },
   "performance_contract": {

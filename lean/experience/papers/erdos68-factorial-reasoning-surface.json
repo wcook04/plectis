@@ -20,15 +20,15 @@
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
   },
   "render_contract": {
-    "preferred": "html_mathml",
-    "fallback": "html_exact_tex",
-    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-    "frontend_math_dependency": null,
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 15,
-    "renderer_fingerprint": "dfc4d6626c337fa5",
+    "renderer_contract_version": 16,
+    "renderer_fingerprint": "1d7dc613a2ca3f87",
     "source_sha256": "744e49cf9503f5b699d1b96a11c85e4301a35a795a6d146c0acafb11716059fb",
     "publication_manifest_match": true,
     "mathml_node_count": 775,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "6b0a055a214f202fa457f547c95ac490947fbf232bf043e5cca50c8dd8f8af55",
-    "html_exact_tex_sha256": "cd18ac5a0fdd912131d1b4be3536081ea8408984ee6cbf32938a07f435591480"
+    "html_exact_tex_sha256": "7262751ca118750a9f4503e4ce724f060f1a969fe66c212e0c4904ed4592acba"
   },
   "sections": [
     {
