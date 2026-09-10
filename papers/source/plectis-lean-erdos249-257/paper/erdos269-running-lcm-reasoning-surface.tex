@@ -14,10 +14,10 @@
 \newunicodechar{ℚ}{\ensuremath{\Q}}
 \newunicodechar{ℤ}{\ensuremath{\Z}}
 \newunicodechar{₀}{\ensuremath{{}_0}}
-% Problem-specific source pin: #269's local-window consumer advances
-% independently of the corpus default.
-\renewcommand{\commit}{1da2a504f8d8aa3cdc2cf686ec48bc8a67457984}
-\renewcommand{\commitshort}{1da2a504f8d8}
+% Historical default for macros that require one source coordinate. Individual
+% source links below remain pinned to their own immutable revisions.
+\renewcommand{\commit}{ee650b32b8b2cb98b94e5500df5370d85f7403b8}
+\renewcommand{\commitshort}{ee650b32b8b2}
 \hypersetup{
   pdftitle={The three-prime running least common multiple: complete reasoning record for Erdős Problem 269},
   pdfsubject={Erdős Problem Notes: Problem 269},
@@ -600,7 +600,7 @@ $1/60-1/12=-1/15$.
 \end{proof}
 
 \noindent Checked as the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{904}{kernel_235_minor_eq_neg_one_fifteen}{rank-two
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{827}{kernel_235_minor_eq_neg_one_fifteen}{rank-two
 certificate} and the
 \lword{Erdos269/ThreePrimeRunningLcm.lean}{480}{kernel_235_not_rankOne}{non-separation
 witness}, over the four exact values, the
@@ -1234,7 +1234,8 @@ bound that the window growth eventually beats,
 \lword{Erdos269/CofinalWindowEscapeEquivalence.lean}{327}{cofinalLocalWindowEscape_of_irrational_of_beaten}{checked},
 and in particular against every bound dominated by $c(B)(n+1)^{2}$,
 \lword{Erdos269/CofinalWindowEscapeEquivalence.lean}{355}{cofinalLocalWindowEscape_of_irrational_of_quadratic}{checked}.
-The forward direction at the fixed bound $K_0$ is
+The enlarged little-$o(8^a)$ band, with the cap-domination hypothesis retained, is checked by the
+\lword{Erdos269/R12/OcticWindowBand.lean}{74}{octic_window_band}{octic window-band equivalence}.  The forward direction at the fixed bound $K_0$ is
 \lword{Erdos269/RationalityCarryBridge.lean}{479}{irrational_value_of_cofinalLocalWindowEscape}{checked},
 over the abstract consumer
 \lword{Erdos269/RestrictedFloorSum.lean}{645}{no_positive_reducedCarry_of_cofinalLocalWindowEscape}{checked}
@@ -1403,7 +1404,7 @@ not rational with denominator at most $2^{22482}$, about $10^{6768}$.
 The certification is by common prefix of the continued fractions of the two
 endpoints of an interval provably containing $X_1$, so no approximation
 heuristic enters, and the truncation was independently checked to agree with
-the direct smooth-number sum as an exact rational.  The recorded statistics are
+the direct smooth-number sum as an exact rational. The machine-readable witness and replay receipt for this large computation are not included in the public release, so the statement remains an archived ordinary computational certificate rather than a publicly replayed or Lean-checked result.  The recorded statistics are
 a largest denominator of $22{,}483$ bits, a largest partial quotient of
 $129{,}114$, a mean partial quotient of $23.4133$, observed Gauss--Kuzmin
 frequencies $0.4208$, $0.1665$, $0.0917$, $0.0575$, $0.0391$ against the
@@ -1493,15 +1494,15 @@ anywhere above.  The finite-observer formalisation isolates the precise
 faithfulness requirement: equality in a finite observer must imply equality
 after symbolic realisation, and a genuine finite-dimensional factorisation
 forces the realised symbolic span to be finite-dimensional
-(\lword{Erdos269/WeightedPhaseCarry.lean}{110}{carry_eq_residueDigit_add_coboundary}{residue-coboundary
+(\lword{Erdos269/WeightedPhaseCarry.lean}{109}{carry_eq_residueDigit_add_coboundary}{residue-coboundary
 form},
-\lword{Erdos269/WeightedPhaseCarry.lean}{294}{CartierRealisation}{symbolic
+\lword{Erdos269/WeightedPhaseCarry.lean}{293}{CartierRealisation}{symbolic
 realisation},
-\lword{Erdos269/WeightedPhaseCarry.lean}{335}{finite_realisedSpan_of_factorisation}{checked}),
+\lword{Erdos269/WeightedPhaseCarry.lean}{334}{finite_realisedSpan_of_factorisation}{checked}),
 with the carry residue and residue digit confined to their declared intervals
-(\lword{Erdos269/WeightedPhaseCarry.lean}{151}{carryResidue_mem_interval}{carry
+(\lword{Erdos269/WeightedPhaseCarry.lean}{150}{carryResidue_mem_interval}{carry
 interval},
-\lword{Erdos269/WeightedPhaseCarry.lean}{158}{residueDigit_mem_interval}{digit
+\lword{Erdos269/WeightedPhaseCarry.lean}{157}{residueDigit_mem_interval}{digit
 interval}).  No theorem here proves that the literal realised span is infinite.
 
 \subsection{Structural constraints already in place}
@@ -1590,8 +1591,7 @@ arithmetic and both directions of the window-escape equivalence are checked by
 the Lean~4 kernel against Mathlib with no \texttt{sorry}.  The two-prime
 transcendence theorem is an ordinary proof over the cited Bugeaud--Laurent
 theorem and carries no Lean declaration; the quadratic tail bound, the explicit
-onset $a_D$, the sharp bound $K$, the equivalence band, the window-growth law
-and Theorem~\ref{long269:res:uniform-rank} are ordinary proofs in this paper; the three
+onset $a_D$, the sharp bound $K$, and Theorem~\ref{long269:res:uniform-rank} are ordinary proofs in this paper; the window-growth law and the enlarged little-$o(8^a)$ equivalence band have named Lean endpoints; the three
 finite computations of Section~\ref{long269:sec:evidence} are computational
 certificates.
 
@@ -1610,7 +1610,6 @@ Fan.  The transcendence input is credited to Yann Bugeaud and Michel Laurent
 and to the earlier work of Loxton and van der Poorten cited by them.  The
 problem numbering and status follow the Erd\H{o}s Problems catalogue maintained
 by Thomas Bloom~\cite{erdosproblems}.
-
 % ---- part extended_record ----
 \section{Extended record: migrated arguments and finite evidence}
 \label{long269:long:extended}
@@ -1769,8 +1768,9 @@ the residues behave like generic ones inside this range.
 
 \subsection{Source inventory}\label{long269:long:sources}
 
-Each entry names an informal statement and the Lean declaration that carries it
-at the pinned source revision~\commitshort.
+Each entry names an informal statement and the Lean declaration that carries it.
+Each link is pinned to its own immutable revision; the exact-reference inventory
+records the revisions and their comparison with the current public source commit.
 
 \begin{longtable}{@{}p{.35\linewidth}p{.59\linewidth}@{}}
 informal statement & linked Lean source\\
@@ -1828,7 +1828,7 @@ internal-power uniqueness & \lref{Erdos269/ThreePrimeRunningLcm.lean}{669}{dyadi
 dyadic block base & \lref{Erdos269/ThreePrimeRunningLcm.lean}{751}{dyadicBlockBase235}\\
 exact dyadic radix alphabet & \lref{Erdos269/ThreePrimeRunningLcm.lean}{762}{dyadicBlockBase235_cases}\\
 bounded-radix consequence & \lref{Erdos269/ThreePrimeRunningLcm.lean}{774}{dyadicBlockBase235_mem_interval}\\
-rank-two certificate & \lref{Erdos269/ThreePrimeRunningLcm.lean}{904}{kernel_235_minor_eq_neg_one_fifteen}\\
+rank-two certificate & \lref{Erdos269/ThreePrimeRunningLcm.lean}{827}{kernel_235_minor_eq_neg_one_fifteen}\\
 no integer rotation orbit & \lref{Erdos269/KernelCarryRank.lean}{154}{noIntegerOrbit_logb_of_prime}\\
 height factorisation & \lref{Erdos269/KernelCarryRank.lean}{218}{threePrimeHeight_factorisation}\\
 kernel factorisation & \lref{Erdos269/KernelCarryRank.lean}{259}{threePrimeKernelQ_factorisation}\\
@@ -1888,18 +1888,17 @@ one-index lift extinction & \lref{Erdos269/CarryLiftExtinction.lean}{178}{no_car
 uniform lift extinction & \lref{Erdos269/CarryLiftExtinction.lean}{238}{no_bounded_carryLift_of_blockNull_twoAnchors}\\
 first-block sum & \lref{Erdos269/CarryLiftExtinction.lean}{289}{binaryLift_twoAnchors_force_firstBlock_sum_one}\\
 four-state obstruction & \lref{Erdos269/CarryLiftExtinction.lean}{308}{no_unitAccurateLift_with_twoAnchors_and_firstTwoBlockNull}\\
-residue-coboundary form & \lref{Erdos269/WeightedPhaseCarry.lean}{110}{carry_eq_residueDigit_add_coboundary}\\
-carry interval & \lref{Erdos269/WeightedPhaseCarry.lean}{151}{carryResidue_mem_interval}\\
-digit interval & \lref{Erdos269/WeightedPhaseCarry.lean}{158}{residueDigit_mem_interval}\\
-symbolic realisation & \lref{Erdos269/WeightedPhaseCarry.lean}{294}{CartierRealisation}\\
-finite realised span & \lref{Erdos269/WeightedPhaseCarry.lean}{335}{finite_realisedSpan_of_factorisation}\\
+residue-coboundary form & \lref{Erdos269/WeightedPhaseCarry.lean}{109}{carry_eq_residueDigit_add_coboundary}\\
+carry interval & \lref{Erdos269/WeightedPhaseCarry.lean}{150}{carryResidue_mem_interval}\\
+digit interval & \lref{Erdos269/WeightedPhaseCarry.lean}{157}{residueDigit_mem_interval}\\
+symbolic realisation & \lref{Erdos269/WeightedPhaseCarry.lean}{293}{CartierRealisation}\\
+finite realised span & \lref{Erdos269/WeightedPhaseCarry.lean}{334}{finite_realisedSpan_of_factorisation}\\
 Cantor-state confinement & \lref{Erdos269/PurePowerIrrationality.lean}{61}{state_mem_Ioo}\\
 state gap bound & \lref{Erdos269/PurePowerIrrationality.lean}{74}{stateGap_lower_bound}\\
 small-form criterion & \lref{Erdos269/PurePowerIrrationality.lean}{94}{irrational_of_small_nonzero_forms}\\
 conditional assembly & \lref{Erdos269/PurePowerIrrationality.lean}{156}{irrational_of_clearing_and_small_gaps}\\
 staircase index engine & \lword{Shared/IrrationalRotationStaircase.lean}{271}{exists_staircase_indices}{staircase indices}\\
 \end{longtable}
-
 % ---- part family_catalogue ----
 \clearpage
 \section{Complete result-family map}\label{sec:erdos-269-complete-family-map}
@@ -1949,7 +1948,7 @@ An exact weighted-phase carry recurrence splits into a finite residue digit and 
 
 \textbf{Authority and reach.} Lean kernel; locally proved result; novelty unassessed.
 
-\textbf{Exact boundary.} The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No rationality or irrationality conclusion follows; the actual three-prime running-LCM bridge and cofinal escape remain open.
+\textbf{Exact boundary.} The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No irrationality conclusion follows from this observer alone. The actual rationality-to-positive-reduced-carry bridge is established separately; cofinal local-window escape remains open.
 
 \textbf{Result-atom population.} 7 of 681 public coordinates. The public atom catalog groups them under this family.
 
@@ -1973,7 +1972,7 @@ Finite height-fibre normal form and a quadratic smooth-shell multiplicity bound.
 
 \textbf{Authority and reach.} Lean kernel; locally proved result; novelty unassessed.
 
-\textbf{Exact boundary.} The fibre bounds do not provide the missing divisibility bridge.
+\textbf{Exact boundary.} These fibre bounds are counting input, not an escape producer. The separate actual-series divisibility bridge is established.
 
 \textbf{Result-atom population.} 5 of 681 public coordinates. The public atom catalog groups them under this family.
 
@@ -1995,7 +1994,7 @@ Under the denominator-dependent cofinal local-window residue-escape predicate, n
 
 \textbf{Authority and reach.} Lean kernel; Comparator-selected; conditional no-go consumer; novelty and significance unassessed.
 
-\textbf{Exact boundary.} The representative assumes b,m : \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}}, shortBound : \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}}, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : \ensuremath{\mathbb{Z}}) d(n) \ensuremath{-} (B : \ensuremath{\mathbb{Z}}) (m n : \ensuremath{\mathbb{Z}}) and Int.natAbs (d n) \ensuremath{\le} shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor \ensuremath{\ne} 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The cofinal local-window escape producer and the bridge from the actual three-prime running-LCM series or its rationality to this reduced carry remain open. This is not a \#269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.
+\textbf{Exact boundary.} The representative assumes b,m : \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}}, shortBound : \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}} \ensuremath{\to} \ensuremath{\mathbb{N}}, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : \ensuremath{\mathbb{Z}}) d(n) \ensuremath{-} (B : \ensuremath{\mathbb{Z}}) (m n : \ensuremath{\mathbb{Z}}) and Int.natAbs (d n) \ensuremath{\le} shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor \ensuremath{\ne} 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a \#269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.
 
 \textbf{Result-atom population.} 37 of 681 public coordinates. The public atom catalog groups them under this family.
 

@@ -31,6 +31,9 @@ $\log b/\log a<\theta^*$, where the explicit constant below satisfies
 $\theta^*\approx0.4056830213840605$.
 In particular, $F((31/4)^r)$ is irrational for every integer $r\ge1$.
 The same forms bound its irrationality exponent uniformly in $r$.
+This is an ordinary proof: it uses the polynomial conclusion of Zudilin's
+Lemma~7 before the source's integer-specialisation step; Lean checks finite
+subclaims, not the irrationality theorem.
 Cyclotomic factors are cancelled before the rational-base denominator is
 cleared; the degree of the resulting polynomial pair determines the cost.
 The argument does not cover $3/2$.
@@ -885,5 +888,7 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   totient functions among the examples which are not $k$-Mahler for any
   $k\ge2$.
 \end{thebibliography}
+
+\companionpapercontext
 
 \end{document}

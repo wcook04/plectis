@@ -56,6 +56,8 @@
 \newcommand{\PK}{Erdos249257}
 \newcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
+% This macro family is pinned to \commit. Paper-local links at a different immutable
+% revision are inventoried separately; aggregate historical link counts are not PDF audits.
 % \lean declaration file:line forms a hyperlink to the pinned public
 % formal-source checkpoint. The second argument is a machine coordinate,
 % never typeset: \allowbreak and spaces are stripped, an ErdosProblems/
@@ -676,22 +678,20 @@ and no run. \ev{Math}
 
 \textbf{Class (b): global averages and Diophantine data.}
 
-\begin{prop}[Exponent-budget mismatch; \textsc{proved}, given a cited $\mu$]
+\begin{prop}[Weighted denominator budget; \textsc{proved}]
 \label{prop:exponent-gap}
-The skip set at row $n$ has $|\mathrm{Skip}_n| \approx n^2/4$, so an irrationality-measure exponent
-$\mu$ for the target constant yields a separation of order only $2^{-\mu n^2/4}$, while the
-required precision is $2^{-3n/2}$. The shortfall is a factor $\approx 0.42\,n$ \emph{in the
-exponent}, and it grows linearly in $n$. Since $\mu \ge 2$ for every irrational, no improvement in
-$\mu$ can close it: Zudilin's $\mu(E) \le 2.42343562\ldots$ is irrelevant to the gap, and so is any
-future bound. \coord{diophantine} \scale{cofinal} \ev{Math}\ev{Cited}
+For the denominator $D_n$ of the skip-set rational,
+$\log_2D_n\le\sum_{d\in\mathrm{Skip}_n}\log_2(2^d-1)<\sum_{d\in\mathrm{Skip}_n}d
+\le n(n-1)/2-1$. This weighted quadratic upper bound is too coarse for the orbit's
+$2^{-3n/2}$ precision. An $n^2/4$ asymptotic would require additional distribution information.
+\coord{diophantine} \scale{cofinal} \ev{Math}
 \end{prop}
 
-\textbf{Rules out.} Any argument deriving the run-length or magnitude bound from (a) arithmetic
-information at fixed finite precision or a bounded automaton state, or (b) a global average,
-density, or Diophantine-approximation quantity attached to $C = E - 3/2$. Concretely: no proposal
-to bound the R-run via an irrationality measure of a Mersenne or Erd\H{o}s--Borwein-type constant
-can work, however good the measure becomes; and no proposal defining a bounded carry state
-summarising pre-index history can determine the post-index tail.
+\textbf{Precise obstructions.} Fixed-precision automaton state cannot determine the post-index
+tail, and the displayed weighted denominator budget combined with the currently cited fixed
+irrationality-measure exponent does not yield the required run bound. These calculations do not
+exclude averaging over shifts, residues, or observation scales, nor a sharper analysis of the
+actual skip distribution.
 
 \textbf{Explains.} Prime-doubling fails for a recorded reason rather than for want of effort: $N$
 prime $\ge n$ gives $b(N) = 1$ so $J$ doubles at that step, but not cumulatively, because
@@ -712,8 +712,10 @@ as such wherever it is used below.
 \begin{thm}[One-sidedness; \textsc{proved}]
 \label{thm:one-sided}
 $1/2 \notin \mathcal{A}$ is $\Sigma^0_1$: a single finite object --- a fatal gap --- certifies it.
-$1/2 \in \mathcal{A}$ is $\Pi^0_1$, and no finite object certifies it. Consequently no finite
-computation, at any depth, can establish $1/2 \in \mathcal{A}$.
+$1/2 \in \mathcal{A}$ has a $\Pi^0_1$ survival formulation. Survival through a tested finite
+depth alone does not establish membership; a uniform theorem or inductive invariant could.
+The arithmetical-hierarchy form by itself proves neither undecidability nor the absence of finite
+proofs.
 \coord{meta} \scale{uniform} \ev{Lean}
   The statement is checked in Lean: \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CatalogueAssemblies.lean#L50}{\textsc{Lean~source}}.
 \end{thm}
@@ -972,8 +974,8 @@ Proposition~\ref{prop:collapsed-list} must be stated verbatim in the docstrings.
 
 \textbf{Why it is here.} This route does not attempt the wall; it \emph{measures} it, which is
 exactly what makes it bankable. Each equivalence is a theorem --- a biconditional between a named
-\texttt{Prop} and half-membership --- not a reduction, and each one permanently retires a socket
-from the list of things worth chasing directly. Systematic elimination of this kind is a result
+\texttt{Prop} and half-membership --- not merely a one-way reduction. Each identifies the exact missing content of a socket; it does
+not preclude that formulation from exposing a useful invariant. Systematic elimination of this kind is a result
 about the problem in a way that a reformulation is not. The perfect-square normalisation is what
 makes it available now: it dissolves the $\lfloor\sqrt{\cdot}\rfloor$ versus $\sqrt{\cdot}$
 mismatch that previously blocked two of the five, and it needs no widening of the strip constant.
@@ -1110,9 +1112,11 @@ closure). The base-$2$ instance recovering the classical Erd\H{o}s--Borwein cons
 is \lean{irrational\_erdosBorwein\_series}{CertificateKernel.lean:8335}, a one-line corollary.
 \end{thm}
 
-This is the base-$b$ generalization of Erd\H{o}s's original 1948 irrationality theorem for
-$\sum 1/(2^n-1)$ (cited, in its base-$2$ form, as an input at Remark~\ref{rem:no-ties} below); its
-Lean form removes the base restriction entirely and is landed with no open hypotheses.
+This formalizes the positive-integer-base scope of
+\href{https://www.renyi.hu/~p_erdos/1948-04.pdf}{Erd\H{o}s's classical 1948 full-support theorem},
+which already covered integer bases of absolute value greater than one. The base-two
+Erd\H{o}s--Borwein constant is a particular case; the Lean theorem is landed with no open
+hypotheses.
 
 \subsubsection{Named infinite-support families}
 
@@ -1176,9 +1180,9 @@ measure in its ambient interval $[0,E]$, whose length is $E\approx1.6067$.
 \lean{perfect\_mersenneAchievementSet}{GreedyAchievementSet.lean:1656},
 \lean{isTotallyDisconnected\_mersenneAchievementSet}{GreedyAchievementSet.lean:1672},
 \lean{isNowhereDense\_mersenneAchievementSet}{GreedyAchievementSet.lean:1681},
-\lean{volume\_mersenneAchievementSet}{GreedyAchievementSet.lean:996}. The proofs use only
-superincreasingness of $\{x_n\}$ and summability, so the argument transfers verbatim to any strictly
-superincreasing weight series.\\
+\lean{volume\_mersenneAchievementSet}{GreedyAchievementSet.lean:996}. Strict separation and summability give the compactness, unique coding, and Cantor topology. The
+measure assertion is Mersenne-specific: if $R_N=\sum_{n>N}x_n$, the level-$N$ cylinder length is
+$2^N R_N\to1$. Other weight sequences require their own tail asymptotic.\\
 \textbf{Chains with:} Theorem~\ref{thm:greedy-survival-record} below (compactness is exactly what powers
 every ``limit of achieved points is achieved'' argument used downstream, including the seam-limit
 route of Part~2).
@@ -1200,8 +1204,9 @@ reverse \lean{mem\_mersenneAchievementSet\_of\_greedy\_survival}{GreedyAchieveme
 \subsection{The greedy orbit, exactly}
 \label{ssec:greedy-orbit}
 
-Fix the target $1/2$ and the weights $x_n = 1/(2^n-1)$, $n \ge 2$ (rank $1$ contributes the
-undefined $x_1$ and is excluded by convention; all indexing below starts at rank $2$). The greedy
+Fix the target $1/2$ and the weights $x_n = 1/(2^n-1)$. Here $x_1=1$, so exponent one cannot occur
+in a representation of $1/2$ by positive summands; the half-target discussion starts at exponent
+two. (The reciprocal formula is undefined only at exponent zero.) The greedy
 orbit is the unique deterministic process forced by superincreasingness
 (Theorem~\ref{thm:greedy-survival-record}):
 
@@ -1576,8 +1581,9 @@ connection as \texttt{hypothesis}, not established.
 
 \begin{thm}[Governed frozen-margin producer family: three graded sockets]
 \label{thm:frozen-margin}
-Three sufficient sockets, strongest to weakest hypothesis, all funnel into
-$1/2\in\mathrm{mersenneAchievementSet}$: (i) \emph{HalfGreedySkippedFullShellNonnegative}
+Three open sufficient hypotheses, strongest to weakest, all funnel into
+$1/2\in\mathrm{mersenneAchievementSet}$ through proved consumers: (i)
+\emph{HalfGreedySkippedFullShellNonnegative}
 (at every skipped rank, $0\le\mathrm{greedyHalfFrozenMargin}(n-1)\,n$), direct and
 seam-free; (ii) \emph{HalfGreedySkippedSeamAlignmentZero} (the seam remainder is exactly
 $0$ whenever the actual word equals the seam-greedy word), proved \emph{equivalent} to
@@ -1988,11 +1994,11 @@ Theorem~\ref{thm:upper-reset-band}'s band-avoidance hypothesis.
 \lean{seamUpperResetCriticalBandEscape\_iff}{HalfUpperResetCriticalBand.lean:883}
 \end{thm}
 
-\begin{thm}[Final-middle-cell $-3$ excluded]
+\begin{thm}[Final-middle-cell $-3$ excluded under an all-right tail]
 \label{thm:final-middle-cell}
-The first of three exceptional final-middle integer cells (coordinate
-$4\cdot\mathrm{remainder}-\mathrm{belowPulse}-4=-3$) cannot be the actual last transition
-before an all-right tail. Combines the analytic strict inequality of
+Assume a middle transition is the last one and is followed by an all-right tail. Then the first
+of three exceptional final-middle integer cells (coordinate
+$4\cdot\mathrm{remainder}-\mathrm{belowPulse}-4=-3$) is impossible. Combines the analytic strict inequality of
 Lemma~\ref{lem:eventually-right-impossible} with a two-step M\"obius-carry recurrence
 forcing the centred carry to zero then strictly negative within two more coefficient
 rows, contradicting the nonnegativity of Theorem~\ref{thm:mobius-centred-nonneg}. One of
@@ -2540,13 +2546,15 @@ for the concrete seam reset charge by the two-sided dyadic bound of \texttt{Half
 Three graded sockets, strongest hypothesis to weakest, all funnel into the same endpoint
 $\mathrm{half\_mem\_mersenneAchievementSet\_of\_governedFrozenMarginProducer}$.
 
-\begin{thm}[257bm:c13 --- (i) \texttt{HalfGreedySkippedFullShellNonnegative}]
+\begin{defn}[257bm:c13 --- open property \texttt{HalfGreedySkippedFullShellNonnegative}]
 \[
 \forall\ \text{skipped rank } n,\quad 0 \le \mathrm{greedyHalfFrozenMargin}(n-1,n).
 \]
-Direct, seam-free. The plainest sufficient socket in the family.
+This is an open property, not a proved theorem. It is the plainest sufficient socket in the family:
+assuming it, \texttt{half\_mem\_mersenneAchievementSet\_of\_skippedFullShellNonnegative} proves
+$1/2\in\mathrm{mersenneAchievementSet}$.
 \par\noindent\ev{Open} \scale{uniform} \coord{other:frozen-margin} \lean{HalfGreedySkippedFullShellNonnegative}{HalfCylinderFullShellSeamBridge.lean:604} \lean{half\_mem\_mersenneAchievementSet\_of\_skippedFullShellNonnegative}{HalfCylinderFullShellSeamBridge.lean:633}
-\end{thm}
+\end{defn}
 
 \begin{thm}[257bm:c14 --- (ii) \texttt{HalfGreedySkippedSeamAlignmentZero}]
 \[
@@ -3598,11 +3606,11 @@ Scale is the load-bearing axis of the whole corpus. Both open problems are, at b
 statements: \#257 half-membership needs infinitely many exact rows or infinitely many positive
 greedy skips (Table~\ref{tab:scale-ladder}, rows C1/C3), and the unconditional track needs a
 run-length bound that holds at every reset row out to infinity, not merely to a certified depth.
-Every machine-checked theorem in the tree is fixed, bounded, or uniform. No amount of raising a
-uniform certificate's threshold, by itself, produces a cofinal witness — a uniform statement
-``$\forall n\ge N_0$'' is a single first-order sentence with no existential content past $N_0$,
-while a cofinal statement needs infinitely many \emph{witnesses to a further existential}, which is
-a strictly different logical shape.
+Each row must retain its predicate, quantified variable, and every premise. An unconditional
+eventual assertion $\forall n\ge N_0,\,P(n)$ does give cofinal witnesses to that same predicate,
+by taking $n=\max(N,N_0)$. A conditional uniform consumer $H(n)\Rightarrow C(n)$ supplies no
+witness until $H(n)$ is established, and a checked finite band supplies no assertion beyond its
+endpoints. These are different logical shapes and are recorded separately below.
 
 Table~\ref{tab:scale-ladder} samples the ladder across all four non-trivial scales, drawn from the
 \texttt{BooleanMobius}, \texttt{HalfCutLocator}, \texttt{GreedyAchievementSet}, and seam-integer
@@ -3781,9 +3789,9 @@ not, by itself, manufacture the next witness at a larger depth).
 
 \par\medskip
 
-This is consistent with, not a substitute for, the general logical point above: promoting a
-uniform statement to a cofinal one requires new content — an explicit witness-producing
-construction — not a change of quantifier bookkeeping.
+This is consistent with, not a substitute for, the general logical point above: an eventual-uniform proof of the same
+witness predicate already implies cofinal production. New content is required only when the
+uniform row is conditional, concerns another predicate, or covers only a finite band.
 \end{rem}
 
 \section{One orbit in four coordinates}
@@ -4168,8 +4176,8 @@ middle coordinate.
 \lean{middleProducer\_allRight\_landingExcess\_window}{HalfCylinderMiddleCarryLowerBound.lean:2547},
 \lean{middleThenAllRight\_landingExcess\_two\_le}{HalfCylinderMiddleCarryLowerBound.lean:2319}.
 \textbf{Yields:} the upper-producer ``last transition before an all-right tail'' case is
-impossible unconditionally (affine carry $\le -8$); the middle cell at coordinate $-3$ is
-excluded unconditionally. What survives: a middle producer whose landing excess $X_{D+1}$
+impossible unconditionally (affine carry $\le -8$); under the final-middle-followed-by-all-right
+hypothesis, the middle cell at coordinate $-3$ is excluded. What survives in that scenario is a middle producer whose landing excess $X_{D+1}$
 satisfies $2 \le X_{D+1} < 2\sqrt{2D+2}+8$ — a window of only $O(\sqrt D)$ integers.
 \textbf{Mismatch (\texttt{hypothesis\_strength}):} the residual bad set is an explicit
 $O(\sqrt D)$-wide integer window at each candidate last-producer row, not an interval at dyadic
@@ -4190,11 +4198,10 @@ propagates, by induction from a decide-checked row-5 base, the two-sided invaria
 \ge 5$: $\mathrm{rem}(s) \le 2^s \vee \mathrm{overshoot}(s) \le 2^s$.
 \textbf{Mismatch (\texttt{hypothesis\_strength}):} the hypothesis is anti-concentration at
 \emph{constant} resolution — the orbit must miss three named integers — where the obligation is
-anti-concentration at resolution $2^{(r+5)/2}$. One of the three cells ($-3$) is already closed
-in the all-right-tail configuration by \texttt{finalMiddleCell\_neg\_three\_not\_last}, leaving
-two.
-\textbf{Closes it:} exclusion of the two remaining cells ($-2$ and $-1$) for the actual seam
-orbit, plus the right-pulse-leak inequality $4\cdot\mathrm{overshoot}+\mathrm{abovePulse} \le
+anti-concentration at resolution $2^{(r+5)/2}$. Cell $-3$ is closed only in the all-right-tail configuration by
+\texttt{finalMiddleCell\_neg\_three\_not\_last}. The unrestricted induction still requires
+exclusion of all three cells at every late middle row.
+\textbf{Closes it:} exclusion of all three cells for the actual seam orbit, plus the right-pulse-leak inequality $4\cdot\mathrm{overshoot}+\mathrm{abovePulse} \le
 2^{s+2}$ under $\mathrm{overshoot} \le 2^s$.
 \end{obs}
 
@@ -4270,8 +4277,8 @@ without touching the deviation at all — a parallel route whose own cofinal ste
 upgrade away from 257-reset.
 \textbf{Closes it:} $\mathrm{HalfRung}(J)$ for infinitely many $J$ — explicitly \emph{not}
 promotable by re-running the existing argument: the certificate window $B(J)$ is driven by $L_J
-= \mathrm{lcm}(2,\dots,J)$, growing superexponentially in $J$, the hallmark of a proof that does
-not survive bound removal.
+= \mathrm{lcm}(2,\dots,J)$, a modulus of exponential scale in $J$. Its finite computational
+cost does not by itself rule out a cofinal argument.
 \end{obs}
 
 \subsection{257-cofinal-rows: thirteen near misses}
@@ -4412,9 +4419,11 @@ $|E_k|/D_k > (2k{+}1)/2^{k-2}$ at every skipped rank. Pure bookkeeping over exis
 \lean{HalfGreedySkippedFullShellNonnegative}{HalfCylinderFullShellSeamBridge.lean:604},
 \lean{half\_mem\_mersenneAchievementSet\_of\_skippedFullShellNonnegative}{HalfCylinderFullShellSeamBridge.lean:633},
 \lean{HalfGreedySkippedSeamEscape}{HalfCylinderFullShellSeamBridge.lean:687}.
-\textbf{Yields:} at every skipped rank $n \ge 3$, $0 \le \mathrm{greedyHalfFrozenMargin}(n{-}1)\,n$
-— first passage of the frozen margin by the full-shell horizon $J=k{+}1$, $k=n{-}1$. Reaches
-$1/2 \in \mathrm{mersenneAchievementSet}$ by its own consumer.
+\textbf{Open property and proved consumer:} \texttt{HalfGreedySkippedFullShellNonnegative} asks
+that every skipped rank $n\ge3$ satisfy
+$0\le\mathrm{greedyHalfFrozenMargin}(n{-}1)\,n$. Assuming this property,
+\texttt{half\_mem\_mersenneAchievementSet\_of\_skippedFullShellNonnegative} proves
+$1/2\in\mathrm{mersenneAchievementSet}$.
 \textbf{Mismatch (\texttt{quantifier\_order}):} exactly three doubling steps of horizon short.
 The exact-row socket needs margin$(k,k{-}2)\ge0$; this gives margin$(k,k{+}1)\ge0$. By the
 succ-recurrence, margin$(k,k{+}1)=8\cdot$margin$(k,k{-}2)+4\,\mathrm{sc}(2k)+2\,\mathrm{sc}(2k{+}1)
@@ -4591,10 +4600,12 @@ shape 257-universal actually needs.
 \textbf{Mismatch (\texttt{scale\_only}):} the headline is pinned to target $1/2$ while its engine
 $\mathrm{Odd}((\mathrm{finiteErdosSum}\,F\,2).\mathrm{den})$ is already fully general over finite
 supports.
-\textbf{Closes it:} verbatim re-derivation — $\forall t:\mathbb Q$ with even reduced denominator,
+\textbf{Sufficient specialization:} verbatim re-derivation — $\forall t:\mathbb Q$ with even reduced denominator,
 $\forall A$ finite with $0\notin A$, $\mathrm{erdosSupportSeries}\,2\,A \ne (t:\mathbb R)$. No new
-mathematics. Paired with NM-02: universal \#257 at $b{=}2$ is false iff some rational $t$ with
-even reduced denominator has an infinitely-skipping greedy Mersenne orbit.
+mathematics. Thus a represented rational with even reduced denominator would refute universal
+\#257 at $b=2$. The converse is not established. If $\mathrm{FinVal}$ denotes the finite-support
+values, the exact unrestricted condition is
+$(\mathbb Q\cap\mathrm{mersenneAchievementSet})\smallsetminus\mathrm{FinVal}\ne\varnothing$.
 \end{obs}
 
 \begin{obs}[NM-04 / dyadic-only reciprocal-mass rigidity, generalization sitting unused] \ev{Lean}
@@ -4769,11 +4780,9 @@ larger than $|F|$.
 
 \par\medskip
 
-\textbf{Closes it:} a common-multiple selection with divisor economy — an infinite $A$ must admit
-$L$ with $|\{a\in A: a\mid L\}| > 2\,\mathrm{binaryCoeffTail}(\mathrm{supportCoeff}\,A)(L{-}1) +
-1/v$. Since the tail is a $2^{-j}$-weighted average near $L$, this demands an anti-concentration
-statement about divisor incidence of $A$ in the window $(L,\,L{+}O(\log L)]$ — the same shape as
-the missing certificate, restated; the route as built cannot supply it.
+\textbf{Failure of the proposed inequality.} The tail already contains the contribution
+$f_A(L)/2$, so $2T_A(L-1)\ge f_A(L)$ identically. The proposed strict excess by $1/v$ is therefore
+impossible. This route supplies no sufficient condition until a different inequality is found.
 \end{obs}
 
 \begin{obs}[NM-12 / rank-gap dichotomy, target-generic killer under a target-pinned dichotomy] \ev{Lean}
@@ -4816,10 +4825,10 @@ terminating, terminating branch killable by a positive far tail.
 \par\medskip
 
 \textbf{Closes it:} an aperiodic version of the dichotomy — for arbitrary $A$, either
-$\mathrm{erdosSupportSeries}\,2\,A$ is irrational or $2^k\cdot$it is an integer. For infinite $A$
-the terminating branch is already excluded by \texttt{finiteErdosSum\_den\_odd}-style parity plus
-a positive far tail, so this dichotomy — if provable without periodicity — would close the
-obligation outright. Periodicity is used only to manufacture the full-block certificates
+$\mathrm{erdosSupportSeries}\,2\,A$ is irrational or $2^k\cdot$it is an integer. For arbitrary infinite $A$, exclusion of the terminating branch is itself an additional unproved
+assertion; finite-support odd-denominator parity does not pass automatically to an infinite limit.
+An aperiodic dichotomy together with a valid terminating-branch exclusion would close the
+obligation. Periodicity is used only to manufacture the full-block certificates
 (``periodicity alone manufactures the full-block certificates,'' per the file's own docstring),
 so removing it is again NM-01's missing producer, restated a third time.
 \end{obs}
@@ -4865,7 +4874,7 @@ every rank; the corpus supplies no finite certificate that the orbit survives fo
 completion theorem turning a long surviving prefix into membership.
 
 The reset-crossing sockets, truncation-rung ladder, and sharp-capacity inequalities feed
-sufficient conditions for a finite fatal gap. They are not proved equivalent to one another,
+sufficient conditions for membership. They are not proved equivalent to one another,
 nor is failure to find one at a given depth evidence of survival. Consequently these searches
 give at most a semi-decision procedure for \emph{nonmembership of the specific value $1/2$}.
 Halting does not prove the universal statement in \#257, and non-halting does not prove that
@@ -4896,24 +4905,17 @@ unconditional tail-nonnegativity lemma
 $\mathrm{erdosSupportSeries}\,2\,A\le1/2$ (line 859). \textbf{The scope limit is exact and must
 not be widened by inference:} this equivalence does \emph{not} extend to every $A$ with $1\notin
 A$ — dropping the greedy-specific $\le1/2$ fact yields only $\mathrm{hbound}\Leftrightarrow
-\delta\le0$ (a one-sided condition), not $\delta=0$. It also does \emph{not} extend to the
-sibling socket \lean{GreedyHalfCarryCofinalStripReturn}{CofinalStripReturn.lean:76}: \texttt{hbound} is stated
-in \texttt{Real.sqrt}, while \texttt{CofinalStripReturn}'s \texttt{halfStripBound} is built on
-\texttt{Nat.sqrt}, and bridging the real bound down to the tighter natural-number floor bound
-needed for a cofinal witness is an unaddressed, nontrivial gap — not routine packaging.
+\delta\le0$ (a one-sided condition), not $\delta=0$. For the sibling socket
+\lean{GreedyHalfCarryCofinalStripReturn}{CofinalStripReturn.lean:76}, the former
+\texttt{Real.sqrt}/\texttt{Nat.sqrt} adapter gap is repaired by restricting cofinal witness depths
+to perfect squares. Any remaining gap lies in the producer hypothesis, not in rounding.
 \end{rem}
 
-\begin{rem}[HalfCarryCofinalTerminalOnlyStrip, widened to constant 6, still equivalent]
-\lean{HalfCarryCofinalTerminalOnlyStrip}{TerminalOnlyCofinal.lean:34}, even after widening the
-strip constant from 4 to 6 ($\mathrm{halfStripBound}'\,n = 2\,\mathrm{Nat.sqrt}\,n+6$), is
-logically equivalent to $1/2\in\mathrm{mersenneAchievementSet}$ once three small, non-circular,
-mechanical lemmas are supplied (a general one-not-in-support corollary, the discrete envelope
-inequality $\mathrm{Real.sqrt}\,n \le \mathrm{Nat.sqrt}\,n+1$, and a routine
-prefix-to-\texttt{HalfWord} construction). None of the three gaps is equivalent to \#257 or \#249
-individually — the equivalence sits one level up, at the socket itself. \textbf{This is a
-diagnostic, not a route}: it corrects TerminalOnlyCofinal.lean's own "weaker producer" framing —
-the terminal-only cofinal strip carries no strategic advantage over proving achievement
-directly.
+\begin{rem}[HalfCarryCofinalTerminalOnlyStrip: current status]
+\lean{HalfCarryCofinalTerminalOnlyStrip}{TerminalOnlyCofinal.lean:34} at the original strip
+constant is logically equivalent to $1/2\in\mathrm{mersenneAchievementSet}$ after restricting
+cofinal witness depths to perfect squares and using the landed tail bound. The square-root
+conversion is no longer an open adapter; the open content is the producer itself.
 \end{rem}
 
 \begin{rem}[CofinalPositiveHalfGreedySkips is literally the problem]
@@ -5008,10 +5010,10 @@ algebraic shape, not new information: it forbids no residue and no run length. I
 obstruction because it would hold for \emph{every} recursion of the form $J(M+1)=2J(M)-\delta(M+1)$,
 Mersenne or not.
 
-\textbf{Scope.} Closes: the parity/perfect-square route completely and permanently, for this
-recursion shape — not a partial closure. Also closes it in advance for any structurally identical
-recursion (e.g.\ a hypothetical \#249 digit-carry recursion of the same doubling-minus-forcing
-shape), since the vacuity is a fact about the shape, not about $\tau$ or Mersenne weights.
+\textbf{Scope.} This parity identity supplies no restriction for this recursion shape: it follows
+formally from doubling minus forcing. That precise obstruction also applies to a structurally
+identical recurrence. It does not rule out averaging across shifts, residue classes, or
+observation scales.
 \coord{parity-tautology}
 
 \textbf{Object or representation.} About a \emph{representation}: the identity is a fact about the
@@ -5031,27 +5033,22 @@ Erdős–Borwein constant) to within $\sim 2^{-1.5n}$. Since $C$ has a known irr
 upper bound, the natural hope is that a Diophantine-approximation exponent for $C$ directly
 supplies the needed non-approximability at scale $n$.
 
-\textbf{Exact mechanism that closed it.} The skip-set $\mathrm{Skip}_n$ has size $|\mathrm{Skip}_n|\approx n^2/4$ —
-quadratic in $n$, not linear. An irrationality-measure exponent $\mu$ for $C$ bounds how well a
-\emph{single} rational with denominator $q$ can approximate $C$; specializing to a rational built
-from $\approx n^2/4$ terms only yields a lower bound on the approximation error of order
-$2^{-\mu n^2/4}$, against a required bound of order $2^{-3n/2}$. The shortfall is a factor of
-$\approx 0.42n$ \emph{in the exponent itself} — not a constant-factor gap that a sharper $\mu$
-could close, but a gap that grows without bound as $n\to\infty$ for any fixed $\mu$.
+\textbf{Exact denominator budget.} Cardinality alone gives only
+$|\mathrm{Skip}_n|\le n-2$. For the denominator $D_n$ of the corresponding rational,
+\[
+ \log_2 D_n\le\sum_{d\in\mathrm{Skip}_n}\log_2(2^d-1)
+ <\sum_{d\in\mathrm{Skip}_n}d\le \frac{n(n-1)}2-1.
+\]
+An $n^2/4$ asymptotic would require additional distribution information. This weighted budget
+is too coarse to yield the required $2^{-3n/2}$ separation from the known irrationality measure.
 
-Zudilin's
-bound $\mu(E)\le 2.42343562\ldots$ (Math.\ Notes 72 (2002) 858--862; erratum in Acta Arith.\ 111
-(2004) 153--164 revises this to $\mu(E)\le 2.46497868\ldots$) is the best known value, but no future
-improvement in $\mu$ can close this gap, because $\mu\ge 2$ always (a universal lower bound for any
-irrational number), while the exponent shortfall grows like $n$ regardless of which fixed $\mu$ is
-plugged in.
+Zudilin's bound $\mu(E)\le 2.42343562\ldots$ (Math.\ Notes 72 (2002) 858--862; the cited
+erratum gives $2.46497868\ldots$) does not repair this quadratic-versus-linear budget.
 
-\textbf{Scope.} Closes: every attempt to derive the wall from a single-number irrationality-measure
-statement about $C$ (or about $E$), present or future, as long as the measure is a fixed exponent
-independent of $n$. Does not touch: simultaneous or multi-point Diophantine-approximation results
-that could in principle scale with the number of terms (no such result is known to exist for this
-constant, but the exponent-budget argument does not rule out the \emph{possibility} of one — only
-the single-exponent route).
+\textbf{Scope.} The displayed denominator estimate combined with a fixed irrationality-measure
+exponent does not derive the wall. A sharper denominator analysis using the actual skip
+distribution, or a simultaneous approximation theorem with additional structure, is outside this
+calculation and is not excluded.
 \coord{diophantine-approximation}
 
 \textbf{Object or representation.} About the \emph{object}: this is a genuine value-theoretic
@@ -5201,12 +5198,11 @@ via the fatal-gap orbit, not a coordinate artifact. \ev{Lean}\scale{n/a}
 
 \begin{cor}[Only $C_D\in\{-2,-1\}$ remain among the exceptional dyadic cells]
 \label{cor:cd-remaining}
-Combining Proposition~\ref{prop:upper-unconditional} (upper branch: zero exceptional cells, ever)
-with Theorem~\ref{thm:cd-neg3-impossible} ($C_D=-3$ closed, in the final-producer sub-case): of the
-three cells $\{-3,-2,-1\}$ that \textsf{SeamTwoSidedDyadicCellEscape} must in general exclude on the
-middle branch, only $C_D\in\{-2,-1\}$ remain genuinely open. No Lean theorem in the tree at the time
-of writing excludes $C_D=-2$ or $C_D=-1$, in either the final-producer scenario or the general
-induction step.
+Combining Proposition~\ref{prop:upper-unconditional} with Theorem~\ref{thm:cd-neg3-impossible},
+only $C_D\in\{-2,-1\}$ remain in the final-middle-then-all-right scenario. In the unrestricted
+late-middle-row induction, all three cells $\{-3,-2,-1\}$ remain to be excluded unless another
+argument supplies the final-producer premise. No Lean theorem in the tree at the time of writing
+excludes $C_D=-2$ or $C_D=-1$ in either scope.
 \coord{final-producer/landing-excess}\ \ev{Lean}
 \end{cor}
 
@@ -5521,8 +5517,10 @@ equivalently
 \[
 \bigl|\,\mathrm{rem}(r+1)-2^{\,r+1}\,\bigr|\ >\ 2^{(r+5)/2}.
 \]
-Any bound $L_r=o(r)$ suffices. A uniform constant bound is \emph{false}: runs grow like
-$\log_2 r$ (\ev{Cert}, maximal observed run $19$ at row $158{,}096$).
+Any bound $L_r=o(r)$ suffices. In the exact computation through row $200{,}000$, the maximal
+observed run has length $19$, attained at row $158{,}096$ (\ev{Cert}). This finite observation
+rules out smaller bounds on that range only; a global constant bound or asymptotic unboundedness
+requires an additional proof.
 
 \emph{Form (ii), the Lean-facing form already fanned in.}
 \[
@@ -5618,21 +5616,14 @@ theorem strong enough to give anti-concentration of the weighted sum at scale $2
 
 This is the paragraph worth the most, so it is stated as sharply as the evidence permits.
 
-\textbf{The interval is logarithmically short, and every unconditional result for divisor sums in
-short intervals requires the interval to be a power of the modulus.} The window
-$[M+1,M+L]$ has length $L\asymp\log_2 M$. Voronoi-based technology for $\sum_{M<n\le M+H}\tau(n)$
---- including the Kloosterman-refined results of Deshouillers--Iwaniec type and every subsequent
-improvement --- produces an asymptotic only for $H\ge M^{\theta}$ with $\theta>0$ fixed, because
-the dual sum after Voronoi runs to length $\sim M/H$ and the error term is controlled only when
-that dual length is a power saving against $M$.
-
-At $H=\log M$ the dual sum is of length $M/\log M$
-and there is no saving at all: the method returns the trivial bound. This is not a deficiency of
-one paper; it is the reason short-interval divisor problems are stated with power-length windows.
-Technique family (a) is therefore not merely unproved here, it is out of range by an
-\emph{exponential} amount in the window length, and no quantitative improvement in Kloosterman
-bounds changes that, because the obstruction is the length of the dual sum, not the quality of
-its estimate.
+\textbf{Almost-all divisor-sum results can reach polylogarithmic intervals.}  Work of \href{https://arxiv.org/abs/2108.11401}{Mangerel} and
+\href{https://arxiv.org/abs/2401.08432v3}{Sun} includes divisor-bounded multiplicative functions in
+windows of this scale, so a blanket
+power-length exclusion is false.  These theorems still do not directly supply the estimate needed
+here: their starting points are almost-all points, while ours are selected by the actual greedy
+dynamics; their statistic is an ordinary mean, while ours is a dyadically weighted fractional
+part; and our required precision shrinks exponentially in the window parameter.  An application
+would need a quantitative exceptional-set/trajectory argument and control of this weighted phase.
 
 \textbf{The one technology that does reach sub-power windows delivers the wrong quantifier and
 the wrong class of function.} Matom\"aki--Radziwi\l{}\l{} theory shows that a multiplicative
@@ -5945,12 +5936,8 @@ unconditional) the tail at $k^2$ is at most $2\sqrt{k^{2}}+4=2k+4$, and by
 \end{proof}
 \ev{Math}; every input is landed Lean and the composition is four lines.
 
-The point is narrow and entirely technical, which is why it is worth stating: the corpus's
-recorded obstruction to closing (4) and (5) was the mismatch between $\mathtt{Nat.sqrt}$ (in
-$\mathtt{halfStripBound}$) and $\mathtt{Real.sqrt}$ (in the unconditional tail bound), for which
-Mathlib supplies only \texttt{Real.nat\_sqrt\_le\_real\_sqrt}, the wrong direction, and the
-recorded workaround was to widen the strip constant from $4$ to $6$. Restricting the cofinal
-witness depths to perfect squares dissolves the mismatch: at $n=k^{2}$ the two roots coincide
+The former square-root adapter issue is resolved by restricting cofinal witness depths to perfect
+squares: at $n=k^{2}$ the two roots coincide
 exactly and no widening is needed. Applying Lemma~\ref{lem:sqwitness} along $M=k^{2}-1$ gives (4)
 directly; taking $a$ to be the indicator of an achieving support truncated to
 $\mathtt{Fin}(M+1)$ at $M=k^{2}$, and using
@@ -5963,7 +5950,8 @@ $1\notin A$ (forced because $\mathtt{mersenneWeight}\,1=1>1/2$), gives the witne
 Under the standing rule that a reduction is not a result, one might discount R4. That would be a
 mistake, and the reason is the organising thesis of this document. Each biconditional is a
 theorem, not a reduction: it says a named producer socket is \emph{equivalent} to the goal, hence
-permanently not easier, hence removable from the list of things worth attempting directly. Five
+logically equivalent in the stated scope. The equivalence identifies the missing content but does
+not show that the reformulation cannot expose a useful invariant. Five
 such theorems are a systematic elimination, and a systematic elimination is a statement about the
 problem. In particular (3) settles the advertised weakening --- that no compatibility is required
 between witness supports at different endpoints --- as buying nothing: incompatible witnesses do

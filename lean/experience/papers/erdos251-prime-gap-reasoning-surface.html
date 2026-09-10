@@ -278,7 +278,7 @@ Section  records the two denominator floors. Section  proves the four
 obstructions. Section  reports the two finite measurements. Section 
 states the remaining obligation. All declarations linked below are
 checked by the Lean 4 kernel against the pinned Mathlib revision at the
-formal-source commit 1da2a504f8d8, and the pinned sources contain no
+formal-source commit ee650b32b8b2, and the pinned sources contain no
 proof placeholders and no project-defined axioms. The cited system paper
 identifies Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-10">[10]</a></span>,
 while the Mathlib paper documents the library’s historical Lean 3-era
@@ -1105,9 +1105,11 @@ for
 The perturbed series converges and equals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>. ◻</p>
 </div>
-<p>The and its are kernel checked: a property shared by every admissible
-perturbation cannot by itself force irrationality. The construction is
-also checked at the actual consecutive prime gaps for every
+<p>The is kernel checked. The invariant-property consequence—a property
+shared by every admissible perturbation cannot by itself force
+irrationality—is the ordinary logical reading of that construction,
+rather than a separately named Lean theorem. The construction is also
+checked at the actual consecutive prime gaps for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M\ge1</annotation></semantics></math>
 and every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
@@ -1815,7 +1817,7 @@ is checked by the kernel at the pinned commit.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. Proof authority rests in those pinned sources. The
 present text is exposition and navigation.</p>
@@ -1984,7 +1986,7 @@ print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pr
 <section id="long251:app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision 1da2a504f8d8. The summation-by-parts and prime-bound
+revision ee650b32b8b2. The summation-by-parts and prime-bound
 declarations are prime-specific. Section  is stated for arbitrary
 integer digits and arbitrary rational or real orbits, while Section 
 records the actual-gap specialisation. The concrete prime-gap tail, its

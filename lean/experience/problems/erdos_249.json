@@ -550,7 +550,7 @@
     "subject": "Erdős #249",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 9,
+    "pages": 10,
     "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
     "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -574,16 +574,16 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
       "renderer_fingerprint": "dfc4d6626c337fa5",
-      "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
+      "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
       "publication_manifest_match": true,
-      "mathml_node_count": 221,
+      "mathml_node_count": 236,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "119e342bb726074886825108de1a930cbecd3f75d96ff6decb4c48a2ee8b17b3",
-      "html_exact_tex_sha256": "19408f8a6a90179d1e3bb30881f92cfc7dedf9a4d4cc27661fbbe6bbe1b01540"
+      "html_mathml_sha256": "0a49b8fd4b98ca4419e9468efa4f60ed93e61338d2816924c0db8749b94de4ed",
+      "html_exact_tex_sha256": "cf203f69f57e3c8c17d1439f0628a4fea6e78a1edea128deeae95cfbc5398bd9"
     },
     "sections": [
       {
@@ -657,7 +657,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 9,
+      "pages": 10,
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
       "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -681,16 +681,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
+        "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
         "publication_manifest_match": true,
-        "mathml_node_count": 221,
+        "mathml_node_count": 236,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "119e342bb726074886825108de1a930cbecd3f75d96ff6decb4c48a2ee8b17b3",
-        "html_exact_tex_sha256": "19408f8a6a90179d1e3bb30881f92cfc7dedf9a4d4cc27661fbbe6bbe1b01540"
+        "html_mathml_sha256": "0a49b8fd4b98ca4419e9468efa4f60ed93e61338d2816924c0db8749b94de4ed",
+        "html_exact_tex_sha256": "cf203f69f57e3c8c17d1439f0628a4fea6e78a1edea128deeae95cfbc5398bd9"
       },
       "sections": [
         {
@@ -764,7 +764,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 126,
+      "pages": 127,
       "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
       "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -788,10 +788,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
+        "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
         "publication_manifest_match": true,
-        "mathml_node_count": 2869,
-        "raw_math_fallback_count": 4,
+        "mathml_node_count": 2893,
+        "raw_math_fallback_count": 6,
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
@@ -809,6 +809,24 @@
             "^",
             "unexpected control sequence \\small",
             "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+            "\\operatorname{ev}_e:\\mathbb Z^{I_e}\\longrightarrow L_e,",
+            "\\qquad (c_i)\\longmapsto\\sum_{i\\in I_e}c_iF_i.",
+            "$}, rendering as TeX:",
+            "\\adjustbox{max width=\\linewidth}{$\\displ",
+            "^",
+            "unexpected control sequence \\adjustbox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+            "\\ker(\\operatorname{ev}_e)",
+            "=\\bigoplus_{i\\in I_e\\mathbin{\\backslash} J_e}\\mathbb Z R_i,",
+            "\\qquad",
+            "\\operatorname{rank}_{\\mathbb Z}\\ker(\\operatorname{ev}_e)=2^e-2.",
+            "$}, rendering as TeX:",
+            "\\adjustbox{max width=\\linewidth}{$\\displ",
+            "^",
+            "unexpected control sequence \\adjustbox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
             "[WARNING] Could not convert TeX math \\begin{equation}",
             "\\label{eq:mobmers}",
             "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
@@ -821,8 +839,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "55dffa2c8156e1a96a329897229f329046289604ee858a924b274261de7c8eea",
-        "html_exact_tex_sha256": "f08f7b7461cc88b0ea1a8311db7274db35a6e2d5ea6c0cf026cd9c28c4670973"
+        "html_mathml_sha256": "b8cc351554be8ad5afebb2c29570a0bbb12c2b6ffd72c6db44ae8611b3a07754",
+        "html_exact_tex_sha256": "137308d48993fa8b29710dc2eb7ecf506a1a19b738c6233ae847c5d45bfda8a6"
       },
       "sections": [
         {
@@ -1241,6 +1259,11 @@
           "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
         },
         {
+          "level": 5,
+          "anchor": null,
+          "label": "Integral coordinates and the complete relation module."
+        },
+        {
           "level": 3,
           "anchor": null,
           "label": "Further closed routes, catalogued for completeness"
@@ -1601,6 +1624,15 @@
         "direct": true,
         "content_digest": "sha256:9009e37e74b6eaeae2071f6c61779a511fbdb858e9c62588a3c147894f7e789a",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/AdjacentPhaseSeparation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.AllBaseTotientKernel",
+        "label": "Erdos249257.AllBaseTotientKernel",
+        "path": "Erdos249257/AllBaseTotientKernel.lean",
+        "direct": false,
+        "content_digest": "sha256:5862e926deceaf81e0a4aac92a7d09467323fc563cdf3c827f465cb4e9ec5dd5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/AllBaseTotientKernel.lean",
         "role": "Lean proof module"
       },
       {
@@ -3503,6 +3535,33 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR7.KernelIntegral",
+        "label": "ErdosProblems.Erdos249.PaperCompleteR7.KernelIntegral",
+        "path": "ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean",
+        "direct": true,
+        "content_digest": "sha256:7e6260206db9907976f95ce347229965f585f7e3c517da8b13ad074e501c9268",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.KernelRelationBasis",
+        "label": "ErdosProblems.Erdos249.PaperCompleteR8.KernelRelationBasis",
+        "path": "ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean",
+        "direct": true,
+        "content_digest": "sha256:3bdc0a97c931c8ceca6e5f46e5b9d013b0fb50505bfda05f8cc512f66a4a0dbd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.UnitPivotBasis",
+        "label": "ErdosProblems.Erdos249.PaperCompleteR8.UnitPivotBasis",
+        "path": "ErdosProblems/Erdos249/PaperCompleteR8/UnitPivotBasis.lean",
+        "direct": true,
+        "content_digest": "sha256:e11b92bf486db8d8d8059931bdf3a1424278071b74d4f590e4231902ee020965",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/PaperCompleteR8/UnitPivotBasis.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos249.PeriodMultipleEscape",
         "label": "ErdosProblems.Erdos249.PeriodMultipleEscape",
         "path": "ErdosProblems/Erdos249/PeriodMultipleEscape.lean",
@@ -3546,6 +3605,60 @@
         "content_digest": "sha256:d1c192d9ea692136eb58382e87fba2fdc61372de70dd7213c6fc083efbf2c09b",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
         "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.Audit",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.Audit",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/Audit.lean",
+        "direct": true,
+        "content_digest": "sha256:4ed0d38002cb732795cbb7d6d3eb54c9872faca5db417ed06b0a493c09082abe",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/Audit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.CenteringCounterexample",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.CenteringCounterexample",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/CenteringCounterexample.lean",
+        "direct": true,
+        "content_digest": "sha256:7472ff5352c65939b1e2c4a14143b223ba3d96b7a70dc3dd975721c448574a90",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/CenteringCounterexample.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteArithmetic",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.FiniteArithmetic",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/FiniteArithmetic.lean",
+        "direct": true,
+        "content_digest": "sha256:eba862f5a0376e1a5e570f8b697ed5523de378eeea852bde618b805dcabee38c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/FiniteArithmetic.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteFirstHarmonic",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.FiniteFirstHarmonic",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/FiniteFirstHarmonic.lean",
+        "direct": true,
+        "content_digest": "sha256:c789b97e20ac1f3cc4fb43bbdb618ea40d514693feafb4c03893a6fb18659451",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/FiniteFirstHarmonic.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralAssembly",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.PeripheralAssembly",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/PeripheralAssembly.lean",
+        "direct": true,
+        "content_digest": "sha256:93d6deb7a838ec2205440c35f8f0e26408445a99f14085cfbbbb35145ee6042f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralAssembly.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralFiniteBridge",
+        "label": "ErdosProblems.Erdos249.TypeBReturnV8.PeripheralFiniteBridge",
+        "path": "ErdosProblems/Erdos249/TypeBReturnV8/PeripheralFiniteBridge.lean",
+        "direct": true,
+        "content_digest": "sha256:a4dadada3be2b7d76d06e22348682b1532283d0e21e98630fc9c2608f70d91fb",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralFiniteBridge.lean",
+        "role": "Lean proof module"
       }
     ],
     "edges": [
@@ -3568,6 +3681,14 @@
       {
         "source": "lean-module:Erdos249257.AdjacentPhaseSeparation",
         "target": "lean-module:Erdos249257.FirstHarmonicPivot"
+      },
+      {
+        "source": "lean-module:Erdos249257.AllBaseTotientKernel",
+        "target": "lean-module:Erdos249257.TotientKernelConditional"
+      },
+      {
+        "source": "lean-module:Erdos249257.AllBaseTotientKernel",
+        "target": "lean-module:Erdos249257.TotientMahlerDefect"
       },
       {
         "source": "lean-module:Erdos249257.CarrySurvivorExtinction",
@@ -5130,6 +5251,18 @@
         "target": "lean-module:Erdos249257.LcmConeNonflat"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR7.KernelIntegral",
+        "target": "lean-module:Erdos249257.AllBaseTotientKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.KernelRelationBasis",
+        "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR7.KernelIntegral"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.KernelRelationBasis",
+        "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.UnitPivotBasis"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos249.PeriodMultipleEscape",
         "target": "lean-module:Erdos249257.LcmConeFlatness"
       },
@@ -5156,6 +5289,34 @@
       {
         "source": "lean-module:ErdosProblems.Erdos249.TotientStrictPrimeEscape",
         "target": "lean-module:Erdos249257.PivotAntiReconstruction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.Audit",
+        "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.CenteringCounterexample"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.Audit",
+        "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteFirstHarmonic"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.Audit",
+        "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteArithmetic",
+        "target": "lean-module:Erdos249257.FirstHarmonicPivot"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteFirstHarmonic",
+        "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteArithmetic"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralAssembly",
+        "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralFiniteBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralFiniteBridge",
+        "target": "lean-module:Erdos249257.FirstHarmonicPivot"
       }
     ]
   },

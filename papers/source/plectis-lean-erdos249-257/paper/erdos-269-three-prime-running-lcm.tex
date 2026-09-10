@@ -228,8 +228,10 @@ $L_{p,q}(t)=p^{\lfloor\log_p t\rfloor}q^{\lfloor\log_q t\rfloor}$.
 Prime-power divisibility identifies this product with the running LCM.
 Let $\mathcal R_{p,q}$ retain every smooth-number multiplicity, and let
 $\mathcal D_{p,q}$ retain the initial value and one reciprocal at each
-positive pure-power jump.  The following argument is due to
-Fan~\cite{fan2026comment}.
+positive pure-power jump.  Fan's argument gives the repeated two-prime factorisation and its quadratic
+reduction to a single Hecke--Mahler value.  The same boundary-channel
+calculation also yields the de-duplicated affine formula displayed below
+\cite{fan2026comment}.
 
 \begin{theorem}[both two-prime sums]
 \label{res:two-prime-transcendence}
@@ -273,7 +275,8 @@ $F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k$, geometric summation gives
 \begin{equation}\label{eq:hecke-mahler-boundary}
  A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}
-Bugeaud and Laurent's Theorem~1.1 applies to these nonzero algebraic $x,y$:
+Bugeaud and Laurent's Theorem~1.1 applies to these nonzero algebraic $x,y$
+\cite[authors' Online First PDF, p.~3]{bugeaudlaurent2023}:
 $|x|<1$ and $|xy^\theta|=p^{-2}<1$; the zero-shift case goes back to
 Loxton and van der Poorten
 \cite{bugeaudlaurent2023,loxtonvdp1977}.  Thus $A$ is transcendental.
@@ -495,7 +498,7 @@ Prove the displayed quantifier order
  \forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
  \exists\ell\ge a_0\ \exists h\ge1:\quad
  \operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
-   >K^{235}(B,\ell+h).
+   >K(B,\ell+h).
 \]
 \end{problem}
 \begin{problem}[function-faithful two-dimensional representation]
@@ -533,7 +536,9 @@ The finite cut-rank argument and the modular corollary are proved above;
 no additional formal verification claim is made for the latter.
 
 \paragraph{Artefact and data availability.}
-The \href{\sourceurl}{pinned source revision} is \commitshort.
+Each source link is pinned to its own immutable revision.  The exact-reference
+inventory records those revisions and their bytewise comparison with the
+current public source commit.
 The extended reasoning record and the accompanying source retain the
 detailed shell bounds, finite experiments and alternative representations
 with their exact hypotheses.  Supplied later-source labels and public links remain separate
@@ -547,7 +552,7 @@ Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
 
-The public snapshot used by this note is recorded by the following source links.
+The formal sources are recorded by the following per-link immutable revisions.
 
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{31}{smooth3Val},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{36}{threePrimeHeight},
@@ -788,9 +793,10 @@ obstruction}.
   Hecke--Mahler series}, Acta Arith. \textbf{209} (2023), 59--90,
   doi:10.4064/aa220323-18-1;
   \href{https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf}
-  {authors' publisher-layout PDF},
+  {authors' Online First PDF},
   \href{https://arxiv.org/abs/2203.12901}{arXiv:2203.12901v1}.
-  Theorem~1.1 is on journal p.~61 (publisher-layout PDF p.~3); the authors
+  Theorem~1.1 is on p.~3 of the inspected Online First PDF; the journal
+  publication is pp.~59--90.  The authors
   note there that its $\rho=0$ case was already obtained by Loxton and van
   der Poorten.
 \bibitem{loxtonvdp1977} J.~H. Loxton and A.~J. van der Poorten,
@@ -803,5 +809,7 @@ obstruction}.
   transcendence conclusion for $|P|=2$; follow-up comments there note the
   extension to arbitrary coprime pairs.
 \end{thebibliography}
+
+\companionpapercontext
 
 \end{document}

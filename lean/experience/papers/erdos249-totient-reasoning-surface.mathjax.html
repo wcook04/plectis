@@ -6948,6 +6948,66 @@ class="sans-serif">scale:uniform</span></span> (holds for every <span
 class="math inline">\(e\)</span>; existence side is unconditional, via
 Mathlib’s CRT + primes-in-AP machinery) <code>coord:binary-digit</code>
 (dyadic totient-kernel — <em>not</em> the Möbius coordinate).</p>
+<section id="integral-coordinates-and-the-complete-relation-module."
+class="level5">
+<h5>Integral coordinates and the complete relation module.</h5>
+<p>The independence statement also determines the arithmetic of the
+channel lattice. Fix <span class="math inline">\(e\ge1\)</span>, write
+<span class="math inline">\(F_{j,r}(n)=\varphi(2^j n+r)\)</span>, and
+let <span class="math inline">\(I_e=\{(j,r):0\le j\le e,\ 0\le
+r&lt;2^j\}\)</span>. Retain <span
+class="math inline">\(F_{0,0}\)</span>, <span
+class="math inline">\(F_{1,0}\)</span>, and the odd-residue channels at
+levels <span class="math inline">\(1,\ldots,e\)</span>; call this
+retained index set <span class="math inline">\(J_e\)</span>. The totient
+identities reduce every omitted channel to <span
+class="math inline">\(F_i=a_iF_{j(i)}\)</span> for a retained channel
+<span class="math inline">\(j(i)\)</span> and an integer <span
+class="math inline">\(a_i\ge0\)</span>. Thus the retained family
+generates the lattice <span class="math inline">\(L_e=\sum_{i\in
+I_e}\mathbb Z F_i\)</span>. Its rational independence gives integer
+independence as well: every element of <span
+class="math inline">\(L_e\)</span> has unique integer coordinates in
+these <span class="math inline">\(2^e+1\)</span> retained channels.</p>
+<p>To describe <em>all</em> integral relations, let <span
+class="math inline">\(E_i\)</span> denote the formal coordinate vector
+in <span class="math inline">\(\mathbb Z^{I_e}\)</span> and use the
+evaluation map <span class="math display">\[\adjustbox{max
+width=\linewidth}{$\displaystyle
+\operatorname{ev}_e:\mathbb Z^{I_e}\longrightarrow L_e,
+\qquad (c_i)\longmapsto\sum_{i\in I_e}c_iF_i.
+$}\]</span> For each omitted index put <span
+class="math inline">\(R_i=E_i-a_iE_{j(i)}\)</span>. Then <span
+class="math display">\[\adjustbox{max width=\linewidth}{$\displaystyle
+\ker(\operatorname{ev}_e)
+   =\bigoplus_{i\in I_e\mathbin{\backslash} J_e}\mathbb Z R_i,
+\qquad
+\operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
+$}\]</span> Indeed, subtracting <span
+class="math inline">\(\sum_{i\notin J_e}c_iR_i\)</span> from a relation
+removes all omitted coordinates. The remainder is a relation among
+retained channels, so independence makes it zero. Conversely, the
+coefficient of <span class="math inline">\(E_i\)</span> in <span
+class="math inline">\(\sum_{h\notin J_e}b_hR_h\)</span> is exactly <span
+class="math inline">\(b_i\)</span>, proving uniqueness. The decisive
+feature is the unit pivot <span class="math inline">\(1\)</span> in each
+omitted coordinate (or <span class="math inline">\(-1\)</span> if a
+relation is oriented oppositely). Elimination uses no division; it
+therefore identifies the integral relation lattice, not merely its
+rational span. The depth-two example in the short note illustrates these
+two-term rows.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean#L398">integral
+normal form</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L156">full
+dyadic rational basis</a> are kernel-checked in Lean. The formal
+statement gives the same construction for every integer base <span
+class="math inline">\(k\ge2\)</span>, with relation rank <span
+class="math inline">\(\sum_{j=1}^{e-1}k^j\)</span>. The full dyadic
+assembly separately gives a basis for the infinite rational span and for
+its finitely supported rational relations. These finite and infinite
+statements should not be confused with a claim about infinite sums of
+relations.</p>
 <p><strong>(c) Precise scope — coordinate-relative, stated explicitly by
 the source module.</strong> This does <em>not</em> show irrationality of
 <span class="math inline">\(S\)</span>. It proves the dyadic-kernel
@@ -6988,6 +7048,7 @@ problem (e.g. testing independence of Mersenne-indexed sequences for
 evaluation-forcing technique (make one channel prime, force every other
 channel through a fresh arithmetic-progression prime) is a reusable
 construction pattern independent of the totient specifics.</p>
+</section>
 </section>
 <section id="further-closed-routes-catalogued-for-completeness"
 class="level3">

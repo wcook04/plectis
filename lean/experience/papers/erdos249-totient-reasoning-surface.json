@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 126,
+  "pages": 127,
   "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
   "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
     "renderer_fingerprint": "dfc4d6626c337fa5",
-    "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
+    "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
     "publication_manifest_match": true,
-    "mathml_node_count": 2869,
-    "raw_math_fallback_count": 4,
+    "mathml_node_count": 2893,
+    "raw_math_fallback_count": 6,
     "warnings": {
       "mathml": [
         "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
@@ -50,6 +50,24 @@
         "^",
         "unexpected control sequence \\small",
         "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+        "\\operatorname{ev}_e:\\mathbb Z^{I_e}\\longrightarrow L_e,",
+        "\\qquad (c_i)\\longmapsto\\sum_{i\\in I_e}c_iF_i.",
+        "$}, rendering as TeX:",
+        "\\adjustbox{max width=\\linewidth}{$\\displ",
+        "^",
+        "unexpected control sequence \\adjustbox",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+        "\\ker(\\operatorname{ev}_e)",
+        "=\\bigoplus_{i\\in I_e\\mathbin{\\backslash} J_e}\\mathbb Z R_i,",
+        "\\qquad",
+        "\\operatorname{rank}_{\\mathbb Z}\\ker(\\operatorname{ev}_e)=2^e-2.",
+        "$}, rendering as TeX:",
+        "\\adjustbox{max width=\\linewidth}{$\\displ",
+        "^",
+        "unexpected control sequence \\adjustbox",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
         "[WARNING] Could not convert TeX math \\begin{equation}",
         "\\label{eq:mobmers}",
         "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
@@ -62,8 +80,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "55dffa2c8156e1a96a329897229f329046289604ee858a924b274261de7c8eea",
-    "html_exact_tex_sha256": "f08f7b7461cc88b0ea1a8311db7274db35a6e2d5ea6c0cf026cd9c28c4670973"
+    "html_mathml_sha256": "b8cc351554be8ad5afebb2c29570a0bbb12c2b6ffd72c6db44ae8611b3a07754",
+    "html_exact_tex_sha256": "137308d48993fa8b29710dc2eb7ecf506a1a19b738c6233ae847c5d45bfda8a6"
   },
   "sections": [
     {
@@ -480,6 +498,11 @@
       "level": 3,
       "anchor": null,
       "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
+    },
+    {
+      "level": 5,
+      "anchor": null,
+      "label": "Integral coordinates and the complete relation module."
     },
     {
       "level": 3,

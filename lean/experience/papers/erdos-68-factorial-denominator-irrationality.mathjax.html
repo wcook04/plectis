@@ -359,9 +359,16 @@ give <span class="math display">\[\log L_N\ge\sum_{n=N-k+1}^N\log(n!-1)
 class="math inline">\(k=\lfloor\alpha\sqrt N\rfloor\)</span> gives
 leading coefficient <span
 class="math inline">\(\alpha-\alpha^3/6\)</span>, maximised by <span
-class="math inline">\(\alpha=\sqrt2\)</span>. The same argument applies
-to every fixed nonzero polynomial perturbation <span
-class="math inline">\(n!+P(n)\)</span>, using <span
+class="math inline">\(\alpha=\sqrt2\)</span>. For a fixed <span
+class="math inline">\(P\in\mathbb Z[X]\setminus\{0\}\)</span>, the same
+ordinary argument gives this bound for <span
+class="math inline">\(\operatorname{lcm}_{n_0\le n\le
+N}(n!+P(n))\)</span>, where <span class="math inline">\(n_0\)</span> is
+sufficiently large that all factors are positive and the collision
+differences below are nonzero, as in Lai’s Lemma 2.1 <span
+class="citation" data-cites="lai"></span>. The lower cutoff matters:
+<span class="math inline">\(P=-2\)</span> makes the factor at <span
+class="math inline">\(n=2\)</span> vanish. The argument uses <span
 class="math display">\[\gcd(i!+P(i),j!+P(j))\mid
 P(j)-(j!/i!)P(i);\]</span> the additional <span
 class="math inline">\(O_P(k^2\log N)\)</span> loss is lower order. The

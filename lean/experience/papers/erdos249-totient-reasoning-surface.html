@@ -7824,6 +7824,84 @@ class="sans-serif">scale:uniform</span></span> (holds for every
 existence side is unconditional, via Mathlib’s CRT + primes-in-AP
 machinery) <code>coord:binary-digit</code> (dyadic totient-kernel — the
 Möbius coordinate).</p>
+<section id="integral-coordinates-and-the-complete-relation-module."
+class="level5">
+<h5>Integral coordinates and the complete relation module.</h5>
+<p>The independence statement also determines the arithmetic of the
+channel lattice. Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>,
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_{j,r}(n)=\varphi(2^j n+r)</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>e</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mn>0</mn><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>e</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">I_e=\{(j,r):0\le j\le e,\ 0\le r&lt;2^j\}</annotation></semantics></math>.
+Retain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">F_{0,0}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">F_{1,0}</annotation></semantics></math>,
+and the odd-residue channels at levels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">1,\ldots,e</annotation></semantics></math>;
+call this retained index set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>J</mi><mi>e</mi></msub><annotation encoding="application/x-tex">J_e</annotation></semantics></math>.
+The totient identities reduce every omitted channel to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>F</mi><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">F_i=a_iF_{j(i)}</annotation></semantics></math>
+for a retained channel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j(i)</annotation></semantics></math>
+and an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_i\ge0</annotation></semantics></math>.
+Thus the retained family generates the lattice
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>e</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><msub><mi>I</mi><mi>e</mi></msub></mrow></msub><mi mathvariant="double-struck">ℤ</mi><msub><mi>F</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">L_e=\sum_{i\in I_e}\mathbb Z F_i</annotation></semantics></math>.
+Its rational independence gives integer independence as well: every
+element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>e</mi></msub><annotation encoding="application/x-tex">L_e</annotation></semantics></math>
+has unique integer coordinates in these
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e+1</annotation></semantics></math>
+retained channels.</p>
+<p>To describe integral relations, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>i</mi></msub><annotation encoding="application/x-tex">E_i</annotation></semantics></math>
+denote the formal coordinate vector in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℤ</mi><msub><mi>I</mi><mi>e</mi></msub></msup><annotation encoding="application/x-tex">\mathbb Z^{I_e}</annotation></semantics></math>
+and use the evaluation map <span class="math display">$$\adjustbox{max
+width=\linewidth}{$\displaystyle
+\operatorname{ev}_e:\mathbb Z^{I_e}\longrightarrow L_e,
+\qquad (c_i)\longmapsto\sum_{i\in I_e}c_iF_i.
+$}$$</span> For each omitted index put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>=</mo><msub><mi>E</mi><mi>i</mi></msub><mo>−</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>E</mi><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">R_i=E_i-a_iE_{j(i)}</annotation></semantics></math>.
+Then <span class="math display">$$\adjustbox{max
+width=\linewidth}{$\displaystyle
+\ker(\operatorname{ev}_e)
+   =\bigoplus_{i\in I_e\mathbin{\backslash} J_e}\mathbb Z R_i,
+\qquad
+\operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
+$}$$</span> Indeed, subtracting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>i</mi><mo>∉</mo><msub><mi>J</mi><mi>e</mi></msub></mrow></msub><msub><mi>c</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i\notin J_e}c_iR_i</annotation></semantics></math>
+from a relation removes all omitted coordinates. The remainder is a
+relation among retained channels, so independence makes it zero.
+Conversely, the coefficient of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>i</mi></msub><annotation encoding="application/x-tex">E_i</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>h</mi><mo>∉</mo><msub><mi>J</mi><mi>e</mi></msub></mrow></msub><msub><mi>b</mi><mi>h</mi></msub><msub><mi>R</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{h\notin J_e}b_hR_h</annotation></semantics></math>
+is exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>i</mi></msub><annotation encoding="application/x-tex">b_i</annotation></semantics></math>,
+proving uniqueness. The decisive feature is the unit pivot
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+in each omitted coordinate (or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
+if a relation is oriented oppositely). Elimination uses no division; it
+therefore identifies the integral relation lattice, not merely its
+rational span. The depth-two example in the short note illustrates these
+two-term rows.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean#L398">integral
+normal form</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L156">full
+dyadic rational basis</a> are kernel-checked in Lean. The formal
+statement gives the same construction for every integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>,
+with relation rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>e</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{e-1}k^j</annotation></semantics></math>.
+The full dyadic assembly separately gives a basis for the infinite
+rational span and for its finitely supported rational relations. These
+finite and infinite statements should not be confused with a claim about
+infinite sums of relations.</p>
 <p><strong>(c) Precise scope — coordinate-relative, stated explicitly by
 the source module.</strong> This does show irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
@@ -7871,6 +7949,7 @@ problem (e.g. testing independence of Mersenne-indexed sequences for
 evaluation-forcing technique (make one channel prime, force every other
 channel through a fresh arithmetic-progression prime) is a reusable
 construction pattern independent of the totient specifics.</p>
+</section>
 </section>
 <section id="further-closed-routes-catalogued-for-completeness"
 class="level3">

@@ -9,11 +9,18 @@
 <section id="results-and-limits" class="level1">
 <h1>Results and limits</h1>
 <p>This repository formalises finite results, reductions, equivalences,
-and obstructions related to eight open Erdős problems — #68, #243, #249,
-#251, #257, #269, #1041, and #1049. Each problem has an individual
-canonical paper; the retired combined #249/#257 manuscript is
-archive/provenance only, not a current gateway. Nothing here solves any
-of the eight.</p>
+and obstructions related to eight open Erdős problems — <a
+href="https://www.erdosproblems.com/68">#68</a>, <a
+href="https://www.erdosproblems.com/243">#243</a>, <a
+href="https://www.erdosproblems.com/249">#249</a>, <a
+href="https://www.erdosproblems.com/251">#251</a>, <a
+href="https://www.erdosproblems.com/257">#257</a>, <a
+href="https://www.erdosproblems.com/269">#269</a>, <a
+href="https://www.erdosproblems.com/1041">#1041</a>, and <a
+href="https://www.erdosproblems.com/1049">#1049</a>. Each problem has a
+short paper and a longer reasoning record; the retired combined
+#249/#257 manuscript is archive/provenance only, not a current gateway.
+Nothing here solves any of the eight.</p>
 <p>Lean source checked by the pinned Lean kernel is proof authority. The
 audit log reports the headline declarations below with kernel
 assumptions <code>[propext, Classical.choice, Quot.sound]</code>. A
@@ -39,48 +46,62 @@ missing cofinal producers are stated explicitly. The library also proves
 no-go results showing why fixed precision, quotient periodicity, or
 coefficient structure alone cannot supply the conclusion.</p>
 <p>The remaining programmes have narrower but exact outcomes: Problem 68
-is reduced to a cofinal carry condition; Problem 243 has conditional
-recovery criteria for its centred error dynamics; Problem 251 has exact
-prime-gap and tail-shift reformulations; Problem 269 has three-prime
-running-LCM cell, height, and carry structure; Problem 1041 has local
-Newton-flow, ray-separation, and root-retention results; and Problem
-1049 has an exact rational-base tail recurrence together with finite
-Padé-model obstructions. None closes its Erdős problem.</p>
+is equivalent to a cofinal carry condition; Problem 243 has eventual
+Sylvester recurrence under a bounded or summable negative error; Problem
+251 has the prime-gap identity and a tail-shift equivalence; Problem 269
+has three-prime height and kernel-minor identities; Problem 1041 has
+local Newton-flow and ray-separation results; and Problem 1049 has an
+exact rational-base tail recurrence together with a checked height
+region. None closes its Erdős problem.</p>
 <section id="problem-by-problem-guide" class="level3">
 <h3>Problem-by-problem guide</h3>
-<p><strong>Problem 68.</strong> The library proves an exact equivalence
-between irrationality and cofinally many non-unit factorial carries,
-together with finite channel obstructions. It does not produce the
-required cofinal carries.</p>
-<p><strong>Problem 243.</strong> Descent and recovery theorems control
-bounded or summably small negative centred error under the displayed
-dynamics. The unbounded mixed-sign regime and the original endpoint
-remain open.</p>
-<p><strong>Problem 249.</strong> The checked results include exact
-dyadic-kernel rank, finite denominator exclusions, conditional
-actual-LCM and harmonic-pivot routes, and scoped no-go theorems. No
-cofinal producer reaching irrationality is proved.</p>
-<p><strong>Problem 251.</strong> The library gives a prime/prime-gap
-equivalence, tail-shift classifications, and a coefficient-only
-countermodel boundary. A prime-specific cofinal tail witness is still
-missing.</p>
-<p><strong>Problem 257.</strong> The corpus contains full-support and
-structured-support irrationality theorems, eventually-periodic
-coefficient results, achievement-set geometry, and exact half-value
-classifications. Irrationality for every infinite support and the
+<p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
+Irrationality of <code>∑ 1/(n!−1)</code> is equivalent to cofinally many
+non-unit factorial carries, with finite channel obstructions. The
+cofinal carries are not produced.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/243">#243</a>.</strong> After
+Koizumi’s normalised vanishing, a bounded or summably small negative
+centred error forces eventual Sylvester recurrence. The unbounded
+mixed-sign regime and the original endpoint remain open.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/249">#249</a>.</strong> Exact
+dyadic-kernel rank <code>2^e + 1</code>, denominator exclusion to about
+<code>7.96 × 10³⁴</code>, diagonal certificates through
+<code>t ≤ 82</code>, conditional actual-LCM and harmonic-pivot routes,
+and scoped no-go theorems. No cofinal producer reaching irrationality is
+proved.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/251">#251</a>.</strong> The prime
+series equals the gap series; irrationality is equivalent to cofinal
+non-integral tail shifts, with a coefficient-only countermodel boundary.
+A prime-specific cofinal tail witness is still missing.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/257">#257</a>.</strong> Full-support
+irrationality in every integer base <code>b ≥ 2</code>,
+structured-support theorems under summability, eventually-periodic
+coefficient results, and Lebesgue measure one for the base-2 Mersenne
+achievement set. Irrationality for every infinite support and the
 <code>1/2</code> and <code>1/21</code> branches remain open.</p>
-<p><strong>Problem 269.</strong> Exact three-prime LCM cell geometry,
-height identities, a rank obstruction, and conditional carry observers
-are checked. The actual-series carry bridge and a cofinal residue-window
-producer are open.</p>
-<p><strong>Problem 1041.</strong> The formal development covers
-Newton-flow value decay under stated hypotheses, finite ray separation,
-translation avoidance, and perturbative root retention. The global
-topology and metric gluing needed for a short curve remain open.</p>
-<p><strong>Problem 1049.</strong> The library proves the rational-base
-tail recurrence and sharp obstructions for specific finite Padé and
-Hermite–Padé models. It does not construct approximants with analytic
-remainder control, including for the base <code>3/2</code> case.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/269">#269</a>.</strong> Three-prime
+height identity, nonsingular kernel minors, the <code>(2,3,5)</code>
+minor <code>-1/15</code>, and conditional carry observers. The two-prime
+transcendence argument is Steve Fan’s (26 June 2026) and is not a Lean
+theorem. The actual-series carry bridge and three-prime irrationality
+remain open.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/1041">#1041</a>.</strong>
+Newton-flow value decay under stated hypotheses, arbitrarily small
+translations that separate ray arguments, and perturbative root
+retention. A length-<code>&lt;2</code> curve and the hub that would make
+one remain open.</p>
+<p><strong><a
+href="https://www.erdosproblems.com/1049">#1049</a>.</strong> Exact
+rational-base tail recurrence, sharp Hankel order, a checked height
+region that includes <code>31/4</code>, and finite Padé / four-jet
+obstructions. It does not prove irrationality at <code>3/2</code> or
+construct approximants with analytic remainder control.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
@@ -383,15 +404,15 @@ indexed Erdős problem:</p>
 <td>mechanically nonrecurring candidates</td>
 <td class="ta-r">0</td>
 <td class="ta-r">3</td>
-<td class="ta-r">89</td>
+<td class="ta-r">90</td>
 <td class="ta-r">0</td>
 <td class="ta-r">168</td>
 <td class="ta-r">0</td>
 <td class="ta-r">0</td>
 <td class="ta-r">5</td>
 <td class="ta-r">0</td>
-<td class="ta-r">19</td>
-<td class="ta-r">284</td>
+<td class="ta-r">20</td>
+<td class="ta-r">286</td>
 </tr>
 <tr>
 <td>classical/prior-art formalisations</td>
@@ -423,13 +444,13 @@ indexed Erdős problem:</p>
 </tr>
 </tbody>
 </table>
-<p>The nonrecurring view contains 183 unconditional object theorems, 55
+<p>The nonrecurring view contains 184 unconditional object theorems, 56
 scoped barriers, and 46 reductions or transports after aliases, open
 antecedents, bare equivalences, finite/generated instances,
 infrastructure, classical results, and routine corollaries are
 removed.</p>
 <p>The internal adjudicated frontier shortlist contains 11 nodes; it is
-distinct from the 8-node public prior-art review queue. 229 nonrecurring
+distinct from the 8-node public prior-art review queue. 231 nonrecurring
 candidates remain unassessed for prior art. The live authored
 open-antecedent surface has 52 clusters, of which 10 are marked
 endpoint-equivalent. None of these populations is a novelty census.</p>

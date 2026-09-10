@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
     "renderer_fingerprint": "dfc4d6626c337fa5",
-    "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
+    "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
     "publication_manifest_match": true,
     "mathml_node_count": 337,
     "raw_math_fallback_count": 0,

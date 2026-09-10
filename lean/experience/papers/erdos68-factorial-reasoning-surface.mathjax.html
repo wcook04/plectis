@@ -56,10 +56,12 @@ class="math inline">\(e\)</span>. A zero residue gives <span
 class="math inline">\(v_p(\operatorname{den}(H_M))&lt;e\)</span>, and
 further congruences are needed to determine the surviving exponent. The
 proof uses no property of factorials beyond the displayed denominators,
-so it applies to any finite sum of reciprocals; its general antecedent
-is unassessed. What is specific here is the behaviour of the actual
-family <span class="math inline">\(d_n=n!-1\)</span>, and that behaviour
-is not generic.</p>
+so it applies to any finite sum of reciprocals. It is the first
+valuation layer of the reciprocal-sum formula of Louwsma and Martino
+<span class="citation" data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. What is
+specific here is the behaviour of the actual family <span
+class="math inline">\(d_n=n!-1\)</span>, and that behaviour is not
+generic.</p>
 <section id="two-complete-cancellations." class="level5">
 <h5>Two complete cancellations.</h5>
 <p>Take <span class="math inline">\(M=p-1\)</span>. The indices below
@@ -148,7 +150,7 @@ class="math inline">\(q\mid n!-1\)</span>, the identity <span
 class="math inline">\((q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q\)</span> gives
 a second hit at <span class="math inline">\(q-n-1\)</span>. The
 reflection identity is classical; see Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-6">[6]</a></span>.</p>
+data-cites="stewart2004"><a href="#ref-7">[7]</a></span>.</p>
 </section>
 </section>
 <section id="long68:sec:lcm" class="level2">
@@ -238,10 +240,13 @@ class="math inline">\(\ref{long68:res:gap-gcd}\)</span>, and it needs no
 factorial-congruence multiplicity theorem. A weaker exponent <span
 class="math inline">\(4/3\)</span> follows instead from Theorem 12 of
 Garaev, Luca and Shparlinski <span class="citation"
-data-cites="garaev-luca-shparlinski"><a href="#ref-5">[5]</a></span>, which bounds by <span
+data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span>, which bounds by <span
 class="math inline">\(O(N^{2/3})\)</span> the number of solutions of
-<span class="math inline">\(n!\equiv a\pmod r\)</span> in an interval of
-length <span class="math inline">\(N&lt;r\)</span>; that deduction is
+<span class="math inline">\(n!\equiv a\pmod r\)</span> with <span
+class="math inline">\(r\)</span> prime, <span
+class="math inline">\(a\not\equiv0\pmod r\)</span>, and <span
+class="math inline">\(H+1\le n\le H+N\)</span> where <span
+class="math inline">\(0\le H&lt;H+N&lt;r\)</span>; that deduction is
 recorded in the complete reasoning record and is superseded here. No
 antecedent for a lower bound on the least common multiple of the numbers
 <span class="math inline">\(n!-1\)</span> was located, and the searches
@@ -378,7 +383,7 @@ m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}\)</span>, and <span
 class="math inline">\(x\)</span> is rational exactly when they vanish
 from some index on. That criterion is due to Cantor <span
 class="citation" data-cites="cantor1869"></span> and is recorded in
-Galambos <span class="citation" data-cites="galambos1976"><a href="#ref-4">[4]</a></span>.</p>
+Galambos <span class="citation" data-cites="galambos1976"><a href="#ref-5">[5]</a></span>.</p>
 <p></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span
@@ -979,7 +984,7 @@ unweighted count of collisions does not establish <span
 class="math inline">\(\eqref{long68:eq:weighted-target}\)</span>, and
 reflected hits may not be discarded, since Wilson reflection produces
 genuine collision primes. Theorem 12 of Garaev, Luca and Shparlinski
-<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-5">[5]</a></span> is a
+<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span> is a
 multiplicity bound and supplies no lower bound for the complementary
 residue in <span
 class="math inline">\(\eqref{long68:eq:global-scale}\)</span>.</p>
@@ -1106,7 +1111,7 @@ class="math inline">\(u_n=n!-1\)</span>, and his all-positive
 specialisation additionally requires <span
 class="math inline">\(\sum_n|u_{n+1}/u_n^2-1|&lt;\infty\)</span>, whose
 summands tend to one here <span class="citation"
-data-cites="duverney"><a href="#ref-8">[8]</a></span>. The theorem of Barreto, Kang, Kim, Kovač
+data-cites="duverney"><a href="#ref-9">[9]</a></span>. The theorem of Barreto, Kang, Kim, Kovač
 and Zhang proves irrationality of <span
 class="math inline">\(\sum_n1/a_n\)</span> under a rapid-growth
 hypothesis that fails for <span class="math inline">\(a_n=n!-1\)</span>,
@@ -1236,17 +1241,19 @@ class="math inline">\(\eqref{long68:eq:doubled-prime}\)</span></td>
 </div>
 <p>Attribution. Wilson’s theorem and the Wilson reflection identity are
 classical, the latter recorded by Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-6">[6]</a></span>. The factorial-digit termination
+data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The factorial-digit termination
 criterion is Cantor’s <span class="citation"
-data-cites="cantor1869"><a href="#ref-3">[3]</a></span>, in the form recorded by Galambos <span
+data-cites="cantor1869"><a href="#ref-4">[4]</a></span>, in the form recorded by Galambos <span
 class="citation" data-cites="galambos1976"></span>; the additions here
 are the telescope <span class="math inline">\(C=S-e+2\)</span>, the
 identification of the digit value <span
 class="math inline">\(m-2\)</span>, and the transport to the shifted
 family. The multiplicity bound is Garaev, Luca and Shparlinski’s <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, and the
-lcm deduction from it is not theirs. For the survival criterion, the
-Wilson cofinality packaging, the finite radius bound and Theorem <span
+lcm deduction from it is not theirs. The survival criterion is a
+specialisation of Louwsma and Martino’s valuation formula <span
+class="citation" data-cites="louwsma-martino"></span>. For the Wilson
+cofinality packaging, the finite radius bound and Theorem <span
 class="math inline">\(\ref{long68:res:lcm-growth}\)</span>, no
 antecedent was located, which is a negative search result, and no
 priority is claimed.</p>
@@ -1371,7 +1378,7 @@ done.</p>
 <p>Koepf and Schmersau prove that eventual equality between the floors
 of <span class="math inline">\(n\)</span> times a partial sum and <span
 class="math inline">\(n\)</span> times its limit forces irrationality
-<span class="citation" data-cites="koepf-schmersau"><a href="#ref-7">[7]</a></span>; their
+<span class="citation" data-cites="koepf-schmersau"><a href="#ref-8">[8]</a></span>; their
 rational-term version obtains that equality from prefix integrality at a
 scale <span class="math inline">\(p_n\)</span> together with the strict
 tail bound <span class="math inline">\(a-s_n&lt;1/(np_n)\)</span> <span
@@ -1392,11 +1399,11 @@ present denominator problem.</p>
 <span class="math inline">\(cu_n^2\le u_{n+1}\le c&#39;u_n^2\)</span>,
 while <span class="math inline">\(u_{n+1}/u_n^2\to0\)</span> for <span
 class="math inline">\(u_n=n!-1\)</span> <span class="citation"
-data-cites="duverney"><a href="#ref-8">[8]</a></span>; his all-positive Corollary 3.2
+data-cites="duverney"><a href="#ref-9">[9]</a></span>; his all-positive Corollary 3.2
 additionally requires <span
 class="math inline">\(\sum_n|u_{n+1}/u_n^2-1|&lt;\infty\)</span>,
 whereas those summands tend to one <span class="citation"
-data-cites="duverney"><a href="#ref-8">[8]</a></span>. Both the ratio limit and the
+data-cites="duverney"><a href="#ref-9">[9]</a></span>. Both the ratio limit and the
 nonsummability are kernel-checked. The ratio proof divides numerator and
 denominator by <span class="math inline">\((n!)^2\)</span>; the
 resulting terms tend to zero while <span
@@ -1405,7 +1412,7 @@ class="math inline">\((1-1/n!)^2\)</span> tends to one.</p>
 irrationality of <span class="math inline">\(\sum_n1/a_n\)</span> when
 <span class="math inline">\(a_n^{1/2^n}\to\infty\)</span>, whereas <span
 class="math inline">\((n!-1)^{1/2^n}\to1\)</span> <span class="citation"
-data-cites="barreto-et-al"><a href="#ref-10">[10]</a></span>; the limit is kernel-checked through
+data-cites="barreto-et-al"><a href="#ref-11">[11]</a></span>; the limit is kernel-checked through
 the bound <span class="math inline">\(0\le\log(n!-1)\le n^2\)</span>.
 Their proof identifies a useful exact criterion: Mahler’s elementary
 rationality floor is contradicted by prefix-clearing integers <span
@@ -1687,7 +1694,7 @@ class="math display">\[n&lt;q&lt;\left(\frac{\sqrt{145}-1}{8}+\varepsilon\right)
 ,\]</span> the printed text transferring estimate (9) from <span
 class="math inline">\(n!+1\)</span> to <span
 class="math inline">\(n!-1\)</span> <span class="citation"
-data-cites="stewart2004"><a href="#ref-6">[6]</a></span>. The source controls <span
+data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The source controls <span
 class="math inline">\(q\)</span> relative to the later index <span
 class="math inline">\(n\)</span> and supplies no control relative to the
 private first-hit index, so it is collision-core input. The missing
@@ -1806,7 +1813,7 @@ digit is zero, and eventual zero digits force rationality. The specific
 target <span class="math inline">\(c_m=E_m/m\)</span> is useful because
 it translates into finite predecessor-gap conditions. The smallness of
 the target alone establishes no metric, measure or equidistribution
-theorem for this orbit, and none is claimed.</p>
+theorem for this orbit, and none is claimed. </p>
 </section>
 </section>
 <section id="sec:erdos-68-complete-family-map" class="level2">
@@ -1971,38 +1978,42 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.erdosproblems.com/68"
 class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
 2026.</p></li>
-<li id="ref-3"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>,
+<li id="ref-3"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
+expansion of fixed length</em>, arXiv:<a
+href="https://arxiv.org/abs/2309.07280v1">2309.07280v1</a>, 2023,
+Lemma 4.1, p. 10.</p></li>
+<li id="ref-4"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>,
 Z. Math. Phys. <strong>14</strong> (1869), 121–128.</p></li>
-<li id="ref-4"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
+<li id="ref-5"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
 Series</em>, Lecture Notes in Mathematics <strong>502</strong>,
 Springer, 1976, Chapter 1. doi:<a
 href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.</p></li>
-<li id="ref-5"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, <em>Character sums
+<li id="ref-6"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, <em>Character sums
 and congruences with <span class="math inline">\(n!\)</span></em>,
 Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102.
 <a href="https://doi.org/10.1090/S0002-9947-04-03612-8"
 class="uri">https://doi.org/10.1090/S0002-9947-04-03612-8</a>; arXiv:<a
 href="https://arxiv.org/abs/math/0403422">math/0403422v1</a>.</p></li>
-<li id="ref-6"><p>C. L. Stewart, <em>On the greatest and least prime factors of
+<li id="ref-7"><p>C. L. Stewart, <em>On the greatest and least prime factors of
 <span class="math inline">\(n!+1\)</span>, II</em>, Publ. Math. Debrecen
 <strong>65</strong> (2004), no. 3–4, 461–480. <a
 href="https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf"
 class="uri">https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf</a>.</p></li>
-<li id="ref-7"><p>W. Koepf and D. Schmersau, <em>Irrationality of certain infinite
+<li id="ref-8"><p>W. Koepf and D. Schmersau, <em>Irrationality of certain infinite
 series II</em>, Analysis <strong>31</strong> (2011), 117–124. <a
 href="https://doi.org/10.1524/anly.2011.1094"
 class="uri">https://doi.org/10.1524/anly.2011.1094</a>.</p></li>
-<li id="ref-8"><p>D. Duverney, <em>Irrationality of fast converging series of
+<li id="ref-9"><p>D. Duverney, <em>Irrationality of fast converging series of
 rational numbers</em>, J. Math. Sci. Univ. Tokyo <strong>8</strong>
 (2001), 275–316. <a
 href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"
 class="uri">https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf</a>.</p></li>
-<li id="ref-9"><p>J. Hančl and R. Tijdeman, <a
+<li id="ref-10"><p>J. Hančl and R. Tijdeman, <a
 href="https://geodesic.mathdoc.fr/articles/10.4064/aa118-4-5/"><em>On
 the irrationality of factorial series</em></a>, Acta
 Arith. <strong>118</strong> (2005), no. 4, 383–401.
 doi:10.4064/aa118-4-5.</p></li>
-<li id="ref-10"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
+<li id="ref-11"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
 <em>Irrationality of rapidly converging series: a problem of Erdős and
 Graham</em>, arXiv:<a
 href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,

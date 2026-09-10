@@ -14,7 +14,7 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "6bcee146c31a5acce818a3ee1f3289d3ec230654f2ec7a6423e25d2085517868",
+    "source_sha256": "64ffd5efbdcd5214c324a6d12f706aaf3a92a6e1851b971bec3549a8870aeab0",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
     "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -26,8 +26,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "8d6e8d4398bc695b6fce589d8f8100c84734e9e2d3eb5de7602a74ca206636a8",
-    "html_exact_tex_sha256": "e8732aad05b1c6187de71d2b3720476af02bbf66f5dff1de6466ae792fbadc5e"
+    "html_mathml_sha256": "d1e498edf5f1f7adb66f7cf55e5070ab6a00aad41e3b20889679213ea4dcdbce",
+    "html_exact_tex_sha256": "0b23ad54285c7c4f81db7ae621cfb9e77e0f7485aee273a21e97195c47e61989"
   },
   "sections": [
     {

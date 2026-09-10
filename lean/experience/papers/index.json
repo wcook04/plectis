@@ -34,16 +34,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "ea6e7b0d886d93517fcedec2190338580ecf0b067555f8cc22c4f0153d598c84",
+        "source_sha256": "9b54aebff7460c36743c971e147c2baf8f24128bdeb88bd4ba6f495100c1727f",
         "publication_manifest_match": true,
-        "mathml_node_count": 264,
+        "mathml_node_count": 268,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "95b18398a187e2dbe62152f55516c2628bbb86d78fe141298bf54d8d5e919b6a",
-        "html_exact_tex_sha256": "9c040e59f0be234ef231a669ce4daf8a91bc5d62a359fc726f18af553cb3d51e"
+        "html_mathml_sha256": "c41dfff2f1ebf48712ab664903668e2e02e6c8d9e3c65a9014489ac7f5220c4e",
+        "html_exact_tex_sha256": "86a396ea700d9e87030ae967307c3d134da05d5d5a13d91dc212059355da8d2b"
       },
       "sections": [
         {
@@ -169,16 +169,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "0ca14ded4b7c259c244c3722be25c2690feb0df4ef3fb07d1ff1e69e5350861b",
+        "source_sha256": "744e49cf9503f5b699d1b96a11c85e4301a35a795a6d146c0acafb11716059fb",
         "publication_manifest_match": true,
-        "mathml_node_count": 772,
+        "mathml_node_count": 775,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "fa1f3a4582f74d253e6b5d971e6adb4d49aa09f745edea8fc645facd21bbf6cc",
-        "html_exact_tex_sha256": "b41711060c1896510e4941c1a8bc6bd4ce9e5c3fefcefa9f69f205f78cf78b0c"
+        "html_mathml_sha256": "6b0a055a214f202fa457f547c95ac490947fbf232bf043e5cca50c8dd8f8af55",
+        "html_exact_tex_sha256": "cd18ac5a0fdd912131d1b4be3536081ea8408984ee6cbf32938a07f435591480"
       },
       "sections": [
         {
@@ -399,7 +399,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "bbad3e8929c50fefb86aa81250095c5cead267d5ad22def620c5e85bebb2b9d9",
+        "source_sha256": "00bd33bee965b9d38fff8924348c78c14bfa32b77ae22118b11475b8505deb1f",
         "publication_manifest_match": true,
         "mathml_node_count": 190,
         "raw_math_fallback_count": 0,
@@ -920,7 +920,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 9,
+      "pages": 10,
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
       "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -944,16 +944,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "a820df17beeb2d25792000065e6318eae22b8bc8650e943b440904b45889a724",
+        "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
         "publication_manifest_match": true,
-        "mathml_node_count": 221,
+        "mathml_node_count": 236,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "119e342bb726074886825108de1a930cbecd3f75d96ff6decb4c48a2ee8b17b3",
-        "html_exact_tex_sha256": "19408f8a6a90179d1e3bb30881f92cfc7dedf9a4d4cc27661fbbe6bbe1b01540"
+        "html_mathml_sha256": "0a49b8fd4b98ca4419e9468efa4f60ed93e61338d2816924c0db8749b94de4ed",
+        "html_exact_tex_sha256": "cf203f69f57e3c8c17d1439f0628a4fea6e78a1edea128deeae95cfbc5398bd9"
       },
       "sections": [
         {
@@ -1020,7 +1020,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 126,
+      "pages": 127,
       "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
       "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -1044,10 +1044,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "c6eb6ac9a59f4ed54f69c646d3be0f9d223b462ef05b8d91f17981634bd5a177",
+        "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
         "publication_manifest_match": true,
-        "mathml_node_count": 2869,
-        "raw_math_fallback_count": 4,
+        "mathml_node_count": 2893,
+        "raw_math_fallback_count": 6,
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
@@ -1065,6 +1065,24 @@
             "^",
             "unexpected control sequence \\small",
             "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+            "\\operatorname{ev}_e:\\mathbb Z^{I_e}\\longrightarrow L_e,",
+            "\\qquad (c_i)\\longmapsto\\sum_{i\\in I_e}c_iF_i.",
+            "$}, rendering as TeX:",
+            "\\adjustbox{max width=\\linewidth}{$\\displ",
+            "^",
+            "unexpected control sequence \\adjustbox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+            "\\ker(\\operatorname{ev}_e)",
+            "=\\bigoplus_{i\\in I_e\\mathbin{\\backslash} J_e}\\mathbb Z R_i,",
+            "\\qquad",
+            "\\operatorname{rank}_{\\mathbb Z}\\ker(\\operatorname{ev}_e)=2^e-2.",
+            "$}, rendering as TeX:",
+            "\\adjustbox{max width=\\linewidth}{$\\displ",
+            "^",
+            "unexpected control sequence \\adjustbox",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
             "[WARNING] Could not convert TeX math \\begin{equation}",
             "\\label{eq:mobmers}",
             "S=\\sum_{d\\ge 1}\\mu(d)\\,\\frac{2^{d}}{(2^{d}-1)^{2}}",
@@ -1077,8 +1095,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "55dffa2c8156e1a96a329897229f329046289604ee858a924b274261de7c8eea",
-        "html_exact_tex_sha256": "f08f7b7461cc88b0ea1a8311db7274db35a6e2d5ea6c0cf026cd9c28c4670973"
+        "html_mathml_sha256": "b8cc351554be8ad5afebb2c29570a0bbb12c2b6ffd72c6db44ae8611b3a07754",
+        "html_exact_tex_sha256": "137308d48993fa8b29710dc2eb7ecf506a1a19b738c6233ae847c5d45bfda8a6"
       },
       "sections": [
         {
@@ -1497,6 +1515,11 @@
           "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
         },
         {
+          "level": 5,
+          "anchor": null,
+          "label": "Integral coordinates and the complete relation module."
+        },
+        {
           "level": 3,
           "anchor": null,
           "label": "Further closed routes, catalogued for completeness"
@@ -1854,7 +1877,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "0cf9c88baf52ad8bb70a9adde7580436e54d41184dfacf3f52c064b33f79a2f9",
+        "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
         "publication_manifest_match": true,
         "mathml_node_count": 337,
         "raw_math_fallback_count": 0,
@@ -2029,7 +2052,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "d052c0aac9e60aa5e19f1e77a585bff47f97588d9d6e48be43351e7c42e7f3d3",
+        "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 704,
         "raw_math_fallback_count": 1,
@@ -2045,8 +2068,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "9e0fac24bcb153c347c70729b0c8db5249b714c0c91e0abcdcca11eb6ca94edc",
-        "html_exact_tex_sha256": "183b8290caf152fb2ac56c5856cace1f0d655b15d1209020484c4f1ff901abcb"
+        "html_mathml_sha256": "ac4240142881e468fb8c831ec69ed8be75d7bf86b9c97d575e6c5fc2238c51cd",
+        "html_exact_tex_sha256": "cd9c515e3f54fb2eb40a67883caae47a4efc060bffed0f7247162e8bbe91d030"
       },
       "sections": [
         {
@@ -2313,7 +2336,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 13,
+      "pages": 14,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
       "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -2337,7 +2360,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
+        "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
         "publication_manifest_match": true,
         "mathml_node_count": 274,
         "raw_math_fallback_count": 3,
@@ -2362,8 +2385,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
-        "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
+        "html_mathml_sha256": "a6289e60f96e5d85e51705c32e02b88f5572e97623ade61c725258c85583d0c3",
+        "html_exact_tex_sha256": "73afd2183d4a7906261945274d4a80ff47fadbb33d909177c67ad656a2adbef6"
       },
       "sections": [
         {
@@ -2489,9 +2512,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "4b64b5fba33cfb3559cd04749cf9e17734d80053f68e11bc7430b05247196759",
+        "source_sha256": "e6ca051b1acf26b99809796daa32f0f5becdf032404c1d78c2859a8bd8a2e7bb",
         "publication_manifest_match": true,
-        "mathml_node_count": 2969,
+        "mathml_node_count": 2919,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -2503,8 +2526,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "78138a42bb166e9c75edc7c454abc24403847aba003621513684ee07962ccb21",
-        "html_exact_tex_sha256": "c8d7da7627461ae161a5c1e9473617c5ed46dd35a9c9acd7d81cf15492e93fe2"
+        "html_mathml_sha256": "6a61a8cd5e399a58ec5efefd6c707b2086fd78745980371caa482d2c5f3afe27",
+        "html_exact_tex_sha256": "6bc586bf681f5c49dfcef2a1bc07479bbc0e9d99c0008abc80bf91eb2773546e"
       },
       "sections": [
         {
@@ -3201,7 +3224,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 33,
+      "pages": 35,
       "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
       "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -3225,9 +3248,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "bc2bb3e931591dab362565be749ed5b6966babc33e27dcd6cab0172af4bb1bb0",
+        "source_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
         "publication_manifest_match": true,
-        "mathml_node_count": 775,
+        "mathml_node_count": 777,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -3242,8 +3265,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bc50fbfc8514e291f8c172ca5c9deb9146183bf0122252bcad267549f6d67a7c",
-        "html_exact_tex_sha256": "e40eef6d87c5d83daa1a679420468d2d5ac54d7d16d96d31a0592528a66b43d5"
+        "html_mathml_sha256": "4dca20f83dc0739592b4bd7c97b090ca0333c4173f52a2858ffcf19f22093a83",
+        "html_exact_tex_sha256": "5514ca811ffc89754abea9114bcfd3b1fcb4ed06bfa5bed93b94e2d95e95258d"
       },
       "sections": [
         {
@@ -3479,7 +3502,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
+        "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
         "publication_manifest_match": true,
         "mathml_node_count": 181,
         "raw_math_fallback_count": 0,
@@ -3487,8 +3510,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
-        "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
+        "html_mathml_sha256": "003a343d885776b07fd4416cc4059fa30488918ea8ba396b240856d0d3528402",
+        "html_exact_tex_sha256": "5df104bdfad22d56019d84a3a6e46a7d37c96914e9a7fb3ac6f92bbafbe3fbae"
       },
       "sections": [
         {
@@ -3599,7 +3622,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "79092aae1e682f4f29834a249ea0fe475b1931bfe5d64f917311d1d5c3517e65",
+        "source_sha256": "9a36d21bfa3560bbcaea4fc162d6f98801fa6ca43803890ed2488f0f687f595f",
         "publication_manifest_match": true,
         "mathml_node_count": 348,
         "raw_math_fallback_count": 1,
@@ -4149,7 +4172,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 12,
+      "pages": 13,
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -4173,7 +4196,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
+        "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
         "publication_manifest_match": true,
         "mathml_node_count": 284,
         "raw_math_fallback_count": 0,
@@ -4323,7 +4346,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "5605088544379c0110b29f34f27526eccfe63d3c3fd8f5127e782fcc76e4af6c",
+        "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
         "publication_manifest_match": true,
         "mathml_node_count": 1215,
         "raw_math_fallback_count": 0,
@@ -4331,8 +4354,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d641866eabe2829260e52958197779d5f3d12e6e56351fbfde8f6c2e9d0bb335",
-        "html_exact_tex_sha256": "f96daca7242776ab61b295dc5fcfa260cc8af3ffa912d740a47acaf19d42c8c4"
+        "html_mathml_sha256": "5d97a75c9fd937d1c030e9826a0977ac5a16267985767a873077d598db7cc612",
+        "html_exact_tex_sha256": "06b73ebf5313a12db4530b102de0374b33f61907d6957d779e65b5e09e591735"
       },
       "sections": [
         {
@@ -4658,7 +4681,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "36431013833c1100758194e835e7bced30d4d8fc5dcd7e9b57e17956aa9d8414",
+        "source_sha256": "d8a3179c2e59904e4b792a5da08ffe0d221368357807d393d3a7ef62047b1548",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
         "raw_math_fallback_count": 0,
@@ -4666,8 +4689,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "95e637ad0afa0e07c0f05f9f5a4e14f4129466ef9ca40ee2756ccea9912a77c9",
-        "html_exact_tex_sha256": "c0e9f3c458ee46dc2cd40e578d2fdd9512f06373b156e35ddf199f3baad95109"
+        "html_mathml_sha256": "21fffec36b7a8cbcdcca8426b373ec065683ecfeb2d5dd987af68718130c54b4",
+        "html_exact_tex_sha256": "aa37f9ecad3768f3036402d1a2402e6bfbca97a50a8fd407aed2ac9b6b533700"
       },
       "sections": [
         {
@@ -4933,7 +4956,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "af53dce269a5911fddd4b2406dcb2425c0373b5aa489f114d90d84525f9ec4ea",
+        "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -4941,8 +4964,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f3de5de851da4c4da75de631aeaf330575dcd71378ba64d06462142f134e0140",
-        "html_exact_tex_sha256": "fd16ca8e87c9100d98af36264fab6b94b2a7d5eff9a45cda712e8ac978761cdf"
+        "html_mathml_sha256": "db6bb828e77d8f4f3c2dbc5f5c379c3e12a0be6ce3584e79bbb08ac1fd2cd22a",
+        "html_exact_tex_sha256": "80170b02f5d1f87efd146f9c44f4088229136c303b696d880d50f5eb71456dd9"
       },
       "sections": [
         {

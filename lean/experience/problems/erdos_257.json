@@ -408,7 +408,7 @@
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 13,
+    "pages": 14,
     "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
     "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -432,7 +432,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
       "renderer_fingerprint": "dfc4d6626c337fa5",
-      "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
+      "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
       "publication_manifest_match": true,
       "mathml_node_count": 274,
       "raw_math_fallback_count": 3,
@@ -457,8 +457,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
-      "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
+      "html_mathml_sha256": "a6289e60f96e5d85e51705c32e02b88f5572e97623ade61c725258c85583d0c3",
+      "html_exact_tex_sha256": "73afd2183d4a7906261945274d4a80ff47fadbb33d909177c67ad656a2adbef6"
     },
     "sections": [
       {
@@ -567,7 +567,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 13,
+      "pages": 14,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
       "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -591,7 +591,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
+        "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
         "publication_manifest_match": true,
         "mathml_node_count": 274,
         "raw_math_fallback_count": 3,
@@ -616,8 +616,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
-        "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
+        "html_mathml_sha256": "a6289e60f96e5d85e51705c32e02b88f5572e97623ade61c725258c85583d0c3",
+        "html_exact_tex_sha256": "73afd2183d4a7906261945274d4a80ff47fadbb33d909177c67ad656a2adbef6"
       },
       "sections": [
         {
@@ -750,9 +750,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "4b64b5fba33cfb3559cd04749cf9e17734d80053f68e11bc7430b05247196759",
+        "source_sha256": "e6ca051b1acf26b99809796daa32f0f5becdf032404c1d78c2859a8bd8a2e7bb",
         "publication_manifest_match": true,
-        "mathml_node_count": 2969,
+        "mathml_node_count": 2919,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -764,8 +764,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "78138a42bb166e9c75edc7c454abc24403847aba003621513684ee07962ccb21",
-        "html_exact_tex_sha256": "c8d7da7627461ae161a5c1e9473617c5ed46dd35a9c9acd7d81cf15492e93fe2"
+        "html_mathml_sha256": "6a61a8cd5e399a58ec5efefd6c707b2086fd78745980371caa482d2c5f3afe27",
+        "html_exact_tex_sha256": "6bc586bf681f5c49dfcef2a1bc07479bbc0e9d99c0008abc80bf91eb2773546e"
       },
       "sections": [
         {

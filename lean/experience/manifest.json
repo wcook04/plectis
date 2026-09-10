@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "3f5a9a1545450ad9b0ebdc7aace3a05d236ecb0494e5f5d06e667706d1b780d7",
+  "source_fingerprint": "0a47f1e9583013e8ec430176bc513388132839d1e9851558c8c45b7fd7cd741f",
   "authority_model": {
     "universe": "Lean source and its import/argument graph",
     "overlays": [
@@ -29,15 +29,15 @@
     "problems": 8,
     "papers": 20,
     "human_documents": 14,
-    "graph_nodes": 1407,
-    "graph_edges": 3488
+    "graph_nodes": 1633,
+    "graph_edges": 4021
   },
   "source_identity": {
-    "lean_manifest": "a1bb61879d87e3cf5368117a56f1fbb22090d9495c8989acc0be920e632d79c2",
-    "paper_manifest": "0a7afb9ceaaa10dc6a49de48bac907473f81989e00674c89f070c52a9119e56c",
-    "claims": "b026e595e2fb82a352cb12d733ff4cac55763acc188a317d90a38904f5e25e0b",
-    "problems": "32c3f1e3370889fd022cc360e7a0b4a587058c7ae63afff074a08d8ff38a13f2",
-    "problem_library": "1d5f69bedf62a72bc52d531c787965ba1fec48a286d4cd63871a977d39080da4",
+    "lean_manifest": "cbe2b7adc4311b24496392fb880aad835fa16b65307e71ddb6af1494494f4952",
+    "paper_manifest": "9a7be6579a682d4137f6e57338b18d908fe1d78a52359a6dc9716e31e8a22ab2",
+    "claims": "ec420cb3f72c58c2fcf901b9b21ac1583757d09e5f88dbb2ab8dcbae7b66f8b2",
+    "problems": "fde0d9af3b6c755f42811985a8ec14db39b511b11e67f01eb652692c0052528c",
+    "problem_library": "2bc79ddc1dac50a02783569c89b5ba6b5c62fd1594db084823dfe953646baa49",
     "comparator_palomar_route_map": "086928a1752b84c39225490cdebc3325d1b86548fbe62f473bcf62d2b5cb7085",
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
@@ -55,8 +55,8 @@
     "progressive_graph": {
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
-      "first_screen_nodes": 246,
-      "complete_nodes": 1407
+      "first_screen_nodes": 256,
+      "complete_nodes": 1633
     }
   }
 }

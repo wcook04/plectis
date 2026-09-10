@@ -4,10 +4,10 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 246,
-    "edges": 329,
+    "nodes": 256,
+    "edges": 339,
     "deferred_node_kinds": {
-      "lean_module": 1056,
+      "lean_module": 1272,
       "mathematical_object": 105
     }
   },
@@ -171,6 +171,13 @@
       "kind": "public_claim",
       "label": "Concrete finite seam adapter",
       "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:cubic_survivor_phase_density",
+      "kind": "public_claim",
+      "label": "Phase-specific density obstruction for the two cubic survivor profiles",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
@@ -839,6 +846,13 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:three_prime_bounded_certificate_safety",
+      "kind": "public_claim",
+      "label": "Size-authenticated bounded certificate checks for #269",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:three_prime_cofinal_window_carry_extinction",
       "kind": "public_claim",
       "label": "Conditional cofinal-window extinction of bounded carries for #269",
@@ -846,10 +860,31 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:three_prime_exact_modulus_pinning",
+      "kind": "public_claim",
+      "label": "Exact-modulus pinning for an actual #269 window",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:three_prime_finite_prefix_completion_boundary",
+      "kind": "public_claim",
+      "label": "Finite #269 radix prefixes admit an altered rational completion",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:three_prime_finite_residue_contradiction",
       "kind": "public_claim",
       "label": "Finite least-positive-residue contradiction for #269",
       "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:three_prime_octic_window_equivalence",
+      "kind": "public_claim",
+      "label": "Conditional o(8^a) equivalence band for #269",
+      "status": "conditional reduction",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
@@ -864,6 +899,41 @@
       "kind": "public_claim",
       "label": "Fair-coin coprimality form of the totient constant",
       "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_v8_conditional_peripheral_assembly",
+      "kind": "public_claim",
+      "label": "Conditional peripheral-and-centred assembly for the #249 first-harmonic route",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_v8_finite_arithmetic_threshold",
+      "kind": "public_claim",
+      "label": "Exact finite arithmetic and run-threshold checks for #249",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_v8_generic_centering_countermodel",
+      "kind": "public_claim",
+      "label": "Generic centering countermodel for the #249 decomposition",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_v8_one_finite_first_harmonic_instance",
+      "kind": "public_claim",
+      "label": "One unconditional finite first-harmonic gap instance",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_v8_peripheral_finite_budget_bridge",
+      "kind": "public_claim",
+      "label": "Finite peripheral estimates assemble into PivotBudgetAt",
+      "status": "conditional reduction",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
@@ -2841,6 +2911,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:cubic_survivor_phase_density"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:denominator_exclusion"
     },
     {
@@ -3316,12 +3391,32 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:three_prime_bounded_certificate_safety"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:three_prime_cofinal_window_carry_extinction"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:three_prime_exact_modulus_pinning"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:three_prime_finite_prefix_completion_boundary"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:three_prime_finite_residue_contradiction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:three_prime_octic_window_equivalence"
     },
     {
       "source": "universe:plectis-lean",
@@ -3332,6 +3427,31 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:totient_coprimality_probability"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_v8_conditional_peripheral_assembly"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_v8_finite_arithmetic_threshold"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_v8_generic_centering_countermodel"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_v8_one_finite_first_harmonic_instance"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_v8_peripheral_finite_budget_bridge"
     },
     {
       "source": "universe:plectis-lean",

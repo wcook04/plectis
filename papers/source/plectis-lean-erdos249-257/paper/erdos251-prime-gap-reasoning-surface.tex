@@ -14,8 +14,8 @@
 \newunicodechar{₀}{\ensuremath{{}_0}}
 % Problem-specific source pin: #251 advances independently of the corpus
 % default, while the #249/#257 notes retain their own separately pinned snapshot.
-\renewcommand{\commit}{1da2a504f8d8aa3cdc2cf686ec48bc8a67457984}
-\renewcommand{\commitshort}{1da2a504f8d8}
+\renewcommand{\commit}{ee650b32b8b2cb98b94e5500df5370d85f7403b8}
+\renewcommand{\commitshort}{ee650b32b8b2}
 \hypersetup{
   pdftitle={Prime gaps and dyadic tails: complete reasoning record for Erdős Problem 251},
   pdfsubject={Erdős Problem Notes: Problem 251},
@@ -889,11 +889,11 @@ same argument to $\Pi=(a+2b)/b$.
 \noindent The Lean kernel decides the four inequalities on the same literals by
 \texttt{decide +kernel} with no \texttt{native\_decide}, over a trial-division
 sieve it re-runs on $[2,10^4)$: the
-\lword{Erdos251/KernelDenominatorFloor.lean}{309}{cert_10000}{certificate},
+\lword{Erdos251/KernelDenominatorFloor.lean}{310}{cert_10000}{certificate},
 the
-\lword{Erdos251/KernelDenominatorFloor.lean}{315}{kernel_denominator_floor}{floor
+\lword{Erdos251/KernelDenominatorFloor.lean}{316}{kernel_denominator_floor}{floor
 for the prime series}, and the
-\lword{Erdos251/KernelDenominatorFloor.lean}{323}{kernel_denominator_floor_primeGap}{floor
+\lword{Erdos251/KernelDenominatorFloor.lean}{324}{kernel_denominator_floor_primeGap}{floor
 for the gap series}.  Its analytic input is the same enclosure, over the
 polynomial bound at
 \lword{Erdos251/PrimeGapDyadicTail.lean}{360}{prime0_le_polynomial}{line~360}.
@@ -949,17 +949,17 @@ $\varepsilon_n=0$ for $n<K$.  The perturbed series converges and equals $r$.
 \end{proof}
 
 \noindent The
-\lword{Erdos251/BoundedPerturbationCountermodel.lean}{163}{exists_rational_bounded_perturbation}{construction}
-and its
-\lword{Erdos251/BoundedPerturbationCountermodel.lean}{179}{not_forall_irrational_of_bounded_perturbation_invariant}{invariant-property
-consequence} are kernel checked: a property shared by every admissible
-perturbation cannot by itself force irrationality.  The construction is also
+\lword{Erdos251/BoundedPerturbationCountermodel.lean}{193}{exists_bounded_perturbation}{construction}
+is kernel checked.  The invariant-property consequence---a property shared by
+every admissible perturbation cannot by itself force irrationality---is the
+ordinary logical reading of that construction, rather than a separately named
+Lean theorem.  The construction is also
 checked at the actual consecutive prime gaps for every $M\ge1$ and every $K$,
 the
-\lword{Erdos251/BoundedPerturbationCountermodel.lean}{200}{exists_rational_bounded_perturbation_primeGap}{rational
+\lword{Erdos251/BoundedPerturbationCountermodel.lean}{208}{exists_rational_bounded_perturbation_primeGap}{rational
 perturbed prime-gap series}, with the perturbed gap lying in $[g_n,g_n+M]$ and
 congruent to $g_n$ modulo $M$, the
-\lword{Erdos251/BoundedPerturbationCountermodel.lean}{220}{perturbed_gap_bounds}{gap
+\lword{Erdos251/BoundedPerturbationCountermodel.lean}{234}{perturbed_gap_bounds}{gap
 bounds}.  Consequently no theorem about the size or the residue of prime gaps
 that survives such a perturbation can suffice for Problem~\#251; that class
 includes the bounded-gap and large-gap theorems cited in
@@ -1264,10 +1264,10 @@ growth},
 of every shift},
 \lword{Erdos251/PrimeGapDyadicTail.lean}{1644}{polynomialGapWord_no_adjacent_two_digit}{exclusion
 of adjacent differences of size two}, and the
-\lword{Erdos251/PolynomialGapSeriesValue.lean}{89}{tsum_polynomialGapDyadicTerm_eq}{value
+\lword{Erdos251/PolynomialGapSeriesValue.lean}{92}{tsum_polynomialGapDyadicTerm_eq}{value
 $32$ for the shifted series}, whose summand is $c_{n+1}/2^{\,n+1}$; the
 rational value is recorded at
-\lword{Erdos251/PolynomialGapSeriesValue.lean}{106}{not_irrational_tsum_polynomialGapDyadicTerm}{line~106}.
+\lword{Erdos251/PolynomialGapSeriesValue.lean}{109}{not_irrational_tsum_polynomialGapDyadicTerm}{line~109}.
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent trigger of
 Theorem~\ref{long251:res:signedwindow} fails at every index.  The telescoping mechanism
@@ -1690,8 +1690,8 @@ polynomial countermodel recurrence & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{15
 polynomial countermodel strict growth & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1632}{polynomialGapWord_strictMono}\\
 polynomial countermodel excludes the adjacent $\pm2$ trigger & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1644}{polynomialGapWord_no_adjacent_two_digit}\\
 all polynomial-countermodel shifts are integral & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1654}{polynomialTailOrbit_shift_integral}\\
-polynomial countermodel dyadic value & \lrefx{Erdos251/PolynomialGapSeriesValue.lean}{89}{tsum_polynomialGapDyadicTerm_eq}\\
-polynomial countermodel rationality & \lrefx{Erdos251/PolynomialGapSeriesValue.lean}{106}{not_irrational_tsum_polynomialGapDyadicTerm}\\
+polynomial countermodel dyadic value & \lrefx{Erdos251/PolynomialGapSeriesValue.lean}{92}{tsum_polynomialGapDyadicTerm_eq}\\
+polynomial countermodel rationality & \lrefx{Erdos251/PolynomialGapSeriesValue.lean}{109}{not_irrational_tsum_polynomialGapDyadicTerm}\\
 real tail shifted-gap identity & \lrefx{Erdos251/RealPrimeGapTail.lean}{31}{realPrimeGapTail_eq_tsum_shifted_gaps}\\
 real tail recurrence & \lrefx{Erdos251/RealPrimeGapTail.lean}{48}{realPrimeGapTail_recurrence}\\
 actual escape equivalence & \lrefx{Erdos251/RealPrimeGapTail.lean}{73}{irrational_primeSeries_iff_realPrimeGapTail_escape}\\
@@ -1701,14 +1701,14 @@ free-pair lattice & \lrefx{Erdos251/FreePairReduction.lean}{92}{free_pair_integr
 free-pair lattice corollary & \lrefx{Erdos251/FreePairReduction.lean}{105}{exists_free_pair_lattice}\\
 actual real tail recurrence & \lrefx{Erdos251/FreePairReduction.lean}{186}{primeGapRealTail_recurrence}\\
 free-pair equivalence for the actual series & \lrefx{Erdos251/FreePairReduction.lean}{236}{irrational_primeGap_tsum_iff_cofinalFreePairNonintegral}\\
-kernel-decided certificate & \lrefx{Erdos251/KernelDenominatorFloor.lean}{309}{cert_10000}\\
-denominator floor, prime series & \lrefx{Erdos251/KernelDenominatorFloor.lean}{315}{kernel_denominator_floor}\\
-denominator floor, gap series & \lrefx{Erdos251/KernelDenominatorFloor.lean}{323}{kernel_denominator_floor_primeGap}\\
-bounded-perturbation construction & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{163}{exists_rational_bounded_perturbation}\\
-invariant-property consequence & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{179}{not_forall_irrational_of_bounded_perturbation_invariant}\\
-prime-anchored rational perturbation & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{200}{exists_rational_bounded_perturbation_primeGap}\\
-perturbed prime-gap series is rational & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{210}{not_irrational_bounded_perturbation_primeGap}\\
-perturbed gap bounds & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{220}{perturbed_gap_bounds}\\
+kernel-decided certificate & \lrefx{Erdos251/KernelDenominatorFloor.lean}{310}{cert_10000}\\
+denominator floor, prime series & \lrefx{Erdos251/KernelDenominatorFloor.lean}{316}{kernel_denominator_floor}\\
+denominator floor, gap series & \lrefx{Erdos251/KernelDenominatorFloor.lean}{324}{kernel_denominator_floor_primeGap}\\
+bounded-perturbation construction & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{193}{exists_bounded_perturbation}\\
+binary-digit encoding & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{134}{exists_bounded_perturbation_digits}\\
+prime-anchored rational perturbation & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{208}{exists_rational_bounded_perturbation_primeGap}\\
+perturbed prime-gap series is rational & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{224}{not_irrational_bounded_perturbation_primeGap}\\
+perturbed gap bounds & \lrefx{Erdos251/BoundedPerturbationCountermodel.lean}{234}{perturbed_gap_bounds}\\
 signed two-window normal form & \lrefx{Erdos251/AffineShiftEscape.lean}{113}{adjacent_small_mismatch_iff_signed_two_window}\\
 pointwise affine identity & \lrefx{Erdos251/AffineCylinderCollapse.lean}{91}{ratAffinePowTwo_iff_evenIntegral}\\
 cofinal affine circularity & \lrefx{Erdos251/AffineCylinderCollapse.lean}{162}{cofinal_affinePowTwo_escape_iff_not_eventuallyIntegral}\\

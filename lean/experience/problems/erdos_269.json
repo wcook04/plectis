@@ -54,10 +54,10 @@
       "module": "ErdosProblems.Erdos269.ThreePrimeRunningLcm",
       "path": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
       "present": true,
-      "line_count": 729,
-      "declaration_count": 50,
-      "theorem_count": 34,
-      "content_digest": "sha256:b3279ce084c98e4e7521e0bb94d3e366de010a30548fab0b326390da16ff6c3c",
+      "line_count": 835,
+      "declaration_count": 54,
+      "theorem_count": 38,
+      "content_digest": "sha256:9a158ddc272a2c59d87aaefcd84352ffa6197d6bed95f965f0de59a119a8b34e",
       "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
@@ -155,7 +155,7 @@
       "original_source": "ErdosProblems/Erdos269/RestrictedFloorSum.lean",
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
       "statement": "Under the denominator-dependent cofinal local-window residue-escape predicate, no positive reduced carry can satisfy the exact multiplier recurrence together with its short bound.",
-      "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The cofinal local-window escape producer and the bridge from the actual three-prime running-LCM series or its rationality to this reduced carry remain open. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.",
+      "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     }
   ],
@@ -189,7 +189,7 @@
           "ErdosProblems.Erdos269.smoothExponentShell_card_quadratic"
         ],
         "comparator_disposition": "represented_by_three_prime_structure_target",
-        "boundary": "The fibre bounds do not provide the missing divisibility bridge."
+        "boundary": "These fibre bounds are counting input, not an escape producer. The separate actual-series divisibility bridge is established."
       },
       {
         "id": "rank_two_kernel_no_go",
@@ -224,7 +224,7 @@
           "ErdosProblems.Erdos269.leastPositiveResidue",
           "ErdosProblems.Erdos269.no_positive_absorbedCarry_of_cofinalLocalWindowEscape"
         ],
-        "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor ≠ 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The cofinal local-window escape producer and the bridge from the actual three-prime running-LCM series or its rationality to this reduced carry remain open. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families."
+        "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor ≠ 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families."
       },
       {
         "id": "weighted_phase_carry_observer",
@@ -238,7 +238,7 @@
           "ErdosProblems.Erdos269.residueDigit_mem_interval",
           "ErdosProblems.Erdos269.finite_realisedSpan_of_factorisation"
         ],
-        "boundary": "The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No rationality or irrationality conclusion follows; the actual three-prime running-LCM bridge and cofinal escape remain open."
+        "boundary": "The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No irrationality conclusion follows from this observer alone. The actual rationality-to-positive-reduced-carry bridge is established separately; cofinal local-window escape remains open."
       },
       {
         "id": "three_prime_finite_search",
@@ -319,7 +319,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
       "renderer_fingerprint": "dfc4d6626c337fa5",
-      "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
+      "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
       "publication_manifest_match": true,
       "mathml_node_count": 181,
       "raw_math_fallback_count": 0,
@@ -327,8 +327,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
-      "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
+      "html_mathml_sha256": "003a343d885776b07fd4416cc4059fa30488918ea8ba396b240856d0d3528402",
+      "html_exact_tex_sha256": "5df104bdfad22d56019d84a3a6e46a7d37c96914e9a7fb3ac6f92bbafbe3fbae"
     },
     "sections": [
       {
@@ -446,7 +446,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "c32fca1ce7894f66acb77255a854a81a1ec284a50909c7df2d2df3c43e59e80c",
+        "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
         "publication_manifest_match": true,
         "mathml_node_count": 181,
         "raw_math_fallback_count": 0,
@@ -454,8 +454,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d3751670deba10c2d9f3ed6ceb0fe6227d07b28baeb31a4dc3ca017b6fbd1617",
-        "html_exact_tex_sha256": "ac4c05d3f9c7e60844a376a84a581ed2155bcbe7a5facb3ce17fce8bab6f39fc"
+        "html_mathml_sha256": "003a343d885776b07fd4416cc4059fa30488918ea8ba396b240856d0d3528402",
+        "html_exact_tex_sha256": "5df104bdfad22d56019d84a3a6e46a7d37c96914e9a7fb3ac6f92bbafbe3fbae"
       },
       "sections": [
         {
@@ -549,7 +549,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 33,
+      "pages": 35,
       "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
       "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -573,9 +573,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "bc2bb3e931591dab362565be749ed5b6966babc33e27dcd6cab0172af4bb1bb0",
+        "source_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
         "publication_manifest_match": true,
-        "mathml_node_count": 775,
+        "mathml_node_count": 777,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -590,8 +590,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bc50fbfc8514e291f8c172ca5c9deb9146183bf0122252bcad267549f6d67a7c",
-        "html_exact_tex_sha256": "e40eef6d87c5d83daa1a679420468d2d5ac54d7d16d96d31a0592528a66b43d5"
+        "html_mathml_sha256": "4dca20f83dc0739592b4bd7c97b090ca0333c4173f52a2858ffcf19f22093a83",
+        "html_exact_tex_sha256": "5514ca811ffc89754abea9114bcfd3b1fcb4ed06bfa5bed93b94e2d95e95258d"
       },
       "sections": [
         {
@@ -815,6 +815,24 @@
   "source_map": {
     "nodes": [
       {
+        "id": "lean-module:ErdosProblems.Erdos269.ActualSharpTailMajorantR10",
+        "label": "ErdosProblems.Erdos269.ActualSharpTailMajorantR10",
+        "path": "ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean",
+        "direct": true,
+        "content_digest": "sha256:ad0ce74da91735a7466c6e4f01cc9655c80c42de12e55b6aff796504732a12f9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.BlockMassEngines",
+        "label": "ErdosProblems.Erdos269.BlockMassEngines",
+        "path": "ErdosProblems/Erdos269/BlockMassEngines.lean",
+        "direct": true,
+        "content_digest": "sha256:f7fac792bced7515f9f2e50810953f18a9896e897d352611466d4f716cf435af",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/BlockMassEngines.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos269.BoundedRadixTailEscape",
         "label": "ErdosProblems.Erdos269.BoundedRadixTailEscape",
         "path": "ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
@@ -830,6 +848,276 @@
         "direct": true,
         "content_digest": "sha256:ace522da1f0a6833a200efbe18d5961cf3562e1e6756055427b85140d25aae4b",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CarryLiftExtinction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.CertificateRangeR11",
+        "label": "ErdosProblems.Erdos269.CertificateRangeR11",
+        "path": "ErdosProblems/Erdos269/CertificateRangeR11.lean",
+        "direct": true,
+        "content_digest": "sha256:5581b1e19ea4f3148948089a6207c2ce452e9713b38b01ad134ecd6f5d9ef829",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CertificateRangeR11.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.CertificateSafetyR12",
+        "label": "ErdosProblems.Erdos269.CertificateSafetyR12",
+        "path": "ErdosProblems/Erdos269/CertificateSafetyR12.lean",
+        "direct": true,
+        "content_digest": "sha256:d16c98fb547152b7d7ec980be32682ac2a4cb386de9096030940586e594c1451",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CertificateSafetyR12.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.CofinalWindowEscapeEquivalence",
+        "label": "ErdosProblems.Erdos269.CofinalWindowEscapeEquivalence",
+        "path": "ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean",
+        "direct": true,
+        "content_digest": "sha256:15b722f85d9972ab2a4564add23ff4e4478280116d1dc71a99310fab44432f04",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.DyadicBlockMassIdentity",
+        "label": "ErdosProblems.Erdos269.DyadicBlockMassIdentity",
+        "path": "ErdosProblems/Erdos269/DyadicBlockMassIdentity.lean",
+        "direct": true,
+        "content_digest": "sha256:aa8a13d21f911f5ac181e6af049b83794b37b5e8633bfe387addde18a01b789d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/DyadicBlockMassIdentity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.DyadicBlockThresholdPartition",
+        "label": "ErdosProblems.Erdos269.DyadicBlockThresholdPartition",
+        "path": "ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean",
+        "direct": true,
+        "content_digest": "sha256:0db1ce6438fc4eeb85854bd174849f3fa51ce33c0757a72518d28a5ccf0e9f2b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.DyadicOrderedTailRecurrence",
+        "label": "ErdosProblems.Erdos269.DyadicOrderedTailRecurrence",
+        "path": "ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean",
+        "direct": true,
+        "content_digest": "sha256:b591d5f23c6d6bb8c486f2a3390a41ee03ff90e2d9da2cd2165e79d9755bf06a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.DyadicRadixTailEscape",
+        "label": "ErdosProblems.Erdos269.DyadicRadixTailEscape",
+        "path": "ErdosProblems/Erdos269/DyadicRadixTailEscape.lean",
+        "direct": true,
+        "content_digest": "sha256:d8b6c181c8af288f270986b0d2d0e9adcf2c237b5c8491eab176791ff937d4a9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/DyadicRadixTailEscape.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.DyadicShellSummability",
+        "label": "ErdosProblems.Erdos269.DyadicShellSummability",
+        "path": "ErdosProblems/Erdos269/DyadicShellSummability.lean",
+        "direct": true,
+        "content_digest": "sha256:42455b1fe8f36dfc2e83d58c469b0fd8268c3d7928b71843022dd308fd6f69ad",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/DyadicShellSummability.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.IntegralBranchExtinction",
+        "label": "ErdosProblems.Erdos269.IntegralBranchExtinction",
+        "path": "ErdosProblems/Erdos269/IntegralBranchExtinction.lean",
+        "direct": true,
+        "content_digest": "sha256:3c6bc417ae44e7fc80db7893ac3f33626a9ef954d60fe424ea93e102d7b57e3f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/IntegralBranchExtinction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.IntegralBranchWidth",
+        "label": "ErdosProblems.Erdos269.IntegralBranchWidth",
+        "path": "ErdosProblems/Erdos269/IntegralBranchWidth.lean",
+        "direct": true,
+        "content_digest": "sha256:e0559afe20c5855469b9441db3943c37e93f541b6e230d4a873935c2fbf7d7cb",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/IntegralBranchWidth.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.JumpConstraintMajorant",
+        "label": "ErdosProblems.Erdos269.JumpConstraintMajorant",
+        "path": "ErdosProblems/Erdos269/JumpConstraintMajorant.lean",
+        "direct": true,
+        "content_digest": "sha256:4141c29210a2b4a10d8ebecef83cac213342bdf6d4421ebedf8de55b2db41923",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/JumpConstraintMajorant.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "label": "ErdosProblems.Erdos269.KernelCarryRank",
+        "path": "ErdosProblems/Erdos269/KernelCarryRank.lean",
+        "direct": true,
+        "content_digest": "sha256:8b32ea2f9583cbea2d5c31c53da1f76400a4f3312a888bea0598016c16044839",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/KernelCarryRank.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.LongWindowCapR11",
+        "label": "ErdosProblems.Erdos269.LongWindowCapR11",
+        "path": "ErdosProblems/Erdos269/LongWindowCapR11.lean",
+        "direct": true,
+        "content_digest": "sha256:386800c38d615c25d6b6e78f425f7614bc406d40ea74ef906b429945cd5a64ff",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/LongWindowCapR11.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.NormalizedStateWidth",
+        "label": "ErdosProblems.Erdos269.NormalizedStateWidth",
+        "path": "ErdosProblems/Erdos269/NormalizedStateWidth.lean",
+        "direct": true,
+        "content_digest": "sha256:b49f4fa065ffb17cea01ca92f71a4a8c1c7fa4f7067afe430f72c76512951566",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/NormalizedStateWidth.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "label": "ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "path": "ErdosProblems/Erdos269/PaperR12WaveAAxiomAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:1a6d6e3470a7a86e73d2858ac7d059f7abf94b3ec53ba470b221161a7eaf331f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR12WaveAAxiomAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7ActualOrbit",
+        "label": "ErdosProblems.Erdos269.PaperR7ActualOrbit",
+        "path": "ErdosProblems/Erdos269/PaperR7ActualOrbit.lean",
+        "direct": true,
+        "content_digest": "sha256:6153f9ca22bde343b366fb8e33850a3bc4eb9771284b305d4e241b9e3c9723f4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7BasicAssembly",
+        "label": "ErdosProblems.Erdos269.PaperR7BasicAssembly",
+        "path": "ErdosProblems/Erdos269/PaperR7BasicAssembly.lean",
+        "direct": true,
+        "content_digest": "sha256:b8c9250cdac7d3d09cc3e7d91217d9becd247a357ca826fe39921811d717b8cb",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7RationalBridge",
+        "label": "ErdosProblems.Erdos269.PaperR7RationalBridge",
+        "path": "ErdosProblems/Erdos269/PaperR7RationalBridge.lean",
+        "direct": true,
+        "content_digest": "sha256:b511b03bce9f7965c44f03336805766f3d4a01da552ba823c8fb73475a6e2035",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7RationalBridge.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7SeriesIdentification",
+        "label": "ErdosProblems.Erdos269.PaperR7SeriesIdentification",
+        "path": "ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean",
+        "direct": true,
+        "content_digest": "sha256:07bacd61c97f4d15a7e30962c25611fcc8235b045568fb4da289eb8b87d1020e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7SharpShellBound",
+        "label": "ErdosProblems.Erdos269.PaperR7SharpShellBound",
+        "path": "ErdosProblems/Erdos269/PaperR7SharpShellBound.lean",
+        "direct": true,
+        "content_digest": "sha256:13b534b9e5df5fe1f532dfe416d1e6f24b4522fffcb3e2e064e7f7f3f3bf63ef",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7SharpShellBound.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults",
+        "label": "ErdosProblems.Erdos269.PaperR7WindowResults",
+        "path": "ErdosProblems/Erdos269/PaperR7WindowResults.lean",
+        "direct": true,
+        "content_digest": "sha256:fe82190b7523bcc9b47d622cfe373299ab09b0912030d4247f518d746fb6d456",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR7WindowResults.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR8RankMajorant",
+        "label": "ErdosProblems.Erdos269.PaperR8RankMajorant",
+        "path": "ErdosProblems/Erdos269/PaperR8RankMajorant.lean",
+        "direct": true,
+        "content_digest": "sha256:f7c614ef17a54a3e3471fab7e5d27cdc5fa4a3d024f32f286d2fab1ced3736ca",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR8RankMajorant.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR9SourceCounts",
+        "label": "ErdosProblems.Erdos269.PaperR9SourceCounts",
+        "path": "ErdosProblems/Erdos269/PaperR9SourceCounts.lean",
+        "direct": true,
+        "content_digest": "sha256:ad9fb330bcec24bb38c025a9bf7f3e23e8120bfc331902ad78f2015b26f22b08",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR9SourceCounts.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR9WidthData",
+        "label": "ErdosProblems.Erdos269.PaperR9WidthData",
+        "path": "ErdosProblems/Erdos269/PaperR9WidthData.lean",
+        "direct": true,
+        "content_digest": "sha256:db7e2951eb3adae520d52f2ebda3b204cc60d5eaffe2dedc4e57612f5d275e09",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PaperR9WidthData.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PurePowerIrrationality",
+        "label": "ErdosProblems.Erdos269.PurePowerIrrationality",
+        "path": "ErdosProblems/Erdos269/PurePowerIrrationality.lean",
+        "direct": true,
+        "content_digest": "sha256:42f8bd46814e30734170870cf9ee91b647583f00692bdeab4dfe23d7362cd959",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/PurePowerIrrationality.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.R12.ExactModulus",
+        "label": "ErdosProblems.Erdos269.R12.ExactModulus",
+        "path": "ErdosProblems/Erdos269/R12/ExactModulus.lean",
+        "direct": true,
+        "content_digest": "sha256:3568b1f292807a4d72a53bd8b61eba998793abe7e975d311f83ad63006407139",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/ExactModulus.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.R12.OcticWindowBand",
+        "label": "ErdosProblems.Erdos269.R12.OcticWindowBand",
+        "path": "ErdosProblems/Erdos269/R12/OcticWindowBand.lean",
+        "direct": true,
+        "content_digest": "sha256:2cd0173e546f6f35bfab579d93aa0fbc75d71d3ec5061de23ce7c5ac24d9658d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/OcticWindowBand.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.R12.PrefixExtension",
+        "label": "ErdosProblems.Erdos269.R12.PrefixExtension",
+        "path": "ErdosProblems/Erdos269/R12/PrefixExtension.lean",
+        "direct": true,
+        "content_digest": "sha256:1aaa237f6e27db42f868c3ad5517590239a41e37cf65bf7cc2ad0bc3c50e5bd5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/PrefixExtension.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.RationalLatticeReduction",
+        "label": "ErdosProblems.Erdos269.RationalLatticeReduction",
+        "path": "ErdosProblems/Erdos269/RationalLatticeReduction.lean",
+        "direct": true,
+        "content_digest": "sha256:e9eed3065bb7e93cf784f8c412b1c9eeb1e29383e9ceaa1665bb0ea5076aa24d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RationalLatticeReduction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.RationalityCarryBridge",
+        "label": "ErdosProblems.Erdos269.RationalityCarryBridge",
+        "path": "ErdosProblems/Erdos269/RationalityCarryBridge.lean",
+        "direct": true,
+        "content_digest": "sha256:9abe5bfcb4423e19f123e002eab0ff762c63f86b9715663d5b7ff5e36c4f44a8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RationalityCarryBridge.lean",
         "role": "Lean proof module"
       },
       {
@@ -851,6 +1139,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos269.SharpWindowCapR10",
+        "label": "ErdosProblems.Erdos269.SharpWindowCapR10",
+        "path": "ErdosProblems/Erdos269/SharpWindowCapR10.lean",
+        "direct": true,
+        "content_digest": "sha256:2e77317820309f9c2ccb93b4b0985331dd49e3d693c11c518774b3b4fec2200a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/SharpWindowCapR10.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
         "label": "ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
         "path": "ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean",
@@ -864,7 +1161,7 @@
         "label": "ErdosProblems.Erdos269.ThreePrimeRunningLcm",
         "path": "ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
         "direct": true,
-        "content_digest": "sha256:b3279ce084c98e4e7521e0bb94d3e366de010a30548fab0b326390da16ff6c3c",
+        "content_digest": "sha256:9a158ddc272a2c59d87aaefcd84352ffa6197d6bed95f965f0de59a119a8b34e",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
         "role": "Lean proof module"
       },
@@ -876,12 +1173,213 @@
         "content_digest": "sha256:ef3e57a4728534e108bb4e668ceef2cc102c2cf001673d59d9c15cff7f0beb9e",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean",
         "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.IrrationalRotationStaircase",
+        "label": "ErdosProblems.Shared.IrrationalRotationStaircase",
+        "path": "ErdosProblems/Shared/IrrationalRotationStaircase.lean",
+        "direct": false,
+        "content_digest": "sha256:c3c2013d856ecedc3751e6fb0a4ac237e3ea397aa96fd475c76811137a74ba71",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Shared/IrrationalRotationStaircase.lean",
+        "role": "Lean proof module"
       }
     ],
     "edges": [
       {
+        "source": "lean-module:ErdosProblems.Erdos269.ActualSharpTailMajorantR10",
+        "target": "lean-module:ErdosProblems.Erdos269.JumpConstraintMajorant"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.ActualSharpTailMajorantR10",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR8RankMajorant"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos269.CarryLiftExtinction",
         "target": "lean-module:ErdosProblems.Erdos269.ThreeChannelBlockRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.CertificateRangeR11",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR9WidthData"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.CertificateSafetyR12",
+        "target": "lean-module:ErdosProblems.Erdos269.CertificateRangeR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.CofinalWindowEscapeEquivalence",
+        "target": "lean-module:ErdosProblems.Erdos269.RationalityCarryBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicBlockMassIdentity",
+        "target": "lean-module:ErdosProblems.Erdos269.BlockMassEngines"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicBlockMassIdentity",
+        "target": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicBlockThresholdPartition",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicBlockMassIdentity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicBlockThresholdPartition",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicOrderedTailRecurrence",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicBlockThresholdPartition"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicOrderedTailRecurrence",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicRadixTailEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicRadixTailEscape",
+        "target": "lean-module:ErdosProblems.Erdos269.BoundedRadixTailEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicRadixTailEscape",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.DyadicShellSummability",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicOrderedTailRecurrence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.IntegralBranchExtinction",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicShellSummability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.IntegralBranchWidth",
+        "target": "lean-module:ErdosProblems.Erdos269.IntegralBranchExtinction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "target": "lean-module:ErdosProblems.Shared.IrrationalRotationStaircase"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.LongWindowCapR11",
+        "target": "lean-module:ErdosProblems.Erdos269.SharpWindowCapR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.NormalizedStateWidth",
+        "target": "lean-module:ErdosProblems.Erdos269.IntegralBranchExtinction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "target": "lean-module:ErdosProblems.Erdos269.CertificateSafetyR12"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "target": "lean-module:ErdosProblems.Erdos269.R12.ExactModulus"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "target": "lean-module:ErdosProblems.Erdos269.R12.OcticWindowBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR12WaveAAxiomAudit",
+        "target": "lean-module:ErdosProblems.Erdos269.R12.PrefixExtension"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7ActualOrbit",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicRadixTailEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7ActualOrbit",
+        "target": "lean-module:ErdosProblems.Erdos269.IntegralBranchWidth"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7ActualOrbit",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7SharpShellBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7BasicAssembly",
+        "target": "lean-module:ErdosProblems.Erdos269.IntegralBranchExtinction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7BasicAssembly",
+        "target": "lean-module:ErdosProblems.Erdos269.KernelCarryRank"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7BasicAssembly",
+        "target": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7RationalBridge",
+        "target": "lean-module:ErdosProblems.Erdos269.CofinalWindowEscapeEquivalence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7RationalBridge",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7SeriesIdentification"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7SeriesIdentification",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7ActualOrbit"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7SharpShellBound",
+        "target": "lean-module:ErdosProblems.Erdos269.NormalizedStateWidth"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults",
+        "target": "lean-module:ErdosProblems.Erdos269.JumpConstraintMajorant"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7BasicAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7RationalBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR8RankMajorant",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR9SourceCounts",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicBlockThresholdPartition"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR9WidthData",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR9SourceCounts"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.R12.ExactModulus",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.R12.OcticWindowBand",
+        "target": "lean-module:ErdosProblems.Erdos269.LongWindowCapR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.R12.OcticWindowBand",
+        "target": "lean-module:ErdosProblems.Erdos269.R12.ExactModulus"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.R12.PrefixExtension",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7WindowResults"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RationalLatticeReduction",
+        "target": "lean-module:ErdosProblems.Erdos269.DyadicShellSummability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RationalLatticeReduction",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RationalityCarryBridge",
+        "target": "lean-module:ErdosProblems.Erdos269.NormalizedStateWidth"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.RationalityCarryBridge",
+        "target": "lean-module:ErdosProblems.Erdos269.RationalLatticeReduction"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
@@ -890,6 +1388,10 @@
       {
         "source": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
         "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.SharpWindowCapR10",
+        "target": "lean-module:ErdosProblems.Erdos269.ActualSharpTailMajorantR10"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos269.WeightedPhaseCarry",

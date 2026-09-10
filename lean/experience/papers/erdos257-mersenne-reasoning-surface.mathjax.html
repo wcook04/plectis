@@ -696,36 +696,25 @@ the recursion shape; it forbids no residue and no run. <span><span
 class="sans-serif">[Math]</span></span></p>
 <p><strong>Class (b): global averages and Diophantine data.</strong></p>
 <div class="prop">
-<p><strong>Proposition 17</strong> (Exponent-budget mismatch; <span
-class="smallcaps">proved</span>, given a cited <span
-class="math inline">\(\mu\)</span>). <em> The skip set at row <span
-class="math inline">\(n\)</span> has <span
-class="math inline">\(|\mathrm{Skip}_n| \approx n^2/4\)</span>, so an
-irrationality-measure exponent <span class="math inline">\(\mu\)</span>
-for the target constant yields a separation of order only <span
-class="math inline">\(2^{-\mu n^2/4}\)</span>, while the required
-precision is <span class="math inline">\(2^{-3n/2}\)</span>. The
-shortfall is a factor <span class="math inline">\(\approx
-0.42\,n\)</span> <em>in the exponent</em>, and it grows linearly in
-<span class="math inline">\(n\)</span>. Since <span
-class="math inline">\(\mu \ge 2\)</span> for every irrational, no
-improvement in <span class="math inline">\(\mu\)</span> can close it:
-Zudilin’s <span class="math inline">\(\mu(E) \le
-2.42343562\ldots\)</span> is irrelevant to the gap, and so is any future
-bound. <code>coord:diophantine</code> <span><span
+<p><strong>Proposition 17</strong> (Weighted denominator budget; <span
+class="smallcaps">proved</span>). <em> For the denominator <span
+class="math inline">\(D_n\)</span> of the skip-set rational, <span
+class="math inline">\(\log_2D_n\le\sum_{d\in\mathrm{Skip}_n}\log_2(2^d-1)&lt;\sum_{d\in\mathrm{Skip}_n}d
+\le n(n-1)/2-1\)</span>. This weighted quadratic upper bound is too
+coarse for the orbit’s <span class="math inline">\(2^{-3n/2}\)</span>
+precision. An <span class="math inline">\(n^2/4\)</span> asymptotic
+would require additional distribution information.
+<code>coord:diophantine</code> <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
-class="sans-serif">[Math]</span></span><span><span
-class="sans-serif">[Cited]</span></span></em></p>
+class="sans-serif">[Math]</span></span></em></p>
 </div>
-<p><strong>Rules out.</strong> Any argument deriving the run-length or
-magnitude bound from (a) arithmetic information at fixed finite
-precision or a bounded automaton state, or (b) a global average,
-density, or Diophantine-approximation quantity attached to <span
-class="math inline">\(C = E - 3/2\)</span>. Concretely: no proposal to
-bound the R-run via an irrationality measure of a Mersenne or
-Erdős–Borwein-type constant can work, however good the measure becomes;
-and no proposal defining a bounded carry state summarising pre-index
-history can determine the post-index tail.</p>
+<p><strong>Precise obstructions.</strong> Fixed-precision automaton
+state cannot determine the post-index tail, and the displayed weighted
+denominator budget combined with the currently cited fixed
+irrationality-measure exponent does not yield the required run bound.
+These calculations do not exclude averaging over shifts, residues, or
+observation scales, nor a sharper analysis of the actual skip
+distribution.</p>
 <p><strong>Explains.</strong> Prime-doubling fails for a recorded reason
 rather than for want of effort: <span class="math inline">\(N\)</span>
 prime <span class="math inline">\(\ge n\)</span> gives <span
@@ -760,11 +749,12 @@ class="smallcaps">proved</span>). <em> <span class="math inline">\(1/2
 \notin \mathcal{A}\)</span> is <span
 class="math inline">\(\Sigma^0_1\)</span>: a single finite object — a
 fatal gap — certifies it. <span class="math inline">\(1/2 \in
-\mathcal{A}\)</span> is <span class="math inline">\(\Pi^0_1\)</span>,
-and no finite object certifies it. Consequently no finite computation,
-at any depth, can establish <span class="math inline">\(1/2 \in
-\mathcal{A}\)</span>. <code>coord:meta</code> <span><span
-class="sans-serif">scale:uniform</span></span> <span><span
+\mathcal{A}\)</span> has a <span class="math inline">\(\Pi^0_1\)</span>
+survival formulation. Survival through a tested finite depth alone does
+not establish membership; a uniform theorem or inductive invariant
+could. The arithmetical-hierarchy form by itself proves neither
+undecidability nor the absence of finite proofs. <code>coord:meta</code>
+<span><span class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> The statement is checked in
 Lean: <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CatalogueAssemblies.lean#L50"><span
@@ -1111,11 +1101,12 @@ verbatim in the docstrings.</p>
 <p><strong>Why it is here.</strong> This route does not attempt the
 wall; it <em>measures</em> it, which is exactly what makes it bankable.
 Each equivalence is a theorem — a biconditional between a named
-<code>Prop</code> and half-membership — not a reduction, and each one
-permanently retires a socket from the list of things worth chasing
-directly. Systematic elimination of this kind is a result about the
-problem in a way that a reformulation is not. The perfect-square
-normalisation is what makes it available now: it dissolves the <span
+<code>Prop</code> and half-membership — not merely a one-way reduction.
+Each identifies the exact missing content of a socket; it does not
+preclude that formulation from exposing a useful invariant. Systematic
+elimination of this kind is a result about the problem in a way that a
+reformulation is not. The perfect-square normalisation is what makes it
+available now: it dissolves the <span
 class="math inline">\(\lfloor\sqrt{\cdot}\rfloor\)</span> versus <span
 class="math inline">\(\sqrt{\cdot}\)</span> mismatch that previously
 blocked two of the five, and it needs no widening of the strip
@@ -1300,12 +1291,11 @@ class="math inline">\(2\)</span> instance recovering the classical
 Erdős–Borwein constant’s irrationality is , a one-line
 corollary.</em></p>
 </div>
-<p>This is the base-<span class="math inline">\(b\)</span>
-generalization of Erdős’s original 1948 irrationality theorem for <span
-class="math inline">\(\sum 1/(2^n-1)\)</span> (cited, in its base-<span
-class="math inline">\(2\)</span> form, as an input at Remark <span
-class="math inline">\(\ref{rem:no-ties}\)</span> below); its Lean form
-removes the base restriction entirely and is landed with no open
+<p>This formalizes the positive-integer-base scope of <a
+href="https://www.renyi.hu/~p_erdos/1948-04.pdf">Erdős’s classical 1948
+full-support theorem</a>, which already covered integer bases of
+absolute value greater than one. The base-two Erdős–Borwein constant is
+a particular case; the Lean theorem is landed with no open
 hypotheses.</p>
 </section>
 <section id="named-infinite-support-families" class="level4">
@@ -1421,10 +1411,13 @@ class="math inline">\(E\approx1.6067\)</span>.
 <code>coord:achievement-set-topology</code> <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span><br />
-<strong>Site:</strong> , , , , , . The proofs use only
-superincreasingness of <span class="math inline">\(\{x_n\}\)</span> and
-summability, so the argument transfers verbatim to any strictly
-superincreasing weight series.<br />
+<strong>Site:</strong> , , , , , . Strict separation and summability
+give the compactness, unique coding, and Cantor topology. The measure
+assertion is Mersenne-specific: if <span
+class="math inline">\(R_N=\sum_{n&gt;N}x_n\)</span>, the level-<span
+class="math inline">\(N\)</span> cylinder length is <span
+class="math inline">\(2^N R_N\to1\)</span>. Other weight sequences
+require their own tail asymptotic.<br />
 <strong>Chains with:</strong> Theorem <span
 class="math inline">\(\ref{thm:greedy-survival-record}\)</span> below
 (compactness is exactly what powers every “limit of achieved points is
@@ -1455,13 +1448,13 @@ class="sans-serif">[Lean]</span></span><br />
 <section id="ssec:greedy-orbit" class="level3">
 <h3>The greedy orbit, exactly</h3>
 <p>Fix the target <span class="math inline">\(1/2\)</span> and the
-weights <span class="math inline">\(x_n = 1/(2^n-1)\)</span>, <span
-class="math inline">\(n \ge 2\)</span> (rank <span
-class="math inline">\(1\)</span> contributes the undefined <span
-class="math inline">\(x_1\)</span> and is excluded by convention; all
-indexing below starts at rank <span class="math inline">\(2\)</span>).
-The greedy orbit is the unique deterministic process forced by
-superincreasingness (Theorem <span
+weights <span class="math inline">\(x_n = 1/(2^n-1)\)</span>. Here <span
+class="math inline">\(x_1=1\)</span>, so exponent one cannot occur in a
+representation of <span class="math inline">\(1/2\)</span> by positive
+summands; the half-target discussion starts at exponent two. (The
+reciprocal formula is undefined only at exponent zero.) The greedy orbit
+is the unique deterministic process forced by superincreasingness
+(Theorem <span
 class="math inline">\(\ref{thm:greedy-survival-record}\)</span>):</p>
 <div class="defn">
 <p><strong>Definition 32</strong> (The half-value greedy orbit). Let
@@ -2032,11 +2025,12 @@ class="sans-serif">scale:uniform</span></span><code>coord:greedy-orbit</code>
 </div>
 <div class="thm">
 <p><strong>Theorem 53</strong> (Governed frozen-margin producer family:
-three graded sockets). <em> Three sufficient sockets, strongest to
-weakest hypothesis, all funnel into <span
-class="math inline">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>:
-(i) <em>HalfGreedySkippedFullShellNonnegative</em> (at every skipped
-rank, <span
+three graded sockets). <em> Three open sufficient hypotheses, strongest
+to weakest, all funnel into <span
+class="math inline">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>
+through proved consumers: (i)
+<em>HalfGreedySkippedFullShellNonnegative</em> (at every skipped rank,
+<span
 class="math inline">\(0\le\mathrm{greedyHalfFrozenMargin}(n-1)\,n\)</span>),
 direct and seam-free; (ii) <em>HalfGreedySkippedSeamAlignmentZero</em>
 (the seam remainder is exactly <span class="math inline">\(0\)</span>
@@ -2600,11 +2594,12 @@ class="sans-serif">scale:uniform</span></span><code>coord:dyadic-boundary</code>
 </div>
 <div class="thm">
 <p><strong>Theorem 84</strong> (Final-middle-cell <span
-class="math inline">\(-3\)</span> excluded). <em> The first of three
-exceptional final-middle integer cells (coordinate <span
+class="math inline">\(-3\)</span> excluded under an all-right tail).
+<em> Assume a middle transition is the last one and is followed by an
+all-right tail. Then the first of three exceptional final-middle integer
+cells (coordinate <span
 class="math inline">\(4\cdot\mathrm{remainder}-\mathrm{belowPulse}-4=-3\)</span>)
-cannot be the actual last transition before an all-right tail. Combines
-the analytic strict inequality of Lemma <span
+is impossible. Combines the analytic strict inequality of Lemma <span
 class="math inline">\(\ref{lem:eventually-right-impossible}\)</span>
 with a two-step Möbius-carry recurrence forcing the centred carry to
 zero then strictly negative within two more coefficient rows,
@@ -3490,14 +3485,18 @@ track)</h4>
 <p>Three graded sockets, strongest hypothesis to weakest, all funnel
 into the same endpoint <span
 class="math inline">\(\mathrm{half\_mem\_mersenneAchievementSet\_of\_governedFrozenMarginProducer}\)</span>.</p>
-<div class="thm">
-<p><strong>Theorem 121</strong> (257bm:c13 — (i)
-<code>HalfGreedySkippedFullShellNonnegative</code>). <em><span
+<div class="defn">
+<p><strong>Definition 121</strong> (257bm:c13 — open property
+<code>HalfGreedySkippedFullShellNonnegative</code>). <span
 class="math display">\[\forall\ \text{skipped rank } n,\quad 0 \le
-\mathrm{greedyHalfFrozenMargin}(n-1,n).\]</span> Direct, seam-free. The
-plainest sufficient socket in the family.</em></p>
-<p><em> <span><span class="sans-serif">scale:uniform</span></span>
-<code>coord:other:frozen-margin</code> </em></p>
+\mathrm{greedyHalfFrozenMargin}(n-1,n).\]</span> This is an open
+property, not a proved theorem. It is the plainest sufficient socket in
+the family: assuming it,
+<code>half_mem_mersenneAchievementSet_of_skippedFullShellNonnegative</code>
+proves <span
+class="math inline">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>.</p>
+<p> <span><span class="sans-serif">scale:uniform</span></span>
+<code>coord:other:frozen-margin</code> </p>
 </div>
 <div class="thm">
 <p><strong>Theorem 122</strong> (257bm:c14 — (ii)
@@ -5128,14 +5127,16 @@ infinitely many exact rows or infinitely many positive greedy skips
 (Table <span class="math inline">\(\ref{tab:scale-ladder}\)</span>, rows
 C1/C3), and the unconditional track needs a run-length bound that holds
 at every reset row out to infinity, not merely to a certified depth.
-Every machine-checked theorem in the tree is fixed, bounded, or uniform.
-No amount of raising a uniform certificate’s threshold, by itself,
-produces a cofinal witness — a uniform statement “<span
-class="math inline">\(\forall n\ge N_0\)</span>” is a single first-order
-sentence with no existential content past <span
-class="math inline">\(N_0\)</span>, while a cofinal statement needs
-infinitely many <em>witnesses to a further existential</em>, which is a
-strictly different logical shape.</p>
+Each row must retain its predicate, quantified variable, and every
+premise. An unconditional eventual assertion <span
+class="math inline">\(\forall n\ge N_0,\,P(n)\)</span> does give cofinal
+witnesses to that same predicate, by taking <span
+class="math inline">\(n=\max(N,N_0)\)</span>. A conditional uniform
+consumer <span class="math inline">\(H(n)\Rightarrow C(n)\)</span>
+supplies no witness until <span class="math inline">\(H(n)\)</span> is
+established, and a checked finite band supplies no assertion beyond its
+endpoints. These are different logical shapes and are recorded
+separately below.</p>
 <p>Table <span class="math inline">\(\ref{tab:scale-ladder}\)</span>
 samples the ladder across all four non-trivial scales, drawn from the
 <code>BooleanMobius</code>, <code>HalfCutLocator</code>,
@@ -5172,9 +5173,10 @@ shrinks as <span class="math inline">\(1/\sqrt N\)</span> is uniform
 <em>at</em> any fixed depth but does not, by itself, manufacture the
 next witness at a larger depth).</p>
 <p>This is consistent with, not a substitute for, the general logical
-point above: promoting a uniform statement to a cofinal one requires new
-content — an explicit witness-producing construction — not a change of
-quantifier bookkeeping.</p>
+point above: an eventual-uniform proof of the same witness predicate
+already implies cofinal production. New content is required only when
+the uniform row is conditional, concerns another predicate, or covers
+only a finite band.</p>
 </div>
 </section>
 <section id="sec:four-coordinates" class="level2">
@@ -5779,10 +5781,11 @@ not dyadic-scale, lower bound on the middle coordinate.</p>
 window). <span><span class="sans-serif">[Lean]</span></span> , , , , .
 <strong>Yields:</strong> the upper-producer “last transition before an
 all-right tail” case is impossible unconditionally (affine carry <span
-class="math inline">\(\le -8\)</span>); the middle cell at coordinate
-<span class="math inline">\(-3\)</span> is excluded unconditionally.
-What survives: a middle producer whose landing excess <span
-class="math inline">\(X_{D+1}\)</span> satisfies <span
+class="math inline">\(\le -8\)</span>); under the
+final-middle-followed-by-all-right hypothesis, the middle cell at
+coordinate <span class="math inline">\(-3\)</span> is excluded. What
+survives in that scenario is a middle producer whose landing excess
+<span class="math inline">\(X_{D+1}\)</span> satisfies <span
 class="math inline">\(2 \le X_{D+1} &lt; 2\sqrt{2D+2}+8\)</span> — a
 window of only <span class="math inline">\(O(\sqrt D)\)</span> integers.
 <strong>Mismatch (<code>hypothesis_strength</code>):</strong> the
@@ -5812,14 +5815,13 @@ induction from a decide-checked row-5 base, the two-sided invariant
 (<code>hypothesis_strength</code>):</strong> the hypothesis is
 anti-concentration at <em>constant</em> resolution — the orbit must miss
 three named integers — where the obligation is anti-concentration at
-resolution <span class="math inline">\(2^{(r+5)/2}\)</span>. One of the
-three cells (<span class="math inline">\(-3\)</span>) is already closed
-in the all-right-tail configuration by
-<code>finalMiddleCell_neg_three_not_last</code>, leaving two.
-<strong>Closes it:</strong> exclusion of the two remaining cells (<span
-class="math inline">\(-2\)</span> and <span
-class="math inline">\(-1\)</span>) for the actual seam orbit, plus the
-right-pulse-leak inequality <span
+resolution <span class="math inline">\(2^{(r+5)/2}\)</span>. Cell <span
+class="math inline">\(-3\)</span> is closed only in the all-right-tail
+configuration by <code>finalMiddleCell_neg_three_not_last</code>. The
+unrestricted induction still requires exclusion of all three cells at
+every late middle row. <strong>Closes it:</strong> exclusion of all
+three cells for the actual seam orbit, plus the right-pulse-leak
+inequality <span
 class="math inline">\(4\cdot\mathrm{overshoot}+\mathrm{abovePulse} \le
 2^{s+2}\)</span> under <span class="math inline">\(\mathrm{overshoot}
 \le 2^s\)</span>.</p>
@@ -5955,9 +5957,9 @@ class="math inline">\(\mathrm{HalfRung}(J)\)</span> for infinitely many
 promotable by re-running the existing argument: the certificate window
 <span class="math inline">\(B(J)\)</span> is driven by <span
 class="math inline">\(L_J
-= \mathrm{lcm}(2,\dots,J)\)</span>, growing superexponentially in <span
-class="math inline">\(J\)</span>, the hallmark of a proof that does not
-survive bound removal.</p>
+= \mathrm{lcm}(2,\dots,J)\)</span>, a modulus of exponential scale in
+<span class="math inline">\(J\)</span>. Its finite computational cost
+does not by itself rule out a cofinal argument.</p>
 </div>
 </section>
 <section id="cofinal-rows-thirteen-near-misses" class="level3">
@@ -6161,16 +6163,16 @@ over existing lemmas.</p>
 <div class="obs">
 <p><em>Observation 224</em> (G4 / full-shell margin, wrong horizon
 direction). <span><span class="sans-serif">[Lean]</span></span> , , .
-<strong>Yields:</strong> at every skipped rank <span
-class="math inline">\(n \ge 3\)</span>, <span class="math inline">\(0
-\le \mathrm{greedyHalfFrozenMargin}(n{-}1)\,n\)</span> — first passage
-of the frozen margin by the full-shell horizon <span
-class="math inline">\(J=k{+}1\)</span>, <span
-class="math inline">\(k=n{-}1\)</span>. Reaches <span
-class="math inline">\(1/2 \in \mathrm{mersenneAchievementSet}\)</span>
-by its own consumer. <strong>Mismatch
-(<code>quantifier_order</code>):</strong> exactly three doubling steps
-of horizon short. The exact-row socket needs margin<span
+<strong>Open property and proved consumer:</strong>
+<code>HalfGreedySkippedFullShellNonnegative</code> asks that every
+skipped rank <span class="math inline">\(n\ge3\)</span> satisfy <span
+class="math inline">\(0\le\mathrm{greedyHalfFrozenMargin}(n{-}1)\,n\)</span>.
+Assuming this property,
+<code>half_mem_mersenneAchievementSet_of_skippedFullShellNonnegative</code>
+proves <span
+class="math inline">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>.
+<strong>Mismatch (<code>quantifier_order</code>):</strong> exactly three
+doubling steps of horizon short. The exact-row socket needs margin<span
 class="math inline">\((k,k{-}2)\ge0\)</span>; this gives margin<span
 class="math inline">\((k,k{+}1)\ge0\)</span>. By the succ-recurrence,
 margin<span class="math inline">\((k,k{+}1)=8\cdot\)</span>margin<span
@@ -6417,16 +6419,19 @@ class="math inline">\(1/2\)</span> must be infinite. <strong>Mismatch
 (<code>scale_only</code>):</strong> the headline is pinned to target
 <span class="math inline">\(1/2\)</span> while its engine <span
 class="math inline">\(\mathrm{Odd}((\mathrm{finiteErdosSum}\,F\,2).\mathrm{den})\)</span>
-is already fully general over finite supports. <strong>Closes
-it:</strong> verbatim re-derivation — <span
+is already fully general over finite supports. <strong>Sufficient
+specialization:</strong> verbatim re-derivation — <span
 class="math inline">\(\forall t:\mathbb Q\)</span> with even reduced
 denominator, <span class="math inline">\(\forall A\)</span> finite with
 <span class="math inline">\(0\notin A\)</span>, <span
 class="math inline">\(\mathrm{erdosSupportSeries}\,2\,A \ne (t:\mathbb
-R)\)</span>. No new mathematics. Paired with NM-02: universal #257 at
-<span class="math inline">\(b{=}2\)</span> is false iff some rational
-<span class="math inline">\(t\)</span> with even reduced denominator has
-an infinitely-skipping greedy Mersenne orbit.</p>
+R)\)</span>. No new mathematics. Thus a represented rational with even
+reduced denominator would refute universal #257 at <span
+class="math inline">\(b=2\)</span>. The converse is not established. If
+<span class="math inline">\(\mathrm{FinVal}\)</span> denotes the
+finite-support values, the exact unrestricted condition is <span
+class="math inline">\((\mathbb
+Q\cap\mathrm{mersenneAchievementSet})\smallsetminus\mathrm{FinVal}\ne\varnothing\)</span>.</p>
 </div>
 <div class="obs">
 <p><em>Observation 233</em> (NM-04 / dyadic-only reciprocal-mass
@@ -6679,19 +6684,12 @@ either: <span class="math inline">\(L\)</span> is exponential in <span
 class="math inline">\(|F|\)</span> by construction, so <span
 class="math inline">\(N{+}2\)</span> is astronomically larger than <span
 class="math inline">\(|F|\)</span>.</p>
-<p><strong>Closes it:</strong> a common-multiple selection with divisor
-economy — an infinite <span class="math inline">\(A\)</span> must admit
-<span class="math inline">\(L\)</span> with <span
-class="math inline">\(|\{a\in A: a\mid L\}| &gt;
-2\,\mathrm{binaryCoeffTail}(\mathrm{supportCoeff}\,A)(L{-}1) +
-1/v\)</span>. Since the tail is a <span
-class="math inline">\(2^{-j}\)</span>-weighted average near <span
-class="math inline">\(L\)</span>, this demands an anti-concentration
-statement about divisor incidence of <span
-class="math inline">\(A\)</span> in the window <span
-class="math inline">\((L,\,L{+}O(\log L)]\)</span> — the same shape as
-the missing certificate, restated; the route as built cannot supply
-it.</p>
+<p><strong>Failure of the proposed inequality.</strong> The tail already
+contains the contribution <span class="math inline">\(f_A(L)/2\)</span>,
+so <span class="math inline">\(2T_A(L-1)\ge f_A(L)\)</span> identically.
+The proposed strict excess by <span class="math inline">\(1/v\)</span>
+is therefore impossible. This route supplies no sufficient condition
+until a different inequality is found.</p>
 </div>
 <div class="obs">
 <p><em>Observation 241</em> (NM-12 / rank-gap dichotomy, target-generic
@@ -6751,14 +6749,15 @@ branch killable by a positive far tail.</p>
 for arbitrary <span class="math inline">\(A\)</span>, either <span
 class="math inline">\(\mathrm{erdosSupportSeries}\,2\,A\)</span> is
 irrational or <span class="math inline">\(2^k\cdot\)</span>it is an
-integer. For infinite <span class="math inline">\(A\)</span> the
-terminating branch is already excluded by
-<code>finiteErdosSum_den_odd</code>-style parity plus a positive far
-tail, so this dichotomy — if provable without periodicity — would close
-the obligation outright. Periodicity is used only to manufacture the
-full-block certificates (“periodicity alone manufactures the full-block
-certificates,” per the file’s own docstring), so removing it is again
-NM-01’s missing producer, restated a third time.</p>
+integer. For arbitrary infinite <span class="math inline">\(A\)</span>,
+exclusion of the terminating branch is itself an additional unproved
+assertion; finite-support odd-denominator parity does not pass
+automatically to an infinite limit. An aperiodic dichotomy together with
+a valid terminating-branch exclusion would close the obligation.
+Periodicity is used only to manufacture the full-block certificates
+(“periodicity alone manufactures the full-block certificates,” per the
+file’s own docstring), so removing it is again NM-01’s missing producer,
+restated a third time.</p>
 </div>
 </section>
 <section
@@ -6822,17 +6821,17 @@ corpus supplies no finite certificate that the orbit survives forever
 and no completion theorem turning a long surviving prefix into
 membership.</em></p>
 <p><em>The reset-crossing sockets, truncation-rung ladder, and
-sharp-capacity inequalities feed sufficient conditions for a finite
-fatal gap. They are not proved equivalent to one another, nor is failure
-to find one at a given depth evidence of survival. Consequently these
-searches give at most a semi-decision procedure for <em>nonmembership of
-the specific value <span class="math inline">\(1/2\)</span></em>.
-Halting does not prove the universal statement in #257, and non-halting
-does not prove that <span class="math inline">\(1/2\)</span> is
-represented. In particular, neither truth nor falsity of the universal
-problem is shown semi-decidable here. Deeper negative search alone
-establishes nothing beyond the tested finite ranks; this is the
-quantifier boundary recorded by SE-7/RC-7.</em></p>
+sharp-capacity inequalities feed sufficient conditions for membership.
+They are not proved equivalent to one another, nor is failure to find
+one at a given depth evidence of survival. Consequently these searches
+give at most a semi-decision procedure for <em>nonmembership of the
+specific value <span class="math inline">\(1/2\)</span></em>. Halting
+does not prove the universal statement in #257, and non-halting does not
+prove that <span class="math inline">\(1/2\)</span> is represented. In
+particular, neither truth nor falsity of the universal problem is shown
+semi-decidable here. Deeper negative search alone establishes nothing
+beyond the tested finite ranks; this is the quantifier boundary recorded
+by SE-7/RC-7.</em></p>
 </div>
 </section>
 <section id="route-collapse-findings-four-traps-to-name-explicitly"
@@ -6868,30 +6867,18 @@ A\)</span> — dropping the greedy-specific <span
 class="math inline">\(\le1/2\)</span> fact yields only <span
 class="math inline">\(\mathrm{hbound}\Leftrightarrow
 \delta\le0\)</span> (a one-sided condition), not <span
-class="math inline">\(\delta=0\)</span>. It also does <em>not</em>
-extend to the sibling socket : <code>hbound</code> is stated in
-<code>Real.sqrt</code>, while <code>CofinalStripReturn</code>’s
-<code>halfStripBound</code> is built on <code>Nat.sqrt</code>, and
-bridging the real bound down to the tighter natural-number floor bound
-needed for a cofinal witness is an unaddressed, nontrivial gap — not
-routine packaging.</p>
+class="math inline">\(\delta=0\)</span>. For the sibling socket , the
+former <code>Real.sqrt</code>/<code>Nat.sqrt</code> adapter gap is
+repaired by restricting cofinal witness depths to perfect squares. Any
+remaining gap lies in the producer hypothesis, not in rounding.</p>
 </div>
 <div class="rem">
-<p><em>Remark 247</em> (HalfCarryCofinalTerminalOnlyStrip, widened to
-constant 6, still equivalent). , even after widening the strip constant
-from 4 to 6 (<span class="math inline">\(\mathrm{halfStripBound}&#39;\,n
-= 2\,\mathrm{Nat.sqrt}\,n+6\)</span>), is logically equivalent to <span
+<p><em>Remark 247</em> (HalfCarryCofinalTerminalOnlyStrip: current
+status). at the original strip constant is logically equivalent to <span
 class="math inline">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>
-once three small, non-circular, mechanical lemmas are supplied (a
-general one-not-in-support corollary, the discrete envelope inequality
-<span class="math inline">\(\mathrm{Real.sqrt}\,n \le
-\mathrm{Nat.sqrt}\,n+1\)</span>, and a routine
-prefix-to-<code>HalfWord</code> construction). None of the three gaps is
-equivalent to #257 or #249 individually — the equivalence sits one level
-up, at the socket itself. <strong>This is a diagnostic, not a
-route</strong>: it corrects TerminalOnlyCofinal.lean’s own "weaker
-producer" framing — the terminal-only cofinal strip carries no strategic
-advantage over proving achievement directly.</p>
+after restricting cofinal witness depths to perfect squares and using
+the landed tail bound. The square-root conversion is no longer an open
+adapter; the open content is the producer itself.</p>
 </div>
 <div class="rem">
 <p><em>Remark 248</em> (CofinalPositiveHalfGreedySkips is literally the
@@ -7028,13 +7015,12 @@ information: it forbids no residue and no run length. It is vacuous as
 an obstruction because it would hold for <em>every</em> recursion of the
 form <span class="math inline">\(J(M+1)=2J(M)-\delta(M+1)\)</span>,
 Mersenne or not.</p>
-<p><strong>Scope.</strong> Closes: the parity/perfect-square route
-completely and permanently, for this recursion shape — not a partial
-closure. Also closes it in advance for any structurally identical
-recursion (e.g. a hypothetical #249 digit-carry recursion of the same
-doubling-minus-forcing shape), since the vacuity is a fact about the
-shape, not about <span class="math inline">\(\tau\)</span> or Mersenne
-weights. <code>coord:parity-tautology</code></p>
+<p><strong>Scope.</strong> This parity identity supplies no restriction
+for this recursion shape: it follows formally from doubling minus
+forcing. That precise obstruction also applies to a structurally
+identical recurrence. It does not rule out averaging across shifts,
+residue classes, or observation scales.
+<code>coord:parity-tautology</code></p>
 <p><strong>Object or representation.</strong> About a
 <em>representation</em>: the identity is a fact about the recursion’s
 algebraic form (base-2 doubling-with-forcing), not about the value <span
@@ -7060,44 +7046,25 @@ class="math inline">\(C\)</span> has a known irrationality-measure upper
 bound, the natural hope is that a Diophantine-approximation exponent for
 <span class="math inline">\(C\)</span> directly supplies the needed
 non-approximability at scale <span class="math inline">\(n\)</span>.</p>
-<p><strong>Exact mechanism that closed it.</strong> The skip-set <span
-class="math inline">\(\mathrm{Skip}_n\)</span> has size <span
-class="math inline">\(|\mathrm{Skip}_n|\approx n^2/4\)</span> —
-quadratic in <span class="math inline">\(n\)</span>, not linear. An
-irrationality-measure exponent <span class="math inline">\(\mu\)</span>
-for <span class="math inline">\(C\)</span> bounds how well a
-<em>single</em> rational with denominator <span
-class="math inline">\(q\)</span> can approximate <span
-class="math inline">\(C\)</span>; specializing to a rational built from
-<span class="math inline">\(\approx n^2/4\)</span> terms only yields a
-lower bound on the approximation error of order <span
-class="math inline">\(2^{-\mu n^2/4}\)</span>, against a required bound
-of order <span class="math inline">\(2^{-3n/2}\)</span>. The shortfall
-is a factor of <span class="math inline">\(\approx 0.42n\)</span> <em>in
-the exponent itself</em> — not a constant-factor gap that a sharper
-<span class="math inline">\(\mu\)</span> could close, but a gap that
-grows without bound as <span class="math inline">\(n\to\infty\)</span>
-for any fixed <span class="math inline">\(\mu\)</span>.</p>
+<p><strong>Exact denominator budget.</strong> Cardinality alone gives
+only <span class="math inline">\(|\mathrm{Skip}_n|\le n-2\)</span>. For
+the denominator <span class="math inline">\(D_n\)</span> of the
+corresponding rational, <span class="math display">\[\log_2
+D_n\le\sum_{d\in\mathrm{Skip}_n}\log_2(2^d-1)
+&lt;\sum_{d\in\mathrm{Skip}_n}d\le \frac{n(n-1)}2-1.\]</span> An <span
+class="math inline">\(n^2/4\)</span> asymptotic would require additional
+distribution information. This weighted budget is too coarse to yield
+the required <span class="math inline">\(2^{-3n/2}\)</span> separation
+from the known irrationality measure.</p>
 <p>Zudilin’s bound <span class="math inline">\(\mu(E)\le
-2.42343562\ldots\)</span> (Math. Notes 72 (2002) 858–862; erratum in
-Acta Arith. 111 (2004) 153–164 revises this to <span
-class="math inline">\(\mu(E)\le 2.46497868\ldots\)</span>) is the best
-known value, but no future improvement in <span
-class="math inline">\(\mu\)</span> can close this gap, because <span
-class="math inline">\(\mu\ge 2\)</span> always (a universal lower bound
-for any irrational number), while the exponent shortfall grows like
-<span class="math inline">\(n\)</span> regardless of which fixed <span
-class="math inline">\(\mu\)</span> is plugged in.</p>
-<p><strong>Scope.</strong> Closes: every attempt to derive the wall from
-a single-number irrationality-measure statement about <span
-class="math inline">\(C\)</span> (or about <span
-class="math inline">\(E\)</span>), present or future, as long as the
-measure is a fixed exponent independent of <span
-class="math inline">\(n\)</span>. Does not touch: simultaneous or
-multi-point Diophantine-approximation results that could in principle
-scale with the number of terms (no such result is known to exist for
-this constant, but the exponent-budget argument does not rule out the
-<em>possibility</em> of one — only the single-exponent route).
+2.42343562\ldots\)</span> (Math. Notes 72 (2002) 858–862; the cited
+erratum gives <span class="math inline">\(2.46497868\ldots\)</span>)
+does not repair this quadratic-versus-linear budget.</p>
+<p><strong>Scope.</strong> The displayed denominator estimate combined
+with a fixed irrationality-measure exponent does not derive the wall. A
+sharper denominator analysis using the actual skip distribution, or a
+simultaneous approximation theorem with additional structure, is outside
+this calculation and is not excluded.
 <code>coord:diophantine-approximation</code></p>
 <p><strong>Object or representation.</strong> About the <em>object</em>:
 this is a genuine value-theoretic inequality (an exponent-budget
@@ -7286,19 +7253,17 @@ class="sans-serif">scale:n/a</span></span></em></p>
 <p><strong>Corollary 256</strong> (Only <span
 class="math inline">\(C_D\in\{-2,-1\}\)</span> remain among the
 exceptional dyadic cells). <em> Combining Proposition <span
-class="math inline">\(\ref{prop:upper-unconditional}\)</span> (upper
-branch: zero exceptional cells, ever) with Theorem <span
-class="math inline">\(\ref{thm:cd-neg3-impossible}\)</span> (<span
-class="math inline">\(C_D=-3\)</span> closed, in the final-producer
-sub-case): of the three cells <span
-class="math inline">\(\{-3,-2,-1\}\)</span> that <span
-class="sans-serif">SeamTwoSidedDyadicCellEscape</span> must in general
-exclude on the middle branch, only <span
-class="math inline">\(C_D\in\{-2,-1\}\)</span> remain genuinely open. No
-Lean theorem in the tree at the time of writing excludes <span
+class="math inline">\(\ref{prop:upper-unconditional}\)</span> with
+Theorem <span
+class="math inline">\(\ref{thm:cd-neg3-impossible}\)</span>, only <span
+class="math inline">\(C_D\in\{-2,-1\}\)</span> remain in the
+final-middle-then-all-right scenario. In the unrestricted
+late-middle-row induction, all three cells <span
+class="math inline">\(\{-3,-2,-1\}\)</span> remain to be excluded unless
+another argument supplies the final-producer premise. No Lean theorem in
+the tree at the time of writing excludes <span
 class="math inline">\(C_D=-2\)</span> or <span
-class="math inline">\(C_D=-1\)</span>, in either the final-producer
-scenario or the general induction step.
+class="math inline">\(C_D=-1\)</span> in either scope.
 <code>coord:final-producer/landing-excess</code> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
@@ -7709,12 +7674,14 @@ r\ \text{a reset row},\ r\ge 31:\qquad L_r\ &lt;\
 \frac{r-3}{2},\]</span> equivalently <span
 class="math display">\[\bigl|\,\mathrm{rem}(r+1)-2^{\,r+1}\,\bigr|\
 &gt;\ 2^{(r+5)/2}.\]</span> Any bound <span
-class="math inline">\(L_r=o(r)\)</span> suffices. A uniform constant
-bound is <em>false</em>: runs grow like <span
-class="math inline">\(\log_2 r\)</span> (<span><span
-class="sans-serif">[Cert]</span></span>, maximal observed run <span
-class="math inline">\(19\)</span> at row <span
-class="math inline">\(158{,}096\)</span>).</p>
+class="math inline">\(L_r=o(r)\)</span> suffices. In the exact
+computation through row <span class="math inline">\(200{,}000\)</span>,
+the maximal observed run has length <span
+class="math inline">\(19\)</span>, attained at row <span
+class="math inline">\(158{,}096\)</span> (<span><span
+class="sans-serif">[Cert]</span></span>). This finite observation rules
+out smaller bounds on that range only; a global constant bound or
+asymptotic unboundedness requires an additional proof.</p>
 <p><em>Form (ii), the Lean-facing form already fanned in.</em> <span
 class="math display">\[\mathtt{SeamUpperResetDyadicBandEscape}\ :=\
 \forall d\ge 13,\ \bigl(\mathtt{seamAdjacentCut}\
@@ -7851,28 +7818,19 @@ class="math inline">\(2^{-L/2}\)</span>.</p>
 <h4 class="unnumbered">The specific obstacle</h4>
 <p>This is the paragraph worth the most, so it is stated as sharply as
 the evidence permits.</p>
-<p><strong>The interval is logarithmically short, and every
-unconditional result for divisor sums in short intervals requires the
-interval to be a power of the modulus.</strong> The window <span
-class="math inline">\([M+1,M+L]\)</span> has length <span
-class="math inline">\(L\asymp\log_2 M\)</span>. Voronoi-based technology
-for <span class="math inline">\(\sum_{M&lt;n\le M+H}\tau(n)\)</span> —
-including the Kloosterman-refined results of Deshouillers–Iwaniec type
-and every subsequent improvement — produces an asymptotic only for <span
-class="math inline">\(H\ge M^{\theta}\)</span> with <span
-class="math inline">\(\theta&gt;0\)</span> fixed, because the dual sum
-after Voronoi runs to length <span class="math inline">\(\sim
-M/H\)</span> and the error term is controlled only when that dual length
-is a power saving against <span class="math inline">\(M\)</span>.</p>
-<p>At <span class="math inline">\(H=\log M\)</span> the dual sum is of
-length <span class="math inline">\(M/\log M\)</span> and there is no
-saving at all: the method returns the trivial bound. This is not a
-deficiency of one paper; it is the reason short-interval divisor
-problems are stated with power-length windows. Technique family (a) is
-therefore not merely unproved here, it is out of range by an
-<em>exponential</em> amount in the window length, and no quantitative
-improvement in Kloosterman bounds changes that, because the obstruction
-is the length of the dual sum, not the quality of its estimate.</p>
+<p><strong>Almost-all divisor-sum results can reach polylogarithmic
+intervals.</strong> Work of <a
+href="https://arxiv.org/abs/2108.11401">Mangerel</a> and <a
+href="https://arxiv.org/abs/2401.08432v3">Sun</a> includes
+divisor-bounded multiplicative functions in windows of this scale, so a
+blanket power-length exclusion is false. These theorems still do not
+directly supply the estimate needed here: their starting points are
+almost-all points, while ours are selected by the actual greedy
+dynamics; their statistic is an ordinary mean, while ours is a
+dyadically weighted fractional part; and our required precision shrinks
+exponentially in the window parameter. An application would need a
+quantitative exceptional-set/trajectory argument and control of this
+weighted phase.</p>
 <p><strong>The one technology that does reach sub-power windows delivers
 the wrong quantifier and the wrong class of function.</strong>
 Matomäki–Radziwiłł theory shows that a multiplicative function bounded
@@ -8311,18 +8269,8 @@ side. ◻</p>
 </div>
 <p><span><span class="sans-serif">[Math]</span></span>; every input is
 landed Lean and the composition is four lines.</p>
-<p>The point is narrow and entirely technical, which is why it is worth
-stating: the corpus’s recorded obstruction to closing (4) and (5) was
-the mismatch between <span
-class="math inline">\(\mathtt{Nat.sqrt}\)</span> (in <span
-class="math inline">\(\mathtt{halfStripBound}\)</span>) and <span
-class="math inline">\(\mathtt{Real.sqrt}\)</span> (in the unconditional
-tail bound), for which Mathlib supplies only
-<code>Real.nat_sqrt_le_real_sqrt</code>, the wrong direction, and the
-recorded workaround was to widen the strip constant from <span
-class="math inline">\(4\)</span> to <span
-class="math inline">\(6\)</span>. Restricting the cofinal witness depths
-to perfect squares dissolves the mismatch: at <span
+<p>The former square-root adapter issue is resolved by restricting
+cofinal witness depths to perfect squares: at <span
 class="math inline">\(n=k^{2}\)</span> the two roots coincide exactly
 and no widening is needed. Applying Lemma <span
 class="math inline">\(\ref{lem:sqwitness}\)</span> along <span
@@ -8342,8 +8290,9 @@ class="level4 unnumbered">
 discount R4. That would be a mistake, and the reason is the organising
 thesis of this document. Each biconditional is a theorem, not a
 reduction: it says a named producer socket is <em>equivalent</em> to the
-goal, hence permanently not easier, hence removable from the list of
-things worth attempting directly. Five such theorems are a systematic
+goal, hence logically equivalent in the stated scope. The equivalence
+identifies the missing content but does not show that the reformulation
+cannot expose a useful invariant. Five such theorems are a systematic
 elimination, and a systematic elimination is a statement about the
 problem. In particular (3) settles the advertised weakening — that no
 compatibility is required between witness supports at different

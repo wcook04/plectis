@@ -14,7 +14,7 @@
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "frontend_math_dependency": null,
-    "source_sha256": "3172f9a4addc1e2d17f348f0d593a9a6ead7025daeb1ba612cc06788536a4ecc",
+    "source_sha256": "99df977e9ffb53db9540ec560e0346559c0521b61999056e2289de6971eaf35d",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
     "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -26,15 +26,10 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "45ac29e2d531f6b300f5a827a8707c672024284c19e1ff2f36bc62c3f5336e49",
-    "html_exact_tex_sha256": "e302b969cd920fe4843d95ab5a54902611bdde30c30039615f135e44670e59b1"
+    "html_mathml_sha256": "8a30aca0eceb65c9b07ae415ba7b0e9b8a30733c5130e9718ec4df38996377a6",
+    "html_exact_tex_sha256": "99092a7d3e79d1594e1746a161d4aea2db86f329db406840e74875bb517eee1d"
   },
   "sections": [
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "What is here"
-    },
     {
       "level": 2,
       "anchor": null,
@@ -48,12 +43,12 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Give your agent a research shift"
+      "label": "Contribute"
     },
     {
       "level": 2,
       "anchor": null,
-      "label": "Read or run it"
+      "label": "Read or verify locally"
     },
     {
       "level": 2,
@@ -69,16 +64,6 @@
       "level": 2,
       "anchor": null,
       "label": "Following a result into Lean"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Further in"
-    },
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Where I actually am"
     }
   ]
 }

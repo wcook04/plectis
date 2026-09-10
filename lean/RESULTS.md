@@ -4,10 +4,18 @@
 # Results and limits
 
 This repository formalises finite results, reductions, equivalences, and
-obstructions related to eight open Erdős problems — #68, #243, #249, #251,
-#257, #269, #1041, and #1049. Each problem has an individual canonical paper;
-the retired combined #249/#257 manuscript is archive/provenance only, not a
-current gateway. Nothing here solves any of the eight.
+obstructions related to eight open Erdős problems —
+[#68](https://www.erdosproblems.com/68),
+[#243](https://www.erdosproblems.com/243),
+[#249](https://www.erdosproblems.com/249),
+[#251](https://www.erdosproblems.com/251),
+[#257](https://www.erdosproblems.com/257),
+[#269](https://www.erdosproblems.com/269),
+[#1041](https://www.erdosproblems.com/1041), and
+[#1049](https://www.erdosproblems.com/1049).
+Each problem has a short paper and a longer reasoning record; the retired
+combined #249/#257 manuscript is archive/provenance only, not a current
+gateway. Nothing here solves any of the eight.
 
 Lean source checked by the pinned Lean kernel is proof authority. The audit log
 reports the headline declarations below with kernel assumptions
@@ -34,50 +42,56 @@ library also proves no-go results showing why fixed precision, quotient
 periodicity, or coefficient structure alone cannot supply the conclusion.
 
 The remaining programmes have narrower but exact outcomes: Problem 68 is
-reduced to a cofinal carry condition; Problem 243 has conditional recovery
-criteria for its centred error dynamics; Problem 251 has exact prime-gap and
-tail-shift reformulations; Problem 269 has three-prime running-LCM cell,
-height, and carry structure; Problem 1041 has local Newton-flow, ray-separation,
-and root-retention results; and Problem 1049 has an exact rational-base tail
-recurrence together with finite Padé-model obstructions. None closes its Erdős
+equivalent to a cofinal carry condition; Problem 243 has eventual Sylvester
+recurrence under a bounded or summable negative error; Problem 251 has the
+prime-gap identity and a tail-shift equivalence; Problem 269 has three-prime
+height and kernel-minor identities; Problem 1041 has local Newton-flow and
+ray-separation results; and Problem 1049 has an exact rational-base tail
+recurrence together with a checked height region. None closes its Erdős
 problem.
 
 ### Problem-by-problem guide
 
-**Problem 68.** The library proves an exact equivalence between irrationality
-and cofinally many non-unit factorial carries, together with finite channel
-obstructions. It does not produce the required cofinal carries.
+**[#68](https://www.erdosproblems.com/68).** Irrationality of `∑ 1/(n!−1)` is
+equivalent to cofinally many non-unit factorial carries, with finite channel
+obstructions. The cofinal carries are not produced.
 
-**Problem 243.** Descent and recovery theorems control bounded or summably
-small negative centred error under the displayed dynamics. The unbounded
-mixed-sign regime and the original endpoint remain open.
+**[#243](https://www.erdosproblems.com/243).** After Koizumi's normalised
+vanishing, a bounded or summably small negative centred error forces eventual
+Sylvester recurrence. The unbounded mixed-sign regime and the original
+endpoint remain open.
 
-**Problem 249.** The checked results include exact dyadic-kernel rank, finite
-denominator exclusions, conditional actual-LCM and harmonic-pivot routes, and
-scoped no-go theorems. No cofinal producer reaching irrationality is proved.
+**[#249](https://www.erdosproblems.com/249).** Exact dyadic-kernel rank
+`2^e + 1`, denominator exclusion to about `7.96 × 10³⁴`, diagonal certificates
+through `t ≤ 82`, conditional actual-LCM and harmonic-pivot routes, and scoped
+no-go theorems. No cofinal producer reaching irrationality is proved.
 
-**Problem 251.** The library gives a prime/prime-gap equivalence, tail-shift
-classifications, and a coefficient-only countermodel boundary. A
-prime-specific cofinal tail witness is still missing.
+**[#251](https://www.erdosproblems.com/251).** The prime series equals the gap
+series; irrationality is equivalent to cofinal non-integral tail shifts, with a
+coefficient-only countermodel boundary. A prime-specific cofinal tail witness
+is still missing.
 
-**Problem 257.** The corpus contains full-support and structured-support
-irrationality theorems, eventually-periodic coefficient results,
-achievement-set geometry, and exact half-value classifications. Irrationality
-for every infinite support and the `1/2` and `1/21` branches remain open.
+**[#257](https://www.erdosproblems.com/257).** Full-support irrationality in
+every integer base `b ≥ 2`, structured-support theorems under summability,
+eventually-periodic coefficient results, and Lebesgue measure one for the
+base-2 Mersenne achievement set. Irrationality for every infinite support and
+the `1/2` and `1/21` branches remain open.
 
-**Problem 269.** Exact three-prime LCM cell geometry, height identities, a
-rank obstruction, and conditional carry observers are checked. The
-actual-series carry bridge and a cofinal residue-window producer are open.
+**[#269](https://www.erdosproblems.com/269).** Three-prime height identity,
+nonsingular kernel minors, the `(2,3,5)` minor `-1/15`, and conditional carry
+observers. The two-prime transcendence argument is Steve Fan's (26 June 2026)
+and is not a Lean theorem. The actual-series carry bridge and three-prime
+irrationality remain open.
 
-**Problem 1041.** The formal development covers Newton-flow value decay under
-stated hypotheses, finite ray separation, translation avoidance, and
-perturbative root retention. The global topology and metric gluing needed for
-a short curve remain open.
+**[#1041](https://www.erdosproblems.com/1041).** Newton-flow value decay under
+stated hypotheses, arbitrarily small translations that separate ray arguments,
+and perturbative root retention. A length-`<2` curve and the hub that would
+make one remain open.
 
-**Problem 1049.** The library proves the rational-base tail recurrence and
-sharp obstructions for specific finite Padé and Hermite–Padé models. It does
-not construct approximants with analytic remainder control, including for the
-base `3/2` case.
+**[#1049](https://www.erdosproblems.com/1049).** Exact rational-base tail
+recurrence, sharp Hankel order, a checked height region that includes `31/4`,
+and finite Padé / four-jet obstructions. It does not prove irrationality at
+`3/2` or construct approximants with analytic remainder control.
 
 This guide is not a new result ranking. The canonical order of mathematical
 attention is maintained in
@@ -229,13 +243,13 @@ Only after those theorem-level facts comes the corpus census. The current semant
 
 | View | #68 | #243 | #249 | #251 | #257 | #269 | #1041 | #1049 | both | shared | total |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| mechanically nonrecurring candidates | 0 | 3 | 89 | 0 | 168 | 0 | 0 | 5 | 0 | 19 | 284 |
+| mechanically nonrecurring candidates | 0 | 3 | 90 | 0 | 168 | 0 | 0 | 5 | 0 | 20 | 286 |
 | classical/prior-art formalisations | 0 | 1 | 36 | 0 | 23 | 0 | 0 | 1 | 0 | 40 | 101 |
 | bare open-problem equivalences | 0 | 0 | 15 | 0 | 15 | 0 | 0 | 0 | 0 | 2 | 32 |
 
-The nonrecurring view contains 183 unconditional object theorems, 55 scoped barriers, and 46 reductions or transports after aliases, open antecedents, bare equivalences, finite/generated instances, infrastructure, classical results, and routine corollaries are removed.
+The nonrecurring view contains 184 unconditional object theorems, 56 scoped barriers, and 46 reductions or transports after aliases, open antecedents, bare equivalences, finite/generated instances, infrastructure, classical results, and routine corollaries are removed.
 
-The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 229 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
+The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 231 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
 
 Of 23 substantial Lean propositions extracted from hypotheses of conditional theorems, 17 are provably equivalent to an endpoint: 14 to #249 and 3 to the `1/2` membership test for #257. Equivalence here is kernel-checked against the extracted proposition, not a claim that either endpoint is settled.
 <!-- END semantic_public_census -->

@@ -128,8 +128,9 @@ stated condition.
 The criterion decides the survival of the full exponent $e$.  A zero residue
 gives $v_p(\den(H_M))<e$, and further congruences are needed to determine the
 surviving exponent.  The proof uses no property of factorials beyond the
-displayed denominators, so it applies to any finite sum of reciprocals; its
-general antecedent is unassessed.  What is specific here is the behaviour of
+displayed denominators, so it applies to any finite sum of reciprocals.
+It is the first valuation layer of the reciprocal-sum formula of Louwsma
+and Martino \cite[Lemma~4.1, p.~10]{louwsma-martino}.  What is specific here is the behaviour of
 the actual family $d_n=n!-1$, and that behaviour is not generic.
 
 \paragraph{Two complete cancellations.}
@@ -280,8 +281,9 @@ ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}
 needs no factorial-congruence multiplicity theorem.  A weaker exponent
 $4/3$ follows instead from Theorem~12 of Garaev, Luca and Shparlinski
 \cite[arXiv v1, Thm.~12, p.~16]{garaev-luca-shparlinski}, which bounds by
-$O(N^{2/3})$ the number of solutions of $n!\equiv a\pmod r$ in an interval of
-length $N<r$; that deduction is recorded in the complete reasoning record and
+$O(N^{2/3})$ the number of solutions of $n!\equiv a\pmod r$ with
+$r$ prime, $a\not\equiv0\pmod r$, and $H+1\le n\le H+N$ where
+$0\le H<H+N<r$; that deduction is recorded in the complete reasoning record and
 is superseded here.  No antecedent for a lower bound on the least common
 multiple of the numbers $n!-1$ was located, and the searches were for
 factorial values shifted by one; least common multiples of consecutive
@@ -1177,9 +1179,10 @@ the form recorded by Galambos \cite[Ch.~1]{galambos1976}; the additions here
 are the telescope $C=\Ser-e+2$, the identification of the digit value $m-2$,
 and the transport to the shifted family.  The multiplicity bound is Garaev,
 Luca and Shparlinski's \cite{garaev-luca-shparlinski}, and the lcm deduction
-from it is not theirs.  For the survival criterion, the Wilson cofinality
-packaging, the finite radius bound and Theorem~\ref{long68:res:lcm-growth}, no
-antecedent was located, which is a negative search result, and no priority
+from it is not theirs.  The survival criterion is a specialisation of
+Louwsma and Martino's valuation formula \cite[Lemma~4.1]{louwsma-martino}.
+For the Wilson cofinality packaging, the finite radius bound and
+Theorem~\ref{long68:res:lcm-growth}, no antecedent was located, which is a negative search result, and no priority
 is claimed.
 
 
@@ -1637,7 +1640,6 @@ The specific target $c_m=E_m/m$ is useful because it translates into finite
 predecessor-gap conditions.  The smallness of the target alone establishes no
 metric, measure or equidistribution theorem for this orbit, and none is
 claimed.
-
 % ---- part family_catalogue ----
 \clearpage
 \section{Complete result-family map}\label{sec:erdos-68-complete-family-map}
@@ -1761,6 +1763,11 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
   {10.1017/CBO9780511897184.009}.
 \bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problem \#68}.
   \url{https://www.erdosproblems.com/68}, accessed 28 July 2026.
+\bibitem{louwsma-martino}
+  J.~Louwsma and J.~Martino,
+  \emph{Rational numbers with odd greedy expansion of fixed length},
+  arXiv:\href{https://arxiv.org/abs/2309.07280v1}{2309.07280v1}, 2023,
+  Lemma~4.1, p.~10.
 \bibitem{cantor1869}
   G.~Cantor,
   \emph{\"Uber die einfachen Zahlensysteme},

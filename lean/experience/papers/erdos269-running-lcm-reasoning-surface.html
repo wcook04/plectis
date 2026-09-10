@@ -1480,7 +1480,10 @@ generality than the fixed bound: irrationality implies escape against
 any short bound that the window growth eventually beats, , and in
 particular against every bound dominated by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">c(B)(n+1)^{2}</annotation></semantics></math>,
-. The forward direction at the fixed bound
+. The enlarged
+little-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>8</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(8^a)</annotation></semantics></math>
+band, with the cap-domination hypothesis retained, is checked by the .
+The forward direction at the fixed bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mn>0</mn></msub><annotation encoding="application/x-tex">K_0</annotation></semantics></math>
 is , over the abstract consumer and its packaged absorbed form . The two
 directions combine into the equivalence for the shifted tail and for the
@@ -1586,7 +1589,7 @@ settles an instance.</p>
 <p>A is a finite tuple of integers recording one instance of the
 inequality in , so that a reader can recheck it in a line. The
 integer-only <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/scripts/check_erdos269_dyadic_windows.py">dyadic-window
+href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">dyadic-window
 checker</a> constructs the ordered pure-power jumps, the block bases and
 the block digits from exact multiplicity counts, and reproduces the
 following, with columns the denominator
@@ -1681,7 +1684,11 @@ the two endpoints of an interval provably containing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>,
 so no approximation heuristic enters, and the truncation was
 independently checked to agree with the direct smooth-number sum as an
-exact rational. The recorded statistics are a largest denominator of
+exact rational. The machine-readable witness and replay receipt for this
+large computation are not included in the public release, so the
+statement remains an archived ordinary computational certificate rather
+than a publicly replayed or Lean-checked result. The recorded statistics
+are a largest denominator of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>22</mn><mo>,</mo><mn>483</mn></mrow><annotation encoding="application/x-tex">22{,}483</annotation></semantics></math>
 bits, a largest partial quotient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>129</mn><mo>,</mo><mn>114</mn></mrow><annotation encoding="application/x-tex">129{,}114</annotation></semantics></math>,
@@ -1880,7 +1887,7 @@ denominator and to begin beyond the onset.</p>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
 <p>Every linked phrase above opens its Lean declaration at the pinned
-source revision 1da2a504f8d8, where the finite running-LCM geometry, the
+source revision ee650b32b8b2, where the finite running-LCM geometry, the
 two-prime outer product, the arbitrary-order kernel minors and the
 exclusion of finite separation, the literal shell summability and
 recurrence, the all-scale rationality lattice, the rationality-to-carry
@@ -1892,13 +1899,15 @@ declaration; the quadratic tail bound, the explicit onset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>D</mi></msub><annotation encoding="application/x-tex">a_D</annotation></semantics></math>,
 the sharp bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
-the equivalence band, the window-growth law and Theorem  are ordinary
-proofs in this paper; the three finite computations of Section  are
-computational certificates.</p>
+and Theorem  are ordinary proofs in this paper; the window-growth law
+and the enlarged
+little-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>8</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(8^a)</annotation></semantics></math>
+equivalence band have named Lean endpoints; the three finite
+computations of Section  are computational certificates.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, the library manifest, and the
 exact dyadic-window checker used in the finite scan. Proof authority
 rests in those pinned sources. The present text is exposition and
@@ -2172,7 +2181,9 @@ residues behave like generic ones inside this range.</p>
 <section id="long269:long:sources" class="level3">
 <h3>Source inventory</h3>
 <p>Each entry names an informal statement and the Lean declaration that
-carries it at the pinned source revision 1da2a504f8d8.</p>
+carries it. Each link is pinned to its own immutable revision; the
+exact-reference inventory records the revisions and their comparison
+with the current public source commit.</p>
 <table>
 <thead>
 <tr>
@@ -2759,9 +2770,10 @@ residue coordinate but leaves an uncontrolled integral quotient
 coboundary; it proves neither a finite-state quotient nor a literal
 infinite realised span. Finite realised span requires an explicit
 factorisation through a finite-dimensional function-faithful observer,
-and scalar evaluation alone is insufficient. No rationality or
-irrationality conclusion follows; the actual three-prime running-LCM
-bridge and cofinal escape remain open.</p>
+and scalar evaluation alone is insufficient. No irrationality conclusion
+follows from this observer alone. The actual
+rationality-to-positive-reduced-carry bridge is established separately;
+cofinal local-window escape remains open.</p>
 <p><strong>Result-atom population.</strong> 7 of 681 public coordinates.
 The public atom catalog groups them under this family.</p>
 <p><strong>Comparator assurance.</strong> exact selected interface; 1
@@ -2787,8 +2799,9 @@ quadratic smooth-shell multiplicity bound.</p>
 multiplicity bound.</p>
 <p><strong>Authority and reach.</strong> Lean kernel; locally proved
 result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> The fibre bounds do not provide the
-missing divisibility bridge.</p>
+<p><strong>Exact boundary.</strong> These fibre bounds are counting
+input, not an escape producer. The separate actual-series divisibility
+bridge is established.</p>
 <p><strong>Result-atom population.</strong> 5 of 681 public coordinates.
 The public atom catalog groups them under this family.</p>
 <p><strong>Comparator assurance.</strong> represented by selected
@@ -2852,9 +2865,10 @@ additionally assumes smoothFactor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≠</mo><annotation encoding="application/x-tex">\ne</annotation></semantics></math>
 0, c n = smoothFactor * d n, and the corresponding exact absorbed
 recurrence, then cancels that factor to the same reduced consumer. The
-cofinal local-window escape producer and the bridge from the actual
-three-prime running-LCM series or its rationality to this reduced carry
-remain open. This is not a #269 endpoint or irrationality proof, and no
+representative remains a conditional consumer for arbitrary words. For
+the actual three-prime word, the rationality-to-reduced-carry bridge is
+established separately; the source-specific cofinal escape producer is
+not proved. This is not a #269 endpoint or irrationality proof, and no
 actual-series identification, novelty, priority, significance, or
 external-review claim is made. It is one conditional window-carry
 family, distinct from the finite residue, rank-two, and weighted-phase

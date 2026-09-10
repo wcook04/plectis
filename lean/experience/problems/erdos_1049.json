@@ -264,7 +264,7 @@
     "subject": "Erdős #1049",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 12,
+    "pages": 13,
     "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
     "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
     "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -288,7 +288,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 15,
       "renderer_fingerprint": "dfc4d6626c337fa5",
-      "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
+      "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
       "publication_manifest_match": true,
       "mathml_node_count": 284,
       "raw_math_fallback_count": 0,
@@ -421,7 +421,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 12,
+      "pages": 13,
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -445,7 +445,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "b791b92b1c28feb59f0a646266c5b0e5af8d0e1b29ee5be2ea897bb1a1f9f481",
+        "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
         "publication_manifest_match": true,
         "mathml_node_count": 284,
         "raw_math_fallback_count": 0,
@@ -602,7 +602,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
-        "source_sha256": "5605088544379c0110b29f34f27526eccfe63d3c3fd8f5127e782fcc76e4af6c",
+        "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
         "publication_manifest_match": true,
         "mathml_node_count": 1215,
         "raw_math_fallback_count": 0,
@@ -610,8 +610,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d641866eabe2829260e52958197779d5f3d12e6e56351fbfde8f6c2e9d0bb335",
-        "html_exact_tex_sha256": "f96daca7242776ab61b295dc5fcfa260cc8af3ffa912d740a47acaf19d42c8c4"
+        "html_mathml_sha256": "5d97a75c9fd937d1c030e9826a0977ac5a16267985767a873077d598db7cc612",
+        "html_exact_tex_sha256": "06b73ebf5313a12db4530b102de0374b33f61907d6957d779e65b5e09e591735"
       },
       "sections": [
         {
@@ -934,6 +934,60 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Audit",
+        "label": "ErdosProblems.Erdos1049.AllRow.Audit",
+        "path": "ErdosProblems/Erdos1049/AllRow/Audit.lean",
+        "direct": true,
+        "content_digest": "sha256:3efe2a0462c20df197b15f015af0578a6c5ae04ec8c9a2729ad64291b164ad7c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Audit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Filtered",
+        "label": "ErdosProblems.Erdos1049.AllRow.Filtered",
+        "path": "ErdosProblems/Erdos1049/AllRow/Filtered.lean",
+        "direct": true,
+        "content_digest": "sha256:c4d214d6d9e0138a31e84bf247fc76cd8a425c83b711f64b8a8e47285dc5239a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Filtered.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.FiniteStates",
+        "label": "ErdosProblems.Erdos1049.AllRow.FiniteStates",
+        "path": "ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
+        "direct": true,
+        "content_digest": "sha256:1a1bc2b07f2530521f0982b7c40fe56299213b4edd8b0849f0363cc1f9599b60",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer",
+        "label": "ErdosProblems.Erdos1049.AllRow.Producer",
+        "path": "ErdosProblems/Erdos1049/AllRow/Producer.lean",
+        "direct": true,
+        "content_digest": "sha256:d144b89024846b30a267eb4879b2cf9406c98d9602061b399094e4a1296a4e30",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Producer.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Smoke",
+        "label": "ErdosProblems.Erdos1049.AllRow.Smoke",
+        "path": "ErdosProblems/Erdos1049/AllRow/Smoke.lean",
+        "direct": true,
+        "content_digest": "sha256:c0292d66dd93ab644867a0ba62820f455c9724939640c8738c1d860d5c27d18d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Smoke.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.AllRow.SourcePolynomial",
+        "label": "ErdosProblems.Erdos1049.AllRow.SourcePolynomial",
+        "path": "ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
+        "direct": true,
+        "content_digest": "sha256:c3e9b61269d70f8d00dea5128b9223ac340dedcd204e5928cca7b2f204593e0f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1049.BezoutPluckerJets",
         "label": "ErdosProblems.Erdos1049.BezoutPluckerJets",
         "path": "ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
@@ -958,6 +1012,15 @@
         "direct": true,
         "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour",
+        "label": "ErdosProblems.Erdos1049.RationalBaseContour",
+        "path": "ErdosProblems/Erdos1049/RationalBaseContour.lean",
+        "direct": true,
+        "content_digest": "sha256:2f5bf1e5013a66c5b6464552abdf888cb5bc3c50dc4ff455b1017aa22a8d30b5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseContour.lean",
         "role": "Lean proof module"
       },
       {
@@ -995,6 +1058,15 @@
         "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
         "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
+        "label": "ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
+        "path": "ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
+        "direct": true,
+        "content_digest": "sha256:3f1e4bc33333539db830f0c4c57bc919f2b67c54703168d4aceb57d4fd2ae7b9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
+        "role": "Lean proof module"
       }
     ],
     "edges": [
@@ -1011,8 +1083,40 @@
         "target": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.Audit",
+        "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Smoke"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.Filtered",
+        "target": "lean-module:ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.FiniteStates",
+        "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Filtered"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer",
+        "target": "lean-module:ErdosProblems.Erdos1049.AllRow.SourcePolynomial"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.Smoke",
+        "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.AllRow.SourcePolynomial",
+        "target": "lean-module:ErdosProblems.Erdos1049.AllRow.FiniteStates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour",
+        "target": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion",
         "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
+        "target": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge"
       }
     ]
   },

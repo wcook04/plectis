@@ -111,12 +111,12 @@ The prior-art record, not this table, supplies antecedents.
 - `remaining_open.half_value_membership` — Decide whether 1/2 lies in the Mersenne achievement set. Yes refutes universal #257; no closes only this route.
 - `remaining_open.twenty_one_permanent_affine_supercapacity` — Decide the exact 1/21 branch: equivalently, exclude the fatal/cofinite/aligned branch, contradict its eventual permanent affine-supercapacity recurrence, prove cofinally bounded scaled greedy remainders, or force an unbounded sequence of closed canonical quotient rows. A positive membership result would refute universal #257; no such producer is proved.
 - `remaining_open.universal_257_all_infinite_supports` — Prove irrationality for every infinite support A, not only the named support families formalised here.
-- `remaining_open.erdos_269_three_prime_irrationality` — Determine irrationality of the running-LCM reciprocal sum for finite prime sets of size at least three; the rationality-to-carry bridge and cofinal window escape remain open.
+- `remaining_open.erdos_269_three_prime_irrationality` — Determine irrationality of the running-LCM reciprocal sum for finite prime sets of size at least three. For {2,3,5}, the rationality-to-carry bridge is established and cofinal local-window escape remains open.
 - `remaining_open.erdos_1041_lemniscate_connection` — Find or refute the required short curve between two roots inside the open lemniscate; finite ray separation and perturbative root retention do not supply the global topology and length argument.
 - `remaining_open.erdos_1049_irrationality` — Determine whether F(t) = ∑_{n≥1} 1/(tⁿ − 1) is irrational for every rational t > 1; the checked base-3/2 exclusions and exact tail recurrence do not decide the endpoint or the universal assertion.
 - `remaining_open.erdos_243_eventual_recurrence` — Prove the Erdős #243 assertion: if 1 ≤ a₁ < a₂ < ··· has aₙ/aₙ₋₁² → 1 and rational reciprocal sum, then aₙ = aₙ₋₁² − aₙ₋₁ + 1 eventually; the checked barrier does not settle the mixed-sign unbounded regime.
 - `remaining_open.erdos_269_reduced_tail_nonintegrality` — Prove that B·T_a ∉ ℤ for every B ≥ 1 coprime to 30 and every a ≥ 1.
-- `remaining_open.erdos_269_cofinal_local_window_escape` — Prove that for every B ≥ 1 coprime to 30 and every a₀ ≥ 1 there are ℓ ≥ a₀ and h ≥ 1 with lpr_{W(ℓ,h)}(−B·F(ℓ,h)) > K^235(B, ℓ+h).
+- `remaining_open.erdos_269_cofinal_local_window_escape` — Prove that for every B ≥ 1 coprime to 30 and every a₀ ≥ 1 there are ℓ ≥ a₀ and h ≥ 1 with lpr_{W(ℓ,h)}(−B·F(ℓ,h)) > K(B, ℓ+h), where K is the defined long-paper cap.
 - `remaining_open.erdos_269_two_dimensional_representation` — Represent D_{2,3,5} faithfully by a specified two-dimensional Mahler-type value theorem with every hypothesis verified, give a conditional theorem under explicit logarithmic nondegeneracy, or prove no such representation exists.
 - `remaining_open.erdos_243_overlap_height_growth` — Decide whether every nonterminal canonical orbit of the reduced-orbit problem has limsup_n (log M_n)/n > 0, equivalently 2^n ≤ M_n^K infinitely often for some K ≥ 1.
 - `remaining_open.erdos_249_first_harmonic_anti_concentration` — Decide whether, for each h ≥ 1, some s ≥ 1 and 0 < η < 1 give, for every X₀, admissible X and L meeting the displayed size conditions for which the four first-harmonic bounds hold.
@@ -147,8 +147,8 @@ opens with a ten-minute verdict.
 
 Navigation inventory, not results. Generated certificate shards are
 counted as formal source, never as separate mathematical claims. The
-two roots currently expose 1,058 modules and
-153,671 declarations across #68, #243, #249,
+two roots currently expose 1,274 modules and
+156,245 declarations across #68, #243, #249,
 #251, #257, #269, #1041, and #1049; exact counts and atlas handles
 remain in `docs/orientation.json`.
 

@@ -433,8 +433,13 @@ $\gcd(i!-1,j!-1)\mid j!/i!-1$ give
 -\binom{k+1}{3}\log N.
 \]
 Taking $k=\lfloor\alpha\sqrt N\rfloor$ gives leading coefficient
-$\alpha-\alpha^3/6$, maximised by $\alpha=\sqrt2$.  The same argument applies
-to every fixed nonzero polynomial perturbation $n!+P(n)$, using
+$\alpha-\alpha^3/6$, maximised by $\alpha=\sqrt2$.  For a fixed
+$P\in\mathbb Z[X]\setminus\{0\}$, the same ordinary argument gives this
+bound for $\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))$, where $n_0$ is
+sufficiently large that all factors are positive and the collision
+differences below are nonzero, as in Lai's Lemma~2.1 \cite{lai}.  The
+lower cutoff matters: $P=-2$ makes the factor at $n=2$ vanish.
+The argument uses
 \[
 \gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i);
 \]
@@ -806,5 +811,7 @@ checkpoint before terminal external replay or Palomar readiness is claimed.
   arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894v1}, 2021,
   proof of Lemma~2.4, (2.5).
 \end{thebibliography}
+
+\companionpapercontext
 
 \end{document}

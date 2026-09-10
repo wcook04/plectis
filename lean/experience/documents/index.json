@@ -20,7 +20,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "3172f9a4addc1e2d17f348f0d593a9a6ead7025daeb1ba612cc06788536a4ecc",
+        "source_sha256": "99df977e9ffb53db9540ec560e0346559c0521b61999056e2289de6971eaf35d",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -32,15 +32,10 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "45ac29e2d531f6b300f5a827a8707c672024284c19e1ff2f36bc62c3f5336e49",
-        "html_exact_tex_sha256": "e302b969cd920fe4843d95ab5a54902611bdde30c30039615f135e44670e59b1"
+        "html_mathml_sha256": "8a30aca0eceb65c9b07ae415ba7b0e9b8a30733c5130e9718ec4df38996377a6",
+        "html_exact_tex_sha256": "99092a7d3e79d1594e1746a161d4aea2db86f329db406840e74875bb517eee1d"
       },
       "sections": [
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "What is here"
-        },
         {
           "level": 2,
           "anchor": null,
@@ -54,12 +49,12 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "Give your agent a research shift"
+          "label": "Contribute"
         },
         {
           "level": 2,
           "anchor": null,
-          "label": "Read or run it"
+          "label": "Read or verify locally"
         },
         {
           "level": 2,
@@ -75,16 +70,6 @@
           "level": 2,
           "anchor": null,
           "label": "Following a result into Lean"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Further in"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Where I actually am"
         }
       ]
     },
@@ -104,7 +89,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "6bcee146c31a5acce818a3ee1f3289d3ec230654f2ec7a6423e25d2085517868",
+        "source_sha256": "64ffd5efbdcd5214c324a6d12f706aaf3a92a6e1851b971bec3549a8870aeab0",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -116,8 +101,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "8d6e8d4398bc695b6fce589d8f8100c84734e9e2d3eb5de7602a74ca206636a8",
-        "html_exact_tex_sha256": "e8732aad05b1c6187de71d2b3720476af02bbf66f5dff1de6466ae792fbadc5e"
+        "html_mathml_sha256": "d1e498edf5f1f7adb66f7cf55e5070ab6a00aad41e3b20889679213ea4dcdbce",
+        "html_exact_tex_sha256": "0b23ad54285c7c4f81db7ae621cfb9e77e0f7485aee273a21e97195c47e61989"
       },
       "sections": [
         {
@@ -318,7 +303,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "20618d9c307bfa6117975351bc59ac0d1b889aa7ebd4178fff66f044a9d7a7ad",
+        "source_sha256": "d2655ec7fe7770437309d954207fc45386a342293d190b03bf53ed770fcdba87",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -330,8 +315,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "1de0519156e2ecb0b00817387ffd1f93e4c527172f54730a386e5c07b188dde3",
-        "html_exact_tex_sha256": "5343e36c045294de842439907fe2975f66c209436d34d942031a2b0bbe7665b1"
+        "html_mathml_sha256": "0631d5e6f99e5d94292b845dabc9e72a19284e78953bd241e1fd50ba34f8af10",
+        "html_exact_tex_sha256": "acce931cc3bc3ff7f9e89037e374172bf4bc7b5a76256d8f0471ae179ed9da8b"
       },
       "sections": [
         {
@@ -892,7 +877,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "806f6c17ba9effe097a8198bca148d8b2a9ff9113f794ea294fa358a5b35e35f",
+        "source_sha256": "9e71ff25c9e8f1cb94f4a174a97762d878a449129dd2bfd65383174bdd503621",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -904,8 +889,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "145161b99400ed3e5c480280480b424542bb5e072de58e68c1ff505b957c4497",
-        "html_exact_tex_sha256": "1dbc5e30f893863868fe4624bfb037e9fb11f0f9637c0f8738b1fa4468b85e5a"
+        "html_mathml_sha256": "59d651c72c0853b65ac53bb31d3ff3864461fae39db7e99f1f4637ea03607af1",
+        "html_exact_tex_sha256": "0293c3e65a66b497670f451df46125f89a5e99ee1bfc122d1d5e9b50b149f40c"
       },
       "sections": [
         {
@@ -1065,7 +1050,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "8d70f9488a3f6e47a5a978e1423873dac17ad92b91ea9fd984d4671131d851aa",
+        "source_sha256": "070c56576461c00fec49a925896dcc9d2167c278305cefce20d325de4d7998ce",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -1077,8 +1062,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "228be25d17c3107ce0d4478f19689af0fc7f476ecab0a22b58d31c3766b1a0f9",
-        "html_exact_tex_sha256": "631292a14d16be368f2e8d32be4f083f69fcdf329c325e048f461c880ac66fe2"
+        "html_mathml_sha256": "ee79339c3b7cbb42e56c8afe87f8b38fa66b34b48567b7ddaa0c96e111fd28b5",
+        "html_exact_tex_sha256": "ae928075536608fa7697a681d626ca4024ccda47ce9191ff9a85cfae20b577a0"
       },
       "sections": [
         {
@@ -1592,7 +1577,7 @@
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "frontend_math_dependency": null,
-        "source_sha256": "f148b06d6388f35f87ffe302bd7044b3c7f0a4bebbc8a83f92207b6f5aa5dd4e",
+        "source_sha256": "78a3ae6f477e916a0d9360058e3992a35a181a02ec5b09db86fa263c44ffa730",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 15,
         "renderer_fingerprint": "dfc4d6626c337fa5",
@@ -1604,8 +1589,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "2e5f1087d3fb3b75514da155c76992593d6f41be19aa6c6d33b1b94f03fa3c06",
-        "html_exact_tex_sha256": "e500f11c50ea3656076e3dcf735e0157705e9625a0add2d4815bbc7e3108d14d"
+        "html_mathml_sha256": "140ff8f874656f368c0ab9d7273db6f4bfbc47295933f338b79e69fe97afa955",
+        "html_exact_tex_sha256": "f52d8250d756139ae63490fbc2de1136f7c68349c56f2c2ad0642196ccd05d02"
       },
       "sections": [
         {

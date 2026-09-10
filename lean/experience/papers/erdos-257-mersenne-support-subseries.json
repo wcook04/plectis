@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 13,
+  "pages": 14,
   "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
   "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 15,
     "renderer_fingerprint": "dfc4d6626c337fa5",
-    "source_sha256": "591650bf6992d17018d26e727b97e1bad2629e3078b40ea386327d0086c5a6ca",
+    "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
     "publication_manifest_match": true,
     "mathml_node_count": 274,
     "raw_math_fallback_count": 3,
@@ -54,8 +54,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "c45f2e317ee25b540e18160ebe20efd0f3967b2ed65e9243dbc50427207eac23",
-    "html_exact_tex_sha256": "b5606cc0876d12cfad3f85e7799a155c51a8bf5b6a40cee79e90bf1b815eb1f0"
+    "html_mathml_sha256": "a6289e60f96e5d85e51705c32e02b88f5572e97623ade61c725258c85583d0c3",
+    "html_exact_tex_sha256": "73afd2183d4a7906261945274d4a80ff47fadbb33d909177c67ad656a2adbef6"
   },
   "sections": [
     {
