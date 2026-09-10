@@ -27,24 +27,18 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 16,
-    "renderer_fingerprint": "1d7dc613a2ca3f87",
+    "renderer_contract_version": 17,
+    "renderer_fingerprint": "98654d69fba420c6",
     "source_sha256": "9a36d21bfa3560bbcaea4fc162d6f98801fa6ca43803890ed2488f0f687f595f",
     "publication_manifest_match": true,
-    "mathml_node_count": 348,
-    "raw_math_fallback_count": 1,
+    "mathml_node_count": 518,
+    "raw_math_fallback_count": 0,
     "warnings": {
-      "mathml": [
-        "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
-        "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
-        "^",
-        "unexpected control sequence \\emph",
-        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
-      ],
+      "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "68b955430a7f854071f36f98f4bcc79de892815fd2f17e7794e81312a2760400",
-    "html_exact_tex_sha256": "a6efea8f933a2365d667ab378e26263cfa79999402822a8caa4db4e82d3d229f"
+    "html_mathml_sha256": "716092400724d899977e7bbf612d865f658e1cfa62b00f4f3c717ad4e6742028",
+    "html_exact_tex_sha256": "930b9185cdae9b91f55230e1e967f028e8828479ec46dfaf250c10a371a27fd5"
   },
   "sections": [
     {

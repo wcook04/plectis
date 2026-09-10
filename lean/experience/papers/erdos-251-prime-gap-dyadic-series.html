@@ -8,12 +8,14 @@
 <p>There is an exact finite obstruction recorded in the pinned source: a
 second example has finite sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>n</mi><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">-n/2^n</annotation></semantics></math>
-and non-eventually-periodic coefficients (
-<span>carryPartialSum_natCast_eq</span><span>finite endpoint</span>;
-<span>carryCoeff_natCast_not_eventually_periodic</span><span>coefficient
-nonperiodicity</span>). The actual prime gaps are also not eventually
-periodic ( <span>primeGap0_not_eventually_periodic</span><span>prime-gap
-nonperiodicity</span>), but that fact alone is insufficient.</p>
+and non-eventually-periodic coefficients (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1157">finite
+endpoint</a>; <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163">coefficient
+nonperiodicity</a>). The actual prime gaps are also not eventually
+periodic (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">prime-gap
+nonperiodicity</a>), but that fact alone is insufficient.</p>
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <section id="the-complete-countermodel-in-one-calculation."
@@ -87,6 +89,46 @@ are prime.</p>
 <p>The following construction preserves congruences of cumulative sums
 as well as coefficients. Its sparse support also preserves the empirical
 laws of short gap blocks.</p>
+<div class="proposition">
+<p><strong>Proposition 1</strong> (sparse congruence-preserving
+rationalisation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
+be nonnegative integers with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>a</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mi>A</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}a_n2^{-(n+1)}=A&lt;\infty</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">K\in\mathbb{N}</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">f:\mathbb{N}\to\mathbb{R}</annotation></semantics></math>
+tend to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math>.
+There exist a set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>⊆</mo><mo stretchy="false" form="prefix">[</mo><mi>K</mi><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S\subseteq[K,\infty)</annotation></semantics></math>
+of upper Banach density zero and a nondegenerate interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>⊂</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I\subset(A,\infty)</annotation></semantics></math>
+such that every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">r\in I</annotation></semantics></math>
+is realised by a nonnegative correction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0\le e_n\le f(n)</annotation></semantics></math>
+eventually,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">\sum(a_n+e_n)2^{-(n+1)}=r</annotation></semantics></math>,
+and every fixed modulus eventually dividing both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>n</mi></msub><annotation encoding="application/x-tex">e_n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i&lt;n}e_i</annotation></semantics></math>.
+For the actual prime gaps and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ε</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\varepsilon&lt;1</annotation></semantics></math>
+the same construction may be taken with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>ε</mi></msup></mrow><annotation encoding="application/x-tex">e_n\le(\log(n+3))^\varepsilon</annotation></semantics></math>
+eventually and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)</annotation></semantics></math>,
+so that all unnormalised blocks of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
+are preserved in total variation.</em></p>
+</div>
 <div class="proof">
 <p><em>Construction.</em> At selected centres
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>j</mi></msub><annotation encoding="application/x-tex">n_j</annotation></semantics></math>,
@@ -238,6 +280,21 @@ and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_j=\operatorname{lcm}(1,\ldots,j)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (lcm-diagonal criterion). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">g:\mathbb{N}\to\mathbb{Z}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{R}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Irr</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>T</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi mathvariant="normal">Δ</mi><msub><mi>L</mi><mi>j</mi></msub></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>≥</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Irr}(T_0)
+ \quad\Longleftrightarrow\quad
+ \Delta_{L_j}T(L_j)\notin\mathbb{Z}
+ \quad\text{for every }j\ge0.</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Iteration gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>N</mi></msub><mo>=</mo><msup><mn>2</mn><mi>N</mi></msup><msub><mi>T</mi><mn>0</mn></msub><mo>−</mo><msub><mi>B</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">T_N=2^NT_0-B_N</annotation></semantics></math>
@@ -287,6 +344,17 @@ write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>=</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">D_N=\Delta_hT(N),\qquad
  \delta_N=g_{N+h+1}-g_{N+1}.</annotation></semantics></math> Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>δ</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_{N+1}=2D_N-\delta_N</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 3</strong> (signed two-window normal form). <em>
+Assume that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>N</mi></msub><annotation encoding="application/x-tex">\delta_N</annotation></semantics></math>
+is even. The conjunction
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>&lt;</mo><msub><mi>D</mi><mi>N</mi></msub><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo>−</mo><mn>1</mn><mo>&lt;</mo><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>N</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">-1&lt;D_N&lt;1,\qquad -1&lt;D_{N+1}&lt;1,\qquad \delta_N\ne0</annotation></semantics></math>
+is equivalent to
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><mn>2</mn><mspace width="0.222em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>&lt;</mo><msub><mi>D</mi><mi>N</mi></msub><mo>&lt;</mo><mn>1</mn><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="1.0em"></mspace><mtext mathvariant="normal">or</mtext><mspace width="1.0em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><mi>−</mi><mn>2</mn><mspace width="0.222em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mo>−</mo><mn>1</mn><mo>&lt;</mo><msub><mi>D</mi><mi>N</mi></msub><mo>&lt;</mo><mi>−</mi><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigl(\delta_N=2\ \text{ and }\tfrac12&lt;D_N&lt;1\bigr)
+ \quad\text{or}\quad
+ \bigl(\delta_N=-2\ \text{ and }-1&lt;D_N&lt;-\tfrac12\bigr).</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The recurrence and the two unit windows give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn><mo>&lt;</mo><msub><mi>δ</mi><mi>N</mi></msub><mo>&lt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">-3&lt;\delta_N&lt;3</annotation></semantics></math>.
@@ -310,6 +378,43 @@ source</a>.</p>
 the data-dependent affine condition
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒜</mi><mrow><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mspace width="2.0em"></mspace><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>∈</mo><mi>−</mi><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>+</mo><msup><mn>2</mn><mrow><mi>r</mi><mo>+</mo><mn>1</mn></mrow></msup><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal A_{N,r}:\qquad
  D_{N+r}\in -B_{h,N,r}+2^{r+1}\mathbb{Z}.</annotation></semantics></math></p>
+<div class="theorem">
+<p><strong>Theorem 4</strong> (affine and fixed-lattice circularity).
+<em> For every rational dyadic tail recurrence and all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h,N,r\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒜</mi><mrow><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi>D</mi><mi>N</mi></msub><mo>∈</mo><mn>2</mn><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal A_{N,r}\quad\Longleftrightarrow\quad D_N\in2\mathbb{Z}.
+\tag{2.1}\label{eq:affinecollapse}</annotation></semantics></math>
+Consequently, if every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>N</mi></msub><annotation encoding="application/x-tex">\delta_N</annotation></semantics></math>
+is even, then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo>∀</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.222em"></mspace><mo>∃</mo><mi>N</mi><mo>,</mo><mi>r</mi><mo>:</mo><mspace width="0.222em"></mspace><msub><mi>N</mi><mn>0</mn></msub><mo>&lt;</mo><mi>N</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mo>¬</mo><msub><mi mathvariant="script">𝒜</mi><mrow><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi>D</mi><mi>N</mi></msub><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for arbitrarily large </mtext><mspace width="0.333em"></mspace></mrow><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigl(\forall N_0\ \exists N,r:\ N_0&lt;N\text{ and }\neg\mathcal A_{N,r}\bigr)
+ \quad\Longleftrightarrow\quad
+ D_N\notin\mathbb{Z}\text{ for arbitrarily large }N.
+\tag{2.2}\label{eq:affinecofinal}</annotation></semantics></math></em></p>
+<p><em>There is a second equivalence. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">b:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>D</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|D_N|\le b(N)</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+and suppose that for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and every positive integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+there is an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>q</mi><mo>&lt;</mo><msup><mn>2</mn><mi>r</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">2b(N+r)q&lt;2^r.
+\tag{2.3}\label{eq:dyadicscale}</annotation></semantics></math> Then
+<span class="math display" data-term-auto="off">$$\begin{split}
+&amp;\forall N_0\ \exists N,r:\ N_0&lt;N\text{ and }
+   \forall z\in\mathbb{Z},\quad
+   b(N+r)&lt;|B_{h,N,r}-2^rz|\\
+&amp;\hspace{35mm}\Longleftrightarrow\quad
+D_N\notin\mathbb{Z}\text{ for arbitrarily large }N.
+\end{split}
+\tag{2.4}\label{eq:fixedcollapse}$$</span></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Substituting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>=</mo><msup><mn>2</mn><mi>r</mi></msup><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{N+r}=2^rD_N-B_{h,N,r}</annotation></semantics></math>
@@ -363,6 +468,23 @@ neither cofinal condition is an independent source of information about
 consecutive primes.</p>
 <p>Finally, the coarse coefficient profile itself has an exact infinite
 counterexample.</p>
+<div class="proposition">
+<p><strong>Proposition 5</strong> (quadratic polynomial-shift
+countermodel). <em> Put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">a_n=2(n^2+4n+2),\qquad U_n=2(n+4)^2.</annotation></semantics></math>
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
+is positive, even and strictly increasing,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>U</mi><mi>n</mi></msub><mo>−</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">U_{n+1}=2U_n-a_{n+1}</annotation></semantics></math>,
+every shift
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>U</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">U_{N+h}-U_N</annotation></semantics></math>
+is integral,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>N</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>a</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≠</mo><mn>2</mn><mo>,</mo><mi>−</mi><mn>2</mn><mspace width="2.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>N</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">a_{N+2}-a_{N+1}\ne2,-2
+ \qquad\text{for every }N,</annotation></semantics></math> and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><msub><mi>a</mi><mi>j</mi></msub><msup><mn>2</mn><mi>j</mi></msup></mfrac><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">\sum_{j\ge1}\frac{a_j}{2^j}=32</annotation></semantics></math>
+as the kernel-checked identity for the countermodel series
+value.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Expand
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>4</mn><mi>n</mi><mo>+</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">a_{n+1}-a_n=4n+10</annotation></semantics></math>
@@ -401,8 +523,20 @@ put
  \Delta(P,n)=\sum_{i=0}^{n-1}\frac{P(i+1)-P(i)}{2^{\,i+1}} ,</annotation></semantics></math>
 both empty, hence zero, at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>.
-We call these the and the of
+We call these the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101">dyadic
+partial sum</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121">dyadic
+difference sum</a> of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p>
+<div class="proposition">
+<p><strong>Proposition 6</strong> (finite summation by parts). <em> For
+every rational sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mfrac><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">D(P,n+1)=P(0)+\Delta(P,n)-\frac{P(n)}{2^{\,n+1}} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
@@ -428,6 +562,16 @@ whose first value is
 and writing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>=</mo><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i=p_{i+1}-p_i</annotation></semantics></math>
 for the zero-based gaps, gives the reformulation.</p>
+<div class="theorem">
+<p><strong>Theorem 7</strong> (prime-gap reformulation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn><mo>,</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mn>3</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">p_0=2,p_1=3,\ldots</annotation></semantics></math>
+be the primes in increasing order and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>=</mo><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i=p_{i+1}-p_i</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><mfrac><msub><mi>p</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>=</mo><mn>2</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><msub><mi>g</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>−</mo><mfrac><msub><mi>p</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{i=0}^{n}\frac{p_i}{2^{\,i+1}}
+ =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}} .</annotation></semantics></math></em></p>
+</div>
 <p>The leading
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 is
@@ -445,11 +589,25 @@ of the prime series and of the gap series, so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi mathvariant="normal">Π</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}u_n=\Pi</annotation></semantics></math>.
 The termwise identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">v_n=2u_{n+1}-u_n</annotation></semantics></math>
-is the . It expresses each gap term as an integer combination of two
-consecutive prime terms, so once
+is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L202">dyadic
+discrete derivative</a>. It expresses each gap term as an integer
+combination of two consecutive prime terms, so once
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_n)</annotation></semantics></math>
 is summable the gap series can be summed by rearranging two copies of
 the prime series, which is what the following proof does.</p>
+<div class="theorem">
+<p><strong>Theorem 8</strong> (infinite prime-gap identity). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><msub><mi>p</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">u_n=p_n/2^{\,n+1}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><msub><mi>g</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">v_n=g_n/2^{\,n+1}</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_n)</annotation></semantics></math>
+is summable, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(v_n)</annotation></semantics></math>
+is summable and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>v</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}u_n=2+\sum_{n\ge0}v_n .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The shifted sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_{n+1})</annotation></semantics></math>
@@ -461,12 +619,40 @@ and use
  =2\left(\sum_{n\ge0}u_n-u_0\right)-\sum_{n\ge0}u_n
  =\sum_{n\ge0}u_n-2 .</annotation></semantics></math> ◻</p>
 </div>
-<p>The summability transfer is the , and the displayed identity is the .
-Summability of both series is part of the conclusion in <a
+<p>The summability transfer is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385">gap-series
+summability theorem</a>, and the displayed identity is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L404">infinite
+prime-gap identity</a>. Summability of both series is part of the
+conclusion in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">Lean
 source</a> rather than a hypothesis carried by the reader.</p>
-<p>These are the , the , and the . The three clauses are also available
-as the single declaration <a
+<div class="corollary">
+<p><strong>Corollary 9</strong> (exact irrationality reformulation).
+<em> With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>n</mi></msub><annotation encoding="application/x-tex">u_n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>n</mi></msub><annotation encoding="application/x-tex">v_n</annotation></semantics></math>
+as in Theorem , and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_n)</annotation></semantics></math>
+summable,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Irr</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">Irr</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Irr}\!\left(\sum_{n\ge0}u_n\right)
+ \quad\Longleftrightarrow\quad
+ \operatorname{Irr}\!\left(\sum_{n\ge0}v_n\right).</annotation></semantics></math>
+The corresponding zero-based series with denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>n</mi></msup><annotation encoding="application/x-tex">2^n</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>+</mo><mn>2</mn><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>v</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">4+2\sum_{n\ge0}v_n</annotation></semantics></math>
+and has the same irrationality status.</em></p>
+</div>
+<p>These are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435">normalised
+irrationality equivalence</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L444">displayed-series
+identity</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L459">displayed-series
+irrationality equivalence</a>. The three clauses are also available as
+the single declaration <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L56">Lean
 source</a>.</p>
 <section id="the-summability-hypothesis." class="level5">
@@ -474,11 +660,14 @@ source</a>.</p>
 <p>The formal source now proves the elementary polynomial bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>≤</mo><mn>1250</mn><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">p_n\le1250(n+1)^4</annotation></semantics></math>,
 using prime counting and central-binomial growth, and deduces
-summability directly (, ). Thus Theorem  and Corollary  are now
-unconditional Lean-checked statements; the prime number theorem remains
-useful context but is no longer a proof dependency of this note. The
-open content is exactly irrationality of the prime-gap series.
-Concretely,
+summability directly (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">polynomial
+bound</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379">summability</a>).
+Thus Theorem  and Corollary  are now unconditional Lean-checked
+statements; the prime number theorem remains useful context but is no
+longer a proof dependency of this note. The open content is exactly
+irrationality of the prime-gap series. Concretely,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>=</mo><mn>3.674643966</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\Pi=3.674643966\ldots</annotation></semantics></math>
 is irrational if and only if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>g</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mn>1.674643966</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}g_n2^{-(n+1)}=1.674643966\ldots</annotation></semantics></math>
@@ -507,7 +696,36 @@ isolation, assuming nothing about the coefficients beyond the fact that
 they are integers; the prime-gap instance is resumed at the end of the
 section. The following definition is the object so obtained, stripped of
 its origin.</p>
-<p>These are the , the , and <a
+<div class="definition">
+<p><strong>Definition 10</strong>. <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">g:\mathbb{N}\to\mathbb{Z}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>.
+Say
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+satisfies the with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+when
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mspace width="2.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}\qquad\text{for every }N .</annotation></semantics></math>
+We call the sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>T</mi><mi>N</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">(T_N)_{N\ge0}</annotation></semantics></math>
+the of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_h(N)=T_{N+h}-T_N</annotation></semantics></math>
+for the of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+and call a rational number when it is the image of an integer.</em></p>
+</div>
+<p>These are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L482">tail
+recurrence</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L544">shift</a>,
+and <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L575">integrality</a>.
 The digits are arbitrary integers. In the intended instance they are the
 prime gaps and
@@ -561,7 +779,9 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>h</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>N</mi></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><mo>+</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">B_{h+1,N}=2B_{h,N}+g_{N+h+1}</annotation></semantics></math>,
 so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>h</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">B_{h,N}=g_{N+1}2^{\,h-1}+\cdots+g_{N+h}</annotation></semantics></math>:
-the . Thus
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L647">tail
+block</a>. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mn>1</mn><mo>,</mo><mi>N</mi></mrow></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">B_{1,N}=g_{N+1}</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mn>2</mn><mo>,</mo><mi>N</mi></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">B_{2,N}=2g_{N+1}+g_{N+2}</annotation></semantics></math>
 and
@@ -572,6 +792,21 @@ on the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 digits following index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 11</strong> (block identity). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">B_{h,N}</annotation></semantics></math>
+be as above. For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msup><mn>2</mn><mi>h</mi></msup><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">hence</mtext><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">T_{N+h}=2^{h}T_N-B_{h,N},
+ \qquad\text{hence}\qquad
+ \sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>;
@@ -594,6 +829,21 @@ source</a>.</p>
 is an integer, Theorem  converts a question about the shift into a
 question about the single scaled term
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">(2^{h}-1)T_N</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 12</strong> (integral-shift criterion). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+the shift
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+is integral if and only if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">(2^{h}-1)T_N</annotation></semantics></math>
+is integral.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> By Theorem  the two differ by the integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">B_{h,N}</annotation></semantics></math>,
@@ -606,9 +856,26 @@ and subtracting an integer does not change integrality. ◻</p>
   \quad\Longleftrightarrow\quad
   \operatorname{den}(T_N)\mid 2^h-1.
 \tag{3.4}\label{eq:shift-denominator}</annotation></semantics></math>
-This is the . Euler’s totient supplies one admissible shift length when
-the denominator is odd; it is a witness, not the classification
+This is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1279">denominator
+classification</a>. Euler’s totient supplies one admissible shift length
+when the denominator is odd; it is a witness, not the classification
 itself.</p>
+<div class="theorem">
+<p><strong>Theorem 13</strong> (a shift of totient length). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+be Euler’s totient function. If the reduced denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>
+is odd, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_{\varphi(d)}(N)</annotation></semantics></math>
+is integral.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
@@ -654,6 +921,22 @@ so
 is never an integer and, by Theorem , no shift at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 is integral.</p>
+<div class="theorem">
+<p><strong>Theorem 14</strong> (propagation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+and fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+is integral, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N+k)</annotation></semantics></math>
+is integral for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> By the shift step identity,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N+1)=2\sigma_h(N)-(g_{N+h+1}-g_{N+1})</annotation></semantics></math>
@@ -678,6 +961,17 @@ part of a denominator, and nothing else: after finitely many steps the
 orbit therefore reaches a term with odd reduced denominator, which is
 precisely the situation Theorem  handles. No control of the digits is
 needed anywhere.</p>
+<div class="theorem">
+<p><strong>Theorem 15</strong> (exact denominator dynamics and eventual
+integrality). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+(Definition ). Then some fixed positive shift is integral from some
+point onwards:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>h</mi><mo>≥</mo><mn>1</mn><mspace width="0.222em"></mspace><mo>∃</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.222em"></mspace><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\exists h\ge1\ \exists N_0\ \forall N\ge N_0,\qquad
+ \sigma_h(N)\in\mathbb{Z} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> At every step the reduced denominator obeys the exact
 recurrence
@@ -692,7 +986,13 @@ supplies the positive shift
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h=\varphi(\operatorname{den}T_s)</annotation></semantics></math>,
 and Theorem  keeps that shift integral at every later index. ◻</p>
 </div>
-<p>The one-step formula is the , with its and .</p>
+<p>The one-step formula is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1217">denominator
+recurrence</a>, with its <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1226">odd
+case</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236">even
+case</a>.</p>
 <p>In the orbit displayed after Definition  the proof runs as follows:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><msub><mi>T</mi><mn>0</mn></msub><mo>=</mo><mn>12</mn><mo>=</mo><msup><mn>2</mn><mn>2</mn></msup><mo>⋅</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\operatorname{den}T_0=12=2^{2}\cdot3</annotation></semantics></math>,
 so
@@ -720,9 +1020,12 @@ only through the integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>s</mi><mo>,</mo><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">B_{s,0}</annotation></semantics></math>,
 so the conclusion holds for an arbitrary integer digit sequence.</p>
 <p>In the current formal source, denominator factorisation and
-cancellation are packaged directly in the , and the quantified
-conclusion is the for the actual prime-gap tail state. The displayed
-indexed form is <a
+cancellation are packaged directly in the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L830">fixed-denominator
+theorem</a>, and the quantified conclusion is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L853">eventual
+integral-shift theorem</a> for the actual prime-gap tail state. The
+displayed indexed form is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L84">Lean
 source</a>.</p>
 <p>The useful contrapositive is stated for a real recurrence. Call its
@@ -736,6 +1039,37 @@ has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\sigma_h(N)\notin\mathbb{Z}</annotation></semantics></math>.
 This is precisely the negation of the conclusion of Theorem : no shift
 length whatever becomes integral and stays integral.</p>
+<div class="theorem">
+<p><strong>Theorem 16</strong> (exact rationality classification). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{R}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}</annotation></semantics></math>
+with integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>.
+If its shifts are defined by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_h(N)=T_{N+h}-T_N</annotation></semantics></math>,
+then the following are equivalent:</em></p>
+<ol>
+<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+is rational;</em></p></li>
+<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+is integral for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
+and some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>;</em></p></li>
+<li><p><em>for some fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+is integral at every sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.</em></p></li>
+</ol>
+<p><em>Consequently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+is irrational if and only if every positive-length shift is non-integral
+at every index, equivalently if and only if the shifts are cofinally
+non-integral.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> For <span
 class="upright">(i)</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math><span
@@ -767,9 +1101,21 @@ identity then makes
 rational. Negating the pointwise and eventual forms gives the two
 irrationality formulations. ◻</p>
 </div>
-<p>Lean checks the rational actual-tail state as , its , and the bridge
-from a hypothetical rational value to that state as . The exact real
-classifiers are , , , and . All four equivalences are collected in <a
+<p>Lean checks the rational actual-tail state as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L489">rational
+prime-gap tail state</a>, its <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L527">recurrence</a>,
+and the bridge from a hypothetical rational value to that state as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L510">the
+rational-tail representation</a>. The exact real classifiers are <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1479">one
+integral positive shift</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1525">eventual
+integrality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1551">pointwise
+non-integrality</a>, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572">cofinal
+non-integrality</a>. All four equivalences are collected in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L94">Lean
 source</a>.</p>
 <section id="the-actual-prime-gap-orbit." class="level5">
@@ -812,6 +1158,27 @@ is that the distance of a shift from the integers never has to be
 estimated; it suffices to know that both shifts lie in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1,1)</annotation></semantics></math>
 and that two digits differ.</p>
+<div class="theorem">
+<p><strong>Theorem 17</strong> (adjacent small-shift obstruction). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+satisfy the dyadic tail recurrence with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>.
+Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+If
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>&lt;</mo><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo>−</mo><mn>1</mn><mo>&lt;</mo><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≠</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">-1&lt;\sigma_h(N)&lt;1,\qquad -1&lt;\sigma_h(N+1)&lt;1,
+ \qquad g_{N+h+1}\ne g_{N+1},</annotation></semantics></math> then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N+1)</annotation></semantics></math>
+cannot both be integral. Consequently, if such a pair occurs beyond
+every threshold, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>-shift
+is not eventually integral.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> An integral rational strictly between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
@@ -823,11 +1190,17 @@ substitution in the displayed shift step identity would give
 a contradiction. The cofinal statement chooses one such adjacent pair
 after the alleged onset of integrality. ◻</p>
 </div>
-<p>The finite contradiction is the ; its quantified form is the ; and
-the actual-prime-gap specialisation is the . Theorem  is conditional on
-its two tail inequalities; no theorem asserting that such pairs occur is
-claimed here. The local obstruction and its cofinal consequence are
-stated as one declaration in <a
+<p>The finite contradiction is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L979">adjacent
+small-shift obstruction</a>; its quantified form is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1006">cofinal
+small-mismatch theorem</a>; and the actual-prime-gap specialisation is
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1112">prime-gap
+specialisation</a>. Theorem  is conditional on its two tail
+inequalities; no theorem asserting that such pairs occur is claimed
+here. The local obstruction and its cofinal consequence are stated as
+one declaration in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L267">Lean
 source</a>.</p>
 <p>All three are stated for a rational orbit, while the prime-gap tail
@@ -835,6 +1208,32 @@ source</a>.</p>
 of Section  is real, so the rational statement does not on its own
 discharge the instances that arise downstream. The same argument gives
 the real form directly.</p>
+<div class="corollary">
+<p><strong>Corollary 18</strong> (adjacent small-shift obstruction, real
+form). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{R}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}</annotation></semantics></math>
+with integer digits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+and write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_h(N)=T_{N+h}-T_N</annotation></semantics></math>.
+Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+If
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>&lt;</mo><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo>−</mo><mn>1</mn><mo>&lt;</mo><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≠</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">-1&lt;\sigma_h(N)&lt;1,\qquad -1&lt;\sigma_h(N+1)&lt;1,
+ \qquad g_{N+h+1}\ne g_{N+1},</annotation></semantics></math> then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N+1)</annotation></semantics></math>
+do not both lie in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>.
+Consequently, if such a pair occurs beyond every threshold, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>-shift
+is not eventually integral.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The real recurrence gives the same shift step
 identity
@@ -875,6 +1274,14 @@ period
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
 What is missing is their joint occurrence with the digit mismatch at the
 same indices. Each inequality constrains a complete infinite tail.</p>
+<div class="proposition">
+<p><strong>Proposition 19</strong> (prime gaps do not become periodic).
+<em> For every positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+the actual consecutive-prime-gap sequence is not eventually periodic
+with period
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The gaps are unbounded, by the standard construction:
 the interval from
@@ -888,8 +1295,12 @@ natural-valued sequence has finite range after its preperiod, while its
 finite initial segment is bounded as well; hence it is bounded, a
 contradiction. ◻</p>
 </div>
-<p>Lean checks the factorial argument as and the conclusion as . The
-statement at the index convention displayed above is <a
+<p>Lean checks the factorial argument as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L57">unboundedness
+of the actual gaps</a> and the conclusion as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">non-eventual
+periodicity</a>. The statement at the index convention displayed above
+is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L175">Lean
 source</a>. Combining nonperiodicity with eventual strict smallness of
 one positive shift would also exclude eventual integrality, but eventual
@@ -912,7 +1323,9 @@ as the value carried into level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 and put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\kappa_n=2K_n-K_{n+1}</annotation></semantics></math>:
-the . That definition is exactly the statement that
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129">carry
+coefficient</a>. That definition is exactly the statement that
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>K</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi></mrow></msup></mfrac><mo>=</mo><mfrac><msub><mi>κ</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>+</mo><mfrac><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{K_n}{2^{\,n}}
  =\frac{\kappa_n}{2^{\,n+1}}+\frac{K_{n+1}}{2^{\,n+1}} ,</annotation></semantics></math>
 so at each level the carried value splits into one emitted coefficient
@@ -921,6 +1334,15 @@ and a new carry. Nothing at all is assumed about
 not integrality, not positivity, not any bound. That is the sense in
 which the carry is free, and it is what the counterexample below
 exploits.</p>
+<div class="proposition">
+<p><strong>Proposition 20</strong> (exact telescoping). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">K:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+be arbitrary and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\kappa_n=2K_n-K_{n+1}</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><msub><mi>κ</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>=</mo><msub><mi>K</mi><mn>0</mn></msub><mo>−</mo><mfrac><msub><mi>K</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{i=0}^{n-1}\frac{\kappa_i}{2^{\,i+1}}=K_0-\frac{K_n}{2^{\,n}} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>;
@@ -954,21 +1376,38 @@ arithmetic information any successful argument must use.</p>
 <p>Problem #251 is open. The public Lean source now proves unconditional
 convergence of both dyadic series, their exact infinite
 summation-by-parts identity, and the real-to-rational scaled-tail
-representation (, ). It also proves that every rational candidate
+representation (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">identity</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L510">tail
+representation</a>). It also proves that every rational candidate
 supplies one positive fixed shift which is integral at every
-sufficiently late tail index (). The denominator construction selects
-that same shift so that prime-gap nonperiodicity also rules out its
-eventual confinement to the open unit interval (). This conclusion is
-compatible with rationality: it says that the rationally forced shift
-cannot support an eventual-smallness contradiction. It supplies neither
-eventual smallness nor cofinally many adjacent small mismatches for that
-shift. The remaining issue is recurrence or anti-concentration of the
-prime-gap shifts. Throughout,
+sufficiently late tail index (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L853">checked</a>).
+The denominator construction selects that same shift so that prime-gap
+nonperiodicity also rules out its eventual confinement to the open unit
+interval (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1097">not
+eventually small</a>). This conclusion is compatible with rationality:
+it says that the rationally forced shift cannot support an
+eventual-smallness contradiction. It supplies neither eventual smallness
+nor cofinally many adjacent small mismatches for that shift. The
+remaining issue is recurrence or anti-concentration of the prime-gap
+shifts. Throughout,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>=</mo><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i=p_{i+1}-p_i</annotation></semantics></math>
 are the zero-based prime gaps of Section . Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(h)</annotation></semantics></math>
 for the cofinal escape statement in  at shift
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</p>
+<div class="problem">
+<p><strong>Problem 21</strong> (divisor-hitting shift escape). <em> For
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ge1</annotation></semantics></math>,
+does some positive multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+escape cofinally?
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mo>≥</mo><mn>1</mn><mspace width="0.222em"></mspace><mo>∃</mo><mi>m</mi><mo>≥</mo><mn>1</mn><mo>:</mo><mspace width="2.0em"></mspace><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\forall r\ge1\ \exists m\ge1:\qquad \mathsf E(mr).</annotation></semantics></math></em></p>
+</div>
 <p>Divisor-hitting escape changes the organisation of the quantifiers.
 Within an integer-digit recurrence it is equivalent to irrationality,
 just as universal shift escape is: a rational state has a positive
@@ -976,6 +1415,19 @@ eventual order, and every positive multiple of that order is an integral
 shift. A quantitatively stated sufficient estimate can still be easier
 to attack, but that requires a separately proved analytic bound. Forward
 propagation is Lean-checked.</p>
+<div class="problem">
+<p><strong>Problem 22</strong> (universal prime-gap shift escape). <em>
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>,
+prove that some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">N\ge N_0</annotation></semantics></math>
+satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>j</mi></mrow></msub></mrow><msup><mn>2</mn><mi>j</mi></msup></mfrac><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{j\ge1}
+ \frac{g_{N+h+j}-g_{N+j}}{2^j}\notin\mathbb{Z} .
+\tag{5.1}\label{eq:shift-escape}</annotation></semantics></math></em></p>
+</div>
 <p>The series in  is exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">T_{N+h}-T_N</annotation></semantics></math>.
 Theorem  makes Problem  equivalent to irrationality of
@@ -986,6 +1438,24 @@ length from the odd part of its reduced denominator, and the cocycle
 then makes every positive multiple eventually integral. The two
 formulations organise the quantifiers differently; they do not give a
 strict logical weakening.</p>
+<div class="problem">
+<p><strong>Problem 23</strong> (cofinal adjacent small mismatch). <em>
+For every fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>,
+prove that some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">N\ge N_0</annotation></semantics></math>
+satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">|</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>j</mi></mrow></msub></mrow><msup><mn>2</mn><mi>j</mi></msup></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>&lt;</mo><mn>1</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">|</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn><mo>+</mo><mi>j</mi></mrow></msub></mrow><msup><mn>2</mn><mi>j</mi></msup></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>&lt;</mo><mn>1</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≠</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{split}
+\left|\sum_{j\ge1}
+ \frac{g_{N+h+j}-g_{N+j}}{2^j}\right|&amp;&lt;1,\\
+\left|\sum_{j\ge1}
+ \frac{g_{N+h+1+j}-g_{N+1+j}}{2^j}\right|&amp;&lt;1,\\
+g_{N+h+1}&amp;\ne g_{N+1}.
+\end{split}
+\tag{5.2}\label{eq:smallpair}</annotation></semantics></math></em></p>
+</div>
 <p>The two sums are adjacent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>-shifts.
 Corollary  turns each instance of  into a finite contradiction to
@@ -1050,6 +1520,27 @@ modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>L</mi></msup><annotation encoding="application/x-tex">2^L</annotation></semantics></math>.
 A one-block certificate would be a prime-gap theorem producing such an
 avoided arc on a logarithmic block.</p>
+<div class="proposition">
+<p><strong>Proposition 24</strong> (finite truncation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>g</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">M(n)\ge g_n</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+assume that the series below converges, and put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>&gt;</mo><mi>L</mi></mrow></munder><mfrac><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>j</mi></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">R_{h,N,L}(M)=
+ \sum_{j&gt;L}\frac{M(N+h+j)+M(N+j)}{2^j}.</annotation></semantics></math>
+Suppose that for every fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>
+there exist
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">N\ge N_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">L\ge1</annotation></semantics></math>
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>S</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo>,</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msub><mi>R</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{dist}(S_{h,N,L},\mathbb{Z})&gt;R_{h,N,L}(M).
+\tag{5.3}\label{eq:truncation}</annotation></semantics></math> Then
+Problem  holds.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{j\ge1}(g_{N+h+j}-g_{N+j})2^{-j}</annotation></semantics></math>

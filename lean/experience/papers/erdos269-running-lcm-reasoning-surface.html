@@ -58,6 +58,17 @@ for every finite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>;
 the open question addressed by the catalogue is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal R_P</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 1</strong> (two-prime transcendence). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+be distinct primes. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mrow><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub><annotation encoding="application/x-tex">\mathcal R_{\{p,q\}}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{\{p,q\}}</annotation></semantics></math>
+are transcendental.</em></p>
+</div>
 <p>Section  proves this. Both values are explicit polynomials in one
 Hecke–Mahler boundary sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
@@ -107,14 +118,19 @@ when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><msup><mi>r</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">n=p^{i}q^{j}r^{k}</annotation></semantics></math>
 for some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">i,j,k\ge0</annotation></semantics></math>;
-this is the . For
+this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L32">smooth
+lattice value</a>. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x\ge1</annotation></semantics></math>
 write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><mi>n</mi><mo>≤</mo><mi>x</mi><mo>:</mo><mspace width="0.222em"></mspace><mi>n</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">smooth</mtext><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mspace width="0.167em"></mspace><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mspace width="0.167em"></mspace><msup><mi>r</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)=\operatorname{lcm}\{\,n\le x:\ n\ \text{smooth}\,\},
  \qquad
  \operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}\,q^{\lfloor\log_q x\rfloor}\,
- r^{\lfloor\log_r x\rfloor},</annotation></semantics></math> the and the
-, where
+ r^{\lfloor\log_r x\rfloor},</annotation></semantics></math> the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L54">running
+least common multiple</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L37">pure-power
+height</a>, where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_b x\rfloor</annotation></semantics></math>
 is the largest
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
@@ -126,7 +142,9 @@ are exactly the smooth numbers up to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>,
 we have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[a_1,\ldots,a_n]=\operatorname{L}(a_n)</annotation></semantics></math>.
-The reciprocal of the height at a smooth point is the
+The reciprocal of the height at a smooth point is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L41">lattice
+kernel</a>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><msup><mi>r</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{K}(i,j,k)=\frac{1}{\operatorname{H}(p^{i}q^{j}r^{k})} .</annotation></semantics></math>
 Here “smooth” always means supported on the fixed prime set, and it is
 not the varying-bound notion counted by
@@ -164,10 +182,22 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≤</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">k\le\lfloor\log_r x\rfloor</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><msup><mi>r</mi><mi>k</mi></msup><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">p^{i}q^{j}r^{k}\le x</annotation></semantics></math>,
-the . Both conditions matter: the coordinate box is strictly larger than
-the prefix, since a product of three large pure powers can exceed
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L47">smooth
+prefix index set</a>. Both conditions matter: the coordinate box is
+strictly larger than the prefix, since a product of three large pure
+powers can exceed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 while each factor does not.</p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (the running least common multiple). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p,q,r</annotation></semantics></math>
+be pairwise distinct primes and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x\ge1</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)=\operatorname{H}(x)</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Every smooth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">n\le x</annotation></semantics></math>
@@ -188,9 +218,20 @@ and distinct primes have coprime powers, so their product divides
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)</annotation></semantics></math>
 as well. ◻</p>
 </div>
-<p>Formalised as the , from the , the and the three pure-power
-memberships, namely the , and . The unrestricted analogue is classical:
-iterating the prime-exponent maximum rule gives
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">running-lcm
+identity</a>, from the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L60">pointwise
+divisibility</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L78">divisibility
+into the height</a> and the three pure-power memberships, namely the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L85">first</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L98">second</a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L111">third</a>.
+The unrestricted analogue is classical: iterating the prime-exponent
+maximum rule gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>t</mi><mo>≤</mo><mi>N</mi></mrow></msub><msup><mi>t</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>t</mi></msub><mi>N</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,N)=\prod_{t\le N}t^{\lfloor\log_t N\rfloor}</annotation></semantics></math>
 over the primes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">t\le N</annotation></semantics></math> <span
@@ -222,7 +263,9 @@ mechanism behind Section . Also
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>x</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\operatorname{H}(x)\le x^{3}</annotation></semantics></math>,
 since each of the three factors is a power of its base not exceeding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>;
-this is the , and the exponent is the number of generating primes.</p>
+this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L431">cubic
+majorant</a>, and the exponent is the number of generating primes.</p>
 <p>Say that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 and
@@ -231,10 +274,28 @@ lie in the same when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi></msub><mi>y</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_b x\rfloor=\lfloor\log_b y\rfloor</annotation></semantics></math>
 for each of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">b=p,q,r</annotation></semantics></math>,
-the . By Theorem  the running value depends on
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L164">cell
+relation</a>. By Theorem  the running value depends on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 only through the three integer logarithms, so it is constant on cells
 and moves only where one logarithm moves.</p>
+<div class="proposition">
+<p><strong>Proposition 3</strong> (constancy and jump ratios). <em> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x,y\ge1</annotation></semantics></math>
+lie in the same logarithmic cell then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)=\operatorname{L}(y)</annotation></semantics></math>,
+and the same holds for the kernel at two smooth points of one cell. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>y</mi><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor\log_p y\rfloor=\lfloor\log_p x\rfloor+1</annotation></semantics></math>
+while the other two logarithms agree, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(y)=p\,\operatorname{L}(x)</annotation></semantics></math>,
+and similarly with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+in place of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Both parts are immediate from Theorem : the height
 depends on
@@ -242,9 +303,43 @@ depends on
 only through the three integer logarithms, and advancing one of them
 multiplies exactly one factor by its base. ◻</p>
 </div>
-<p>The first part is the , over the and the . The jump statement is the
-, and coordinate steps, over the corresponding height steps, which need
-no primality: the , and .</p>
+<p>The first part is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L180">cell
+constancy of the running value</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L170">cell
+constancy of the height</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L192">cell
+constancy of the kernel</a>. The jump statement is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L327">first</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L340">second</a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L353">third</a>
+coordinate steps, over the corresponding height steps, which need no
+primality: the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L295">first</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306">second</a>
+and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317">third</a>.</p>
+<div class="proposition">
+<p><strong>Proposition 4</strong> (jump count). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>.
+The set of the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+positive powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+and of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+has exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">3n</annotation></semantics></math>
+elements, and adjoining the common origin
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+gives exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">3n+1</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Within one channel the powers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>,</mo><msup><mi>b</mi><mn>2</mn></msup><mo>,</mo><mi>…</mi><mo>,</mo><msup><mi>b</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">b,b^{2},\ldots,b^{n}</annotation></semantics></math>
@@ -255,12 +350,26 @@ distinct primes, which unique factorisation forbids. Finally
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 is not a positive power of any prime. ◻</p>
 </div>
-<p>Formalised as the and the , over the , the and the ; the channels are
-the , whose union is the and, with the origin adjoined, the . Two
-channels never meet, so at each positive pure power exactly one
-logarithm advances and the running value is multiplied there by the
-prime of that channel. Reading those multipliers in increasing order of
-the pure powers gives the of
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L250">positive
+jump count</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L279">jump
+count with the origin</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L209">channel
+cardinality</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L230">channel
+disjointness</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L220">exclusion
+of the origin</a>; the channels are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L205">positive
+power sets</a>, whose union is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L244">positive
+jump set</a> and, with the origin adjoined, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L274">full
+jump set</a>. Two channels never meet, so at each positive pure power
+exactly one logarithm advances and the running value is multiplied there
+by the prime of that channel. Reading those multipliers in increasing
+order of the pure powers gives the of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">L</mi><annotation encoding="application/x-tex">\operatorname{L}</annotation></semantics></math>.
 At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
@@ -277,11 +386,23 @@ for the box of exponent triples with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>≤</mo><msub><mi>h</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">i\le h_p</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≤</mo><msub><mi>h</mi><mi>q</mi></msub></mrow><annotation encoding="application/x-tex">j\le h_q</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≤</mo><msub><mi>h</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">k\le h_r</annotation></semantics></math>,
-the , and
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L369">exponent
+box</a>, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(H)</annotation></semantics></math>
 for the set of its points whose height equals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
-the .</p>
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378">height
+fibre</a>.</p>
+<div class="proposition">
+<p><strong>Proposition 5</strong> (finite normal form). <em> For every
+box
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi></mrow></msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>H</mi></msub><mi>#</mi><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">\sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_{H}\#F(H)/H</annotation></semantics></math>,
+the outer sum ranging over the heights attained on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Partition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
@@ -292,7 +413,13 @@ every summand is
 so the fibre contributes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">\#F(H)/H</annotation></semantics></math>. ◻</p>
 </div>
-<p>Formalised as the , over the and the . At
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">height-fibre
+normal form</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L385">fibre
+sum</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L374">point
+height</a>. At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,5)</annotation></semantics></math>
 on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(1,1,1)</annotation></semantics></math>
@@ -309,7 +436,11 @@ is not a statement about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">L</mi><annotation encoding="application/x-tex">\operatorname{L}</annotation></semantics></math>
 at a cutoff. The same module records the one-step map
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tau(b,d,s)=b(s-d)</annotation></semantics></math>,
-the , with the rewriting ; the orbits analysed in Section  are the
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">variable-base
+tail step</a>, with the rewriting <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">that
+names its expanded form</a>; the orbits analysed in Section  are the
 actual ones, and no orbit of this abstract map is analysed.</p>
 <p>Now fix an interval
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>λ</mi><mo>,</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[\lambda,\eta)</annotation></semantics></math>
@@ -317,7 +448,23 @@ and write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒮</mi><annotation encoding="application/x-tex">\mathcal S</annotation></semantics></math>
 for the exponent triples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mi>p</mi></msub><mo>,</mo><msub><mi>h</mi><mi>q</mi></msub><mo>,</mo><msub><mi>h</mi><mi>r</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(h_p,h_q,h_r)</annotation></semantics></math>
-whose smooth value lies in it, the .</p>
+whose smooth value lies in it, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501">smooth
+exponent shell</a>.</p>
+<div class="lemma">
+<p><strong>Lemma 6</strong> (uniqueness in a short interval). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>≤</mo><mi>b</mi><mspace width="0.167em"></mspace><mi>λ</mi></mrow><annotation encoding="application/x-tex">\eta\le b\,\lambda</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>a</mi></msup><mi>w</mi></mrow><annotation encoding="application/x-tex">b^{a}w</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><msup><mi>a</mi><mo>′</mo></msup></msup><mi>w</mi></mrow><annotation encoding="application/x-tex">b^{a&#39;}w</annotation></semantics></math>
+both lie in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>λ</mi><mo>,</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[\lambda,\eta)</annotation></semantics></math>
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mi>a</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">a=a&#39;</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><msup><mi>a</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">a&lt;a&#39;</annotation></semantics></math>
@@ -326,6 +473,25 @@ then
 which is impossible; the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><msup><mi>a</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">a&gt;a&#39;</annotation></semantics></math>
 is symmetric. ◻</p>
+</div>
+<div class="proposition">
+<p><strong>Proposition 7</strong> (projection and the quadratic shell
+bound). <em> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>≤</mo><mi>r</mi><mspace width="0.167em"></mspace><mi>λ</mi></mrow><annotation encoding="application/x-tex">\eta\le r\,\lambda</annotation></semantics></math>
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mi mathvariant="script">𝒮</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mi>p</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mi>q</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\#\mathcal S\le(h_p+1)(h_q+1)</annotation></semantics></math>,
+and if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>≤</mo><mi>p</mi><mspace width="0.167em"></mspace><mi>λ</mi></mrow><annotation encoding="application/x-tex">\eta\le p\,\lambda</annotation></semantics></math>
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mi mathvariant="script">𝒮</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mi>q</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mi>r</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\#\mathcal S\le(h_q+1)(h_r+1)</annotation></semantics></math>.
+If moreover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>≤</mo><mi>r</mi><mspace width="0.167em"></mspace><mi>λ</mi></mrow><annotation encoding="application/x-tex">\eta\le r\,\lambda</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>p</mi></msub><mo>≤</mo><msub><mi>h</mi><mi>q</mi></msub><mo>≤</mo><msub><mi>h</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">h_p\le h_q\le h_r</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>p</mi></msub><mo>+</mo><msub><mi>h</mi><mi>q</mi></msub><mo>+</mo><msub><mi>h</mi><mi>r</mi></msub><mo>=</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">h_p+h_q+h_r=j</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mspace width="0.167em"></mspace><mi>#</mi><mi mathvariant="script">𝒮</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>3</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">9\,\#\mathcal S\le(j+3)^{2}</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Suppose
@@ -362,7 +528,17 @@ with
 the difference of the two sides is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>a</mi><mo>+</mo><mn>4</mn><mi>d</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d(3a+4d+3)\ge0</annotation></semantics></math>. ◻</p>
 </div>
-<p>Formalised as the , the , the and the , over the . The constant
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L586">third-coordinate
+projection</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L544">first-coordinate
+projection</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L647">quadratic
+shell bound</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L630">sorted
+quadratic estimate</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L510">short-interval
+uniqueness</a>. The constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>9</mn><annotation encoding="application/x-tex">9</annotation></semantics></math>
 is the square of the number of generating primes, and the last
 inequality of the proof is an equality when
@@ -552,6 +728,21 @@ next section makes that failure exact.</p>
 and reduce the problem to one-dimensional criteria. At two generators
 that hope is exactly correct, and at three it fails at every finite
 order.</p>
+<div class="proposition">
+<p><strong>Proposition 8</strong> (two generators separate). <em> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p,q&gt;1</annotation></semantics></math>
+and all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i,j</annotation></semantics></math>,
+the two-prime kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}_2(i,j)=1/L_{p,q}(p^iq^j)</annotation></semantics></math>
+is the outer product
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mi>j</mi></msup><msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}_2(i,j)
+ =\bigl(p^{i}q^{\lfloor\log_q p^{i}\rfloor}\bigr)^{-1}
+  \bigl(p^{\lfloor\log_p q^{j}\rfloor}q^{j}\bigr)^{-1},</annotation></semantics></math>
+so every two-by-two minor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><annotation encoding="application/x-tex">\operatorname{K}_2</annotation></semantics></math>
+vanishes.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> By the two-variable form of Theorem  the exponents of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
@@ -567,13 +758,29 @@ each depending on one index only. A matrix whose entries are a product
 of a row function and a column function has vanishing two-by-two
 minors. ◻</p>
 </div>
-<p>Checked as the and the . This is the linear-algebraic shadow of
+<p>Checked as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278">outer-product
+identity</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">vanishing
+of every two-by-two minor</a>. This is the linear-algebraic shadow of
 Section : the two-prime value factors because the kernel does.</p>
 <p>At three generators the smallest rectangle already fails to factor. A
 factorisation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(i)g(j)h(k)</annotation></semantics></math>
 would force
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}(0,0,0)\operatorname{K}(1,1,0)=\operatorname{K}(1,0,0)\operatorname{K}(0,1,0)</annotation></semantics></math>.</p>
+<div class="proposition">
+<p><strong>Proposition 9</strong> (non-separability at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>).
+<em> With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p,q,r)=(2,3,5)</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>6</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>2</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn><mi>/</mi><mn>60</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>−</mi><mfrac><mn>1</mn><mn>15</mn></mfrac><mo>≠</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\det\begin{pmatrix}
+ \operatorname{K}(0,0,0)&amp;\operatorname{K}(0,1,0)\\
+ \operatorname{K}(1,0,0)&amp;\operatorname{K}(1,1,0)
+ \end{pmatrix}
+ =\det\begin{pmatrix}1&amp;1/6\\1/2&amp;1/60\end{pmatrix}
+ =-\frac1{15}\ne0 .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The four values are computed from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\operatorname{H}(1)=1</annotation></semantics></math>,
@@ -584,10 +791,25 @@ and
 so the determinant is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>60</mn><mo>−</mo><mn>1</mn><mi>/</mi><mn>12</mn><mo>=</mo><mi>−</mi><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">1/60-1/12=-1/15</annotation></semantics></math>. ◻</p>
 </div>
-<p>Checked as the and the , over the four exact values, the , , and ;
-the third-order witness
+<p>Checked as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L827">rank-two
+certificate</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L480">non-separation
+witness</a>, over the four exact values, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L444">origin</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L451">value
+at two</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L459">value
+at three</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L468">value
+at six</a>; the third-order witness
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>81000</mn></mrow><annotation encoding="application/x-tex">1/81000</annotation></semantics></math>
-is beside the . The height at
+is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L570">checked</a>
+beside the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L560">second-order
+one</a>. The height at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>60</mn><annotation encoding="application/x-tex">60</annotation></semantics></math>
@@ -600,6 +822,34 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>,
 so the running value at a smooth cutoff sees powers of the other primes
 that the cutoff itself omits.</p>
+<div class="theorem">
+<p><strong>Theorem 10</strong> (arbitrary-order non-separability). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p,q,r</annotation></semantics></math>
+be primes with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≠</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p\ne q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p\ne r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">q\ne r</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>
+there are injective maps
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>,</mo><mi>J</mi><mo>:</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">I,J:\{0,\ldots,n-1\}\to\mathbb{N}</annotation></semantics></math>
+such that, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mrow><mn>0</mn><mo>≤</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><mo>≠</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\det\bigl(\operatorname{K}(I(a),J(b),k)\bigr)_{0\le a,b&lt;n}\ne0 .</annotation></semantics></math>
+Consequently, for no finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+do there exist rational-valued functions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>ℓ</mi></msub><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">f_\ell:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>ℓ</mi></msub><mo>:</mo><msup><mi mathvariant="double-struck">ℕ</mi><mn>2</mn></msup><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">G_\ell:\mathbb{N}^{2}\to\mathbb{Q}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>ℓ</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le\ell&lt;d</annotation></semantics></math>,
+satisfying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>&lt;</mo><mi>d</mi></mrow></msub><msub><mi>f</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>G</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}(i,j,k)=\sum_{\ell&lt;d}f_\ell(i)G_\ell(j,k)</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">i,j,k</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\alpha=\log_r p</annotation></semantics></math>,
@@ -683,14 +933,24 @@ restriction through a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
 space and force its determinant to vanish. ◻</p>
 </div>
-<p>The factorisation  is the , over the . The uniform minor family is ,
-the exclusion of every finite separation is , and the index selection is
-discharged by the problem-neutral staircase engine , which realises the
-full
+<p>The factorisation  is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259">checked
+kernel factorisation</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L218">height
+factorisation</a>. The uniform minor family is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L376">checked</a>,
+the exclusion of every finite separation is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L388">checked</a>,
+and the index selection is discharged by the problem-neutral staircase
+engine <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Shared/IrrationalRotationStaircase.lean#L271">exists_staircase_indices</a>,
+which realises the full
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math>
 pattern from two rotations without integer returns and depends on
-Mathlib only; the absence of integer returns is the . The Lean forms
-assume that
+Mathlib only; the absence of integer returns is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L154">checked
+irrationality of the two logarithm ratios</a>. The Lean forms assume
+that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 and
@@ -709,9 +969,13 @@ kernel are not a witness: row three is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>120</mn></mrow><annotation encoding="application/x-tex">1/120</annotation></semantics></math>
 times row zero for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">j\le3</annotation></semantics></math>
-(), and the proportionality fails at
+(<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L583">checked</a>),
+and the proportionality fails at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">j=4</annotation></semantics></math>
-(). A proof that read off leading minors alone would be false.</p>
+(<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L592">checked</a>).
+A proof that read off leading minors alone would be false.</p>
 <section id="attribution-and-reach." class="level5">
 <h5>Attribution and reach.</h5>
 <p>Fan recorded the qualitative obstruction for
@@ -752,6 +1016,20 @@ for some finite
 and some sequences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>ℓ</mi></msub><mo>,</mo><msub><mi>g</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">f_\ell,g_\ell</annotation></semantics></math>,
 with no continuity or boundedness assumed.</p>
+<div class="theorem">
+<p><strong>Theorem 11</strong> (sharp uniform separated approximation).
+<em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p,q,r</annotation></semantics></math>
+be pairwise distinct primes and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+be as in . Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">inf</mi><mi>A</mi></munder><mspace width="0.222em"></mspace><munder><mi mathvariant="normal">sup</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>t</mi></mrow><mn>2</mn></mfrac><mo>=</mo><mfrac><mrow><mi>r</mi><mo>−</mo><mn>1</mn></mrow><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\inf_{A}\ \sup_{i,j\ge0}\ |C(i,j)-A(i,j)|=\frac{1-t}{2}=\frac{r-1}{2r},</annotation></semantics></math>
+the infimum being over all matrices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+of finite separated rank, and it is attained by the constant matrix of
+value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1+t)/2</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Every entry of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
@@ -903,7 +1181,11 @@ same base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
 inside an interval of ratio
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">2\le b</annotation></semantics></math>
-must coincide; this is the for the . Let
+must coincide; this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669">checked
+internal-power uniqueness lemma</a> for the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L663">internal-power
+predicate</a>. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>a</mi></msub><annotation encoding="application/x-tex">I_a</annotation></semantics></math>
 list the internal jumps
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p,e)</annotation></semantics></math>
@@ -912,6 +1194,16 @@ with
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>&lt;</mo><msup><mi>p</mi><mi>e</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{a}&lt;p^{e}&lt;2^{a+1}</annotation></semantics></math>,
 in increasing order.</p>
+<div class="proposition">
+<p><strong>Proposition 12</strong> (the dyadic block alphabet). <em> For
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>=</mo><mfrac><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mi>a</mi></msub></mfrac><mo>=</mo><mn>2</mn><munder><mo>∏</mo><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><msub><mi>I</mi><mi>a</mi></msub></mrow></munder><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>10</mn><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">so</mtext><mspace width="2.0em"></mspace><mn>2</mn><mo>≤</mo><msub><mi>b</mi><mi>a</mi></msub><mo>≤</mo><mn>30</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long269:eq:dyadic-alphabet}
+ b_a=\frac{\operatorname{H}_{a+1}}{\operatorname{H}_a}=2\prod_{(p,e)\in I_a}p\in\{2,6,10,30\},
+ \qquad\text{so}\qquad 2\le b_a\le30 .
+\end{equation}</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Internal-power uniqueness leaves two independent
 yes-or-no choices, one for the
@@ -923,8 +1215,13 @@ Multiplying the terminal factor
 by the selected channel factors gives exactly the four displayed
 cases. ◻</p>
 </div>
-<p>The definition is the , and Lean checks both the and the . All four
-letters occur early:
+<p>The definition is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L751">dyadic
+block base</a>, and Lean checks both the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L762">exact
+four-case alphabet</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L774">bounded-radix
+consequence</a>. All four letters occur early:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>a</mi></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo>,</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mrow><mtext mathvariant="normal">internal </mtext><mspace width="0.333em"></mspace></mrow><mn>3</mn><mtext mathvariant="normal">-power</mtext></mtd><mtd columnalign="center" class="ta-c"><mrow><mtext mathvariant="normal">internal </mtext><mspace width="0.333em"></mspace></mrow><mn>5</mn><mtext mathvariant="normal">-power</mtext></mtd><mtd columnalign="center" class="ta-c"><msub><mi>b</mi><mi>a</mi></msub></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>0</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mn>3</mn></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mn>6</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>2</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mn>5</mn></mtd><mtd columnalign="center" class="ta-c"><mn>10</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>3</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>8</mn><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mn>9</mn></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mn>6</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>4</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>16</mn><mo>,</mo><mn>32</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mn>27</mn></mtd><mtd columnalign="center" class="ta-c"><mn>25</mn></mtd><mtd columnalign="center" class="ta-c"><mn>30</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>5</mn></mtd><mtd columnalign="center" class="ta-c"><mo stretchy="false" form="prefix">(</mo><mn>32</mn><mo>,</mo><mn>64</mn><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mtext mathvariant="normal">none</mtext></mtd><mtd columnalign="center" class="ta-c"><mn>2</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{c|c|c|c|c}
 a &amp; (2^{a},2^{a+1}) &amp; \text{internal }3\text{-power} &amp; \text{internal }5\text{-power} &amp; b_a\\ \hline
 0 &amp; (1,2)   &amp; \text{none} &amp; \text{none} &amp; 2\\
@@ -954,7 +1251,9 @@ The is
         \bigl(C_p(e)-C_2(a)\bigr)\quad(a\ge1),
  \qquad m_0=1 ,
 \end{equation}</annotation></semantics></math> the integer implemented
-by the pinned checker and the . The first four pairs
+by the pinned checker and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150">checked
+ordered digit</a>. The first four pairs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>a</mi></msub><mo>,</mo><msub><mi>m</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b_a,m_a)</annotation></semantics></math>
 from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a=1</annotation></semantics></math>
@@ -963,6 +1262,21 @@ are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>10</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(10,7)</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(6,7)</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>30</mn><mo>,</mo><mn>65</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(30,65)</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 13</strong> (the literal shell recurrence). <em> The
+shell masses are summable and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>s</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">S=\sum_{a\ge0}s_a</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>s</mi><mi>a</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>X</mi><mi>a</mi></msub><mo>−</mo><msub><mi>m</mi><mi>a</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mi>a</mi></mrow></munder><mfrac><msub><mi>m</mi><mi>j</mi></msub><mrow><msub><mi>b</mi><mi>a</mi></msub><msub><mi>b</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>⋯</mi><msub><mi>b</mi><mi>j</mi></msub></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long269:eq:shell-digit-identity}
+ m_a=h_{a+1}s_a\in\mathbb{N}_{&gt;0},
+ \qquad
+ X_{a+1}=b_aX_a-m_a,
+ \qquad
+ X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
+\end{equation}</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Every exponent of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
@@ -1032,7 +1346,28 @@ gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>j</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>a</mi></msub><mi>⋯</mi><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><msub><mi>s</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">m_j/(b_a\cdots b_j)=h_as_j</annotation></semantics></math>,
 whose summation is the last identity. ◻</p>
 </div>
-<p>Summability is , and so is the , over the .</p>
+<p>Summability is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L142">checked</a>,
+and so is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L177">recurrence
+for the genuine infinite tail</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">normalised
+state step</a>.</p>
+<div class="proposition">
+<p><strong>Proposition 14</strong> (integral state or cofinal
+separation). <em> Either
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_a\in\mathbb{Z}</annotation></semantics></math>
+for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>,
+or for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>0</mn></msub><annotation encoding="application/x-tex">a_0</annotation></semantics></math>
+there is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><msub><mi>a</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">a\ge a_0</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>X</mi><mi>a</mi></msub><mo>−</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mn>31</mn></mrow><annotation encoding="application/x-tex">|X_a-z|\ge1/31</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">z\in\mathbb{Z}</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Suppose cofinal separation fails, so for some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
@@ -1059,9 +1394,13 @@ while
 which forces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>A</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e_A=0</annotation></semantics></math>. ◻</p>
 </div>
-<p>This is for the genuine infinite tail, over the abstract . It
-excludes neither branch, and it says nothing about a rational value
-whose reduced denominator has a factor coprime to
+<p>This is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L188">checked</a>
+for the genuine infinite tail, over the abstract <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L89">integral-state
+or cofinal-distance alternative</a>. It excludes neither branch, and it
+says nothing about a rational value whose reduced denominator has a
+factor coprime to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>:
 that case is the subject of Section .</p>
 </section>
@@ -1074,6 +1413,12 @@ that case is the subject of Section .</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>a</mi></msub><annotation encoding="application/x-tex">n_a</annotation></semantics></math>
 is the sum of the three height exponents at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^{a}</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 15</strong> (quadratic bound for the actual tail).
+<em> For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;X_a\le Q(n_a)</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Partition the smooth integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><msup><mn>2</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">x\ge2^{a}</annotation></semantics></math>
@@ -1176,6 +1521,29 @@ gives the integer bound used throughout the rest of the note:
 \end{equation}</annotation></semantics></math> The cutoff in is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^{a}</annotation></semantics></math>
 and it is strict.</p>
+<div class="lemma">
+<p><strong>Lemma 16</strong> (finite denominator clearing). <em> For all
+integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>u</mi><mo>≤</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">0\le u\le b</annotation></semantics></math>
+the window mass
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>b</mi></msub><msubsup><mo>∑</mo><mrow><mi>a</mi><mo>=</mo><mi>u</mi></mrow><mrow><mi>b</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msub><mi>s</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">h_b\sum_{a=u}^{b-1}s_a</annotation></semantics></math>
+is a natural number. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>N</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">S=N/D</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">N\in\mathbb{Z}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">D\in\mathbb{N}_{&gt;0}</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">DX_a\in\mathbb{Z}</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
+and two states
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>i</mi></msub><annotation encoding="application/x-tex">X_i</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>j</mi></msub><annotation encoding="application/x-tex">X_j</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">1\le i&lt;j</annotation></semantics></math>
+differ by an integer.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> An empty window has mass zero. Otherwise
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b\ge1</annotation></semantics></math>,
@@ -1202,7 +1570,33 @@ of these integers two share a residue modulo
 and the corresponding states differ by an integer. ◻</p>
 </div>
 <p>The strict upper endpoint is what permits the division by two.
-Checked as the , the and the , over the and the .</p>
+Checked as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L158">window
+clearing identity</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L196">all-scale
+lattice</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L296">collision</a>,
+over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L51">boundary
+divisibility</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">half-height
+identity</a>.</p>
+<div class="theorem">
+<p><strong>Theorem 17</strong> (positive reduced carries from
+rationality). <em> Suppose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>N</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">S=N/D</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">N\in\mathbb{Z}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">D\in\mathbb{N}_{&gt;0}</annotation></semantics></math>,
+and write
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup><mi>B</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>w</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="1.0em"></mspace><mi>B</mi><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>a</mi><mi>D</mi></msub><mo>=</mo><mi>u</mi><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mi>v</mi><mo>+</mo><mn>3</mn><mi>w</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">D=2^{u}3^{v}5^{w}B,\qquad u,v,w\in\mathbb{N},\quad B\in\mathbb{N}_{&gt;0},\quad\gcd(B,30)=1,
+ \qquad a_D=u+1+2v+3w .</annotation></semantics></math> Then for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><msub><mi>a</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">a\ge a_D</annotation></semantics></math>
+the number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">z_a=BX_a</annotation></semantics></math>
+is a positive integer and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>z</mi><mi>a</mi></msub><mo>−</mo><mi>B</mi><msub><mi>m</mi><mi>a</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mn>1</mn><mo>≤</mo><msub><mi>z</mi><mi>a</mi></msub><mo>≤</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">z_{a+1}=b_az_a-Bm_a,\qquad 1\le z_a\le K(B,a)\le90B(a+1)^{2} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup></mrow><annotation encoding="application/x-tex">M=2^{u}3^{v}5^{w}</annotation></semantics></math>.
@@ -1243,7 +1637,9 @@ affects only the onset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>D</mi></msub><annotation encoding="application/x-tex">a_D</annotation></semantics></math>;
 the surviving carry bound depends on the coprime factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
-The bridge is against the cruder width
+The bridge is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324">checked</a>
+against the cruder width
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">90B(a+1)^{2}</annotation></semantics></math>,
 which is the form the formal consumer uses; the particular onset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>D</mi></msub><mo>=</mo><mi>u</mi><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mi>v</mi><mo>+</mo><mn>3</mn><mi>w</mi></mrow><annotation encoding="application/x-tex">a_D=u+1+2v+3w</annotation></semantics></math>
@@ -1251,11 +1647,49 @@ and the sharper bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(B,a)</annotation></semantics></math>
 are the paper statement above. The abstract cancellation is checked
 separately: every fixed smooth factor divides the running height once
-the cutoff reaches it (), a shared factor cancels from the recurrence
-(), and positivity, the bound and the window identity descend through it
-(, ).</p>
+the cutoff reaches it (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548">absorption</a>),
+a shared factor cancels from the recurrence (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581">cancellation</a>),
+and positivity, the bound and the window identity descend through it (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601">bound
+transfer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">window
+transfer</a>).</p>
 <p>The integral branch has one further exact property, recorded because
 it constrains any attempt to build a surviving seed by hand.</p>
+<div class="proposition">
+<p><strong>Proposition 18</strong> (upward closure and rigidity). <em>
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>a</mi></msub><mo>+</mo><msub><mi>X</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>b</mi><mi>a</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X_a=(m_a+X_{a+1})/b_a&gt;0</annotation></semantics></math>,
+and if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_a\in\mathbb{Z}</annotation></semantics></math>
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_n\in\mathbb{Z}</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">n\ge a</annotation></semantics></math>.
+Moreover, fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+a positive width function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>+</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>k</mi></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">w(A+k)/2^{k}\to0</annotation></semantics></math>,
+and a real orbit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>≥</mo><mi>A</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(y_n)_{n\ge A}</annotation></semantics></math>
+satisfying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>n</mi></msub><msub><mi>y</mi><mi>n</mi></msub><mo>−</mo><msub><mi>m</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">y_{n+1}=b_ny_n-m_n</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>n</mi></msub><annotation encoding="application/x-tex">y_n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>n</mi></msub><annotation encoding="application/x-tex">X_n</annotation></semantics></math>
+both lie in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>n</mi></msub><mi>/</mi><msub><mi>b</mi><mi>n</mi></msub><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>m</mi><mi>n</mi></msub><mi>/</mi><msub><mi>b</mi><mi>n</mi></msub><mo>+</mo><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">(m_n/b_n,\;m_n/b_n+w(n)]</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">n\ge A</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>A</mi></msub><mo>=</mo><msub><mi>X</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">y_A=X_A</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The identity is the recurrence solved for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>,
@@ -1285,7 +1719,11 @@ define
  F_{\ell,0}=0,
  \qquad
  F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h},</annotation></semantics></math>
-the and the . Iterating the recurrence gives the division-free identity
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
+base</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
+forcing</a>. Iterating the recurrence gives the division-free identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="2.0em"></mspace><msub><mi>z</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>z</mi><mi>ℓ</mi></msub><mo>−</mo><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long269:eq:window-identity}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h},
@@ -1294,8 +1732,15 @@ the and the . Iterating the recurrence gives the division-free identity
 \end{equation}</annotation></semantics></math> for any integral carry
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>n</mi></msub><msub><mi>z</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mi>m</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">z_{n+1}=b_nz_n-Bm_n</annotation></semantics></math>;
-the integral form is the , over the and the , and the real form is for
-the genuine tail. For
+the integral form is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">checked
+window identity</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455">affine
+window identity</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L469">scaled
+forcing identity</a>, and the real form is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L68">checked</a>
+for the genuine tail. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C&gt;0</annotation></semantics></math>
 let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_C(N)</annotation></semantics></math>
@@ -1307,10 +1752,31 @@ modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
 so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_C(0)=C</annotation></semantics></math>;
-this is the , with its and its checked. The vanishing residue is
-represented by
+this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L26">canonical
+representative</a>, with its <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L31">range</a>
+and its <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L52">congruence</a>
+checked. The vanishing residue is represented by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
 and that choice is what makes the next statement a modular one.</p>
+<div class="proposition">
+<p><strong>Proposition 19</strong> (the finite residue contradiction).
+<em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C&gt;0</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+be an integer with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">0&lt;c</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">|c|\le K</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≡</mo><mi>N</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>C</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">c\equiv N\pmod C</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&lt;</mo><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K&lt;\operatorname{lpr}_C(N)</annotation></semantics></math>,
+then the hypotheses are contradictory.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The canonical representative lies in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1,\ldots,C\}</annotation></semantics></math>,
@@ -1334,14 +1800,24 @@ are each their own residue and congruence makes them equal,
 contradicting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>K</mi><mo>&lt;</mo><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|c|\le K&lt;\operatorname{lpr}_C(N)</annotation></semantics></math>. ◻</p>
 </div>
-<p>The abstract one-window predicate is the , with the contrapositive .
-The natural-state version is , the integer carry version is , and the
-exact classifier
+<p>The abstract one-window predicate is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L71">residue-escape
+condition</a>, with the contrapositive <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L96">bounding
+the residue from a bounded positive state</a>. The natural-state version
+is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L76">checked</a>,
+the integer carry version is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L110">checked</a>,
+and the exact classifier
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_C(N)=|c|</annotation></semantics></math>
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">|c|\le C</annotation></semantics></math>
-is as well. Applying it inside a window uses the forcing of the endpoint
-carry to the canonical residue, .</p>
+is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L138">checked</a>
+as well. Applying it inside a window uses the forcing of the endpoint
+carry to the canonical residue, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L497">checked</a>.</p>
 <p>For a bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>:</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>×</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">G:\mathbb{N}_{&gt;0}\times\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 let
@@ -1359,13 +1835,48 @@ both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>0</mn></msub><annotation encoding="application/x-tex">a_0</annotation></semantics></math>.
-The general predicate is the , and the instance at the fixed bound
+The general predicate is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
+local-window escape condition</a>, and the instance at the fixed bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">K_0(B,a)=90B(a+1)^{2}</annotation></semantics></math>
-is the . Every
+is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L397">actual
+producer</a>. Every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>a</mi></msub><annotation encoding="application/x-tex">b_a</annotation></semantics></math>
 is positive, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">W_{\ell,h}&gt;0</annotation></semantics></math>
 is automatic.</p>
+<div class="theorem">
+<p><strong>Theorem 20</strong> (the equivalence band). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>:</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>×</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">G:\mathbb{N}_{&gt;0}\times\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(B,a)\le G(B,a)</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>a</mi></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">G(B,a)/2^{a}\to0</annotation></semantics></math>
+as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">a\to\infty</annotation></semantics></math>
+for each fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathsf E(G)\quad\Longleftrightarrow\quad S\notin\mathbb{Q} .</annotation></semantics></math>
+Both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+of  and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">K_0(B,a)=90B(a+1)^{2}</annotation></semantics></math>
+lie in this band, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(K)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(K_0)</annotation></semantics></math>
+and irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+are mutually equivalent. The lower half of the band cannot be dropped:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(0)</annotation></semantics></math>
+holds vacuously, since every least positive residue is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(G)</annotation></semantics></math>
@@ -1477,17 +1988,29 @@ fails. ◻</p>
 </div>
 <p>The converse direction is checked in Lean at a strictly greater
 generality than the fixed bound: irrationality implies escape against
-any short bound that the window growth eventually beats, , and in
-particular against every bound dominated by
+any short bound that the window growth eventually beats, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L327">checked</a>,
+and in particular against every bound dominated by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">c(B)(n+1)^{2}</annotation></semantics></math>,
-. The enlarged
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L355">checked</a>.
+The enlarged
 little-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>8</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(8^a)</annotation></semantics></math>
-band, with the cap-domination hypothesis retained, is checked by the .
-The forward direction at the fixed bound
+band, with the cap-domination hypothesis retained, is checked by the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/R12/OcticWindowBand.lean#L74">octic
+window-band equivalence</a>. The forward direction at the fixed bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mn>0</mn></msub><annotation encoding="application/x-tex">K_0</annotation></semantics></math>
-is , over the abstract consumer and its packaged absorbed form . The two
-directions combine into the equivalence for the shifted tail and for the
-series value itself. The Lean equivalence is stated at
+is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L479">checked</a>,
+over the abstract consumer <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">checked</a>
+and its packaged absorbed form <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689">checked</a>.
+The two directions combine into the equivalence <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L392">checked</a>
+for the shifted tail and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L398">checked</a>
+for the series value itself. The Lean equivalence is stated at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mn>0</mn></msub><annotation encoding="application/x-tex">K_0</annotation></semantics></math>;
 the band of Theorem  is the paper statement.</p>
 <p>Theorem  settles a question that a reader is entitled to ask about
@@ -1521,6 +2044,21 @@ residue. The window may therefore depend genuinely on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>≥</mo><msup><mn>2</mn><mi>h</mi></msup></mrow><annotation encoding="application/x-tex">W_{\ell,h}\ge2^{h}</annotation></semantics></math>
 is all the equivalence needs. The actual height formula gives more, and
 the extra information sets the scale of any finite search.</p>
+<div class="proposition">
+<p><strong>Proposition 21</strong> (window-growth law). <em> Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>3</mn></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>32</mn></msub></mrow><annotation encoding="application/x-tex">\theta_3=\log_32</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>5</mn></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>52</mn></msub></mrow><annotation encoding="application/x-tex">\theta_5=\log_52</annotation></semantics></math>.
+For all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ell\ge0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>=</mo><msup><mn>2</mn><mi>h</mi></msup><mspace width="0.167em"></mspace><msup><mn>3</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>θ</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">⌋</mo><mo>−</mo><mo stretchy="false" form="prefix">⌊</mo><mi>ℓ</mi><msub><mi>θ</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mspace width="0.167em"></mspace><msup><mn>5</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>θ</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">⌋</mo><mo>−</mo><mo stretchy="false" form="prefix">⌊</mo><mi>ℓ</mi><msub><mi>θ</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mfrac><msup><mn>8</mn><mi>h</mi></msup><mn>15</mn></mfrac><mo>&lt;</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>&lt;</mo><mn>15</mn><mo>⋅</mo><msup><mn>8</mn><mi>h</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{\ell,h}=2^{h}\,
+ 3^{\lfloor(\ell+h)\theta_3\rfloor-\lfloor\ell\theta_3\rfloor}\,
+ 5^{\lfloor(\ell+h)\theta_5\rfloor-\lfloor\ell\theta_5\rfloor},
+ \qquad
+ \frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Telescoping gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">W_{\ell,h}=\operatorname{H}_{\ell+h}/\operatorname{H}_\ell</annotation></semantics></math>,
@@ -1542,6 +2080,21 @@ strictly between
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>⋅</mo><msup><mn>2</mn><mi>h</mi></msup></mrow><annotation encoding="application/x-tex">5\cdot2^{h}</annotation></semantics></math>.
 Multiplying the three ranges gives the bounds. ◻</p>
+</div>
+<div class="corollary">
+<p><strong>Corollary 22</strong> (no bounded-length escape at all
+starts). <em> Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
+coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H\ge1</annotation></semantics></math>.
+Only finitely many starts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
+admit an escaping window of length at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+against the bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A least positive residue never exceeds its modulus,
@@ -1657,6 +2210,39 @@ length can.</p>
 </section>
 <section id="two-finite-denominator-exclusions" class="level3">
 <h3>Two finite denominator exclusions</h3>
+<div class="theorem">
+<p><strong>Theorem 23</strong>
+(window-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>128</mn><annotation encoding="application/x-tex">128</annotation></semantics></math>
+block exclusion, computational certificate). <em> At window length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>128</mn></mrow><annotation encoding="application/x-tex">L=128</annotation></semantics></math>,
+launch
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>10005</mn></mrow><annotation encoding="application/x-tex">a_1=10005</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>64</mn><annotation encoding="application/x-tex">64</annotation></semantics></math>
+starts, no rational value of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
+running-LCM series has reduced denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">MB</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>-smooth
+divisor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>10005</mn></msup><msup><mn>3</mn><mn>6312</mn></msup><msup><mn>5</mn><mn>4308</mn></msup></mrow><annotation encoding="application/x-tex">2^{10005}3^{6312}5^{4308}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(B,30)=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>B</mi><mo>≤</mo><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub></mrow><annotation encoding="application/x-tex">1&lt;B\le B_{\max}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub><annotation encoding="application/x-tex">B_{\max}</annotation></semantics></math>
+is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>106</mn><annotation encoding="application/x-tex">106</annotation></semantics></math>-digit
+integer
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mn>1134599670999687767349520845707093359257353022286558739363600235</mn></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mn>016103207564063373270305324172145281971729</mn><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ B_{\max}={}&amp;1134599670999687767349520845707093359257353022286558739363600235\\
+ &amp;016103207564063373270305324172145281971729 ,
+\end{aligned}</annotation></semantics></math> so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub><mo>=</mo><mn>348.9846</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\log_2B_{\max}=348.9846\ldots</annotation></semantics></math></em></p>
+</div>
 <p>The exponent triple
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>10005</mn><mo>,</mo><mn>6312</mn><mo>,</mo><mn>4308</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(10005,6312,4308)</annotation></semantics></math>
 is the height exponent triple of
@@ -1679,6 +2265,18 @@ declaration carries any part of it, so it rests on the correctness of
 the exact integer engine that produced it, and the certificate record is
 held in the author’s formal-mathematics archive, outside the public
 source of this release.</p>
+<div class="theorem">
+<p><strong>Theorem 24</strong> (continued-fraction exclusion,
+computational certificate). <em> The normalised tail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>,</mo><mn>109</mn></mrow><annotation encoding="application/x-tex">13{,}109</annotation></semantics></math>
+certified partial quotients, so it is not rational with denominator at
+most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>22482</mn></msup><annotation encoding="application/x-tex">2^{22482}</annotation></semantics></math>,
+about
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>6768</mn></msup><annotation encoding="application/x-tex">10^{6768}</annotation></semantics></math>.</em></p>
+</div>
 <p>The certification is by common prefix of the continued fractions of
 the two endpoints of an interval provably containing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>,
@@ -1722,12 +2320,43 @@ of the problem.</p>
 </section>
 <section id="long269:sec:open" class="level2">
 <h2>The remaining arithmetic questions</h2>
+<div class="problem">
+<p><strong>Problem 25</strong> (actual cofinal residue escape). <em>
+Prove
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(K)</annotation></semantics></math>
+for the actual digits  and the bound .</em></p>
+</div>
 <p>Every term in this question is a finite integer quantity, and a proof
 must produce a later window for every reduced denominator and every
 prescribed onset. The tail estimate and the smooth-factor cancellation
 are proved above and are not additional hypotheses. By Theorem  the
 problem is a restatement of Erdős #269 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>.</p>
+<div class="problem">
+<p><strong>Problem 26</strong> (nonintegrality of every reduced tail).
+<em> For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(B,30)=1</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
+prove
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long269:eq:tail-nonintegrality}
+ BX_a\notin\mathbb{Z} .
+\end{equation}</annotation></semantics></math></em></p>
+</div>
+<div class="proposition">
+<p><strong>Proposition 27</strong> (the reduced-tail question is also
+the target). <em> Statement , quantified over every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
+coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
+is equivalent to irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">BX_a\in\mathbb{Z}</annotation></semantics></math>
@@ -1754,9 +2383,10 @@ with
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><msub><mi>a</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">a\ge a_D</annotation></semantics></math>. ◻</p>
 </div>
-<p>The abstract form of the first implication is . Problem  is therefore
-a second restatement of the target, and its pointwise shape is the more
-convenient one: if
+<p>The abstract form of the first implication is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L183">checked</a>.
+Problem  is therefore a second restatement of the target, and its
+pointwise shape is the more convenient one: if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">BX_a</annotation></semantics></math>
 is integral at one index, the integer-coefficient recurrence makes it
 integral at every later index, so a single index decides it.
@@ -1777,6 +2407,17 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mrow><mn>5</mn><mo>,</mo><mi>a</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>θ</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">⌋</mo><mo>−</mo><mo stretchy="false" form="prefix">⌊</mo><mi>a</mi><msub><mi>θ</mi><mn>5</mn></msub><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\delta_{5,a}=\lfloor(a+1)\theta_5\rfloor-\lfloor a\theta_5\rfloor</annotation></semantics></math>,
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>=</mo><mn>2</mn><mo>⋅</mo><msup><mn>3</mn><msub><mi>δ</mi><mrow><mn>3</mn><mo>,</mo><mi>a</mi></mrow></msub></msup><msup><mn>5</mn><msub><mi>δ</mi><mrow><mn>5</mn><mo>,</mo><mi>a</mi></mrow></msub></msup></mrow><annotation encoding="application/x-tex">b_a=2\cdot3^{\delta_{3,a}}5^{\delta_{5,a}}</annotation></semantics></math>.</p>
+<div class="problem">
+<p><strong>Problem 28</strong> (function-faithful two-dimensional
+representation). <em> Express
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{2,3,5}</annotation></semantics></math>
+as a nonconstant algebraic combination of values of a specified
+two-dimensional Hecke–Mahler, cone-generating or multivariate Mahler
+function and verify every hypothesis of a published value theorem; or
+give a conditional theorem under an explicit logarithmic nondegeneracy
+hypothesis; or prove that the literal series has no representation in
+the specified finite-dimensional class.</em></p>
+</div>
 <p>Individual irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>3</mn></msub><annotation encoding="application/x-tex">\theta_3</annotation></semantics></math>
 and
@@ -1789,9 +2430,19 @@ is not assumed anywhere above. The finite-observer formalisation
 isolates the precise faithfulness requirement: equality in a finite
 observer must imply equality after symbolic realisation, and a genuine
 finite-dimensional factorisation forces the realised symbolic span to be
-finite-dimensional (, , ), with the carry residue and residue digit
-confined to their declared intervals (, ). No theorem here proves that
-the literal realised span is infinite.</p>
+finite-dimensional (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">residue-coboundary
+form</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">symbolic
+realisation</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334">checked</a>),
+with the carry residue and residue digit confined to their declared
+intervals (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150">carry
+interval</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157">digit
+interval</a>). No theorem here proves that the literal realised span is
+infinite.</p>
 </section>
 <section id="structural-constraints-already-in-place" class="level3">
 <h3>Structural constraints already in place</h3>
@@ -1818,7 +2469,9 @@ family of shifts.</p>
 <p>Three-channel rigidity and carry-lift extinction already exclude one
 proposed argument in four exact steps. Under channel surjectivity,
 ordinary block nullity is equivalent to the perturbation being a
-coboundary of a channel potential (). Zero perturbations on genuine
+coboundary of a channel potential (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean#L59">potential
+classifier</a>). Zero perturbations on genuine
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>→</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">2\to3</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>→</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">2\to5</annotation></semantics></math>
@@ -1832,16 +2485,24 @@ contradicting even a single
 index-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 bound strictly below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>N</mi></msup><annotation encoding="application/x-tex">2^{N}</annotation></semantics></math>
-(); consequently no uniform bound on the lift error can hold either ().
-A separate four-state calculation reaches the obstruction earlier: four
-real states in
+(<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L178">one-index
+extinction</a>); consequently no uniform bound on the lift error can
+hold either (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L238">uniform
+extinction</a>). A separate four-state calculation reaches the
+obstruction earlier: four real states in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>
 with unit-accuracy integral lifts and the two anchor equalities force
 the first complete
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-block
 sum to be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
-so that block cannot be null (, ).</p>
+so that block cannot be null (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L289">first-block
+sum</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308">four-state
+obstruction</a>).</p>
 <p>These lift conclusions are conditional. The paper constructs the
 actual orbit and its bounded integral carry under rationality, and it
 does not construct a faithful lift with the two anchors or the block
@@ -1852,12 +2513,17 @@ lift.</p>
 <p>A single conditional single-channel criterion is also on record. For
 the pure
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-channel
-sum the Cantor states lie in an explicit open interval (), consecutive
-states are separated (), a small nonzero linear form forces
-irrationality (), and clearing together with small gaps assembles to
-irrationality (). The clearing and small-gap hypotheses are not
-discharged for any concrete series, so no irrationality statement
-follows from them here.</p>
+sum the Cantor states lie in an explicit open interval (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L61">confinement</a>),
+consecutive states are separated (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L74">gap
+bound</a>), a small nonzero linear form forces irrationality (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L94">criterion</a>),
+and clearing together with small gaps assembles to irrationality (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L156">assembly</a>).
+The clearing and small-gap hypotheses are not discharged for any
+concrete series, so no irrationality statement follows from them
+here.</p>
 </section>
 <section id="where-the-problem-stands" class="level3">
 <h3>Where the problem stands</h3>
@@ -2007,12 +2673,53 @@ for an integer radix word
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b_n)</annotation></semantics></math>
 and forcing word
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(m_n)</annotation></semantics></math>.</p>
+<div class="proposition">
+<p><strong>Proposition 29</strong> (conditional denominator reduction).
+<em> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">m</mi></mrow></msub><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">c_n=D_{\mathrm{sm}}d_n</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">m</mi></mrow></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">D_{\mathrm{sm}}&gt;0</annotation></semantics></math>,
+then the recurrence, positivity, upper bound and window identity for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(c_n)</annotation></semantics></math>
+reduce to the same four statements for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d_n)</annotation></semantics></math>
+with multiplier
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+in place of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>.</em></p>
+</div>
 <p>Height absorption alone does not imply divisibility of a carry state.
 The identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><mi>N</mi><mo>−</mo><mi>D</mi><msub><mi>v</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">DX_a=h_aN-Dv_a</annotation></semantics></math>
 of Lemma  is what supplies it for the actual orbit, and Theorem  is the
 instance in which the note uses it. The formal consumer takes the
 common-factor form as a hypothesis.</p>
+<div class="proposition">
+<p><strong>Proposition 30</strong> (conditional extinction of bounded
+carries). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b_n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(m_n)</annotation></semantics></math>
+be a radix word and a forcing word, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>:</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>×</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">G:\mathbb{N}_{&gt;0}\times\mathbb{N}\to\mathbb{N}</annotation></semantics></math>,
+and assume cofinal local-window escape against
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>.
+Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B&gt;0</annotation></semantics></math>
+coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>.
+There is no integral sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d_n)</annotation></semantics></math>
+satisfying simultaneously
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>n</mi></msub><msub><mi>d</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mi>m</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">d_{n+1}=b_nd_n-Bm_n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_n&gt;0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|d_n|\le G(B,n)</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Choose one escaping window
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\ell,h)</annotation></semantics></math>.
@@ -2194,500 +2901,746 @@ with the current public source commit.</p>
 <tbody>
 <tr>
 <td class="ta-l">smooth lattice value</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L32">smooth3
+val</a></td>
 </tr>
 <tr>
 <td class="ta-l">pure-power height</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L37">three
+prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">lattice kernel</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L41">three
+prime kernel q</a></td>
 </tr>
 <tr>
 <td class="ta-l">smooth prefix index set</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L47">smooth
+prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">running least common multiple</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L54">smooth
+prefix lcm</a></td>
 </tr>
 <tr>
 <td class="ta-l">prefix value divides the height</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L60">smooth3
+val dvd three prime height of mem</a></td>
 </tr>
 <tr>
 <td class="ta-l">divisibility into the height</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L78">smooth
+prefix lcm dvd three prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">first pure-power membership</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L85">pure
+first mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">second pure-power membership</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L98">pure
+second mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">third pure-power membership</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L111">pure
+third mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">running-lcm identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">smooth
+prefix lcm eq three prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell relation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L164">same
+three prime log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the height</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L170">three
+prime height eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the running value</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L180">smooth
+prefix lcm eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the kernel</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L192">three
+prime kernel q eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive power sets</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L205">positive
+prime powers</a></td>
 </tr>
 <tr>
 <td class="ta-l">channel cardinality</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L209">positive
+prime powers card</a></td>
 </tr>
 <tr>
 <td class="ta-l">exclusion of the origin</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L220">one
+not mem positive prime powers</a></td>
 </tr>
 <tr>
 <td class="ta-l">channel disjointness</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L230">positive
+prime powers disjoint</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive jump channels</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L244">three
+prime positive jump set</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive jump count</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L250">three
+prime positive jump set card</a></td>
 </tr>
 <tr>
 <td class="ta-l">jump set with the origin</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L274">three
+prime jump set with origin</a></td>
 </tr>
 <tr>
 <td class="ta-l">jump count with the origin</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L279">three
+prime jump set with origin card</a></td>
 </tr>
 <tr>
 <td class="ta-l">first height step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L295">three
+prime height first log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">second height step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306">three
+prime height second log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">third height step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317">three
+prime height third log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">first coordinate step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L327">smooth
+prefix lcm first log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">second coordinate step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L340">smooth
+prefix lcm second log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">third coordinate step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L353">smooth
+prefix lcm third log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">exponent box</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L369">smooth
+exponent box</a></td>
 </tr>
 <tr>
 <td class="ta-l">point height</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L374">smooth
+point height</a></td>
 </tr>
 <tr>
 <td class="ta-l">height fibre</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378">smooth
+height fiber</a></td>
 </tr>
 <tr>
 <td class="ta-l">fibre sum</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L385">smooth
+height fiber kernel sum</a></td>
 </tr>
 <tr>
 <td class="ta-l">height-fibre normal form</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
+smooth kernel sum grouped by height</a></td>
 </tr>
 <tr>
 <td class="ta-l">cubic majorant</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L431">three
+prime height le cube</a></td>
 </tr>
 <tr>
 <td class="ta-l">origin value</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L444">kernel
+235 origin</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at two</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L451">kernel
+235 two</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at three</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L459">kernel
+235 three</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at six</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L468">kernel
+235 six</a></td>
 </tr>
 <tr>
 <td class="ta-l">non-separation witness</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L480">kernel
+235 not rank one</a></td>
 </tr>
 <tr>
 <td class="ta-l">variable-base tail step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">tail
+state step</a></td>
 </tr>
 <tr>
 <td class="ta-l">expanded tail step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">tail
+state step eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">smooth exponent shell</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501">smooth
+exponent shell</a></td>
 </tr>
 <tr>
 <td class="ta-l">short-interval uniqueness</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L510">exponent
+unique in short interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">first-coordinate projection</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L544">smooth
+exponent shell card le drop first</a></td>
 </tr>
 <tr>
 <td class="ta-l">third-coordinate projection</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L586">smooth
+exponent shell card le drop third</a></td>
 </tr>
 <tr>
 <td class="ta-l">sorted quadratic estimate</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L630">sorted
+pair quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">quadratic shell bound</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L647">smooth
+exponent shell card quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">dyadic internal power</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L663">dyadic
+internal power</a></td>
 </tr>
 <tr>
 <td class="ta-l">internal-power uniqueness</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669">dyadic
+internal power exponent unique</a></td>
 </tr>
 <tr>
 <td class="ta-l">dyadic block base</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L751">dyadic
+block base235</a></td>
 </tr>
 <tr>
 <td class="ta-l">exact dyadic radix alphabet</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L762">dyadic
+block base235 cases</a></td>
 </tr>
 <tr>
 <td class="ta-l">bounded-radix consequence</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L774">dyadic
+block base235 mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">rank-two certificate</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L827">kernel
+235 minor eq neg one fifteen</a></td>
 </tr>
 <tr>
 <td class="ta-l">no integer rotation orbit</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L154">no
+integer orbit logb of prime</a></td>
 </tr>
 <tr>
 <td class="ta-l">height factorisation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L218">three
+prime height factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">kernel factorisation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259">three
+prime kernel q factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">two-prime outer product</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278">two
+prime kernel q eq outer product</a></td>
 </tr>
 <tr>
 <td class="ta-l">two-prime vanishing minors</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">two
+prime kernel q minor two eq zero</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform minors, general form</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L313">exists
+uniform nonsingular three prime kernel minor</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform minors for primes</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L376">exists
+uniform nonsingular three prime kernel minor of prime</a></td>
 </tr>
 <tr>
 <td class="ta-l">no finite separation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L388">not
+finite separable three prime kernel</a></td>
 </tr>
 <tr>
 <td class="ta-l">second-order minor</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L560">kernel
+235 minor2 eq neg one fifteen</a></td>
 </tr>
 <tr>
 <td class="ta-l">third-order minor</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L570">kernel
+235 minor3 eq one over 81000</a></td>
 </tr>
 <tr>
 <td class="ta-l">misleading proportional row</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L583">kernel
+235 row three eq smul row zero</a></td>
 </tr>
 <tr>
 <td class="ta-l">failure of that proportionality</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L592">kernel
+235 row three ne smul row zero at four</a></td>
 </tr>
 <tr>
 <td class="ta-l">ordered block digit</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150">dyadic
+ordered block digit235</a></td>
 </tr>
 <tr>
 <td class="ta-l">normalised state step</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">dyadic
+normalized tail state r235 succ</a></td>
 </tr>
 <tr>
 <td class="ta-l">shell summability</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L142">summable
+dyadic shell mass r235</a></td>
 </tr>
 <tr>
 <td class="ta-l">infinite tail recurrence</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L177">dyadic
+normalized shell tsum tail r235 succ</a></td>
 </tr>
 <tr>
 <td class="ta-l">integer-or-cofinally-far dichotomy</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L188">dyadic
+shell tsum tail integer or cofinal far</a></td>
 </tr>
 <tr>
 <td class="ta-l">boundary divisibility</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L51">smooth
+height mul prime dvd boundary height</a></td>
 </tr>
 <tr>
 <td class="ta-l">half-height identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">two
+mul height normalizer235</a></td>
 </tr>
 <tr>
 <td class="ta-l">window clearing identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L158">height
+normalizer235 mul window mass eq int</a></td>
 </tr>
 <tr>
 <td class="ta-l">all-scale rationality lattice</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L196">qsmul
+normalized tail state eq int of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">normalised-state collision</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L296">exists
+normalized tail state collision of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">least positive residue</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L26">least
+positive residue</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive representative range</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L31">least
+positive residue pos le</a></td>
 </tr>
 <tr>
 <td class="ta-l">representative congruence</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L52">least
+positive residue mod eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">escape condition</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L71">residue
+escapes window</a></td>
 </tr>
 <tr>
 <td class="ta-l">finite natural-state contradiction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L76">no
+bounded positive state of residue escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">contrapositive form</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L96">residue
+le bound of bounded positive state</a></td>
 </tr>
 <tr>
 <td class="ta-l">integer least-positive-residue
 obstruction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L110">no
+bounded positive int state of least positive residue</a></td>
 </tr>
 <tr>
 <td class="ta-l">exact residue classifier</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L138">least
+positive residue eq nat abs of pos le mod eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">window base</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
+base</a></td>
 </tr>
 <tr>
 <td class="ta-l">window forcing</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
+forcing</a></td>
 </tr>
 <tr>
 <td class="ta-l">affine window identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455">affine
+recurrence window</a></td>
 </tr>
 <tr>
 <td class="ta-l">scaled forcing identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L469">window
+forcing const mul</a></td>
 </tr>
 <tr>
 <td class="ta-l">integral carry window</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">integral
+carry window</a></td>
 </tr>
 <tr>
 <td class="ta-l">endpoint residue identification</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L497">least
+positive residue window forcing eq carry</a></td>
 </tr>
 <tr>
 <td class="ta-l">absorbed smooth factor</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548">smooth3
+val dvd three prime height of le</a></td>
 </tr>
 <tr>
 <td class="ta-l">common-factor cancellation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581">integral
+carry cancel common factor</a></td>
 </tr>
 <tr>
 <td class="ta-l">reduced bound transfer</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601">reduced
+carry pos le of common factor</a></td>
 </tr>
 <tr>
 <td class="ta-l">reduced window transfer</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">reduced
+integral carry window</a></td>
 </tr>
 <tr>
 <td class="ta-l">cofinal window hypothesis</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
+local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">reduced-carry extinction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
+positive reduced carry of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">absorbed-carry extinction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689">no
+positive absorbed carry of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">real window identity</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L68">true
+normalized state window</a></td>
 </tr>
 <tr>
 <td class="ta-l">escape from irrationality, general
 bound</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L327">cofinal
+local window escape of irrational of beaten</a></td>
 </tr>
 <tr>
 <td class="ta-l">escape from irrationality, quadratic
 family</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L355">cofinal
+local window escape of irrational of quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">escape from irrationality, actual
 bound</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L379">cofinal
+local window escape of irrational</a></td>
 </tr>
 <tr>
 <td class="ta-l">producer equivalence, shifted tail</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L392">actual
+cofinal local window escape iff</a></td>
 </tr>
 <tr>
 <td class="ta-l">producer equivalence, series value</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L398">actual
+cofinal local window escape iff irrational value</a></td>
 </tr>
 <tr>
 <td class="ta-l">rationality-to-carry bridge</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324">exists
+reduced carry of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">the actual producer</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L397">actual
+cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality from the producer</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L479">irrational
+value of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">bounded-radix alternative</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L89">bounded
+radix zero or cofinal far</a></td>
 </tr>
 <tr>
 <td class="ta-l">rational value from an integral scaled
 tail</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L183">rational
+of scaled tail integer</a></td>
 </tr>
 <tr>
 <td class="ta-l">channel potential classifier</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean#L59">channel
+block null iff channel potential</a></td>
 </tr>
 <tr>
 <td class="ta-l">one-index lift extinction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L178">no
+carry lift of error bound below two pow</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform lift extinction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L238">no
+bounded carry lift of block null two anchors</a></td>
 </tr>
 <tr>
 <td class="ta-l">first-block sum</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L289">binary
+lift two anchors force first block sum one</a></td>
 </tr>
 <tr>
 <td class="ta-l">four-state obstruction</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308">no
+unit accurate lift with two anchors and first two block null</a></td>
 </tr>
 <tr>
 <td class="ta-l">residue-coboundary form</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">carry
+eq residue digit add coboundary</a></td>
 </tr>
 <tr>
 <td class="ta-l">carry interval</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150">carry
+residue mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">digit interval</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157">residue
+digit mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">symbolic realisation</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">cartier
+realisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">finite realised span</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334">finite
+realised span of factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">Cantor-state confinement</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L61">state
+mem ioo</a></td>
 </tr>
 <tr>
 <td class="ta-l">state gap bound</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L74">state
+gap lower bound</a></td>
 </tr>
 <tr>
 <td class="ta-l">small-form criterion</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L94">irrational
+of small nonzero forms</a></td>
 </tr>
 <tr>
 <td class="ta-l">conditional assembly</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L156">irrational
+of clearing and small gaps</a></td>
 </tr>
 <tr>
 <td class="ta-l">staircase index engine</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Shared/IrrationalRotationStaircase.lean#L271">staircase
+indices</a></td>
 </tr>
 </tbody>
 </table>

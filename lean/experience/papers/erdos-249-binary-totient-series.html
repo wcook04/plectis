@@ -5,6 +5,23 @@
     <p class="lean-paper__subject">Erdős #249</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/erdos-249-binary-totient-series.tex">
+<div class="problem">
+<p><strong>Problem 1</strong> (first-harmonic anti-concentration on
+supplier fibres). <em> For each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,
+do there exist
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>η</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\eta&lt;1</annotation></semantics></math>
+such that, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>0</mn></msub><annotation encoding="application/x-tex">X_0</annotation></semantics></math>,
+there are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">X,L</annotation></semantics></math>
+with
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>0</mn></msub><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>X</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>h</mi><mo>≤</mo><mi>L</mi><mo>−</mo><mi>s</mi><mo>,</mo><mspace width="2.0em"></mspace><mn>16</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>2</mn><mi>L</mi></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\max(X_0,1)\le X,\qquad h\le L-s,\qquad
+ 16(2X+h+L+2)\le2^L,</annotation></semantics></math> for which the four
+bounds below hold?</em></p>
+</div>
 <section id="sec:results" class="level2">
 <h2>A basis and all its relations</h2>
 <p>Set
@@ -21,6 +38,40 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">0\le r&lt;k^j</annotation></semantics></math>.
 The following theorem gives a unique coordinate system at every finite
 level.</p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (exact rank of every totient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-kernel
+truncation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
+be integers, write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F^{(k)}_{j,r}(n)=\varphi(k^jn+r)</annotation></semantics></math>,
+and put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">span</mi><mo>&#8289;</mo></mrow><mi mathvariant="double-struck">ℚ</mi></msub><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><msubsup><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>:</mo><mn>0</mn><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>e</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mi>k</mi><mi>j</mi></msup><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">V_{k,e}=\operatorname{span}_{\mathbb{Q}}
+ \{\,F^{(k)}_{j,r}:0\le j\le e,\ 0\le r&lt;k^j\,\}.</annotation></semantics></math>
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">dim</mi><mo>&#8289;</mo></mrow><mi mathvariant="double-struck">ℚ</mi></msub><msub><mi>V</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mo>=</mo><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\dim_{\mathbb{Q}}V_{k,e}=k^e+1</annotation></semantics></math>,
+and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℬ</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>F</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>,</mo><msubsup><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><msubsup><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>:</mo><mn>1</mn><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>e</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mi>k</mi><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>k</mi><mo>∤</mo><mi>r</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal B_{k,e}
+ =\{F^{(k)}_{0,0},F^{(k)}_{1,0}\}
+ \cup\{\,F^{(k)}_{j,r}:1\le j\le e,\ 1\le r&lt;k^j,\ k\nmid r\,\}</annotation></semantics></math>
+is a basis. Every omitted section reduces to a basis element by an
+explicit scalar:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mn>0</mn></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><msup><mi>k</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msup><msubsup><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">F^{(k)}_{j,0}=k^{j-1}F^{(k)}_{1,0}</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>,
+and if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><msup><mi>k</mi><mi>t</mi></msup><mi>u</mi></mrow><annotation encoding="application/x-tex">r=k^tu</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>s</mi><mo>:</mo><msup><mi>k</mi><mi>s</mi></msup><mo>∣</mo><mi>r</mi><mo stretchy="false" form="postfix">}</mo><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=\max\{s:k^s\mid r\}\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>∤</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">k\nmid u</annotation></semantics></math>,
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><msub><mi>C</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msubsup><mi>F</mi><mrow><mi>j</mi><mo>−</mo><mi>t</mi><mo>,</mo><mi>u</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>k</mi><mi>t</mi></msup><munder><mo>∏</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>p</mi><mo>∣</mo><mi>k</mi></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>p</mi><mo>∤</mo><mi>u</mi></mrow></mtd></mtr></mtable></munder><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mi>p</mi></mfrac></mstyle><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">F^{(k)}_{j,r}=C_k(t,u)\,F^{(k)}_{j-t,u},
+ \qquad
+ C_k(t,u)=k^t\prod_{\substack{p\mid k\\ p\nmid u}}\Bigl(1-\tfrac1p\Bigr).</annotation></semantics></math></em></p>
+</div>
 <ol>
 <li><p> <span><span class="smallcaps">[unconditional
 progress]</span></span> <strong>Exact finite-level rank.</strong>
@@ -147,12 +198,49 @@ This proves Theorem . The scalar reduction at level
 with the Euler product written out, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">Lean
 source</a>.</p>
+<div class="corollary">
+<p><strong>Corollary 3</strong> (Dyadic basis). <em> The family
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>φ</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mi>j</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>r</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\{\varphi_{0,0},\varphi_{1,0}\}
+ \cup\{\varphi_{j,r}:j\ge1,\ 0&lt;r&lt;2^j,\ r\text{ odd}\},
+ \qquad \varphi_{j,r}(n)=\varphi(2^jn+r),</annotation></semantics></math>
+is a basis for the rational span of the full dyadic kernel. Every
+rational relation is generated by the scalar reductions. The complete
+level-zero truncation has dimension one.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Every finite subfamily lies in a sufficiently high
 truncation. The theorem gives its independence; the reductions give
 equality of the full spans. The level-zero clause is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L112">Lean
 source</a>. ◻</p>
+</div>
+<div class="corollary">
+<p><strong>Corollary 4</strong> (Integral normal form). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>.
+The canonical family is a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>-basis
+of the module generated by the sections through level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.
+For each omitted channel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>i</mi></msub><annotation encoding="application/x-tex">F_i</annotation></semantics></math>,
+write its canonical reduction as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>F</mi><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">F_i=a_iF_{j(i)}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j(i)</annotation></semantics></math>
+is retained and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>i</mi></msub><annotation encoding="application/x-tex">a_i</annotation></semantics></math>
+is a nonnegative integer. In the free abelian group on all the channels,
+the vectors
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>=</mo><msub><mi>E</mi><mi>i</mi></msub><mo>−</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>E</mi><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_i=E_i-a_iE_{j(i)}\qquad(i\text{ omitted})</annotation></semantics></math>
+form a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>-basis
+of the kernel of evaluation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo>↦</mo><msub><mi>F</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">E_i\mapsto F_i</annotation></semantics></math>.
+In particular, every integral relation has a unique integral expression
+in these elementary relations, and their rank is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>e</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{e-1}k^j</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The denominator
@@ -218,6 +306,16 @@ is integer-valued but has canonical coefficient
 </section>
 <section id="a-reusable-consequence" class="level3">
 <h3>A reusable consequence</h3>
+<div class="corollary">
+<p><strong>Corollary 5</strong> (Freezing periodic coefficients). <em>
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>i</mi></msub><annotation encoding="application/x-tex">L_i</annotation></semantics></math>
+are pairwise nonproportional positive-slope affine forms and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>i</mi></msub><annotation encoding="application/x-tex">w_i</annotation></semantics></math>
+are rational-valued periodic sequences, then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for all sufficiently large </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>,</mo><mi>n</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_i w_i(n)\varphi(L_i(n))=0\quad\text{for all sufficiently large }n
+ \quad\Longrightarrow\quad w_i(n)=0\quad\text{for every }i,n.</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Choose a common period
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
@@ -243,6 +341,42 @@ replace the two evaluations used above.</p>
 <p>The residue theorem uses the same separation principle: force
 neighbouring coefficients to vanish while retaining one central
 value.</p>
+<div class="theorem">
+<p><strong>Theorem 6</strong>. <em> For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>m</mi></mrow><msup><mn>2</mn><mi>n</mi></msup></mfrac><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">A_m=\sum_{n\ge1}\frac{\varphi(n)\operatorname{mod} m}{2^n}\notin\mathbb{Q}.</annotation></semantics></math>
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><msup><mn>2</mn><mi>k</mi></msup><mi mathvariant="double-struck">ℤ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">f:\mathbb{Z}/2^k\mathbb{Z}\to\mathbb{Q}</annotation></semantics></math>,
+the series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msup><mn>2</mn><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}f(\varphi(n)\operatorname{mod}2^k)2^{-n}</annotation></semantics></math>
+is rational exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is constant on the even residue classes. If that constant is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
+its value is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>+</mo><mi>c</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3f(1)/4+c/4</annotation></semantics></math>.</em></p>
+</div>
+<div class="lemma">
+<p><strong>Lemma 7</strong> (A bounded isolated pulse). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a_n\in\mathbb{Z}</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">|a_n|\le C</annotation></semantics></math>.
+Suppose that for arbitrarily large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+there is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&gt;</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">N&gt;L</annotation></semantics></math>
+such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>N</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_N\ne0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>N</mi><mo>+</mo><mi>t</mi></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_{N+t}=0</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mi>t</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">0&lt;|t|\le L</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><msub><mi>a</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}a_n2^{-n}</annotation></semantics></math>
+is irrational.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> If the sum has denominator
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
@@ -382,6 +516,27 @@ choosing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">∥</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="double-struck">ℝ</mi><mi>/</mi><mi mathvariant="double-struck">ℤ</mi></mrow></msub><mo>&gt;</mo><mn>2</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">2^L\|\Delta_h(N)\|_{\mathbb{R}/\mathbb{Z}}&gt;2B</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 8</strong> (Full-depth amplification). <em> Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\Delta_d(N)\notin\mathbb{Z}</annotation></semantics></math>,
+then every sufficiently late pair
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>t</mi><mo>,</mo><mi>t</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{t,t+1\}</annotation></semantics></math>
+contains an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>d</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>m</mi><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(md,N,md)</annotation></semantics></math>
+holds. Consequently
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>t</mi><mo>≥</mo><mn>1</mn><mo>:</mo><mspace width="0.222em"></mspace><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>d</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>t</mi><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi mathvariant="normal">Δ</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\exists t\ge1:\ K(td,N,td)
+ \quad\Longleftrightarrow\quad\Delta_d(N)\notin\mathbb{Z}.</annotation></semantics></math>
+Requiring this for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d\ge1,N\ge0</annotation></semantics></math>
+is equivalent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb{Q}</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>t</mi></msub><mo>=</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mi>t</mi><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_t=\Delta_{td}(N)</annotation></semantics></math>.
@@ -445,7 +600,7 @@ Euler’s theorem makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 integral.</p>
 <div class="equivform">
-<p><strong>Equivalent formulation 1</strong> (Canonical Mersenne gap).
+<p><strong>Equivalent formulation 9</strong> (Canonical Mersenne gap).
 <em> The series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is irrational if and only if, for every
@@ -543,7 +698,11 @@ has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>a</mi></msub><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">R_a\notin\mathbb{Z}</annotation></semantics></math>.
 This is an exact cofinal nonintegrality criterion for the actual LCM
 diagonal, not a quantitative separation estimate and not a proof that
-such indices occur. <span> , .</span></p></li>
+such indices occur. <span> <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L37">exact
+frontier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L53">forward
+implication</a>.</span></p></li>
 <li><p> <span><span class="smallcaps">[unconditional
 progress]</span></span> <strong>Positive LCM corridor and top-edge
 boundary.</strong> For
@@ -561,8 +720,13 @@ lying strictly between the strip’s lower edge and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>K</mi></msup><annotation encoding="application/x-tex">2^K</annotation></semantics></math>.
 Thus the positive corridor eliminates the nonnegative true survivor but
 does not itself produce a central-band contradiction; an independent
-arithmetic exclusion of the top boundary is still required. <span> , ,
-.</span></p></li>
+arithmetic exclusion of the top boundary is still required. <span> <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L39">positive
+corridor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L172">negative
+survivor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L211">top-edge
+residue</a>.</span></p></li>
 <li><p> <span><span class="smallcaps">[unconditional
 progress]</span></span> <strong>LCM factor-ideal shift-algebra
 no-go.</strong> For every
@@ -583,7 +747,9 @@ whole-ray anchor. Hence factor ideals, finite shift-algebra closure and
 these bounds cannot by themselves force a contradiction. The witness is
 synthetic: its letters are not claimed to be actual totient differences,
 nonlinear combinations are outside the theorem, and no cofinal family of
-certificates follows. <span> .</span></p></li>
+certificates follows. <span> <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmFactorIdealPulseObstruction.lean#L798">finite
+shift-algebra no-go</a>.</span></p></li>
 </ol>
 <p>The long record supplies a rational control with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c(n)=\varphi(n)</annotation></semantics></math>
@@ -624,7 +790,26 @@ The divisor-convolution identity gives the displayed value of
 as recorded by Fan <span class="citation"
 data-cites="fan2026totient"><a href="#ref-6">[6]</a></span>. The following exact extremum is
 stated in the long record as Theorem <code>thm:rankonefloor</code>; its
-proof is in the linked source.</p>
+proof is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L534">the
+sharp-floor argument</a> in the linked source.</p>
+<div class="theorem">
+<p><strong>Theorem 10</strong> (Positive rank-one floor). <em> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Y\ge4</annotation></semantics></math>,
+the denominator of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q(e,Y)</annotation></semantics></math>
+is positive, and the unique minimiser is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(e,Y)=(1,5)</annotation></semantics></math>.
+Every admissible quotient and every nonempty finite positive weighted
+average of such quotients satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>−</mo><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><mo>&gt;</mo><mfrac><mn>21</mn><mn>320</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">Q-\Theta_2&gt;\frac{21}{320}.</annotation></semantics></math>
+The uniform bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>−</mo><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">Q-\Theta_2&gt;1/15</annotation></semantics></math>
+is false already at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,5)</annotation></semantics></math>.</em></p>
+</div>
 <p>This theorem treats averages after the quotients are formed. Signed
 coefficients, coupling before the quotient, and higher-rank kernels
 require separate arguments. For any proposed rational approximants
@@ -655,13 +840,19 @@ appears in Erdős and Graham <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>.</p>
 <p>The exact all-base basis and rank, residue-series irrationality,
 full-depth amplification, canonical equivalence and positive rank-one
-floor have proofs in the supplied Lean source snapshot: , , and . The
-historical source links retain <code>99f4bf47422a</code>; the all-base
-module requires a matching public source supplement. The integral normal
-form has its ordinary proof above. The periodic transport lemma is
-checked in <code>PeriodicTotientIndependence.lean</code>; the eventual
-version follows by the displayed threshold shift. The rational control
-and the termwise-window and prime-dilation boundaries are proved in
+floor have proofs in the supplied Lean source snapshot: <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L364">amplification</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">canonical
+gap</a>, and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">rank-one
+floor</a>. The historical source links retain <code>99f4bf47422a</code>;
+the all-base module requires a matching public source supplement. The
+integral normal form has its ordinary proof above. The periodic
+transport lemma is checked in
+<code>PeriodicTotientIndependence.lean</code>; the eventual version
+follows by the displayed threshold shift. The rational control and the
+termwise-window and prime-dilation boundaries are proved in
 <code>ParityPerturbedRationalControl.lean</code> and
 <code>PrefixValuationAndControlRigidity.lean</code>, respectively.
 Finite evaluation ranks and the all-level carry lower bound remain
@@ -676,11 +867,234 @@ implies the universal gap. </p>
 <h2>Guide to the formal sources</h2>
 <p>The public snapshot used by this note is recorded by the following
 source links.</p>
-<p>, , , <a
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L160">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L169">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L150">checked</a>,
+<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L72">definition</a>,
-, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
-, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
-, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , <a
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L316">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L404">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L407">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L67">definition</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L2322">residue
+recurrence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3132">dominance
+over the remote condition</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">exact
+equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L364">eventual
+two-syndeticity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L388">pointwise
+equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406">global
+equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L421">cofinal
+depth deletion</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L438">cofinal
+endpoint</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1265">independence</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1380">span
+equality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1392">basis</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L935">independence</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L989">dimension</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">the
+exact finite-truncation rank</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1145">infinite-dimensionality
+directly</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L534">unique
+minimizer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">uniform
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mi>/</mi><mn>320</mn></mrow><annotation encoding="application/x-tex">21/320</annotation></semantics></math>
+floor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L634"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">1/16</annotation></semantics></math>
+floor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L645"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">1/15</annotation></semantics></math>
+failure</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L655">positive
+direct sums</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L693">rational
+linear-form obstruction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L124">coordinate
+specification</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L213">unique
+representation</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L241">level
+count</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L277">full
+index count</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18371">exclusion</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18384">reduced-denominator
+form</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L225">first
+failure</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L300">the
+barrier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L211">rank
+transport from </a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L224">the
+modular-period/rank frontier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L126">forcing
+vanishing</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L140">geometric
+reduction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18445">identity</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MersenneLambertLadder.lean#L370">sign</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MersenneLambertLadder.lean#L297">primes</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MersenneLambertLadder.lean#L272">prime
+powers</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MersenneLambertLadder.lean#L321">unboundedness</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L216">divisor-count
+layer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L235">first
+gcd moment</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L138">exact
+centre decomposition</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L408">sharp
+enclosure</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L426">separation
+criterion</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean#L139">target
+equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FreshPrimeDeficitDecomposition.lean#L91">endpoint
+nonnegativity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FreshPrimeDeficitDecomposition.lean#L184">foreign-channel
+identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FreshPrimeDeficitDecomposition.lean#L269">five-point
+loss bound</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquareCRTCube.lean#L297">simultaneous
+finite family</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquareCRTCube.lean#L327">finite
+horizon</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquareCRTCube.lean#L459">vanishing
+block</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SquareCRTCube.lean#L477">nonzero
+block</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalFreshLossBridge.lean#L2667">centrality
+equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalFreshLossBridge.lean#L2757">equivalence
+of the two conditions</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalFreshLossBridge.lean#L2932">conditional
+irrationality theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/ActualForeignResidueProjection.lean#L276">finite
+complement bound</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/ActualForeignResidueProjection.lean#L308">exact
+channel split</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/ActualForeignResidueProjection.lean#L414">conditional
+target-miss theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L37">exact
+frontier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L53">forward
+implication</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L39">positive
+corridor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L172">negative
+survivor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L211">top-edge
+residue</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmFactorIdealPulseObstruction.lean#L798">finite
+shift-algebra no-go</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmFactorIdealPulseObstruction.lean#L866">sparse-anchor
+no-go</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L12811">the
+periodic theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/PrimitiveDeterminantLift.lean#L169">no
+fixed index</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/PrimitiveDeterminantLift.lean#L148">the
+primorial divisibility</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L399">pointwise</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L412">cofinal
+at each shift</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L426"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">lcm</mi><annotation encoding="application/x-tex">\operatorname{lcm}</annotation></semantics></math>
+diagonal</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/PivotAntiReconstruction.lean#L1765">window-separated
+pairs</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L16025">the
+conditional implication</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8335">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18434">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18429">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18454">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18557">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L349">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L474">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L823">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L882">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L51">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L176">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L15986">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L88">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18572">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FreshPrimeDeficitDecomposition.lean#L171">diagonal
+split</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmShortKill.lean#L18">the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">t=2^4</annotation></semantics></math>,
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+kill</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmShortKill.lean#L27">the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msup><mn>2</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">t=2^6</annotation></semantics></math>,
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>93</mn><annotation encoding="application/x-tex">93</annotation></semantics></math>
+kill</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmShortKill.lean#L35">actual-orbit
+non-integrality at both heights</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmShortKill.lean#L54">but
+explicitly stops at that finite prefix</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L141">recorded
+here</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L179">by
+the normalization identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L208">through
+the exact threshold lemma</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L254">the
+cofinal separation hypothesis</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L305">the
+conditional endpoint theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L251">the
+staircase is impossible under the stated room hypothesis</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L297">terminal-remainder
+identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TropicalCurvatureCarry.lean#L137">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L157">asks</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L485">a
+positive adaptive truncation budget</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L524"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is irrational</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L35">density
 hypothesis</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L25">block-gap
@@ -698,9 +1112,75 @@ equivalence</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L322">dyadic-root
 obstruction</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L465">prime-alignment
-implication</a>, , , , , , , , , , , , , <a
+implication</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FiniteEulerSieve.lean#L28"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s=1</annotation></semantics></math></a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FiniteEulerSieve.lean#L36"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">s=2</annotation></semantics></math></a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FiniteEulerSieve.lean#L44">first
+difference</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FiniteEulerSieve.lean#L51">second
+difference</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L22">mixed
+difference</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L26">separable
+case</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L32">fixed-stencil
+uniqueness</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L45">a
+four-point divisor-layer identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L62">a
+centred representative for a residue class modulo an even modulus</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95">Layer</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L102">BoundedOrder</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L151">FinitePrimeEscape</a>,
+<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CarrySurvivorExtinction.lean#L515">definition</a>,
-, , , , , , , , , , , , , , , , , , , , .</p>
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L57">definition</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L357">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalPincerCertificatesT64.lean#L1933">list</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967">verification</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Skip/LadderT67.lean#L71264">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3231">CyclotomicAnchoredKillSupply</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3327">the
+checked equivalence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L1706">checked
+conditional support/period no-go</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L158">unbounded
+prime divisors</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L1693">the
+checked binary-layer theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L441">ApFullDepthEscape</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L299">membership</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L367">injectivity</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L384">image
+equality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L394">checked
+counterexample</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L577">the
+conditional irrationality theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L543">the
+budget condition</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L549">the
+first-harmonic gap</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L60">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L117">checked</a>.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

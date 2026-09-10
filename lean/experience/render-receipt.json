@@ -53,6 +53,23 @@
         ],
         "mathjax": []
       },
+      "erdos-251-prime-gap-dyadic-series": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\begin{split}",
+          "&\\forall N_0\\ \\exists N,r:\\ N_0<N\\text{ and }",
+          "\\forall z\\in\\mathbb{Z},\\quad",
+          "b(N+r)<|B_{h,N,r}-2^rz|\\\\",
+          "&\\hspace{35mm}\\Longleftrightarrow\\quad",
+          "D_N\\notin\\mathbb{Z}\\text{ for arbitrarily large }N.",
+          "\\end{split}",
+          "\\tag{2.4}\\label{eq:fixedcollapse}, rendering as TeX:",
+          "&\\hspace{35mm}\\Longleftrightarrow\\quad",
+          "^",
+          "unexpected \"\\\\\"",
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
+        ],
+        "mathjax": []
+      },
       "erdos251-prime-gap-reasoning-surface": {
         "mathml": [
           "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
@@ -105,16 +122,6 @@
           "\\resizebox{\\linewidth}{!}{$\\begin{array}",
           "^",
           "unexpected control sequence \\resizebox",
-          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
-        ],
-        "mathjax": []
-      },
-      "erdos-1041-lemniscate-newton-flow": {
-        "mathml": [
-          "[WARNING] Could not convert TeX math \\emph{\\leanlabel{firstMergeSquaredCoefficient}}, rendering as TeX:",
-          "\\emph{\\leanlabel{firstMergeSquaredCoeffi",
-          "^",
-          "unexpected control sequence \\emph",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
         ],
         "mathjax": []

@@ -895,8 +895,10 @@ output with collective mathematical progress.</p>
 </section>
 <section id="sec:example" class="level2">
 <h2>One complete boundary: finite is not unbounded</h2>
-<p>Erdős Problem 249 asks whether <span
-class="math display" data-term-auto="off">\[S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}\]</span> is
+<p>Erdős Problem 249 asks whether</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}\]</span></div>
+<p>is
 irrational, where <span class="math inline" data-term-auto="off">\(\varphi(n)\)</span> is
 Euler’s totient function <span class="citation"
 data-cites="erdosgraham"><a href="#ref-2">[2]</a></span>. The development reduces irrationality
@@ -904,10 +906,14 @@ to a family of exact non-integrality certificates. Along the diagonal
 <span class="math inline" data-term-auto="off">\(H_t=\operatorname{lcm}(1,\ldots,t)\)</span>,
 write <span class="math inline" data-term-auto="off">\(\mathrm{Cert}(t)\)</span> for the
 existence of the required finite certificate.</p>
-<p>Lean checks the finite theorem <span class="math display" data-term-auto="off">\[\forall
-t\le82,\quad \mathrm{Cert}(t).\]</span> The endpoint needs an unbounded
-supply: <span class="math display" data-term-auto="off">\[\forall T,\quad \exists
-t&gt;T,\quad \mathrm{Cert}(t).\]</span> The development proves that the
+<p>Lean checks the finite theorem</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall
+t\le82,\quad \mathrm{Cert}(t).\]</span></div>
+<p>The endpoint needs an unbounded
+supply:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall T,\quad \exists
+t&gt;T,\quad \mathrm{Cert}(t).\]</span></div>
+<p>The development proves that the
 unbounded statement is equivalent to the irrationality claim. It does
 not prove the missing implication from the finite range to the unbounded
 statement. No matter how large a fixed checked bound is, a larger cutoff

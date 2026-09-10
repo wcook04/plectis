@@ -26,11 +26,11 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=12478665a21f">
-  <link rel="stylesheet" href="../assets/maths.css?v=e713f128b031">
+  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=c41c5b379b20"></script>
-  <script defer src="../assets/mathjax-config.js?v=34367ad2ce75"></script>
+  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -154,11 +154,13 @@ recorded as a <a class="narrative-ref narrative-ref--term is-term-again" href=".
 <section id="the-problem-and-what-is-actually-known" class="level2">
 <h2>The problem, and what is actually known</h2>
 <p>Let <span class="math inline" data-term-auto="off">\(\varphi\)</span> be Euler’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> and put <span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> and put</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
 \frac{\varphi(n)}{2^{n}}
   \;=\; \tfrac12 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} +
 \tfrac{4}{32} + \cdots
-  \;=\; 1.3676308019850223\ldots\]</span> The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">converges</a>
+  \;=\; 1.3676308019850223\ldots\]</span></div>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">converges</a>
 absolutely because <span class="math inline" data-term-auto="off">\(\varphi(n) \le
 n\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős Problem</a> #249 asks whether <span
 class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>. <em>It is open.</em>
@@ -206,16 +208,20 @@ class="math inline" data-term-auto="off">\(R_{N+h} - R_N \in \mathbb{Z}\)</span>
 \varphi(\mathrm{oddPart}(r.\mathrm{den}))\)</span>, <span
 class="math inline" data-term-auto="off">\(N_0 = v_2(r.\mathrm{den})\)</span>).</p>
 <p>So it suffices to refute integrality <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a> on every period ray.
-The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> device that refutes it is a residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>: <span
+The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> device that refutes it is a residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{windowDiscrepancy}(h,N,L)
   \;:=\; \sum_{j&lt;L}\bigl(\varphi(N{+}h{+}1{+}j) -
-\varphi(N{+}1{+}j)\bigr)\,2^{\,L-1-j} \in \mathbb{Z},\]</span> the
+\varphi(N{+}1{+}j)\bigr)\,2^{\,L-1-j} \in \mathbb{Z},\]</span></div>
+<p>the
 depth-<span class="math inline" data-term-auto="off">\(L\)</span> truncation of <span
-class="math inline" data-term-auto="off">\(2^{L}(R_{N+h} - R_N)\)</span>, and <span
+class="math inline" data-term-auto="off">\(2^{L}(R_{N+h} - R_N)\)</span>, and</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{certifiedKill}(h,N,L)
   \;:\Longleftrightarrow\;
   (N{+}h{+}L{+}2) \;&lt;\; \mathrm{windowDiscrepancy}(h,N,L) \bmod 2^{L}
-  \;&lt;\; 2^{L} - (N{+}h{+}L{+}2),\]</span> a decidable condition (,
+  \;&lt;\; 2^{L} - (N{+}h{+}L{+}2),\]</span></div>
+<p>a decidable condition (,
 ).</p>
 <p>The radius <span class="math inline" data-term-auto="off">\(N{+}h{+}L{+}2\)</span> is
 exactly the crude tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> coming from <span
@@ -226,11 +232,12 @@ non-integrality (). The entire #249 side of the programme therefore
 reduces to one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>.</p>
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 2</strong> (The supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> <span
-class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> — the exact open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>).
-<span class="math display" data-term-auto="off">\[\mathrm{Sep}
+class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> — the exact open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>).</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{Sep}
   \;:\Longleftrightarrow\;
   \forall h \ge 1\ \forall N_0\ \exists N \ge N_0\ \exists L,\;
-  \mathrm{certifiedKill}(h,N,L).\]</span> <span
+  \mathrm{certifiedKill}(h,N,L).\]</span></div>
+<p><span
 class="math inline" data-term-auto="off">\(\mathrm{Sep} \Rightarrow
 \mathrm{Irrational}(S)\)</span> (). <code>coord:binary-digit</code>
 <span><span class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span> <span><span
@@ -577,13 +584,15 @@ class="math inline" data-term-auto="off">\(\varphi\)</span> only at <a class="na
 class="math inline" data-term-auto="off">\(\le N{+}h{+}L\)</span>. For (iii), since <span
 class="math inline" data-term-auto="off">\(P &gt; B\)</span> every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> of <span
 class="math inline" data-term-auto="off">\(P\)</span> exceeds <span
-class="math inline" data-term-auto="off">\(B\)</span>, so <span
+class="math inline" data-term-auto="off">\(B\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_\gamma
   = \sum_{n\ge1}\frac{n}{2^{n}} - \sum_{n \le B}\frac{n -
 \varphi(n)}{2^{n}}
     - \sum_{k \ge 1} 2^{-kP}
   = 2 - \sum_{n \le B}\frac{n-\varphi(n)}{2^{n}} -
-\frac{1}{2^{P}-1}.\]</span> Write <span class="math inline" data-term-auto="off">\(D =
+\frac{1}{2^{P}-1}.\]</span></div>
+<p>Write <span class="math inline" data-term-auto="off">\(D =
 A/2^{B}\)</span> with <span class="math inline" data-term-auto="off">\(A = 2^{B+1} - \sum_{n
 \le B}(n-\varphi(n))2^{\,B-n} \in \mathbb{Z}\)</span>. Then <span
 class="math inline" data-term-auto="off">\(T_\gamma = \bigl(A(2^{P}-1) -
@@ -974,17 +983,19 @@ class="math inline" data-term-auto="off">\(\mathrm{windowFirstExp}(h,N,L) :=
 e\bigl((\mathrm{windowDiscrepancy}(h,N,L) \bmod
 2^{L})/2^{L}\bigr)\)</span>. <span
 class="math inline" data-term-auto="off">\(\mathrm{DTWFirstHarmonicNormGap}\)</span> is the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> <span class="math display" data-term-auto="off">\[\forall h \ge 1\ \forall X_0\
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall h \ge 1\ \forall X_0\
 \exists X, L : \quad
   \max(X_0,1) \le X, \quad
   16(2X + h + L + 2) \le 2^{L}, \quad
   \Bigl\lVert \sum_{N \in [X,\,2X)} \mathrm{windowFirstExp}(h,N,L)
 \Bigr\rVert
-  \le \tfrac{21}{25}X .\]</span> It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
+  \le \tfrac{21}{25}X .\]</span></div>
+<p>It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
 class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
 <code>coord:first-harmonic</code> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span> <span><span
-class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span> </p>
+class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span></p>
 </div>
 <p>The real-part form suffices and is strictly weaker: it is enough that
 <span class="math inline" data-term-auto="off">\(\sum_{N \in [X,2X)}
@@ -992,10 +1003,12 @@ class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" h
 elementary unconditional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-engine" data-term="engine" data-term-auto="1">engine</a>; the <span class="math inline" data-term-auto="off">\(21/25
 \to 9/10\)</span> bridge is ). Unpacked, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> object is a
 constant-saving cancellation estimate for the dyadically weighted
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>-difference exponential sum <span class="math display" data-term-auto="off">\[\sum_{X
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>-difference exponential sum</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{X
 \le N &lt; 2X}
   e\!\left(\frac{\sum_{j&lt;L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)2^{\,L-1-j}}{2^{L}}\right),
-  \qquad L \approx \log_2 X + O(1).\]</span> <strong>Not one instance of
+  \qquad L \approx \log_2 X + O(1).\]</span></div>
+<p><strong>Not one instance of
 this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is proved anywhere, at any <span
 class="math inline" data-term-auto="off">\(X\)</span>, <span class="math inline" data-term-auto="off">\(h\)</span>
 or <span class="math inline" data-term-auto="off">\(L\)</span>.</strong> Both trees were
@@ -1133,16 +1146,17 @@ class="math inline" data-term-auto="off">\(X, L\)</span> with <span
 class="math inline" data-term-auto="off">\(\max(X_0,1) \le X\)</span>, <span
 class="math inline" data-term-auto="off">\(h \le L - s\)</span>, <span
 class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2) \le 2^{L}\)</span>, and all
-four of <span
+four of</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Re}\,\mathrm{pivotCenteredCorrelation}
 \le \tfrac{14}{25}X, \quad
   \lVert \mathrm{pivotFiberMean} \rVert \le \tfrac{1}{100}X, \quad
   \lVert \mathrm{pivotBad} \rVert \le \tfrac{1}{100}X, \quad
-  \lVert \mathrm{pivotNonSupplier} \rVert \le \tfrac{8}{25}X .\]</span>
-It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
+  \lVert \mathrm{pivotNonSupplier} \rVert \le \tfrac{8}{25}X .\]</span></div>
+<p>It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
 <code>coord:first-harmonic</code> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span> <span><span
-class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span> </p>
+class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span></p>
 </div>
 <p>It inherits Survivor 1’s evasions of B1, B4, B5, B6 and B7 verbatim:
 the four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a> are exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">finite sums</a> over canonical largest-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
@@ -1231,13 +1245,15 @@ class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span>).
 class="math inline" data-term-auto="off">\(N\)</span> there is <span class="math inline" data-term-auto="off">\(t
 \ge 1\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}(td,\,N,\,td)\)</span>;
-unpacked, <span class="math display" data-term-auto="off">\[N + 2td + 2 \;&lt;\;
+unpacked,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[N + 2td + 2 \;&lt;\;
 \mathrm{windowDiscrepancy}(td,N,td) \bmod 2^{td}
-  \;&lt;\; 2^{td} - (N + 2td + 2).\]</span> It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
+  \;&lt;\; 2^{td} - (N + 2td + 2).\]</span></div>
+<p>It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
 class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
 <code>coord:period-ray</code> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span> <span><span
-class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span> </p>
+class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span></p>
 </div>
 <p>This is the shortest <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-full" data-term="full" data-term-auto="1">fully</a> stated open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> the programme has
 produced. Its evasion of B2 is recorded on disk rather than argued: its
@@ -1363,9 +1379,11 @@ class="sans-serif">[Open]</span></span> where that is the honest
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 32</strong> (The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–249 constant). Let <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> denote Euler’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>.
-Define <span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
+Define</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
 \frac{\varphi(n)}{2^{n}} \;=\; \sum_{n : \mathbb{N}}
-\frac{\varphi(n)}{2^{n}},\]</span> the two forms coinciding because
+\frac{\varphi(n)}{2^{n}},\]</span></div>
+<p>the two forms coinciding because
 <span class="math inline" data-term-auto="off">\(\varphi(0)=0\)</span>; the second, <span
 class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> form is the one
 carried in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">converges</a> absolutely since <span
@@ -1782,9 +1800,11 @@ no extrapolation beyond the stated band is implied.</p>
 the window discrepancy <span class="math inline" data-term-auto="off">\(\Delta_{h,N,L} :=
 \sum_{j&lt;L} (\varphi(N+h+1+j)-\varphi(N+1+j))\cdot 2^{L-1-j} \in
 \mathbb{Z}\)</span> (, <span><span
-class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>), and <span
+class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>), and</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Sep}(h,N,L) \;:\equiv\; (N+h+L+2) &lt;
-\Delta_{h,N,L} \bmod 2^{L} &lt; 2^{L}-(N+h+L+2),\]</span> (, <span><span
+\Delta_{h,N,L} \bmod 2^{L} &lt; 2^{L}-(N+h+L+2),\]</span></div>
+<p>(, <span><span
 class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>, decidable). By completeness (,
 <span><span class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>), <span
 class="math inline" data-term-auto="off">\((\exists L,\ \mathrm{Sep}(h,N,L)) \iff R_{N+h}-R_N
@@ -5204,10 +5224,12 @@ rather than re-flagged on every row.</p>
 <p>#249’s own supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> is <em>exactly</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a>. The
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> chain (§<span
 class="math inline" data-term-auto="off">\(\ref{sec:249-scale-ladder}\)</span>, and see )
-shows <span class="math display" data-term-auto="off">\[\mathrm{Irrational}\Bigl(\sum_{n\ge
+shows</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{Irrational}\Bigl(\sum_{n\ge
 1}\varphi(n)/2^n\Bigr) \iff \forall a_0\ \exists a\ge a_0,\
 \texttt{actualLcmTailOrbit}\ a \notin
-\mathrm{range}(\mathbb{Z}\to\mathbb{R}),\]</span> an
+\mathrm{range}(\mathbb{Z}\to\mathbb{R}),\]</span></div>
+<p>an
 <code>cofinal</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> <span
 class="math inline" data-term-auto="off">\(a\)</span> that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexes</a> <span
 class="math inline" data-term-auto="off">\(H=\mathrm{periodLcm}(2^a)\)</span>. Nothing weaker
@@ -5441,9 +5463,11 @@ class="sans-serif">[Cited]</span></span>, <span><span
 class="sans-serif">[Open]</span></span>, used exactly as defined in Part
 I.</p>
 <p>The canonical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">open obligation</a> for #249, proved in Part II to be
-sufficient (), is the <strong>249-supply</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>: <span
+sufficient (), is the <strong>249-supply</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall h \ge 1,\ \forall N_0,\ \exists N \ge
-N_0,\ \exists L,\ \mathtt{certifiedKill}\ h\ N\ L .\]</span> Fourteen
+N_0,\ \exists L,\ \mathtt{certifiedKill}\ h\ N\ L .\]</span></div>
+<p>Fourteen
 near-miss rows are catalogued against it below: one headline row (the
 sharpest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, given its own subsection) and thirteen
 further rows, each attacking the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> from a different
@@ -5457,21 +5481,25 @@ this session, are the sharpest <a class="narrative-ref narrative-ref--term is-te
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> contains.</p>
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 213</strong> (Window discrepancy). . For <span
-class="math inline" data-term-auto="off">\(h,N,L\in\mathbb N\)</span>, <span
+class="math inline" data-term-auto="off">\(h,N,L\in\mathbb N\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_{h,N,L} \;=\; \sum_{j=0}^{L-1}
 \bigl(\varphi(N+h+1+j) - \varphi(N+1+j)\bigr)\cdot 2^{\,L-1-j}
-  \ \in \mathbb Z .\]</span> This is the depth-<span
+  \ \in \mathbb Z .\]</span></div>
+<p>This is the depth-<span
 class="math inline" data-term-auto="off">\(L\)</span> truncation of <span
 class="math inline" data-term-auto="off">\(2^L\cdot(R_{N+h}-R_N)\)</span>, where <span
 class="math inline" data-term-auto="off">\(R_N = \sum_{j\ge 1}\varphi(N+j)/2^j\)</span> is
 the local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> tail ().</p>
 </div>
 <div class="defn">
-<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 214</strong> (Certified kill). . <span
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 214</strong> (Certified kill). .</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{certifiedKill}\ h\ N\ L
 \;:\Leftrightarrow\;
   (N{+}h{+}L{+}2) &lt; A_{h,N,L}\bmod 2^L &lt; 2^L -
-(N{+}h{+}L{+}2).\]</span> That is: the residue of <span
+(N{+}h{+}L{+}2).\]</span></div>
+<p>That is: the residue of <span
 class="math inline" data-term-auto="off">\(A_{h,N,L}\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^L\)</span> avoids the radius-<span
 class="math inline" data-term-auto="off">\((N{+}h{+}L{+}2)\)</span> neighbourhood of <span
@@ -5481,11 +5509,12 @@ this forces: <span class="math inline" data-term-auto="off">\(2(N{+}h{+}L{+}2) &
 </div>
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 215</strong> (First-harmonic real and complex
-characters). and : <span class="math display" data-term-auto="off">\[\mathtt{windowFirstCos}\
+characters). and :</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathtt{windowFirstCos}\
 h\ N\ L = \cos\!\Bigl(2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr),\qquad
   \mathtt{windowFirstExp}\ h\ N\ L =
-\exp\!\Bigl(i\,2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr).\]</span>
-records <span class="math inline" data-term-auto="off">\(\mathrm{Re}(\mathtt{windowFirstExp})
+\exp\!\Bigl(i\,2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr).\]</span></div>
+<p>records <span class="math inline" data-term-auto="off">\(\mathrm{Re}(\mathtt{windowFirstExp})
 = \mathtt{windowFirstCos}\)</span> and that <span
 class="math inline" data-term-auto="off">\(\|\mathtt{windowFirstExp}\,h\,N\,L\| = 1\)</span>:
 this is literally the first additive character of the endpoint
@@ -5724,10 +5753,12 @@ class="math inline" data-term-auto="off">\(S\)</span></em> is proved.</em></p>
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 225</strong> (The open producer). . <span><span
 class="sans-serif">[Open]</span></span>. <span><span
-class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>. <span
+class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>.</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,K,m,\ a_0\le a\ \wedge\
 8\le a\ \wedge\ K{+}(a{+}6)&lt;2\cdot 2^a\ \wedge\
-  \mathtt{ActualLcmTopEdgeResidueGap}\ a\ 0\ K\ m .\]</span> No
+  \mathtt{ActualLcmTopEdgeResidueGap}\ a\ 0\ K\ m .\]</span></div>
+<p>No
 unconditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> anywhere in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> locates the residue of
 the diagonal word <span class="math inline" data-term-auto="off">\(A_{H,H,K}\)</span> (where
 <span class="math inline" data-term-auto="off">\(H=\mathtt{periodLcm}(2^a)\)</span>) below
@@ -5800,12 +5831,14 @@ twice a centred lift.</p>
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 227</strong>. . <span><span
 class="sans-serif">[Open]</span></span>. <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>. Writing <span
-class="math inline" data-term-auto="off">\(H=\mathtt{periodLcm}(2^a)\)</span>, <span
+class="math inline" data-term-auto="off">\(H=\mathtt{periodLcm}(2^a)\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,q,\ a_0\le a \wedge 8\le a
 \wedge 2q{+}2{+}(a{+}6)&lt;2\cdot 2^a \wedge
-  2(H{+}q{+}2)\le 4^q \wedge\]</span> <span
+  2(H{+}q{+}2)\le 4^q \wedge\]</span></div>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{diagonalWindowIncrement}(2^a)(2q{+}2)
-\;\le\; 2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q .\]</span></p>
+\;\le\; 2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q .\]</span></div>
 </div>
 <div class="thm">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 228</strong> (Consumer). </p>
@@ -5826,10 +5859,12 @@ class="math inline" data-term-auto="off">\(2q{+}1{+}1{+}(a{+}6)&lt;2\cdot2^a\)</
 half-cell fit <span class="math inline" data-term-auto="off">\(2(H{+}q{+}2)\le 4^q\)</span>,
 and any integral representative <span class="math inline" data-term-auto="off">\(z\)</span>
 with <span class="math inline" data-term-auto="off">\(z = \mathtt{actualLcmTailOrbit}\
-a\)</span>: <span class="math display" data-term-auto="off">\[2\cdot
+a\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2\cdot
 \mathtt{actualOddHalfCenteredLift}\ a\ q
   \;=\; \mathtt{diagonalWindowIncrement}(2^a)(2q{+}2) -
-\mathtt{carryOrbit}\ H\ H\ z\ (2q{+}1) .\]</span> This is an <em>exact
+\mathtt{carryOrbit}\ H\ H\ z\ (2q{+}1) .\]</span></div>
+<p>This is an <em>exact
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a></em>, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Comparing it against the dominance
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> above, <em>the dominance <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is literally equivalent
 to <span class="math inline" data-term-auto="off">\(\mathtt{carryOrbit}\,H\,H\,z\,(2q{+}1)\le
@@ -5839,19 +5874,22 @@ to <span class="math inline" data-term-auto="off">\(\mathtt{carryOrbit}\,H\,H\,z
 under integrality the true carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> is <em>strictly positive</em>
 throughout this exact corridor: for <span class="math inline" data-term-auto="off">\(a\ge
 8\)</span> and <span class="math inline" data-term-auto="off">\(J{+}K{+}(a{+}6)&lt;2\cdot
-2^a\)</span>, <span class="math display" data-term-auto="off">\[0 &lt; \mathtt{carryOrbit}\
-H\ (H{+}J)\ d\ K\]</span> whenever <span
+2^a\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0 &lt; \mathtt{carryOrbit}\
+H\ (H{+}J)\ d\ K\]</span></div>
+<p>whenever <span
 class="math inline" data-term-auto="off">\(d\)</span> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-real-number" data-term="real_number" data-term-auto="1">real-valued</a> representative of
 the translated tail difference.</p>
 <p>So the two branches of the corridor-escape disjunction that offers
 are <em>not</em> symmetric: SGN-02 has already eliminated the branch
 that the identity most naturally supplies (dominance, <span
 class="math inline" data-term-auto="off">\(\mathtt{carryOrbit}\le 0\)</span>), and the
-surviving branch is the <em>lower</em> escape <span
+surviving branch is the <em>lower</em> escape</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q
 \;\le\;
   \mathtt{diagonalWindowIncrement}(2^a)(2q{+}2) - (2H{+}2q{+}3)
-.\]</span></p>
+.\]</span></div>
 <p>This is stated precisely so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> it: it is neither a
 refutation of the dominance route (SGN-02 constrains the sign of <span
 class="math inline" data-term-auto="off">\(\mathtt{carryOrbit}\)</span>, it does not itself
@@ -5919,12 +5957,15 @@ admissible depth, not a <a class="narrative-ref narrative-ref--term is-term-agai
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 233</strong> (What would close it). <span
 class="math inline" data-term-auto="off">\(\mathtt{PowerTwoActualLcmOrbitSeparationSupply}\)</span>:
 <span><span class="sans-serif">[Open]</span></span>, <span><span
-class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>. <span
+class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>.</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a\ge\max(2,a_0)\ \exists q,\
   \mathtt{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)=2q{+}1
-\wedge\]</span> <span class="math display" data-term-auto="off">\[\forall z\in\mathbb Z,\
+\wedge\]</span></div>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall z\in\mathbb Z,\
 \tfrac1{32} + \mathtt{actualLcmRawErrorRadius}\ a\ q \;\le\;
-  |\mathtt{actualLcmTailOrbit}\ a - z| .\]</span> Since the error radius
+  |\mathtt{actualLcmTailOrbit}\ a - z| .\]</span></div>
+<p>Since the error radius
 is explicit, this reduces to a distance-to-nearest-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>
 for one explicitly computable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> per scale — the cleanest
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> of the #249 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> to a purely <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>, computable question
@@ -5964,10 +6005,12 @@ class="math inline" data-term-auto="off">\(\varphi\)</span> values). There is no
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 235</strong> (What would close it). <span
 class="math inline" data-term-auto="off">\(\mathtt{PowerTwoActualLcmShortArithmeticKillSupply}\)</span>:
 <span><span class="sans-serif">[Open]</span></span>, <span><span
-class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>. <span
+class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>.</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,L,\ a_0\le a \wedge L &lt;
 2\cdot 2^a \wedge
-  \mathtt{LcmDiagonalArithmeticKill}(2^a)\,L .\]</span> The short-window
+  \mathtt{LcmDiagonalArithmeticKill}(2^a)\,L .\]</span></div>
+<p>The short-window
 restriction <span class="math inline" data-term-auto="off">\(L&lt;2\cdot 2^a\)</span> buys
 extra structure — every non-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> offset in that window is a bare
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>, by <code>eq_prime_pow_of_not_dvd_periodLcm</code> — so this
@@ -6236,9 +6279,11 @@ already suffice, so no position <a class="narrative-ref narrative-ref--term is-t
 </div>
 <div class="defn">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 250</strong> (The slack scalar and the open
-supply). : <span
+supply). :</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{canonicalAdjacentSuffixCentralSlack}\ t =
-\min\bigl(d-2^{m-5},\ (2^m-2^{m-5})-d\bigr),\]</span> with <span
+\min\bigl(d-2^{m-5},\ (2^m-2^{m-5})-d\bigr),\]</span></div>
+<p>with <span
 class="math inline" data-term-auto="off">\(m\)</span> the canonical adjacent-suffix depth and
 <span class="math inline" data-term-auto="off">\(d\)</span> the residue at that depth. The
 open producers, both <span><span class="sans-serif">[Open]</span></span>
@@ -7071,18 +7116,22 @@ these <span class="math inline" data-term-auto="off">\(2^e+1\)</span> retained c
 <p>To describe <em>all</em> integral relations, let <span
 class="math inline" data-term-auto="off">\(E_i\)</span> denote the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> coordinate vector
 in <span class="math inline" data-term-auto="off">\(\mathbb Z^{I_e}\)</span> and use the
-evaluation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> <span class="math display" data-term-auto="off">\[\adjustbox{max
+evaluation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\adjustbox{max
 width=\linewidth}{$\displaystyle
 \operatorname{ev}_e:\mathbb Z^{I_e}\longrightarrow L_e,
 \qquad (c_i)\longmapsto\sum_{i\in I_e}c_iF_i.
-$}\]</span> For each omitted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> put <span
-class="math inline" data-term-auto="off">\(R_i=E_i-a_iE_{j(i)}\)</span>. Then <span
+$}\]</span></div>
+<p>For each omitted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> put <span
+class="math inline" data-term-auto="off">\(R_i=E_i-a_iE_{j(i)}\)</span>. Then</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\adjustbox{max width=\linewidth}{$\displaystyle
 \ker(\operatorname{ev}_e)
    =\bigoplus_{i\in I_e\mathbin{\backslash} J_e}\mathbb Z R_i,
 \qquad
 \operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
-$}\]</span> Indeed, subtracting <span
+$}\]</span></div>
+<p>Indeed, subtracting <span
 class="math inline" data-term-auto="off">\(\sum_{i\notin J_e}c_iR_i\)</span> from a relation
 removes all omitted coordinates. The remainder is a relation among
 retained channels, so independence makes it zero. Conversely, the
@@ -7310,8 +7359,9 @@ class="level3">
 class="math inline" data-term-auto="off">\(\Phi_N=\sum_{n\le
 N}\varphi(n)2^{N-n}\in\mathbb{Z}\)</span> for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> prefix, so
 that <span class="math inline" data-term-auto="off">\(2^N S=\Phi_N+R_N\)</span>. For <span
-class="math inline" data-term-auto="off">\(h\ge 1\)</span> set <span
-class="math display" data-term-auto="off">\[\alpha_h \;:=\; (2^h-1)\,S .\]</span></p>
+class="math inline" data-term-auto="off">\(h\ge 1\)</span> set</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\alpha_h \;:=\; (2^h-1)\,S .\]</span></div>
 <div class="lem">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 271</strong> (Doubling normal form). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge 0\)</span> and <span
@@ -7558,11 +7608,12 @@ class="level3">
 <h3>Route 1: a constant-saving cancellation over a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> block</h3>
 <section id="the-exact-statement-needed." class="level5">
 <h5>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> needed.</h5>
-<p><span class="math display" data-term-auto="off">\[\forall h\ge 1\ \forall X_0\ \exists
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall h\ge 1\ \forall X_0\ \exists
 X,L:\quad
   \max(X_0,1)\le X,\quad 16(2X+h+L+2)\le 2^{L},\quad
   \Bigl\|\sum_{N=X}^{2X-1} e\bigl(D(h,N,L)/2^{L}\bigr)\Bigr\|\le
-\tfrac{21}{25}X,\]</span> where <span
+\tfrac{21}{25}X,\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(D(h,N,L)=\sum_{j&lt;L}\bigl(\varphi(N+h+1+j)-\varphi(N+1+j)\bigr)2^{L-1-j}\)</span>.
 , consumer . By <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
 class="math inline" data-term-auto="off">\(\ref{prop:transfer}\)</span> the weaker real-part
@@ -7575,7 +7626,8 @@ object.</h5>
 <p>Dividing by <span class="math inline" data-term-auto="off">\(2^L\)</span> and reindexing
 the two ranges onto a common <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">variable</a> <span
 class="math inline" data-term-auto="off">\(t\)</span>, with <span
-class="math inline" data-term-auto="off">\(m=N+t\)</span>, <span
+class="math inline" data-term-auto="off">\(m=N+t\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:window}
   \frac{D(h,N,L)}{2^{L}}
@@ -7583,7 +7635,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
   \;+\;\underbrace{(2^{h}-1)\sum_{t=h+1}^{L}\frac{\varphi(N+t)}{2^{t}}}_{\text{body}}
   \;+\;\underbrace{\sum_{t=L+1}^{L+h}\frac{\varphi(N+t)}{2^{t-h}}}_{\text{tail}}
 .
-\end{equation}\]</span></p>
+\end{equation}\]</span></div>
 <p>So the phase is a <em>geometrically weighted linear form in <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> at <span
 class="math inline" data-term-auto="off">\(L+h\)</span> consecutive arguments</em>, with the
@@ -7638,13 +7690,14 @@ carries this as far as it goes.</p>
 <span class="math inline" data-term-auto="off">\(E=\sum_n 1/(2^n-1)=\sum_N d(N)/2^N\)</span>,
 is the right <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> for the <code>coord:mobius-mersenne</code>
 coordinate. That coordinate exists here and is exact: from <span
-class="math inline" data-term-auto="off">\(\varphi=\mu * \mathrm{id}\)</span>, <span
+class="math inline" data-term-auto="off">\(\varphi=\mu * \mathrm{id}\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:mobmers}
   S=\sum_{d\ge 1}\mu(d)\,\frac{2^{d}}{(2^{d}-1)^{2}}
   \qquad ({\small\textsf{[Math]}};\ \text{verified to }16\
 \text{digits},\ S=1.3676308019850223\ldots,\ {\small\textsf{[Cert]}}).
-\end{equation}\]</span></p>
+\end{equation}\]</span></div>
 <p>But the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a> does not transfer, for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reason" data-term="reason" data-term-auto="1">reason</a> that can be stated
 quantitatively rather than vaguely. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>’s argument for <span
 class="math inline" data-term-auto="off">\(E\)</span> exploits that the coefficient <span
@@ -7772,7 +7825,8 @@ class="math inline" data-term-auto="off">\(X_0\)</span> there are <span
 class="math inline" data-term-auto="off">\(X\ge\max(X_0,1)\)</span> and <span
 class="math inline" data-term-auto="off">\(L\)</span> with <span class="math inline" data-term-auto="off">\(h\le
 L-s\)</span>, <span class="math inline" data-term-auto="off">\(16(2X+h+L+2)\le
-2^{L}\)</span>, and all four of <span
+2^{L}\)</span>, and all four of</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
   \operatorname{Re}\bigl(\mathrm{pivotCenteredCorrelation}\bigr)
 &amp;\le \tfrac{14}{25}X,
@@ -7781,7 +7835,8 @@ class="math display" data-term-auto="off">\[\begin{aligned}
   \bigl\|\mathrm{pivotBadContribution}\bigr\| &amp;\le \tfrac{1}{100}X,
   &amp;\qquad \bigl\|\mathrm{pivotNonSupplierContribution}\bigr\|
 &amp;\le \tfrac{8}{25}X .
-\end{aligned}\]</span> , consumer . The decomposition is an exact
+\end{aligned}\]</span></div>
+<p>, consumer . The decomposition is an exact
 identity, , and the supplier set at the canonical fibre is a membership
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> with a shifted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> interval of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>, .</p>
 </section>
@@ -7890,9 +7945,11 @@ class="math inline" data-term-auto="off">\(h\)</span> and before the universal t
 class="math inline" data-term-auto="off">\(s\)</span> is fixed as <span
 class="math inline" data-term-auto="off">\(X\to\infty\)</span>; it cannot be increased with
 <span class="math inline" data-term-auto="off">\(X\)</span> to make <span
-class="math inline" data-term-auto="off">\(t\)</span> shallow. The room condition gives <span
+class="math inline" data-term-auto="off">\(t\)</span> shallow. The room condition gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^L\ge16(2X+h+L+2),\qquad
-  t=L-s+1\ge\log_2X-O_{h,s}(1).\]</span> After removing the <span
+  t=L-s+1\ge\log_2X-O_{h,s}(1).\]</span></div>
+<p>After removing the <span
 class="math inline" data-term-auto="off">\(2\)</span>-part of the coefficient, the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-progression modulus is still typically of order <span
 class="math inline" data-term-auto="off">\(X\)</span> up to subpolynomial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>, not <span
@@ -7925,11 +7982,13 @@ fibre-mean modulus deep, and the centred term has a separate correlation
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>.</p>
 <p>Factoring the pivot argument as <span
 class="math inline" data-term-auto="off">\(n=mp\)</span> and dividing out the pivot phase
-leaves <span class="math display" data-term-auto="off">\[\operatorname{Re}\sum_{m}\
+leaves</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{Re}\sum_{m}\
 \sum_{p\,:\,mp\in[X,2X)+t}
     w(mp)\,\bigl(e\bigl(a_m(p-1)/2^{t}\bigr)-\overline{e}_m\bigr)
   \;\le\;\tfrac{14}{25}X ,
-  \qquad |w|\equiv 1 ,\]</span> where <span
+  \qquad |w|\equiv 1 ,\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(\overline{e}_m\)</span> is the fibre mean and, by
 <span class="math inline" data-term-auto="off">\(\eqref{eq:window}\)</span>, <span
 class="math inline" data-term-auto="off">\(w(n)\)</span> is the character of the same
@@ -7954,11 +8013,12 @@ form.</p>
 <p>At <span class="math inline" data-term-auto="off">\(h=1\)</span> and the canonical pivot
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> estimate becomes <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-full" data-term="full" data-term-auto="1">fully</a> explicit. There <span
 class="math inline" data-term-auto="off">\(e\bigl((p-1)/4\bigr)=i^{\,p-1}=\chi_{-4}(p)\)</span>,
-so what is needed is <span
+so what is needed is</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{Re}\sum_{X&lt;p\le
 2X}\chi_{-4}(p)\,
     e\Bigl(\frac{\varphi(p+1)}{8}+\frac{\varphi(p+2)}{16}+\cdots\Bigr)
-  \;\le\;\Bigl(\frac{9}{10}-\delta\Bigr)\,\bigl(\pi(2X)-\pi(X)\bigr).\]</span></p>
+  \;\le\;\Bigl(\frac{9}{10}-\delta\Bigr)\,\bigl(\pi(2X)-\pi(X)\bigr).\]</span></div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> is thus a <em>non-correlation between a fixed
 quadratic character at <span class="math inline" data-term-auto="off">\(p\)</span> and the
 <span class="math inline" data-term-auto="off">\(2\)</span>-adic behaviour of <span
@@ -7985,11 +8045,13 @@ class="math inline" data-term-auto="off">\(\mathrm{DTWPivotResidualDecorrelation
 ask for <em>some</em> <span class="math inline" data-term-auto="off">\(X\)</span> beyond each
 <span class="math inline" data-term-auto="off">\(X_0\)</span>, never for all <span
 class="math inline" data-term-auto="off">\(X\)</span>. Hence it suffices to prove a
-logarithmically averaged <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>: if <span
+logarithmically averaged <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>: if</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{k\le K}\ \frac{1}{2^{k}}
   \Bigl|\sum_{N\in[2^{k},2^{k+1})}e\bigl(D(h,N,L_k)/2^{L_k}\bigr)\Bigr|
   \;=\;o(K)
-  \quad\text{for each }h,\]</span> with <span
+  \quad\text{for each }h,\]</span></div>
+<p>with <span
 class="math inline" data-term-auto="off">\(L_k\)</span> any admissible depth <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a>, then
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a> blocks satisfy the gap and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
 class="math inline" data-term-auto="off">\(\ref{prop:transfer}\)</span> applies. Logarithmic
@@ -8017,12 +8079,12 @@ class="level3">
 <h3>Route 3: uniform quantitative escape at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a></h3>
 <section id="the-exact-statement-needed.-2" class="level5">
 <h5>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> needed.</h5>
-<p><span class="math display" data-term-auto="off">\[\forall h\ge 1\ \forall N_0\ \exists p\
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall h\ge 1\ \forall N_0\ \exists p\
 \text{prime}:\quad
   \max(N_0+h+1,\,h+5)\le p
   \ \wedge\
-  \operatorname{Re}\bigl(\mathrm{tailOrbitFirstExp}(h,\,p-h-1)\bigr)&lt;\tfrac{9}{10}.\]</span>
-, consumer .</p>
+  \operatorname{Re}\bigl(\mathrm{tailOrbitFirstExp}(h,\,p-h-1)\bigr)&lt;\tfrac{9}{10}.\]</span></div>
+<p>, consumer .</p>
 </section>
 <section id="what-it-says-after-lemma-." class="level5">
 <h5>What it says, after <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span
@@ -8084,12 +8146,15 @@ free <span class="math inline" data-term-auto="off">\(T\)</span>.</p>
 <p>It does not apply to a <span class="math inline" data-term-auto="off">\(T\)</span> named
 in advance as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> of <span
 class="math inline" data-term-auto="off">\((h,X,L)\)</span>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> already contains
-the right one: <span
+the right one:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_{h,X,L}\;:=\;\mathrm{pivotFiber}(X,L,L-h,1)
-  \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},\]</span> a membership
+  \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},\]</span></div>
+<p>a membership
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> rather than a sampled surrogate (, <span><span
 class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>).</p>
-<p>The proposal is to prove <span
+<p>The proposal is to prove</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:primefibre}
   \forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
@@ -8097,7 +8162,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
   \ \wedge\
   \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L)\ \le\
 \tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr| ,
-\end{equation}\]</span> which by the landed subset consumer yields a
+\end{equation}\]</span></div>
+<p>which by the landed subset consumer yields a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> at some <span class="math inline" data-term-auto="off">\(N\ge X\ge X_0\)</span>,
 hence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>. <span><span
 class="sans-serif">[Open]</span></span></p>
@@ -8145,9 +8211,10 @@ class="math inline" data-term-auto="off">\(\ref{thm:lacunary}\)</span> that sepa
 <h3>Route 4: depth-locked full-depth escape</h3>
 <section id="the-exact-statement-needed.-3" class="level5">
 <h5>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> needed.</h5>
-<p><span class="math display" data-term-auto="off">\[\mathrm{ApFullDepthEscape} :\equiv
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{ApFullDepthEscape} :\equiv
   \forall d\ge 1\ \forall N\ \exists t\ge 1:\
-\mathrm{certifiedKill}(td,\,N,\,td),\]</span> unpacked, <span
+\mathrm{certifiedKill}(td,\,N,\,td),\]</span></div>
+<p>unpacked, <span
 class="math inline" data-term-auto="off">\((N+2td+2:\mathbb{Z})&lt;D(td,N,td)\bmod
 2^{td}&lt;2^{td}-(N+2td+2)\)</span>. , consumer , ambient equivalence .
 It is the shortest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-full" data-term="full" data-term-auto="1">fully</a> stated open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> the programme has
@@ -8285,12 +8352,13 @@ class="level3">
 <h3>Route 5: the rationality-side rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a></h3>
 <section id="the-exact-statement-that-was-wanted." class="level5">
 <h5>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> that was wanted.</h5>
-<p><span class="math display" data-term-auto="off">\[\exists C\ \forall
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\exists C\ \forall
 c:\mathbb{N}\to\mathbb{N}\ \bigl(c(n)\le n,\
 \neg\,\mathrm{Irrational}(X_c)\bigr)
   \ \forall v&gt;0\ \forall u\ \mathrm{IsTemperedBinaryOrbit}(c,v,u)\
 \forall e:\quad
-  \operatorname{rk}_e(u)\le C ,\]</span> where <span
+  \operatorname{rk}_e(u)\le C ,\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(X_c=\sum_{n\ge1}c(n)/2^{n}\)</span> and <span
 class="math inline" data-term-auto="off">\(\operatorname{rk}_e(u)\)</span> is the dimension
 of the span of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> of <span
@@ -8312,8 +8380,10 @@ class="math inline" data-term-auto="off">\(2\)</span>-regular. An attempted gene
 class="math inline" data-term-auto="off">\(c(n)\le n\)</span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">binary series</a> and
 non-<span class="math inline" data-term-auto="off">\(2\)</span>-regular <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> kernel. Those
 facts do not refute the desired <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for its carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>.</p>
-<p>The generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> <span
-class="math display" data-term-auto="off">\[v\,c(N+1)=2u(N)-u(N+1)\]</span> does express each
+<p>The generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[v\,c(N+1)=2u(N)-u(N+1)\]</span></div>
+<p>does express each
 <em>positive-residue</em> level-<span class="math inline" data-term-auto="off">\(j\)</span>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> of <span class="math inline" data-term-auto="off">\(c\)</span> as a linear
 combination of two level-<span class="math inline" data-term-auto="off">\(j\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>
@@ -8560,11 +8630,13 @@ class="math inline" data-term-auto="off">\(D(h,N,L) :=
 2^{L-1-j}\in\mathbb{Z}\)</span> is <code>windowDiscrepancy</code> (),
 and the base predicate named “<span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(h,N,L)\)</span>” in the task brief is
-literally <code>certifiedKill</code>: <span
+literally <code>certifiedKill</code>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{certifiedKill}(h,N,L) :\equiv
   (N+h+L+2 : \mathbb{Z}) &lt; D(h,N,L) \bmod 2^L
   \ \wedge\
-  D(h,N,L) \bmod 2^L &lt; 2^L - (N+h+L+2).\]</span> (the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a>;
+  D(h,N,L) \bmod 2^L &lt; 2^L - (N+h+L+2).\]</span></div>
+<p>(the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a>;
 decidable, instance at line 84) <code>coord:other:binary-window</code>.
 In words: the residue of the window discrepancy modulo <span
 class="math inline" data-term-auto="off">\(2^L\)</span> avoids a shrinking radius-<span
@@ -8575,12 +8647,14 @@ class="math inline" data-term-auto="off">\(2^L\)</span>.</p>
 <h3>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>-completeness converter</h3>
 <p>Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulation</a> below ultimately measures the same underlying
 real quantity, because <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a> are <em>complete</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a> of
-non-integrality, not merely sufficient ones: <span
+non-integrality, not merely sufficient ones:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\exists L,\
 \mathrm{certifiedKill}(h,N,L)\bigr)
   \iff
   R_{N+h} - R_N \notin \operatorname{range}\bigl((\uparrow)\colon
-\mathbb{Z}\to\mathbb{R}\bigr).\]</span> (wrapped as
+\mathbb{Z}\to\mathbb{R}\bigr).\]</span></div>
+<p>(wrapped as
 <code>totient_tail_window_kill_exists_iff_tail_diff</code><code>_not_int</code>
 at ) (holds for all <span class="math inline" data-term-auto="off">\(h,N\)</span>)
 <code>coord:other:binary-window</code>.</p>
@@ -8593,11 +8667,12 @@ with no <a class="narrative-ref narrative-ref--term is-term-again" href="../../d
 <section id="the-base-cofinal-obligation-the-wall" class="level3">
 <h3>The base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> — the wall</h3>
 <blockquote>
-<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1 (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>-supply normal form).</strong> <span
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1 (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>-supply normal form).</strong></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Irrational}(S)
   \quad\Longleftrightarrow\quad
   \forall h\ge 1,\ \forall N_0,\ \exists N\ge N_0,\ \exists L,\
-  \mathrm{certifiedKill}(h,N,L).\]</span></p>
+  \mathrm{certifiedKill}(h,N,L).\]</span></div>
 </blockquote>
 <p>This is exactly the quantifier structure named “<span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(h,N,L)\)</span>” in the task brief:
@@ -8653,11 +8728,11 @@ id="multiple-period-collapse-formally-looser-but-endpoint-equivalent."
 class="level5">
 <h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">Multiple</a>-period collapse (formally looser, but
 endpoint-equivalent).</h5>
-<p><span class="math display" data-term-auto="off">\[\forall h_0&gt;0,\ \forall N_0,\ \exists
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall h_0&gt;0,\ \forall N_0,\ \exists
 m&gt;0,\ \exists N\ge N_0,\ \exists L,\
     \mathrm{certifiedKill}(m\cdot h_0, N, L)
-  \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span>
-<code>coord:other:lcm-period-multiple</code>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>
+  \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
+<p><code>coord:other:lcm-period-multiple</code>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>
 trivially <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> this one (take <span
 class="math inline" data-term-auto="off">\(m=1\)</span>), while the displayed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> sends
 it back to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> and hence, by the base iff, back to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a>
@@ -8666,11 +8741,11 @@ open as #249.</p>
 </section>
 <section id="diagonal-collapse-one-free-parameter." class="level5">
 <h5>Diagonal collapse — one free parameter.</h5>
-<p><span class="math display" data-term-auto="off">\[\mathrm{Irrational}(S)
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{Irrational}(S)
   \ \Longleftrightarrow\
   \forall t_0,\ \exists t\ge t_0,\ \exists L,\
-    \mathrm{certifiedKill}(H_t, H_t, L).\]</span>
-<code>coord:other:lcm-diagonal</code>. This is the canonical
+    \mathrm{certifiedKill}(H_t, H_t, L).\]</span></div>
+<p><code>coord:other:lcm-diagonal</code>. This is the canonical
 single-quantifier restatement: write <span class="math inline" data-term-auto="off">\(P(t)
 :\equiv \exists L,\ \mathrm{certifiedKill}(H_t,H_t,L)\)</span>; the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> is <span class="math inline" data-term-auto="off">\(\forall t_0\,\exists t\ge
@@ -8701,11 +8776,11 @@ class="math inline" data-term-auto="off">\(t=83\)</span> is <a class="narrative-
 <section id="cone-collapse-two-multipliers-still-the-same-wall."
 class="level5">
 <h5>Cone collapse — two multipliers, still the same wall.</h5>
-<p><span class="math display" data-term-auto="off">\[\forall t_0,\ \exists t\ge t_0,\ \exists
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall t_0,\ \exists t\ge t_0,\ \exists
 q,m,L,\ 0&lt;q\ \wedge\
     \mathrm{certifiedKill}(m\cdot H_t,\, q\cdot H_t,\, L)
-  \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span>
-<code>coord:other:lcm-cone</code>. The diagonal form above is exactly
+  \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
+<p><code>coord:other:lcm-cone</code>. The diagonal form above is exactly
 the cell <span class="math inline" data-term-auto="off">\(q=m=1\)</span>, so any diagonal
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> trivially <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witnesses</a> the cone form. The cone predicate is
 therefore a formally looser <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, but its sufficiency <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> and the
@@ -8739,11 +8814,13 @@ class="level5">
 out.</h5>
 <p>Via the completeness iff above, the diagonal and cone forms restate,
 <em>exactly</em>, with no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> to <span
-class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}\)</span> at all: <span
+class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}\)</span> at all:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall t_0,\ \exists t\ge t_0,\
 R_{2H_t}-R_{H_t}\notin\mathbb{Z}
   \ \Longleftrightarrow\ \text{diagonal obligation above}
-  \ \Longrightarrow\ \mathrm{Irrational}(S),\]</span> (cone analogue at
+  \ \Longrightarrow\ \mathrm{Irrational}(S),\]</span></div>
+<p>(cone analogue at
 ) <code>coord:other:real-analytic-nonintegrality</code>. This is the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> of #249 with every piece of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> machinery removed:
 <em>does <span
@@ -8756,18 +8833,20 @@ decides this either.</p>
 <h3>The exponential-sum form</h3>
 <p>A first-harmonic (Weyl-sum) cancellation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is proved
 sufficient for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1 by an elementary pigeonhole argument, with
-no case analysis and no scale-degrading constants: <span
+no case analysis and no scale-degrading constants:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{DTWFirstHarmonicNormGap} :\equiv\
   \forall h&gt;0,\ \forall X_0,\ \exists X,L,\quad
   \max(X_0,1)\le X\ \wedge\
   16\,(2X+h+L+2)\le 2^L\ \wedge\
   \Bigl\|\sum_{N\in[X,2X)} e\bigl(D(h,N,L)/2^L\bigr)\Bigr\| \le
-\tfrac{21}{25}X.\]</span> (the predicate; unproved at every <span
+\tfrac{21}{25}X.\]</span></div>
+<p>(the predicate; unproved at every <span
 class="math inline" data-term-auto="off">\(h,X_0\)</span>)
 <code>coord:other:first-harmonic</code>.</p>
-<p><span class="math display" data-term-auto="off">\[\mathrm{DTWFirstHarmonicNormGap} \
-\Longrightarrow\ \mathrm{Irrational}(S).\]</span>
-<code>coord:other:first-harmonic</code>. The consumer already has
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{DTWFirstHarmonicNormGap} \
+\Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
+<p><code>coord:other:first-harmonic</code>. The consumer already has
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">Obligation</a> 1’s exact free-parameter <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> (<span
 class="math inline" data-term-auto="off">\(X\)</span> is a completely free threshold, so
 applying the gap at <span class="math inline" data-term-auto="off">\(X\ge N_0\)</span> gives
@@ -8808,11 +8887,12 @@ class="math inline" data-term-auto="off">\(H = H_{2^a}\)</span>, and proves a ge
 <strong>iff</strong> with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> itself — the strongest form
 of “exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> of what remains” anywhere in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.</p>
 <blockquote>
-<p><strong>The exact equivalence.</strong> <span
+<p><strong>The exact equivalence.</strong></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Irrational}(S)
   \iff
   \forall a_0,\ \exists a\ge a_0,\
-\mathrm{actualLcmTailOrbit}(a)\notin\mathbb{Z}.\]</span></p>
+\mathrm{actualLcmTailOrbit}(a)\notin\mathbb{Z}.\]</span></div>
 </blockquote>
 <p> (an unconditional equivalence, not a supply)
 <code>coord:mobius-mersenne</code>, where <span
@@ -8832,9 +8912,10 @@ empty. For <span class="math inline" data-term-auto="off">\(a\ge 8\)</span> and 
 wide enough modulus <span
 class="math inline" data-term-auto="off">\(2H+J+K+2&lt;2^m\)</span>, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> window where
 <em>every</em> one of the last <span class="math inline" data-term-auto="off">\(m\)</span>
-letters vanishes mod its own growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> of two is impossible: <span
-class="math display" data-term-auto="off">\[\neg\,\mathrm{ActualLcmTerminalDyadicStaircase}(a,J,K,m).\]</span>
-<code>coord:mobius-mersenne</code>. The mechanism is a bare
+letters vanishes mod its own growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> of two is impossible:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\neg\,\mathrm{ActualLcmTerminalDyadicStaircase}(a,J,K,m).\]</span></div>
+<p><code>coord:mobius-mersenne</code>. The mechanism is a bare
 positivity/divisibility <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> (a positive quantity below a
 modulus, divisible by that modulus, must be <span
 class="math inline" data-term-auto="off">\(0\)</span>) against the unconditional positivity
@@ -8855,21 +8936,23 @@ residue-gap family below.</p>
 </section>
 <section id="the-surviving-one-sided-target." class="level5">
 <h5>The surviving one-sided <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>.</h5>
-<p><span
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{ActualLcmTopEdgeResidueGap}(a,J,K,m)
 :\equiv
   m\le K\ \wedge\
   2H+J+K+2 &lt; 2^m\ \wedge\
-  D(H,\,H+J,\,K) \bmod 2^m \le 2^m - (2H+J+K+2).\]</span> (a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a>,
+  D(H,\,H+J,\,K) \bmod 2^m \le 2^m - (2H+J+K+2).\]</span></div>
+<p>(a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a>,
 unproved at any <span class="math inline" data-term-auto="off">\(a\)</span>)
 <code>coord:mobius-mersenne</code>.</p>
 <p>Note this is a <em>one-sided</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> — only the upper
 (positive) carry arc is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a>, not a symmetric two-sided band —
 because the corridor’s lower half is already discharged unconditionally:
 for <span class="math inline" data-term-auto="off">\(a\ge8\)</span> and <span
-class="math inline" data-term-auto="off">\(J+(a{+}6)&lt;2\cdot2^a\)</span>, <span
-class="math display" data-term-auto="off">\[0 &lt; R_{2H+J}-R_{H+J}\]</span>
-<code>coord:mobius-mersenne</code> — a rare genuinely unconditional,
+class="math inline" data-term-auto="off">\(J+(a{+}6)&lt;2\cdot2^a\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0 &lt; R_{2H+J}-R_{H+J}\]</span></div>
+<p><code>coord:mobius-mersenne</code> — a rare genuinely unconditional,
 non-hypothetical real-analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, needing no
 rationality <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumption</a> at all.</p>
 <p>Its companion shows that <em>if</em> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> is integral, the
@@ -8881,21 +8964,23 @@ class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" h
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a></span></span>) — this is the exact
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> of “here is what remains,” pinning the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> to
 one named residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> rather than leaving it implicit.</p>
-<p><span
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{ActualLcmTopEdgeResidueGap}(a,J,K,m)\
 \Longrightarrow\
-  R_{2H+J}-R_{H+J}\notin\mathbb{Z}.\]</span>
-<code>coord:mobius-mersenne</code>.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> built from it: <span
+  R_{2H+J}-R_{H+J}\notin\mathbb{Z}.\]</span></div>
+<p><code>coord:mobius-mersenne</code>.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> built from it:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply}
 :\equiv\
   \forall a_0,\ \exists a,K,m,\quad
   a_0\le a\ \wedge\ 8\le a\ \wedge\ K+(a{+}6)&lt;2\cdot 2^a\ \wedge\
-  \mathrm{ActualLcmTopEdgeResidueGap}(a,0,K,m).\]</span>
-<code>coord:mobius-mersenne</code>. <span
+  \mathrm{ActualLcmTopEdgeResidueGap}(a,0,K,m).\]</span></div>
+<p><code>coord:mobius-mersenne</code>.</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply}
-\Longrightarrow \mathrm{Irrational}(S).\]</span>
-<code>coord:mobius-mersenne</code>.</p>
+\Longrightarrow \mathrm{Irrational}(S).\]</span></div>
+<p><code>coord:mobius-mersenne</code>.</p>
 </section>
 <section
 id="five-strictly-weaker-links-each-independently-proved-sufficient."
@@ -8924,9 +9009,11 @@ class="math inline" data-term-auto="off">\(\mathrm{PowerTwoOddGuardTopEdgeHalfWo
 at odd depth <span class="math inline" data-term-auto="off">\(m=2q+1\)</span> the
 adjacent-suffix residue is exactly twice a half-word residue, and both
 directed edge widths halve to the same threshold <span
-class="math inline" data-term-auto="off">\(H+q+2\)</span>: <span class="math display" data-term-auto="off">\[H+q+2
+class="math inline" data-term-auto="off">\(H+q+2\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[H+q+2
 \le \bigl(\text{half-word correction word}\bigr) \bmod 4^q
-  \le 4^q - (H+q+2).\]</span> <span><span
+  \le 4^q - (H+q+2).\]</span></div>
+<p><span><span
 class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code>. This is a substantially weaker
@@ -8934,17 +9021,20 @@ demand than the earlier fixed <span class="math inline" data-term-auto="off">\(1
 central band elsewhere in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>. Sufficiency: .</p></li>
 <li><p><span
 class="math inline" data-term-auto="off">\(\mathrm{PowerTwoActualFinalTopEdgeMagnitudeSupply}\)</span>:
-the exact centered-lift restatement of (ii), <span
+the exact centered-lift restatement of (ii),</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[H+q+2 \le
-|\mathrm{actualOddHalfCenteredLift}(a,q)|,\]</span> <span><span
+|\mathrm{actualOddHalfCenteredLift}(a,q)|,\]</span></div>
+<p><span><span
 class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code>. Proved <strong>equivalent</strong>
-(an iff, not merely sufficient) to (ii): <span
+(an iff, not merely sufficient) to (ii):</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoOddGuardTopEdgeHalfWordBandSupply}
   \iff
-  \mathrm{PowerTwoActualFinalTopEdgeMagnitudeSupply}.\]</span>
-.</p></li>
+  \mathrm{PowerTwoActualFinalTopEdgeMagnitudeSupply}.\]</span></div>
+<p>.</p></li>
 <li><p><span
 class="math inline" data-term-auto="off">\(\mathrm{PowerTwoFlexibleActualTopEdgeMagnitudeSupply}\)</span>:
 the same magnitude test at an <em>arbitrary</em> odd rank whose adjacent
@@ -8957,9 +9047,11 @@ not through the corridor-escape chain below: , direct endpoint
 <li><p><span
 class="math inline" data-term-auto="off">\(\mathrm{PowerTwoFlexibleActualTerminalDominanceSupply}\)</span>:
 a strictly <em>one-sided</em> version of (iv) — only the upper
-comparison, no absolute value: <span
+comparison, no absolute value:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{diagonalWindowIncrement}(2^a,\,2q{+}2)
-\le 2\cdot\mathrm{actualOddHalfCenteredLift}(a,q).\]</span> <span><span
+\le 2\cdot\mathrm{actualOddHalfCenteredLift}(a,q).\]</span></div>
+<p><span><span
 class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code>. Direct endpoint .</p></li>
@@ -8970,11 +9062,13 @@ class="level5">
 <h5>The weakest known link, and the exact identity pinning it.</h5>
 <p>A sixth predicate, strictly weaker again than (v) — it is the
 disjunction of (v)’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> with the opposite-direction escape — is
-the true minimum of the whole cluster: <span
+the true minimum of the whole cluster:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoFlexibleActualTerminalCarryCorridorEscapeSupply}
 :\equiv
   \forall a_0,\ \exists a,q,\quad \cdots\ \wedge\
-  \Bigl(2u \le d - B\ \vee\ d \le 2u\Bigr),\]</span> where <span
+  \Bigl(2u \le d - B\ \vee\ d \le 2u\Bigr),\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(d=\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)\)</span>,
 <span
 class="math inline" data-term-auto="off">\(u=\mathrm{actualOddHalfCenteredLift}(a,q)\)</span>,
@@ -8983,11 +9077,12 @@ class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code>. Direct endpoint .</p>
 <p>This form is not arbitrary: under integrality it is exactly one side
-of a proved identity, <span
+of a proved identity,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2\cdot\mathrm{actualOddHalfCenteredLift}(a,q)
   = \mathrm{diagonalWindowIncrement}(2^a,2q{+}2) -
-\mathrm{carryOrbit}(H,H,z,2q{+}1),\]</span>
-<code>coord:mobius-mersenne</code> — an <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a></em>, not an
+\mathrm{carryOrbit}(H,H,z,2q{+}1),\]</span></div>
+<p><code>coord:mobius-mersenne</code> — an <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a></em>, not an
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>: the doubled centered-lift state is exactly (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> letter) minus (true carry). Escaping either side of this
 named open interval is exactly the corridor-escape supply.</p>
@@ -9023,12 +9118,14 @@ class="math inline" data-term-auto="off">\(j\)</span> (, <span><span
 class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>), and <span
 class="math inline" data-term-auto="off">\(\mathrm{LcmDiagonalArithmeticKill}(t,L)\iff\mathrm{certifiedKill}(H_t,H_t,L)\)</span>
 (, <span><span class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>).</p>
-<p>Consequently <span
+<p>Consequently</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmShortArithmeticKillSupply}
 :\equiv
   \forall a_0,\ \exists a,L,\quad a_0\le a\ \wedge\ L&lt;2\cdot2^a\
 \wedge\
-  \mathrm{certifiedKill}(H_{2^a}, H_{2^a}, L)\]</span> <span><span
+  \mathrm{certifiedKill}(H_{2^a}, H_{2^a}, L)\]</span></div>
+<p><span><span
 class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code> is <em>literally the diagonal
@@ -9059,23 +9156,24 @@ id="a-diophantine-flavoured-alternative-the-raw-approximant-separation-supply."
 class="level5">
 <h5>A Diophantine-flavoured alternative: the raw-approximant separation
 supply.</h5>
-<p>Unconditionally, for every <span class="math inline" data-term-auto="off">\(a,q\)</span>:
-<span class="math display" data-term-auto="off">\[\bigl|\mathrm{actualLcmTailOrbit}(a) -
+<p>Unconditionally, for every <span class="math inline" data-term-auto="off">\(a,q\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\bigl|\mathrm{actualLcmTailOrbit}(a) -
 \mathrm{actualLcmRawApprox}(a,q)\bigr|
-  &lt; \frac{4H+2(2q{+}1)+4}{2^{2q+2}},\]</span>
-<code>coord:mobius-mersenne</code>, where <span
+  &lt; \frac{4H+2(2q{+}1)+4}{2^{2q+2}},\]</span></div>
+<p><code>coord:mobius-mersenne</code>, where <span
 class="math inline" data-term-auto="off">\(\mathrm{actualLcmRawApprox}(a,q)\)</span> is an
 explicit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> computable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>. This reduces the whole analytic
 problem to a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> question: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <span
 class="math inline" data-term-auto="off">\(1/32\)</span>-separation of the raw approximant
-from every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>, <span
+from every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmOrbitSeparationSupply}
 :\equiv
   \forall a_0,\ \exists a\ge\max(2,a_0),\ \exists q,\quad
   \mathrm{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)=2q{+}1\ \wedge\
   \forall z\in\mathbb{Z},\
-\tfrac{1}{32}+\mathrm{errorRadius}(a,q)\le|\mathrm{actualLcmTailOrbit}(a)-z|,\]</span>
-<span><span class="sans-serif">[Open]</span></span> <span><span
+\tfrac{1}{32}+\mathrm{errorRadius}(a,q)\le|\mathrm{actualLcmTailOrbit}(a)-z|,\]</span></div>
+<p><span><span class="sans-serif">[Open]</span></span> <span><span
 class="sans-serif">scale:<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a></span></span>
 <code>coord:mobius-mersenne</code>, sufficient via (<span><span
 class="sans-serif">[<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>]</span></span>). Note the depth <span
@@ -9092,12 +9190,13 @@ class="level3">
 <p>Independently of which coordinate is used, <em>any</em>
 tail-difference <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> — for arbitrary <span
 class="math inline" data-term-auto="off">\(h,N,L\)</span>, not specific to #249 — compresses
-to a two-bit test at logarithmic depth: <span
+to a two-bit test at logarithmic depth:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\exists L,\
 \mathrm{certifiedKill}(h,N,L)\bigr)
   \iff
-  \mathrm{GuardCylinderWitness}(h,N).\]</span>
-<code>coord:seam-integer</code>, where the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> is <span
+  \mathrm{GuardCylinderWitness}(h,N).\]</span></div>
+<p><code>coord:seam-integer</code>, where the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> is <span
 class="math inline" data-term-auto="off">\(\exists s,b,\
 \mathrm{certifiedKill}(h,N{+}s,b{+}1) \vee
 (\text{room} \wedge
@@ -9131,18 +9230,20 @@ independent over <span class="math inline" data-term-auto="off">\(\mathbb{Q}\)</
 CRT and Dirichlet’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> progression):
 <code>coord:other:carry-kernel-rank</code>. Consequently, if <span
 class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> there is a tempered
-integral <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> <span class="math inline" data-term-auto="off">\(u\)</span> with
-<span class="math display" data-term-auto="off">\[\forall e,\quad 2^e-1 \le
-\operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr).\]</span>
-<code>coord:other:carry-kernel-rank</code>.</p>
+integral <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> <span class="math inline" data-term-auto="off">\(u\)</span> with</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall e,\quad 2^e-1 \le
+\operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr).\]</span></div>
+<p><code>coord:other:carry-kernel-rank</code>.</p>
 <p>An opposite <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> — a rationality-side rank <em>upper</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>
-— would of course <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradict</a> the displayed lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>: <span
+— would of course <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradict</a> the displayed lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\exists C,\quad \forall\text{ tempered integral
 binary carry orbit } u
   \text{ for a rational } S,\quad
   \forall e,\quad
 \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr)
-\le C\]</span> (or any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> growing slower than <span
+\le C\]</span></div>
+<p>(or any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> growing slower than <span
 class="math inline" data-term-auto="off">\(2^e-1\)</span>). This is a logically sufficient
 new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-schema" data-term="schema" data-term-auto="1">schema</a>, not an open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> isolated by the preceding
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>: the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> gives no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reason" data-term="reason" data-term-auto="1">reason</a> rationality should force it, and
@@ -9166,10 +9267,12 @@ This pins the obstacle precisely, but supplies no rank upper <a class="narrative
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>’s strongest <em>unconditional</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> about <span
 class="math inline" data-term-auto="off">\(S\)</span> comes from a Farey-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> at a single fixed window <span
-class="math inline" data-term-auto="off">\(K=240\)</span>: <span
+class="math inline" data-term-auto="off">\(K=240\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall p\in\mathbb{Q},\quad p.\mathrm{den} \le
 79639646646701375323355774875831053
-  \ \Longrightarrow\ S\ne p.\]</span> <code>coord:farey</code>. This
+  \ \Longrightarrow\ S\ne p.\]</span></div>
+<p><code>coord:farey</code>. This
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is <em>sharp</em> at <span class="math inline" data-term-auto="off">\(K=240\)</span> —
 the mediant <span
 class="math inline" data-term-auto="off">\(q=79639646646701375323355774875831054\)</span> is

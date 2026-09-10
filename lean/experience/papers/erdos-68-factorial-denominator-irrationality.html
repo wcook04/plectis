@@ -5,6 +5,11 @@
     <p class="lean-paper__subject">Erdős #68</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/erdos-68-factorial-denominator-irrationality.tex">
+<div class="problem">
+<p><strong>Problem 1</strong> (Erdős #68). <em> Is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></munder><mfrac><mn>1</mn><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">S=\sum_{n\ge2}\frac1{n!-1}</annotation></semantics></math>
+irrational?</em></p>
+</div>
 <section id="sec:problem" class="level2">
 <h2>The denominator exclusions</h2>
 <p>Let
@@ -73,6 +78,24 @@ its positive tail removes another unit on taking the floor. This
 accounts for the distinguished residue
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>
 in the following theorem.</p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (fixed companion-orbit rationality
+boundary). <em> The following statements are equivalent:</em></p>
+<ol>
+<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S\in\mathbb Q</annotation></semantics></math>;</em></p></li>
+<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>C</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>m</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(\lfloor m!C\rfloor+2)\operatorname{mod} m=0</annotation></semantics></math>
+for every sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.</em></p></li>
+</ol>
+<p><em>Consequently,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>C</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>m</mi><mo>≠</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ S\notin\mathbb Q
+ \quad\Longleftrightarrow\quad
+ (\forall B)(\exists m&gt;B)\;
+   (\lfloor m!C\rfloor+2)\operatorname{mod} m\ne0 .
+ \label{eq:companion-cofinal}
+\end{equation}</annotation></semantics></math></em></p>
+</div>
 <p>The equivalence and its cofinal form are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29">Lean
 source</a>.</p>
@@ -138,6 +161,12 @@ and using the telescoping identity
 which is rational. Negating the eventual statement yields the cofinal
 formulation above. ◻</p>
 </div>
+<div class="remark">
+<p><strong>Remark 1</strong>. <em> The remaining assertion is cofinal
+escape of this actual factorial orbit from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>.
+The theorem identifies the required event without supplying it.</em></p>
+</div>
 <section id="sec:digits" class="level3">
 <h3>The carry and its wrap correction</h3>
 <p>The canonical factorial digit is
@@ -162,6 +191,13 @@ the two wrap terms. Equality in the defining comparison is the no-wrap
 case. Canonical factorial expansions and their rationality criterion are
 classical <span class="citation"
 data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>.</p>
+<div class="theorem">
+<p><strong>Theorem 3</strong> (exact carry characterisation). <em> The
+following conditions are equivalent:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb Q,\qquad
+(\forall B)(\exists m&gt;B)\ b_m\ne1,\qquad
+(\forall B)(\exists m&gt;B)\ m\nmid Z_m.</annotation></semantics></math></em></p>
+</div>
 <p>The pair of equivalences is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47">Lean
 source</a>.</p>
@@ -208,6 +244,22 @@ This coefficient convention introduces no term
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1!-1)</annotation></semantics></math>
 into
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 4</strong> (divisor-channel coordinates). <em> Set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><msub><mi>e</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>e</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>T</mi><mi>n</mi></msub><mo>−</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>d</mi><mo>∣</mo><mi>n</mi></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mn>2</mn><mo>≤</mo><mi>d</mi><mo>&lt;</mo><mi>n</mi></mrow></mtd></mtr></mtable></munder><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><msub><mi>U</mi><mi>d</mi></msub><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>≥</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">T_n=ne_{n-1}-e_n,\qquad
+U_n=T_n-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}U_d
+\quad(n\ge2).</annotation></semantics></math> Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mi>d</mi><mo>=</mo><mi>n</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">M(U_n)=0,\qquad V_d(U_n)=(d!-1)\mathbf1_{d=n}.</annotation></semantics></math>
+The vectors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>U</mi><mn>2</mn></msub><mo>,</mo><msub><mi>U</mi><mn>3</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">e_1,U_2,U_3,\ldots</annotation></semantics></math>
+form an integral basis. Every finite vector has the unique finite
+expansion
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>e</mi><mn>1</mn></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow></munder><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msub><mi>U</mi><mi>d</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\lambda=M(\lambda)e_1+
+\sum_{d\ge2}\frac{V_d(\lambda)-M(\lambda)}{d!-1}U_d.
+\label{eq:channel-basis-expansion}
+\end{equation}</annotation></semantics></math></em></p>
+</div>
 <p>The observables, the unique expansion and the coefficient formula are
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260">Lean
@@ -351,6 +403,17 @@ counts partitions into
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 unordered blocks of size
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 5</strong> (finite determination of the moment
+ideal). <em> Choose a prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>ℓ</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;\ell\le D</annotation></semantics></math>
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=D(2\ell-1)</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>D</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>H</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>H</mi><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">g_D=\gcd(u_{D+1},\ldots,u_H),\qquad H&lt;2D^2.</annotation></semantics></math></em></p>
+</div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">Lean
 source</a>.</p>
@@ -390,9 +453,32 @@ for
 Finally
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H\le D(2D-1)&lt;2D^2</annotation></semantics></math>. ◻</p>
 </div>
-<p>The exact factorisation is checked for every quotient band at , and
-its zero-channel consequence is . The first-band form is explicit at ;
-the final breakpoint alternative is .</p>
+<div class="theorem">
+<p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Under the
+band hypothesis,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>C</mi><mi>d</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">M=(d!)^k C_d.</annotation></semantics></math>
+In particular, in the first band
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><msub><mi>i</mi><mi>j</mi></msub><mo>&lt;</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">d\le i_j&lt;2d</annotation></semantics></math>,
+channel cancellation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>d</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_d=0</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M=0</annotation></semantics></math>.
+If all indices are at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+channel cancellation and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M\ne0</annotation></semantics></math>
+therefore force at least one index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>i</mi><mi>j</mi></msub><mo>≥</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">i_j\ge2d</annotation></semantics></math>.</em></p>
+</div>
+<p>The exact factorisation is checked for every quotient band at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
+band identity</a>, and its zero-channel consequence is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">band
+cancellation</a>. The first-band form is explicit at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">first-band
+factorisation</a>; the final breakpoint alternative is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">breakpoint
+witness</a>.</p>
 <p>The earlier envelope
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\Lambda_n=\operatorname{lcm}(1,\ldots,n)\mid u_n</annotation></semantics></math>
 remains useful for other certificates. Finite-source checks can end
@@ -634,6 +720,19 @@ Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>ρ</mi><mi>p</mi></msub><mo>&lt;</mo><msub><mi>R</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">0&lt;\rho_p&lt;R_p</annotation></semantics></math>
 whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R_p&gt;1</annotation></semantics></math>.</p>
+<div class="proposition">
+<p><strong>Proposition 7</strong> (global complementary-residue
+criterion). <em> If arbitrarily large natural parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>
+satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>&gt;</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msubsup><mi>L</mi><mi>p</mi><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">k</mi></mrow></msubsup><mo>&lt;</mo><mn>2</mn><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><msub><mi>ρ</mi><mi>p</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+R_p&gt;1,\qquad
+(2p+1)L_p^\mathrm{blk}&lt;2p^2(2p-1)!\rho_p,
+\label{eq:global-complementary-target}
+\end{equation}</annotation></semantics></math> then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is irrational.</em></p>
+</div>
 <p>The criterion at natural parameters is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156">Lean
 source</a>.</p>
@@ -814,52 +913,141 @@ file is cited or projected. The public root imports every cited module.
 The declaration table below is pinned to the shared formal-source commit
 used throughout this problem-note series.</p>
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101"></a></p></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">consecutive
+unit carries iff positive offset le den</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
+step den mul transition normalizers</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
+unit carry window den eq two step den</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
+unit carry window offset eq two step reduced numerator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">rational
+denominator ge of nonunit carry</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">sixty
+seven le rational denominator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">irrational
+factorial gap series iff cofinal strict fac top rat misses</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">irrational
+factorial gap series of cofinal nonunit carries</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">factorial
+gap zero branch iff lower endpoint cylinder</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">factorial
+block unit factor pair floor scale iff</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">exists
+cramer factorial grid residual eq det mul factorial gap series add
+int</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L34">residual
+centre term</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L39">factorial
+coeff term</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L44">residual
+centre</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L49">factorial
+coeff rat</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L80">factorial
+eq mul pred factorial</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L88">pred
+div eq of not dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L102">pred
+div add one eq of dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L129">residual
+centre term of not dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L146">residual
+centre term of dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L170">residual
+centre term self</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L179">factorial
+coeff term self</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L188">residual
+centre recurrence</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">factorial
+pow floor dvd factorial</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L39">channel
+weight</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">channel
+weight mul denominator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L51">channel
+numerator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L55">factorial
+moment</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L59">channel
+event</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">channel
+event eq zero of not dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101">lambda34</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L105">lambda34
+apply three</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L109">lambda34
+apply four</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L112">lambda34
+channel two</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L119">lambda34
+factorial moment</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L126">lambda34
+channel three</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L133">lambda34
+channel four</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L140">lambda34
+channel ge five</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L151">lambda34
+residual of tail</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
+residual bounds</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">square
+subsequence radius cubic lower</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885">no
+eventual square subsequence cubic upper</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905">not
+is little o square subsequence radius</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">square
+subsequence radius three halves lower</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">no
+eventual square subsequence three halves upper</a></p></li>
 </ul>
 <section id="source-current-companion-orbit-and-comparator-routes."
 class="level5">

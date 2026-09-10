@@ -26,11 +26,11 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=12478665a21f">
-  <link rel="stylesheet" href="../assets/maths.css?v=e713f128b031">
+  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=c41c5b379b20"></script>
-  <script defer src="../assets/mathjax-config.js?v=34367ad2ce75"></script>
+  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -108,37 +108,60 @@
 <h2>Introduction</h2>
 <p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of at
 least two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> and <span class="math inline" data-term-auto="off">\(\mathcal S_P\)</span>
-its positive smooth <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>. Put <span
+its positive smooth <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>. Put</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
 x\},\qquad
-\mathcal R_P=\sum_{u\in\mathcal S_P}\operatorname{L}(u)^{-1}.\]</span>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> asks whether <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> is
+\mathcal R_P=\sum_{u\in\mathcal S_P}\operatorname{L}(u)^{-1}.\]</span></div>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> asks whether <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> is
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
 data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. For <span
-class="math inline" data-term-auto="off">\(P=\{p,q,r\}\)</span>, define <span
+class="math inline" data-term-auto="off">\(P=\{p,q,r\}\)</span>, define</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{H}(x)=p^{\lfloor\log_p x\rfloor}
 q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
-\operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility gives <span
+\operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span></div>
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
 (<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>).</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry and arbitrary-order rank</h2>
+<div class="theorem">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (arbitrary-order non-separability). <em>
+Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> with <span
+class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math inline" data-term-auto="off">\(p\ne
+r\)</span> and <span class="math inline" data-term-auto="off">\(q\ne r\)</span>. For every
+<span class="math inline" data-term-auto="off">\(n\ge0\)</span> there are injective maps
+<span class="math inline" data-term-auto="off">\(I,J:\{0,\ldots,n-1\}\to\N\)</span> such
+that, for every <span class="math inline" data-term-auto="off">\(k\ge0\)</span>, <span
+class="math display" data-term-auto="off">\[\det\bigl(\operatorname{K}(I(a),J(b),k)\bigr)_{0\le
+a,b&lt;n}\ne0.\]</span> Consequently, for no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <span
+class="math inline" data-term-auto="off">\(d\)</span> do there exist <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-valued
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">functions</a> <span class="math inline" data-term-auto="off">\(f_\ell(i)\)</span> and <span
+class="math inline" data-term-auto="off">\(G_\ell(j,k)\)</span>, <span
+class="math inline" data-term-auto="off">\(0\le\ell&lt;d\)</span>, satisfying <span
+class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=\sum_{\ell&lt;d}f_\ell(i)G_\ell(j,k)
+\qquad\hbox{for all }i,j,k.\]</span></em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Put <span class="math inline" data-term-auto="off">\(c=r^{-1}\)</span>,
 <span class="math inline" data-term-auto="off">\(x_i=\{i\log_r p\}\)</span> and <span
 class="math inline" data-term-auto="off">\(y_j=\{j\log_r q\}\)</span>. Splitting the floor
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> gives <span
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
-C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},\]</span> where <span
+C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},\]</span></div>
+<p>where</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 U_i(k)&amp;=p^i q^{\lfloor\log_q(p^ir^k)\rfloor}
             r^{k+\lfloor\log_r p^i\rfloor},\\
 V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
             r^{\lfloor\log_r q^j\rfloor}.
-\end{aligned}\]</span> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> are positive. Distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> make
+\end{aligned}\]</span></div>
+<p>Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> are positive. Distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> make
 <span class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
 class="math inline" data-term-auto="off">\(\log_r q\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, so each individual
 rotation is dense. For <span class="math inline" data-term-auto="off">\(n\ge1\)</span>,
@@ -149,14 +172,16 @@ class="math inline" data-term-auto="off">\((0,x_{I(0)})\)</span>, and, for <span
 class="math inline" data-term-auto="off">\(1\le b&lt;n\)</span>, choose <span
 class="math inline" data-term-auto="off">\(1-y_{J(b)}\)</span> in <span
 class="math inline" data-term-auto="off">\((x_{I(b-1)},x_{I(b)})\)</span>. The intervals are
-disjoint, so the column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> are distinct. These choices give <span
+disjoint, so the column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> are distinct. These choices give</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_n(c)=\begin{pmatrix}
 c&amp;1&amp;\cdots&amp;1\\
 c&amp;c&amp;\cdots&amp;1\\
 \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
 c&amp;c&amp;\cdots&amp;c
 \end{pmatrix},\qquad
-\det T_n(c)=c(c-1)^{n-1}.\]</span> Indeed, subtracting each preceding
+\det T_n(c)=c(c-1)^{n-1}.\]</span></div>
+<p>Indeed, subtracting each preceding
 row from the next, working upwards from the last row, leaves diagonal
 entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The same
 <span class="math inline" data-term-auto="off">\(I,J\)</span> work for every <span
@@ -172,6 +197,18 @@ contradicting the nonzero minor. ◻</p>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">Lean
 source</a>.</p>
+<div class="corollary">
+<p><strong>Corollary 2</strong> (the same minors modulo every admissible
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>). <em> For <span
+class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the maps <span
+class="math inline" data-term-auto="off">\(I,J\)</span> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span> can be chosen so
+that their minors are invertible over <span
+class="math inline" data-term-auto="off">\(\mathbb Z/B\mathbb Z\)</span> for every <span
+class="math inline" data-term-auto="off">\(B\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to <span
+class="math inline" data-term-auto="off">\(30\)</span> and every <span
+class="math inline" data-term-auto="off">\(k\ge0\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every row and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> is a unit modulo <span
 class="math inline" data-term-auto="off">\(B\)</span>. The normalised determinant is <span
@@ -183,20 +220,46 @@ class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">Lean
 source</a>.</p>
+<div class="example">
+<p><strong>Example 3</strong>. <em> For <span
+class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
+determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: its four
+entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</span>, so it
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> <span class="math inline" data-term-auto="off">\(1/60-1/12\)</span>.</em></p>
+</div>
 <p>The four entries and the determinant are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102">Lean
 source</a>.</p>
 <section id="the-indices-must-be-selected." class="level5">
 <h5>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> must be selected.</h5>
 <p>The leading <span class="math inline" data-term-auto="off">\(4\times4\)</span> block at
-<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> is singular: <span
+<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> is singular:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{K}(3,j,0)=\frac1{120}\operatorname{K}(0,j,0)\qquad(0\le
-j&lt;4).\]</span> These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> follow by evaluating the height at
+j&lt;4).\]</span></div>
+<p>These <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> follow by evaluating the height at
 <span class="math inline" data-term-auto="off">\(3^j\)</span> and <span
 class="math inline" data-term-auto="off">\(8\cdot3^j\)</span>. At <span
 class="math inline" data-term-auto="off">\(j=4\)</span> the difference is <span
 class="math inline" data-term-auto="off">\(-1/19440000\)</span>. Thus the leading minors do
-not supply the arbitrary-order <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+not supply the arbitrary-order <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<div class="proposition">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 4</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> sampled cut rank). <em> Let
+<span class="math inline" data-term-auto="off">\(m\ge1\)</span> and let <span
+class="math inline" data-term-auto="off">\(c\)</span> lie in a field with <span
+class="math inline" data-term-auto="off">\(c\ne 0,1\)</span>. For <span
+class="math inline" data-term-auto="off">\(0\le k\le m\)</span> write <span
+class="math inline" data-term-auto="off">\(v_k\)</span> for the length-<span
+class="math inline" data-term-auto="off">\(m\)</span> column with a <span
+class="math inline" data-term-auto="off">\(1\)</span> in each of the first <span
+class="math inline" data-term-auto="off">\(k\)</span> coordinates and <span
+class="math inline" data-term-auto="off">\(c\)</span> thereafter. A matrix whose distinct
+columns are <span class="math inline" data-term-auto="off">\(v_k\)</span> for <span
+class="math inline" data-term-auto="off">\(k\)</span> in a nonempty set <span
+class="math inline" data-term-auto="off">\(E\)</span> has rank <span
+class="math inline" data-term-auto="off">\(|E|-\mathbf 1_{\{0,m\}\subseteq
+E}\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> List <span
 class="math inline" data-term-auto="off">\(E=\{k_1&lt;\cdots&lt;k_t\}\)</span>. The <span
@@ -222,7 +285,7 @@ source</a>.</p>
 and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
 class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span>, independently of
 the third coordinate. An exact logarithm-free <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">algorithm</a> orders the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationals</a> <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationals</a> <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
 p^i\rfloor}\)</span>, counts those strictly below each <span
 class="math inline" data-term-auto="off">\(r^{\lfloor\log_r q^j\rfloor+1}/q^j\)</span>, and
 applies the displayed correction. Direct elimination on the <span
@@ -233,25 +296,30 @@ ranks recorded with the accompanying <a class="narrative-ref narrative-ref--term
 </section>
 <section id="the-norm-matters." class="level5">
 <h5>The norm matters.</h5>
-<p>For the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> normalised carry matrix, <span
+<p>For the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> normalised carry matrix,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\inf_{F\text{ of finite separated
-rank}}\|C-F\|_\infty=(1-c)/2.\]</span> Distinct columns are exactly
+rank}}\|C-F\|_\infty=(1-c)/2.\]</span></div>
+<p>Distinct columns are exactly
 <span class="math inline" data-term-auto="off">\(1-c\)</span> apart in the supremum norm, by
 density of the row phases. An approximation below half that distance
 would give <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>, uniformly separated columns in a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-dimensional space. Compactness <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> this. The constant <span
 class="math inline" data-term-auto="off">\((1+c)/2\)</span> attains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>.</p>
 <p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">Finite</a> restrictions have a different behaviour. At <span
-class="math inline" data-term-auto="off">\(c=1/5\)</span>, <span
+class="math inline" data-term-auto="off">\(c=1/5\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T=\begin{pmatrix}1/5&amp;1\\1/5&amp;1/5\end{pmatrix},\qquad
-A=\begin{pmatrix}3/10&amp;9/10\\1/10&amp;3/10\end{pmatrix}\]</span>
-satisfy <span class="math inline" data-term-auto="off">\(\det A=0\)</span> and <span
+A=\begin{pmatrix}3/10&amp;9/10\\1/10&amp;3/10\end{pmatrix}\]</span></div>
+<p>satisfy <span class="math inline" data-term-auto="off">\(\det A=0\)</span> and <span
 class="math inline" data-term-auto="off">\(\|T-A\|_{\max}=1/10&lt;2/5\)</span>. For the
 original kernel, truncating the first coordinate at <span
 class="math inline" data-term-auto="off">\(N\)</span> gives separated rank at most <span
-class="math inline" data-term-auto="off">\(N\)</span> and <span
+class="math inline" data-term-auto="off">\(N\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\|K-K^{(N)}\|_{\ell^1}
-\le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.\]</span> This
+\le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.\]</span></div>
+<p>This
 follows from <span class="math inline" data-term-auto="off">\(H(x)&gt;x^3/(pqr)\)</span>.
 Thus the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> uniform <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> coexists with geometric
 approximation in the summation norm. The scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> question
@@ -272,6 +340,17 @@ positive pure-<a class="narrative-ref narrative-ref--term is-term-again" href=".
 value. The same boundary-channel calculation also yields the
 de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
+<div class="theorem">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 5</strong> (both two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> sums). <em> Put <span
+class="math inline" data-term-auto="off">\(\theta=\log p/\log q\)</span> and <span
+class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}p^{-n}q^{-\lfloor
+n\theta\rfloor}\)</span>. Then <span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:two-prime-affine}
+\mathcal D_{p,q}=\frac{(q-p)A+p}{q-1},\qquad
+\mathcal R_{p,q}=\frac{(p+q-1)A-(p-1)A^2}{q-1}.
+\end{equation}\]</span> Both <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">numbers</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-transcendental" data-term="transcendental" data-term-auto="1">transcendental</a>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set <span class="math inline" data-term-auto="off">\(x=1/p\)</span>, <span
 class="math inline" data-term-auto="off">\(y=1/q\)</span>, <span
@@ -287,18 +366,24 @@ class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}x^ny^{m_n}\)</span>. Th
 class="math inline" data-term-auto="off">\(p^n\)</span> and <span
 class="math inline" data-term-auto="off">\(p^{n+1}\)</span> precisely when <span
 class="math inline" data-term-auto="off">\(\delta_n=1\)</span>, so the other channel
-contributes <span
+contributes</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[B=\sum_{n\ge0}\delta_nx^ny^{m_n+1},\qquad
-\mathcal D_{p,q}=A+B.\]</span> All these <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> converge absolutely.
+\mathcal D_{p,q}=A+B.\]</span></div>
+<p>All these <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> converge absolutely.
 Since <span
 class="math inline" data-term-auto="off">\(y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y-1)\)</span>,
 shifting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> for <span class="math inline" data-term-auto="off">\(A\)</span> gives
-<span class="math inline" data-term-auto="off">\(A-1-xA=x(y-1)B/y\)</span>. Therefore <span
-class="math display" data-term-auto="off">\[B=\frac{p-(p-1)A}{q-1}.\]</span> At <span
+<span class="math inline" data-term-auto="off">\(A-1-xA=x(y-1)B/y\)</span>. Therefore</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[B=\frac{p-(p-1)A}{q-1}.\]</span></div>
+<p>At <span
 class="math inline" data-term-auto="off">\(p^iq^j\)</span> the height is <span
 class="math inline" data-term-auto="off">\(p^{i+\lfloor j/\theta\rfloor}q^{j+m_i}\)</span>,
-hence <span class="math display" data-term-auto="off">\[\mathcal R_{p,q}
-=A\sum_{j\ge0}y^jx^{\lfloor j/\theta\rfloor}=A(1+B).\]</span> For the
+hence</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal R_{p,q}
+=A\sum_{j\ge0}y^jx^{\lfloor j/\theta\rfloor}=A(1+B).\]</span></div>
+<p>For the
 last <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>, each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>
 corresponds to <span class="math inline" data-term-auto="off">\(n=\lfloor
 j/\theta\rfloor\)</span> with <span
@@ -307,10 +392,12 @@ class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. These identities
 class="math inline" data-term-auto="off">\(\eqref{eq:two-prime-affine}\)</span>.</p>
 <p>For the Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <span
 class="math inline" data-term-auto="off">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>,
-geometric summation gives <span class="math display" data-term-auto="off">\[\begin{equation}
+geometric summation gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:hecke-mahler-boundary}
 A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
-\end{equation}\]</span> Bugeaud and Laurent’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1.1 applies to
+\end{equation}\]</span></div>
+<p>Bugeaud and Laurent’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1.1 applies to
 these nonzero algebraic <span class="math inline" data-term-auto="off">\(x,y\)</span> <span
 class="citation" data-cites="bugeaudlaurent2023"></span>: <span
 class="math inline" data-term-auto="off">\(|x|&lt;1\)</span> and <span
@@ -325,55 +412,78 @@ algebraic. ◻</p>
 <p>The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> expresses both sums through one value. The
 third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> leaves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
 class="math inline" data-term-auto="off">\(\ref{sec:rank}\)</span>. Its rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> concerns
-that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>; the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> depends on the multiplicities
+that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>; the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> depends on the multiplicities
 introduced next. The de-duplicated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> assertion is historical
 <span class="citation" data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>.</p>
 </section>
 <section id="sec:lcm" class="level2">
 <h2>Exact multiplicities and normalised tails</h2>
 <p> </p>
+<div class="proposition">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 6</strong> (the running <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-least-common-multiple" data-term="least_common_multiple" data-term-auto="1">least common multiple</a>).
+<em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}(x)\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every smooth <span class="math inline" data-term-auto="off">\(n\le
 x\)</span> has <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> by the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>
 logarithms, so <span
 class="math inline" data-term-auto="off">\(n\mid\operatorname{H}(x)\)</span>. Conversely the
 three maximal pure <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> occur among those <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-smooth-number" data-term="smooth_number" data-term-auto="1">smooth numbers</a>; their
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a> the running LCM because they are pairwise <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>. ◻</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a> the running LCM because they are pairwise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>. ◻</p>
 </div>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is . The same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> gives <span
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">Lean
+source</a>. The same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:cube}
 x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
-\end{equation}\]</span> Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are <a
+\end{equation}\]</span></div>
+<p>Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">Lean
 source</a>. The height is constant between consecutive pure-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>
 boundaries and gains a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a> to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> at each boundary. If
 <span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, exact
-regrouping gives <span class="math display" data-term-auto="off">\[\begin{equation}
+regrouping gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:fibre}
 \sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
-\end{equation}\]</span> Each term in <span
+\end{equation}\]</span></div>
+<p>Each term in <span
 class="math inline" data-term-auto="off">\(F(H)\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> <span
 class="math inline" data-term-auto="off">\(1/H\)</span>, which proves the identity. The
 multiplicities remain present in every subsequent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> sum. The
-regrouping is .</p>
+regrouping is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">Lean
+source</a>.</p>
 <p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
 <span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
-class="math inline" data-term-auto="off">\(a\ge0\)</span> define <span
+class="math inline" data-term-auto="off">\(a\ge0\)</span> define</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[s_a=\sum_{\substack{x\text{ smooth}\\2^a\le
 x&lt;2^{a+1}}}\frac1{\operatorname{H}(x)},
 \quad T_a=\sum_{j\ge0}s_{a+j},\quad
-h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.\]</span> Thus <span
+h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.\]</span></div>
+<p>Thus <span
 class="math inline" data-term-auto="off">\(T_a\)</span> is the raw tail and <span
 class="math inline" data-term-auto="off">\(X_a\)</span> its normalised state. The literal
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> and forcing digit are <span
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> and forcing digit are</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-digit}
 b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
 m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
-\end{equation}\]</span></p>
+\end{equation}\]</span></div>
+<div class="lemma">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 7</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> forcing and the four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radices</a>). <em>
+For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(m_a\)</span> is a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a> and <span
+class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span class="math inline" data-term-auto="off">\(x&lt;2^{a+1}\)</span>,
 the two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of <span
@@ -391,6 +501,19 @@ is at most one three-<a class="narrative-ref narrative-ref--term is-term-again" 
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">Lean
 source</a>.</p>
+<div class="proposition">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 8</strong> (the actual <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and a
+polynomial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>). <em> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> defining <span
+class="math inline" data-term-auto="off">\(S,T_a\)</span> converge. For every <span
+class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
+class="math display" data-term-auto="off">\[X_{a+1}=b_aX_a-m_a,\qquad
+0&lt;X_a\le\frac{8640}{343}(a+1)^2&lt;90(a+1)^2.\]</span> For every
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span class="math inline" data-term-auto="off">\(B\ge1\)</span>, either some <span
+class="math inline" data-term-auto="off">\(BX_a\)</span> is integral and all later states are
+integral, or <span
+class="math inline" data-term-auto="off">\(\operatorname{dist}(BX_a,\mathbb
+Z)\ge1/31\)</span> at arbitrarily large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> contains at most one two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> for
 each pair of three- and five-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponents</a>. Each of the latter lies between
@@ -398,10 +521,12 @@ each pair of three- and five-<a class="narrative-ref narrative-ref--term is-term
 class="math inline" data-term-auto="off">\(a\)</span>, so its count is at most <span
 class="math inline" data-term-auto="off">\((a+1)^2\)</span>. By <span
 class="math inline" data-term-auto="off">\(\eqref{res:cube}\)</span>, <span
-class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore <span
+class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
-      =\frac{8640}{343}(a+1)^2.\]</span> This proves <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> and the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Splitting the first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> gives the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> because <span
+      =\frac{8640}{343}(a+1)^2.\]</span></div>
+<p>This proves <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Splitting the first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">shell</a> gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> because <span
 class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span> and <span
 class="math inline" data-term-auto="off">\(h_{a+1}=b_ah_a\)</span>. All four clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">Lean
@@ -424,15 +549,26 @@ Q(n)=(1210n^2+9130n+18847)/11979\)</span> uses the <a class="narrative-ref narra
 successive two-jumps and has a separate ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The present cap
 suffices for the criterion; the sharper argument belongs in the extended
 record rather than in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
+<div class="theorem">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 9</strong> (actual rationality-to-reduced-carry
+bridge). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, where <span class="math inline" data-term-auto="off">\(D=2^u3^v5^wB\)</span> and <span
+class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span>, then for every <span
+class="math inline" data-term-auto="off">\(a\ge a_0=u+1+2v+3w\)</span>, <span
+class="math display" data-term-auto="off">\[d_a=BX_a\in\mathbb Z_{&gt;0},\qquad
+d_{a+1}=b_ad_a-Bm_a,\qquad d_a\le90B(a+1)^2.\]</span></em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> For <span class="math inline" data-term-auto="off">\(a\ge1\)</span>,
-strict boundary clearing gives <span
+strict boundary clearing gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:prefix-lattice}
 X_a=h_aS-Z_a,\qquad
 Z_a=\sum_{\substack{x\text{
 smooth}\\x&lt;2^a}}\frac{h_a}{\operatorname{H}(x)}\in\mathbb Z.
-\end{equation}\]</span> The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of <span
+\end{equation}\]</span></div>
+<p>The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of <span
 class="math inline" data-term-auto="off">\(h_a\)</span> is <span
 class="math inline" data-term-auto="off">\(a-1\)</span>. Moreover <span
 class="math inline" data-term-auto="off">\(a\ge2v\)</span> gives <span
@@ -451,24 +587,37 @@ source</a>.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a></h2>
-<p> The actual digits in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:actual-digit}\)</span> define <span
+<p>The actual digits in <span
+class="math inline" data-term-auto="off">\(\eqref{eq:actual-digit}\)</span> define</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
 W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
-F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span> Induction on
-<span class="math inline" data-term-auto="off">\(h\)</span> gives <span
+F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span></div>
+<p>Induction on
+<span class="math inline" data-term-auto="off">\(h\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-tail}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
-\end{equation}\]</span> Let <span
+\end{equation}\]</span></div>
+<p>Let <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)\)</span> be the
 representative in <span class="math inline" data-term-auto="off">\(\{1,\ldots,W\}\)</span> of
 <span class="math inline" data-term-auto="off">\(t\bmod W\)</span>, representing a zero
 residue by <span class="math inline" data-term-auto="off">\(W\)</span>. Throughout this
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> use the valid cap <span class="math display" data-term-auto="off">\[\begin{equation}
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> use the valid cap</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
 K(B,a)=90B(a+1)^2.
-\end{equation}\]</span></p>
+\end{equation}\]</span></div>
+<div class="lemma">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 10</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> endpoint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>). <em> If
+<span class="math inline" data-term-auto="off">\(d\)</span> is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a> with <span
+class="math inline" data-term-auto="off">\(d\le K\)</span> and <span
+class="math inline" data-term-auto="off">\(d\equiv -BF\pmod W\)</span>, where <span
+class="math inline" data-term-auto="off">\(W\ge1\)</span>, then <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le K\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Every positive representative of the residue is at
 least its least positive representative, so <span
@@ -478,6 +627,19 @@ K\)</span>. ◻</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">Lean
 source</a>.</p>
+<div class="theorem">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 11</strong> (the actual window criterion). <em> The
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> <span class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> if and only
+if <span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:escape}
+\begin{gathered}
+\text{for every }B\ge1\text{ with }\gcd(B,30)=1
+\text{ and every }a_0\ge1,\\
+\text{there are }\ell\ge a_0,\ h\ge1\text{ such that}
+\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})&gt;K(B,\ell+h).
+\end{gathered}
+\end{equation}\]</span></em></p>
+</div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
@@ -488,7 +650,7 @@ class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span> beyond tha
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span class="math inline" data-term-auto="off">\(\eqref{eq:actual-tail}\)</span>
 gives <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
-contradicting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span
+contradicting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span
 class="math inline" data-term-auto="off">\(\ref{res:consumer}\)</span> and the valid cap.</p>
 <p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>
 and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
@@ -501,9 +663,11 @@ class="math inline" data-term-auto="off">\(X_{\ell+h}=O((\ell+h+1)^2)\)</span>, 
 sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a>
 <span class="math inline" data-term-auto="off">\(\delta+BX_{\ell+h}/W_{\ell,h}\)</span> lies
 in <span class="math inline" data-term-auto="off">\((0,1)\)</span>. The window identity then
-gives the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a> <span
+gives the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
-=\delta W_{\ell,h}+BX_{\ell+h}.\]</span> Its exponentially growing first
+=\delta W_{\ell,h}+BX_{\ell+h}.\]</span></div>
+<p>Its exponentially growing first
 term eventually exceeds <span
 class="math inline" data-term-auto="off">\(K(B,\ell+h)\)</span>. This proves <span
 class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span>, in fact from each
@@ -517,10 +681,39 @@ polynomial growth condition by itself would not suffice. The zero cap,
 for example, makes positive-residue escape automatic. The criterion
 identifies the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> in window coordinates. The unresolved point is the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-specific <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> below.</p>
+<div class="problem">
+<p><strong>Problem 12</strong> (exact nonintegrality of every reduced
+tail). <em> Prove that for every <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span> and every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
+class="math inline" data-term-auto="off">\(B\ge1\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to <span
+class="math inline" data-term-auto="off">\(30\)</span>, <span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:tail-nonintegrality}
+BX_a\notin\mathbb Z.
+\end{equation}\]</span></em></p>
+</div>
+<div class="problem">
+<p><strong>Problem 13</strong> (actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> local-window escape).
+<em> Prove the displayed quantifier order <span
+class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
+\exists\ell\ge a_0\ \exists h\ge1:\quad
+\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
+   &gt;K(B,\ell+h).\]</span></em></p>
+</div>
+<div class="problem">
+<p><strong>Problem 14</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>-faithful two-dimensional
+representation). <em>Express <span class="math inline" data-term-auto="off">\(\mathcal
+D_{2,3,5}\)</span> as a nonconstant algebraic combination of values of a
+specified two-dimensional Hecke–Mahler, cone-generating or multivariate
+Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a> every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> value
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>; or give a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional theorem</a> under an explicit logarithmic
+nondegeneracy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>; or prove that the literal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> has no
+representation in the specified <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-dimensional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>.</em></p>
+</div>
 <p>By <span class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span>,
 one integral value would make <span class="math inline" data-term-auto="off">\(S\)</span>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>; the bridge proves the reverse <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> after clearing its
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>. Thus the pointwise formulation is equivalent to the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>. Thus the pointwise formulation is equivalent to the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> question.</p>
 <section id="the-information-the-remaining-argument-must-use."
 class="level5">
@@ -576,15 +769,305 @@ data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
 <h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> are recorded by the following per-link immutable
 revisions.</p>
-<p>, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
-, , , , , , , , , , , , , , , <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688"></a>,
-, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
-, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , <a
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L31">smooth3
+val</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L36">three
+prime height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L40">three
+prime kernel q</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L46">smooth
+prefix exponents</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L53">smooth
+prefix lcm</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L59">smooth3
+val dvd three prime height of mem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L77">smooth
+prefix lcm dvd three prime height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L84">pure
+first mem smooth prefix exponents</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L97">pure
+second mem smooth prefix exponents</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L110">pure
+third mem smooth prefix exponents</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">smooth
+prefix lcm eq three prime height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L163">same
+three prime log cell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L169">three
+prime height eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">smooth
+prefix lcm eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L191">three
+prime kernel q eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L204">positive
+prime powers</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L208">positive
+prime powers card</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L219">one
+not mem positive prime powers</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L229">positive
+prime powers disjoint</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L243">three
+prime positive jump set</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L249">three
+prime positive jump set card</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L273">three
+prime jump set with origin</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L278">three
+prime jump set with origin card</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L294">three
+prime height first log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L305">three
+prime height second log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L316">three
+prime height third log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L326">smooth
+prefix lcm first log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L339">smooth
+prefix lcm second log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L352">smooth
+prefix lcm third log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L368">smooth
+exponent box</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L373">smooth
+point height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L377">smooth
+height fiber</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L384">smooth
+height fiber kernel sum</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">finite
+smooth kernel sum grouped by height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L430">three
+prime height le cube</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L443">kernel
+235 origin</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L450">kernel
+235 two</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L458">kernel
+235 three</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L467">kernel
+235 six</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L479">kernel
+235 not rank one</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L487">tail
+state step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L490">tail
+state step eq</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L500">smooth
+exponent shell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L509">exponent
+unique in short interval</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L543">smooth
+exponent shell card le drop first</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L585">smooth
+exponent shell card le drop third</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L629">sorted
+pair quadratic</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">smooth
+exponent shell card quadratic</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L662">dyadic
+internal power</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L668">dyadic
+internal power exponent unique</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688">dyadic
-block base</a>, , , , , , , , , , , , , , , , , , <a
+block base235</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">dyadic
+block base235 cases</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L711">dyadic
+block base235 mem interval</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L26">least
+positive residue</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L31">least
+positive residue pos le</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L52">least
+positive residue mod eq</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L71">residue
+escapes window</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L76">no
+bounded positive state of residue escape</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L96">residue
+le bound of bounded positive state</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L110">no
+bounded positive int state of least positive residue</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
+base</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
+forcing</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455">affine
+recurrence window</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L469">window
+forcing const mul</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">integral
+carry window</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548">smooth3
+val dvd three prime height of le</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581">integral
+carry cancel common factor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601">reduced
+carry pos le of common factor</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">reduced
+integral carry window</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
+local window escape</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
+positive reduced carry of cofinal local window escape</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L31">smooth
+lattice value</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L53">running
+least common multiple</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L36">pure-power
+height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L40">lattice
+kernel</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L46">smooth
+prefix index set</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">running-lcm
+identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L77">divisibility
+into the height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L84">first</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L97">second</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L110">third</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L430">cubic
+majorant</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L163">cell
+relation</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">cell
+constancy of the running value</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L169">cell
+constancy of the height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L191">cell
+constancy of the kernel</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L326">first</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L339">second</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L352">third</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L294">first
+height step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L305">second</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L316">third</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L249">positive
+jump count</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L278">jump
+count with the origin</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L208">channel
+cardinality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L229">channel
+disjointness</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L219">exclusion
+of the origin</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L204">positive
+power sets</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L368">exponent
+box</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L377">height
+fibre</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">height-fibre
+normal form</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L384">fibre
+sum</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L373">point
+height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L487">variable-base
+tail step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L490">that
+names its expanded form</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L500">smooth
+exponent shell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L509">short-interval
+uniqueness</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L585">third-coordinate
+projection</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L543">first-coordinate
+projection</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">quadratic
+shell bound</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L629">sorted
+quadratic estimate</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L479">non-separation
+witness</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L443">origin</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L450">value
+at two</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L458">value
+at three</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L467">value
+at six</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L721">rank-two
+certificate</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L668">checked
+internal-power uniqueness lemma</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688">dyadic
+block base</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">exact
+four-case alphabet</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L711">bounded-radix
+consequence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548">checked
+absorption</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581">checked
+cancellation</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601">checked
+bound transfer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">checked
+window transfer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
+base</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
+forcing</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">checked
+window identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L26">canonical
+representative</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L31">positive
+range</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L52">congruence
+to the source integer</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
+local-window escape condition</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L76">finite
+contradiction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L110">integer
+form of the contradiction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L138">exact
+least-positive-residue classifier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">reduced-carry
+extinction theorem</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689">absorbed-carry
-extinction theorem</a>, , , , , , , , , , , , .</p>
+extinction theorem</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L89">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L497">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">residue–coboundary
+form</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">symbolic
+realisation</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334">checked</a>,
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150">carry
+interval</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157">digit
+interval</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean#L59">potential
+classifier</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L178">one-index
+extinction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L238">uniform
+extinction</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L289">first-block
+sum</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308">four-state
+obstruction</a>.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>

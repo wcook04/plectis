@@ -26,11 +26,11 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=12478665a21f">
-  <link rel="stylesheet" href="../assets/maths.css?v=e713f128b031">
+  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=c41c5b379b20"></script>
-  <script defer src="../assets/mathjax-config.js?v=34367ad2ce75"></script>
+  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -244,18 +244,24 @@ with it.</figcaption>
 human direction, infrastructure, problem choice, and accumulated
 knowledge. Mathematical progress additionally depends on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> and
 scarce human <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a>. The notation below makes those <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a>
-explicit. Let <span class="math display" data-term-auto="off">\[C_t,\ A_t,\ H_t,\ I_t,\ P,\
-K_t,\ V_t,\ R_t\]</span> denote, at time <span
+explicit. Let</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_t,\ A_t,\ H_t,\ I_t,\ P,\
+K_t,\ V_t,\ R_t\]</span></div>
+<p>denote, at time <span
 class="math inline" data-term-auto="off">\(t\)</span>, available compute, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> capability,
 contributed human mathematical direction, infrastructure quality,
 problem selection, accumulated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> knowledge, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> capacity,
 and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> capacity. The rate of candidate generation may be written
-schematically as <span
+schematically as</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[G_t=G(C_t,A_t,H_t,I_t,P,K_t).
-\tag{2.1}\label{eq:generation}\]</span> The rate of <em>reviewable
-mathematical progress</em> is a different quantity: <span
+\tag{2.1}\label{eq:generation}\]</span></div>
+<p>The rate of <em>reviewable
+mathematical progress</em> is a different quantity:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[Y_t=Q(G_t,V_t,R_t),
-\tag{2.2}\label{eq:accepted}\]</span> where <span
+\tag{2.2}\label{eq:accepted}\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(Q\)</span> includes <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> checking, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>
 reconciliation, attribution, and editorial selection. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equations</a> <span
 class="math inline" data-term-auto="off">\(\eqref{eq:generation}\)</span> and <span
@@ -267,7 +273,8 @@ understood. A better <a class="narrative-ref narrative-ref--term is-term-again" 
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> is difficult to navigate. Expert insight can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a>
 distribution without supplying any compute. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">Review</a> capacity can be the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bind" data-term="bind" data-term-auto="1">binding</a> constraint even when <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> generation is cheap.</p>
-<p>The open-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> strategy adds two recursive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">updates</a>: <span
+<p>The open-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> strategy adds two recursive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">updates</a>:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 K_{t+1}&amp;=K_t+\Delta_t^{\rm theorem}
               +\Delta_t^{\rm counterexample}
@@ -279,7 +286,8 @@ I_{t+1}&amp;=I_t+\Delta_t^{\rm navigation}
               +\Delta_t^{\rm reproducibility}
               +\Delta_t^{\rm governance}.
 \end{aligned}
-\tag{2.3}\label{eq:feedback}\]</span> Only <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">reviewed</a>, scoped <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">returns</a>
+\tag{2.3}\label{eq:feedback}\]</span></div>
+<p>Only <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">reviewed</a>, scoped <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">returns</a>
 enter these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">updates</a>. The first line makes later <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> less forgetful.
 The second makes later <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> less expensive or more <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reliability" data-term="reliability" data-term-auto="1">reliable</a>. A local
 failure can therefore have two legitimate effects: it may add a

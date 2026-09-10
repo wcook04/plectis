@@ -16,6 +16,16 @@ class="math inline" data-term-auto="off">\(a_{n-1}\)</span> equals <span
 class="math inline" data-term-auto="off">\(1/(a_{n-1}-1)\)</span>. Erdős Problem #243 asserts
 that this is the only way a sequence of that growth can have a rational
 reciprocal sum:</p>
+<div class="problem">
+<p><strong>Problem 1</strong> (Erdős #243). <em> Let <span
+class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a sequence
+of integers with <span
+class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^{2}}=1
+\qquad\text{and}\qquad
+\sum\frac{1}{a_n}\in\Q .\]</span> Then <span
+class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-4">[4]</a></span>
 and <span class="citation" data-cites="erdos1988"><a href="#ref-5">[5]</a></span>. Bloom’s
 catalogue records the problem as open <span class="citation"
@@ -23,8 +33,9 @@ data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. Below we index the s
 as <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span>, which is
 the shift the formal sources use; the two forms are the same statement.
 Write <span
-class="math inline" data-term-auto="off">\(\operatorname{syl}(a)=a^{2}-a+1\)</span>, the
-.</p>
+class="math inline" data-term-auto="off">\(\operatorname{syl}(a)=a^{2}-a+1\)</span>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L37">Sylvester
+successor</a>.</p>
 <p>The hypothesis is asymptotic and the conclusion is exact, so the
 argument must convert an analytic rate into an integer obstruction. The
 conversion used here is the classical one: clear denominators along the
@@ -52,6 +63,27 @@ exclusion it rests on. It is self-contained: the integer state it uses
 is constructed here in six lines, and Section <span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:state}\)</span> returns to that
 construction at leisure.</p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (cubic-rate irrationality). <em> If
+strictly increasing positive integers satisfy <span
+class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+3/n+o(n^{-3})\)</span>, then <span
+class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> is irrational.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 3</strong> (rising-factorial cubic exclusion). <em>
+Let <span class="math inline" data-term-auto="off">\(a,C,D:\N\to\Z_{&gt;0}\)</span> satisfy
+<span class="math display" data-term-auto="off">\[\begin{equation}
+\label{long243:eq:cubicorbit}
+C_{n+1}=a_nC_n-D_n,\qquad D_{n+1}=a_nD_n .
+\end{equation}\]</span> Then for every <span
+class="math inline" data-term-auto="off">\(A\in\Q_{&gt;0}\)</span> and every <span
+class="math inline" data-term-auto="off">\(B\in\Q\)</span>, <span
+class="math display" data-term-auto="off">\[\liminf_{X\to\infty}
+\frac{\#\{n\le X:C_n\ne A\,n(n+1)(n+2)+B\}}{X}&gt;0 .\]</span> In
+particular no such orbit satisfies <span
+class="math inline" data-term-auto="off">\(C_n=A\,n(n+1)(n+2)+B\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <p>The quantifier in Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:cubicexclusion}\)</span> is the
 one that the irrationality theorem needs. It excludes agreement along
@@ -66,16 +98,21 @@ the argument can be checked on the page.</p>
 <h5>The canonical integer tail.</h5>
 <p>Suppose <span class="math inline" data-term-auto="off">\(\sum_{n\ge1}1/a_n=p/q\)</span>
 with <span class="math inline" data-term-auto="off">\(p,q\ge1\)</span>, and write <span
-class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span> for the tail. Put
-<span class="math display" data-term-auto="off">\[D_n=q\prod_{k&lt;n}a_k,\qquad C_n=D_nx_n
-.\]</span> Then <span class="math inline" data-term-auto="off">\(D_n\)</span> is a positive
-integer, and <span class="math display" data-term-auto="off">\[C_n=D_n\Bigl(\frac
+class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span> for the tail. Put</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[D_n=q\prod_{k&lt;n}a_k,\qquad C_n=D_nx_n
+.\]</span></div>
+<p>Then <span class="math inline" data-term-auto="off">\(D_n\)</span> is a positive
+integer, and</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_n=D_n\Bigl(\frac
 pq-\sum_{k&lt;n}\frac1{a_k}\Bigr)
     =p\prod_{k&lt;n}a_k-q\sum_{k&lt;n}\ \prod_{\substack{j&lt;n\\ j\ne
-k}}a_j\]</span> is a positive integer as well. From <span
-class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>, <span
+k}}a_j\]</span></div>
+<p>is a positive integer as well. From <span
+class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
-\qquad D_{n+1}=a_nD_n,\]</span> which is <span
+\qquad D_{n+1}=a_nD_n,\]</span></div>
+<p>which is <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:cubicorbit}\)</span>.
 Section <span class="math inline" data-term-auto="off">\(\ref{long243:sec:state}\)</span>
 constructs the same triple with its centred error <span
@@ -89,6 +126,17 @@ class="level3">
 <p>For <span class="math inline" data-term-auto="off">\(S\subseteq\N\)</span> write <span
 class="math inline" data-term-auto="off">\(\underline
 d(S)=\liminf_X\#(S\cap[1,X])/X\)</span>.</p>
+<div class="lemma">
+<p><strong>Lemma 4</strong> (periodic obstruction principle). <em> Let
+<span class="math inline" data-term-auto="off">\(h\ge1\)</span>, let <span
+class="math inline" data-term-auto="off">\(j_1,\ldots,j_L\)</span> be fixed offsets, and
+suppose that for every sufficiently large <span
+class="math inline" data-term-auto="off">\(n\)</span> in one residue class modulo <span
+class="math inline" data-term-auto="off">\(h\)</span> at least one of <span
+class="math inline" data-term-auto="off">\(n+j_1,\ldots,n+j_L\)</span> lies in <span
+class="math inline" data-term-auto="off">\(S\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\underline d(S)\ge1/(Lh)\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> There are <span
 class="math inline" data-term-auto="off">\(X/h+O(1)\)</span> relevant starting indices below
@@ -98,11 +146,38 @@ class="math inline" data-term-auto="off">\(L\)</span> of them. ◻</p>
 </div>
 <p>Fix <span class="math inline" data-term-auto="off">\(A\in\Q_{&gt;0}\)</span>, <span
 class="math inline" data-term-auto="off">\(B\in\Q\)</span>, and suppose for contradiction
-that <span class="math display" data-term-auto="off">\[P(n)=A\,n(n+1)(n+2)+B,
+that</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P(n)=A\,n(n+1)(n+2)+B,
 \qquad S=\{n:C_n\ne P(n)\},
-\qquad \underline d(S)=0 .\]</span> Everything through the end of
+\qquad \underline d(S)=0 .\]</span></div>
+<p>Everything through the end of
 Section <span class="math inline" data-term-auto="off">\(\ref{long243:sec:modseven}\)</span>
 runs under that assumption.</p>
+<div class="lemma">
+<p><strong>Lemma 5</strong> (gcd stabilisation and the primitive shape).
+<em> Write <span class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span>. Then
+<span class="math inline" data-term-auto="off">\(6A\)</span> is a positive integer, <span
+class="math inline" data-term-auto="off">\(G_n\)</span> divides <span
+class="math inline" data-term-auto="off">\(6A\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>, and <span
+class="math inline" data-term-auto="off">\(G_n\)</span> is eventually equal to a positive
+integer <span class="math inline" data-term-auto="off">\(g\)</span>. On the tail where <span
+class="math inline" data-term-auto="off">\(G_n=g\)</span>, put <span
+class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span>, <span
+class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span> and <span
+class="math inline" data-term-auto="off">\(Q(n)=P(n)/g\)</span>. Then <span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long243:eq:primitivetail}
+u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n,\qquad \gcd(u_n,v_n)=1,
+\qquad\gcd(u_n,u_{n+1})=1,
+\end{equation}\]</span> and there are <span
+class="math inline" data-term-auto="off">\(m\in\Z_{&gt;0}\)</span> and <span
+class="math inline" data-term-auto="off">\(c\in\{-1,1\}\)</span> with <span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long243:eq:Qmc}
+Q(n)=\frac m6n(n+1)(n+2)+c .
+\end{equation}\]</span></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Equation <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:cubicorbit}\)</span> gives <span
@@ -148,10 +223,12 @@ every <span class="math inline" data-term-auto="off">\(c\)</span> with a prime f
 class="math inline" data-term-auto="off">\(c\)</span>, or any prime if <span
 class="math inline" data-term-auto="off">\(c=0\)</span>. For <span
 class="math inline" data-term-auto="off">\(n\equiv-1\pmod{6\ell}\)</span>, write <span
-class="math inline" data-term-auto="off">\(n+1=6\ell k\)</span>; then <span
+class="math inline" data-term-auto="off">\(n+1=6\ell k\)</span>; then</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{n(n+1)(n+2)}6=\ell k(6\ell k-1)(6\ell k+1),
 \qquad
-\frac{(n+1)(n+2)(n+3)}6=\ell k(n+2)(n+3),\]</span> so <span
+\frac{(n+1)(n+2)(n+3)}6=\ell k(n+2)(n+3),\]</span></div>
+<p>so <span
 class="math inline" data-term-auto="off">\(\ell\)</span> divides both <span
 class="math inline" data-term-auto="off">\(Q(n)\)</span> and <span
 class="math inline" data-term-auto="off">\(Q(n+1)\)</span>. Agreement at both indices would
@@ -164,6 +241,16 @@ with <span class="math inline" data-term-auto="off">\(L=2\)</span>, <span
 class="math inline" data-term-auto="off">\(h=6\ell\)</span> gives <span
 class="math inline" data-term-auto="off">\(\underline d(S)\ge1/(12\ell)\)</span>. This
 contradiction leaves <span class="math inline" data-term-auto="off">\(c=\pm1\)</span>. ◻</p>
+</div>
+<div class="lemma">
+<p><strong>Lemma 6</strong> (the multiplier supply, and the reducible
+case). <em> On the primitive tail, <span
+class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>, the multipliers at
+distinct indices are pairwise coprime, infinitely many of them exceed
+<span class="math inline" data-term-auto="off">\(1\)</span>, and the cubic <span
+class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> of <span
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:Qmc}\)</span> is irreducible
+over <span class="math inline" data-term-auto="off">\(\Q\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A prime dividing <span
@@ -199,6 +286,20 @@ class="math inline" data-term-auto="off">\(\underline d(S)\ge1/\ell\)</span>. �
 </section>
 <section id="the-square-forced-by-the-transport" class="level3">
 <h3>The square forced by the transport</h3>
+<div class="lemma">
+<p><strong>Lemma 7</strong> (square specialisation). <em> Let <span
+class="math inline" data-term-auto="off">\(f\in\Q[T]\)</span> be irreducible with root <span
+class="math inline" data-term-auto="off">\(\alpha\)</span>, and let <span
+class="math inline" data-term-auto="off">\(H\in\Q[T]\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(H(\alpha)\ne0\)</span>. If for all but finitely
+many primes <span class="math inline" data-term-auto="off">\(\ell\)</span> every root <span
+class="math inline" data-term-auto="off">\(r\in\mathbb{F}_\ell\)</span> of the reduction of
+<span class="math inline" data-term-auto="off">\(f\)</span> has <span
+class="math inline" data-term-auto="off">\(H(r)\)</span> a square in <span
+class="math inline" data-term-auto="off">\(\mathbb{F}_\ell^\times\)</span>, then <span
+class="math inline" data-term-auto="off">\(H(\alpha)\)</span> is a square in <span
+class="math inline" data-term-auto="off">\(\Q(\alpha)^\times\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Suppose not. Put <span
 class="math inline" data-term-auto="off">\(K=\Q(\alpha)\)</span> and choose <span
@@ -237,24 +338,37 @@ against the hypothesis. ◻</p>
 </div>
 <p>The hypothesis is needed at every root and at all but finitely many
 primes. A favourable finite set of tested primes would not suffice.</p>
+<div class="proposition">
+<p><strong>Proposition 8</strong> (the transport square). <em> Write
+<span class="math inline" data-term-auto="off">\(\kappa=m/6\)</span> and <span
+class="math inline" data-term-auto="off">\(\eta=6c/m\)</span>, so that <span
+class="math inline" data-term-auto="off">\(Q_{m,c}(n)=\kappa f(n+1)\)</span> for <span
+class="math inline" data-term-auto="off">\(f(T)=T^3-T+\eta\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\alpha^2-1\)</span> is a square in <span
+class="math inline" data-term-auto="off">\(\Q(\alpha)^\times\)</span> for a root <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> of <span
+class="math inline" data-term-auto="off">\(f\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Eliminating <span class="math inline" data-term-auto="off">\(v_n\)</span>
 from <span
-class="math inline" data-term-auto="off">\(\eqref{long243:eq:primitivetail}\)</span> gives
-<span class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:primitivetail}\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:secondorderu}
 u_{n+2}=(a_n+a_{n+1})u_{n+1}-a_n^2u_n .
-\end{equation}\]</span> Let <span class="math inline" data-term-auto="off">\(\ell\)</span> be
+\end{equation}\]</span></div>
+<p>Let <span class="math inline" data-term-auto="off">\(\ell\)</span> be
 a prime and <span class="math inline" data-term-auto="off">\(k\)</span> an index with <span
 class="math inline" data-term-auto="off">\(\ell\mid u_k\)</span>. Reading <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:secondorderu}\)</span> at <span
 class="math inline" data-term-auto="off">\(n=k-1\)</span> modulo <span
 class="math inline" data-term-auto="off">\(\ell\)</span> gives <span
-class="math inline" data-term-auto="off">\(u_{k+1}\equiv-a_{k-1}^2u_{k-1}\)</span>, hence
-<span class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(u_{k+1}\equiv-a_{k-1}^2u_{k-1}\)</span>, hence</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:forcedsquare}
 -u_{k-1}u_{k+1}\equiv(a_{k-1}u_{k-1})^2 \pmod\ell,
-\end{equation}\]</span> so <span
+\end{equation}\]</span></div>
+<p>so <span
 class="math inline" data-term-auto="off">\(-u_{k-1}u_{k+1}\)</span> is a square modulo <span
 class="math inline" data-term-auto="off">\(\ell\)</span>.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(\ell\nmid6m\)</span> and let <span
@@ -264,17 +378,20 @@ class="math inline" data-term-auto="off">\(r\ne0\)</span> and <span
 class="math inline" data-term-auto="off">\(r\ne\pm1\)</span>, since <span
 class="math inline" data-term-auto="off">\(f(0)=\eta\ne0\)</span> and <span
 class="math inline" data-term-auto="off">\(f(\pm1)=\eta\)</span>. Using <span
-class="math inline" data-term-auto="off">\(\eta=r-r^3\)</span>, <span
-class="math display" data-term-auto="off">\[f(r-1)=-3r(r-1),\qquad f(r+1)=3r(r+1),\]</span>
-so at any index <span class="math inline" data-term-auto="off">\(k\equiv
+class="math inline" data-term-auto="off">\(\eta=r-r^3\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[f(r-1)=-3r(r-1),\qquad f(r+1)=3r(r+1),\]</span></div>
+<p>so at any index <span class="math inline" data-term-auto="off">\(k\equiv
 r-1\pmod\ell\)</span> the polynomial values satisfy <span
 class="math inline" data-term-auto="off">\(Q(k)\equiv0\)</span>, <span
 class="math inline" data-term-auto="off">\(Q(k-1)=-3\kappa r(r-1)\)</span>, <span
-class="math inline" data-term-auto="off">\(Q(k+1)=3\kappa r(r+1)\)</span> and <span
+class="math inline" data-term-auto="off">\(Q(k+1)=3\kappa r(r+1)\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:threevalue}
 -Q(k-1)Q(k+1)=9\kappa^2r^2(r^2-1).
-\end{equation}\]</span> If <span class="math inline" data-term-auto="off">\(r^2-1\)</span>
+\end{equation}\]</span></div>
+<p>If <span class="math inline" data-term-auto="off">\(r^2-1\)</span>
 were a nonsquare modulo <span class="math inline" data-term-auto="off">\(\ell\)</span>, then
 so would be the right side of <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:threevalue}\)</span>, because
@@ -298,36 +415,54 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:squarespec}\)</span>
 </section>
 <section id="the-cubic-field-leaves-one-scale" class="level3">
 <h3>The cubic field leaves one scale</h3>
+<div class="lemma">
+<p><strong>Lemma 9</strong> (classification of the scales). <em> Let
+<span class="math inline" data-term-auto="off">\(m\ge1\)</span> and <span
+class="math inline" data-term-auto="off">\(c=\pm1\)</span>, let <span
+class="math inline" data-term-auto="off">\(\eta=6c/m\)</span>, and suppose <span
+class="math inline" data-term-auto="off">\(T^3-T+\eta\)</span> is irreducible over <span
+class="math inline" data-term-auto="off">\(\Q\)</span> with a root <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> such that <span
+class="math inline" data-term-auto="off">\(\alpha^2-1\)</span> is a square in <span
+class="math inline" data-term-auto="off">\(\Q(\alpha)^\times\)</span>. Then <span
+class="math inline" data-term-auto="off">\(m=12\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Choose <span
 class="math inline" data-term-auto="off">\(\beta\in\Q(\alpha)\)</span> with <span
 class="math inline" data-term-auto="off">\(\beta^2=\alpha^2-1\)</span> and put <span
 class="math inline" data-term-auto="off">\(z=\alpha+\beta\)</span>. Then <span
-class="math inline" data-term-auto="off">\((\alpha+\beta)(\alpha-\beta)=1\)</span>, so <span
+class="math inline" data-term-auto="off">\((\alpha+\beta)(\alpha-\beta)=1\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:zalpha}
 z^{-1}=\alpha-\beta,\qquad \alpha=\tfrac12(z+z^{-1}),
-\end{equation}\]</span> and <span class="math inline" data-term-auto="off">\(z\)</span>
+\end{equation}\]</span></div>
+<p>and <span class="math inline" data-term-auto="off">\(z\)</span>
 generates <span class="math inline" data-term-auto="off">\(\Q(\alpha)\)</span>. Write its
 minimal polynomial as <span class="math inline" data-term-auto="off">\(Z^3+bZ^2+dZ+w\)</span>
 with <span class="math inline" data-term-auto="off">\(b,d,w\in\Q\)</span> and <span
 class="math inline" data-term-auto="off">\(w\ne0\)</span>. From <span
-class="math inline" data-term-auto="off">\(T^3-T+\eta\)</span>, <span
+class="math inline" data-term-auto="off">\(T^3-T+\eta\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:alphatraces}
 \mathop{\mathrm{Tr}}\alpha=0,\qquad
 \mathop{\mathrm{Tr}}\alpha^2=2,\qquad
 \mathop{\mathrm{Tr}}\alpha^3=-3\eta .
-\end{equation}\]</span> Newton’s identities give <span
+\end{equation}\]</span></div>
+<p>Newton’s identities give <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z=-b\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-1}=-d/w\)</span>, so the
 first equation in <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:alphatraces}\)</span> and <span
-class="math inline" data-term-auto="off">\(\eqref{long243:eq:zalpha}\)</span> give <span
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:zalpha}\)</span> give</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:dbw}
 d=-bw .
-\end{equation}\]</span> Next <span
+\end{equation}\]</span></div>
+<p>Next <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^2=b^2-2d=b^2+2bw\)</span>
 and <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-2}=b^2-2b/w\)</span>,
@@ -337,11 +472,13 @@ class="math inline" data-term-auto="off">\(4\mathop{\mathrm{Tr}}\alpha^2=\mathop
 and the second equation in <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:alphatraces}\)</span> reads
 <span class="math inline" data-term-auto="off">\(b^2+b(w-w^{-1})=1\)</span>. Multiplying by
-<span class="math inline" data-term-auto="off">\(w\)</span> factors this exactly: <span
+<span class="math inline" data-term-auto="off">\(w\)</span> factors this exactly:</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:factored}
 (bw-1)(b+w)=0 .
-\end{equation}\]</span> Similarly <span
+\end{equation}\]</span></div>
+<p>Similarly <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^3=-b^3-3b^2w-3w\)</span> and
 <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-3}=b^3-3b^2/w-3/w\)</span>,
@@ -350,29 +487,34 @@ class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z+\mathop{\mathrm
 by <span class="math inline" data-term-auto="off">\(\eqref{long243:eq:dbw}\)</span>, so <span
 class="math inline" data-term-auto="off">\(8\mathop{\mathrm{Tr}}\alpha^3=\mathop{\mathrm{Tr}}z^3+\mathop{\mathrm{Tr}}z^{-3}\)</span>
 and the third equation in <span
-class="math inline" data-term-auto="off">\(\eqref{long243:eq:alphatraces}\)</span> gives
-<span class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:alphatraces}\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:etatrace}
 \eta=\frac{(b^2+1)(w+w^{-1})}8 .
-\end{equation}\]</span> By <span
+\end{equation}\]</span></div>
+<p>By <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:factored}\)</span>, either <span
 class="math inline" data-term-auto="off">\(b=-w\)</span> or <span
 class="math inline" data-term-auto="off">\(b=w^{-1}\)</span>, and <span
-class="math inline" data-term-auto="off">\(\eqref{long243:eq:etatrace}\)</span> becomes <span
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:etatrace}\)</span> becomes</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\eta=\frac{(w^2+1)^2}{8w}
 \qquad\text{or}\qquad
-\eta=\frac{(w^2+1)^2}{8w^3}.\]</span> Write <span
+\eta=\frac{(w^2+1)^2}{8w^3}.\]</span></div>
+<p>Write <span
 class="math inline" data-term-auto="off">\(w=r/s\)</span> with <span
 class="math inline" data-term-auto="off">\(r\in\Z\mathbin{\backslash}\{0\}\)</span>, <span
 class="math inline" data-term-auto="off">\(s\in\Z_{&gt;0}\)</span> and <span
 class="math inline" data-term-auto="off">\(\gcd(r,s)=1\)</span>. Since <span
-class="math inline" data-term-auto="off">\(\eta=6c/m\)</span>, <span
+class="math inline" data-term-auto="off">\(\eta=6c/m\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:mformula}
 m=\frac{48c\,rs^3}{(r^2+s^2)^2}
 \qquad\text{or}\qquad
 m=\frac{48c\,r^3s}{(r^2+s^2)^2}.
-\end{equation}\]</span> Now <span
+\end{equation}\]</span></div>
+<p>Now <span
 class="math inline" data-term-auto="off">\(\gcd(r^2+s^2,rs)=1\)</span>, so integrality of
 <span class="math inline" data-term-auto="off">\(m\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|=1\)</span> force <span
@@ -389,32 +531,50 @@ class="math inline" data-term-auto="off">\(m=12cr\)</span>, and <span
 class="math inline" data-term-auto="off">\(m&gt;0\)</span> gives <span
 class="math inline" data-term-auto="off">\(m=12\)</span>. ◻</p>
 </div>
-<p>The square condition alone does not exclude the two survivors <span
+<p>The square condition alone does not exclude the two survivors</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:survivors}
 Q_{12,\pm1}(n)=2n(n+1)(n+2)\pm1 .
-\end{equation}\]</span> The last step uses the successor coupling that
+\end{equation}\]</span></div>
+<p>The last step uses the successor coupling that
 the square condition forgets.</p>
 </section>
 <section id="long243:sec:modseven" class="level3">
 <h3>Both survivors fail modulo seven</h3>
+<div class="lemma">
+<p><strong>Lemma 10</strong> (the two forbidden words). <em> For <span
+class="math inline" data-term-auto="off">\(Q_{12,1}\)</span>, every sufficiently late
+four-index window beginning at <span
+class="math inline" data-term-auto="off">\(n\equiv0\pmod7\)</span> contains an exceptional
+index. For <span class="math inline" data-term-auto="off">\(Q_{12,-1}\)</span>, the same
+holds for windows beginning at <span
+class="math inline" data-term-auto="off">\(n\equiv1\pmod7\)</span>. In either case, <span
+class="math inline" data-term-auto="off">\(\underline d(S)\ge1/7\)</span>, and hence also
+<span class="math inline" data-term-auto="off">\(\underline d(S)\ge1/28\)</span>. No
+phase-free four-index obstruction is asserted.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Reduce modulo <span class="math inline" data-term-auto="off">\(7\)</span>.
 For <span class="math inline" data-term-auto="off">\(c=1\)</span> the values of <span
 class="math inline" data-term-auto="off">\(Q_{12,1}\)</span> at <span
 class="math inline" data-term-auto="off">\(n=0,1,2,3\)</span> are <span
-class="math inline" data-term-auto="off">\(1,13,49,121\)</span>, that is <span
+class="math inline" data-term-auto="off">\(1,13,49,121\)</span>, that is</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:wordplus}
 (1,6,0,2),
-\end{equation}\]</span> and for <span
+\end{equation}\]</span></div>
+<p>and for <span
 class="math inline" data-term-auto="off">\(c=-1\)</span> the values at <span
 class="math inline" data-term-auto="off">\(n=1,2,3,4\)</span> are <span
-class="math inline" data-term-auto="off">\(11,47,119,239\)</span>, that is <span
+class="math inline" data-term-auto="off">\(11,47,119,239\)</span>, that is</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:wordminus}
 (4,5,0,1).
-\end{equation}\]</span> Each word recurs in <span
+\end{equation}\]</span></div>
+<p>Each word recurs in <span
 class="math inline" data-term-auto="off">\(n\)</span> with period <span
 class="math inline" data-term-auto="off">\(7\)</span>.</p>
 <p>Let <span class="math inline" data-term-auto="off">\((c_0,c_1,0,c_3)\)</span> be the
@@ -427,11 +587,13 @@ class="math inline" data-term-auto="off">\(d_{i+1}=a_id_i\)</span> modulo <span
 class="math inline" data-term-auto="off">\(7\)</span>. The middle zero gives <span
 class="math inline" data-term-auto="off">\(a_1c_1=d_1\)</span>, then <span
 class="math inline" data-term-auto="off">\(d_2=a_1d_1\)</span> and <span
-class="math inline" data-term-auto="off">\(c_3=-d_2\)</span>, so <span
+class="math inline" data-term-auto="off">\(c_3=-d_2\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:d1square}
 d_1^2=c_1\,a_1d_1=c_1d_2=-c_1c_3 .
-\end{equation}\]</span> For <span
+\end{equation}\]</span></div>
+<p>For <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:wordplus}\)</span> this is <span
 class="math inline" data-term-auto="off">\(-6\cdot2=2\)</span>, and for <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:wordminus}\)</span> it is <span
@@ -447,12 +609,16 @@ class="math inline" data-term-auto="off">\(d_1=d_0(d_0+c_1)/c_0\)</span>, which 
 because <span class="math inline" data-term-auto="off">\(c_0\in\{1,4\}\)</span> is
 invertible. For <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:wordplus}\)</span> this is <span
-class="math inline" data-term-auto="off">\(d_1=d_0(d_0+6)\)</span>, with values <span
+class="math inline" data-term-auto="off">\(d_1=d_0(d_0+6)\)</span>, with values</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(0,0,2,6,5,6,2) \qquad\text{at }
-d_0=0,1,\ldots,6,\]</span> and for <span
+d_0=0,1,\ldots,6,\]</span></div>
+<p>and for <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:wordminus}\)</span> it is <span
-class="math inline" data-term-auto="off">\(d_1=2d_0(d_0+5)\)</span>, with values <span
-class="math display" data-term-auto="off">\[(0,5,0,6,2,2,6).\]</span> Both images are <span
+class="math inline" data-term-auto="off">\(d_1=2d_0(d_0+5)\)</span>, with values</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(0,5,0,6,2,2,6).\]</span></div>
+<p>Both images are <span
 class="math inline" data-term-auto="off">\(\{0,2,5,6\}\)</span>, which misses <span
 class="math inline" data-term-auto="off">\(\{3,4\}\)</span>. All seven initial denominator
 residues have been displayed, so the calculation is exhaustive and rests
@@ -494,6 +660,21 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:modseven}\)</span> t
 </section>
 <section id="from-a-regular-rate-to-an-exact-cubic" class="level3">
 <h3>From a regular rate to an exact cubic</h3>
+<div class="lemma">
+<p><strong>Lemma 11</strong> (integer extraction at a regular rate).
+<em> Let <span class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> and let <span
+class="math inline" data-term-auto="off">\(C_n\)</span> be positive integers with <span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long243:eq:regularrate}
+\frac{C_{n+1}}{C_n}=1+\frac\lambda n+o(n^{-\lambda}).
+\end{equation}\]</span> Then <span
+class="math inline" data-term-auto="off">\(\lambda\)</span> is an integer <span
+class="math inline" data-term-auto="off">\(d\ge2\)</span>, and there are <span
+class="math inline" data-term-auto="off">\(A\in\Q_{&gt;0}\)</span> and <span
+class="math inline" data-term-auto="off">\(B\in\Q\)</span> with <span
+class="math inline" data-term-auto="off">\(C_n=A\,n(n+1)\cdots(n+d-1)+B\)</span> for all
+large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put <span
 class="math inline" data-term-auto="off">\(F_n=\Gamma(n+\lambda)/\Gamma(n)\)</span>, so that
@@ -509,11 +690,13 @@ absolutely summable, so the product converges and <span
 class="math inline" data-term-auto="off">\(z_n\to K\)</span> for some <span
 class="math inline" data-term-auto="off">\(K&gt;0\)</span>, with <span
 class="math inline" data-term-auto="off">\(z_n-K=o(n^{1-\lambda})\)</span> by estimating the
-tail of the convergent logarithmic product. Hence <span
+tail of the convergent logarithmic product. Hence</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:dsmall}
 \delta_n:=C_n-KF_n=F_n(z_n-K)=o(n).
-\end{equation}\]</span> The recurrence gives <span
+\end{equation}\]</span></div>
+<p>The recurrence gives <span
 class="math inline" data-term-auto="off">\(\delta_{n+1}-\delta_n=(\lambda/n)\delta_n+\varepsilon_nC_n\)</span>,
 in which the first term is <span class="math inline" data-term-auto="off">\(o(1)\)</span> by
 <span class="math inline" data-term-auto="off">\(\eqref{long243:eq:dsmall}\)</span> and the
@@ -524,9 +707,11 @@ class="math inline" data-term-auto="off">\(\Delta^j\delta_n\to0\)</span> for eve
 class="math inline" data-term-auto="off">\(j\ge1\)</span>.</p>
 <p>For <span class="math inline" data-term-auto="off">\(F\)</span>, the identity <span
 class="math inline" data-term-auto="off">\(\Gamma(n+1+\lambda)/\Gamma(n+1)-\Gamma(n+\lambda)/\Gamma(n)
-=\lambda\,\Gamma(n+\lambda)/\Gamma(n+1)\)</span> iterates to <span
+=\lambda\,\Gamma(n+\lambda)/\Gamma(n+1)\)</span> iterates to</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta^jF_n=\lambda(\lambda-1)\cdots(\lambda-j+1)\,
-\frac{\Gamma(n+\lambda)}{\Gamma(n+j)},\]</span> whose right side is
+\frac{\Gamma(n+\lambda)}{\Gamma(n+j)},\]</span></div>
+<p>whose right side is
 <span class="math inline" data-term-auto="off">\(O(n^{\lambda-j})\)</span>. Choose an integer
 <span class="math inline" data-term-auto="off">\(j&gt;\lambda\)</span>; then <span
 class="math inline" data-term-auto="off">\(\Delta^jF_n\to0\)</span>, so <span
@@ -556,6 +741,19 @@ eventually polynomial, so the exponent cannot be relaxed to <span
 class="math inline" data-term-auto="off">\(O(n^{-\lambda})\)</span>. That countermodel is a
 scalar sequence rather than an exact orbit, and it bears on Lemma <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:extraction}\)</span> alone.</p>
+<div class="lemma">
+<p><strong>Lemma 12</strong> (the tail ratio reads the growth defect).
+<em> Let <span class="math inline" data-term-auto="off">\(a_n\)</span> be strictly increasing
+positive integers with <span
+class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> rational, and let <span
+class="math inline" data-term-auto="off">\((C_n,D_n)\)</span> be the canonical integer tail.
+Write <span class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span>.
+Then <span
+class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}=1+\gamma_n+O(a_n^{-1}),
+\qquad a_n\ge\exp(c\,2^n)\ \text{eventually for some }c&gt;0
+.\]</span></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Since <span
 class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
@@ -566,16 +764,20 @@ class="math inline" data-term-auto="off">\(n\ge N\)</span>. Iterating <span
 class="math inline" data-term-auto="off">\(a_{n+1}\ge a_n^2/2\)</span> from an index where
 <span class="math inline" data-term-auto="off">\(a_n&gt;2\)</span> gives <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span> eventually. The same
-doubling gives, for <span class="math inline" data-term-auto="off">\(m&gt;N\)</span>, <span
+doubling gives, for <span class="math inline" data-term-auto="off">\(m&gt;N\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{a_m}\ \le\ x_m\ =\ \sum_{k\ge
-m}\frac1{a_k}\ \le\ \frac2{a_m},\]</span> so <span
+m}\frac1{a_k}\ \le\ \frac2{a_m},\]</span></div>
+<p>so <span
 class="math inline" data-term-auto="off">\(x_{m}=(1+\rho_{m})/a_{m}\)</span> with <span
 class="math inline" data-term-auto="off">\(0\le\rho_{m}=a_mx_{m+1}\le
 2a_m/a_{m+1}\le4/a_m\)</span>, using <span
-class="math inline" data-term-auto="off">\(a_{m+1}\ge a_m^2/2\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(a_{m+1}\ge a_m^2/2\)</span>. Hence</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}=\frac{a_nD_nx_{n+1}}{D_nx_n}
 =a_n\cdot\frac{(1+\rho_{n+1})/a_{n+1}}{(1+\rho_n)/a_n}
-=\frac{a_n^2}{a_{n+1}}\cdot\frac{1+\rho_{n+1}}{1+\rho_n}.\]</span> The
+=\frac{a_n^2}{a_{n+1}}\cdot\frac{1+\rho_{n+1}}{1+\rho_n}.\]</span></div>
+<p>The
 last factor is <span class="math inline" data-term-auto="off">\(1+O(1/a_n)\)</span> and <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}\)</span> is bounded, so the product
 is <span class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}+O(a_n^{-1})\)</span>. ◻</p>
@@ -602,9 +804,10 @@ class="math inline" data-term-auto="off">\(D_n\)</span> a positive integer. By L
 class="math inline" data-term-auto="off">\(\ref{long243:res:tailratio}\)</span> and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span>, the error term <span
 class="math inline" data-term-auto="off">\(O(a_n^{-1})\)</span> is <span
-class="math inline" data-term-auto="off">\(o(n^{-3})\)</span>, so <span
-class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}=1+\frac3n+o(n^{-3}).\]</span>
-Lemma <span class="math inline" data-term-auto="off">\(\ref{long243:res:extraction}\)</span>
+class="math inline" data-term-auto="off">\(o(n^{-3})\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}=1+\frac3n+o(n^{-3}).\]</span></div>
+<p>Lemma <span class="math inline" data-term-auto="off">\(\ref{long243:res:extraction}\)</span>
 at <span class="math inline" data-term-auto="off">\(\lambda=3\)</span> gives <span
 class="math inline" data-term-auto="off">\(C_n=A\,n(n+1)(n+2)+B\)</span> for all large <span
 class="math inline" data-term-auto="off">\(n\)</span>, with <span
@@ -632,7 +835,9 @@ or Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:cubicexclusion}\)</span>; the
 centred-coordinate form of Lemma <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:tailratio}\)</span> rests on the
-, which is kernel-checked. Lemma <span
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+identity</a>, which is kernel-checked. Lemma <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:squarespec}\)</span> uses the
 Chebotarev density theorem in its finite-Galois form and no effective or
 unproved input.</p>
@@ -684,10 +889,11 @@ class="math inline" data-term-auto="off">\(\ref{long243:sec:descent}\)</span> (s
 class="citation" data-cites="koizumi2025"></span>). Erdős and Straus
 proved that if <span class="math inline" data-term-auto="off">\(\lim
 a_n/a_{n-1}^{2}=1\)</span>, the reciprocal sum is rational, and <span
-class="math inline" data-term-auto="off">\(a_n\)</span> does not satisfy the recurrence, then
-<span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\
+class="math inline" data-term-auto="off">\(a_n\)</span> does not satisfy the recurrence, then</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\
 \frac{[a_1,\ldots,a_n]}{a_{n+1}}
-\left(\frac{a_{n+1}^{2}}{a_{n+2}}-1\right)&gt;0,\]</span> where <span
+\left(\frac{a_{n+1}^{2}}{a_{n+2}}-1\right)&gt;0,\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]\)</span> is the least common
 multiple <span class="citation" data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>.
 This is the indexing in the original theorem. Erdős’s 1988 survey,
@@ -705,19 +911,21 @@ data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>.</p>
 signs <span class="math inline" data-term-auto="off">\(\epsilon_n\in\{-1,1\}\)</span>, if
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)\)</span>
 converges, then the reciprocal sum with numerators <span
-class="math inline" data-term-auto="off">\(\epsilon_n\)</span> is rational if and only if
-<span
+class="math inline" data-term-auto="off">\(\epsilon_n\)</span> is rational if and only if</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_{n+1}=a_n^2-(\epsilon_{n+1}/\epsilon_n)a_n
-             +\epsilon_{n+2}/\epsilon_{n+1}\]</span> for all large <span
+             +\epsilon_{n+2}/\epsilon_{n+1}\]</span></div>
+<p>for all large <span
 class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
 data-cites="duverney2001"><a href="#ref-2">[2]</a></span>. Absolute convergence is a stronger
 sufficient specialisation, not the hypothesis printed in that corollary.
 The all-positive specialisation is the form relevant here.</p>
 <p>Badea’s positive-term criterion is adjacent but different: for
 positive rational terms <span class="math inline" data-term-auto="off">\(b_n/a_n\)</span>,
-eventual strict inequality <span
-class="math display" data-term-auto="off">\[a_{n+1}&gt;\frac{b_{n+1}}{b_n}a_n^2-\frac{b_{n+1}}{b_n}a_n+1\]</span>
-forces irrationality, while rationality under the corresponding
+eventual strict inequality</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a_{n+1}&gt;\frac{b_{n+1}}{b_n}a_n^2-\frac{b_{n+1}}{b_n}a_n+1\]</span></div>
+<p>forces irrationality, while rationality under the corresponding
 non-strict inequality forces eventual equality <span class="citation"
 data-cites="badea1993"><a href="#ref-3">[3]</a></span>. These positive-term hypotheses do not
 cover the mixed-sign state orbits studied here. Neither result is
@@ -736,10 +944,12 @@ integers <span class="math inline" data-term-auto="off">\(c_n&gt;0\)</span>, <sp
 class="math inline" data-term-auto="off">\(d_n\)</span> and <span
 class="math inline" data-term-auto="off">\(e_n\)</span> with <span
 class="math inline" data-term-auto="off">\(x_n=c_n/d_n\)</span> and <span
-class="math inline" data-term-auto="off">\(\varepsilon_n=e_n/c_n\)</span>, satisfying <span
+class="math inline" data-term-auto="off">\(\varepsilon_n=e_n/c_n\)</span>, satisfying</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_n=\frac{d_n-e_n}{c_n}+1,\qquad
 c_{n+1}=c_n-e_n,\qquad
-d_{n+1}=a_nd_n ,\]</span> and the proof of that lemma also gives <span
+d_{n+1}=a_nd_n ,\]</span></div>
+<p>and the proof of that lemma also gives <span
 class="math inline" data-term-auto="off">\(c_{n+1}=a_nc_n-d_n\)</span>. Under the dictionary
 <span class="math inline" data-term-auto="off">\((C_n,D_n,E_n)=(c_n,d_n,e_n)\)</span> these
 are exactly the objects of Section <span
@@ -861,10 +1071,10 @@ bounded negative part, the centred error <span
 class="math inline" data-term-auto="off">\(E_n\)</span> is eventually zero. The original
 sequence therefore satisfies the Sylvester recurrence from some point
 onward (Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span>), in the
-<span>boundedNegativePart_sylvesterNext_eventually</span>
-<span>bounded-negative-part recurrence theorem</span>. Hypothesis (5),
-the bound on the negative part, is supplied by nothing in this note.</p>
+class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span>), in the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2403">bounded-negative-part
+recurrence theorem</a>. Hypothesis (5), the bound on the negative part,
+is supplied by nothing in this note.</p>
 <p><strong>Second endpoint.</strong> The same conclusion holds when the
 normalised negative mass <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span> is finite, provided
@@ -966,16 +1176,23 @@ leaves a sequence of integers; the third subtracts from that integer the
 value it takes on Sylvester’s sequence, leaving one number whose
 vanishing is the whole question. All three are maps between integer
 tuples and carry no hypothesis of any kind.</p>
-<p>For <span class="math inline" data-term-auto="off">\(a,D,C\in\Z\)</span> define <span
+<p>For <span class="math inline" data-term-auto="off">\(a,D,C\in\Z\)</span> define</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{den}(a,D)=aD,
 \quad
 \operatorname{tail}(a,D,C)=aC-D,
 \quad
-\operatorname{ctr}(a,D,C)=D-(a-1)C ,\]</span> the , the , and the .
-Given a sequence <span class="math inline" data-term-auto="off">\((a_n)\)</span> of integers,
-whose terms we call the <em>multipliers</em>, we write <span
-class="math inline" data-term-auto="off">\(D_{n+1}=\operatorname{den}(a_n,D_n)\)</span> for
-the <em>denominator state</em>, <span
+\operatorname{ctr}(a,D,C)=D-(a-1)C ,\]</span></div>
+<p>the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L41">denominator
+update</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L45">tail
+update</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L49">centred
+state</a>. Given a sequence <span class="math inline" data-term-auto="off">\((a_n)\)</span>
+of integers, whose terms we call the <em>multipliers</em>, we write
+<span class="math inline" data-term-auto="off">\(D_{n+1}=\operatorname{den}(a_n,D_n)\)</span>
+for the <em>denominator state</em>, <span
 class="math inline" data-term-auto="off">\(C_{n+1}=\operatorname{tail}(a_n,D_n,C_n)\)</span>
 for the <em>tail state</em>, and <span
 class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span> for
@@ -991,16 +1208,120 @@ rather than a size. At an index where <span
 class="math inline" data-term-auto="off">\(E_n&lt;0\)</span> we write <span
 class="math inline" data-term-auto="off">\(e_n=-E_n&gt;0\)</span> and call it the
 <em>magnitude</em> of the error there.</p>
+<div class="proposition">
+<p><strong>Proposition 13</strong> (update law). <em> <span
+class="math inline" data-term-auto="off">\(\operatorname{tail}(a,D,C)=C-\operatorname{ctr}(a,D,C)\)</span>;
+that is, <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> <span
 class="math inline" data-term-auto="off">\(C-\bigl(D-(a-1)C\bigr)=aC-D\)</span>. ◻</p>
 </div>
-<p>Formalised as the . The state therefore moves by exactly the error at
-each step, which is what makes the sign of <span
-class="math inline" data-term-auto="off">\(E\)</span> decisive: where <span
-class="math inline" data-term-auto="off">\(E\)</span> is positive the state falls, where
-<span class="math inline" data-term-auto="off">\(E\)</span> is negative it rises, and where
-<span class="math inline" data-term-auto="off">\(E\)</span> vanishes it is stationary.</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
+law</a>. The state therefore moves by exactly the error at each step,
+which is what makes the sign of <span class="math inline" data-term-auto="off">\(E\)</span>
+decisive: where <span class="math inline" data-term-auto="off">\(E\)</span> is positive the
+state falls, where <span class="math inline" data-term-auto="off">\(E\)</span> is negative it
+rises, and where <span class="math inline" data-term-auto="off">\(E\)</span> vanishes it is
+stationary.</p>
+<div class="example">
+<p><strong>Example 14</strong> (the Sylvester orbit). <em> Take <span
+class="math inline" data-term-auto="off">\(a_n=2,3,7,43,1807,\ldots\)</span> with <span
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span>, and start the
+state at <span class="math inline" data-term-auto="off">\(D_0=C_0=1\)</span>. The two updates
+give</em></p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(n\)</span></em></th>
+<th class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(a_n\)</span></em></th>
+<th class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(D_n\)</span></em></th>
+<th class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(C_n\)</span></em></th>
+<th class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(E_n\)</span></em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(2\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+</tr>
+<tr>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(3\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(2\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+</tr>
+<tr>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(2\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(7\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(6\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+</tr>
+<tr>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(3\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(43\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(42\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+</tr>
+<tr>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(4\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1807\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1806\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(1\)</span></em></td>
+<td class="ta-r"><em><span
+class="math inline" data-term-auto="off">\(0\)</span></em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>and <span class="math inline" data-term-auto="off">\(D_n=a_n-1\)</span> with <span
+class="math inline" data-term-auto="off">\(C_n=1\)</span> at every index: if <span
+class="math inline" data-term-auto="off">\(D_n=a_n-1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n=1\)</span> then <span
+class="math inline" data-term-auto="off">\(C_{n+1}=a_n-(a_n-1)=1\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_n(a_n-1)=a_{n+1}-1\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n=0\)</span> throughout and the
+tail state never moves, which is Proposition <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:update}\)</span> in the
+stationary case.</em></p>
+</div>
 <section id="the-intended-reading-which-is-not-formalised."
 class="level5">
 <h5>The intended reading, which is not formalised.</h5>
@@ -1022,28 +1343,54 @@ on the Sylvester orbit.</p>
 <p>The Lean module carries no rationality hypothesis and no growth
 hypothesis; it proves identities and implications about the integer
 system above, and about its natural-number realisation, for which the
-bridging identities are the , the , and the .</p>
+bridging identities are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1863">tail
+realisation</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1875">denominator
+realisation</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1972">signed
+update law</a>.</p>
 <p>The series itself is reached by three further declarations, which
 were absent from earlier revisions of this note. Write <span
 class="math inline" data-term-auto="off">\(C_n/D_n\)</span> for the real ratio carried by the
-natural state, the . Given <span
-class="math inline" data-term-auto="off">\(a_n&gt;0\)</span>, <span
+natural state, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1895">tail
+ratio</a>. Given <span class="math inline" data-term-auto="off">\(a_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(D_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
 class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>, one exact step removes
-<span class="math inline" data-term-auto="off">\(1/a_n\)</span> from that ratio , finite
-iteration telescopes to a partial sum plus the endpoint ratio , and
-convergence of the endpoint ratio to zero identifies the infinite sum :
-<span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> then has sum <span
-class="math inline" data-term-auto="off">\(C_0/D_0\)</span>. These three carry no growth
-hypothesis, no centring hypothesis and no rationality hypothesis, and
-they exclude nothing. They close the loop between the integer system and
-the series that motivates it. Producing the state of a given rational
-sum, which is the direction the problem needs, is the exposition of this
-paragraph and is not a checked statement.</p>
-<p>Formalised as the , the , and the . The system depends only on the
-ray through <span class="math inline" data-term-auto="off">\((D,C)\)</span>. This is used
-twice below: once to normalise the finite search of Appendix <span
+<span class="math inline" data-term-auto="off">\(1/a_n\)</span> from that ratio <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1899">one-step
+reciprocal identity</a>, finite iteration telescopes to a partial sum
+plus the endpoint ratio <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1923">finite
+telescoping</a>, and convergence of the endpoint ratio to zero
+identifies the infinite sum <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">the
+series realisation</a>: <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span>
+then has sum <span class="math inline" data-term-auto="off">\(C_0/D_0\)</span>. These three
+carry no growth hypothesis, no centring hypothesis and no rationality
+hypothesis, and they exclude nothing. They close the loop between the
+integer system and the series that motivates it. Producing the state of
+a given rational sum, which is the direction the problem needs, is the
+exposition of this paragraph and is not a checked statement.</p>
+<div class="proposition">
+<p><strong>Proposition 15</strong> (scale equivariance). <em> For every
+<span class="math inline" data-term-auto="off">\(s,a,D,C\in\Z\)</span>, <span
+class="math display" data-term-auto="off">\[\operatorname{den}(a,sD)=s\,\operatorname{den}(a,D),\qquad
+\operatorname{tail}(a,sD,sC)=s\,\operatorname{tail}(a,D,C),\]</span>
+<span
+class="math display" data-term-auto="off">\[\operatorname{ctr}(a,sD,sC)=s\,\operatorname{ctr}(a,D,C).\]</span></em></p>
+</div>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L65">denominator
+equivariance</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L70">tail
+equivariance</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L75">centred
+equivariance</a>. The system depends only on the ray through <span
+class="math inline" data-term-auto="off">\((D,C)\)</span>. This is used twice below: once to
+normalise the finite search of Appendix <span
 class="math inline" data-term-auto="off">\(\ref{long243:app:residue}\)</span>, and once, in
 Theorem <span class="math inline" data-term-auto="off">\(\ref{long243:res:periodic}\)</span>,
 as the induction step that removes common scale.</p>
@@ -1070,15 +1417,57 @@ class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> at every index)
 vanishing error propagates to every later index.</p>
 <p>Write <span
 class="math inline" data-term-auto="off">\(\operatorname{def}(a,a&#39;)=a&#39;-\operatorname{syl}(a)\)</span>
-for the deviation of the next term from the Sylvester successor, the
-.</p>
+for the deviation of the next term from the Sylvester successor, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L53">Sylvester
+defect</a>.</p>
+<div class="theorem">
+<p><strong>Theorem 16</strong> (defect identity). <em> For all <span
+class="math inline" data-term-auto="off">\(a,a&#39;,D,C\in\Z\)</span>, <span
+class="math display" data-term-auto="off">\[\operatorname{def}(a,a&#39;)\cdot\operatorname{tail}(a,D,C)
+=a^{2}\,\operatorname{ctr}(a,D,C)-\operatorname{ctr}\bigl(a&#39;,\operatorname{den}(a,D),\operatorname{tail}(a,D,C)\bigr),\]</span>
+that is, <span
+class="math inline" data-term-auto="off">\(\Delta_n\,C_{n+1}=a_n^{2}E_n-E_{n+1}\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A direct expansion: both sides equal <span
 class="math inline" data-term-auto="off">\(a&#39;aC-a&#39;D-a^{3}C+a^{2}D+a^{2}C-aD-aC+D\)</span>. ◻</p>
 </div>
-<p>Formalised as the . It is a polynomial identity in four
-indeterminates, with no hypothesis of any kind, and it carries the whole
-argument twice over: once for rigidity, and once for absorption.</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+identity</a>. It is a polynomial identity in four indeterminates, with
+no hypothesis of any kind, and it carries the whole argument twice over:
+once for rigidity, and once for absorption.</p>
+<div class="example">
+<p><strong>Example 17</strong> (one defect and the error it creates).
+<em> Continue Example <span
+class="math inline" data-term-auto="off">\(\ref{long243:ex:sylvester}\)</span> but replace
+<span class="math inline" data-term-auto="off">\(a_3=43\)</span> by <span
+class="math inline" data-term-auto="off">\(a_3=44\)</span>. The states <span
+class="math inline" data-term-auto="off">\(D_3=42\)</span> and <span
+class="math inline" data-term-auto="off">\(C_3=1\)</span> are unchanged, since they depend
+only on <span class="math inline" data-term-auto="off">\(a_0,a_1,a_2\)</span>, and <span
+class="math inline" data-term-auto="off">\(E_2=0\)</span> still. The defect is <span
+class="math inline" data-term-auto="off">\(\Delta_2=a_3-\operatorname{syl}(a_2)=44-43=1\)</span>,
+and <span class="math inline" data-term-auto="off">\(E_3=D_3-(a_3-1)C_3=42-43=-1\)</span>, so
+the identity reads <span
+class="math display" data-term-auto="off">\[\Delta_2C_3=1\cdot1=1=49\cdot0-(-1)=a_2^{2}E_2-E_3
+.\]</span> By Proposition <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:update}\)</span> the tail state
+then rises, <span class="math inline" data-term-auto="off">\(C_4=C_3-E_3=2\)</span>. A single
+unit of defect at one index has produced a negative error of magnitude
+<span class="math inline" data-term-auto="off">\(1\)</span> at the next, and the state has
+started to climb.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 18</strong> (two vanishing errors force the step).
+<em> Let <span class="math inline" data-term-auto="off">\(a,a&#39;,D,C\in\Z\)</span> with
+<span class="math inline" data-term-auto="off">\(\operatorname{tail}(a,D,C)\ne0\)</span>. If
+<span class="math inline" data-term-auto="off">\(\operatorname{ctr}(a,D,C)=0\)</span> and
+<span
+class="math inline" data-term-auto="off">\(\operatorname{ctr}\bigl(a&#39;,\operatorname{den}(a,D),\operatorname{tail}(a,D,C)\bigr)=0\)</span>,
+then <span
+class="math inline" data-term-auto="off">\(a&#39;=\operatorname{syl}(a)\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> By Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:defect}\)</span> the product
@@ -1086,7 +1475,9 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:defect}\)</span> the
 class="math inline" data-term-auto="off">\(\operatorname{def}(a,a&#39;)\cdot\operatorname{tail}(a,D,C)\)</span>
 is zero, and the second factor is nonzero by hypothesis. ◻</p>
 </div>
-<p>Formalised as the . The hypothesis <span
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1781">local
+rigidity step</a>. The hypothesis <span
 class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span> is not removable: at <span
 class="math inline" data-term-auto="off">\(C_{n+1}=0\)</span> the identity gives no
 information about <span class="math inline" data-term-auto="off">\(a&#39;\)</span>.</p>
@@ -1099,9 +1490,16 @@ coordinates, <span class="math inline" data-term-auto="off">\(v,v_1\)</span> for
 corresponding denominator coordinates, and <span
 class="math inline" data-term-auto="off">\(h,h_1\)</span> for the two common factors removed
 in reduction. If the two steps have multipliers <span
-class="math inline" data-term-auto="off">\(a,a_1\)</span>, then the exact hypotheses are
-<span class="math display" data-term-auto="off">\[hu_1+v=au,\qquad hv_1=av,\qquad
-h_1u_2+v_1=a_1u_1.\]</span></p>
+class="math inline" data-term-auto="off">\(a,a_1\)</span>, then the exact hypotheses are</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[hu_1+v=au,\qquad hv_1=av,\qquad
+h_1u_2+v_1=a_1u_1.\]</span></div>
+<div class="theorem">
+<p><strong>Theorem 19</strong> (two-step primitive recurrence). <em> Let
+<span class="math inline" data-term-auto="off">\(a,a_1,u,u_1,u_2,v,v_1,h,h_1\)</span> be
+integers satisfying <span class="math display" data-term-auto="off">\[hu_1+v=au,\qquad
+hv_1=av,\qquad h_1u_2+v_1=a_1u_1.\]</span> Then <span
+class="math inline" data-term-auto="off">\(a^2u+hh_1u_2=h(a+a_1)u_1\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Multiply the first equation by <span
 class="math inline" data-term-auto="off">\(a\)</span>, replace <span
@@ -1109,34 +1507,57 @@ class="math inline" data-term-auto="off">\(av\)</span> using the second equation
 replace <span class="math inline" data-term-auto="off">\(h_1u_2+v_1\)</span> using the third.
 The remaining terms factor as the displayed right-hand side. ◻</p>
 </div>
-<p>This is the . The hard point is keeping both changing cancellation
-factors visible. The result is stronger than a one-step congruence,
-though it remains non-autonomous and cannot by itself force <span
-class="math inline" data-term-auto="off">\(a_1=a^2-a+1\)</span>.</p>
+<p>This is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/DynamicCancellation.lean#L270">two-step
+primitive recurrence</a>. The hard point is keeping both changing
+cancellation factors visible. The result is stronger than a one-step
+congruence, though it remains non-autonomous and cannot by itself force
+<span class="math inline" data-term-auto="off">\(a_1=a^2-a+1\)</span>.</p>
 <p>There is a complementary integer identity when the relevant step is
 cancellation-free. Put <span class="math inline" data-term-auto="off">\(q=ap-p_1\)</span>,
-and suppose the next primitive coordinate satisfies <span
-class="math display" data-term-auto="off">\[p_2+a^2p=(a+a_1)p_1.\]</span> Then</p>
+and suppose the next primitive coordinate satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[p_2+a^2p=(a+a_1)p_1.\]</span></div>
+<p>Then</p>
+<div class="theorem">
+<p><strong>Theorem 20</strong> (cancellation-free curvature identity).
+<em> Let <span class="math inline" data-term-auto="off">\(a,a_1,p,p_1,p_2,q\)</span> be
+integers with <span class="math inline" data-term-auto="off">\(q=ap-p_1\)</span> and <span
+class="math inline" data-term-auto="off">\(p_2+a^2p=(a+a_1)p_1\)</span>. Then <span
+class="math display" data-term-auto="off">\[q^2+\bigl(pp_2-p_1^2\bigr)=(a_1-a)pp_1.\]</span></em></p>
+</div>
 <p>The square <span class="math inline" data-term-auto="off">\(q^2\)</span> is the local
 remainder, while <span class="math inline" data-term-auto="off">\(pp_2-p_1^2\)</span> is a
 discrete curvature term. The right side records the change in
 multiplier, so the identity supplies a diagnostic for an anti-shadowing
 argument without asserting a sign or a global monotonicity. It is
-checked as ; no global anti-shadowing conclusion is claimed.</p>
+checked as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/DynamicCancellation.lean#L309">the
+cancellation-free curvature square</a>; no global anti-shadowing
+conclusion is claimed.</p>
 <p>Finally, the reduced denominator transport has a precise
 realizability gate. Let <span class="math inline" data-term-auto="off">\(e,e_1\)</span> be
 centred errors and let <span class="math inline" data-term-auto="off">\(\Delta\)</span> be
-the Sylvester defect. If <span class="math display" data-term-auto="off">\[hu_1=u-e,
-\qquad he_1=a^2e-\Delta(u-e),\]</span> then the transport equality <span
+the Sylvester defect. If</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[hu_1=u-e,
+\qquad he_1=a^2e-\Delta(u-e),\]</span></div>
+<p>then the transport equality</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[h\bigl((a_1-1)u_1+e_1\bigr)
-   =a\bigl((a-1)u+e\bigr)\]</span> has mismatch which factors through
+   =a\bigl((a-1)u+e\bigr)\]</span></div>
+<p>has mismatch which factors through
 <span class="math inline" data-term-auto="off">\(u-e\)</span>. Consequently, when <span
-class="math inline" data-term-auto="off">\(u-e\ne0\)</span>, <span
+class="math inline" data-term-auto="off">\(u-e\ne0\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[h\bigl((a_1-1)u_1+e_1\bigr)
    =a\bigl((a-1)u+e\bigr)
 \quad\Longleftrightarrow\quad
-a_1=a^2-a+1+\Delta.\]</span> This is the exact , obtained from the
-factored defect at . The nonzero-raw-numerator hypothesis is essential:
+a_1=a^2-a+1+\Delta.\]</span></div>
+<p>This is the exact <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FeedbackRealizability.lean#L64">feedback
+transport equivalence</a>, obtained from the factored defect at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FeedbackRealizability.lean#L15">feedback
+transport defect</a>. The nonzero-raw-numerator hypothesis is essential:
 if <span class="math inline" data-term-auto="off">\(u-e=0\)</span>, the factorised mismatch
 cannot identify <span class="math inline" data-term-auto="off">\(a_1\)</span>.</p>
 <p>These three identities require orbit-level hypotheses that remain
@@ -1144,14 +1565,41 @@ unproved: eventual absence of cancellation, a fixed sign for the
 curvature, or cofinal passage through the feedback gate. The global
 mixed-sign and unbounded-negative regimes of Problem #243 remain
 open.</p>
-<p>Formalised as the . The proof is routine: take the larger of the two
-thresholds and apply Theorem <span
+<div class="theorem">
+<p><strong>Theorem 21</strong> (sequence form). <em> Let <span
+class="math inline" data-term-auto="off">\(a,D,C:\N\to\Z\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(D_{n+1}=\operatorname{den}(a_n,D_n)\)</span> and
+<span
+class="math inline" data-term-auto="off">\(C_{n+1}=\operatorname{tail}(a_n,D_n,C_n)\)</span>.
+If <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all sufficiently large
+<span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span> for all sufficiently large
+<span class="math inline" data-term-auto="off">\(n\)</span>, then <span
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1799">eventual
+Sylvester recurrence</a>. The proof is routine: take the larger of the
+two thresholds and apply Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:step}\)</span> at each later
 index. Every later section is directed at the hypothesis of this
 theorem, that is, at forcing <span class="math inline" data-term-auto="off">\(E\)</span> to
 vanish eventually.</p>
 <p>The defect identity has a second consequence, which is what makes a
 single vanishing error worth having.</p>
+<div class="theorem">
+<p><strong>Theorem 22</strong> (zero is absorbing). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> be an exact natural orbit,
+so <span class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>, and let <span
+class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span>.
+Suppose the centring is strict, <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>. If <span
+class="math inline" data-term-auto="off">\(E_n=0\)</span> then <span
+class="math inline" data-term-auto="off">\(E_{n+1}=0\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Putting <span class="math inline" data-term-auto="off">\(E_n=0\)</span> in
 Theorem <span class="math inline" data-term-auto="off">\(\ref{long243:res:defect}\)</span>
@@ -1162,10 +1610,13 @@ class="math inline" data-term-auto="off">\(C_{n+1}\)</span> of absolute value sm
 <span class="math inline" data-term-auto="off">\(C_{n+1}\)</span> is zero, and <span
 class="math inline" data-term-auto="off">\(|E_{n+1}|&lt;C_{n+1}\)</span> by hypothesis. ◻</p>
 </div>
-<p>Formalised as the , with the companion : if zero is absorbing beyond
-some index and <span class="math inline" data-term-auto="off">\(E\)</span> does not vanish
-eventually, then <span class="math inline" data-term-auto="off">\(E\)</span> is nowhere zero
-beyond that index.</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2221">absorption
+of a vanishing centred state</a>, with the companion <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2248">contrapositive
+along a tail</a>: if zero is absorbing beyond some index and <span
+class="math inline" data-term-auto="off">\(E\)</span> does not vanish eventually, then <span
+class="math inline" data-term-auto="off">\(E\)</span> is nowhere zero beyond that index.</p>
 <p>Absorption changes the shape of the problem. Either <span
 class="math inline" data-term-auto="off">\(E\)</span> hits zero once and stays there, or it
 is never zero. Sections <span
@@ -1192,9 +1643,17 @@ logarithmically discounted.</p>
 <h5>Evidence.</h5>
 <p>The result in this section is an ordinary mathematical proof. Its
 finite arithmetic and charging step are kernel-checked at the pinned
-revision: the , the , the , and the . The global analytic argument,
-which is the passage from the per-step charge to divergence of the whole
-sum, is not formalised. An exact finite replay covers <span
+revision: the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14">freshness
+of a rise</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31">covered-wall
+excess bound</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47">wall
+count</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64">weighted
+wall charge</a>. The global analytic argument, which is the passage from
+the per-step charge to divergence of the whole sum, is not formalised.
+An exact finite replay covers <span
 class="math inline" data-term-auto="off">\(6{,}008\)</span> seed-modulus cases over <span
 class="math inline" data-term-auto="off">\(6{,}000\)</span> distinct rational seeds, <span
 class="math inline" data-term-auto="off">\(26{,}171\)</span> nonterminal transitions and
@@ -1242,21 +1701,42 @@ one fixed <span class="math inline" data-term-auto="off">\(B\)</span> from ratio
 denominator feedback, or contradict a nonterminal orbit by another
 route. The logarithmic discount weakens what suffices; it does not
 establish it.</p>
-<p>Set <span
+<p>Set</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
-M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span> The rational
+M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
+<p>The rational
 tail has denominator dividing <span class="math inline" data-term-auto="off">\(L_n\)</span>,
 so <span class="math inline" data-term-auto="off">\(U_n\)</span> and <span
 class="math inline" data-term-auto="off">\(V_n\)</span> are integers. With <span
 class="math inline" data-term-auto="off">\(\rho_n=\gcd(L_n,a_n)\)</span>, the exact updates
-are <span class="math display" data-term-auto="off">\[M_{n+1}=M_n\rho_n,\qquad
-\rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.\]</span> Write <span
+are</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M_{n+1}=M_n\rho_n,\qquad
+\rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.\]</span></div>
+<p>Write <span
 class="math inline" data-term-auto="off">\(R_n=\max_{j\le n}U_j\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>. Centring
 implies that every sufficiently late strict rise has <span
 class="math inline" data-term-auto="off">\(\rho_n=1\)</span>: otherwise <span
 class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span>. Its actual jump is
 therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
+<div class="theorem">
+<p><strong>Theorem 23</strong> (arithmetic weighted-record dichotomy).
+<em> Let <span class="math inline" data-term-auto="off">\(a_n,L_n,U_n\)</span> be positive
+integers and <span class="math inline" data-term-auto="off">\(V_n\)</span> integers
+satisfying <span class="math display" data-term-auto="off">\[\begin{gathered}
+L_{n+1}=\operatorname{lcm}(L_n,a_n),\qquad \rho_n=\gcd(L_n,a_n),\\
+\rho_nU_{n+1}=U_n-V_n,\qquad
+V_n=L_n-(a_n-1)U_n,\qquad -U_n\le2V_n.
+\end{gathered}\]</span> Let <span
+class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> be finite and
+nonincreasing, with <span class="math inline" data-term-auto="off">\(\int_1^\infty
+f(t)\,dt=\infty\)</span>. For each fixed integer <span
+class="math inline" data-term-auto="off">\(B\ge0\)</span>, <span
+class="math display" data-term-auto="off">\[\sup_n U_n&lt;\infty
+\quad\Longleftrightarrow\quad
+\sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A bounded integer running maximum increases only
 finitely many times, so bounded <span class="math inline" data-term-auto="off">\(U_n\)</span>
@@ -1296,18 +1776,22 @@ class="math inline" data-term-auto="off">\(r=d_n-B\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(P\ge B+1\)</span>, we have <span
 class="math inline" data-term-auto="off">\(d_n=B+r\le Pr\)</span>, whence <span
 class="math inline" data-term-auto="off">\(h\le r\)</span>. Monotonicity of <span
-class="math inline" data-term-auto="off">\(f\)</span> now gives <span
+class="math inline" data-term-auto="off">\(f\)</span> now gives</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{\substack{\tau\text{ first
 crossed}\\\text{at step }n}}f(\tau)
-\le(d_n-B)f(U_n).\]</span> Each height above <span
+\le(d_n-B)f(U_n).\]</span></div>
+<p>Each height above <span
 class="math inline" data-term-auto="off">\(R_T\)</span> has one first crossing. Summing, and
 comparing each interval of length <span class="math inline" data-term-auto="off">\(P\)</span>
-with its left endpoint, yields the finite bound <span
+with its left endpoint, yields the finite bound</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:weightedcrossing}
 \sum_{\substack{T\le n&lt;N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
 \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
-\end{equation}\]</span> Since <span
+\end{equation}\]</span></div>
+<p>Since <span
 class="math inline" data-term-auto="off">\(R_n\to\infty\)</span>, the right side diverges for
 every <span class="math inline" data-term-auto="off">\(B\ge1\)</span>. The case <span
 class="math inline" data-term-auto="off">\(B=0\)</span> follows by domination. ◻</p>
@@ -1317,6 +1801,17 @@ normalised vanishing nor a growth estimate for <span
 class="math inline" data-term-auto="off">\(C_n\)</span> supplies the CRT moduli: the record
 digits themselves do so. Normalised vanishing enters in the following
 application to the original sequence.</p>
+<div class="theorem">
+<p><strong>Theorem 24</strong> (weighted record excess). <em> Assume the
+growth and rationality hypotheses of Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, and let <span
+class="math inline" data-term-auto="off">\(f\)</span> be as in Theorem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:arithmeticrecord}\)</span>. The
+sequence is eventually Sylvester if and only if, for some integer <span
+class="math inline" data-term-auto="off">\(B\ge0\)</span>, <span
+class="math display" data-term-auto="off">\[\sum_{n\in\mathcal
+R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> If the endpoint fails, centred zero is never reached
 on a sufficiently late tail. Integrality gives <span
@@ -1330,9 +1825,11 @@ telescopes to <span class="math inline" data-term-auto="off">\(x_n=1/(a_n-1)\)</
 <span class="math inline" data-term-auto="off">\(V_n=0\)</span> eventually. ◻</p>
 </div>
 <p>For example, <span class="math inline" data-term-auto="off">\(f(t)=1/[t\log(et)]\)</span>
-gives the sufficient condition <span
+gives the sufficient condition</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\in\mathcal
-R}\frac{(-V_n-B)_+}{U_n\log(eU_n)}&lt;\infty.\]</span> Its finite lower
+R}\frac{(-V_n-B)_+}{U_n\log(eU_n)}&lt;\infty.\]</span></div>
+<p>Its finite lower
 bound in <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:weightedcrossing}\)</span> is
 <span
@@ -1344,9 +1841,11 @@ theorem.</p>
 defect. Put <span
 class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span> and <span
 class="math inline" data-term-auto="off">\(\theta_n=E_n/C_n\)</span>. The defect identity
-gives <span class="math display" data-term-auto="off">\[\gamma_n+\theta_n=
+gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gamma_n+\theta_n=
 \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
-\qquad 0&lt;\gamma_n+\theta_n&lt;3/a_n\]</span> eventually. Thus the two
+\qquad 0&lt;\gamma_n+\theta_n&lt;3/a_n\]</span></div>
+<p>eventually. Thus the two
 nonnegative summands <span
 class="math inline" data-term-auto="off">\(U_nf(U_n)(\gamma_n-B/U_n)_+\)</span> and <span
 class="math inline" data-term-auto="off">\((-V_n-B)_+f(U_n)\)</span> differ by at most <span
@@ -1356,12 +1855,14 @@ class="math inline" data-term-auto="off">\(f(U_n)\le f(1)\)</span>, and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span> eventually for some
 <span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Consequently Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:weightedrecord}\)</span> is
-equivalent to finiteness of <span
+equivalent to finiteness of</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:weightedgrowth}
 \sum_{n\in\mathcal R}U_nf(U_n)
 \left(\frac{a_n^2}{a_{n+1}}-1-\frac B{U_n}\right)_+
-\end{equation}\]</span> for some <span class="math inline" data-term-auto="off">\(B\)</span>.
+\end{equation}\]</span></div>
+<p>for some <span class="math inline" data-term-auto="off">\(B\)</span>.
 The original hypotheses do not currently supply this finiteness. In
 particular, termwise convergence to zero is insufficient. The same
 equivalence holds directly on the canonical LCM orbit under the original
@@ -1453,6 +1954,28 @@ mathematics is named exactly as well.</p>
 </section>
 <section id="the-record-increment-coefficient" class="level3">
 <h3>The record-increment coefficient</h3>
+<div class="theorem">
+<p><strong>Theorem 25</strong> (record-excess dichotomy). <em> Let <span
+class="math inline" data-term-auto="off">\(\Theta=\limsup_n(H_{n+1}-H_n)/\ell(H_n)\)</span>
+on a nonterminating canonical orbit under (H). Then either <span
+class="math inline" data-term-auto="off">\(G_n\)</span> is unbounded and <span
+class="math inline" data-term-auto="off">\(\Theta\)</span> is infinite, or <span
+class="math inline" data-term-auto="off">\(G_n\)</span> stabilises at a value <span
+class="math inline" data-term-auto="off">\(g\)</span> and <span
+class="math inline" data-term-auto="off">\(\Theta\ge g\,v_T/\varphi(v_T)\)</span> for every
+late <span class="math inline" data-term-auto="off">\(T\)</span>, so that <span
+class="math inline" data-term-auto="off">\(\Theta&gt;g\ge1\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(\Theta=0\)</span> or <span
+class="math inline" data-term-auto="off">\(\Theta&gt;1\)</span>, and <span
+class="math inline" data-term-auto="off">\(\Theta\le1\)</span> forces (S).</em></p>
+</div>
+<div class="corollary">
+<p><strong>Corollary 26</strong> (inclusive log-log boundary). <em> If
+<span class="math inline" data-term-auto="off">\(\limsup_n(-E_n)_+/\ell(C_n)\le1\)</span>
+then (S) holds. Every counterexample therefore satisfies <span
+class="math inline" data-term-auto="off">\(\limsup_n(-E_n)_+/\ell(C_n)&gt;1\)</span>
+strictly.</em></p>
+</div>
 <section id="mechanism." class="level5">
 <h5>Mechanism.</h5>
 <p>Four steps. The drawdown ladder <span
@@ -1482,7 +2005,15 @@ gives the strict inequality.</p>
 <section id="evidence.-2" class="level5">
 <h5>Evidence.</h5>
 <p>Ordinary proof over the Lean core. The kernel-checked ingredients are
-the , the , the , and the . The running-maximum persistence clause, the
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
+of a common divisor</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L51">bounded
+CRT block</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">slow-rise
+landing lemma</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
+exclusion</a>. The running-maximum persistence clause, the
 record-increment trigger, the gcd rescaling and the pre-sieved
 amplification are ordinary mathematics. Finite replay: the identities
 hold exactly on four orbits, the <span
@@ -1504,6 +2035,24 @@ exactly the surviving regime.</p>
 <section id="two-exact-equivalences-under-arbitrary-cancellation"
 class="level3">
 <h3>Two exact equivalences under arbitrary cancellation</h3>
+<div class="theorem">
+<p><strong>Theorem 27</strong> (record-amplified rigidity). <em>
+Under (H), the following are equivalent: (S); <span
+class="math inline" data-term-auto="off">\(\limsup_n\mathcal A_n&lt;\infty\)</span>; <span
+class="math inline" data-term-auto="off">\(\limsup_nR_n\delta_n&lt;\infty\)</span>. Each of
+those two limits superior is <span class="math inline" data-term-auto="off">\(0\)</span> or
+<span class="math inline" data-term-auto="off">\(+\infty\)</span>.</em></p>
+</div>
+<div class="corollary">
+<p><strong>Corollary 28</strong> (the critical rate). <em> Under (H) and
+<span class="math inline" data-term-auto="off">\(\delta_n=O(1/n)\)</span>, with no
+convergence of <span class="math inline" data-term-auto="off">\(n\delta_n\)</span> assumed,
+(S) is equivalent to <span class="math inline" data-term-auto="off">\(u_n=O(n)\)</span> and
+to <span class="math inline" data-term-auto="off">\((-\tilde e_n)_+=O(1)\)</span>. A
+counterexample at the critical rate therefore has <span
+class="math inline" data-term-auto="off">\(\limsup_nu_n/n=\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(\limsup_n(-\tilde e_n)_+=\infty\)</span>.</em></p>
+</div>
 <section id="mechanism.-1" class="level5">
 <h5>Mechanism.</h5>
 <p>On a non-Sylvester orbit, arbitrarily late indices carry <span
@@ -1538,6 +2087,16 @@ visibility lemma with equality.</p>
 class="math inline" data-term-auto="off">\(\mathcal A_n\)</span> axis. Nothing here bounds
 <span class="math inline" data-term-auto="off">\(\mathcal A_n\)</span> on the canonical
 orbit.</p>
+<div class="theorem">
+<p><strong>Theorem 29</strong> (unit record increments). <em> Under (H),
+if <span class="math inline" data-term-auto="off">\(R_{n+1}-R_n\le1\)</span> for all large
+<span class="math inline" data-term-auto="off">\(n\)</span>, then <span
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>. Hence (S) holds if and only if <span
+class="math inline" data-term-auto="off">\(\#\{n:R_{n+1}-R_n\ge2\}\)</span> is finite. No
+hypothesis is placed on drawdowns, on record-setting jumps, or on the
+cancellation factors <span class="math inline" data-term-auto="off">\(h_n\)</span>.</em></p>
+</div>
 </section>
 <section id="mechanism.-2" class="level5">
 <h5>Mechanism.</h5>
@@ -1595,6 +2154,37 @@ step of the odd cut does not transfer from jumps to increments.</p>
 </section>
 <section id="protected-epochs-and-the-energy-criterion" class="level3">
 <h3>Protected epochs and the energy criterion</h3>
+<div class="theorem">
+<p><strong>Theorem 30</strong> (protected epoch inequality). <em> Let
+the orbit satisfy the primitive cocycle with <span
+class="math inline" data-term-auto="off">\(2|\tilde e_n|&lt;u_n\)</span> from an index <span
+class="math inline" data-term-auto="off">\(s\)</span>. Let <span
+class="math inline" data-term-auto="off">\(p\ge3\)</span> be prime, <span
+class="math inline" data-term-auto="off">\(Q=p^{\ell}\)</span> divide <span
+class="math inline" data-term-auto="off">\(v_s\)</span> with <span
+class="math inline" data-term-auto="off">\(Q\ge16\)</span>, put <span
+class="math inline" data-term-auto="off">\(L=pQ/2\)</span>, and assume <span
+class="math inline" data-term-auto="off">\(R_s&lt;L/2\)</span>. Let <span
+class="math inline" data-term-auto="off">\(\tau\)</span> be the first index with <span
+class="math inline" data-term-auto="off">\(u_\tau\ge
+L\)</span>, let <span class="math inline" data-term-auto="off">\(J\)</span> be the set of
+steps in <span class="math inline" data-term-auto="off">\([s,\tau)\)</span> that first cross
+at least one odd multiple of <span class="math inline" data-term-auto="off">\(p\)</span> in
+<span class="math inline" data-term-auto="off">\((L/2,L]\)</span>, and put <span
+class="math inline" data-term-auto="off">\(X=\sum_{n\in J}(d_n-2)\)</span>. Then every <span
+class="math inline" data-term-auto="off">\(n\in J\)</span> is a clean record step with <span
+class="math inline" data-term-auto="off">\(d_n\ge3\)</span>, and <span
+class="math inline" data-term-auto="off">\(pQ\le(8p+8)\lvert J\rvert+4X+8p\)</span>.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 31</strong> (energy criterion). <em> Under (H), the
+energy <span class="math inline" data-term-auto="off">\(\mathcal E=\sum_{n\
+\mathrm{record}}\bigl(\mathbf 1_{d_n\ge3}u_n^{-1/2}
++(d_n-2)_+u_n^{-1}\bigr)\)</span> is finite if and only if (S) holds;
+and <span class="math inline" data-term-auto="off">\(\sum_{n\
+\mathrm{record}}(d_n-2)_+u_n^{-1/2}\)</span> is finite if and only
+if (S) holds.</em></p>
+</div>
 <section id="mechanism.-3" class="level5">
 <h5>Mechanism.</h5>
 <p>Below <span class="math inline" data-term-auto="off">\(L\)</span> the numerator satisfies
@@ -1629,6 +2219,22 @@ power rather than a product of moduli.</p>
 <section id="a-slow-negative-part-and-the-original-coordinates"
 class="level3">
 <h3>A slow negative part, and the original coordinates</h3>
+<div class="theorem">
+<p><strong>Theorem 32</strong> (slow negative part). <em> Let <span
+class="math inline" data-term-auto="off">\((a,C,D)\)</span> be an exact natural orbit with
+<span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(D_0\ge1\)</span>, under normalised vanishing.
+Suppose that for some <span
+class="math inline" data-term-auto="off">\(\delta\in(0,1)\)</span> and all large <span
+class="math inline" data-term-auto="off">\(n\)</span> with <span
+class="math inline" data-term-auto="off">\(E_n&lt;0\)</span> one has <span
+class="math inline" data-term-auto="off">\(-E_n\le(1-\delta)\ell(C_n)\)</span>. Then <span
+class="math inline" data-term-auto="off">\(E_n=0\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>, and <span
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <p>Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span> is the case of
 a constant bound, since a constant is eventually below <span
@@ -1656,13 +2262,36 @@ prescribed size, and the block form of the landing lemma applies.</p>
 <section id="evidence.-6" class="level5">
 <h5>Evidence.</h5>
 <p>Ordinary proof over the Lean core. The kernel-checked ingredients are
-the , the , the and the . The burn count and the choice of constants are
-ordinary mathematics. Corollary <span
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
+of a common divisor</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L162">overlap
+transport</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">landing
+lemma</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
+exclusion</a>. The burn count and the choice of constants are ordinary
+mathematics. Corollary <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:loglogboundary}\)</span>
 supersedes this theorem on two axes, the drawdown-corrected observable
 and the inclusive constant, and this theorem is retained because its
 hypothesis is stated directly on <span
 class="math inline" data-term-auto="off">\(E_n\)</span>.</p>
+<div class="theorem">
+<p><strong>Theorem 33</strong> (the Erdős–Straus quantity, bounded
+form). <em> Let <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>
+and <span class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>, and put <span
+class="math display" data-term-auto="off">\[Q_n=\frac{a_1a_2\cdots a_{n-1}}{a_n}
+     \left(\frac{a_n^2}{a_{n+1}}-1\right).\]</span> If <span
+class="math inline" data-term-auto="off">\(\limsup_nQ_n&lt;\infty\)</span> then the sequence
+is eventually Sylvester. If for some <span
+class="math inline" data-term-auto="off">\(\delta&gt;0\)</span> and all large <span
+class="math inline" data-term-auto="off">\(n\)</span> one has <span
+class="math inline" data-term-auto="off">\(Q_n\le(1-\delta)\lambda\,\ell(a_1\cdots
+a_{n-1}/a_n)\)</span>, where <span
+class="math inline" data-term-auto="off">\(\lambda&gt;0\)</span> depends only on the
+sequence, the same conclusion holds.</em></p>
+</div>
 </section>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
@@ -1692,6 +2321,15 @@ with <span class="math inline" data-term-auto="off">\(\beta_k=O(1/a_k)\)</span>,
 term tends to zero because <span class="math inline" data-term-auto="off">\(c_{n+1}\le
 c_1(3/2)^n\)</span> while <span class="math inline" data-term-auto="off">\(a_n\)</span> is
 doubly exponential.</p>
+<div class="theorem">
+<p><strong>Theorem 34</strong> (the <span
+class="math inline" data-term-auto="off">\(1/n\)</span> threshold). <em> Let <span
+class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>. If <span
+class="math inline" data-term-auto="off">\(\limsup_n n\,(a_n^2/a_{n+1}-1)_+&lt;1\)</span>,
+then <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all
+large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <p>The constant <span class="math inline" data-term-auto="off">\(1\)</span> is the boundary
 of this method. The template <span class="math inline" data-term-auto="off">\(\tilde
 e_n\equiv-1\)</span> with <span class="math inline" data-term-auto="off">\(u_n=c+n\)</span>
@@ -1708,6 +2346,38 @@ Proposition 1(2).</p>
 </section>
 <section id="what-the-method-cannot-reach" class="level3">
 <h3>What the method cannot reach</h3>
+<div class="proposition">
+<p><strong>Proposition 35</strong> (the classical quantities carry a
+shifted sign). <em> The overlap debt divides the tail gcd, so <span
+class="math inline" data-term-auto="off">\(\kappa&#39;_n=G_n/M_n\)</span> is a positive
+integer and <span class="math inline" data-term-auto="off">\(E_n/M_n=\kappa&#39;_n\tilde
+e_n\)</span> is an integer carrying the sign of <span
+class="math inline" data-term-auto="off">\(E_n\)</span>. The growth defect carries a shifted
+sign. On any exact orbit, <span class="math display" data-term-auto="off">\[\begin{equation}
+\label{long243:eq:shiftedsign}
+\frac{a_n^2}{a_{n+1}}-1=-\frac{E_n}{C_n}+\Lambda_n,
+\qquad
+\Lambda_n=\frac{\bigl(1-E_n/C_n\bigr)\bigl(a_n-1+E_{n+1}/C_{n+1}\bigr)}{a_{n+1}},
+\end{equation}\]</span> and <span
+class="math inline" data-term-auto="off">\(0&lt;\Lambda_n&lt;3/a_n\)</span> for all large
+<span class="math inline" data-term-auto="off">\(n\)</span> whenever <span
+class="math inline" data-term-auto="off">\(E_n/C_n\to0\)</span>. The Erdős–Straus quantity of
+Theorem 3 is <span
+class="math inline" data-term-auto="off">\(Q_n=(L_n/a_{n+1})\bigl(a_{n+1}^2/a_{n+2}-1\bigr)\)</span>,
+a positive multiple of the defect at the next index. Thus <span
+class="math inline" data-term-auto="off">\(Q_n\)</span> is positive, zero, or negative
+according as <span class="math inline" data-term-auto="off">\(E_{n+1}/C_{n+1}\)</span> is
+less than, equal to, or greater than <span
+class="math inline" data-term-auto="off">\(\Lambda_{n+1}\)</span>. In particular, whenever
+<span class="math inline" data-term-auto="off">\(\Lambda_{n+1}&gt;0\)</span>, it is positive
+if <span class="math inline" data-term-auto="off">\(E_{n+1}\le0\)</span>, and for <span
+class="math inline" data-term-auto="off">\(E_{n+1}&gt;0\)</span> it is negative precisely
+when <span
+class="math inline" data-term-auto="off">\(E_{n+1}/C_{n+1}&gt;\Lambda_{n+1}\)</span>. It is
+strictly positive at every index of Sylvester’s own sequence, where
+<span class="math inline" data-term-auto="off">\(E_n=0\)</span> and <span
+class="math inline" data-term-auto="off">\(\Lambda_n=(a_n-1)/a_{n+1}\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The first sentence is the divisibility dictionary of
 Section <span class="math inline" data-term-auto="off">\(\ref{long243:sec:records}\)</span>.
@@ -1755,6 +2425,24 @@ class="math inline" data-term-auto="off">\(G_n=\kappa&#39;_n=M_n=1\)</span>. A t
 classical quantity, from Tijdeman and Yuan’s 2002 Theorem 4.1, enters
 the same computation; it is not cited here because this note carries no
 verified bibliographic record of that paper.</p>
+<div class="proposition">
+<p><strong>Proposition 36</strong> (what whole-modulus avoidance
+permits). <em> Let <span
+class="math inline" data-term-auto="off">\(m_0&lt;m_1&lt;\cdots\)</span> be pairwise coprime
+integers at least <span class="math inline" data-term-auto="off">\(2\)</span> with <span
+class="math inline" data-term-auto="off">\(\theta=\sum_i1/m_i&lt;1\)</span>. For every <span
+class="math inline" data-term-auto="off">\(x\ge1\)</span> and every <span
+class="math inline" data-term-auto="off">\(L&gt;k/(1-\theta)\)</span>, where <span
+class="math inline" data-term-auto="off">\(k=\#\{i:m_i\le x+L\}\)</span>, the window <span
+class="math inline" data-term-auto="off">\([x,x+L)\)</span> contains an integer divisible by
+no <span class="math inline" data-term-auto="off">\(m_i\)</span>. Consequently, if <span
+class="math inline" data-term-auto="off">\(\ell(m_i)=i+O(1)\)</span> then for every <span
+class="math inline" data-term-auto="off">\(\epsilon&gt;0\)</span> some subfamily carries a
+walk <span class="math inline" data-term-auto="off">\(u_n\to\infty\)</span> divisible by no
+<span class="math inline" data-term-auto="off">\(m_i\)</span> with <span
+class="math inline" data-term-auto="off">\(u_{n+1}-u_n\le(1+\epsilon)\ell(u_n)\)</span> for
+all large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> An integer of <span
 class="math inline" data-term-auto="off">\([x,x+L)\)</span> lies in <span
@@ -1815,9 +2503,10 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:gapconstant}\)</span
 </section>
 <section id="the-exact-remaining-obstacle." class="level5">
 <h5>The exact remaining obstacle.</h5>
-<p>Every criterion of this section leaves the same regime, which is
-<span class="math display" data-term-auto="off">\[(1-\delta)\ell(C_n)\ \le\ -E_n\ =\ o(C_n)
-\qquad\text{at infinitely many }n,\]</span> with divergent normalised
+<p>Every criterion of this section leaves the same regime, which is</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(1-\delta)\ell(C_n)\ \le\ -E_n\ =\ o(C_n)
+\qquad\text{at infinitely many }n,\]</span></div>
+<p>with divergent normalised
 negative mass, unbounded record-amplified error, and infinitely many
 clean primitive record jumps of size at least three. Any argument
 entering it must use the congruence <span
@@ -1834,6 +2523,14 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:update}\)</span> rea
 <span class="math inline" data-term-auto="off">\(\N\)</span>: the error is nonnegative at
 every index, so the tail state never rises. This is the easy case, and
 it is settled in three lines.</p>
+<div class="theorem">
+<p><strong>Theorem 37</strong> (descent). <em> Let <span
+class="math inline" data-term-auto="off">\(C,E:\N\to\N\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(C_{n+1}+E_n=C_n\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>. Then <span
+class="math inline" data-term-auto="off">\(E_n=0\)</span> for all sufficiently large <span
+class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> A one-line descent. The relation forces <span
 class="math inline" data-term-auto="off">\(C_{n+1}\le C_n\)</span>, so <span
@@ -1842,7 +2539,11 @@ numbers and is eventually equal to its minimum; beyond that index <span
 class="math inline" data-term-auto="off">\(C_{n+1}=C_n\)</span>, and the relation gives <span
 class="math inline" data-term-auto="off">\(E_n=0\)</span>. ◻</p>
 </div>
-<p>Formalised as the , on the .</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
+of the nonnegative error</a>, on the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1819">eventual
+constancy of a nonincreasing sequence</a>.</p>
 <p>The hypothesis is exactly one-sidedness: <span
 class="math inline" data-term-auto="off">\(C\)</span> and <span
 class="math inline" data-term-auto="off">\(E\)</span> take values in <span
@@ -1862,13 +2563,50 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:update}\)</span> the
 climbs by exactly <span class="math inline" data-term-auto="off">\(m\)</span> each step, so
 <span class="math inline" data-term-auto="off">\(C_n=c+nm\)</span> with <span
 class="math inline" data-term-auto="off">\(c=C_0\)</span>, and the definition of the centred
-state becomes a <em>shape equation</em> <span
+state becomes a <em>shape equation</em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[D_n+m=(a_n-1)\,(c+nm) .
-\tag{5.1}\label{long243:eq:shape}\]</span> Together with <span
+\tag{5.1}\label{long243:eq:shape}\]</span></div>
+<p>Together with <span
 class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span> this is a closed system in
 <span class="math inline" data-term-auto="off">\((a,D)\)</span>, and it has no solutions. The
 following instance shows how the failure happens; the theorem then shows
 that it cannot be avoided.</p>
+<div class="example">
+<p><strong>Example 38</strong> (the shape equation running until it
+fails). <em> Take <span class="math inline" data-term-auto="off">\(m=c=1\)</span>, so that
+<span class="math inline" data-term-auto="off">\(C_n=1+n\)</span> and the shape
+equation <span class="math inline" data-term-auto="off">\(\eqref{long243:eq:shape}\)</span>
+reads <span class="math inline" data-term-auto="off">\(D_n+1=(a_n-1)(1+n)\)</span>, and take
+<span class="math inline" data-term-auto="off">\(D_0=1\)</span>. Each step is now determined:
+at <span class="math inline" data-term-auto="off">\(n=0\)</span> the equation reads <span
+class="math inline" data-term-auto="off">\(2=(a_0-1)\cdot1\)</span>, so <span
+class="math inline" data-term-auto="off">\(a_0=3\)</span>, and <span
+class="math inline" data-term-auto="off">\(D_1=a_0D_0=3\)</span>; at <span
+class="math inline" data-term-auto="off">\(n=1\)</span> it reads <span
+class="math inline" data-term-auto="off">\(4=(a_1-1)\cdot2\)</span>, so <span
+class="math inline" data-term-auto="off">\(a_1=3\)</span>, and <span
+class="math inline" data-term-auto="off">\(D_2=a_1D_1=9\)</span>; at <span
+class="math inline" data-term-auto="off">\(n=2\)</span> it reads <span
+class="math inline" data-term-auto="off">\(10=(a_2-1)\cdot3\)</span>, which has no integer
+solution, and the orbit stops. Longer prefixes occur for other starting
+values: the finite search recorded in Appendix <span
+class="math inline" data-term-auto="off">\(\ref{long243:app:residue}\)</span> found none
+longer than <span class="math inline" data-term-auto="off">\(17\)</span> among the initial
+states below <span class="math inline" data-term-auto="off">\(5000\)</span>.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 39</strong> (no constant negative magnitude). <em>
+There is no pair of sequences <span
+class="math inline" data-term-auto="off">\(a,D:\N\to\N\)</span> with <span
+class="math inline" data-term-auto="off">\(a_n\ge2\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\)</span> satisfying <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\eqref{long243:eq:shape}\)</span>, for any <span
+class="math inline" data-term-auto="off">\(m&gt;0\)</span> and any <span
+class="math inline" data-term-auto="off">\(c\)</span>. The same holds if the shape only
+begins at some index.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof when <span class="math inline" data-term-auto="off">\(c\)</span> and <span
 class="math inline" data-term-auto="off">\(m\)</span> are coprime.</em> Assume first <span
@@ -1918,13 +2656,16 @@ class="math inline" data-term-auto="off">\(m\)</span> serves at most one multipl
 <span class="math inline" data-term-auto="off">\(m\)</span> has only finitely many prime
 divisors. ◻</p>
 </div>
-<p>The case <span class="math inline" data-term-auto="off">\(\gcd(c,m)=1\)</span> is the .
-The special case <span class="math inline" data-term-auto="off">\(m=c=1\)</span>, worked
-through in Example <span
+<p>The case <span class="math inline" data-term-auto="off">\(\gcd(c,m)=1\)</span> is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L147">scale-primitive
+exclusion</a>. The special case <span
+class="math inline" data-term-auto="off">\(m=c=1\)</span>, worked through in Example <span
 class="math inline" data-term-auto="off">\(\ref{long243:ex:shape}\)</span>, where <span
 class="math inline" data-term-auto="off">\(m\)</span> has no prime divisors at all and the
 first fact is immediately contradictory, is recorded separately as the
-.</p>
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L100">normalised
+exclusion</a>.</p>
 <div class="proof">
 <p><em>Removing the scale.</em> For general <span
 class="math inline" data-term-auto="off">\(c\)</span>, put <span
@@ -1937,8 +2678,12 @@ and <span class="math inline" data-term-auto="off">\(m\)</span> by <span
 class="math inline" data-term-auto="off">\(g\)</span> leaves a system of the same shape with
 coprime data, which the previous case excludes. ◻</p>
 </div>
-<p>Formalised as the , and the eventual form, obtained by shifting the
-orbit to the first constant index, as the .</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">exclusion
+at every scale</a>, and the eventual form, obtained by shifting the
+orbit to the first constant index, as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
+exclusion</a>.</p>
 <p>Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:constant}\)</span> excludes a
 centred state that is eventually constant and negative, at every
@@ -1979,18 +2724,43 @@ class="math inline" data-term-auto="off">\(M\)</span>. Three lemmas replace the 
 Section <span class="math inline" data-term-auto="off">\(\ref{long243:sec:constant}\)</span>.
 The first is that multipliers persist: every <span
 class="math inline" data-term-auto="off">\(a_j\)</span> divides every strictly later
-denominator state, the . The second is a <em>lock</em>: a prime already
+denominator state, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L382">persistence
+of a multiplier</a>. The second is a <em>lock</em>: a prime already
 dividing <span class="math inline" data-term-auto="off">\(D\)</span> and also dividing the
-current multiplier is forced into the next tail state, the , and once
-present in both <span class="math inline" data-term-auto="off">\(D\)</span> and <span
+current multiplier is forced into the next tail state, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L402">one-step
+lock</a>, and once present in both <span
+class="math inline" data-term-auto="off">\(D\)</span> and <span
 class="math inline" data-term-auto="off">\(C\)</span> it stays in every later <span
 class="math inline" data-term-auto="off">\(D\)</span>, <span class="math inline" data-term-auto="off">\(C\)</span>
-and magnitude, the . The third transports a lock backwards through the
-period: if a divisor of the drift <span class="math inline" data-term-auto="off">\(M\)</span>
-occurs in two multipliers, it is a common divisor of <span
-class="math inline" data-term-auto="off">\(C_0\)</span> and of every magnitude, the , using
-that both the period relation and the drift iterate over any number of
-periods, the and the .</p>
+and magnitude, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L429">persistence
+of a lock</a>. The third transports a lock backwards through the period:
+if a divisor of the drift <span class="math inline" data-term-auto="off">\(M\)</span> occurs
+in two multipliers, it is a common divisor of <span
+class="math inline" data-term-auto="off">\(C_0\)</span> and of every magnitude, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L494">repeated-divisor
+transport</a>, using that both the period relation and the drift iterate
+over any number of periods, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L461">iterated
+period</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L476">iterated
+drift</a>.</p>
+<div class="theorem">
+<p><strong>Theorem 40</strong> (no periodic negative magnitude). <em>
+Let <span class="math inline" data-term-auto="off">\(a,D,C,e:\N\to\N\)</span> with <span
+class="math inline" data-term-auto="off">\(a_n\ge2\)</span>, <span
+class="math inline" data-term-auto="off">\(e_n&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>, satisfying <span
+class="math display" data-term-auto="off">\[D_{n+1}=a_nD_n,\qquad C_{n+1}=C_n+e_n,\qquad
+D_n+e_n=(a_n-1)C_n ,\]</span> and suppose <span
+class="math inline" data-term-auto="off">\(e_{n+h}=e_n\)</span> and <span
+class="math inline" data-term-auto="off">\(C_{n+h}=C_n+M\)</span> for some <span
+class="math inline" data-term-auto="off">\(h&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(M&gt;0\)</span>. This is impossible.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Strong induction on the drift <span
 class="math inline" data-term-auto="off">\(M\)</span>. The difficulty lies in the fact that a
@@ -2038,8 +2808,13 @@ still <span class="math inline" data-term-auto="off">\(h\)</span>; and the drift
 <span class="math inline" data-term-auto="off">\(M/p&lt;M\)</span>. The inductive hypothesis
 applies. ◻</p>
 </div>
-<p>The first of the two cases above is the , the induction is the , and
-the eventual form is the .</p>
+<p>The first of the two cases above is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L548">phase-primitive
+exclusion</a>, the induction is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L690">exclusion
+at every scale</a>, and the eventual form is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual
+exclusion</a>.</p>
 <p>The bound <span class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> is a
 genuine restriction and not a normalisation. It is the range in which a
 multiplier cannot divide its own phase magnitude, which is what the lock
@@ -2051,6 +2826,40 @@ class="math inline" data-term-auto="off">\(M&gt;0\)</span> is also used: a perio
 with zero drift would be identically zero, which is the case already
 settled by Section <span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:descent}\)</span>.</p>
+<div class="remark">
+<p><strong>Remark 1</strong>. <em>On the canonical orbit of <span
+class="citation" data-cites="koizumi2025"></span>, read through the
+dictionary of Section <span
+class="math inline" data-term-auto="off">\(\ref{long243:sec:priorwork}\)</span>, the bound
+<span class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> holds eventually.
+Lemma 4(2) there gives the centring range <span
+class="math inline" data-term-auto="off">\(-C_n/2\le E_n&lt;C_n/2\)</span>, so <span
+class="math inline" data-term-auto="off">\(e_n=|E_n|\le C_n/2\)</span> at a negative index,
+and the proof of Lemma 4(3) gives <span
+class="math inline" data-term-auto="off">\(C_{n+1}\le\tfrac32C_n\)</span>  <span
+class="citation" data-cites="koizumi2025"></span>, hence the uniform
+bound <span class="math inline" data-term-auto="off">\(C_n\le C_0(3/2)^{n}\)</span>. Against
+this, summability of <span class="math inline" data-term-auto="off">\(\sum1/a_n\)</span>
+forces <span class="math inline" data-term-auto="off">\(a_n\to\infty\)</span>, and the growth
+hypothesis <span class="math inline" data-term-auto="off">\(a_n^{2}/a_{n+1}\to1\)</span>
+gives <span class="math inline" data-term-auto="off">\(a_{n+1}\ge a_n^{2}/2\)</span> for all
+large <span class="math inline" data-term-auto="off">\(n\)</span>, hence <span
+class="math inline" data-term-auto="off">\(a_{n+1}\ge2a_n\)</span> once <span
+class="math inline" data-term-auto="off">\(a_n\ge4\)</span>; so the multipliers grow at least
+geometrically with ratio <span class="math inline" data-term-auto="off">\(2\)</span> and
+outgrow the bound on <span class="math inline" data-term-auto="off">\(C_n\)</span>, making
+<span class="math inline" data-term-auto="off">\(e_n/a_n\)</span> eventually small. Two
+caveats. Summability is used for this step, so the estimate is not
+available from the state recurrence alone; and the conclusion is
+eventual and not universal, whereas Theorem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:periodic}\)</span> imposes <span
+class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> at every index, so it is the
+eventual form of the exclusion cited above that applies. Under the
+periodicity hypothesis of Theorem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:periodic}\)</span> the estimate
+is in any case unnecessary, since a periodic magnitude is bounded while
+the multipliers tend to infinity.</em></p>
+</div>
 </section>
 <section id="long243:sec:barrier" class="level2">
 <h2>Bounded rise cannot remain coprime to fresh moduli</h2>
@@ -2058,13 +2867,62 @@ class="math inline" data-term-auto="off">\(\ref{long243:sec:descent}\)</span>.</
 different kind of obstruction, and the one used here is a counting
 argument about where an integer sequence with bounded upward steps must
 land.</p>
+<div class="lemma">
+<p><strong>Lemma 41</strong> (shifted blocks of consecutive multiples).
+<em> Let <span class="math inline" data-term-auto="off">\(m_0,\ldots,m_{B-1}\)</span> be
+pairwise coprime and at least <span class="math inline" data-term-auto="off">\(2\)</span>.
+For every bound there is a <span class="math inline" data-term-auto="off">\(t\)</span> beyond
+it with <span class="math inline" data-term-auto="off">\(m_i\mid t+i\)</span> for each <span
+class="math inline" data-term-auto="off">\(i&lt;B\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Standard Chinese remaindering: solve <span
 class="math inline" data-term-auto="off">\(t\equiv-i \pmod{m_i}\)</span> simultaneously, then
 add multiples of <span class="math inline" data-term-auto="off">\(\prod_i m_i\)</span> to
 pass the bound. ◻</p>
 </div>
-<p>Formalised as the .</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L833">shifted
+consecutive multiples</a>.</p>
+<div class="example">
+<p><strong>Example 42</strong> (a block of three consecutive multiples).
+<em> Take <span class="math inline" data-term-auto="off">\(B=3\)</span> and <span
+class="math inline" data-term-auto="off">\((m_0,m_1,m_2)=(3,4,5)\)</span>. The congruences
+<span class="math inline" data-term-auto="off">\(t\equiv0\pmod3\)</span>, <span
+class="math inline" data-term-auto="off">\(t\equiv3\pmod4\)</span> and <span
+class="math inline" data-term-auto="off">\(t\equiv3\pmod5\)</span> hold exactly when <span
+class="math inline" data-term-auto="off">\(t\equiv3\pmod{60}\)</span>. At <span
+class="math inline" data-term-auto="off">\(t=3\)</span> the block is <span
+class="math inline" data-term-auto="off">\(3,4,5\)</span> with <span
+class="math inline" data-term-auto="off">\(3\mid3\)</span>, <span
+class="math inline" data-term-auto="off">\(4\mid4\)</span> and <span
+class="math inline" data-term-auto="off">\(5\mid5\)</span>; at <span
+class="math inline" data-term-auto="off">\(t=63\)</span> it is <span
+class="math inline" data-term-auto="off">\(63,64,65\)</span> with <span
+class="math inline" data-term-auto="off">\(3\mid63\)</span>, <span
+class="math inline" data-term-auto="off">\(4\mid64\)</span> and <span
+class="math inline" data-term-auto="off">\(5\mid65\)</span>. A sequence of natural numbers
+that starts at <span class="math inline" data-term-auto="off">\(0\)</span>, tends to infinity
+and rises by at most <span class="math inline" data-term-auto="off">\(3\)</span> at each step
+cannot step over the block <span
+class="math inline" data-term-auto="off">\(\{3,4,5\}\)</span>: it has a first value at least
+<span class="math inline" data-term-auto="off">\(3\)</span>, that value is at most <span
+class="math inline" data-term-auto="off">\(5\)</span>, and every member of <span
+class="math inline" data-term-auto="off">\(\{3,4,5\}\)</span> is divisible by one of the
+three moduli.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 43</strong> (bounded rise cannot remain coprime to
+fresh moduli). <em> Let <span class="math inline" data-term-auto="off">\(u:\N\to\N\)</span>
+tend to infinity with <span class="math inline" data-term-auto="off">\(u_{n+1}\le
+u_n+B\)</span> for a fixed <span class="math inline" data-term-auto="off">\(B&gt;0\)</span>.
+Then <span class="math inline" data-term-auto="off">\(u\)</span> cannot remain coprime to
+infinitely many fresh pairwise coprime moduli: there is no family of
+pairwise coprime <span class="math inline" data-term-auto="off">\(m_i\ge2\)</span>, one for
+each index, such that <span
+class="math inline" data-term-auto="off">\(\gcd(m_i,u_t)=1\)</span> whenever <span
+class="math inline" data-term-auto="off">\(i&lt;t\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Take <span class="math inline" data-term-auto="off">\(B\)</span> of the
 moduli, from indices beyond any chosen point, and use Lemma <span
@@ -2084,17 +2942,19 @@ class="math inline" data-term-auto="off">\(u_s\)</span>. Since that modulus is a
 class="math inline" data-term-auto="off">\(2\)</span>, this contradicts <span
 class="math inline" data-term-auto="off">\(\gcd(m_i,u_s)=1\)</span>. ◻</p>
 </div>
-<p>Formalised as the . The key point is that the two hypotheses pull
-against each other exactly: divergence forces <span
-class="math inline" data-term-auto="off">\(u\)</span> to travel arbitrarily far, and bounded
-rise forbids it from stepping over a window of width <span
-class="math inline" data-term-auto="off">\(B\)</span>. Uniformity of the bound is what the
-proof uses, and it is the hypothesis that cannot be relaxed by this
-argument: a rise bounded only along a subsequence leaves the intervening
-steps free to jump the window. We have not looked for a sequence of
-unbounded rise remaining coprime to every fresh modulus. The statement
-is elementary and we are not aware of a prior published form of it, but
-we would not be surprised if one exists.</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897">bounded-rise
+barrier</a>. The key point is that the two hypotheses pull against each
+other exactly: divergence forces <span class="math inline" data-term-auto="off">\(u\)</span>
+to travel arbitrarily far, and bounded rise forbids it from stepping
+over a window of width <span class="math inline" data-term-auto="off">\(B\)</span>.
+Uniformity of the bound is what the proof uses, and it is the hypothesis
+that cannot be relaxed by this argument: a rise bounded only along a
+subsequence leaves the intervening steps free to jump the window. We
+have not looked for a sequence of unbounded rise remaining coprime to
+every fresh modulus. The statement is elementary and we are not aware of
+a prior published form of it, but we would not be surprised if one
+exists.</p>
 <p>The moduli are indexed by the same set as the sequence, and the <span
 class="math inline" data-term-auto="off">\(i\)</span>th of them is asked to divide no value
 <span class="math inline" data-term-auto="off">\(u_t\)</span> with <span
@@ -2108,9 +2968,11 @@ numerators are known to be coprime to it.</p>
 tail already carries pairwise coprime moduli. Call <span
 class="math inline" data-term-auto="off">\((u,v)\)</span> a reduced exact tail with
 multipliers <span class="math inline" data-term-auto="off">\(a\)</span> when <span
-class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span>, <span
+class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_{n+1}+v_n=a_nu_n,\qquad v_{n+1}=a_nv_n
-.\]</span> Here <span class="math inline" data-term-auto="off">\(u\)</span> is the numerator
+.\]</span></div>
+<p>Here <span class="math inline" data-term-auto="off">\(u\)</span> is the numerator
 and <span class="math inline" data-term-auto="off">\(v\)</span> the denominator: the two
 recurrences are those of Section <span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:state}\)</span>, with <span
@@ -2119,11 +2981,44 @@ class="math inline" data-term-auto="off">\(C\)</span> and <span
 class="math inline" data-term-auto="off">\(v\)</span> in that of the denominator state <span
 class="math inline" data-term-auto="off">\(D\)</span>, and with coprimality imposed at every
 index.</p>
-<p>These are the , the , and the . Feeding them to Theorem <span
+<div class="proposition">
+<p><strong>Proposition 44</strong> (reduced tails are pairwise coprime).
+<em> In a reduced exact tail, <span class="math inline" data-term-auto="off">\(a_n\)</span>
+is coprime to <span class="math inline" data-term-auto="off">\(v_n\)</span>; the multipliers
+at distinct indices are pairwise coprime; and every earlier multiplier
+is coprime to every later numerator.</em></p>
+</div>
+<p>These are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L983">step
+coprimality</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1010">pairwise
+coprimality</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
+avoidance</a>. Feeding them to Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:barrier}\)</span> gives the form
 used later: there is no reduced exact tail whose numerator tends to
-infinity with a uniformly bounded upward increment, the , together with
-its eventual form, the .</p>
+infinity with a uniformly bounded upward increment, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1035">reduced
+bounded-rise exclusion</a>, together with its eventual form, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
+reduced exclusion</a>.</p>
+<div class="example">
+<p><strong>Example 45</strong> (Sylvester’s sequence as a reduced exact
+tail). <em> Put <span class="math inline" data-term-auto="off">\(u_n=1\)</span> and <span
+class="math inline" data-term-auto="off">\(v_n=D_n=1,2,6,42,1806,\ldots\)</span> as in
+Example <span class="math inline" data-term-auto="off">\(\ref{long243:ex:sylvester}\)</span>,
+with multipliers <span
+class="math inline" data-term-auto="off">\(a_n=v_n+1=2,3,7,43,1807,\ldots\)</span>. Then
+<span class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span>, <span
+class="math inline" data-term-auto="off">\(u_{n+1}+v_n=1+v_n=a_nu_n\)</span> and <span
+class="math inline" data-term-auto="off">\(v_{n+1}=a_nv_n\)</span>, so this is a reduced
+exact tail, and Proposition <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:reduced}\)</span> returns the
+classical fact that Sylvester’s numbers are pairwise coprime. Its
+numerator is constant, so it satisfies every hypothesis of the exclusion
+just stated except divergence; since the tail exists, that hypothesis
+cannot be dropped.</em></p>
+</div>
 <p>An arbitrary orbit of Section <span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:state}\)</span> need not be
 reduced, so one more step is needed before the barrier can be applied to
@@ -2136,18 +3031,39 @@ tails of Proposition <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:reduced}\)</span>, and it is
 where the cofinal boundedness in the proof of Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span> is used.</p>
+<div class="proposition">
+<p><strong>Proposition 46</strong> (the tail gcd stabilises). <em> Let
+<span class="math inline" data-term-auto="off">\((a,D,C)\)</span> be an exact natural orbit,
+that is, a triple of <span class="math inline" data-term-auto="off">\(\N\)</span>-valued
+sequences with <span class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span>
+and <span class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>, whose centred
+state <span
+class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span> is
+negative cofinally, with magnitudes bounded along that cofinal set. Then
+<span class="math inline" data-term-auto="off">\(\gcd(C_n,D_n)\)</span> is eventually
+constant, and beyond that index the orbit divided by the stable gcd is a
+reduced exact tail.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The tail gcd <span
 class="math inline" data-term-auto="off">\(\gcd(C_n,D_n)\)</span> divides its successor, the
-, so the tail gcds form a positive divisibility chain. At an index where
-the centred state is negative the tail gcd is exactly <span
-class="math inline" data-term-auto="off">\(\gcd(C_n,e_n)\)</span>, the , and is therefore at
-most the magnitude there; so the chain is bounded along the cofinal set
-of negative indices. A positive divisibility chain whose values are
-bounded along a cofinal set is eventually constant, the . Hence
-cofinally bounded negative magnitudes make the tail gcd stabilise, the ,
-and beyond that point dividing by the stable gcd leaves the numerator
-and denominator coprime, that is, a reduced exact tail. ◻</p>
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1424">gcd
+monotonicity</a>, so the tail gcds form a positive divisibility chain.
+At an index where the centred state is negative the tail gcd is exactly
+<span class="math inline" data-term-auto="off">\(\gcd(C_n,e_n)\)</span>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1581">gcd
+at a negative index</a>, and is therefore at most the magnitude there;
+so the chain is bounded along the cofinal set of negative indices. A
+positive divisibility chain whose values are bounded along a cofinal set
+is eventually constant, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1599">chain
+stabilisation</a>. Hence cofinally bounded negative magnitudes make the
+tail gcd stabilise, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
+stabilisation</a>, and beyond that point dividing by the stable gcd
+leaves the numerator and denominator coprime, that is, a reduced exact
+tail. ◻</p>
 </div>
 <p>The stabilisation of the tail gcd is the checked statement cited at
 the end of the proof; the last clause, that the divided orbit is a
@@ -2158,11 +3074,34 @@ indices, and cofinally many of them is all the divisibility chain
 needs.</p>
 <p>Normalised vanishing by itself gives a different, strictly weaker
 conclusion. For an exact natural orbit with <span
-class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, put <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, put</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[G_n=\gcd(C_n,D_n),\qquad
-\Gamma(N)=\#\{0\le j&lt;N:G_j&lt;G_{j+1}\}.\]</span></p>
-<p>The first assertion is the ; the second is the . The proof first
-converts normalised vanishing into subexponential growth of <span
+\Gamma(N)=\#\{0\le j&lt;N:G_j&lt;G_{j+1}\}.\]</span></div>
+<div class="proposition">
+<p><strong>Proposition 47</strong> (normalised vanishing makes strict
+gcd changes sparse). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span> with <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, and put <span
+class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>, <span
+class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span> and <span
+class="math inline" data-term-auto="off">\(\Gamma(N)=\#\{0\le
+j&lt;N:G_j&lt;G_{j+1}\}\)</span>. If <span
+class="math inline" data-term-auto="off">\(|E_n|/C_n\to0\)</span>, then <span
+class="math inline" data-term-auto="off">\(\Gamma(N)=o(N)\)</span>. Moreover, for every
+starting bound <span class="math inline" data-term-auto="off">\(B\)</span> and block length
+<span class="math inline" data-term-auto="off">\(L\)</span>, some <span
+class="math inline" data-term-auto="off">\(n\ge B\)</span> satisfies <span
+class="math display" data-term-auto="off">\[G_n=G_{n+1}=\cdots=G_{n+L}.\]</span></em></p>
+</div>
+<p>The first assertion is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2180">sublinear
+strict-growth theorem</a>; the second is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2196">arbitrarily
+late constant-block theorem</a>. The proof first converts normalised
+vanishing into subexponential growth of <span
 class="math inline" data-term-auto="off">\(C_n\)</span>, then charges every strict
 divisibility increase of <span class="math inline" data-term-auto="off">\(G_n\)</span>
 against a finite power-of-two budget. Sparse strict changes force long
@@ -2213,6 +3152,36 @@ class="math inline" data-term-auto="off">\(B\)</span> cannot remain coprime to t
 coprime moduli a reduced tail carries. The complementary case, in which
 the error is eventually positive, is the descent of Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:descent}\)</span>.</p>
+<div class="theorem">
+<p><strong>Theorem 48</strong> (bounded negative part). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> and <span
+class="math inline" data-term-auto="off">\(E:\N\to\Z\)</span> satisfy</em></p>
+<ol>
+<li><p><em><span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em>the exact dynamics <span
+class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>;</em></p></li>
+<li><p><em><span
+class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span> for
+every <span class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventual strict centring</em>: <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventually bounded negative part</em>: <span
+class="math inline" data-term-auto="off">\(-B\le E_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>, for some <span
+class="math inline" data-term-auto="off">\(B\)</span>;</em></p></li>
+<li><p><em><em>normalised vanishing</em>: for every <span
+class="math inline" data-term-auto="off">\(K\)</span> there is an <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span
+class="math inline" data-term-auto="off">\(K\,|E_n|&lt;C_n\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\ge N\)</span>.</em></p></li>
+</ol>
+<p><em>Then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Suppose not. We first remove every late zero: by
 Theorem <span class="math inline" data-term-auto="off">\(\ref{long243:res:absorb}\)</span>
@@ -2235,9 +3204,27 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:descent}\)</span> ap
 forces <span class="math inline" data-term-auto="off">\(E\)</span> to vanish, contradicting
 nowhere-vanishing. ◻</p>
 </div>
-<p>Formalised as the , with the eventual form, in which the centring and
-the bound need only hold from some index, as the . The two auxiliary
-results it uses are the and the , the latter over the .</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+rigidity</a>, with the eventual form, in which the centring and the
+bound need only hold from some index, as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
+bounded-negative-part rigidity</a>. The two auxiliary results it uses
+are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1733">divergence
+from normalised vanishing</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
+of cofinally bounded negative magnitudes</a>, the latter over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1655">tail-divergence
+form</a>.</p>
+<div class="corollary">
+<p><strong>Corollary 49</strong>. <em> Under the hypotheses of
+Theorem <span class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span>,
+together with <span class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span> for all
+large <span class="math inline" data-term-auto="off">\(n\)</span>, the multipliers satisfy
+<span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span> then
@@ -2311,12 +3298,24 @@ total normalised negative mass, removes a further family of orbits, and
 the argument is multiplicative rather than arithmetic: it compares <span
 class="math inline" data-term-auto="off">\(C\)</span> with a convergent product instead of
 with a system of congruences.</p>
+<div class="theorem">
+<p><strong>Theorem 50</strong> (finite normalised negative mass). <em>
+Let <span class="math inline" data-term-auto="off">\(C_n\in\N_{&gt;0}\)</span> and <span
+class="math inline" data-term-auto="off">\(E_n\in\Z\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>. If <span
+class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty,\]</span>
+then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> eventually. For an exact
+reciprocal-tail orbit this implies <span
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> eventually. No
+normalised-vanishing hypothesis is required.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put <span
 class="math inline" data-term-auto="off">\(\delta_n=(-E_n)_+/C_n\)</span>. The update gives
-<span class="math inline" data-term-auto="off">\(C_{n+1}\le C_n(1+\delta_n)\)</span>, so
-<span class="math display" data-term-auto="off">\[C_N\le C_0\prod_{n&lt;N}(1+\delta_n)
-\le C_0\exp\!\left(\sum_n\delta_n\right).\]</span> Choose an integer
+<span class="math inline" data-term-auto="off">\(C_{n+1}\le C_n(1+\delta_n)\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_N\le C_0\prod_{n&lt;N}(1+\delta_n)
+\le C_0\exp\!\left(\sum_n\delta_n\right).\]</span></div>
+<p>Choose an integer
 upper bound <span class="math inline" data-term-auto="off">\(K\)</span> for <span
 class="math inline" data-term-auto="off">\(C_n\)</span>. Each strict rise of the integer
 sequence contributes at least <span class="math inline" data-term-auto="off">\(1/K\)</span>
@@ -2350,6 +3349,31 @@ remaining hypothesis is summability of <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span>. That hypothesis is
 not supplied there, and is the content of Problem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:masshyp}\)</span> below.</p>
+<div class="example">
+<p><strong>Example 51</strong> (the product bound at a geometric rate).
+<em> Suppose <span class="math inline" data-term-auto="off">\(C_0=100\)</span> and <span
+class="math inline" data-term-auto="off">\((-E_n)_+/C_n\le2^{-n-1}\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>, so that the normalised negative mass
+is at most <span class="math inline" data-term-auto="off">\(1\)</span>; the constraint at
+<span class="math inline" data-term-auto="off">\(n=0\)</span> still permits <span
+class="math inline" data-term-auto="off">\(E_0\)</span> as negative as <span
+class="math inline" data-term-auto="off">\(-50\)</span>. Since <span
+class="math inline" data-term-auto="off">\(1+x\le e^{x}\)</span>, <span
+class="math display" data-term-auto="off">\[C_N\le100\prod_{n&lt;N}\bigl(1+2^{-n-1}\bigr)\le100e&lt;272\]</span>
+for every <span class="math inline" data-term-auto="off">\(N\)</span>. For all sufficiently
+large <span class="math inline" data-term-auto="off">\(n\)</span>, we have <span
+class="math inline" data-term-auto="off">\(2^{-n-1}&lt;1/272\)</span>. A strict rise would
+then force <span
+class="math inline" data-term-auto="off">\((-E_n)_+/C_n\ge1/C_n&gt;1/272\)</span>, a
+contradiction. Thus <span class="math inline" data-term-auto="off">\(C_n\)</span> is
+eventually nonincreasing; as a positive integer sequence it stabilises,
+and <span class="math inline" data-term-auto="off">\(E_n=0\)</span> thereafter. The constant
+<span class="math inline" data-term-auto="off">\(272\)</span> comes from the total mass and
+not from any single magnitude, which is why the hypothesis of
+Theorem <span class="math inline" data-term-auto="off">\(\ref{long243:res:mass}\)</span> is
+summability of <span class="math inline" data-term-auto="off">\((-E_n)_+/C_n\)</span> and not
+a bound on it.</em></p>
+</div>
 </section>
 <section id="long243:sec:open" class="level2">
 <h2>Complements and further questions</h2>
@@ -2366,6 +3390,20 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:mass}\)</span> exclu
 negative part and finite normalised negative mass under normalised
 vanishing. Together with absorption and descent they fix the profile of
 any counterexample.</p>
+<div class="proposition">
+<p><strong>Proposition 52</strong> (frontier profile for a
+counterexample). <em> For the canonical integer state attached to any
+counterexample to Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, <span
+class="math display" data-term-auto="off">\[E_n\ne0\quad\hbox{eventually},\qquad
+\frac{|E_n|}{C_n}\longrightarrow0,\]</span> and <span
+class="math display" data-term-auto="off">\[\limsup_{\substack{n\to\infty\\E_n&lt;0}}(-E_n)=\infty,
+\qquad
+\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}=\infty .\]</span> In particular,
+negative indices occur infinitely often. Thus the remaining regime
+consists of globally coherent, unbounded negative excursions with
+divergent normalised negative mass.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Koizumi’s canonical-tail transfer gives strict
 centring and normalised vanishing after a finite shift; the
@@ -2381,8 +3419,10 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:mass}\)</span> exclu
 normalised negative mass. These statements are unchanged by deleting a
 finite prefix. ◻</p>
 </div>
-<p>Put <span
-class="math display" data-term-auto="off">\[\delta_n:=\frac{(-E_n)_+}{C_n}.\]</span> Every
+<p>Put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\delta_n:=\frac{(-E_n)_+}{C_n}.\]</span></div>
+<p>Every
 argument in Sections <span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:constant}\)</span>–<span
 class="math inline" data-term-auto="off">\(\ref{long243:sec:bounded}\)</span> uses a
@@ -2395,11 +3435,71 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:frontier}\)</span> r
 counterexample has none of them; it is a frontier statement, not an
 additional problem equivalent to the original one. Stated at the level
 of state orbits, the surviving obstruction is the following.</p>
+<div class="problem">
+<p><strong>Problem 53</strong> (unbounded divergent-mass negative
+excursions). <em> Exclude, or construct, an exact natural orbit <span
+class="math inline" data-term-auto="off">\((a,D,C)\)</span> with <span
+class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, whose multipliers satisfy <span
+class="math inline" data-term-auto="off">\(\lim_n a_{n+1}/a_n^{2}=1\)</span> and whose
+centred state satisfies normalised vanishing, and which is negative
+infinitely often with magnitudes unbounded along that cofinal set and
+<span class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty
+.\]</span> An excursion of this kind has none of the finiteness
+hypotheses just listed. By Proposition <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:frontier}\)</span> the canonical
+state of a counterexample is such an orbit after deletion of a finite
+prefix, so an exclusion would settle Problem #243. A proposed
+construction must be global, and it must supply the growth condition of
+Problem <span class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>
+together with a vanishing tail ratio, under which the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">reciprocal-series
+realisation</a> makes the orbit the canonical orbit of the rational
+number <span class="math inline" data-term-auto="off">\(C_0/D_0\)</span>. Finite admissible
+prefixes alone do not provide such a construction.</em></p>
+</div>
+<div class="remark">
+<p><strong>Remark 2</strong>. <em>The hypotheses in Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:excursions}\)</span> beyond the
+state recurrence are not decorative: the recurrence alone admits
+unbounded divergent-mass excursions. Put <span
+class="math display" data-term-auto="off">\[C_n=2^{n},\qquad b_0=2,\qquad b_{n+1}=\tfrac12
+b_n(b_n+2),\qquad
+a_n=b_n+2,\qquad D_n=b_nC_n ,\]</span> so that <span
+class="math inline" data-term-auto="off">\((b_n)=2,4,12,84,3612,\ldots\)</span> and <span
+class="math inline" data-term-auto="off">\((a_n)=4,6,14,86,3614,\ldots\)</span>. Every <span
+class="math inline" data-term-auto="off">\(b_n\)</span> is a positive even integer, since
+<span class="math inline" data-term-auto="off">\(b_n=2k\)</span> gives <span
+class="math inline" data-term-auto="off">\(b_{n+1}=2k(k+1)\)</span>, so all four sequences
+are <span class="math inline" data-term-auto="off">\(\N\)</span>-valued. The orbit is exact:
+<span class="math inline" data-term-auto="off">\(C_{n+1}+D_n=2^{n}(2+b_n)=a_nC_n\)</span> and
+<span
+class="math inline" data-term-auto="off">\(D_{n+1}=b_{n+1}2^{n+1}=b_n(b_n+2)2^{n}=a_nD_n\)</span>.
+Its centred state is <span
+class="math display" data-term-auto="off">\[E_n=D_n-(a_n-1)C_n=b_n2^{n}-(b_n+1)2^{n}=-C_n
+,\]</span> so the negative magnitudes <span
+class="math inline" data-term-auto="off">\(2^{n}\)</span> are unbounded and <span
+class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span> diverges. What fails
+is the centring: <span class="math inline" data-term-auto="off">\(|E_n|=C_n\)</span> at every
+index, so strict centring fails at the boundary and normalised vanishing
+fails outright. The multipliers satisfy <span
+class="math inline" data-term-auto="off">\(a_{n+1}=\tfrac12(a_n^{2}-2a_n+4)\)</span>, so
+<span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^{2}\to\tfrac12\)</span> and the
+growth hypothesis fails as well. The example therefore says nothing
+about Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, and it does
+not isolate the centring hypotheses: <span
+class="math inline" data-term-auto="off">\(E_n=-C_n\)</span> at every index forces that
+multiplier recurrence, so growth fails with them. It is recorded only to
+show that the state recurrence alone is not enough.</em></p>
+</div>
 <section id="global-height-and-old-factor-overlap" class="level3">
 <h3>Global height and old-factor overlap</h3>
 <p>The main arithmetic gap is global. Define the cumulative digit LCM
-and its overlap quotient by <span class="math display" data-term-auto="off">\[L_0=D_0,\qquad
-L_{n+1}=\lcm(L_n,a_n),\qquad M_n=\frac{D_n}{L_n}.\]</span> Since <span
+and its overlap quotient by</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L_0=D_0,\qquad
+L_{n+1}=\lcm(L_n,a_n),\qquad M_n=\frac{D_n}{L_n}.\]</span></div>
+<p>Since <span
 class="math inline" data-term-auto="off">\(D_n=D_0\prod_{j&lt;n}a_j\)</span>, the quotient is
 integral and <span class="math inline" data-term-auto="off">\(M_nL_n=D_n\)</span>. It records
 the multiplicity lost when the full product scale is compressed to an
@@ -2410,54 +3510,75 @@ LCM.</p>
 <p>The cumulative quotient does not by itself distinguish one large
 deletion from many small ones. The reduced recurrence does. Let <span
 class="math inline" data-term-auto="off">\(u,h,c:\N\to\N\)</span> and <span
-class="math inline" data-term-auto="off">\(e:\N\to\Z\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(e:\N\to\Z\)</span> satisfy</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[h_nu_{n+1}=u_n-e_n,
 \qquad u_n&gt;0,
-\qquad h_n&gt;0.\]</span> Fix <span
+\qquad h_n&gt;0.\]</span></div>
+<p>Fix <span
 class="math inline" data-term-auto="off">\(K,r,L\in\N\)</span> with <span
-class="math inline" data-term-auto="off">\(K,L&gt;0\)</span>, assume <span
+class="math inline" data-term-auto="off">\(K,L&gt;0\)</span>, assume</p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K|e_{r+i}|&lt;u_{r+i}\quad(0\le i&lt;L),
-\qquad u_r\le u_{r+L},\]</span> and let <span
+\qquad u_r\le u_{r+L},\]</span></div>
+<p>and let <span
 class="math inline" data-term-auto="off">\(R\)</span> be a finite family of moduli. Suppose
 every <span class="math inline" data-term-auto="off">\(m_q\)</span>, <span
 class="math inline" data-term-auto="off">\(q\in R\)</span>, divides the deletion product
 <span class="math inline" data-term-auto="off">\(\prod_{r\le n&lt;r+L}c_n\)</span>, and that
 <span class="math inline" data-term-auto="off">\(c_n^2\mid h_n\)</span> throughout the
-interval. Then <span class="math display" data-term-auto="off">\[\begin{equation}
+interval. Then</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:repair-entropy}
 K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
-\end{equation}\]</span> This is the
-<span>repairedFamily_recovery_energy_divisionFree</span>
-<span>repair-entropy conservation law</span>.</p>
+\end{equation}\]</span></div>
+<p>This is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
+conservation law</a>.</p>
 <p>The square in <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:repair-entropy}\)</span> is the
 key point. Exact denominator reduction charges <span
 class="math inline" data-term-auto="off">\(c_n^2\)</span> to the scale growth, so a repaired
 family whose LCM is at least <span
-class="math inline" data-term-auto="off">\(2^{|R|}\)</span> satisfies <span
-class="math display" data-term-auto="off">\[K^L4^{|R|}&lt;(K+1)^L.\]</span> The formal
-consequence is <span>repaired_card_bound_of_independent</span> <span>the
-independent-repair cardinality bound</span>. It rules out
-positive-density deletion of independent old moduli inside recoveries
-with a fixed relative-error budget.</p>
+class="math inline" data-term-auto="off">\(2^{|R|}\)</span> satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[K^L4^{|R|}&lt;(K+1)^L.\]</span></div>
+<p>The formal
+consequence is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L78">the
+independent-repair cardinality bound</a>. It rules out positive-density
+deletion of independent old moduli inside recoveries with a fixed
+relative-error budget.</p>
 <p>There is also an endpoint that does not mention a chosen modulus
 family. If <span class="math inline" data-term-auto="off">\(K|e_n|&lt;u_n\)</span> eventually
 for every <span class="math inline" data-term-auto="off">\(K\)</span>, then for each fixed
 <span class="math inline" data-term-auto="off">\(L&gt;0\)</span> there is an <span
 class="math inline" data-term-auto="off">\(N\)</span> such that every recovery <span
 class="math inline" data-term-auto="off">\(u_r\le u_{r+L}\)</span> with <span
-class="math inline" data-term-auto="off">\(r\ge N\)</span> satisfies <span
-class="math display" data-term-auto="off">\[\prod_{0\le i&lt;L}h_{r+i}=1.\]</span> Thus a
+class="math inline" data-term-auto="off">\(r\ge N\)</span> satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\prod_{0\le i&lt;L}h_{r+i}=1.\]</span></div>
+<p>Thus a
 surviving nontrivial reset must have recovery length tending to
-infinity. Lean checks this as
-<span>eventually_recoveryPayment_eq_one_of_fixedLength</span>
-<span>eventual disappearance of fixed-length reset payments</span>. The
-theorem does not bound a recovery length that varies with <span
+infinity. Lean checks this as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L107">eventual
+disappearance of fixed-length reset payments</a>. The theorem does not
+bound a recovery length that varies with <span
 class="math inline" data-term-auto="off">\(r\)</span>, nor does it supply a lower bound for
 the LCM of the moduli repaired in such an interval. Those are the
 missing inputs needed to turn <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:repair-entropy}\)</span> into a
 global contradiction.</p>
+<div class="problem">
+<p><strong>Problem 54</strong> (global overlap-height growth). <em> For
+every nonterminal canonical orbit satisfying Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, must <span
+class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{\log
+M_n}{n}&gt;0?\]</span> Equivalently, must there be a <span
+class="math inline" data-term-auto="off">\(K\ge1\)</span> for which <span
+class="math display" data-term-auto="off">\[2^n\le M_n^K\]</span> at infinitely many
+indices?</em></p>
+</div>
 <p>The two displayed formulations are equivalent up to changing the
 positive constant; the second is not a weaker target. On the canonical
 orbit, Section <span
@@ -2470,18 +3591,41 @@ growth.</p>
 <p>There is also a more local-looking question whose content is
 nevertheless the entire prefix. Put <span
 class="math inline" data-term-auto="off">\(A_n=\prod_{j&lt;n}a_j\)</span>, so <span
-class="math inline" data-term-auto="off">\(D_n=D_0A_n\)</span>. From <span
-class="math display" data-term-auto="off">\[D_0A_n=(a_n-1)C_n+E_n\]</span> one immediately
-obtains <span class="math display" data-term-auto="off">\[\gcd(A_n,a_n-1)\mid E_n.\]</span>
-The checked and normalised vanishing make <span
+class="math inline" data-term-auto="off">\(D_n=D_0A_n\)</span>. From</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[D_0A_n=(a_n-1)C_n+E_n\]</span></div>
+<p>one immediately
+obtains</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gcd(A_n,a_n-1)\mid E_n.\]</span></div>
+<p>The checked <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2164">tail-height
+estimate</a> and normalised vanishing make <span
 class="math inline" data-term-auto="off">\(|E_n|\)</span> subexponential in <span
 class="math inline" data-term-auto="off">\(n\)</span>.</p>
+<div class="problem">
+<p><strong>Problem 55</strong> (old-factor overlap). <em> In every
+nonterminal canonical orbit satisfying Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, is <span
+class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
+\frac{\log\gcd(A_n,a_n-1)}{n}&gt;0?\]</span> Equivalently, do there
+exist <span class="math inline" data-term-auto="off">\(\eta&gt;0\)</span> and infinitely many
+<span class="math inline" data-term-auto="off">\(n\)</span> such that <span
+class="math inline" data-term-auto="off">\(\gcd(A_n,a_n-1)\ge e^{\eta n}\)</span>?</em></p>
+</div>
 <p>A positive answer contradicts the displayed divisibility and the
 subexponential error budget. Arbitrarily long locally admissible blocks
 do not answer this question: the gcd uses the complete prefix.</p>
 </section>
 <section id="the-direct-analytic-question" class="level3">
 <h3>The direct analytic question</h3>
+<div class="problem">
+<p><strong>Problem 56</strong> (summability from rationality). <em> Let
+<span class="math inline" data-term-auto="off">\((a_n)\)</span> satisfy Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>, and let <span
+class="math inline" data-term-auto="off">\((D_n,C_n,E_n)\)</span> be its canonical integer
+state. Must <span class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\delta_n
+=\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty ?\]</span></em></p>
+</div>
 <p>An affirmative answer closes Problem #243 by Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:mass}\)</span>. Since <span
 class="math inline" data-term-auto="off">\(\delta_n\to0\)</span>, convergence is equivalently
@@ -2496,9 +3640,48 @@ class="math inline" data-term-auto="off">\(\eqref{long243:eq:weightedgrowth}\)</
 decreasing weight with divergent integral and one fixed baseline. This
 replaces the all-index mass by a discounted series supported only at LCM
 records.</p>
+<div class="remark">
+<p><strong>Remark 3</strong>. <em>One further question is not left open
+here, since it is answered in <span class="citation"
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>: whether normalised vanishing follows
+from <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^{2}\to1\)</span> and
+rationality. It does. After deleting a finite prefix, Koizumi’s
+Corollary 3  <span class="citation" data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>
+makes the sequence the pseudo-greedy expansion of its own reciprocal sum
+and gives <span class="math inline" data-term-auto="off">\(\varepsilon_n\to0\)</span> under
+exactly the hypotheses of Problem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>; rationality is
+not needed for that step, only summability of <span
+class="math inline" data-term-auto="off">\(\sum1/a_n\)</span>. Since <span
+class="math inline" data-term-auto="off">\(\varepsilon_n=E_n/C_n\)</span> under the intended
+reading of Section <span
+class="math inline" data-term-auto="off">\(\ref{long243:sec:state}\)</span>, this is
+normalised vanishing. Strict centring comes from the same source and is
+stronger than what Theorem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span> assumes: for a
+rational reciprocal sum, the range <span class="math inline" data-term-auto="off">\(-c_n/2\le
+e_n&lt;c_n/2\)</span> of his Lemma 4(2)  <span class="citation"
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span> gives <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> at every index, which is
+stronger than eventual strict centring. The eventual form also follows
+directly from normalised vanishing with <span
+class="math inline" data-term-auto="off">\(K=1\)</span>. What remains unsupplied is
+hypothesis (5), the bound on the negative part, which is why the theorem
+is still conditional.</em></p>
+</div>
 </section>
 <section id="a-barrier-extension" class="level3">
 <h3>A barrier extension</h3>
+<div class="problem">
+<p><strong>Problem 57</strong> (variable-rise CRT barrier). <em>
+Determine the weakest growth condition on the positive increments of
+<span class="math inline" data-term-auto="off">\(u_n\)</span> under which an unbounded
+integer sequence cannot remain coprime to infinitely many
+pairwise-coprime old moduli as in Theorem <span
+class="math inline" data-term-auto="off">\(\ref{long243:res:barrier}\)</span>. In particular,
+does the conclusion remain valid under the candidate condition <span
+class="math display" data-term-auto="off">\[(u_{n+1}-u_n)_+=o\bigl(\log\log(u_n+3)\bigr)?\]</span></em></p>
+</div>
 <p>The displayed rate is a proposed threshold, not a proved sharp
 boundary. Either an extension of the CRT barrier or a counterexample
 with this rise rate would be informative independently of Problem #243.
@@ -2511,6 +3694,22 @@ in the band between <span class="math inline" data-term-auto="off">\(o(\ell(u_n)
 and <span class="math inline" data-term-auto="off">\((1+\epsilon)\ell(u_n)\)</span>, and an
 affirmative answer must use coprimality itself rather than avoidance of
 multiples.</p>
+<div class="problem">
+<p><strong>Problem 58</strong> (the maximal-gap coefficient). <em> Let
+<span class="math inline" data-term-auto="off">\(m_0&lt;m_1&lt;\cdots\)</span> be pairwise
+coprime with <span class="math inline" data-term-auto="off">\(\ell(m_j)=j+O(1)\)</span> and
+<span class="math inline" data-term-auto="off">\(\sigma=\prod_j(1-1/m_j)&gt;0\)</span>, and
+let <span class="math inline" data-term-auto="off">\(u_n\)</span> enumerate the integers
+divisible by no <span class="math inline" data-term-auto="off">\(m_j\)</span>. Is <span
+class="math inline" data-term-auto="off">\(\limsup_n(u_{n+1}-u_n)/\ell(u_n)=\sigma^{-1}\)</span>?
+For the Fermat moduli <span class="math inline" data-term-auto="off">\(m_j=2^{2^j}+1\)</span>
+the product telescopes to <span
+class="math inline" data-term-auto="off">\(\sigma=1/2\)</span> exactly, and the observed
+ratio is <span class="math inline" data-term-auto="off">\(1.8116\)</span> for <span
+class="math inline" data-term-auto="off">\(u\ge1000\)</span> up to <span
+class="math inline" data-term-auto="off">\(3\cdot10^6\)</span> against the proposed value
+<span class="math inline" data-term-auto="off">\(2\)</span>.</em></p>
+</div>
 <p>The upper bound implicit in Proposition <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:coprimalitycap}\)</span> is <span
 class="math inline" data-term-auto="off">\((1-\theta)^{-1}\)</span> with <span
@@ -2597,11 +3796,16 @@ class="math inline" data-term-auto="off">\(\eqref{long243:eq:shape}\)</span> rea
 class="math inline" data-term-auto="off">\(D_n+1=(a_n-1)(n+1)\)</span>, each multiplier is
 determined by its predecessor; we call such an orbit <em>forced</em>. At
 index <span class="math inline" data-term-auto="off">\(n\)</span> the numerator of the next
-multiplier is <span
-class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span>
-the , and the divisor is <span class="math inline" data-term-auto="off">\(n+2\)</span>. The
-orbit survives a step when that division is exact, giving a survival
-predicate, the . Example <span
+multiplier is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span></div>
+<p>the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
+numerator</a>, and the divisor is <span
+class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit survives a step when that
+division is exact, giving a survival predicate, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
+predicate</a>. Example <span
 class="math inline" data-term-auto="off">\(\ref{long243:ex:shape}\)</span> is the forced
 orbit from <span class="math inline" data-term-auto="off">\(a=3\)</span> read this way: <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span> is divisible by
@@ -2613,6 +3817,14 @@ there. Deciding survival by iteration is expensive because the orbit
 grows doubly exponentially, and it is unnecessary: survival over a
 finite horizon depends on the initial value only through a factorial
 residue.</p>
+<div class="theorem">
+<p><strong>Theorem 59</strong> (factorial residue reduction). <em> For
+all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
+class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the orbit from
+<span class="math inline" data-term-auto="off">\(a\)</span> survives <span
+class="math inline" data-term-auto="off">\(h\)</span> forced updates exactly when the orbit
+from <span class="math inline" data-term-auto="off">\(b\)</span> does.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Let <span class="math inline" data-term-auto="off">\(M(0,i)=1\)</span> and
 <span class="math inline" data-term-auto="off">\(M(h+1,i)=(i+2)M(h,i+1)\)</span>, an
@@ -2625,8 +3837,19 @@ and cancelling that common factor from both values and modulus leaves
 the inductive hypothesis at <span
 class="math inline" data-term-auto="off">\(M(h,i+1)\)</span>. ◻</p>
 </div>
-<p>Formalised as the , over the , the , and the ; the modulus
-identifications are the and the .</p>
+<p>Formalised as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
+residue reduction</a>, over the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L97">shrinking-modulus
+transport</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L26">polynomial
+congruence</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L41">exact-division
+cancellation</a>; the modulus identifications are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L59">ascending-factorial
+form</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
+value at the initial index</a>.</p>
 <p>At <span class="math inline" data-term-auto="off">\(h=1\)</span> the modulus is <span
 class="math inline" data-term-auto="off">\(2!=2\)</span>, and surviving one update means
 <span class="math inline" data-term-auto="off">\(2\mid a^{2}-2a+3\)</span>, which holds

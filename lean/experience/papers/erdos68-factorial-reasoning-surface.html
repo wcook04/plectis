@@ -7,6 +7,11 @@
   <div class="lean-paper__body" data-source="../../../paper/erdos68-factorial-reasoning-surface.tex">
 <section id="long68:sec:prime-powers" class="level2">
 <h2>Which prime powers survive reduction</h2>
+<div class="problem">
+<p><strong>Problem 1</strong> (Erdős #68). <em> Is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">S=\sum_{n\ge2}(n!-1)^{-1}</annotation></semantics></math>
+irrational?</em></p>
+</div>
 <p>Erdős states the question on p. 102 of his 1988 survey and, in the
 same passage, records the expectation that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_n1/(n!+t)</annotation></semantics></math>
@@ -31,6 +36,30 @@ first question is which prime power present in
 remains in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{den}(H_M)</annotation></semantics></math>.</p>
 <p></p>
+<div class="theorem">
+<p><strong>Theorem 2</strong> (maximal prime-power survival). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\ge2</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+be a prime dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>M</mi></msub><annotation encoding="application/x-tex">L_M</annotation></semantics></math>,
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">e=v_p(L_M)</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>n</mi><mo>:</mo><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>M</mi><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">J=\{n:2\le n\le M,\ v_p(d_n)=e\}</annotation></semantics></math>
+and write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><msup><mi>p</mi><mi>e</mi></msup><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">d_n=p^eu_n</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">n\in J</annotation></semantics></math>.
+Then, with inverses in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mi>p</mi></msub><annotation encoding="application/x-tex">\mathbb F_p</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mi>e</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><munder><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>J</mi></mrow></munder><msubsup><mi>u</mi><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">in </mtext><mspace width="0.333em"></mspace></mrow><msub><mi mathvariant="double-struck">𝔽</mi><mi>p</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:prime-pole-survival}
+ v_p\bigl(\operatorname{den}(H_M)\bigr)=e
+ \quad\Longleftrightarrow\quad
+ \sum_{n\in J}u_n^{-1}\ne0\quad\text{in }\mathbb F_p.
+\end{equation}</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>M</mi></msub><mo>=</mo><msup><mi>p</mi><mi>e</mi></msup><mi>W</mi></mrow><annotation encoding="application/x-tex">L_M=p^eW</annotation></semantics></math>
@@ -144,6 +173,24 @@ separate from the theorem.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>m</mi></msub><annotation encoding="application/x-tex">d_m</annotation></semantics></math>
 and divides none of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">d_2,\ldots,d_{m-1}</annotation></semantics></math>.</p>
+<div class="proposition">
+<p><strong>Proposition 3</strong> (cofinal first prime occurrences).
+<em> For every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>
+there are a prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+and an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">m&gt;B</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">m&lt;q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid m!-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(q,k!-1)=1</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">2\le k&lt;m</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Choose a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>B</mi><mi>!</mi><mo>+</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">q\ge B!+5</annotation></semantics></math>.
@@ -188,6 +235,12 @@ data-cites="stewart2004"><a href="#ref-7">[7]</a></span>.</p>
 <p>Theorem  concerns the denominator after reduction. The common
 denominator before reduction admits an unconditional lower bound of its
 own, by an elementary argument.</p>
+<div class="lemma">
+<p><strong>Lemma 4</strong> (product, least common multiple, pairwise
+gcd). <em> For positive integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">x_1,\ldots,x_k</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><mspace width="0.222em"></mspace><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">|</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo><munder><mo>∏</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>x</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\prod_{i=1}^{k}x_i\ \Big|\ \operatorname{lcm}(x_1,\ldots,x_k)\prod_{i&lt;j}\gcd(x_i,x_j).</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Fix a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
@@ -203,6 +256,16 @@ and the left-hand side has
 The difference is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=1}^{k-1}(k-i-1)a_i</annotation></semantics></math>,
 which is nonnegative. ◻</p>
+</div>
+<div class="lemma">
+<p><strong>Lemma 5</strong> (factorial-gap gcd). <em> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">2\le i&lt;j</annotation></semantics></math>,
+the integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g=\gcd(i!-1,j!-1)</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j!/i!-1</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>≤</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><msup><mi>j</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup></mrow><annotation encoding="application/x-tex">g\le j!/i!-1&lt;j^{\,j-i}</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Both
@@ -234,6 +297,18 @@ is a product of
 integers each at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>. ◻</p>
 </div>
+<div class="lemma">
+<p><strong>Lemma 6</strong> (segment inequality). <em> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\le k\le N-1</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mi>N</mi><mo>−</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>≤</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:segment}
+ \sum_{n=N-k+1}^{N}\log(n!-1)
+ \ \le\ \log L_N+\binom{k+1}{3}\log N.
+\end{equation}</annotation></semantics></math> The historical manuscript
+cites , line 28. This module is absent from the retained source pin;
+this citation does not establish kernel verification at that
+pin.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Apply Lemma  to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">x_n=d_n</annotation></semantics></math>
@@ -248,6 +323,14 @@ and over a block of
 consecutive indices
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>−</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{i&lt;j}(j-i)=\sum_{d=1}^{k-1}d(k-d)=\binom{k+1}{3}.</annotation></semantics></math>
 Taking logarithms of the resulting divisibility gives . ◻</p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 7</strong> (common-denominator growth). <em>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub></mrow><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
+ \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math> The
+historical manuscript cites , line 42. This module is absent from the
+retained source pin; this citation does not establish kernel
+verification at that pin.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Fix
@@ -376,6 +459,39 @@ a geometric majorant gives the tail estimate
  0&lt;E_m&lt;\frac{2\,m!}{(m+1)!-1}&lt;\frac2m\le1\qquad(m\ge2).
 \end{equation}</annotation></semantics></math></p>
 <p> </p>
+<div class="theorem">
+<p><strong>Theorem 8</strong> (strict-successor characterisation). <em>
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn><mo>⇔</mo><mi>m</mi><mo>∣</mo><msub><mi>Z</mi><mi>m</mi></msub><mo>⇔</mo><mn>1</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub><mo>&lt;</mo><mi>m</mi><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub><mo>≤</mo><mn>2</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:unit-window}
+ b_m=1
+ \iff m\mid Z_m
+ \iff 1+\varepsilon_m&lt;m\Delta_m\le2+\varepsilon_m .
+\end{equation}</annotation></semantics></math> The historical manuscript
+cites , line 79. This module is absent from the retained source pin;
+this citation does not establish kernel verification at that
+pin.</em></p>
+<p><em>Moreover
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mi>S</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mtd><mtd columnalign="left" class="ta-l pl0"><mo>⇔</mo><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">for all sufficiently large </mtext><mspace width="0.333em"></mspace></mrow><mi>m</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi></mtd><mtd columnalign="left" class="ta-l pl0"><mo>⇔</mo><mo>∀</mo><mi>B</mi><mspace width="0.222em"></mspace><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo>:</mo><mspace width="0.222em"></mspace><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align}
+ S\in\mathbb{Q}
+ &amp;\iff b_m=1\ \text{for all sufficiently large }m,
+ \label{long68:eq:carry-rationality}\\
+ S\notin\mathbb{Q}
+ &amp;\iff \forall B\ \exists m&gt;B:\ m\nmid Z_m .
+ \label{long68:eq:strict-misses}
+\end{align}</annotation></semantics></math> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a\in\mathbb{Z}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m\ne1</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid(m-1)!</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">q\ge m</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> From
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>!</mi><msub><mi>H</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mi>m</mi><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub><mo>+</mo><mn>1</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">m!H_m=mZ_{m-1}-m\Delta_m+1+\varepsilon_m</annotation></semantics></math>
@@ -481,6 +597,13 @@ is due to Cantor <span class="citation" data-cites="cantor1869"><a href="#ref-4"
 and is recorded in Galambos <span class="citation"
 data-cites="galambos1976"><a href="#ref-5">[5]</a></span>.</p>
 <p></p>
+<div class="proposition">
+<p><strong>Proposition 9</strong> (companion-orbit criterion). <em>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>C</mi><mo stretchy="false" form="postfix">⌋</mo><mo>≡</mo><mi>−</mi><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for all sufficiently large </mtext><mspace width="0.333em"></mspace></mrow><mi>m</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">S\in\mathbb{Q}
+ \quad\Longleftrightarrow\quad
+ \lfloor m!C\rfloor\equiv-2\pmod m
+ \quad\text{for all sufficiently large }m.</annotation></semantics></math></em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>m</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>m</mi></msubsup><mi>m</mi><mi>!</mi><mi>/</mi><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">J_m=\sum_{k=0}^{m}m!/k!</annotation></semantics></math>.
@@ -541,6 +664,25 @@ which is rational. ◻</p>
 The exact lower interval has width
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>/</mi><msup><mi>m</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_m/m\in(0,2/m^2)</annotation></semantics></math>,
 so the target shrinks quadratically.</p>
+<div class="proposition">
+<p><strong>Proposition 10</strong> (lower-interval criterion). <em>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo>∀</mo><mi>B</mi><mspace width="0.222em"></mspace><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo>:</mo><mspace width="0.222em"></mspace><msub><mi>E</mi><mi>m</mi></msub><mo>≤</mo><mi>m</mi><msub><mi>θ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:lower-escape}
+ S\notin\mathbb{Q}
+ \quad\Longleftrightarrow\quad
+ \forall B\ \exists m&gt;B:\ E_m\le m\theta_{m-1}.
+\end{equation}</annotation></semantics></math> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>
+the finite condition
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub><mo>≤</mo><mn>1</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub><mspace width="1.0em"></mspace><mtext mathvariant="normal">or</mtext><mspace width="1.0em"></mspace><mn>1</mn><mo>+</mo><msub><mi>ε</mi><mi>m</mi></msub><mo>+</mo><mfrac><mn>2</mn><mi>m</mi></mfrac><mo>≤</mo><mi>m</mi><msub><mi mathvariant="normal">Δ</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:finite-escape}
+ m\Delta_m\le1+\varepsilon_m
+ \quad\text{or}\quad
+ 1+\varepsilon_m+\frac2m\le m\Delta_m
+\end{equation}</annotation></semantics></math> implies the escape
+inequality in . Cofinally many instances of therefore imply
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb{Q}</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
@@ -615,6 +757,31 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>t</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)</annotation></semantics></math>,
 so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><mi>−</mi><mi>t</mi><msub><mi>C</mi><mi>t</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_t=-tC_t+(e-2)</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 11</strong> (uniform family boundary). <em> For every
+integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge-1</annotation></semantics></math>,
+the series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>t</mi></msub><annotation encoding="application/x-tex">S_t</annotation></semantics></math>
+is rational exactly when
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">⌈</mo><mi>t</mi><mspace width="0.167em"></mspace><mi>m</mi><mi>!</mi><mspace width="0.167em"></mspace><msub><mi>C</mi><mi>t</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">⌉</mo><mo>≡</mo><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bigl\lceil t\,m!\,C_t\bigr\rceil\equiv2\pmod m</annotation></semantics></math>
+for all sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>,
+and irrational exactly when that residue is missed cofinally. The member
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t=-1</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+and the member
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e-2</annotation></semantics></math>,
+whose orbit is constantly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+and therefore misses the residue class at every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
+so the boundary returns the irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.</em></p>
+</div>
 <p>The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>
 specialisation recovers a classical fact and is included because it is
@@ -674,6 +841,22 @@ is not an integer and
  =\bigl\lceil C_pH_{2p-1}\bigr\rceil-C_pH_{2p-1}\in(0,1),
 \end{equation}</annotation></semantics></math> a gap to the next
 integer.</p>
+<div class="theorem">
+<p><strong>Theorem 12</strong> (complementary-residue criterion). <em>
+Suppose that for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+there is a prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">p&gt;B</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R_p&gt;1</annotation></semantics></math>
+and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msubsup><mi>L</mi><mi>p</mi><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">k</mi></mrow></msubsup><mo>&lt;</mo><msub><mi>K</mi><mi>p</mi></msub><msub><mi>ρ</mi><mi>p</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:global-scale}
+ (2p+1)L^{\mathrm{blk}}_p&lt;K_p\rho_p .
+\end{equation}</annotation></semantics></math> Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is irrational.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
@@ -791,6 +974,39 @@ and
 \label{long68:eq:channel-congruence}
  V_{d}(c)\equiv M(c)\pmod{d!-1}.
 \end{equation}</annotation></semantics></math></p>
+<div class="theorem">
+<p><strong>Theorem 13</strong> (integral normal form). <em> For every
+finite integer support and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
+there is an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">V_{d}(c)=M(c)+(d!-1)k</annotation></semantics></math>.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 14</strong> (quotient-band breakpoint). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>,
+and suppose every supported index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>d</mi><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">kd\le i&lt;(k+1)d</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(c)=(d!)^kV_{d}(c)</annotation></semantics></math>.
+In particular, cancellation in the first band
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">d\le i&lt;2d</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(c)=0</annotation></semantics></math>;
+and if every supported index is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(c)\ne0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_{d}(c)=0</annotation></semantics></math>,
+then some supported index is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">2d</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Within one band the quotient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor i/d\rfloor</annotation></semantics></math>
@@ -861,6 +1077,30 @@ adds precisely the scalar equation
 \label{long68:eq:low-channel-support}
  ta_D+\sum_{n&gt;D}z_nu_n=0.
 \end{equation}</annotation></semantics></math></p>
+<div class="theorem">
+<p><strong>Theorem 15</strong> (exact attainable moment ideal). <em> Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">D\ge2</annotation></semantics></math>
+and a prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>p</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;p\le D</annotation></semantics></math>.
+Put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>G</mi><mi>D</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>:</mo><mi>D</mi><mo>&lt;</mo><mi>n</mi><mo>≤</mo><mi>H</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>μ</mi><mi>D</mi></msub><mo>=</mo><msub><mi>L</mi><mi>D</mi></msub><mfrac><msub><mi>G</mi><mi>D</mi></msub><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>D</mi></msub><mo>,</mo><msub><mi>a</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">H=D(2p-1),\qquad
+ G_D=\gcd\{|u_n|:D&lt;n\le H\},\qquad
+ \mu_D=L_D\frac{G_D}{\gcd(G_D,a_D)}.</annotation></semantics></math> The
+moments of finite integer vectors supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
+and cancelling all channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">2,\ldots,D</annotation></semantics></math>
+are exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>D</mi></msub><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\mu_D\mathbb{Z}</annotation></semantics></math>.
+The integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>D</mi></msub><annotation encoding="application/x-tex">\mu_D</annotation></semantics></math>
+is positive, is independent of the eligible prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+and is attained by a vector of coefficient content one, hence by a
+primitive vector.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> The finite-horizon theorem gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>D</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">G_D&gt;0</annotation></semantics></math>
@@ -890,6 +1130,16 @@ generator. ◻</p>
  H_D=\sum_{2\le d\le D}\frac1{d!-1},</annotation></semantics></math> the
 same coordinates retain the real information that the moment ideal alone
 does not see.</p>
+<div class="theorem">
+<p><strong>Theorem 16</strong> (full residual transparency). <em> For
+the vector in ,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><msub><mi>K</mi><mi>D</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>t</mi><msub><mi>L</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal R\!\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
+ =tL_D(S-H_D)+\sum_{n&gt;D}z_n.</annotation></semantics></math> The
+residual series converges for every finite vector supported away from
+index zero. A zero-moment vector has integral residual, and two such
+vectors with the same factorial moment have residuals differing by an
+integer.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d&gt;D</annotation></semantics></math>,
@@ -922,6 +1172,25 @@ lattice and its residual class modulo
 they do not prove that the remaining real residual is nonzero along a
 cofinal family.</p>
 <p></p>
+<div class="theorem">
+<p><strong>Theorem 17</strong> (square-subsequence radius bound). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>,</mo><mi>M</mi><mo>,</mo><mi>R</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">t,M,R\in\mathbb{N}</annotation></semantics></math>
+satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><msup><mn>2</mn><mn>32</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>L</mi><mrow><mn>2</mn><msup><mi>t</mi><mn>2</mn></msup></mrow></msub><mo>∣</mo><mi>M</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">t\ge2^{32},\qquad M&gt;0,\qquad L_{2t^2}\mid M,\qquad M&lt;(R+1)!-1 .</annotation></semantics></math>
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>t</mi><mn>3</mn></msup><mo>&lt;</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">3t^3&lt;2(R+1)</annotation></semantics></math>.
+Consequently no family satisfying these hypotheses for all sufficiently
+large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>t</mi><mn>3</mn></msup><mo>≤</mo><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(R(t)+1)/t^3\le3/2</annotation></semantics></math>
+eventually, and none has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mn>3</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R(t)=o(t^3)</annotation></semantics></math>.
+The historical manuscript cites , line 236. This module is absent from
+the retained source pin; this citation does not establish kernel
+verification at that pin.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>2</mn><msup><mi>t</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">D=2t^2</annotation></semantics></math>,
@@ -984,6 +1253,22 @@ the series, and must show that the channels through
 vanish for the resulting family. The theorem restricts that construction
 and supplies no irrationality argument.</p>
 <p>Theorem  raises the asymptotic constant in the same estimate.</p>
+<div class="corollary">
+<p><strong>Corollary 18</strong> (asymptotic radius constant). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(t),R(t)</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(t)&gt;0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mn>2</mn><msup><mi>t</mi><mn>2</mn></msup></mrow></msub><mo>∣</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_{2t^2}\mid M(t)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M(t)&lt;(R(t)+1)!-1</annotation></semantics></math>
+for all sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>t</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><msup><mi>t</mi><mn>3</mn></msup></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mn>16</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.</annotation></semantics></math>
+The historical manuscript cites , line 54. This module is absent from
+the retained source pin; this citation does not establish kernel
+verification at that pin.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=R(t)+1</annotation></semantics></math>,
@@ -1030,6 +1315,23 @@ The two statements are separate, and Corollary  rests on the ordinary
 proof of Theorem ; the kernel-checked finite theorem does not carry
 it.</p>
 <p>The congruence also explains the prime-channel corrector.</p>
+<div class="theorem">
+<p><strong>Theorem 19</strong> (two-term prime channel corrector). <em>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>
+be prime and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">c_{p-1}=p</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>p</mi></msub><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">c_p=-1</annotation></semantics></math>,
+with every other coefficient zero. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(c)=0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">V_{p}(c)=p!-1</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_{d}(c)=0</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≠</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">d\ne p</annotation></semantics></math>.</em></p>
+</div>
 <div class="proof">
 <p><em>Proof.</em> Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>,
@@ -1461,71 +1763,141 @@ is a separate exact-interval computation with the receipt named in
 <tbody>
 <tr>
 <td class="ta-l">Theorem </td>
-<td class="ta-l">, with the residue formula at and the
-denominator form at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223">maximal-power
+survival</a>, with the residue formula at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L129">line
+129</a> and the denominator form at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleDenominator.lean#L41">line
+41</a></td>
 </tr>
 <tr>
 <td class="ta-l">Proposition </td>
-<td class="ta-l">; reflection at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097">cofinal
+private hits</a>; reflection at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3139">line
+3139</a></td>
 </tr>
 <tr>
 <td class="ta-l">Theorem </td>
-<td class="ta-l">; denominator exclusions at and </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986">strict-successor
+misses</a>; denominator exclusions at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L812">line
+812</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L836">line
+836</a></td>
 </tr>
 <tr>
 <td class="ta-l">Proposition </td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438">companion
+orbit</a></td>
 </tr>
 <tr>
 <td class="ta-l">Proposition </td>
-<td class="ta-l">; finite window at , cofinal consumer at ,
-classification at , radius at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82">lower-interval
+normal form</a>; finite window at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L122">line
+122</a>, cofinal consumer at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L145">line
+145</a>, classification at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L39">line
+39</a>, radius at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L158">line
+158</a></td>
 </tr>
 <tr>
 <td class="ta-l">Theorem </td>
-<td class="ta-l">; escape form at , member
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139">family
+boundary</a>; escape form at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L156">line
+156</a>, member
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t=-1</annotation></semantics></math>
-at , and the irrationality of
+at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L175">line
+175</a>, and the irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-at </td>
+at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L211">line
+211</a></td>
 </tr>
 <tr>
 <td class="ta-l">Theorem </td>
-<td class="ta-l">; coprimality at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164">global
+complementary residue</a>; coprimality at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4209">line
+4209</a></td>
 </tr>
 <tr>
 <td class="ta-l">Equation </td>
-<td class="ta-l">, floor identity at , consumer at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+scale split</a>, floor identity at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4701">line
+4701</a>, consumer at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1574">line
+1574</a></td>
 </tr>
 <tr>
 <td class="ta-l">Fixed-owner absorption</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2677">absorbed
+owner</a></td>
 </tr>
 <tr>
 <td class="ta-l">Theorem  and </td>
-<td class="ta-l">, </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">integral
+channel weight</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">exact
+cancellation</a></td>
 </tr>
 <tr>
 <td class="ta-l">Theorem </td>
-<td class="ta-l">; sequence form at ,
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1222">finite
+radius bound</a>; sequence form at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1241">line
+1241</a>,
 little-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>o</mi><annotation encoding="application/x-tex">o</annotation></semantics></math>
-form at , method ceiling at </td>
+form at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1043">line
+1043</a>, method ceiling at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L764">line
+764</a></td>
 </tr>
 <tr>
 <td class="ta-l">Prime channel corrector</td>
-<td class="ta-l">, residual identity at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1657">remote
+reduction</a>, residual identity at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">line
+1559</a></td>
 </tr>
 <tr>
 <td class="ta-l">Equation </td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialZeroPlateauSupplement.lean#L257">doubled-prime
+criterion</a></td>
 </tr>
 <tr>
 <td class="ta-l">Canonical factorial digits</td>
-<td class="ta-l"></td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L78">termination
+equivalence</a></td>
 </tr>
 <tr>
 <td class="ta-l">Amplification modulus</td>
-<td class="ta-l">, nonvanishing at </td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5604">divisibility</a>,
+nonvanishing at <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5619">line
+5619</a></td>
 </tr>
 </tbody>
 </table>
@@ -1558,58 +1930,170 @@ chain behind the statements above, together with the subsidiary results
 developed alongside them; they are pinned to the formal-source commit
 named at the start of this note.</p>
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L47">fac
+floor rat eq cleared</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L81">canonical
+digit eq zero of rational</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L124">canonical
+digit eq floor mul remainder</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L153">canonical
+digit lt radix</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L162">canonical
+remainder recurrence</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196">factorial
+expansion partial</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269">zero
+remainder forces zero digit tail</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L38">canonical
+remainder eq zero of zero digit tail</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L54">exists
+rat eq of canonical remainder eq zero</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L82">factorial
+grid plateau</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L945">irrational
+factorial gap series of cofinal nonunit carries</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean#L136">sixty
+seven le rational denominator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6146">factorial
+gap zero branch iff lower endpoint cylinder</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3047">exists
+late prefix private factorial gap hit of prime product lt</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231">prime
+dvd factorial block normalized collision core of odd
+reflection</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252">one
+lt factorial block prime hit count of odd reflection</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1419">factorial
+gap large prefix private power modulus dvd tailored block private
+quotient</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1524">factorial
+gap large prefix private primes unit factor pair tailored
+block</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">consecutive
+unit carries iff positive offset le den</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
+step den mul transition normalizers</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
+unit carry window den eq two step den</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
+unit carry window offset eq two step reduced numerator</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">factorial
+moment eq factorial pow mul channel numerator band</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">factorial
+moment eq zero of channel numerator eq zero band</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">factorial
+moment eq factorial mul channel numerator first band</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">exists
+index ge two mul of factorial moment ne zero of channel eq
+zero</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1006">square
+subsequence radius cubic lower</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1023">no
+eventual square subsequence cubic upper</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">channel
+event eq zero of not dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
+residual bounds</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L52">tendsto
+factorial gap succ div sq</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L84">not
+summable abs factorial gap succ div sq sub one</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L131">tendsto
+factorial gap rpow one div two pow</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L556">pairwise
+collision core insert gcd lcm</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L586">collision
+core insert gcd lcm</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L698">collision
+core div base eq pairwise collision core div gcd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L739">collision
+core div base factorization</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L800">collision
+core div base mul denominator lcm dvd denominator prod</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2707">factorial
+block fixed pair private quotients eq one</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3327">factorial
+block normalized collision core le gap prod div gap lcm</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3394">factorial
+block normalized collision core factorization</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3443">factorial
+block prime power le gap pow of two hits</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3472">factorial
+block prime hit pair distance gt exponent</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3602">factorial
+block prime power hit count mul succ le</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3790">factorial
+block normalized collision factorization add base lt prime</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3848">factorial
+block normalized collision factorization add base lt block
+diameter</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3982">factorial
+block prime sq gt pred of dvd normalized collision core</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4387">factorial
+block factor projection lcm eq private modulus</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4854">factorial
+block complementary factor pair floor le global</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5213">factorial
+block normalized collision core factorization eq repeated hit layer
+count</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5277">factorial
+block normalized collision core factorization eq truncated repeated hit
+layer count</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5389">factorial
+block prime power dvd normalized collision core iff one lt hit count of
+endpoint lt base</a></p></li>
 </ul>
 </section>
 <section id="long68:sec:extended-record" class="level2">

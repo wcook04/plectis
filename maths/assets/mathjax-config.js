@@ -13,6 +13,8 @@ window.MathJax = {
     inlineMath: [['\\(', '\\)']],
     displayMath: [['\\[', '\\]']],
     tags: 'ams',
+    tagSide: 'right',
+    tagIndent: '0em',
     processEscapes: true,
     macros: {
       Npos: '\\mathbb{N}_{>0}',
@@ -30,6 +32,8 @@ window.MathJax = {
     }
   },
   chtml: {
+    displayAlign: 'center',
+    displayIndent: '0',
     fontURL: new URL(
       '../../assets/vendor/mathjax-3.2.2/output/chtml/fonts/woff-v2',
       window.location.href

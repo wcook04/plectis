@@ -649,11 +649,39 @@ html:not(.scripting) .universe-nojs { display: block; }
   padding: var(--space-2) 0;
   max-width: 100%;
 }
-.paper-stage .math.display {
-  display: block;
-  overflow-x: auto;
-  padding: var(--space-2) 0;
+/*
+  Display math should read like the PDF: a centred band of its own, not a
+  left-aligned strip inside the paragraph that interrupted it. The dossier
+  ``.math { white-space: nowrap }`` rule is for problem-card notation, not
+  Pandoc/MathJax spans.
+*/
+.paper-stage span.math {
+  font-family: inherit;
+  font-feature-settings: normal;
 }
+.paper-stage span.math.inline { white-space: nowrap; }
+.paper-stage span.math.display,
+.paper-stage .math-display {
+  display: block;
+  text-align: center;
+  white-space: normal;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 1em 0;
+  padding: 0;
+  max-width: 100%;
+}
+.paper-stage .theorem,
+.paper-stage .lemma,
+.paper-stage .proposition,
+.paper-stage .corollary,
+.paper-stage .definition,
+.paper-stage .example,
+.paper-stage .problem,
+.paper-stage .remark {
+  margin: 1.15em 0;
+}
+.paper-stage .proof { margin: 0.85em 0 1.15em; }
 .paper-stage table {
   border-collapse: collapse;
   margin: var(--space-4) 0;
@@ -704,9 +732,20 @@ html:not(.scripting) .universe-nojs { display: block; }
   scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
 
-/* MathJax page state: while typesetting, keep layout calm. */
-.paper-stage mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
-.paper-stage mjx-container[display="true"] { margin: var(--space-3) 0; }
+/* Inline MathJax must stay in the line; overflow:auto on it creates a box
+   that sits on a false baseline and looks like a stray indent. */
+.paper-stage mjx-container { max-width: 100%; }
+.paper-stage mjx-container[display="true"] {
+  display: block;
+  text-align: center;
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.paper-stage mjx-container[display="true"] mjx-math {
+  display: inline-block;
+  text-align: left;
+}
 
 /* ---- Document pages ------------------------------------------------------ */
 .doc-role-eyebrow {
