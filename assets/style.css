@@ -3633,6 +3633,89 @@ body.nav-open .viewback, body.cmdk-open .viewback {
 body.has-viewback { padding-bottom: 64px; }
 @media print { .viewback { display: none !important; } }
 
+/* ── First-open glossary hint ───────────────────────────────────────────────
+   A small orientation chip, top-right, injected by landing.js / docs.js — not
+   landing HTML, so it does not spend the visible-word budget. It appears at
+   rest (no entrance motion: the constitution forbids viewport-triggered
+   flourish). It leaves because the reader scrolled, sliding off to the right;
+   once gone it is removed and never returns on this load. Gold kinship with
+   .btn--gold / term links; glass kinship with .site-header. z-index 28 sits
+   under the sticky bars (header 30, docs topbar 40) and the mobile drawer. */
+.glossary-hint {
+  position: fixed;
+  top: calc(var(--topbar-h) + 12px);
+  right: 14px;
+  z-index: 28;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.62rem;
+  width: min(21.5rem, calc(100vw - 28px));
+  padding: 0.72rem 0.86rem 0.76rem 0.76rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--page) 88%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  border: 1px solid color-mix(in srgb, var(--link-ext) 42%, transparent);
+  border-radius: var(--r-control);
+  box-shadow: 0 10px 28px -8px rgba(0,0,0,0.45), 0 2px 8px -3px rgba(0,0,0,0.28);
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform var(--motion-panel) var(--ease-out),
+              opacity var(--motion-panel) var(--ease-out);
+}
+.glossary-hint.is-away {
+  transform: translateX(calc(100% + 1.5rem));
+  opacity: 0;
+  pointer-events: none;
+}
+.glossary-hint__mark {
+  flex: none;
+  width: 1.55rem;
+  height: 1.55rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--link-ext);
+  background: color-mix(in srgb, var(--link-ext) 18%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--link-ext) 42%, transparent);
+}
+.glossary-hint__body { min-width: 0; }
+.glossary-hint p { margin: 0 0 0.38rem; }
+.glossary-hint p:last-child { margin-bottom: 0; }
+.glossary-hint a { color: var(--link-ext); }
+.glossary-hint a:hover { color: var(--accent); text-decoration: none; }
+.glossary-hint a:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+}
+@media (max-width: 620px) {
+  /* The landing header wraps on this breakpoint, so a top-right overlay
+     covers the title. Park the chip on the bottom-right of the first screen
+     instead; the scroll-away still slides right. */
+  .glossary-hint {
+    top: auto;
+    bottom: 14px;
+    right: 10px;
+    width: min(18rem, calc(100vw - 20px));
+    font-size: 0.76rem;
+    padding: 0.6rem 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glossary-hint { transition: opacity var(--dur) var(--ease); }
+  .glossary-hint.is-away { transform: none; }
+}
+body.nav-open .glossary-hint, body.cmdk-open .glossary-hint {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+@media print { .glossary-hint { display: none !important; } }
+
 /* ===== Doctrine object-class visual grammar ==============================
    Axioms, principles, and anti-principles are different kinds of doctrine, so
    each card is recognisable at a glance (and in greyscale) through THREE

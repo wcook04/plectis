@@ -412,3 +412,90 @@
 
   afterFirstPaint(queueDocs);
 })();
+
+/* First-open glossary hint. Mounted here so the homepage chip is present
+   before docs.js's idle slot. docs.js carries the same IIFE for maths/docs
+   pages and is a no-op if this already ran (data-glossary-hint). Keep the
+   two copies in sync. Not in landing HTML: the visible-word budget is full. */
+(function () {
+  var root = document.documentElement;
+  if (!document.body || !document.createElement) return;
+  if (root.getAttribute('data-glossary-hint')) return;
+  if (!document.querySelector('a.narrative-ref--term[data-term]')) {
+    root.setAttribute('data-glossary-hint', 'skip');
+    return;
+  }
+  var startY = window.pageYOffset || root.scrollTop || 0;
+  if (startY >= 48) {
+    root.setAttribute('data-glossary-hint', 'away');
+    return;
+  }
+
+  var hint = document.createElement('aside');
+  hint.className = 'glossary-hint';
+  hint.setAttribute('role', 'note');
+
+  var mark = document.createElement('span');
+  mark.className = 'glossary-hint__mark';
+  mark.setAttribute('aria-hidden', 'true');
+  mark.textContent = '?';
+
+  var body = document.createElement('div');
+  body.className = 'glossary-hint__body';
+
+  var p1 = document.createElement('p');
+  p1.textContent = 'If a word is confusing, hover over it.';
+
+  var p2 = document.createElement('p');
+  p2.appendChild(document.createTextNode('To contest or clarify a definition, '));
+  var mail = document.createElement('a');
+  mail.href = 'mailto:williamwkcook@gmail.com';
+  mail.textContent = 'email me';
+  p2.appendChild(mail);
+  p2.appendChild(document.createTextNode(" and I'll credit the correction."));
+
+  body.appendChild(p1);
+  body.appendChild(p2);
+  hint.appendChild(mark);
+  hint.appendChild(body);
+  document.body.appendChild(hint);
+  root.setAttribute('data-glossary-hint', 'shown');
+
+  var gone = false;
+  var THRESHOLD = 48;
+
+  function finish() {
+    if (!hint.parentNode) return;
+    hint.parentNode.removeChild(hint);
+  }
+
+  function dismiss() {
+    if (gone) return;
+    gone = true;
+    root.setAttribute('data-glossary-hint', 'away');
+    window.removeEventListener('scroll', onScroll);
+    hint.classList.add('is-away');
+    hint.addEventListener('transitionend', finish);
+    window.setTimeout(finish, 400);
+  }
+
+  function onScroll() {
+    var sy = window.pageYOffset || root.scrollTop || 0;
+    if (sy < THRESHOLD) return;
+    try {
+      if (hint.matches && hint.matches(':focus-within')) return;
+    } catch (e) {}
+    dismiss();
+  }
+
+  hint.addEventListener('focusout', function () {
+    window.setTimeout(function () {
+      if (gone) return;
+      if (hint.contains(document.activeElement)) return;
+      var sy = window.pageYOffset || root.scrollTop || 0;
+      if (sy >= THRESHOLD) dismiss();
+    }, 0);
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();

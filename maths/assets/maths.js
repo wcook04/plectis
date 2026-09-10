@@ -98,78 +98,126 @@
   }
 })();
 
-/* Problem-local import map. All data and file links are built into the page. */
+/* Problem-local import map. All data and file links are built into the page.
+   The list is the object: a file name selects it, GitHub stays on the row,
+   and local imports expand under the selected file. There is no separate
+   diagram. */
 (function () {
   'use strict';
   document.querySelectorAll('[data-source-map]').forEach(function (map) {
     var graph = JSON.parse(map.dataset.sourceMap);
     var nodes = new Map(graph.nodes.map(function (n) { return [n.id, n]; }));
-    var panel = map.querySelector('[data-connections]');
-    var entries = Array.from(map.querySelectorAll('[data-module]'));
+    var entries = Array.prototype.slice.call(map.querySelectorAll('[data-module]'));
     var search = map.querySelector('[data-module-search]');
     var direct = map.querySelector('[data-direct-only]');
+    var selectedId = null;
+
     function element(tag, text, cls) {
       var el = document.createElement(tag);
       if (text) el.textContent = text;
       if (cls) el.className = cls;
       return el;
     }
-    function column(title, ids) {
-      var col = element('div', '', 'connection-column');
-      col.appendChild(element('h3', title));
-      if (!ids.length) col.appendChild(element('p', 'None in this map', 'note'));
-      var list = element('ul');
-      ids.forEach(function (id) {
-        var n = nodes.get(id);
-        var li = element('li');
-        var button = element('button', n.label.split('.').pop());
+    function shortName(node) {
+      return node.label.split('.').pop();
+    }
+    function related(id, asSource) {
+      var key = asSource ? 'source' : 'target';
+      var other = asSource ? 'target' : 'source';
+      var ids = [];
+      for (var i = 0; i < graph.edges.length; i++) {
+        if (graph.edges[i][key] === id) ids.push(graph.edges[i][other]);
+      }
+      return ids;
+    }
+    function nameButton(row) {
+      return row.querySelector(':scope > .source-file__name, :scope > button');
+    }
+    function relLine(label, ids) {
+      var line = element('div', '', 'source-file__rel');
+      line.appendChild(element('span', label, 'source-file__rel-k'));
+      if (!ids.length) {
+        line.appendChild(element('span', '—', 'source-file__rel-empty'));
+        return line;
+      }
+      ids.forEach(function (rid) {
+        var node = nodes.get(rid);
+        if (!node) return;
+        var button = element('button', shortName(node));
         button.type = 'button';
-        button.title = n.path || n.label;
-        button.dataset.selectModule = id;
-        li.appendChild(button);
-        list.appendChild(li);
+        button.dataset.selectModule = rid;
+        button.title = node.path || node.label;
+        line.appendChild(button);
       });
-      col.appendChild(list);
-      return col;
+      return line;
+    }
+    function clearSelection() {
+      selectedId = null;
+      entries.forEach(function (row) {
+        row.classList.remove('is-selected');
+        var name = nameButton(row);
+        if (name) name.setAttribute('aria-pressed', 'false');
+        var extra = row.querySelector('.source-file__rels');
+        if (extra) extra.remove();
+      });
     }
     function select(id) {
-      var n = nodes.get(id);
-      if (!n) return;
-      panel.replaceChildren();
-      panel.appendChild(column('Imported by', graph.edges.filter(function (e) { return e.target === id; }).map(function (e) { return e.source; })));
-      var selected = element('div', '', 'connection-selected');
-      selected.appendChild(element('span', 'Selected file', 'eyebrow'));
-      selected.appendChild(element('h3', n.label.split('.').pop()));
-      selected.appendChild(element('p', n.role || n.path || n.label));
-      var link = element('a', 'Open on GitHub ↗', 'btn btn--primary');
-      link.href = n.source_github;
-      link.rel = 'external noopener';
-      selected.appendChild(link);
-      panel.appendChild(selected);
-      panel.appendChild(column('Imports', graph.edges.filter(function (e) { return e.source === id; }).map(function (e) { return e.target; })));
-      panel.hidden = false;
-      entries.forEach(function (row) {
-        row.querySelector('button').setAttribute('aria-pressed', row.dataset.module === id ? 'true' : 'false');
-      });
+      var node = nodes.get(id);
+      if (!node) return;
+      if (selectedId === id) {
+        clearSelection();
+        return;
+      }
+      clearSelection();
+      selectedId = id;
+      var row = null;
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].dataset.module === id) { row = entries[i]; break; }
+      }
+      if (!row) return;
+      row.classList.add('is-selected');
+      var name = nameButton(row);
+      if (name) name.setAttribute('aria-pressed', 'true');
+      var box = element('div', '', 'source-file__rels');
+      box.setAttribute('aria-live', 'polite');
+      box.appendChild(relLine('Imports', related(id, true)));
+      box.appendChild(relLine('Used by', related(id, false)));
+      row.appendChild(box);
+      if (row.scrollIntoView) {
+        try { row.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (err) { row.scrollIntoView(); }
+      }
     }
     map.addEventListener('click', function (event) {
       var button = event.target.closest('[data-select-module]');
       if (button) select(button.dataset.selectModule);
     });
     function filter() {
-      var q = search.value.trim().toLowerCase();
+      var q = (search && search.value || '').trim().toLowerCase();
+      var onlyDirect = !!(direct && direct.checked);
       var shown = 0;
       entries.forEach(function (row) {
-        row.hidden = (direct.checked && row.dataset.direct !== 'true') || row.textContent.toLowerCase().indexOf(q) === -1;
-        if (!row.hidden) shown++;
+        var hide = (onlyDirect && row.dataset.direct !== 'true') ||
+          row.textContent.toLowerCase().indexOf(q) === -1;
+        row.hidden = hide;
+        if (!hide) shown++;
       });
-      map.querySelector('[data-map-count]').textContent = shown + ' of ' + entries.length + ' files';
+      var status = map.querySelector('[data-map-count]');
+      if (status) status.textContent = shown === entries.length ? '' : (shown + ' of ' + entries.length);
+      if (selectedId) {
+        var still = false;
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].dataset.module === selectedId && !entries[i].hidden) still = true;
+        }
+        if (!still) clearSelection();
+      }
     }
-    search.addEventListener('input', filter);
-    direct.addEventListener('change', filter);
-    map.querySelector('[data-map-controls]').hidden = false;
+    if (search) search.addEventListener('input', filter);
+    if (direct) direct.addEventListener('change', filter);
+    var controls = map.querySelector('[data-map-controls]');
+    if (controls) controls.hidden = false;
+    var list = map.querySelector('.source-files');
+    if (list && entries.length > 18) list.classList.add('is-long');
     filter();
-    if (entries.length) select(entries[0].dataset.module);
   });
   // Deep links into a collapsed research section reveal their destination.
   function revealHash() {

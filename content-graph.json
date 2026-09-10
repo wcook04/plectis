@@ -131421,7 +131421,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 2278
+        "total_occurrences": 2279
       },
       "visible_text_byte_count": 1418
     },
@@ -131739,7 +131739,7 @@
             "page": "paper-module-world-model-projection-drift-control-room.html"
           }
         ],
-        "total_occurrences": 3674
+        "total_occurrences": 3675
       },
       "visible_text_byte_count": 1545
     },
@@ -132243,12 +132243,16 @@
       "status": "active",
       "term_kind": "navigation",
       "used_in": {
-        "page_count": 5,
+        "page_count": 6,
         "top_page": "architecture.html",
         "top_pages": [
           {
             "count": 1,
             "page": "architecture.html"
+          },
+          {
+            "count": 1,
+            "page": "coding-agents.html"
           },
           {
             "count": 1,
@@ -132267,7 +132271,7 @@
             "page": "paper-module-public-reveal-walkthrough.html"
           }
         ],
-        "total_occurrences": 5
+        "total_occurrences": 6
       },
       "visible_text_byte_count": 1511
     },
@@ -137417,22 +137421,22 @@
       "term_kind": "public_projection",
       "used_in": {
         "page_count": 3,
-        "top_page": "paper-module-verifier-lab-kernel.html",
+        "top_page": "coding-agents.html",
         "top_pages": [
+          {
+            "count": 2,
+            "page": "coding-agents.html"
+          },
           {
             "count": 2,
             "page": "paper-module-verifier-lab-kernel.html"
           },
           {
             "count": 1,
-            "page": "coding-agents.html"
-          },
-          {
-            "count": 1,
             "page": "component-verifier-lab-kernel.html"
           }
         ],
-        "total_occurrences": 4
+        "total_occurrences": 5
       },
       "visible_text_byte_count": 857
     },
@@ -147130,15 +147134,19 @@
       "status": "active",
       "term_kind": "format",
       "used_in": {
-        "page_count": 1,
+        "page_count": 2,
         "top_page": "papers.html",
         "top_pages": [
           {
             "count": 21,
             "page": "papers.html"
+          },
+          {
+            "count": 1,
+            "page": "coding-agents.html"
           }
         ],
-        "total_occurrences": 21
+        "total_occurrences": 22
       },
       "visible_text_byte_count": 822
     },
@@ -147553,7 +147561,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1022
+        "total_occurrences": 1023
       },
       "visible_text_byte_count": 1261
     },
@@ -149060,7 +149068,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 122,
+        "page_count": 123,
         "top_page": "paper-module-cold-reader-route-map.html",
         "top_pages": [
           {
@@ -149088,7 +149096,7 @@
             "page": "component-cold-reader-route-map.html"
           }
         ],
-        "total_occurrences": 375
+        "total_occurrences": 376
       },
       "visible_text_byte_count": 1030
     },
@@ -152810,7 +152818,7 @@
             "page": "reference.html"
           }
         ],
-        "total_occurrences": 269
+        "total_occurrences": 270
       },
       "visible_text_byte_count": 1467
     },
@@ -155687,7 +155695,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 3632
+        "total_occurrences": 3633
       },
       "visible_text_byte_count": 945
     },
@@ -160826,7 +160834,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 6323
+        "total_occurrences": 6324
       },
       "visible_text_byte_count": 825
     },
@@ -162680,10 +162688,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "coding-agents.html",
+        "top_pages": [
+          {
+            "count": 1,
+            "page": "coding-agents.html"
+          }
+        ],
+        "total_occurrences": 1
       },
       "visible_text_byte_count": 756
     },
@@ -268583,13 +268596,13 @@
     },
     "comparator": {
       "by_page": {
-        "coding-agents.html": 1,
+        "coding-agents.html": 2,
         "component-verifier-lab-kernel.html": 1,
         "paper-module-verifier-lab-kernel.html": 2
       },
       "page_count": 3,
-      "top_page": "paper-module-verifier-lab-kernel.html",
-      "total_occurrences": 4
+      "top_page": "coding-agents.html",
+      "total_occurrences": 5
     },
     "compatibility_route": {
       "by_page": {
@@ -268610,7 +268623,7 @@
         "area-formal-math.html": 31,
         "area-import-drift.html": 26,
         "area-research.html": 15,
-        "coding-agents.html": 4,
+        "coding-agents.html": 5,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 5,
         "component-agent-closeout-faithfulness-audit.html": 4,
         "component-agent-memory-temporal-conflict-replay.html": 4,
@@ -268817,7 +268830,7 @@
       },
       "page_count": 212,
       "top_page": "reference.html",
-      "total_occurrences": 2278
+      "total_occurrences": 2279
     },
     "compression": {
       "by_page": {
@@ -275482,11 +275495,12 @@
     },
     "latex": {
       "by_page": {
+        "coding-agents.html": 1,
         "papers.html": 21
       },
-      "page_count": 1,
+      "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 21
+      "total_occurrences": 22
     },
     "lattice": {
       "by_page": {
@@ -275929,7 +275943,7 @@
         "area-entry.html": 1,
         "area-formal-math.html": 59,
         "area-import-drift.html": 2,
-        "coding-agents.html": 2,
+        "coding-agents.html": 3,
         "component-annex-knowledge-routing.html": 1,
         "component-batch4-proof-authority-runtime.html": 1,
         "component-batch5-authority-systems-capsule.html": 1,
@@ -276002,7 +276016,7 @@
       },
       "page_count": 75,
       "top_page": "reference.html",
-      "total_occurrences": 1022
+      "total_occurrences": 1023
     },
     "lean_kernel": {
       "by_page": {
@@ -276745,6 +276759,7 @@
         "area-entry.html": 1,
         "area-formal-math.html": 2,
         "area-import-drift.html": 3,
+        "coding-agents.html": 1,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
         "component-agent-closeout-faithfulness-audit.html": 2,
         "component-agent-memory-temporal-conflict-replay.html": 2,
@@ -276864,9 +276879,9 @@
         "source.html": 8,
         "updates.html": 1
       },
-      "page_count": 122,
+      "page_count": 123,
       "top_page": "paper-module-cold-reader-route-map.html",
-      "total_occurrences": 375
+      "total_occurrences": 376
     },
     "match": {
       "by_page": {
@@ -277894,14 +277909,15 @@
     "navigable": {
       "by_page": {
         "architecture.html": 1,
+        "coding-agents.html": 1,
         "doctrine.html": 1,
         "paper-module-first-screen-composition-root.html": 1,
         "paper-module-navigation-hologram-route-plane.html": 1,
         "paper-module-public-reveal-walkthrough.html": 1
       },
-      "page_count": 5,
+      "page_count": 6,
       "top_page": "architecture.html",
-      "total_occurrences": 5
+      "total_occurrences": 6
     },
     "navigation": {
       "by_page": {
@@ -278833,7 +278849,7 @@
         "architecture.html": 2,
         "area-architecture.html": 1,
         "area-research.html": 4,
-        "coding-agents.html": 2,
+        "coding-agents.html": 3,
         "component-executable-doctrine-grammar.html": 2,
         "component-formal-evidence-cell-anchor-resolver.html": 1,
         "component-research-replication-rubric-artifact-replay.html": 9,
@@ -278906,7 +278922,7 @@
       },
       "page_count": 73,
       "top_page": "papers.html",
-      "total_occurrences": 269
+      "total_occurrences": 270
     },
     "paper_module": {
       "by_page": {
@@ -280636,7 +280652,7 @@
         "area-formal-math.html": 22,
         "area-import-drift.html": 35,
         "area-research.html": 6,
-        "coding-agents.html": 4,
+        "coding-agents.html": 5,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 3,
         "component-agent-closeout-faithfulness-audit.html": 2,
         "component-agent-monitor-redteam-falsification-replay.html": 2,
@@ -280834,7 +280850,7 @@
       },
       "page_count": 203,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 3632
+      "total_occurrences": 3633
     },
     "published": {
       "by_page": {
@@ -281404,7 +281420,7 @@
         "area-formal-math.html": 15,
         "area-import-drift.html": 2,
         "area-research.html": 10,
-        "coding-agents.html": 6,
+        "coding-agents.html": 7,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
         "component-agent-closeout-faithfulness-audit.html": 1,
         "component-agent-memory-temporal-conflict-replay.html": 6,
@@ -281614,7 +281630,7 @@
       },
       "page_count": 213,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 3674
+      "total_occurrences": 3675
     },
     "recurrence": {
       "by_page": {
@@ -284412,7 +284428,7 @@
         "area-formal-math.html": 27,
         "area-import-drift.html": 65,
         "area-research.html": 10,
-        "coding-agents.html": 4,
+        "coding-agents.html": 5,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 9,
         "component-agent-closeout-faithfulness-audit.html": 3,
         "component-agent-memory-temporal-conflict-replay.html": 4,
@@ -284622,7 +284638,7 @@
       },
       "page_count": 215,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 6323
+      "total_occurrences": 6324
     },
     "source_authority": {
       "by_page": {
@@ -286267,6 +286283,14 @@
       "top_page": "rules-and-ideas.html",
       "total_occurrences": 438
     },
+    "term": {
+      "by_page": {
+        "coding-agents.html": 1
+      },
+      "page_count": 1,
+      "top_page": "coding-agents.html",
+      "total_occurrences": 1
+    },
     "terminal": {
       "by_page": {
         "coding-agents.html": 1,
@@ -287228,5 +287252,5 @@
       "total_occurrences": 4
     }
   },
-  "term_occurrence_term_count": 371
+  "term_occurrence_term_count": 372
 }
