@@ -1321,8 +1321,12 @@ main.hero {
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 52px; align-items: start; }
 /* Label and title are one object, so they sit closer to each other than the
    title sits to the paragraph beneath it. Equal gaps above and below the h1
-   left it grouped with neither. */
-.hero__kicker { margin-bottom: 0.75rem; }
+   left it grouped with neither. The landing label is .eyebrow, not
+   .hero__kicker; both names take the same gap so the tracked capitals cannot
+   sit on the display title. 1.2rem is still lockup: the title-to-lede gap
+   below remains the larger one. */
+.hero__kicker,
+.hero .eyebrow { margin-bottom: 1.2rem; }
 .hero h1 {
   font-size: clamp(2.7rem, 5.6vw, 3.9rem);
   margin: 0 0 1.3rem;
