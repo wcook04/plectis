@@ -723,6 +723,21 @@ html:not(.scripting) a.narrative-ref--term:hover {
   font-weight: 600;
   color: var(--ink);
 }
+/* Teaching labels on this map are the glossary surface: keep a dotted cue
+   even when the same word was already marked earlier on the page. */
+.docs-main .doctrine-map__kind a.narrative-ref--term,
+#the-operating-loop + p + ul > li > a.narrative-ref--term:first-child {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: color-mix(in srgb, var(--accent) 32%, transparent);
+  text-decoration-thickness: 0.045em;
+  text-underline-offset: 0.18em;
+}
+.docs-main .doctrine-map__kind a.narrative-ref--term:hover,
+#the-operating-loop + p + ul > li > a.narrative-ref--term:first-child:hover {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+}
 .docs-main .doctrine-map__gloss {
   color: var(--ink-soft);
   font-size: 0.9rem;
