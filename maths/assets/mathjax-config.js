@@ -1,7 +1,9 @@
-/* Plectis — MathJax configuration for the exact-TeX paper variants.
-   Loaded only by the two papers whose MathML conversion is incomplete
-   (render_contract.preferred == "html_exact_tex"); every other paper and
-   document ships browser-native MathML and needs no math runtime at all.
+/* Plectis — MathJax configuration for public paper and document pages.
+   Loaded whenever the page's fragment still carries exact-TeX math
+   (`class="math inline|display"`). Native MathML remains a generated
+   fallback artifact, not the reader-facing route: Chromium MathML plus
+   `display: inline-block` on `<math>` flattened the corpus, and Pandoc's
+   MathML path drops `\eqref`/`\ref`.
    The macro table mirrors _normalise_tex_for_mathml in
    tools/meta/dissemination/build_plectis_lean_experience.py: the manuscript
    house style defines these compact aliases, the exact-TeX stream keeps the

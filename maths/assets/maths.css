@@ -636,18 +636,14 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage h3 { font-size: 1.2rem; }
 .paper-stage h4, .paper-stage h5 { font-size: 1.05rem; }
 .paper-stage p { line-height: var(--lh-body); }
-.paper-stage math { font-size: 1.05em; }
-/* MathML has no line breaking in current engines, so a long inline formula
-   would otherwise widen the page on small screens. An inline-block with a
-   width cap keeps its own scrollbar and leaves the paragraph intact. */
-.paper-stage math:not([display="block"]) {
-  display: inline-block;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
+.paper-stage math { font-size: 1.05em; overflow-wrap: normal; word-break: normal; }
+/*
+  Never override <math> `display` with CSS `block` / `inline-block`. Chromium
+  only runs the MathML formatter for the math display types; `inline-block`
+  flattens fractions and scripts into wrapping prose. Overflow scrolling stays
+  on the element without changing its display type.
+*/
 .paper-stage math[display="block"] {
-  display: block;
   overflow-x: auto;
   overflow-y: hidden;
   padding: var(--space-2) 0;
