@@ -3905,6 +3905,32 @@ Note also the coordinate warning from the manuscript’s own Appendix C (): cone
 
 ; consequently the full infinite family spans an infinite-dimensional $`\mathbb Q`$-space, . A companion impossibility result closes the natural repair attempt directly: a bounded *compressed-adjoint certificate* — a triple $`(Q,A,\mathrm{boundary})`$ with $`Q\cdot v\cdot A=\mathrm{boundary}`$, $`|\mathrm{boundary}|<Q\cdot v`$, $`A\ne0`$ — is provably impossible, . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">scale:uniform</span> (holds for every $`e`$; existence side is unconditional, via Mathlib’s CRT + primes-in-AP machinery) `coord:binary-digit` (dyadic totient-kernel — *not* the Möbius coordinate).
 
+<a id="integral-coordinates-and-the-complete-relation-module."></a>
+
+#### Integral coordinates and the complete relation module.
+
+The independence statement also determines the arithmetic of the channel lattice. Fix $`e\ge1`$, write $`F_{j,r}(n)=\varphi(2^j n+r)`$, and let $`I_e=\{(j,r):0\le j\le e,\ 0\le r<2^j\}`$. Retain $`F_{0,0}`$, $`F_{1,0}`$, and the odd-residue channels at levels $`1,\ldots,e`$; call this retained index set $`J_e`$. The totient identities reduce every omitted channel to $`F_i=a_iF_{j(i)}`$ for a retained channel $`j(i)`$ and an integer $`a_i\ge0`$. Thus the retained family generates the lattice $`L_e=\sum_{i\in I_e}\mathbb Z F_i`$. Its rational independence gives integer independence as well: every element of $`L_e`$ has unique integer coordinates in these $`2^e+1`$ retained channels.
+
+To describe *all* integral relations, let $`E_i`$ denote the formal coordinate vector in $`\mathbb Z^{I_e}`$ and use the evaluation map
+``` math
+\adjustbox{max width=\linewidth}{$\displaystyle
+ \operatorname{ev}_e:\mathbb Z^{I_e}\longrightarrow L_e,
+ \qquad (c_i)\longmapsto\sum_{i\in I_e}c_iF_i.
+$}
+```
+For each omitted index put $`R_i=E_i-a_iE_{j(i)}`$. Then
+``` math
+\adjustbox{max width=\linewidth}{$\displaystyle
+ \ker(\operatorname{ev}_e)
+   =\bigoplus_{i\in I_e\mathbin{\backslash} J_e}\mathbb Z R_i,
+ \qquad
+ \operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
+$}
+```
+Indeed, subtracting $`\sum_{i\notin J_e}c_iR_i`$ from a relation removes all omitted coordinates. The remainder is a relation among retained channels, so independence makes it zero. Conversely, the coefficient of $`E_i`$ in $`\sum_{h\notin J_e}b_hR_h`$ is exactly $`b_i`$, proving uniqueness. The decisive feature is the unit pivot $`1`$ in each omitted coordinate (or $`-1`$ if a relation is oriented oppositely). Elimination uses no division; it therefore identifies the integral relation lattice, not merely its rational span. The depth-two example in the short note illustrates these two-term rows.
+
+The [integral normal form](https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean#L398) and the [full dyadic rational basis](https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L156) are kernel-checked in Lean. The formal statement gives the same construction for every integer base $`k\ge2`$, with relation rank $`\sum_{j=1}^{e-1}k^j`$. The full dyadic assembly separately gives a basis for the infinite rational span and for its finitely supported rational relations. These finite and infinite statements should not be confused with a claim about infinite sums of relations.
+
 **(c) Precise scope — coordinate-relative, stated explicitly by the source module.** This does *not* show irrationality of $`S`$. It proves the dyadic-kernel *side* is infinite-rank; the module’s own docstring names the missing input as “a rationality-side finite-rank compression, or equivalent contradiction.”
 
 The companion necessary-consequence-of-rationality theorem, $`\neg\mathrm{Irrational}(S) \implies \exists v>0,\exists U:\mathbb
