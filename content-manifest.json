@@ -1176,7 +1176,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "c1171a63216b701ad8983af77397172b",
+    "source_fingerprint": "e6ab81667176fff0a050f21c1dc16520",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -5469,7 +5469,7 @@
     }
   },
   "source_hashes": {
-    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:76cf5f8d9ee110ec98e226e096cc922f38601f121a32a11d115eb13695d63fde",
+    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:9152bf8ec26062d05cab02ece15c8ff7ccc10b8cee62a95a5ebe4e128bdb59a4",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:58924811defe8db9dd1b79ed5fb83d3499f4e2a394f77a66410e2c00bde30603",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:4eca37f8f77d9a61a8009f6c67a2b6bc1c1639d8d99f85cc7c5abd2375d906a3",
