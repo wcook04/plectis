@@ -4980,14 +4980,13 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 }
 #papers .paper-row__pages { font-variant-numeric: tabular-nums; }
 
-/* The title carries the row. At 1.05rem it sat between a meta line above and a
-   précis below that were nearly the same size, so thirteen rows read as one
-   grey column; a little more size and a tighter line make each row start
-   somewhere. */
+/* Kind labels, not questions. These three rows are scanned as inventory
+   (open-source idea / Lean system / software repo), so the title has to
+   dominate the précis under it. */
 #papers .link-row strong {
   font-family: var(--font-serif); font-weight: 600;
-  font-size: 1.14rem; line-height: 1.28;
-  letter-spacing: -0.005em;
+  font-size: clamp(1.85rem, 4.2vw, 2.55rem); line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--ink); text-wrap: pretty;
 }
 /* The title is the anchor now that the row is a row rather than one link, so it
@@ -5885,8 +5884,8 @@ p.muted a:not(.narrative-ref):focus-visible {
 #papers .fold__body { max-inline-size: 880px; }
 #papers .link-row {
   grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 2rem; row-gap: 0.2rem; align-items: start;
-  padding: 1.05rem 0.6rem;
+  column-gap: 2rem; row-gap: 0.28rem; align-items: start;
+  padding: 1.35rem 0.4rem;
 }
 #papers .link-row .paper-row__meta { grid-column: 1; grid-row: 1; }
 #papers .link-row strong { grid-column: 1; grid-row: 2; }
