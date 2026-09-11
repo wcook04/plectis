@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Plectis: What a Stranger Can Check</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a> boundary</p>
         <h1>Plectis: What a Stranger Can Check</h1>
@@ -142,8 +149,7 @@ rules, and run records can make a selected <a class="narrative-ref narrative-ref
 They cannot by themselves <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> three <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> premises: that the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> code came from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, that the project’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a>
 answers and pass rules are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correct</a>, or that the selected <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-case" data-term="case" data-term-auto="1">cases</a> represent
-the unseen whole. The audio example in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span> shows all three <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> in
+the unseen whole. The audio example in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a> shows all three <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> in
 one elementary calculation. The later inventory records what was
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a>; it is not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> of breadth, quality, or independence.
 Runeson and Höst likewise treat configuration-managed project <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-documentation" data-term="documentation" data-term-auto="1">documents</a>
@@ -212,8 +218,7 @@ named <a class="narrative-ref narrative-ref--term is-term-again" href="../../doc
 88 components, counted them by project group and by the kind of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> offered, traced the worked component from <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>, and
 reran the appendix’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">commands</a>. I did not compare every pass rule
-with its prose <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> or derive fresh <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> answers; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:stronger}\)</span> reserves those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
+with its prose <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> or derive fresh <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> answers; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:stronger">8</a> reserves those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
 for an outside <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a>. The paper defines the component contract, then
 follows one ordinary component from <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>. Five distinctions
 separate what a passing run shows from conclusions it may appear to
@@ -269,7 +274,7 @@ contain.</p>
 <li><p>Which independently <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> would strengthen
 it?</p></li>
 </ol>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span> gives the
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a> gives the
 full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>, all five audio <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-case" data-term="case" data-term-auto="1">cases</a>, and the saved run record. We now
 generalise from this example to the project’s common record format.</p>
 </section>
@@ -298,8 +303,7 @@ read by the <a class="narrative-ref narrative-ref--term is-term-again" href="../
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connect</a> the same things: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> stated in prose; a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">fixture</a>; a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>;
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-output" data-term="output" data-term-auto="1">output</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-file" data-term="file" data-term-auto="1">files</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> writes; a stored <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> from a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a> run;
 an explicit rule for what counts as a pass and what must be refused; and
-a stated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a> on what a pass <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establishes</a>. Figure <span
-class="math inline" data-term-auto="off">\(\ref{fig:contract}\)</span> lays the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a>
+a stated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a> on what a pass <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establishes</a>. Figure <a class="math-ref" href="#fig:contract">fig:contract</a> lays the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a>
 parts out, together with the fact about them that the rest of this paper
 keeps <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">returning</a> to: every part is supplied by me, and every part is
 exposed to a stranger.</p>
@@ -317,11 +321,9 @@ part is <a class="narrative-ref narrative-ref--term is-term-again" href="../../d
 names what a stranger can do without asking anyone; amber marks the
 project’s words and choices. Across the figures, a dashed outline marks
 something outside what the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> run <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establishes</a>. This figure has no
-dashed boxes because none of its parts is hidden. In Figures <span
-class="math inline" data-term-auto="off">\(\ref{fig:boundary}\)</span> and <span
-class="math inline" data-term-auto="off">\(\ref{fig:gaps}\)</span>, dashes mark <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a>
+dashed boxes because none of its parts is hidden. In Figures <a class="math-ref" href="#fig:boundary">fig:boundary</a> and <a class="math-ref" href="#fig:gaps">fig:gaps</a>, dashes mark <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a>
 material or conclusions not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">established</a> by the observed run.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span> follows one
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a> follows one
 component through this chain.</figcaption>
 </figure>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> cannot by itself support my assertions about the
@@ -352,8 +354,7 @@ refusals cannot be discharged from inside the <a class="narrative-ref narrative-
 it cannot show whether the boundary was drawn before or after an awkward
 case was first met. A boundary drawn afterwards turns a failure into a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-design" data-term="design" data-term-auto="1">designed</a> refusal in the telling. Saving the version before an outside
-evaluation begins, as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:stronger}\)</span> proposes, is what
+evaluation begins, as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:stronger">8</a> proposes, is what
 would make that ordering checkable.</p>
 <p>The idea does not depend on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>. The contract needs a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> in
 words; a determinate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> case; a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">procedure</a> a stranger can cause to
@@ -609,8 +610,7 @@ where a <a class="narrative-ref narrative-ref--term is-term-again" href="../../d
 worked example’s decimal-samples row invites. Components that invoke a
 named <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> tool occupy a hybrid of the first and third positions:
 the project still chooses the case and the rule, while the tool supplies
-a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> that inherits its own <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>. The evaluations in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:stronger}\)</span> describe ways to move
+a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> that inherits its own <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>. The evaluations in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:stronger">8</a> describe ways to move
 consequential choices out of the project’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>.</p>
 <p><code>batch8_audio_level_rms_port_validation_receipt.json</code> is
 the stored <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> for the table. It sits under
@@ -639,8 +639,7 @@ treats these five gaps separately.</p>
 </section>
 <section id="sec:distinctions" class="level2">
 <h2>Five distinctions</h2>
-<p>Five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-label" data-term="label" data-term-auto="1">labels</a> organise the gaps in Figure <span
-class="math inline" data-term-auto="off">\(\ref{fig:gaps}\)</span>: <em>origin</em>, where
+<p>Five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-label" data-term="label" data-term-auto="1">labels</a> organise the gaps in Figure <a class="math-ref" href="#fig:gaps">fig:gaps</a>: <em>origin</em>, where
 the material came from; <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correctness</a></em>, whether an answer is
 right; <em>meaning</em>, whether a rule <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-test" data-term="test" data-term-auto="1">tests</a> its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>; <em>reach</em>,
 whether shown <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-case" data-term="case" data-term-auto="1">cases</a> stand for unshown ones; and <em>risk</em>, what the
@@ -711,8 +710,7 @@ can be repeatable, and <a class="narrative-ref narrative-ref--term is-term-again
 while the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> property is beside the stated point. Plectis makes the
 gap inspectable rather than closed. Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>, so a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can put the rule beside the prose and object where the rule is
-weaker, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:conclusion}\)</span> makes exactly that
+weaker, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:conclusion">9</a> makes exactly that
 comparison its central step. Since the same author-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> project
 produced both the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> and the rules, agreement between them records
 one judgement twice, and no count of passing components can substitute
@@ -728,8 +726,7 @@ components are my selection from a <a class="narrative-ref narrative-ref--term i
 
 <figcaption>The selection problem. Each square stands for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a>
 mechanism; the darker ones were given <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> form. Each <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> component
-has the parts shown in Figure <span
-class="math inline" data-term-auto="off">\(\ref{fig:contract}\)</span>. The grid trails off
+has the parts shown in Figure <a class="math-ref" href="#fig:contract">fig:contract</a>. The grid trails off
 because its true extent is exactly what the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> side cannot know. The
 count of squares on the left, the rule that picked the darker ones, and
 the resemblance between the two sides are all invisible from the right.
@@ -781,8 +778,7 @@ supplies none of these <a class="narrative-ref narrative-ref--term is-term-again
 explicit. Once named, a gap can be disputed, assigned a cost to address,
 or deliberately left open. An unnamed gap is easy to cross without
 noticing. These five are not exhaustive. Two more gaps appeared earlier:
-observing a refusal today does not show when it was drawn (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:contract}\)</span>), and observing a
+observing a refusal today does not show when it was drawn (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:contract">3</a>), and observing a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> at one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> does not describe the next (the appendix). These
 are simply the five gaps this collection most needs a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> to
 hold.</p>
@@ -872,7 +868,7 @@ work resumes after interruption.</td>
 </table>
 </div>
 <p>The groups do not share a subject. Their only unity is the contract
-of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:contract}\)</span>: each
+of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:contract">3</a>: each
 item became a small <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> test. The collection is organised by how
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, not by a common <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-science" data-term="science" data-term-auto="1">scientific</a> question.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a> also classifies what kind of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> each component
@@ -990,8 +986,7 @@ what any of it is for. An objection about selection is not answered by
 the successful <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-execution" data-term="execution" data-term-auto="1">execution</a> of any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of selected items. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>
 hosts the small arguments; it does not settle the large ones.</p>
 <p>Two corrections need no cooperation from me. First, read any
-component at the weakest property its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>, as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:collection}\)</span> proposes. Second,
+component at the weakest property its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>, as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:collection">6</a> proposes. Second,
 treat every count as an inventory, and every agreement among my records
 as one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>. A third point concerns what no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can inspect: a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> mechanism is easiest to publish when it can be separated into a
@@ -1012,7 +1007,7 @@ undergone no IV&amp;V. No other outside evaluation report is cited or
 included, and I know of none; an unreported <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> rerun would remain
 invisible. I use the NASA criteria only for the paper’s five gaps:
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> about a choice depends less on me once the choice is no longer
-mine. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:stronger}\)</span>
+mine. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:stronger">8</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">lists</a> evaluations that address those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a>.</p>
 </section>
 <section id="sec:stronger" class="level2">
@@ -1030,12 +1025,11 @@ includes no outside <a class="narrative-ref narrative-ref--term is-term-again" h
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> rerun could be unreported.</p>
 <p>Five forms of independent evaluation could add <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> that the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> cannot supply by itself. These are not the four
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> routes in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:collection}\)</span>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> route
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> routes in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:collection">6</a>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">publication</a> route
 classifies <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> already in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>; the evaluations below
 describe new work by someone outside the project. The order is only for
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a>. It ranks nothing, and no evaluation is a prerequisite for
-another. Figure <span class="math inline" data-term-auto="off">\(\ref{fig:ladder}\)</span>
+another. Figure <a class="math-ref" href="#fig:ladder">fig:ladder</a>
 shows which choice each evaluation transfers and which <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> it still
 leaves open. The common question is who makes the choice that matters
 for that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>.</p>
@@ -1146,8 +1140,7 @@ preregistered case-selection rule and a failure taxonomy fixed before
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">outcomes</a> are inspected would separate those accounts better than another
 author-selected example.</p>
 <p>This format does not make the leading <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> independent. It is
-the project’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> answer, in the same sense that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-output" data-term="output" data-term-auto="1">output</a> is
+the project’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> answer, in the same sense that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-expected" data-term="expected" data-term-auto="1">expected</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-output" data-term="output" data-term-auto="1">output</a> is
 project-supplied. Its contribution is different: it makes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a>,
 alternatives, and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">update</a> rule inspectable before an expert answer is
 known. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reject" data-term="reject" data-term-auto="1">reject</a> the leading <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>, add a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a>
@@ -1182,8 +1175,7 @@ or no better than a short ordinary script, that conclusion belongs on
 the record with the same standing as a pass. Any outside <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a>’s
 report should remain under that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>, cited rather than
 absorbed. If the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> later falls short of this paragraph, the
-shortfall is itself a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finding" data-term="finding" data-term-auto="1">finding</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:conclusion}\)</span> says where <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finding" data-term="finding" data-term-auto="1">findings</a>
+shortfall is itself a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finding" data-term="finding" data-term-auto="1">finding</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:conclusion">9</a> says where <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finding" data-term="finding" data-term-auto="1">findings</a>
 go.</p>
 <p>These evaluations do not pair one-for-one with the distinctions. They
 address the runner, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>-case selection, tested-case <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correctness</a>,
@@ -1229,8 +1221,7 @@ here. The tour describes the checkout but does not choose a component
 <p></p>
 <p>The response identifies the audio component, but do not run its first
 suggested <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>: it writes to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s saved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> paths.
-Run the paper’s exact no-install <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> near the start of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span> instead; it writes only to
+Run the paper’s exact no-install <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> near the start of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a> instead; it writes only to
 <code>/tmp</code> and leaves the checkout unchanged. Under
 <code>/tmp/plectis-audio-rms/</code>, open
 <code>batch8_audio_level_rms_port_result.json</code>; <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-json-format" data-term="json_format" data-term-auto="1">JSON</a> is a
@@ -1293,7 +1284,7 @@ or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/g
 </section>
 <section id="the-worked-example." class="level5">
 <h5>The worked example.</h5>
-<p>A fresh <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:run}\)</span>
+<p>A fresh <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:run">4</a>
 rerun <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reproducible" data-term="reproducible" data-term-auto="1">reproduced</a> all displayed passes and values and overwrote
 <code>/tmp/plectis-audio-rms</code>. A stale field reports a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-copy" data-term="copy" data-term-auto="1">copied</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>, while the saved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">import</a> record reports none because

@@ -671,6 +671,34 @@ html:not(.scripting) .universe-nojs { display: block; }
   padding: 0;
   max-width: 100%;
 }
+/*
+  Hide untypeset TeX until MathJax has replaced it. Keyed on html.scripting
+  (stamped in the blocking theme-init) so the first paint never dumps raw
+  ``\operatorname`` into the manuscript. html.js is reserved for docs.js
+  readiness and must not gate this.
+*/
+html.scripting .paper-stage span.math:not(:has(mjx-container)) {
+  color: transparent;
+}
+html.scripting .paper-stage span.math.inline:not(:has(mjx-container)) {
+  display: inline-block;
+  min-width: 1.2em;
+  max-width: 10em;
+  overflow: hidden;
+  vertical-align: -0.2em;
+  height: 1.05em;
+}
+html.scripting .paper-stage span.math.display:not(:has(mjx-container)),
+html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
+  min-height: 2.4em;
+  max-height: 3.6em;
+  overflow: hidden;
+}
+.paper-stage a.math-ref {
+  color: var(--accent);
+  text-decoration: none;
+}
+.paper-stage a.math-ref:hover { text-decoration: underline; }
 .paper-stage .theorem,
 .paper-stage .lemma,
 .paper-stage .proposition,

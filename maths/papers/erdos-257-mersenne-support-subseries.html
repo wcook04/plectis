@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Reciprocal-Summable Support Irrationality at Every Integer Base</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
         <h1>Reciprocal-Summable Support Irrationality at Every Integer Base</h1>
@@ -118,7 +125,7 @@ A}(b^a-1)^{-1}\)</span> for <span
 class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span> and an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>. Our first <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> is the
 following.</p>
-<div class="theorem">
+<div class="theorem" id="res:reciprocal-support">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-summable supports). <em> Let
 <span class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>. If
 <span class="math display" data-term-auto="off">\[\sum_{a\in A}\frac1a&lt;\infty,\]</span>
@@ -133,8 +140,7 @@ nearby <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">pairwise-coprime
 support theorem</a> keeps an extra pairwise-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>
 together with summable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> mass, and is therefore a
-structured-support <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span>. Full
+structured-support <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a>. Full
 support at every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">integer base</a> is the separate <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
 irrationality theorem</a>. Arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> support <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>.</p>
@@ -142,7 +148,7 @@ irrationality theorem</a>. Arbitrary <a class="narrative-ref narrative-ref--term
 class="math inline" data-term-auto="off">\(N&gt;0\)</span>, division of <span
 class="math inline" data-term-auto="off">\(N\)</span> by each <span
 class="math inline" data-term-auto="off">\(a\in A\)</span> gives</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:intro-displacement" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0&lt;\Delta_{b,A}(N)
 :=\sum_{a\in A}\frac{b^{N\bmod a}-1}{b^a-1}
 =(b^N-1)X_A(b)-J_{b,A}(N),\qquad J_{b,A}(N)\in\Z.
@@ -163,13 +169,12 @@ class="math display" data-term-auto="off">\[\sum_{\substack{a\ge1\\a\text{ power
 \le\zeta(2)\zeta(3)&lt;\infty.\]</span></div>
 <p>Thus arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
 thinnings of the powerful <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> are included.</p>
-<div class="problem">
+<div class="problem" id="res:problem">
 <p><strong>Problem 2</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #257</a>). <em> Is <span
 class="math inline" data-term-auto="off">\(X_A(2)\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> for every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
 <span class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span>?</em></p>
 </div>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> the
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> the
 entire <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-summable region. Later <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> record <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>
 extensions into the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergent</a> region; those arguments are not
 independently assessable from this checkout. The final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> retains
@@ -177,13 +182,12 @@ the actual <a class="narrative-ref narrative-ref--term is-term-first" href="../.
 <p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> proved the pairwise-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> case at every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">integer base</a> and
 stated that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a> condition could be removed, leaving the
 details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-5">[5]</a></span>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> gives a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a> gives a
 complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of that stated extension. The all-base quantifier is
 already in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>.</p>
 <p>The coefficient <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> throughout is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> transform of one
 Boolean selector:</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:incidence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 c_A(n)=\#\{a\in A:a\mid n\},\qquad
 X_A(b)=\sum_{n\ge1}\frac{c_A(n)}{b^n}.
 \label{eq:incidence}
@@ -207,7 +211,7 @@ class="math inline" data-term-auto="off">\(d\)</span> consists of <span
 class="math inline" data-term-auto="off">\(d/g\)</span> residues, where <span
 class="math inline" data-term-auto="off">\(g=(Q,d)\)</span>. Summing the geometric
 progression gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:gcd-orbit-mean" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 M_{Q,b}(d):=\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
 =\frac{g}{d(b^g-1)}\le\frac1d.
 \label{eq:gcd-orbit-mean}
@@ -235,7 +239,7 @@ class="math inline" data-term-auto="off">\(d\mid Q_t\)</span> and <span
 class="math inline" data-term-auto="off">\(M_{Q_t,b}(d)=(b^d-1)^{-1}\)</span>. A second
 dominated-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> argument, using <span
 class="math inline" data-term-auto="off">\(M_{Q_t,b}(d)\le1/d\)</span>, yields</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:lcm-prefix-orbit-limit" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \sum_{d\in A}M_{Q_t,b}(d)\longrightarrow X_A(b).
 \label{eq:lcm-prefix-orbit-limit}
@@ -245,10 +249,8 @@ displacements <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(Q_tm
 tend to zero. Choose <span class="math inline" data-term-auto="off">\(t\)</span>, then a
 sufficiently long <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> average, and finally a term no larger than that
 average. This gives arbitrarily small positive displacements,
-contradicting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> lattice in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:intro-displacement}\)</span>. This
-proves <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> directly at
+contradicting the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> lattice in <a class="math-ref" href="#eq:intro-displacement">eq:intro-displacement</a>. This
+proves <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a> directly at
 every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">integer base</a>.</p>
 <p>The order of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> is essential: the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-observation" data-term="observation" data-term-auto="1">observation</a> length <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematical-limit" data-term="mathematical_limit" data-term-auto="1">tends to</a>
 infinity with the modulus fixed, and only then does the modulus
@@ -274,7 +276,7 @@ class="level3">
 class="math inline" data-term-auto="off">\(P\)</span>, let <span
 class="math inline" data-term-auto="off">\(h(a)=\prod_{p\in P}p^{v_p(a)}\)</span>. The
 weighted condition</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{a\in
+<div class="math-display" id="eq:weighted-return" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{a\in
 A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
   \tag{W}\label{eq:weighted-return}\]</span></div>
 <p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of
@@ -301,8 +303,7 @@ Average again over <span class="math inline" data-term-auto="off">\(T=2^j\)</spa
 class="math inline" data-term-auto="off">\(M\le j&lt;2M\)</span>. The incomplete-period
 contribution from small <span class="math inline" data-term-auto="off">\(P\)</span>-parts is
 at most <span class="math inline" data-term-auto="off">\(2QW/M\)</span>, where <span
-class="math inline" data-term-auto="off">\(W\)</span> is the sum in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span>; the
+class="math inline" data-term-auto="off">\(W\)</span> is the sum in <a class="math-ref" href="#eq:weighted-return">eq:weighted-return</a>; the
 large-part contribution is suppressed by the exponential <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>.
 This produces arbitrarily small positive shifted-atom displacements. The
 integral lattice gap then gives <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> atom
@@ -332,7 +333,7 @@ class="math display" data-term-auto="off">\[w_{B,d}(n)=\frac{B^{n\bmod d}}{B^d-1
 =\frac1M\sum_{j=R}^{R+M-1}\frac1{2^j}
       \sum_{m=1}^{2^j}F(Lm).\]</span></div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> estimate</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:mixed-finite-kernel" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathscr D_{L;R,M}w_{B,d}
 \le\frac{1+4L/M}{d(B-1)}
 \label{eq:mixed-finite-kernel}\tag{S}\]</span></div>
@@ -371,8 +372,7 @@ class="math display" data-term-auto="off">\[\frac1T\sum_{m=1}^T w_{B,d}(Lm)
 \le\frac{LB^L}{d(B^L-1)}
 \le\frac{2L}{d(B-1)}.\]</span></div>
 <p>Summing the main <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a> and these two
-error budgets proves <span
-class="math inline" data-term-auto="off">\(\eqref{eq:mixed-finite-kernel}\)</span>. The
+error budgets proves <a class="math-ref" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a>. The
 complete-cycle mass <span class="math inline" data-term-auto="off">\(1/(B-1)\)</span>, the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span class="math inline" data-term-auto="off">\(g/(B^g-1)\le1/(B-1)\)</span> used for
 complete cycles, and the no-wrap <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span
@@ -393,7 +393,7 @@ let <span class="math inline" data-term-auto="off">\(0&lt;\alpha_j\le1\)</span>,
 class="math display" data-term-auto="off">\[f_{F_j}(n)^{\alpha_j}\le\sum_{d\mid
 n}c_{j,d},\qquad
 C_j=\sum_{d\ge1}\frac{c_{j,d}}d.\]</span></div>
-<div class="theorem">
+<div class="theorem" id="thm:variable-fractional-cover">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 3</strong> (strengthened positive covers). <em> If
 <span
 class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}&lt;\infty,
@@ -420,8 +420,7 @@ class="math display" data-term-auto="off">\[K_J:=\sum_{j&gt;J}\frac{C_jt_j^{-\al
 class="math inline" data-term-auto="off">\(\varepsilon^{-\alpha_j}\le\max(1,\varepsilon^{-1})\)</span>.
 Choose <span class="math inline" data-term-auto="off">\(L\)</span> divisible by every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-element" data-term="element" data-term-auto="1">member</a>
 of the first <span class="math inline" data-term-auto="off">\(J\)</span> frames.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:mixed-finite-kernel}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> mean of <span
 class="math inline" data-term-auto="off">\(S_J(N):=\sum_{j&gt;J}t_j^{-\alpha_j}V_j(N)\)</span>
 by <span class="math inline" data-term-auto="off">\((1+4L/M)K_J&lt;1/2\)</span> whenever
@@ -451,8 +450,7 @@ class="math inline" data-term-auto="off">\(\eta_j\)</span>. The condition streng
 earlier two-inverse-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> cost <span
 class="math inline" data-term-auto="off">\(\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty\)</span>.
 There is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> support <span
-class="math inline" data-term-auto="off">\(A^\star\)</span> satisfying <span
-class="math inline" data-term-auto="off">\(\eqref{eq:strengthened-cover}\)</span> for which
+class="math inline" data-term-auto="off">\(A^\star\)</span> satisfying <a class="math-ref" href="#eq:strengthened-cover">eq:strengthened-cover</a> for which
 every cover with that older cost, and every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> weighted
 criterion, fails. Its complete construction is referred to
 <em>Strengthened <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">Variable</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">Exponent</a> Cover</em>, which is not in this
@@ -472,7 +470,7 @@ class="math display" data-term-auto="off">\[K=\sum_j\frac{C_j\eta_j^{-\alpha_j}}
 \Psi(t)=\inf_{0&lt;\alpha\le1}\frac{t^\alpha}{2^\alpha-1}\quad(t\ge1).\]</span></div>
 <p>For every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <span class="math inline" data-term-auto="off">\(F\)</span> covered by the
 frames,</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:cover-log-obstruction" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 K\ge\mathbb E_F\Psi(f_F)\ge e\,\mathbb E_F\log^+f_F.
 \label{eq:cover-log-obstruction}
 \end{equation}\]</span></div>
@@ -497,7 +495,7 @@ class="math inline" data-term-auto="off">\(q\)</span>, put <span
 class="math inline" data-term-auto="off">\(S=\sum_{p\in P}1/p\)</span>. If <span
 class="math inline" data-term-auto="off">\(S\ge1\)</span>, the infimum <span
 class="math inline" data-term-auto="off">\(K_*\)</span> over all covers satisfies</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:optimal-cube-cost" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \frac{e(S-1)}q\le K_*\bigl(F(q,P)\bigr)\le\frac{eS}q.
 \label{eq:optimal-cube-cost}
@@ -521,10 +519,8 @@ in the latter. In the reverse direction, disjoint <a class="narrative-ref narrat
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> mass of order <span class="math inline" data-term-auto="off">\(2^k\)</span>,
 placed in frames <span class="math inline" data-term-auto="off">\(\{2^kd:d\mid
 M_k\}\)</span>, give a support <span class="math inline" data-term-auto="off">\(A_W\)</span>
-satisfying <span
-class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span>; its first
-logarithmic moments diverge, so <span
-class="math inline" data-term-auto="off">\(\eqref{eq:cover-log-obstruction}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a>
+satisfying <a class="math-ref" href="#eq:weighted-return">eq:weighted-return</a>; its first
+logarithmic moments diverge, so <a class="math-ref" href="#eq:cover-log-obstruction">(4)</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a>
 every strengthened cover. Exact constructions and the scalar
 minimisation are referred to <em>First Logarithmic Moment of Positive
 Covers</em>, which is not in this checkout. These comparisons concern
@@ -537,14 +533,12 @@ parameter schedule is referred to
 <code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
 which is not in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> checkout, so the argument is not
 independently assessable here and is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> of this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:mixed-supports">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 4</strong> (mixed weighted and cover supports;
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>, complete argument not in this checkout). <em> Suppose <span
-class="math inline" data-term-auto="off">\(E\)</span> has <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> weighted mass <span
-class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span> for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+class="math inline" data-term-auto="off">\(E\)</span> has <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> weighted mass <a class="math-ref" href="#eq:weighted-return">eq:weighted-return</a> for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 nonempty <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> set, and <span class="math inline" data-term-auto="off">\(V\)</span> admits a
-strengthened positive cover <span
-class="math inline" data-term-auto="off">\(\eqref{eq:strengthened-cover}\)</span>. Then <span
+strengthened positive cover <a class="math-ref" href="#eq:strengthened-cover">eq:strengthened-cover</a>. Then <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> for every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
 <span class="math inline" data-term-auto="off">\(A\subseteq E\cup V\)</span> and every
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
@@ -556,8 +550,7 @@ argument supplies subsequent moduli <span
 class="math inline" data-term-auto="off">\(Q\)</span> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-observation" data-term="observation" data-term-auto="1">observation</a> ranges <span
 class="math inline" data-term-auto="off">\(M\le j&lt;2M\)</span> with <span
 class="math inline" data-term-auto="off">\(Q/M\to0\)</span> and arbitrarily small
-weighted-displacement mean. By nonnegative interchange, <span
-class="math inline" data-term-auto="off">\(\eqref{eq:mixed-finite-kernel}\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the
+weighted-displacement mean. By nonnegative interchange, <a class="math-ref" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the
 positive-cover tail test under exactly the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> measure, with
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <span class="math inline" data-term-auto="off">\(1+4Q/M\)</span>. Choose the two tail
 budgets so that the mean of their normalised sum is less than one. One
@@ -577,8 +570,7 @@ the full <a class="narrative-ref narrative-ref--term is-term-again" href="../../
 class="math inline" data-term-auto="off">\(\Delta_{2,\mathcal P}(N)&gt;1/3\)</span> for every
 <span class="math inline" data-term-auto="off">\(N\ge1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-summable
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> is contained in the weighted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>, since <span
-class="math inline" data-term-auto="off">\(h/(2^h-1)\le1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> supplies the
+class="math inline" data-term-auto="off">\(h/(2^h-1)\le1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a> supplies the
 direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of that baseline case.</p>
 <section id="the-prime-power-regime." class="level5">
 <h5>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> regime.</h5>
@@ -594,8 +586,7 @@ exceptional-set hypotheses are referred to a supplement that is not in
 this checkout. The full-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> and the authors’ stated
 full-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> extension are theirs. No arbitrary thinning argument is
 promoted from this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>.</p>
-<p>The actual greedy membership problem is treated in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:actual-repairs}\)</span>; its repair
+<p>The actual greedy membership problem is treated in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:actual-repairs">8</a>; its repair
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> has a different logical role from the sufficient
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> criteria above.</p>
 </section>
@@ -609,7 +600,7 @@ class="math inline" data-term-auto="off">\(D_F\)</span> be the positive reduced 
 of <span class="math inline" data-term-auto="off">\(x_F(b)=\sum_{n\in
 F}(b^n-1)^{-1}\)</span>. We use <span
 class="math inline" data-term-auto="off">\(\operatorname{ord}_1(b)=1\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:period">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 5</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-period noncollapse). <em> Let
 <span class="math inline" data-term-auto="off">\(F\subseteq\Npos\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> and
 nonempty, let <span class="math inline" data-term-auto="off">\(b\ge2\)</span> be an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>,
@@ -707,8 +698,7 @@ scaled-tail correspondence and its <a class="narrative-ref narrative-ref--term i
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>, under <em>Exact descriptions of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-valued
 support</em> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <code>thm:bmc</code>). The correspondence permits
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> supports; infinitude remains a separate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">requirement</a> for a
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to Problem <span
-class="math inline" data-term-auto="off">\(\ref{res:problem}\)</span>.</p>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to Problem <a class="math-ref" href="#res:problem">2</a>.</p>
 </section>
 <section id="sec:map" class="level2">
 <h2>Where the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> mechanism <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stops</a></h2>
@@ -792,12 +782,12 @@ P_{N+1}=2P_N+c_x(N+1),\qquad
 Q_N=\lfloor2^Nx\rfloor-P_N.\]</span></div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-natural-number" data-term="natural_number" data-term-auto="1">nonnegative integer</a> defect
 obeys</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:actual-repair-recurrence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 Q_{N+1}=2Q_N+\beta_N-c_x(N+1),\qquad
 \beta_N=\lfloor2^{N+1}x\rfloor-2\lfloor2^Nx\rfloor\in\{0,1\}.
 \label{eq:actual-repair-recurrence}
 \end{equation}\]</span></div>
-<div class="theorem">
+<div class="theorem" id="res:general-repair">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 6</strong> (general greedy repair criterion). <em>
 For every real <span class="math inline" data-term-auto="off">\(x\ge0\)</span>, the following
 are equivalent: <span class="math display" data-term-auto="off">\[\begin{gathered}
@@ -834,8 +824,7 @@ class="math inline" data-term-auto="off">\(\delta=x-X_{A_x}(2)&gt;0\)</span>. Th
 prefix is at most <span class="math inline" data-term-auto="off">\(2^NX_{A_x}(2)\)</span>, so
 <span class="math inline" data-term-auto="off">\(Q_N\ge2^N\delta-1\)</span>. Eventually this
 exceeds <span class="math inline" data-term-auto="off">\(c_x(N+1)\le N+1\)</span>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:actual-repair-recurrence}\)</span> then
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#eq:actual-repair-recurrence">(6)</a> then
 makes <span class="math inline" data-term-auto="off">\(Q_N\)</span> strictly increasing,
 contradicting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> nonincreases. ◻</p>
 </div>
@@ -852,7 +841,7 @@ class="math inline" data-term-auto="off">\(\beta_N\)</span> vanish for <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span>; at <span
 class="math inline" data-term-auto="off">\(x=1/21\)</span> they are six-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a>. Thus the
 unresolved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> is</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:actual-selector-obligation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \boxed{\quad
 \forall K\ \exists N\ge K:\qquad
@@ -873,11 +862,10 @@ test them. Neither <a class="narrative-ref narrative-ref--term is-term-again" hr
 of the shifted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> atoms, or an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> functional that also
 detects supports whose positive displacements stay separated from zero.
 For a proposed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, one needs the actual-selector <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>
-<span
-class="math inline" data-term-auto="off">\(\eqref{eq:actual-selector-obligation}\)</span>;
+<a class="math-ref" href="#eq:actual-selector-obligation">(7)</a>;
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-synthetic" data-term="synthetic" data-term-auto="1">synthetic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrences</a> satisfying only growth and integrality conditions
 do not provide it.</p>
-<div class="theorem">
+<div class="theorem" id="res:one-over-twenty-one-frontier">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 7</strong> (fatal-branch quotient refinement at <span
 class="math inline" data-term-auto="off">\(1/21\)</span>). <em> The following <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a>
 hold.</em></p>
@@ -917,7 +905,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 hole</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5223">scaled
 skip</a>).</p>
-<div class="theorem">
+<div class="theorem" id="res:terminalhalf">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 8</strong> (<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> scaled vanishing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the
 half-value). <em> Let <span class="math inline" data-term-auto="off">\(S\)</span> be a
 <code>HalfTerminalOnlyScaledVanishingSequence</code>: its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> words
@@ -929,13 +917,12 @@ class="math inline" data-term-auto="off">\(M\)</span>. Then there is an <a class
 class="math inline" data-term-auto="off">\(A\subseteq\N\)</span> with</em></p>
 <p><em><span class="math display" data-term-auto="off">\[\sum_{a\in
 A}\frac1{2^a-1}=\frac12.\]</span> Consequently the universal
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> assertion in Problem <span
-class="math inline" data-term-auto="off">\(\ref{res:problem}\)</span> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> under this
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> assertion in Problem <a class="math-ref" href="#res:problem">2</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-false" data-term="false" data-term-auto="1">false</a> under this
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>. This is a conditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a>, not a construction of
 <span class="math inline" data-term-auto="off">\(S\)</span> and not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> of
 Problem #257.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:cylinderhalf">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 9</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> cylinders <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
 half-support). <em> Suppose that for every <span
 class="math inline" data-term-auto="off">\(N\)</span> there are <span
@@ -951,7 +938,7 @@ assertion in Problem #257 is <a class="narrative-ref narrative-ref--term is-ter
 The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a> does not construct the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> family of full-cylinder
 stages.</em></p>
 </div>
-<div class="problem">
+<div class="problem" id="prob:one-over-twenty-one-membership">
 <p><strong>Problem 10</strong> (membership of 1/21 in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a>). <em> Prove <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> crossings of the exact moving lower
 separatrix <span
@@ -964,14 +951,14 @@ forced by that branch or to force an <a class="narrative-ref narrative-ref--term
 canonical quotient rows; neither sufficient route is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> to be
 equivalent by itself.</em></p>
 </div>
-<div class="problem">
+<div class="problem" id="prob:scaled-return">
 <p><strong>Problem 11</strong> (weakest native <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> criterion).
 <em> Does the scaled actual greedy remainder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a> to one
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> interval? <span class="math display" data-term-auto="off">\[\exists B&lt;\infty\
 \forall K\ \exists N\ge K:
 \qquad 2^N r_N\le B.\]</span></em></p>
 </div>
-<div class="problem">
+<div class="problem" id="prob:actual-invariant">
 <p><strong>Problem 12</strong> (actual-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> invariant). <em> Is there a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-memory, <span class="math inline" data-term-auto="off">\(2\)</span>-adic or
 discrepancy invariant, using the correlated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> pulses of the actual
@@ -984,7 +971,7 @@ Alternatively, can one prove that no <a class="narrative-ref narrative-ref--term
 distinguishes the true <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> from <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-synthetic" data-term="synthetic" data-term-auto="1">synthetic</a> permanent-supercapacity
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a>?</em></p>
 </div>
-<div class="problem">
+<div class="problem" id="prob:fatal-interval">
 <p><strong>Problem 13</strong> (final-skip Diophantine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a>). <em>
 Let <span class="math inline" data-term-auto="off">\(E=\sum_{n\ge1}(2^n-1)^{-1}\)</span>. If
 <span class="math inline" data-term-auto="off">\(1/21\notin\mathcal A\)</span>, let <span
@@ -997,8 +984,7 @@ class="math inline" data-term-auto="off">\(|E-a_M|\ge\operatorname{gap}_M\)</spa
 contradicting <span
 class="math display" data-term-auto="off">\[0&lt;a_M-E&lt;\operatorname{gap}_M?\]</span></em></p>
 </div>
-<p>The logarithmic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:cover-log-obstruction}\)</span> is
+<p>The logarithmic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> <a class="math-ref" href="#eq:cover-log-obstruction">(4)</a> is
 necessary for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-cost positive cover. Determining when a converse
 holds would give an intrinsic description of that sufficient <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>. The
 mixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a> is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-union ideal. Countable gluing needs an explicit
@@ -1015,8 +1001,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 full-support theorem</a>; pairwise-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> summable-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> support
 is <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">the
-pairwise-coprime theorem</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> itself is
+pairwise-coprime theorem</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:reciprocal-support">1</a> itself is
 ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> in this note and has no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> counterpart in this
 checkout: the filenames
 <code>AllBaseReciprocalSupportIrrationality.lean</code>,

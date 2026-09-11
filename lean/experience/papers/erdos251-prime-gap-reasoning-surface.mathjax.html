@@ -84,8 +84,7 @@ shape of the missing input as a sufficiently quantitative and uniform
 prime-tuples hypothesis giving statistical control of the binary
 expansion of about <span class="math inline" data-term-auto="off">\(\log\log n\)</span>
 consecutive gaps <span class="citation"
-data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>. Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:infinite}\)</span> below is that
+data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>. Theorem <a class="math-ref" href="#long251:res:infinite">3</a> below is that
 reduction in exact form, with the endpoint retained, with convergence
 supplied by an elementary bound, and with the statement checked by the
 Lean kernel. The elementary bound replaces the prime number theorem. No
@@ -180,8 +179,7 @@ class="math inline" data-term-auto="off">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> fo
 <span class="math inline" data-term-auto="off">\(n\)</span>, where <span
 class="math inline" data-term-auto="off">\(g_n\)</span> are the actual consecutive prime
 gaps <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>. Its
-proof runs through Selberg’s sieve. Sections <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:obstructions}\)</span> draws two
+proof runs through Selberg’s sieve. Sections <a class="math-ref" href="#long251:sec:obstructions">6</a> draws two
 consequences from it.</p>
 <p>Problem #251 also appears as the unproved declaration
 <code>erdos_251</code> in the <em>Formal Conjectures</em>
@@ -224,8 +222,7 @@ of rescaled tails. Rationality of the sum is equivalent to an eventual
 integrality condition on differences of those tails, and that condition
 uses nothing about the numerators beyond the fact that they are
 integers. The condition does not by itself force the numerators to
-repeat: Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:telescope}\)</span>, applied to
+repeat: Proposition <a class="math-ref" href="#long251:res:telescope">25</a>, applied to
 <span class="math inline" data-term-auto="off">\(K_n=n\)</span>, produces the integer
 sequence <span class="math inline" data-term-auto="off">\(\kappa_n=n-1\)</span>, which is
 unbounded and hence not eventually periodic, and whose dyadic sum is
@@ -233,22 +230,16 @@ zero.</p>
 </section>
 <section id="outline." class="level5">
 <h5>Outline.</h5>
-<p>Section <span class="math inline" data-term-auto="off">\(\ref{long251:sec:parts}\)</span>
-proves the identity and the irrationality equivalence. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:tail}\)</span> develops the tail
+<p>Section <a class="math-ref" href="#long251:sec:parts">2</a>
+proves the identity and the irrationality equivalence. Section <a class="math-ref" href="#long251:sec:tail">3</a> develops the tail
 recurrence and states the three exact criteria: pointwise shift escape,
 the free-pair form with a free offset, and the lcm diagonal.
-Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:local-certificate}\)</span> gives
+Section <a class="math-ref" href="#long251:sec:local-certificate">4</a> gives
 the local obstruction, its signed normal form, the explicit remainder
-bound and one certified actual pair. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:denominator-floor}\)</span>
-records the two denominator floors. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:obstructions}\)</span> proves the
-four obstructions. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:measurements}\)</span> reports
-the two finite measurements. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:open}\)</span> states the
+bound and one certified actual pair. Section <a class="math-ref" href="#long251:sec:denominator-floor">5</a>
+records the two denominator floors. Section <a class="math-ref" href="#long251:sec:obstructions">6</a> proves the
+four obstructions. Section <a class="math-ref" href="#long251:sec:measurements">7</a> reports
+the two finite measurements. Section <a class="math-ref" href="#long251:sec:open">8</a> states the
 remaining obligation. All declarations linked below are checked by the
 Lean 4 kernel against the pinned Mathlib revision at the formal-source
 commit ee650b32b8b2, and the pinned sources contain no proof
@@ -280,177 +271,149 @@ class="math inline" data-term-auto="off">\(\Pi\)</span></td>
 <tr>
 <td class="ta-l">Finite prime-gap identity</td>
 <td class="ta-l"> Proved here</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:parts}\)</span>, with the
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:parts">2</a>, with the
 endpoint retained.</td>
 </tr>
 <tr>
 <td class="ta-l">Infinite prime-gap identity</td>
 <td class="ta-l"> Lean-checked unconditionally</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:infinite}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:infinite">3</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Prime-series/gap-series irrationality
 equivalence</td>
 <td class="ta-l"> Lean-checked unconditionally</td>
-<td class="ta-l"> Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:irr-equivalence}\)</span>.</td>
+<td class="ta-l"> Corollary <a class="math-ref" href="#long251:res:irr-equivalence">4</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Elementary polynomial prime bound <span
 class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span></td>
 <td class="ta-l"> Lean-checked; proof reprinted here</td>
-<td class="ta-l"> Appendix <span
-class="math inline" data-term-auto="off">\(\ref{long251:app:prime-bound}\)</span>.</td>
+<td class="ta-l"> Appendix <a class="math-ref" href="#long251:app:prime-bound">9</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Actual real prime-gap tail and its
 recurrence</td>
 <td class="ta-l"> Lean-checked unconditionally</td>
-<td class="ta-l"> Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:tail}\)</span>.</td>
+<td class="ta-l"> Section <a class="math-ref" href="#long251:sec:tail">3</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Rationality/integral-shift
 classification</td>
 <td class="ta-l"> Lean-checked; an equivalence</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:escape-irrational}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Free-pair irrationality criterion</td>
 <td class="ta-l"> Lean-checked; an equivalence</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:freepair}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:freepair">8</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Lcm-diagonal irrationality criterion</td>
 <td class="ta-l"> Lean-checked; an equivalence</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:lcmdiagonal}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:lcmdiagonal">9</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Adjacent small-shift obstruction, rational
 and real</td>
 <td class="ta-l"> Lean-checked</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair}\)</span>,
-Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair-real}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:smallpair">10</a>,
+Corollary <a class="math-ref" href="#long251:res:smallpair-real">11</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Signed two-window normal form</td>
 <td class="ta-l"> Lean-checked; an equivalence</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Explicit remainder bound and the certified
 pair at <span class="math inline" data-term-auto="off">\(h=1\)</span>, <span
 class="math inline" data-term-auto="off">\(N=2\)</span></td>
 <td class="ta-l"> Ordinary proof; exact integer replay in
-Appendix <span
-class="math inline" data-term-auto="off">\(\ref{long251:app:certificates}\)</span></td>
-<td class="ta-l"> Propositions <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:explicit-remainder}\)</span>
-and <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:finite-smallpair}\)</span>.</td>
+Appendix <a class="math-ref" href="#long251:app:certificates">10</a></td>
+<td class="ta-l"> Propositions <a class="math-ref" href="#long251:res:explicit-remainder">14</a>
+and <a class="math-ref" href="#long251:res:finite-smallpair">15</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Denominator floor <span
 class="math inline" data-term-auto="off">\(b\ge2^{589}\)</span></td>
 <td class="ta-l"> Lean-checked by
 <code>decide +kernel</code>; ordinary proof reprinted here</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:denominatorfloor}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:denominatorfloor">16</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Certified continued-fraction exclusion
 <span class="math inline" data-term-auto="off">\(q\ge2^{39997}\)</span></td>
 <td class="ta-l"> Exact computation over a Lean-checked
 tail bound</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:cfexclusion}\)</span>; no Lean
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:cfexclusion">17</a>; no Lean
 declaration.</td>
 </tr>
 <tr>
 <td class="ta-l">Bounded-perturbation obstruction</td>
 <td class="ta-l"> Lean-checked</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:boundedperturbation}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Nonconcentration survives the
 rationalising perturbation</td>
 <td class="ta-l"> Ordinary proof; external lemma cited</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconcentration}\)</span> and
-Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconc-primes}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> and
+Corollary <a class="math-ref" href="#long251:res:nonconc-primes">21</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">The two-window event has density zero</td>
 <td class="ta-l"> Ordinary proof; external lemma cited</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:sparse">22</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Recurring gap values differing by <span
 class="math inline" data-term-auto="off">\(2\)</span> do not suffice</td>
 <td class="ta-l"> Ordinary proof</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polignacfail}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Quadratic polynomial-shift
 countermodel</td>
 <td class="ta-l"> Lean-checked</td>
-<td class="ta-l"> Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polynomialcountermodel}\)</span>.</td>
+<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:polynomialcountermodel">24</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Rationality alone forces periodic integer
 coefficients</td>
 <td class="ta-l"> False</td>
-<td class="ta-l"> Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:telescope}\)</span>.</td>
+<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:telescope">25</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Affine and fixed-lattice cofinal escape
 tests</td>
 <td class="ta-l"> Lean-checked; both equivalences</td>
-<td class="ta-l"> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:affinecollapse}\)</span>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:affinecollapse">26</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Actual prime gaps are unbounded and not
 eventually periodic</td>
 <td class="ta-l"> Lean-checked</td>
-<td class="ta-l"> Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:gap-nonperiodic}\)</span>.</td>
+<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">12</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Adjacent-mismatch event density below
 <span class="math inline" data-term-auto="off">\(1.2\times10^{8}\)</span></td>
 <td class="ta-l"> Finite measurement, floating-point
 tails</td>
-<td class="ta-l"> Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:measurements}\)</span>.</td>
+<td class="ta-l"> Section <a class="math-ref" href="#long251:sec:measurements">7</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Free-pair witnesses for every <span
 class="math inline" data-term-auto="off">\(t\le20\)</span> below <span
 class="math inline" data-term-auto="off">\(2\times10^{7}\)</span></td>
 <td class="ta-l"> Finite measurement</td>
-<td class="ta-l"> Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:measurements}\)</span>.</td>
+<td class="ta-l"> Section <a class="math-ref" href="#long251:sec:measurements">7</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Cofinal adjacent small mismatch</td>
 <td class="ta-l"> Sufficient condition; not proved</td>
-<td class="ta-l"> Problem <span
-class="math inline" data-term-auto="off">\(\ref{long251:prob:smallpair}\)</span>.</td>
+<td class="ta-l"> Problem <a class="math-ref" href="#long251:prob:smallpair">28</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -478,7 +441,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 partial sum</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121">dyadic
 difference sum</a> of <span class="math inline" data-term-auto="off">\(P\)</span>.</p>
-<div class="proposition">
+<div class="proposition" id="long251:res:abel">
 <p><strong>Proposition 1</strong> (finite summation by parts). <em> For
 every rational sequence <span class="math inline" data-term-auto="off">\(P\)</span> and every
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
@@ -506,7 +469,7 @@ convergence.</p>
 first value is <span class="math inline" data-term-auto="off">\(p_0=2\)</span>, and writing
 <span class="math inline" data-term-auto="off">\(g_i=p_{i+1}-p_i\)</span> for the zero-based
 gaps, gives the reformulation.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:parts">
 <p><strong>Theorem 2</strong> (prime-gap reformulation). <em> Let <span
 class="math inline" data-term-auto="off">\(p_0=2,p_1=3,\ldots\)</span> be the primes in
 increasing order and <span
@@ -546,7 +509,7 @@ discrete derivative</a>. It expresses each gap term as an integer
 combination of two consecutive prime terms, so once <span
 class="math inline" data-term-auto="off">\((u_n)\)</span> is summable the gap series can be
 summed by rearranging two copies of the prime series.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:infinite">
 <p><strong>Theorem 3</strong> (infinite prime-gap identity). <em> Both
 series converge and <span
 class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
@@ -554,8 +517,7 @@ class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
 </div>
 <div class="proof">
 <p><em>Proof.</em> The bound <span
-class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> of Appendix <span
-class="math inline" data-term-auto="off">\(\ref{long251:app:prime-bound}\)</span> makes <span
+class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> of Appendix <a class="math-ref" href="#long251:app:prime-bound">9</a> makes <span
 class="math inline" data-term-auto="off">\((u_n)\)</span> summable, and <span
 class="math inline" data-term-auto="off">\(0&lt;g_n\le p_{n+1}\)</span> then makes <span
 class="math inline" data-term-auto="off">\((v_n)\)</span> summable. The shifted sequence
@@ -578,7 +540,7 @@ summability theorem</a>, and the displayed identity is the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
 prime-gap identity</a>. The prime number theorem is not a dependency at
 any point.</p>
-<div class="corollary">
+<div class="corollary" id="long251:res:irr-equivalence">
 <p><strong>Corollary 4</strong> (exact irrationality reformulation).
 <em> <span class="math inline" data-term-auto="off">\(\Pi\)</span> is irrational if and only
 if <span class="math inline" data-term-auto="off">\(S=\sum_{n\ge0}g_n2^{-(n+1)}\)</span> is
@@ -618,7 +580,7 @@ the sum is rational exactly when <span
 class="math inline" data-term-auto="off">\(T_0\)</span> is. This section studies that
 recurrence, assuming nothing about the coefficients beyond the fact that
 they are integers, and resumes the prime-gap instance at the end.</p>
-<div class="definition">
+<div class="definition" id="long251:def:rec">
 <p><strong>Definition 5</strong>. <em> Let <span
 class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> or <span
@@ -660,7 +622,7 @@ class="math inline" data-term-auto="off">\(B_{h,N}=g_{N+1}2^{\,h-1}+\cdots+g_{N+
 the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L647">tail
 block</a>.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:block">
 <p><strong>Theorem 6</strong> (block identity). <em> For every <span
 class="math inline" data-term-auto="off">\(N\)</span> and <span
 class="math inline" data-term-auto="off">\(h\)</span>, <span
@@ -681,15 +643,14 @@ block identity</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L667">scaled
 shift identity</a>. The shift also obeys the recurrence in its own
 right,</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long251:eq:shift-step" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long251:eq:shift-step}
 \sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr),
 \end{equation}\]</span></div>
 <p>the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L563">shift
 step identity</a>. Since <span class="math inline" data-term-auto="off">\(B_{h,N}\)</span> is
-an integer, Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:block}\)</span> converts a
+an integer, Theorem <a class="math-ref" href="#long251:res:block">6</a> converts a
 question about the shift into a question about <span
 class="math inline" data-term-auto="off">\((2^{h}-1)T_N\)</span>: the shift <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is integral if and only if
@@ -700,7 +661,7 @@ class="math inline" data-term-auto="off">\(T_N\)</span> is fixed no choice of th
 after index <span class="math inline" data-term-auto="off">\(N\)</span> can change whether
 <span class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is an integer.</p>
 <p>For a rational orbit the denominator settles the matter exactly:</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long251:eq:den-law" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \operatorname{den}(T_{N+1})
 =\frac{\operatorname{den}(T_N)}{\gcd(2,\operatorname{den}(T_N))},
 \qquad
@@ -734,7 +695,7 @@ class="math inline" data-term-auto="off">\(T_N=1/2\)</span> then <span
 class="math inline" data-term-auto="off">\(2^{h}-1\)</span> is odd for every <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>, so no shift at <span
 class="math inline" data-term-auto="off">\(N\)</span> is integral.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:escape-irrational">
 <p><strong>Theorem 7</strong> (exact rationality classification). <em>
 Let <span class="math inline" data-term-auto="off">\(T:\N\to\R\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> with integer digits
@@ -762,8 +723,7 @@ class="math inline" data-term-auto="off">\(\sigma_h(N)\notin\Z\)</span>.</em></p
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span><span
 class="upright">(iii)</span>, the block identity identifies the whole
 orbit with the cast of the rational recurrence starting at <span
-class="math inline" data-term-auto="off">\(T_0\)</span>; apply <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:den-law}\)</span> at an index
+class="math inline" data-term-auto="off">\(T_0\)</span>; apply <a class="math-ref" href="#long251:eq:den-law">(2)</a> at an index
 where the denominator has become odd, and propagate forward. The
 implication <span class="upright">(iii)</span><span
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span><span
@@ -794,8 +754,7 @@ nonintegrality</a>.</p>
 <p>Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_N=\sum_{j\ge1}\frac{g_{N+j}}{2^{\,j}},\]</span></div>
-<p>which converges by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:infinite}\)</span>. The scaled
+<p>which converges by Theorem <a class="math-ref" href="#long251:res:infinite">3</a>. The scaled
 tail equals its shifted-gap series, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">shifted-gap
 series identity</a>, and satisfies <span
@@ -807,8 +766,7 @@ class="math inline" data-term-auto="off">\(T_0=2S-1=2.349287932\ldots\)</span>, 
 <span class="math inline" data-term-auto="off">\(\Pi\)</span>, <span
 class="math inline" data-term-auto="off">\(S\)</span> and <span
 class="math inline" data-term-auto="off">\(T_0\)</span> have the same rationality status, and
-Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:escape-irrational}\)</span>
+Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a>
 specialises to the actual series: irrationality of <span
 class="math inline" data-term-auto="off">\(\Pi\)</span> is equivalent to cofinal
 nonintegrality of the positive shifts of <span
@@ -822,7 +780,7 @@ tail is left open; the open content is the escape hypothesis itself.</p>
 <p>The escape condition quantifies over a fixed shift length. Freeing
 the offset gives an equivalent condition with a weaker-looking
 producer.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:freepair">
 <p><strong>Theorem 8</strong> (free-pair criterion). <em> <span
 class="math inline" data-term-auto="off">\(S\)</span> is irrational if and only if for every
 <span class="math inline" data-term-auto="off">\(t\ge1\)</span> and every <span
@@ -834,11 +792,9 @@ class="math inline" data-term-auto="off">\(T_M-T_N\notin\Z\)</span>.</em></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
 irrational, take <span class="math inline" data-term-auto="off">\(M=N+t\)</span> for the
-<span class="math inline" data-term-auto="off">\(N\)</span> supplied by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:escape-irrational}\)</span> at
+<span class="math inline" data-term-auto="off">\(N\)</span> supplied by Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a> at
 shift length <span class="math inline" data-term-auto="off">\(t\)</span>. Conversely, suppose
-<span class="math inline" data-term-auto="off">\(S\)</span> is rational. By <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:den-law}\)</span> the orbit
+<span class="math inline" data-term-auto="off">\(S\)</span> is rational. By <a class="math-ref" href="#long251:eq:den-law">(2)</a> the orbit
 reaches an index <span class="math inline" data-term-auto="off">\(N_0\)</span> beyond which
 the reduced denominator is a fixed odd <span
 class="math inline" data-term-auto="off">\(d\)</span>; let <span
@@ -889,7 +845,7 @@ formalised.</p>
 basepoints onto a single schedule. Let <span
 class="math inline" data-term-auto="off">\(L_0=1\)</span> and <span
 class="math inline" data-term-auto="off">\(L_j=\lcm(1,\ldots,j)\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:lcmdiagonal">
 <p><strong>Theorem 9</strong> (<a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153">lcm-diagonal
 criterion</a>). <em> Let <span class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span>
@@ -900,8 +856,7 @@ class="math inline" data-term-auto="off">\(T_{2L_j}-T_{L_j}\notin\Z\)</span> for
 class="math inline" data-term-auto="off">\(j\ge0\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:escape-irrational}\)</span> gives
+<p><em>Proof.</em> Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a> gives
 the forward implication. Conversely, if <span
 class="math inline" data-term-auto="off">\(T_0\)</span> is rational then some positive shift
 length <span class="math inline" data-term-auto="off">\(h\)</span> is integral at every
@@ -917,8 +872,8 @@ integer. ◻</p>
 </div>
 <p>The factorial schedule has the same divisibility property; the lcm
 schedule is pointwise no larger and is the endpoint used here.
-Theorems <span class="math inline" data-term-auto="off">\(\ref{long251:res:freepair}\)</span>
-and <span class="math inline" data-term-auto="off">\(\ref{long251:res:lcmdiagonal}\)</span>
+Theorems <a class="math-ref" href="#long251:res:freepair">8</a>
+and <a class="math-ref" href="#long251:res:lcmdiagonal">9</a>
 are exact reformulations on the class of integer-digit orbits. They
 change the shape of the required producer and they supply no
 nonintegrality statement for the actual prime gaps.</p>
@@ -929,14 +884,13 @@ nonintegrality statement for the actual prime gaps.</p>
 <p>The classifiers reduce irrationality to a condition of infinite
 precision imposed on a complete tail. Inside <span
 class="math inline" data-term-auto="off">\((-1,1)\)</span> integrality is equality with zero,
-so on that range the shift step identity <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:shift-step}\)</span> turns
+so on that range the shift step identity <a class="math-ref" href="#long251:eq:shift-step">(1)</a> turns
 simultaneous integrality of two adjacent shifts into a single comparison
 of digits. What this buys is a certificate attached to one pair of
 adjacent indices, whose verification already contradicts integrality
 there. The distance of a shift from the integers never has to be
 estimated.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:smallpair">
 <p><strong>Theorem 10</strong> (adjacent small-shift obstruction). <em>
 Let <span class="math inline" data-term-auto="off">\(T\)</span> satisfy the dyadic tail
 recurrence with integer digits <span class="math inline" data-term-auto="off">\(g\)</span>,
@@ -955,13 +909,12 @@ integral.</em></p>
 <p><em>Proof.</em> An integer strictly between <span
 class="math inline" data-term-auto="off">\(-1\)</span> and <span
 class="math inline" data-term-auto="off">\(1\)</span> is zero. If both shifts were integers,
-both would vanish, and <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:shift-step}\)</span> would give
+both would vanish, and <a class="math-ref" href="#long251:eq:shift-step">(1)</a> would give
 <span class="math inline" data-term-auto="off">\(g_{N+h+1}=g_{N+1}\)</span>. The cofinal
 statement chooses one such adjacent pair after the alleged onset of
 integrality. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="long251:res:smallpair-real">
 <p><strong>Corollary 11</strong> (real form and the sufficient
 condition). <em> The same statement holds for a real orbit, with the
 same proof. If for every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and
@@ -981,13 +934,12 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 criterion</a>. The third hypothesis alone is available for the actual
 gaps: it reads <span class="math inline" data-term-auto="off">\(g_4=2\ne4=g_3\)</span> at
 <span class="math inline" data-term-auto="off">\(h=1\)</span>, <span
-class="math inline" data-term-auto="off">\(N=2\)</span>, and by Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:gap-nonperiodic}\)</span> it
+class="math inline" data-term-auto="off">\(N=2\)</span>, and by Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">12</a> it
 holds for arbitrarily large <span class="math inline" data-term-auto="off">\(N\)</span> at
 every fixed <span class="math inline" data-term-auto="off">\(h\)</span>. What is missing is
 the pair of inequalities, each of which constrains a complete infinite
 tail.</p>
-<div class="proposition">
+<div class="proposition" id="long251:res:gap-nonperiodic">
 <p><strong>Proposition 12</strong> (prime gaps do not become periodic).
 <em> For every positive <span class="math inline" data-term-auto="off">\(h\)</span>, the
 actual consecutive-prime-gap sequence is not eventually periodic with
@@ -1007,13 +959,12 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 periodicity</a>. Far stronger lower bounds for large gaps are
 known <span class="citation" data-cites="fgkmt2018"><a href="#ref-6">[6]</a></span>;
 unboundedness is all that is needed.</p>
-<p>The conjunction in Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair}\)</span> has an exact
+<p>The conjunction in Theorem <a class="math-ref" href="#long251:res:smallpair">10</a> has an exact
 normal form. For fixed <span class="math inline" data-term-auto="off">\(h\)</span> write
 <span class="math inline" data-term-auto="off">\(D_N=\sigma_h(N)\)</span> and <span
 class="math inline" data-term-auto="off">\(\delta_N=g_{N+h+1}-g_{N+1}\)</span>, so that <span
 class="math inline" data-term-auto="off">\(D_{N+1}=2D_N-\delta_N\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:signedwindow">
 <p><strong>Theorem 13</strong> (<a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineShiftEscape.lean#L113">signed
 two-window normal form</a>). <em> Assume <span
@@ -1038,17 +989,15 @@ window. ◻</p>
 </div>
 <p>For the actual gaps and <span class="math inline" data-term-auto="off">\(N\ge1\)</span>
 every <span class="math inline" data-term-auto="off">\(\delta_N\)</span> is even, so
-Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span> applies
+Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> applies
 throughout the range where the local certificate is sought. The same
-computation for a real orbit is one line and is used in Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span> below.</p>
+computation for a real orbit is one line and is used in Theorem <a class="math-ref" href="#long251:res:sparse">22</a> below.</p>
 <section id="an-explicit-remainder-and-a-certified-actual-pair"
 class="level3">
 <h3>An explicit remainder and a certified actual pair</h3>
 <p>Both window conditions involve complete infinite tails. A dominated
 truncation reduces each of them to a finite integer comparison.</p>
-<div class="proposition">
+<div class="proposition" id="long251:res:explicit-remainder">
 <p><strong>Proposition 14</strong> (explicit remainder). <em> For
 integers <span class="math inline" data-term-auto="off">\(h,N\ge0\)</span> and <span
 class="math inline" data-term-auto="off">\(L\ge1\)</span> put <span
@@ -1081,12 +1030,11 @@ class="math inline" data-term-auto="off">\(j=L+k\)</span>. The two tests follow 
 triangle inequality and the definition of distance to <span
 class="math inline" data-term-auto="off">\(\Z\)</span>. ◻</p>
 </div>
-<div class="proposition">
+<div class="proposition" id="long251:res:finite-smallpair">
 <p><strong>Proposition 15</strong> (a certified adjacent pair). <em> For
 the actual prime gaps, <span class="math inline" data-term-auto="off">\(h=1\)</span> and
 <span class="math inline" data-term-auto="off">\(N=2\)</span> satisfy the three hypotheses of
-Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair}\)</span>: both <span
+Theorem <a class="math-ref" href="#long251:res:smallpair">10</a>: both <span
 class="math inline" data-term-auto="off">\(\sigma_1(2)\)</span> and <span
 class="math inline" data-term-auto="off">\(\sigma_1(3)\)</span> lie in <span
 class="math inline" data-term-auto="off">\((-1,1)\)</span> and are nonintegral, and <span
@@ -1112,8 +1060,7 @@ from <span class="math inline" data-term-auto="off">\(QF\)</span> to the nearest
 The margins are <span class="math inline" data-term-auto="off">\(424908761776\)</span> and
 <span class="math inline" data-term-auto="off">\(213359980476\)</span> respectively. These
 are strict integer comparisons rather than inferences from rounded
-numerical tails. Appendix <span
-class="math inline" data-term-auto="off">\(\ref{long251:app:certificates}\)</span> replays
+numerical tails. Appendix <a class="math-ref" href="#long251:app:certificates">10</a> replays
 them. ◻</p>
 </div>
 <p>This witness proves the local condition at one pair of indices. The
@@ -1126,7 +1073,7 @@ cutoff remain.</p>
 <p>The same polynomial bound yields an exact rational enclosure of <span
 class="math inline" data-term-auto="off">\(\Pi\)</span>, and any such enclosure excludes an
 initial range of denominators.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:denominatorfloor">
 <p><strong>Theorem 16</strong> (kernel-decided denominator floor). <em>
 Let <span class="math inline" data-term-auto="off">\(a\in\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(b\in\Npos\)</span>. If <span
@@ -1153,8 +1100,7 @@ class="math display" data-term-auto="off">\[\frac{A}{2^{c}}\;\le\;\Pi\;\le\;\fra
 .\]</span></div>
 <p>The four positive integers <span
 class="math inline" data-term-auto="off">\(u,v,u&#39;,v&#39;\)</span> printed in
-Appendix <span
-class="math inline" data-term-auto="off">\(\ref{long251:app:certificates}\)</span> satisfy</p>
+Appendix <a class="math-ref" href="#long251:app:certificates">10</a> satisfy</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u&#39;v-uv&#39;=1,\qquad
 \frac uv&lt;\frac{A}{2^{c}},\qquad
 \frac{2A+5000(c+1)^4}{2^{\,c+1}}&lt;\frac{u&#39;}{v&#39;},\qquad
@@ -1188,7 +1134,7 @@ the polynomial bound at <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.
 The four Farey literals have <span class="math inline" data-term-auto="off">\(175\)</span> to
 <span class="math inline" data-term-auto="off">\(181\)</span> digits.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:cfexclusion">
 <p><strong>Theorem 17</strong> (certified continued-fraction exclusion).
 <em> Every rational equal to <span class="math inline" data-term-auto="off">\(\Pi\)</span>,
 and hence every rational equal to <span
@@ -1238,7 +1184,7 @@ hypotheses about the prime gaps is compatible with a rational dyadic
 value, or that a named event is too sparse for a named method.</p>
 <section id="bounded-residue-preserving-perturbations" class="level3">
 <h3>Bounded residue-preserving perturbations</h3>
-<div class="theorem">
+<div class="theorem" id="long251:res:boundedperturbation">
 <p><strong>Theorem 18</strong> (bounded-perturbation obstruction). <em>
 Let <span class="math inline" data-term-auto="off">\(a_n\)</span> be natural numbers with
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge0}a_n2^{-(n+1)}\)</span>
@@ -1280,8 +1226,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 bounds</a>. Consequently no theorem about the size or the residue of
 prime gaps that survives such a perturbation can suffice for
 Problem #251; that class includes the bounded-gap and large-gap theorems
-cited in Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:open}\)</span> and
+cited in Section <a class="math-ref" href="#long251:sec:open">8</a> and
 equidistribution of <span class="math inline" data-term-auto="off">\(p_n\)</span> modulo any
 fixed <span class="math inline" data-term-auto="off">\(q\)</span>, on taking <span
 class="math inline" data-term-auto="off">\(M=2q\)</span>. The perturbed digits need not
@@ -1292,8 +1237,7 @@ id="algebraic-nonconcentration-survives-the-rationalising-perturbation"
 class="level3">
 <h3>Algebraic nonconcentration survives the rationalising
 perturbation</h3>
-<p>The obvious reply to Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:boundedperturbation}\)</span> is
+<p>The obvious reply to Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a> is
 to demand a finer property of the actual gaps than size and residue. A
 relevant such property is Schlage-Puchta’s Lemma 4: for every polynomial
 <span class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span> which does
@@ -1307,7 +1251,7 @@ class="math inline" data-term-auto="off">\(k\ge0\)</span> and every nonzero <spa
 class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span>. The property
 transfers across bounded perturbations with no independence or
 randomness assumption.</p>
-<div class="proposition">
+<div class="proposition" id="long251:res:shiftedcount">
 <p><strong>Proposition 19</strong> (finite counting for shifted gap
 differences). <em> Write <span class="math inline" data-term-auto="off">\(p_n\)</span> for
 the primes indexed from <span class="math inline" data-term-auto="off">\(p_0=2\)</span> and
@@ -1348,7 +1292,7 @@ corresponding three-prime estimate, because two of the four positions
 would coincide. The all-shift implication records these analytic
 premises explicitly; it supplies neither estimate and does not prove
 irrationality.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:nonconcentration">
 <p><strong>Theorem 20</strong> (nonconcentration is
 perturbation-stable). <em> Let <span
 class="math inline" data-term-auto="off">\(a:\N\to\Z\)</span> have fixed-block
@@ -1385,13 +1329,12 @@ right has density zero by hypothesis, and the union is over the finite
 index set <span class="math inline" data-term-auto="off">\(E^{k+1}\)</span>, so a finite
 union of density-zero sets has density zero. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="long251:res:nonconc-primes">
 <p><strong>Corollary 21</strong> (nonconcentration does not force
 irrationality). <em> Fix <span class="math inline" data-term-auto="off">\(M\ge1\)</span> and
 <span class="math inline" data-term-auto="off">\(K\ge0\)</span>, and let <span
 class="math inline" data-term-auto="off">\(b\)</span> be the perturbed sequence supplied by
-Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:boundedperturbation}\)</span> at
+Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a> at
 the actual prime gaps. Then <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge0}b_n2^{-(n+1)}\)</span> is rational,
 <span class="math inline" data-term-auto="off">\(b_n=g_n\)</span> for <span
@@ -1405,13 +1348,11 @@ class="math inline" data-term-auto="off">\(p_n\le P_n\le p_n+Mn\)</span> and hen
 class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Everything except nonconcentration is Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:boundedperturbation}\)</span>
+<p><em>Proof.</em> Everything except nonconcentration is Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a>
 together with <span
 class="math inline" data-term-auto="off">\(\sum_{i&lt;n}g_i=p_n-2\)</span>. The perturbation
 takes values in the fixed two-element set <span
-class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconcentration}\)</span>
+class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a>
 applies to the actual gaps, which have fixed-block nonconcentration by
 Schlage-Puchta’s Lemma 4. ◻</p>
 </div>
@@ -1433,11 +1374,11 @@ with a block length or a polynomial family growing with the index.</p>
 <h3>The producer is an event of density zero</h3>
 <p>The same lemma bounds the event that the local certificate
 consumes.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:sparse">
 <p><strong>Theorem 22</strong> (sparsity of the two-window event). <em>
 Fix <span class="math inline" data-term-auto="off">\(h\ge1\)</span>. The set of <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> at which the three hypotheses of
-Theorem <span class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair}\)</span>
+Theorem <a class="math-ref" href="#long251:res:smallpair">10</a>
 hold for the actual prime gaps has density zero. For the same <span
 class="math inline" data-term-auto="off">\(h\)</span>, the set of <span
 class="math inline" data-term-auto="off">\(N\)</span> with <span
@@ -1467,19 +1408,16 @@ class="math inline" data-term-auto="off">\(F(x_0,\ldots,x_h)=x_h-x_0\)</span>. 
 <p>The two halves point in opposite directions and both are useful. The
 mismatch hypothesis on its own holds for almost all <span
 class="math inline" data-term-auto="off">\(N\)</span>, which is strictly stronger than the
-cofinal statement Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:gap-nonperiodic}\)</span>
+cofinal statement Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">12</a>
 supplies. The full conjunction is confined to a set of density zero,
 because the two window conditions force the mismatch to be exactly <span
-class="math inline" data-term-auto="off">\(\pm2\)</span>. A producer for Problem <span
-class="math inline" data-term-auto="off">\(\ref{long251:prob:smallpair}\)</span> therefore
+class="math inline" data-term-auto="off">\(\pm2\)</span>. A producer for Problem <a class="math-ref" href="#long251:prob:smallpair">28</a> therefore
 has to be a cofinality statement about a sparse set. Consequently, this
 event cannot be supplied on a set of positive lower density. A
 sufficient producer would have to yield cofinally many witnesses in a
 density-zero set; density zero alone does not exclude an averaging
 argument capable of detecting such sparse witnesses. The measurement
-reported in Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:measurements}\)</span> is
+reported in Section <a class="math-ref" href="#long251:sec:measurements">7</a> is
 consistent with this: the observed density at <span
 class="math inline" data-term-auto="off">\(h=1\)</span> declines like <span
 class="math inline" data-term-auto="off">\(1/\log p\)</span>, and the observed count up to
@@ -1489,8 +1427,7 @@ class="math inline" data-term-auto="off">\(X/(\log X)^2\)</span>.</p>
 <section id="recurring-gap-values-differing-by-two-do-not-suffice"
 class="level3">
 <h3>Recurring gap values differing by two do not suffice</h3>
-<p>Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span> reduces
+<p>Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> reduces
 the producer to a <span class="math inline" data-term-auto="off">\(\pm2\)</span> mismatch
 together with a half-window condition. It is tempting to hope that the
 mismatch half is the substance, and that two even values differing by
@@ -1499,7 +1436,7 @@ as a consecutive prime gap inside a common index residue class, would
 suffice. At the level of integer-digit recurrences that implication is
 false, and it stays false under growth at the scale the primes actually
 have.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:polignacfail">
 <p><strong>Theorem 23</strong> (recurring values are not enough). <em>
 There is a sequence <span class="math inline" data-term-auto="off">\((a_n)_{n\ge1}\)</span>
 of positive even integers with the following properties. The values
@@ -1682,7 +1619,7 @@ gaps.</p>
 </section>
 <section id="two-further-boundaries" class="level3">
 <h3>Two further boundaries</h3>
-<div class="proposition">
+<div class="proposition" id="long251:res:polynomialcountermodel">
 <p><strong>Proposition 24</strong> (quadratic polynomial-shift
 countermodel). <em> Put <span
 class="math inline" data-term-auto="off">\(c_n=2(n^2+4n+2)\)</span> and <span
@@ -1724,8 +1661,7 @@ the rational value is recorded at <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L109">line 109</a>.
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent trigger
-of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span> fails at
+of Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> fails at
 every index. The telescoping mechanism is the one Kovač used against the
 variable-denominator conjecture printed under the problem <span
 class="citation" data-cites="kovac2026"></span>; the word carries no
@@ -1735,7 +1671,7 @@ class="math inline" data-term-auto="off">\(K:\N\to\Q\)</span> be arbitrary and p
 class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span>: the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129">carry
 coefficient</a>.</p>
-<div class="proposition">
+<div class="proposition" id="long251:res:telescope">
 <p><strong>Proposition 25</strong> (exact telescoping). <em> For every
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_0-K_n2^{-n}\)</span>.</em></p>
@@ -1757,8 +1693,7 @@ the first term, unbounded and not eventually periodic, while their
 dyadic sum is <span class="math inline" data-term-auto="off">\(\tfrac52\)</span>. Rationality
 alone therefore cannot imply eventual periodicity even for a positive,
 parity-correct integer coefficient sequence, and no argument may play
-periodicity of a rational value against Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:gap-nonperiodic}\)</span>.</p>
+periodicity of a rational value against Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">12</a>.</p>
 <p>Finally, two escape tests that look like independent producers are
 equivalent to the conclusion they were introduced to supply. For fixed
 <span class="math inline" data-term-auto="off">\(h\)</span> write <span
@@ -1769,7 +1704,7 @@ so that <span class="math inline" data-term-auto="off">\(D_{N+r}=2^{r}D_N-B_{h,N
 and call the data-dependent affine condition <span
 class="math inline" data-term-auto="off">\(\mathcal A_{N,r}\)</span> the assertion <span
 class="math inline" data-term-auto="off">\(D_{N+r}\in-B_{h,N,r}+2^{\,r+1}\Z\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long251:res:affinecollapse">
 <p><strong>Theorem 26</strong> (affine and fixed-lattice circularity).
 <em> For every rational dyadic tail recurrence and all <span
 class="math inline" data-term-auto="off">\(h,N,r\ge0\)</span>, <span
@@ -1827,8 +1762,7 @@ bounded range and supplies no cofinal statement.</p>
 <p>Over the <span class="math inline" data-term-auto="off">\(6\,841\,648\)</span> primes
 below <span class="math inline" data-term-auto="off">\(1.2\times10^{8}\)</span> and offsets
 <span class="math inline" data-term-auto="off">\(h=1,\ldots,16\)</span>, the reduced
-two-window event of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span> occurs at
+two-window event of Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> occurs at
 every offset, with density between <span
 class="math inline" data-term-auto="off">\(0.00418\)</span> and <span
 class="math inline" data-term-auto="off">\(0.008248\)</span> and the two signs near balanced;
@@ -1841,7 +1775,7 @@ densities run from <span class="math inline" data-term-auto="off">\(0.17671\)</s
 <span class="math inline" data-term-auto="off">\(0.13148\)</span> with decelerating drift, so
 the count up to <span class="math inline" data-term-auto="off">\(X\)</span> still grows like
 <span class="math inline" data-term-auto="off">\(X/(\log X)^2\)</span>, which is the rate
-Theorem <span class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span>
+Theorem <a class="math-ref" href="#long251:res:sparse">22</a>
 permits. The tails in this scan are double-precision floating-point, so
 an individual hit is a numerical observation and carries no certificate;
 the median distance from the shift to the nearer window boundary is
@@ -1851,16 +1785,14 @@ class="math inline" data-term-auto="off">\(6.1\times10^{-7}\)</span>, eight orde
 working resolution, and <span class="math inline" data-term-auto="off">\(3\,200\)</span>
 sampled hits across <span class="math inline" data-term-auto="off">\(h=1,\ldots,8\)</span>
 were rechecked against the literal three-part statement with no
-violations. Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:finite-smallpair}\)</span> is the
+violations. Proposition <a class="math-ref" href="#long251:res:finite-smallpair">15</a> is the
 one pair certified by exact integer arithmetic. The receipt is
 <code>state/formal_math/probes/erdos251_adjacent_mismatch_receipt.json</code>.</p>
 <p>Over the <span class="math inline" data-term-auto="off">\(1\,270\,607\)</span> primes
 below <span class="math inline" data-term-auto="off">\(2\times10^{7}\)</span>, and for every
 modulus <span class="math inline" data-term-auto="off">\(t\le20\)</span> and every residue
 class modulo <span class="math inline" data-term-auto="off">\(t\)</span>, the free-pair event
-of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:freepair}\)</span> has witnesses
+of Theorem <a class="math-ref" href="#long251:res:freepair">8</a> has witnesses
 running to the last usable index: the leanest class at <span
 class="math inline" data-term-auto="off">\(t=20\)</span> carries <span
 class="math inline" data-term-auto="off">\(90\,150\)</span> witnesses and the latest witness
@@ -1875,10 +1807,9 @@ class="math inline" data-term-auto="off">\(t\)</span> and in the cutoff. The rec
 <section id="long251:sec:open" class="level2">
 <h2>The remaining obligation</h2>
 <p>Problem #251 is open. The exact unresolved condition, equivalent to
-irrationality by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:escape-irrational}\)</span> and
+irrationality by Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a> and
 the escape equivalence for the actual tail, is the following.</p>
-<div class="problem">
+<div class="problem" id="long251:prob:escape">
 <p><strong>Problem 27</strong> (universal prime-gap shift escape). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
@@ -1887,7 +1818,7 @@ class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{g_{N+h+j}-g_{N+j}}
 .
 \tag{8.1}\label{long251:eq:shift-escape}\]</span></em></p>
 </div>
-<div class="problem">
+<div class="problem" id="long251:prob:smallpair">
 <p><strong>Problem 28</strong> (cofinal adjacent small mismatch). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
@@ -1897,43 +1828,34 @@ class="math display" data-term-auto="off">\[\bigl|\sigma_h(N)\bigr|&lt;1,\qquad
 g_{N+h+1}\ne g_{N+1} .
 \tag{8.2}\label{long251:eq:smallpair}\]</span></em></p>
 </div>
-<p>Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:smallpair-real}\)</span> makes
-Problem <span
-class="math inline" data-term-auto="off">\(\ref{long251:prob:smallpair}\)</span> sufficient
-for Problem <span
-class="math inline" data-term-auto="off">\(\ref{long251:prob:escape}\)</span>, and
-Theorem <span class="math inline" data-term-auto="off">\(\ref{long251:res:freepair}\)</span>
+<p>Corollary <a class="math-ref" href="#long251:res:smallpair-real">11</a> makes
+Problem <a class="math-ref" href="#long251:prob:smallpair">28</a> sufficient
+for Problem <a class="math-ref" href="#long251:prob:escape">27</a>, and
+Theorem <a class="math-ref" href="#long251:res:freepair">8</a>
 supplies an equivalent target in which the offset is free. The three
 formulations are equivalent or ordered by implication; none of them is
 an analytic saving on its own.</p>
-<p>What the proved obstructions leave. By Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:boundedperturbation}\)</span> no
+<p>What the proved obstructions leave. By Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a> no
 hypothesis stable under bounded residue-preserving perturbation can
-work; by Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconc-primes}\)</span> adding
+work; by Corollary <a class="math-ref" href="#long251:res:nonconc-primes">21</a> adding
 fixed-block polynomial nonconcentration to that list does not repair it;
-the construction in Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:all-residue-log-countermodel}\)</span>
+the construction in Section <a class="math-ref" href="#long251:res:all-residue-log-countermodel">6.5</a>
 shows that recurring gap values differing by <span
 class="math inline" data-term-auto="off">\(2\)</span> in every residue class do not work at
-the level of integer recurrences; and by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span> the event in
-<span class="math inline" data-term-auto="off">\(\eqref{long251:eq:smallpair}\)</span> has
+the level of integer recurrences; and by Theorem <a class="math-ref" href="#long251:res:sparse">22</a> the event in
+<a class="math-ref" href="#long251:eq:smallpair">long251:eq:smallpair</a> has
 density zero, so it must be produced cofinally on a sparse set. Isolated
 small gaps, isolated large gaps and average gap estimates are
 insufficient. Any prescribed finite prefix can be preserved while the
 complete sum is rationalised, so that prefix alone cannot force
 irrationality or a cofinal small-tail producer. A finite block together
 with a proved tail bound can still certify one window: both inequalities
-in <span class="math inline" data-term-auto="off">\(\eqref{long251:eq:smallpair}\)</span>
-contain the complete infinite continuation, and Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:explicit-remainder}\)</span>
+in <a class="math-ref" href="#long251:eq:smallpair">long251:eq:smallpair</a>
+contain the complete infinite continuation, and Proposition <a class="math-ref" href="#long251:res:explicit-remainder">14</a>
 supplies the corresponding finite reduction. Nor does parity help, since
 after the first gap every <span class="math inline" data-term-auto="off">\(g_n\)</span> is
 even.</p>
-<p>The finite reduction is available. Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:explicit-remainder}\)</span>
+<p>The finite reduction is available. Proposition <a class="math-ref" href="#long251:res:explicit-remainder">14</a>
 turns each window condition into an integer comparison at truncation
 length <span class="math inline" data-term-auto="off">\(L\)</span>, and for fixed <span
 class="math inline" data-term-auto="off">\(h\)</span> and <span
@@ -1942,8 +1864,7 @@ class="math inline" data-term-auto="off">\(L=\lceil(4+\varepsilon)\log_2(N+2)\rc
 makes <span
 class="math inline" data-term-auto="off">\(E_{h,N,L}=O_h(N^{-\varepsilon})\)</span>. A
 prescribed positive margin <span class="math inline" data-term-auto="off">\(\eta_h\)</span>
-therefore converts <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:smallpair}\)</span> into a
+therefore converts <a class="math-ref" href="#long251:eq:smallpair">long251:eq:smallpair</a> into a
 statement about the joint distribution modulo powers of two of the
 finite block <span
 class="math inline" data-term-auto="off">\((g_{N+h+1}-g_{N+1},\ldots,g_{N+h+L}-g_{N+L})\)</span>
@@ -1975,23 +1896,16 @@ plausible route <span class="citation"
 data-cites="erdosproblems251thread"><a href="#ref-16">[16]</a></span>, and Land’s draft carries
 that out under Kuperberg’s uniform prime-tuples conjecture <span
 class="citation" data-cites="land2026"></span>. The obstructions of
-Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:obstructions}\)</span> say which
+Section <a class="math-ref" href="#long251:sec:obstructions">6</a> say which
 unconditional substitutes cannot replace that hypothesis.</p>
 <section id="what-remains-to-be-formalised." class="level5">
 <h5>What remains to be formalised.</h5>
-<p>The two finite certificates of Propositions <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:explicit-remainder}\)</span>
-and <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:finite-smallpair}\)</span>, the
-continued-fraction exclusion of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:cfexclusion}\)</span>, the
-nonconcentration transfer of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconcentration}\)</span> with
-its corollary, the sparsity statement of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span>, and the
-construction of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polignacfail}\)</span> are
+<p>The two finite certificates of Propositions <a class="math-ref" href="#long251:res:explicit-remainder">14</a>
+and <a class="math-ref" href="#long251:res:finite-smallpair">15</a>, the
+continued-fraction exclusion of Theorem <a class="math-ref" href="#long251:res:cfexclusion">17</a>, the
+nonconcentration transfer of Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> with
+its corollary, the sparsity statement of Theorem <a class="math-ref" href="#long251:res:sparse">22</a>, and the
+construction of Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> are
 ordinary mathematical proofs with exact arithmetic replay and no Lean
 declaration. Everything else linked above is checked by the kernel at
 the pinned commit.</p>
@@ -2008,10 +1922,8 @@ present text is exposition and navigation.</p>
 the sources linked here contain no proof placeholders and no
 project-defined axioms; Lean does not authorise the exposition, the
 citation choices, or the interpretation, for which the author remains
-responsible. The two receipts named in Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:measurements}\)</span> and the
-continued-fraction receipt of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:cfexclusion}\)</span> record
+responsible. The two receipts named in Section <a class="math-ref" href="#long251:sec:measurements">7</a> and the
+continued-fraction receipt of Theorem <a class="math-ref" href="#long251:res:cfexclusion">17</a> record
 their generating programs with digests and are held in the private
 research development.</p>
 </section>
@@ -2025,10 +1937,8 @@ competing interests.</p>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
 data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>. The logarithmic-scale construction
-of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polignacfail}\)</span> and the
-transfer argument of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:nonconcentration}\)</span> arose
+of Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> and the
+transfer argument of Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> arose
 in an external review of an earlier draft of this note; both proofs
 printed here were checked independently.</p>
 </section>
@@ -2041,7 +1951,7 @@ every <span class="math inline" data-term-auto="off">\(n\ge0\)</span>. Let <span
 class="math inline" data-term-auto="off">\(\pi(x)\)</span> count the primes at most <span
 class="math inline" data-term-auto="off">\(x\)</span>. For an integer <span
 class="math inline" data-term-auto="off">\(m\ge4\)</span>,</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="long251:eq:binomial-bound" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long251:eq:binomial-bound}
 4^m&lt;m\binom{2m}{m}\le m(2m)^{\pi(2m)} .
@@ -2071,8 +1981,7 @@ class="math inline" data-term-auto="off">\(n+4(n+1)x=4x^2-15x-5\le2x^4\)</span>,
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[m(2m)^{n}=2^{n}x^{4(n+1)}
 \le2^{\,n+4(n+1)x}\le2^{\,2x^4}=4^{m},\]</span></div>
-<p>contradicting <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:binomial-bound}\)</span>. Hence
+<p>contradicting <a class="math-ref" href="#long251:eq:binomial-bound">(3)</a>. Hence
 <span class="math inline" data-term-auto="off">\(\pi(2m)&gt;n\)</span>, so at least <span
 class="math inline" data-term-auto="off">\(n+1\)</span> primes lie below <span
 class="math inline" data-term-auto="off">\(2m\)</span> and therefore</p>
@@ -2087,10 +1996,8 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 <section id="long251:app:certificates" class="level2">
 <h2>Integer certificates</h2>
 <p>The following calculation uses trial division and integer arithmetic
-only. It reproduces the two rows of Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:finite-smallpair}\)</span> and
-every inequality used in Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:denominatorfloor}\)</span>. The
+only. It reproduces the two rows of Proposition <a class="math-ref" href="#long251:res:finite-smallpair">15</a> and
+every inequality used in Theorem <a class="math-ref" href="#long251:res:denominatorfloor">16</a>. The
 four literals are the certificate the Lean kernel decides in
 <code>KernelDenominatorFloor.lean</code>; their use here requires no
 floating-point approximation. Adjacent quoted strings are concatenated
@@ -2159,11 +2066,9 @@ print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pr
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
 revision ee650b32b8b2. The summation-by-parts and prime-bound
-declarations are prime-specific. Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:tail}\)</span> is stated for
+declarations are prime-specific. Section <a class="math-ref" href="#long251:sec:tail">3</a> is stated for
 arbitrary integer digits and arbitrary rational or real orbits, while
-Section <span
-class="math inline" data-term-auto="off">\(\ref{long251:sec:local-certificate}\)</span>
+Section <a class="math-ref" href="#long251:sec:local-certificate">4</a>
 records the actual-gap specialisation. The concrete prime-gap tail, its
 unconditional convergence, its recurrence and the real-to-rational
 scaled-tail bridge are defined and checked in
@@ -2187,11 +2092,10 @@ is labelled by its evidence class in the same vocabulary the note
 uses.</p>
 <section id="long251:sec:xr-totient" class="level3">
 <h3>The totient witness and forward propagation</h3>
-<p>The note states the exact denominator law <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:den-law}\)</span> and uses it
+<p>The note states the exact denominator law <a class="math-ref" href="#long251:eq:den-law">(2)</a> and uses it
 directly. The classical witness that produced it is worth recording,
 because it is the form in which the shift length first appears.</p>
-<div class="proposition">
+<div class="proposition" id="long251:xr:totient">
 <p><strong>Proposition 29</strong> (a shift of totient length). <em> Let
 <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the dyadic tail
 recurrence with integer digits. If the reduced denominator <span
@@ -2210,7 +2114,7 @@ class="math inline" data-term-auto="off">\(T_N=u/d\)</span> in lowest terms, <sp
 class="math inline" data-term-auto="off">\((2^{\ph(d)}-1)T_N=ku\)</span> is an integer, and
 the integral-shift criterion transfers this to the shift. ◻</p>
 </div>
-<div class="proposition">
+<div class="proposition" id="long251:xr:propagate">
 <p><strong>Proposition 30</strong> (propagation). <em> If <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is an integer, then <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+k)\)</span> is an integer for every
@@ -2249,7 +2153,7 @@ the odd part.</p>
 <p>The note gives the explicit remainder bound for the actual gaps. The
 general truncation statement behind it, valid for any dominating
 majorant, is the following.</p>
-<div class="proposition">
+<div class="proposition" id="long251:xr:truncation">
 <p><strong>Proposition 31</strong> (finite truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(M(n)\ge g_n\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\)</span>, assume the series below converges, and
@@ -2261,8 +2165,7 @@ class="math inline" data-term-auto="off">\(N_0\)</span> there are <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> and <span
 class="math inline" data-term-auto="off">\(L\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(S_{h,N,L},\Z)&gt;R_{h,N,L}(M)\)</span>,
-then the universal shift escape of Problem <span
-class="math inline" data-term-auto="off">\(\ref{long251:prob:escape}\)</span> holds.</em></p>
+then the universal shift escape of Problem <a class="math-ref" href="#long251:prob:escape">27</a> holds.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The part of <span
@@ -2296,12 +2199,11 @@ This rewriting is paper-level and carries no Lean declaration.</p>
 </section>
 <section id="long251:sec:xr-divisorhit" class="level3">
 <h3>A weaker recurrence-level target</h3>
-<div class="problem">
+<div class="problem" id="long251:xr:divisor-hit">
 <p><strong>Problem 32</strong> (divisor-hitting shift escape). <em> For
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, does some positive
 multiple of <span class="math inline" data-term-auto="off">\(r\)</span> escape cofinally, in
-the sense of <span
-class="math inline" data-term-auto="off">\(\eqref{long251:eq:shift-escape}\)</span> at shift
+the sense of <a class="math-ref" href="#long251:eq:shift-escape">long251:eq:shift-escape</a> at shift
 length <span class="math inline" data-term-auto="off">\(mr\)</span> for some <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span>?</em></p>
 </div>
@@ -2346,8 +2248,7 @@ X}T_N\le p_{X+1}\)</span> is false.</p>
 class="math inline" data-term-auto="off">\(T_M-T_N\)</span> is an integer whenever the
 modulus divides the offset, and an integer cannot lie in <span
 class="math inline" data-term-auto="off">\((\tfrac12,1)\)</span>. The half-window component
-of the reduced event of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:signedwindow}\)</span> is
+of the reduced event of Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> is
 therefore already a contradiction on its own, and the gap-mismatch
 condition adds nothing to it. That changes which component a proof has
 to produce.</p>
@@ -2355,12 +2256,11 @@ to produce.</p>
 </section>
 <section id="long251:sec:xr-boundedpolignac" class="level3">
 <h3>A bounded companion to the recurring-values countermodel</h3>
-<p>Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polignacfail}\)</span> carries a
+<p>Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> carries a
 logarithmic growth profile so that its cumulative sequence matches the
 primes. The mechanism is visible in a much smaller example, which is
 recorded here because it is checkable by hand.</p>
-<div class="proposition">
+<div class="proposition" id="long251:xr:boundedpolignac">
 <p><strong>Proposition 33</strong> (bounded recurring-values
 countermodel). <em> Put <span class="math inline" data-term-auto="off">\(U_0=4\)</span> and,
 for <span class="math inline" data-term-auto="off">\(n\ge1\)</span>, <span
@@ -2486,8 +2386,7 @@ class="math display" data-term-auto="off">\[\begin{array}{l}
 class="math inline" data-term-auto="off">\(0.744\)</span> at <span
 class="math inline" data-term-auto="off">\(h=1\)</span> and lies between <span
 class="math inline" data-term-auto="off">\(0.744\)</span> and <span
-class="math inline" data-term-auto="off">\(0.8121\)</span> across all offsets. Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:sparse}\)</span> proves that the
+class="math inline" data-term-auto="off">\(0.8121\)</span> across all offsets. Theorem <a class="math-ref" href="#long251:res:sparse">22</a> proves that the
 limiting density is zero, so the observed decline is the expected
 behaviour rather than a failure of the event.</p>
 </section>
@@ -2498,12 +2397,10 @@ behaviour rather than a failure of the event.</p>
 <p>An earlier internal record narrated a denominator exclusion at <span
 class="math inline" data-term-auto="off">\(10^{602}\)</span>. That figure is correct as
 written and is superseded twice over: by the kernel-decided floor <span
-class="math inline" data-term-auto="off">\(2^{589}&gt;10^{177}\)</span> of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:denominatorfloor}\)</span>, which
+class="math inline" data-term-auto="off">\(2^{589}&gt;10^{177}\)</span> of Theorem <a class="math-ref" href="#long251:res:denominatorfloor">16</a>, which
 is smaller but kernel-checked, and by the certified continued-fraction
 exclusion <span class="math inline" data-term-auto="off">\(2^{39997}&gt;10^{12040}\)</span>
-of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:cfexclusion}\)</span>, which
+of Theorem <a class="math-ref" href="#long251:res:cfexclusion">17</a>, which
 supersedes it in strength. The receipt records the decimal digit count
 <span class="math inline" data-term-auto="off">\(12041\)</span>; the certified decimal
 statement uses the exponent <span
@@ -2514,15 +2411,14 @@ class="math inline" data-term-auto="off">\(12040\)</span>.</p>
 <p>An earlier record named Hardy-Littlewood <span
 class="math inline" data-term-auto="off">\(k\)</span>-tuple correlation of consecutive gaps
 at a fixed offset as the missing input. With the offset freed by
-Theorem <span class="math inline" data-term-auto="off">\(\ref{long251:res:freepair}\)</span>
+Theorem <a class="math-ref" href="#long251:res:freepair">8</a>
 the route needs, for each modulus <span
 class="math inline" data-term-auto="off">\(t\)</span>, cofinally many congruent pairs with
 certified nonintegral tail difference. A further record proposed that
 two even values differing by <span class="math inline" data-term-auto="off">\(2\)</span>,
 each occurring infinitely often inside a common index residue class,
 would supply the two-condition form. No proof of that implication was
-ever produced, and Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long251:res:polignacfail}\)</span> shows that
+ever produced, and Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> shows that
 no proof exists at the level of integer-digit recurrences. That entry is
 withdrawn.</p>
 </section>

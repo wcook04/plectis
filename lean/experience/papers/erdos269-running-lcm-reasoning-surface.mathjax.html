@@ -45,7 +45,7 @@ record already covers <span class="math inline" data-term-auto="off">\(\mathcal 
 for every finite <span class="math inline" data-term-auto="off">\(P\)</span>; the open
 question addressed by the catalogue is <span
 class="math inline" data-term-auto="off">\(\mathcal R_P\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:lead-two-prime">
 <p><strong>Theorem 1</strong> (two-prime transcendence). <em> Let <span
 class="math inline" data-term-auto="off">\(p\)</span> and <span
 class="math inline" data-term-auto="off">\(q\)</span> be distinct primes. Then <span
@@ -53,8 +53,7 @@ class="math inline" data-term-auto="off">\(\mathcal R_{\{p,q\}}\)</span> and <sp
 class="math inline" data-term-auto="off">\(\mathcal D_{\{p,q\}}\)</span> are
 transcendental.</em></p>
 </div>
-<p>Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:two-prime}\)</span> proves this.
+<p>Section <a class="math-ref" href="#long269:sec:two-prime">3</a> proves this.
 Both values are explicit polynomials in one Hecke–Mahler boundary sum
 <span class="math inline" data-term-auto="off">\(A\)</span>, the coefficients are nonzero
 rationals, and transcendence of <span class="math inline" data-term-auto="off">\(A\)</span>
@@ -76,28 +75,24 @@ for the two-prime case is his. The proof below is independent and is
 given in full because it fixes the <span
 class="math inline" data-term-auto="off">\(|P|=2\)</span> boundary of the problem and because
 the same boundary sum drives the three-prime discussion. The identity of
-Theorem <span class="math inline" data-term-auto="off">\(\ref{long269:res:lcm}\)</span> is
+Theorem <a class="math-ref" href="#long269:res:lcm">2</a> is
 cited to him.</p>
 </section>
 <section id="what-the-third-prime-does." class="level5">
 <h5>What the third prime does.</h5>
-<p>Section <span class="math inline" data-term-auto="off">\(\ref{long269:sec:rank}\)</span>
+<p>Section <a class="math-ref" href="#long269:sec:rank">4</a>
 isolates the obstruction exactly. After separating row and column
 factors, the two-prime kernel is an outer product and the three-prime
 kernel retains one binary floor carry. That carry is enough to produce
 nonsingular minors of every order, uniformly in the third coordinate,
 and to make the normalised carry matrix inapproximable by finite
-separated sums below half its own jump. Sections <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:blocks}\)</span> to <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:escape}\)</span> take a second
+separated sums below half its own jump. Sections <a class="math-ref" href="#long269:sec:blocks">5</a> to <a class="math-ref" href="#long269:sec:escape">7</a> take a second
 route on the literal <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
 series: dyadic shells give an integer-coefficient tail recurrence, a
 strict endpoint clears the smooth part of a hypothetical denominator,
 and the surviving carry is trapped between a quadratic bound and a
-residue condition. Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:evidence}\)</span> reports the
-finite evidence and its ceiling, and Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:open}\)</span> states what
+residue condition. Section <a class="math-ref" href="#long269:sec:evidence">8</a> reports the
+finite evidence and its ceiling, and Section <a class="math-ref" href="#long269:sec:open">9</a> states what
 remains.</p>
 <p>Throughout, <span class="math inline" data-term-auto="off">\(p,q,r\)</span> are pairwise
 distinct primes. Call <span class="math inline" data-term-auto="off">\(n\)</span>
@@ -165,7 +160,7 @@ prefix index set</a>. Both conditions matter: the coordinate box is
 strictly larger than the prefix, since a product of three large pure
 powers can exceed <span class="math inline" data-term-auto="off">\(x\)</span> while each
 factor does not.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:lcm">
 <p><strong>Theorem 2</strong> (the running least common multiple). <em>
 Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
 primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then <span
@@ -223,7 +218,7 @@ class="math inline" data-term-auto="off">\(\operatorname{L}(6)=4\cdot3\cdot5=60\
 which exceeds <span class="math inline" data-term-auto="off">\(6\)</span>: the running value
 at a smooth cutoff already contains powers of the other two primes that
 the cutoff itself does not. That small fact is the mechanism behind
-Section <span class="math inline" data-term-auto="off">\(\ref{long269:sec:rank}\)</span>.
+Section <a class="math-ref" href="#long269:sec:rank">4</a>.
 Also <span class="math inline" data-term-auto="off">\(\operatorname{H}(x)\le x^{3}\)</span>,
 since each of the three factors is a power of its base not exceeding
 <span class="math inline" data-term-auto="off">\(x\)</span>; this is the <a
@@ -235,12 +230,11 @@ cell</em> when <span class="math inline" data-term-auto="off">\(\lfloor\log_b
 x\rfloor=\lfloor\log_b y\rfloor\)</span> for each of <span
 class="math inline" data-term-auto="off">\(b=p,q,r\)</span>, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L164">cell
-relation</a>. By Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:lcm}\)</span> the running value
+relation</a>. By Theorem <a class="math-ref" href="#long269:res:lcm">2</a> the running value
 depends on <span class="math inline" data-term-auto="off">\(x\)</span> only through the three
 integer logarithms, so it is constant on cells and moves only where one
 logarithm moves.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:cell">
 <p><strong>Proposition 3</strong> (constancy and jump ratios). <em> If
 <span class="math inline" data-term-auto="off">\(x,y\ge1\)</span> lie in the same logarithmic
 cell then <span
@@ -254,8 +248,7 @@ class="math inline" data-term-auto="off">\(r\)</span> in place of <span
 class="math inline" data-term-auto="off">\(p\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Both parts are immediate from Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:lcm}\)</span>: the height depends
+<p><em>Proof.</em> Both parts are immediate from Theorem <a class="math-ref" href="#long269:res:lcm">2</a>: the height depends
 on <span class="math inline" data-term-auto="off">\(x\)</span> only through the three integer
 logarithms, and advancing one of them multiplies exactly one factor by
 its base. ◻</p>
@@ -279,7 +272,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306">second</a>
 and <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317">third</a>.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:count">
 <p><strong>Proposition 4</strong> (jump count). <em> Let <span
 class="math inline" data-term-auto="off">\(n\ge0\)</span>. The set of the first <span
 class="math inline" data-term-auto="off">\(n\)</span> positive powers of <span
@@ -326,8 +319,7 @@ jump word begins</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2,\;3,2,\;5,2,\;3,2,\;5,3,2,\;\ldots\]</span></div>
 <p>grouped so that each group ends at a power of two, which is the grouping
-used in Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:blocks}\)</span>.</p>
+used in Section <a class="math-ref" href="#long269:sec:blocks">5</a>.</p>
 <p>Two finite statements are recorded here because they are the exact
 shape of the counting used later. Write <span
 class="math inline" data-term-auto="off">\(\mathcal B(h_p,h_q,h_r)\)</span> for the box of
@@ -340,7 +332,7 @@ its points whose height equals <span class="math inline" data-term-auto="off">\(
 the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378">height
 fibre</a>.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:fibre">
 <p><strong>Proposition 5</strong> (finite normal form). <em> For every
 box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, <span
 class="math inline" data-term-auto="off">\(\sum_{(i,j,k)\in\mathcal
@@ -374,8 +366,7 @@ class="math inline" data-term-auto="off">\(\tau(b,d,s)=b(s-d)\)</span>, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">variable-base
 tail step</a>, with the rewriting <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">that
-names its expanded form</a>; the orbits analysed in Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:blocks}\)</span> are the actual
+names its expanded form</a>; the orbits analysed in Section <a class="math-ref" href="#long269:sec:blocks">5</a> are the actual
 ones, and no orbit of this abstract map is analysed.</p>
 <p>Now fix an interval <span
 class="math inline" data-term-auto="off">\([\lambda,\eta)\)</span> and write <span
@@ -384,7 +375,7 @@ class="math inline" data-term-auto="off">\(\mathcal S\)</span> for the exponent 
 smooth value lies in it, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501">smooth
 exponent shell</a>.</p>
-<div class="lemma">
+<div class="lemma" id="long269:res:short">
 <p><strong>Lemma 6</strong> (uniqueness in a short interval). <em> Let
 <span class="math inline" data-term-auto="off">\(b\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(\eta\le b\,\lambda\)</span>. If <span
@@ -399,7 +390,7 @@ then <span class="math inline" data-term-auto="off">\(\eta\le b\,\lambda\le b^{a
 b^{a&#39;}w&lt;\eta\)</span>, which is impossible; the case <span
 class="math inline" data-term-auto="off">\(a&gt;a&#39;\)</span> is symmetric. ◻</p>
 </div>
-<div class="proposition">
+<div class="proposition" id="long269:res:drop"><span class="tex-label" id="long269:res:shell" hidden></span>
 <p><strong>Proposition 7</strong> (projection and the quadratic shell
 bound). <em> If <span class="math inline" data-term-auto="off">\(\eta\le r\,\lambda\)</span>
 then <span class="math inline" data-term-auto="off">\(\#\mathcal S\le(h_p+1)(h_q+1)\)</span>,
@@ -414,8 +405,7 @@ class="math inline" data-term-auto="off">\(9\,\#\mathcal S\le(j+3)^{2}\)</span>.
 <p><em>Proof.</em> Suppose <span class="math inline" data-term-auto="off">\(\eta\le
 r\,\lambda\)</span>. If two triples of <span
 class="math inline" data-term-auto="off">\(\mathcal S\)</span> agree in their first two
-coordinates, Lemma <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:short}\)</span> with <span
+coordinates, Lemma <a class="math-ref" href="#long269:res:short">6</a> with <span
 class="math inline" data-term-auto="off">\(b=r\)</span> and <span
 class="math inline" data-term-auto="off">\(w=p^{i}q^{j}\)</span> forces their third
 coordinates to agree, so the projection forgetting the third coordinate
@@ -459,8 +449,7 @@ class="math inline" data-term-auto="off">\(L_{p,q}(t)=p^{\lfloor\log_p
 t\rfloor}q^{\lfloor\log_q t\rfloor}\)</span>, which is the running least
 common multiple of the <span
 class="math inline" data-term-auto="off">\(\{p,q\}\)</span>-smooth numbers up to <span
-class="math inline" data-term-auto="off">\(t\)</span> by the argument of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:lcm}\)</span> with one coordinate
+class="math inline" data-term-auto="off">\(t\)</span> by the argument of Theorem <a class="math-ref" href="#long269:res:lcm">2</a> with one coordinate
 omitted. The de-duplicated sum retains the initial value <span
 class="math inline" data-term-auto="off">\(1\)</span> and one reciprocal for every later
 distinct running value, so</p>
@@ -471,8 +460,7 @@ D_{\{p,q\}}
 \mathcal R_{\{p,q\}}=\sum_{i,j\ge0}\frac1{L_{p,q}(p^iq^j)}
 .\]</span></div>
 <div class="proof">
-<p><em>Proof of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:lead-two-prime}\)</span>.</em>
+<p><em>Proof of Theorem <a class="math-ref" href="#long269:res:lead-two-prime">1</a>.</em>
 Set</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\theta=\frac{\log p}{\log q},\qquad
 x=\frac1p,\qquad y=\frac1q,\qquad
@@ -506,7 +494,7 @@ class="math inline" data-term-auto="off">\(y^{m_{n+1}}-y^{m_n}=\delta_ny^{m_n}(y
 an index shift gives <span
 class="math inline" data-term-auto="off">\(A-1-xA=x(y-1)B_\ast/y\)</span>, so <span
 class="math inline" data-term-auto="off">\(B_\ast=\bigl((p-1)A-p\bigr)/(1-q)\)</span> and</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:two-prime-affine" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:two-prime-affine}
 \mathcal D_{\{p,q\}}=\frac{(q-p)A+p}{q-1} .
 \end{equation}\]</span></div>
@@ -535,7 +523,7 @@ class="math inline" data-term-auto="off">\(n\)</span> with <span
 class="math inline" data-term-auto="off">\(\delta_n=1\)</span> arises from the unique <span
 class="math inline" data-term-auto="off">\(j=m_{n+1}\)</span>. Therefore <span
 class="math inline" data-term-auto="off">\(C=1+B_\ast\)</span> and</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="long269:eq:two-prime-quadratic" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:two-prime-quadratic}
 \mathcal R_{\{p,q\}}
@@ -549,7 +537,7 @@ n\theta\rfloor}x^ny^k\]</span></div>
 <p>a finite geometric sum gives <span
 class="math inline" data-term-auto="off">\(\bigl((1-y)/y\bigr)F_\theta(x,y)=x/(1-x)-(A-1)\)</span>,
 that is</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:hecke-mahler-boundary" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:hecke-mahler-boundary}
 A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}\]</span></div>
@@ -572,14 +560,11 @@ class="math display" data-term-auto="off">\[|xy^{\theta}|=\frac1p\left(\frac1q\r
 p/\log q}=\frac1{p^{2}}&lt;1 .\]</span></div>
 <p>So <span
 class="math inline" data-term-auto="off">\(F_\theta(x,y)\)</span> is transcendental, and
-<span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:hecke-mahler-boundary}\)</span>
+<a class="math-ref" href="#long269:eq:hecke-mahler-boundary">(3)</a>
 makes <span class="math inline" data-term-auto="off">\(A\)</span> transcendental. The
-coefficient of <span class="math inline" data-term-auto="off">\(A\)</span> in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:two-prime-affine}\)</span> is
+coefficient of <span class="math inline" data-term-auto="off">\(A\)</span> in <a class="math-ref" href="#long269:eq:two-prime-affine">(1)</a> is
 <span class="math inline" data-term-auto="off">\((q-p)/(q-1)\ne0\)</span> and the coefficient
-of <span class="math inline" data-term-auto="off">\(A^{2}\)</span> in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:two-prime-quadratic}\)</span> is
+of <span class="math inline" data-term-auto="off">\(A^{2}\)</span> in <a class="math-ref" href="#long269:eq:two-prime-quadratic">(2)</a> is
 <span class="math inline" data-term-auto="off">\(-(p-1)/(q-1)\ne0\)</span>, both rational. If
 either value were algebraic, its identity would exhibit <span
 class="math inline" data-term-auto="off">\(A\)</span> as a root of a nonzero polynomial over
@@ -589,8 +574,7 @@ the algebraic numbers. ◻</p>
 different weight. A product of two transcendental numbers need not be
 transcendental, so the factorisation <span
 class="math inline" data-term-auto="off">\(\mathcal R=AC\)</span> alone proves nothing; the
-quadratic identity <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:two-prime-quadratic}\)</span> in
+quadratic identity <a class="math-ref" href="#long269:eq:two-prime-quadratic">(2)</a> in
 the single value <span class="math inline" data-term-auto="off">\(A\)</span> is what settles
 the repeated sum. A third prime replaces the single Beatty boundary by a
 genuinely two-dimensional ordering problem, and the next section makes
@@ -602,7 +586,7 @@ that failure exact.</p>
 class="math inline" data-term-auto="off">\(f(i)g(j)h(k)\)</span> and reduce the problem to
 one-dimensional criteria. At two generators that hope is exactly
 correct, and at three it fails at every finite order.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:two-prime-rank">
 <p><strong>Proposition 8</strong> (two generators separate). <em> For
 <span class="math inline" data-term-auto="off">\(p,q&gt;1\)</span> and all <span
 class="math inline" data-term-auto="off">\(i,j\)</span>, the two-prime kernel <span
@@ -615,8 +599,7 @@ every two-by-two minor of <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2\)</span> vanishes.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> By the two-variable form of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:lcm}\)</span> the exponents of
+<p><em>Proof.</em> By the two-variable form of Theorem <a class="math-ref" href="#long269:res:lcm">2</a> the exponents of
 <span class="math inline" data-term-auto="off">\(p\)</span> and of <span
 class="math inline" data-term-auto="off">\(q\)</span> in <span
 class="math inline" data-term-auto="off">\(L_{p,q}(p^iq^j)\)</span> are <span
@@ -631,14 +614,13 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 identity</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">vanishing
 of every two-by-two minor</a>. This is the linear-algebraic shadow of
-Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:two-prime}\)</span>: the
+Section <a class="math-ref" href="#long269:sec:two-prime">3</a>: the
 two-prime value factors because the kernel does.</p>
 <p>At three generators the smallest rectangle already fails to factor. A
 factorisation <span class="math inline" data-term-auto="off">\(f(i)g(j)h(k)\)</span> would
 force <span
 class="math inline" data-term-auto="off">\(\operatorname{K}(0,0,0)\operatorname{K}(1,1,0)=\operatorname{K}(1,0,0)\operatorname{K}(0,1,0)\)</span>.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:rank">
 <p><strong>Proposition 9</strong> (non-separability at <span
 class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>). <em> With <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, <span
@@ -682,7 +664,7 @@ class="math inline" data-term-auto="off">\(4\)</span>, <span class="math inline"
 and <span class="math inline" data-term-auto="off">\(5\)</span>, so the running value at a
 smooth cutoff sees powers of the other primes that the cutoff itself
 omits.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:infinite-rank"><span class="tex-label" id="long269:res:lead-infinite-rank" hidden></span>
 <p><strong>Theorem 10</strong> (arbitrary-order non-separability). <em>
 Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be primes with <span
 class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math inline" data-term-auto="off">\(p\ne
@@ -721,7 +703,7 @@ class="math inline" data-term-auto="off">\(j\)</span> and <span
 class="math inline" data-term-auto="off">\(k\)</span> alone, so with positive rational <span
 class="math inline" data-term-auto="off">\(R_i(k)\)</span> and <span
 class="math inline" data-term-auto="off">\(C_j(k)\)</span>,</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="long269:eq:carry-factorisation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:carry-factorisation}
 \operatorname{K}(i,j,k)=R_i(k)\,C_j(k)\,t^{\lfloor x_i+y_j\rfloor},
@@ -758,8 +740,7 @@ t&amp;t&amp;\cdots&amp;t&amp;t
 \det C_n(t)=t(t-1)^{n-1}\ne0 ,\]</span></div>
 <p>the determinant following by
 subtracting from each row its predecessor, working upwards from the
-last. Equation <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:carry-factorisation}\)</span>
+last. Equation <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a>
 multiplies this determinant by nonzero row and column factors, for every
 <span class="math inline" data-term-auto="off">\(k\)</span>, which is the asserted
 uniformity. Finally, a representation with <span
@@ -768,8 +749,7 @@ class="math inline" data-term-auto="off">\((d+1)\times(d+1)\)</span> restriction
 <span class="math inline" data-term-auto="off">\(d\)</span>-dimensional space and force its
 determinant to vanish. ◻</p>
 </div>
-<p>The factorisation <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:carry-factorisation}\)</span> is
+<p>The factorisation <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a> is
 the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259">checked
 kernel factorisation</a>, over the <a
@@ -810,8 +790,7 @@ class="math inline" data-term-auto="off">\(|P|\ge3\)</span> in his comment of 26
 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>,
 observing that the two-prime argument does not seem to generalise
 immediately. The quantitative form above, its uniformity in the third
-coordinate, and its formalisation are proved here. Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:infinite-rank}\)</span> excludes
+coordinate, and its formalisation are proved here. Theorem <a class="math-ref" href="#long269:res:infinite-rank">10</a> excludes
 exact separations of the displayed finite-sum form; it is not an
 independence, irrationality or transcendence statement, and it settles
 no instance of Erdős #269.</p>
@@ -825,14 +804,13 @@ arbitrarily small perturbation of the kernel can destroy an exact
 vanishing. The next theorem replaces exactness by a uniform distance,
 and the constant it produces is sharp. It concerns the normalised carry
 matrix</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:carry-matrix" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:carry-matrix}
 C(i,j)=t^{\lfloor x_i+y_j\rfloor},
 \qquad
 x_i=\{i\log_r p\},\quad y_j=\{j\log_r q\},\quad t=r^{-1},
 \end{equation}\]</span></div>
-<p>which is the factor left in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:carry-factorisation}\)</span>
+<p>which is the factor left in <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a>
 after the row and column factors are divided out. Say that a real matrix
 <span class="math inline" data-term-auto="off">\(A\)</span> on <span
 class="math inline" data-term-auto="off">\(\N\times\N\)</span> has <em>finite separated
@@ -842,11 +820,10 @@ class="math inline" data-term-auto="off">\(A(i,j)=\sum_{\ell&lt;d}f_\ell(i)g_\el
 for some finite <span class="math inline" data-term-auto="off">\(d\)</span> and some
 sequences <span class="math inline" data-term-auto="off">\(f_\ell,g_\ell\)</span>, with no
 continuity or boundedness assumed.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:uniform-rank">
 <p><strong>Theorem 11</strong> (sharp uniform separated approximation).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
-primes and let <span class="math inline" data-term-auto="off">\(C\)</span> be as in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:carry-matrix}\)</span>. Then
+primes and let <span class="math inline" data-term-auto="off">\(C\)</span> be as in <a class="math-ref" href="#long269:eq:carry-matrix">(5)</a>. Then
 <span class="math display" data-term-auto="off">\[\inf_{A}\ \sup_{i,j\ge0}\
 |C(i,j)-A(i,j)|=\frac{1-t}{2}=\frac{r-1}{2r},\]</span> the infimum being
 over all matrices <span class="math inline" data-term-auto="off">\(A\)</span> of finite
@@ -911,8 +888,7 @@ it. ◻</p>
 </div>
 <p>The compactness step is standard, and the statement is recorded here
 for this kernel without a claim of technique. Three qualifications fix
-its reach. It is a statement about the normalised carry matrix <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:carry-matrix}\)</span>: the
+its reach. It is a statement about the normalised carry matrix <a class="math-ref" href="#long269:eq:carry-matrix">(5)</a>: the
 original kernel carries positive row and column factors that decay, so
 the conclusion transfers to a weighted uniform norm relative to those
 factors and not to the unweighted sup norm of <span
@@ -920,8 +896,7 @@ class="math inline" data-term-auto="off">\(\operatorname{K}\)</span>. It bounds 
 of the whole infinite matrix, and on any finite range a separated
 approximant of small rank exists. And it says nothing about
 approximating the scalar sum, so it yields no irrationality conclusion.
-What it does add to Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:infinite-rank}\)</span> is
+What it does add to Theorem <a class="math-ref" href="#long269:res:infinite-rank">10</a> is
 robustness: no finite separated model of the carry, however chosen, gets
 uniformly closer than half a carry jump. The threshold is exact in both
 directions, since rank one attains it.</p>
@@ -938,7 +913,7 @@ that <span class="math inline" data-term-auto="off">\(h_0=1/2\)</span> while <sp
 class="math inline" data-term-auto="off">\(h_a\)</span> is a positive integer for <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>. Define the dyadic shell mass, its
 tail and its normalisation by</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="long269:eq:actual-tail" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-tail}
 s_a=\sum_{\substack{i,j,k\ge0\\ 2^{a}\le2^{i}3^{j}5^{k}&lt;2^{a+1}}}
@@ -948,8 +923,7 @@ U_a=\sum_{j\ge a}s_j,
 \qquad
 X_a=h_aU_a .
 \end{equation}\]</span></div>
-<p>Compress the jump word of Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:lcm}\)</span> into the blocks cut
+<p>Compress the jump word of Section <a class="math-ref" href="#long269:sec:lcm">2</a> into the blocks cut
 out by consecutive powers of two: block <span
 class="math inline" data-term-auto="off">\(a\)</span> starts just after <span
 class="math inline" data-term-auto="off">\(2^{a}\)</span>, contains every pure <span
@@ -969,7 +943,7 @@ internal jumps <span class="math inline" data-term-auto="off">\((p,e)\)</span> w
 class="math inline" data-term-auto="off">\(p\in\{3,5\}\)</span> and <span
 class="math inline" data-term-auto="off">\(2^{a}&lt;p^{e}&lt;2^{a+1}\)</span>, in increasing
 order.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:dyadic-alphabet">
 <p><strong>Proposition 12</strong> (the dyadic block alphabet). <em> For
 every <span class="math inline" data-term-auto="off">\(a\)</span>, <span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -1015,7 +989,7 @@ class="math inline" data-term-auto="off">\((p,e)\in I_a\)</span> let <span
 class="math inline" data-term-auto="off">\(\sigma_a(p,e)\)</span> be the product of the
 channels of the later internal jumps of block <span
 class="math inline" data-term-auto="off">\(a\)</span>. The <em>ordered block digit</em> is</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:actual-digit" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-digit}
 m_a=A_2(a+1)+\sum_{(p,e)\in I_a}(p-1)\,\sigma_a(p,e)\,
         \bigl(C_p(e)-C_2(a)\bigr)\quad(a\ge1),
@@ -1031,7 +1005,7 @@ class="math inline" data-term-auto="off">\((6,4)\)</span>, <span
 class="math inline" data-term-auto="off">\((10,7)\)</span>, <span
 class="math inline" data-term-auto="off">\((6,7)\)</span>, <span
 class="math inline" data-term-auto="off">\((30,65)\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:actual-orbit">
 <p><strong>Theorem 13</strong> (the literal shell recurrence). <em> The
 shell masses are summable and <span
 class="math inline" data-term-auto="off">\(S=\sum_{a\ge0}s_a\)</span>. For every <span
@@ -1050,8 +1024,7 @@ X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
 class="math inline" data-term-auto="off">\(3\)</span> or <span
 class="math inline" data-term-auto="off">\(5\)</span> in the <span
 class="math inline" data-term-auto="off">\(a\)</span>th shell is at most <span
-class="math inline" data-term-auto="off">\(a\)</span>, and for each such pair Lemma <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:short}\)</span> leaves at most
+class="math inline" data-term-auto="off">\(a\)</span>, and for each such pair Lemma <a class="math-ref" href="#long269:res:short">6</a> leaves at most
 one exponent of <span class="math inline" data-term-auto="off">\(2\)</span> placing the point
 in <span class="math inline" data-term-auto="off">\([2^{a},2^{a+1})\)</span>. Each height is
 at least <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and the shell
@@ -1080,8 +1053,7 @@ class="math display" data-term-auto="off">\[h_{a+1}s_a
 second equality being finite summation by parts. Counting by the
 exponent of <span class="math inline" data-term-auto="off">\(p\)</span> gives <span
 class="math inline" data-term-auto="off">\(N(p^{e})=C_p(e)\)</span>, so the right-hand side
-is exactly <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-digit}\)</span>; at <span
+is exactly <a class="math-ref" href="#long269:eq:actual-digit">(7)</a>; at <span
 class="math inline" data-term-auto="off">\(a=0\)</span> the shell is the single point <span
 class="math inline" data-term-auto="off">\(1\)</span>, giving <span
 class="math inline" data-term-auto="off">\(m_0=1\)</span>. Positivity follows from <span
@@ -1101,7 +1073,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 for the genuine infinite tail</a>, over the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">normalised
 state step</a>.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:actual-dichotomy">
 <p><strong>Proposition 14</strong> (integral state or cofinal
 separation). <em> Either <span class="math inline" data-term-auto="off">\(X_a\in\Z\)</span>
 for some <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, or for every <span
@@ -1133,8 +1105,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 or cofinal-distance alternative</a>. It excludes neither branch, and it
 says nothing about a rational value whose reduced denominator has a
 factor coprime to <span class="math inline" data-term-auto="off">\(30\)</span>: that case is
-the subject of Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:actual-orbit}\)</span>.</p>
+the subject of Section <a class="math-ref" href="#long269:sec:actual-orbit">6</a>.</p>
 </section>
 <section id="long269:sec:actual-orbit" class="level2">
 <h2>A quadratic tail bound and denominator cancellation</h2>
@@ -1146,7 +1117,7 @@ Q(n)=\frac{n^{2}+8n+18}{9},\]</span></div>
 <p>so <span
 class="math inline" data-term-auto="off">\(n_a\)</span> is the sum of the three height
 exponents at <span class="math inline" data-term-auto="off">\(2^{a}\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:actual-tail-bound">
 <p><strong>Theorem 15</strong> (quadratic bound for the actual tail).
 <em> For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;X_a\le Q(n_a)\)</span>.</em></p>
@@ -1160,7 +1131,7 @@ class="math inline" data-term-auto="off">\([\lambda,\eta)\)</span> with <span
 class="math inline" data-term-auto="off">\(\lambda=\max(2^{A},3^{B},5^{C})\)</span> and <span
 class="math inline" data-term-auto="off">\(\eta=\min(2^{A+1},3^{B+1},5^{C+1})\)</span>, so
 <span class="math inline" data-term-auto="off">\(\eta\le2^{A+1}\le2\lambda\)</span> and, by
-Lemma <span class="math inline" data-term-auto="off">\(\ref{long269:res:short}\)</span>,
+Lemma <a class="math-ref" href="#long269:res:short">6</a>,
 fixing the exponents of <span class="math inline" data-term-auto="off">\(3\)</span> and <span
 class="math inline" data-term-auto="off">\(5\)</span> leaves at most one exponent of <span
 class="math inline" data-term-auto="off">\(2\)</span>. Since <span class="math inline" data-term-auto="off">\(A\ge
@@ -1200,14 +1171,13 @@ theorem.</p>
 <p>This is the analytic content of the section: each additional height
 rank costs a geometric factor while its multiplicity grows only
 quadratically. The finite projection and the sorted quadratic inequality
-are the checked ingredients of Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:drop}\)</span>; grouping the
+are the checked ingredients of Proposition <a class="math-ref" href="#long269:res:drop">7</a>; grouping the
 actual infinite tail by height cells and summing the majorant is the
 argument above.</p>
 <p>The bound is used at the endpoint of a window, where the natural
 index is the positive prime-power jump count strictly below the cutoff.
 Put</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:endpoint-index" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:endpoint-index}
 j_a=\#\{p^{e}&lt;2^{a}:p\in\{2,3,5\},\ e\ge1\}=n_a-1 ,
 \end{equation}\]</span></div>
@@ -1223,15 +1193,14 @@ class="math inline" data-term-auto="off">\(\lfloor\log_5 2^{a}\rfloor\)</span>. 
 <span class="math inline" data-term-auto="off">\(n_a=j_a+1\)</span> into <span
 class="math inline" data-term-auto="off">\(Q\)</span> gives the integer bound used throughout
 the rest of the note:</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-bound}
 K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor
 =\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor .
 \end{equation}\]</span></div>
-<p>The cutoff in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:endpoint-index}\)</span> is
+<p>The cutoff in <a class="math-ref" href="#long269:eq:endpoint-index">(8)</a> is
 <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and it is strict.</p>
-<div class="lemma">
+<div class="lemma" id="long269:res:all-scale-lattice">
 <p><strong>Lemma 16</strong> (finite denominator clearing). <em> For all
 integers <span class="math inline" data-term-auto="off">\(0\le u\le b\)</span> the window
 mass <span class="math inline" data-term-auto="off">\(h_b\sum_{a=u}^{b-1}s_a\)</span> is a
@@ -1272,7 +1241,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 divisibility</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">half-height
 identity</a>.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:actual-cancellation"><span class="tex-label" id="long269:res:lead-carry-bridge" hidden></span><span class="tex-label" id="long269:res:actual-carry-bound" hidden></span><span class="tex-label" id="long269:res:denominator-reduction" hidden></span>
 <p><strong>Theorem 17</strong> (positive reduced carries from
 rationality). <em> Suppose <span class="math inline" data-term-auto="off">\(S=N/D\)</span>
 with <span class="math inline" data-term-auto="off">\(N\in\Z\)</span>, <span
@@ -1295,16 +1264,13 @@ class="math inline" data-term-auto="off">\(2^{a}\ge5^{w}\)</span>, using <span
 class="math inline" data-term-auto="off">\(3&lt;2^{2}\)</span> and <span
 class="math inline" data-term-auto="off">\(5&lt;2^{3}\)</span>; hence <span
 class="math inline" data-term-auto="off">\(M\mid h_a\)</span>. In the clearing identity <span
-class="math inline" data-term-auto="off">\(DX_a=h_aN-Dv_a\)</span> of Lemma <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:all-scale-lattice}\)</span> both
+class="math inline" data-term-auto="off">\(DX_a=h_aN-Dv_a\)</span> of Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">16</a> both
 terms on the right are divisible by <span
 class="math inline" data-term-auto="off">\(M\)</span>, so dividing by <span
 class="math inline" data-term-auto="off">\(M\)</span> shows that <span
 class="math inline" data-term-auto="off">\(BX_a\)</span> is an integer. Positivity and the
-recurrence come from <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:shell-digit-identity}\)</span>,
-and the upper bound is Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-tail-bound}\)</span> with
+recurrence come from <a class="math-ref" href="#long269:eq:shell-digit-identity">long269:eq:shell-digit-identity</a>,
+and the upper bound is Theorem <a class="math-ref" href="#long269:res:actual-tail-bound">15</a> with
 the floor taken, since <span class="math inline" data-term-auto="off">\(z_a\)</span> is an
 integer below <span class="math inline" data-term-auto="off">\(BQ(n_a)\)</span>. Finally
 <span class="math inline" data-term-auto="off">\(n_a\le3a\)</span>, so <span
@@ -1333,7 +1299,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 transfer</a>).</p>
 <p>The integral branch has one further exact property, recorded because
 it constrains any attempt to build a surviving seed by hand.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:pinning">
 <p><strong>Proposition 18</strong> (upward closure and rigidity). <em>
 For every <span class="math inline" data-term-auto="off">\(a\)</span>, <span
 class="math inline" data-term-auto="off">\(X_a=(m_a+X_{a+1})/b_a&gt;0\)</span>, and if <span
@@ -1380,7 +1346,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 base</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
 forcing</a>. Iterating the recurrence gives the division-free identity</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="long269:eq:window-identity" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:window-identity}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h},
 \qquad\text{and}\qquad
@@ -1410,7 +1376,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 checked. The vanishing residue is represented by <span
 class="math inline" data-term-auto="off">\(C\)</span>, and that choice is what makes the next
 statement a modular one.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:consumer">
 <p><strong>Proposition 19</strong> (the finite residue contradiction).
 <em> Let <span class="math inline" data-term-auto="off">\(C&gt;0\)</span> and let <span
 class="math inline" data-term-auto="off">\(c\)</span> be an integer with <span
@@ -1454,7 +1420,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 <p>For a bound <span
 class="math inline" data-term-auto="off">\(G:\N_{&gt;0}\times\N\to\N\)</span> let <span
 class="math inline" data-term-auto="off">\(\mathsf E(G)\)</span> be the statement</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="long269:eq:actual-escape" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-escape}
 \begin{gathered}
@@ -1474,7 +1440,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 producer</a>. Every <span class="math inline" data-term-auto="off">\(b_a\)</span> is
 positive, so <span class="math inline" data-term-auto="off">\(W_{\ell,h}&gt;0\)</span> is
 automatic.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:actual-escape-endpoint"><span class="tex-label" id="long269:res:lead-escape-equivalence" hidden></span><span class="tex-label" id="long269:res:windowconsumer" hidden></span>
 <p><strong>Theorem 20</strong> (the equivalence band). <em> Let <span
 class="math inline" data-term-auto="off">\(G:\N_{&gt;0}\times\N\to\N\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(K(B,a)\le G(B,a)\)</span> for all <span
@@ -1485,7 +1451,7 @@ class="math inline" data-term-auto="off">\(a\to\infty\)</span> for each fixed <s
 class="math inline" data-term-auto="off">\(B\)</span>. Then <span
 class="math display" data-term-auto="off">\[\mathsf E(G)\quad\Longleftrightarrow\quad
 S\notin\Q .\]</span> Both <span class="math inline" data-term-auto="off">\(K\)</span>
-of <span class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-bound}\)</span>
+of <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>
 and <span class="math inline" data-term-auto="off">\(K_0(B,a)=90B(a+1)^{2}\)</span> lie in
 this band, so <span class="math inline" data-term-auto="off">\(\mathsf E(K)\)</span>, <span
 class="math inline" data-term-auto="off">\(\mathsf E(K_0)\)</span> and irrationality of <span
@@ -1497,25 +1463,21 @@ least <span class="math inline" data-term-auto="off">\(1\)</span>.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose <span class="math inline" data-term-auto="off">\(\mathsf
 E(G)\)</span> and suppose <span class="math inline" data-term-auto="off">\(S=N/D\)</span>
-were rational. Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-cancellation}\)</span>
+were rational. Theorem <a class="math-ref" href="#long269:res:actual-cancellation">17</a>
 supplies <span class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span>, an onset <span
 class="math inline" data-term-auto="off">\(a_D\)</span>, and positive integers <span
 class="math inline" data-term-auto="off">\(z_a=BX_a\le K(B,a)\le G(B,a)\)</span> for <span
 class="math inline" data-term-auto="off">\(a\ge a_D\)</span> satisfying the cleared
-recurrence. Apply <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-escape}\)</span> with
+recurrence. Apply <a class="math-ref" href="#long269:eq:actual-escape">(11)</a> with
 <span class="math inline" data-term-auto="off">\(a_0=a_D\)</span> to obtain a window <span
 class="math inline" data-term-auto="off">\((\ell,h)\)</span> with <span
-class="math inline" data-term-auto="off">\(\ell\ge a_D\)</span>. By <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:window-identity}\)</span>, <span
+class="math inline" data-term-auto="off">\(\ell\ge a_D\)</span>. By <a class="math-ref" href="#long269:eq:window-identity">(10)</a>, <span
 class="math inline" data-term-auto="off">\(z_{\ell+h}\equiv-BF_{\ell,h}\)</span> modulo <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>, while <span
 class="math inline" data-term-auto="off">\(0&lt;z_{\ell+h}\le
 G(B,\ell+h)&lt;\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})\)</span>.
-Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:consumer}\)</span> is the
+Proposition <a class="math-ref" href="#long269:res:consumer">19</a> is the
 contradiction, so <span class="math inline" data-term-auto="off">\(S\)</span> is
 irrational.</p>
 <p>Conversely suppose <span class="math inline" data-term-auto="off">\(S\notin\Q\)</span>,
@@ -1534,16 +1496,14 @@ class="math inline" data-term-auto="off">\(r_h=\operatorname{lpr}_{W_{\ell,h}}(-
 G(B,\ell+h)\)</span> for every <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>. Then <span
 class="math inline" data-term-auto="off">\(k_h=(BF_{\ell,h}+r_h)/W_{\ell,h}\)</span> is an
-integer, and multiplying <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:window-identity}\)</span> by
+integer, and multiplying <a class="math-ref" href="#long269:eq:window-identity">(10)</a> by
 <span class="math inline" data-term-auto="off">\(B\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[BX_\ell-k_h=\frac{BX_{\ell+h}-r_h}{W_{\ell,h}}
 .\]</span></div>
 <p>Both <span class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> and
 <span class="math inline" data-term-auto="off">\(r_h\)</span> are positive, the first at most
-<span class="math inline" data-term-auto="off">\(BQ(n_{\ell+h})\)</span> by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-tail-bound}\)</span> and
+<span class="math inline" data-term-auto="off">\(BQ(n_{\ell+h})\)</span> by Theorem <a class="math-ref" href="#long269:res:actual-tail-bound">15</a> and
 the second at most <span class="math inline" data-term-auto="off">\(G(B,\ell+h)\)</span>, so
 the numerator has absolute value at most <span
 class="math inline" data-term-auto="off">\(\max\bigl(BQ(n_{\ell+h}),G(B,\ell+h)\bigr)\)</span>.
@@ -1562,8 +1522,7 @@ class="math inline" data-term-auto="off">\(\ell+h\)</span> and <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(2^{a})\)</span>. This contradiction
 proves <span class="math inline" data-term-auto="off">\(\mathsf E(G)\)</span>.</p>
 <p>For the two named bounds, <span class="math inline" data-term-auto="off">\(K\le
-K_0\)</span> by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-cancellation}\)</span>,
+K_0\)</span> by Theorem <a class="math-ref" href="#long269:res:actual-cancellation">17</a>,
 both are quadratic in <span class="math inline" data-term-auto="off">\(a\)</span> for fixed
 <span class="math inline" data-term-auto="off">\(B\)</span>, and <span
 class="math inline" data-term-auto="off">\(K\le K\)</span> trivially. Finally <span
@@ -1594,11 +1553,9 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98
 for the shifted tail and <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L398">checked</a>
 for the series value itself. The Lean equivalence is stated at <span
-class="math inline" data-term-auto="off">\(K_0\)</span>; the band of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-escape-endpoint}\)</span>
+class="math inline" data-term-auto="off">\(K_0\)</span>; the band of Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">20</a>
 is the paper statement.</p>
-<p>Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-escape-endpoint}\)</span>
+<p>Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">20</a>
 settles a question that a reader is entitled to ask about the criterion.
 Sharpening the bound below <span class="math inline" data-term-auto="off">\(K\)</span> does
 not weaken the producer, since escape against a bound that fails to
@@ -1625,7 +1582,7 @@ class="math inline" data-term-auto="off">\(B\)</span>.</p>
 class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^{h}\)</span> is all the equivalence
 needs. The actual height formula gives more, and the extra information
 sets the scale of any finite search.</p>
-<div class="proposition">
+<div class="proposition" id="long269:res:window-growth">
 <p><strong>Proposition 21</strong> (window-growth law). <em> Put <span
 class="math inline" data-term-auto="off">\(\theta_3=\log_32\)</span> and <span
 class="math inline" data-term-auto="off">\(\theta_5=\log_52\)</span>. For all <span
@@ -1638,8 +1595,7 @@ class="math display" data-term-auto="off">\[W_{\ell,h}=2^{h}\,
 \frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .\]</span></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Telescoping <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:dyadic-alphabet}\)</span> gives
+<p><em>Proof.</em> Telescoping <a class="math-ref" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a> gives
 <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}=\operatorname{H}_{\ell+h}/\operatorname{H}_\ell\)</span>,
 and the displayed formula is that quotient written out. Each floor
@@ -1654,7 +1610,7 @@ class="math inline" data-term-auto="off">\(2^{h}/5\)</span> and <span
 class="math inline" data-term-auto="off">\(5\cdot2^{h}\)</span>. Multiplying the three ranges
 gives the bounds. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="long269:res:no-bounded-length">
 <p><strong>Corollary 22</strong> (no bounded-length escape at all
 starts). <em> Fix <span class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to
 <span class="math inline" data-term-auto="off">\(30\)</span> and <span
@@ -1675,8 +1631,7 @@ class="math inline" data-term-auto="off">\(K(B,\ell+h)\ge\lfloor
 B((\ell-1)^{2}+10(\ell-1)+27)/9\rfloor\)</span>, which tends to infinity
 with <span class="math inline" data-term-auto="off">\(\ell\)</span>. ◻</p>
 </div>
-<p>Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:no-bounded-length}\)</span> is
+<p>Corollary <a class="math-ref" href="#long269:res:no-bounded-length">22</a> is
 the exact reason a finite scan cannot approach the cofinal quantifier by
 widening its denominator range alone. Rearranging its inequality, an
 escaping window at start <span class="math inline" data-term-auto="off">\(\ell\)</span> and
@@ -1687,8 +1642,7 @@ the necessary search depth grows like <span
 class="math inline" data-term-auto="off">\(\bigl(\log_2B+2\log_2\ell\bigr)/3\)</span>. This
 is a lower bound on the length that can possibly work, and it is not an
 upper bound on the first length that does. Producing the latter is
-exactly the open problem, and by Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-escape-endpoint}\)</span>
+exactly the open problem, and by Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">20</a>
 it needs effective control of <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(BX_\ell,\Z)\)</span>: counting
 window growth is easy, and keeping a scaled tail away from the integers
@@ -1703,8 +1657,7 @@ settles an instance.</p>
 <section id="the-dyadic-window-scan" class="level3">
 <h3>The dyadic-window scan</h3>
 <p>A <em>certificate</em> is a finite tuple of integers recording one
-instance of the inequality in <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-escape}\)</span>, so that
+instance of the inequality in <a class="math-ref" href="#long269:eq:actual-escape">(11)</a>, so that
 a reader can recheck it in a line. The integer-only <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">dyadic-window
 checker</a> constructs the ordered pure-power jumps, the block bases and
@@ -1716,8 +1669,7 @@ class="math inline" data-term-auto="off">\(h\)</span>, the endpoint jump index <
 class="math inline" data-term-auto="off">\(j_{\ell+h}\)</span>, the window base, the forcing,
 the residue <span
 class="math inline" data-term-auto="off">\(R=\operatorname{lpr}_{W}(-BF)\)</span> and the
-bound <span class="math inline" data-term-auto="off">\(K\)</span> of <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-bound}\)</span>.</p>
+bound <span class="math inline" data-term-auto="off">\(K\)</span> of <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>.</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{array}{c|c|c|c|r|r|r|r}
 B&amp;\ell&amp;h&amp;j_{\ell+h}&amp;W&amp;F&amp;R&amp;K\\ \hline
@@ -1733,8 +1685,7 @@ forcing is <span class="math inline" data-term-auto="off">\(F=47\)</span>; and <
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_{60}(-47)=13\)</span>, since
 <span class="math inline" data-term-auto="off">\(-47+60=13\)</span>, which exceeds <span
 class="math inline" data-term-auto="off">\(K(1,3)=\lfloor(16+40+27)/9\rfloor=9\)</span>. The
-third row lies outside the domain of <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-escape}\)</span>, since
+third row lies outside the domain of <a class="math-ref" href="#long269:eq:actual-escape">(11)</a>, since
 <span class="math inline" data-term-auto="off">\(\gcd(16,30)=2\)</span>, and is displayed to
 illustrate the window arithmetic at greater depth.</p>
 <p>A fresh scan over every <span class="math inline" data-term-auto="off">\(B\le5000\)</span>
@@ -1745,21 +1696,19 @@ window in every case, of length at most <span
 class="math inline" data-term-auto="off">\(18\)</span> with search depth permitted to <span
 class="math inline" data-term-auto="off">\(24\)</span>. The distribution of first successful
 lengths concentrates at <span class="math inline" data-term-auto="off">\(10\)</span> to <span
-class="math inline" data-term-auto="off">\(12\)</span>, which is where Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:no-bounded-length}\)</span>
+class="math inline" data-term-auto="off">\(12\)</span>, which is where Corollary <a class="math-ref" href="#long269:res:no-bounded-length">22</a>
 predicts the shortest possible window to lie over this range. The
 computation uses integers only and is reproducible from the pinned
 checker with
 <code>--max-denominator 5000 --start-min 100 --start-max 3000 --max-length 24 --assert-packet</code>.
 Neither the scan nor the three displayed certificates proves escape for
 unbounded <span class="math inline" data-term-auto="off">\(B\)</span> or for cofinally many
-starts, and by Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:no-bounded-length}\)</span> no
+starts, and by Corollary <a class="math-ref" href="#long269:res:no-bounded-length">22</a> no
 scan at bounded length can.</p>
 </section>
 <section id="two-finite-denominator-exclusions" class="level3">
 <h3>Two finite denominator exclusions</h3>
-<div class="theorem">
+<div class="theorem" id="long269:res:lead-block-exclusion">
 <p><strong>Theorem 23</strong> (window-<span
 class="math inline" data-term-auto="off">\(128\)</span> block exclusion, computational
 certificate). <em> At window length <span
@@ -1785,8 +1734,7 @@ class="math inline" data-term-auto="off">\(\log_2B_{\max}=348.9846\ldots\)</span
 class="math inline" data-term-auto="off">\((10005,6312,4308)\)</span> is the height exponent
 triple of <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(2^{10005})\)</span>, so the
-certificate normalises by the full height at its launch. Lemma <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:all-scale-lattice}\)</span>
+certificate normalises by the full height at its launch. Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">16</a>
 normalises by the half height <span
 class="math inline" data-term-auto="off">\(h_{10005}\)</span>; the certificate’s smooth
 family is accordingly the larger one. The recorded quantities are the
@@ -1801,7 +1749,7 @@ any part of it, so it rests on the correctness of the exact integer
 engine that produced it, and the certificate record is held in the
 author’s formal-mathematics archive, outside the public source of this
 release.</p>
-<div class="theorem">
+<div class="theorem" id="long269:res:cf-exclusion">
 <p><strong>Theorem 24</strong> (continued-fraction exclusion,
 computational certificate). <em> The normalised tail <span
 class="math inline" data-term-auto="off">\(X_1\)</span> has <span
@@ -1846,22 +1794,19 @@ of the problem.</p>
 </section>
 <section id="long269:sec:open" class="level2">
 <h2>The remaining arithmetic questions</h2>
-<div class="problem">
+<div class="problem" id="long269:prob:producer">
 <p><strong>Problem 25</strong> (actual cofinal residue escape). <em>
 Prove <span class="math inline" data-term-auto="off">\(\mathsf E(K)\)</span> for the actual
-digits <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-digit}\)</span> and the
-bound <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:actual-bound}\)</span>.</em></p>
+digits <a class="math-ref" href="#long269:eq:actual-digit">(7)</a> and the
+bound <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>.</em></p>
 </div>
 <p>Every term in this question is a finite integer quantity, and a proof
 must produce a later window for every reduced denominator and every
 prescribed onset. The tail estimate and the smooth-factor cancellation
-are proved above and are not additional hypotheses. By Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-escape-endpoint}\)</span>
+are proved above and are not additional hypotheses. By Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">20</a>
 the problem is a restatement of Erdős #269 for <span
 class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>.</p>
-<div class="problem">
+<div class="problem" id="long269:prob:tails269">
 <p><strong>Problem 26</strong> (nonintegrality of every reduced tail).
 <em> For every <span class="math inline" data-term-auto="off">\(B\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span> and every <span
@@ -1871,10 +1816,9 @@ class="math display" data-term-auto="off">\[\begin{equation}
 BX_a\notin\Z .
 \end{equation}\]</span></em></p>
 </div>
-<div class="proposition">
+<div class="proposition" id="long269:res:tails-equivalence">
 <p><strong>Proposition 27</strong> (the reduced-tail question is also
-the target). <em> Statement <span
-class="math inline" data-term-auto="off">\(\eqref{long269:eq:tail-nonintegrality}\)</span>,
+the target). <em> Statement <a class="math-ref" href="#long269:eq:tail-nonintegrality">long269:eq:tail-nonintegrality</a>,
 quantified over every <span class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime
 to <span class="math inline" data-term-auto="off">\(30\)</span> and every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>, is equivalent to irrationality of
@@ -1889,8 +1833,7 @@ class="math inline" data-term-auto="off">\(S=\sum_{j&lt;a}s_j+X_a/h_a\)</span> w
 class="math inline" data-term-auto="off">\(h_a\)</span> a positive rational and the prefix a
 finite sum of rationals, <span class="math inline" data-term-auto="off">\(S\in\Q\)</span>.
 Conversely if <span class="math inline" data-term-auto="off">\(S\in\Q\)</span>, then
-Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-cancellation}\)</span>
+Theorem <a class="math-ref" href="#long269:res:actual-cancellation">17</a>
 produces <span class="math inline" data-term-auto="off">\(B\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span> with <span
 class="math inline" data-term-auto="off">\(BX_a\in\Z\)</span> for every <span
@@ -1898,13 +1841,12 @@ class="math inline" data-term-auto="off">\(a\ge a_D\)</span>. ◻</p>
 </div>
 <p>The abstract form of the first implication is <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L183">checked</a>.
-Problem <span class="math inline" data-term-auto="off">\(\ref{long269:prob:tails269}\)</span>
+Problem <a class="math-ref" href="#long269:prob:tails269">26</a>
 is therefore a second restatement of the target, and its pointwise shape
 is the more convenient one: if <span class="math inline" data-term-auto="off">\(BX_a\)</span>
 is integral at one index, the integer-coefficient recurrence makes it
 integral at every later index, so a single index decides it.
-Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-dichotomy}\)</span> does
+Proposition <a class="math-ref" href="#long269:res:actual-dichotomy">14</a> does
 not exclude that branch, since it constrains <span
 class="math inline" data-term-auto="off">\(X_a\)</span> alone and a rational value may keep a
 surviving denominator coprime to <span
@@ -1924,7 +1866,7 @@ a\theta_3\rfloor\)</span> and <span
 class="math inline" data-term-auto="off">\(\delta_{5,a}=\lfloor(a+1)\theta_5\rfloor-\lfloor
 a\theta_5\rfloor\)</span>, with <span
 class="math inline" data-term-auto="off">\(b_a=2\cdot3^{\delta_{3,a}}5^{\delta_{5,a}}\)</span>.</p>
-<div class="problem">
+<div class="problem" id="long269:prob:representation">
 <p><strong>Problem 28</strong> (function-faithful two-dimensional
 representation). <em> Express <span class="math inline" data-term-auto="off">\(\mathcal
 D_{2,3,5}\)</span> as a nonconstant algebraic combination of values of a
@@ -1936,8 +1878,7 @@ representation in the specified finite-dimensional class.</em></p>
 </div>
 <p>Individual irrationality of <span
 class="math inline" data-term-auto="off">\(\theta_3\)</span> and <span
-class="math inline" data-term-auto="off">\(\theta_5\)</span> is what Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:infinite-rank}\)</span> uses, and
+class="math inline" data-term-auto="off">\(\theta_5\)</span> is what Theorem <a class="math-ref" href="#long269:res:infinite-rank">10</a> uses, and
 it is weaker than the joint equidistribution or the rational
 independence of <span class="math inline" data-term-auto="off">\(1,\theta_3,\theta_5\)</span>
 that a two-dimensional value theorem may need; the stronger hypothesis
@@ -2033,18 +1974,15 @@ class="math inline" data-term-auto="off">\(|P|\ge3\)</span>. For <span
 class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> the reduction is complete on
 the arithmetic side: the literal digit, the tail, the integral
 recurrence, the smooth-factor cancellation, the explicit onset and the
-sharp carry bound all refer to the same series, and Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-escape-endpoint}\)</span>
+sharp carry bound all refer to the same series, and Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">20</a>
 shows that the one remaining condition is the problem itself throughout
 an entire band of bounds. Three obstructions mark the limits.
 Arbitrary-order minors exclude every finite exact separation of the
-kernel, and Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:uniform-rank}\)</span> excludes
+kernel, and Theorem <a class="math-ref" href="#long269:res:uniform-rank">11</a> excludes
 even approximate separation of its normalised carry below half a jump.
 The bounded-radix alternative leaves integral tails untouched. The
 residue countermodels show that coprimality alone gives no
-denominator-independent residue bound, and Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:no-bounded-length}\)</span> shows
+denominator-independent residue bound, and Corollary <a class="math-ref" href="#long269:res:no-bounded-length">22</a> shows
 that no bounded-length search can reach the cofinal quantifier. What
 remains is to force the literal word’s residue outside the finite carry
 interval, with the window allowed to depend on the denominator and to
@@ -2066,10 +2004,9 @@ given; the source-specific cofinal escape remains unproved. Named Lean
 sources below are locators, not a blanket end-to-end coverage claim. The
 quadratic tail bound, the explicit onset <span
 class="math inline" data-term-auto="off">\(a_D\)</span>, the sharp bound <span
-class="math inline" data-term-auto="off">\(K\)</span>, and Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:uniform-rank}\)</span> are
+class="math inline" data-term-auto="off">\(K\)</span>, and Theorem <a class="math-ref" href="#long269:res:uniform-rank">11</a> are
 ordinary proofs in this paper; the three finite computations of
-Section <span class="math inline" data-term-auto="off">\(\ref{long269:sec:evidence}\)</span>
+Section <a class="math-ref" href="#long269:sec:evidence">8</a>
 are computational certificates.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">
@@ -2159,7 +2096,7 @@ class="math inline" data-term-auto="off">\((c_n)\)</span> be an integer sequence
 <span class="math inline" data-term-auto="off">\(c_{n+1}=b_nc_n-Dm_n\)</span> for an integer
 radix word <span class="math inline" data-term-auto="off">\((b_n)\)</span> and forcing word
 <span class="math inline" data-term-auto="off">\((m_n)\)</span>.</p>
-<div class="proposition">
+<div class="proposition" id="long269:long:denominator-reduction">
 <p><strong>Proposition 29</strong> (conditional denominator reduction).
 <em> If <span class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span> for
 every <span class="math inline" data-term-auto="off">\(n\)</span>, with <span
@@ -2172,13 +2109,11 @@ class="math inline" data-term-auto="off">\(D\)</span>.</em></p>
 </div>
 <p>Height absorption alone does not imply divisibility of a carry state.
 The identity <span class="math inline" data-term-auto="off">\(DX_a=h_aN-Dv_a\)</span> of
-Lemma <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:all-scale-lattice}\)</span> is
-what supplies it for the actual orbit, and Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:actual-cancellation}\)</span> is
+Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">16</a> is
+what supplies it for the actual orbit, and Theorem <a class="math-ref" href="#long269:res:actual-cancellation">17</a> is
 the instance in which the note uses it. The formal consumer takes the
 common-factor form as a hypothesis.</p>
-<div class="proposition">
+<div class="proposition" id="long269:long:windowconsumer">
 <p><strong>Proposition 30</strong> (conditional extinction of bounded
 carries). <em> Let <span class="math inline" data-term-auto="off">\((b_n)\)</span> and <span
 class="math inline" data-term-auto="off">\((m_n)\)</span> be a radix word and a forcing word,
@@ -2200,8 +2135,7 @@ class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\)</span>
 class="math inline" data-term-auto="off">\(|W_{\ell,h}|\)</span>. The endpoint state is
 positive and at most <span class="math inline" data-term-auto="off">\(G(B,\ell+h)\)</span>,
 whereas the canonical positive residue of the right-hand side exceeds
-that bound, so Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:consumer}\)</span> applies. ◻</p>
+that bound, so Proposition <a class="math-ref" href="#long269:res:consumer">19</a> applies. ◻</p>
 </div>
 <p>Coprimality with <span class="math inline" data-term-auto="off">\(30\)</span> is used by
 the escape hypothesis to select a window; once a window is fixed, the
@@ -2218,10 +2152,8 @@ derives the same contradiction in one statement.</p>
 <section id="long269:long:finite-geometry" class="level3">
 <h3>Worked finite examples</h3>
 <p>The ten smallest values of the running least common multiple at <span
-class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> are tabulated in Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:lcm}\)</span>. They illustrate
-both parts of Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:cell}\)</span>: the value is
+class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> are tabulated in Section <a class="math-ref" href="#long269:sec:lcm">2</a>. They illustrate
+both parts of Proposition <a class="math-ref" href="#long269:res:cell">3</a>: the value is
 constant on <span class="math inline" data-term-auto="off">\(\{5,6,7\}\)</span> and on <span
 class="math inline" data-term-auto="off">\(\{9,10\}\)</span>, and each change multiplies by a
 single prime, by <span class="math inline" data-term-auto="off">\(2\)</span> at <span
@@ -2233,8 +2165,7 @@ class="math inline" data-term-auto="off">\(x=5\)</span>. Also <span
 class="math inline" data-term-auto="off">\(\operatorname{L}(10)=8\cdot9\cdot5=360\)</span> is
 the least common multiple of the smooth numbers <span
 class="math inline" data-term-auto="off">\(1,2,3,4,5,6,8,9,10\)</span>.</p>
-<p>For Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:fibre}\)</span> take <span
+<p>For Proposition <a class="math-ref" href="#long269:res:fibre">5</a> take <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> and the box <span
 class="math inline" data-term-auto="off">\(\mathcal B(1,1,1)\)</span>, whose eight points
 carry the smooth values <span
@@ -2272,8 +2203,7 @@ back to the terminal factor alone.</p>
 </section>
 <section id="long269:long:experiments" class="level3">
 <h3>The finite-scan histogram</h3>
-<p>The scan of Section <span
-class="math inline" data-term-auto="off">\(\ref{long269:sec:evidence}\)</span> covers every
+<p>The scan of Section <a class="math-ref" href="#long269:sec:evidence">8</a> covers every
 <span class="math inline" data-term-auto="off">\(B\le5000\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span> and every start <span
 class="math inline" data-term-auto="off">\(100\le\ell\le3000\)</span>, with search depth
@@ -2308,15 +2238,13 @@ class="math inline" data-term-auto="off">\(5038848000000\)</span>, forcing <span
 class="math inline" data-term-auto="off">\(25864575212865807\)</span>, residue <span
 class="math inline" data-term-auto="off">\(213175287\)</span> and bound <span
 class="math inline" data-term-auto="off">\(15932659\)</span>.</p>
-<p>By Corollary <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:no-bounded-length}\)</span> these
+<p>By Corollary <a class="math-ref" href="#long269:res:no-bounded-length">22</a> these
 histograms describe a bounded region. The observed concentration at
 lengths <span class="math inline" data-term-auto="off">\(10\)</span> to <span
 class="math inline" data-term-auto="off">\(12\)</span> sits just above the necessary depth
 <span
 class="math inline" data-term-auto="off">\(\bigl(\log_2K(B,\ell+h)-\log_215\bigr)/3\)</span>
-supplied by Proposition <span
-class="math inline" data-term-auto="off">\(\ref{long269:res:window-growth}\)</span>, which is
+supplied by Proposition <a class="math-ref" href="#long269:res:window-growth">21</a>, which is
 what a reader should expect if the residues behave like generic ones
 inside this range.</p>
 </section>

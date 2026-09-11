@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">A Basis for the 2-Kernel of Euler&#x27;s Totient</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
         <h1>A Basis for the 2-Kernel of Euler&#x27;s Totient</h1>
@@ -113,7 +120,7 @@ class="math inline" data-term-auto="off">\(n\mapsto\ph(k^jn+r)\)</span> with <sp
 class="math inline" data-term-auto="off">\(j\ge0\)</span> and <span
 class="math inline" data-term-auto="off">\(0\le r&lt;k^j\)</span>. The following <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
 gives a unique coordinate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a> at every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> level.</p>
-<div class="theorem">
+<div class="theorem" id="thm:kkernelrank">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (exact rank of every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <span
 class="math inline" data-term-auto="off">\(k\)</span>-kernel truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
@@ -140,7 +147,7 @@ u}}\Bigl(1-\tfrac1p\Bigr).\]</span></em></p>
 <ol>
 <li><p> <span><span class="smallcaps">[unconditional
 progress]</span></span> <strong>Exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-level rank.</strong>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{thm:kkernelrank}\)</span> is
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#thm:kkernelrank">1</a> is
 the coordinate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>: every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <span
 class="math inline" data-term-auto="off">\(k\)</span>-kernel truncation has rank <span
 class="math inline" data-term-auto="off">\(k^e+1\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> case is the <a
@@ -234,13 +241,12 @@ The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2+\sum_{j=1}^e(k^j-k^{j-1})=k^e+1.\]</span></div>
 <p>This
-proves <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{thm:kkernelrank}\)</span>. The scalar
+proves <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#thm:kkernelrank">1</a>. The scalar
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> at level <span class="math inline" data-term-auto="off">\(j-t\)</span>, with the
 Euler <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a> written out, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">maximal
 power reduction</a>.</p>
-<div class="corollary">
+<div class="corollary" id="res:basis">
 <p><strong>Corollary 2</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">Dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a>). <em> The family <span
 class="math display" data-term-auto="off">\[\{\ph_{0,0},\ph_{1,0}\}
 \cup\{\ph_{j,r}:j\ge1,\ 0&lt;r&lt;2^j,\ r\text{ odd}\},
@@ -256,7 +262,7 @@ truncation. The <a class="narrative-ref narrative-ref--term is-term-again" href=
 note; <code>PaperCompleteR7/ArithmeticAssemblies.lean</code> is not in
 this checkout. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3</strong> (Integral normal form). <em> Let <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
 class="math inline" data-term-auto="off">\(e\ge1\)</span>. The canonical family is a <span
@@ -323,7 +329,7 @@ canonical coefficient <span class="math inline" data-term-auto="off">\(1/2\)</sp
 </section>
 <section id="a-reusable-consequence" class="level3">
 <h3>A reusable consequence</h3>
-<div class="corollary">
+<div class="corollary" id="cor:periodic-freezing">
 <p><strong>Corollary 4</strong> (Freezing <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> coefficients). <em>
 If <span class="math inline" data-term-auto="off">\(L_i\)</span> are pairwise nonproportional
 positive-slope affine forms and <span class="math inline" data-term-auto="off">\(w_i\)</span>
@@ -356,7 +362,7 @@ above.</p>
 <p>The residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> uses the same separation principle: force
 neighbouring coefficients to vanish while retaining one central
 value.</p>
-<div class="theorem">
+<div class="theorem" id="res:residueseries">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 5</strong>. <em> For every <span
 class="math inline" data-term-auto="off">\(m\ge3\)</span>, <span
 class="math display" data-term-auto="off">\[A_m=\sum_{n\ge1}\frac{\ph(n)\bmod
@@ -368,7 +374,7 @@ constant on the even residue <a class="narrative-ref narrative-ref--term is-term
 class="math inline" data-term-auto="off">\(c\)</span>, its value is <span
 class="math inline" data-term-auto="off">\(3f(1)/4+c/4\)</span>.</em></p>
 </div>
-<div class="lemma">
+<div class="lemma" id="lem:bounded-pulse">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 6</strong> (A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> isolated pulse). <em> Let <span
 class="math inline" data-term-auto="off">\(a_n\in\Z\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(|a_n|\le C\)</span>. Suppose that for arbitrarily
@@ -396,8 +402,7 @@ absolute value less than <span class="math inline" data-term-auto="off">\(1/q\)<
 <code>PaperCompleteR7</code> file is absent). ◻</p>
 </div>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:residueseries}\)</span>.</em> Fix a unit
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:residueseries">5</a>.</em> Fix a unit
 <span class="math inline" data-term-auto="off">\(s\pmod m\)</span> and a block length <span
 class="math inline" data-term-auto="off">\(L\)</span>. For each nonzero <span
 class="math inline" data-term-auto="off">\(t\in[-L,L]\)</span>, choose a distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <span
@@ -417,7 +422,7 @@ class="math inline" data-term-auto="off">\(\ph(p)\equiv s-1\pmod m\)</span>.</p>
 observable and clear its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominators</a>. Whenever <span
 class="math inline" data-term-auto="off">\(f(s-1)\ne f(0)\)</span>, the preceding
 construction gives arbitrarily long <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> isolated pulses, so
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span class="math inline" data-term-auto="off">\(\ref{lem:bounded-pulse}\)</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <a class="math-ref" href="#lem:bounded-pulse">6</a>
 applies. For the least-residue <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> choose <span
 class="math inline" data-term-auto="off">\(s=-1\)</span>: its central residue is <span
 class="math inline" data-term-auto="off">\(m-2\ne0\)</span> when <span
@@ -452,7 +457,7 @@ R_N=\sum_{j\ge1}\ph(N+j)2^{-j},\qquad
 class="math inline" data-term-auto="off">\(2^NS=\Phi_N+R_N\)</span>, with <span
 class="math inline" data-term-auto="off">\(\Phi_N=\sum_{n=1}^N\ph(n)2^{N-n}\in\Z\)</span>,
 gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:tail-phase" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:tail-phase}
 \Delta_h(N)\equiv2^N(2^h-1)S\pmod\Z.
 \end{equation}\]</span></div>
@@ -474,7 +479,7 @@ class="math display" data-term-auto="off">\[B&lt;D_{h,N,L}\bmod2^L&lt;2^L-B.\]</
 <p>The
 exact truncation and <span class="math inline" data-term-auto="off">\(\ph(n)\le n\)</span>
 give</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:tail-error" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:tail-error}
 |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}\]</span></div>
@@ -484,7 +489,7 @@ satisfies <span class="math inline" data-term-auto="off">\(K(h,N,L)\)</span> exa
 follows from the strict <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a>; sufficiency follows by choosing
 <span class="math inline" data-term-auto="off">\(L\)</span> with <span
 class="math inline" data-term-auto="off">\(2^L\|\Delta_h(N)\|_{\R/\Z}&gt;2B\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:fulldepth">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 7</strong> (Full-depth amplification). <em> Fix <span
 class="math inline" data-term-auto="off">\(d\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(N\ge0\)</span>. If <span
@@ -504,11 +509,9 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 full-depth equivalence</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Set <span
-class="math inline" data-term-auto="off">\(F_t=\Delta_{td}(N)\)</span>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:tail-phase}\)</span> yields <span
+class="math inline" data-term-auto="off">\(F_t=\Delta_{td}(N)\)</span>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#eq:tail-phase">(1)</a> yields <span
 class="math inline" data-term-auto="off">\(F_{t+1}\equiv2^dF_t+F_1\pmod\Z\)</span>. If <span
-class="math inline" data-term-auto="off">\(K(td,N,td)\)</span> fails, <span
-class="math inline" data-term-auto="off">\(\eqref{eq:tail-error}\)</span> gives</p>
+class="math inline" data-term-auto="off">\(K(td,N,td)\)</span> fails, <a class="math-ref" href="#eq:tail-error">(2)</a> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\|F_t\|_{\R/\Z}\le\epsilon_t,
 \qquad \epsilon_t=2(N+2td+2)2^{-td}.\]</span></div>
@@ -520,8 +523,7 @@ class="math inline" data-term-auto="off">\(t\)</span> because the left side is p
 the right side <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematical-limit" data-term="mathematical_limit" data-term-auto="1">tends to</a> zero. Conversely, if <span
 class="math inline" data-term-auto="off">\(F_1\)</span> is integral, then every <span
 class="math inline" data-term-auto="off">\(F_t\)</span> is integral by the same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>,
-so no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> exists. Finally, <span
-class="math inline" data-term-auto="off">\(\eqref{eq:tail-phase}\)</span> is nonintegral for
+so no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> exists. Finally, <a class="math-ref" href="#eq:tail-phase">(1)</a> is nonintegral for
 every <span class="math inline" data-term-auto="off">\(d,N\)</span> when <span
 class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>. If <span
 class="math inline" data-term-auto="off">\(S=a/(2^cv)\)</span> with <span
@@ -576,8 +578,7 @@ class="math inline" data-term-auto="off">\(vR_c\in\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(\Delta_H(c)\in\Z\)</span>. The residue of <span
 class="math inline" data-term-auto="off">\(-B_{H,c}\)</span> is therefore within distance
 less than <span class="math inline" data-term-auto="off">\(K\)</span> of <span
-class="math inline" data-term-auto="off">\(0\pmod M\)</span>, so <span
-class="math inline" data-term-auto="off">\(\eqref{eq:canonical-gap}\)</span> fails.</p>
+class="math inline" data-term-auto="off">\(0\pmod M\)</span>, so <a class="math-ref" href="#eq:canonical-gap">eq:canonical-gap</a> fails.</p>
 <p>If <span class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, fix <span
 class="math inline" data-term-auto="off">\(c,v\)</span>. Then <span
 class="math inline" data-term-auto="off">\(vR_c\)</span> is nonintegral. As <span
@@ -587,8 +588,7 @@ class="math inline" data-term-auto="off">\(\Delta_H(c)/M\to0\)</span> and <span
 class="math inline" data-term-auto="off">\(K/M\to0\)</span>. Hence the fractional part of
 <span class="math inline" data-term-auto="off">\(-B_{H,c}/M=-vR_c+\Delta_H(c)/M\)</span>
 stays away from both endpoints of <span
-class="math inline" data-term-auto="off">\([0,1]\)</span>, which gives <span
-class="math inline" data-term-auto="off">\(\eqref{eq:canonical-gap}\)</span> for all
+class="math inline" data-term-auto="off">\([0,1]\)</span>, which gives <a class="math-ref" href="#eq:canonical-gap">eq:canonical-gap</a> for all
 sufficiently large such <span class="math inline" data-term-auto="off">\(H\)</span>. ◻</p>
 </div>
 <p>This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> identifies the equivalent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> quantifier. It does not
@@ -603,8 +603,7 @@ satisfy</p>
 \bigl(2\rho_{H,N,M}-\ph(N+H+1)+\ph(N+1)\bigr)\bmod M,
 \quad \rho_{H,N,M}=(-B_{H,N})\bmod M,\]</span></div>
 <p>which is an exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">searches</a> directed at <span
-class="math inline" data-term-auto="off">\(\eqref{eq:canonical-gap}\)</span>.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">searches</a> directed at <a class="math-ref" href="#eq:canonical-gap">eq:canonical-gap</a>.</p>
 </section>
 </section>
 <section id="sec:nogo" class="level2">
@@ -702,7 +701,7 @@ exact extremum is stated in the <a class="narrative-ref narrative-ref--term is-t
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <code>thm:rankonefloor</code>; its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> is <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L534">the
 sharp-floor argument</a> in the linked <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:rankonefloor">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 9</strong> (Positive rank-one floor). <em> For <span
 class="math inline" data-term-auto="off">\(e\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(Y\ge4\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> of <span
@@ -728,8 +727,7 @@ class="math inline" data-term-auto="off">\(p_j/q_j\)</span> in lowest <a class="
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0&lt;q_j\left|\Theta_2-p_j/q_j\right|\longrightarrow0.\]</span></div>
 <p>Ordinary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> and Hankel nonvanishing do not contain this
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> estimate. The canonical gap <span
-class="math inline" data-term-auto="off">\(\eqref{eq:canonical-gap}\)</span> remains the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> estimate. The canonical gap <a class="math-ref" href="#eq:canonical-gap">eq:canonical-gap</a> remains the
 equivalent endpoint; the approximation estimate is one stronger
 sufficient route.</p>
 </section>
@@ -741,13 +739,11 @@ class="citation" data-cites="allouche-shallit"></span>. Coons proved
 that <span class="math inline" data-term-auto="off">\(\ph\)</span> is not <span
 class="math inline" data-term-auto="off">\(k\)</span>-regular <span class="citation"
 data-cites="coons"><a href="#ref-2">[2]</a></span>; Martin’s stronger affine ordering <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the independence in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:rank}\)</span> <span class="citation"
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the independence in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:rank">1.1</a> <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-3">[3]</a></span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> gives
 the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-level normal form. Wong <span class="citation"
 data-cites="wong2015"><a href="#ref-4">[4]</a></span> proved least-residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> when
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> the modulus; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:family}\)</span> fixes base two and
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equals</a> the modulus; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:family">2</a> fixes base two and
 classifies <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> observables. The original question appears in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>
 and Graham <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>.</p>
@@ -788,7 +784,7 @@ class="math display" data-term-auto="off">\[\operatorname{Re}\,\mathrm{pivotCent
 \lVert\mathrm{pivotBad}\rVert\le\tfrac1{100}X,
 \quad
 \lVert\mathrm{pivotNonSupplier}\rVert\le\tfrac8{25}X.\]</span></div>
-<div class="problem">
+<div class="problem" id="prob:firstharmonic">
 <p><strong>Problem 10</strong> (first-harmonic anti-concentration on
 supplier fibres). <em> For each <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>, do there exist <span
@@ -893,7 +889,7 @@ failure</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L300">the
 barrier</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L211">rank
-transport from <span class="math inline" data-term-auto="off">\(\ref{res:rank}\)</span></a>,
+transport from <a class="math-ref" href="#res:rank">res:rank</a></a>,
 <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L224">the
 modular-period/rank frontier</a>, <a

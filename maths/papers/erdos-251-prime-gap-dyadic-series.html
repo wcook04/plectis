@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
         <h1>A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series</h1>
@@ -138,8 +145,7 @@ U_{N+h}-U_N=2h(2N+h+8)\in\Z.\]</span></div>
 grow polynomially and are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a> and nonperiodic, but every tail
 difference is integral. The unshifted normalisation <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge0}a_n2^{-(n+1)}\)</span> is <span
-class="math inline" data-term-auto="off">\(18\)</span>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:polynomialcountermodel}\)</span> states
+class="math inline" data-term-auto="off">\(18\)</span>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:polynomialcountermodel">5</a> states
 the resulting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>.</p>
 </section>
 <section id="preserving-more-of-the-actual-gaps." class="level5">
@@ -173,7 +179,7 @@ construction asserts that its cumulative sums are <a class="narrative-ref narrat
 <p>The following construction <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserves</a> congruences of cumulative sums
 as well as coefficients. Its sparse support also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserves</a> the empirical
 laws of short gap blocks.</p>
-<div class="proposition">
+<div class="proposition" id="res:sparserationalisation">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 1</strong> (sparse congruence-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserving</a>
 rationalisation). <em> Let <span class="math inline" data-term-auto="off">\(a_n\)</span> be
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-natural-number" data-term="natural_number" data-term-auto="1">nonnegative integers</a> with <span
@@ -287,8 +293,7 @@ T_{N+h}-T_N=2^N(2^h-1)T_0-C_{N,h},
 <p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> initial value forces an
 eventual integral shift; an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> initial value permits no integral
 positive shift. This is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reason" data-term="reason" data-term-auto="1">reason</a> for the lcm-diagonal
-criterion in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:lcmdiagonal}\)</span>. A more local
+criterion in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:lcmdiagonal">2</a>. A more local
 sufficient condition uses two adjacent shift values in <span
 class="math inline" data-term-auto="off">\((-1,1)\)</span> and a nonzero associated gap
 difference. If both values were integral they would be zero,
@@ -322,16 +327,12 @@ class="math inline" data-term-auto="off">\(\operatorname{Irr}(x)\)</span> for <a
 <span class="math inline" data-term-auto="off">\(\operatorname{den}(q)\)</span> for the
 reduced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> of <span class="math inline" data-term-auto="off">\(q\in\Q\)</span>, and
 <span class="math inline" data-term-auto="off">\(\ph\)</span> for Euler’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:diagonal-collapse}\)</span>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:diagonal-collapse">2</a>
 isolates the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>-level classifiers and the polynomial
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:parts}\)</span> proves the actual
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-to-gap identity; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:tail}\)</span> proves the shift
-classification and local criterion. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:carry}\)</span> explains the remaining
-carry freedom, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> states the exact
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:parts">3</a> proves the actual
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-to-gap identity; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:tail">4</a> proves the shift
+classification and local criterion. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:carry">5</a> explains the remaining
+carry freedom, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:open">6</a> states the exact
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-specific <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> boundary are
 recorded after the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>.</p>
 <p><strong>Keywords.</strong> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>;
@@ -351,7 +352,7 @@ class="math display" data-term-auto="off">\[\Delta_hT(N)=T_{N+h}-T_N,\]</span></
 class="math inline" data-term-auto="off">\(L_0=1\)</span>, <span
 class="math inline" data-term-auto="off">\(L_j=\operatorname{lcm}(1,\ldots,j)\)</span> for
 <span class="math inline" data-term-auto="off">\(j\ge1\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:lcmdiagonal">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 2</strong> (lcm-diagonal criterion). <em> Let <span
 class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(T:\N\to\R\)</span> satisfy <span
@@ -399,7 +400,7 @@ class="math display" data-term-auto="off">\[D_N=\Delta_hT(N),\qquad
 \delta_N=g_{N+h+1}-g_{N+1}.\]</span></div>
 <p>Then <span
 class="math inline" data-term-auto="off">\(D_{N+1}=2D_N-\delta_N\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:signedwindow">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 3</strong> (signed two-window normal form). <em>
 Assume that <span class="math inline" data-term-auto="off">\(\delta_N\)</span> is even. The
 conjunction <span class="math display" data-term-auto="off">\[-1&lt;D_N&lt;1,\qquad
@@ -433,7 +434,7 @@ class="math display" data-term-auto="off">\[B_{h,N,r}=\sum_{i=0}^{r-1}2^{r-1-i}\
 condition</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal A_{N,r}:\qquad
 D_{N+r}\in -B_{h,N,r}+2^{r+1}\Z.\]</span></div>
-<div class="theorem">
+<div class="theorem" id="res:affinecollapse">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 4</strong> (affine and fixed-lattice circularity).
 <em> For every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and all <span
 class="math inline" data-term-auto="off">\(h,N,r\ge0\)</span>, <span
@@ -469,17 +470,15 @@ D_N\notin\Z\text{ for arbitrarily large }N.
 class="math inline" data-term-auto="off">\(D_{N+r}=2^rD_N-B_{h,N,r}\)</span> into <span
 class="math inline" data-term-auto="off">\(\mathcal A_{N,r}\)</span> cancels the observed
 block from both sides and leaves <span
-class="math inline" data-term-auto="off">\(D_N=2z\)</span>. This proves <span
-class="math inline" data-term-auto="off">\(\eqref{eq:affinecollapse}\)</span>. After one
+class="math inline" data-term-auto="off">\(D_N=2z\)</span>. This proves <a class="math-ref" href="#eq:affinecollapse">eq:affinecollapse</a>. After one
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> step, evenness of <span
 class="math inline" data-term-auto="off">\(\delta_N\)</span> identifies even integrality at
 <span class="math inline" data-term-auto="off">\(N+1\)</span> with ordinary integrality at
-<span class="math inline" data-term-auto="off">\(N\)</span>. The forward <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:affinecofinal}\)</span> follows, while
+<span class="math inline" data-term-auto="off">\(N\)</span>. The forward <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> in <a class="math-ref" href="#eq:affinecofinal">eq:affinecofinal</a> follows, while
 the reverse <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> chooses a nonintegral <span
 class="math inline" data-term-auto="off">\(D_N\)</span> and the legal depth <span
 class="math inline" data-term-auto="off">\(r=0\)</span>.</p>
-<p>For <span class="math inline" data-term-auto="off">\(\eqref{eq:fixedcollapse}\)</span>,
+<p>For <a class="math-ref" href="#eq:fixedcollapse">eq:fixedcollapse</a>,
 eventual integrality and the block identity give some <span
 class="math inline" data-term-auto="off">\(z\in\Z\)</span> with</p>
 <div class="math-display" data-term-auto="off"><span
@@ -490,8 +489,7 @@ class="math inline" data-term-auto="off">\(|D_{N+r}|\le b(N+r)\)</span>. Convers
 class="math inline" data-term-auto="off">\(D_N\)</span> is nonintegral and has reduced
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> <span class="math inline" data-term-auto="off">\(q\)</span>, then its distance
 from every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> is at least <span class="math inline" data-term-auto="off">\(1/q\)</span>.
-Choose <span class="math inline" data-term-auto="off">\(r\)</span> from <span
-class="math inline" data-term-auto="off">\(\eqref{eq:dyadicscale}\)</span>, scale this
+Choose <span class="math inline" data-term-auto="off">\(r\)</span> from <a class="math-ref" href="#eq:dyadicscale">eq:dyadicscale</a>, scale this
 separation by <span class="math inline" data-term-auto="off">\(2^r\)</span>, and use the
 block identity together with <span class="math inline" data-term-auto="off">\(|D_{N+r}|\le
 b(N+r)\)</span>. The triangle <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> gives <span
@@ -510,7 +508,7 @@ neither <a class="narrative-ref narrative-ref--term is-term-again" href="../../d
 consecutive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>.</p>
 <p>Finally, the coarse coefficient <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compression-profile" data-term="compression_profile" data-term-auto="1">profile</a> itself has an exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a>.</p>
-<div class="proposition">
+<div class="proposition" id="res:polynomialcountermodel">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 5</strong> (quadratic polynomial-shift
 countermodel). <em> Put <span
 class="math display" data-term-auto="off">\[a_n=2(n^2+4n+2),\qquad U_n=2(n+4)^2.\]</span>
@@ -560,7 +558,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 partial sum</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121">dyadic
 difference sum</a> of <span class="math inline" data-term-auto="off">\(P\)</span>.</p>
-<div class="proposition">
+<div class="proposition" id="res:abel">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 6</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> summation by parts). <em> For
 every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> <span class="math inline" data-term-auto="off">\(P\)</span> and every
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
@@ -591,7 +589,7 @@ gaps, gives the <a class="narrative-ref narrative-ref--term is-term-again" href=
 by the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L111">factor-of-two
 identity</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:parts">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 7</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulation</a>). <em> Let <span
 class="math inline" data-term-auto="off">\(p_0=2,p_1=3,\ldots\)</span> be the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> in
 increasing order and <span
@@ -629,7 +627,7 @@ combination of two consecutive <a class="narrative-ref narrative-ref--term is-te
 class="math inline" data-term-auto="off">\((u_n)\)</span> is summable the gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> can be
 summed by rearranging two <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-copy" data-term="copy" data-term-auto="1">copies</a> of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>, which is what the
 following <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> does.</p>
-<div class="theorem">
+<div class="theorem" id="res:infinite">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 8</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap identity). <em> Let
 <span class="math inline" data-term-auto="off">\(u_n=p_n/2^{\,n+1}\)</span> and <span
 class="math inline" data-term-auto="off">\(v_n=g_n/2^{\,n+1}\)</span>. If <span
@@ -658,11 +656,10 @@ conclusion in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
 prime gap identity</a> rather than a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> carried by the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>.</p>
-<div class="corollary">
+<div class="corollary" id="res:irr-equivalence">
 <p><strong>Corollary 9</strong> (exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulation</a>).
 <em> With <span class="math inline" data-term-auto="off">\(u_n\)</span> and <span
-class="math inline" data-term-auto="off">\(v_n\)</span> as in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:infinite}\)</span>, and <span
+class="math inline" data-term-auto="off">\(v_n\)</span> as in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:infinite">8</a>, and <span
 class="math inline" data-term-auto="off">\((u_n)\)</span> summable, <span
 class="math display" data-term-auto="off">\[\operatorname{Irr}\!\left(\sum_{n\ge0}u_n\right)
 \quad\Longleftrightarrow\quad
@@ -694,8 +691,8 @@ and central-binomial growth, and deduces summability directly (<a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">polynomial
 bound</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379">summability</a>).
-Thus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:infinite}\)</span> and
-Corollary <span class="math inline" data-term-auto="off">\(\ref{res:irr-equivalence}\)</span>
+Thus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:infinite">8</a> and
+Corollary <a class="math-ref" href="#res:irr-equivalence">9</a>
 are now unconditional. The <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
 infinite prime-gap identity</a> removes the summability <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>; the
@@ -725,13 +722,12 @@ along doubles the rescaled tail and subtracts a single coefficient.
 Second <span
 class="math inline" data-term-auto="off">\(T_0=2\sum_{i\ge0}a_i2^{-(i+1)}-a_0\)</span>, so
 the sum is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> exactly when <span
-class="math inline" data-term-auto="off">\(T_0\)</span> is. The whole of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:tail}\)</span> therefore studies that
+class="math inline" data-term-auto="off">\(T_0\)</span> is. The whole of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:tail">4</a> therefore studies that
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> in isolation, assuming nothing about the coefficients beyond
 the fact that they are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap instance is resumed at
 the end of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a>. The following <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> is the object so
 obtained, stripped of its origin.</p>
-<div class="definition">
+<div class="definition" id="def:rec">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> 10</strong>. <em> Let <span
 class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span>. Say <span
@@ -760,8 +756,7 @@ gap tail <span class="math inline" data-term-auto="off">\(\sum_{j\ge1}g_{N+j}2^{
 That identification, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> over <span
 class="math inline" data-term-auto="off">\(\mathbb R\)</span> with no rationality <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>,
 already sit in <code>RealPrimeGapTail.lean</code>. Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> below
-is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> about <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <span
-class="math inline" data-term-auto="off">\(\ref{def:rec}\)</span>.</p>
+is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> about <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <a class="math-ref" href="#def:rec">10</a>.</p>
 <p>One small <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>, referred to again below, is worth having in view.
 Take every digit <span class="math inline" data-term-auto="off">\(g_N=0\)</span> and <span
 class="math inline" data-term-auto="off">\(T_0=1/12\)</span>. Then <span
@@ -777,10 +772,8 @@ class="math inline" data-term-auto="off">\(\sigma_2(2)=\tfrac43-\tfrac13=1\)</sp
 shift of length <span class="math inline" data-term-auto="off">\(1\)</span> is <span
 class="math inline" data-term-auto="off">\(\sigma_1(N)=2^{\,N}/12\)</span> and is never
 integral. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> at <span class="math inline" data-term-auto="off">\(N=2\)</span> is
-accounted for by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:collapse}\)</span>, and the failure at
-<span class="math inline" data-term-auto="off">\(h=1\)</span> by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:shiftiff}\)</span>.</p>
+accounted for by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:collapse">15</a>, and the failure at
+<span class="math inline" data-term-auto="off">\(h=1\)</span> by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:shiftiff">12</a>.</p>
 <p>Iterating the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> <span class="math inline" data-term-auto="off">\(h\)</span> times
 multiplies <span class="math inline" data-term-auto="off">\(T_N\)</span> by <span
 class="math inline" data-term-auto="off">\(2^{h}\)</span> and accumulates an explicit
@@ -798,7 +791,7 @@ block puts the weights <span
 class="math inline" data-term-auto="off">\(2^{\,h-1},\ldots,2^{0}\)</span> on the <span
 class="math inline" data-term-auto="off">\(h\)</span> digits following <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <span
 class="math inline" data-term-auto="off">\(N\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:block">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 11</strong> (block identity). <em> Let <span
 class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span class="math inline" data-term-auto="off">\(g\)</span>,
@@ -832,10 +825,10 @@ step identity</a></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sigma_h(N+1)=2\sigma_h(N)-(g_{N+h+1}-g_{N+1}).\]</span></div>
 <p>Since <span class="math inline" data-term-auto="off">\(B_{h,N}\)</span> is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>,
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:block}\)</span> converts a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:block">11</a> converts a
 question about the shift into a question about the single scaled term
 <span class="math inline" data-term-auto="off">\((2^{h}-1)T_N\)</span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:shiftiff">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 12</strong> (integral-shift criterion). <em> Let
 <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span class="math inline" data-term-auto="off">\(g\)</span>.
@@ -845,8 +838,7 @@ class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is integral if a
 <span class="math inline" data-term-auto="off">\((2^{h}-1)T_N\)</span> is integral.</em></p>
 </div>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> By <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:block}\)</span> the two differ by the
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> By <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:block">11</a> the two differ by the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span class="math inline" data-term-auto="off">\(B_{h,N}\)</span>, and subtracting an
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">change</a> integrality, by the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L677">integer-shift
@@ -857,7 +849,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 criterion</a>. Thus integrality depends only on the reduced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>
 of <span class="math inline" data-term-auto="off">\(T_N\)</span>.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> criterion is exact:</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:shift-denominator" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sigma_h(N)\in\Z
   \quad\Longleftrightarrow\quad
   \operatorname{den}(T_N)\mid 2^h-1.
@@ -867,7 +859,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 classification</a>. Euler’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> supplies one admissible shift length
 when the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> is odd; it is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not the classification
 itself.</p>
-<div class="theorem">
+<div class="theorem" id="res:totient">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 13</strong> (a shift of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> length). <em> Let
 <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span class="math inline" data-term-auto="off">\(g\)</span>,
@@ -886,7 +878,7 @@ that is <span class="math inline" data-term-auto="off">\(d\mid 2^{\ph(d)}-1\)</s
 <span class="math inline" data-term-auto="off">\(2^{\ph(d)}-1=dk\)</span> and <span
 class="math inline" data-term-auto="off">\(T_N=u/d\)</span> in lowest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, <span
 class="math inline" data-term-auto="off">\((2^{\ph(d)}-1)T_N=ku\)</span> is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>, and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:shiftiff}\)</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:shiftiff">12</a>
 transfers this to the shift. The Euler multiplier itself is the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L695">totient
 multiplier at odd denominator</a>. ◻</p>
@@ -907,9 +899,9 @@ class="math inline" data-term-auto="off">\(T_N=1/2\)</span> then <span
 class="math inline" data-term-auto="off">\(2^{h}-1\)</span> is odd for every <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>, so <span
 class="math inline" data-term-auto="off">\((2^{h}-1)T_N\)</span> is never an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> and, by
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:shiftiff}\)</span>, no
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:shiftiff">12</a>, no
 shift at <span class="math inline" data-term-auto="off">\(N\)</span> is integral.</p>
-<div class="theorem">
+<div class="theorem" id="res:propagate">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 14</strong> (propagation). <em> Let <span
 class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span class="math inline" data-term-auto="off">\(g\)</span>,
@@ -933,25 +925,23 @@ to every later index</a>.</p>
 <p>The three preceding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> combine as follows, and this is the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> the rest of the note rests on. The special case is immediate:
 if <span class="math inline" data-term-auto="off">\(\operatorname{den}T_0\)</span> is already
-odd, then <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:totient}\)</span>
+odd, then <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:totient">13</a>
 at <span class="math inline" data-term-auto="off">\(N=0\)</span> makes the shift of length
 <span class="math inline" data-term-auto="off">\(\ph(\operatorname{den}T_0)\)</span> integral
-and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:propagate}\)</span>
+and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:propagate">14</a>
 keeps it integral at every later <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>, so one may take <span
 class="math inline" data-term-auto="off">\(N_0=0\)</span>. In general a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> carries a
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> of two as well, and the key point is that the doubling in the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> annihilates exactly the <span
 class="math inline" data-term-auto="off">\(2\)</span>-adic part of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>, and nothing
 else: after <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> steps the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> therefore reaches a term with
-odd reduced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>, which is precisely the situation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:totient}\)</span> handles. No <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of
+odd reduced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>, which is precisely the situation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:totient">13</a> handles. No <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of
 the digits is needed anywhere.</p>
-<div class="theorem">
+<div class="theorem" id="res:collapse">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 15</strong> (exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> dynamics and eventual
 integrality). <em> Let <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span>
 satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span
-class="math inline" data-term-auto="off">\(g\)</span> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <span
-class="math inline" data-term-auto="off">\(\ref{def:rec}\)</span>). Then some fixed positive
+class="math inline" data-term-auto="off">\(g\)</span> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <a class="math-ref" href="#def:rec">10</a>). Then some fixed positive
 shift is integral from some point onwards: <span
 class="math display" data-term-auto="off">\[\exists h\ge1\ \exists N_0\ \forall N\ge
 N_0,\qquad
@@ -964,11 +954,10 @@ N_0,\qquad
 =\frac{\operatorname{den}(T_N)}{\gcd(2,\operatorname{den}(T_N))}.\]</span></div>
 <p>Thus each even <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> loses exactly one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> of <span
 class="math inline" data-term-auto="off">\(2\)</span>, while an odd <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> is unchanged.
-After <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> steps the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> is odd. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:totient}\)</span>, applied at that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>
+After <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> steps the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> is odd. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:totient">13</a>, applied at that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>
 <span class="math inline" data-term-auto="off">\(s\)</span>, supplies the positive shift
 <span class="math inline" data-term-auto="off">\(h=\ph(\operatorname{den}T_s)\)</span>, and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span class="math inline" data-term-auto="off">\(\ref{res:propagate}\)</span> keeps
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:propagate">14</a> keeps
 that shift integral at every later <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>. ◻</p>
 </div>
 <p>The one-step formula is the <a
@@ -978,8 +967,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 case</a> and <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236">even
 case</a>.</p>
-<p>In the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> displayed after <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <span
-class="math inline" data-term-auto="off">\(\ref{def:rec}\)</span> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> runs as follows:
+<p>In the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> displayed after <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">Definition</a> <a class="math-ref" href="#def:rec">10</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> runs as follows:
 <span
 class="math inline" data-term-auto="off">\(\operatorname{den}T_0=12=2^{2}\cdot3\)</span>, so
 <span class="math inline" data-term-auto="off">\(s=2\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> reaches <span
@@ -994,8 +982,7 @@ class="math inline" data-term-auto="off">\(\operatorname{den}T_0\)</span>. The r
 shift length <span class="math inline" data-term-auto="off">\(h\)</span> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> of
 the odd <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> reached from a hypothetical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> initial value,
 and is not known in advance for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>. This is why this
-argument <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> Problem <span
-class="math inline" data-term-auto="off">\(\ref{prob:escape}\)</span> for every <span
+argument <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> Problem <a class="math-ref" href="#prob:escape">22</a> for every <span
 class="math inline" data-term-auto="off">\(h\)</span>, rather than for one preassigned shift
 length. Finally, the digits enter only through the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
 class="math inline" data-term-auto="off">\(B_{s,0}\)</span>, so the conclusion holds for an
@@ -1018,10 +1005,9 @@ class="math inline" data-term-auto="off">\(h\ge1\)</span> and every threshold <s
 class="math inline" data-term-auto="off">\(N_0\)</span>, some <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> has <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\notin\Z\)</span>. This is precisely
-the negation of the conclusion of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:collapse}\)</span>: no shift length
+the negation of the conclusion of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:collapse">15</a>: no shift length
 whatever becomes integral and stays integral.</p>
-<div class="theorem">
+<div class="theorem" id="res:escape-irrational">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 16</strong> (exact rationality classification). <em>
 Let <span class="math inline" data-term-auto="off">\(T:\N\to\R\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
@@ -1050,8 +1036,7 @@ class="upright">(iii)</span>, choose <span
 class="math inline" data-term-auto="off">\(q\in\Q\)</span> whose real cast is <span
 class="math inline" data-term-auto="off">\(T_0\)</span>. The real block identity identifies
 the whole <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> with the cast of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> starting at
-<span class="math inline" data-term-auto="off">\(q\)</span>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:collapse}\)</span> applied to that
+<span class="math inline" data-term-auto="off">\(q\)</span>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:collapse">15</a> applied to that
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> then gives <span class="upright">(iii)</span>. The
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> <span class="upright">(iii)</span><span
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span><span
@@ -1099,18 +1084,15 @@ already identified, with no rationality <a class="narrative-ref narrative-ref--t
 class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> is the same
 identification. If <span
 class="math inline" data-term-auto="off">\(G=\sum_{n\ge0}g_n/2^{n+1}\)</span>, then <span
-class="math inline" data-term-auto="off">\(T_0=2G-1\)</span>. Together with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:infinite}\)</span>, this shows that <span
+class="math inline" data-term-auto="off">\(T_0=2G-1\)</span>. Together with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:infinite">8</a>, this shows that <span
 class="math inline" data-term-auto="off">\(\Pi\)</span>, <span
 class="math inline" data-term-auto="off">\(G\)</span>, and <span
 class="math inline" data-term-auto="off">\(T_0\)</span> have the same rationality <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-status" data-term="status" data-term-auto="1">status</a>.
-Thus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:escape-irrational}\)</span> identifies
+Thus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:escape-irrational">16</a> identifies
 Problem #251 exactly with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> shift escape for <span
 class="math inline" data-term-auto="off">\(T\)</span>. The older <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-candidate
 representation remains in <code>PrimeGapDyadicTail.lean</code>. What is
-not proved is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> non-integrality needed by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:escape-irrational}\)</span>.</p>
+not proved is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> non-integrality needed by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:escape-irrational">16</a>.</p>
 </section>
 <section id="sec:local-certificate" class="level3">
 <h3>Two adjacent small shifts cannot both be integral</h3>
@@ -1129,7 +1111,7 @@ arranging the argument this way is that the distance of a shift from the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> never has to be estimated; it suffices to know that both shifts
 lie in <span class="math inline" data-term-auto="off">\((-1,1)\)</span> and that two digits
 differ.</p>
-<div class="theorem">
+<div class="theorem" id="res:smallpair">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 17</strong> (adjacent small-shift <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>). <em>
 Let <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>
 tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits <span
@@ -1162,19 +1144,17 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 small-mismatch theorem</a>; and the actual-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap specialisation is
 the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1112">prime-gap
-specialisation</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:smallpair}\)</span> is conditional on its
+specialisation</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:smallpair">17</a> is conditional on its
 two tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a>; no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> asserting that such pairs occur is
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> here. The local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> and its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> consequence are
 stated as one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L267">rational
 small pair bundle</a>.</p>
 <p>All three are stated for a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>, while the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap tail
-<span class="math inline" data-term-auto="off">\(T\)</span> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:tail}\)</span> is real, so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
+<span class="math inline" data-term-auto="off">\(T\)</span> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:tail">4</a> is real, so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> does not on its own discharge the instances that arise
 downstream. The same argument gives the real form directly.</p>
-<div class="corollary">
+<div class="corollary" id="res:smallpair-real">
 <p><strong>Corollary 18</strong> (adjacent small-shift <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>, real
 form). <em> Let <span class="math inline" data-term-auto="off">\(T:\N\to\R\)</span> satisfy
 <span class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>
@@ -1203,8 +1183,7 @@ class="math inline" data-term-auto="off">\(g_{N+h+1}=g_{N+1}\)</span>, a <a clas
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> chooses one such adjacent pair after the alleged onset
 of integrality. ◻</p>
 </div>
-<p>Corollary <span
-class="math inline" data-term-auto="off">\(\ref{res:smallpair-real}\)</span> is <a
+<p>Corollary <a class="math-ref" href="#res:smallpair-real">18</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L282">real
 small pair bundle</a>, and the resulting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> for the actual
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> is <a
@@ -1212,12 +1191,10 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 small pair prime endpoint</a>. These live <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> can postdate the
 historical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> snapshot used by the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> links.</p>
 <p>The third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>, on its own, is available. For the actual gaps
-tabulated in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:problem}\)</span> it reads <span
+tabulated in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:problem">1</a> it reads <span
 class="math inline" data-term-auto="off">\(g_4=2\ne4=g_3\)</span> at <span
 class="math inline" data-term-auto="off">\(h=1\)</span>, <span
-class="math inline" data-term-auto="off">\(N=2\)</span>; and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:gap-nonperiodic}\)</span> below says
+class="math inline" data-term-auto="off">\(N=2\)</span>; and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:gap-nonperiodic">19</a> below says
 precisely that for each fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span>
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> <span class="math inline" data-term-auto="off">\(g_{N+h+1}\ne g_{N+1}\)</span>
 holds for arbitrarily large <span class="math inline" data-term-auto="off">\(N\)</span>,
@@ -1225,7 +1202,7 @@ since its failure from some <a class="narrative-ref narrative-ref--term is-term-
 period <span class="math inline" data-term-auto="off">\(h\)</span>. What is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-missing" data-term="missing" data-term-auto="1">missing</a> is their
 joint occurrence with the digit mismatch at the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a>. Each
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> constrains a complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> tail.</p>
-<div class="proposition">
+<div class="proposition" id="res:gap-nonperiodic">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 19</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a> do not become <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a>).
 <em> For every positive <span class="math inline" data-term-auto="off">\(h\)</span>, the
 actual consecutive-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> is not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">eventually periodic</a> with
@@ -1251,15 +1228,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 gaps not eventually periodic</a>. Combining nonperiodicity with eventual
 strict smallness of one positive shift would also <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> eventual
 integrality, but eventual smallness at every sufficiently large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> is
-stronger than the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> adjacent-pair <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:smallpair}\)</span> and is not asserted
+stronger than the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> adjacent-pair <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:smallpair">17</a> and is not asserted
 here.</p>
 </section>
 </section>
 <section id="sec:carry" class="level2">
 <h2>Nonperiodic coefficients with a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> sum</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:gap-nonperiodic}\)</span> shows that the
+<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:gap-nonperiodic">19</a> shows that the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a> are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">eventually periodic</a>. One might therefore hope that
 rationality of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> forces its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> coefficients to be
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">eventually periodic</a>, and play the two against each other. The hoped-for
@@ -1280,7 +1255,7 @@ new carry. Nothing at all is assumed about <span
 class="math inline" data-term-auto="off">\(K\)</span>: not integrality, not positivity, not
 any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. That is the sense in which the carry is free, and it is what
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> below exploits.</p>
-<div class="proposition">
+<div class="proposition" id="res:telescope">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 20</strong> (exact telescoping). <em> Let <span
 class="math inline" data-term-auto="off">\(K:\N\to\Q\)</span> be arbitrary and <span
 class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span>. For every <span
@@ -1341,12 +1316,11 @@ nor <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 remaining <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-issue-report" data-term="issue_report" data-term-auto="1">issue</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> or anti-concentration of the
 <em>actual</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap shifts. Throughout, <span
 class="math inline" data-term-auto="off">\(g_i=p_{i+1}-p_i\)</span> are the zero-based <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
-gaps of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:problem}\)</span>.
+gaps of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:problem">1</a>.
 Write <span class="math inline" data-term-auto="off">\(\mathsf E(h)\)</span> for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a>
-escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:shift-escape}\)</span> at shift <span
+escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> in <a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> at shift <span
 class="math inline" data-term-auto="off">\(h\)</span>.</p>
-<div class="problem">
+<div class="problem" id="prob:divisor-hit">
 <p><strong>Problem 21</strong> (<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-hitting shift escape). <em> For
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, does some positive
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> of <span class="math inline" data-term-auto="off">\(r\)</span> escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a>?
@@ -1359,9 +1333,8 @@ just as universal shift escape is: a <a class="narrative-ref narrative-ref--term
 eventual order, and every positive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> of that order is an integral
 shift. A quantitatively stated sufficient estimate can still be easier
 to attack, but that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> a separately proved analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>. Forward
-propagation is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:propagate}\)</span>.</p>
-<div class="problem">
+propagation is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:propagate">14</a>.</p>
+<div class="problem" id="prob:escape">
 <p><strong>Problem 22</strong> (universal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap shift escape). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
@@ -1370,11 +1343,9 @@ class="math display" data-term-auto="off">\[\sum_{j\ge1}
 \frac{g_{N+h+j}-g_{N+j}}{2^j}\notin\Z .
 \tag{5.1}\label{eq:shift-escape}\]</span></em></p>
 </div>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:shift-escape}\)</span> is exactly <span
-class="math inline" data-term-auto="off">\(T_{N+h}-T_N\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:escape-irrational}\)</span> makes
-Problem <span class="math inline" data-term-auto="off">\(\ref{prob:escape}\)</span>
+<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> in <a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> is exactly <span
+class="math inline" data-term-auto="off">\(T_{N+h}-T_N\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:escape-irrational">16</a> makes
+Problem <a class="math-ref" href="#prob:escape">22</a>
 equivalent to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of <span class="math inline" data-term-auto="off">\(\Pi\)</span>.
 Within the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>-digit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-hitting and universal
 escape are equivalent: a hypothetical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> value chooses a shift
@@ -1382,7 +1353,7 @@ length from the odd part of its reduced <a class="narrative-ref narrative-ref--t
 then makes every positive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> eventually integral. The two
 formulations organise the quantifiers differently; they do not give a
 strict logical weakening.</p>
-<div class="problem">
+<div class="problem" id="prob:smallpair">
 <p><strong>Problem 23</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> adjacent small mismatch). <em>
 For every fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every
 <span class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
@@ -1397,16 +1368,11 @@ g_{N+h+1}&amp;\ne g_{N+1}.
 \tag{5.2}\label{eq:smallpair}\]</span></em></p>
 </div>
 <p>The two sums are adjacent <span
-class="math inline" data-term-auto="off">\(h\)</span>-shifts. Corollary <span
-class="math inline" data-term-auto="off">\(\ref{res:smallpair-real}\)</span> turns each
-instance of <span class="math inline" data-term-auto="off">\(\eqref{eq:smallpair}\)</span>
-into a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> to simultaneous integrality; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:smallpair}\)</span> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> case.
-A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> family of such pairs therefore proves Problem <span
-class="math inline" data-term-auto="off">\(\ref{prob:escape}\)</span>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:escape-irrational}\)</span> then gives
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of the gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>, and Corollary <span
-class="math inline" data-term-auto="off">\(\ref{res:irr-equivalence}\)</span> transfers it to
+class="math inline" data-term-auto="off">\(h\)</span>-shifts. Corollary <a class="math-ref" href="#res:smallpair-real">18</a> turns each
+instance of <a class="math-ref" href="#eq:smallpair">eq:smallpair</a>
+into a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a> to simultaneous integrality; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:smallpair">17</a> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> case.
+A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> family of such pairs therefore proves Problem <a class="math-ref" href="#prob:escape">22</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:escape-irrational">16</a> then gives
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of the gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>, and Corollary <a class="math-ref" href="#res:irr-equivalence">9</a> transfers it to
 <span class="math inline" data-term-auto="off">\(\Pi\)</span>. The endpoint takes every
 positive <span class="math inline" data-term-auto="off">\(h\)</span>: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> only at <span
 class="math inline" data-term-auto="off">\(h=1\)</span> eliminates one eventual-integrality
@@ -1421,13 +1387,11 @@ produce an <a class="narrative-ref narrative-ref--term is-term-again" href="../.
 <p>Several natural <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-distribution <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">inputs</a> are insufficient. Isolated
 small gaps, isolated large gaps, average gap estimates, and the
 occurrence of any one fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-pattern" data-term="pattern" data-term-auto="1">pattern</a> do not suffice: both
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:smallpair}\)</span> contain the complete
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> in <a class="math-ref" href="#eq:smallpair">eq:smallpair</a> contain the complete
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> continuation. Nor does parity: after the first gap all <span
 class="math inline" data-term-auto="off">\(g_n\)</span> are even. Unboundedness and
 non-eventual-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodicity</a> of the actual gaps, though now <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, do not
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> small-tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>. In particular, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:carry}\)</span> shows that no argument
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">required</a> small-tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>. In particular, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:carry">5</a> shows that no argument
 can deduce eventual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodicity</a> from rationality alone.</p>
 <section id="a-finite-truncation-criterion." class="level5">
 <h5>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> truncation criterion.</h5>
@@ -1438,7 +1402,7 @@ dominated truncation reduces the first of them to a <a class="narrative-ref narr
 class="math display" data-term-auto="off">\[S_{h,N,L}=\sum_{j=1}^{L}
 \frac{g_{N+h+j}-g_{N+j}}{2^j},\]</span></div>
 <p>the truncation of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
-in <span class="math inline" data-term-auto="off">\(\eqref{eq:shift-escape}\)</span> after
+in <a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> after
 <span class="math inline" data-term-auto="off">\(L\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>. This is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">finite sum</a> of
 gap differences and can be computed; the point of the following
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> is to say how far from an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> it must be before the
@@ -1462,7 +1426,7 @@ class="math inline" data-term-auto="off">\(0\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^L\)</span>. A one-block <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> would be a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> producing such an avoided arc on a logarithmic
 block.</p>
-<div class="proposition">
+<div class="proposition" id="res:truncation">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 24</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(M(n)\ge g_n\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\)</span>, assume that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> below
@@ -1473,15 +1437,14 @@ class="math inline" data-term-auto="off">\(N_0\)</span> there exist <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> and <span
 class="math inline" data-term-auto="off">\(L\ge1\)</span> with <span
 class="math display" data-term-auto="off">\[\operatorname{dist}(S_{h,N,L},\Z)&gt;R_{h,N,L}(M).
-\tag{5.3}\label{eq:truncation}\]</span> Then Problem <span
-class="math inline" data-term-auto="off">\(\ref{prob:escape}\)</span> holds.</em></p>
+\tag{5.3}\label{eq:truncation}\]</span> Then Problem <a class="math-ref" href="#prob:escape">22</a> holds.</em></p>
 </div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> The part of <span
 class="math inline" data-term-auto="off">\(\sum_{j\ge1}(g_{N+h+j}-g_{N+j})2^{-j}\)</span>
 omitted from <span class="math inline" data-term-auto="off">\(S_{h,N,L}\)</span> has absolute
 value at most <span class="math inline" data-term-auto="off">\(R_{h,N,L}(M)\)</span>, so
-under <span class="math inline" data-term-auto="off">\(\eqref{eq:truncation}\)</span> the
+under <a class="math-ref" href="#eq:truncation">eq:truncation</a> the
 full sum lies at positive distance from every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>. ◻</p>
 </div>
 <p>The last distance-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> inference is the elementary paper
@@ -1498,10 +1461,9 @@ class="math inline" data-term-auto="off">\(R_{h,N,L}(M)=1/32\)</span>, the full 
 within <span class="math inline" data-term-auto="off">\(1/32\)</span> of <span
 class="math inline" data-term-auto="off">\(3/8\)</span> and so at distance at least <span
 class="math inline" data-term-auto="off">\(11/32\)</span> from every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>, which settles
-<span class="math inline" data-term-auto="off">\(\eqref{eq:shift-escape}\)</span> at that
+<a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> at that
 <span class="math inline" data-term-auto="off">\(N\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap tail <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>, the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> used above, and the existence of blocks satisfying <span
-class="math inline" data-term-auto="off">\(\eqref{eq:truncation}\)</span> are not
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a> used above, and the existence of blocks satisfying <a class="math-ref" href="#eq:truncation">eq:truncation</a> are not
 consequences of that inference. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>’s full sum is
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-real-number" data-term="real_number" data-term-auto="1">real-valued</a>, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> is stated for the real tail
 throughout. Its conditional endpoint for the actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> is <a
@@ -1512,15 +1474,14 @@ n\)</span>, a choice <span class="math inline" data-term-auto="off">\(L=\lceil
 A\log_2(N+h+2)\rceil\)</span> with any fixed <span
 class="math inline" data-term-auto="off">\(A&gt;1\)</span> makes the right side a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> of <span class="math inline" data-term-auto="off">\(N\)</span> up to logarithms.
-Thus <span class="math inline" data-term-auto="off">\(\eqref{eq:truncation}\)</span> asks for
+Thus <a class="math-ref" href="#eq:truncation">eq:truncation</a> asks for
 a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> anti-concentration estimate on a logarithmic-length
 block, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> tail and not eventual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodicity</a> of
-the full gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a>. For Problem <span
-class="math inline" data-term-auto="off">\(\ref{prob:smallpair}\)</span>, the same truncation
+the full gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a>. For Problem <a class="math-ref" href="#prob:smallpair">23</a>, the same truncation
 must certify two adjacent full-tail values inside the open unit
 interval, together with the displayed gap mismatch. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> prefix is
 useful only when its omitted tail is rigorously dominated.</p>
-<p>What <span class="math inline" data-term-auto="off">\(\eqref{eq:truncation}\)</span>
+<p>What <a class="math-ref" href="#eq:truncation">eq:truncation</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">requires</a> is joint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> block of weighted differences
 <span
 class="math inline" data-term-auto="off">\((g_{N+h+1}-g_{N+1},\ldots,g_{N+h+L}-g_{N+L})\)</span>
@@ -1542,8 +1503,7 @@ class="citation" data-cites="fgkmt2018"></span> <a class="narrative-ref narrativ
 single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">consecutive-prime gap</a> below <span
 class="math inline" data-term-auto="off">\(X\)</span>. None of these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> supplies the
 joint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> distribution of a logarithmic block of consecutive gap
-differences <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">required by</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:truncation}\)</span>. The same
+differences <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">required by</a> <a class="math-ref" href="#eq:truncation">eq:truncation</a>. The same
 introduction notes a separate sequel on chains of large gaps; the cited
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> itself supplies no residue-sensitive block estimate of the kind
 needed here.</p>
@@ -1552,7 +1512,7 @@ needed here.</p>
 <h5>The remaining estimate.</h5>
 <p>The actual tails satisfy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergence</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-to-gap identity, and
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> used above. The unresolved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> is the joint occurrence
-in <span class="math inline" data-term-auto="off">\(\eqref{eq:smallpair}\)</span> for every
+in <a class="math-ref" href="#eq:smallpair">eq:smallpair</a> for every
 positive shift. A separate first-moment <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">approach</a> in the companion record
 uses</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{X\le N&lt;2X}T_{N+L}\ll X\log
@@ -1581,8 +1541,7 @@ the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 project-defined axioms; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not authorise the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a>, the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-citation" data-term="citation" data-term-auto="1">citation</a> choices, or the interpretation, for which the author remains
 responsible.</p>
-<p>For <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:sparserationalisation}\)</span>, the pair
+<p>For <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:sparserationalisation">1</a>, the pair
 identities, congruence buffer and abstract <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-variable" data-term="variable" data-term-auto="1">variable</a>-alphabet filling are
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <code>SparseRationalisationCore.lean</code>. The schedule,
 upper Banach density, and block-law transfer are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, given
@@ -1611,10 +1570,9 @@ data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 revision 99f4bf47422a. The note’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> live in the #251 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>,
 including the actual real-tail bridge. A local locator is not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>
 that the historical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> pin contains the file. The summation-by-parts
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-specific; most of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:tail}\)</span> is stated for arbitrary
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-specific; most of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:tail">4</a> is stated for arbitrary
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> digits and arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> or real <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbits</a>, while
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:local-certificate}\)</span>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:local-certificate">4.1</a>
 records the actual-gap specialisation.</p>
 </section>
 <section id="references" class="level2 unnumbered">

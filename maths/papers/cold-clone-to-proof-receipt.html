@@ -26,12 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
-  <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -75,6 +73,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">From a Cold Clone to a Proof Receipt</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">Agent</a> navigation</p>
         <h1>From a Cold Clone to a Proof Receipt</h1>
@@ -141,12 +145,9 @@ well, while reserving mathematical <a class="narrative-ref narrative-ref--term i
 kernel.</p>
 <p>The paper first separates the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s four navigation layers and
 then shows how a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> tour <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-expand" data-term="expand" data-term-auto="1">expands</a> into exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>
-routes. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:authority}\)</span> and <span
-class="math inline" data-term-auto="off">\(\ref{sec:incremental}\)</span> mark the transition
+routes. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a> <a class="math-ref" href="#sec:authority">4</a> and <a class="math-ref" href="#sec:incremental">5</a> mark the transition
 from navigation to kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> and explain the incremental
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> path. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:dogfood}\)</span> gives a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> path. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:dogfood">6</a> gives a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case
 study; the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> compare related <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">systems</a> and state the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> of transfer.</p>
 <p>This paper owns the navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> case study. The wider
@@ -160,7 +161,7 @@ destinations in the sibling PDFs rather than to page <a class="narrative-ref nar
 <h2>Four views of the mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a></h2>
 <p>No single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> can serve all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a> without hiding an important
 distinction. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> therefore <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a> four related layers
-(Figure <span class="math inline" data-term-auto="off">\(\ref{fig:layers}\)</span>). They are
+(Figure <a class="math-ref" href="#fig:layers">fig:layers</a>). They are
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a> with different coverage contracts, not successive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> of
 understanding.</p>
 <figure id="fig:layers" data-latex-placement="!t">
@@ -272,7 +273,7 @@ example.</p>
 <section id="sec:authority" class="level2">
 <h2>From navigation to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> treats navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> as separate capabilities
-(Figure <span class="math inline" data-term-auto="off">\(\ref{fig:sequence}\)</span>). A
+(Figure <a class="math-ref" href="#fig:sequence">fig:sequence</a>). A
 static query may nominate a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> path. It cannot
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that a proposed application typechecks, that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> closes a
 goal, or that an English interpretation is mathematically faithful.</p>

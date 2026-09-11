@@ -50,7 +50,7 @@ C_0=266-\frac3{\pi^2}(225-J).\]</span></div>
 <p>Thus <span
 class="math inline" data-term-auto="off">\(\theta^*=C_0/C_1\)</span> and <span
 class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are defined exactly.</p>
-<div class="theorem">
+<div class="theorem" id="res:rational-base-threshold">
 <p><strong>Theorem 1</strong> (rational-base region). <em> Let <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be coprime integers with <span
 class="math display" data-term-auto="off">\[\begin{gathered}
@@ -68,8 +68,7 @@ class="math inline" data-term-auto="off">\(3/2\)</span> is outside this sufficie
 gives <span
 class="math inline" data-term-auto="off">\(\theta^*&lt;266/(1091/2)&lt;1/2&lt;\log2/\log3\)</span>.</p>
 <div class="proof">
-<p><em>Proof of Theorem <span
-class="math inline" data-term-auto="off">\(\ref{res:rational-base-threshold}\)</span>.</em>
+<p><em>Proof of Theorem <a class="math-ref" href="#res:rational-base-threshold">1</a>.</em>
 Set</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[a_0=14n+1,\quad a_1=12n+1,\quad
 a_2=14n+1,\quad\beta=27n+2,
@@ -252,7 +251,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 integer linear form gap</a>. ◻</p>
 </section>
 </div>
-<div class="corollary">
+<div class="corollary" id="res:thirtyone-four">
 <p><strong>Corollary 2</strong>. <em> <span
 class="math inline" data-term-auto="off">\(F\bigl((31/4)^r\bigr)\)</span> is irrational for
 every integer <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
@@ -276,7 +275,7 @@ class="math display" data-term-auto="off">\[\theta^*&gt;\frac{2359630009523263}{
 <p>Finally, the logarithmic ratio
 and coprimality are preserved by a common positive integer power. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="cor:rational-base-measure">
 <p><strong>Corollary 3</strong> (an irrationality measure uniform over
 powers). <em> For coprime <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with <span
@@ -369,7 +368,7 @@ with an unspecified computable constant. Here the polynomial
 specialisation identifies <span class="math inline" data-term-auto="off">\(\mu\)</span> as
 admissible for <span class="math inline" data-term-auto="off">\(F\)</span>; no priority claim
 is attached.</p>
-<div class="theorem">
+<div class="theorem" id="res:sevenhalves">
 <p><strong>Theorem 4</strong> (the <span
 class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
@@ -392,7 +391,7 @@ analytic irrationality theorem is not a Lean result here.</p>
 <p>The preceding construction uses degree and decay estimates valid at
 every fixed real base greater than one. Such uniformity itself imposes a
 limit.</p>
-<div class="theorem">
+<div class="theorem" id="res:archimedean-cap">
 <p><strong>Theorem 5</strong> (Archimedean cap on base-uniform rank-two
 families). <em> Let <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> be
 pairs in <span class="math inline" data-term-auto="off">\(\mathbb Z[X]^2\)</span> satisfying
@@ -481,7 +480,7 @@ class="math inline" data-term-auto="off">\(N\ge1\)</span> <span class="citation
 data-cites="zudilin2016"><a href="#ref-4">[4]</a></span>. A formal moment expansion identifies
 the unique least-order term and shows that this estimate is always
 sharp.</p>
-<div class="theorem">
+<div class="theorem" id="res:zudilin-sharp-qorder">
 <p><strong>Theorem 6</strong> (sharp normalized Hankel order). <em> For
 every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>, <span
 class="math display" data-term-auto="off">\[\operatorname{ord}_q
@@ -563,7 +562,7 @@ polynomial forms.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Local cancellation and the remaining real estimate</h2>
-<div class="theorem">
+<div class="theorem" id="res:nocorridor">
 <p><strong>Theorem 7</strong> (no corridor at base <span
 class="math inline" data-term-auto="off">\(3/2\)</span>). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> and <span
@@ -573,7 +572,7 @@ class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
 corridor</a>.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:tailrec">
 <p><strong>Theorem 8</strong> (cleared-tail recurrence). <em> Let <span
 class="math inline" data-term-auto="off">\(r,s,B,F\in\Q\)</span> with <span
 class="math inline" data-term-auto="off">\(r\ne0\)</span>, let <span
@@ -585,7 +584,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 recurrence</a> is <span
 class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:forcing">
 <p><strong>Theorem 9</strong> (the forcing term). <em> Let <span
 class="math inline" data-term-auto="off">\(s,B\)</span> be natural numbers and <span
 class="math inline" data-term-auto="off">\(c:\N\to\N\)</span>, and put <span
@@ -611,7 +610,7 @@ class="math inline" data-term-auto="off">\(R,S\ge0\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[J_{3,R}(P)=H_W(P)\pmod{3^R},\qquad
 J_{2,S}(P)=H_W(P)\pmod{2^S}.\]</span></div>
-<div class="lemma">
+<div class="lemma" id="res:bottomjet">
 <p><strong>Lemma 10</strong> (bottom-jet divisibility). <em> Vanishing
 of the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom
@@ -623,7 +622,7 @@ class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
 precisely when <span class="math inline" data-term-auto="off">\(D=3^R2^S\)</span> divides
 both specialised coordinates. The dependence on the declared width
 remains fixed when rows are added.</p>
-<div class="theorem">
+<div class="theorem" id="res:jetkernel">
 <p><strong>Theorem 11</strong> (binary four-jet collision). <em> Fix a
 width <span class="math inline" data-term-auto="off">\(W\)</span> and depths <span
 class="math inline" data-term-auto="off">\(R,S\)</span>, and let <span
@@ -662,7 +661,7 @@ jet paper statement</a>. ◻</p>
 <p>The ambient count does not use relations between the two residue
 coordinates. Vanishing minors can reduce that cost to one
 coordinate.</p>
-<div class="theorem">
+<div class="theorem" id="res:plucker-collapse">
 <p><strong>Theorem 12</strong> (Bézout–Plücker tail collapse). <em> Let
 <span class="math inline" data-term-auto="off">\(R_0\)</span> be a commutative ring and let
 <span class="math inline" data-term-auto="off">\(w_n=(A_n,B_n)\in R_0^2\)</span>. Suppose
@@ -708,7 +707,7 @@ class="math inline" data-term-auto="off">\(6\)</span> is an example. The minor-v
 hypothesis remains a separate condition on the source rows.</p>
 <section id="one-minor-gcd-controls-two-different-costs" class="level3">
 <h3>One minor gcd controls two different costs</h3>
-<div class="proposition">
+<div class="proposition" id="res:pade">
 <p><strong>Proposition 13</strong> (Padé summand bound and exact gap).
 <em> Let <span class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span>
 and put <span
@@ -730,7 +729,7 @@ gap identity</a> is <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
 </ol>
 </div>
-<div class="proposition">
+<div class="proposition" id="res:content">
 <p><strong>Proposition 14</strong> (row-content determinant scaling).
 <em> Rowwise integer contents scale the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
@@ -780,7 +779,7 @@ class="level3">
 <p>A real bin records the analytic requirement alongside the modular
 signature. The multiplicity to control is the number of equal real
 values within one modular fibre.</p>
-<div class="theorem">
+<div class="theorem" id="res:boundedfibre">
 <p><strong>Theorem 15</strong> (quantitative bounded-fibre escape). <em>
 Let <span class="math inline" data-term-auto="off">\(A,B,J\)</span> be finite sets and let
 <span class="math inline" data-term-auto="off">\(f:A\to B\)</span>, <span
@@ -820,7 +819,7 @@ selector remainders lie in an interval of length <span
 class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. Dividing that interval
 into half-open bins of width <span class="math inline" data-term-auto="off">\(D/n\)</span>
 gives the sufficient inequality</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:quantitative-selector-budget}
 2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right).
@@ -848,7 +847,7 @@ remainders need not remain positive after subtraction.</p>
 primitive scaling, local cancellation and the real estimate together.
 Without source and height restrictions, arbitrary polynomial lifts of
 small rational approximations would simply restate irrationality.</p>
-<div class="problem">
+<div class="problem" id="prob:kernel">
 <p><strong>Problem 16</strong> (common-width simultaneous endpoint-jet
 construction). <em> Exhibit an integer constant <span
 class="math inline" data-term-auto="off">\(C\ge1\)</span> and, for every sufficiently large

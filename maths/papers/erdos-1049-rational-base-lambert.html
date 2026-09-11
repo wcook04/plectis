@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Irrationality of F(31/4) and the Exact Normalized Hankel Order</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
         <h1>Irrationality of <span class="math" data-term-auto="off">F(31/4)</span> and the Exact Normalized Hankel Order</h1>
@@ -149,7 +156,7 @@ C_0=266-\frac3{\pi^2}(225-J).\]</span></div>
 <p>Thus <span
 class="math inline" data-term-auto="off">\(\theta^*=C_0/C_1\)</span> and <span
 class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are defined exactly.</p>
-<div class="theorem">
+<div class="theorem" id="res:rational-base-threshold">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-base region). <em> Let <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> with <span
 class="math display" data-term-auto="off">\[\begin{gathered}
@@ -167,8 +174,7 @@ class="math inline" data-term-auto="off">\(3/2\)</span> is outside this sufficie
 gives <span
 class="math inline" data-term-auto="off">\(\theta^*&lt;266/(1091/2)&lt;1/2&lt;\log2/\log3\)</span>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:rational-base-threshold}\)</span>.</em>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:rational-base-threshold">1</a>.</em>
 Set</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[a_0=14n+1,\quad a_1=12n+1,\quad
 a_2=14n+1,\quad\beta=27n+2,
@@ -351,7 +357,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 integer linear form gap</a>. ◻</p>
 </section>
 </div>
-<div class="corollary">
+<div class="corollary" id="res:thirtyone-four">
 <p><strong>Corollary 2</strong>. <em> <span
 class="math inline" data-term-auto="off">\(F\bigl((31/4)^r\bigr)\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> for
 every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
@@ -375,7 +381,7 @@ class="math display" data-term-auto="off">\[\theta^*&gt;\frac{2359630009523263}{
 <p>Finally, the logarithmic ratio
 and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a> are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserved</a> by a common <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="cor:rational-base-measure">
 <p><strong>Corollary 3</strong> (an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> measure uniform over
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a>). <em> For <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with <span
@@ -468,7 +474,7 @@ with an unspecified computable constant. Here the polynomial
 specialisation identifies <span class="math inline" data-term-auto="off">\(\mu\)</span> as
 admissible for <span class="math inline" data-term-auto="off">\(F\)</span>; no <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">priority claim</a>
 is attached.</p>
-<div class="theorem">
+<div class="theorem" id="res:sevenhalves">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 4</strong> (the <span
 class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
@@ -491,7 +497,7 @@ analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../
 <p>The preceding construction uses degree and decay estimates valid at
 every fixed real base greater than one. Such uniformity itself imposes a
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limit</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:archimedean-cap">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 5</strong> (Archimedean cap on base-uniform rank-two
 families). <em> Let <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> be
 pairs in <span class="math inline" data-term-auto="off">\(\mathbb Z[X]^2\)</span> satisfying
@@ -580,7 +586,7 @@ class="math inline" data-term-auto="off">\(N\ge1\)</span> <span class="citation
 data-cites="zudilin2016"><a href="#ref-4">[4]</a></span>. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> moment expansion identifies
 the unique least-order term and shows that this estimate is always
 sharp.</p>
-<div class="theorem">
+<div class="theorem" id="res:zudilin-sharp-qorder">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 6</strong> (sharp normalized Hankel order). <em> For
 every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>, <span
 class="math display" data-term-auto="off">\[\operatorname{ord}_q
@@ -662,7 +668,7 @@ polynomial forms.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Local cancellation and the remaining real estimate</h2>
-<div class="theorem">
+<div class="theorem" id="res:nocorridor">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 7</strong> (no corridor at base <span
 class="math inline" data-term-auto="off">\(3/2\)</span>). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> and <span
@@ -672,7 +678,7 @@ class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
 corridor</a>.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:tailrec">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 8</strong> (cleared-tail <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>). <em> Let <span
 class="math inline" data-term-auto="off">\(r,s,B,F\in\Q\)</span> with <span
 class="math inline" data-term-auto="off">\(r\ne0\)</span>, let <span
@@ -684,7 +690,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 recurrence</a> is <span
 class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:forcing">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 9</strong> (the forcing term). <em> Let <span
 class="math inline" data-term-auto="off">\(s,B\)</span> be <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-natural-number" data-term="natural_number" data-term-auto="1">natural numbers</a> and <span
 class="math inline" data-term-auto="off">\(c:\N\to\N\)</span>, and put <span
@@ -710,7 +716,7 @@ class="math inline" data-term-auto="off">\(R,S\ge0\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[J_{3,R}(P)=H_W(P)\pmod{3^R},\qquad
 J_{2,S}(P)=H_W(P)\pmod{2^S}.\]</span></div>
-<div class="lemma">
+<div class="lemma" id="res:bottomjet">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 10</strong> (bottom-jet divisibility). <em> Vanishing
 of the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom
@@ -722,7 +728,7 @@ class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
 precisely when <span class="math inline" data-term-auto="off">\(D=3^R2^S\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a>
 both specialised coordinates. The dependence on the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declare" data-term="declare" data-term-auto="1">declared</a> width
 remains fixed when rows are added.</p>
-<div class="theorem">
+<div class="theorem" id="res:jetkernel">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 11</strong> (<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> four-jet collision). <em> Fix a
 width <span class="math inline" data-term-auto="off">\(W\)</span> and depths <span
 class="math inline" data-term-auto="off">\(R,S\)</span>, and let <span
@@ -761,7 +767,7 @@ jet paper statement</a>. ◻</p>
 <p>The ambient count does not use relations between the two residue
 coordinates. Vanishing minors can reduce that cost to one
 coordinate.</p>
-<div class="theorem">
+<div class="theorem" id="res:plucker-collapse">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 12</strong> (Bézout–Plücker tail collapse). <em> Let
 <span class="math inline" data-term-auto="off">\(R_0\)</span> be a commutative ring and let
 <span class="math inline" data-term-auto="off">\(w_n=(A_n,B_n)\in R_0^2\)</span>. Suppose
@@ -807,7 +813,7 @@ class="math inline" data-term-auto="off">\(6\)</span> is an example. The minor-v
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> remains a separate condition on the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> rows.</p>
 <section id="one-minor-gcd-controls-two-different-costs" class="level3">
 <h3>One minor gcd <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> two different costs</h3>
-<div class="proposition">
+<div class="proposition" id="res:pade">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 13</strong> (Padé summand <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> and exact gap).
 <em> Let <span class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span>
 and put <span
@@ -829,7 +835,7 @@ gap identity</a> is <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
 </ol>
 </div>
-<div class="proposition">
+<div class="proposition" id="res:content">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 14</strong> (row-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">content</a> determinant scaling).
 <em> Rowwise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">contents</a> scale the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
@@ -879,7 +885,7 @@ class="level3">
 <p>A real bin records the analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-required" data-term="required" data-term-auto="1">requirement</a> alongside the modular
 signature. The multiplicity to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a> real
 values within one modular fibre.</p>
-<div class="theorem">
+<div class="theorem" id="res:boundedfibre">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 15</strong> (quantitative <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-fibre escape). <em>
 Let <span class="math inline" data-term-auto="off">\(A,B,J\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite sets</a> and let
 <span class="math inline" data-term-auto="off">\(f:A\to B\)</span>, <span
@@ -919,7 +925,7 @@ selector remainders lie in an interval of length <span
 class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. Dividing that interval
 into half-open bins of width <span class="math inline" data-term-auto="off">\(D/n\)</span>
 gives the sufficient <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a></p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:quantitative-selector-budget}
 2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right).
@@ -947,7 +953,7 @@ remainders need not remain positive after subtraction.</p>
 primitive scaling, local cancellation and the real estimate together.
 Without <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and height restrictions, arbitrary polynomial lifts of
 small <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> approximations would simply restate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>.</p>
-<div class="problem">
+<div class="problem" id="prob:kernel">
 <p><strong>Problem 16</strong> (common-width simultaneous endpoint-jet
 construction). <em> Exhibit an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> constant <span
 class="math inline" data-term-auto="off">\(C\ge1\)</span> and, for every sufficiently large

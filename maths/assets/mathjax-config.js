@@ -16,6 +16,7 @@ window.MathJax = {
     tagSide: 'right',
     tagIndent: '0em',
     processEscapes: true,
+    processRefs: false,
     macros: {
       Npos: '\\mathbb{N}_{>0}',
       Nzero: '\\mathbb{N}_{0}',
@@ -41,5 +42,16 @@ window.MathJax = {
   },
   options: {
     enableMenu: false
+  },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      return MathJax.startup.defaultPageReady().then(function () {
+        if (typeof window.__plectisTypesetPage === 'function') {
+          return window.__plectisTypesetPage(MathJax);
+        }
+        return MathJax.typesetPromise();
+      });
+    }
   }
 };

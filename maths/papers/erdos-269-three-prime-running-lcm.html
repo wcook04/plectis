@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">No Finite Separable Representation at Three Prime Generators</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
         <h1>No Finite Separable Representation at Three Prime Generators</h1>
@@ -124,11 +131,11 @@ q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
 \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span></div>
 <p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
-(<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>).</p>
+(<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:lcm">6</a>).</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry and arbitrary-order rank</h2>
-<div class="theorem">
+<div class="theorem" id="res:infinite-rank">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (arbitrary-order non-separability). <em>
 Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> with <span
 class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math inline" data-term-auto="off">\(p\ne
@@ -197,12 +204,11 @@ contradicting the nonzero minor. ◻</p>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">uniform
 rank and nonseparation</a>.</p>
-<div class="corollary">
+<div class="corollary" id="res:admissible-modular-minors">
 <p><strong>Corollary 2</strong> (the same minors modulo every admissible
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>). <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the maps <span
-class="math inline" data-term-auto="off">\(I,J\)</span> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span> can be chosen so
+class="math inline" data-term-auto="off">\(I,J\)</span> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:infinite-rank">1</a> can be chosen so
 that their minors are invertible over <span
 class="math inline" data-term-auto="off">\(\mathbb Z/B\mathbb Z\)</span> for every <span
 class="math inline" data-term-auto="off">\(B\ge2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to <span
@@ -220,7 +226,7 @@ class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible
 modular minors</a>.</p>
-<div class="example">
+<div class="example" id="res:rank">
 <p><strong>Example 3</strong>. <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
 determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: its four
@@ -243,7 +249,7 @@ class="math inline" data-term-auto="off">\(8\cdot3^j\)</span>. At <span
 class="math inline" data-term-auto="off">\(j=4\)</span> the difference is <span
 class="math inline" data-term-auto="off">\(-1/19440000\)</span>. Thus the leading minors do
 not supply the arbitrary-order <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
-<div class="proposition">
+<div class="proposition" id="res:finite-cut-rank">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 4</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> sampled cut rank). <em> Let
 <span class="math inline" data-term-auto="off">\(m\ge1\)</span> and let <span
 class="math inline" data-term-auto="off">\(c\)</span> lie in a field with <span
@@ -282,8 +288,7 @@ class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
 cut matrix</a>.</p>
 <p>The formula classifies every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> sampled kernel rank after the row
-and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span>, independently of
+and column <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:infinite-rank">1</a>, independently of
 the third coordinate. An exact logarithm-free <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">algorithm</a> orders the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationals</a> <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
 p^i\rfloor}\)</span>, counts those strictly below each <span
@@ -340,7 +345,7 @@ positive pure-<a class="narrative-ref narrative-ref--term is-term-again" href=".
 value. The same boundary-channel calculation also yields the
 de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 5</strong> (both two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> sums). <em> Put <span
 class="math inline" data-term-auto="off">\(\theta=\log p/\log q\)</span> and <span
 class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}p^{-n}q^{-\lfloor
@@ -388,12 +393,11 @@ last <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs
 corresponds to <span class="math inline" data-term-auto="off">\(n=\lfloor
 j/\theta\rfloor\)</span> with <span
 class="math inline" data-term-auto="off">\(m_n=j-1\)</span> and <span
-class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. These identities prove <span
-class="math inline" data-term-auto="off">\(\eqref{eq:two-prime-affine}\)</span>.</p>
+class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. These identities prove <a class="math-ref" href="#eq:two-prime-affine">eq:two-prime-affine</a>.</p>
 <p>For the Hecke–Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <span
 class="math inline" data-term-auto="off">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>,
 geometric summation gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:hecke-mahler-boundary" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:hecke-mahler-boundary}
 A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}\]</span></div>
@@ -410,8 +414,7 @@ either would force <span class="math inline" data-term-auto="off">\(A\)</span> t
 algebraic. ◻</p>
 </div>
 <p>The two-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> expresses both sums through one value. The
-third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> leaves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
-class="math inline" data-term-auto="off">\(\ref{sec:rank}\)</span>. Its rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> concerns
+third <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> leaves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiled-binary" data-term="compiled_binary" data-term-auto="1">binary</a> carry of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:rank">2</a>. Its rank <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> concerns
 that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-function" data-term="function" data-term-auto="1">function</a>; the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> depends on the multiplicities
 introduced next. The de-duplicated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> assertion is historical
 <span class="citation" data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>.</p>
@@ -419,7 +422,7 @@ introduced next. The de-duplicated <a class="narrative-ref narrative-ref--term i
 <section id="sec:lcm" class="level2">
 <h2>Exact multiplicities and normalised tails</h2>
 <p> </p>
-<div class="proposition">
+<div class="proposition" id="res:lcm">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 6</strong> (the running <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-least-common-multiple" data-term="least_common_multiple" data-term-auto="1">least common multiple</a>).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then the <a
@@ -438,14 +441,14 @@ three maximal pure <a class="narrative-ref narrative-ref--term is-term-again" hr
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">smooth
 prefix lcm equals three-prime height</a>. The same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-definition" data-term="definition" data-term-auto="1">definition</a> gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="res:cube" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:cube}
 x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
 \end{equation}\]</span></div>
 <p>Both <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">cubic
 height bounds</a>.</p>
-<div class="proposition">
+<div class="proposition" id="res:cell">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 7</strong> (smooth-prefix LCM cells). <em> If
 <span class="math inline" data-term-auto="off">\(x,y\ge1\)</span> lie in the same logarithmic
 cell, then <span
@@ -468,7 +471,7 @@ together with <span class="math inline" data-term-auto="off">\(1\)</span>, has c
 </div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Cell constancy and the three jump ratios follow from
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>, since
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:lcm">6</a>, since
 the height depends on <span class="math inline" data-term-auto="off">\(x\)</span> only
 through the three <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> logarithms. Within one channel the first <span
 class="math inline" data-term-auto="off">\(n\)</span> positive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">powers</a> are distinct; across
@@ -476,7 +479,7 @@ channels a common value would be a positive <a class="narrative-ref narrative-re
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>; and <span class="math inline" data-term-auto="off">\(1\)</span> is not a positive
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a>. ◻</p>
 </div>
-<div class="proposition">
+<div class="proposition" id="res:fibre-prop">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 8</strong> (height-fibre regrouping). <em> If
 <span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, the <a
@@ -507,14 +510,14 @@ h_a=\frac{\operatorname{H}(2^a)}2,\quad X_a=h_aT_a.\]</span></div>
 class="math inline" data-term-auto="off">\(T_a\)</span> is the raw tail and <span
 class="math inline" data-term-auto="off">\(X_a\)</span> its normalised state. The literal
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> and forcing digit are</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:actual-digit" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-digit}
 b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
 m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></div>
-<div class="lemma">
+<div class="lemma" id="res:dyadic-alphabet">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 9</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> forcing and the four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radices</a>). <em>
 For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(m_a\)</span> is a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a> and the <a
@@ -540,7 +543,7 @@ two, give the four <a class="narrative-ref narrative-ref--term is-term-again" hr
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">literal
 integer forcing and four radices</a>.</p>
-<div class="proposition">
+<div class="proposition" id="res:actual-orbit">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 10</strong> (the actual <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and a
 polynomial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>). <em> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> defining <span
 class="math inline" data-term-auto="off">\(S,T_a\)</span> converge. For every <span
@@ -560,8 +563,7 @@ each pair of three- and five-<a class="narrative-ref narrative-ref--term is-term
 class="math inline" data-term-auto="off">\(a\)</span>, so the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">quadratic
 shell bound</a> gives at most <span
-class="math inline" data-term-auto="off">\((a+1)^2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>. By <span
-class="math inline" data-term-auto="off">\(\eqref{res:cube}\)</span>, <span
+class="math inline" data-term-auto="off">\((a+1)^2\)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>. By <a class="math-ref" href="#res:cube">(2)</a>, <span
 class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
@@ -590,7 +592,7 @@ Q(n)=(1210n^2+9130n+18847)/11979\)</span> uses the <a class="narrative-ref narra
 successive two-jumps and has a separate ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The present cap
 suffices for the criterion; the sharper argument belongs in the extended
 record rather than in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:denominator-reduction">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 11</strong> (actual rationality-to-reduced-carry
 bridge). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, where <span class="math inline" data-term-auto="off">\(D=2^u3^v5^wB\)</span> and <span
@@ -602,7 +604,7 @@ d_{a+1}=b_ad_a-Bm_a,\qquad d_a\le90B(a+1)^2.\]</span></em></p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> For <span class="math inline" data-term-auto="off">\(a\ge1\)</span>,
 strict boundary clearing gives</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:prefix-lattice" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:prefix-lattice}
 X_a=h_aS-Z_a,\qquad
@@ -619,8 +621,7 @@ class="math inline" data-term-auto="off">\(2^a\ge5^w\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(2^u3^v5^w\mid h_a\)</span> after the stated onset,
 and <span class="math inline" data-term-auto="off">\(BX_a=h_aA/(2^u3^v5^w)-BZ_a\)</span> is
 integral. Positivity, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> follow from
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:actual-orbit}\)</span>. ◻</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#res:actual-orbit">10</a>. ◻</p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">short
@@ -628,15 +629,14 @@ fixed split bridge</a>.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a></h2>
-<p>The actual digits in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:actual-digit}\)</span> define</p>
+<p>The actual digits in <a class="math-ref" href="#eq:actual-digit">(3)</a> define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
 W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
 F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span></div>
 <p>Induction on
 <span class="math inline" data-term-auto="off">\(h\)</span> gives</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:actual-tail" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-tail}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
@@ -647,11 +647,11 @@ representative in <span class="math inline" data-term-auto="off">\(\{1,\ldots,W\
 <span class="math inline" data-term-auto="off">\(t\bmod W\)</span>, representing a zero
 residue by <span class="math inline" data-term-auto="off">\(W\)</span>. Throughout this
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">section</a> use the valid cap</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
-<div class="lemma">
+<div class="lemma" id="res:consumer">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 12</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> endpoint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>). <em> If
 <span class="math inline" data-term-auto="off">\(d\)</span> is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a> with <span
 class="math inline" data-term-auto="off">\(d\le K\)</span> and <span
@@ -668,7 +668,7 @@ K\)</span>. ◻</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">finite
 endpoint obstruction</a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:windowconsumer">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 13</strong> (the actual window criterion). <em> The
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> <span class="math inline" data-term-auto="off">\(S\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> if and only
 if <span class="math display" data-term-auto="off">\[\begin{equation}
@@ -683,19 +683,15 @@ if <span class="math display" data-term-auto="off">\[\begin{equation}
 </div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:denominator-reduction}\)</span> supplies
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:denominator-reduction">11</a> supplies
 a positive integral carry <span class="math inline" data-term-auto="off">\(d_a=BX_a\)</span>
-after its onset. Choose a window in <span
-class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span> beyond that onset.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span class="math inline" data-term-auto="off">\(\eqref{eq:actual-tail}\)</span>
+after its onset. Choose a window in <a class="math-ref" href="#eq:escape">eq:escape</a> beyond that onset.
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#eq:actual-tail">(5)</a>
 gives <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
-contradicting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <span
-class="math inline" data-term-auto="off">\(\ref{res:consumer}\)</span> and the valid cap.</p>
+contradicting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <a class="math-ref" href="#res:consumer">12</a> and the valid cap.</p>
 <p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>
-and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span> makes <span
+and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#eq:prefix-lattice">(4)</a> makes <span
 class="math inline" data-term-auto="off">\(BX_\ell\)</span> nonintegral. Put <span
 class="math inline" data-term-auto="off">\(\delta=\lceil
 BX_\ell\rceil-BX_\ell\in(0,1)\)</span>. Since <span
@@ -710,8 +706,7 @@ class="math display" data-term-auto="off">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_
 =\delta W_{\ell,h}+BX_{\ell+h}.\]</span></div>
 <p>Its exponentially growing first
 term eventually exceeds <span
-class="math inline" data-term-auto="off">\(K(B,\ell+h)\)</span>. This proves <span
-class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span>, in fact from each
+class="math inline" data-term-auto="off">\(K(B,\ell+h)\)</span>. This proves <a class="math-ref" href="#eq:escape">eq:escape</a>, in fact from each
 fixed start. ◻</p>
 </div>
 <p>The equivalence, at the literal smooth-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number" data-term="number" data-term-auto="1">number</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>, is <a
@@ -722,7 +717,7 @@ polynomial growth condition by itself would not suffice. The zero cap,
 for example, makes positive-residue escape automatic. The criterion
 identifies the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> in window coordinates. The unresolved point is the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-specific <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> below.</p>
-<div class="problem">
+<div class="problem" id="prob:tails269">
 <p><strong>Problem 14</strong> (exact nonintegrality of every reduced
 tail). <em> Prove that for every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span> and every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
@@ -733,7 +728,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 BX_a\notin\mathbb Z.
 \end{equation}\]</span></em></p>
 </div>
-<div class="problem">
+<div class="problem" id="prob:producer">
 <p><strong>Problem 15</strong> (actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> local-window escape).
 <em> Prove the displayed quantifier order <span
 class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
@@ -751,7 +746,7 @@ Mahler <a class="narrative-ref narrative-ref--term is-term-again" href="../../do
 nondegeneracy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>; or prove that the literal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> has no
 representation in the specified <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-dimensional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-class" data-term="class" data-term-auto="1">class</a>.</em></p>
 </div>
-<p>By <span class="math inline" data-term-auto="off">\(\eqref{eq:prefix-lattice}\)</span>,
+<p>By <a class="math-ref" href="#eq:prefix-lattice">(4)</a>,
 one integral value would make <span class="math inline" data-term-auto="off">\(S\)</span>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>; the bridge proves the reverse <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> after clearing its
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>. Thus the pointwise formulation is equivalent to the
@@ -760,8 +755,7 @@ one integral value would make <span class="math inline" data-term-auto="off">\(S
 class="level5">
 <h5>The information the remaining argument must use.</h5>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-radix" data-term="radix" data-term-auto="1">radix</a> alternative permits the integral branch. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">Infinite</a>
-rank and the modular minors of Corollary <span
-class="math inline" data-term-auto="off">\(\ref{res:admissible-modular-minors}\)</span>
+rank and the modular minors of Corollary <a class="math-ref" href="#res:admissible-modular-minors">2</a>
 constrain the kernel, while a scalar argument must also use its exact
 multiplicities. In the existing three-channel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigidity</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>,
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preservation</a> of every complete same-channel block makes a perturbation a

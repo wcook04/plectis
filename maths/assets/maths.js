@@ -1,10 +1,8 @@
 /* Plectis — maths subsite runtime.
-   Small on purpose: the docs runtime (docs.js) is not loaded on maths pages,
-   so this file carries the two behaviours the chrome needs — the theme
-   toggle and the mobile sidebar drawer — with the same storage key,
-   attributes, and markup the docs runtime uses, so the control looks and
-   acts identically across subsites. Everything else on maths pages is
-   static HTML; the universe canvas has its own file. */
+   Theme toggle, mobile drawer, and deferred MathJax typesetting. The shared
+   docs runtime still loads on these pages (copy-text, terms); this file only
+   carries maths-specific behaviour. Do not stamp html.js here: that class
+   means docs.js is ready, and the page-tools CSS keys off it. */
 (function () {
   'use strict';
 
@@ -97,6 +95,50 @@
     mountDrawer();
   }
 })();
+
+window.__plectisTypesetPage = function (MathJax) {
+  var stages = Array.prototype.slice.call(
+    document.querySelectorAll('.paper-stage')
+  );
+  if (!stages.length) {
+    return MathJax.typesetPromise();
+  }
+  function inView(el) {
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || 800;
+    return r.bottom > 0 && r.top < vh + 240;
+  }
+  var first = stages.filter(inView);
+  if (!first.length) first = [stages[0]];
+  var rest = stages.filter(function (stage) {
+    return first.indexOf(stage) === -1;
+  });
+  function typeset(nodes) {
+    if (!nodes.length) return Promise.resolve();
+    return MathJax.typesetPromise(nodes).then(function () {
+      nodes.forEach(function (node) {
+        node.classList.add('is-typeset');
+      });
+    });
+  }
+  return typeset(first).then(function () {
+    if (!rest.length) return;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          io.unobserve(entry.target);
+          typeset([entry.target]);
+        });
+      }, { rootMargin: '480px 0px' });
+      rest.forEach(function (node) { io.observe(node); });
+      return;
+    }
+    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1); };
+    idle(function () { typeset(rest); });
+  });
+};
+
 
 /* Problem-local import map. All data and file links are built into the page.
    The list is the object: a file name selects it, GitHub stays on the row,

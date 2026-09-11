@@ -26,11 +26,12 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
+  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=6a96ec6bf9d1"></script>
-  <script defer src="../assets/mathjax-config.js?v=ea52ca45b9c8"></script>
+  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
+  <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
 </head>
 <body>
@@ -75,6 +76,12 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">From Spare Compute to Cumulative Mathematics</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow">Open-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> strategy</p>
         <h1>From Spare Compute to Cumulative Mathematics</h1>
@@ -253,19 +260,17 @@ contributed human mathematical direction, infrastructure quality,
 problem selection, accumulated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-research" data-term="research" data-term-auto="1">research</a> knowledge, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> capacity,
 and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">review</a> capacity. The rate of candidate generation may be written
 schematically as</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:generation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[G_t=G(C_t,A_t,H_t,I_t,P,K_t).
 \tag{2.1}\label{eq:generation}\]</span></div>
 <p>The rate of <em>reviewable
 mathematical progress</em> is a different quantity:</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:accepted" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[Y_t=Q(G_t,V_t,R_t),
 \tag{2.2}\label{eq:accepted}\]</span></div>
 <p>where <span
 class="math inline" data-term-auto="off">\(Q\)</span> includes <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> checking, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>
-reconciliation, attribution, and editorial selection. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equations</a> <span
-class="math inline" data-term-auto="off">\(\eqref{eq:generation}\)</span> and <span
-class="math inline" data-term-auto="off">\(\eqref{eq:accepted}\)</span> are a conceptual
+reconciliation, attribution, and editorial selection. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equations</a> <a class="math-ref" href="#eq:generation">eq:generation</a> and <a class="math-ref" href="#eq:accepted">eq:accepted</a> are a conceptual
 production <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a>, not a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fit" data-term="fit" data-term-auto="1">fitted</a> empirical law. They record
 complementarity and bottlenecks. More compute can generate more attempts
 without increasing the rate at which strong <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> are validated or
@@ -274,7 +279,7 @@ understood. A better <a class="narrative-ref narrative-ref--term is-term-again" 
 distribution without supplying any compute. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">Review</a> capacity can be the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bind" data-term="bind" data-term-auto="1">binding</a> constraint even when <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> generation is cheap.</p>
 <p>The open-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> strategy adds two recursive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">updates</a>:</p>
-<div class="math-display" data-term-auto="off"><span
+<div class="math-display" id="eq:feedback" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 K_{t+1}&amp;=K_t+\Delta_t^{\rm theorem}
               +\Delta_t^{\rm counterexample}
@@ -766,7 +771,7 @@ record is <a class="narrative-ref narrative-ref--term is-term-again" href="../..
 the time of writing no selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> carries a recorded expert account
 of that kind, and adopting the standard is not compliance with it.
 Whether the record supports such an account is one of the measures in
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span class="math inline" data-term-auto="off">\(\ref{sec:evaluation}\)</span>.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#sec:evaluation">12</a>.</p>
 <p>The proposed composition joins these precedents. It combines
 volunteer compute, small shared insights, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> task decomposition,
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>-native problem worlds, explicit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> knowledge, untrusted
