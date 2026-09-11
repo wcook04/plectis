@@ -99,16 +99,27 @@
 window.__plectisTypesetPage = function (MathJax) {
   /* A dossier inlines the short paper. The stage wraps article.lean-paper,
      so typeset each body child, not the whole stage. Visible chunks first;
-     the rest wait for IntersectionObserver. */
+     the rest drain on idle so later sections are not left as invisible TeX
+     holes until the reader scrolls within 640px. */
+  var root = document.documentElement;
+  var settled = false;
+  function settle() {
+    if (settled) return;
+    settled = true;
+    root.classList.add('mathjax-settled');
+  }
   var stages = Array.prototype.slice.call(
     document.querySelectorAll('.paper-stage')
   );
   if (!stages.length) {
-    return MathJax.typesetPromise();
+    return MathJax.typesetPromise().then(settle, function () {
+      root.classList.add('mathjax-error');
+      settle();
+    });
   }
   function chunksOf(stage) {
-    var root = stage.querySelector('.lean-paper__body') || stage;
-    var kids = Array.prototype.filter.call(root.children, function (el) {
+    var body = stage.querySelector('.lean-paper__body') || stage;
+    var kids = Array.prototype.filter.call(body.children, function (el) {
       return el.nodeType === 1 && el.tagName !== 'SCRIPT';
     });
     return kids.length ? kids : [stage];
@@ -132,6 +143,9 @@ window.__plectisTypesetPage = function (MathJax) {
     if (!fresh.length) return Promise.resolve();
     return MathJax.typesetPromise(fresh).then(function () {
       fresh.forEach(function (node) { node.classList.add('is-typeset'); });
+    }, function () {
+      root.classList.add('mathjax-error');
+      fresh.forEach(function (node) { node.classList.add('is-typeset'); });
     });
   }
   var first = chunks.filter(inView);
@@ -139,8 +153,22 @@ window.__plectisTypesetPage = function (MathJax) {
   var rest = chunks.filter(function (chunk) {
     return first.indexOf(chunk) === -1;
   });
+  var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 60); };
+  function drain(index) {
+    if (index >= rest.length) {
+      settle();
+      return;
+    }
+    idle(function () {
+      typeset([rest[index]]).then(function () { drain(index + 1); });
+    }, { timeout: 800 });
+  }
+  window.setTimeout(settle, 12000);
   return typeset(first).then(function () {
-    if (!rest.length) return;
+    if (!rest.length) {
+      settle();
+      return;
+    }
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -148,20 +176,10 @@ window.__plectisTypesetPage = function (MathJax) {
           io.unobserve(entry.target);
           typeset([entry.target]);
         });
-      }, { rootMargin: '640px 0px' });
+      }, { rootMargin: '960px 0px' });
       rest.forEach(function (node) { io.observe(node); });
-    } else {
-      var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 120); };
-      function drain(index) {
-        if (index >= rest.length) return;
-        idle(function () {
-          typeset([rest[index]]).then(function () { drain(index + 1); });
-        });
-      }
-      drain(0);
     }
-    var prefetch = window.requestIdleCallback || function (cb) { setTimeout(cb, 120); };
-    prefetch(function () { typeset(rest.slice(0, 1)); });
+    drain(0);
     window.addEventListener('hashchange', function () {
       typeset(chunks.filter(inView));
     });

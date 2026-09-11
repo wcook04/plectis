@@ -709,6 +709,21 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
   max-height: 3.6em;
   overflow: hidden;
 }
+/*
+  If MathJax never replaces a span, un-hide the TeX rather than leaving a
+  transparent hole. Settled is stamped after the idle drain, or at 12s.
+*/
+html.mathjax-settled .paper-stage span.math:not(:has(mjx-container)),
+html.mathjax-error .paper-stage span.math:not(:has(mjx-container)) {
+  color: inherit;
+  display: inline;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  vertical-align: baseline;
+}
 .paper-stage a.math-ref {
   color: var(--accent);
   text-decoration: none;
@@ -1328,6 +1343,7 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
 body.has-viewback:has(.maths-layout) .viewback {
   bottom: auto;
   top: calc(var(--topbar-h) + 10px);
+  max-width: min(22rem, calc(100vw - 2rem));
 }
 .paper-source-guide {
   margin-block: 1.5rem;

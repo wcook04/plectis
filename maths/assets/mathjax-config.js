@@ -35,10 +35,20 @@ window.MathJax = {
   chtml: {
     displayAlign: 'center',
     displayIndent: '0',
-    fontURL: new URL(
-      '../../assets/vendor/mathjax-3.2.2/output/chtml/fonts/woff-v2',
-      window.location.href
-    ).href
+    /* Resolve against the vendored runtime, not the page URL. A relative
+       path on window.location is only accidentally correct on depth-1
+       paper/problem pages and 404s from maths/index.html. The tex-chtml
+       script tag is already in the document when this file runs. */
+    fontURL: (function () {
+      var script = document.querySelector('script[src*="tex-chtml.js"]');
+      if (script && script.src) {
+        return new URL('output/chtml/fonts/woff-v2', script.src).href;
+      }
+      return new URL(
+        '../assets/vendor/mathjax-3.2.2/output/chtml/fonts/woff-v2',
+        document.baseURI
+      ).href;
+    })()
   },
   options: {
     enableMenu: false
