@@ -8,7 +8,7 @@
   "pages": 20,
   "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
   "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
-  "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+  "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
   "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
   "problem_id": "erdos_1041",
   "routes": {

@@ -16,15 +16,15 @@
   ],
   "what_is_not_checked": [
     "Erdos Problem 1041 in unrestricted degree.",
-    "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
-    "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+    "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
+    "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
     "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
     "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
   ],
   "open_obligations": [
     {
       "id": "repair_or_refute_saddle_block",
-      "statement": "Replace the false three-ended interior saddle neighbourhood by a valid four-pronged or cut-annulus block and reprove the required incidence statement, or construct a polynomial counterexample to that incidence statement."
+      "statement": "The printed 1/(2π) spanning-tree estimate of Proposition 12 is false. Any later argument must pay a positive attachment cost, select only one short pair, or use a different global metric inequality."
     },
     {
       "id": "compact_ray_cut_strip_decomposition",
@@ -206,7 +206,7 @@
     "pages": 20,
     "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
     "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
-    "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+    "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
     "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
     "problem_id": "erdos_1041",
     "routes": {
@@ -418,7 +418,7 @@
       "pages": 20,
       "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
       "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
-      "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
+      "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {

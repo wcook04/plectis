@@ -2319,15 +2319,10 @@ every <span class="math inline" data-term-auto="off">\(m\ge1\)</span>, including
 case. Its quadratic form gives the stronger bound</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}.\]</span></div>
-<p>The checked endpoints are the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">critical-value
-mean identity</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L121">all-degree
-critical-value power budget</a>; the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L85">critical-disc
-moment bound</a> gives all moments <span
-class="math inline" data-term-auto="off">\(0&lt;t\le2/(n-1)\)</span>. Their source-bound
-compilation and named axiom checks pass.</p>
+<p>The displayed mean, and the stronger Poisson form
+<span class="math inline" data-term-auto="off">\(\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}\)</span>,
+are ordinary mathematics in this record.
+<code>PaperCriticalValueMeanR10.lean</code> is not cited as a kernel-checked complete statement.</p>
 <p>The stronger exponent controls concentration of the critical values.
 For <span class="math inline" data-term-auto="off">\(R&gt;0\)</span>, write <span
 class="math inline" data-term-auto="off">\(r_j=|f(c_j)|^{1/n}\)</span> and <span
