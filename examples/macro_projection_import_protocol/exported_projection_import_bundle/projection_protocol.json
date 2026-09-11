@@ -11781,24 +11781,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
+      "body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
-        "source_line_count": 63,
+        "source_body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
+        "source_line_count": 65,
         "source_ref": "system/server/ui/package.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
-        "target_line_count": 63,
+        "target_body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
+        "target_line_count": 65,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 63,
+      "body_line_count": 65,
       "body_text_in_receipt": false,
       "claim_ceiling": "public spatial world-model Station geometry source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, private video export, raw sensor body export, simulator-product authority, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [

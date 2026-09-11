@@ -57,23 +57,23 @@
       "anchor_count": 3,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 2807,
+      "byte_count": 3291,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 63,
+      "line_count": 65,
       "material_class": "public_macro_tool_body",
       "module_id": "station_geometry_build_wiring_source_body_import",
       "required_anchors": [
-        "\"build\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
-        "\"build:web\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
+        "\"build\": \"npm run check:station-geometry && npm run typecheck && vite build && ZENITH_UI_VERIFY_DIR=../static npm run verify:embedded\"",
+        "\"build:web\": \"npm run check:station-geometry && npm run typecheck && vite build && ZENITH_UI_VERIFY_DIR=../static npm run verify:embedded\"",
         "\"check:station-geometry\": \"cd ../../.. && ./repo-python tools/meta/factory/check_station_geometry.py --check\""
       ],
       "sha256_match": true,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/ui/package.json",
       "source_role": "Station UI package build wiring that runs the geometry checker before TypeScript and Vite build steps.",
-      "source_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
+      "source_sha256": "3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
       "target_ref": "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
-      "target_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
+      "target_sha256": "3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e"
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",

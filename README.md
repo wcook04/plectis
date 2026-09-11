@@ -59,8 +59,9 @@ interface itself. The three share one origin; each is assessed from its own
 evidence, and none of them establishes the reliability of the private system.
 
 For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
-For a mathematical problem or result, start with the
-[Lean repository README](https://github.com/wcook04/plectis-erdos#readme)
+For a mathematical problem or result, browse the
+[maths pages](https://wcook04.github.io/plectis/maths/) for the papers,
+then use the [Lean repository](https://github.com/wcook04/plectis-erdos#readme)
 and its per-problem map of strongest checked results,
 [RESULTS.md](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md),
 then choose its problem-specific paper. Read
@@ -374,7 +375,7 @@ the broader test suite runs.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/f4381b469180655c44e6421dc92fa55e7c28689a):
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/6f41f392be83c15a7a70d0dc808a51891ad784ce):
   the recorded public source snapshot contains 1,274 Lean modules and 153,502
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
