@@ -15,10 +15,10 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "070c56576461c00fec49a925896dcc9d2167c278305cefce20d325de4d7998ce",
+    "source_sha256": "befefa81ecd2e49c82f59c077e0f0919f16cba37d2e685c0da979d8b5646ad66",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
+    "renderer_fingerprint": "68395684e8d7d8b0",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "ee79339c3b7cbb42e56c8afe87f8b38fa66b34b48567b7ddaa0c96e111fd28b5",
-    "html_exact_tex_sha256": "ae928075536608fa7697a681d626ca4024ccda47ce9191ff9a85cfae20b577a0"
+    "html_mathml_sha256": "4f34eb3af0464642935f2fab4eb4edcde3fc02b97271e3d65b4826be8187ee41",
+    "html_exact_tex_sha256": "4cfcdd38154bdb72bcb8958ef46a7426fe0b0652d5e217fe25cb4e9705e0e384"
   },
   "sections": [
     {
@@ -339,7 +339,7 @@
     {
       "level": 3,
       "anchor": null,
-      "label": "paper/erdos249-257-main-paper.tex (read-only during this audit)"
+      "label": "paper/archive/erdos249-257-main-paper.tex (read-only during this audit)"
     },
     {
       "level": 2,

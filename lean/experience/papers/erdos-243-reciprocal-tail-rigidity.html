@@ -4,7 +4,7 @@
     <h1>Excluding the Bounded Negative Part</h1>
     <p class="lean-paper__subject">Erdős #243</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-243-reciprocal-tail-rigidity.tex">
+  <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <div class="corollary">
@@ -25,9 +25,9 @@ then
 for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</em></p>
 </div>
-<p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean#L211">Lean
-source</a>.</p>
+<p>Corollary  is an ordinary transfer of the integer-state theorem
+below, proved in Section . There is no module
+<code>PaperCompleteR7/ProductDefect.lean</code> in this checkout.</p>
 <section id="the-obstruction." class="level5">
 <h5>The obstruction.</h5>
 <p>The equation
@@ -122,9 +122,11 @@ and use
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">D_{n+1}=a_nD_n</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}=a_nC_n-D_n</annotation></semantics></math>. ◻</p>
 </div>
-<p>Both identities are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L21">Lean
-source</a>.</p>
+<p>Both identities are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
+law</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+identity</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 6</strong> (absorption and descent). <em> For a
 positive exact state with strict centring,
@@ -151,8 +153,10 @@ is eventually a nonincreasing sequence of positive integers, so it
 stabilises. ◻</p>
 </div>
 <p>Both assertions are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L120">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2221">absorption
+of a vanishing centred state</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
+of the nonnegative error</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 7</strong> (two zero errors). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n=E_{n+1}=0</annotation></semantics></math>
@@ -167,9 +171,11 @@ Sylvester recurrence.</em></p>
 <p><em>Proof.</em> The second error identity has nonzero factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">C_{n+1}</annotation></semantics></math>. ◻</p>
 </div>
-<p>The local and eventual forms are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L138">Lean
-source</a>.</p>
+<p>The local and eventual forms are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1781">local
+rigidity step</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1799">eventual
+Sylvester recurrence</a>.</p>
 <p>Absorption holds after any eventual centring threshold. On a
 nonterminal tail it removes all subsequent zeros. Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|E_n|\ge1</annotation></semantics></math>,
@@ -257,9 +263,13 @@ and
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo>,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(a_i,a_t)=1</annotation></semantics></math>. ◻</p>
 </div>
-<p>All three conclusions are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L16">Lean
-source</a>.</p>
+<p>All three conclusions are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L983">step
+coprimality</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1010">pairwise
+coprimality</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
+avoidance</a>.</p>
 <div class="proposition">
 <p><strong>Proposition 11</strong> (gcd stabilisation). <em> For a
 positive exact state, if negative errors have bounded magnitudes along a
@@ -280,14 +290,19 @@ cofinal set and therefore bounded everywhere; it eventually stabilises.
 Division by the stable value preserves both exact updates and leaves the
 states coprime. ◻</p>
 </div>
-<p>The stable gcd and the reduced exact tail are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L103">Lean
-source</a>.</p>
+<p>The stable gcd is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
+stabilisation</a>.</p>
 <p>In the main proof, division by the stable gcd preserves divergence
 and a bounded upward increment. Theorem  therefore applies to the
-reduced numerator. Sparse changes of the gcd without eventual
-stabilisation are a different statement; the supporting record retains
-that distinction and its finite-block consequences.</p>
+reduced numerator: this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
+reduced exclusion</a>. With normalised vanishing the same obstruction is
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
+from normalised vanishing</a>. Sparse changes of the gcd without
+eventual stabilisation are a different statement; the supporting record
+retains that distinction and its finite-block consequences.</p>
 </section>
 </section>
 <section id="sec:transfer" class="level2">
@@ -692,9 +707,8 @@ for which
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>≤</mo><msubsup><mi>M</mi><mi>n</mi><mi>K</mi></msubsup></mrow><annotation encoding="application/x-tex">2^n\le M_n^K</annotation></semantics></math>
 at infinitely many indices?</em></p>
 </div>
-<p>The canonical necessary profile is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">Lean
-source</a>.</p>
+<p>The canonical necessary profile is ordinary in this note.
+<code>PaperCompleteR7/Frontier.lean</code> is not in this checkout.</p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>
 put
@@ -733,10 +747,13 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 bounded-negative rigidity</a>. The canonical analytic transfer and the
 global weighted, polynomial and slow-negative arguments are ordinary
 proofs; the scalar finite-mass proof is printed in full above. The
-auxiliary source guide, constant and periodic exclusions, primitive
-feedback, finite certificates and unsuccessful global extensions belong
-to the accompanying reasoning record. Their stronger global producer
-hypotheses remain explicit.</p>
+auxiliary source guide, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
+constant exclusion</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual
+periodic exclusion</a>, primitive feedback, finite certificates and
+unsuccessful global extensions belong to the accompanying reasoning
+record. Their stronger global producer hypotheses remain explicit.</p>
 </section>
 <section id="declarations." class="level5">
 <h5>Declarations.</h5>
@@ -770,9 +787,19 @@ problem. For the external bridge supplying them, see Sections  and .</p>
 </section>
 <section id="app:residue" class="level2">
 <h2>A factorial residue reduction for forced orbits</h2>
-<p>In the case
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>c</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=c=1</annotation></semantics></math>
-of Section , where the shape equation  reads
+<p>A constant-negative error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">E_n=-m</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>0</mn></msub><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">C_0=c</annotation></semantics></math>
+produces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>c</mi><mo>+</mo><mi>n</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">C_n=c+nm</annotation></semantics></math>
+and the shape equation
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mi>m</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:shape}
+ D_n+m=(a_n-1)C_n.
+\end{equation}</annotation></semantics></math> In the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>c</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=c=1</annotation></semantics></math>,
+where  reads
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_n+1=(a_n-1)(n+1)</annotation></semantics></math>,
 each multiplier is determined by its predecessor; we call such an orbit
 . At index
@@ -786,9 +813,12 @@ numerator</a>, and the divisor is
 The orbit survives a step when that division is exact, giving a survival
 predicate, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
-predicate</a>. Example  is the forced orbit from
+predicate</a>.</p>
+<div class="example">
+<p><strong>Example 18</strong> (the shape equation running until it
+fails). <em> The forced orbit from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a=3</annotation></semantics></math>
-read this way:
+reads this way:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">num</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">\operatorname{num}(0,3)=6</annotation></semantics></math>
 is divisible by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
@@ -798,12 +828,14 @@ while
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">num</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">\operatorname{num}(1,3)=13</annotation></semantics></math>
 is not divisible by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>,
-so the orbit stops there. Deciding survival by iteration is expensive
-because the orbit grows doubly exponentially, and it is unnecessary:
-survival over a finite horizon depends on the initial value only through
-a factorial residue.</p>
+so the orbit stops there.</em></p>
+</div>
+<p>Deciding survival by iteration is expensive because the orbit grows
+doubly exponentially, and it is unnecessary: survival over a finite
+horizon depends on the initial value only through a factorial
+residue.</p>
 <div class="theorem">
-<p><strong>Theorem 18</strong> (factorial residue reduction). <em> For
+<p><strong>Theorem 19</strong> (factorial residue reduction). <em> For
 all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 and all integers
@@ -863,11 +895,12 @@ states below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5000</mn><annotation encoding="application/x-tex">5000</annotation></semantics></math>
 produced forced prefixes of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>17</mn><annotation encoding="application/x-tex">17</annotation></semantics></math>
-and no longer, which was evidence and not a proof; Theorem  now excludes
-the constant-negative case outright, for every seed and at every scale.
-The reduction is retained because it is exact, and because the
-shrinking-modulus technique transfers to any forced orbit whose step is
-a polynomial division.</p>
+and no longer, which was evidence and not a proof; the Lean-checked <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">constant
+exclusion at every scale</a> now excludes the constant-negative case
+outright, for every seed and at every scale. The reduction is retained
+because it is exact, and because the shrinking-modulus technique
+transfers to any forced orbit whose step is a polynomial division.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

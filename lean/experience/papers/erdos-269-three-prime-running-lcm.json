@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
     "html_exact_tex": "papers/erdos-269-three-prime-running-lcm.mathjax.html",
     "pdf": "../../papers/erdos-269-three-prime-running-lcm.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-269-three-prime-running-lcm.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-269-three-prime-running-lcm.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos-269-three-prime-running-lcm.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,17 +28,17 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "cbafdceb43c6d6e567440053147a41a7f7d15e89136b11bff3ee6bd5b14aeaf2",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "323f5f00208cba1dca1ea5198f9e6af38d026cb7001e838ee06b6f8ecbd9daf5",
     "publication_manifest_match": true,
-    "mathml_node_count": 250,
+    "mathml_node_count": 258,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "48d2653008b2b5ad4fd04ba2994e460dc0d9c804c9f26e5c2dbff06c844a9329",
-    "html_exact_tex_sha256": "d5c41c9c6f025730c2804d038d7a8cac63076079cb04ca0218c01f0fdca8d63f"
+    "html_mathml_sha256": "be9d10ede0db57e44d6dbc4f283857ce26c38d54c7d0b115055f1c438bfe349c",
+    "html_exact_tex_sha256": "93f5cae4abc26fbaaae795088fdd9d641bef3efa86ab86b6cb0d8f353a1528fc"
   },
   "sections": [
     {

@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
     "html_exact_tex": "papers/erdos-68-factorial-denominator-irrationality.mathjax.html",
     "pdf": "../../papers/erdos-68-factorial-denominator-irrationality.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos-68-factorial-denominator-irrationality.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,17 +28,17 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "9b54aebff7460c36743c971e147c2baf8f24128bdeb88bd4ba6f495100c1727f",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "1936c57e8582583f6fe9d343ec3a6113bcc6ff9496660f9e5368dcc3004f5d2a",
     "publication_manifest_match": true,
-    "mathml_node_count": 293,
+    "mathml_node_count": 302,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "fe0e04d49f2ea08c357956b9ad3630d71ccd3f0fcae64bac0f874c40f96f61c2",
-    "html_exact_tex_sha256": "d3cd82d3a3869728d504bcb2535ffb570f511b568c96c8722b5227bc6eca3fa0"
+    "html_mathml_sha256": "13806beccc202627c62b04211aa075f72e651de8f386291c4108f14065f677fd",
+    "html_exact_tex_sha256": "ed267e494f0b55983c0cc82c062f2e65eb65e06b62505b593ff1363a23e48537"
   },
   "sections": [
     {

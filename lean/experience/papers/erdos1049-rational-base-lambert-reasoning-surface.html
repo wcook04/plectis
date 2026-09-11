@@ -4,7 +4,7 @@
     <h1>Rational-Base Lambert Series: Complete Reasoning Record</h1>
     <p class="lean-paper__subject">Erdős #1049</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos1049-rational-base-lambert-reasoning-surface.tex">
+  <div class="lean-paper__body" data-source="../../../paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex">
 <section id="long1049:sec:problem" class="level2">
 <h2>Introduction</h2>
 <p>Let
@@ -181,9 +181,9 @@ which is nonzero for every real
 One nonzero residual is decisive for non-transfer of that
 recurrence.</p>
 <p>Lean checks the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67">exact
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67">exact
 residual factorisation</a> and its <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94">nonvanishing
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94">nonvanishing
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p&gt;1</annotation></semantics></math></a>.
 These are finite statements at
@@ -561,7 +561,7 @@ is not formalised of two external routes, together with the separate
 logarithmic comparison. Section  separates kernel escape from asymptotic
 adequacy and states the remaining obligations. Linked phrases open the
 corresponding Lean declaration at the pinned source
-revision 1da2a504f8d8.</p>
+revision 92b88dc1bbe0.</p>
 <p><strong>Keywords.</strong> irrationality; Lambert series; rational
 base; Padé approximation; Lean 4. <strong>MSC 2020.</strong> 11J72
 (primary); 11J82, 68V20 (secondary).</p>
@@ -880,19 +880,19 @@ is legitimate. In particular
 kernel:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>M</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">2M_n</annotation></semantics></math>
 against the source’s (16) is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L317">one
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L317">one
 declaration</a>, the degree step
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><mn>40</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>−</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">d_{n,k+1}-d_{n,k}=40n+1-k</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L337">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L337">a
 second</a>, its positivity on the whole range
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub><mo>≤</mo><mi>k</mi><mo>≤</mo><msub><mi>β</mi><mi>n</mi></msub><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_2\le k\le\beta_n-2</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L350">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L350">a
 third</a>, and the top value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>K</mi><mi>n</mi></msub><mo>=</mo><mn>1091</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>81</mn><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2K_n=1091n^{2}+81n+2</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L344">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L344">a
 fourth</a>. They decide the arithmetic of this step and no analytic step
 anywhere in the note.</p>
 <p>For the second coefficient, fix
@@ -1104,19 +1104,19 @@ region of Theorem .</em></p>
 is the integer certificate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>4</mn><mn>200</mn></msup><mo>&lt;</mo><msup><mn>31</mn><mn>81</mn></msup></mrow><annotation encoding="application/x-tex">4^{200}&lt;31^{81}</annotation></semantics></math>,
 checked as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L26">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L26">the
 power certificate</a>, and the membership it yields is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45">checked</a>;
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45">checked</a>;
 the ratio
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">\log b/\log a</annotation></semantics></math>
 is invariant under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>↦</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>a</mi><mi>r</mi></msup><mo>,</mo><msup><mi>b</mi><mi>r</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a,b)\mapsto(a^{r},b^{r})</annotation></semantics></math>,
 which gives the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">power
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">power
 family</a>, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>31</mn><mi>r</mi></msup><mo>,</mo><msup><mn>4</mn><mi>r</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(31^{r},4^{r})</annotation></semantics></math>
 are coprime. The exclusion from the earlier region is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">checked</a>.
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">checked</a>.
 That exclusion also has a two-line rational certificate:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>31</mn><mn>2</mn></msup><mo>&lt;</mo><msup><mn>4</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">31^{2}&lt;4^{5}</annotation></semantics></math>
 gives
@@ -1177,32 +1177,32 @@ and of every power of it, and the exclusion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
 are checked by the Lean kernel in the module
 <code>RationalBaseContour</code>, which the library root imports at the
-pinned source revision 1da2a504f8d8. The lower bound on
+pinned source revision 92b88dc1bbe0. The lower bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L159">one
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L159">one
 declaration</a>, the rational bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mn>0</mn></msub><annotation encoding="application/x-tex">C_0</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L180">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L180">a
 second</a>, the comparison
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81</mn><mi>/</mi><mn>200</mn><mo>&lt;</mo><msup><mi>θ</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">81/200&lt;\theta^{*}</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L201">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L201">a
 third</a>, the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>*</mo></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\theta^{*}&lt;1/2</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L251">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L251">a
 fourth</a>, the membership of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math>
 and of its powers are <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L266">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L266">a
 fifth</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L279">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L279">a
 sixth</a>, and the exclusion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
 is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseContour.lean#L296">a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseContour.lean#L296">a
 seventh</a>. Each is a finite comparison against the defined constant;
 none of them is any part of the analytic argument of Theorem . A
 finite-precision evaluation of the trigamma series with the integral
@@ -1937,9 +1937,9 @@ and
 respectively. ◻</p>
 </div>
 <p>The integer sides are checked as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L61">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L42">the
 upper certificate</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L64">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L45">the
 sharp lower certificate</a>.</p>
 <p>The upper half is stronger than the earlier
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81</mn><mi>/</mi><mn>200</mn></mrow><annotation encoding="application/x-tex">81/200</annotation></semantics></math>
@@ -1982,9 +1982,9 @@ so the second follows. The final inequality is a direct rearrangement of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>3</mn><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mo>&lt;</mo><mn>65</mn><mi>/</mi><mn>41</mn></mrow><annotation encoding="application/x-tex">\log3/\log2&lt;65/41</annotation></semantics></math>. ◻</p>
 </div>
 <p>The uniform rectangular bound and cubic charge bound are <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L103">checked
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L86">checked
 here</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L114">checked
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L97">checked
 here</a>.</p>
 <p>The next statement is the source-facing charge comparison. It does
 not prove the degree ceilings: those come from the scalar factor and the
@@ -2022,9 +2022,9 @@ the quadratic factor is positive and increasing. The assertions for
 follow by monotonicity. ◻</p>
 </div>
 <p>The application-facing downward-closed forms are <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L140">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L123">the
 scalar no-go</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L170">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L153">the
 scalar-plus-border no-go</a>.</p>
 <p>The formal source checks Theorem , Corollary , and Theorem  as exact
 Lean propositions. Their role is exclusion: scalar content and the
@@ -2421,25 +2421,22 @@ expansion in this argument are not yet formalised in Lean.</p>
 </section>
 <section id="evidence-decomposition.-1" class="level5">
 <h5>Evidence decomposition.</h5>
-<p>The proof above is ordinary mathematics. Three parts of it are
-kernel-checked in this library. The all-depth associated-graded
-recurrence is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L200">checked</a>,
-the initial monomial of transformed row
+<p>The proof above is ordinary mathematics. One part of it is
+kernel-checked in this library: the all-depth associated-graded
+recurrence <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L183">checked</a>.
+The initial monomial of transformed row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 in every column, of order exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">l+1</annotation></semantics></math>
 and coefficient exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">-6</annotation></semantics></math>,
-is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1422">checked</a>,
 and the two closed forms
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mrow><mi mathvariant="normal">ord</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">6\operatorname{ord}=N(N-1)(2N-1)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">2^{N}\mathrm{lc}=(N!)^{2}(N+1)!</annotation></semantics></math>
-are assembled in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1753">one
-checked theorem</a>. The initial-monomial theorem for rows
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">2^{N}\mathrm{lc}=(N!)^{2}(N+1)!</annotation></semantics></math>,
+are ordinary in this record; those Lean names are not in this checkout.
+The initial-monomial theorem for rows
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">j\ge2</annotation></semantics></math>
 is outside this library; row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">j=2</annotation></semantics></math>,
@@ -2577,15 +2574,15 @@ to
 which is a cost of exactly the same size.</em></p>
 </div>
 <p>Lean checks the error identity in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84">error
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84">error
 scaling</a>, the determinant identity in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">content
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">content
 factorisation</a>, the exact absolute-height identity in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute
 determinant scaling</a>, and the divisor statement in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116">content-product
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116">content-product
 divisibility</a>. The elimination identity is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
 determinant identity</a>.</p>
 <p>The key point is that the two scalings are the same scaling. Each
 identity on its own is a one-line expansion, and the interest of the
@@ -2649,7 +2646,7 @@ and a declared width
 put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>W</mi></munderover><msub><mi>p</mi><mi>i</mi></msub><mspace width="0.167em"></mspace><msup><mn>3</mn><mi>i</mi></msup><msup><mn>2</mn><mrow><mi>W</mi><mo>−</mo><mi>i</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">H_W(P)=\sum_{i=0}^{W}p_i\,3^i2^{W-i}.</annotation></semantics></math>
 This is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L98">homogeneous
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L98">homogeneous
 endpoint evaluation</a>. It is homogeneous in the sense that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>X</mi><mi>i</mi></msup><annotation encoding="application/x-tex">X^{i}</annotation></semantics></math>
 is replaced by
@@ -2768,13 +2765,13 @@ and spoiling the top endpoint admits
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</em></p>
 </div>
 <p>The congruences are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L203">bottom-endpoint
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L203">bottom-endpoint
 identity</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L320">top-endpoint
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L320">top-endpoint
 identity</a>; the unit consequences are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L338">constant-endpoint
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L338">constant-endpoint
 obstruction</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L356">top-endpoint
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L356">top-endpoint
 obstruction</a>.</p>
 <p>The proof is two lines, but the shape of the statement is not
 incidental. The difficulty lies in the fact that the specialisation sees
@@ -2804,7 +2801,7 @@ then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∤</mo><mi>c</mi><mspace width="2.0em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="2.0em"></mspace><mn>3</mn><mo>∤</mo><mi>c</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">2\nmid c\qquad\text{and}\qquad 3\nmid c.</annotation></semantics></math></em></p>
 </div>
 <p>This is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398">common-divisor
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398">common-divisor
 exclusion</a>. The proposition does not say that the two evaluations are
 coprime; it says that whatever they share misses both of the primes that
 matter at
@@ -2901,7 +2898,7 @@ dividing
 only the constant term does. ◻</p>
 </div>
 <p>The kernel-checked declaration <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302">cyclotomic
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302">cyclotomic
 hom eval is coprime mul</a> proves Proposition  in the same
 homogeneous-evaluation representation. It checks Proposition 3.6 under
 the displayed coprimality assumptions; it does not certify the later
@@ -2960,9 +2957,9 @@ Their vanishing is exactly the requested divisibility:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mrow><mn>3</mn><mo>,</mo><mi>R</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>⇔</mo><msup><mn>3</mn><mi>R</mi></msup><mo>∣</mo><msub><mi>H</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>J</mi><mrow><mn>2</mn><mo>,</mo><mi>S</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>⇔</mo><msup><mn>2</mn><mi>S</mi></msup><mo>∣</mo><msub><mi>H</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">J_{3,R}(P)=0\iff 3^R\mid H_W(P),\qquad
  J_{2,S}(P)=0\iff 2^S\mid H_W(P).</annotation></semantics></math> These
 are the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom-jet
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom-jet
 divisibility criterion</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L197">top-jet
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L197">top-jet
 divisibility criterion</a>.</p>
 <p>The of a coefficient pair
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>,</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(U,V)</annotation></semantics></math>
@@ -3061,9 +3058,9 @@ gives the displayed reverse count at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>129</mn><mo>+</mo><mn>2</mn><mi>S</mi></mrow><annotation encoding="application/x-tex">129+2S</annotation></semantics></math>. ◻</p>
 </div>
 <p>The sufficient collision threshold is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1800">checked
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L279">checked
 here</a>, while its exact unit-block failure one row earlier is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1813">checked
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L292">checked
 here</a>.</p>
 <p>For all depths at once the ambient-cardinality inequality
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>M</mi></msup><mo>&gt;</mo><msup><mn>3</mn><mrow><mn>2</mn><mi>R</mi></mrow></msup><msup><mn>2</mn><mrow><mn>2</mn><mi>S</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2^{M}&gt;3^{2R}2^{2S}</annotation></semantics></math>
@@ -3140,7 +3137,7 @@ would give
 contrary to the hypothesis. ◻</p>
 </div>
 <p>This finite escape principle is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1832">checked
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L311">checked
 here</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 23</strong> (Bézout–Plücker tail collapse). <em> Let
@@ -3232,12 +3229,12 @@ prove a multiplicity bound for the actual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-Apéry
 or Zudilin remainder family.</p>
 <p>The target count is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L131">four-jet
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L131">four-jet
 target cardinality</a>; the abstract collision is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L142">four-jet
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L142">four-jet
 pigeonhole kernel</a>, and the linear sufficient condition is the
 checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L161">rank–depth
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L161">rank–depth
 collision threshold</a>. The count is a routine pigeonhole; the
 reformulation above is what makes it relevant. Pigeonhole cancellation
 itself requires no independence. Additional information about the input
@@ -3298,9 +3295,9 @@ The inequality is immediate from
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_1&gt;0</annotation></semantics></math>,
 and is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L428">three-halves
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L428">three-halves
 scalar margin</a>. The positive-branch deficit is the checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1763"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>17</mn><mi>/</mi><mn>41</mn></mrow><annotation encoding="application/x-tex">17/41</annotation></semantics></math>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L242"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>17</mn><mi>/</mi><mn>41</mn></mrow><annotation encoding="application/x-tex">17/41</annotation></semantics></math>
 margin</a>. The interest is in the fence around it. The primary Zudilin
 theorem <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> supplies
 an integer-base irrationality-exponent estimate on its parameter cone,
@@ -3379,7 +3376,7 @@ from below by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mspace width="0.167em"></mspace><msup><mi>b</mi><mrow><mspace width="0.167em"></mspace><mi>N</mi><mo>+</mo><mi>K</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">Q\,b^{\,N+K+1}</annotation></semantics></math>,
 and admissible parameters must fit in the band between them. The
 definition is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L149">corridor
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L113">corridor
 predicate</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 27</strong> (corridor bound). <em> If
@@ -3405,7 +3402,7 @@ and cancelling the positive factor
 gives the claim. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L157">power-versus-linear
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121">power-versus-linear
 consequence</a>.</p>
 <p>The inequality of Theorem  is where the integer and rational cases
 part. At
@@ -3477,7 +3474,7 @@ so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>3</mn><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>+</mo><msup><mn>2</mn><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3(x+1)=3x+3&lt;2^{x+1}+2^{x+1}=2^{x+2}</annotation></semantics></math>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L178">exponential
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142">exponential
 comparison</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 30</strong> (no corridor at base
@@ -3499,7 +3496,7 @@ by Theorem , contradicting Proposition  applied to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>N</mi><mo>+</mo><mi>K</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">x=N+K\ge2</annotation></semantics></math>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L191">corridor
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">corridor
 exclusion at three halves</a>.</p>
 <p>Theorem  excludes the coordinatewise clearing scheme at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
@@ -3541,9 +3538,9 @@ is the tail of a putative value
 after that level, scaled by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msup><mi>r</mi><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">Br^{N}</annotation></semantics></math>.
 These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204">rational-base
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L168">rational-base
 prefix</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L217">cleared
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L181">cleared
 tail state</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 31</strong> (cleared-tail recurrence). <em> Let
@@ -3572,7 +3569,7 @@ and clearing the denominator
 which is nonzero, gives the identity. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L223">cleared-tail
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
 recurrence</a>.</p>
 <p>The recurrence has a linear part
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><msub><mi>U</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">rU_N</annotation></semantics></math>
@@ -3612,9 +3609,9 @@ The second part is the definition with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s=1</annotation></semantics></math>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L240">exponential
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204">exponential
 lower bound</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L254">integer-base
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218">integer-base
 collapse</a>.</p>
 <p>At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s=1</annotation></semantics></math>
@@ -3692,24 +3689,24 @@ and
 so the condition holds with a margin of about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.11</mn><annotation encoding="application/x-tex">0.11</annotation></semantics></math>.
 The Lean proof factors the estimate through the explicit <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L44">height-region
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L44">height-region
 predicate</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
 certificate</a>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>18</mn></msup><mo>&lt;</mo><msup><mn>7</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">2^{18}&lt;7^7</annotation></semantics></math>,
 the resulting <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L48">logarithmic
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L48">logarithmic
 ratio bound</a>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>7</mn><mo>&lt;</mo><mn>7</mn><mi>/</mi><mn>18</mn></mrow><annotation encoding="application/x-tex">\log2/\log7&lt;7/18</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L64"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>-bound</a>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L64"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>-bound</a>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msup><mi>π</mi><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">1/\pi^2&lt;1/9</annotation></semantics></math>,
 and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L73">strict
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L73">strict
 margin</a>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>7</mn></mrow></mfrac><mo>&lt;</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>−</mo><mfrac><mn>1</mn><msup><mi>π</mi><mn>2</mn></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{\log2}{\log7}&lt;\frac12-\frac1{\pi^2}.</annotation></semantics></math>
 The <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L119">final
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">final
 height inequality</a> then rewrites
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>7</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>7</mn><mo>−</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">\log(7/2)=\log7-\log2</annotation></semantics></math>
 and closes the displayed condition.</p>
@@ -3755,18 +3752,18 @@ and
 the last comes from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>3</mn><mn>81</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mn>200</mn></msup></mrow><annotation encoding="application/x-tex">3^{81}&lt;2^{200}</annotation></semantics></math>.
 The lower bound is the checked theorem <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L65">two-fifths
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L65">two-fifths
 lower bound</a>. Consequently
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math>,
 and every positive power
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>31</mn><mi>/</mi><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">(31/4)^r</annotation></semantics></math>,
 lies in the enlarged region (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45">checked</a>,
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45">checked</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">power
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">power
 family</a>). The same base lies strictly outside the earlier
 Bundschuh–Väänänen region (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">checked</a>),
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">checked</a>),
 so the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81</mn><mi>/</mi><mn>200</mn></mrow><annotation encoding="application/x-tex">81/200</annotation></semantics></math>
 inequality defines a strict set-theoretic enlargement of the earlier
@@ -3787,9 +3784,9 @@ The exact comparison
 is Lean-checked, as is the conclusion that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
 belongs to neither height region (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L105">boundary</a>,
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L105">boundary</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122">exclusion</a>).
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122">exclusion</a>).
 Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81</mn><mi>/</mi><mn>200</mn></mrow><annotation encoding="application/x-tex">81/200</annotation></semantics></math>
 is the larger of the two explicitly defined cutoffs used below, while a
@@ -3850,11 +3847,11 @@ then
 </ol>
 </div>
 <p>Part (1) is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
 exponent bound</a>, part (2) the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
 gap identity</a>, and part (3) the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60">maximal
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60">maximal
 exponent bound</a>. The gap in (2) is an identity in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>n</mi><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[n,m]</annotation></semantics></math>,
 so (3) follows from
@@ -4272,17 +4269,17 @@ the cleared gap is nonpositive, and it vanishes exactly when
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sigma=1</annotation></semantics></math>
 (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L48">exact
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L48">exact
 expansion</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L58">nonpositivity</a>,
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L58">nonpositivity</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L75">equality
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L75">equality
 case</a>). Equivalently, within that model the displayed threshold never
 exceeds the classical one-function margin, with equality only at the
 classical endpoint (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">bound</a>,
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">bound</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126">equality</a>).
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126">equality</a>).
 This is an algebraic theorem about the four defined exponent expressions
 and only that explicit rectangular model. It does not construct
 polynomials, remainders, integrality, a determinant, or asymptotics, and
@@ -4324,7 +4321,7 @@ problems.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. Proof authority rests in those pinned sources. The
 present text is exposition and navigation.</p>
@@ -4345,7 +4342,7 @@ data-cites="erdosproblems"><a href="#ref-18">[18]</a></span>.</p>
 <section id="long1049:app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision 1da2a504f8d8. The declarations of this note live in nine
+revision 92b88dc1bbe0. The declarations of this note live in nine
 modules: <code>RationalBaseLambert</code>,
 <code>QAperyDiagonalNonEquivalence</code>,
 <code>RationalPadeArithmetic</code>, <code>ZudilinConeArithmetic</code>,
@@ -4367,27 +4364,21 @@ correct as later work moves lines in the working tree.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81</mn><mi>/</mi><mn>200</mn><mo>&lt;</mo><msup><mi>θ</mi><mo>*</mo></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">81/200&lt;\theta^{*}&lt;1/2</annotation></semantics></math>
 of Section  and the integer degree bookkeeping of Section  lives in a
 further module, <code>RationalBaseContour</code>, which the library root
-imports at the pinned revision 1da2a504f8d8. Its declarations are linked
+imports at the pinned revision 92b88dc1bbe0. Its declarations are linked
 at their line coordinates in those two sections.</p>
-<section id="checked-declarations-behind-the-four-jet-collision-family."
-class="level5">
-<h5>Checked declarations behind the four-jet collision family.</h5>
+<section id="four-jet-collision-family." class="level5">
+<h5>Four-jet collision family.</h5>
 <p>For a modular tail whose every row is unimodular and whose adjacent
-minors vanish, all minors vanish, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L191">adjacent-minor
-propagation</a>, the sharper
+minors vanish, all minors vanish, the sharper
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&lt;</mo><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">N&lt;2^k</annotation></semantics></math>
-collision threshold applies, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L280">binary
-tail collision</a>, and at modulus
+collision threshold applies, and at modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>S</mi></msup><msup><mn>3</mn><mi>R</mi></msup></mrow><annotation encoding="application/x-tex">2^S3^R</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R&gt;0</annotation></semantics></math>
 the depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>S</mi><mo>+</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">k\ge S+2R</annotation></semantics></math>
-suffices, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L299">two-three
-depth collision</a>. Neither coordinate must be a unit;
+suffices. These three statements are ordinary in this record; those Lean
+names are not in this checkout. Neither coordinate must be a unit;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3)</annotation></semantics></math>
 modulo six is an example. </p>
 </section>

@@ -79,10 +79,10 @@ single file that is authoritative for everything.
 
 | Question | Authoritative source | What it controls |
 |---|---|---|
-| What has been formally checked? | [`Erdos249257.lean`](Erdos249257.lean), [`ErdosProblems.lean`](ErdosProblems.lean), and the Lean modules they import | Formal statements and proofs; kernel checking alone does not create a reviewed public claim |
+| What has been formally checked? | [`Erdos249257.lean`](lean/Erdos249257.lean), [`ErdosProblems.lean`](lean/ErdosProblems.lean), and the Lean modules they import | Formal statements and proofs; kernel checking alone does not create a reviewed public claim |
 | What may the project publicly say about a result? | [`docs/claims.json`](docs/claims.json) | Claim wording, status, supporting Lean names, bounded ranges, and the exact questions that remain open |
 | What evidence and review are required when a claim changes? | [`docs/methodology.json`](docs/methodology.json) | Change classes and review requirements |
-| What does a reader see? | [`README.md`](README.md), [`SCOPE.md`](SCOPE.md), and the eight individual problem papers routed by [`docs/papers/README.md`](docs/papers/README.md) | Human explanation; these files must stay within the claim record. The former combined manuscript, [`paper/erdos249-257-main-paper.tex`](paper/erdos249-257-main-paper.tex), is archived provenance only, not an active gateway. |
+| What does a reader see? | [`README.md`](README.md), [`SCOPE.md`](SCOPE.md), and the eight individual problem papers routed by [`docs/papers/README.md`](docs/papers/README.md) | Human explanation; these files must stay within the claim record. The former combined manuscript, [`paper/archive/erdos249-257-main-paper.tex`](paper/archive/erdos249-257-main-paper.tex), is archived provenance only, not an active gateway. |
 | Which manuscripts are shipped? | [`docs/publication_contract.json`](docs/publication_contract.json) | Paper inventory, file identities, entry routes, and evidence boundaries |
 | What evidence supports the historical checker example? | [`docs/publication_evidence.json`](docs/publication_evidence.json) | The recorded exercise and its limitations |
 | How are releases blocked? | [`scripts/check_release.py`](scripts/check_release.py) and [`.github/workflows/lean.yml`](.github/workflows/lean.yml) | Local release checks and continuous integration |
@@ -328,7 +328,7 @@ software makes reviewed decisions repeatable; it does not make those decisions
 on its own.
 
 The printable
-[`claim-faithful-publication-systems-paper.pdf`](claim-faithful-publication-systems-paper.pdf)
+[`claim-faithful-publication-systems-paper.pdf`](paper/systems/claim-faithful-publication-systems-paper.pdf)
 expands this guide into a paper: it shows the real file map, release flow,
 trust boundary, and one claim from Lean source to public page. A short
 historical checker example appears only after that architecture and illustrates
@@ -354,7 +354,7 @@ the limit of explicitly recorded checks.
   [`docs/publication_evidence.json`](docs/publication_evidence.json) and the
   reproducibility appendix of the systems paper.
 
-The shortest accurate summary is this: Lean checks the formal proofs, people
+Summary: Lean checks the formal proofs, people
 review what the project says about them, and the release machinery keeps those
 two layers from drifting apart where the relationship has been explicitly
 recorded.

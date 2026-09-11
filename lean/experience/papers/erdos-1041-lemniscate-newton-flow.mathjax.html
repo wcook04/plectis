@@ -4,7 +4,7 @@
     <h1>Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates</h1>
     <p class="lean-paper__subject">Erdős #1041</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-1041-lemniscate-newton-flow.tex">
+  <div class="lean-paper__body" data-source="../../../paper/1041/erdos-1041-lemniscate-newton-flow.tex">
 <section id="sec:trinomial" class="level2">
 <h2>Monic trinomials, in every degree</h2>
 <div class="theorem">
@@ -35,10 +35,11 @@ class="math display" data-term-auto="off">\[|f(t\zeta)|\le |b|(1-t^m)+|\zeta|^n(
 <p>At <span class="math inline" data-term-auto="off">\(t=1\)</span> the
 value is zero. Concatenating the two segments gives length <span
 class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. The displayed
-statement, with the broken line as a continuous curve of bounded
-variation and its length read as extended variation, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperTrinomial.lean#L38">Lean
-source</a>. ◻</p>
+statement is ordinary mathematics in this note.
+<code>PaperTrinomial.lean</code> is not in this checkout. Lean checks
+Newton-flow decay, ray/translation geometry and root retention in
+<code>NewtonFlowRaySeparation.lean</code>, and solved-family kernels
+rather than this all-degree trinomial assembly. ◻</p>
 </div>
 <section id="a-finite-convex-certificate." class="level5">
 <h5>A finite convex certificate.</h5>
@@ -74,9 +75,9 @@ six roots have modulus <span class="math inline" data-term-auto="off">\(r\)</spa
 class="math inline" data-term-auto="off">\(r\)</span> with <span
 class="math inline" data-term-auto="off">\(320/327&lt;r^6&lt;1\)</span> proves the assertion.
 Only this prescribed spoke is excluded; other connectors remain
-available. The statement with the radius supplied is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperTrinomial.lean#L79">Lean
-source</a>.</p>
+available. The statement with the radius supplied is ordinary
+mathematics; <code>PaperTrinomial.lean</code> is not in this
+checkout.</p>
 </section>
 </section>
 <section id="sec:problem" class="level2">
@@ -216,8 +217,10 @@ used here: balls at different radii may have overlapping shadows. Common
 circle slices retain it. The resulting lower bound for <span
 class="math inline" data-term-auto="off">\(k\)</span> feeds the length–area comparison until
 a short boundary connection is forced. The complete comparison proof and
-rational certificate are in . The certified terminal time is <span
-class="math inline" data-term-auto="off">\(635762889599/10^{12}\)</span>, and <span
+rational certificate are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md">the
+angular budget low critical closure</a>. The certified terminal time is
+<span class="math inline" data-term-auto="off">\(635762889599/10^{12}\)</span>, and <span
 class="math inline" data-term-auto="off">\((13/25)\exp(635762889599/10^{12})&lt;1\)</span>.</p>
 </section>
 <section id="an-independent-area-proof." class="level5">
@@ -320,9 +323,13 @@ may be taken strictly below the top of the window, so the path lies in
 <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>. ◻</p>
 </div>
 <p>The component-arity, capacity and two-root persistence-window
-refinements are retained with their complete hypotheses in and . Their
-parent conclusions under <span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>
-are already covered by Theorem <span
+refinements are retained with their complete hypotheses in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/UnconditionalConstantFactorBound.md">unconditional
+constant factor bound</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/MinimalHubWindowJoin.md">minimal
+hub window join</a>. Their parent conclusions under <span
+class="math inline" data-term-auto="off">\(\mu\le1/2\)</span> are already covered by
+Theorem <span
 class="math inline" data-term-auto="off">\(\ref{res:low-critical-thirteen-twentyfifths}\)</span>;
 their additional content is control of a specified component or a
 specified descent arc. The exact distinction between a simple minimum
@@ -356,8 +363,9 @@ d_j^{\,n-1}\le r^n\)</span>. After normalising by <span
 class="math inline" data-term-auto="off">\(r\)</span>, a sharp two-variable Bernoulli
 inequality yields <span class="math inline" data-term-auto="off">\(d_i+d_j\le2r\)</span>. The
 complete complex theorem, including the selector and both inequalities,
-is checked as <em>exists two roots dist sum le two mul geom
-mean</em>.</p>
+is checked as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L289">the
+critical geometric-mean proximity</a>.</p>
 <p>This is not silently promoted to a path theorem. The same source
 module checks two exact barriers to the most tempting completions.</p>
 <div class="proposition">
@@ -372,12 +380,15 @@ pair of distinct roots lies outside <span
 class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>.</em></p>
 </div>
 <p>The certificates are exact rational-algebraic computations, checked
-as <em>nearest spoke unique nearest spoke escapes</em> and <em>all
-straight cubic every pair midpoint escapes</em>, and the displayed
-proposition itself, with both quintic and cubic exhibited as polynomials
-and the nearest-root condition quantified over every zero, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178">Lean
-source</a>. The first defeats a tie-breaking escape hatch; the second
+as the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L438">unique
+nearest-spoke escape</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L569">cubic
+all-straight midpoint obstruction</a>, and the displayed proposition
+itself, with both quintic and cubic exhibited as polynomials and the
+nearest-root condition quantified over every zero, records those same
+two evaluations. <code>PaperStraightObstructions.lean</code> is not in
+this checkout. The first defeats a tie-breaking escape hatch; the second
 defeats every straight root-pair segment. Together with Theorem <span
 class="math inline" data-term-auto="off">\(\ref{res:critical-proximity}\)</span>, they
 isolate the real gap: critical-point proximity selects a short metric
@@ -411,8 +422,9 @@ more than <span class="math inline" data-term-auto="off">\(-3\)</span>, so one i
 than <span class="math inline" data-term-auto="off">\(-1\)</span>. For that root, AM–GM and
 the exact cyclotomic cancellation <span
 class="math inline" data-term-auto="off">\((1-t)(1+t+t^2)=1-t^3\)</span> prove that its
-complete origin spoke is safe. Lean checks this fan-in as <em>cubic has
-safe root spoke</em>. Pulling the spoke back under <span
+complete origin spoke is safe. Lean checks <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161">the
+safe cubic root-spoke fan-in</a>. Pulling the spoke back under <span
 class="math inline" data-term-auto="off">\(y\mapsto y^q\)</span> gives <span
 class="math inline" data-term-auto="off">\(q\)</span> safe spokes from <span
 class="math inline" data-term-auto="off">\(h\)</span>; two different fibre points are joined
@@ -443,11 +455,13 @@ the interior-root condition. The phase-sensitive boundary theorem uses
 the first three Newton moments and a cubic separator. Its harmonic
 extension controls mixed interior/boundary configurations and shows that
 an unsafe interior tail contributes at most <span
-class="math inline" data-term-auto="off">\(2/31\)</span>. Lean checks the finite selectors
-<em>primitive boundary exists two tail energy lt one</em> and
-<em>primitive interior exists two tail energy lt one</em>; the rotation,
-moment identification, Abel path estimate, and two-spoke assembly are
-ordinary mathematics.</p>
+class="math inline" data-term-auto="off">\(2/31\)</span>. Lean checks the finite selectors <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean#L200">two
+boundary tail energies below one</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">two
+interior tail energies below one</a>; the rotation, moment
+identification, Abel path estimate, and two-spoke assembly are ordinary
+mathematics.</p>
 </section>
 <section id="bdry:solved-polynomial-families" class="level3">
 <h3>Sharp collinear roots</h3>
@@ -455,10 +469,12 @@ ordinary mathematics.</p>
 class="math inline" data-term-auto="off">\(\ref{sec:collinear}\)</span>. It gives the sharp
 Chebyshev constant, not merely an existence bound, and therefore belongs
 to the solved-family layer rather than the frontier layer. Lean checks
-the constrained alternation engine <em>exists peak le of monic
-comparison</em> and its Chebyshev consumer <em>exists peak le comparison
-bound</em>; affine normalisation, root-gap selection, and transport back
-to the original line are ordinary.</p>
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/SharpCollinearAlternation.lean#L158">the
+constrained monic-comparison alternation</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133">its
+Chebyshev comparison-bound consumer</a>; affine normalisation, root-gap
+selection, and transport back to the original line are ordinary.</p>
 </section>
 </section>
 <section id="sec:separation" class="level2">
@@ -496,10 +512,12 @@ class="math display" data-term-auto="off">\[\begin{equation}
 </div>
 <div class="corollary">
 <p><strong>Corollary 12</strong> (disk-family uniform radius). <em> A
-strictly stronger disk-family theorem, proved in , replaces the
-coefficientwise logarithm <span
-class="math inline" data-term-auto="off">\(\log(S/(S-1))\)</span> by the Bergman segment
-identity <span class="math display" data-term-auto="off">\[\Bigl(\int_{-q}^{q}|h|\Bigr)^2
+strictly stronger disk-family theorem, proved in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.md">disk
+family critical value separation</a>, replaces the coefficientwise
+logarithm <span class="math inline" data-term-auto="off">\(\log(S/(S-1))\)</span> by the
+Bergman segment identity <span
+class="math display" data-term-auto="off">\[\Bigl(\int_{-q}^{q}|h|\Bigr)^2
 \le\frac4\pi\operatorname{artanh}(q^2)\,\|h\|_{A^2}^2\]</span> and
 yields a uniform radius <span class="math inline" data-term-auto="off">\(S=4/3\)</span> in
 every degree <span class="math inline" data-term-auto="off">\(n\ge3\)</span>, at every real
@@ -596,9 +614,12 @@ class="math inline" data-term-auto="off">\(R\uparrow\sqrt S\)</span> proves the 
 <section id="bdry:critical-value-separation" class="level5">
 <h5>Boundary.</h5>
 <p>The analytic continuation, the univalence, the area formula, and the
-area–capacity inequality are ordinary mathematics; they are proved in
-and are not formalised. What Lean checks is the numerical half of the
-statement, in : the squared coefficient <span
+area–capacity inequality are ordinary mathematics; they are proved in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparationCertificate.md">first
+merge critical value separation certificate</a> and are not formalised.
+What Lean checks is the numerical half of the statement, in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparation.lean">first
+merge critical value separation</a>: the squared coefficient <span
 class="math inline" data-term-auto="off">\(\emph{first merge squared coefficient}\)</span> is
 antitone in the degree (<em>first merge squared
 coefficient antitone degree</em>), a squared connector length below
@@ -608,8 +629,12 @@ class="math inline" data-term-auto="off">\(2\)</span> (<em>first
 merge length lt two of squared bound</em>), and the older three
 coefficientwise regimes hold exactly (<em>first
 merge exact convenient thresholds</em>), while the live uniform radius
-<span class="math inline" data-term-auto="off">\(4/3\)</span> is checked in . The Comparator
-entry is . Lean does not prove the analytic hypothesis <span
+<span class="math inline" data-term-auto="off">\(4/3\)</span> is checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">disk
+family critical value separation</a>. The Comparator entry is <a
+href="https://github.com/wcook04/plectis-erdos/tree/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ExternalVerification1041FirstMergeCriticalValueSeparation">the
+first-merge critical-value separation Comparator</a>. Lean does not
+prove the analytic hypothesis <span
 class="math inline" data-term-auto="off">\(\ell^2\le4\,\mathrm{c}(n,S)\)</span> that those
 consumers take as input, and nothing in this section asserts the
 unrestricted problem or the complementary near-tie regime.</p>
@@ -624,7 +649,11 @@ inverse-map length estimate.</p>
 <h2>Three exact covering obstructions</h2>
 <p>None of the following is a counterexample to Erdős #1041. Each kills
 a covering reading of a sufficient regime. Rational cores are checked in
-; the ordinary arguments are in .</p>
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/RevisionR2ExactCores.lean">revision
+r2 exact cores</a>; the ordinary arguments are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/ExactObstructionsR2.md">exact
+obstructions r2</a>.</p>
 <div class="proposition">
 <p><strong>Proposition 14</strong> (no separation-or covering). <em> Let
 <span class="math inline" data-term-auto="off">\(f(z)=z^3+(3/100)z-3/4\)</span>. Every root
@@ -634,9 +663,10 @@ class="math inline" data-term-auto="off">\(\mu&gt;13/25\)</span>, and <span
 class="math display" data-term-auto="off">\[\bigl|1-f(c_-)/f(c_+)\bigr|&lt;2/375&lt;2.\]</span></em></p>
 </div>
 <p>The whole proposition, including the least-modulus assertion rather
-than a supplied minimum, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean#L189">Lean
-source</a>.</p>
+than a supplied minimum, is ordinary in this note.
+<code>PaperSeparationCounterexample.lean</code> is not in this checkout;
+the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
+is not this cubic example.</p>
 <div class="proposition">
 <p><strong>Proposition 15</strong> (one-root gamma bound is false). <em>
 Let <span class="math inline" data-term-auto="off">\(p(z)=z^8-(3/2)z\)</span> and let <span
@@ -691,9 +721,12 @@ class="math inline" data-term-auto="off">\(w&#39;(t)=-w(t)\)</span>.</em></p>
 </div>
 <p>The computation is one line: <span
 class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
-The kernel checks it as <em>newton flow value has deriv at</em>,
-together with the differential form of the first integral, <em>newton
-flow scaled value has deriv at zero</em>:</p>
+The kernel checks it as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
+Newton-flow value equation</a>, together with the differential form of
+the first integral, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
+of the exponentially scaled value</a>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
   \qquad\text{equivalently}\qquad
@@ -713,10 +746,11 @@ class="math inline" data-term-auto="off">\(0\)</span> in the value plane; the tr
 if two critical values lie on distinct positive rays, no Newton-flow
 saddle connection joins the corresponding critical points.</em></p>
 </div>
-<p>This is checked in consumer form: the kernel accepts the implication
-from the hypothesis of distinct rays to the absence of a connection. It
-is the statement the topology needs, and it is a genuine sharpening of
-the criterion used in the literature.</p>
+<p>This is checked in consumer form: the kernel accepts <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">the
+implication from distinct rays to the absence of a Newton
+connection</a>. It is the statement the topology needs, and it is a
+genuine sharpening of the criterion used in the literature.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -744,14 +778,20 @@ the form <span class="math display" data-term-auto="off">\[\beta=\frac{ra-b}{1-r
   \qquad r\in\mathbb{R}_{&gt;0},\ r\ne1 .\]</span></em></p>
 </div>
 <p>So each pair of critical values contributes a one-real-parameter
-forbidden locus in the translation plane, given in closed form
-(<em>translated same positive ray parameterization</em>). A finite union
-of such loci has empty interior, so arbitrarily small translations avoid
-the finitely many ray collisions. Fixed-degree lower semicontinuity in
-Section <span class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> passes a
-dense-generic closed-level length bound to the whole coefficient class.
-Quantitative forward transport of a selected curve requires additional
-control, but is not a premise of that existence argument.</p>
+forbidden locus in the translation plane, given in closed form (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">the
+ray-collision parameterization</a>). A finite union of such loci has
+empty interior, so <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">an
+arbitrarily small translation separates the arguments</a>. Under an
+explicit margin, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">a
+small constant perturbation keeps the roots in the unit disc</a>.
+Fixed-degree lower semicontinuity in Section <span
+class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> passes a dense-generic
+closed-level length bound to the whole coefficient class. Quantitative
+forward transport of a selected curve requires additional control, but
+is not a premise of that existence argument.</p>
 </section>
 <section id="sec:reciprocal" class="level2">
 <h2>Local coordinates for perturbative competitors</h2>
@@ -769,8 +809,10 @@ class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span>; diffe
 geometric series give the corresponding first and second derivative
 bounds. The complete reciprocal recurrences, zero-margin staple
 construction, and quadratic contact test are proved in the long record
-and . Their use requires a compatible local contact; the expansion alone
-supplies no global root-pair selection.</p>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/ReciprocalNewtonExpansion.md">reciprocal
+newton expansion</a>. Their use requires a compatible local contact; the
+expansion alone supplies no global root-pair selection.</p>
 </section>
 <section id="sec:gap" class="level2">
 <h2>A proof gap in the unrestricted argument</h2>
@@ -1098,7 +1140,11 @@ class="math inline" data-term-auto="off">\(R\)</span>. ◻</p>
 <p>The constant is attained by <span
 class="math inline" data-term-auto="off">\(f(z)=(z-h)^n-\lambda\)</span> with <span
 class="math inline" data-term-auto="off">\(|\lambda|=R^n\)</span>. These ordinary analytic
-proofs are recorded in and . The circle comparison and finite
+proofs are recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FreePointQuadraticAllDegrees.md">free
+point quadratic all degrees</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/CentredCircleQuadrinomialConnector.md">centred
+circle quadrinomial connector</a>. The circle comparison and finite
 Taylor-coefficient identity have checked kernels; Poisson integration
 and the maximum-principle assembly remain ordinary. A critical-value
 mean supplies no attachment or path-length estimate by itself.</p>
@@ -1165,8 +1211,10 @@ class="math inline" data-term-auto="off">\(r=e^{-kx}\)</span> gives (O3). ◻</
 the behaviour of very young edges. Chain allocation must retain the
 distribution of ages and the convex function <span
 class="math inline" data-term-auto="off">\(\Phi\)</span>. The weighted Jensen bounds and the
-two-young-root selector are retained in . They still require a geometric
-compatibility estimate before they produce a contained connector.</p>
+two-young-root selector are retained in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AttachmentAgeLifetimeOrlicz.md">attachment
+age lifetime orlicz</a>. They still require a geometric compatibility
+estimate before they produce a contained connector.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>The remaining geometric selection problem</h2>
@@ -1202,16 +1250,19 @@ is therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\boxed{\Lambda(f)\le\Lambda(z^n-1)=2\qquad(f\in\mathcal
 K_n).}\]</span></div>
-<p>The lower-semicontinuity argument is proved in .</p>
+<p>The lower-semicontinuity argument is proved in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/GenericSufficiencyClosure.md">generic
+sufficiency closure</a>.</p>
 </section>
 <section id="a-sufficient-canonical-arc-estimate." class="level5">
 <h5>A sufficient canonical-arc estimate.</h5>
 <p>On the generic simple-critical, ray-separated class, cutting the
 value plane along critical rays gives the finite inverse-sheet
-construction recorded in . Let <span
-class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the length of the canonical
-two-root descent arc through a critical point <span
-class="math inline" data-term-auto="off">\(c\)</span>. Only critical points with <span
+construction recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AttachmentAwareReeb.md">attachment
+aware reeb</a>. Let <span class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the
+length of the canonical two-root descent arc through a critical point
+<span class="math inline" data-term-auto="off">\(c\)</span>. Only critical points with <span
 class="math inline" data-term-auto="off">\(|f(c)|\le1\)</span> give admissible unit-level
 candidates. The sufficient metric target is</p>
 <div class="math-display" data-term-auto="off"><span
@@ -1257,8 +1308,10 @@ the least critical modulus and a separation-two test do not cover all
 polynomials, and that initial merge arity does not control capacity
 after subsequent mergers. The all-degree critical-value inequality
 controls a marginal distribution; it does not identify compatible
-inverse branches. The ordinary note records Blaschke-power polynomials
-<span class="math inline" data-term-auto="off">\(F_N=A^N-D^N\)</span> that realise the sharp
+inverse branches. The ordinary note <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/BlaschkePowerCriticalSpectra.md">blaschke
+power critical spectra</a> records Blaschke-power polynomials <span
+class="math inline" data-term-auto="off">\(F_N=A^N-D^N\)</span> that realise the sharp
 critical-value moment numerator <span class="math inline" data-term-auto="off">\(4s\)</span>
 inside the polynomial class, including a high-critical nonseparated
 regime with exact rational certificates. The same family has ordinary

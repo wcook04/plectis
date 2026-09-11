@@ -1,0 +1,841 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Standalone Erdős Problem Note for #68.  Context is deliberately repeated
+% from the sibling notes so that this file remains independently readable.
+%
+% Build from the public paper directory with `make`.
+\documentclass[11pt]{article}
+\input{problem-note-preamble}
+\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
+\renewcommand{\commitshort}{99f4bf47422a}
+\usepackage{longtable}
+\hypersetup{
+  pdftitle={Two incomparable denominator exclusions for the sum of reciprocals of n!-1 (Erdős Problem 68)},
+  pdfsubject={Erdős Problem Notes: Problem 68},
+  pdfkeywords={irrationality, factorial denominators, companion constant, factorial orbit, strict successor, prime-pole residue, continued fractions, Lean 4},
+}
+
+% The prose keeps compact declaration labels; the source appendix supplies the
+% commit-pinned links checked by the public release gate.
+\newcommand{\pdecl}[1]{\emph{\leanlabel{#1}}}
+\newcommand{\Ser}{S}
+\newcommand{\chn}[2]{V_{#1}(#2)}
+\newcommand{\Lc}{L}
+
+\runninghead{Erd\H{o}s \#68: two incomparable denominator exclusions}
+\title{Two Incomparable Denominator Exclusions\\for $\sum_{n\ge2}(n!-1)^{-1}$}
+\subtitle{Finite certificates and exact rationality criteria for Erd\H{o}s Problem~\#68}
+\author{Will Cook}
+\date{31 August 2026}
+
+\begin{document}
+\maketitle
+\noteprovenance
+
+\begin{problem}[Erd\H{o}s \#68]\label{res:problem}
+Is
+\[
+  \Ser=\sum_{n\ge2}\frac1{n!-1}
+\]
+irrational?
+\end{problem}
+
+\begin{abstract}
+Every rational representation $S=a/q$, $q>0$, of
+$S=\sum_{n\ge2}(n!-1)^{-1}$ satisfies
+\[
+q\nmid299999!,\qquad q\ge2^{39990}>10^{12038}.
+\]
+The first exclusion follows from an exact strict-successor carry test;
+the second from continued fractions.  An integral divisor basis determines
+the cancelling vectors and their attainable factorial moments.  At fixed
+moment, every correction translates the full residual by an integer.
+Actual prime-power cancellations explain why common-denominator growth
+alone does not control reduced prefixes.  The companion constant $S-e+2$
+gives an exact factorial-orbit criterion; the remaining assertion is a
+\lword{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}{cofinal miss of the strict factorial successor}.
+\end{abstract}
+
+\section{The denominator exclusions}\label{sec:problem}
+
+Let $S=\sum_{n\ge2}(n!-1)^{-1}$ and
+\[
+H_m=\sum_{n=2}^m\frac1{n!-1},\qquad
+Z_m=\lfloor m!H_m\rfloor+1,\qquad
+b_m=mZ_{m-1}+1-Z_m.
+\]
+The divisibility exclusion in the abstract rests on the implication
+\begin{equation}
+S=a/q,\quad q\mid(m-1)!,\quad m\ge3
+\quad\Longrightarrow\quad b_m=1.\label{eq:finite-denominator-consumer}
+\end{equation}
+Indeed, $0<m!(S-H_m)<1$, by comparison with the telescoping
+series $\sum_{n>m}(n-1)/n!=1/m!$.  Thus $m!S$ is the unique integer
+strictly above $m!H_m$.  The same argument at $m-1$ gives
+$Z_m=m!S=mZ_{m-1}$, proving \eqref{eq:finite-denominator-consumer}.
+A non-unit carry at index $m$ therefore forces
+\lword{Erdos68/FactorialZeroPlateau.lean}{876}{rational_denominator_ge_of_nonunit_carry}{every rational denominator to be at least $m$},
+since any smaller positive $q$ would divide $(m-1)!$.
+The exact value $b_{300000}\ne1$ therefore excludes every divisor of
+$299999!$ as a denominator of $S$.
+
+The independent continued-fraction exclusion bounds the denominator's size.
+Neither restriction implies the other: a prime between $299999$ and $599998$
+satisfies the divisibility restriction and fails the size restriction,
+whereas $299999!$ does the reverse.  Both conclusions are finite; they do
+not decide the irrationality question posed by Erd\H{o}s~\cite{erdos1988,bloom}.
+Their computational certificates are specified in \S\ref{sec:finite}.
+
+\lword{Erdos68/FactorialChannelCertificate.lean}{65}{channelEvent_eq_zero_of_not_dvd}{Adjacent factorial differences affect exactly their divisor channels}.
+Integral triangular elimination therefore solves the channel equations.
+The support restriction determines which factorial moments occur, while
+at a fixed moment every correction changes the residual by an integer.
+The argument separates coefficient feasibility from the real separation
+needed for irrationality.
+
+\section{The fixed companion orbit}\label{sec:companion-orbit}
+
+The termwise identity
+\[
+\frac1{n!-1}=\frac1{n!}+\frac1{n!(n!-1)}
+\]
+replaces the changing prefixes by the factorial orbit of one fixed number,
+\[
+C=\sum_{n\ge2}\frac1{n!(n!-1)}.
+\]
+Absolute convergence gives
+\begin{equation}C+(e-2)=\Ser.\label{eq:companion-decomposition}\end{equation}
+The endpoint of the exponential prefix contributes residue $1$ modulo $m$;
+its positive tail removes another unit on taking the floor.  This accounts
+for the distinguished residue $-2$ in the following theorem.
+
+\begin{theorem}[fixed companion-orbit rationality boundary]
+\label{res:companion-orbit-rationality-boundary}
+The following statements are equivalent:
+\begin{enumerate}
+\item $\Ser\in\mathbb Q$;
+\item $(\lfloor m!C\rfloor+2)\bmod m=0$ for every sufficiently large $m$.
+\end{enumerate}
+Consequently,
+\begin{equation}
+ \Ser\notin\mathbb Q
+ \quad\Longleftrightarrow\quad
+ (\forall B)(\exists m>B)\;
+   (\lfloor m!C\rfloor+2)\bmod m\ne0 .
+ \label{eq:companion-cofinal}
+\end{equation}
+\end{theorem}
+
+\noindent The equivalence and its cofinal form are
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29}{companion orbit boundary}.
+
+\begin{proof}
+First suppose $\Ser=a/q$ with $q>0$, and take $m$ so large that
+$q\mid(m-1)!$.  Write
+\[
+ E_m=m!\sum_{2\le n\le m}\frac1{n!},
+ \qquad
+ \varepsilon_m=m!\sum_{n>m}\frac1{n!}.
+\]
+Then $E_m$ is an integer, $0<\varepsilon_m<1$, and $m!\Ser$ is an integer
+divisible by $m$.  Multiplying \eqref{eq:companion-decomposition} by $m!$
+therefore gives
+\[
+ \lfloor m!C\rfloor=m!\Ser-E_m-1.
+\]
+Every summand of $E_m$ except the endpoint $m!/m!=1$ is divisible by $m$.
+Thus $E_m\equiv1\pmod m$ and
+$\lfloor m!C\rfloor\equiv-2\pmod m$.
+
+Conversely, assume the displayed congruence from some index onward.  Let
+$d_m(C)=\lfloor m!C\rfloor-m\lfloor(m-1)!C\rfloor$ be the canonical
+factorial digit.  Since $0\le d_m(C)<m$, for $m\ge3$ the congruence is
+equivalent to
+\[
+ d_m(C)=m-2.
+\]
+Choose $N$ beyond the exceptional indices.  The canonical factorial
+expansion of $C$ then has the form
+\[
+ C=\lfloor C\rfloor+
+   \sum_{m=2}^{N}\frac{d_m(C)}{m!}+
+   \sum_{m>N}\frac{m-2}{m!}.
+\]
+Adding $e-2=\sum_{m\ge2}1/m!$ and using the telescoping identity
+\[
+ \sum_{m>N}\frac{m-1}{m!}
+ =\sum_{m>N}\left(\frac1{(m-1)!}-\frac1{m!}\right)
+ =\frac1{N!}
+\]
+gives
+\[
+ \Ser=\lfloor C\rfloor+
+   \sum_{m=2}^{N}\frac{d_m(C)+1}{m!}+\frac1{N!},
+\]
+which is rational.  Negating the eventual statement yields the cofinal
+formulation above.
+\end{proof}
+
+\begin{remark}\label{bdry:companion-orbit-nonconcentration}
+The remaining assertion is cofinal escape of this actual factorial orbit
+from $-2$.  The theorem identifies the required event without supplying it.
+\end{remark}
+
+\subsection{The carry and its wrap correction}\label{sec:digits}
+The canonical factorial digit is
+$d_m(C)=\lfloor m!C\rfloor-m\lfloor(m-1)!C\rfloor$.
+For $C_m=\sum_{n=2}^m1/(n!(n!-1))$, put
+\[
+\delta_m=m!(C-C_m),\qquad
+\sigma_m=\mathbf1_{\{\{m!C\}<\delta_m\}}.
+\]
+The positive tail satisfies $0<\delta_m<1/((m+1)!-1)$.
+Subtracting it crosses an integer exactly when $\sigma_m=1$, so for $m\ge3$
+\begin{equation}
+b_m=m-1-d_m(C)+\sigma_m-m\sigma_{m-1}.
+\label{eq:companion-wrap}
+\end{equation}
+This identity is unconditional.  A floor-stability hypothesis is required
+only to discard the two wrap terms.  Equality in the defining comparison is
+the no-wrap case.  Canonical factorial expansions and their rationality
+criterion are classical~\cite{cantor1869,galambos1976}.
+
+\begin{theorem}[exact carry characterisation]
+\label{res:carry-characterization}\label{res:strict-successor-complete-characterization}
+The following conditions are equivalent:
+\[
+S\notin\mathbb Q,\qquad
+(\forall B)(\exists m>B)\ b_m\ne1,\qquad
+(\forall B)(\exists m>B)\ m\nmid Z_m.
+\]
+In particular,
+\lword{Erdos68/FactorialZeroPlateau.lean}{953}{irrational_factorialGapSeries_of_cofinal_nonunit_carries}{cofinal non-unit carries imply irrationality};
+equivalently, the original problem is the
+\lword{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}{strict-successor criterion}.
+\end{theorem}
+
+\noindent The pair of equivalences is
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47}{carry characterisation}.
+\begin{proof}
+Rationality forces eventual unit carries by
+\eqref{eq:finite-denominator-consumer}.  Conversely, if $b_m=1$
+eventually, then $Z_m/m!$ is eventually constant.  Since
+\[
+H_m<Z_m/m!\le H_m+1/m!,
+\]
+that rational constant is $S$.  Finally writing $x=(m-1)!H_{m-1}$ gives
+$b_m=m-1-\lfloor m\{x\}+1/(m!-1)\rfloor$, hence
+$-1\le b_m\le m-1$.  For $m\ge3$, these bounds together with
+$Z_m=mZ_{m-1}+1-b_m$, imply $m\mid Z_m$ exactly when $b_m=1$.
+\end{proof}
+
+\section{An integral basis for factorial channels}\label{sec:channels}
+
+For a finite integer vector $\lambda$, define
+\[
+W_{d,n}=\frac{n!}{(d!)^{\lfloor n/d\rfloor}},\qquad
+M(\lambda)=\sum_n\lambda_n n!,\qquad
+V_d(\lambda)=\sum_n\lambda_nW_{d,n}.
+\]
+The
+\lword{Erdos68/FactorialChannelCertificate.lean}{25}{factorial_pow_floor_dvd_factorial}{weights are integers}.
+We first allow the auxiliary coordinate $e_1$,
+then impose the manuscript support $n\ge2$.  This coefficient convention
+introduces no term $1/(1!-1)$ into $S$.
+
+\begin{theorem}[divisor-channel coordinates]\label{res:divisor-channel-coordinates}
+Set
+\[
+T_n=ne_{n-1}-e_n,\qquad
+U_n=T_n-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}U_d
+\quad(n\ge2).
+\]
+Then
+\[
+M(U_n)=0,\qquad V_d(U_n)=(d!-1)\mathbf1_{d=n}.
+\]
+The vectors $e_1,U_2,U_3,\ldots$ form an integral basis.  Every finite vector
+has the unique finite expansion
+\begin{equation}
+\lambda=M(\lambda)e_1+
+\sum_{d\ge2}\frac{V_d(\lambda)-M(\lambda)}{d!-1}U_d.
+\label{eq:channel-basis-expansion}
+\end{equation}
+\end{theorem}
+
+\noindent The observables, the unique expansion and the coefficient formula are
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260}{divisor channel coordinates}.
+\begin{proof}
+The moment of $T_n$ is zero.  The floor in $W_{d,n}$ changes between
+$n-1$ and $n$ precisely when $d\mid n$, so
+\[
+V_d(T_n)=(d!-1)W_{d,n}\mathbf1_{d\mid n}.
+\]
+The recursion cancels the proper divisor channels, proving the two identities
+by induction.  The vectors $e_1,T_2,\ldots,T_N$ form an integral triangular
+basis with final coefficients $1,-1,\ldots,-1$.  The change from $T_n$ to
+$U_n$ is integral triangular with unit diagonal.  Hence $e_1,U_2,\ldots,U_N$
+is also an integral basis.  Applying $M$ and each $V_d$ identifies its
+coefficients as in \eqref{eq:channel-basis-expansion}.  For $d$ beyond the
+support, $V_d=M$, so no infinite sum is required.
+\end{proof}
+
+The prime translator is the case $U_p=T_p$ for a prime $p\ge3$.
+The recursion also isolates composite channels; for example
+\begin{equation}
+U_9=9e_8-e_9-5040e_2+1680e_3.
+\label{res:translator}
+\end{equation}
+It has moment zero and only channel $9$ is nonzero.  Thus each channel can
+be adjusted separately by a multiple of its own denominator.  The expansion
+is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L17}{composite translator nine} and the observable
+profile is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L45}{composite translator nine profile}.
+
+\subsection{The support restriction and the residual}
+Write
+\[
+L_D=\operatorname{lcm}_{2\le d\le D}(d!-1),\qquad
+K_D=L_De_1-\sum_{d=2}^D\frac{L_D}{d!-1}U_d.
+\]
+Equation~\eqref{eq:channel-basis-expansion} implies both the channel congruence
+\begin{equation}
+V_d(\lambda)\equiv M(\lambda)\pmod{d!-1}
+\label{res:congruence}
+\end{equation}
+in the equivalent integer-divisibility form
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53}{supported channel congruence},
+and the unique description of every low-channel kernel:
+\begin{equation}
+V_2=\cdots=V_D=0
+\quad\Longleftrightarrow\quad
+\lambda=tK_D+\sum_{n>D}z_nU_n,\qquad M=tL_D.
+\label{eq:low-channel-classification}
+\end{equation}
+For the full residual
+\[
+\mathcal R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1},
+\]
+we have $\mathcal R(e_1)=S$ and $\mathcal R(U_n)=1$.  Therefore
+\begin{equation}
+\mathcal R\left(tK_D+\sum_{n>D}z_nU_n\right)
+=tL_D(S-H_D)+\sum_{n>D}z_n.
+\label{eq:residual-transparency}
+\end{equation}
+The series converges because $V_d=M$ beyond the support.  This equation
+identifies the limit of channel adjustment: every zero-moment correction
+changes the residual by an integer.  A further fractional cancellation
+coordinate does not arise from these corrections.
+
+Only finitely many $z_n$ are nonzero.  Put $a_D=[e_1]K_D$ and
+$u_n=[e_1]U_n$.  Admissibility on $n\ge2$ becomes the single integer equation
+\begin{equation}
+t a_D+\sum_{n>D}z_nu_n=0.\label{eq:support-equation}
+\end{equation}
+Consequently the attainable moments are
+\begin{equation}
+L_D\frac{g_D}{\gcd(g_D,a_D)}\mathbb Z,
+\qquad g_D=\gcd\{u_n:n>D\}.
+\label{eq:attainable-moment-ideal}
+\end{equation}
+Indeed, finite integer combinations of the $u_n$ form $g_D\mathbb Z$.
+The resulting positive generator is attained, and an attaining vector is
+primitive.  Odd $u_n$ vanish by induction.  For a prime $p$, the sole nonzero
+proper-divisor contribution at $2p$ gives $u_{2p}=-2(2p)!/2^p\ne0$.
+Every tail thus contains a nonzero coefficient, so $g_D>0$.
+
+\paragraph{A finite certificate for the infinite moment ideal.}
+The scalar recurrence is
+\[
+u_2=2,\qquad
+u_n=-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}u_d\quad(n>2).
+\]
+Once a divisor $g$ controls the computed tail, only the terms with
+$d\le D$ can supply a nonzero residue to a later coefficient.
+Those finitely many sources have a factorial cutoff:
+\[
+k!\mid W_{d,dk}=\frac{(dk)!}{(d!)^k}.
+\]
+The quotient by $k!$ counts partitions into $k$ unordered blocks of size $d$.
+
+\begin{theorem}[finite determination of the moment ideal]
+\label{res:finite-channel-moment-certificate}
+Choose a prime $\ell$ with $D/2<\ell\le D$ and put $H=D(2\ell-1)$.
+Then
+\[
+g_D=\gcd(u_{D+1},\ldots,u_H),\qquad H<2D^2.
+\]
+\end{theorem}
+
+\noindent The statement is
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252}{finite channel moment certificate}.
+\begin{proof}
+The finite gcd $g$ divides the nonzero term
+$u_{2\ell}=-(2\ell)!/2^{\ell-1}$, so $g\mid(2\ell)!$.
+For $n>H$ and a divisor $d\le D$, the integer $n/d$ is at least $2\ell$.
+Hence $g\mid(n/d)!\mid W_{d,n}$.  Every early source is divisible by $g$.
+Strong induction handles the remaining divisors $D<d<n$, whose coefficients
+are already divisible by $g$.  Thus $g$ divides the entire tail.
+Bertrand's postulate supplies $\ell$ for $D\ge3$; take $\ell=2$ for $D=2$.
+Finally $H\le D(2D-1)<2D^2$.
+\end{proof}
+
+\begin{theorem}[quotient-band breakpoint]
+\label{res:bandbreakpoint}
+Under the band hypothesis,
+\[
+  M=(d!)^k C_d.
+\]
+In particular, in the first band $d\le i_j<2d$, channel cancellation
+$C_d=0$ forces $M=0$.  If all indices are at least $d$, channel cancellation
+and $M\ne0$ therefore force at least one index $i_j\ge2d$.
+\end{theorem}
+
+\noindent The exact factorisation is checked for every quotient band at
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{71}{factorialMoment_eq_factorial_pow_mul_channelNumerator_band}{the band identity},
+and its zero-channel consequence is
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{91}{factorialMoment_eq_zero_of_channelNumerator_eq_zero_band}{band cancellation}.
+The first-band form is explicit at
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{101}{factorialMoment_eq_factorial_mul_channelNumerator_firstBand}{first-band factorisation};
+the final breakpoint alternative is
+\lword{Erdos68/ChannelBreakpointRigidity.lean}{130}{exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero}{breakpoint witness}.
+
+The earlier envelope $\Lambda_n=\operatorname{lcm}(1,\ldots,n)\mid u_n$
+\label{eq:channel-lcm-envelope}
+remains useful for other certificates.  Finite-source checks can end sooner
+because only the sum of the sources has to vanish modulo $g$.
+The even-coefficient sign pattern supplies a nonzero term in every tail.
+Together with \eqref{eq:attainable-moment-ideal} this determines the
+unrestricted minimum positive moment for every fixed depth.  For example,
+$L_4=115$, $a_4=-55$, $u_6=-180$, $u_8=-4200$ and
+$23u_6-u_8=60\mid\Lambda_9$ give minimum moment $1380$, attained by
+$12K_4+253U_6-11U_8$.  On support through $6$ the minimum is instead $4140$.
+Minimum moment and minimum upper support are different objectives.
+Neither computation supplies a cofinal real-residual gap, and neither
+alters the two finite denominator exclusions.
+
+\section{The moment cost and the choice of support}\label{sec:translator}
+
+On the actual support $n\ge2$, one has the stronger congruence
+$12\mid M-2V_2$.  For $n=2,3$, $n!=2W_{2,n}$.  For $n\ge4$, both
+$n!$ and $2W_{2,n}$ are divisible by 12: writing $n=2k$ or $2k+1$,
+$W_{2,2k}=k!\prod_{j=1}^k(2j-1)$ is divisible by 6 for $k\ge2$.
+Since every $d!-1$ is coprime to 6, low-channel annihilation implies
+\begin{equation}
+12L_D\mid M.\label{eq:twelve-lcm}
+\end{equation}
+The factor 12 is sharp at $D=2$ and $D=3$, witnessed respectively by
+$-6e_2+e_4$ and $-6e_2-8e_3+5e_4$.
+
+\subsection{Growth of the compulsory factor}
+The following elementary estimate quantifies this cost:
+\begin{equation}
+\liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
+\ge\frac{2\sqrt2}{3}.\label{res:lcm-growth}
+\end{equation}
+The extended-real statement, with the real exponent $3/2$, is
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{common denominator growth liminf}.
+For a terminal block of $k$ terms, the product--lcm--gcd inequality and
+$\gcd(i!-1,j!-1)\mid j!/i!-1$ give
+\[
+\log L_N\ge\sum_{n=N-k+1}^N\log(n!-1)
+-\binom{k+1}{3}\log N.
+\]
+Taking $k=\lfloor\alpha\sqrt N\rfloor$ gives leading coefficient
+$\alpha-\alpha^3/6$, maximised by $\alpha=\sqrt2$.  For a fixed
+$P\in\mathbb Z[X]\setminus\{0\}$, the same ordinary argument gives this
+bound for $\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))$, where $n_0$ is
+sufficiently large that all factors are positive and the collision
+differences below are nonzero, as in Lai's Lemma~2.1 \cite{lai}.  The
+lower cutoff matters: $P=-2$ makes the factor at $n=2$ vanish.
+The argument uses
+\[
+\gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i);
+\]
+the additional $O_P(k^2\log N)$ loss is lower order.  The subtraction identity
+is recorded by Lai~\cite[(2.5)]{lai}.  For $P=0$, the lcm is only $N!$.
+These are common-denominator estimates.  In particular,
+$L_N(S-H_N)\to\infty$, so multiplying the prefix by its full lcm cannot
+make its positive tail small.
+
+\subsection{Remote primitive kernels}\label{sec:compressed-kernel}
+Support location imposes a different requirement from low moment.
+Let $D,r\ge2$ and let $L$ be a positive multiple of $2,\ldots,D$.  Put
+\[
+i_j=r+jL\ (0\le j<D),\quad N=r+(D-1)L,\quad
+\alpha_d=(d!)^{L/d},
+\]
+\[
+H(X)=\prod_{d=2}^D(\alpha_dX-1)=\sum_{j=0}^{D-1}h_jX^j,
+\qquad A=\prod_{d=2}^D\alpha_d.
+\]
+The primitive kernel on this grid is
+\[
+\lambda_j^*=\frac{N!h_j}{A i_j!},\qquad
+M=N!\prod_{d=2}^D(1-1/\alpha_d)>0.
+\]
+Its final coefficient is 1.  The channel equations are polynomial vanishing
+at the distinct points $\alpha_d^{-1}$.  Integrality follows by expanding
+$h_j/A$ into products of reciprocal $\alpha_d$: each product divides the
+factorial quotient $N!/i_j!$.  The minimum step is
+$L=\operatorname{lcm}(2,\ldots,D)$.
+
+The stronger divisibility
+\[
+r!\prod_{d=2}^D(L/d)!\prod_{d=2}^D(\alpha_d-1)\mid M
+\]
+follows by counting partitions into the specified equal-sized blocks.
+In particular $\lfloor\sqrt N/2\rfloor!\mid M$: if
+$v=\max(r,L/2)$, then $N<4v^2$ and $v!\mid M$.
+Thus these moments absorb every fixed denominator as $N\to\infty$.
+On the factorial-grid Cramer vector the residual differs from a nonzero
+determinant times $S$ by an integer: this is the
+\lword{Erdos68/PrimeUnitTranslator.lean}{1559}{exists_cramerFactorialGridResidual_eq_det_mul_factorialGapSeries_add_int}{Cramer residual identity}.
+Cofinal residual nonintegrality on this family is sufficient for irrationality;
+the construction does not establish that nonintegrality.
+
+\section{Cancellation in a reduced prefix}\label{sec:prime-pole}
+
+A common-denominator bound does not determine the denominator after addition.
+Put $L_M=\operatorname{lcm}_{2\le n\le M}(n!-1)$ and
+$A_M=\sum_{n=2}^M L_M/(n!-1)$.  For a prime $q$ with attained maximum
+$e=\max_{2\le n\le M}v_q(n!-1)>0$, set
+\[
+I_{q,e}(M)=\{n\in[2,M]:v_q(n!-1)=e\},\qquad
+R_{q,e}(M)=\sum_{n\in I_{q,e}(M)}
+\left(\frac{n!-1}{q^e}\right)^{-1}\pmod q.
+\]
+After multiplication by $L_M$, all lower-valuation terms vanish modulo $q$.
+Hence
+\[
+A_M\equiv (L_M/q^e)R_{q,e}(M)\pmod q,
+\]
+and $L_M/q^e$ is a unit.  Consequently
+\begin{equation}
+v_q(\operatorname{den}H_M)=e
+\quad\Longleftrightarrow\quad R_{q,e}(M)\ne0\pmod q.
+\label{eq:prime-pole-survival}
+\end{equation}
+The equivalence, with the maximum and its attainment taken from the actual
+prefix lcm, is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118}{maximal prime power survival}.
+This first-layer test is a consequence of the general reciprocal-sum
+valuation formula of Louwsma and Martino~\cite[Lemma~4.1]{louwsma-martino}.
+
+The actual factorial-gap examples show why the weights matter.  At
+$M=138$, the maximal $139$-hits are $69,122,137$, with cofactor residues
+$6,49,73$, and
+\[
+6^{-1}+49^{-1}+73^{-1}=0\pmod{139}.
+\]
+At $M=2592$, the maximal $2593$-hits are $349,2243,2591$, with residues
+$1508,1566,1678$ and reciprocal sum zero.  All these attained exponents are
+one, so the respective prime disappears completely from the reduced prefix.
+Singleton maximal support cannot cancel, whereas a hit-count bound alone
+cannot determine a weighted sum.  Even survival must subsequently be coupled
+to a real strict-successor inequality.
+
+\section{One joint collision and residue estimate}\label{sec:projection}
+
+The whole-prefix construction separates the common collision factor from
+prime-power layers with a unique maximal owner.  For a natural parameter
+$p\ge3$, write $d_n=n!-1$ and put
+\[
+F_p=(p-1)!,\quad
+D_p=\operatorname{lcm}_{2\le i<j\le2p-1}\gcd(d_i,d_j),
+\]
+\[
+C_p=\operatorname{lcm}(F_p,D_p),\quad
+L_p^{\rm blk}=\operatorname{lcm}(F_p,d_2,\ldots,d_{2p-1}),
+\]
+\[
+R_p=L_p^{\rm blk}/C_p,\quad
+T_p=\sum_{n=2}^{2p-1}L_p^{\rm blk}/d_n,\quad
+\rho_p=(-T_p)\bmod R_p.
+\]
+Every prime dividing $R_p$ has a unique denominator attaining its maximal
+valuation.  Reducing $T_p$ modulo that prime leaves one unit term, giving
+$\gcd(T_p,R_p)=1$.  Thus $0<\rho_p<R_p$ whenever $R_p>1$.
+
+\begin{proposition}[global complementary-residue criterion]
+\label{res:global-complementary-criterion}
+If arbitrarily large natural parameters $p\ge3$ satisfy
+\begin{equation}
+R_p>1,\qquad
+(2p+1)L_p^{\rm blk}<2p^2(2p-1)!\rho_p,
+\label{eq:global-complementary-target}
+\end{equation}
+then $S$ is irrational.
+\end{proposition}
+
+\noindent The criterion at natural parameters is
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156}{global complementary criterion nat}.
+\begin{proof}
+Suppose $S=a/q$.  For large $p$, $q\mid F_p\mid C_p$, so
+$L_p^{\rm blk}S$ is an integer multiple of $R_p$.  Therefore
+\[
+A=L_p^{\rm blk}(S-H_{2p-1})
+\]
+is a positive integer congruent to $-T_p$ modulo $R_p$, and $A\ge\rho_p$.
+The positive tail bound
+\[
+S-H_{2p-1}<\frac{2p+1}{2p^2(2p-1)!}
+\]
+and \eqref{eq:global-complementary-target} give $A<\rho_p$, a contradiction.
+\end{proof}
+
+Let $\widetilde C_p=C_p/F_p$ and $\eta_p=\rho_p/R_p$.  The inequality is
+exactly
+\begin{equation}
+\log\widetilde C_p-\log\eta_p
+<\log\frac{2p^2(2p-1)!}{(2p+1)(p-1)!}.
+\label{eq:joint-loss-budget}
+\end{equation}
+The right side is $p\log p+(2\log2-1)p+O(\log p)$.
+The modulus $R_p$ cancels: increasing private support alone does not improve
+this comparison.  Coprimality permits $\rho_p=1$, so the complementary gap
+needs its own quantitative control.  Both losses must be controlled at the
+same parameters.  The
+\lword{Erdos68/EndpointWeightedPrivateSupport.lean}{4766}{factorialBlock_unitFactorPairFloor_scale_iff}{unit-factor pair floor}
+splits that scale test into the complementary-residue inequality and a local
+collision-core cap.  A joint mean bound below $(1-\varepsilon)p\log p$ on the
+same nonempty sets in $[X,2X]$ would suffice; two unrelated cofinal sets can
+be disjoint.
+
+\section{The remaining real comparison}\label{sec:open}\label{sec:plateau}
+
+The exact target remains the
+\lword{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}{strict-successor criterion}:
+\begin{equation}
+(\forall B)(\exists m>B)\ m\nmid Z_m.
+\label{eq:canonical-open-target}
+\end{equation}
+Two sufficient approaches now have explicit, different missing estimates.
+For the compressed primitive grids, the moments already absorb every fixed
+denominator.  With positive moment $M$ and upper support $N$, write
+\[
+A_N=\sum_{d=D+1}^N\frac{V_d(\lambda)}{d!-1},\qquad
+\mathcal R(\lambda)=A_N+M\sum_{d>N}\frac1{d!-1}.
+\]
+The sufficient strict comparison is
+\begin{equation}
+\frac{2M}{(N+1)!-1}<\lfloor A_N\rfloor+1-A_N.
+\label{eq:signed-block-gap}
+\end{equation}
+It puts the residual below the next integer and above $A_N$.  Proving this
+on an unbounded grid family would suffice.  The finite signed block $A_N$
+is essential.  The second approach asks for the simultaneous collision and
+complementary-gap estimate \eqref{eq:joint-loss-budget}.
+Neither estimate is established cofinally here.
+
+\paragraph{The limit of short supports.}
+\label{sec:nogo}\label{sec:adjacent-unit-no-go}
+The shortest-support kernels cannot meet \eqref{eq:signed-block-gap}.
+For $N=D+O(1)$, the compulsory divisibility $L_D\mid M$ and
+\eqref{res:lcm-growth} give
+\[
+\frac{2|M|}{(N+1)!-1}\longrightarrow\infty,
+\]
+whereas the right side of \eqref{eq:signed-block-gap} is at most one.
+A useful family must therefore allow a larger upper support and still
+control its finite signed block.
+
+Large denominator valuations alone also leave the real gap uncontrolled:
+the model fractions $1/q^e$ tend to zero.  The exact
+\lword{Erdos68/PrimeZeroBranch.lean}{6099}{factorialGap_zero_branch_iff_lower_endpoint_cylinder}{zero-branch / lower-endpoint cylinder}
+and doubled-prime tests require joint numerator or predecessor information.
+Their thresholds, the
+\lword{Erdos68/AdjacentUnitCarryWindow.lean}{148}{consecutive_unit_carries_iff_positive_offset_le_den}{adjacent-window collapse},
+fixed-owner absorption,
+and the strongest countermodels are retained in the long reasoning record.
+
+\section{The finite evidence}\label{sec:finite}
+
+An exact non-unit carry at the prime index $67$ already forces
+\lword{Erdos68/FactorialZeroPlateau.lean}{940}{sixty_seven_le_rational_denominator}{every rational denominator to be at least $67$}.
+The exact GMP carry certificate covers $3\le m\le300000$.  Its unit carries
+occur at
+\[
+52,\ 591,\ 1030,\ 1407,\ 1438,\ 2164,\ 4258,\ 10991,\ 21236.
+\]
+In particular $b_{300000}\ne1$, yielding $q\nmid299999!$ by
+\eqref{eq:finite-denominator-consumer}.  This excludes every divisor of that
+factorial, including large divisors.  It does not exclude all integers with
+small prime factors, since their multiplicities can be too large.
+
+The separate $80000$-bit exact rational enclosure forces $23449$ common
+continued-fraction partial quotients.  Its best-approximation certificate gives
+$q\ge2^{39990}>10^{12038}$.  The open-versus-closed complete-quotient endpoint
+convention matters for a sharper extraction; no stronger numerical floor is
+asserted here.  The exact sources, enclosure and integer-computation receipts
+are retained with the long record.  Neither finite calculation supplies
+\eqref{eq:canonical-open-target}.
+
+\section*{Statements and declarations}\label{app:sources}
+
+\begingroup\small\raggedright
+The finite divisor-event identities, isolated-channel recursion, vanishing
+moment, individual channel values, and the factor $12$ are checked in
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.lean}{divisor channel basis}.  The unique integral basis expansion,
+attainable-moment formula and compressed primitive-grid construction are
+ordinary proofs, described in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.md}{divisor channel basis} and, for the
+grid construction, in
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompressedPrimitiveChannelKernel.md}{compressed primitive channel kernel}.  The quadratic stopping theorem
+is checked in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean}{complete moment horizon}, together with the
+scalar recurrence, the equal-block divisibility and the prime anchor it uses.
+The earlier lcm-envelope certificate and depth-$4$ moment $1380$ are
+ordinary proofs with exact checks in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_moment_saturation.py}{check moment saturation}.
+The finite-source checks are in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_finite_source.py}{check finite source}.
+The inherited generic lemmas in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean}{tail ideal certificate} assume
+the lcm envelope; they do not formalise the factorial arithmetic.
+The growth liminf is the
+ordinary asymptotic consequence of the finite terminal-block inequality; its
+eventual form, with the constant $2\sqrt2/3$, is checked in
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean}{complete asymptotics}.
+
+The Comparator isolation pin for the carry equivalences is
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean}{factorial gap plateau core}.  \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean}{factorial zero plateau} is the
+default-root duplicate of that family and is not the isolation source.
+Companion-orbit rationality is in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean}{companion orbit rationality}; the
+unconditional correction \eqref{eq:companion-wrap} is in
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean}{companion constant carry law}.
+The pole-residue identity and the two displayed reciprocal equalities are
+in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean}{prime pole criterion}.  The complete maximal-hit data come from
+the separate exact modular scan.  The carry census and continued-fraction
+certificate use exact integer computation outside Lean.
+
+The inherited public source pin is \texttt{\commitshort}.  Source-current
+additions and that public snapshot must be reconciled at one immutable
+release before its links are represented as a replay of the whole note.
+Formal proof checking does not assess external novelty or the significance
+of the remaining hypothesis.  The complete source register, receipts and
+failed-route calculations belong to the long record.
+
+\par\endgroup
+\appendix
+\section{Guide to the formal sources}\label{app:sources}
+
+The public \texttt{ErdosProblems.Erdos68} package contains the checked source
+for this note.  The pinned snapshot contains fifteen cited modules:
+\texttt{AdjacentUnitCarryWindow},
+\texttt{CanonicalFactorialDigits},
+\texttt{ChannelBreakpointRigidity},
+\texttt{ChannelIntegralCongruence},
+\texttt{DivisorFactorialCentre},
+\texttt{EndpointWeightedPrivateSupport},
+\texttt{FactorialCarry},
+\texttt{FactorialChannelCertificate},
+\texttt{FactorialGapPlateauCore} (isolation pin; \texttt{FactorialZeroPlateau}
+is the default-root duplicate),
+\texttt{FiniteDefectAutomaton},
+\texttt{GapScalarNormalForm},
+\texttt{PrimeThresholdParity},
+\texttt{PrimeUnitTranslator},
+\texttt{PrimeZeroBranch}, and
+\texttt{StrictSuccessorArithmetic}.
+Only these public modules belong to the manuscript source surface; no private
+auxiliary digit-rigidity file is cited or projected.  The public root imports
+every cited module.  The declaration table below is
+pinned to the shared formal-source commit used throughout this problem-note
+series.
+
+\begin{itemize}[leftmargin=*]
+\item \lword{Erdos68/AdjacentUnitCarryWindow.lean}{148}{consecutive_unit_carries_iff_positive_offset_le_den}{adjacent-window collapse}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{215}{twoStep_den_mul_transitionNormalizers}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{243}{adjacentUnitCarryWindowDen_eq_twoStep_den}
+\item \lref{Erdos68/AdjacentUnitCarryWindow.lean}{337}{adjacentUnitCarryWindowOffset_eq_twoStep_reducedNumerator}
+\item \lword{Erdos68/FactorialZeroPlateau.lean}{876}{rational_denominator_ge_of_nonunit_carry}{denominator at least the carry index}
+\item \lword{Erdos68/FactorialZeroPlateau.lean}{940}{sixty_seven_le_rational_denominator}{denominator at least $67$}
+\item \lword{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}{strict-successor criterion}
+\item \lword{Erdos68/FactorialZeroPlateau.lean}{953}{irrational_factorialGapSeries_of_cofinal_nonunit_carries}{cofinal non-unit carries imply irrationality}
+\item \lword{Erdos68/PrimeZeroBranch.lean}{6099}{factorialGap_zero_branch_iff_lower_endpoint_cylinder}{zero-branch / lower-endpoint cylinder}
+\item \lword{Erdos68/EndpointWeightedPrivateSupport.lean}{4766}{factorialBlock_unitFactorPairFloor_scale_iff}{unit-factor pair floor}
+\item \lword{Erdos68/PrimeUnitTranslator.lean}{1559}{exists_cramerFactorialGridResidual_eq_det_mul_factorialGapSeries_add_int}{Cramer residual identity}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{34}{residualCentreTerm}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{39}{factorialCoeffTerm}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{44}{residualCentre}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{49}{factorialCoeffRat}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{80}{factorial_eq_mul_pred_factorial}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{88}{pred_div_eq_of_not_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{102}{pred_div_add_one_eq_of_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{129}{residualCentreTerm_of_not_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{146}{residualCentreTerm_of_dvd}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{170}{residualCentreTerm_self}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{179}{factorialCoeffTerm_self}
+\item \lref{Erdos68/DivisorFactorialCentre.lean}{188}{residualCentre_recurrence}
+\item \lword{Erdos68/FactorialChannelCertificate.lean}{25}{factorial_pow_floor_dvd_factorial}{weights are integers}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{39}{channelWeight}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{43}{channelWeight_mul_denominator}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{51}{channelNumerator}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{55}{factorialMoment}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{59}{channelEvent}
+\item \lword{Erdos68/FactorialChannelCertificate.lean}{65}{channelEvent_eq_zero_of_not_dvd}{adjacent differences affect only divisor channels}
+\item \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101}{\leanlabel{lambda34}}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{105}{lambda34_apply_three}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{109}{lambda34_apply_four}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{112}{lambda34_channel_two}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{119}{lambda34_factorialMoment}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{126}{lambda34_channel_three}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{133}{lambda34_channel_four}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{140}{lambda34_channel_ge_five}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{151}{lambda34ResidualOfTail}
+\item \lref{Erdos68/FactorialChannelCertificate.lean}{156}{lambda34_residual_bounds}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{868}{square_subsequence_radius_cubic_lower}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{885}{no_eventual_square_subsequence_cubic_upper}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{905}{not_isLittleO_square_subsequence_radius}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1084}{square_subsequence_radius_three_halves_lower}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1103}{no_eventual_square_subsequence_three_halves_upper}
+\end{itemize}
+
+\begingroup
+\raggedright
+\paragraph{Source-current companion orbit and Comparator routes.}
+The complete infinite rationality boundary is checked in
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean}{companion orbit rationality}.  Its paper-facing
+endpoints are
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean}{not irrational factorial gap series iff eventually companion floor $-2$}
+and
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean}{irrational factorial gap series iff cofinal companion floor misses}.
+The coherent Comparator composite
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean}{companion-orbit complete characterisation} routes to
+Theorem~\ref{res:companion-orbit-rationality-boundary} and
+Remark~\ref{bdry:companion-orbit-nonconcentration}.  The moving-factor
+Comparator endpoints are recorded in the long reasoning record as the
+moving-factor scale split, the split-factor normalised collision, and the
+fixed-owner absorption boundary.  These source-current modules, Comparator
+packages, and this manuscript stage require one common immutable public
+checkpoint before terminal external replay or Palomar readiness is claimed.
+\par
+\endgroup
+
+\clearpage
+
+\begin{thebibliography}{9}
+\small
+\raggedright
+\setlength{\itemsep}{0pt}
+\bibitem{erdos1988} P.~Erd\H{o}s, \emph{On the irrationality of certain series:
+  problems and results}, in A.~Baker (ed.), \emph{New Advances in Transcendence
+  Theory}, Cambridge UP, 1988, pp.~102--109,
+  doi:\href{https://doi.org/10.1017/CBO9780511897184.009}
+  {10.1017/CBO9780511897184.009}.
+\bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problem \#68}.
+  \url{https://www.erdosproblems.com/68}, accessed 28 July 2026.
+\bibitem{cantor1869} G.~Cantor, \emph{\"Uber die einfachen Zahlensysteme},
+  Z. Math. Phys. \textbf{14} (1869), 121--128.
+\bibitem{galambos1976} J.~Galambos, \emph{Representations of Real Numbers by
+  Infinite Series}, Lecture Notes in Math. \textbf{502}, Springer, 1976,
+  Chapter~1.
+\bibitem{louwsma-martino}
+  J.~Louwsma and J.~Martino,
+  \emph{Rational numbers with odd greedy expansion of fixed length},
+  arXiv:\href{https://arxiv.org/abs/2309.07280}{2309.07280v1}, 2023,
+  Lemma~4.1, p.~10.
+\bibitem{lai}
+  L.~Lai, \emph{On the largest prime divisor of $n!+1$},
+  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894v1}, 2021,
+  proof of Lemma~2.4, (2.5).
+\end{thebibliography}
+
+\companionpapercontext
+
+\end{document}

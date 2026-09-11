@@ -43,63 +43,63 @@
   "modules": [
     {
       "module": "ErdosProblems.Erdos1049.RationalBaseLambert",
-      "path": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+      "path": "lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean",
       "present": true,
       "line_count": 223,
       "declaration_count": 16,
       "theorem_count": 11,
       "content_digest": "sha256:593c3b3e776820de229bad00c7f374bb39416099de60250b375d52cfa5f6e56a",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.RationalPadeArithmetic",
-      "path": "ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+      "path": "lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
       "present": true,
       "line_count": 222,
       "declaration_count": 19,
       "theorem_count": 14,
       "content_digest": "sha256:c7b54971556577d73bbc563dcf14eaf62aef8d31e1450c4e7337028e46013690",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
-      "path": "ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+      "path": "lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
       "present": true,
       "line_count": 450,
       "declaration_count": 36,
       "theorem_count": 25,
       "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.HermitePadeNoGo",
-      "path": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+      "path": "lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
       "present": true,
       "line_count": 153,
       "declaration_count": 10,
       "theorem_count": 5,
       "content_digest": "sha256:812f2ca2ea8b18f8ce8e0a68ae14897aa851fba2e050a07881d839168182f2cc",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.ZudilinHeightRegion",
-      "path": "ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+      "path": "lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
       "present": true,
       "line_count": 143,
       "declaration_count": 13,
       "theorem_count": 12,
       "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
-      "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+      "path": "lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
       "present": true,
       "line_count": 102,
       "declaration_count": 11,
       "theorem_count": 4,
       "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
+      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
     }
   ],
   "main_results": [
@@ -142,7 +142,7 @@
   ],
   "comparator_review": {
     "problem": 1049,
-    "paper": "paper/erdos-1049-rational-base-lambert.tex",
+    "paper": "paper/1049/erdos-1049-rational-base-lambert.tex",
     "families": [
       {
         "id": "scalar_content_no_go",
@@ -264,7 +264,7 @@
     "subject": "Erdős #1049",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 13,
+    "pages": 14,
     "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
     "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
     "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -274,9 +274,9 @@
       "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
       "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
       "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
-      "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
-      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+      "latex": "../../papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex",
+      "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos-1049-rational-base-lambert.tex"
     },
     "render_contract": {
       "preferred": "html_exact_tex",
@@ -287,17 +287,17 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 17,
-      "renderer_fingerprint": "98654d69fba420c6",
-      "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
+      "renderer_fingerprint": "68395684e8d7d8b0",
+      "source_sha256": "e21d5550496ce09d01c83c15f48116d27a2afc2cf78259ea695dc86e5fa97211",
       "publication_manifest_match": true,
-      "mathml_node_count": 390,
+      "mathml_node_count": 405,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "9cf7a97da484f3af82fc7f5582b830b75031d00e98f1ad69ee058f981c9ef5db",
-      "html_exact_tex_sha256": "1bb2c3c7231fb96826c372f91e57dfe1d1f63258dc9a5554378d07fbb2ad6e18"
+      "html_mathml_sha256": "9f9ef8b8890c1209e5850edf638557135ffd264cd9ab168e0088e7d4d60b7bc4",
+      "html_exact_tex_sha256": "5a4f7a15eacbbe41a87799c6c7c85ddbcad9de612128714bc89e98bf64f36806"
     },
     "sections": [
       {
@@ -409,7 +409,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_1049",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/ErdosProblems/Erdos1049",
+    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos1049",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -421,7 +421,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 13,
+      "pages": 14,
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -431,9 +431,9 @@
         "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
         "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
         "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
-        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
-        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+        "latex": "../../papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos-1049-rational-base-lambert.tex"
       },
       "render_contract": {
         "preferred": "html_exact_tex",
@@ -444,17 +444,17 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
-        "renderer_fingerprint": "98654d69fba420c6",
-        "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
+        "renderer_fingerprint": "68395684e8d7d8b0",
+        "source_sha256": "e21d5550496ce09d01c83c15f48116d27a2afc2cf78259ea695dc86e5fa97211",
         "publication_manifest_match": true,
-        "mathml_node_count": 390,
+        "mathml_node_count": 405,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "9cf7a97da484f3af82fc7f5582b830b75031d00e98f1ad69ee058f981c9ef5db",
-        "html_exact_tex_sha256": "1bb2c3c7231fb96826c372f91e57dfe1d1f63258dc9a5554378d07fbb2ad6e18"
+        "html_mathml_sha256": "9f9ef8b8890c1209e5850edf638557135ffd264cd9ab168e0088e7d4d60b7bc4",
+        "html_exact_tex_sha256": "5a4f7a15eacbbe41a87799c6c7c85ddbcad9de612128714bc89e98bf64f36806"
       },
       "sections": [
         {
@@ -566,8 +566,8 @@
       "hosted": true,
       "reading_role": "short",
       "current_github": {
-        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos-1049-rational-base-lambert.tex",
-        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos-1049-rational-base-lambert.pdf",
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.pdf",
         "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md"
       }
     },
@@ -588,9 +588,9 @@
         "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
         "html_exact_tex": "papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html",
         "pdf": "../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
-        "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
-        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+        "latex": "../../papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
       },
       "render_contract": {
         "preferred": "html_exact_tex",
@@ -601,8 +601,8 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
-        "renderer_fingerprint": "98654d69fba420c6",
-        "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
+        "renderer_fingerprint": "68395684e8d7d8b0",
+        "source_sha256": "1d116a3e0779eebb83bac8518d4dc88fcfed5162797e590983ce7b603d67f268",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
         "raw_math_fallback_count": 0,
@@ -610,8 +610,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "04d37a633c0b4b9fdd0d7cb504bb19e66e798c0f933a71b501c3535dd2dfd7ec",
-        "html_exact_tex_sha256": "3d0473aa1a76863fc6d49227183c6dfdd8ddb3af7eb4b2f237ee6b4daef934c8"
+        "html_mathml_sha256": "fb381f3330169e5af54c5d336e0abb338d91303e169dd1cf7b4e290b5812ef8a",
+        "html_exact_tex_sha256": "439bc1597d9b25c37adf6f6213da8764f21a3f162fda5c571c3082bd7ac0a54f"
       },
       "sections": [
         {
@@ -857,7 +857,7 @@
         {
           "level": 5,
           "anchor": null,
-          "label": "Checked declarations behind the four-jet collision family."
+          "label": "Four-jet collision family."
         },
         {
           "level": 2,
@@ -908,8 +908,8 @@
       "hosted": true,
       "reading_role": "long",
       "current_github": {
-        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
-        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/erdos1049-rational-base-lambert-reasoning-surface.pdf",
+        "source": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
+        "pdf": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf",
         "full_text": "https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos1049-rational-base-lambert-reasoning-surface.md"
       }
     }
@@ -927,145 +927,145 @@
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
         "label": "ErdosProblems.Erdos1049.AdelicHeightBridge",
-        "path": "ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
         "direct": true,
         "content_digest": "sha256:3bfdcfd11ca443e6555f95261122334bffb18f686c22542d44bd60270309e4d3",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Audit",
         "label": "ErdosProblems.Erdos1049.AllRow.Audit",
-        "path": "ErdosProblems/Erdos1049/AllRow/Audit.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/Audit.lean",
         "direct": true,
         "content_digest": "sha256:3efe2a0462c20df197b15f015af0578a6c5ae04ec8c9a2729ad64291b164ad7c",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Audit.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/Audit.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Filtered",
         "label": "ErdosProblems.Erdos1049.AllRow.Filtered",
-        "path": "ErdosProblems/Erdos1049/AllRow/Filtered.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/Filtered.lean",
         "direct": true,
         "content_digest": "sha256:c4d214d6d9e0138a31e84bf247fc76cd8a425c83b711f64b8a8e47285dc5239a",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Filtered.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/Filtered.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.FiniteStates",
         "label": "ErdosProblems.Erdos1049.AllRow.FiniteStates",
-        "path": "ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
         "direct": true,
         "content_digest": "sha256:1a1bc2b07f2530521f0982b7c40fe56299213b4edd8b0849f0363cc1f9599b60",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/FiniteStates.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer",
         "label": "ErdosProblems.Erdos1049.AllRow.Producer",
-        "path": "ErdosProblems/Erdos1049/AllRow/Producer.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/Producer.lean",
         "direct": true,
         "content_digest": "sha256:d144b89024846b30a267eb4879b2cf9406c98d9602061b399094e4a1296a4e30",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Producer.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.Smoke",
         "label": "ErdosProblems.Erdos1049.AllRow.Smoke",
-        "path": "ErdosProblems/Erdos1049/AllRow/Smoke.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/Smoke.lean",
         "direct": true,
         "content_digest": "sha256:c0292d66dd93ab644867a0ba62820f455c9724939640c8738c1d860d5c27d18d",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/Smoke.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/Smoke.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.AllRow.SourcePolynomial",
         "label": "ErdosProblems.Erdos1049.AllRow.SourcePolynomial",
-        "path": "ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
+        "path": "lean/ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
         "direct": true,
         "content_digest": "sha256:c3e9b61269d70f8d00dea5128b9223ac340dedcd204e5928cca7b2f204593e0f",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/AllRow/SourcePolynomial.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.BezoutPluckerJets",
         "label": "ErdosProblems.Erdos1049.BezoutPluckerJets",
-        "path": "ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
+        "path": "lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
         "direct": true,
         "content_digest": "sha256:4579858b1b497ca1c9a377a202bb3bf84d4cdaad20c0e3f5ba2730740cbccdb3",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo",
         "label": "ErdosProblems.Erdos1049.HermitePadeNoGo",
-        "path": "ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+        "path": "lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
         "direct": true,
         "content_digest": "sha256:812f2ca2ea8b18f8ce8e0a68ae14897aa851fba2e050a07881d839168182f2cc",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
         "label": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
-        "path": "ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+        "path": "lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
         "direct": true,
         "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour",
         "label": "ErdosProblems.Erdos1049.RationalBaseContour",
-        "path": "ErdosProblems/Erdos1049/RationalBaseContour.lean",
+        "path": "lean/ErdosProblems/Erdos1049/RationalBaseContour.lean",
         "direct": true,
         "content_digest": "sha256:2f5bf1e5013a66c5b6464552abdf888cb5bc3c50dc4ff455b1017aa22a8d30b5",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseContour.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseContour.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert",
         "label": "ErdosProblems.Erdos1049.RationalBaseLambert",
-        "path": "ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+        "path": "lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean",
         "direct": true,
         "content_digest": "sha256:593c3b3e776820de229bad00c7f374bb39416099de60250b375d52cfa5f6e56a",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.RationalPadeArithmetic",
         "label": "ErdosProblems.Erdos1049.RationalPadeArithmetic",
-        "path": "ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+        "path": "lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
         "direct": true,
         "content_digest": "sha256:c7b54971556577d73bbc563dcf14eaf62aef8d31e1450c4e7337028e46013690",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic",
         "label": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
-        "path": "ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+        "path": "lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
         "direct": true,
         "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion",
         "label": "ErdosProblems.Erdos1049.ZudilinHeightRegion",
-        "path": "ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+        "path": "lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
         "direct": true,
         "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean",
         "role": "Lean proof module"
       },
       {
         "id": "lean-module:ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
         "label": "ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
-        "path": "ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
+        "path": "lean/ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
         "direct": true,
         "content_digest": "sha256:3f1e4bc33333539db830f0c4c57bc919f2b67c54703168d4aceb57d4fd2ae7b9",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean",
         "role": "Lean proof module"
       }
     ],

@@ -15,9 +15,9 @@
     "html_mathml": "papers/cold-clone-to-proof-receipt.html",
     "html_exact_tex": "papers/cold-clone-to-proof-receipt.mathjax.html",
     "pdf": "../../papers/cold-clone-to-proof-receipt.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/cold-clone-to-proof-receipt.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/cold-clone-to-proof-receipt.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/cold-clone-to-proof-receipt.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
+    "renderer_fingerprint": "68395684e8d7d8b0",
     "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "db6bb828e77d8f4f3c2dbc5f5c379c3e12a0be6ce3584e79bbb08ac1fd2cd22a",
-    "html_exact_tex_sha256": "b3409621c27b6067aa341b885de1fcec4a7d9c69190a51967e47e8a19261832a"
+    "html_mathml_sha256": "de9f915f2d486ae408d073225bded94bf1cab71748fa5393c6242d05ce381da4",
+    "html_exact_tex_sha256": "9dde1eff7e5dd58f5669c0096600f844d9bc79cd33a0880e1244868e462e6dd0"
   },
   "sections": [
     {

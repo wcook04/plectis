@@ -41,7 +41,7 @@ cited external result.
 
 ## Proof handle
 
-- [Public Lean source](../ErdosProblems/Erdos1049/RationalBaseLambert.lean): theorem `sevenHalves_bundschuhVaananen_margin`
+- [Public Lean source](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean): theorem `sevenHalves_bundschuhVaananen_margin`
 - [Separately declared challenge statement](../ExternalVerification1049/Challenge.lean): theorem `comparator_sevenHalves_numericalHeight`
 - [Source transport](../ExternalVerification1049/Solution.lean)
 - [Deliberate mismatch](../ExternalVerification1049/NegativeSolution.lean)

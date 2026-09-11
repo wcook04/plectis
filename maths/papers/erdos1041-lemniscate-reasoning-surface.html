@@ -25,7 +25,7 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=f601ea7de9da">
+  <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
   <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
@@ -85,8 +85,8 @@
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 46&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex"><span class="btn__format">TeX</span>LaTeX source</a>
-          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           <a href="../problems/erdos_1041.html">Problem dossier</a>
         </div>
       </header>
@@ -103,7 +103,7 @@
 
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="erdos1041-lemniscate-reasoning-surface" data-math-mode="mathjax">
-  <div class="lean-paper__body" data-source="../../../paper/erdos1041-lemniscate-reasoning-surface.tex">
+  <div class="lean-paper__body" data-source="../../../paper/1041/erdos1041-lemniscate-reasoning-surface.tex">
 <blockquote>
 <p><strong>Contribution.</strong> The paper proves the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Herzog–Piranian conclusion for every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> trinomial in every
@@ -572,24 +572,26 @@ assertion about every origin-to-zero segment. It exhibits no
 <p>The identity <span
 class="math inline" data-term-auto="off">\(\eqref{eq:abel-control-polygon}\)</span> is
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L123"><code>abel_controlPolygon</code></a>,
-the constant-term <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L258"><code>norm_const_lt_one_of_roots_lt_one</code></a>,
-the radial estimate as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L219"><code>trinomial_radial_norm_lt_one</code></a>,
-and their combination with the metric budget as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330"><code>trinomial_erdos1041_conclusion</code></a>.
-Example <span class="math inline" data-term-auto="off">\(\ref{ex:sextic-spoke}\)</span> is
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555"><code>sextic_guardrail</code></a>.
-What the kernel proves is the pair of radial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>
-<span class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span> on the sum
-of the two radii. Assembling those into a single rectifiable path
-object, and the passage to the one-dimensional Hausdorff measure used by
-the upstream <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> of the problem, are ordinary steps taken here.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">Prior art</a> for the trinomial conclusion was searched on 2 September 2026
-and none was located; the argument is short enough that it should be
-assumed known until a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> settles the question.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L123">abel
+control polygon</a>, the constant-term <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L258">norm
+const lt one of roots lt one</a>, the radial estimate as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L219">trinomial
+radial norm lt one</a>, and their combination with the metric budget as
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330">trinomial
+erdos1041 conclusion</a>. Example <span
+class="math inline" data-term-auto="off">\(\ref{ex:sextic-spoke}\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555">sextic
+guardrail</a>. What the kernel proves is the pair of radial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a>
+and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <span
+class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span> on the sum of
+the two radii. Assembling those into a single rectifiable path object,
+and the passage to the one-dimensional Hausdorff measure used by the
+upstream <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> of the problem, are ordinary steps taken here. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">Prior</a>
+art for the trinomial conclusion was searched on 2 September 2026 and
+none was located; the argument is short enough that it should be assumed
+known until a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> settles the question.</p>
 </section>
 </section>
 <section id="sec:low-critical-closure" class="level2">
@@ -915,7 +917,7 @@ class="math inline" data-term-auto="off">\(\operatorname{Area}\{|f|\le t\}\le\pi
 t^{2/n}\)</span> <span class="citation" data-cites="polya1928"><a href="#ref-1">[1]</a></span>.
 The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> is a kernel-free replayable computation,
 and no part of this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> or independently <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-review" data-term="review" data-term-auto="1">reviewed</a>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">Prior art</a> for the assembled <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is unassessed; the hyperbolic
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior-art" data-term="prior_art" data-term-auto="1">Prior art</a> for the assembled <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is unassessed; the hyperbolic
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> follows from disjointness of the balls and the law of
 cosines and should be assumed known. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source-authority" data-term="source_authority" data-term-auto="1">source of record</a> is
 <code>research_corpus/Erdos1041/LowCriticalPathCertificate.md</code>,
@@ -1213,12 +1215,13 @@ class="math inline" data-term-auto="off">\(\ref{res:constant-factor-path}\)</spa
 ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> with no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> part. It uses the capacity
 identity, Pólya’s area <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>, Cauchy–Schwarz, the univalent-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>
 distortion estimate, and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> exit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a>; no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> paper
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imported</a> into it. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source-authority" data-term="source_authority" data-term-auto="1">source of record</a> is
-<code>research_corpus/Erdos1041/UnconditionalConstantFactorBound.md</code>,
-which carries every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> quoted above. Its containment
-level is <span class="math inline" data-term-auto="off">\(2\mu\)</span> and its constant is
-<span class="math inline" data-term-auto="off">\(71/10\)</span>, so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> itself
-reaches neither half of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, and the sharp constant <span
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imported</a> into it. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source-authority" data-term="source_authority" data-term-auto="1">source of record</a> is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/UnconditionalConstantFactorBound.md">unconditional
+constant factor bound</a>, which carries every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a>
+quoted above. Its containment level is <span
+class="math inline" data-term-auto="off">\(2\mu\)</span> and its constant is <span
+class="math inline" data-term-auto="off">\(71/10\)</span>, so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> itself reaches
+neither half of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a>, and the sharp constant <span
 class="math inline" data-term-auto="off">\(2\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. Corollaries <span
 class="math inline" data-term-auto="off">\(\ref{res:constant-factor-arity}\)</span> and <span
 class="math inline" data-term-auto="off">\(\ref{res:constant-factor-capacity}\)</span> do
@@ -1685,7 +1688,7 @@ class="math display" data-term-auto="off">\[\min_{0\le i\le m}|p(c_i)|\le
 C_{m+2}.\]</span></em></p>
 </div>
 <p>This is exactly the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
 formal Chebyshev endpoint</a>. It is the kernel-facing alternation
 endpoint, not yet the geometric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 <div class="theorem">
@@ -1803,7 +1806,7 @@ class="math inline" data-term-auto="off">\(E_i&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(E_j&lt;1\)</span>.</em></p>
 </div>
 <p>This is the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> conclusion selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
 formal two-tail selector</a>. It selects two distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a>. It does
 not assert that the corresponding complex root values are distinct.</p>
 <div class="theorem">
@@ -1917,7 +1920,7 @@ class="math display" data-term-auto="off">\[\left|(tu-r)(tu-s)(tu-v)\right|\le1
 \qquad(0\le t\le1).\]</span></em></p>
 </div>
 <p>This is exactly <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
 formal cubic safe-spoke theorem</a>.</p>
 <div class="theorem">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 22</strong> (translated cubic quotient fibres). <em>
@@ -2030,9 +2033,10 @@ and kills several attractive but <a class="narrative-ref narrative-ref--term is-
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-update" data-term="update" data-term-auto="1">update</a> is pinned to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> <a
 href="https://github.com/wcook04/plectis-erdos/tree/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041"><code>f214a6b4</code></a>
 and the dated synthesis is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/FRONTIER.md"><code>FRONTIER.md</code></a>.
-The distinctions below are part of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, a refutation,
-a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurement</a> do not have interchangeable force.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/FRONTIER.md">the
+#1041 frontier note</a>. The distinctions below are part of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>:
+a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, a refutation, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-measurement" data-term="measurement" data-term-auto="1">measurement</a> do not have
+interchangeable force.</p>
 <section id="near-fekete-stability-removes-the-radial-distraction"
 class="level3 unnumbered">
 <h3 class="unnumbered">Near-Fekete stability removes the radial
@@ -2041,9 +2045,10 @@ distraction</h3>
 class="math inline" data-term-auto="off">\(|u_i|=1\)</span>, and put <span
 class="math inline" data-term-auto="off">\(D=|\operatorname{disc}(f)|/n^n\)</span>. The
 quantitative Fekete–Hadamard estimate in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>
-says that, when <span class="math inline" data-term-auto="off">\(D\ge1-\eta\)</span> and
-<span class="math inline" data-term-auto="off">\(\eta\le1/(80n^2)\)</span>,</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">near
+fekete radial angular split</a> says that, when <span
+class="math inline" data-term-auto="off">\(D\ge1-\eta\)</span> and <span
+class="math inline" data-term-auto="off">\(\eta\le1/(80n^2)\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[1-\rho_i^2\le \frac{n\eta}{n-1},\qquad
   |a_i-a_j|\ge \frac{2-2\sqrt\eta-n\eta}{n-1},\]</span></div>
@@ -2090,7 +2095,8 @@ select a zero-free gap on which the polynomial modulus is at most <span
 class="math inline" data-term-auto="off">\(2\)</span>; a harmonic normal-derivative argument
 transfers this arc <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> strictly to the chord. The complete ordinary
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/ConcyclicAlternation.md"><code>ConcyclicAlternation.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/ConcyclicAlternation.md">concyclic
+alternation</a>.</p>
 <p>The argument is an ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> outside <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_exact_witness.py">exact-rational
 checker</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> load-bearing identities and
@@ -2105,9 +2111,9 @@ unrestricted concyclic case and <a class="narrative-ref narrative-ref--term is-t
 <section id="cyclic-trinomial-fibres" class="level3 unnumbered">
 <h3 class="unnumbered">Cyclic trinomial fibres</h3>
 <p>The spoke identity and strict <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalized</a> in <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">trinomial
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">trinomial
 root spoke factorization</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">trinomial
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">trinomial
 root spoke norm lt one of norm lt one</a>.</p>
 <p>There is also a positive structured family in every cyclic lift
 degree. Fix <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> <span class="math inline" data-term-auto="off">\(1\le r\le m\)</span>
@@ -2125,7 +2131,7 @@ class="math display" data-term-auto="off">\[u^mw^m+au^rw^r+c
    =(1-u^r)c-(u^r-u^m)w^m.\]</span></div>
 <p>The two coefficients on the right
 are nonnegative and have total at most one. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
 strict-spoke theorem</a> therefore proves that, if <span
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|&lt;1\)</span>, the complete radial spoke is
@@ -2186,9 +2192,9 @@ class="math inline" data-term-auto="off">\(|c|+|b||w|^s&lt;1\)</span>, together 
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|&lt;1\)</span>, puts every vector in the Abel
 decomposition strictly inside the unit ball. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
 and the resulting <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
 spoke theorem</a> under the exact weak <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> hypotheses <span
 class="math inline" data-term-auto="off">\(1\le s\le r\le m\)</span>; it also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the
 coefficient-only corollary above.</p>
@@ -2198,7 +2204,7 @@ class="math inline" data-term-auto="off">\(N=|S|\ge2\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M=\sum_{i\in S}w_i^s.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">formal
 energy identity</a> gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{i\in
 S}|c+bw_i^s|^2
@@ -2215,7 +2221,7 @@ class="math display" data-term-auto="off">\[N\bigl(|b|^2+|c|^2\bigr)
 class="math inline" data-term-auto="off">\(|c+bw_i^s|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c+bw_j^s|&lt;1\)</span>. Feeding those
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> into the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">formal
 Abel-spoke consumer</a> proves that both complete root spokes lie
 strictly in <span class="math inline" data-term-auto="off">\(\{|g|&lt;1\}\)</span>. The
 signed cross term is essential: this interface can certify
@@ -2265,7 +2271,7 @@ is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/g
 class="math display" data-term-auto="off">\[\bigl(\sqrt{d^2+x^2}\bigr)^{\alpha-1}
     \le x^{\alpha-1}\qquad(x&gt;0),\]</span></div>
 <p>and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">exact
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">exact
 primitive</a></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\alpha\int_0^A
 x^{\alpha-1}\,dx=A^\alpha.\]</span></div>
@@ -2276,7 +2282,7 @@ and at the origin when the chord crosses it, yields the ordinary
 class="math display" data-term-auto="off">\[\operatorname{length}(\widetilde{[a,b]})
     \le |a|^{1/q}+|b|^{1/q}.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">formal
 endpoint consumer</a> also proves that if <span
 class="math inline" data-term-auto="off">\(0\le a,b&lt;1\)</span>, <span
 class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span>, and a candidate length <span
@@ -2684,7 +2690,8 @@ a_1=-\frac{c_{n-2}}{n\,t^{1/n}}
 that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> node, but extending it to proper components and connecting
 it to the parent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. The degree-five <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> and
 their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence classes</a> are recorded in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md"><code>Degree5AssemblyAndSharpenedCuts.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md">degree5
+assembly and sharpened cuts</a>.</p>
 </section>
 <section id="the-no-go-boundaries-force-hub-selection"
 class="level3 unnumbered">
@@ -2714,9 +2721,10 @@ metric <a class="narrative-ref narrative-ref--term is-term-again" href="../../do
 value estimate supplies no path-length aggregate. These two boundaries,
 including the distinction between the surviving algebraic budget and the
 failed length aggregate, are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md"><code>MinimalHubArmBudgetRefutation.md</code></a>
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md"><code>SeparatrixAggregateReduction.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md">minimal
+hub arm budget refutation</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md">separatrix
+aggregate reduction</a>.</p>
 <p>Third, the origin is not a uniform near-Fekete hub. An exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
 quintic with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> scaled by <span
 class="math inline" data-term-auto="off">\(999999/1000000\)</span> has four of five origin
@@ -2735,7 +2743,8 @@ origin selector, and a different admissible hub at the same
 configuration supplies a contained pair. What fails here is the origin
 selector; the admissible hubs are not exhausted. The full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> and
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> route are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">near
+fekete radial angular split</a>.</p>
 </section>
 <section id="the-surviving-carrier-and-the-actual-open-endpoint"
 class="level3 unnumbered">
@@ -2785,10 +2794,10 @@ class="math inline" data-term-auto="off">\(I\)</span>.</em></p>
 <p>The computation is one line: <span
 class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
 The kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
 flow value has deriv at</a>, together with the differential form of the
 first integral, <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
 flow scaled value has deriv at zero</a>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
@@ -2800,7 +2809,11 @@ value moves inward on one positive ray; a <a class="narrative-ref narrative-ref-
 remains zero. Thus <span class="math inline" data-term-auto="off">\(|f|&lt;1\)</span> is
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserved</a> for later times in that trajectory’s existing interval. No
 global existence or description of a whole ray preimage follows from
-this scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a>. The real-time candidate endpoint is in .</p>
+this scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a>. The real-time candidate endpoint is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean">newton
+flow real value decay</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean">newton
+flow trajectory</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 26</strong> (ray separation). <em> Let <span
 class="math inline" data-term-auto="off">\(a&lt;b\)</span> and let the value trajectory <span
@@ -2816,10 +2829,15 @@ class="math inline" data-term-auto="off">\(z\)</span> plane need not be radial.<
 </div>
 <p>The interior identity passes to the endpoints by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-continuity" data-term="continuity" data-term-auto="1">continuity</a>, not by
 evaluating <span class="math inline" data-term-auto="off">\(-f/f&#39;\)</span> at a critical
-endpoint. The candidate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and in make these premises
-explicit. Their compilation and axiom <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> are unrun in this <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>.
-They construct no trajectories and supply no global monodromy
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+endpoint. The candidate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">value
+decay at continuous endpoints</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">no
+finite connection of distinct value rays</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">newton
+endpoints</a> make these premises explicit. Their compilation and axiom
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> are unrun in this <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-return" data-term="return" data-term-auto="1">return</a>. They construct no trajectories and
+supply no global monodromy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -2848,7 +2866,7 @@ the form <span class="math display" data-term-auto="off">\[\beta=\frac{ra-b}{1-r
 </div>
 <p>So each pair of critical values contributes a one-real-parameter
 forbidden <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a> in the translation plane, given in closed form (<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
 same positive ray parameterization</a>). A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> union of such loci has
 empty interior, which is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> one wants for an avoidance argument.
 Turning that into a perturbation of <span
@@ -3083,7 +3101,7 @@ class="level3 unnumbered">
 critical-value family is injective, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves an arbitrarily small
 translation making every value nonzero and pairwise positive-ray
 separated (<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
 small translation separating arguments</a>). It also proves the explicit
 root-retention estimate; a shift below <span
 class="math inline" data-term-auto="off">\(\varepsilon\)</span> keeps all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> in the unit
@@ -3091,7 +3109,7 @@ disc when</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[((n+1)\varepsilon)^{1/n}+\rho&lt;1\]</span></div>
 <p>(<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
 perturbation roots in unit disk</a>). A constant translation cannot
 separate initially <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a> critical values.</p>
 <div class="problem">
@@ -3222,67 +3240,67 @@ class="math inline" data-term-auto="off">\(\ref{sec:finite}\)</span> is
 used throughout this problem-note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>
 <ul>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
 flow vector</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
 mul newton flow vector</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
 flow value has deriv at</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
 flow scaled value has deriv at zero</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
 positive ray</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">same
 positive ray refl</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">same
 positive ray symm</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
 positive ray trans</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
 same positive ray parameterization</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
 affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">real
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">real
 affine line eq affine span</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">is
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">is
 closed real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">dense
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">dense
 compl real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">exists
 small avoiding finite real affine lines</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
 positive ray imp mem real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
 small translation separating arguments</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
 lt one of near root</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
 perturbation root near original</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
 perturbation roots in unit disk</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L325">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L306">same
 positive ray of real exp decay</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L334">no
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">no
 newton connection of not same positive ray</a></p></li>
 </ul>
 <section
@@ -3294,13 +3312,13 @@ families.</h5>
 class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> the metric <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> are
 ordinary; the kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the cyclic-fibre mean square and the
 quotient-disk bridge. The fibre norm identity is <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L21">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L21">fibre
 mean square</a>, the strict unit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L37">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L37">fibre
 unit bound</a>, the quotient <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> land in the open disk by <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L60">quotient
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L60">quotient
 disk bridge</a>, and the composition vanishes on the fibre by <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L73">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L73">fibre
 zero identity</a>.</p>
 </section>
 </section>
@@ -3755,7 +3773,7 @@ class="uri">https://arxiv.org/abs/0808.0717</a>. Asymptotically sharp
 <span class="math inline" data-term-auto="off">\(2n+o(n)\)</span> for the level-curve
 arclength, extremal at <span class="math inline" data-term-auto="off">\(p(z)=z^n-1\)</span>.
 The title of this preprint is not recorded in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a>-art file.</p></li>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prior" data-term="prior" data-term-auto="1">prior</a>-art file.</p></li>
 <li id="ref-13"><p>T. Tao, <em>The maximal length of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Herzog–Piranian
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> in high degree</em>, arXiv:2512.12455 (December 2025). <a
 href="https://arxiv.org/abs/2512.12455"
@@ -3772,10 +3790,10 @@ class="math inline" data-term-auto="off">\(n\)</span>.</p></li>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 46&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           <a href="../problems/erdos_1041.html">Problem dossier</a>
         </div>
-        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:27ca9a32515680d6</code>. It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:aae864d2959adb4e</code>. It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
       </div>
       </div>
     </main>

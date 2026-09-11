@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 10,
+  "pages": 11,
   "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
   "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-249-binary-totient-series.html",
     "html_exact_tex": "papers/erdos-249-binary-totient-series.mathjax.html",
     "pdf": "../../papers/erdos-249-binary-totient-series.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-249-binary-totient-series.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/249/erdos-249-binary-totient-series.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,17 +28,17 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "7541dd33c45f97b67b36ac71eb73e1e98459e170a3b416a69bc860b6511dc98c",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "90203db78575ef6c90c4ae9905af9ee8f3ad4dd267117278ea1db1827263a204",
     "publication_manifest_match": true,
-    "mathml_node_count": 314,
+    "mathml_node_count": 318,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "236c197c91f03c9bd84238ea94e0ff3318f7958be84e2bf6d3ede2b7a618035f",
-    "html_exact_tex_sha256": "a7485d1dc2a64d63755161b5c7f115eadb47336447351d762bd852ad62cc867d"
+    "html_mathml_sha256": "d48e87e91feaaa3fcadacc2c94310d23b6f4d906eb83bd7c8c93eee771517ed5",
+    "html_exact_tex_sha256": "7da53b4cb4c0e29d50f67104282fada131842a437834eb166aabcaba1cf43593"
   },
   "sections": [
     {

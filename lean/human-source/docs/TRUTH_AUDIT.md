@@ -524,7 +524,7 @@ independent theorem content.
 
 **Evidence.** `Lift/Recon67.lean`, `Lift/CertT67.lean`, `Skip/LadderT67.lean`.
 
-### `paper/erdos249-257-main-paper.tex` (read-only during this audit)
+### `paper/archive/erdos249-257-main-paper.tex` (read-only during this audit)
 
 **Before.** Farey was framed as historical terminology rather than as the source of the denominator bound.
 
@@ -534,7 +534,7 @@ independent theorem content.
 
 ## Protected systems-paper status
 
-`paper/claim-faithful-publication-systems-paper.tex` was read end to end but
+`paper/systems/claim-faithful-publication-systems-paper.tex` was read end to end but
 remained read-only in this lane. The publication owner has since updated the
 worked example to the current bounded theorem—one checked certificate at every
 lcm-diagonal scale `t ≤ 82`, with nothing asserted at `t = 83`—while retaining

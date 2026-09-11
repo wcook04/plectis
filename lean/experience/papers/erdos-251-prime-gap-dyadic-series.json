@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
     "html_exact_tex": "papers/erdos-251-prime-gap-dyadic-series.mathjax.html",
     "pdf": "../../papers/erdos-251-prime-gap-dyadic-series.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-251-prime-gap-dyadic-series.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos-251-prime-gap-dyadic-series.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,10 +28,10 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "eae712c9c61241082dbe892acd60436790648866dd256ae420a2cae8c6454e92",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "a0e8c41005bd3725a432285f21e8d4199351de6b3378fe13c2b1e4376d5cf38e",
     "publication_manifest_match": true,
-    "mathml_node_count": 493,
+    "mathml_node_count": 496,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -50,8 +50,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d34a99065eeed9ebbf7479992b167745220653b01e6535f6f20e84b358c30f71",
-    "html_exact_tex_sha256": "6746ce022a1471b264048e7e581daca35bfd3c1ce908a8fe9b547e7d336e7566"
+    "html_mathml_sha256": "e08ddc92f18bf3bbd51cf5c163b29eec0da4346d3462c2bdc24a6c9e96ac1048",
+    "html_exact_tex_sha256": "beb7294a0650af54391141305f25e1db369fc400e7c29dc930601c2dc3b6bc2b"
   },
   "sections": [
     {

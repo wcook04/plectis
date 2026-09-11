@@ -4,7 +4,7 @@
     <h1>No Finite Separable Representation at Three Prime Generators</h1>
     <p class="lean-paper__subject">Erdős #269</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-269-three-prime-running-lcm.tex">
+  <div class="lean-paper__body" data-source="../../../paper/269/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a finite set of at
@@ -96,8 +96,8 @@ through a <span class="math inline" data-term-auto="off">\(d\)</span>-dimensiona
 contradicting the nonzero minor. ◻</p>
 </div>
 <p>Both clauses are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">uniform
+rank and nonseparation</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 2</strong> (the same minors modulo every admissible
 denominator). <em> For <span
@@ -119,8 +119,8 @@ both <span class="math inline" data-term-auto="off">\(B\)</span> and <span
 class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
 </div>
 <p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible
+modular minors</a>.</p>
 <div class="example">
 <p><strong>Example 3</strong>. <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
@@ -129,8 +129,8 @@ entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</s
 equals <span class="math inline" data-term-auto="off">\(1/60-1/12\)</span>.</em></p>
 </div>
 <p>The four entries and the determinant are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102">two
+by two fixture</a>.</p>
 <section id="the-indices-must-be-selected." class="level5">
 <h5>The indices must be selected.</h5>
 <p>The leading <span class="math inline" data-term-auto="off">\(4\times4\)</span> block at
@@ -180,8 +180,8 @@ differences (their sum is <span class="math inline" data-term-auto="off">\((1-c)
 class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 </div>
 <p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
+cut matrix</a>.</p>
 <p>The formula classifies every finite sampled kernel rank after the row
 and column factors of Theorem <span
 class="math inline" data-term-auto="off">\(\ref{res:infinite-rank}\)</span>, independently of
@@ -323,7 +323,9 @@ introduced next. The de-duplicated irrationality assertion is historical
 <div class="proposition">
 <p><strong>Proposition 6</strong> (the running least common multiple).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
-primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then <span
+primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">smooth-prefix
+LCM</a> equals the three-prime height: <span
 class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}(x)\)</span>.</em></p>
 </div>
 <div class="proof">
@@ -335,31 +337,65 @@ three maximal pure powers occur among those smooth numbers; their
 product divides the running LCM because they are pairwise coprime. ◻</p>
 </div>
 <p>The statement is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">Lean
-source</a>. The same definition gives</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">smooth
+prefix lcm equals three-prime height</a>. The same definition gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:cube}
 x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
 \end{equation}\]</span></div>
 <p>Both inequalities are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">Lean
-source</a>. The height is constant between consecutive pure-power
-boundaries and gains a factor equal to the prime at each boundary. If
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">cubic
+height bounds</a>.</p>
+<div class="proposition">
+<p><strong>Proposition 7</strong> (smooth-prefix LCM cells). <em> If
+<span class="math inline" data-term-auto="off">\(x,y\ge1\)</span> lie in the same logarithmic
+cell, then <span
+class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{L}(y)\)</span>:
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">smooth-prefix
+LCM cell</a> is constant. Advancing exactly one logarithm multiplies the
+running value by the corresponding <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L326">first-channel
+step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L339">second-channel
+step</a> or <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L352">third-channel
+step</a>. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L278">jump
+set with the origin</a>, formed from the first <span
+class="math inline" data-term-auto="off">\(n\)</span> positive powers in each channel
+together with <span class="math inline" data-term-auto="off">\(1\)</span>, has cardinality
+<span class="math inline" data-term-auto="off">\(3n+1\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Cell constancy and the three jump ratios follow from
+Proposition <span class="math inline" data-term-auto="off">\(\ref{res:lcm}\)</span>, since
+the height depends on <span class="math inline" data-term-auto="off">\(x\)</span> only
+through the three integer logarithms. Within one channel the first <span
+class="math inline" data-term-auto="off">\(n\)</span> positive powers are distinct; across
+channels a common value would be a positive power of two distinct
+primes; and <span class="math inline" data-term-auto="off">\(1\)</span> is not a positive
+prime power. ◻</p>
+</div>
+<div class="proposition">
+<p><strong>Proposition 8</strong> (height-fibre regrouping). <em> If
 <span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a finite
-exponent box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, exact
-regrouping gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+exponent box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">height-fibre
+regrouping</a> gives <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{res:fibre}
 \sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
-\end{equation}\]</span></div>
-<p>Each term in <span
+\end{equation}\]</span></em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Each term in <span
 class="math inline" data-term-auto="off">\(F(H)\)</span> equals <span
-class="math inline" data-term-auto="off">\(1/H\)</span>, which proves the identity. The
-multiplicities remain present in every subsequent infinite sum. The
-regrouping is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">Lean
-source</a>.</p>
+class="math inline" data-term-auto="off">\(1/H\)</span>. The multiplicities remain present in
+every subsequent infinite sum. ◻</p>
+</div>
+<p>The regrouping is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
+smooth kernel sum grouped by height</a>.</p>
 <p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
 <span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span> define</p>
@@ -380,9 +416,11 @@ m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></div>
 <div class="lemma">
-<p><strong>Lemma 7</strong> (integer forcing and the four radices). <em>
+<p><strong>Lemma 9</strong> (integer forcing and the four radices). <em>
 For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
-class="math inline" data-term-auto="off">\(m_a\)</span> is a positive integer and <span
+class="math inline" data-term-auto="off">\(m_a\)</span> is a positive integer and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">four-letter
+dyadic alphabet</a> satisfies <span
 class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>.</em></p>
 </div>
 <div class="proof">
@@ -394,16 +432,17 @@ by those of <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(2^{a+1})\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})\)</span>.
 Each forcing summand is an integer, and the shell contains <span
-class="math inline" data-term-auto="off">\(2^a\)</span>. Between consecutive two-powers there
-is at most one three-power and at most one five-power. Their optional
-factors, together with the terminal factor two, give the four
-radices. ◻</p>
+class="math inline" data-term-auto="off">\(2^a\)</span>. Between consecutive two-powers, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L668">internal-power
+uniqueness</a> leaves at most one three-power and at most one
+five-power. Their optional factors, together with the terminal factor
+two, give the four radices. ◻</p>
 </div>
 <p>Both clauses are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">literal
+integer forcing and four radices</a>.</p>
 <div class="proposition">
-<p><strong>Proposition 8</strong> (the actual recurrence and a
+<p><strong>Proposition 10</strong> (the actual recurrence and a
 polynomial bound). <em> The series defining <span
 class="math inline" data-term-auto="off">\(S,T_a\)</span> converge. For every <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
@@ -419,8 +458,10 @@ Z)\ge1/31\)</span> at arbitrarily large indices.</em></p>
 <p><em>Proof.</em> A dyadic shell contains at most one two-exponent for
 each pair of three- and five-exponents. Each of the latter lies between
 <span class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(a\)</span>, so its count is at most <span
-class="math inline" data-term-auto="off">\((a+1)^2\)</span>. By <span
+class="math inline" data-term-auto="off">\(a\)</span>, so the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">quadratic
+shell bound</a> gives at most <span
+class="math inline" data-term-auto="off">\((a+1)^2\)</span> terms. By <span
 class="math inline" data-term-auto="off">\(\eqref{res:cube}\)</span>, <span
 class="math inline" data-term-auto="off">\(s_a\le30(a+1)^2/8^a\)</span>. Therefore</p>
 <div class="math-display" data-term-auto="off"><span
@@ -430,8 +471,8 @@ class="math display" data-term-auto="off">\[X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+
 bound. Splitting the first shell gives the recurrence because <span
 class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span> and <span
 class="math inline" data-term-auto="off">\(h_{a+1}=b_ah_a\)</span>. All four clauses are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">short
+actual orbit</a>.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(Y_a=BX_a\)</span>. If all
 sufficiently late distances are strictly below <span
 class="math inline" data-term-auto="off">\(1/31\)</span>, write <span
@@ -451,7 +492,7 @@ successive two-jumps and has a separate ordinary proof. The present cap
 suffices for the criterion; the sharper argument belongs in the extended
 record rather than in this proof.</p>
 <div class="theorem">
-<p><strong>Theorem 9</strong> (actual rationality-to-reduced-carry
+<p><strong>Theorem 11</strong> (actual rationality-to-reduced-carry
 bridge). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
 terms, where <span class="math inline" data-term-auto="off">\(D=2^u3^v5^wB\)</span> and <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span>, then for every <span
@@ -483,8 +524,8 @@ Proposition <span
 class="math inline" data-term-auto="off">\(\ref{res:actual-orbit}\)</span>. ◻</p>
 </div>
 <p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">short
+fixed split bridge</a>.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining arithmetic</h2>
@@ -512,7 +553,7 @@ section use the valid cap</p>
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
 <div class="lemma">
-<p><strong>Lemma 10</strong> (finite endpoint obstruction). <em> If
+<p><strong>Lemma 12</strong> (finite endpoint obstruction). <em> If
 <span class="math inline" data-term-auto="off">\(d\)</span> is a positive integer with <span
 class="math inline" data-term-auto="off">\(d\le K\)</span> and <span
 class="math inline" data-term-auto="off">\(d\equiv -BF\pmod W\)</span>, where <span
@@ -526,10 +567,10 @@ class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le d\le
 K\)</span>. ◻</p>
 </div>
 <p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">finite
+endpoint obstruction</a>.</p>
 <div class="theorem">
-<p><strong>Theorem 11</strong> (the actual window criterion). <em> The
+<p><strong>Theorem 13</strong> (the actual window criterion). <em> The
 number <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if and only
 if <span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:escape}
@@ -575,15 +616,15 @@ class="math inline" data-term-auto="off">\(\eqref{eq:escape}\)</span>, in fact f
 fixed start. ◻</p>
 </div>
 <p>The equivalence, at the literal smooth-number series, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51">short
+window equivalence</a>.</p>
 <p>The validity of the cap is needed in the rational direction; an upper
 polynomial growth condition by itself would not suffice. The zero cap,
 for example, makes positive-residue escape automatic. The criterion
 identifies the target in window coordinates. The unresolved point is the
 source-specific exclusion below.</p>
 <div class="problem">
-<p><strong>Problem 12</strong> (exact nonintegrality of every reduced
+<p><strong>Problem 14</strong> (exact nonintegrality of every reduced
 tail). <em> Prove that for every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span> and every integer <span
 class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to <span
@@ -594,7 +635,7 @@ BX_a\notin\mathbb Z.
 \end{equation}\]</span></em></p>
 </div>
 <div class="problem">
-<p><strong>Problem 13</strong> (actual cofinal local-window escape).
+<p><strong>Problem 15</strong> (actual cofinal local-window escape).
 <em> Prove the displayed quantifier order <span
 class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
 \exists\ell\ge a_0\ \exists h\ge1:\quad
@@ -602,7 +643,7 @@ class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \for
    &gt;K(B,\ell+h).\]</span></em></p>
 </div>
 <div class="problem">
-<p><strong>Problem 14</strong> (function-faithful two-dimensional
+<p><strong>Problem 16</strong> (function-faithful two-dimensional
 representation). <em>Express <span class="math inline" data-term-auto="off">\(\mathcal
 D_{2,3,5}\)</span> as a nonconstant algebraic combination of values of a
 specified two-dimensional Hecke–Mahler, cone-generating or multivariate
@@ -691,14 +732,14 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 second mem smooth prefix exponents</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L110">pure
 third mem smooth prefix exponents</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">smooth
-prefix lcm eq three prime height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">smooth-prefix
+LCM</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L163">same
 three prime log cell</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L169">three
 prime height eq of same log cell</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">smooth
-prefix lcm eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">smooth-prefix
+LCM cell</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L191">three
 prime kernel q eq of same log cell</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L204">positive
@@ -715,20 +756,20 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 prime positive jump set card</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L273">three
 prime jump set with origin</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L278">three
-prime jump set with origin card</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L278">jump
+set with the origin</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L294">three
 prime height first log step</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L305">three
 prime height second log step</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L316">three
 prime height third log step</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L326">smooth
-prefix lcm first log step</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L339">smooth
-prefix lcm second log step</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L352">smooth
-prefix lcm third log step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L326">first-channel
+step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L339">second-channel
+step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L352">third-channel
+step</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L368">smooth
 exponent box</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L373">smooth
@@ -737,8 +778,8 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 height fiber</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L384">smooth
 height fiber kernel sum</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">finite
-smooth kernel sum grouped by height</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">height-fibre
+regrouping</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L430">three
 prime height le cube</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L443">kernel
@@ -765,16 +806,16 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 exponent shell card le drop third</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L629">sorted
 pair quadratic</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">smooth
-exponent shell card quadratic</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L646">quadratic
+shell bound</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L662">dyadic
 internal power</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L668">dyadic
-internal power exponent unique</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L668">internal-power
+uniqueness</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688">dyadic
 block base235</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">dyadic
-block base235 cases</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">four-letter
+dyadic alphabet</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L711">dyadic
 block base235 mem interval</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ResidueEscape.lean#L26">least

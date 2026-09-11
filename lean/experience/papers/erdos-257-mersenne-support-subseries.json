@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
     "html_exact_tex": "papers/erdos-257-mersenne-support-subseries.mathjax.html",
     "pdf": "../../papers/erdos-257-mersenne-support-subseries.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-257-mersenne-support-subseries.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,10 +28,10 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "ac88a129ef853d707a556e3c5346387d3b7b15c6d749b11eba9da06120db4e18",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "8f3d6d9404a32d5fd6c4a9375ad7c5e1aea90f4d10cbe749791a6511b4f76ae8",
     "publication_manifest_match": true,
-    "mathml_node_count": 345,
+    "mathml_node_count": 344,
     "raw_math_fallback_count": 3,
     "warnings": {
       "mathml": [
@@ -54,8 +54,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "486918d6f4f15014808757af6452b4c6b0210c76278241348fbbcda698062ee5",
-    "html_exact_tex_sha256": "f9c7c00c5f5d6af034c7a87ee8e727422d7d1a5d73631c80391fa3dd354bd48d"
+    "html_mathml_sha256": "94285bcd5f254948dfa5daa172b5ed8ef1c190203fdbc3420502c540f8f8dd8a",
+    "html_exact_tex_sha256": "94181e767623c6140f3d227bfe62ad8035abb51730db55f3df476822fb476e83"
   },
   "sections": [
     {

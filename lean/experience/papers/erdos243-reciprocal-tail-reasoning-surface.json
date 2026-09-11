@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
     "html_exact_tex": "papers/erdos243-reciprocal-tail-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "ed0477376d0ff7932910d3acf2fbb9c3cf6b08e42ae2545c8ba4fd61bee4a6fe",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
     "publication_manifest_match": true,
     "mathml_node_count": 1591,
     "raw_math_fallback_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "e850d9e2685e7da2ce58c59a51c9542f5062e92dbab48c8d5de88f8667c89a8a",
-    "html_exact_tex_sha256": "16779bf66d16e783a5f00d43972c59c09e4509e1b8916acaa312afe5b98467a7"
+    "html_mathml_sha256": "7b61493242a40aa8a9b92b27f83e278e65b784e1ce4a4b937552bfa3326c4450",
+    "html_exact_tex_sha256": "7a7ad22fc5dea14fc2aef684760626270e9fc2eff054a411dcbc3a0aa98034ed"
   },
   "sections": [
     {

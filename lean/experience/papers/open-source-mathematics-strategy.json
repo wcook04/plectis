@@ -15,9 +15,9 @@
     "html_mathml": "papers/open-source-mathematics-strategy.html",
     "html_exact_tex": "papers/open-source-mathematics-strategy.mathjax.html",
     "pdf": "../../papers/open-source-mathematics-strategy.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/open-source-mathematics-strategy.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/open-source-mathematics-strategy.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/open-source-mathematics-strategy.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/open-source-mathematics-strategy.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
+    "renderer_fingerprint": "68395684e8d7d8b0",
     "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
     "publication_manifest_match": true,
     "mathml_node_count": 7,
@@ -54,8 +54,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "2ac0911b4e972be36bb674ae8ebfb4c4779962ac8ff9fdad4aa751c112c3cb06",
-    "html_exact_tex_sha256": "69428425fdf4fc8cec7cc10de1f5b555ef6a359fb4c2a10e11476fdd3e24a5b6"
+    "html_mathml_sha256": "bfc2134d04a61eb25f0a2f96000061cd094dce3404b6d6464460c18592581626",
+    "html_exact_tex_sha256": "2f4b42d30cfc758609d6a67fcbccce0733e5376a295d50ead018eaad80210ac6"
   },
   "sections": [
     {

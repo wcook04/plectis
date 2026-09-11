@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
     "html_exact_tex": "papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "d912ac90cd2f6d7e1e2dd7d685cee70dcda0db3d689164dce0736418b79dc9a5",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "1d116a3e0779eebb83bac8518d4dc88fcfed5162797e590983ce7b603d67f268",
     "publication_manifest_match": true,
     "mathml_node_count": 1538,
     "raw_math_fallback_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "04d37a633c0b4b9fdd0d7cb504bb19e66e798c0f933a71b501c3535dd2dfd7ec",
-    "html_exact_tex_sha256": "3d0473aa1a76863fc6d49227183c6dfdd8ddb3af7eb4b2f237ee6b4daef934c8"
+    "html_mathml_sha256": "fb381f3330169e5af54c5d336e0abb338d91303e169dd1cf7b4e290b5812ef8a",
+    "html_exact_tex_sha256": "439bc1597d9b25c37adf6f6213da8764f21a3f162fda5c571c3082bd7ac0a54f"
   },
   "sections": [
     {
@@ -284,7 +284,7 @@
     {
       "level": 5,
       "anchor": null,
-      "label": "Checked declarations behind the four-jet collision family."
+      "label": "Four-jet collision family."
     },
     {
       "level": 2,

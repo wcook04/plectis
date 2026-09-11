@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos249-totient-reasoning-surface.html",
     "html_exact_tex": "papers/erdos249-totient-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos249-totient-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos249-totient-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos249-totient-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/249/erdos249-totient-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
+    "renderer_fingerprint": "68395684e8d7d8b0",
     "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
     "publication_manifest_match": true,
     "mathml_node_count": 2893,
@@ -80,8 +80,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "85baa29d175763ca713c9deddc34ff7bf08e9bb0371679d3c16cab490072eb71",
-    "html_exact_tex_sha256": "6d5d302fe53f57a0d182560840662f0eaed0d9388020c9836787b59f7543899e"
+    "html_mathml_sha256": "0d4569d47d4497c56f9636e2a2963a1f2c08cc6bcf4fcf296933a01dbf2cf0ef",
+    "html_exact_tex_sha256": "10fe3251e8d4134b3cc58e0d13747d34a12aebbf742a98c8a2c005d9b2a18eb0"
   },
   "sections": [
     {

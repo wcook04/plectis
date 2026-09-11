@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
     "html_exact_tex": "papers/erdos1041-lemniscate-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos1041-lemniscate-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos1041-lemniscate-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "27ca9a32515680d6e041449b4d4127b5cfef3e23d3c22e9e572715f00f8fa9d0",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "aae864d2959adb4e4e858c2a754e2061325aa07ea4102120758464feb444cb4b",
     "publication_manifest_match": true,
     "mathml_node_count": 1231,
     "raw_math_fallback_count": 2,
@@ -55,8 +55,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "f9356db36b36f16ad028dc04b305d29a09774c73f1da685cd4ff85f8b4d487cf",
-    "html_exact_tex_sha256": "eda2d0f905b58b8bc665e8d79f5345a074755e3411ed713b004f8aabf5fd430f"
+    "html_mathml_sha256": "bcaa5947f8d8c48d8cbe5f54d49c259a3ade28c0af6e1c29a98b3702adb517af",
+    "html_exact_tex_sha256": "9c0afacf0df8bcf942a9af05b53c3d7fb7014029c492b12899e376f7b2449189"
   },
   "sections": [
     {

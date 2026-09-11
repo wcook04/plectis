@@ -10,7 +10,7 @@
       "question": "Is the series sum_{n >= 2} 1/(n! - 1) irrational?",
       "href": "problems/erdos_68.json",
       "paper_id": "erdos-68-factorial-denominator-irrationality",
-      "module_count": 12,
+      "module_count": 13,
       "main_result_count": 2,
       "has_frontier": true
     },

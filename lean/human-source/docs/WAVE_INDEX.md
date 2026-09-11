@@ -13,7 +13,7 @@ Read order for humans:
    programme, claim, or exact remaining open proposition.
 2. `docs/SOURCE_MAP.md` — follow that selected intention into a bounded module
    route.
-3. `paper/erdos249-257-main-paper.tex` — read the authored mathematical
+3. `paper/archive/erdos249-257-main-paper.tex` — read the authored mathematical
    exposition and its source handles.
 4. this file — recover development chronology only when chronology is the
    question.
@@ -87,11 +87,11 @@ Base 2 is the unique self-normalising point of the geometric law.
 since gcd-divisibility factorises across independent coordinates. Yields
 `L₂(μ) = S − 1/2`, the gcd-moment ladder, and Pillai's gcd-sum function.
 The exact family return is the [probabilistic gcd-geometry route](SOURCE_MAP.md#complete-eight-problem-return-matrix):
-the [totient gcd-moment declaration](../Erdos249257/GcdMomentCalculus.lean#L235)
+the [totient gcd-moment declaration](../lean/Erdos249257/GcdMomentCalculus.lean#L235)
 and
-the [Stern–Brocot cylinder recursion](../Erdos249257/GcdMomentCalculus.lean#L474),
-[cylinder remainder bound](../Erdos249257/GcdMomentCalculus.lean#L525), and
-[run-stability declaration](../Erdos249257/SternBrocotRunGeometry.lean#L343)
+the [Stern–Brocot cylinder recursion](../lean/Erdos249257/GcdMomentCalculus.lean#L474),
+[cylinder remainder bound](../lean/Erdos249257/GcdMomentCalculus.lean#L525), and
+[run-stability declaration](../lean/Erdos249257/SternBrocotRunGeometry.lean#L343)
 return to the paper's [probability-coordinate appendix](papers/full-text/erdos249-257-main-paper.md#app:lambert-probability),
 with the stable records `res:directionnormalization`, `res:sternbrocotcylinders`,
 and `res:sternbrocotruns`. The cylinder-law family is also directly recoverable
@@ -312,9 +312,9 @@ obstruction.  Retrieve that family with
 `python3 scripts/query_corpus.py --publication-family transport_strategy_no_go_boundaries`, or inspect the factor-ideal claim with
 `python3 scripts/query_corpus.py --claim lcm_factor_ideal_anchor_pulse_no_go`.
 Its exact formal anchors are
-[`lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L798),
-[`lcm_factorIdeal_sparseAnchor_not_sufficient`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L866),
-and [`lcmAnchorPulse_t3_letters`](../Erdos249257/LcmFactorIdealPulseObstruction.lean#L895).
+[`lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient`](../lean/Erdos249257/LcmFactorIdealPulseObstruction.lean#L798),
+[`lcm_factorIdeal_sparseAnchor_not_sufficient`](../lean/Erdos249257/LcmFactorIdealPulseObstruction.lean#L866),
+and [`lcmAnchorPulse_t3_letters`](../lean/Erdos249257/LcmFactorIdealPulseObstruction.lean#L895).
 The family remains a synthetic survivor: its forcing letters need not be
 actual totient differences, nonlinear fresh-divisor arguments remain outside
 the result, and no unbounded certificate supply follows.
@@ -380,7 +380,7 @@ the shortest first read:
 | #243 | [`reciprocal-tail rigidity`](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) | `ErdosProblems/Erdos243/ReciprocalTailRigidity.lean` |
 | #251 | [`prime-gap dyadic tails`](papers/full-text/erdos-251-prime-gap-dyadic-series.md) | `ErdosProblems/Erdos251/PrimeGapDyadicTail.lean` |
 | #269 | [`three-prime running lcm`](papers/full-text/erdos-269-three-prime-running-lcm.md) | `ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean` |
-| #1049 | [`rational-base Lambert`](papers/full-text/erdos-1049-rational-base-lambert.md) | [`RationalBaseLambert`](../ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155) · [`ZudilinHeightRegion`](../ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91) · [`RationalPadeArithmetic`](../ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30) · [`HermitePadeNoGo`](../ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103) · [`QAperyDiagonalNonEquivalence`](../ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67) · [`ZudilinConeArithmetic`](../ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286) |
+| #1049 | [`rational-base Lambert`](papers/full-text/erdos-1049-rational-base-lambert.md) | [`RationalBaseLambert`](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155) · [`ZudilinHeightRegion`](../lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91) · [`RationalPadeArithmetic`](../lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30) · [`HermitePadeNoGo`](../lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103) · [`QAperyDiagonalNonEquivalence`](../lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67) · [`ZudilinConeArithmetic`](../lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286) |
 
 These notes preserve their own evidence classes and limitations; the source
 map is the route to the exact continuation obligation, not a chronology or a
@@ -391,8 +391,8 @@ claim-status authority.
 ## Package shape
 
 - `CertificateKernel.lean` (0.85 MiB, 19,278 lines, 845 declarations; 519 theorems and 275 lemmas): the assembled microkernel and headline interfaces.
-- `GeneratedCertificates.lean` (1.18 MiB, 27,728 lines, 1,174 declarations) plus 3 generated shards: finite certificate instances checked by the Lean kernel.
-- The diagonal-pincer family contains 495 isolated prime-certificate modules and 16 scale aggregators. The shards are indexed through aggregators rather than presented as separate mathematical claims.
+- `GeneratedCertificates.lean` (1.18 MiB, 27,728 lines, 1,174 declarations) plus 0 generated shards: finite certificate instances checked by the Lean kernel.
+- The diagonal-pincer family contains 0 isolated prime-certificate modules and 0 scale aggregators. The shards are indexed through aggregators rather than presented as separate mathematical claims.
 - Entire checked corpus: 1,274 modules, 156,245 declarations, 153,502 theorem-like declarations, and 8,171 manifest-marked generated-certificate declarations (a classification floor, not the generated share). The release gate rejects `sorry`, `admit`, custom `axiom` declarations, and `native_decide`.
 
 These are generated inventory facts, not mathematical claim counts. The declaration atlas

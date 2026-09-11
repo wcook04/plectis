@@ -15,9 +15,9 @@
     "html_mathml": "papers/claim-faithful-publication-systems.html",
     "html_exact_tex": "papers/claim-faithful-publication-systems.mathjax.html",
     "pdf": "../../papers/claim-faithful-publication-systems-paper.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/claim-faithful-publication-systems-paper.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "d8a3179c2e59904e4b792a5da08ffe0d221368357807d393d3a7ef62047b1548",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "e04d135267c9416d729c9ba42df364448b203abf06aabfeeac14da0f30993a8e",
     "publication_manifest_match": true,
     "mathml_node_count": 7,
     "raw_math_fallback_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "21fffec36b7a8cbcdcca8426b373ec065683ecfeb2d5dd987af68718130c54b4",
-    "html_exact_tex_sha256": "8d3aab057b5a2bdd5407fd5119a7a6f1eef8de47293cac250b6378682073d131"
+    "html_mathml_sha256": "1f6865633087871c72fd63c3450a43575bca658559c7403dc36b63f139dbd891",
+    "html_exact_tex_sha256": "6eaf2ef5f21df1239c01b47a7365f45a910ca857ed273e3ee13263806f91e732"
   },
   "sections": [
     {

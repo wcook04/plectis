@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
     "html_exact_tex": "papers/erdos257-mersenne-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos257-mersenne-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos257-mersenne-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos257-mersenne-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-mersenne-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "e6ca051b1acf26b99809796daa32f0f5becdf032404c1d78c2859a8bd8a2e7bb",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "797fb0abede0eb1f7bbfb7c0b4b685434ae602f5b91a7146e7232b4abdd0dcb1",
     "publication_manifest_match": true,
     "mathml_node_count": 2919,
     "raw_math_fallback_count": 1,
@@ -43,8 +43,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "4da25838723a0dcc994d00b9fb4de659359759cc7b7902a469df8753c8b44f9b",
-    "html_exact_tex_sha256": "fec7cb82079ab73ef05b95cc298a2752a288958092c2d61dc6a4d44e5da85d90"
+    "html_mathml_sha256": "10d6262e32e18c7c1311f9447b9a673368118dcc7f5ce27452d8ccd6aa262c79",
+    "html_exact_tex_sha256": "044331359f6eb24452a6b042d7309d3836aa0e2bc7c75462db817a0f9a78d46e"
   },
   "sections": [
     {

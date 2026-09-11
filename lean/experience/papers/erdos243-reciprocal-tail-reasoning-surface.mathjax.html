@@ -4,7 +4,7 @@
     <h1>Reciprocal-Tail Rigidity: Complete Reasoning Record</h1>
     <p class="lean-paper__subject">Erdős #243</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos243-reciprocal-tail-reasoning-surface.tex">
+  <div class="lean-paper__body" data-source="../../../paper/243/erdos243-reciprocal-tail-reasoning-surface.tex">
 <section id="long243:sec:problem" class="level2">
 <h2>Introduction</h2>
 <p>Sylvester’s sequence <span
@@ -34,7 +34,7 @@ as <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</spa
 the shift the formal sources use; the two forms are the same statement.
 Write <span
 class="math inline" data-term-auto="off">\(\operatorname{syl}(a)=a^{2}-a+1\)</span>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L37">Sylvester
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L37">Sylvester
 successor</a>.</p>
 <p>The hypothesis is asymptotic and the conclusion is exact, so the
 argument must convert an analytic rate into an integer obstruction. The
@@ -836,7 +836,7 @@ class="math inline" data-term-auto="off">\(\ref{long243:res:cubicexclusion}\)</s
 centred-coordinate form of Lemma <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:tailratio}\)</span> rests on the
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
 identity</a>, which is kernel-checked. Lemma <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:squarespec}\)</span> uses the
 Chebotarev density theorem in its finite-Galois form and no effective or
@@ -1071,10 +1071,11 @@ bounded negative part, the centred error <span
 class="math inline" data-term-auto="off">\(E_n\)</span> is eventually zero. The original
 sequence therefore satisfies the Sylvester recurrence from some point
 onward (Theorem <span
-class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span>), in the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2403">bounded-negative-part
-recurrence theorem</a>. Hypothesis (5), the bound on the negative part,
-is supplied by nothing in this note.</p>
+class="math inline" data-term-auto="off">\(\ref{long243:res:bounded}\)</span>), in the
+bounded-negative-part recurrence theorem
+(<code>boundedNegativePart_sylvesterNext_eventually</code> is not in
+this checkout). Hypothesis (5), the bound on the negative part, is
+supplied by nothing in this note.</p>
 <p><strong>Second endpoint.</strong> The same conclusion holds when the
 normalised negative mass <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span> is finite, provided
@@ -1162,7 +1163,7 @@ a guide to the formal sources, and Appendix <span
 class="math inline" data-term-auto="off">\(\ref{long243:app:residue}\)</span> records an
 exact residue reduction that an earlier finite search used. Linked
 phrases open the corresponding Lean declaration at the pinned source
-revision 1da2a504f8d8. Where a section names a Lean module that is
+revision 92b88dc1bbe0. Where a section names a Lean module that is
 outside that revision, it says so in place of a link.</p>
 </section>
 </section>
@@ -1184,11 +1185,11 @@ class="math display" data-term-auto="off">\[\operatorname{den}(a,D)=aD,
 \quad
 \operatorname{ctr}(a,D,C)=D-(a-1)C ,\]</span></div>
 <p>the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L41">denominator
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L41">denominator
 update</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L45">tail
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L45">tail
 update</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L49">centred
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L49">centred
 state</a>. Given a sequence <span class="math inline" data-term-auto="off">\((a_n)\)</span>
 of integers, whose terms we call the <em>multipliers</em>, we write
 <span class="math inline" data-term-auto="off">\(D_{n+1}=\operatorname{den}(a_n,D_n)\)</span>
@@ -1218,7 +1219,7 @@ that is, <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</spa
 class="math inline" data-term-auto="off">\(C-\bigl(D-(a-1)C\bigr)=aC-D\)</span>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
 law</a>. The state therefore moves by exactly the error at each step,
 which is what makes the sign of <span class="math inline" data-term-auto="off">\(E\)</span>
 decisive: where <span class="math inline" data-term-auto="off">\(E\)</span> is positive the
@@ -1344,29 +1345,29 @@ on the Sylvester orbit.</p>
 hypothesis; it proves identities and implications about the integer
 system above, and about its natural-number realisation, for which the
 bridging identities are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1863">tail
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1863">tail
 realisation</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1875">denominator
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1875">denominator
 realisation</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1972">signed
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1972">signed
 update law</a>.</p>
 <p>The series itself is reached by three further declarations, which
 were absent from earlier revisions of this note. Write <span
 class="math inline" data-term-auto="off">\(C_n/D_n\)</span> for the real ratio carried by the
 natural state, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1895">tail
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1895">tail
 ratio</a>. Given <span class="math inline" data-term-auto="off">\(a_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(D_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
 class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>, one exact step removes
 <span class="math inline" data-term-auto="off">\(1/a_n\)</span> from that ratio <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1899">one-step
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1899">one-step
 reciprocal identity</a>, finite iteration telescopes to a partial sum
 plus the endpoint ratio <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1923">finite
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1923">finite
 telescoping</a>, and convergence of the endpoint ratio to zero
 identifies the infinite sum <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">the
 series realisation</a>: <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span>
 then has sum <span class="math inline" data-term-auto="off">\(C_0/D_0\)</span>. These three
 carry no growth hypothesis, no centring hypothesis and no rationality
@@ -1383,11 +1384,11 @@ class="math display" data-term-auto="off">\[\operatorname{den}(a,sD)=s\,\operato
 class="math display" data-term-auto="off">\[\operatorname{ctr}(a,sD,sC)=s\,\operatorname{ctr}(a,D,C).\]</span></em></p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L65">denominator
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L65">denominator
 equivariance</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L70">tail
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L70">tail
 equivariance</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L75">centred
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L75">centred
 equivariance</a>. The system depends only on the ray through <span
 class="math inline" data-term-auto="off">\((D,C)\)</span>. This is used twice below: once to
 normalise the finite search of Appendix <span
@@ -1418,7 +1419,7 @@ vanishing error propagates to every later index.</p>
 <p>Write <span
 class="math inline" data-term-auto="off">\(\operatorname{def}(a,a&#39;)=a&#39;-\operatorname{syl}(a)\)</span>
 for the deviation of the next term from the Sylvester successor, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L53">Sylvester
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L53">Sylvester
 defect</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 16</strong> (defect identity). <em> For all <span
@@ -1433,7 +1434,7 @@ class="math inline" data-term-auto="off">\(\Delta_n\,C_{n+1}=a_n^{2}E_n-E_{n+1}\
 class="math inline" data-term-auto="off">\(a&#39;aC-a&#39;D-a^{3}C+a^{2}D+a^{2}C-aD-aC+D\)</span>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
 identity</a>. It is a polynomial identity in four indeterminates, with
 no hypothesis of any kind, and it carries the whole argument twice over:
 once for rigidity, and once for absorption.</p>
@@ -1476,7 +1477,7 @@ class="math inline" data-term-auto="off">\(\operatorname{def}(a,a&#39;)\cdot\ope
 is zero, and the second factor is nonzero by hypothesis. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1781">local
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1781">local
 rigidity step</a>. The hypothesis <span
 class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span> is not removable: at <span
 class="math inline" data-term-auto="off">\(C_{n+1}=0\)</span> the identity gives no
@@ -1508,7 +1509,7 @@ replace <span class="math inline" data-term-auto="off">\(h_1u_2+v_1\)</span> usi
 The remaining terms factor as the displayed right-hand side. ◻</p>
 </div>
 <p>This is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/DynamicCancellation.lean#L270">two-step
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/DynamicCancellation.lean#L268">two-step
 primitive recurrence</a>. The hard point is keeping both changing
 cancellation factors visible. The result is stronger than a one-step
 congruence, though it remains non-autonomous and cannot by itself force
@@ -1532,7 +1533,7 @@ discrete curvature term. The right side records the change in
 multiplier, so the identity supplies a diagnostic for an anti-shadowing
 argument without asserting a sign or a global monotonicity. It is
 checked as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/DynamicCancellation.lean#L309">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/DynamicCancellation.lean#L307">the
 cancellation-free curvature square</a>; no global anti-shadowing
 conclusion is claimed.</p>
 <p>Finally, the reduced denominator transport has a precise
@@ -1554,9 +1555,9 @@ class="math display" data-term-auto="off">\[h\bigl((a_1-1)u_1+e_1\bigr)
 \quad\Longleftrightarrow\quad
 a_1=a^2-a+1+\Delta.\]</span></div>
 <p>This is the exact <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FeedbackRealizability.lean#L64">feedback
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FeedbackRealizability.lean#L64">feedback
 transport equivalence</a>, obtained from the factored defect at <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FeedbackRealizability.lean#L15">feedback
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FeedbackRealizability.lean#L15">feedback
 transport defect</a>. The nonzero-raw-numerator hypothesis is essential:
 if <span class="math inline" data-term-auto="off">\(u-e=0\)</span>, the factorised mismatch
 cannot identify <span class="math inline" data-term-auto="off">\(a_1\)</span>.</p>
@@ -1579,7 +1580,7 @@ class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span> for al
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1799">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1799">eventual
 Sylvester recurrence</a>. The proof is routine: take the larger of the
 two thresholds and apply Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:step}\)</span> at each later
@@ -1611,9 +1612,9 @@ class="math inline" data-term-auto="off">\(C_{n+1}\)</span> of absolute value sm
 class="math inline" data-term-auto="off">\(|E_{n+1}|&lt;C_{n+1}\)</span> by hypothesis. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2221">absorption
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2221">absorption
 of a vanishing centred state</a>, with the companion <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2248">contrapositive
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2248">contrapositive
 along a tail</a>: if zero is absorbing beyond some index and <span
 class="math inline" data-term-auto="off">\(E\)</span> does not vanish eventually, then <span
 class="math inline" data-term-auto="off">\(E\)</span> is nowhere zero beyond that index.</p>
@@ -1644,13 +1645,13 @@ logarithmically discounted.</p>
 <p>The result in this section is an ordinary mathematical proof. Its
 finite arithmetic and charging step are kernel-checked at the pinned
 revision: the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14">freshness
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14">freshness
 of a rise</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31">covered-wall
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31">covered-wall
 excess bound</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47">wall
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47">wall
 count</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64">weighted
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64">weighted
 wall charge</a>. The global analytic argument, which is the passage from
 the per-step charge to divergence of the whole sum, is not formalised.
 An exact finite replay covers <span
@@ -1947,7 +1948,7 @@ class="level5">
 <p>Each statement below carries its own evidence line. “Lean” means that
 a declaration with that statement and a complete proof body is present
 in the formal sources. Several of the modules named below are outside
-the pinned public revision 1da2a504f8d8; those are marked, and no link
+the pinned public revision 92b88dc1bbe0; those are marked, and no link
 is offered for them. Where a result is an ordinary proof over a Lean
 core, the Lean part is named exactly, and the part that is ordinary
 mathematics is named exactly as well.</p>
@@ -2006,13 +2007,13 @@ gives the strict inequality.</p>
 <h5>Evidence.</h5>
 <p>Ordinary proof over the Lean core. The kernel-checked ingredients are
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
 of a common divisor</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L51">bounded
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L51">bounded
 CRT block</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">slow-rise
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">slow-rise
 landing lemma</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
 exclusion</a>. The running-maximum persistence clause, the
 record-increment trigger, the gcd rescaling and the pre-sieved
 amplification are ordinary mathematics. Finite replay: the identities
@@ -2075,7 +2076,7 @@ u_{s+1}\)</span> and <span class="math inline" data-term-auto="off">\(u_su_t\le 
 e_t|u_{s+1}\)</span>, is Lean-checked as
 <code>recordAmplified_error_after_cancellation</code> in
 <code>SaturatedSquareTransport.lean</code>, which is outside the pinned
-public revision 1da2a504f8d8. Exact fixture: <span
+public revision 92b88dc1bbe0. Exact fixture: <span
 class="math inline" data-term-auto="off">\(15/134=1/10+1/85+1/5695\)</span>, with primitive
 steps <span class="math inline" data-term-auto="off">\((15,134)\to(4,335)\to(1,5695)\)</span>
 and <span class="math inline" data-term-auto="off">\(\mathcal A_1=15/4\)</span>, meeting the
@@ -2127,7 +2128,7 @@ class="math inline" data-term-auto="off">\(p\mid u_t\)</span> contradicts primit
 <code>unit_recordIncrement_cut</code> and
 <code>recordIncrementOne_sylvesterNext_eventually</code> in
 <code>RecordIncrementBarrier.lean</code>, which is outside the pinned
-public revision 1da2a504f8d8. The prime-power supply is a hypothesis of
+public revision 92b88dc1bbe0. The prime-power supply is a hypothesis of
 the formal statement and is discharged at every late index by an
 ordinary proof, so the complete advertised endpoint is an ordinary proof
 with a kernel-checked principal part, namely the landing
@@ -2209,7 +2210,7 @@ tends to zero.</p>
 <p>The integer epoch inequality is Lean, as
 <code>protected_epoch_energy_integer</code> with its three counting
 lemmas in <code>ProtectedEpochEnergy.lean</code>, which is outside the
-pinned public revision 1da2a504f8d8. The real-valued corollary, the odd
+pinned public revision 92b88dc1bbe0. The real-valued corollary, the odd
 prime-power supply at every late index, and the global criterion are
 ordinary proofs. This discharges a quantitative record-excess target
 that an earlier wave had left open, and it uses one protected prime
@@ -2263,13 +2264,13 @@ prescribed size, and the block form of the landing lemma applies.</p>
 <h5>Evidence.</h5>
 <p>Ordinary proof over the Lean core. The kernel-checked ingredients are
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
 of a common divisor</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L162">overlap
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L162">overlap
 transport</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">landing
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L194">landing
 lemma</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L280">coprime-block
 exclusion</a>. The burn count and the choice of constants are ordinary
 mathematics. Corollary <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:loglogboundary}\)</span>
@@ -2540,9 +2541,9 @@ class="math inline" data-term-auto="off">\(C_{n+1}=C_n\)</span>, and the relatio
 class="math inline" data-term-auto="off">\(E_n=0\)</span>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
 of the nonnegative error</a>, on the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1819">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1819">eventual
 constancy of a nonincreasing sequence</a>.</p>
 <p>The hypothesis is exactly one-sidedness: <span
 class="math inline" data-term-auto="off">\(C\)</span> and <span
@@ -2657,14 +2658,14 @@ class="math inline" data-term-auto="off">\(m\)</span> serves at most one multipl
 divisors. ◻</p>
 </div>
 <p>The case <span class="math inline" data-term-auto="off">\(\gcd(c,m)=1\)</span> is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L147">scale-primitive
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L147">scale-primitive
 exclusion</a>. The special case <span
 class="math inline" data-term-auto="off">\(m=c=1\)</span>, worked through in Example <span
 class="math inline" data-term-auto="off">\(\ref{long243:ex:shape}\)</span>, where <span
 class="math inline" data-term-auto="off">\(m\)</span> has no prime divisors at all and the
 first fact is immediately contradictory, is recorded separately as the
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L100">normalised
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L100">normalised
 exclusion</a>.</p>
 <div class="proof">
 <p><em>Removing the scale.</em> For general <span
@@ -2679,10 +2680,10 @@ class="math inline" data-term-auto="off">\(g\)</span> leaves a system of the sam
 coprime data, which the previous case excludes. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">exclusion
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">exclusion
 at every scale</a>, and the eventual form, obtained by shifting the
 orbit to the first constant index, as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
 exclusion</a>.</p>
 <p>Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:constant}\)</span> excludes a
@@ -2725,27 +2726,27 @@ Section <span class="math inline" data-term-auto="off">\(\ref{long243:sec:const
 The first is that multipliers persist: every <span
 class="math inline" data-term-auto="off">\(a_j\)</span> divides every strictly later
 denominator state, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L382">persistence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L382">persistence
 of a multiplier</a>. The second is a <em>lock</em>: a prime already
 dividing <span class="math inline" data-term-auto="off">\(D\)</span> and also dividing the
 current multiplier is forced into the next tail state, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L402">one-step
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L402">one-step
 lock</a>, and once present in both <span
 class="math inline" data-term-auto="off">\(D\)</span> and <span
 class="math inline" data-term-auto="off">\(C\)</span> it stays in every later <span
 class="math inline" data-term-auto="off">\(D\)</span>, <span class="math inline" data-term-auto="off">\(C\)</span>
 and magnitude, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L429">persistence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L429">persistence
 of a lock</a>. The third transports a lock backwards through the period:
 if a divisor of the drift <span class="math inline" data-term-auto="off">\(M\)</span> occurs
 in two multipliers, it is a common divisor of <span
 class="math inline" data-term-auto="off">\(C_0\)</span> and of every magnitude, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L494">repeated-divisor
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L494">repeated-divisor
 transport</a>, using that both the period relation and the drift iterate
 over any number of periods, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L461">iterated
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L461">iterated
 period</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L476">iterated
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L476">iterated
 drift</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 40</strong> (no periodic negative magnitude). <em>
@@ -2809,11 +2810,11 @@ still <span class="math inline" data-term-auto="off">\(h\)</span>; and the drift
 applies. ◻</p>
 </div>
 <p>The first of the two cases above is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L548">phase-primitive
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L548">phase-primitive
 exclusion</a>, the induction is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L690">exclusion
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L690">exclusion
 at every scale</a>, and the eventual form is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual
 exclusion</a>.</p>
 <p>The bound <span class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> is a
 genuine restriction and not a normalisation. It is the range in which a
@@ -2882,7 +2883,7 @@ add multiples of <span class="math inline" data-term-auto="off">\(\prod_i m_i\)<
 pass the bound. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L833">shifted
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L833">shifted
 consecutive multiples</a>.</p>
 <div class="example">
 <p><strong>Example 42</strong> (a block of three consecutive multiples).
@@ -2943,7 +2944,7 @@ class="math inline" data-term-auto="off">\(2\)</span>, this contradicts <span
 class="math inline" data-term-auto="off">\(\gcd(m_i,u_s)=1\)</span>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897">bounded-rise
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897">bounded-rise
 barrier</a>. The key point is that the two hypotheses pull against each
 other exactly: divergence forces <span class="math inline" data-term-auto="off">\(u\)</span>
 to travel arbitrarily far, and bounded rise forbids it from stepping
@@ -2989,18 +2990,18 @@ at distinct indices are pairwise coprime; and every earlier multiplier
 is coprime to every later numerator.</em></p>
 </div>
 <p>These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L983">step
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L983">step
 coprimality</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1010">pairwise
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1010">pairwise
 coprimality</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
 avoidance</a>. Feeding them to Theorem <span
 class="math inline" data-term-auto="off">\(\ref{long243:res:barrier}\)</span> gives the form
 used later: there is no reduced exact tail whose numerator tends to
 infinity with a uniformly bounded upward increment, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1035">reduced
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1035">reduced
 bounded-rise exclusion</a>, together with its eventual form, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
 reduced exclusion</a>.</p>
 <div class="example">
 <p><strong>Example 45</strong> (Sylvester’s sequence as a reduced exact
@@ -3048,19 +3049,19 @@ reduced exact tail.</em></p>
 <p><em>Proof.</em> The tail gcd <span
 class="math inline" data-term-auto="off">\(\gcd(C_n,D_n)\)</span> divides its successor, the
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1424">gcd
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1424">gcd
 monotonicity</a>, so the tail gcds form a positive divisibility chain.
 At an index where the centred state is negative the tail gcd is exactly
 <span class="math inline" data-term-auto="off">\(\gcd(C_n,e_n)\)</span>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1581">gcd
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1581">gcd
 at a negative index</a>, and is therefore at most the magnitude there;
 so the chain is bounded along the cofinal set of negative indices. A
 positive divisibility chain whose values are bounded along a cofinal set
 is eventually constant, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1599">chain
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1599">chain
 stabilisation</a>. Hence cofinally bounded negative magnitudes make the
 tail gcd stabilise, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
 stabilisation</a>, and beyond that point dividing by the stable gcd
 leaves the numerator and denominator coprime, that is, a reduced exact
 tail. ◻</p>
@@ -3097,9 +3098,9 @@ class="math inline" data-term-auto="off">\(n\ge B\)</span> satisfies <span
 class="math display" data-term-auto="off">\[G_n=G_{n+1}=\cdots=G_{n+L}.\]</span></em></p>
 </div>
 <p>The first assertion is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2180">sublinear
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2180">sublinear
 strict-growth theorem</a>; the second is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2196">arbitrarily
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2196">arbitrarily
 late constant-block theorem</a>. The proof first converts normalised
 vanishing into subexponential growth of <span
 class="math inline" data-term-auto="off">\(C_n\)</span>, then charges every strict
@@ -3205,17 +3206,17 @@ forces <span class="math inline" data-term-auto="off">\(E\)</span> to vanish, co
 nowhere-vanishing. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
 rigidity</a>, with the eventual form, in which the centring and the
 bound need only hold from some index, as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
 bounded-negative-part rigidity</a>. The two auxiliary results it uses
 are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1733">divergence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1733">divergence
 from normalised vanishing</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
 of cofinally bounded negative magnitudes</a>, the latter over the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1655">tail-divergence
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1655">tail-divergence
 form</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 49</strong>. <em> Under the hypotheses of
@@ -3453,7 +3454,7 @@ prefix, so an exclusion would settle Problem #243. A proposed
 construction must be global, and it must supply the growth condition of
 Problem <span class="math inline" data-term-auto="off">\(\ref{long243:res:problem}\)</span>
 together with a vanishing tail ratio, under which the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">reciprocal-series
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1949">reciprocal-series
 realisation</a> makes the orbit the canonical orbit of the rational
 number <span class="math inline" data-term-auto="off">\(C_0/D_0\)</span>. Finite admissible
 prefixes alone do not provide such a construction.</em></p>
@@ -3533,7 +3534,7 @@ interval. Then</p>
 K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
 \end{equation}\]</span></div>
 <p>This is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
 conservation law</a>.</p>
 <p>The square in <span
 class="math inline" data-term-auto="off">\(\eqref{long243:eq:repair-entropy}\)</span> is the
@@ -3545,7 +3546,7 @@ class="math inline" data-term-auto="off">\(2^{|R|}\)</span> satisfies</p>
 class="math display" data-term-auto="off">\[K^L4^{|R|}&lt;(K+1)^L.\]</span></div>
 <p>The formal
 consequence is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L78">the
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L78">the
 independent-repair cardinality bound</a>. It rules out positive-density
 deletion of independent old moduli inside recoveries with a fixed
 relative-error budget.</p>
@@ -3561,7 +3562,7 @@ class="math display" data-term-auto="off">\[\prod_{0\le i&lt;L}h_{r+i}=1.\]</spa
 <p>Thus a
 surviving nontrivial reset must have recovery length tending to
 infinity. Lean checks this as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/RepairEntropy.lean#L107">eventual
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L107">eventual
 disappearance of fixed-length reset payments</a>. The theorem does not
 bound a recovery length that varies with <span
 class="math inline" data-term-auto="off">\(r\)</span>, nor does it supply a lower bound for
@@ -3598,7 +3599,7 @@ class="math display" data-term-auto="off">\[D_0A_n=(a_n-1)C_n+E_n\]</span></div>
 obtains</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gcd(A_n,a_n-1)\mid E_n.\]</span></div>
 <p>The checked <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2164">tail-height
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2164">tail-height
 estimate</a> and normalised vanishing make <span
 class="math inline" data-term-auto="off">\(|E_n|\)</span> subexponential in <span
 class="math inline" data-term-auto="off">\(n\)</span>.</p>
@@ -3740,7 +3741,7 @@ neither is an additional open mathematical problem.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. Proof authority remains with those sources; this
 manuscript provides navigation and exposition.</p>
@@ -3766,7 +3767,7 @@ data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>.</p>
 <section id="long243:app:index" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>Each linked phrase opens its Lean declaration at the pinned source
-revision 1da2a504f8d8. The state system, the exclusions, the barrier,
+revision 92b88dc1bbe0. The state system, the exclusions, the barrier,
 and the bounded-negative-part theorem are in
 <code>ReciprocalTailRigidity.lean</code>; the finite-negative-mass
 theorem is in <code>SparseResetRecovery.lean</code>; and the
@@ -3800,11 +3801,11 @@ multiplier is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span></div>
 <p>the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
 numerator</a>, and the divisor is <span
 class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit survives a step when that
 division is exact, giving a survival predicate, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
 predicate</a>. Example <span
 class="math inline" data-term-auto="off">\(\ref{long243:ex:shape}\)</span> is the forced
 orbit from <span class="math inline" data-term-auto="off">\(a=3\)</span> read this way: <span
@@ -3838,17 +3839,17 @@ the inductive hypothesis at <span
 class="math inline" data-term-auto="off">\(M(h,i+1)\)</span>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
 residue reduction</a>, over the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L97">shrinking-modulus
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L97">shrinking-modulus
 transport</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L26">polynomial
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L26">polynomial
 congruence</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L41">exact-division
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L41">exact-division
 cancellation</a>; the modulus identifications are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L59">ascending-factorial
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L59">ascending-factorial
 form</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
 value at the initial index</a>.</p>
 <p>At <span class="math inline" data-term-auto="off">\(h=1\)</span> the modulus is <span
 class="math inline" data-term-auto="off">\(2!=2\)</span>, and surviving one update means

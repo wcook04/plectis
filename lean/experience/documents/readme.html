@@ -10,13 +10,18 @@
 class="level1">
 <h1>Plectis: research on eight open Erdős problems</h1>
 <figure>
-Eight open problems: papers, checked results, failed routes, and open questions another researcher can continue
+Eight open problems: papers, checked results, failed routes, and questions another researcher can continue
 <figcaption aria-hidden="true">Eight open problems: papers, checked
-results, failed routes, and open questions another researcher can
+results, failed routes, and questions another researcher can
 continue</figcaption>
 </figure>
-<p>We focused on eight arbitrarily hard Erdős problems: <a
-href="https://www.erdosproblems.com/68">68</a>, <a
+<p>The full-support Mersenne series is irrational in every integer base
+<code>b ≥ 2</code>, and the base-2 achievement set has measure one. That
+is a completed theorem family in this checkout, not a solution of Erdős
+#257: every infinite support, and the <code>1/2</code> and
+<code>1/21</code> branches, remain open.</p>
+<p>Plectis is the public record of that work and of seven further
+programmes — <a href="https://www.erdosproblems.com/68">68</a>, <a
 href="https://www.erdosproblems.com/243">243</a>, <a
 href="https://www.erdosproblems.com/249">249</a>, <a
 href="https://www.erdosproblems.com/251">251</a>, <a
@@ -24,201 +29,194 @@ href="https://www.erdosproblems.com/257">257</a>, <a
 href="https://www.erdosproblems.com/269">269</a>, <a
 href="https://www.erdosproblems.com/1041">1041</a> and <a
 href="https://www.erdosproblems.com/1049">1049</a>. <strong>All eight
-problems remain open.</strong> This repository does not solve any of
-them. It holds formal statements, Lean checks, a Comparator gate and a
-Palomar submission, and two papers per problem, one short and one long,
-written with Terence Tao’s public guidance on how AI mathematics should
-be expositioned in mind.</p>
-<p>I prioritised expository quality and a collaborative structure over
-trying to solve the problems; I hope to now solve them with others
-rather than alone. With the unreleased frontier models, these could
-probably be solved if enough compute were poured at them. The difference
-here is that we show every one of the routes that stopped, and try to
-turn intermediary findings into something reusable by mathematicians who
-actually understand the material, and by later models. Meaning, novelty
-and significance still need human judgement.</p>
-<p>The repo substrate is built by and for AI agents; I would not
-recommend driving it by hand with commands. Its navigation, validation,
-contribution and mathematical-reasoning workflows plug into your own
-agents. Progress varies by problem and is stated in <a
-href="results.html">RESULTS</a> and the source records your agent can
-find for you. Lean checks the formal statements. Coverage is not the
-100% I wanted, because I am officially out of money and time. Anyone can
-contribute, even by formalising maths already established analytically,
-and receive due credit.</p>
+problems remain open.</strong> This repository does not solve them.</p>
+<p>The useful path is ordinary. Pick a problem. Read the short paper.
+Open the longer record for failed routes, finite evidence, and remaining
+obligations. Then read the evidence boundary before taking a next
+question. For a first look, start with <strong>#257</strong> for that
+completed theorem family, or <strong>#249</strong> for exact kernel
+rank, finite certificates, and recorded routes that stopped. Progress by
+problem is in <a href="results.html">RESULTS</a>.</p>
 <p>I am responsible for all claims, sources and the release. Plectis is
-an independent, AI-assisted prototype, not something I am declaring
-finished. It has had no independent mathematical review (trying to get
-this), and I need help to get anywhere near “done”.</p>
-<p>If you solve a problem, the credit and the result are all yours. If
-this repo or my intermediary progress helped, please cite this release
-and say how, so others find it and we make progress together instead of
-hoarding partial results out of fear of being scooped, or rebuilding the
-same infrastructure instead of improving one cumulatively (infra
-suggestions also get credit!).</p>
+an independent, AI-assisted prototype. It has had no independent
+mathematical review, and I need help. Novelty and significance still
+need human judgement. If you solve a problem, the credit is yours. If
+this repo helped, please cite the release and say how. Anyone can
+contribute, including by formalising mathematics already known
+analytically, and receive due credit. Start with <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md">A reader’s way in</a>.</p>
+<p>The notes follow Terence Tao’s public guidance on how AI mathematics
+should be expositioned; that is a writing standard, not a review of this
+project.</p>
 <p>The <a href="https://wcook04.github.io/plectis/">website</a> is the
-homosapien-ergonomic way to browse: the <a
+human browse path: <a
 href="https://wcook04.github.io/plectis/maths/">mathematics pages</a>
-give each short paper, each long paper, and a map to the relevant Lean
-sources. The API behind its backend is machine generated so nothing
-hard-coded drifts (hopefully!).</p>
-<p>Ways in:</p>
-<ul>
-<li><strong>Read</strong> a problem in <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md">A
-reader’s way in</a>, a command-free tour of the problems and the
-evidence boundary.</li>
-<li><strong>Check</strong> a stated result with the claim verifier in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a>.</li>
-<li><strong>Continue</strong> from where I left off: a bounded research
-shift from one exact public revision, via the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>. Use a coding agent. This is the
-part I am most excited about.</li>
-<li><strong>Experts:</strong> <a
-href="https://wcook04.github.io/plectis/#contact">email me</a> any
-insight. I will do the work and fully credit you for the insight and
-whatever follows from it.</li>
-</ul>
+for each short and long paper. Navigation, validation and contribution
+workflows also plug into coding agents via <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.override.md"><code>AGENTS.override.md</code></a>; they are
+not required to read the papers.</p>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>For a first look from a maths generalist, start with
-<strong>#257</strong> for full-support irrationality and achievement-set
-measure, or <strong>#249</strong> for exact kernel rank, finite
-certificates and recorded failed routes.</p>
 <ul>
 <li><strong><a href="https://www.erdosproblems.com/68">#68</a></strong>
 · Factorial-denominator irrationality · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-68-factorial-denominator-irrationality.pdf">short paper</a>
-· <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos68-factorial-reasoning-surface.pdf">longer paper</a>.
-Irrationality is equivalent to cofinally many non-unit factorial
-carries; producing those carries remains open.</li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.pdf">short
+paper</a> · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/68/erdos68-factorial-reasoning-surface.pdf">longer
+paper</a>. A GMP non-unit carry at <code>m = 300000</code> and a
+continued-fraction bound <code>q ≥ 2^39990</code> are incomparable
+finite exclusions. Producing cofinal carries remains open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/243">#243</a></strong> ·
 Reciprocal-tail rigidity · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-243-reciprocal-tail-rigidity.pdf">short paper</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos243-reciprocal-tail-reasoning-surface.pdf">longer paper</a>.
-After Koizumi’s normalised vanishing, a bounded or summably small
-negative centred error forces eventual Sylvester recurrence. The
-unbounded mixed-sign regime remains open.</li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.pdf">short paper</a>
+· <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf">longer
+paper</a>. After Koizumi’s normalised vanishing, a bounded or summably
+small negative centred error forces eventual Sylvester recurrence. The
+unbounded mixed-sign regime remains open. Duverney (2001) and the
+Tao–Kovac line are prior art on the page; cubic-rate vanishing is not
+claimed as empty-page news.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/249">#249</a></strong> · Binary
-totient series · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-249-binary-totient-series.pdf">short
-paper</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-totient-reasoning-surface.pdf">longer
+totient series · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/249/erdos-249-binary-totient-series.pdf">short paper</a> ·
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/249/erdos249-totient-reasoning-surface.pdf">longer
 paper</a>. Exact dyadic-kernel rank <code>2^e + 1</code>, denominator
 exclusion to about <code>7.96 × 10³⁴</code>, diagonal certificates
-through <code>t ≤ 82</code>, and no-go theorems for the shortcuts. The
-infinitely many witnesses for irrationality are not produced.</li>
+through <code>t ≤ 82</code>, and no-go theorems for the shortcuts. This
+is not an infinite witness for irrationality.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/251">#251</a></strong> · Prime-gap
-dyadic series · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-251-prime-gap-dyadic-series.pdf">short
-paper</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos251-prime-gap-reasoning-surface.pdf">longer
-paper</a>. The prime series equals the gap series; irrationality is
-equivalent to cofinal non-integral tail shifts. The actual-prime tail
-witness remains open.</li>
+dyadic series · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.pdf">short paper</a> ·
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.pdf">longer
+paper</a>. The strongest supported lead is a coefficient-only
+countermodel and a sparse rationalising perturbation. The prime-to-gap
+identity is already Tao’s (summation by parts on the forum, 7 October
+2025); this checkout checks it without the prime-number theorem. The
+cofinal small-mismatch tail witness remains open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/257">#257</a></strong> ·
 Mersenne-support subseries · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-257-mersenne-support-subseries.pdf">short paper</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos257-mersenne-reasoning-surface.pdf">longer paper</a>.
-Irrationality for the full support in every integer base
-<code>b ≥ 2</code>, and for structured supports under summability; the
-base-2 Mersenne achievement set has measure one. Every infinite support,
-and the <code>1/2</code> and <code>1/21</code> branches, remain
-open.</li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf">short
+paper</a> · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf">longer
+paper</a>. Full-support irrationality in every integer base
+<code>b ≥ 2</code> is Lean. Pairwise-coprime plus summable-reciprocal
+support is Lean. A reciprocal-summable theorem without coprimality is
+ordinary in the short paper. Arbitrary infinite support, and the
+<code>1/2</code> and <code>1/21</code> branches, remain open and are
+kept distinct from those theorems.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/269">#269</a></strong> · Three-prime
-running LCM · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-269-three-prime-running-lcm.pdf">short
-paper</a> · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos269-running-lcm-reasoning-surface.pdf">longer
+running LCM · <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf">short paper</a> ·
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.pdf">longer
 paper</a>. Three-prime height identity, nonsingular kernel minors, and
 the <code>(2,3,5)</code> minor <code>-1/15</code>. The two-prime
-transcendence argument in the longer paper is Steve Fan’s (<a
+transcendence argument is Steve Fan’s (<a
 href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com/269</a>,
-26 June 2026, before this note); no priority or Lean theorem is claimed.
-Three or more primes remain open.</li>
+26 June 2026); no priority or Lean theorem is claimed for that. Three or
+more primes remain open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/1041">#1041</a></strong> ·
 Lemniscates and Newton flow · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1041-lemniscate-newton-flow.pdf">short paper</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos1041-lemniscate-reasoning-surface.pdf">longer paper</a>.
-Newton-flow decay, arbitrarily small translations that separate ray
-arguments, and perturbative root retention. A length-<code>&lt;2</code>
-curve, and the hub that would make one, remain open.</li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.pdf">short paper</a>
+· <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.pdf">longer
+paper</a>. Newton-flow decay, ray-separating translations, and
+perturbative root retention are Lean. Three solved-family kernels are
+Comparator-checked. All-degree trinomials, the <code>13/25</code>
+certificate, the Poisson mean, and the length-<code>&lt;2</code>
+assemblies are ordinary. Forum discussion of a degree-7 counterexample
+is not a theorem of this repository.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/1049">#1049</a></strong> ·
 Rational-base Lambert series · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos-1049-rational-base-lambert.pdf">short paper</a> · <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos1049-rational-base-lambert-reasoning-surface.pdf">longer
-paper</a>. Exact rational-base tail recurrence, sharp Hankel order, and
-a checked height region that includes <code>31/4</code>. No
-irrationality at <code>3/2</code>; the approximant construction remains
-open.</li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1049/erdos-1049-rational-base-lambert.pdf">short paper</a> ·
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf">longer
+paper</a>. An ordinary specialization of Zudilin 2004 proves
+<code>F(31/4)</code> (and its positive powers) irrational; that headline
+is not a Lean theorem. Lean checks supporting height-region arithmetic,
+the <code>3/2</code> corridor exclusion, the cleared-tail recurrence,
+and selected Hankel identities. The outstanding <code>3/2</code>
+obligation is an approximant family with remainder control.</li>
 </ul>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">joint #249/#257
-manuscript</a> is kept for archive and provenance only (OG ones I did);
-the papers above are the current entrances.</p>
+<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/archive/erdos249-257-main-paper.pdf">joint
+#249/#257 manuscript</a> is archive and provenance only; the papers
+above are the current entrances.</p>
 </section>
 <section id="what-the-checks-establish" class="level2">
 <h2>What the checks establish</h2>
-<p>Three things come between a Lean proof and a claim in this repo
-(agents advised!). The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/semantic/README.md">comprehension
-graph</a> is the map: every declaration in the atlas, the statements
-they make, and typed relations between them, so you or your agent can
-see that a theorem is a reformulation or finite instance of the open
-problem rather than the problem itself. Comparator is a second formal
-check: nineteen proof-bearing modules against separately declared
-statements and a fixed axiom budget, with <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml"><code>formalization.yaml</code></a> recording
-source, boundary, <code>sorry</code> count and axioms for each. Palomar
-is where the release is submitted for outside registry and review; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>docs/PALOMAR_RESULT_SHOWCASE.json</code></a>
-owns the reader-priority ranking that goes with it.</p>
-<p>The <a href="external-verification.html">verification dossier</a>
-covers all eight problem programmes; the <a
-href="methodology.html">methodology</a> outlines what each check does and
-does not establish. <a
+<p>Three things come between a Lean proof and a claim in this repo. The
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/semantic/README.md">comprehension graph</a> is the map:
+every declaration in the atlas, the statements they make, and typed
+relations between them, so a theorem can be seen as a reformulation or
+finite instance of the open problem rather than the problem itself.
+Comparator is a second formal check of the 47 selected interfaces
+recorded in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml"><code>formalization.yaml</code></a>: each is
+declared again without its proof, then checked against a proof-bearing
+solution and a fixed axiom budget. The public wording is
+Comparator-checked against a separately declared statement and axiom
+budget. The <a href="external-verification.html">verification
+dossier</a> covers all eight problem programmes. Do not infer results
+from private or unreleased work.</p>
+<p>The <a href="methodology.html">methodology</a> outlines what each check
+does and does not establish. <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> covers claim
 status and <a href="prior-art.html">prior art</a> records earlier and
-subsuming work (WIP, out of tokens). None of it decides whether a
-statement captures the intended problem, is new, or solves anything,
-which requires expert review (credit offered for this).</p>
+subsuming work. None of it decides whether a statement captures the
+intended problem, is new, or solves anything, which requires expert
+review.</p>
 <p>Two papers explain the design. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/claim-faithful-publication-systems-paper.pdf">Problem-Sized Lean
-Worlds</a> is how finding a result, checking it and deciding what may be
-claimed are kept separate, just the repo paper really. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/open-source-mathematics-strategy.pdf">From Spare Compute to
-Cumulative Mathematics</a> is why the work is public and how credit is
-recorded, basically the open source idea I had.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf">Problem-Sized
+Lean Worlds</a> is how finding a result, checking it and deciding what
+may be claimed are kept separate. <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
+Compute to Cumulative Mathematics</a> is why the work is public and how
+credit is recorded.</p>
 </section>
 <section id="contribute" class="level2">
 <h2>Contribute</h2>
 <p>An idea, a correction, a counterexample, a failed route with a
-checkable reason, clearer exposition, a validation/invalidation of a
-claim or a repaired check all count. Open the <a
+checkable reason, clearer exposition, a validation of a claim or a
+repaired check all count. Open the <a
 href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml">plain-language
-research-progress form</a> with no patch — a coding agent can fill it;
-the questions are ordinary language — or a pull request for a focused
-change. Accepted work gets a public receipt naming you, the exact files
-or results, the starting commit, and what was checked. The <a
+research-progress form</a> or a pull request. Accepted work gets a
+public receipt. The <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/research-commons/CREDIT_POLICY.md">credit policy</a> gives
-the exact boundary. You can also just email me anything and I will
-credit you myself if that’s a pain.</p>
+the exact boundary. You can also email me.</p>
 </section>
 <section id="read-or-verify-locally" class="level2">
 <h2>Read or verify locally</h2>
-<p>Every command your agent can run lives in <a
+<ul>
+<li><strong>Read</strong> a problem in <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md">A
+reader’s way in</a>.</li>
+<li><strong>Check</strong> a stated result with the claim verifier in <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a>.</li>
+<li><strong>Continue</strong> from one exact public revision via the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>.</li>
+<li><strong>Experts:</strong> <a
+href="https://wcook04.github.io/plectis/#contact">email me</a> any
+insight. I will do the work and fully credit you.</li>
+</ul>
+<p>Every command lives in <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>, not here: claim
-verifier, reader-only and quick Lean checkouts, complete proof source,
-full release replay. <a href="architecture.html">ARCHITECTURE</a> and the
-<a href="source-map.html">source map</a> assume no Lean and no
-project history.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>: claim verifier,
+reader-only and quick Lean checkouts, complete proof source, full
+release replay. <a href="architecture.html">ARCHITECTURE</a> and the <a
+href="source-map.html">source map</a> assume no Lean and no project
+history.</p>
 <p>Cloning runs no project code; there are no submodules, Git LFS
 filters or hooks. Proof builds run the pinned Lean toolchain and
-Mathlib. <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SECURITY.md">SECURITY</a> explains the boundary and
-the private reporting route. Agents arriving cold start at <a
+Mathlib. <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SECURITY.md">SECURITY</a> explains the boundary.
+Agents arriving cold start at <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/AGENTS.override.md"><code>AGENTS.override.md</code></a>; the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/cold-clone-to-proof-receipt.pdf">agent-navigation paper</a>
-explains that design.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">agent-navigation
+paper</a> explains that design.</p>
 </section>
 <section id="citation-and-licence" class="level2">
 <h2>Citation and licence</h2>
@@ -230,19 +228,17 @@ recorded in <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/m
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/LICENSES/Apache-2.0.txt">licence texts</a>. <a
 href="scope.html">SCOPE</a> defines the corpus; <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a> covers
-corrections. <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/HUMAN_ENTRY.md#where-i-actually-am">Where I
-actually am</a> says why this is being released now.</p>
+corrections.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 </section>
 <section id="corpus-at-a-glance" class="level2">
 <h2>Corpus at a glance</h2>
-<p>The layer a mathematician should judge has been denoised (tried): 140
-curated claim records in 30 contribution families, reaching Lean source
-through 449 principal declaration links. <code>SCOPE.md</code> gives its
-shape and <code>docs/RESULTS.md</code> gives the strongest checked
-result per problem. Again, agents advised, website or papers are what’s
-designed for humans.</p>
+<p>The reviewed layer a mathematician should judge: 141 curated claim
+records in 30 contribution families, reaching Lean source through 451
+principal declaration links. <code>SCOPE.md</code> gives its shape and
+<code>docs/RESULTS.md</code> gives the strongest checked result per
+problem. The website and the papers are the human reading path.</p>
 <p>The rest is engineering inventory. About 91% of the 156,245
 declarations (142,668 across 695 modules) are machine-emitted
 certificate shards: one integer checked prime, one position excluded.
@@ -265,7 +261,7 @@ The remainder is not all hand-written either.</p>
 </tr>
 <tr>
 <td>Curated claim records</td>
-<td class="ta-r">140</td>
+<td class="ta-r">141</td>
 </tr>
 <tr>
 <td>Contribution families</td>
@@ -276,9 +272,7 @@ The remainder is not all hand-written either.</p>
 <p>Generated shards are counted as formal source and never as separate
 mathematical claims. Claim records cover every status, including cited
 and open, and are partitioned once. These are navigation counts, not
-novelty claims; this needs expert validation, again: credit provided for
-this. With funding I would also be happy to provide some kind of
-compensation, alas, currently challenged in that department.
+novelty claims. They still need expert validation.
 <!-- END generated_corpus_at_a_glance --></p>
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->

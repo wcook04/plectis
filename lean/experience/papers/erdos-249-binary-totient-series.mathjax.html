@@ -4,7 +4,7 @@
     <h1>A Basis for the 2-Kernel of Euler&#x27;s Totient</h1>
     <p class="lean-paper__subject">Erdős #249</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-249-binary-totient-series.tex">
+  <div class="lean-paper__body" data-source="../../../paper/249/erdos-249-binary-totient-series.tex">
 <div class="problem">
 <p><strong>Problem 1</strong> (first-harmonic anti-concentration on
 supplier fibres). <em> For each <span
@@ -56,7 +56,12 @@ progress]</span></span> <strong>Exact finite-level rank.</strong>
 Theorem <span class="math inline" data-term-auto="off">\(\ref{thm:kkernelrank}\)</span> is
 the coordinate statement: every totient <span
 class="math inline" data-term-auto="off">\(k\)</span>-kernel truncation has rank <span
-class="math inline" data-term-auto="off">\(k^e+1\)</span>.</p></li>
+class="math inline" data-term-auto="off">\(k^e+1\)</span>. The dyadic case is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">exact
+finite-truncation rank</a>; the all-base form is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">the
+same count from an independent family</a>, and is not a Lean theorem
+without Martin’s hypothesis.</p></li>
 </ol>
 <p>The retained condition is <span class="math inline" data-term-auto="off">\(k\nmid
 r\)</span>. At <span class="math inline" data-term-auto="off">\(k=6\)</span>, for example,
@@ -146,8 +151,8 @@ proves Theorem <span
 class="math inline" data-term-auto="off">\(\ref{thm:kkernelrank}\)</span>. The scalar
 reduction at level <span class="math inline" data-term-auto="off">\(j-t\)</span>, with the
 Euler product written out, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">maximal
+power reduction</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 3</strong> (Dyadic basis). <em> The family <span
 class="math display" data-term-auto="off">\[\{\ph_{0,0},\ph_{1,0}\}
@@ -160,9 +165,9 @@ one.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Every finite subfamily lies in a sufficiently high
 truncation. The theorem gives its independence; the reductions give
-equality of the full spans. The level-zero clause is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L112">Lean
-source</a>. ◻</p>
+equality of the full spans. The level-zero clause is ordinary in this
+note; <code>PaperCompleteR7/ArithmeticAssemblies.lean</code> is not in
+this checkout. ◻</p>
 </div>
 <div class="corollary">
 <p><strong>Corollary 4</strong> (Integral normal form). <em> Let <span
@@ -248,9 +253,9 @@ class="math inline" data-term-auto="off">\(n=a+Qt\)</span>, the coefficients are
 the cross determinants become <span
 class="math inline" data-term-auto="off">\(Q(a_ib_j-a_jb_i)\ne0\)</span>. Shift beyond the
 threshold and apply the affine independence just proved. The statement
-is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/PeriodicAndPulse.lean#L64">Lean
-source</a>, with a separate period for each coefficient. ◻</p>
+is ordinary in this note;
+<code>PaperCompleteR7/PeriodicAndPulse.lean</code> is not in this
+checkout. ◻</p>
 </div>
 <p>The same argument preserves the basis after deletion of a finite
 prefix. For the two zero channels, large <span
@@ -300,9 +305,8 @@ hence <span class="math inline" data-term-auto="off">\(T_N=0\)</span>. The left 
 now gives <span class="math inline" data-term-auto="off">\(T_{N-L-1}=a_N2^{-L-1}\)</span>, a
 nonzero element of <span class="math inline" data-term-auto="off">\(q^{-1}\Z\)</span> with
 absolute value less than <span class="math inline" data-term-auto="off">\(1/q\)</span>, a
-contradiction. The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/PeriodicAndPulse.lean#L106">Lean
-source</a>. ◻</p>
+contradiction. The statement is ordinary in this note (that
+<code>PaperCompleteR7</code> file is absent). ◻</p>
 </div>
 <div class="proof">
 <p><em>Proof of Theorem <span
@@ -339,9 +343,8 @@ class="math inline" data-term-auto="off">\(\ph(n)\)</span> is even for every <sp
 class="math inline" data-term-auto="off">\(n\ge3\)</span>. Constancy on the even classes
 therefore makes all terms after <span class="math inline" data-term-auto="off">\(n=2\)</span>
 constant, giving the stated rational value. This converse requires no
-recurrent-support theorem. The three clauses together are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/RationalObservableClassification.lean#L277">Lean
-source</a>. ◻</p>
+recurrent-support theorem. The three clauses together are ordinary in
+this note (that <code>PaperCompleteR7</code> file is absent). ◻</p>
 </div>
 <p>The bounded-pulse proof fixes its coefficient bound before choosing
 the block. For <span class="math inline" data-term-auto="off">\(S\)</span>, the termwise
@@ -407,6 +410,11 @@ class="math display" data-term-auto="off">\[\exists t\ge1:\ K(td,N,td)
 this for every <span class="math inline" data-term-auto="off">\(d\ge1,N\ge0\)</span> is
 equivalent to <span class="math inline" data-term-auto="off">\(S\notin\Q\)</span>.</em></p>
 </div>
+<p>The seed-to-ray step is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L364">eventual
+two-syndetic amplification</a>; it is equivalent to irrationality as <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406">global
+full-depth equivalence</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Set <span
 class="math inline" data-term-auto="off">\(F_t=\Delta_{td}(N)\)</span>. Equation <span
@@ -501,11 +509,10 @@ supply <span class="math inline" data-term-auto="off">\(H\)</span> arithmeticall
 assuming the desired irrationality. The equivalence, with the modulus
 written as the natural quotient <span
 class="math inline" data-term-auto="off">\((2^H-1)/v\)</span> and <span
-class="math inline" data-term-auto="off">\(v\)</span> odd, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L156">Lean
-source</a>. The finite residues also satisfy</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\rho_{H,N+1,M}=
+class="math inline" data-term-auto="off">\(v\)</span> odd, is ordinary in this note (that
+<code>PaperCompleteR7</code> file is absent). The finite residues also
+satisfy</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\rho_{H,N+1,M}=
 \bigl(2\rho_{H,N,M}-\ph(N+H+1)+\ph(N+1)\bigr)\bmod M,
 \quad \rho_{H,N,M}=(-B_{H,N})\bmod M,\]</span></div>
 <p>which is an exact
@@ -524,14 +531,13 @@ class="math inline" data-term-auto="off">\(R_a=\operatorname{totientTail}(2H_a)-
 Then <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if and only
 if, beyond every threshold <span class="math inline" data-term-auto="off">\(a_0\)</span>,
 some <span class="math inline" data-term-auto="off">\(a\ge a_0\)</span> has <span
-class="math inline" data-term-auto="off">\(R_a\notin\Z\)</span>. This is an exact cofinal
-nonintegrality criterion for the actual LCM diagonal, not a quantitative
-separation estimate and not a proof that such indices occur.
-<span><em>Checked:</em> <a
+class="math inline" data-term-auto="off">\(R_a\notin\Z\)</span>. This is the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L37">exact
-frontier</a>, <a
+cofinal nonintegrality criterion</a> for the actual LCM diagonal, not a
+quantitative separation estimate and not a proof that such indices
+occur; the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L53">forward
-implication</a>.</span></p></li>
+implication</a> is recorded separately.</p></li>
 <li><p> <span><span class="smallcaps">[unconditional
 progress]</span></span> <strong>Positive LCM corridor and top-edge
 boundary.</strong> For <span class="math inline" data-term-auto="off">\(a\ge8\)</span> and
@@ -621,9 +627,15 @@ class="math display" data-term-auto="off">\[Q-\Theta_2&gt;\frac{21}{320}.\]</spa
 uniform bound <span class="math inline" data-term-auto="off">\(Q-\Theta_2&gt;1/15\)</span> is
 false already at <span class="math inline" data-term-auto="off">\((1,5)\)</span>.</em></p>
 </div>
-<p>This theorem treats averages after the quotients are formed. Signed
-coefficients, coupling before the quotient, and higher-rank kernels
-require separate arguments. For any proposed rational approximants <span
+<p>The unique minimiser and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">uniform
+<span class="math inline" data-term-auto="off">\(21/320\)</span> floor</a> are in the linked
+source; the <span class="math inline" data-term-auto="off">\(1/15\)</span> bound <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L645">already
+fails at <span class="math inline" data-term-auto="off">\((1,5)\)</span></a>. This theorem
+treats averages after the quotients are formed. Signed coefficients,
+coupling before the quotient, and higher-rank kernels require separate
+arguments. For any proposed rational approximants <span
 class="math inline" data-term-auto="off">\(p_j/q_j\)</span> in lowest terms, a sufficient
 arithmetic target is</p>
 <div class="math-display" data-term-auto="off"><span
@@ -652,18 +664,22 @@ class="math inline" data-term-auto="off">\(\ref{sec:family}\)</span> fixes base 
 classifies dyadic observables. The original question appears in Erdős
 and Graham <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>.</p>
-<p>The exact all-base basis and rank, residue-series irrationality,
-full-depth amplification, canonical equivalence and positive rank-one
-floor have proofs in the supplied Lean source snapshot: <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L364">amplification</a>,
-<a
+<p>The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">dyadic
+finite-level rank <span class="math inline" data-term-auto="off">\(2^e+1\)</span></a>,
+residue-series irrationality, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L364">full-depth
+amplification</a>, canonical equivalence and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">positive
+rank-one floor</a> are in the public snapshot. The unconditional
+all-base exact-rank theorem is not a Lean theorem without Martin’s
+independence hypothesis; the formal transfer is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">rank
+from an independent all-base family</a>. The <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">canonical
-gap</a>, and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">rank-one
-floor</a>. The historical source links retain <code>99f4bf47422a</code>;
-the all-base module requires a matching public source supplement. The
-integral normal form has its ordinary proof above. The periodic
-transport lemma is checked in
+gap</a> is the remaining arithmetic endpoint. The historical source
+links retain <code>99f4bf47422a</code>. The integral normal form has its
+ordinary proof above. The periodic transport lemma is checked in
 <code>PeriodicTotientIndependence.lean</code>; the eventual version
 follows by the displayed threshold shift. The rational control and the
 termwise-window and prime-dilation boundaries are proved in
@@ -681,22 +697,26 @@ universal gap. </p>
 <p>The public snapshot used by this note is recorded by the following
 source links.</p>
 <p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L160">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L169">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L150">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L160">totient
+Kernel zero residue</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L169">totient
+Kernel even residue reduce</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L150">two
+pow mul totient series eq</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L72">definition</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L316">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L404">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L407">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L67">definition</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L316">certificate
+completeness</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L327">tail-difference
+integrality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L386">irrationality
+iff every tail difference is nonintegral</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L404">certified
+Kill all small</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L407">tail
+diff not int small</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L67">is
+Tempered Binary Orbit</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L2322">residue
 recurrence</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3132">dominance
@@ -741,10 +761,16 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 linear-form obstruction</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L124">coordinate
 specification</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L190">injective
+residues</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L213">unique
 representation</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L241">level
 count</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L249">section-index
+count</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L264">index
+as two plus the odd-residue count</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelIndex.lean#L277">full
 index count</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18371">exclusion</a>,
@@ -842,36 +868,37 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 pairs</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L16025">the
 conditional implication</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8335">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18434">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18429">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18454">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18557">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L349">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L474">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L823">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L882">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L51">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L176">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L15986">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L88">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18572">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8335">irrational
+erdos Borwein series</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18434">tsum
+moebius div two pow sub one eq half</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18429">tsum
+totient div two pow sub one eq two</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18454">totient
+series eq half add moebius mersenne square</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18557">totient
+series eq half add visible coprime pairs</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L349">tsum
+pos coprime inv mersenne eq one</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GcdMomentCalculus.lean#L474">cylinder
+Mass split</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L823">parity
+Separated Matrix det ne zero</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L882">exists
+separated Minor Certificate totient Affine Odd Family</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">binary
+Coeff Series rational iff exists tempered Binary Orbit</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L51">farey
+gap</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L176">gap
+check window 1 240 le 79639646646701375323355774875831053</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L15986">tsum
+totient div pow two ne int div of totient gap certificate</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GapFareyBound.lean#L88">gap
+check window 1 120 le 248672326362367909</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L18572">tsum
+visible coprime pairs ne int div of den le
+39819823323350687661677887437915526</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FreshPrimeDeficitDecomposition.lean#L171">diagonal
 split</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmShortKill.lean#L18">the
@@ -898,8 +925,8 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 staircase is impossible under the stated room hypothesis</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L297">terminal-remainder
 identity</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TropicalCurvatureCarry.lean#L137">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TropicalCurvatureCarry.lean#L137">fixed
+Precision Tropical No Go</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L157">asks</a>,
 <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L485">a
@@ -951,16 +978,16 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CarrySurvivorExtinction.lean#L515">definition</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L57">definition</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L357">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L57">totient
+Tail</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L357">not
+irrational of tail diff mem int</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalPincerCertificatesT64.lean#L1933">list</a>,
 <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967">verification</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Skip/LadderT67.lean#L71264">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Skip/LadderT67.lean#L71264">exists
+diagonal Kill le 82</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3231">CyclotomicAnchoredKillSupply</a>,
 <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3327">the
@@ -981,17 +1008,30 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 equality</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L394">checked
 counterexample</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514">checked</a>,
-<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514">window
+First Exp sum eq pivot decomposition</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L577">the
 conditional irrationality theorem</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L543">the
 budget condition</a>, <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L549">the
 first-harmonic gap</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L60">checked</a>,
-<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L117">checked</a>.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L60">power-multiplication
+identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelReduction.lean#L117">affine
+cross-gcd identity</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L35">nonzero
+reduction scalar</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L54">all-base
+residue step</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L102">canonical
+spanning</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L185">span
+equality</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L203">canonical
+all-base rank from independence</a>, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">all-base
+truncation rank from independence</a>.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

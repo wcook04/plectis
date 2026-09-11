@@ -4,7 +4,7 @@
     <h1>Excluding the Bounded Negative Part</h1>
     <p class="lean-paper__subject">Erdős #243</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-243-reciprocal-tail-rigidity.tex">
+  <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <div class="corollary">
@@ -19,9 +19,11 @@ class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{P_n}{a_n}
 class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all sufficiently
 large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>The statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean#L211">Lean
-source</a>.</p>
+<p>Corollary <span
+class="math inline" data-term-auto="off">\(\ref{res:originalbounded}\)</span> is an ordinary
+transfer of the integer-state theorem below, proved in Section <span
+class="math inline" data-term-auto="off">\(\ref{sec:transfer}\)</span>. There is no module
+<code>PaperCompleteR7/ProductDefect.lean</code> in this checkout.</p>
 <section id="the-obstruction." class="level5">
 <h5>The obstruction.</h5>
 <p>The equation <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>
@@ -116,9 +118,11 @@ class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span> and use <
 class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>, <span
 class="math inline" data-term-auto="off">\(C_{n+1}=a_nC_n-D_n\)</span>. ◻</p>
 </div>
-<p>Both identities are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L21">Lean
-source</a>.</p>
+<p>Both identities are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
+law</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
+identity</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 6</strong> (absorption and descent). <em> For a
 positive exact state with strict centring, <span
@@ -137,8 +141,10 @@ class="math inline" data-term-auto="off">\(C_n\)</span> is eventually a nonincre
 sequence of positive integers, so it stabilises. ◻</p>
 </div>
 <p>Both assertions are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L120">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2221">absorption
+of a vanishing centred state</a> and <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
+of the nonnegative error</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 7</strong> (two zero errors). <em> If <span
 class="math inline" data-term-auto="off">\(E_n=E_{n+1}=0\)</span> and <span
@@ -151,9 +157,11 @@ recurrence.</em></p>
 <p><em>Proof.</em> The second error identity has nonzero factor <span
 class="math inline" data-term-auto="off">\(C_{n+1}\)</span>. ◻</p>
 </div>
-<p>The local and eventual forms are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L138">Lean
-source</a>.</p>
+<p>The local and eventual forms are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1781">local
+rigidity step</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1799">eventual
+Sylvester recurrence</a>.</p>
 <p>Absorption holds after any eventual centring threshold. On a
 nonterminal tail it removes all subsequent zeros. Then <span
 class="math inline" data-term-auto="off">\(|E_n|\ge1\)</span>, so normalised vanishing gives
@@ -221,9 +229,13 @@ class="math inline" data-term-auto="off">\(\gcd(a_i,u_t)=1\)</span>, and <span
 class="math inline" data-term-auto="off">\(\gcd(a_t,v_t)=1\)</span> gives <span
 class="math inline" data-term-auto="off">\(\gcd(a_i,a_t)=1\)</span>. ◻</p>
 </div>
-<p>All three conclusions are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L16">Lean
-source</a>.</p>
+<p>All three conclusions are the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L983">step
+coprimality</a>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1010">pairwise
+coprimality</a>, and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
+avoidance</a>.</p>
 <div class="proposition">
 <p><strong>Proposition 11</strong> (gcd stabilisation). <em> For a
 positive exact state, if negative errors have bounded magnitudes along a
@@ -240,15 +252,20 @@ positive divisibility chain is bounded along a cofinal set and therefore
 bounded everywhere; it eventually stabilises. Division by the stable
 value preserves both exact updates and leaves the states coprime. ◻</p>
 </div>
-<p>The stable gcd and the reduced exact tail are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L103">Lean
-source</a>.</p>
+<p>The stable gcd is <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
+stabilisation</a>.</p>
 <p>In the main proof, division by the stable gcd preserves divergence
 and a bounded upward increment. Theorem <span
 class="math inline" data-term-auto="off">\(\ref{res:barrier}\)</span> therefore applies to
-the reduced numerator. Sparse changes of the gcd without eventual
-stabilisation are a different statement; the supporting record retains
-that distinction and its finite-block consequences.</p>
+the reduced numerator: this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
+reduced exclusion</a>. With normalised vanishing the same obstruction is
+the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
+from normalised vanishing</a>. Sparse changes of the gcd without
+eventual stabilisation are a different statement; the supporting record
+retains that distinction and its finite-block consequences.</p>
 </section>
 </section>
 <section id="sec:transfer" class="level2">
@@ -604,9 +621,8 @@ class="math inline" data-term-auto="off">\(K\ge1\)</span> for which <span
 class="math display" data-term-auto="off">\[2^n\le M_n^K\]</span> at infinitely many
 indices?</em></p>
 </div>
-<p>The canonical necessary profile is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">Lean
-source</a>.</p>
+<p>The canonical necessary profile is ordinary in this note.
+<code>PaperCompleteR7/Frontier.lean</code> is not in this checkout.</p>
 <p>For <span class="math inline" data-term-auto="off">\(B\ge0\)</span> put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F_B(X)=\sum_{\substack{n\in\mathcal R\\U_n\le
@@ -645,10 +661,13 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 bounded-negative rigidity</a>. The canonical analytic transfer and the
 global weighted, polynomial and slow-negative arguments are ordinary
 proofs; the scalar finite-mass proof is printed in full above. The
-auxiliary source guide, constant and periodic exclusions, primitive
-feedback, finite certificates and unsuccessful global extensions belong
-to the accompanying reasoning record. Their stronger global producer
-hypotheses remain explicit.</p>
+auxiliary source guide, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
+constant exclusion</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual
+periodic exclusion</a>, primitive feedback, finite certificates and
+unsuccessful global extensions belong to the accompanying reasoning
+record. Their stronger global producer hypotheses remain explicit.</p>
 </section>
 <section id="declarations." class="level5">
 <h5>Declarations.</h5>
@@ -685,13 +704,21 @@ class="math inline" data-term-auto="off">\(\ref{sec:bounded}\)</span>.</p>
 </section>
 <section id="app:residue" class="level2">
 <h2>A factorial residue reduction for forced orbits</h2>
-<p>In the case <span class="math inline" data-term-auto="off">\(m=c=1\)</span> of
-Section <span class="math inline" data-term-auto="off">\(\ref{sec:constant}\)</span>, where
-the shape equation <span class="math inline" data-term-auto="off">\(\eqref{eq:shape}\)</span>
-reads <span class="math inline" data-term-auto="off">\(D_n+1=(a_n-1)(n+1)\)</span>, each
-multiplier is determined by its predecessor; we call such an orbit
-<em>forced</em>. At index <span class="math inline" data-term-auto="off">\(n\)</span> the
-numerator of the next multiplier is</p>
+<p>A constant-negative error <span class="math inline" data-term-auto="off">\(E_n=-m\)</span>
+with <span class="math inline" data-term-auto="off">\(C_0=c\)</span> produces <span
+class="math inline" data-term-auto="off">\(C_n=c+nm\)</span> and the shape equation</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:shape}
+D_n+m=(a_n-1)C_n.
+\end{equation}\]</span></div>
+<p>In the case <span
+class="math inline" data-term-auto="off">\(m=c=1\)</span>, where <span
+class="math inline" data-term-auto="off">\(\eqref{eq:shape}\)</span> reads <span
+class="math inline" data-term-auto="off">\(D_n+1=(a_n-1)(n+1)\)</span>, each multiplier is
+determined by its predecessor; we call such an orbit <em>forced</em>. At
+index <span class="math inline" data-term-auto="off">\(n\)</span> the numerator of the next
+multiplier is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span></div>
 <p>the <a
@@ -700,20 +727,24 @@ numerator</a>, and the divisor is <span
 class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit survives a step when that
 division is exact, giving a survival predicate, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
-predicate</a>. Example <span
-class="math inline" data-term-auto="off">\(\ref{ex:shape}\)</span> is the forced orbit from
-<span class="math inline" data-term-auto="off">\(a=3\)</span> read this way: <span
+predicate</a>.</p>
+<div class="example">
+<p><strong>Example 18</strong> (the shape equation running until it
+fails). <em> The forced orbit from <span
+class="math inline" data-term-auto="off">\(a=3\)</span> reads this way: <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span> is divisible by
 <span class="math inline" data-term-auto="off">\(2\)</span> and gives <span
 class="math inline" data-term-auto="off">\(a_1=3\)</span>, while <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(1,3)=13\)</span> is not
 divisible by <span class="math inline" data-term-auto="off">\(3\)</span>, so the orbit stops
-there. Deciding survival by iteration is expensive because the orbit
-grows doubly exponentially, and it is unnecessary: survival over a
-finite horizon depends on the initial value only through a factorial
+there.</em></p>
+</div>
+<p>Deciding survival by iteration is expensive because the orbit grows
+doubly exponentially, and it is unnecessary: survival over a finite
+horizon depends on the initial value only through a factorial
 residue.</p>
 <div class="theorem">
-<p><strong>Theorem 18</strong> (factorial residue reduction). <em> For
+<p><strong>Theorem 19</strong> (factorial residue reduction). <em> For
 all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
 class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the orbit from
 <span class="math inline" data-term-auto="off">\(a\)</span> survives <span
@@ -758,12 +789,12 @@ nontrivial horizon.</p>
 <p>The search this supported is superseded. Running it over initial
 states below <span class="math inline" data-term-auto="off">\(5000\)</span> produced forced
 prefixes of length <span class="math inline" data-term-auto="off">\(17\)</span> and no
-longer, which was evidence and not a proof; Theorem <span
-class="math inline" data-term-auto="off">\(\ref{res:constant}\)</span> now excludes the
-constant-negative case outright, for every seed and at every scale. The
-reduction is retained because it is exact, and because the
-shrinking-modulus technique transfers to any forced orbit whose step is
-a polynomial division.</p>
+longer, which was evidence and not a proof; the Lean-checked <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">constant
+exclusion at every scale</a> now excludes the constant-negative case
+outright, for every seed and at every scale. The reduction is retained
+because it is exact, and because the shrinking-modulus technique
+transfers to any forced orbit whose step is a polynomial division.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

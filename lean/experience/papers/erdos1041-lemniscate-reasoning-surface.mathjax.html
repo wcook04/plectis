@@ -4,7 +4,7 @@
     <h1>Lemniscates and Newton Flow: Complete Reasoning Record</h1>
     <p class="lean-paper__subject">Erdős #1041</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos1041-lemniscate-reasoning-surface.tex">
+  <div class="lean-paper__body" data-source="../../../paper/1041/erdos1041-lemniscate-reasoning-surface.tex">
 <blockquote>
 <p><strong>Contribution.</strong> The paper proves the
 Erdős–Herzog–Piranian conclusion for every monic trinomial in every
@@ -473,24 +473,26 @@ counterexample to the existence of some short connection.</em></p>
 <p>The identity <span
 class="math inline" data-term-auto="off">\(\eqref{eq:abel-control-polygon}\)</span> is
 checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L123"><code>abel_controlPolygon</code></a>,
-the constant-term bound as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L258"><code>norm_const_lt_one_of_roots_lt_one</code></a>,
-the radial estimate as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L219"><code>trinomial_radial_norm_lt_one</code></a>,
-and their combination with the metric budget as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330"><code>trinomial_erdos1041_conclusion</code></a>.
-Example <span class="math inline" data-term-auto="off">\(\ref{ex:sextic-spoke}\)</span> is
-checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555"><code>sextic_guardrail</code></a>.
-What the kernel proves is the pair of radial inequalities and the bound
-<span class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span> on the sum
-of the two radii. Assembling those into a single rectifiable path
-object, and the passage to the one-dimensional Hausdorff measure used by
-the upstream statement of the problem, are ordinary steps taken here.
-Prior art for the trinomial conclusion was searched on 2 September 2026
-and none was located; the argument is short enough that it should be
-assumed known until a source settles the question.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L123">abel
+control polygon</a>, the constant-term bound as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L258">norm
+const lt one of roots lt one</a>, the radial estimate as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L219">trinomial
+radial norm lt one</a>, and their combination with the metric budget as
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330">trinomial
+erdos1041 conclusion</a>. Example <span
+class="math inline" data-term-auto="off">\(\ref{ex:sextic-spoke}\)</span> is checked as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555">sextic
+guardrail</a>. What the kernel proves is the pair of radial inequalities
+and the bound <span
+class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span> on the sum of
+the two radii. Assembling those into a single rectifiable path object,
+and the passage to the one-dimensional Hausdorff measure used by the
+upstream statement of the problem, are ordinary steps taken here. Prior
+art for the trinomial conclusion was searched on 2 September 2026 and
+none was located; the argument is short enough that it should be assumed
+known until a source settles the question.</p>
 </section>
 </section>
 <section id="sec:low-critical-closure" class="level2">
@@ -1114,12 +1116,13 @@ class="math inline" data-term-auto="off">\(\ref{res:constant-factor-path}\)</spa
 ordinary mathematics with no Lean-checked part. It uses the capacity
 identity, Pólya’s area inequality, Cauchy–Schwarz, the univalent-map
 distortion estimate, and a finite graph exit lemma; no external paper
-theorem is imported into it. The public source of record is
-<code>research_corpus/Erdos1041/UnconditionalConstantFactorBound.md</code>,
-which carries every rational verification quoted above. Its containment
-level is <span class="math inline" data-term-auto="off">\(2\mu\)</span> and its constant is
-<span class="math inline" data-term-auto="off">\(71/10\)</span>, so the theorem itself
-reaches neither half of the target, and the sharp constant <span
+theorem is imported into it. The public source of record is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/UnconditionalConstantFactorBound.md">unconditional
+constant factor bound</a>, which carries every rational verification
+quoted above. Its containment level is <span
+class="math inline" data-term-auto="off">\(2\mu\)</span> and its constant is <span
+class="math inline" data-term-auto="off">\(71/10\)</span>, so the theorem itself reaches
+neither half of the target, and the sharp constant <span
 class="math inline" data-term-auto="off">\(2\)</span> remains open. Corollaries <span
 class="math inline" data-term-auto="off">\(\ref{res:constant-factor-arity}\)</span> and <span
 class="math inline" data-term-auto="off">\(\ref{res:constant-factor-capacity}\)</span> do
@@ -1586,7 +1589,7 @@ class="math display" data-term-auto="off">\[\min_{0\le i\le m}|p(c_i)|\le
 C_{m+2}.\]</span></em></p>
 </div>
 <p>This is exactly the statement selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
 formal Chebyshev endpoint</a>. It is the kernel-facing alternation
 endpoint, not yet the geometric theorem.</p>
 <div class="theorem">
@@ -1704,7 +1707,7 @@ class="math inline" data-term-auto="off">\(E_i&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(E_j&lt;1\)</span>.</em></p>
 </div>
 <p>This is the exact finite conclusion selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
 formal two-tail selector</a>. It selects two distinct indices. It does
 not assert that the corresponding complex root values are distinct.</p>
 <div class="theorem">
@@ -1818,7 +1821,7 @@ class="math display" data-term-auto="off">\[\left|(tu-r)(tu-s)(tu-v)\right|\le1
 \qquad(0\le t\le1).\]</span></em></p>
 </div>
 <p>This is exactly <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
 formal cubic safe-spoke theorem</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 22</strong> (translated cubic quotient fibres). <em>
@@ -1931,9 +1934,10 @@ and kills several attractive but false shortcuts. The source of the
 update is pinned to commit <a
 href="https://github.com/wcook04/plectis-erdos/tree/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041"><code>f214a6b4</code></a>
 and the dated synthesis is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/FRONTIER.md"><code>FRONTIER.md</code></a>.
-The distinctions below are part of the result: a theorem, a refutation,
-a certificate, and a measurement do not have interchangeable force.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/FRONTIER.md">the
+#1041 frontier note</a>. The distinctions below are part of the result:
+a theorem, a refutation, a certificate, and a measurement do not have
+interchangeable force.</p>
 <section id="near-fekete-stability-removes-the-radial-distraction"
 class="level3 unnumbered">
 <h3 class="unnumbered">Near-Fekete stability removes the radial
@@ -1942,9 +1946,10 @@ distraction</h3>
 class="math inline" data-term-auto="off">\(|u_i|=1\)</span>, and put <span
 class="math inline" data-term-auto="off">\(D=|\operatorname{disc}(f)|/n^n\)</span>. The
 quantitative Fekete–Hadamard estimate in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>
-says that, when <span class="math inline" data-term-auto="off">\(D\ge1-\eta\)</span> and
-<span class="math inline" data-term-auto="off">\(\eta\le1/(80n^2)\)</span>,</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">near
+fekete radial angular split</a> says that, when <span
+class="math inline" data-term-auto="off">\(D\ge1-\eta\)</span> and <span
+class="math inline" data-term-auto="off">\(\eta\le1/(80n^2)\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[1-\rho_i^2\le \frac{n\eta}{n-1},\qquad
   |a_i-a_j|\ge \frac{2-2\sqrt\eta-n\eta}{n-1},\]</span></div>
@@ -1991,7 +1996,8 @@ select a zero-free gap on which the polynomial modulus is at most <span
 class="math inline" data-term-auto="off">\(2\)</span>; a harmonic normal-derivative argument
 transfers this arc bound strictly to the chord. The complete ordinary
 proof is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/ConcyclicAlternation.md"><code>ConcyclicAlternation.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/ConcyclicAlternation.md">concyclic
+alternation</a>.</p>
 <p>The argument is an ordinary proof outside Lean. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_exact_witness.py">exact-rational
 checker</a> checks finitely many load-bearing identities and
@@ -2006,9 +2012,9 @@ unrestricted concyclic case and Erdős #1041 remain open.</p>
 <section id="cyclic-trinomial-fibres" class="level3 unnumbered">
 <h3 class="unnumbered">Cyclic trinomial fibres</h3>
 <p>The spoke identity and strict bound are formalized in <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">trinomial
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">trinomial
 root spoke factorization</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">trinomial
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">trinomial
 root spoke norm lt one of norm lt one</a>.</p>
 <p>There is also a positive structured family in every cyclic lift
 degree. Fix integers <span class="math inline" data-term-auto="off">\(1\le r\le m\)</span>
@@ -2026,7 +2032,7 @@ class="math display" data-term-auto="off">\[u^mw^m+au^rw^r+c
    =(1-u^r)c-(u^r-u^m)w^m.\]</span></div>
 <p>The two coefficients on the right
 are nonnegative and have total at most one. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
 strict-spoke theorem</a> therefore proves that, if <span
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|&lt;1\)</span>, the complete radial spoke is
@@ -2087,9 +2093,9 @@ class="math inline" data-term-auto="off">\(|c|+|b||w|^s&lt;1\)</span>, together 
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|&lt;1\)</span>, puts every vector in the Abel
 decomposition strictly inside the unit ball. Lean checks the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
 and the resulting <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
 spoke theorem</a> under the exact weak exponent hypotheses <span
 class="math inline" data-term-auto="off">\(1\le s\le r\le m\)</span>; it also checks the
 coefficient-only corollary above.</p>
@@ -2099,7 +2105,7 @@ class="math inline" data-term-auto="off">\(N=|S|\ge2\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M=\sum_{i\in S}w_i^s.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">formal
 energy identity</a> gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{i\in
 S}|c+bw_i^s|^2
@@ -2116,7 +2122,7 @@ indices <span class="math inline" data-term-auto="off">\(i,j\in S\)</span> satis
 class="math inline" data-term-auto="off">\(|c+bw_i^s|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c+bw_j^s|&lt;1\)</span>. Feeding those
 inequalities into the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">formal
 Abel-spoke consumer</a> proves that both complete root spokes lie
 strictly in <span class="math inline" data-term-auto="off">\(\{|g|&lt;1\}\)</span>. The
 signed cross term is essential: this interface can certify
@@ -2166,7 +2172,7 @@ is controlled pointwise by</p>
 class="math display" data-term-auto="off">\[\bigl(\sqrt{d^2+x^2}\bigr)^{\alpha-1}
     \le x^{\alpha-1}\qquad(x&gt;0),\]</span></div>
 <p>and Lean checks the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">exact
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">exact
 primitive</a></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\alpha\int_0^A
 x^{\alpha-1}\,dx=A^\alpha.\]</span></div>
@@ -2177,7 +2183,7 @@ power-map chord-lift estimate</p>
 class="math display" data-term-auto="off">\[\operatorname{length}(\widetilde{[a,b]})
     \le |a|^{1/q}+|b|^{1/q}.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">formal
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">formal
 endpoint consumer</a> also proves that if <span
 class="math inline" data-term-auto="off">\(0\le a,b&lt;1\)</span>, <span
 class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span>, and a candidate length <span
@@ -2585,7 +2591,8 @@ a_1=-\frac{c_{n-2}}{n\,t^{1/n}}
 that terminal node, but extending it to proper components and connecting
 it to the parent theorem remains open. The degree-five statements and
 their evidence classes are recorded in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md"><code>Degree5AssemblyAndSharpenedCuts.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md">degree5
+assembly and sharpened cuts</a>.</p>
 </section>
 <section id="the-no-go-boundaries-force-hub-selection"
 class="level3 unnumbered">
@@ -2615,9 +2622,10 @@ metric factor is not automatic in any of these degrees: the all-degree
 value estimate supplies no path-length aggregate. These two boundaries,
 including the distinction between the surviving algebraic budget and the
 failed length aggregate, are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md"><code>MinimalHubArmBudgetRefutation.md</code></a>
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md"><code>SeparatrixAggregateReduction.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/MinimalHubArmBudgetRefutation.md">minimal
+hub arm budget refutation</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md">separatrix
+aggregate reduction</a>.</p>
 <p>Third, the origin is not a uniform near-Fekete hub. An exact rational
 quintic with roots scaled by <span
 class="math inline" data-term-auto="off">\(999999/1000000\)</span> has four of five origin
@@ -2636,7 +2644,8 @@ origin selector, and a different admissible hub at the same
 configuration supplies a contained pair. What fails here is the origin
 selector; the admissible hubs are not exhausted. The full witness and
 replay route are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md"><code>NearFeketeRadialAngularSplit.md</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">near
+fekete radial angular split</a>.</p>
 </section>
 <section id="the-surviving-carrier-and-the-actual-open-endpoint"
 class="level3 unnumbered">
@@ -2686,10 +2695,10 @@ class="math inline" data-term-auto="off">\(I\)</span>.</em></p>
 <p>The computation is one line: <span
 class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
 The kernel checks it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
 flow value has deriv at</a>, together with the differential form of the
 first integral, <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
 flow scaled value has deriv at zero</a>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
@@ -2701,7 +2710,11 @@ value moves inward on one positive ray; a zero value has no argument and
 remains zero. Thus <span class="math inline" data-term-auto="off">\(|f|&lt;1\)</span> is
 preserved for later times in that trajectory’s existing interval. No
 global existence or description of a whole ray preimage follows from
-this scalar equation. The real-time candidate endpoint is in .</p>
+this scalar equation. The real-time candidate endpoint is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean">newton
+flow real value decay</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean">newton
+flow trajectory</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 26</strong> (ray separation). <em> Let <span
 class="math inline" data-term-auto="off">\(a&lt;b\)</span> and let the value trajectory <span
@@ -2717,10 +2730,15 @@ class="math inline" data-term-auto="off">\(z\)</span> plane need not be radial.<
 </div>
 <p>The interior identity passes to the endpoints by continuity, not by
 evaluating <span class="math inline" data-term-auto="off">\(-f/f&#39;\)</span> at a critical
-endpoint. The candidate declarations and in make these premises
-explicit. Their compilation and axiom checks are unrun in this return.
-They construct no trajectories and supply no global monodromy
-theorem.</p>
+endpoint. The candidate declarations <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">value
+decay at continuous endpoints</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">no
+finite connection of distinct value rays</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">newton
+endpoints</a> make these premises explicit. Their compilation and axiom
+checks are unrun in this return. They construct no trajectories and
+supply no global monodromy theorem.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -2749,7 +2767,7 @@ the form <span class="math display" data-term-auto="off">\[\beta=\frac{ra-b}{1-r
 </div>
 <p>So each pair of critical values contributes a one-real-parameter
 forbidden locus in the translation plane, given in closed form (<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
 same positive ray parameterization</a>). A finite union of such loci has
 empty interior, which is the shape one wants for an avoidance argument.
 Turning that into a perturbation of <span
@@ -2984,7 +3002,7 @@ class="level3 unnumbered">
 critical-value family is injective, Lean proves an arbitrarily small
 translation making every value nonzero and pairwise positive-ray
 separated (<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
 small translation separating arguments</a>). It also proves the explicit
 root-retention estimate; a shift below <span
 class="math inline" data-term-auto="off">\(\varepsilon\)</span> keeps all roots in the unit
@@ -2992,7 +3010,7 @@ disc when</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[((n+1)\varepsilon)^{1/n}+\rho&lt;1\]</span></div>
 <p>(<a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
 perturbation roots in unit disk</a>). A constant translation cannot
 separate initially equal critical values.</p>
 <div class="problem">
@@ -3123,67 +3141,67 @@ declaration table below is pinned to the shared formal-source commit
 used throughout this problem-note series.</p>
 <ul>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
 flow vector</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
 mul newton flow vector</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
 flow value has deriv at</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
 flow scaled value has deriv at zero</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
 positive ray</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">same
 positive ray refl</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">same
 positive ray symm</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
 positive ray trans</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
 same positive ray parameterization</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
 affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">real
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">real
 affine line eq affine span</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">is
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">is
 closed real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">dense
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">dense
 compl real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">exists
 small avoiding finite real affine lines</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
 positive ray imp mem real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
 small translation separating arguments</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
 lt one of near root</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
 perturbation root near original</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
 perturbation roots in unit disk</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L325">same
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L306">same
 positive ray of real exp decay</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L334">no
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">no
 newton connection of not same positive ray</a></p></li>
 </ul>
 <section
@@ -3195,13 +3213,13 @@ families.</h5>
 class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> the metric theorems are
 ordinary; the kernel checks the cyclic-fibre mean square and the
 quotient-disk bridge. The fibre norm identity is <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L21">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L21">fibre
 mean square</a>, the strict unit bound is <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L37">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L37">fibre
 unit bound</a>, the quotient roots land in the open disk by <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L60">quotient
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L60">quotient
 disk bridge</a>, and the composition vanishes on the fibre by <a
-href="https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L73">fibre
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L73">fibre
 zero identity</a>.</p>
 </section>
 </section>

@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
     "html_exact_tex": "papers/erdos-1041-lemniscate-newton-flow.mathjax.html",
     "pdf": "../../papers/erdos-1041-lemniscate-newton-flow.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1041-lemniscate-newton-flow.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "9a36d21bfa3560bbcaea4fc162d6f98801fa6ca43803890ed2488f0f687f595f",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
     "publication_manifest_match": true,
     "mathml_node_count": 518,
     "raw_math_fallback_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "716092400724d899977e7bbf612d865f658e1cfa62b00f4f3c717ad4e6742028",
-    "html_exact_tex_sha256": "930b9185cdae9b91f55230e1e967f028e8828479ec46dfaf250c10a371a27fd5"
+    "html_mathml_sha256": "f052f4f76f5561225ef3c9f0e6a84ab120a657418882ae09eec133ed0a43bce9",
+    "html_exact_tex_sha256": "121fc4911c5667033ba7fb941b168c10da287f94f1062a7b2bc0bda3b3242c34"
   },
   "sections": [
     {

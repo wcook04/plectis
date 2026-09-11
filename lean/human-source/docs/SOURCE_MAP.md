@@ -20,7 +20,7 @@ graph:
 3. Follow the returned paper label into the authored exposition and its
    declaration or source handles into the modules grouped below.
 4. Read `Erdos249257.lean` or `ErdosProblems.lean` only when package topology
-   itself is the question. Read `docs/WAVE_INDEX.md` for chronology, not as the
+   itself is the question. Those root files now live under `lean/`. Read `docs/WAVE_INDEX.md` for chronology, not as the
    recommended mathematical reading order.
 
 Lean source checked by the pinned Lean kernel is proof authority. This map is
@@ -96,14 +96,14 @@ index route.
 
 | Problem | Problem return / source back-route | Strongest checked source | Paper and source record |
 |---|---|---|---|
-| #68 | `python3 scripts/query_corpus.py --route erdos_68` | [`FactorialZeroPlateau.lean`](../ErdosProblems/Erdos68/FactorialZeroPlateau.lean) | [paper note](papers/full-text/erdos-68-factorial-denominator-irrationality.md) · [TeX source](../paper/erdos-68-factorial-denominator-irrationality.tex) |
-| #243 | `python3 scripts/query_corpus.py --route erdos_243` | [`ReciprocalTailRigidity.lean`](../ErdosProblems/Erdos243/ReciprocalTailRigidity.lean) | [paper note](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) · [TeX source](../paper/erdos-243-reciprocal-tail-rigidity.tex) |
-| #249 | `python3 scripts/query_corpus.py --route erdos_249` · reviewed return: `python3 scripts/query_corpus.py --route erdos249_certificate_story` · family return: `python3 scripts/query_corpus.py --route probabilistic_gcd_geometry` | [`TotientStrictPrimeEscape.lean`](../ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean) · [`GcdMomentCalculus.lean`](../Erdos249257/GcdMomentCalculus.lean#L235) · [`SternBrocotRunGeometry.lean`](../Erdos249257/SternBrocotRunGeometry.lean#L343) | [paper note](papers/full-text/erdos-249-binary-totient-series.md) · [TeX source](../paper/erdos-249-binary-totient-series.tex) · [probability/cylinder explanation](papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.) |
-| #251 | `python3 scripts/query_corpus.py --route erdos_251`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `prime_gap_reformulation` → `small_mismatch_criterion` → `dyadic_tail_integrality_classification` → `integral_shift_classification` → `totient_shift_propagation` → `coefficient_only_no_go` | [`PrimeGapDyadicTail.lean`](../ErdosProblems/Erdos251/PrimeGapDyadicTail.lean) | [paper note](papers/full-text/erdos-251-prime-gap-dyadic-series.md) · [TeX source](../paper/erdos-251-prime-gap-dyadic-series.tex) |
-| #257 | `python3 scripts/query_corpus.py --route erdos_257` · reviewed return: `python3 scripts/query_corpus.py --route erdos257_half_story` | [`MersenneSubseriesRigidity.lean`](../ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean) | [paper note](papers/full-text/erdos-257-mersenne-support-subseries.md) · [TeX source](../paper/erdos-257-mersenne-support-subseries.tex) |
-| #269 | `python3 scripts/query_corpus.py --route erdos_269`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `conditional_carry_escape` → `weighted_phase_carry_observer` → `rank_two_kernel_no_go` → `height_fibre_and_shell` → `dyadic_block_alphabet` → `three_prime_lcm_cells` | [`RestrictedFloorSum.lean`](../ErdosProblems/Erdos269/RestrictedFloorSum.lean) · [`WeightedPhaseCarry.lean`](../ErdosProblems/Erdos269/WeightedPhaseCarry.lean) · [`ThreePrimeRunningLcm.lean`](../ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean) | [paper note](papers/full-text/erdos-269-three-prime-running-lcm.md) · [TeX source](../paper/erdos-269-three-prime-running-lcm.tex) |
-| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`NewtonFlowRaySeparation.lean`](../ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/erdos-1041-lemniscate-newton-flow.tex) |
-| #1049 | `python3 scripts/query_corpus.py --route erdos_1049` | [`RationalBaseLambert.lean`](../ErdosProblems/Erdos1049/RationalBaseLambert.lean) | [paper note](papers/full-text/erdos-1049-rational-base-lambert.md) · [TeX source](../paper/erdos-1049-rational-base-lambert.tex) |
+| #68 | `python3 scripts/query_corpus.py --route erdos_68` | [`FactorialZeroPlateau.lean`](../lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean) | [paper note](papers/full-text/erdos-68-factorial-denominator-irrationality.md) · [TeX source](../paper/68/erdos-68-factorial-denominator-irrationality.tex) |
+| #243 | `python3 scripts/query_corpus.py --route erdos_243` | [`ReciprocalTailRigidity.lean`](../lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean) | [paper note](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) · [TeX source](../paper/243/erdos-243-reciprocal-tail-rigidity.tex) |
+| #249 | `python3 scripts/query_corpus.py --route erdos_249` · reviewed return: `python3 scripts/query_corpus.py --route erdos249_certificate_story` · family return: `python3 scripts/query_corpus.py --route probabilistic_gcd_geometry` | [`TotientStrictPrimeEscape.lean`](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean) · [`GcdMomentCalculus.lean`](../lean/Erdos249257/GcdMomentCalculus.lean#L235) · [`SternBrocotRunGeometry.lean`](../lean/Erdos249257/SternBrocotRunGeometry.lean#L343) | [paper note](papers/full-text/erdos-249-binary-totient-series.md) · [TeX source](../paper/249/erdos-249-binary-totient-series.tex) · [probability/cylinder explanation](papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.) |
+| #251 | `python3 scripts/query_corpus.py --route erdos_251`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `prime_gap_reformulation` → `small_mismatch_criterion` → `dyadic_tail_integrality_classification` → `integral_shift_classification` → `totient_shift_propagation` → `coefficient_only_no_go` | [`PrimeGapDyadicTail.lean`](../lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean) | [paper note](papers/full-text/erdos-251-prime-gap-dyadic-series.md) · [TeX source](../paper/251/erdos-251-prime-gap-dyadic-series.tex) |
+| #257 | `python3 scripts/query_corpus.py --route erdos_257` · reviewed return: `python3 scripts/query_corpus.py --route erdos257_half_story` | [`MersenneSubseriesRigidity.lean`](../lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean) | [paper note](papers/full-text/erdos-257-mersenne-support-subseries.md) · [TeX source](../paper/257/erdos-257-mersenne-support-subseries.tex) |
+| #269 | `python3 scripts/query_corpus.py --route erdos_269`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `conditional_carry_escape` → `weighted_phase_carry_observer` → `rank_two_kernel_no_go` → `height_fibre_and_shell` → `dyadic_block_alphabet` → `three_prime_lcm_cells` | [`RestrictedFloorSum.lean`](../lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean) · [`WeightedPhaseCarry.lean`](../lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean) · [`ThreePrimeRunningLcm.lean`](../lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean) | [paper note](papers/full-text/erdos-269-three-prime-running-lcm.md) · [TeX source](../paper/269/erdos-269-three-prime-running-lcm.tex) |
+| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`NewtonFlowRaySeparation.lean`](../lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/1041/erdos-1041-lemniscate-newton-flow.tex) |
+| #1049 | `python3 scripts/query_corpus.py --route erdos_1049` | [`RationalBaseLambert.lean`](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean) | [paper note](papers/full-text/erdos-1049-rational-base-lambert.md) · [TeX source](../paper/1049/erdos-1049-rational-base-lambert.tex) |
 
 The exact open boundary each row stops at, as machine handles. A five-column
 table put these sentences 354px past the rendered column, so they read here:
@@ -168,7 +168,7 @@ Lean propositions rather than reviewed public mathematical claims.
 - `Erdos249257.GapFareyBound`
 - `Erdos249257.CertificateKernel`
 - **Visible-coprime lattice mass** (`totient_visible_coprime_lattice_mass`) —
-  [`tsum_pos_coprime_inv_mersenne_eq_one`](../Erdos249257/GcdMomentCalculus.lean#L349)
+  [`tsum_pos_coprime_inv_mersenne_eq_one`](../lean/Erdos249257/GcdMomentCalculus.lean#L349)
   proves that the positive coprime Mersenne weights on the visible lattice sum
   exactly to one. This is the rational normalization behind the fair-coin
   coprimality form of #249, not an irrationality result. Follow the
@@ -180,9 +180,9 @@ Lean propositions rather than reviewed public mathematical claims.
 
 - **All-base totient-kernel reduction, spanning, and conditional rank**
   (`all_base_totient_kernel_index_reduction`) —
-  [`TotientKernelConditional.lean`](../Erdos249257/TotientKernelConditional.lean#L102)
+  [`TotientKernelConditional.lean`](../lean/Erdos249257/TotientKernelConditional.lean#L102)
   gives the unconditional canonical spanning theorem, while
-  [`finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent`](../Erdos249257/TotientKernelConditional.lean#L215)
+  [`finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent`](../lean/Erdos249257/TotientKernelConditional.lean#L215)
   gives rank `k^e + 1` only under the explicit linear-independence hypothesis.
   That independence, and Martin's external positive-density theorem, are not
   formalised here; this algebraic boundary does not prove irrationality of
@@ -192,7 +192,7 @@ Lean propositions rather than reviewed public mathematical claims.
   `python3 scripts/query_corpus.py --route erdos_249`.
 
 - **Prime-ray cyclotomic support escape** (`prime_ray_resultant_supply`) —
-  [`PrimeRayCyclotomicCurvature.lean`](../ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95)
+  [`PrimeRayCyclotomicCurvature.lean`](../lean/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95)
   turns bounded-degree order divisibility and eventual nontrivial clean layers
   into finite-support escape and cofinal unbounded prime divisors. Its bounded
   order is an existence of an exponent witness, not exact order. The actual
@@ -202,14 +202,14 @@ Lean propositions rather than reviewed public mathematical claims.
 
 - **Tail-orbit phase-density and natural-prime strict-gap reductions**
   (`strict_prime_tail_orbit_gap`) —
-  [`TotientStrictPrimeEscape.lean`](../ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L25)
+  [`TotientStrictPrimeEscape.lean`](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L25)
   makes the two producer interfaces explicit: an `11/100` nonpositive-phase
   density on arbitrarily late dyadic blocks implies an `89/100` first-harmonic
   block saving, while the natural-prime strict-gap predicate gives a pointwise
   `9/10` pivot escape through the wrapper
   `Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap`.
   The same module records the exact phase update
-  [`tailOrbitFirstExp_succ`](../ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L167):
+  [`tailOrbitFirstExp_succ`](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L167):
   after the integer carry disappears under exponentiation, the first phase
   evolves by squaring. This is orbit-mechanism evidence only; it supplies none
   of the density, cofinal prime strict-gap, or uniform-margin hypotheses.

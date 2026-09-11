@@ -4,8 +4,8 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 256,
-    "edges": 339,
+    "nodes": 257,
+    "edges": 325,
     "deferred_node_kinds": {
       "lean_module": 1272,
       "mathematical_object": 105
@@ -594,10 +594,17 @@
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:prime_gap_identity_tao",
+      "kind": "public_claim",
+      "label": "Tao's already-known prime-to-gap identity",
+      "status": "cited only",
+      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:prime_gap_irrationality_equivalence",
       "kind": "public_claim",
       "label": "Exact prime-gap dyadic irrationality equivalence",
-      "status": "conditional reduction",
+      "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
@@ -1124,7 +1131,7 @@
       "subject": "Systems paper",
       "form": "Research architecture",
       "href": "papers/claim-faithful-publication-systems.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex"
     },
     {
       "id": "paper:cold-clone-to-proof-receipt",
@@ -1133,7 +1140,7 @@
       "subject": "Systems paper",
       "form": "Agent navigation",
       "href": "papers/cold-clone-to-proof-receipt.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex"
     },
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
@@ -1142,7 +1149,7 @@
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1041-lemniscate-newton-flow.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex"
     },
     {
       "id": "paper:erdos-1049-rational-base-lambert",
@@ -1151,7 +1158,7 @@
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex"
     },
     {
       "id": "paper:erdos-243-reciprocal-tail-rigidity",
@@ -1160,7 +1167,7 @@
       "subject": "Erdős #243",
       "form": "Problem note",
       "href": "papers/erdos-243-reciprocal-tail-rigidity.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-243-reciprocal-tail-rigidity.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex"
     },
     {
       "id": "paper:erdos-249-binary-totient-series",
@@ -1169,7 +1176,7 @@
       "subject": "Erdős #249",
       "form": "Problem note",
       "href": "papers/erdos-249-binary-totient-series.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex"
     },
     {
       "id": "paper:erdos-251-prime-gap-dyadic-series",
@@ -1178,7 +1185,7 @@
       "subject": "Erdős #251",
       "form": "Problem note",
       "href": "papers/erdos-251-prime-gap-dyadic-series.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-251-prime-gap-dyadic-series.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex"
     },
     {
       "id": "paper:erdos-257-mersenne-support-subseries",
@@ -1187,7 +1194,7 @@
       "subject": "Erdős #257",
       "form": "Problem note",
       "href": "papers/erdos-257-mersenne-support-subseries.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex"
     },
     {
       "id": "paper:erdos-269-three-prime-running-lcm",
@@ -1196,7 +1203,7 @@
       "subject": "Erdős #269",
       "form": "Problem note",
       "href": "papers/erdos-269-three-prime-running-lcm.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-269-three-prime-running-lcm.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex"
     },
     {
       "id": "paper:erdos-68-factorial-denominator-irrationality",
@@ -1205,7 +1212,7 @@
       "subject": "Erdős #68",
       "form": "Problem note",
       "href": "papers/erdos-68-factorial-denominator-irrationality.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex"
     },
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
@@ -1214,7 +1221,7 @@
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1041-lemniscate-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
@@ -1223,7 +1230,7 @@
       "subject": "Erdős #1049",
       "form": "Reasoning surface",
       "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos1049-rational-base-lambert-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos243-reciprocal-tail-reasoning-surface",
@@ -1232,7 +1239,7 @@
       "subject": "Erdős #243",
       "form": "Reasoning surface",
       "href": "papers/erdos243-reciprocal-tail-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos243-reciprocal-tail-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos249-totient-reasoning-surface",
@@ -1241,7 +1248,7 @@
       "subject": "Erdős #249",
       "form": "Reasoning surface",
       "href": "papers/erdos249-totient-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos251-prime-gap-reasoning-surface",
@@ -1250,7 +1257,7 @@
       "subject": "Erdős #251",
       "form": "Reasoning surface",
       "href": "papers/erdos251-prime-gap-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos251-prime-gap-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos257-mersenne-reasoning-surface",
@@ -1259,7 +1266,7 @@
       "subject": "Erdős #257",
       "form": "Reasoning surface",
       "href": "papers/erdos257-mersenne-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos269-running-lcm-reasoning-surface",
@@ -1268,7 +1275,7 @@
       "subject": "Erdős #269",
       "form": "Reasoning surface",
       "href": "papers/erdos269-running-lcm-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex"
     },
     {
       "id": "paper:erdos68-factorial-reasoning-surface",
@@ -1277,7 +1284,7 @@
       "subject": "Erdős #68",
       "form": "Reasoning surface",
       "href": "papers/erdos68-factorial-reasoning-surface.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex"
     },
     {
       "id": "paper:open-source-mathematics-strategy",
@@ -1286,7 +1293,7 @@
       "subject": "Systems paper",
       "form": "Open-source research strategy",
       "href": "papers/open-source-mathematics-strategy.json",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/open-source-mathematics-strategy.tex"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex"
     },
     {
       "id": "paper:plectis-public-system",
@@ -1750,7 +1757,7 @@
     {
       "id": "review-family:erdos_269:two_prime_transcendence",
       "kind": "comparator_review_family",
-      "label": "Both two-prime running-lcm series are proved transcendental by an authored deduction from an external theorem.",
+      "label": "Steve Fan posted the two-prime factorisation, reduction and transcendence first (erdosproblems.com/269, 26 June 2026, post-7218). This checkout records that ordinary deduction from Bugeaud–Laurent and does not claim priority or a Lean theorem.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {
@@ -2160,11 +2167,6 @@
     },
     {
       "source": "problem:erdos_1041",
-      "relation": "has_public_claim",
-      "target": "claim:newton_ray_separation_consumer"
-    },
-    {
-      "source": "problem:erdos_1041",
       "relation": "has_review_family",
       "target": "review-family:erdos_1041:lemniscate_finite_search"
     },
@@ -2197,26 +2199,6 @@
       "source": "problem:erdos_1049",
       "relation": "explained_by",
       "target": "paper:erdos-1049-rational-base-lambert"
-    },
-    {
-      "source": "problem:erdos_1049",
-      "relation": "has_public_claim",
-      "target": "claim:rational_base_cleared_tail_recurrence"
-    },
-    {
-      "source": "problem:erdos_1049",
-      "relation": "has_public_claim",
-      "target": "claim:rational_base_forcing_growth"
-    },
-    {
-      "source": "problem:erdos_1049",
-      "relation": "has_public_claim",
-      "target": "claim:three_halves_coordinatewise_corridor_no_go"
-    },
-    {
-      "source": "problem:erdos_1049",
-      "relation": "has_public_claim",
-      "target": "claim:van_assche_qapery_diagonal_no_go"
     },
     {
       "source": "problem:erdos_1049",
@@ -2260,21 +2242,6 @@
     },
     {
       "source": "problem:erdos_243",
-      "relation": "has_public_claim",
-      "target": "claim:bounded_negative_exclusion"
-    },
-    {
-      "source": "problem:erdos_243",
-      "relation": "has_public_claim",
-      "target": "claim:bounded_rise_fresh_modulus_barrier"
-    },
-    {
-      "source": "problem:erdos_243",
-      "relation": "has_public_claim",
-      "target": "claim:eventually_periodic_negative_no_go"
-    },
-    {
-      "source": "problem:erdos_243",
       "relation": "has_review_family",
       "target": "review-family:erdos_243:bounded_negative_exclusion"
     },
@@ -2302,11 +2269,6 @@
       "source": "problem:erdos_249",
       "relation": "explained_by",
       "target": "paper:erdos-249-binary-totient-series"
-    },
-    {
-      "source": "problem:erdos_249",
-      "relation": "has_public_claim",
-      "target": "claim:strict_prime_tail_orbit_gap"
     },
     {
       "source": "problem:erdos_249",
@@ -2412,16 +2374,6 @@
       "source": "problem:erdos_251",
       "relation": "explained_by",
       "target": "paper:erdos-251-prime-gap-dyadic-series"
-    },
-    {
-      "source": "problem:erdos_251",
-      "relation": "has_public_claim",
-      "target": "claim:prime_gap_irrationality_equivalence"
-    },
-    {
-      "source": "problem:erdos_251",
-      "relation": "has_public_claim",
-      "target": "claim:prime_gap_unboundedness_and_nonperiodicity"
     },
     {
       "source": "problem:erdos_251",
@@ -2535,21 +2487,6 @@
     },
     {
       "source": "problem:erdos_269",
-      "relation": "has_public_claim",
-      "target": "claim:three_prime_cofinal_window_carry_extinction"
-    },
-    {
-      "source": "problem:erdos_269",
-      "relation": "has_public_claim",
-      "target": "claim:three_prime_finite_residue_contradiction"
-    },
-    {
-      "source": "problem:erdos_269",
-      "relation": "has_public_claim",
-      "target": "claim:weighted_phase_carry_finite_observer"
-    },
-    {
-      "source": "problem:erdos_269",
       "relation": "has_review_family",
       "target": "review-family:erdos_269:conditional_carry_escape"
     },
@@ -2592,11 +2529,6 @@
       "source": "problem:erdos_68",
       "relation": "explained_by",
       "target": "paper:erdos-68-factorial-denominator-irrationality"
-    },
-    {
-      "source": "problem:erdos_68",
-      "relation": "has_public_claim",
-      "target": "claim:channel_quotient_band_breakpoint"
     },
     {
       "source": "problem:erdos_68",
@@ -3207,6 +3139,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:power_two_bit_lift"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:prime_gap_identity_tao"
     },
     {
       "source": "universe:plectis-lean",

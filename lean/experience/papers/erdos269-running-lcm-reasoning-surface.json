@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
     "html_exact_tex": "papers/erdos269-running-lcm-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos269-running-lcm-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos269-running-lcm-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos269-running-lcm-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos269-running-lcm-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos269-running-lcm-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
+    "renderer_fingerprint": "68395684e8d7d8b0",
     "source_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
     "publication_manifest_match": true,
     "mathml_node_count": 967,
@@ -46,8 +46,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "c68c92f5cef3512d40a5155885863214d9182124880c4ad918a76f3761d0ffc5",
-    "html_exact_tex_sha256": "80da535314620b0acb1aa30f212bc58ad524bf0d55370a84dda84e739437e97e"
+    "html_mathml_sha256": "285b54a8d7184b95748798a4aa0e5b16a47bebb62fe107e3fb292773cce3ff6a",
+    "html_exact_tex_sha256": "c83d5d38feb3fdb45f7e13e0a54d316051820846f05d8d09cf8e804f53b6128b"
   },
   "sections": [
     {

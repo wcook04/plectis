@@ -4,7 +4,7 @@
     <h1>Irrationality of F(31/4) and the Exact Normalized Hankel Order</h1>
     <p class="lean-paper__subject">Erdős #1049</p>
   </header>
-  <div class="lean-paper__body" data-source="../../../paper/erdos-1049-rational-base-lambert.tex">
+  <div class="lean-paper__body" data-source="../../../paper/1049/erdos-1049-rational-base-lambert.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <p>For <span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, expansion of each
@@ -103,8 +103,8 @@ class="math display" data-term-auto="off">\[\begin{gathered}
 class="math inline" data-term-auto="off">\(\mathcal I\)</span> used to define <span
 class="math inline" data-term-auto="off">\(J\)</span>. The zero-one values and this
 thirteen-interval support are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297">omega
+indicator</a>.</p>
 <section id="integral-polynomials-and-their-degrees." class="level5">
 <h5>Integral polynomials and their degrees.</h5>
 <p>The source’s polynomial inclusion is Lemma 7, display (23). Its
@@ -233,9 +233,10 @@ polynomials of degree at most <span class="math inline" data-term-auto="off">\(W
 <span class="math inline" data-term-auto="off">\(b^{W_n}U_n(a/b)\)</span> and <span
 class="math inline" data-term-auto="off">\(b^{W_n}V_n(a/b)\)</span> are integers. That
 integrality and the cleared linear-form identity it produces are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean#L61">Lean
-source</a>. Moreover</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{split}
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean#L61">cleared
+linear form identity</a>. Moreover</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{split}
 \log\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
 &amp;=K_n\log b-(K_n-W_n)\log a+O_{a/b}(n)\\
 &amp;=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
@@ -247,8 +248,8 @@ class="math inline" data-term-auto="off">\(F(a/b)=r/s\)</span> were rational, ev
 would have absolute value at least <span
 class="math inline" data-term-auto="off">\(1/|s|\)</span>, a contradiction. The separation
 bound for a nonzero integral form at a rational target is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean#L128">Lean
-source</a>. ◻</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean#L128">rational
+integer linear form gap</a>. ◻</p>
 </section>
 </div>
 <div class="corollary">
@@ -368,6 +369,22 @@ with an unspecified computable constant. Here the polynomial
 specialisation identifies <span class="math inline" data-term-auto="off">\(\mu\)</span> as
 admissible for <span class="math inline" data-term-auto="off">\(F\)</span>; no priority claim
 is attached.</p>
+<div class="theorem">
+<p><strong>Theorem 4</strong> (the <span
+class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
+power certificate</a> <span class="math inline" data-term-auto="off">\(2^{18}&lt;7^7\)</span>
+yields the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">Archimedean
+height condition</a> <span class="math display" data-term-auto="off">\[\frac{\log
+7}{\log(7/2)}
+&lt;
+\left(\frac12+\frac1{\pi^2}\right)^{-1}.\]</span></em></p>
+</div>
+<p>This is the elementary parameter check at <span
+class="math inline" data-term-auto="off">\(q=7/2\)</span> in Bundschuh and Väänänen’s
+Theorem 2 (<span class="math inline" data-term-auto="off">\(\alpha=-1\)</span>). Their
+analytic irrationality theorem is not a Lean result here.</p>
 <p>Negative bases are not treated.</p>
 </section>
 <section id="the-base-uniform-degree-restriction" class="level3">
@@ -376,7 +393,7 @@ is attached.</p>
 every fixed real base greater than one. Such uniformity itself imposes a
 limit.</p>
 <div class="theorem">
-<p><strong>Theorem 4</strong> (Archimedean cap on base-uniform rank-two
+<p><strong>Theorem 5</strong> (Archimedean cap on base-uniform rank-two
 families). <em> Let <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> be
 pairs in <span class="math inline" data-term-auto="off">\(\mathbb Z[X]^2\)</span> satisfying
 <span class="math inline" data-term-auto="off">\(\Lambda_n(x)=U_n(x)F(x)-V_n(x)\ne0\)</span>,
@@ -430,20 +447,20 @@ class="math inline" data-term-auto="off">\(L_n=0\)</span>. Both contradict the h
 <span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>. The integer
 argument of this paragraph, from the two cross-product limits to the
 contradiction, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L123">Lean
-source</a>. The homogenised logarithm satisfies</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L123">no
+small forms of cross product limits</a>. The homogenised logarithm
+satisfies</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
 n^{-2}\log\bigl|b^{d_n}\Lambda_n(a/b)\bigr|
 \le \delta\log b-\sigma\log(a/b),\]</span></div>
 <p>which is negative on the
 stated sufficient region. The arithmetic form of that region is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L144">Lean
-source</a>, and the final numerical clause is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L155">Lean
-source</a>. The conclusion bounds the sufficient cutoff furnished by the
-displayed degree estimate. An exclusion for a particular family requires
-its actual degree and remainder asymptotics. ◻</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L144">logarithmic
+region iff negative balance</a>, and the final numerical clause is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L155">half
+cap iff</a>. The conclusion bounds the sufficient cutoff furnished by
+the displayed degree estimate. An exclusion for a particular family
+requires its actual degree and remainder asymptotics. ◻</p>
 </div>
 </section>
 </section>
@@ -465,7 +482,7 @@ data-cites="zudilin2016"><a href="#ref-4">[4]</a></span>. A formal moment expans
 the unique least-order term and shows that this estimate is always
 sharp.</p>
 <div class="theorem">
-<p><strong>Theorem 5</strong> (sharp normalized Hankel order). <em> For
+<p><strong>Theorem 6</strong> (sharp normalized Hankel order). <em> For
 every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>, <span
 class="math display" data-term-auto="off">\[\operatorname{ord}_q
 V_N^*=\frac{N(N-1)(2N-1)}6,\]</span> and the coefficient of the first
@@ -547,26 +564,29 @@ polynomial forms.</p>
 <section id="sec:open" class="level2">
 <h2>Local cancellation and the remaining real estimate</h2>
 <div class="theorem">
-<p><strong>Theorem 6</strong> (no corridor at base <span
+<p><strong>Theorem 7</strong> (no corridor at base <span
 class="math inline" data-term-auto="off">\(3/2\)</span>). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(K\ge1\)</span> and all natural <span
 class="math inline" data-term-auto="off">\(Q,D\)</span>, the tuple <span
-class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a coordinatewise
-corridor.</em></p>
+class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
+corridor</a>.</em></p>
 </div>
 <div class="theorem">
-<p><strong>Theorem 7</strong> (cleared-tail recurrence). <em> Let <span
+<p><strong>Theorem 8</strong> (cleared-tail recurrence). <em> Let <span
 class="math inline" data-term-auto="off">\(r,s,B,F\in\Q\)</span> with <span
 class="math inline" data-term-auto="off">\(r\ne0\)</span>, let <span
 class="math inline" data-term-auto="off">\(c:\N\to\Q\)</span>, and let <span
 class="math inline" data-term-auto="off">\(P_N\)</span> and <span
 class="math inline" data-term-auto="off">\(U_N\)</span> be the cleared tail state. Then for
-every <span class="math inline" data-term-auto="off">\(N\)</span>, <span
+every <span class="math inline" data-term-auto="off">\(N\)</span> the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
+recurrence</a> is <span
 class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></em></p>
 </div>
 <div class="theorem">
-<p><strong>Theorem 8</strong> (the forcing term). <em> Let <span
+<p><strong>Theorem 9</strong> (the forcing term). <em> Let <span
 class="math inline" data-term-auto="off">\(s,B\)</span> be natural numbers and <span
 class="math inline" data-term-auto="off">\(c:\N\to\N\)</span>, and put <span
 class="math inline" data-term-auto="off">\(G_N=B\,c(N+1)\,s^{\,N+1}\)</span>.</em></p>
@@ -591,13 +611,20 @@ class="math inline" data-term-auto="off">\(R,S\ge0\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[J_{3,R}(P)=H_W(P)\pmod{3^R},\qquad
 J_{2,S}(P)=H_W(P)\pmod{2^S}.\]</span></div>
-<p>All four jets of <span
-class="math inline" data-term-auto="off">\((U,V)\)</span> vanish precisely when <span
-class="math inline" data-term-auto="off">\(D=3^R2^S\)</span> divides both specialised
-coordinates. The dependence on the declared width remains fixed when
-rows are added.</p>
+<div class="lemma">
+<p><strong>Lemma 10</strong> (bottom-jet divisibility). <em> Vanishing
+of the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom
+jet</a> is exactly divisibility by the corresponding power of three:
+<span class="math inline" data-term-auto="off">\(J_{3,R}(P)=0\)</span> if and only if <span
+class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
+</div>
+<p>All four jets of <span class="math inline" data-term-auto="off">\((U,V)\)</span> vanish
+precisely when <span class="math inline" data-term-auto="off">\(D=3^R2^S\)</span> divides
+both specialised coordinates. The dependence on the declared width
+remains fixed when rows are added.</p>
 <div class="theorem">
-<p><strong>Theorem 9</strong> (binary four-jet collision). <em> Fix a
+<p><strong>Theorem 11</strong> (binary four-jet collision). <em> Fix a
 width <span class="math inline" data-term-auto="off">\(W\)</span> and depths <span
 class="math inline" data-term-auto="off">\(R,S\)</span>, and let <span
 class="math inline" data-term-auto="off">\((U_j,V_j)_{j&lt;M}\)</span> be any <span
@@ -629,14 +656,14 @@ class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2&lt;(4^R)^2(2^S)^2=2^{
 the collision, the signed <span
 class="math inline" data-term-auto="off">\(\{-1,0,1\}\)</span> vector and the sufficient
 width are together <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248">Lean
-source</a>. ◻</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248">four
+jet paper statement</a>. ◻</p>
 </div>
 <p>The ambient count does not use relations between the two residue
 coordinates. Vanishing minors can reduce that cost to one
 coordinate.</p>
 <div class="theorem">
-<p><strong>Theorem 10</strong> (Bézout–Plücker tail collapse). <em> Let
+<p><strong>Theorem 12</strong> (Bézout–Plücker tail collapse). <em> Let
 <span class="math inline" data-term-auto="off">\(R_0\)</span> be a commutative ring and let
 <span class="math inline" data-term-auto="off">\(w_n=(A_n,B_n)\in R_0^2\)</span>. Suppose
 that every row is unimodular (<span class="math inline" data-term-auto="off">\(u_n A_n+v_n
@@ -671,8 +698,8 @@ class="math display" data-term-auto="off">\[2^S3^R&lt;2^S4^R=2^{S+2R}\le2^k,\]</
 <p>and
 pigeonhole gives the two selectors. The ring-generic minor collapse and
 the modular selector collision are together <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269">Lean
-source</a>. ◻</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269">plucker
+paper statement</a>. ◻</p>
 </div>
 <p>Primitive integer rows are unimodular modulo every modulus. A
 particular coordinate need not be a unit: <span
@@ -681,6 +708,39 @@ class="math inline" data-term-auto="off">\(6\)</span> is an example. The minor-v
 hypothesis remains a separate condition on the source rows.</p>
 <section id="one-minor-gcd-controls-two-different-costs" class="level3">
 <h3>One minor gcd controls two different costs</h3>
+<div class="proposition">
+<p><strong>Proposition 13</strong> (Padé summand bound and exact gap).
+<em> Let <span class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span>
+and put <span
+class="math display" data-term-auto="off">\[\widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),\]</span>
+<span
+class="math display" data-term-auto="off">\[\widetilde{Q}(n,m)=2(n^{2}-n)+j^{2}+2jm+j-m^{2}+3m,
+\qquad j=n-m-1 .\]</span> Then, for integers <span
+class="math inline" data-term-auto="off">\(n,k,m\)</span>:</em></p>
+<ol>
+<li><p><em>if <span class="math inline" data-term-auto="off">\(0\le k\le n\)</span>, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
+exponent bound</a> is <span
+class="math inline" data-term-auto="off">\(\widetilde{P}(n,k)\le\widetilde{E}_n\)</span>, and
+the gap factors as <span
+class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)\)</span>;</em></p></li>
+<li><p><em>the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
+gap identity</a> is <span
+class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
+</ol>
+</div>
+<div class="proposition">
+<p><strong>Proposition 14</strong> (row-content determinant scaling).
+<em> Rowwise integer contents scale the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
+determinant</a> by the same factors: the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">content
+factorisation</a> and the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute
+determinant scaling</a> identify the local divisor with the Archimedean
+height cost.</em></p>
+</div>
 <p>Let a rank-two lattice <span
 class="math inline" data-term-auto="off">\(\Lambda\subset\Z^2\)</span> be generated by
 primitive rows, and let <span class="math inline" data-term-auto="off">\(g&gt;0\)</span> be
@@ -721,7 +781,7 @@ class="level3">
 signature. The multiplicity to control is the number of equal real
 values within one modular fibre.</p>
 <div class="theorem">
-<p><strong>Theorem 11</strong> (quantitative bounded-fibre escape). <em>
+<p><strong>Theorem 15</strong> (quantitative bounded-fibre escape). <em>
 Let <span class="math inline" data-term-auto="off">\(A,B,J\)</span> be finite sets and let
 <span class="math inline" data-term-auto="off">\(f:A\to B\)</span>, <span
 class="math inline" data-term-auto="off">\(g:A\to\mathbb R\)</span> and <span
@@ -789,7 +849,7 @@ primitive scaling, local cancellation and the real estimate together.
 Without source and height restrictions, arbitrary polynomial lifts of
 small rational approximations would simply restate irrationality.</p>
 <div class="problem">
-<p><strong>Problem 12</strong> (common-width simultaneous endpoint-jet
+<p><strong>Problem 16</strong> (common-width simultaneous endpoint-jet
 construction). <em> Exhibit an integer constant <span
 class="math inline" data-term-auto="off">\(C\ge1\)</span> and, for every sufficiently large
 positive integer <span class="math inline" data-term-auto="off">\(n\)</span>, positive

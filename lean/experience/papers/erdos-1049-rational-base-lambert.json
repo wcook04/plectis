@@ -5,7 +5,7 @@
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 13,
+  "pages": 14,
   "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
   "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
   "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
     "html_exact_tex": "papers/erdos-1049-rational-base-lambert.mathjax.html",
     "pdf": "../../papers/erdos-1049-rational-base-lambert.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos-1049-rational-base-lambert.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos-1049-rational-base-lambert.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,17 +28,17 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "63da06e19a5c6c6bedb34cd9913fff3d6192ad1ade409cab560c6e37b7fe0c3f",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "e21d5550496ce09d01c83c15f48116d27a2afc2cf78259ea695dc86e5fa97211",
     "publication_manifest_match": true,
-    "mathml_node_count": 390,
+    "mathml_node_count": 405,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "9cf7a97da484f3af82fc7f5582b830b75031d00e98f1ad69ee058f981c9ef5db",
-    "html_exact_tex_sha256": "1bb2c3c7231fb96826c372f91e57dfe1d1f63258dc9a5554378d07fbb2ad6e18"
+    "html_mathml_sha256": "9f9ef8b8890c1209e5850edf638557135ffd264cd9ab168e0088e7d4d60b7bc4",
+    "html_exact_tex_sha256": "5a4f7a15eacbbe41a87799c6c7c85ddbcad9de612128714bc89e98bf64f36806"
   },
   "sections": [
     {

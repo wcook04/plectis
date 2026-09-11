@@ -15,9 +15,9 @@
     "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
     "html_exact_tex": "papers/erdos68-factorial-reasoning-surface.mathjax.html",
     "pdf": "../../papers/erdos68-factorial-reasoning-surface.pdf",
-    "latex": "../../papers/source/plectis-lean-erdos249-257/paper/erdos68-factorial-reasoning-surface.tex",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos68-factorial-reasoning-surface.tex",
-    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos68-factorial-reasoning-surface.tex"
+    "latex": "../../papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos68-factorial-reasoning-surface.tex"
   },
   "render_contract": {
     "preferred": "html_exact_tex",
@@ -28,8 +28,8 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 17,
-    "renderer_fingerprint": "98654d69fba420c6",
-    "source_sha256": "744e49cf9503f5b699d1b96a11c85e4301a35a795a6d146c0acafb11716059fb",
+    "renderer_fingerprint": "68395684e8d7d8b0",
+    "source_sha256": "b9d16f7c4a74e464c574ddc9d6bddd66856043dcb9ea4c0333a2a3cc7538a824",
     "publication_manifest_match": true,
     "mathml_node_count": 876,
     "raw_math_fallback_count": 0,
@@ -37,8 +37,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "d43ce5d6cead6e4ada51fe2f6d162cc84083e2e01ee1ba5abc46d9136219c3ff",
-    "html_exact_tex_sha256": "eac1ff63801c5a4b336187d89cf16d73032fe0629a251e12be7220f8c3deb74b"
+    "html_mathml_sha256": "3f1649b06d1fbf5729f329d4af51ce3e07aec1ec513bed428bd15997f8a7e106",
+    "html_exact_tex_sha256": "7f7293721efcfb8180ae0a90c4da7aba42e6e5c7e25ae591beb60771da05a661"
   },
   "sections": [
     {

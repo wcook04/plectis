@@ -25,7 +25,7 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=f601ea7de9da">
+  <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
   <link rel="stylesheet" href="../assets/maths.css?v=520460ad8aad">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
@@ -85,8 +85,8 @@
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos-68-factorial-denominator-irrationality.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 14&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex"><span class="btn__format">TeX</span>LaTeX source</a>
-          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           <a href="../problems/erdos_68.html">Problem dossier</a>
         </div>
       </header>
@@ -103,7 +103,7 @@
 
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="erdos-68-factorial-denominator-irrationality" data-math-mode="mathjax">
-  <div class="lean-paper__body" data-source="../../../paper/erdos-68-factorial-denominator-irrationality.tex">
+  <div class="lean-paper__body" data-source="../../../paper/68/erdos-68-factorial-denominator-irrationality.tex">
 <div class="problem">
 <p><strong>Problem 1</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #68</a>). <em> Is <span
 class="math display" data-term-auto="off">\[S=\sum_{n\ge2}\frac1{n!-1}\]</span>
@@ -130,11 +130,17 @@ class="math inline" data-term-auto="off">\(m!S\)</span> is the unique <a class="
 <span class="math inline" data-term-auto="off">\(m!H_m\)</span>. The same argument at <span
 class="math inline" data-term-auto="off">\(m-1\)</span> gives <span
 class="math inline" data-term-auto="off">\(Z_m=m!S=mZ_{m-1}\)</span>, proving <span
-class="math inline" data-term-auto="off">\(\eqref{eq:finite-denominator-consumer}\)</span>.
-The exact value <span class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>
-therefore <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> of <span
-class="math inline" data-term-auto="off">\(299999!\)</span> as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> of <span
-class="math inline" data-term-auto="off">\(S\)</span>.</p>
+class="math inline" data-term-auto="off">\(\eqref{eq:finite-denominator-consumer}\)</span>. A
+non-unit carry at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <span class="math inline" data-term-auto="off">\(m\)</span> therefore
+forces <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">every
+rational denominator to be at least <span
+class="math inline" data-term-auto="off">\(m\)</span></a>, since any smaller positive <span
+class="math inline" data-term-auto="off">\(q\)</span> would divide <span
+class="math inline" data-term-auto="off">\((m-1)!\)</span>. The exact value <span
+class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span> therefore <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> every
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> of <span class="math inline" data-term-auto="off">\(299999!\)</span> as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>
+of <span class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <p>The independent continued-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fraction</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>’s
 size. Neither restriction <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the other: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> between <span
 class="math inline" data-term-auto="off">\(299999\)</span> and <span
@@ -146,7 +152,9 @@ posed by <a class="narrative-ref narrative-ref--term is-term-first" href="../../
 data-cites="erdos1988 bloom"><a href="#ref-1">[1]</a><a href="#ref-2">[2]</a></span>. Their computational <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>
 are specified in §<span
 class="math inline" data-term-auto="off">\(\ref{sec:finite}\)</span>.</p>
-<p>Adjacent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> differences affect exactly their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> channels.
+<p><a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
+factorial differences affect exactly their divisor channels</a>.
 Integral triangular elimination therefore <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solves</a> the channel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equations</a>.
 The support restriction determines which <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> moments occur, while
 at a fixed moment every correction <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-change" data-term="change" data-term-auto="1">changes</a> the residual by an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>.
@@ -191,8 +199,8 @@ S\notin\mathbb Q
 \end{equation}\]</span></em></p>
 </div>
 <p>The equivalence and its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> form are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29">companion
+orbit boundary</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> First suppose <span
 class="math inline" data-term-auto="off">\(S=a/q\)</span> with <span
@@ -284,11 +292,16 @@ data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4
 following conditions are equivalent: <span
 class="math display" data-term-auto="off">\[S\notin\mathbb Q,\qquad
 (\forall B)(\exists m&gt;B)\ b_m\ne1,\qquad
-(\forall B)(\exists m&gt;B)\ m\nmid Z_m.\]</span></em></p>
+(\forall B)(\exists m&gt;B)\ m\nmid Z_m.\]</span> In particular, <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
+non-unit carries imply irrationality</a>; equivalently, the original
+problem is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+criterion</a>.</em></p>
 </div>
 <p>The pair of equivalences is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47">carry
+characterisation</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Rationality forces eventual unit carries by <span
 class="math inline" data-term-auto="off">\(\eqref{eq:finite-denominator-consumer}\)</span>.
@@ -317,8 +330,9 @@ class="math display" data-term-auto="off">\[W_{d,n}=\frac{n!}{(d!)^{\lfloor
 n/d\rfloor}},\qquad
 M(\lambda)=\sum_n\lambda_n n!,\qquad
 V_d(\lambda)=\sum_n\lambda_nW_{d,n}.\]</span></div>
-<p>The weights are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a>.
-We first <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-allowed" data-term="allowed" data-term-auto="1">allow</a> the auxiliary coordinate <span
+<p>The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
+are integers</a>. We first <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-allowed" data-term="allowed" data-term-auto="1">allow</a> the auxiliary coordinate <span
 class="math inline" data-term-auto="off">\(e_1\)</span>, then impose the manuscript support
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. This coefficient convention
 introduces no term <span class="math inline" data-term-auto="off">\(1/(1!-1)\)</span> into
@@ -339,8 +353,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 </div>
 <p>The observables, the unique expansion and the coefficient formula are
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260">divisor
+channel coordinates</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> The moment of <span
 class="math inline" data-term-auto="off">\(T_n\)</span> is zero. The floor in <span
@@ -380,10 +394,10 @@ U_9=9e_8-e_9-5040e_2+1680e_3.
 class="math inline" data-term-auto="off">\(9\)</span> is nonzero. Thus each channel can be
 adjusted separately by a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a> of its own <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>. The expansion
 is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L17">Lean
-source</a> and the observable <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compression-profile" data-term="compression_profile" data-term-auto="1">profile</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L45">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L17">composite
+translator nine</a> and the observable <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compression-profile" data-term="compression_profile" data-term-auto="1">profile</a> is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L45">composite
+translator nine profile</a>.</p>
 <section id="the-support-restriction-and-the-residual" class="level3">
 <h3>The support restriction and the residual</h3>
 <p>Write</p>
@@ -399,8 +413,9 @@ V_d(\lambda)\equiv M(\lambda)\pmod{d!-1}
 \label{res:congruence}
 \end{equation}\]</span></div>
 <p>in the equivalent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>-divisibility form <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53">Lean
-source</a>, and the unique description of every low-channel kernel:</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53">supported
+channel congruence</a>, and the unique description of every low-channel
+kernel:</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 V_2=\cdots=V_D=0
 \quad\Longleftrightarrow\quad
@@ -476,8 +491,8 @@ class="math display" data-term-auto="off">\[g_D=\gcd(u_{D+1},\ldots,u_H),\qquad
 H&lt;2D^2.\]</span></em></p>
 </div>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">finite
+channel moment certificate</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> gcd <span class="math inline" data-term-auto="off">\(g\)</span>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divides</a> the nonzero term <span
@@ -576,8 +591,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \end{equation}\]</span></div>
 <p>The extended-real <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>, with the real
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> <span class="math inline" data-term-auto="off">\(3/2\)</span>, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">Lean
-source</a>. For a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> block of <span
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">common
+denominator growth liminf</a>. For a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> block of <span
 class="math inline" data-term-auto="off">\(k\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a>–lcm–gcd <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>
 and <span class="math inline" data-term-auto="off">\(\gcd(i!-1,j!-1)\mid j!/i!-1\)</span>
 give</p>
@@ -644,9 +659,13 @@ N/2\rfloor!\mid M\)</span>: if <span
 class="math inline" data-term-auto="off">\(v=\max(r,L/2)\)</span>, then <span
 class="math inline" data-term-auto="off">\(N&lt;4v^2\)</span> and <span
 class="math inline" data-term-auto="off">\(v!\mid M\)</span>. Thus these moments absorb every
-fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> as <span class="math inline" data-term-auto="off">\(N\to\infty\)</span>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">Cofinal</a> residual nonintegrality on this family is sufficient for
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>; the construction does not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that
+fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> as <span class="math inline" data-term-auto="off">\(N\to\infty\)</span>. On
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>-grid Cramer vector the residual differs from a nonzero
+determinant times <span class="math inline" data-term-auto="off">\(S\)</span> by an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>:
+this is the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
+residual identity</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">Cofinal</a> residual nonintegrality on this family is
+sufficient for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>; the construction does not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that
 nonintegrality.</p>
 </section>
 </section>
@@ -675,9 +694,9 @@ v_q(\operatorname{den}H_M)=e
 \end{equation}\]</span></div>
 <p>The equivalence, with the maximum and its
 attainment taken from the actual prefix lcm, is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118">Lean
-source</a>. This first-layer test is a consequence of the general
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-sum valuation formula of Louwsma and Martino <span
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118">maximal
+prime power survival</a>. This first-layer test is a consequence of the
+general <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-sum valuation formula of Louwsma and Martino <span
 class="citation" data-cites="louwsma-martino"></span>.</p>
 <p>The actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>-gap examples show why the weights matter. At
 <span class="math inline" data-term-auto="off">\(M=138\)</span>, the maximal <span
@@ -731,8 +750,8 @@ R_p&gt;1,\qquad
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>.</em></p>
 </div>
 <p>The criterion at natural parameters is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156">Lean
-source</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156">global
+complementary criterion nat</a>.</p>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Suppose <span class="math inline" data-term-auto="off">\(S=a/q\)</span>.
 For large <span class="math inline" data-term-auto="off">\(p\)</span>, <span
@@ -766,17 +785,21 @@ modulus <span class="math inline" data-term-auto="off">\(R_p\)</span> cancels: i
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> support alone does not improve this comparison. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">Coprimality</a>
 permits <span class="math inline" data-term-auto="off">\(\rho_p=1\)</span>, so the
 complementary gap needs its own quantitative <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>. Both losses must
-be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> at the same parameters. A joint mean <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> below <span
-class="math inline" data-term-auto="off">\((1-\varepsilon)p\log p\)</span> on the same
+be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> at the same parameters. The <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+pair floor</a> splits that scale test into the complementary-residue
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> and a local collision-core cap. A joint mean <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> below
+<span class="math inline" data-term-auto="off">\((1-\varepsilon)p\log p\)</span> on the same
 nonempty sets in <span class="math inline" data-term-auto="off">\([X,2X]\)</span> would
 suffice; two unrelated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> sets can be disjoint.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>The remaining real comparison</h2>
 <p></p>
-<p>The exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> remains</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+<p>The exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> remains the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+criterion</a>:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 (\forall B)(\exists m&gt;B)\ m\nmid Z_m.
 \label{eq:canonical-open-target}
 \end{equation}\]</span></div>
@@ -817,20 +840,26 @@ one. A useful family must therefore <a class="narrative-ref narrative-ref--term 
 still <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> signed block.</p>
 <p>Large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> valuations alone also leave the real gap
 uncontrolled: the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fractions</a> <span
-class="math inline" data-term-auto="off">\(1/q^e\)</span> tend to zero. The exact
-lower-endpoint and doubled-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-test" data-term="test" data-term-auto="1">tests</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> joint numerator or
-predecessor information. Their thresholds, the adjacent-window collapse,
-fixed-owner absorption, and the strongest countermodels are retained in
-the long reasoning record.</p>
+class="math inline" data-term-auto="off">\(1/q^e\)</span> tend to zero. The exact <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
+/ lower-endpoint cylinder</a> and doubled-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-test" data-term="test" data-term-auto="1">tests</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> joint
+numerator or predecessor information. Their thresholds, the <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
+collapse</a>, fixed-owner absorption, and the strongest countermodels
+are retained in the long reasoning record.</p>
 </section>
 </section>
 <section id="sec:finite" class="level2">
 <h2>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a></h2>
-<p>The exact GMP carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> covers <span
-class="math inline" data-term-auto="off">\(3\le m\le300000\)</span>. Its unit carries occur
-at</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[52,\ 591,\ 1030,\ 1407,\ 1438,\ 2164,\
-4258,\ 10991,\ 21236.\]</span></div>
+<p>An exact non-unit carry at the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <span
+class="math inline" data-term-auto="off">\(67\)</span> already forces <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">every
+rational denominator to be at least <span
+class="math inline" data-term-auto="off">\(67\)</span></a>. The exact GMP carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
+covers <span class="math inline" data-term-auto="off">\(3\le m\le300000\)</span>. Its unit
+carries occur at</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[52,\ 591,\ 1030,\ 1407,\
+1438,\ 2164,\ 4258,\ 10991,\ 21236.\]</span></div>
 <p>In particular <span
 class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>, yielding <span
 class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> by <span
@@ -853,27 +882,50 @@ class="math inline" data-term-auto="off">\(\eqref{eq:canonical-open-target}\)</s
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">Statements</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-event identities, isolated-channel recursion,
 vanishing moment, individual channel values, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <span
-class="math inline" data-term-auto="off">\(12\)</span> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in . The unique integral
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a> expansion, attainable-moment formula and compressed primitive-grid
-construction are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, described in and, for the grid
-construction, in . The quadratic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stopping</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in ,
-together with the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a>-block divisibility and
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a> it uses. The earlier lcm-envelope <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> and
-depth-<span class="math inline" data-term-auto="off">\(4\)</span> moment <span
-class="math inline" data-term-auto="off">\(1380\)</span> are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> with exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> in . The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> are in . The inherited generic
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a> in assume the lcm envelope; they do not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalise</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a>. The growth liminf is the ordinary asymptotic consequence of
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a>-block <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>; its eventual form, with the
-constant <span class="math inline" data-term-auto="off">\(2\sqrt2/3\)</span>, is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in
-.</p>
-<p>The exact companion and carry criteria are represented by and ; the
-unconditional correction <span
-class="math inline" data-term-auto="off">\(\eqref{eq:companion-wrap}\)</span> is in . The
-pole-residue identity and the two displayed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> are in
-. The complete maximal-hit data come from the separate exact modular
-scan. The carry census and continued-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fraction</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> use exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> computation outside <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>.</p>
+class="math inline" data-term-auto="off">\(12\)</span> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.lean">divisor
+channel basis</a>. The unique integral <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a> expansion,
+attainable-moment formula and compressed primitive-grid construction are
+ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, described in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.md">divisor
+channel basis</a> and, for the grid construction, in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompressedPrimitiveChannelKernel.md">compressed
+primitive channel kernel</a>. The quadratic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stopping</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
+in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean">complete
+moment horizon</a>, together with the scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equal</a>-block
+divisibility and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-anchor" data-term="anchor" data-term-auto="1">anchor</a> it uses. The earlier lcm-envelope
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> and depth-<span class="math inline" data-term-auto="off">\(4\)</span> moment
+<span class="math inline" data-term-auto="off">\(1380\)</span> are ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> with exact
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_moment_saturation.py">check
+moment saturation</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_finite_source.py">check
+finite source</a>. The inherited generic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean">tail
+ideal certificate</a> assume the lcm envelope; they do not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalise</a> the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a>. The growth liminf is the ordinary asymptotic
+consequence of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a>-block <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>; its eventual form,
+with the constant <span class="math inline" data-term-auto="off">\(2\sqrt2/3\)</span>, is
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean">complete
+asymptotics</a>.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> isolation pin for the carry equivalences is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
+gap plateau core</a>. <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">factorial
+zero plateau</a> is the default-root duplicate of that family and is not
+the isolation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>. Companion-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> rationality is in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
+orbit rationality</a>; the unconditional correction <span
+class="math inline" data-term-auto="off">\(\eqref{eq:companion-wrap}\)</span> is in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
+constant carry law</a>. The pole-residue identity and the two displayed
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equalities</a> are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">prime
+pole criterion</a>. The complete maximal-hit data come from the separate
+exact modular scan. The carry census and continued-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fraction</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
+use exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> computation outside <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>.</p>
 <p>The inherited <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> pin is <code>99f4bf47422a</code>.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-current additions and that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> snapshot must be reconciled at
 one immutable <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> before its links are represented as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> of
@@ -893,9 +945,11 @@ record.</p>
 <code>DivisorFactorialCentre</code>,
 <code>EndpointWeightedPrivateSupport</code>,
 <code>FactorialCarry</code>, <code>FactorialChannelCertificate</code>,
-<code>FactorialZeroPlateau</code>, <code>FiniteDefectAutomaton</code>,
-<code>GapScalarNormalForm</code>, <code>PrimeThresholdParity</code>,
-<code>PrimeUnitTranslator</code>, <code>PrimeZeroBranch</code>, and
+<code>FactorialGapPlateauCore</code> (isolation pin;
+<code>FactorialZeroPlateau</code> is the default-root duplicate),
+<code>FiniteDefectAutomaton</code>, <code>GapScalarNormalForm</code>,
+<code>PrimeThresholdParity</code>, <code>PrimeUnitTranslator</code>,
+<code>PrimeZeroBranch</code>, and
 <code>StrictSuccessorArithmetic</code>. Only these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> belong
 to the manuscript <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> surface; no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-private" data-term="private" data-term-auto="1">private</a> auxiliary digit-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rigidity" data-term="rigidity" data-term-auto="1">rigidity</a>
 file is cited or projected. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> root <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imports</a> every cited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>.
@@ -903,8 +957,8 @@ The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 used throughout this problem-note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>
 <ul>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">consecutive
-unit carries iff positive offset le den</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
+collapse</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
 step den mul transition normalizers</a></p></li>
@@ -915,27 +969,26 @@ unit carry window den eq two step den</a></p></li>
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
 unit carry window offset eq two step reduced numerator</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">rational
-denominator ge of nonunit carry</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">denominator
+at least the carry index</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">sixty
-seven le rational denominator</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">denominator
+at least <span class="math inline" data-term-auto="off">\(67\)</span></a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">irrational
-factorial gap series iff cofinal strict fac top rat misses</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+criterion</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">irrational
-factorial gap series of cofinal nonunit carries</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
+non-unit carries imply irrationality</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">factorial
-gap zero branch iff lower endpoint cylinder</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
+/ lower-endpoint cylinder</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">factorial
-block unit factor pair floor scale iff</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+pair floor</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">exists
-cramer factorial grid residual eq det mul factorial gap series add
-int</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
+residual identity</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L34">residual
 centre term</a></p></li>
@@ -973,8 +1026,8 @@ coeff term self</a></p></li>
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L188">residual
 centre recurrence</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">factorial
-pow floor dvd factorial</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
+are integers</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L39">channel
 weight</a></p></li>
@@ -991,8 +1044,8 @@ moment</a></p></li>
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L59">channel
 event</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">channel
-event eq zero of not dvd</a></p></li>
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">adjacent
+differences affect only divisor channels</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101">lambda34</a></p></li>
 <li><p><a
@@ -1040,19 +1093,24 @@ eventual square subsequence three halves upper</a></p></li>
 </ul>
 <section id="source-current-companion-orbit-and-comparator-routes."
 class="level5">
-<h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-current companion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> routes.</h5>
-<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in . Its
-paper-facing endpoints are and . The coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite
-routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
+<h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-current companion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> routes.</h5>
+<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
+orbit rationality</a>. Its paper-facing endpoints are <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">not
+irrational factorial gap series iff eventually companion floor <span
+class="math inline" data-term-auto="off">\(-2\)</span></a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">irrational
+factorial gap series iff cofinal companion floor misses</a>. The
+coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion-orbit
+complete characterisation</a> routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <span
 class="math inline" data-term-auto="off">\(\ref{res:companion-orbit-rationality-boundary}\)</span>
 and Remark <span
 class="math inline" data-term-auto="off">\(\ref{bdry:companion-orbit-nonconcentration}\)</span>.
-The moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> endpoints route to <span
-class="math inline" data-term-auto="off">\(\ref{res:moving-factor-scale-split}\)</span>,
-<span
-class="math inline" data-term-auto="off">\(\ref{res:split-factor-normalized-collision}\)</span>,
-and <span
-class="math inline" data-term-auto="off">\(\ref{bdry:fixed-owner-absorption}\)</span>. These
+The moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> endpoints are recorded in the long
+reasoning record as the moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> scale split, the split-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a>
+normalised collision, and the fixed-owner absorption boundary. These
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">packages</a>, and this manuscript stage
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> one common immutable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> checkpoint before <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> readiness is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</p>
@@ -1092,10 +1150,10 @@ href="https://arxiv.org/abs/2103.14894">2103.14894v1</a>, 2021, <a class="narrat
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos-68-factorial-denominator-irrationality.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 14&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-lean-erdos249-257/paper/erdos-68-factorial-denominator-irrationality.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           <a href="../problems/erdos_68.html">Problem dossier</a>
         </div>
-        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:9b54aebff7460c36</code>. It <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:1936c57e8582583f</code>. It <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
       </div>
       </div>
     </main>

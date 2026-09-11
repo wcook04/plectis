@@ -57,8 +57,11 @@ region. None closes its Erdős problem.</p>
 <h3>Problem-by-problem guide</h3>
 <p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
 Irrationality of <code>∑ 1/(n!−1)</code> is equivalent to cofinally many
-non-unit factorial carries, with finite channel obstructions. The
-cofinal carries are not produced.</p>
+non-unit factorial carries. The isolation pin is
+<code>FactorialGapPlateauCore</code> (not the default-root
+<code>FactorialZeroPlateau</code> duplicate). Finite GMP
+(<code>m = 300000</code>) and continued-fraction exclusions are
+incomparable. The cofinal carries are not produced.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/243">#243</a>.</strong> After
 Koizumi’s normalised vanishing, a bounded or summably small negative
@@ -72,10 +75,13 @@ dyadic-kernel rank <code>2^e + 1</code>, denominator exclusion to about
 and scoped no-go theorems. No cofinal producer reaching irrationality is
 proved.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/251">#251</a>.</strong> The prime
-series equals the gap series; irrationality is equivalent to cofinal
-non-integral tail shifts, with a coefficient-only countermodel boundary.
-A prime-specific cofinal tail witness is still missing.</p>
+href="https://www.erdosproblems.com/251">#251</a>.</strong> A
+coefficient-only countermodel and a sparse rationalising perturbation
+show that polynomial growth, nonperiodicity, and eventual fixed-modulus
+congruences do not force irrationality. The prime-to-gap identity is
+Tao’s (7 October 2025); Lean formalises it with an elementary polynomial
+prime bound, not the prime-number theorem. A prime-specific cofinal tail
+witness is still missing.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/257">#257</a>.</strong> Full-support
 irrationality in every integer base <code>b ≥ 2</code>,
@@ -97,11 +103,12 @@ translations that separate ray arguments, and perturbative root
 retention. A length-<code>&lt;2</code> curve and the hub that would make
 one remain open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/1049">#1049</a>.</strong> Exact
-rational-base tail recurrence, sharp Hankel order, a checked height
-region that includes <code>31/4</code>, and finite Padé / four-jet
-obstructions. It does not prove irrationality at <code>3/2</code> or
-construct approximants with analytic remainder control.</p>
+href="https://www.erdosproblems.com/1049">#1049</a>.</strong> Ordinary
+proof that <code>F(31/4)</code> and its positive powers are irrational
+(Zudilin 2004 Lemma 7 specialization); Lean checks supporting
+height-region arithmetic and selected identities, not that headline. It
+does not prove irrationality at <code>3/2</code> or construct
+approximants with analytic remainder control.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
@@ -487,7 +494,7 @@ irrational?</strong></p>
 <li>Irrationality is equivalent, with no hypotheses, to one integer
 divisibility test on exact rational prefixes failing infinitely often —
 <code>irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</code>,
-<code>ErdosProblems/Erdos68/FactorialZeroPlateau.lean:1090</code>.
+<code>ErdosProblems/Erdos68/FactorialGapPlateauCore.lean:986</code>.
 Checked theorem; exact equivalence, transporting the difficulty without
 reducing it; registry: none.</li>
 <li>A separate finite quotient-band obstruction is now explicit. For a
@@ -507,16 +514,16 @@ the authority. This is a finite-family breakpoint only: it supplies no
 cancelling family, simultaneous-channel control, residual estimate, or
 cofinal non-unit carry.</li>
 <li>The kernel-internal denominator bound is <code>q ≥ 67</code>
-(<code>ErdosProblems/Erdos68/FactorialZeroPlateau.lean:940</code>); the
-<code>300000</code> exclusion is a checked implication
-(<code>ErdosProblems/Erdos68/FactorialZeroPlateau.lean:876</code>) whose
-evaluation is an external computation, not a kernel result.</li>
+(<code>ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean:136</code>);
+the <code>300000</code> exclusion is a checked implication
+(<code>ErdosProblems/Erdos68/FactorialGapPlateauCore.lean:812</code>)
+whose evaluation is an external computation, not a kernel result.</li>
 <li>Open: produce infinitely many non-unit carries.</li>
 <li>A parallel carry form makes the same boundary explicit:
 irrationality is equivalent to cofinally many non-unit carries
 (<code>irrational_factorialGapSeries_iff_cofinal_nonunit_carries</code>,
-<code>ErdosProblems/Erdos68/FactorialZeroPlateau.lean</code>). The
-equivalence supplies no cofinal carry producer, so #68 remains
+<code>ErdosProblems/Erdos68/FactorialGapPlateauCore.lean:945</code>).
+The equivalence supplies no cofinal carry producer, so #68 remains
 open.</li>
 </ul>
 <p><strong>#243 — does rationality force eventual Sylvester
@@ -797,7 +804,8 @@ obstructs that finite shift-algebra route only: the forcing letters are
 synthetic rather than actual totient differences, nonlinear combinations
 are not covered, and no unbounded certificate supply follows.</li>
 <li>Two additional checked #249 families are directly inspectable: an
-exact <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/Erdos249257/GcdMomentCalculus.lean">squared-Lambert
+exact <a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/Erdos249257/GcdMomentCalculus.lean">squared-Lambert
 gcd-moment transfer</a> at base <code>1/2</code> —
 <code>tsum_totient_div_mersenne_sq_eq_gcd_moment_series</code>
 identifies the totient-weighted squared-Mersenne Lambert series with the
@@ -854,18 +862,21 @@ tail shifts
 <code>ErdosProblems/Erdos251/PrimeGapDyadicTail.lean:1572</code>) — the
 identification of the concrete prime tail with that recurrence is
 paper-level. Claims registry:
-<code>prime_gap_unboundedness_and_nonperiodicity</code> and
-<code>prime_gap_irrationality_equivalence</code>; the actual prime-tail
+<code>prime_gap_unboundedness_and_nonperiodicity</code>
+(<code>unconditional progress</code>),
+<code>prime_gap_irrationality_equivalence</code>
+(<code>formalised here</code>: Lean iff plus elementary polynomial
+summability, not PNT), and <code>prime_gap_identity_tao</code>
+(<code>cited only</code>: Tao, 7 October 2025). The actual prime-tail
 bridge remains open.</li>
 <li>The Comparator-facing boundary is also explicit:
 <code>exists_primeGap0_gt</code> proves that consecutive prime gaps are
 unbounded, while
-<code>irrational_tsum_primeDyadicTerm_iff_primeGap</code> proves, for a
-summable prime dyadic term, that its irrationality is equivalent to
-irrationality of the prime-gap dyadic series
-(<code>ErdosProblems/Erdos251/PrimeGapDyadicTail.lean</code>). Unbounded
-coefficients and this equivalence alone prove irrationality of neither
-series.</li>
+<code>irrational_tsum_primeDyadicTerm_iff_primeGap</code> is the named
+iff under a <code>Summable</code> hypothesis;
+<code>summable_primeDyadicTerm</code> discharges that hypothesis by
+<code>p_n ≤ 1250(n+1)^4</code>. Unbounded coefficients and this
+equivalence alone prove irrationality of neither series.</li>
 <li>A separate public Comparator transport makes the arithmetic boundary
 explicit. For a <code>DyadicTailRecurrence</code>,
 <code>tailShift_integral_iff_den_dvd_mersenne</code> and
@@ -1157,8 +1168,9 @@ divisor
 Claims registry: <code>three_halves_coordinatewise_corridor_no_go</code>
 (<code>res:nocorridor</code>) and
 <code>rational_base_cleared_tail_recurrence</code>
-(<code>res:tailrec</code>); both are exact formal boundaries, not an
-irrationality result.</li>
+(<code>res:tailrec</code>); both are exact formal boundaries. They do
+not replace the ordinary <code>F(31/4)</code> specialization of Zudilin,
+which is not a Lean irrationality theorem.</li>
 <li>The elementary height inequality used by Bundschuh–Väänänen’s
 external irrationality criterion at <code>7/2</code> is checked
 (<code>ErdosProblems/Erdos1049/RationalBaseLambert.lean:83</code>); the
@@ -2124,7 +2136,7 @@ checkout, sibling repository, cache, or network access.</p>
 <h3>External verification</h3>
 <p>Nineteen selected Lean propositions are declared a second time,
 without proofs, in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/verification/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
 Comparator checks the proof-bearing module against those separate
 declarations and against a fixed axiom budget of <code>propext</code>,
 <code>Quot.sound</code>, and <code>Classical.choice</code>; an
@@ -2147,10 +2159,8 @@ method supplies the number directly, exactly the Farey bound, not an
 improvement. Full-kernel infinite rank is Coons’s prior result, the
 all-base rank paper theorem uses Martin externally, and #269’s two-prime
 result is not first.</p>
-<p>This self-contained public Plectis checkout is not an entrypoint into
-any private development system. <code>v0.9.0</code> is the latest tagged
-release and citation anchor; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the exact
+<p><code>v0.9.0</code> is the latest tagged release and citation anchor;
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the exact
 formal-source checkpoint this release ships. Lean source checked by the
 pinned Lean kernel is proof authority; do not infer results from private
 or unreleased work.</p>
@@ -2324,8 +2334,8 @@ href="#other-standalone-exact-obstructions">RESULTS</a>.</p>
 <p>An exact final-skip band formula does not show that the actual orbit
 avoids an unsafe band.</p>
 <p><a href="orientation.mathjax.html">Orientation</a> routes claims; the retained
-<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/erdos249-257-main-paper.pdf">mathematics paper</a> preserves
-the joint #249/#257 exposition.</p>
+<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/archive/erdos249-257-main-paper.pdf">mathematics
+paper</a> preserves the joint #249/#257 exposition.</p>
 </section>
 </section>
 </section>
