@@ -60,11 +60,12 @@ We also determine the \(q\)-order of Zudilin's normalised Hankel determinant
 exactly: \(\operatorname{ord}_qV_N^{*}=N(N-1)(2N-1)/6\) at every rank, with
 leading coefficient \((N!)^{2}(N+1)!/2^{N}\), where the source proves the
 inequality alone.  The initial monomial of every transformed row is identified
-here by a filtered reciprocal-state argument.  The all-depth recurrence, the
-initial monomial of the first transformed row and the closed-form assembly are
-kernel-checked; the Lean formalisation of the row identity stops at the second
-row, so the Lean identification of the determinant itself retains a row
-hypothesis.
+here by a filtered reciprocal-state argument.  That all-rank identification,
+including the first transformed-row initial monomial and the closed-form
+assembly, is ordinary mathematics, not a kernel-checked theorem of this
+library.  The all-depth associated-graded recurrence is kernel-checked.  The
+Lean formalisation of the row identity stops at the second row, so the Lean
+identification of the determinant itself retains a row hypothesis.
 
 At \(3/2\) we prove exact obstructions to several approximation methods and a
 conditional reduction of the number of rows needed to cancel endpoint residues.

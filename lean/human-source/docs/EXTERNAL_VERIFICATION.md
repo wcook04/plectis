@@ -1286,7 +1286,7 @@ Exact registry keys and Comparator routing are listed separately.
 
 **Checked frontier.** That a literal coordinatewise transfer of the integer-base clearing argument forces a power-versus-linear inequality, and that this inequality is impossible at base three halves.
 
-**Open boundary.** Irrationality at base three halves, or for any rational base.
+**Open boundary.** The universal rational-base conjecture, including the case 3/2, remains open. The 31/4 power family has an ordinary proof in the paper; it is not an end-to-end Lean theorem.
 
 **Read.** [Programme paper](../paper/1049/erdos-1049-rational-base-lambert.pdf) · [Lean source](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean)
 
