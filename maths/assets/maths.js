@@ -97,9 +97,9 @@
 })();
 
 window.__plectisTypesetPage = function (MathJax) {
-  /* A dossier inlines the short paper and the long record. Typesetting a
-     30-page stage in one go freezes the tab; typeset the visible section
-     first, then the rest as it enters view and during idle time. */
+  /* A dossier inlines the short paper and the long record. The stage wraps
+     article.lean-paper, so typeset each body child, not the whole stage.
+     Visible chunks first; the rest wait for IntersectionObserver. */
   var stages = Array.prototype.slice.call(
     document.querySelectorAll('.paper-stage')
   );
@@ -107,10 +107,11 @@ window.__plectisTypesetPage = function (MathJax) {
     return MathJax.typesetPromise();
   }
   function chunksOf(stage) {
-    var sections = Array.prototype.slice.call(
-      stage.querySelectorAll(':scope > section')
-    );
-    return sections.length > 1 ? sections : [stage];
+    var root = stage.querySelector('.lean-paper__body') || stage;
+    var kids = Array.prototype.filter.call(root.children, function (el) {
+      return el.nodeType === 1 && el.tagName !== 'SCRIPT';
+    });
+    return kids.length ? kids : [stage];
   }
   var chunks = [];
   stages.forEach(function (stage) {
@@ -149,15 +150,18 @@ window.__plectisTypesetPage = function (MathJax) {
         });
       }, { rootMargin: '640px 0px' });
       rest.forEach(function (node) { io.observe(node); });
+    } else {
+      var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 120); };
+      function drain(index) {
+        if (index >= rest.length) return;
+        idle(function () {
+          typeset([rest[index]]).then(function () { drain(index + 1); });
+        });
+      }
+      drain(0);
     }
-    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 32); };
-    function drain(index) {
-      if (index >= rest.length) return;
-      idle(function () {
-        typeset([rest[index]]).then(function () { drain(index + 1); });
-      });
-    }
-    drain(0);
+    var prefetch = window.requestIdleCallback || function (cb) { setTimeout(cb, 120); };
+    prefetch(function () { typeset(rest.slice(0, 1)); });
   });
 };
 
