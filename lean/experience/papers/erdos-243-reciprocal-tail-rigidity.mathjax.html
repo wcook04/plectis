@@ -34,7 +34,48 @@ consecutive forbidden heights beyond any fixed prefix. A first crossing
 then gives the contradiction. Section <a class="math-ref" href="#sec:lcmrecords">6</a> uses the same
 divisibility at record sources, so that only record excess is
 charged.</p>
-<div class="problem" id="res:bounded">
+<p>Write <span
+class="math inline" data-term-auto="off">\(\operatorname{ctr}(a,D,C)=D-(a-1)C\)</span>. The
+following integer-state theorem implies Corollary <a class="math-ref" href="#res:originalbounded">1</a>; the ordinary
+tail transfer is proved in Section <a class="math-ref" href="#sec:transfer">4</a>. Its centring
+hypothesis is redundant under normalised vanishing and is retained to
+match the source statement.</p>
+<div class="theorem" id="res:bounded">
+<p><strong>Theorem 2</strong> (bounded negative part). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> and <span
+class="math inline" data-term-auto="off">\(E:\N\to\Z\)</span> satisfy</em></p>
+<ol>
+<li><p><em><span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em>the exact dynamics <span
+class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>;</em></p></li>
+<li><p><em><span
+class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span> for
+every <span class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventual strict centring</em>: <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventually bounded negative part</em>: <span
+class="math inline" data-term-auto="off">\(-B\le E_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>, for some <span
+class="math inline" data-term-auto="off">\(B\)</span>;</em></p></li>
+<li><p><em><em>normalised vanishing</em>: for every <span
+class="math inline" data-term-auto="off">\(K\)</span> there is an <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span
+class="math inline" data-term-auto="off">\(K\,|E_n|&lt;C_n\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\ge N\)</span>.</em></p></li>
+</ol>
+<p><em>Then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>: this is the
+<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+rigidity</a>.</em></p>
+</div>
+<p>Eventual strict centring, a bounded negative part, and normalised
+vanishing remain explicit hypotheses.</p>
+<div class="problem" id="res:problem">
 <p><strong>Problem 3</strong> (Erdős #243). <em> Let <span
 class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a sequence
 of integers with <span
@@ -44,7 +85,7 @@ class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^
 class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>The additional hypothesis in Theorem <a class="math-ref" href="#res:bounded">3</a> is the lower bound on
+<p>The additional hypothesis in Theorem <a class="math-ref" href="#res:bounded">2</a> is the lower bound on
 <span class="math inline" data-term-auto="off">\(E_n\)</span>. The growth and rationality
 assumptions already supply the other state hypotheses after a finite
 shift. Koizumi’s nonnegative-error case is integer descent <span
@@ -63,31 +104,31 @@ class="math inline" data-term-auto="off">\(C_n\to\infty\)</span> on a nonzero ta
 lower error bound gives <span class="math inline" data-term-auto="off">\(C_{n+1}\le
 C_n+B\)</span>.</p>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#res:bounded">3</a>.</em> Suppose not. We
-first remove every late zero: by Theorem <a class="math-ref" href="#res:absorb">7</a> and its contrapositive
+<p><em>Proof of Theorem <a class="math-ref" href="#res:bounded">2</a>.</em> Suppose not. We
+first remove every late zero: by Theorem <a class="math-ref" href="#res:absorb">6</a> and its contrapositive
 form, <span class="math inline" data-term-auto="off">\(E\)</span> is nowhere zero beyond the
 centring threshold. Two cases remain. If <span
 class="math inline" data-term-auto="off">\(E\)</span> is negative cofinally, then (5) bounds
-those magnitudes, so Proposition <a class="math-ref" href="#res:gcdstab">12</a> makes the tail gcd
+those magnitudes, so Proposition <a class="math-ref" href="#res:gcdstab">11</a> makes the tail gcd
 stabilise and the orbit may be taken reduced past that point.
-Hypothesis (5) with Proposition <a class="math-ref" href="#res:update">6</a> gives <span
+Hypothesis (5) with Proposition <a class="math-ref" href="#res:update">5</a> gives <span
 class="math inline" data-term-auto="off">\(C_{n+1}\le C_n+B\)</span>, a bounded rise;
 hypothesis (6) with <span class="math inline" data-term-auto="off">\(E\)</span> nowhere zero
 gives <span class="math inline" data-term-auto="off">\(C_n\to\infty\)</span>. A reduced exact
 tail with a divergent numerator and bounded rise is excluded by
-Theorem <a class="math-ref" href="#res:barrier">10</a>. It
+Theorem <a class="math-ref" href="#res:barrier">9</a>. It
 remains to treat the case that <span class="math inline" data-term-auto="off">\(E\)</span> is
-eventually positive, and there the descent of Theorem <a class="math-ref" href="#res:absorb">7</a> applies and forces
+eventually positive, and there the descent of Theorem <a class="math-ref" href="#res:absorb">6</a> applies and forces
 <span class="math inline" data-term-auto="off">\(E\)</span> to vanish, contradicting
 nowhere-vanishing. ◻</p>
 </div>
-<div class="corollary" id="res:problem">
-<p><strong>Corollary 4</strong>. <em> Under Theorem <a class="math-ref" href="#res:bounded">3</a>, the multipliers
+<div class="corollary" id="res:cor">
+<p><strong>Corollary 4</strong>. <em> Under Theorem <a class="math-ref" href="#res:bounded">2</a>, the multipliers
 satisfy <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>
 eventually.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Apply the two-zero implication in Corollary <a class="math-ref" href="#res:step">8</a> below. ◻</p>
+<p><em>Proof.</em> Apply the two-zero implication in Corollary <a class="math-ref" href="#res:step">7</a> below. ◻</p>
 </div>
 </section>
 <section id="sec:state" class="level2">
@@ -96,7 +137,7 @@ eventually.</em></p>
 <h3>Error, absorption and descent</h3>
 <p> Write <span
 class="math inline" data-term-auto="off">\(\Delta_n=a_{n+1}-(a_n^2-a_n+1)\)</span>.</p>
-<div class="proposition" id="res:cor">
+<div class="proposition" id="res:update"><span class="tex-label" id="res:defect" hidden></span>
 <p><strong>Proposition 5</strong> (error identities). <em> For an exact
 integer state, <span class="math display" data-term-auto="off">\[C_{n+1}=C_n-E_n,\qquad
 \Delta_n C_{n+1}=a_n^2E_n-E_{n+1}.\]</span></em></p>
@@ -112,7 +153,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 law</a> and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
 identity</a>.</p>
-<div class="theorem" id="res:update"><span class="tex-label" id="res:defect" hidden></span>
+<div class="theorem" id="res:absorb"><span class="tex-label" id="res:descent" hidden></span>
 <p><strong>Theorem 6</strong> (absorption and descent). <em> For a
 positive exact state with strict centring, <span
 class="math inline" data-term-auto="off">\(E_n=0\)</span> implies <span
@@ -134,7 +175,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 of a vanishing centred state</a> and <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
 of the nonnegative error</a>.</p>
-<div class="corollary" id="res:absorb"><span class="tex-label" id="res:descent" hidden></span>
+<div class="corollary" id="res:step"><span class="tex-label" id="res:eventual" hidden></span>
 <p><strong>Corollary 7</strong> (two zero errors). <em> If <span
 class="math inline" data-term-auto="off">\(E_n=E_{n+1}=0\)</span> and <span
 class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span>, then <span
@@ -158,7 +199,7 @@ class="math inline" data-term-auto="off">\(|E_n|\ge1\)</span>, so normalised van
 </section>
 <section id="sec:barrier" class="level3">
 <h3>The first-crossing obstruction</h3>
-<div class="lemma" id="res:step"><span class="tex-label" id="res:eventual" hidden></span>
+<div class="lemma" id="res:crt">
 <p><strong>Lemma 8</strong> (consecutive multiples). <em> For pairwise
 coprime integers <span
 class="math inline" data-term-auto="off">\(m_0,\ldots,m_{B-1}\ge2\)</span> and every lower
@@ -172,7 +213,7 @@ class="math inline" data-term-auto="off">\(t\equiv-i\pmod{m_i}\)</span> by the C
 remainder theorem, then add multiples of <span
 class="math inline" data-term-auto="off">\(\prod_i m_i\)</span>. ◻</p>
 </div>
-<div class="theorem" id="res:crt">
+<div class="theorem" id="res:barrier">
 <p><strong>Theorem 9</strong> (bounded-rise obstruction). <em> Let <span
 class="math inline" data-term-auto="off">\(u_n\in\N\)</span> tend to infinity with <span
 class="math inline" data-term-auto="off">\(u_{n+1}\le u_n+B\)</span>, for a fixed integer
@@ -200,7 +241,7 @@ class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_{n+1}=a_nu_n-v_n,\qquad
 v_{n+1}=a_nv_n.\]</span></div>
-<div class="proposition" id="res:barrier">
+<div class="proposition" id="res:reduced">
 <p><strong>Proposition 10</strong> (persistent coprimality). <em> In a
 reduced exact tail, <span
 class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>. Distinct multipliers are
@@ -225,7 +266,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8
 coprimality</a>, and the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
 avoidance</a>.</p>
-<div class="proposition" id="res:reduced">
+<div class="proposition" id="res:gcdstab">
 <p><strong>Proposition 11</strong> (gcd stabilisation). <em> For a
 positive exact state, if negative errors have bounded magnitudes along a
 cofinal set of indices, then <span
@@ -245,7 +286,7 @@ value preserves both exact updates and leaves the states coprime. ◻</p>
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
 stabilisation</a>.</p>
 <p>In the main proof, division by the stable gcd preserves divergence
-and a bounded upward increment. Theorem <a class="math-ref" href="#res:barrier">10</a> therefore applies to
+and a bounded upward increment. Theorem <a class="math-ref" href="#res:barrier">9</a> therefore applies to
 the reduced numerator: this is the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
 reduced exclusion</a>. With normalised vanishing the same obstruction is
@@ -300,8 +341,8 @@ O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).
 <p>The assumed upper bound therefore gives an
 eventual lower bound on the integer <span
 class="math inline" data-term-auto="off">\(E_n\)</span>. After deleting a finite prefix, all
-hypotheses of Theorem <a class="math-ref" href="#res:bounded">3</a> hold. Apply
-Corollary <a class="math-ref" href="#res:cor">5</a>. ◻</p>
+hypotheses of Theorem <a class="math-ref" href="#res:bounded">2</a> hold. Apply
+Corollary <a class="math-ref" href="#res:cor">4</a>. ◻</p>
 </div>
 <p>The same calculation is valid with <span
 class="math inline" data-term-auto="off">\(qP_n\)</span> replaced by any positive clearance
@@ -318,7 +359,7 @@ below.</p>
 </section>
 <section id="sec:mass" class="level2">
 <h2>A scalar finite-mass criterion</h2>
-<div class="theorem" id="res:gcdstab">
+<div class="theorem" id="res:massscalar"><span class="tex-label" id="res:mass" hidden></span>
 <p><strong>Theorem 12</strong> (finite negative relative mass). <em> Let
 <span class="math inline" data-term-auto="off">\(C_n\)</span> be positive integers and <span
 class="math inline" data-term-auto="off">\(E_n\)</span> integers satisfying <span
@@ -382,9 +423,9 @@ implies that every sufficiently late strict rise has <span
 class="math inline" data-term-auto="off">\(\rho_n=1\)</span>: otherwise <span
 class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span>. Its actual jump is
 therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
-<div class="theorem" id="res:massscalar"><span class="tex-label" id="res:mass" hidden></span>
+<div class="theorem" id="res:weightedrecord">
 <p><strong>Theorem 13</strong> (weighted record excess). <em> Assume the
-growth and rationality hypotheses of Problem <a class="math-ref" href="#res:problem">4</a>. Let <span
+growth and rationality hypotheses of Problem <a class="math-ref" href="#res:problem">3</a>. Let <span
 class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> be finite and
 nonincreasing, with <span class="math inline" data-term-auto="off">\(\int_1^\infty
 f(t)\,dt=\infty\)</span>. Then the sequence is eventually Sylvester if
@@ -476,7 +517,7 @@ class="math inline" data-term-auto="off">\(3U_nf(U_n)/a_n\)</span>. This is summ
 <span class="math inline" data-term-auto="off">\(U_n\le C_n=\exp(o(n))\)</span>, <span
 class="math inline" data-term-auto="off">\(f(U_n)\le f(1)\)</span>, and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span> eventually for some
-<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Consequently Theorem <a class="math-ref" href="#res:weightedrecord">14</a> is equivalent to
+<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Consequently Theorem <a class="math-ref" href="#res:weightedrecord">13</a> is equivalent to
 finiteness of</p>
 <div class="math-display" id="eq:weightedgrowth" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:weightedgrowth}
@@ -489,9 +530,9 @@ particular, termwise convergence to zero is insufficient. Also, <span
 class="math inline" data-term-auto="off">\(d_n\)</span> is the actual jump, including any
 recovery from a drawdown; it must not be replaced by <span
 class="math inline" data-term-auto="off">\(R_{n+1}-R_n\)</span> in the crossing proof.</p>
-<div class="corollary" id="res:weightedrecord">
+<div class="corollary" id="res:lcmbounded">
 <p><strong>Corollary 14</strong> (LCM-weighted bounded defect). <em>
-Assume the hypotheses of Problem <a class="math-ref" href="#res:problem">4</a>. Write <span
+Assume the hypotheses of Problem <a class="math-ref" href="#res:problem">3</a>. Write <span
 class="math inline" data-term-auto="off">\(A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})\)</span>
 with <span class="math inline" data-term-auto="off">\(A_1=1\)</span> and <span
 class="math display" data-term-auto="off">\[Z_n=\frac{A_n}{a_n}\Bigl(\frac{a_n^2}{a_{n+1}}-1\Bigr).\]</span>
@@ -507,7 +548,7 @@ class="math inline" data-term-auto="off">\(V_n+t_nZ_n=o(1)\)</span>. A finite up
 <span class="math inline" data-term-auto="off">\(Z_n\)</span> therefore bounds the negative
 part of <span class="math inline" data-term-auto="off">\(V_n\)</span>. The record series
 vanishes after a finite prefix for a sufficiently large baseline, so
-Theorem <a class="math-ref" href="#res:weightedrecord">14</a>
+Theorem <a class="math-ref" href="#res:weightedrecord">13</a>
 applies. ◻</p>
 </div>
 <p>Erdős–Straus Theorem 3 uses a nonpositive limsup in the corresponding
@@ -543,7 +584,7 @@ proof supplement</a>.</p>
 </section>
 <section id="sec:secondaryrate" class="level2">
 <h2>Further consequences</h2>
-<div class="theorem" id="res:lcmbounded">
+<div class="theorem" id="res:cubicrate">
 <p><strong>Theorem 15</strong> (cubic-rate irrationality). <em> A
 strictly increasing sequence of positive integers with <span
 class="math display" data-term-auto="off">\[a_n^2/a_{n+1}=1+\frac3n+o(n^{-3})\]</span> has
@@ -571,7 +612,7 @@ class="citation" data-cites="koizumi2025"></span>, and they make
 Duverney’s signed series <span
 class="math inline" data-term-auto="off">\(\sum_n(a_{n+1}/a_n^{2}-1)\)</span> diverge.</p>
 <p>There is also an admitted quantitative extension. Under the
-hypotheses of Theorem <a class="math-ref" href="#res:bounded">3</a> other than (5), put
+hypotheses of Theorem <a class="math-ref" href="#res:bounded">2</a> other than (5), put
 <span
 class="math inline" data-term-auto="off">\(\operatorname{LL}(x)=\log_2\log_2\max(4,x)\)</span>.
 Each fixed <span class="math inline" data-term-auto="off">\(\delta\in(0,1)\)</span> gives</p>
@@ -590,7 +631,7 @@ hypotheses; neither establishes the general record budget.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>The remaining arithmetic estimate</h2>
-<div class="proposition" id="res:cubicrate">
+<div class="proposition" id="res:frontier">
 <p><strong>Proposition 16</strong> (necessary profile). <em> The
 canonical state of a counterexample has <span
 class="math inline" data-term-auto="off">\(E_n\ne0\)</span> eventually, <span
@@ -600,12 +641,12 @@ class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty.\]
 </div>
 <div class="proof">
 <p><em>Proof.</em> Absorption excludes late zeros, descent excludes an
-eventually nonnegative error, and Theorems <a class="math-ref" href="#res:bounded">3</a> and <a class="math-ref" href="#res:massscalar">13</a> exclude the two
+eventually nonnegative error, and Theorems <a class="math-ref" href="#res:bounded">2</a> and <a class="math-ref" href="#res:massscalar">12</a> exclude the two
 finiteness conditions. ◻</p>
 </div>
-<div class="problem" id="res:frontier">
+<div class="problem" id="res:lcmheight">
 <p><strong>Problem 17</strong> (global overlap-height growth). <em> For
-every nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#res:problem">4</a>, must <span
+every nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#res:problem">3</a>, must <span
 class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{\log
 M_n}{n}&gt;0?\]</span> Equivalently, must there be a <span
 class="math inline" data-term-auto="off">\(K\ge1\)</span> for which <span
@@ -713,7 +754,7 @@ class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit survives a st
 division is exact, giving a survival predicate, the <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
 predicate</a>.</p>
-<div class="example" id="res:lcmheight">
+<div class="example" id="ex:shape">
 <p><strong>Example 18</strong> (the shape equation running until it
 fails). <em> The forced orbit from <span
 class="math inline" data-term-auto="off">\(a=3\)</span> reads this way: <span
@@ -728,7 +769,7 @@ there.</em></p>
 doubly exponentially, and it is unnecessary: survival over a finite
 horizon depends on the initial value only through a factorial
 residue.</p>
-<div class="theorem" id="ex:shape">
+<div class="theorem" id="res:residue">
 <p><strong>Theorem 19</strong> (factorial residue reduction). <em> For
 all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
 class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the orbit from
@@ -768,7 +809,7 @@ exactly for odd <span class="math inline" data-term-auto="off">\(a\)</span>: for
 <span class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span> but <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(0,4)=11\)</span>. So one step
 of survival is decided by the parity of <span
-class="math inline" data-term-auto="off">\(a\)</span> alone, which is Theorem <a class="math-ref" href="#res:residue">res:residue</a> at its smallest
+class="math inline" data-term-auto="off">\(a\)</span> alone, which is Theorem <a class="math-ref" href="#res:residue">19</a> at its smallest
 nontrivial horizon.</p>
 <p>The search this supported is superseded. Running it over initial
 states below <span class="math inline" data-term-auto="off">\(5000\)</span> produced forced

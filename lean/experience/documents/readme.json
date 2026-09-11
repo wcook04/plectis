@@ -15,10 +15,10 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "6a233280989ec648aa2e7edd93f0f13f4ce4cc71ea265106b6d04a3b4e6557f5",
+    "source_sha256": "0b3e9ee447b85e9e66918b727350e7203a60a74dc195e092609d38f2a4dba646",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 17,
-    "renderer_fingerprint": "68395684e8d7d8b0",
+    "renderer_contract_version": 18,
+    "renderer_fingerprint": "a8a2ee61a164fcd3",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,14 +27,64 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "686be335bfbdcf24dffa3edb641f43af787822355ca267cc73748f9e6ca39d7b",
-    "html_exact_tex_sha256": "570e85c52e7c5df2544aca76cffac0947302f99b625df0c2e3e8f0cf25bc5c01"
+    "html_mathml_sha256": "982a64aab97080d1a75ddfa1203ea6d80e581377c6445081182ef554dc1a6530",
+    "html_exact_tex_sha256": "764bd8f0f0ef51dd54d73305eb656a28d81ec04fa7f92f319a93ca8db774393f"
   },
   "sections": [
     {
       "level": 2,
       "anchor": null,
+      "label": "Why this exists"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Where to start"
+    },
+    {
+      "level": 2,
+      "anchor": null,
       "label": "Problem papers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#68: Factorial-denominator irrationality"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#243: Reciprocal-tail rigidity"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#249: Binary totient series"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#251: Prime-gap dyadic series"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#257: Mersenne-support subseries"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#269: Three-prime running LCM"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#1041: Lemniscates and Newton flow"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "#1049: Rational-base Lambert series"
     },
     {
       "level": 2,
@@ -54,17 +104,22 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "Citation and licence"
-    },
-    {
-      "level": 2,
-      "anchor": null,
       "label": "Corpus at a glance"
     },
     {
       "level": 2,
       "anchor": null,
       "label": "Following a result into Lean"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The wider project"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Citation and licence"
     }
   ]
 }

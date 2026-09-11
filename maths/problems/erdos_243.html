@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
+  <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
@@ -189,7 +189,48 @@ consecutive forbidden heights beyond any fixed prefix. A first crossing
 then gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradiction</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:lcmrecords">6</a> uses the same
 divisibility at record <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a>, so that only record excess is
 charged.</p>
-<div class="problem" id="erdos-243-reciprocal-tail-rigidity__res:bounded">
+<p>Write <span
+class="math inline" data-term-auto="off">\(\operatorname{ctr}(a,D,C)=D-(a-1)C\)</span>. The
+following <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>-state <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> Corollary <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:originalbounded">1</a>; the ordinary
+tail transfer is proved in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:transfer">4</a>. Its centring
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> is redundant under normalised vanishing and is retained to
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">match</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>.</p>
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:bounded">
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 2</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> part). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> and <span
+class="math inline" data-term-auto="off">\(E:\N\to\Z\)</span> satisfy</em></p>
+<ol>
+<li><p><em><span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em>the exact dynamics <span
+class="math inline" data-term-auto="off">\(C_{n+1}+D_n=a_nC_n\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span>;</em></p></li>
+<li><p><em><span
+class="math inline" data-term-auto="off">\(E_n=\operatorname{ctr}(a_n,D_n,C_n)\)</span> for
+every <span class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventual strict centring</em>: <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>;</em></p></li>
+<li><p><em><em>eventually <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> part</em>: <span
+class="math inline" data-term-auto="off">\(-B\le E_n\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span>, for some <span
+class="math inline" data-term-auto="off">\(B\)</span>;</em></p></li>
+<li><p><em><em>normalised vanishing</em>: for every <span
+class="math inline" data-term-auto="off">\(K\)</span> there is an <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span
+class="math inline" data-term-auto="off">\(K\,|E_n|&lt;C_n\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\ge N\)</span>.</em></p></li>
+</ol>
+<p><em>Then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>: this is the
+<a
+href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+rigidity</a>.</em></p>
+</div>
+<p>Eventual strict centring, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> part, and normalised
+vanishing remain explicit hypotheses.</p>
+<div class="problem" id="erdos-243-reciprocal-tail-rigidity__res:problem">
 <p><strong>Problem 3</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #243</a>). <em> Let <span
 class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a>
 of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> with <span
@@ -199,7 +240,7 @@ class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^
 class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>The additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a> is the lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on
+<p>The additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a> is the lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on
 <span class="math inline" data-term-auto="off">\(E_n\)</span>. The growth and rationality
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> already supply the other state hypotheses after a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 shift. Koizumi’s nonnegative-error case is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> descent <span
@@ -218,31 +259,31 @@ class="math inline" data-term-auto="off">\(C_n\to\infty\)</span> on a nonzero ta
 lower error <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> gives <span class="math inline" data-term-auto="off">\(C_{n+1}\le
 C_n+B\)</span>.</p>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a>.</em> Suppose not. We
-first remove every late zero: by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:absorb">7</a> and its contrapositive
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a>.</em> Suppose not. We
+first remove every late zero: by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:absorb">6</a> and its contrapositive
 form, <span class="math inline" data-term-auto="off">\(E\)</span> is nowhere zero beyond the
 centring threshold. Two <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-case" data-term="case" data-term-auto="1">cases</a> remain. If <span
 class="math inline" data-term-auto="off">\(E\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a>, then (5) <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>
-those magnitudes, so <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:gcdstab">12</a> makes the tail gcd
+those magnitudes, so <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:gcdstab">11</a> makes the tail gcd
 stabilise and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> may be taken reduced past that point.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">Hypothesis</a> (5) with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:update">6</a> gives <span
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">Hypothesis</a> (5) with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:update">5</a> gives <span
 class="math inline" data-term-auto="off">\(C_{n+1}\le C_n+B\)</span>, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> rise;
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> (6) with <span class="math inline" data-term-auto="off">\(E\)</span> nowhere zero
 gives <span class="math inline" data-term-auto="off">\(C_n\to\infty\)</span>. A reduced exact
 tail with a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergent</a> numerator and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> rise is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a> by
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:barrier">10</a>. It
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:barrier">9</a>. It
 remains to treat the case that <span class="math inline" data-term-auto="off">\(E\)</span> is
-eventually positive, and there the descent of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:absorb">7</a> applies and forces
+eventually positive, and there the descent of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:absorb">6</a> applies and forces
 <span class="math inline" data-term-auto="off">\(E\)</span> to vanish, contradicting
 nowhere-vanishing. ◻</p>
 </div>
-<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:problem">
-<p><strong>Corollary 4</strong>. <em> Under <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a>, the multipliers
+<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:cor">
+<p><strong>Corollary 4</strong>. <em> Under <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a>, the multipliers
 satisfy <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>
 eventually.</em></p>
 </div>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Apply the two-zero <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> in Corollary <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:step">8</a> below. ◻</p>
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Apply the two-zero <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> in Corollary <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:step">7</a> below. ◻</p>
 </div>
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__sec:state" class="level2">
@@ -251,7 +292,7 @@ eventually.</em></p>
 <h3>Error, absorption and descent</h3>
 <p> Write <span
 class="math inline" data-term-auto="off">\(\Delta_n=a_{n+1}-(a_n^2-a_n+1)\)</span>.</p>
-<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:cor">
+<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:update"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:defect" hidden></span>
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 5</strong> (error identities). <em> For an exact
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> state, <span class="math display" data-term-auto="off">\[C_{n+1}=C_n-E_n,\qquad
 \Delta_n C_{n+1}=a_n^2E_n-E_{n+1}.\]</span></em></p>
@@ -267,7 +308,7 @@ href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-mo
 law</a> and the <a
 href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1769">defect
 identity</a>.</p>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:update"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:defect" hidden></span>
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:absorb"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:descent" hidden></span>
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 6</strong> (absorption and descent). <em> For a
 positive exact state with strict centring, <span
 class="math inline" data-term-auto="off">\(E_n=0\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> <span
@@ -289,7 +330,7 @@ href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-mo
 of a vanishing centred state</a> and <a
 href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1837">stabilisation
 of the nonnegative error</a>.</p>
-<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:absorb"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:descent" hidden></span>
+<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:step"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:eventual" hidden></span>
 <p><strong>Corollary 7</strong> (two zero errors). <em> If <span
 class="math inline" data-term-auto="off">\(E_n=E_{n+1}=0\)</span> and <span
 class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span>, then <span
@@ -313,7 +354,7 @@ class="math inline" data-term-auto="off">\(|E_n|\ge1\)</span>, so normalised van
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__sec:barrier" class="level3">
 <h3>The first-crossing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a></h3>
-<div class="lemma" id="erdos-243-reciprocal-tail-rigidity__res:step"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:eventual" hidden></span>
+<div class="lemma" id="erdos-243-reciprocal-tail-rigidity__res:crt">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 8</strong> (consecutive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiples</a>). <em> For pairwise
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> <span
 class="math inline" data-term-auto="off">\(m_0,\ldots,m_{B-1}\ge2\)</span> and every lower
@@ -327,7 +368,7 @@ class="math inline" data-term-auto="off">\(t\equiv-i\pmod{m_i}\)</span> by the C
 remainder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, then add <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiples</a> of <span
 class="math inline" data-term-auto="off">\(\prod_i m_i\)</span>. ◻</p>
 </div>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:crt">
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:barrier">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 9</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-rise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>). <em> Let <span
 class="math inline" data-term-auto="off">\(u_n\in\N\)</span> tend to infinity with <span
 class="math inline" data-term-auto="off">\(u_{n+1}\le u_n+B\)</span>, for a fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>
@@ -355,7 +396,7 @@ class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_{n+1}=a_nu_n-v_n,\qquad
 v_{n+1}=a_nv_n.\]</span></div>
-<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:barrier">
+<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:reduced">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 10</strong> (persistent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a>). <em> In a
 reduced exact tail, <span
 class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>. Distinct multipliers are
@@ -380,7 +421,7 @@ href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-mo
 coprimality</a>, and the <a
 href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1024">whole-modulus
 avoidance</a>.</p>
-<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:reduced">
+<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:gcdstab">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 11</strong> (gcd stabilisation). <em> For a
 positive exact state, if <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> errors have <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> magnitudes along a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> set of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a>, then <span
@@ -400,7 +441,7 @@ value <a class="narrative-ref narrative-ref--term is-term-again" href="../../doc
 href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1630">gcd
 stabilisation</a>.</p>
 <p>In the main <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, division by the stable gcd <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-preserve" data-term="preserve" data-term-auto="1">preserves</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergence</a>
-and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> upward increment. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:barrier">10</a> therefore applies to
+and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> upward increment. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:barrier">9</a> therefore applies to
 the reduced numerator: this is the <a
 href="#lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-select-module="lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1060">eventual
 reduced exclusion</a>. With normalised vanishing the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> is
@@ -455,8 +496,8 @@ O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).
 <p>The assumed upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> therefore gives an
 eventual lower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> on the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <span
 class="math inline" data-term-auto="off">\(E_n\)</span>. After deleting a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> prefix, all
-hypotheses of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a> hold. Apply
-Corollary <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:cor">5</a>. ◻</p>
+hypotheses of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a> hold. Apply
+Corollary <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:cor">4</a>. ◻</p>
 </div>
 <p>The same calculation is valid with <span
 class="math inline" data-term-auto="off">\(qP_n\)</span> replaced by any positive clearance
@@ -473,7 +514,7 @@ below.</p>
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__sec:mass" class="level2">
 <h2>A scalar <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-mass criterion</h2>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:gcdstab">
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:massscalar"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:mass" hidden></span>
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 12</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> relative mass). <em> Let
 <span class="math inline" data-term-auto="off">\(C_n\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integers</a> and <span
 class="math inline" data-term-auto="off">\(E_n\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> satisfying <span
@@ -537,9 +578,9 @@ class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</sp
 class="math inline" data-term-auto="off">\(\rho_n=1\)</span>: otherwise <span
 class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span>. Its actual jump is
 therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:massscalar"><span class="tex-label" id="erdos-243-reciprocal-tail-rigidity__res:mass" hidden></span>
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:weightedrecord">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 13</strong> (weighted record excess). <em> Assume the
-growth and rationality hypotheses of Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">4</a>. Let <span
+growth and rationality hypotheses of Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">3</a>. Let <span
 class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> and
 nonincreasing, with <span class="math inline" data-term-auto="off">\(\int_1^\infty
 f(t)\,dt=\infty\)</span>. Then the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> is eventually Sylvester if
@@ -631,7 +672,7 @@ class="math inline" data-term-auto="off">\(3U_nf(U_n)/a_n\)</span>. This is summ
 <span class="math inline" data-term-auto="off">\(U_n\le C_n=\exp(o(n))\)</span>, <span
 class="math inline" data-term-auto="off">\(f(U_n)\le f(1)\)</span>, and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span> eventually for some
-<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Consequently <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:weightedrecord">14</a> is equivalent to
+<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Consequently <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:weightedrecord">13</a> is equivalent to
 finiteness of</p>
 <div class="math-display" id="erdos-243-reciprocal-tail-rigidity__eq:weightedgrowth" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:weightedgrowth}
@@ -644,9 +685,9 @@ particular, termwise <a class="narrative-ref narrative-ref--term is-term-first" 
 class="math inline" data-term-auto="off">\(d_n\)</span> is the actual jump, including any
 recovery from a drawdown; it must not be replaced by <span
 class="math inline" data-term-auto="off">\(R_{n+1}-R_n\)</span> in the crossing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
-<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:weightedrecord">
+<div class="corollary" id="erdos-243-reciprocal-tail-rigidity__res:lcmbounded">
 <p><strong>Corollary 14</strong> (LCM-weighted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> defect). <em>
-Assume the hypotheses of Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">4</a>. Write <span
+Assume the hypotheses of Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">3</a>. Write <span
 class="math inline" data-term-auto="off">\(A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})\)</span>
 with <span class="math inline" data-term-auto="off">\(A_1=1\)</span> and <span
 class="math display" data-term-auto="off">\[Z_n=\frac{A_n}{a_n}\Bigl(\frac{a_n^2}{a_{n+1}}-1\Bigr).\]</span>
@@ -662,7 +703,7 @@ class="math inline" data-term-auto="off">\(V_n+t_nZ_n=o(1)\)</span>. A <a class=
 <span class="math inline" data-term-auto="off">\(Z_n\)</span> therefore <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>
 part of <span class="math inline" data-term-auto="off">\(V_n\)</span>. The record <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
 vanishes after a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> prefix for a sufficiently large baseline, so
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:weightedrecord">14</a>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:weightedrecord">13</a>
 applies. ◻</p>
 </div>
 <p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Straus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 3 uses a nonpositive limsup in the corresponding
@@ -698,7 +739,7 @@ proof supplement</a>.</p>
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__sec:secondaryrate" class="level2">
 <h2>Further consequences</h2>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:lcmbounded">
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:cubicrate">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 15</strong> (cubic-rate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>). <em> A
 strictly increasing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integers</a> with <span
 class="math display" data-term-auto="off">\[a_n^2/a_{n+1}=1+\frac3n+o(n^{-3})\]</span> has
@@ -726,7 +767,7 @@ class="citation" data-cites="koizumi2025"></span>, and they make
 Duverney’s signed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <span
 class="math inline" data-term-auto="off">\(\sum_n(a_{n+1}/a_n^{2}-1)\)</span> diverge.</p>
 <p>There is also an admitted quantitative extension. Under the
-hypotheses of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a> other than (5), put
+hypotheses of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a> other than (5), put
 <span
 class="math inline" data-term-auto="off">\(\operatorname{LL}(x)=\log_2\log_2\max(4,x)\)</span>.
 Each fixed <span class="math inline" data-term-auto="off">\(\delta\in(0,1)\)</span> gives</p>
@@ -745,7 +786,7 @@ hypotheses; neither <a class="narrative-ref narrative-ref--term is-term-again" h
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__sec:open" class="level2">
 <h2>The remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> estimate</h2>
-<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:cubicrate">
+<div class="proposition" id="erdos-243-reciprocal-tail-rigidity__res:frontier">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 16</strong> (necessary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compression-profile" data-term="compression_profile" data-term-auto="1">profile</a>). <em> The
 canonical state of a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> has <span
 class="math inline" data-term-auto="off">\(E_n\ne0\)</span> eventually, <span
@@ -755,12 +796,12 @@ class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty.\]
 </div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Absorption <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> late zeros, descent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excludes</a> an
-eventually nonnegative error, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorems</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">3</a> and <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:massscalar">13</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> the two
+eventually nonnegative error, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorems</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:bounded">2</a> and <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:massscalar">12</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> the two
 finiteness conditions. ◻</p>
 </div>
-<div class="problem" id="erdos-243-reciprocal-tail-rigidity__res:frontier">
+<div class="problem" id="erdos-243-reciprocal-tail-rigidity__res:lcmheight">
 <p><strong>Problem 17</strong> (global overlap-height growth). <em> For
-every nonterminal canonical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> satisfying Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">4</a>, must <span
+every nonterminal canonical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> satisfying Problem <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:problem">3</a>, must <span
 class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{\log
 M_n}{n}&gt;0?\]</span> Equivalently, must there be a <span
 class="math inline" data-term-auto="off">\(K\ge1\)</span> for which <span
@@ -824,25 +865,25 @@ estimate above are separately identified.</p>
 </section>
 </section>
 <section id="erdos-243-reciprocal-tail-rigidity__app:index" class="level2">
-<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
+<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(4 links)</span></summary>
 <p>Each linked phrase opens its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> at the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
 revision 99f4bf47422a. The state <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">barrier</a>,
 and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>-part <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> are in
 <code>ReciprocalTailRigidity.lean</code>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>-mass
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is in <code>SparseResetRecovery.lean</code>; and the
 repair-entropy <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are in <code>RepairEntropy.lean</code>. The
-residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> of Appendix <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__app:residue">10</a> is in
+residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> of Appendix </p><ul class="paper-source-links"><li><a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__app:residue">10</a> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>. The identification of any of these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>
-with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> tails is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:state">3</a> and is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
+with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> tails is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a></li><li><a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:state">3</a> and is not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> assumes the regime <span
 class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span>. And the final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">lists</a> strict centring and normalised vanishing as
 hypotheses; the former follows eventually from the latter with <span
 class="math inline" data-term-auto="off">\(K=1\)</span>, while the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal source</a> derives
 neither from the original analytic problem. For the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> bridge
-supplying them, see <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:problem">1</a> and <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:bounded">2</a>.</p>
-</section>
+supplying them, see <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a></li><li><a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:problem">1</a> and</li><li><a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__sec:bounded">2</a> </li></ul>
+</details></section>
 <section id="erdos-243-reciprocal-tail-rigidity__app:residue" class="level2">
 <h2>A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> for forced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbits</a></h2>
 <p>A constant-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> error <span class="math inline" data-term-auto="off">\(E_n=-m\)</span>
@@ -868,7 +909,7 @@ class="math inline" data-term-auto="off">\(n+2\)</span>. The <a class="narrative
 division is exact, giving a survival predicate, the <a
 href="#lean-module:ErdosProblems.Erdos243.FiniteHorizonResidue" data-select-module="lean-module:ErdosProblems.Erdos243.FiniteHorizonResidue" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">survival
 predicate</a>.</p>
-<div class="example" id="erdos-243-reciprocal-tail-rigidity__res:lcmheight">
+<div class="example" id="erdos-243-reciprocal-tail-rigidity__ex:shape">
 <p><strong>Example 18</strong> (the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a> running until it
 fails). <em> The forced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> from <span
 class="math inline" data-term-auto="off">\(a=3\)</span> reads this way: <span
@@ -883,7 +924,7 @@ there.</em></p>
 doubly exponentially, and it is unnecessary: survival over a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
 horizon depends on the initial value only through a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>
 residue.</p>
-<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__ex:shape">
+<div class="theorem" id="erdos-243-reciprocal-tail-rigidity__res:residue">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 19</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>). <em> For
 all <span class="math inline" data-term-auto="off">\(h\)</span> and all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integers</a> <span
 class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> from
@@ -923,7 +964,7 @@ exactly for odd <span class="math inline" data-term-auto="off">\(a\)</span>: for
 <span class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span> but <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(0,4)=11\)</span>. So one step
 of survival is decided by the parity of <span
-class="math inline" data-term-auto="off">\(a\)</span> alone, which is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:residue">res:residue</a> at its smallest
+class="math inline" data-term-auto="off">\(a\)</span> alone, which is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-243-reciprocal-tail-rigidity__res:residue">19</a> at its smallest
 nontrivial horizon.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> this supported is superseded. Running it over initial
 states below <span class="math inline" data-term-auto="off">\(5000\)</span> produced forced
@@ -1058,7 +1099,7 @@ class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> is <a class="nar
 <div class="theorem" id="erdos243-reciprocal-tail-reasoning-surface__long243:res:cubicexclusion">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 3</strong> (rising-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> cubic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a>). <em>
 Let <span class="math inline" data-term-auto="off">\(a,C,D:\N\to\Z_{&gt;0}\)</span> satisfy
-<span class="math display" data-term-auto="off">\[\begin{equation}
+<span class="tex-label" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:cubicorbit"></span><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:cubicorbit}
 C_{n+1}=a_nC_n-D_n,\qquad D_{n+1}=a_nD_n .
 \end{equation}\]</span> Then for every <span
@@ -1097,7 +1138,7 @@ class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
 \qquad D_{n+1}=a_nD_n,\]</span></div>
-<p>which is <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>.
+<p>which is <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:cubicorbit">long243:eq:cubicorbit</a>.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:state">4</a>
 constructs the same triple with its centred error <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>, which the present
@@ -1149,21 +1190,21 @@ class="math inline" data-term-auto="off">\(G_n\)</span> is eventually <a class="
 class="math inline" data-term-auto="off">\(G_n=g\)</span>, put <span
 class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span>, <span
 class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span> and <span
-class="math inline" data-term-auto="off">\(Q(n)=P(n)/g\)</span>. Then <span
+class="math inline" data-term-auto="off">\(Q(n)=P(n)/g\)</span>. Then <span class="tex-label" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:primitivetail"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:primitivetail}
 u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n,\qquad \gcd(u_n,v_n)=1,
 \qquad\gcd(u_n,u_{n+1})=1,
 \end{equation}\]</span> and there are <span
 class="math inline" data-term-auto="off">\(m\in\Z_{&gt;0}\)</span> and <span
-class="math inline" data-term-auto="off">\(c\in\{-1,1\}\)</span> with <span
+class="math inline" data-term-auto="off">\(c\in\{-1,1\}\)</span> with <span class="tex-label" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:Qmc"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:Qmc}
 Q(n)=\frac m6n(n+1)(n+2)+c .
 \end{equation}\]</span></em></p>
 </div>
 <div class="proof">
-<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a> gives <span
+<p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:cubicorbit">long243:eq:cubicorbit</a> gives <span
 class="math inline" data-term-auto="off">\(G_n\mid G_{n+1}\)</span> and <span
 class="math inline" data-term-auto="off">\(G_n\mid C_t\)</span> for every <span
 class="math inline" data-term-auto="off">\(t\ge n\)</span>. Since <span
@@ -1197,7 +1238,7 @@ class="math inline" data-term-auto="off">\(\underline d(S)=0\)</span>. Now <span
 class="math inline" data-term-auto="off">\(Q(-1)=Q(0)=B/g\)</span>, so <span
 class="math inline" data-term-auto="off">\(c:=B/g\in\Z\)</span>, and <span
 class="math inline" data-term-auto="off">\(m:=Q(1)-Q(0)=6A/g\)</span> is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a>,
-which is <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a>
+which is <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:Qmc">long243:eq:Qmc</a>
 with <span class="math inline" data-term-auto="off">\(c\in\Z\)</span>.</p>
 <p>It remains to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclude</a> <span class="math inline" data-term-auto="off">\(c=0\)</span> and
 every <span class="math inline" data-term-auto="off">\(c\)</span> with a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a>. Let
@@ -1229,7 +1270,7 @@ case). <em> On the primitive tail, <span
 class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>, the multipliers at
 distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> are pairwise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinitely many</a> of them exceed
 <span class="math inline" data-term-auto="off">\(1\)</span>, and the cubic <span
-class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> of <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a> is irreducible
+class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> of <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:Qmc">long243:eq:Qmc</a> is irreducible
 over <span class="math inline" data-term-auto="off">\(\Q\)</span>.</em></p>
 </div>
 <div class="proof">
@@ -1330,7 +1371,7 @@ class="math inline" data-term-auto="off">\(f\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> Eliminating <span class="math inline" data-term-auto="off">\(v_n\)</span>
-from <a class="math-ref" href="#long243:eq:primitivetail">long243:eq:primitivetail</a> gives</p>
+from <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:primitivetail">long243:eq:primitivetail</a> gives</p>
 <div class="math-display" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:secondorderu" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:secondorderu}
 u_{n+2}=(a_n+a_{n+1})u_{n+1}-a_n^2u_n .
@@ -1603,7 +1644,7 @@ uniform lower <a class="narrative-ref narrative-ref--term is-term-again" href=".
 Assume <span class="math inline" data-term-auto="off">\(\underline d(S)=0\)</span>.
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemmas</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:res:gcdshape">5</a>
 and <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:res:reduciblecase">6</a>
-put the primitive tail in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a> with <span
+put the primitive tail in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:Qmc">long243:eq:Qmc</a> with <span
 class="math inline" data-term-auto="off">\(c=\pm1\)</span> and <span
 class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> irreducible. Each <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">excluded</a> branch
 already <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contradiction" data-term="contradiction" data-term-auto="1">contradicts</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumption</a> by producing a positive,
@@ -1621,7 +1662,7 @@ force <span class="math inline" data-term-auto="off">\(m=12\)</span>, and <a cla
 <div class="lemma" id="erdos243-reciprocal-tail-reasoning-surface__long243:res:extraction">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 11</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> extraction at a regular rate).
 <em> Let <span class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> and let <span
-class="math inline" data-term-auto="off">\(C_n\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integers</a> with <span
+class="math inline" data-term-auto="off">\(C_n\)</span> be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integers</a> with <span class="tex-label" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:regularrate"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:regularrate}
 \frac{C_{n+1}}{C_n}=1+\frac\lambda n+o(n^{-\lambda}).
@@ -1639,7 +1680,7 @@ class="math inline" data-term-auto="off">\(F_n=\Gamma(n+\lambda)/\Gamma(n)\)</sp
 <span class="math inline" data-term-auto="off">\(F_{n+1}/F_n=1+\lambda/n\)</span> exactly and
 <span class="math inline" data-term-auto="off">\(F_n\sim n^\lambda\)</span>. Write <span
 class="math inline" data-term-auto="off">\(\varepsilon_n=o(n^{-\lambda})\)</span> for the
-error in <a class="math-ref" href="#long243:eq:regularrate">long243:eq:regularrate</a> and <span
+error in <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:regularrate">long243:eq:regularrate</a> and <span
 class="math inline" data-term-auto="off">\(z_n=C_n/F_n\)</span>, so that <span
 class="math inline" data-term-auto="off">\(z_{n+1}/z_n=1+\varepsilon_n/(1+\lambda/n)\)</span>.
 Since <span class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> the errors are
@@ -1688,7 +1729,7 @@ class="math inline" data-term-auto="off">\(d\)</span> is <span
 class="math inline" data-term-auto="off">\(o(n)\)</span>, hence constant. This is the stated
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-shape" data-term="shape" data-term-auto="1">shape</a> with <span class="math inline" data-term-auto="off">\(A=K&gt;0\)</span>. ◻</p>
 </div>
-<p>The precision in <a class="math-ref" href="#long243:eq:regularrate">long243:eq:regularrate</a> carries
+<p>The precision in <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:regularrate">long243:eq:regularrate</a> carries
 weight. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integers</a> <span
 class="math inline" data-term-auto="off">\(C_n=n(n+1)(n+2)+(-1)^n\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(C_{n+1}/C_n=1+3/n+O(n^{-3})\)</span> and are not
@@ -1747,7 +1788,7 @@ class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+3/n+o(n^{-3})\)</span
 class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>. Suppose <span
 class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> were <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> and pass to the
 canonical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> tail, so that <span
-class="math inline" data-term-auto="off">\((a,C,D)\)</span> satisfies <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a> with every
+class="math inline" data-term-auto="off">\((a,C,D)\)</span> satisfies <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:cubicorbit">long243:eq:cubicorbit</a> with every
 <span class="math inline" data-term-auto="off">\(C_n\)</span> and <span
 class="math inline" data-term-auto="off">\(D_n\)</span> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive integer</a>. By <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:res:tailratio">12</a> and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span>, the error term <span
@@ -1803,7 +1844,7 @@ Koizumi’s <span class="math inline" data-term-auto="off">\(1+o(1/n)\)</span> c
 <span class="math inline" data-term-auto="off">\(\sum_n\gamma_n\)</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">diverges</a>, so
 Duverney’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">convergent</a>-defect <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> does not apply. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:res:cubicexclusion">3</a> is
 independent of any growth or positivity <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumption</a> on <span
-class="math inline" data-term-auto="off">\((a_n)\)</span> beyond <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>, and the
+class="math inline" data-term-auto="off">\((a_n)\)</span> beyond <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:cubicorbit">long243:eq:cubicorbit</a>, and the
 later <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a> of this note decide nothing at the cubic rate.</p>
 </section>
 </section>
@@ -3212,7 +3253,7 @@ class="math inline" data-term-auto="off">\(\kappa&#39;_n=G_n/M_n\)</span> is a p
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> and <span class="math inline" data-term-auto="off">\(E_n/M_n=\kappa&#39;_n\tilde
 e_n\)</span> is an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> carrying the sign of <span
 class="math inline" data-term-auto="off">\(E_n\)</span>. The growth defect carries a shifted
-sign. On any exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>, <span class="math display" data-term-auto="off">\[\begin{equation}
+sign. On any exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>, <span class="tex-label" id="erdos243-reciprocal-tail-reasoning-surface__long243:eq:shiftedsign"></span><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:shiftedsign}
 \frac{a_n^2}{a_{n+1}}-1=-\frac{E_n}{C_n}+\Lambda_n,
 \qquad
@@ -3240,7 +3281,7 @@ class="math inline" data-term-auto="off">\(\Lambda_n=(a_n-1)/a_{n+1}\)</span>.</
 <div class="proof">
 <p><em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>.</em> The first sentence is the divisibility dictionary of
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:records">7</a>.
-For <a class="math-ref" href="#long243:eq:shiftedsign">long243:eq:shiftedsign</a>,
+For <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:eq:shiftedsign">long243:eq:shiftedsign</a>,
 write <span class="math inline" data-term-auto="off">\(\theta_n=E_n/C_n\)</span>;
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:res:update">13</a> gives <span
 class="math inline" data-term-auto="off">\(C_{n+1}=C_n(1-\theta_n)\)</span> and <span
@@ -4531,25 +4572,25 @@ data-cites="erdosproblems"><a href="#erdos243-reciprocal-tail-reasoning-surface_
 </section>
 </section>
 <section id="erdos243-reciprocal-tail-reasoning-surface__long243:app:index" class="level2">
-<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
+<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(4 links)</span></summary>
 <p>Each linked phrase opens its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> at the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
 revision 92b88dc1bbe0. The state <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-system" data-term="system" data-term-auto="1">system</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">barrier</a>,
 and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>-part <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> are in
 <code>ReciprocalTailRigidity.lean</code>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a>-mass
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> is in <code>SparseResetRecovery.lean</code>; and the
 repair-entropy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequalities</a> are in <code>RepairEntropy.lean</code>. The
-residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> of Appendix <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:app:residue">16</a> is in
+residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> of Appendix </p><ul class="paper-source-links"><li><a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:app:residue">16</a> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>. The identification of any of these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>
-with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> tails is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:state">4</a> and is not a
+with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> tails is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a></li><li><a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:state">4</a> and is not a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusion</a> assumes the regime <span
 class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span>. And the final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-list" data-term="list" data-term-auto="1">lists</a> strict centring and normalised vanishing as
 hypotheses; the former follows eventually from the latter with <span
 class="math inline" data-term-auto="off">\(K=1\)</span>, while the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal source</a> derives
 neither from the original analytic problem. For the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> bridge
-supplying them, see <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a> <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:priorwork">3</a> and <a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:bounded">12</a>.</p>
-</section>
+supplying them, see <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Sections</a></li><li><a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:priorwork">3</a> and</li><li><a class="math-ref" href="#erdos243-reciprocal-tail-reasoning-surface__long243:sec:bounded">12</a> </li></ul>
+</details></section>
 <section id="erdos243-reciprocal-tail-reasoning-surface__long243:app:residue" class="level2">
 <h2>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> residue <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> for forced <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbits</a></h2>
 <p>In the case <span class="math inline" data-term-auto="off">\(m=c=1\)</span> of
@@ -5222,7 +5263,7 @@ Its <span class="math inline" data-term-auto="off">\(\Q\)</span>-valued <code>Su
       </details>
 <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="erdos_68.html"><span class="maths-pager__dir">Previous</span>#68 The factorial-denominator series</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="erdos_249.html"><span class="maths-pager__dir">Next</span>#249 The binary totient series</a></nav>
       <section class="maths-receipt" aria-label="How this page is generated">
-        <p>Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>, boundary and count above is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-copy" data-term="copy" data-term-auto="1">copied</a> from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>&#8217;s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> data layer at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> generation <code>79d8528177f53d88</code>. Nothing on this page is written by hand, and a redeploy regenerates all of it from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> as it then stands.</p>
+        <p>Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a>, boundary and count above is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-copy" data-term="copy" data-term-auto="1">copied</a> from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>&#8217;s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> data layer at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> generation <code>0052748432cd3cc1</code>. Nothing on this page is written by hand, and a redeploy regenerates all of it from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> as it then stands.</p>
       </section>
       </div>
     </main>

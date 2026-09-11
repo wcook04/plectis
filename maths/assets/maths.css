@@ -1275,3 +1275,19 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
 
 /* Long theorem identifiers must fit the same mobile column as their prose. */
 .maths-layout { overflow-wrap: anywhere; }
+.paper-source-guide {
+  margin-block: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line, #7d70834d);
+  border-radius: .5rem;
+}
+.paper-source-guide > summary { cursor: pointer; font-weight: 600; }
+.paper-source-guide > summary span { font-weight: 400; opacity: .7; }
+.paper-source-links { list-style: none; padding: 0; }
+.paper-source-links > li {
+  padding-block: .65rem;
+  border-bottom: 1px solid var(--line, #7d70834d);
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+@media print { .paper-source-guide { border: 0; padding: 0; } }

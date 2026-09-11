@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
+  <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
@@ -710,7 +710,7 @@ c_{n,k}(X)=(-1)^{a_1+a_2+k+1}X^{e_{n,k}}
 class="math display" data-term-auto="off">\[e_{n,k}=\frac{a_1(a_1-1)}2-\frac{(\beta_n-a_2)(\beta_n-a_2-1)}2
 +\frac{(\beta_n-k)(\beta_n-k-1)}2 .\]</span></div>
 <p>Then</p>
-<div class="math-display" id="long1049:eq:A-explicit" data-term-auto="off"><span
+<div class="math-display" id="long1049:eq:A-explicit" data-term-auto="off"><span class="tex-label" id="long1049:eq:B-explicit"></span><span
 class="math display" data-term-auto="off">\[\begin{align}
 A_n(X)&amp;=\sum_{k=a_2}^{\beta_n-1}c_{n,k}(X)X^{a_0k},\label{long1049:eq:A-explicit}\\
 B_n(X)&amp;=\sum_{k=a_2}^{\beta_n-1}c_{n,k}(X)X^{a_0k}
@@ -3398,7 +3398,7 @@ class="math inline" data-term-auto="off">\(L_n\ne0\)</span> be the resulting ana
 exterior remainder.</p>
 <div class="problem">
 <p><strong>Problem 41</strong> (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-negative" data-term="negative" data-term-auto="1">negative</a> normalised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a>-formula
-margin). <em>Prove the explicit estimate <span
+margin). <em>Prove the explicit estimate <span class="tex-label" id="long1049:eq:negative-margin"></span><span
 class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
 \frac{\log H_n+\log|L_n|-R_n\log3-S_n\log2}{n^2}&lt;0.
 \tag{8.3}\label{long1049:eq:negative-margin}\]</span> Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a>,
@@ -3406,7 +3406,7 @@ row <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 <span class="math inline" data-term-auto="off">\(H_n\)</span> and <span
 class="math inline" data-term-auto="off">\(L_n\)</span>.</em></p>
 </div>
-<p>Nonvanishing alone does not address <a class="math-ref" href="#long1049:eq:negative-margin">long1049:eq:negative-margin</a>.
+<p>Nonvanishing alone does not address <a class="math-ref" href="#long1049:eq:negative-margin">(41)</a>.
 Conversely, excellent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> decay is irrelevant if every jet collision
 lies in a bad nullspace. The exploratory adjacent-exterior calculation
 leaves a positive normalised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> of about <span
@@ -3545,7 +3545,7 @@ data-cites="erdosproblems"><a href="#ref-18">[18]</a></span>.</p>
 </section>
 </section>
 <section id="long1049:app:index" class="level2">
-<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
+<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(2 links)</span></summary>
 <p>Each linked phrase opens its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> at the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
 revision 92b88dc1bbe0. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> of this note live in nine
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>: <code>RationalBaseLambert</code>,
@@ -3566,11 +3566,11 @@ that pinned revision, so they remain <a class="narrative-ref narrative-ref--term
 in the working tree.</p>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> behind the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> bracket <span
 class="math inline" data-term-auto="off">\(81/200&lt;\theta^{*}&lt;1/2\)</span> of
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#long1049:sec:regionbracket">2.5</a> and the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> degree bookkeeping of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <a class="math-ref" href="#long1049:sec:degrees">2.2</a> lives in a
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> </p><ul class="paper-source-links"><li><a class="math-ref" href="#long1049:sec:regionbracket">2.5</a> and the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> degree bookkeeping of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a></li><li><a class="math-ref" href="#long1049:sec:degrees">2.2</a> lives in a
 further <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>, <code>RationalBaseContour</code>, which the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> root
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-import" data-term="import" data-term-auto="1">imports</a> at the pinned revision 92b88dc1bbe0. Its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> are linked
-at their line coordinates in those two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>.</p>
+at their line coordinates in those two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">sections</a>.</li></ul>
 <section id="four-jet-collision-family." class="level5">
 <h5>Four-jet collision family.</h5>
 <p>For a modular tail whose every row is unimodular and whose adjacent
@@ -3582,7 +3582,7 @@ class="math inline" data-term-auto="off">\(k\ge S+2R\)</span> suffices. These th
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> are ordinary in this record; those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> names are not in this
 checkout. Neither coordinate must be a unit; <span
 class="math inline" data-term-auto="off">\((2,3)\)</span> modulo six is an example. </p>
-</section>
+</details></section>
 </section>
 <section id="sec:erdos-1049-complete-family-map" class="level2">
 <h2>Complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a>-family <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></h2>
@@ -3913,7 +3913,7 @@ base \(31/4\)</a><a class="toc-l3" href="#long1049:sec:source-forms">The source 
 certificate</a><a class="toc-l3" href="#long1049:sec:hankel-order">The sharp \(q\)-order of the
 normalised Hankel determinant</a><a class="toc-l2" href="#long1049:sec:primitive">Integer scalar content is neutral</a><a class="toc-l2" href="#long1049:sec:endpoints">Endpoint residues at \((3,2)\) and
 the four-jet kernel</a><a class="toc-l2" href="#long1049:sec:corridor">Failure of coordinatewise clearing at \(3/2\)</a><a class="toc-l2" href="#long1049:sec:tail">The cleared-tail recurrence and the size of the forcing term</a><a class="toc-l2" href="#long1049:sec:sevenhalves">The height criterion at \(7/2\)</a><a class="toc-l3" href="#the-81200-logarithmic-region">The \(81/200\) logarithmic
-region</a><a class="toc-l2" href="#long1049:sec:pade">Denominator exponents for a homogenised Padé construction</a><a class="toc-l2" href="#long1049:sec:open">Complements and further questions</a><a class="toc-l3" href="#exact-kernel-escape">Exact kernel escape</a><a class="toc-l3" href="#determinant-families">Determinant families</a><a class="toc-l3" href="#asymptotic-adequacy-after-kernel-escape">Asymptotic adequacy after kernel escape</a><a class="toc-l3" href="#one-exact-alternative-criterion-test">One exact alternative-criterion test</a><a class="toc-l3" href="#the-quantitative-height-limitation">The quantitative height limitation</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#long1049:app:index">Guide to the formal sources</a><a class="toc-l2" href="#sec:erdos-1049-complete-family-map">Complete result-family map</a><a class="toc-l3" href="#rational-base-tail-recurrence">Rational base tail recurrence</a><a class="toc-l3" href="#seven-halves-irrationality">Seven halves irrationality</a><a class="toc-l3" href="#endpoint-residues">Endpoint residues</a><a class="toc-l3" href="#height-and-pade-arithmetic">Height and pade arithmetic</a><a class="toc-l3" href="#coordinatewise-corridor-no-go">Coordinatewise corridor no go</a><a class="toc-l3" href="#scalar-content-no-go">Scalar content no go</a><a class="toc-l3" href="#four-jet-collision">Four jet collision</a><a class="toc-l2" href="#references">References</a></aside>
+region</a><a class="toc-l2" href="#long1049:sec:pade">Denominator exponents for a homogenised Padé construction</a><a class="toc-l2" href="#long1049:sec:open">Complements and further questions</a><a class="toc-l3" href="#exact-kernel-escape">Exact kernel escape</a><a class="toc-l3" href="#determinant-families">Determinant families</a><a class="toc-l3" href="#asymptotic-adequacy-after-kernel-escape">Asymptotic adequacy after kernel escape</a><a class="toc-l3" href="#one-exact-alternative-criterion-test">One exact alternative-criterion test</a><a class="toc-l3" href="#the-quantitative-height-limitation">The quantitative height limitation</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#sec:erdos-1049-complete-family-map">Complete result-family map</a><a class="toc-l3" href="#rational-base-tail-recurrence">Rational base tail recurrence</a><a class="toc-l3" href="#seven-halves-irrationality">Seven halves irrationality</a><a class="toc-l3" href="#endpoint-residues">Endpoint residues</a><a class="toc-l3" href="#height-and-pade-arithmetic">Height and pade arithmetic</a><a class="toc-l3" href="#coordinatewise-corridor-no-go">Coordinatewise corridor no go</a><a class="toc-l3" href="#scalar-content-no-go">Scalar content no go</a><a class="toc-l3" href="#four-jet-collision">Four jet collision</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>
 </html>

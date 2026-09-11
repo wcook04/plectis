@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
+  <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
@@ -195,7 +195,7 @@ Q\)</span>;</em></p></li>
 m=0\)</span> for every sufficiently large <span
 class="math inline" data-term-auto="off">\(m\)</span>.</em></p></li>
 </ol>
-<p><em>Consequently, <span class="math display" data-term-auto="off">\[\begin{equation}
+<p><em>Consequently, <span class="tex-label" id="eq:companion-cofinal"></span><span class="math display" data-term-auto="off">\[\begin{equation}
 S\notin\mathbb Q
 \quad\Longleftrightarrow\quad
 (\forall B)(\exists m&gt;B)\;
@@ -347,7 +347,7 @@ U_n=T_n-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}U_d
 \quad(n\ge2).\]</span> Then <span class="math display" data-term-auto="off">\[M(U_n)=0,\qquad
 V_d(U_n)=(d!-1)\mathbf1_{d=n}.\]</span> The vectors <span
 class="math inline" data-term-auto="off">\(e_1,U_2,U_3,\ldots\)</span> form an integral
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a>. Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> vector has the unique <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> expansion <span
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a>. Every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> vector has the unique <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> expansion <span class="tex-label" id="eq:channel-basis-expansion"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \lambda=M(\lambda)e_1+
 \sum_{d\ge2}\frac{V_d(\lambda)-M(\lambda)}{d!-1}U_d.
@@ -749,7 +749,7 @@ class="math inline" data-term-auto="off">\(R_p&gt;1\)</span>.</p>
 <div class="proposition" id="res:global-complementary-criterion">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 7</strong> (global complementary-residue
 criterion). <em> If arbitrarily large natural parameters <span
-class="math inline" data-term-auto="off">\(p\ge3\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(p\ge3\)</span> satisfy <span class="tex-label" id="eq:global-complementary-target"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 R_p&gt;1,\qquad
 (2p+1)L_p^{\rm blk}&lt;2p^2(2p-1)!\rho_p,
@@ -937,7 +937,7 @@ register, <a class="narrative-ref narrative-ref--term is-term-again" href="../..
 record.</p>
 </section>
 <section id="app:sources" class="level2">
-<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
+<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(6 links)</span></summary>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <code>ErdosProblems.Erdos68</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> contains the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The pinned snapshot contains fifteen cited
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>: <code>AdjacentUnitCarryWindow</code>,
@@ -1096,25 +1096,24 @@ eventual square subsequence three halves upper</a></p></li>
 <section id="source-current-companion-orbit-and-comparator-routes."
 class="level5">
 <h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-current companion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> routes.</h5>
-<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
+<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in </p><ul class="paper-source-links"><li><a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a>. Its paper-facing endpoints are <a
+orbit rationality</a> . Its paper-facing endpoints are</li><li><a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">not
 irrational factorial gap series iff eventually companion floor <span
-class="math inline" data-term-auto="off">\(-2\)</span></a> and <a
+class="math inline" data-term-auto="off">\(-2\)</span></a> and</li><li><a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">irrational
-factorial gap series iff cofinal companion floor misses</a>. The
-coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite <a
+factorial gap series iff cofinal companion floor misses</a> . The
+coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite</li><li><a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion-orbit
-complete characterisation</a> routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#res:companion-orbit-rationality-boundary">2</a>
-and Remark <a class="math-ref" href="#bdry:companion-orbit-nonconcentration">bdry:companion-orbit-nonconcentration</a>.
+complete characterisation</a> routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a></li><li><a class="math-ref" href="#res:companion-orbit-rationality-boundary">2</a> and Remark</li><li><a class="math-ref" href="#bdry:companion-orbit-nonconcentration">bdry:companion-orbit-nonconcentration</a> .
 The moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> endpoints are recorded in the long
 reasoning record as the moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> scale split, the split-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a>
 normalised collision, and the fixed-owner absorption boundary. These
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">packages</a>, and this manuscript stage
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> one common immutable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> checkpoint before <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> readiness is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</p>
-</section>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> readiness is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</li></ul>
+</details></section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
@@ -1157,7 +1156,7 @@ href="https://arxiv.org/abs/2103.14894">2103.14894v1</a>, 2021, <a class="narrat
       </div>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">The denominator exclusions</a><a class="toc-l2" href="#sec:companion-orbit">The fixed companion orbit</a><a class="toc-l3" href="#sec:digits">The carry and its wrap correction</a><a class="toc-l2" href="#sec:channels">An integral basis for factorial channels</a><a class="toc-l3" href="#the-support-restriction-and-the-residual">The support restriction and the residual</a><a class="toc-l2" href="#sec:translator">The moment cost and the choice of support</a><a class="toc-l3" href="#growth-of-the-compulsory-factor">Growth of the compulsory factor</a><a class="toc-l3" href="#sec:compressed-kernel">Remote primitive kernels</a><a class="toc-l2" href="#sec:prime-pole">Cancellation in a reduced prefix</a><a class="toc-l2" href="#sec:projection">One joint collision and residue estimate</a><a class="toc-l2" href="#sec:open">The remaining real comparison</a><a class="toc-l2" href="#sec:finite">The finite evidence</a><a class="toc-l2" href="#app:sources">Statements and declarations</a><a class="toc-l2" href="#app:sources">Guide to the formal sources</a><a class="toc-l2" href="#references">References</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">The denominator exclusions</a><a class="toc-l2" href="#sec:companion-orbit">The fixed companion orbit</a><a class="toc-l3" href="#sec:digits">The carry and its wrap correction</a><a class="toc-l2" href="#sec:channels">An integral basis for factorial channels</a><a class="toc-l3" href="#the-support-restriction-and-the-residual">The support restriction and the residual</a><a class="toc-l2" href="#sec:translator">The moment cost and the choice of support</a><a class="toc-l3" href="#growth-of-the-compulsory-factor">Growth of the compulsory factor</a><a class="toc-l3" href="#sec:compressed-kernel">Remote primitive kernels</a><a class="toc-l2" href="#sec:prime-pole">Cancellation in a reduced prefix</a><a class="toc-l2" href="#sec:projection">One joint collision and residue estimate</a><a class="toc-l2" href="#sec:open">The remaining real comparison</a><a class="toc-l2" href="#sec:finite">The finite evidence</a><a class="toc-l2" href="#app:sources">Statements and declarations</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>
 </html>

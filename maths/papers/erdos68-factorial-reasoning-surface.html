@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=891bfa0d19a7">
+  <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
@@ -149,7 +149,7 @@ class="math inline" data-term-auto="off">\(e=v_p(L_M)\)</span>. Let <span
 class="math inline" data-term-auto="off">\(J=\{n:2\le n\le M,\ v_p(d_n)=e\}\)</span> and
 write <span class="math inline" data-term-auto="off">\(d_n=p^eu_n\)</span> for <span
 class="math inline" data-term-auto="off">\(n\in J\)</span>. Then, with inverses in <span
-class="math inline" data-term-auto="off">\(\mathbb F_p\)</span>, <span
+class="math inline" data-term-auto="off">\(\mathbb F_p\)</span>, <span class="tex-label" id="long68:eq:prime-pole-survival"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:prime-pole-survival}
 v_p\bigl(\operatorname{den}(H_M)\bigr)=e
@@ -345,7 +345,7 @@ class="math inline" data-term-auto="off">\(j\)</span>. ◻</p>
 </div>
 <div class="lemma" id="long68:res:segment">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 6</strong> (segment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a>). <em> For <span
-class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span>, <span
+class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span>, <span class="tex-label" id="long68:eq:segment"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:segment}
 \sum_{n=N-k+1}^{N}\log(n!-1)
@@ -365,7 +365,7 @@ class="math inline" data-term-auto="off">\(N^{\,j-i}\)</span>, and over a block 
 class="math inline" data-term-auto="off">\(k\)</span> consecutive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{i&lt;j}(j-i)=\sum_{d=1}^{k-1}d(k-d)=\binom{k+1}{3}.\]</span></div>
-<p>Taking logarithms of the resulting divisibility gives <a class="math-ref" href="#long68:eq:segment">long68:eq:segment</a>. ◻</p>
+<p>Taking logarithms of the resulting divisibility gives <a class="math-ref" href="#long68:res:segment">(6)</a>. ◻</p>
 </div>
 <div class="theorem" id="long68:res:lcm-growth">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 7</strong> (common-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> growth). <em> <span
@@ -379,7 +379,7 @@ and take <span class="math inline" data-term-auto="off">\(k=\lfloor\alpha\sqrt
 N\rfloor\)</span>, which satisfies <span class="math inline" data-term-auto="off">\(2\le k\le
 N-1\)</span> for all large <span class="math inline" data-term-auto="off">\(N\)</span>. Put
 <span class="math inline" data-term-auto="off">\(u=N-k+1\)</span>.</p>
-<p>For the left-hand side of <a class="math-ref" href="#long68:eq:segment">long68:eq:segment</a>, use <span
+<p>For the left-hand side of <a class="math-ref" href="#long68:res:segment">(6)</a>, use <span
 class="math inline" data-term-auto="off">\(n!-1\ge n!/2\)</span> and <span
 class="math inline" data-term-auto="off">\(\log n!\ge n\log n-n\)</span>. Since <span
 class="math inline" data-term-auto="off">\(n\mapsto n\log n-n\)</span> increases,</p>
@@ -488,7 +488,7 @@ gives the tail estimate</p>
 <p> </p>
 <div class="theorem" id="long68:res:carry-equivalence">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 8</strong> (strict-successor characterisation). <em>
-For <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, <span
+For <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, <span class="tex-label" id="long68:eq:unit-window"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:unit-window}
 b_m=1
@@ -497,7 +497,7 @@ b_m=1
 \end{equation}\]</span> The historical manuscript cites , line 79. This
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> is absent from the retained <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> pin; this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-citation" data-term="citation" data-term-auto="1">citation</a> does not
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> at that pin.</em></p>
-<p><em>Moreover <span class="math display" data-term-auto="off">\[\begin{align}
+<p><em>Moreover <span class="tex-label" id="long68:eq:carry-rationality"></span><span class="tex-label" id="long68:eq:strict-misses"></span><span class="math display" data-term-auto="off">\[\begin{align}
 S\in\Q
 &amp;\iff b_m=1\ \hbox{for all sufficiently large }m,
 \label{long68:eq:carry-rationality}\\
@@ -517,7 +517,7 @@ class="math inline" data-term-auto="off">\(m!H_m=mZ_{m-1}-m\Delta_m+1+\varepsilo
 one gets <span class="math inline" data-term-auto="off">\(b_m=\lceil
 m\Delta_m-1-\varepsilon_m\rceil\)</span> with <span
 class="math inline" data-term-auto="off">\(-1\le b_m\le m-1\)</span>, which gives both
-equivalences in <a class="math-ref" href="#long68:eq:unit-window">long68:eq:unit-window</a>, endpoints
+equivalences in <a class="math-ref" href="#long68:res:carry-equivalence">(8)</a>, endpoints
 included.</p>
 <p>Suppose <span class="math inline" data-term-auto="off">\(S=a/q\)</span> and <span
 class="math inline" data-term-auto="off">\(q\mid(m-1)!\)</span>. For <span
@@ -648,18 +648,18 @@ class="math inline" data-term-auto="off">\(E_m/m\in(0,2/m^2)\)</span>, so the <a
 quadratically.</p>
 <div class="proposition" id="long68:res:lower-escape">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 10</strong> (lower-interval criterion). <em>
-<span class="math display" data-term-auto="off">\[\begin{equation}
+<span class="tex-label" id="long68:eq:lower-escape"></span><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:lower-escape}
 S\notin\Q
 \quad\Longleftrightarrow\quad
 \forall B\ \exists m&gt;B:\ E_m\le m\theta_{m-1}.
 \end{equation}\]</span> For <span class="math inline" data-term-auto="off">\(m\ge3\)</span>
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> condition <span class="math display" data-term-auto="off">\[\begin{equation}
+the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> condition <span class="tex-label" id="long68:eq:finite-escape"></span><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:finite-escape}
 m\Delta_m\le1+\varepsilon_m
 \quad\hbox{or}\quad
 1+\varepsilon_m+\frac2m\le m\Delta_m
-\end{equation}\]</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> in <a class="math-ref" href="#long68:eq:lower-escape">long68:eq:lower-escape</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">Cofinally</a>
+\end{equation}\]</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> the escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> in <a class="math-ref" href="#long68:res:lower-escape">(10)</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">Cofinally</a>
 many instances of <a class="math-ref" href="#long68:eq:finite-escape">long68:eq:finite-escape</a> therefore
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> <span class="math inline" data-term-auto="off">\(S\notin\Q\)</span>.</em></p>
 </div>
@@ -798,7 +798,7 @@ class="math inline" data-term-auto="off">\(T_p/R_p=C_pH_{2p-1}\)</span> is not a
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 12</strong> (complementary-residue criterion). <em>
 Suppose that for every <span class="math inline" data-term-auto="off">\(B\)</span> there is a
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <span class="math inline" data-term-auto="off">\(p&gt;B\)</span> with <span
-class="math inline" data-term-auto="off">\(R_p&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(R_p&gt;1\)</span> and <span class="tex-label" id="long68:eq:global-scale"></span><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:global-scale}
 (2p+1)L^{\mathrm{blk}}_p&lt;K_p\rho_p .
@@ -1315,7 +1315,7 @@ located.</p>
 <section id="long68:sec:open" class="level2">
 <h2>The remaining <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-number-theory" data-term="number_theory" data-term-auto="1">arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">inputs</a></h2>
 <p>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> is <a class="math-ref" href="#long68:eq:strict-misses">long68:eq:strict-misses</a>,
-equivalently <a class="math-ref" href="#long68:eq:lower-escape">long68:eq:lower-escape</a>. The
+equivalently <a class="math-ref" href="#long68:res:lower-escape">(10)</a>. The
 routes below are sufficient conditions for it, and their quantitative
 hypotheses are unproved. None of them is an equivalent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulation</a> of
 the problem.</p>
@@ -1677,7 +1677,7 @@ antecedent was located, which is a <a class="narrative-ref narrative-ref--term i
 priority is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</p>
 </section>
 <section id="long68:app:sources" class="level2">
-<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
+<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(0 links)</span></summary>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <code>ErdosProblems.Erdos68</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> carries the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> below are the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>
 chain behind the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> above, together with the subsidiary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>
@@ -1849,7 +1849,7 @@ href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa
 block prime power dvd normalized collision core iff one lt hit count of
 endpoint lt base</a></p></li>
 </ul>
-</section>
+</details></section>
 <section id="long68:sec:extended-record" class="level2">
 <h2>Extended record</h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">short note</a> above carries the advertised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> with complete
@@ -2606,7 +2606,7 @@ href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
       </div>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#long68:sec:prime-powers">Which prime powers survive reduction</a><a class="toc-l2" href="#long68:sec:lcm">The growth of the common denominator</a><a class="toc-l2" href="#long68:sec:carry">Carries and the rationality boundary</a><a class="toc-l3" href="#long68:sec:adjacent-unit-no-go">Why one proposed window argument is circular</a><a class="toc-l3" href="#the-companion-coordinate">The companion coordinate</a><a class="toc-l3" href="#escape-from-a-smaller-interval">Escape from a smaller interval</a><a class="toc-l3" href="#the-whole-shifted-family">The whole shifted family</a><a class="toc-l2" href="#long68:sec:residue">From denominator structure to a scale criterion</a><a class="toc-l2" href="#long68:sec:channels">A limitation of finite-channel cancellation</a><a class="toc-l3" href="#the-exact-low-channel-lattice-and-residual-class">The exact low-channel lattice and residual class</a><a class="toc-l2" href="#long68:sec:finite">Finite denominator exclusions</a><a class="toc-l2" href="#long68:sec:open">The remaining arithmetic inputs</a><a class="toc-l2" href="#sources-and-evidence">Sources and evidence</a><a class="toc-l2" href="#long68:app:sources">Guide to the formal sources</a><a class="toc-l2" href="#long68:sec:extended-record">Extended record</a><a class="toc-l3" href="#long68:sec:ext-digits">The canonical factorial digit kernel</a><a class="toc-l3" href="#long68:sec:ext-literature">Criteria from the literature, in full</a><a class="toc-l3" href="#long68:sec:ext-superseded">A superseded deduction</a><a class="toc-l3" href="#long68:sec:ext-plateau">Plateaux, first exit, and the finite denominator ladder</a><a class="toc-l3" href="#long68:sec:ext-collision">The collision-core interfaces</a><a class="toc-l3" href="#long68:sec:ext-certificates">Finite channel and carry certificates</a><a class="toc-l3" href="#long68:sec:ext-nogo">Limits of fixed-coordinate arguments</a><a class="toc-l3" href="#long68:sec:ext-generic">The generic shape behind the lower-interval form</a><a class="toc-l2" href="#sec:erdos-68-complete-family-map">Complete result-family map</a><a class="toc-l3" href="#factorial-carry-characterisation">Factorial carry characterisation</a><a class="toc-l3" href="#factorial-channel-and-projection-rigidity">Factorial channel and projection rigidity</a><a class="toc-l3" href="#factorial-conditional-producers">Factorial conditional producers</a><a class="toc-l3" href="#factorial-lcm-growth">Factorial lcm growth</a><a class="toc-l3" href="#factorial-finite-certificates">Factorial finite certificates</a><a class="toc-l2" href="#references">References</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#long68:sec:prime-powers">Which prime powers survive reduction</a><a class="toc-l2" href="#long68:sec:lcm">The growth of the common denominator</a><a class="toc-l2" href="#long68:sec:carry">Carries and the rationality boundary</a><a class="toc-l3" href="#long68:sec:adjacent-unit-no-go">Why one proposed window argument is circular</a><a class="toc-l3" href="#the-companion-coordinate">The companion coordinate</a><a class="toc-l3" href="#escape-from-a-smaller-interval">Escape from a smaller interval</a><a class="toc-l3" href="#the-whole-shifted-family">The whole shifted family</a><a class="toc-l2" href="#long68:sec:residue">From denominator structure to a scale criterion</a><a class="toc-l2" href="#long68:sec:channels">A limitation of finite-channel cancellation</a><a class="toc-l3" href="#the-exact-low-channel-lattice-and-residual-class">The exact low-channel lattice and residual class</a><a class="toc-l2" href="#long68:sec:finite">Finite denominator exclusions</a><a class="toc-l2" href="#long68:sec:open">The remaining arithmetic inputs</a><a class="toc-l2" href="#sources-and-evidence">Sources and evidence</a><a class="toc-l2" href="#long68:sec:extended-record">Extended record</a><a class="toc-l3" href="#long68:sec:ext-digits">The canonical factorial digit kernel</a><a class="toc-l3" href="#long68:sec:ext-literature">Criteria from the literature, in full</a><a class="toc-l3" href="#long68:sec:ext-superseded">A superseded deduction</a><a class="toc-l3" href="#long68:sec:ext-plateau">Plateaux, first exit, and the finite denominator ladder</a><a class="toc-l3" href="#long68:sec:ext-collision">The collision-core interfaces</a><a class="toc-l3" href="#long68:sec:ext-certificates">Finite channel and carry certificates</a><a class="toc-l3" href="#long68:sec:ext-nogo">Limits of fixed-coordinate arguments</a><a class="toc-l3" href="#long68:sec:ext-generic">The generic shape behind the lower-interval form</a><a class="toc-l2" href="#sec:erdos-68-complete-family-map">Complete result-family map</a><a class="toc-l3" href="#factorial-carry-characterisation">Factorial carry characterisation</a><a class="toc-l3" href="#factorial-channel-and-projection-rigidity">Factorial channel and projection rigidity</a><a class="toc-l3" href="#factorial-conditional-producers">Factorial conditional producers</a><a class="toc-l3" href="#factorial-lcm-growth">Factorial lcm growth</a><a class="toc-l3" href="#factorial-finite-certificates">Factorial finite certificates</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>
 </html>
