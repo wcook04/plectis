@@ -3565,10 +3565,11 @@ is presumed. Boundary tangencies, simultaneous levels, branch reunion
 through an annulus and non-Hausdorff orbit spaces must all be handled
 explicitly.</p>
 </section>
-<section id="metric-fan-in-without-losing-the-coefficient"
+<section
+id="metric-fan-in-after-the-printed-spanning-tree-coefficient-is-excluded"
 class="level3 unnumbered">
-<h3 class="unnumbered">3. Metric fan-in without losing the
-coefficient</h3>
+<h3 class="unnumbered">3. Metric fan-in after the printed spanning-tree
+coefficient is excluded</h3>
 <p>For a strip
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
 write
@@ -3603,42 +3604,52 @@ for
 the same computation gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">n\theta</annotation></semantics></math>.
 A closed level curve enclosing roots does carry an integer winding flux,
-and cutting a regular annulus destroys that. Any recovery of the global
+and cutting a regular annulus destroys that. Those identities explain
+why a per-strip average does not automatically yield a global
+coefficient. They do not reopen . Cassini already excludes the printed
 coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
-from per-strip estimates has therefore to account for how the individual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>S</mi></msub><annotation encoding="application/x-tex">\Phi_S</annotation></semantics></math>
-sum, without duplication and without a multiplicative loss.</p>
-<div class="problem">
-<p><strong>Problem 30</strong> (additive-error strip gluing). <em>
-Assuming Problem , select trajectories in all strips and connect them
-through the saddle and root neighbourhoods so that, for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>,
-the resulting embedded tree contains all
+for any embedded tree that contains all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-roots and obeys
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>η</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{len}(G)
- \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta.
-\tag{6.1}\label{eq:metric-fanin1041}</annotation></semantics></math> The
-total saddle, annular-cut and root-cap cost must be below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
-without a multiplicative loss in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>.
-The coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
-in  is an open target and depends on a valid global allocation of the
+roots: Problem  records that no later gluing argument can retain that
+estimate.</p>
+<div class="problem">
+<p><strong>Problem 30</strong> (strip gluing after the printed
+coefficient). <em> Assuming Problem , do one of the following, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>.</em></p>
+<ol>
+<li><p><em>Produce an embedded tree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+containing all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+roots whose length obeys
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>C</mi><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">\operatorname{len}(G)
+ \le C\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta
+\tag{6.1}\label{eq:metric-fanin1041}</annotation></semantics></math> for
+an explicit constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C&gt;1/(2\pi)</annotation></semantics></math>
+that accounts for attachment cost and for a valid allocation of the
 strip fluxes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>S</mi></msub><annotation encoding="application/x-tex">\Phi_S</annotation></semantics></math>;
-the remaining work is not a small local cap added to an otherwise
-complete estimate.</em></p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>S</mi></msub><annotation encoding="application/x-tex">\Phi_S</annotation></semantics></math>.</em></p></li>
+<li><p><em>Connect only one pair of distinct roots, rather than spanning
+every root.</em></p></li>
+<li><p><em>Give a different global metric inequality that is
+not .</em></p></li>
+</ol>
+<p><em>The printed coefficient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
+is not an open target. Better additive control of saddle, annular-cut
+and root-cap cost cannot recover .</em></p>
 </div>
-<p>For the final strict inequality, use the actual collar slack
+<p>The printed collar slack
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mi>α</mi><mrow><mn>2</mn><mi>α</mi></mrow></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt&gt;0</annotation></semantics></math>
-and give budgets that keep the perturbation, tree error and transfer
-cost below fixed fractions of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
-Independently choosing a shortest trajectory in each strip is not enough
-unless the attachment mismatch is controlled.</p>
+used the same excluded coefficient. It is not remaining budget on an
+otherwise complete spanning-tree estimate. Independently choosing a
+shortest trajectory in each strip is not enough unless the attachment
+mismatch is controlled, and controlling that mismatch does not restore
+the printed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
+tree bound.</p>
 </section>
 <section id="coefficient-perturbation-and-stability"
 class="level3 unnumbered">

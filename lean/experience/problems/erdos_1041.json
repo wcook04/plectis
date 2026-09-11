@@ -225,8 +225,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 19,
-      "renderer_fingerprint": "08ddee3edaf05afe",
+      "renderer_contract_version": 20,
+      "renderer_fingerprint": "3037c02d51a2a034",
       "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
       "publication_manifest_match": true,
       "mathml_node_count": 518,
@@ -236,7 +236,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-      "html_exact_tex_sha256": "715624b9a971b974d4883af147aef355049303f2a39f5909568b8085f23c1376"
+      "html_exact_tex_sha256": "1ecb44707c0e7e18d99419e6fa32f3fdc330d7613265ff6d7dcfd557c10be09f"
     },
     "sections": [
       {
@@ -437,8 +437,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
         "publication_manifest_match": true,
         "mathml_node_count": 518,
@@ -448,7 +448,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-        "html_exact_tex_sha256": "715624b9a971b974d4883af147aef355049303f2a39f5909568b8085f23c1376"
+        "html_exact_tex_sha256": "1ecb44707c0e7e18d99419e6fa32f3fdc330d7613265ff6d7dcfd557c10be09f"
       },
       "sections": [
         {
@@ -649,9 +649,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
-        "source_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
+        "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
         "publication_manifest_match": true,
         "mathml_node_count": 1244,
         "raw_math_fallback_count": 2,
@@ -677,8 +677,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8d77dc74871a8ef89c2d099e3e1435f27fadc6f6a76e3344f6ba0d0c87792d90",
-        "html_exact_tex_sha256": "2b3d2a6fbea0ca027cb7467e631e373f3bc22a4a8a3be4a908c3a360cfe794a8"
+        "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
+        "html_exact_tex_sha256": "ef3a1ce77bfe8f2a56a22e73be8dfebaa2368a0b182a112dec9e2222d4e7b755"
       },
       "sections": [
         {
@@ -909,7 +909,7 @@
         {
           "level": 3,
           "anchor": null,
-          "label": "3. Metric fan-in without losing the coefficient"
+          "label": "3. Metric fan-in after the printed spanning-tree coefficient is excluded"
         },
         {
           "level": 3,

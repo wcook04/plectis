@@ -12,7 +12,7 @@ class="math inline" data-term-auto="off">\(n\)</span>th prime. Erdős Problem #
 whether</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Pi=\sum_{n\ge1}\frac{p_n}{2^{\,n}}\]</span></div>
-<p>is
+<p class="display-continue">is
 irrational <span class="citation" data-cites="erdos1958"><a href="#ref-1">[1]</a></span><span
 class="citation" data-cites="erdosgraham1980"></span> <span
 class="citation" data-cites="erdos1988"></span>. Bloom’s catalogue
@@ -46,7 +46,7 @@ and at every finite horizon it is exactly twice this one,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i}}
 =2\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i+1}} ,\]</span></div>
-<p>the <a
+<p class="display-continue">the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L111">factor-of-two
 normalisation</a>. A factor of two does not change rationality, so no
 result below depends on the choice; the identity is stated so that the
@@ -158,7 +158,7 @@ class="math inline" data-term-auto="off">\(P(m)\)</span> denotes the largest pri
 <span class="math inline" data-term-auto="off">\(m\)</span>, Erdős and Pomerance proved that</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{m\ge2}\frac{\mathbf
 1_{\{P(m)&gt;P(m+1)\}}}{2^m}\]</span></div>
-<p>is irrational <span
+<p class="display-continue">is irrational <span
 class="citation" data-cites="erdospomerance1978"></span>. Erdős and
 Graham record the complementary indicator on p. 62: equality of the two
 largest prime factors is impossible for consecutive integers, so its
@@ -435,7 +435,7 @@ class="math inline" data-term-auto="off">\(n\ge0\)</span> put</p>
 class="math display" data-term-auto="off">\[D(P,n)=\sum_{i=0}^{n-1}\frac{P(i)}{2^{\,i+1}},
 \qquad
 \Delta(P,n)=\sum_{i=0}^{n-1}\frac{P(i+1)-P(i)}{2^{\,i+1}} ,\]</span></div>
-<p>both empty, hence zero, at <span class="math inline" data-term-auto="off">\(n=0\)</span>. We
+<p class="display-continue">both empty, hence zero, at <span class="math inline" data-term-auto="off">\(n=0\)</span>. We
 call these the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101">dyadic
 partial sum</a> and the <a
@@ -444,9 +444,10 @@ difference sum</a> of <span class="math inline" data-term-auto="off">\(P\)</span
 <div class="proposition" id="long251:res:abel">
 <p><strong>Proposition 1</strong> (finite summation by parts). <em> For
 every rational sequence <span class="math inline" data-term-auto="off">\(P\)</span> and every
-<span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
+<span class="math inline" data-term-auto="off">\(n\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[D(P,n+1)=P(0)+\Delta(P,n)-\frac{P(n)}{2^{\,n+1}}
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on <span
@@ -474,10 +475,11 @@ gaps, gives the reformulation.</p>
 class="math inline" data-term-auto="off">\(p_0=2,p_1=3,\ldots\)</span> be the primes in
 increasing order and <span
 class="math inline" data-term-auto="off">\(g_i=p_{i+1}-p_i\)</span>. For every <span
-class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(n\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{i=0}^{n}\frac{p_i}{2^{\,i+1}}
 =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}}
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <p>Formalised as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime-gap
@@ -500,7 +502,7 @@ class="math inline" data-term-auto="off">\(2/2+3/4+5/8=19/8\)</span> and the rig
 <p>Write</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u_n=\frac{p_n}{2^{\,n+1}},\qquad
 v_n=\frac{g_n}{2^{\,n+1}}\]</span></div>
-<p>for the terms of the prime series and
+<p class="display-continue">for the terms of the prime series and
 of the gap series, so that <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge0}u_n=\Pi\)</span>. The termwise
 identity <span class="math inline" data-term-auto="off">\(v_n=2u_{n+1}-u_n\)</span> is the <a
@@ -511,9 +513,10 @@ class="math inline" data-term-auto="off">\((u_n)\)</span> is summable the gap se
 summed by rearranging two copies of the prime series.</p>
 <div class="theorem" id="long251:res:infinite">
 <p><strong>Theorem 3</strong> (infinite prime-gap identity). <em> Both
-series converge and <span
+series converge and </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
-\;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}} .\]</span></em></p>
+\;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}} .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The bound <span
@@ -625,10 +628,11 @@ block</a>.</p>
 <div class="theorem" id="long251:res:block">
 <p><strong>Theorem 6</strong> (block identity). <em> For every <span
 class="math inline" data-term-auto="off">\(N\)</span> and <span
-class="math inline" data-term-auto="off">\(h\)</span>, <span
+class="math inline" data-term-auto="off">\(h\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_{N+h}=2^{h}T_N-B_{h,N},
 \qquad\text{hence}\qquad
-\sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .\]</span></em></p>
+\sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on <span
@@ -647,7 +651,7 @@ right,</p>
 \label{long251:eq:shift-step}
 \sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr),
 \end{equation}\]</span></div>
-<p>the <a
+<p class="display-continue">the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L563">shift
 step identity</a>. Since <span class="math inline" data-term-auto="off">\(B_{h,N}\)</span> is
 an integer, Theorem <a class="math-ref" href="#long251:res:block">6</a> converts a
@@ -754,7 +758,7 @@ nonintegrality</a>.</p>
 <p>Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_N=\sum_{j\ge1}\frac{g_{N+j}}{2^{\,j}},\]</span></div>
-<p>which converges by Theorem <a class="math-ref" href="#long251:res:infinite">3</a>. The scaled
+<p class="display-continue">which converges by Theorem <a class="math-ref" href="#long251:res:infinite">3</a>. The scaled
 tail equals its shifted-gap series, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">shifted-gap
 series identity</a>, and satisfies <span
@@ -895,10 +899,12 @@ estimated.</p>
 Let <span class="math inline" data-term-auto="off">\(T\)</span> satisfy the dyadic tail
 recurrence with integer digits <span class="math inline" data-term-auto="off">\(g\)</span>,
 and fix <span class="math inline" data-term-auto="off">\(h\)</span> and <span
-class="math inline" data-term-auto="off">\(N\)</span>. If <span
+class="math inline" data-term-auto="off">\(N\)</span>. If </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[-1&lt;\sigma_h(N)&lt;1,\qquad
 -1&lt;\sigma_h(N+1)&lt;1,
-\qquad g_{N+h+1}\ne g_{N+1},\]</span> then <span
+\qquad g_{N+h+1}\ne g_{N+1},\]</span></div>
+<p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> and <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+1)\)</span> cannot both be integers.
 Consequently, if such a pair occurs beyond every threshold, the <span
@@ -971,12 +977,13 @@ two-window normal form</a>). <em> Assume <span
 class="math inline" data-term-auto="off">\(\delta_N\)</span> is even. The conjunction <span
 class="math inline" data-term-auto="off">\(-1&lt;D_N&lt;1\)</span>, <span
 class="math inline" data-term-auto="off">\(-1&lt;D_{N+1}&lt;1\)</span>, <span
-class="math inline" data-term-auto="off">\(\delta_N\ne0\)</span> is equivalent to <span
+class="math inline" data-term-auto="off">\(\delta_N\ne0\)</span> is equivalent to </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\delta_N=2\ \hbox{ and
 }\tfrac12&lt;D_N&lt;1\bigr)
 \quad\hbox{or}\quad
 \bigl(\delta_N=-2\ \hbox{ and
-}-1&lt;D_N&lt;-\tfrac12\bigr).\]</span></em></p>
+}-1&lt;D_N&lt;-\tfrac12\bigr).\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The recurrence and the two unit windows give <span
@@ -1000,10 +1007,13 @@ truncation reduces each of them to a finite integer comparison.</p>
 <div class="proposition" id="long251:res:explicit-remainder">
 <p><strong>Proposition 14</strong> (explicit remainder). <em> For
 integers <span class="math inline" data-term-auto="off">\(h,N\ge0\)</span> and <span
-class="math inline" data-term-auto="off">\(L\ge1\)</span> put <span
+class="math inline" data-term-auto="off">\(L\ge1\)</span> put </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F_{h,N,L}=\sum_{j=1}^{L}\frac{g_{N+h+j}-g_{N+j}}{2^{\,j}},\qquad
-P(x)=x^4+8x^3+36x^2+104x+150,\]</span> <span
-class="math display" data-term-auto="off">\[E_{h,N,L}=\frac{1250}{2^{L}}\bigl(P(N+h+L+2)+P(N+L+2)\bigr).\]</span>
+P(x)=x^4+8x^3+36x^2+104x+150,\]</span></div>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[E_{h,N,L}=\frac{1250}{2^{L}}\bigl(P(N+h+L+2)+P(N+L+2)\bigr).\]</span></div>
+<p><em>
 Then <span class="math inline" data-term-auto="off">\(\bigl|\sigma_h(N)-F_{h,N,L}\bigr|\le
 E_{h,N,L}\)</span>. In particular <span
 class="math inline" data-term-auto="off">\(|F_{h,N,L}|+E_{h,N,L}&lt;1\)</span> certifies
@@ -1267,9 +1277,10 @@ class="math inline" data-term-auto="off">\(x&lt;p_N\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;d&lt;s\le H\)</span>, <span
 class="math inline" data-term-auto="off">\(d+r&gt;0\)</span>, and all four integers <span
 class="math inline" data-term-auto="off">\(x,x+d,x+s,x+s+d+r\)</span> prime. Then, for every
-<span class="math inline" data-term-auto="off">\(N,H\ge0\)</span>, <span
+<span class="math inline" data-term-auto="off">\(N,H\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(H+1)M_{h,r}(N)\le
-(h+1)p_{N+h+1}+(H+1)Q_{N,H,r}.\]</span></em></p>
+(h+1)p_{N+h+1}+(H+1)Q_{N,H,r}.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Windows of total span at most <span
@@ -1573,7 +1584,7 @@ class="math inline" data-term-auto="off">\(U_{N+h}-U_N\in\mathbb Z\)</span> for 
 class="math inline" data-term-auto="off">\(N,h\ge0\)</span>. The sequence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_N=3+\sum_{j=1}^{N}a_j\]</span></div>
-<p>is strictly
+<p class="display-continue">is strictly
 increasing and odd, with <span class="math inline" data-term-auto="off">\(P_N/(N\log
 N)\to1\)</span>. These are synthetic positions; no <span
 class="math inline" data-term-auto="off">\(P_N\)</span> is asserted to be prime.</p>
@@ -1590,7 +1601,7 @@ selects the desired value <span class="math inline" data-term-auto="off">\(v_k=2
 class="math display" data-term-auto="off">\[b_n=6+2\left\lfloor\frac{\log(n+1)}2\right\rfloor,
 \qquad
 U_n=\begin{cases}2b_{n-1}-v_k,&amp;n=c_k,\\b_n,&amp;n\notin\{c_k:k\ge0\},\end{cases}\]</span></div>
-<p>and define <span class="math inline" data-term-auto="off">\(a_n=2U_{n-1}-U_n\)</span>. The
+<p class="display-continue">and define <span class="math inline" data-term-auto="off">\(a_n=2U_{n-1}-U_n\)</span>. The
 separation of the centres and the baseline increment bound give
 positivity and the displayed logarithmic bound. Finite telescoping
 leaves <span class="math inline" data-term-auto="off">\(U_{N+m}/2^m\)</span>, which tends to
@@ -1628,9 +1639,10 @@ class="math inline" data-term-auto="off">\(c_n\)</span> is positive, even and st
 increasing, <span class="math inline" data-term-auto="off">\(U_{n+1}=2U_n-c_{n+1}\)</span>,
 every shift <span class="math inline" data-term-auto="off">\(U_{N+h}-U_N\)</span> is
 integral, <span class="math inline" data-term-auto="off">\(c_{n+1}-c_n=4n+10\)</span> is
-never <span class="math inline" data-term-auto="off">\(\pm2\)</span>, and <span
+never <span class="math inline" data-term-auto="off">\(\pm2\)</span>, and </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{c_j}{2^{\,j}}=32
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Direct expansion gives the recurrence, and the finite
@@ -1813,20 +1825,22 @@ the escape equivalence for the actual tail, is the following.</p>
 <p><strong>Problem 27</strong> (universal prime-gap shift escape). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
-class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies <span class="tex-label" id="long251:eq:shift-escape"></span><span
+class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
+<div class="math-display" id="long251:eq:shift-escape" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{g_{N+h+j}-g_{N+j}}{2^{\,j}}\notin\Z
 .
-\tag{8.1}\label{long251:eq:shift-escape}\]</span></em></p>
+\tag{8.1}\label{long251:eq:shift-escape}\]</span></div>
 </div>
 <div class="problem" id="long251:prob:smallpair">
 <p><strong>Problem 28</strong> (cofinal adjacent small mismatch). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
-class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies <span class="tex-label" id="long251:eq:smallpair"></span><span
+class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
+<div class="math-display" id="long251:eq:smallpair" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl|\sigma_h(N)\bigr|&lt;1,\qquad
 \bigl|\sigma_h(N+1)\bigr|&lt;1,\qquad
 g_{N+h+1}\ne g_{N+1} .
-\tag{8.2}\label{long251:eq:smallpair}\]</span></em></p>
+\tag{8.2}\label{long251:eq:smallpair}\]</span></div>
 </div>
 <p>Corollary <a class="math-ref" href="#long251:res:smallpair-real">11</a> makes
 Problem <a class="math-ref" href="#long251:prob:smallpair">28</a> sufficient
@@ -1987,7 +2001,7 @@ class="math inline" data-term-auto="off">\(n+1\)</span> primes lie below <span
 class="math inline" data-term-auto="off">\(2m\)</span> and therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[p_n\le2(n+5)^4\le1250(n+1)^4 ,\]</span></div>
-<p>the last
+<p class="display-continue">the last
 step because <span class="math inline" data-term-auto="off">\((n+5)\le5(n+1)\)</span> for
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>. The same bound is checked by
 the kernel at <a
@@ -2157,9 +2171,11 @@ majorant, is the following.</p>
 <p><strong>Proposition 31</strong> (finite truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(M(n)\ge g_n\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\)</span>, assume the series below converges, and
-put <span
+put </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S_{h,N,L}=\sum_{j=1}^{L}\frac{g_{N+h+j}-g_{N+j}}{2^{\,j}},\qquad
-R_{h,N,L}(M)=\sum_{j&gt;L}\frac{M(N+h+j)+M(N+j)}{2^{\,j}} .\]</span> If
+R_{h,N,L}(M)=\sum_{j&gt;L}\frac{M(N+h+j)+M(N+j)}{2^{\,j}} .\]</span></div>
+<p><em> If
 for every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span> there are <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> and <span
@@ -2185,7 +2201,7 @@ class="math display" data-term-auto="off">\[D_{h,N,L}=\sum_{j=1}^{L}2^{\,L-j}(g_
 class="math display" data-term-auto="off">\[\operatorname{dist}(S_{h,N,L},\Z)
 =2^{-L}\min\bigl\{D_{h,N,L}\bmod2^{L},\;
 2^{L}-(D_{h,N,L}\bmod2^{L})\bigr\},\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(D_{h,N,L}\bmod2^{L}\)</span> is the least
 nonnegative residue, including when <span
 class="math inline" data-term-auto="off">\(D_{h,N,L}&lt;0\)</span>. The finite criterion

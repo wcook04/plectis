@@ -32,8 +32,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
         "publication_manifest_match": true,
         "mathml_node_count": 303,
@@ -43,7 +43,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "aa7fa86431547b895304091a0334e599abd1556a43d0959ebf07ce9e61f143c4",
-        "html_exact_tex_sha256": "9f729528b39c90192212776912046331cdbeedc8727858b0ede32e63b870cff2"
+        "html_exact_tex_sha256": "40c7c6de858079fde23012e33dc7e1a564691aaaae3b72388cb732c5548165c1"
       },
       "sections": [
         {
@@ -167,8 +167,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
         "publication_manifest_match": true,
         "mathml_node_count": 883,
@@ -178,7 +178,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "ecee1171fc8d7a54220c6dfad7cf7dcf0332a4985c823d8acd423627c809421c",
-        "html_exact_tex_sha256": "fb4af0af66bb36c1bc5944e354be4f6364519cc7dd8b4ac525dd086c8720df67"
+        "html_exact_tex_sha256": "3e262f64c98b2ef6d71ead65a7812601cffb7ec819fa73f92bac9c5fcb682866"
       },
       "sections": [
         {
@@ -397,8 +397,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
         "publication_manifest_match": true,
         "mathml_node_count": 278,
@@ -408,7 +408,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
-        "html_exact_tex_sha256": "775b39549600ae1f2cec7cadfd0357ffed608599e4612dd63551fbac268a5986"
+        "html_exact_tex_sha256": "72c379d8418cee60d30b4504991c7c9df6802d7254c083d8563448bd90bd6709"
       },
       "sections": [
         {
@@ -527,8 +527,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
         "publication_manifest_match": true,
         "mathml_node_count": 1591,
@@ -538,7 +538,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "e0fbb020622207caf379abba279d209b83811ee103d273a94330a953a3493b94",
-        "html_exact_tex_sha256": "d03b137b80253de801a55ad33130ef76bb96342257000e019a42c64de0bd1f82"
+        "html_exact_tex_sha256": "2f23ca6f6fea947defd376158d1b3f7bc6adc1ef465d066dc6164e23481817b3"
       },
       "sections": [
         {
@@ -942,8 +942,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
         "publication_manifest_match": true,
         "mathml_node_count": 319,
@@ -953,7 +953,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "df7eb404fb27886aad1933253c88acd66e8d9d5da0de40d44b57be62f95d8246",
-        "html_exact_tex_sha256": "1c8cb8d65e188f4f1c9a32f2fa1ff57d2c7e11021d7e71ddf77d822d778b65aa"
+        "html_exact_tex_sha256": "6f357d1600e230ec0b8187804dca539e04d4fe9ee0bb9905b00676198bc4fe1c"
       },
       "sections": [
         {
@@ -1042,8 +1042,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "e56ae41b7c9c25babd97b581554f2b160d352cb0ce7fd42114a07b0c4d656739",
         "publication_manifest_match": true,
         "mathml_node_count": 2892,
@@ -1096,7 +1096,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "8ad3a473ccde338036d820a072e8404b7cee7eaa5c3e46d7634fb22368d50f3b",
-        "html_exact_tex_sha256": "856d9a5db46158fbef5dba11f53cdceab86ba2600f0f73b64479e3d1766b154f"
+        "html_exact_tex_sha256": "0d5c203150cac8ea4c5aff62bc969cf184f7902e1961e39ba28cc993c2050508"
       },
       "sections": [
         {
@@ -1875,8 +1875,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
         "publication_manifest_match": true,
         "mathml_node_count": 496,
@@ -1899,7 +1899,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-        "html_exact_tex_sha256": "e46d19c19e32501c5b03551c923848eab023965f12a5d72b45f917e7f1147445"
+        "html_exact_tex_sha256": "414c5e53094577f845a1a8621f497e74d0950ef35685412d844a47799d45fc8d"
       },
       "sections": [
         {
@@ -2063,8 +2063,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 922,
@@ -2082,7 +2082,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
-        "html_exact_tex_sha256": "fd9a963e31665e6258243ffd035d731c81a80c0222cb158ee6738f28a7deec15"
+        "html_exact_tex_sha256": "d0e7de897478dd6db3fb103eeb3b5895bb1961438b74530b92597e4baa28d605"
       },
       "sections": [
         {
@@ -2371,8 +2371,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
         "publication_manifest_match": true,
         "mathml_node_count": 344,
@@ -2399,7 +2399,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "90cf2ad508f3e1142326f10445948e9a1d8ad5902fd0f7b00d64310f79708026",
-        "html_exact_tex_sha256": "a71150f52a639a552ebce23121cf0ef298d28d182870172c70802362a3fe9d7c"
+        "html_exact_tex_sha256": "c8ad04e6cbc0e359587bc0928e06a9671bf3c54f696dd3481b38908b4c7754c4"
       },
       "sections": [
         {
@@ -2523,11 +2523,11 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
-        "source_sha256": "3d5423ea1b7d8a516bd96504f24d6247147794b033141e79da630a38c92ca15b",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
+        "source_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
         "publication_manifest_match": true,
-        "mathml_node_count": 2917,
+        "mathml_node_count": 2923,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -2539,8 +2539,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "585e6e64ad8d89b8825587c3d3aa259563b84cb4e01369c4425fa691927a1ddd",
-        "html_exact_tex_sha256": "3e6bdba793c34785c1bfa4a799286ec2dc958f2394f8bcace6a2c5ef41753601"
+        "html_mathml_sha256": "cea83cbe5efb991557ab6044da87604bea3c4cb11b2c92ee9db7a60fa279908e",
+        "html_exact_tex_sha256": "d2fcd65d6ab6b7a2c141afa529cf4fdf2917a27f83304476b3112218331e78e8"
       },
       "sections": [
         {
@@ -3259,8 +3259,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
         "publication_manifest_match": true,
         "mathml_node_count": 968,
@@ -3279,7 +3279,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "acd1faa4f01f148fad50f09c042c29c986b63cee9305ca8a2f94c6647547bcc6",
-        "html_exact_tex_sha256": "d7aa1519d797e15895d2d2b0bf550d8d5e34388c9a9e2efd8e0300decbfc2d3a"
+        "html_exact_tex_sha256": "169f3641f34dd364e83960aaa76221c6238b44ff97e7ea62143bd40b41977886"
       },
       "sections": [
         {
@@ -3513,8 +3513,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
         "publication_manifest_match": true,
         "mathml_node_count": 260,
@@ -3524,7 +3524,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
-        "html_exact_tex_sha256": "339b16286c635a1a7c7e825b8fabaa47fa95d0f561d8a07604ce034341206d76"
+        "html_exact_tex_sha256": "a3814f95dff9ca3236fb8528bbd213d2d67ec8377d121bef58a9c63d00261e33"
       },
       "sections": [
         {
@@ -3633,8 +3633,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
         "publication_manifest_match": true,
         "mathml_node_count": 518,
@@ -3644,7 +3644,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-        "html_exact_tex_sha256": "715624b9a971b974d4883af147aef355049303f2a39f5909568b8085f23c1376"
+        "html_exact_tex_sha256": "1ecb44707c0e7e18d99419e6fa32f3fdc330d7613265ff6d7dcfd557c10be09f"
       },
       "sections": [
         {
@@ -3838,9 +3838,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
-        "source_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
+        "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
         "publication_manifest_match": true,
         "mathml_node_count": 1244,
         "raw_math_fallback_count": 2,
@@ -3866,8 +3866,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8d77dc74871a8ef89c2d099e3e1435f27fadc6f6a76e3344f6ba0d0c87792d90",
-        "html_exact_tex_sha256": "2b3d2a6fbea0ca027cb7467e631e373f3bc22a4a8a3be4a908c3a360cfe794a8"
+        "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
+        "html_exact_tex_sha256": "ef3a1ce77bfe8f2a56a22e73be8dfebaa2368a0b182a112dec9e2222d4e7b755"
       },
       "sections": [
         {
@@ -4098,7 +4098,7 @@
         {
           "level": 3,
           "anchor": null,
-          "label": "3. Metric fan-in without losing the coefficient"
+          "label": "3. Metric fan-in after the printed spanning-tree coefficient is excluded"
         },
         {
           "level": 3,
@@ -4201,8 +4201,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
@@ -4212,7 +4212,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
-        "html_exact_tex_sha256": "09d1b3aff9249b8187d69e33e777d4e7b3af74e7ff0495f21dc024aa13744ab1"
+        "html_exact_tex_sha256": "8cc150caf60e913bf32c07aed5e82bc54f29d523f7ad2752968b17caf3336a6e"
       },
       "sections": [
         {
@@ -4351,8 +4351,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
@@ -4362,7 +4362,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-        "html_exact_tex_sha256": "92ea6dde358257662d2435ba90947d83fbc66df6fabb4184de57c035b451bcdc"
+        "html_exact_tex_sha256": "f80ed196848884122d186c7b6d0f0d1dafbca7ee627791b1964c261feb1d3901"
       },
       "sections": [
         {
@@ -4686,8 +4686,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "e04d135267c9416d729c9ba42df364448b203abf06aabfeeac14da0f30993a8e",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -4697,7 +4697,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "72c5159537ca160944f07b8675ad4bace1a89fdd415be5670fa3e86bb68f77c5",
-        "html_exact_tex_sha256": "b8f08889b3c9591ad839d1201b58cc65d360ee1253113aee16c65c709bff0cc7"
+        "html_exact_tex_sha256": "9d8639528f9dba94b32006010de61d5b016529b79c82ad57657c64c5d80c4cf5"
       },
       "sections": [
         {
@@ -4961,8 +4961,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -5106,8 +5106,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -5134,7 +5134,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "dc3d71df8f3feae326edfb48608cfcb0db4b87c17d114a663837eaaf755efc0d",
-        "html_exact_tex_sha256": "02c5de1f8ba9b55dd3ebea2f983a84b360367b37f21075d2933eca824fc4afea"
+        "html_exact_tex_sha256": "7bc0bc1d97427cfef1f682e0a2f5d85d5dbd72bc850c371c63fb9c67b0cf1894"
       },
       "sections": [
         {
@@ -5313,8 +5313,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,

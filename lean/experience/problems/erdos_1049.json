@@ -286,8 +286,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 19,
-      "renderer_fingerprint": "08ddee3edaf05afe",
+      "renderer_contract_version": 20,
+      "renderer_fingerprint": "3037c02d51a2a034",
       "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
       "publication_manifest_match": true,
       "mathml_node_count": 405,
@@ -297,7 +297,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
-      "html_exact_tex_sha256": "09d1b3aff9249b8187d69e33e777d4e7b3af74e7ff0495f21dc024aa13744ab1"
+      "html_exact_tex_sha256": "8cc150caf60e913bf32c07aed5e82bc54f29d523f7ad2752968b17caf3336a6e"
     },
     "sections": [
       {
@@ -443,8 +443,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
@@ -454,7 +454,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
-        "html_exact_tex_sha256": "09d1b3aff9249b8187d69e33e777d4e7b3af74e7ff0495f21dc024aa13744ab1"
+        "html_exact_tex_sha256": "8cc150caf60e913bf32c07aed5e82bc54f29d523f7ad2752968b17caf3336a6e"
       },
       "sections": [
         {
@@ -600,8 +600,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 19,
-        "renderer_fingerprint": "08ddee3edaf05afe",
+        "renderer_contract_version": 20,
+        "renderer_fingerprint": "3037c02d51a2a034",
         "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
@@ -611,7 +611,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-        "html_exact_tex_sha256": "92ea6dde358257662d2435ba90947d83fbc66df6fabb4184de57c035b451bcdc"
+        "html_exact_tex_sha256": "f80ed196848884122d186c7b6d0f0d1dafbca7ee627791b1964c261feb1d3901"
       },
       "sections": [
         {

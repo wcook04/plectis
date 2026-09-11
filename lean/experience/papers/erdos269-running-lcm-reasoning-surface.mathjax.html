@@ -14,7 +14,7 @@ positive integers all of whose prime factors lie in <span
 class="math inline" data-term-auto="off">\(P\)</span>. Erdős Problem #269 asks whether</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}\frac{1}{[a_1,\ldots,a_n]}\]</span></div>
-<p>is irrational, where <span
+<p class="display-continue">is irrational, where <span
 class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]\)</span> is the least common
 multiple <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
@@ -318,7 +318,7 @@ class="math inline" data-term-auto="off">\(2,3,4,5,8,9,16,25,27,32,\ldots\)</spa
 jump word begins</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2,\;3,2,\;5,2,\;3,2,\;5,3,2,\;\ldots\]</span></div>
-<p>grouped so that each group ends at a power of two, which is the grouping
+<p class="display-continue">grouped so that each group ends at a power of two, which is the grouping
 used in Section <a class="math-ref" href="#long269:sec:blocks">5</a>.</p>
 <p>Two finite statements are recorded here because they are the exact
 shape of the counting used later. Write <span
@@ -591,10 +591,12 @@ correct, and at three it fails at every finite order.</p>
 <span class="math inline" data-term-auto="off">\(p,q&gt;1\)</span> and all <span
 class="math inline" data-term-auto="off">\(i,j\)</span>, the two-prime kernel <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2(i,j)=1/L_{p,q}(p^iq^j)\)</span>
-is the outer product <span
+is the outer product </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{K}_2(i,j)
 =\bigl(p^{i}q^{\lfloor\log_q p^{i}\rfloor}\bigr)^{-1}
-  \bigl(p^{\lfloor\log_p q^{j}\rfloor}q^{j}\bigr)^{-1},\]</span> so
+  \bigl(p^{\lfloor\log_p q^{j}\rfloor}q^{j}\bigr)^{-1},\]</span></div>
+<p class="display-continue"><em> so
 every two-by-two minor of <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2\)</span> vanishes.</em></p>
 </div>
@@ -623,13 +625,14 @@ class="math inline" data-term-auto="off">\(\operatorname{K}(0,0,0)\operatorname{
 <div class="proposition" id="long269:res:rank">
 <p><strong>Proposition 9</strong> (non-separability at <span
 class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>). <em> With <span
-class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, <span
+class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\det\begin{pmatrix}
 \operatorname{K}(0,0,0)&amp;\operatorname{K}(0,1,0)\\
 \operatorname{K}(1,0,0)&amp;\operatorname{K}(1,1,0)
 \end{pmatrix}
 =\det\begin{pmatrix}1&amp;1/6\\1/2&amp;1/60\end{pmatrix}
-=-\frac1{15}\ne0 .\]</span></em></p>
+=-\frac1{15}\ne0 .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The four values are computed from <span
@@ -671,9 +674,11 @@ class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math in
 r\)</span> and <span class="math inline" data-term-auto="off">\(q\ne r\)</span>. For every
 <span class="math inline" data-term-auto="off">\(n\ge1\)</span> there are injective maps
 <span class="math inline" data-term-auto="off">\(I,J:\{0,\ldots,n-1\}\to\N\)</span> such
-that, for every <span class="math inline" data-term-auto="off">\(k\ge0\)</span>, <span
+that, for every <span class="math inline" data-term-auto="off">\(k\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\det\bigl(\operatorname{K}(I(a),J(b),k)\bigr)_{0\le
-a,b&lt;n}\ne0 .\]</span> Consequently, for no finite <span
+a,b&lt;n}\ne0 .\]</span></div>
+<p><em> Consequently, for no finite <span
 class="math inline" data-term-auto="off">\(d\)</span> do there exist rational-valued
 functions <span class="math inline" data-term-auto="off">\(f_\ell:\N\to\Q\)</span> and <span
 class="math inline" data-term-auto="off">\(G_\ell:\N^{2}\to\Q\)</span>, <span
@@ -738,7 +743,7 @@ t&amp;t&amp;\cdots&amp;t&amp;t
 \end{pmatrix},
 \qquad
 \det C_n(t)=t(t-1)^{n-1}\ne0 ,\]</span></div>
-<p>the determinant following by
+<p class="display-continue">the determinant following by
 subtracting from each row its predecessor, working upwards from the
 last. Equation <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a>
 multiplies this determinant by nonzero row and column factors, for every
@@ -810,7 +815,7 @@ C(i,j)=t^{\lfloor x_i+y_j\rfloor},
 \qquad
 x_i=\{i\log_r p\},\quad y_j=\{j\log_r q\},\quad t=r^{-1},
 \end{equation}\]</span></div>
-<p>which is the factor left in <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a>
+<p class="display-continue">which is the factor left in <a class="math-ref" href="#long269:eq:carry-factorisation">(4)</a>
 after the row and column factors are divided out. Say that a real matrix
 <span class="math inline" data-term-auto="off">\(A\)</span> on <span
 class="math inline" data-term-auto="off">\(\N\times\N\)</span> has <em>finite separated
@@ -824,8 +829,10 @@ continuity or boundedness assumed.</p>
 <p><strong>Theorem 11</strong> (sharp uniform separated approximation).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
 primes and let <span class="math inline" data-term-auto="off">\(C\)</span> be as in <a class="math-ref" href="#long269:eq:carry-matrix">(5)</a>. Then
-<span class="math display" data-term-auto="off">\[\inf_{A}\ \sup_{i,j\ge0}\
-|C(i,j)-A(i,j)|=\frac{1-t}{2}=\frac{r-1}{2r},\]</span> the infimum being
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\inf_{A}\ \sup_{i,j\ge0}\
+|C(i,j)-A(i,j)|=\frac{1-t}{2}=\frac{r-1}{2r},\]</span></div>
+<p class="display-continue"><em> the infimum being
 over all matrices <span class="math inline" data-term-auto="off">\(A\)</span> of finite
 separated rank, and it is attained by the constant matrix of value <span
 class="math inline" data-term-auto="off">\((1+t)/2\)</span>.</em></p>
@@ -945,13 +952,14 @@ class="math inline" data-term-auto="off">\(2^{a}&lt;p^{e}&lt;2^{a+1}\)</span>, i
 order.</p>
 <div class="proposition" id="long269:res:dyadic-alphabet">
 <p><strong>Proposition 12</strong> (the dyadic block alphabet). <em> For
-every <span class="math inline" data-term-auto="off">\(a\)</span>, <span class="tex-label" id="long269:eq:dyadic-alphabet"></span><span
+every <span class="math inline" data-term-auto="off">\(a\)</span>, </em></p>
+<div class="math-display" id="long269:eq:dyadic-alphabet" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:dyadic-alphabet}
 b_a=\frac{\operatorname{H}_{a+1}}{\operatorname{H}_a}=2\prod_{(p,e)\in
 I_a}p\in\{2,6,10,30\},
 \qquad\text{so}\qquad 2\le b_a\le30 .
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Internal-power uniqueness leaves two independent
@@ -995,7 +1003,7 @@ m_a=A_2(a+1)+\sum_{(p,e)\in I_a}(p-1)\,\sigma_a(p,e)\,
         \bigl(C_p(e)-C_2(a)\bigr)\quad(a\ge1),
 \qquad m_0=1 ,
 \end{equation}\]</span></div>
-<p>the integer implemented by the pinned checker
+<p class="display-continue">the integer implemented by the pinned checker
 and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150">checked
 ordered digit</a>. The first four pairs <span
@@ -1009,7 +1017,8 @@ class="math inline" data-term-auto="off">\((30,65)\)</span>.</p>
 <p><strong>Theorem 13</strong> (the literal shell recurrence). <em> The
 shell masses are summable and <span
 class="math inline" data-term-auto="off">\(S=\sum_{a\ge0}s_a\)</span>. For every <span
-class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span class="tex-label" id="long269:eq:shell-digit-identity"></span><span
+class="math inline" data-term-auto="off">\(a\ge0\)</span>, </em></p>
+<div class="math-display" id="long269:eq:shell-digit-identity" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:shell-digit-identity}
 m_a=h_{a+1}s_a\in\N_{&gt;0},
@@ -1017,7 +1026,7 @@ m_a=h_{a+1}s_a\in\N_{&gt;0},
 X_{a+1}=b_aX_a-m_a,
 \qquad
 X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Every exponent of <span
@@ -1049,11 +1058,11 @@ class="math display" data-term-auto="off">\[h_{a+1}s_a
 =\sum_{\ell=0}^{v}(n_{\ell+1}-n_\ell)\prod_{u&gt;\ell}p_u
 =n_{v+1}-n_0+\sum_{\ell=1}^{v}(p_\ell-1)
         \Bigl(\prod_{u&gt;\ell}p_u\Bigr)(n_\ell-n_0),\]</span></div>
-<p>the
+<p class="display-continue">the
 second equality being finite summation by parts. Counting by the
 exponent of <span class="math inline" data-term-auto="off">\(p\)</span> gives <span
 class="math inline" data-term-auto="off">\(N(p^{e})=C_p(e)\)</span>, so the right-hand side
-is exactly <a class="math-ref" href="#long269:eq:actual-digit">(7)</a>; at <span
+is exactly <a class="math-ref" href="#long269:eq:actual-digit">(8)</a>; at <span
 class="math inline" data-term-auto="off">\(a=0\)</span> the shell is the single point <span
 class="math inline" data-term-auto="off">\(1\)</span>, giving <span
 class="math inline" data-term-auto="off">\(m_0=1\)</span>. Positivity follows from <span
@@ -1114,7 +1123,7 @@ the subject of Section <a class="math-ref" href="#long269:sec:actual-orbit">6</
 class="math display" data-term-auto="off">\[n_a=a+\lfloor\log_3(2^{a})\rfloor+\lfloor\log_5(2^{a})\rfloor,
 \qquad
 Q(n)=\frac{n^{2}+8n+18}{9},\]</span></div>
-<p>so <span
+<p class="display-continue">so <span
 class="math inline" data-term-auto="off">\(n_a\)</span> is the sum of the three height
 exponents at <span class="math inline" data-term-auto="off">\(2^{a}\)</span>.</p>
 <div class="theorem" id="long269:res:actual-tail-bound">
@@ -1138,7 +1147,7 @@ class="math inline" data-term-auto="off">\(2\)</span>. Since <span class="math i
 B\ge C\)</span>, the cell contains at most</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(B+1)(C+1)\le\frac{(A+B+C+3)^{2}}{9}\]</span></div>
-<p>smooth points: writing <span class="math inline" data-term-auto="off">\(u=B+1\ge
+<p class="display-continue">smooth points: writing <span class="math inline" data-term-auto="off">\(u=B+1\ge
 v=C+1\)</span> and using <span class="math inline" data-term-auto="off">\(A+1\ge u\)</span>,
 the difference <span
 class="math inline" data-term-auto="off">\((2u+v)^{2}-9uv=(u-v)(4u-v)\)</span> is
@@ -1157,7 +1166,7 @@ ranks, allowing empty ones, gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[X_a\le\frac1{18}\sum_{k\ge0}\frac{(n_a+k+3)^{2}}{2^{k}}
       =\frac{n_a^{2}+8n_a+18}{9},\]</span></div>
-<p>the evaluation using the
+<p class="display-continue">the evaluation using the
 geometric moments <span class="math inline" data-term-auto="off">\(\sum2^{-k}=2\)</span>,
 <span class="math inline" data-term-auto="off">\(\sum k2^{-k}=2\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum k^{2}2^{-k}=6\)</span>. Positivity follows
@@ -1198,7 +1207,7 @@ the rest of the note:</p>
 K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor
 =\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor .
 \end{equation}\]</span></div>
-<p>The cutoff in <a class="math-ref" href="#long269:eq:endpoint-index">(8)</a> is
+<p>The cutoff in <a class="math-ref" href="#long269:eq:endpoint-index">(10)</a> is
 <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and it is strict.</p>
 <div class="lemma" id="long269:res:all-scale-lattice">
 <p><strong>Lemma 16</strong> (finite denominator clearing). <em> For all
@@ -1245,14 +1254,17 @@ identity</a>.</p>
 <p><strong>Theorem 17</strong> (positive reduced carries from
 rationality). <em> Suppose <span class="math inline" data-term-auto="off">\(S=N/D\)</span>
 with <span class="math inline" data-term-auto="off">\(N\in\Z\)</span>, <span
-class="math inline" data-term-auto="off">\(D\in\N_{&gt;0}\)</span>, and write <span
+class="math inline" data-term-auto="off">\(D\in\N_{&gt;0}\)</span>, and write </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[D=2^{u}3^{v}5^{w}B,\qquad u,v,w\in\N,\quad
 B\in\N_{&gt;0},\quad\gcd(B,30)=1,
-\qquad a_D=u+1+2v+3w .\]</span> Then for every <span
+\qquad a_D=u+1+2v+3w .\]</span></div>
+<p>Then for every <span
 class="math inline" data-term-auto="off">\(a\ge a_D\)</span> the number <span
-class="math inline" data-term-auto="off">\(z_a=BX_a\)</span> is a positive integer and <span
+class="math inline" data-term-auto="off">\(z_a=BX_a\)</span> is a positive integer and </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[z_{a+1}=b_az_a-Bm_a,\qquad 1\le z_a\le
-K(B,a)\le90B(a+1)^{2} .\]</span></em></p>
+K(B,a)\le90B(a+1)^{2} .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Let <span
@@ -1269,7 +1281,7 @@ terms on the right are divisible by <span
 class="math inline" data-term-auto="off">\(M\)</span>, so dividing by <span
 class="math inline" data-term-auto="off">\(M\)</span> shows that <span
 class="math inline" data-term-auto="off">\(BX_a\)</span> is an integer. Positivity and the
-recurrence come from <a class="math-ref" href="#long269:eq:shell-digit-identity">long269:eq:shell-digit-identity</a>,
+recurrence come from <a class="math-ref" href="#long269:eq:shell-digit-identity">(9)</a>,
 and the upper bound is Theorem <a class="math-ref" href="#long269:res:actual-tail-bound">15</a> with
 the floor taken, since <span class="math inline" data-term-auto="off">\(z_a\)</span> is an
 integer below <span class="math inline" data-term-auto="off">\(BQ(n_a)\)</span>. Finally
@@ -1352,7 +1364,7 @@ X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h},
 \qquad\text{and}\qquad
 z_{\ell+h}=W_{\ell,h}z_\ell-BF_{\ell,h}
 \end{equation}\]</span></div>
-<p>for any integral carry with <span
+<p class="display-continue">for any integral carry with <span
 class="math inline" data-term-auto="off">\(z_{n+1}=b_nz_n-Bm_n\)</span>; the integral form is
 the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">checked
@@ -1448,10 +1460,12 @@ class="math inline" data-term-auto="off">\(B\)</span> and <span
 class="math inline" data-term-auto="off">\(a\)</span>, and <span
 class="math inline" data-term-auto="off">\(G(B,a)/2^{a}\to0\)</span> as <span
 class="math inline" data-term-auto="off">\(a\to\infty\)</span> for each fixed <span
-class="math inline" data-term-auto="off">\(B\)</span>. Then <span
+class="math inline" data-term-auto="off">\(B\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathsf E(G)\quad\Longleftrightarrow\quad
-S\notin\Q .\]</span> Both <span class="math inline" data-term-auto="off">\(K\)</span>
-of <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>
+S\notin\Q .\]</span></div>
+<p><em> Both <span class="math inline" data-term-auto="off">\(K\)</span>
+of <a class="math-ref" href="#long269:eq:actual-bound">(11)</a>
 and <span class="math inline" data-term-auto="off">\(K_0(B,a)=90B(a+1)^{2}\)</span> lie in
 this band, so <span class="math inline" data-term-auto="off">\(\mathsf E(K)\)</span>, <span
 class="math inline" data-term-auto="off">\(\mathsf E(K_0)\)</span> and irrationality of <span
@@ -1469,10 +1483,10 @@ class="math inline" data-term-auto="off">\(30\)</span>, an onset <span
 class="math inline" data-term-auto="off">\(a_D\)</span>, and positive integers <span
 class="math inline" data-term-auto="off">\(z_a=BX_a\le K(B,a)\le G(B,a)\)</span> for <span
 class="math inline" data-term-auto="off">\(a\ge a_D\)</span> satisfying the cleared
-recurrence. Apply <a class="math-ref" href="#long269:eq:actual-escape">(11)</a> with
+recurrence. Apply <a class="math-ref" href="#long269:eq:actual-escape">(13)</a> with
 <span class="math inline" data-term-auto="off">\(a_0=a_D\)</span> to obtain a window <span
 class="math inline" data-term-auto="off">\((\ell,h)\)</span> with <span
-class="math inline" data-term-auto="off">\(\ell\ge a_D\)</span>. By <a class="math-ref" href="#long269:eq:window-identity">(10)</a>, <span
+class="math inline" data-term-auto="off">\(\ell\ge a_D\)</span>. By <a class="math-ref" href="#long269:eq:window-identity">(12)</a>, <span
 class="math inline" data-term-auto="off">\(z_{\ell+h}\equiv-BF_{\ell,h}\)</span> modulo <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>, while <span
 class="math inline" data-term-auto="off">\(0&lt;z_{\ell+h}\le
@@ -1496,7 +1510,7 @@ class="math inline" data-term-auto="off">\(r_h=\operatorname{lpr}_{W_{\ell,h}}(-
 G(B,\ell+h)\)</span> for every <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>. Then <span
 class="math inline" data-term-auto="off">\(k_h=(BF_{\ell,h}+r_h)/W_{\ell,h}\)</span> is an
-integer, and multiplying <a class="math-ref" href="#long269:eq:window-identity">(10)</a> by
+integer, and multiplying <a class="math-ref" href="#long269:eq:window-identity">(12)</a> by
 <span class="math inline" data-term-auto="off">\(B\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[BX_\ell-k_h=\frac{BX_{\ell+h}-r_h}{W_{\ell,h}}
@@ -1515,7 +1529,7 @@ class="math display" data-term-auto="off">\[0&lt;\delta\le|BX_\ell-k_h|
 =2^{\ell}\cdot
 \frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{\ell+h}}
 \longrightarrow0\]</span></div>
-<p>as <span
+<p class="display-continue">as <span
 class="math inline" data-term-auto="off">\(h\to\infty\)</span>, because <span
 class="math inline" data-term-auto="off">\(Q(n_{\ell+h})\)</span> is quadratic in <span
 class="math inline" data-term-auto="off">\(\ell+h\)</span> and <span
@@ -1587,15 +1601,16 @@ sets the scale of any finite search.</p>
 class="math inline" data-term-auto="off">\(\theta_3=\log_32\)</span> and <span
 class="math inline" data-term-auto="off">\(\theta_5=\log_52\)</span>. For all <span
 class="math inline" data-term-auto="off">\(\ell\ge0\)</span> and <span
-class="math inline" data-term-auto="off">\(h\ge1\)</span>, <span
+class="math inline" data-term-auto="off">\(h\ge1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[W_{\ell,h}=2^{h}\,
 3^{\lfloor(\ell+h)\theta_3\rfloor-\lfloor\ell\theta_3\rfloor}\,
 5^{\lfloor(\ell+h)\theta_5\rfloor-\lfloor\ell\theta_5\rfloor},
 \qquad
-\frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .\]</span></em></p>
+\frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Telescoping <a class="math-ref" href="#long269:res:dyadic-alphabet">(12)</a> gives
+<p><em>Proof.</em> Telescoping <a class="math-ref" href="#long269:eq:dyadic-alphabet">(7)</a> gives
 <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}=\operatorname{H}_{\ell+h}/\operatorname{H}_\ell\)</span>,
 and the displayed formula is that quotient written out. Each floor
@@ -1637,7 +1652,7 @@ widening its denominator range alone. Rearranging its inequality, an
 escaping window at start <span class="math inline" data-term-auto="off">\(\ell\)</span> and
 endpoint <span class="math inline" data-term-auto="off">\(a=\ell+h\)</span> must satisfy</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[3h&gt;\log_2K(B,a)-\log_215,\]</span></div>
-<p>so
+<p class="display-continue">so
 the necessary search depth grows like <span
 class="math inline" data-term-auto="off">\(\bigl(\log_2B+2\log_2\ell\bigr)/3\)</span>. This
 is a lower bound on the length that can possibly work, and it is not an
@@ -1657,7 +1672,7 @@ settles an instance.</p>
 <section id="the-dyadic-window-scan" class="level3">
 <h3>The dyadic-window scan</h3>
 <p>A <em>certificate</em> is a finite tuple of integers recording one
-instance of the inequality in <a class="math-ref" href="#long269:eq:actual-escape">(11)</a>, so that
+instance of the inequality in <a class="math-ref" href="#long269:eq:actual-escape">(13)</a>, so that
 a reader can recheck it in a line. The integer-only <a
 href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">dyadic-window
 checker</a> constructs the ordered pure-power jumps, the block bases and
@@ -1669,7 +1684,7 @@ class="math inline" data-term-auto="off">\(h\)</span>, the endpoint jump index <
 class="math inline" data-term-auto="off">\(j_{\ell+h}\)</span>, the window base, the forcing,
 the residue <span
 class="math inline" data-term-auto="off">\(R=\operatorname{lpr}_{W}(-BF)\)</span> and the
-bound <span class="math inline" data-term-auto="off">\(K\)</span> of <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>.</p>
+bound <span class="math inline" data-term-auto="off">\(K\)</span> of <a class="math-ref" href="#long269:eq:actual-bound">(11)</a>.</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{array}{c|c|c|c|r|r|r|r}
 B&amp;\ell&amp;h&amp;j_{\ell+h}&amp;W&amp;F&amp;R&amp;K\\ \hline
@@ -1685,7 +1700,7 @@ forcing is <span class="math inline" data-term-auto="off">\(F=47\)</span>; and <
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_{60}(-47)=13\)</span>, since
 <span class="math inline" data-term-auto="off">\(-47+60=13\)</span>, which exceeds <span
 class="math inline" data-term-auto="off">\(K(1,3)=\lfloor(16+40+27)/9\rfloor=9\)</span>. The
-third row lies outside the domain of <a class="math-ref" href="#long269:eq:actual-escape">(11)</a>, since
+third row lies outside the domain of <a class="math-ref" href="#long269:eq:actual-escape">(13)</a>, since
 <span class="math inline" data-term-auto="off">\(\gcd(16,30)=2\)</span>, and is displayed to
 illustrate the window arithmetic at greater depth.</p>
 <p>A fresh scan over every <span class="math inline" data-term-auto="off">\(B\le5000\)</span>
@@ -1723,11 +1738,13 @@ class="math inline" data-term-auto="off">\(2^{10005}3^{6312}5^{4308}\)</span>, <
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span> and <span
 class="math inline" data-term-auto="off">\(1&lt;B\le B_{\max}\)</span>, where <span
 class="math inline" data-term-auto="off">\(B_{\max}\)</span> is the <span
-class="math inline" data-term-auto="off">\(106\)</span>-digit integer <span
+class="math inline" data-term-auto="off">\(106\)</span>-digit integer </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 B_{\max}={}&amp;1134599670999687767349520845707093359257353022286558739363600235\\
 &amp;016103207564063373270305324172145281971729 ,
-\end{aligned}\]</span> so that <span
+\end{aligned}\]</span></div>
+<p class="display-continue"><em> so that <span
 class="math inline" data-term-auto="off">\(\log_2B_{\max}=348.9846\ldots\)</span></em></p>
 </div>
 <p>The exponent triple <span
@@ -1797,8 +1814,8 @@ of the problem.</p>
 <div class="problem" id="long269:prob:producer">
 <p><strong>Problem 25</strong> (actual cofinal residue escape). <em>
 Prove <span class="math inline" data-term-auto="off">\(\mathsf E(K)\)</span> for the actual
-digits <a class="math-ref" href="#long269:eq:actual-digit">(7)</a> and the
-bound <a class="math-ref" href="#long269:eq:actual-bound">(9)</a>.</em></p>
+digits <a class="math-ref" href="#long269:eq:actual-digit">(8)</a> and the
+bound <a class="math-ref" href="#long269:eq:actual-bound">(11)</a>.</em></p>
 </div>
 <p>Every term in this question is a finite integer quantity, and a proof
 must produce a later window for every reduced denominator and every
@@ -1810,15 +1827,16 @@ class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>.</p>
 <p><strong>Problem 26</strong> (nonintegrality of every reduced tail).
 <em> For every <span class="math inline" data-term-auto="off">\(B\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span> and every <span
-class="math inline" data-term-auto="off">\(a\ge1\)</span>, prove <span class="tex-label" id="long269:eq:tail-nonintegrality"></span><span
+class="math inline" data-term-auto="off">\(a\ge1\)</span>, prove </em></p>
+<div class="math-display" id="long269:eq:tail-nonintegrality" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:tail-nonintegrality}
 BX_a\notin\Z .
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <div class="proposition" id="long269:res:tails-equivalence">
 <p><strong>Proposition 27</strong> (the reduced-tail question is also
-the target). <em> Statement <a class="math-ref" href="#long269:eq:tail-nonintegrality">long269:eq:tail-nonintegrality</a>,
+the target). <em> Statement <a class="math-ref" href="#long269:eq:tail-nonintegrality">(14)</a>,
 quantified over every <span class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime
 to <span class="math inline" data-term-auto="off">\(30\)</span> and every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>, is equivalent to irrationality of
@@ -1859,7 +1877,7 @@ class="math display" data-term-auto="off">\[\mathcal D_{2,3,5}=1+
 \sum_{t\in\{2^{n},3^{n},5^{n}:n\ge1\}}
 \frac{1}{2^{\lfloor\log_2t\rfloor}3^{\lfloor\log_3t\rfloor}
            5^{\lfloor\log_5t\rfloor}} ,\]</span></div>
-<p>whose dyadic coding is
+<p class="display-continue">whose dyadic coding is
 the joint rotation word <span
 class="math inline" data-term-auto="off">\(\delta_{3,a}=\lfloor(a+1)\theta_3\rfloor-\lfloor
 a\theta_3\rfloor\)</span> and <span
@@ -2188,7 +2206,7 @@ class="math display" data-term-auto="off">\[1+\tfrac12+\tfrac16+\tfrac1{60}+\tfr
 +\tfrac1{10800}
 =1+\tfrac12+\tfrac16+\tfrac2{60}+\tfrac2{360}+\tfrac1{10800}
 =\tfrac{18421}{10800},\]</span></div>
-<p>and the two coefficients <span
+<p class="display-continue">and the two coefficients <span
 class="math inline" data-term-auto="off">\(2\)</span> carry the whole content of the
 regrouping on this box. Where the heights are pairwise distinct the
 identity is a relabelling.</p>

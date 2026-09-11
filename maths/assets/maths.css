@@ -659,7 +659,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-family: inherit;
   font-feature-settings: normal;
 }
-.paper-stage span.math.inline { white-space: nowrap; }
+.paper-stage span.math.inline { white-space: normal; }
 .paper-stage span.math.display,
 .paper-stage .math-display {
   display: block;
@@ -670,6 +670,9 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 1em 0;
   padding: 0;
   max-width: 100%;
+}
+.paper-stage .math-display + p.display-continue {
+  margin-top: 0.35em;
 }
 /*
   Hide untypeset TeX until MathJax has replaced it. Keyed on html.scripting
@@ -699,6 +702,16 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
   text-decoration: none;
 }
 .paper-stage a.math-ref:hover { text-decoration: underline; }
+.paper-stage a[href*="github.com"] {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: color-mix(in srgb, var(--muted) 75%, transparent);
+  text-underline-offset: 0.18em;
+}
+.paper-stage a[href*="github.com"]:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
 .paper-stage .theorem,
 .paper-stage .lemma,
 .paper-stage .proposition,

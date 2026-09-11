@@ -242,7 +242,7 @@ algebra from the prime-specific input still missing in Problem #251.</p>
 <p>For a real recurrence put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta_hT(N)=T_{N+h}-T_N,\]</span></div>
-<p>and let <span
+<p class="display-continue">and let <span
 class="math inline" data-term-auto="off">\(L_0=1\)</span>, <span
 class="math inline" data-term-auto="off">\(L_j=\operatorname{lcm}(1,\ldots,j)\)</span> for
 <span class="math inline" data-term-auto="off">\(j\ge1\)</span>.</p>
@@ -251,11 +251,12 @@ class="math inline" data-term-auto="off">\(L_j=\operatorname{lcm}(1,\ldots,j)\)<
 class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(T:\N\to\R\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> for every <span
-class="math inline" data-term-auto="off">\(N\)</span>. Then <span
+class="math inline" data-term-auto="off">\(N\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{Irr}(T_0)
 \quad\Longleftrightarrow\quad
 \Delta_{L_j}T(L_j)\notin\Z
-\quad\hbox{for every }j\ge0.\]</span></em></p>
+\quad\hbox{for every }j\ge0.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Iteration gives <span
@@ -297,13 +298,16 @@ class="math inline" data-term-auto="off">\(D_{N+1}=2D_N-\delta_N\)</span>.</p>
 <div class="theorem" id="res:signedwindow">
 <p><strong>Theorem 3</strong> (signed two-window normal form). <em>
 Assume that <span class="math inline" data-term-auto="off">\(\delta_N\)</span> is even. The
-conjunction <span class="math display" data-term-auto="off">\[-1&lt;D_N&lt;1,\qquad
--1&lt;D_{N+1}&lt;1,\qquad \delta_N\ne0\]</span> is equivalent to <span
+conjunction </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[-1&lt;D_N&lt;1,\qquad
+-1&lt;D_{N+1}&lt;1,\qquad \delta_N\ne0\]</span></div>
+<p>is equivalent to </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\delta_N=2\ \hbox{ and
 }\tfrac12&lt;D_N&lt;1\bigr)
 \quad\hbox{or}\quad
 \bigl(\delta_N=-2\ \hbox{ and
-}-1&lt;D_N&lt;-\tfrac12\bigr).\]</span></em></p>
+}-1&lt;D_N&lt;-\tfrac12\bigr).\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The recurrence and the two unit windows give <span
@@ -331,25 +335,31 @@ D_{N+r}\in -B_{h,N,r}+2^{r+1}\Z.\]</span></div>
 <div class="theorem" id="res:affinecollapse">
 <p><strong>Theorem 4</strong> (affine and fixed-lattice circularity).
 <em> For every rational dyadic tail recurrence and all <span
-class="math inline" data-term-auto="off">\(h,N,r\ge0\)</span>, <span class="tex-label" id="eq:affinecollapse"></span><span
+class="math inline" data-term-auto="off">\(h,N,r\ge0\)</span>, </em></p>
+<div class="math-display" id="eq:affinecollapse" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal A_{N,r}\quad\Longleftrightarrow\quad
 D_N\in2\Z.
-\tag{2.1}\label{eq:affinecollapse}\]</span> Consequently, if every <span
-class="math inline" data-term-auto="off">\(\delta_N\)</span> is even, then <span class="tex-label" id="eq:affinecofinal"></span><span
+\tag{2.1}\label{eq:affinecollapse}\]</span></div>
+<p>Consequently, if every <span
+class="math inline" data-term-auto="off">\(\delta_N\)</span> is even, then </em></p>
+<div class="math-display" id="eq:affinecofinal" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\forall N_0\ \exists N,r:\ N_0&lt;N\text{
 and }\neg\mathcal A_{N,r}\bigr)
 \quad\Longleftrightarrow\quad
 D_N\notin\Z\text{ for arbitrarily large }N.
-\tag{2.2}\label{eq:affinecofinal}\]</span></em></p>
+\tag{2.2}\label{eq:affinecofinal}\]</span></div>
 <p><em>There is a second equivalence. Let <span
 class="math inline" data-term-auto="off">\(b:\N\to\Q\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(|D_N|\le b(N)\)</span> for every <span
 class="math inline" data-term-auto="off">\(N\)</span>, and suppose that for every <span
 class="math inline" data-term-auto="off">\(N\)</span> and every positive integer <span
 class="math inline" data-term-auto="off">\(q\)</span> there is an <span
-class="math inline" data-term-auto="off">\(r\)</span> with <span class="tex-label" id="eq:dyadicscale"></span><span
+class="math inline" data-term-auto="off">\(r\)</span> with </em></p>
+<div class="math-display" id="eq:dyadicscale" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2b(N+r)q&lt;2^r.
-\tag{2.3}\label{eq:dyadicscale}\]</span> Then <span class="tex-label" id="eq:fixedcollapse"></span><span
+\tag{2.3}\label{eq:dyadicscale}\]</span></div>
+<p>Then </em></p>
+<div class="math-display" id="eq:fixedcollapse" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{split}
 &amp;\forall N_0\ \exists N,r:\ N_0&lt;N\text{ and }
    \forall z\in\Z,\quad
@@ -357,7 +367,7 @@ class="math display" data-term-auto="off">\[\begin{split}
 &amp;\hspace{35mm}\Longleftrightarrow\quad
 D_N\notin\Z\text{ for arbitrarily large }N.
 \end{split}
-\tag{2.4}\label{eq:fixedcollapse}\]</span></em></p>
+\tag{2.4}\label{eq:fixedcollapse}\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Substituting <span
@@ -377,7 +387,7 @@ eventual integrality and the block identity give some <span
 class="math inline" data-term-auto="off">\(z\in\Z\)</span> with</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[B_{h,N,r}-2^rz=-D_{N+r},\]</span></div>
-<p>so the
+<p class="display-continue">so the
 displayed strict separation contradicts <span
 class="math inline" data-term-auto="off">\(|D_{N+r}|\le b(N+r)\)</span>. Conversely, if <span
 class="math inline" data-term-auto="off">\(D_N\)</span> is nonintegral and has reduced
@@ -404,15 +414,20 @@ consecutive primes.</p>
 counterexample.</p>
 <div class="proposition" id="res:polynomialcountermodel">
 <p><strong>Proposition 5</strong> (quadratic polynomial-shift
-countermodel). <em> Put <span
-class="math display" data-term-auto="off">\[a_n=2(n^2+4n+2),\qquad U_n=2(n+4)^2.\]</span>
-Then <span class="math inline" data-term-auto="off">\(a_n\)</span> is positive, even and
+countermodel). <em> Put </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a_n=2(n^2+4n+2),\qquad U_n=2(n+4)^2.\]</span></div>
+<p>Then <span class="math inline" data-term-auto="off">\(a_n\)</span> is positive, even and
 strictly increasing, <span
 class="math inline" data-term-auto="off">\(U_{n+1}=2U_n-a_{n+1}\)</span>, every shift <span
-class="math inline" data-term-auto="off">\(U_{N+h}-U_N\)</span> is integral, <span
+class="math inline" data-term-auto="off">\(U_{N+h}-U_N\)</span> is integral, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_{N+2}-a_{N+1}\ne2,-2
-\qquad\hbox{for every }N,\]</span> and <span
-class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{a_j}{2^j}=32\]</span> as the
+\qquad\hbox{for every }N,\]</span></div>
+<p>and </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{a_j}{2^j}=32\]</span></div>
+<p class="display-continue"><em> as the
 kernel-checked identity for the countermodel series value.</em></p>
 </div>
 <div class="proof">
@@ -446,7 +461,7 @@ class="math inline" data-term-auto="off">\(n\ge0\)</span> put</p>
 class="math display" data-term-auto="off">\[D(P,n)=\sum_{i=0}^{n-1}\frac{P(i)}{2^{\,i+1}},
 \qquad
 \Delta(P,n)=\sum_{i=0}^{n-1}\frac{P(i+1)-P(i)}{2^{\,i+1}} ,\]</span></div>
-<p>both empty, hence zero, at <span class="math inline" data-term-auto="off">\(n=0\)</span>. We
+<p class="display-continue">both empty, hence zero, at <span class="math inline" data-term-auto="off">\(n=0\)</span>. We
 call these the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101">dyadic
 partial sum</a> and the <a
@@ -455,9 +470,10 @@ difference sum</a> of <span class="math inline" data-term-auto="off">\(P\)</span
 <div class="proposition" id="res:abel">
 <p><strong>Proposition 6</strong> (finite summation by parts). <em> For
 every rational sequence <span class="math inline" data-term-auto="off">\(P\)</span> and every
-<span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
+<span class="math inline" data-term-auto="off">\(n\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[D(P,n+1)=P(0)+\Delta(P,n)-\frac{P(n)}{2^{\,n+1}}
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on <span
@@ -488,10 +504,11 @@ identity</a>.</p>
 class="math inline" data-term-auto="off">\(p_0=2,p_1=3,\ldots\)</span> be the primes in
 increasing order and <span
 class="math inline" data-term-auto="off">\(g_i=p_{i+1}-p_i\)</span>. For every <span
-class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(n\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{i=0}^{n}\frac{p_i}{2^{\,i+1}}
 =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}}
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <p>This is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime-gap
@@ -508,7 +525,7 @@ priority.</p>
 <p>Write</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u_n=\frac{p_n}{2^{\,n+1}},\qquad
 v_n=\frac{g_n}{2^{\,n+1}}\]</span></div>
-<p>for the <a
+<p class="display-continue">for the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L183">prime
 dyadic terms</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L192">prime-gap
@@ -526,9 +543,10 @@ following proof does.</p>
 <span class="math inline" data-term-auto="off">\(u_n=p_n/2^{\,n+1}\)</span> and <span
 class="math inline" data-term-auto="off">\(v_n=g_n/2^{\,n+1}\)</span>. If <span
 class="math inline" data-term-auto="off">\((u_n)\)</span> is summable, then <span
-class="math inline" data-term-auto="off">\((v_n)\)</span> is summable and <span
+class="math inline" data-term-auto="off">\((v_n)\)</span> is summable and </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge0}u_n=2+\sum_{n\ge0}v_n
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The shifted sequence <span
@@ -554,10 +572,12 @@ reader.</p>
 <p><strong>Corollary 9</strong> (exact irrationality reformulation).
 <em> With <span class="math inline" data-term-auto="off">\(u_n\)</span> and <span
 class="math inline" data-term-auto="off">\(v_n\)</span> as in Theorem <a class="math-ref" href="#res:infinite">8</a>, and <span
-class="math inline" data-term-auto="off">\((u_n)\)</span> summable, <span
+class="math inline" data-term-auto="off">\((u_n)\)</span> summable, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{Irr}\!\left(\sum_{n\ge0}u_n\right)
 \quad\Longleftrightarrow\quad
-\operatorname{Irr}\!\left(\sum_{n\ge0}v_n\right).\]</span> The
+\operatorname{Irr}\!\left(\sum_{n\ge0}v_n\right).\]</span></div>
+<p><em> The
 corresponding <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L188">zero-based
 series with denominator <span class="math inline" data-term-auto="off">\(2^n\)</span></a> is
@@ -627,9 +647,11 @@ class="math inline" data-term-auto="off">\(g:\N\to\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span>. Say <span
 class="math inline" data-term-auto="off">\(T\)</span> satisfies the <em>dyadic tail
 recurrence</em> with <em>digits</em> <span
-class="math inline" data-term-auto="off">\(g\)</span> when <span
+class="math inline" data-term-auto="off">\(g\)</span> when </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_{N+1}=2T_N-g_{N+1}\qquad\text{for every }N
-.\]</span> We call the sequence <span
+.\]</span></div>
+<p><em> We call the sequence <span
 class="math inline" data-term-auto="off">\((T_N)_{N\ge0}\)</span> the <em>orbit</em> of <span
 class="math inline" data-term-auto="off">\(T_0\)</span> under <span
 class="math inline" data-term-auto="off">\(g\)</span>, write <span
@@ -691,10 +713,11 @@ class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the dyadic
 recurrence with integer digits <span class="math inline" data-term-auto="off">\(g\)</span>,
 and let <span class="math inline" data-term-auto="off">\(B_{h,N}\)</span> be as above. For
 every <span class="math inline" data-term-auto="off">\(N\)</span> and <span
-class="math inline" data-term-auto="off">\(h\)</span>, <span
+class="math inline" data-term-auto="off">\(h\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_{N+h}=2^{h}T_N-B_{h,N},
 \qquad\text{hence}\qquad
-\sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .\]</span></em></p>
+\sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on <span
@@ -836,10 +859,11 @@ the digits is needed anywhere.</p>
 integrality). <em> Let <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span>
 satisfy the dyadic tail recurrence with integer digits <span
 class="math inline" data-term-auto="off">\(g\)</span> (Definition <a class="math-ref" href="#def:rec">10</a>). Then some fixed positive
-shift is integral from some point onwards: <span
+shift is integral from some point onwards: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\exists h\ge1\ \exists N_0\ \forall N\ge
 N_0,\qquad
-\sigma_h(N)\in\Z .\]</span></em></p>
+\sigma_h(N)\in\Z .\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> At every step the reduced denominator obeys the exact
@@ -972,7 +996,7 @@ classification</a>.</p>
 <p>The concrete tails</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_N=\sum_{j\ge1}\frac{g_{N+j}}{2^j}\]</span></div>
-<p>are
+<p class="display-continue">are
 already identified, with no rationality hypothesis. The polynomial prime
 bound gives convergence, and <span
 class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> is the same
@@ -997,7 +1021,7 @@ class="math inline" data-term-auto="off">\((-1,1)\)</span> integrality is equali
 so on that range the one-step shift recurrence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr)\]</span></div>
-<p>turns simultaneous integrality of two adjacent shifts into a single
+<p class="display-continue">turns simultaneous integrality of two adjacent shifts into a single
 comparison of digits. What this buys is a <em>certificate</em>: a
 condition attached to a single pair of adjacent indices, whose
 verification already contradicts integrality at that pair. The point of
@@ -1011,10 +1035,12 @@ Let <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy 
 tail recurrence with integer digits <span
 class="math inline" data-term-auto="off">\(g\)</span>. Fix <span
 class="math inline" data-term-auto="off">\(h\)</span> and <span
-class="math inline" data-term-auto="off">\(N\)</span>. If <span
+class="math inline" data-term-auto="off">\(N\)</span>. If </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[-1&lt;\sigma_h(N)&lt;1,\qquad
 -1&lt;\sigma_h(N+1)&lt;1,
-\qquad g_{N+h+1}\ne g_{N+1},\]</span> then <span
+\qquad g_{N+h+1}\ne g_{N+1},\]</span></div>
+<p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> and <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+1)\)</span> cannot both be integral.
 Consequently, if such a pair occurs beyond every threshold, the <span
@@ -1055,10 +1081,12 @@ form). <em> Let <span class="math inline" data-term-auto="off">\(T:\N\to\R\)</sp
 digits <span class="math inline" data-term-auto="off">\(g\)</span>, and write <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)=T_{N+h}-T_N\)</span>. Fix <span
 class="math inline" data-term-auto="off">\(h\)</span> and <span
-class="math inline" data-term-auto="off">\(N\)</span>. If <span
+class="math inline" data-term-auto="off">\(N\)</span>. If </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[-1&lt;\sigma_h(N)&lt;1,\qquad
 -1&lt;\sigma_h(N+1)&lt;1,
-\qquad g_{N+h+1}\ne g_{N+1},\]</span> then <span
+\qquad g_{N+h+1}\ne g_{N+1},\]</span></div>
+<p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> and <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+1)\)</span> do not both lie in <span
 class="math inline" data-term-auto="off">\(\Z\)</span>. Consequently, if such a pair occurs
@@ -1143,7 +1171,7 @@ coefficient</a>. That definition is exactly the statement that</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{K_n}{2^{\,n}}
 =\frac{\kappa_n}{2^{\,n+1}}+\frac{K_{n+1}}{2^{\,n+1}} ,\]</span></div>
-<p>so at
+<p class="display-continue">so at
 each level the carried value splits into one emitted coefficient and a
 new carry. Nothing at all is assumed about <span
 class="math inline" data-term-auto="off">\(K\)</span>: not integrality, not positivity, not
@@ -1153,9 +1181,10 @@ the counterexample below exploits.</p>
 <p><strong>Proposition 20</strong> (exact telescoping). <em> Let <span
 class="math inline" data-term-auto="off">\(K:\N\to\Q\)</span> be arbitrary and <span
 class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span>. For every <span
-class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(n\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{i=0}^{n-1}\frac{\kappa_i}{2^{\,i+1}}=K_0-\frac{K_n}{2^{\,n}}
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A routine induction on <span
@@ -1218,8 +1247,9 @@ class="math inline" data-term-auto="off">\(h\)</span>.</p>
 <p><strong>Problem 21</strong> (divisor-hitting shift escape). <em> For
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, does some positive
 multiple of <span class="math inline" data-term-auto="off">\(r\)</span> escape cofinally?
-<span class="math display" data-term-auto="off">\[\forall r\ge1\ \exists m\ge1:\qquad \mathsf
-E(mr).\]</span></em></p>
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall r\ge1\ \exists m\ge1:\qquad \mathsf
+E(mr).\]</span></div>
 </div>
 <p>Divisor-hitting escape changes the organisation of the quantifiers.
 Within an integer-digit recurrence it is equivalent to irrationality,
@@ -1232,10 +1262,11 @@ propagation is Theorem <a class="math-ref" href="#res:propagate">14</a>.</p>
 <p><strong>Problem 22</strong> (universal prime-gap shift escape). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
-class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies <span class="tex-label" id="eq:shift-escape"></span><span
+class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
+<div class="math-display" id="eq:shift-escape" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{j\ge1}
 \frac{g_{N+h+j}-g_{N+j}}{2^j}\notin\Z .
-\tag{5.1}\label{eq:shift-escape}\]</span></em></p>
+\tag{5.1}\label{eq:shift-escape}\]</span></div>
 </div>
 <p>The series in <a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> is exactly <span
 class="math inline" data-term-auto="off">\(T_{N+h}-T_N\)</span>. Theorem <a class="math-ref" href="#res:escape-irrational">16</a> makes
@@ -1251,7 +1282,8 @@ strict logical weakening.</p>
 <p><strong>Problem 23</strong> (cofinal adjacent small mismatch). <em>
 For every fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every
 <span class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
-class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies <span class="tex-label" id="eq:smallpair"></span><span
+class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
+<div class="math-display" id="eq:smallpair" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{split}
 \left|\sum_{j\ge1}
 \frac{g_{N+h+j}-g_{N+j}}{2^j}\right|&amp;&lt;1,\\
@@ -1259,7 +1291,7 @@ class="math display" data-term-auto="off">\[\begin{split}
 \frac{g_{N+h+1+j}-g_{N+1+j}}{2^j}\right|&amp;&lt;1,\\
 g_{N+h+1}&amp;\ne g_{N+1}.
 \end{split}
-\tag{5.2}\label{eq:smallpair}\]</span></em></p>
+\tag{5.2}\label{eq:smallpair}\]</span></div>
 </div>
 <p>The two sums are adjacent <span
 class="math inline" data-term-auto="off">\(h\)</span>-shifts. Corollary <a class="math-ref" href="#res:smallpair-real">18</a> turns each
@@ -1295,7 +1327,7 @@ dominated truncation reduces the first of them to a finite quantity. For
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S_{h,N,L}=\sum_{j=1}^{L}
 \frac{g_{N+h+j}-g_{N+j}}{2^j},\]</span></div>
-<p>the truncation of the series
+<p class="display-continue">the truncation of the series
 in <a class="math-ref" href="#eq:shift-escape">eq:shift-escape</a> after
 <span class="math inline" data-term-auto="off">\(L\)</span> terms. This is a finite sum of
 gap differences and can be computed; the point of the following
@@ -1324,14 +1356,18 @@ block.</p>
 <p><strong>Proposition 24</strong> (finite truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(M(n)\ge g_n\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\)</span>, assume that the series below
-converges, and put <span class="math display" data-term-auto="off">\[R_{h,N,L}(M)=
-\sum_{j&gt;L}\frac{M(N+h+j)+M(N+j)}{2^j}.\]</span> Suppose that for
+converges, and put </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[R_{h,N,L}(M)=
+\sum_{j&gt;L}\frac{M(N+h+j)+M(N+j)}{2^j}.\]</span></div>
+<p>Suppose that for
 every fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span> there exist <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> and <span
-class="math inline" data-term-auto="off">\(L\ge1\)</span> with <span class="tex-label" id="eq:truncation"></span><span
+class="math inline" data-term-auto="off">\(L\ge1\)</span> with </em></p>
+<div class="math-display" id="eq:truncation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{dist}(S_{h,N,L},\Z)&gt;R_{h,N,L}(M).
-\tag{5.3}\label{eq:truncation}\]</span> Then Problem <a class="math-ref" href="#prob:escape">22</a> holds.</em></p>
+\tag{5.3}\label{eq:truncation}\]</span></div>
+<p><em> Then Problem <a class="math-ref" href="#prob:escape">22</a> holds.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The part of <span

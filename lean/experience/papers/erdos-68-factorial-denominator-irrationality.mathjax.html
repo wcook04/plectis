@@ -6,8 +6,10 @@
   </header>
   <div class="lean-paper__body" data-source="../../../paper/68/erdos-68-factorial-denominator-irrationality.tex">
 <div class="problem" id="res:problem">
-<p><strong>Problem 1</strong> (Erdős #68). <em> Is <span
-class="math display" data-term-auto="off">\[S=\sum_{n\ge2}\frac1{n!-1}\]</span>
+<p><strong>Problem 1</strong> (Erdős #68). <em> Is </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S=\sum_{n\ge2}\frac1{n!-1}\]</span></div>
+<p class="display-continue"><em>
 irrational?</em></p>
 </div>
 <section id="sec:problem" class="level2">
@@ -89,13 +91,14 @@ Q\)</span>;</em></p></li>
 m=0\)</span> for every sufficiently large <span
 class="math inline" data-term-auto="off">\(m\)</span>.</em></p></li>
 </ol>
-<p><em>Consequently, <span class="tex-label" id="eq:companion-cofinal"></span><span class="math display" data-term-auto="off">\[\begin{equation}
+<p><em>Consequently, </em></p>
+<div class="math-display" id="eq:companion-cofinal" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 S\notin\mathbb Q
 \quad\Longleftrightarrow\quad
 (\forall B)(\exists m&gt;B)\;
    (\lfloor m!C\rfloor+2)\bmod m\ne0 .
 \label{eq:companion-cofinal}
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <p>The equivalence and its cofinal form are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29">companion
@@ -149,7 +152,7 @@ class="math display" data-term-auto="off">\[\sum_{m&gt;N}\frac{m-1}{m!}
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S=\lfloor
 C\rfloor+
    \sum_{m=2}^{N}\frac{d_m(C)+1}{m!}+\frac1{N!},\]</span></div>
-<p>which is
+<p class="display-continue">which is
 rational. Negating the eventual statement yields the cofinal formulation
 above. ◻</p>
 </div>
@@ -187,10 +190,12 @@ classical <span class="citation"
 data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>.</p>
 <div class="theorem" id="res:carry-characterization"><span class="tex-label" id="res:strict-successor-complete-characterization" hidden></span>
 <p><strong>Theorem 3</strong> (exact carry characterisation). <em> The
-following conditions are equivalent: <span
+following conditions are equivalent: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S\notin\mathbb Q,\qquad
 (\forall B)(\exists m&gt;B)\ b_m\ne1,\qquad
-(\forall B)(\exists m&gt;B)\ m\nmid Z_m.\]</span> In particular, <a
+(\forall B)(\exists m&gt;B)\ m\nmid Z_m.\]</span></div>
+<p><em> In particular, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
 non-unit carries imply irrationality</a>; equivalently, the original
 problem is the <a
@@ -206,7 +211,7 @@ Conversely, if <span class="math inline" data-term-auto="off">\(b_m=1\)</span> e
 then <span class="math inline" data-term-auto="off">\(Z_m/m!\)</span> is eventually constant.
 Since</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[H_m&lt;Z_m/m!\le H_m+1/m!,\]</span></div>
-<p>that rational constant is <span class="math inline" data-term-auto="off">\(S\)</span>.
+<p class="display-continue">that rational constant is <span class="math inline" data-term-auto="off">\(S\)</span>.
 Finally writing <span class="math inline" data-term-auto="off">\(x=(m-1)!H_{m-1}\)</span>
 gives <span class="math inline" data-term-auto="off">\(b_m=m-1-\lfloor
 m\{x\}+1/(m!-1)\rfloor\)</span>, hence <span class="math inline" data-term-auto="off">\(-1\le
@@ -236,17 +241,22 @@ introduces no term <span class="math inline" data-term-auto="off">\(1/(1!-1)\)</
 <span class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <div class="theorem" id="res:divisor-channel-coordinates">
 <p><strong>Theorem 4</strong> (divisor-channel coordinates). <em> Set
-<span class="math display" data-term-auto="off">\[T_n=ne_{n-1}-e_n,\qquad
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_n=ne_{n-1}-e_n,\qquad
 U_n=T_n-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}U_d
-\quad(n\ge2).\]</span> Then <span class="math display" data-term-auto="off">\[M(U_n)=0,\qquad
-V_d(U_n)=(d!-1)\mathbf1_{d=n}.\]</span> The vectors <span
+\quad(n\ge2).\]</span></div>
+<p>Then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M(U_n)=0,\qquad
+V_d(U_n)=(d!-1)\mathbf1_{d=n}.\]</span></div>
+<p>The vectors <span
 class="math inline" data-term-auto="off">\(e_1,U_2,U_3,\ldots\)</span> form an integral
-basis. Every finite vector has the unique finite expansion <span class="tex-label" id="eq:channel-basis-expansion"></span><span
+basis. Every finite vector has the unique finite expansion </em></p>
+<div class="math-display" id="eq:channel-basis-expansion" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \lambda=M(\lambda)e_1+
 \sum_{d\ge2}\frac{V_d(\lambda)-M(\lambda)}{d!-1}U_d.
 \label{eq:channel-basis-expansion}
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <p>The observables, the unique expansion and the coefficient formula are
 <a
@@ -273,7 +283,7 @@ diagonal. Hence <span class="math inline" data-term-auto="off">\(e_1,U_2,\ldots,
 is also an integral basis. Applying <span
 class="math inline" data-term-auto="off">\(M\)</span> and each <span
 class="math inline" data-term-auto="off">\(V_d\)</span> identifies its coefficients as in
-<a class="math-ref" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>.
+<a class="math-ref" href="#eq:channel-basis-expansion">(5)</a>.
 For <span class="math inline" data-term-auto="off">\(d\)</span> beyond the support, <span
 class="math inline" data-term-auto="off">\(V_d=M\)</span>, so no infinite sum is
 required. ◻</p>
@@ -301,7 +311,7 @@ translator nine profile</a>.</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L_D=\operatorname{lcm}_{2\le d\le
 D}(d!-1),\qquad
 K_D=L_De_1-\sum_{d=2}^D\frac{L_D}{d!-1}U_d.\]</span></div>
-<p>Equation <a class="math-ref" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>
+<p>Equation <a class="math-ref" href="#eq:channel-basis-expansion">(5)</a>
 implies both the channel congruence</p>
 <div class="math-display" id="res:congruence" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -382,9 +392,10 @@ class="math inline" data-term-auto="off">\(d\)</span>.</p>
 <p><strong>Theorem 5</strong> (finite determination of the moment
 ideal). <em> Choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span>
 with <span class="math inline" data-term-auto="off">\(D/2&lt;\ell\le D\)</span> and put <span
-class="math inline" data-term-auto="off">\(H=D(2\ell-1)\)</span>. Then <span
+class="math inline" data-term-auto="off">\(H=D(2\ell-1)\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[g_D=\gcd(u_{D+1},\ldots,u_H),\qquad
-H&lt;2D^2.\]</span></em></p>
+H&lt;2D^2.\]</span></div>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">finite
@@ -412,7 +423,9 @@ class="math inline" data-term-auto="off">\(H\le D(2D-1)&lt;2D^2\)</span>. ◻</
 </div>
 <div class="theorem" id="res:bandbreakpoint">
 <p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Under the
-band hypothesis, <span class="math display" data-term-auto="off">\[M=(d!)^k C_d.\]</span> In
+band hypothesis, </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M=(d!)^k C_d.\]</span></div>
+<p><em> In
 particular, in the first band <span class="math inline" data-term-auto="off">\(d\le
 i_j&lt;2d\)</span>, channel cancellation <span
 class="math inline" data-term-auto="off">\(C_d=0\)</span> forces <span
@@ -435,7 +448,7 @@ class="math inline" data-term-auto="off">\(\Lambda_n=\operatorname{lcm}(1,\ldots
 u_n\)</span> remains useful for other certificates. Finite-source checks
 can end sooner because only the sum of the sources has to vanish modulo
 <span class="math inline" data-term-auto="off">\(g\)</span>. The even-coefficient sign
-pattern supplies a nonzero term in every tail. Together with <a class="math-ref" href="#eq:attainable-moment-ideal">(9)</a> this
+pattern supplies a nonzero term in every tail. Together with <a class="math-ref" href="#eq:attainable-moment-ideal">(11)</a> this
 determines the unrestricted minimum positive moment for every fixed
 depth. For example, <span class="math inline" data-term-auto="off">\(L_4=115\)</span>, <span
 class="math inline" data-term-auto="off">\(a_4=-55\)</span>, <span
@@ -512,7 +525,7 @@ class="math inline" data-term-auto="off">\(n=2\)</span> vanish. The argument use
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\gcd(i!+P(i),j!+P(j))\mid
 P(j)-(j!/i!)P(i);\]</span></div>
-<p>the additional <span
+<p class="display-continue">the additional <span
 class="math inline" data-term-auto="off">\(O_P(k^2\log N)\)</span> loss is lower order. The
 subtraction identity is recorded by Lai <span class="citation"
 data-cites="lai"><a href="#ref-6">[6]</a></span>. For <span class="math inline" data-term-auto="off">\(P=0\)</span>,
@@ -555,7 +568,7 @@ class="math inline" data-term-auto="off">\(L=\operatorname{lcm}(2,\ldots,D)\)</s
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[r!\prod_{d=2}^D(L/d)!\prod_{d=2}^D(\alpha_d-1)\mid
 M\]</span></div>
-<p>follows by counting partitions into the specified equal-sized
+<p class="display-continue">follows by counting partitions into the specified equal-sized
 blocks. In particular <span class="math inline" data-term-auto="off">\(\lfloor\sqrt
 N/2\rfloor!\mid M\)</span>: if <span
 class="math inline" data-term-auto="off">\(v=\max(r,L/2)\)</span>, then <span
@@ -643,12 +656,14 @@ class="math inline" data-term-auto="off">\(R_p&gt;1\)</span>.</p>
 <div class="proposition" id="res:global-complementary-criterion">
 <p><strong>Proposition 7</strong> (global complementary-residue
 criterion). <em> If arbitrarily large natural parameters <span
-class="math inline" data-term-auto="off">\(p\ge3\)</span> satisfy <span class="tex-label" id="eq:global-complementary-target"></span><span
+class="math inline" data-term-auto="off">\(p\ge3\)</span> satisfy </em></p>
+<div class="math-display" id="eq:global-complementary-target" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 R_p&gt;1,\qquad
 (2p+1)L_p^{\rm blk}&lt;2p^2(2p-1)!\rho_p,
 \label{eq:global-complementary-target}
-\end{equation}\]</span> then <span class="math inline" data-term-auto="off">\(S\)</span> is
+\end{equation}\]</span></div>
+<p class="display-continue"><em> then <span class="math inline" data-term-auto="off">\(S\)</span> is
 irrational.</em></p>
 </div>
 <p>The criterion at natural parameters is <a
@@ -668,7 +683,7 @@ modulo <span class="math inline" data-term-auto="off">\(R_p\)</span>, and <span
 class="math inline" data-term-auto="off">\(A\ge\rho_p\)</span>. The positive tail bound</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S-H_{2p-1}&lt;\frac{2p+1}{2p^2(2p-1)!}\]</span></div>
-<p>and <a class="math-ref" href="#eq:global-complementary-target">eq:global-complementary-target</a>
+<p class="display-continue">and <a class="math-ref" href="#eq:global-complementary-target">(15)</a>
 give <span class="math inline" data-term-auto="off">\(A&lt;\rho_p\)</span>, a
 contradiction. ◻</p>
 </div>
@@ -723,16 +738,16 @@ class="math display" data-term-auto="off">\[\begin{equation}
 above <span class="math inline" data-term-auto="off">\(A_N\)</span>. Proving this on an
 unbounded grid family would suffice. The finite signed block <span
 class="math inline" data-term-auto="off">\(A_N\)</span> is essential. The second approach
-asks for the simultaneous collision and complementary-gap estimate <a class="math-ref" href="#eq:joint-loss-budget">(13)</a>. Neither
+asks for the simultaneous collision and complementary-gap estimate <a class="math-ref" href="#eq:joint-loss-budget">(16)</a>. Neither
 estimate is established cofinally here.</p>
 <section id="sec:nogo" class="level5">
 <h5>The limit of short supports.</h5>
-<p>The shortest-support kernels cannot meet <a class="math-ref" href="#eq:signed-block-gap">(15)</a>. For <span
+<p>The shortest-support kernels cannot meet <a class="math-ref" href="#eq:signed-block-gap">(18)</a>. For <span
 class="math inline" data-term-auto="off">\(N=D+O(1)\)</span>, the compulsory divisibility
-<span class="math inline" data-term-auto="off">\(L_D\mid M\)</span> and <a class="math-ref" href="#res:lcm-growth">(11)</a> give</p>
+<span class="math inline" data-term-auto="off">\(L_D\mid M\)</span> and <a class="math-ref" href="#res:lcm-growth">(13)</a> give</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{2|M|}{(N+1)!-1}\longrightarrow\infty,\]</span></div>
-<p>whereas the right side of <a class="math-ref" href="#eq:signed-block-gap">(15)</a> is at most
+<p class="display-continue">whereas the right side of <a class="math-ref" href="#eq:signed-block-gap">(18)</a> is at most
 one. A useful family must therefore allow a larger upper support and
 still control its finite signed block.</p>
 <p>Large denominator valuations alone also leave the real gap
@@ -771,7 +786,7 @@ class="math inline" data-term-auto="off">\(q\ge2^{39990}&gt;10^{12038}\)</span>.
 open-versus-closed complete-quotient endpoint convention matters for a
 sharper extraction; no stronger numerical floor is asserted here. The
 exact sources, enclosure and integer-computation receipts are retained
-with the long record. Neither finite calculation supplies <a class="math-ref" href="#eq:canonical-open-target">(14)</a>.</p>
+with the long record. Neither finite calculation supplies <a class="math-ref" href="#eq:canonical-open-target">(17)</a>.</p>
 </section>
 <section id="app:sources" class="level2 unnumbered">
 <h2 class="unnumbered">Statements and declarations</h2>
@@ -814,7 +829,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 zero plateau</a> is the default-root duplicate of that family and is not
 the isolation source. Companion-orbit rationality is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a>; the unconditional correction <a class="math-ref" href="#eq:companion-wrap">(3)</a> is in <a
+orbit rationality</a>; the unconditional correction <a class="math-ref" href="#eq:companion-wrap">(4)</a> is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
 constant carry law</a>. The pole-residue identity and the two displayed
 reciprocal equalities are in <a

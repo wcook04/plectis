@@ -128,13 +128,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf",
-      "source_sha256": "d72853eb25ab82706c0bf013ff5427871be4d0377ff846ba5b9c6980a676b09d",
-      "bytes": 666115,
+      "source_sha256": "7729fb37b6d328c08a4ceeb22a226b2c5253506d090c37174d5269ffd6b040e7",
+      "bytes": 667155,
       "source_tex_path": "paper/257/erdos257-mersenne-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-mersenne-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex",
-      "hosted_tex_sha256": "3d5423ea1b7d8a516bd96504f24d6247147794b033141e79da630a38c92ca15b",
-      "tex_bytes": 432910
+      "hosted_tex_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
+      "tex_bytes": 433770
     },
     {
       "hosted_path": "papers/erdos269-running-lcm-reasoning-surface.pdf",
@@ -180,13 +180,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.pdf",
-      "source_sha256": "92b8fc40e280a1444cda9cc9ff563823eb24bd6e13edd3b42b6b6ec23688f0fe",
-      "bytes": 282643,
+      "source_sha256": "884bce138194c22a983d189c154f4fe7ea307ba0d6fa5ee0fb765aa85fe2fc0c",
+      "bytes": 283077,
       "source_tex_path": "paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
-      "hosted_tex_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
-      "tex_bytes": 143975
+      "hosted_tex_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
+      "tex_bytes": 144303
     },
     {
       "hosted_path": "papers/erdos-1049-rational-base-lambert.pdf",

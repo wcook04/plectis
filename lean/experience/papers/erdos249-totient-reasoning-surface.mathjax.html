@@ -122,7 +122,7 @@ class="math display" data-term-auto="off">\[\mathrm{certifiedKill}(h,N,L)
   \;:\Longleftrightarrow\;
   (N{+}h{+}L{+}2) \;&lt;\; \mathrm{windowDiscrepancy}(h,N,L) \bmod 2^{L}
   \;&lt;\; 2^{L} - (N{+}h{+}L{+}2),\]</span></div>
-<p>a decidable condition (,
+<p class="display-continue">a decidable condition (,
 ).</p>
 <p>The radius <span class="math inline" data-term-auto="off">\(N{+}h{+}L{+}2\)</span> is
 exactly the crude tail bound coming from <span
@@ -436,11 +436,13 @@ class="math inline" data-term-auto="off">\(\gamma\)</span>-splice: finite inspec
 certify the supply). <em> Let <span class="math inline" data-term-auto="off">\(B \ge
 1\)</span> and let <span class="math inline" data-term-auto="off">\(P &gt; B\)</span>. Define
 <span class="math inline" data-term-auto="off">\(\gamma : \mathbb{N}\to \mathbb{N}\)</span>
-by <span class="math display" data-term-auto="off">\[\gamma(n) := \varphi(n) \ \ (n \le B),
+by </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gamma(n) := \varphi(n) \ \ (n \le B),
 \qquad
   \gamma(n) := \begin{cases} n-1, &amp; P \mid n \\ n, &amp; P \nmid n
 \end{cases}
-  \ \ (n &gt; B).\]</span> Then:</em></p>
+  \ \ (n &gt; B).\]</span></div>
+<p><em> Then:</em></p>
 <ol>
 <li><p><em><span class="math inline" data-term-auto="off">\(\gamma(n) \le n\)</span> for all
 <span class="math inline" data-term-auto="off">\(n\)</span>, so <span
@@ -1256,7 +1258,7 @@ Define</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
 \frac{\varphi(n)}{2^{n}} \;=\; \sum_{n : \mathbb{N}}
 \frac{\varphi(n)}{2^{n}},\]</span></div>
-<p>the two forms coinciding because
+<p class="display-continue">the two forms coinciding because
 <span class="math inline" data-term-auto="off">\(\varphi(0)=0\)</span>; the second, <span
 class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>-indexed form is the one
 carried in the Lean source. The series converges absolutely since <span
@@ -1285,8 +1287,10 @@ instances are catalogued here, §<a class="math-ref" href="#ssec:certtable">6.7<
 <h3>The binary-digit reduction</h3>
 <div class="prop">
 <p><strong>Proposition 34</strong> (Digit-shift identity). <em> For
-every <span class="math inline" data-term-auto="off">\(N : \mathbb{N}\)</span>, <span
-class="math display" data-term-auto="off">\[2^{N} \cdot S \;=\; \Phi_N + R_N,\]</span> where
+every <span class="math inline" data-term-auto="off">\(N : \mathbb{N}\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2^{N} \cdot S \;=\; \Phi_N + R_N,\]</span></div>
+<p class="display-continue"><em> where
 <span class="math inline" data-term-auto="off">\(\Phi_N := \sum_{n \le N} \varphi(n) \cdot
 2^{N-n} \in \mathbb{N}\)</span> (the integer prefix) and <span
 class="math inline" data-term-auto="off">\(R_N := \sum_{j \ge 0}
@@ -1345,11 +1349,14 @@ bound in the corpus, for either open problem.</p>
 window <span class="math inline" data-term-auto="off">\(K=240\)</span>). <em> Let <span
 class="math inline" data-term-auto="off">\(V\)</span> be the explicit committed totient
 residue for window <span class="math inline" data-term-auto="off">\((N,K)=(1,240)\)</span>.
-For every <span class="math inline" data-term-auto="off">\(q : \mathbb{N}\)</span> with <span
+For every <span class="math inline" data-term-auto="off">\(q : \mathbb{N}\)</span> with </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0 &lt; q \;\le\; Q_0 :=
 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053 \;\;(\approx
-7.96\times 10^{34}),\]</span> <span class="math display" data-term-auto="off">\[(q \cdot V)
-\bmod 2^{240} \;+\; 243\,q \;&lt;\; 2^{240}.\]</span> This bound is
+7.96\times 10^{34}),\]</span></div>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(q \cdot V)
+\bmod 2^{240} \;+\; 243\,q \;&lt;\; 2^{240}.\]</span></div>
+<p><em> This bound is
 <em>sharp</em>: <span class="math inline" data-term-auto="off">\(q = Q_0+1 =
 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,054\)</span> is
 the exact first failing denominator, exhibited as the mediant of two
@@ -1361,8 +1368,10 @@ class="sans-serif">[Lean]</span></span> </em></p>
 <p><strong>Theorem 37</strong> (Erdős #249 denominator exclusion — the
 headline unconditional result). <em> For every <span
 class="math inline" data-term-auto="off">\(p \in \mathbb{Q}\)</span> with reduced denominator
-<span class="math inline" data-term-auto="off">\(p.\mathrm{den} \le Q_0\)</span>, <span
-class="math display" data-term-auto="off">\[S \;\neq\; p.\]</span> Equivalently: <em>if <span
+<span class="math inline" data-term-auto="off">\(p.\mathrm{den} \le Q_0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S \;\neq\; p.\]</span></div>
+<p><em> Equivalently: <em>if <span
 class="math inline" data-term-auto="off">\(S\)</span> is rational, its reduced denominator
 exceeds</em> <span class="math inline" data-term-auto="off">\(Q_0 \approx 7.96 \times
 10^{34}\)</span>. <code>coord:farey</code> <span><span
@@ -1412,10 +1421,12 @@ Let <span class="math inline" data-term-auto="off">\(X,Y\)</span> be independent
 variables with <span
 class="math inline" data-term-auto="off">\(\Pr(X=n)=\Pr(Y=n)=2^{-n}\)</span> for <span
 class="math inline" data-term-auto="off">\(n \ge 1\)</span> (independent fair-coin waiting
-times). Then <span class="math display" data-term-auto="off">\[S \;=\; \tfrac12 \;+\;
+times). Then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;=\; \tfrac12 \;+\;
 \Pr\bigl(\gcd(X,Y)=1\bigr)
 \;=\; \tfrac12 \;+\; \sum_{\substack{a,b\ge 1\\ \gcd(a,b)=1}}
-2^{-(a+b)}.\]</span> Equivalently, on the visible lattice: summing <span
+2^{-(a+b)}.\]</span></div>
+<p><em> Equivalently, on the visible lattice: summing <span
 class="math inline" data-term-auto="off">\(2^{-(a+b)}\)</span> over the half-open coprime
 pairs (<span class="math inline" data-term-auto="off">\(a\ge1\)</span>, <span
 class="math inline" data-term-auto="off">\(b\ge0\)</span>, <span
@@ -1441,9 +1452,11 @@ class="sans-serif">[Lean]</span></span> </em></p>
 </div>
 <div class="thm">
 <p><strong>Theorem 42</strong> (Denominator exclusion for the
-coprimality-probability form). <em> Let <span class="math display" data-term-auto="off">\[Q_1
+coprimality-probability form). <em> Let </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q_1
 := \left\lfloor \frac{Q_0}{2} \right\rfloor =
-39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526.\]</span> For
+39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526.\]</span></div>
+<p><em> For
 every <span class="math inline" data-term-auto="off">\(a\in\mathbb{Z}\)</span>, <span
 class="math inline" data-term-auto="off">\(d\in\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;d\le Q_1\)</span>: the visible coprime-pair
@@ -1503,9 +1516,11 @@ class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <h3>The Möbius–Mersenne identity and why bounded coefficients
 matter</h3>
 <div class="prop">
-<p><strong>Proposition 45</strong> (Möbius-square reduction). <em> <span
+<p><strong>Proposition 45</strong> (Möbius-square reduction). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S \;=\; \sum_{n\ge1}\frac{\varphi(n)}{2^n} \;=\;
-\frac12 \;+\; \sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2},\]</span> where <span
+\frac12 \;+\; \sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2},\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(\mu\)</span> is the Möbius function, so <span
 class="math inline" data-term-auto="off">\(\mu(d)\in\{-1,0,1\}\)</span> for every <span
 class="math inline" data-term-auto="off">\(d\)</span>. Consequently <em>Erdős #249 <span
@@ -1564,10 +1579,12 @@ merely asserting the analogy.</p>
 <em> For <span class="math inline" data-term-auto="off">\(w:\mathbb{N}\to\mathbb{R}\)</span>
 with <span class="math inline" data-term-auto="off">\(|w(d)|\le d\)</span> for all <span
 class="math inline" data-term-auto="off">\(d&gt;0\)</span>, and <span
-class="math inline" data-term-auto="off">\(0\le r&lt;1\)</span>: <span
+class="math inline" data-term-auto="off">\(0\le r&lt;1\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{d\ge1} w(d)\left(\frac{r^d}{1-r^d}\right)^2
 \;=\; \sum_{n\ge1}\left(\sum_{e\mid n}
-w(e)\Bigl(\tfrac{n}{e}-1\Bigr)\right) r^n.\]</span>
+w(e)\Bigl(\tfrac{n}{e}-1\Bigr)\right) r^n.\]</span></div>
+<p class="display-continue"><em>
 <code>coord:mobius-mersenne</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
@@ -1578,10 +1595,12 @@ instances are exact and directly relevant to #249’s weight
 structure:</p>
 <div class="prop">
 <p><strong>Proposition 48</strong> (The known <span
-class="math inline" data-term-auto="off">\(\zeta_q\)</span>-rung). <em> <span
+class="math inline" data-term-auto="off">\(\zeta_q\)</span>-rung). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{d\ge1} \frac{1}{(2^d-1)^2} \;=\;
 \sum_{n\ge1} \frac{\sigma(n)-\tau(n)}{2^n} \;=\; \zeta_q(2)-\zeta_q(1)
-\text{ at } q=\tfrac12,\]</span> where <span
+\text{ at } q=\tfrac12,\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(\sigma\)</span> is the sum-of-divisors function
 and <span class="math inline" data-term-auto="off">\(\tau\)</span> the number-of-divisors
 function. The <em>identity</em> is machine-checked (<span><span
@@ -1595,9 +1614,11 @@ class="sans-serif">scale:n/a</span></span> </em></p>
 </div>
 <div class="prop">
 <p><strong>Proposition 49</strong> (The Pillai/gcd-moment rung). <em>
-<span class="math display" data-term-auto="off">\[\sum_{d\ge1} \frac{\varphi(d)}{(2^d-1)^2}
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{d\ge1} \frac{\varphi(d)}{(2^d-1)^2}
 \;=\; \sum_{n\ge1} \bigl(P(n)-n\bigr)\cdot 2^{-n} \;=\;
-\mathbb{E}[\gcd(X,Y)],\]</span> where <span class="math inline" data-term-auto="off">\(P(n)
+\mathbb{E}[\gcd(X,Y)],\]</span></div>
+<p class="display-continue"><em> where <span class="math inline" data-term-auto="off">\(P(n)
 := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi *
 \mathrm{Id})(n)\)</span> is Pillai’s gcd-sum function and <span
 class="math inline" data-term-auto="off">\(X,Y\)</span> are the independent fair-coin waiting
@@ -1653,7 +1674,7 @@ class="sans-serif">[Lean]</span></span>), and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Sep}(h,N,L) \;:\equiv\; (N+h+L+2) &lt;
 \Delta_{h,N,L} \bmod 2^{L} &lt; 2^{L}-(N+h+L+2),\]</span></div>
-<p>(, <span><span
+<p class="display-continue">(, <span><span
 class="sans-serif">[Lean]</span></span>, decidable). By completeness (,
 <span><span class="sans-serif">[Lean]</span></span>), <span
 class="math inline" data-term-auto="off">\((\exists L,\ \mathrm{Sep}(h,N,L)) \iff R_{N+h}-R_N
@@ -2045,12 +2066,16 @@ r.\mathrm{den}\mid
 <p><strong>Proposition 63</strong> (cert:b11 — diagonal pincer finite
 deposits, historical bank and current band). <em>Let <span
 class="math inline" data-term-auto="off">\(H_t=\operatorname{lcm}(1,\ldots,t)\)</span> and
-let <span class="math display" data-term-auto="off">\[P(t)\quad:\Longleftrightarrow\quad
-\exists L,\ \mathrm{certifiedKill}(H_t,H_t,L).\]</span> The checked
+let </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P(t)\quad:\Longleftrightarrow\quad
+\exists L,\ \mathrm{certifiedKill}(H_t,H_t,L).\]</span></div>
+<p>The checked
 certificate bank proves <span class="math inline" data-term-auto="off">\(P(t)\)</span> at 28
 explicit indices, ending at <span class="math inline" data-term-auto="off">\(t=64\)</span>.
-For the initial indices <span
-class="math display" data-term-auto="off">\[t=1,2,3,4,5,7,8,9,11,13,16,17,\ldots,\]</span>
+For the initial indices </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[t=1,2,3,4,5,7,8,9,11,13,16,17,\ldots,\]</span></div>
+<p class="display-continue"><em>
 the corresponding depths begin <span
 class="math inline" data-term-auto="off">\(6,5,7,7,9,14,15,14,21,22,23,26,\ldots\)</span>.
 Each entry is a finite kernel computation on explicit totient values.
@@ -3050,12 +3075,14 @@ target. All targets below are logically downstream of the single exact
 equivalence that defines the open problem:</p>
 <div class="prop">
 <p><strong>Proposition 112</strong> (The exact target: #249 = cofinal
-actual-orbit nonintegrality). <em> Unconditionally, <span
+actual-orbit nonintegrality). <em> Unconditionally, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Irrational}\Big(\textstyle\sum_n&#39;
 \varphi(n)/2^n\Big)
 \iff
 \forall a_0,\ \exists a \ge a_0,\ \mathtt{actualLcmTailOrbit}\ a \notin
-\mathrm{range}(\mathbb{Z}\to\mathbb{R}).\]</span> Nothing beyond a
+\mathrm{range}(\mathbb{Z}\to\mathbb{R}).\]</span></div>
+<p><em> Nothing beyond a
 supply of the right-hand side is needed in principle; every other
 proposition in this subsection is a route to it. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
@@ -3064,9 +3091,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 </div>
 <div class="prop">
 <p><strong>Proposition 113</strong> (Short-window arithmetic-kill
-supply). <em> If <span class="math display" data-term-auto="off">\[\forall a_0,\ \exists a\ge
+supply). <em> If </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall a_0,\ \exists a\ge
 a_0,\ \exists L&lt; 2\cdot 2^a,\quad
-\mathtt{LcmDiagonalArithmeticKill}(2^a,L)\]</span> holds, then #249
+\mathtt{LcmDiagonalArithmeticKill}(2^a,L)\]</span></div>
+<p class="display-continue"><em> holds, then #249
 follows (via then Prop. <a class="math-ref" href="#prop:NI-01">prop:NI-01</a>). The predicate is
 exactly the residue-band exclusion of Appendix A4/A6: <span
 class="math inline" data-term-auto="off">\(\mathtt{lcmDiagonalArithmeticWord}\)</span> at
@@ -3082,10 +3111,12 @@ class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 114</strong> (Diophantine separation supply).
 <em> If, at canonically-guarded odd ranks <span
 class="math inline" data-term-auto="off">\(q\)</span>, cofinally many <span
-class="math inline" data-term-auto="off">\(a\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(a\)</span> satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\big|\,\mathtt{actualLcmTailOrbit}\ a - z\,\big|
 &gt; \tfrac{1}{32} + (\text{explicit error radius}) \qquad \forall
-z\in\mathbb Z,\]</span> then #249 follows via the landed signed-margin
+z\in\mathbb Z,\]</span></div>
+<p class="display-continue"><em> then #249 follows via the landed signed-margin
 producer. This restates the target as effective irrationality-measure /
 anti-concentration for the actual orbit rather than exact residue
 exclusion, using the explicit approximant of Prop. <a class="math-ref" href="#prop:SEP-02-inv">prop:SEP-02-inv</a>. <span><span
@@ -3097,11 +3128,13 @@ class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 115</strong> (One-sided top-edge residue-gap
 supply). <em> If, for the room bound of Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a> (<span
 class="math inline" data-term-auto="off">\(a\ge 8\)</span>, <span
-class="math inline" data-term-auto="off">\(J+K+(a+6)&lt;2\cdot2^a\)</span>), <span
+class="math inline" data-term-auto="off">\(J+K+(a+6)&lt;2\cdot2^a\)</span>), </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{ActualLcmTopEdgeResidueGap}\ a\ J\ K\ m
 \quad:\iff\quad
 m\le K \ \wedge\ \big(\text{residue of }\mathtt{windowDiscrepancy}\text{
-at scale }m\big)\le 2^m-(\text{room bound})\]</span> holds cofinally,
+at scale }m\big)\le 2^m-(\text{room bound})\]</span></div>
+<p class="display-continue"><em> holds cofinally,
 then #249 follows (, sufficiency at line 1260), because Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a>/<a class="math-ref" href="#prop:SGN-03">prop:SGN-03</a> already exclude the
 negative-side residue independently — only the positive arc needs
 excluding. This is a strictly <em>weaker</em> target than the old
@@ -3115,7 +3148,8 @@ class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 116</strong> (The five-link equivalence chain
 below the residue-gap target). <em> Each of the following cofinal
 supplies is proved <em>sufficient</em> for Prop. <a class="math-ref" href="#prop:TE-04">prop:TE-04</a>’s target, chained in
-decreasing strength: <span class="math display" data-term-auto="off">\[\begin{aligned}
+decreasing strength: </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
 &amp;\mathtt{PowerTwoActualLcmTopEdgeResidueGapSupply}
 \Leftarrow \mathtt{PowerTwoAdjacentSuffixMidbandSupply}\\
 &amp;\Leftarrow \mathtt{PowerTwoOddGuardTopEdgeHalfWordBandSupply}
@@ -3124,7 +3158,8 @@ decreasing strength: <span class="math display" data-term-auto="off">\[\begin{al
 \Leftarrow \mathtt{PowerTwoFlexibleActualTerminalDominanceSupply}\\
 &amp;\Leftarrow
 \mathtt{PowerTwoFlexibleActualTerminalCarryCorridorEscapeSupply}
-\end{aligned}\]</span> All six named predicates are open; none is
+\end{aligned}\]</span></div>
+<p><em> All six named predicates are open; none is
 proved. Because the chain is implication-only-downward, proving the
 single <em>weakest</em> link
 (<code>...TerminalCarryCorridorEscapeSupply</code>) closes the entire
@@ -3139,10 +3174,12 @@ class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br /
 identity). <em> Under integrality of the actual orbit (representative
 <span class="math inline" data-term-auto="off">\(z\)</span>) and the half-cell fit condition
 <span class="math inline" data-term-auto="off">\(2(H+q+2)\le 4^q\)</span> (<span
-class="math inline" data-term-auto="off">\(a\ge 8\)</span>, room bound as above), <span
+class="math inline" data-term-auto="off">\(a\ge 8\)</span>, room bound as above), </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2\cdot \mathtt{actualOddHalfCenteredLift}\ a\ q
 \;=\; \mathtt{diagonalWindowIncrement}(2^a)(2q+2) \;-\;
-\mathtt{carryOrbit}\ H\ H\ z\ (2q+1)\]</span> holds <em>exactly</em>.
+\mathtt{carryOrbit}\ H\ H\ z\ (2q+1)\]</span></div>
+<p class="display-continue"><em> holds <em>exactly</em>.
 Escaping either side of this named open interval (the “terminal/carry
 corridor”) is both necessary and sufficient for non-integrality at rank
 <span class="math inline" data-term-auto="off">\(q\)</span> (). This is the sharpest fully
@@ -3154,10 +3191,12 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 <div class="prop">
 <p><strong>Proposition 118</strong> (Extend the short-kill stub past
 <span class="math inline" data-term-auto="off">\(a_0=6\)</span>). <em> Currently proved only
-for <span class="math inline" data-term-auto="off">\(a_0\le 6\)</span>: <span
+for <span class="math inline" data-term-auto="off">\(a_0\le 6\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\le 6,\ \exists a\ L,\ a_0\le a\
 \wedge\ L&lt;2\cdot2^a\ \wedge\ \mathtt{LcmDiagonalArithmeticKill}(2^a)\
-L.\]</span> The module’s own comment states plainly: “the remaining
+L.\]</span></div>
+<p><em> The module’s own comment states plainly: “the remaining
 endpoint gap is now precisely the unbounded continuation beyond this
 finite prefix.” Supplying a single further instance at <span
 class="math inline" data-term-auto="off">\(a_0=7\)</span> or <span
@@ -3176,11 +3215,13 @@ supply). <em> Define <span
 class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}\ H\ j :=
 \varphi(3H+j)-2\varphi(2H+j)+\varphi(H+j)\)</span>. If, at <span
 class="math inline" data-term-auto="off">\(H=\mathtt{periodLcm}(2^a)\)</span> and some fixed
-small <span class="math inline" data-term-auto="off">\(j\)</span>, <span
+small <span class="math inline" data-term-auto="off">\(j\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{MiddleRankTotientExtremal}\ H\ j
 \quad:\iff\quad
 \varphi(2H+j)\ \text{is a strict min or max among}\
-\{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},\]</span> then <span
+\{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},\]</span></div>
+<p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}\ H\ j\ne
 0\)</span>, with sign matching the extremum. Notably an
 <em>ordering</em> suffices — no quantitative gap is required. This is a
@@ -3196,10 +3237,12 @@ class="sans-serif">[Lean]</span></span> <code>coord:other:fixed-rank-curvature<
 <p><strong>Proposition 120</strong> (The directed/LCM-specialised
 certificate supply). <em> <span
 class="math inline" data-term-auto="off">\(\mathtt{directedCertifiedKill}\ h\ N\ L\)</span>
-is sound <em>and complete</em>: <span class="math display" data-term-auto="off">\[(\exists
+is sound <em>and complete</em>: </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(\exists
 L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \iff
 \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin
-\mathrm{range}(\mathbb Z\to\mathbb R),\]</span> exactly, no gap; and
+\mathrm{range}(\mathbb Z\to\mathbb R),\]</span></div>
+<p class="display-continue"><em> exactly, no gap; and
 <span class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\iff
 \mathtt{CofinalDirectedLcmCertificateSupply}\)</span> (the LCM-diagonal
 specialisation). The asymmetric strip is a genuine finite-depth
@@ -3217,9 +3260,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:seam-integer</code><br />
 supply). <em> Given the cofinal mod-4 pulse supply of Prop. <a class="math-ref" href="#prop:CP-05-inv">prop:CP-05-inv</a>, it suffices to kill
 only the <span class="math inline" data-term-auto="off">\(2\bmod 4\)</span>-class candidate
 states (a fourfold reduction of the initial search strip) at one cofinal
-arithmetic-pulse prime per putative period, to conclude #249: <span
+arithmetic-pulse prime per putative period, to conclude #249: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{modFourPulseSurvivorKill} \implies
-\mathrm{Irrational}(S).\]</span> The reduction technique (use a cofinal
+\mathrm{Irrational}(S).\]</span></div>
+<p><em> The reduction technique (use a cofinal
 totient-specific pulse to legally restrict the survivor search to one
 residue class mod a small modulus) transfers wherever an analogous
 cofinal pulse can be built on the #257 side. <span><span
@@ -3229,10 +3274,12 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 </div>
 <div class="prop">
 <p><strong>Proposition 122</strong> (The wave-21 wall: certificate
-supply over all periods). <em> <span class="math display" data-term-auto="off">\[\big(\forall
+supply over all periods). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall
 h\ge 1,\ \forall N_0,\ \exists N\ge N_0,\ \exists L,\
 \mathtt{certifiedKill}\ h\ N\ L\big)
-\iff \mathrm{Irrational}(S).\]</span> This is exactly the quantifier
+\iff \mathrm{Irrational}(S).\]</span></div>
+<p><em> This is exactly the quantifier
 structure <span class="math inline" data-term-auto="off">\(\forall h\ge1\ \forall N_0\
 \exists N\ge N_0\ \exists L\ \mathrm{Sep}(h,N,L)\)</span>. Nothing in
 the corpus supplies this predicate; every other reduction in Part B of
@@ -3245,11 +3292,13 @@ class="sans-serif">[Open]</span></span>) <code>coord:mobius-mersenne</code><br 
 </div>
 <div class="prop">
 <p><strong>Proposition 123</strong> (Diagonal collapse — one free
-parameter). <em> <span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
+parameter). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
 t\ge t_0,\ \exists L,\
 \mathtt{certifiedKill}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t)\
 L\big)
-\iff \mathrm{Irrational}(S).\]</span> Standing at <span
+\iff \mathrm{Irrational}(S).\]</span></div>
+<p><em> Standing at <span
 class="math inline" data-term-auto="off">\(N=h=\mathtt{periodLcm}\,t\)</span> beats every
 hypothetical rational simultaneously (any <span
 class="math inline" data-term-auto="off">\(t\ge\max(h_0,N_0)\)</span> serves both parameters
@@ -3264,11 +3313,13 @@ class="sans-serif">[Open]</span></span>) <code>coord:mobius-mersenne</code><br 
 </div>
 <div class="prop">
 <p><strong>Proposition 124</strong> (Cone collapse — annihilator
-umbrella). <em> <span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
+umbrella). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
 t\ge t_0,\ \exists q\,m\,L,\ 0&lt;q \wedge
 \mathtt{certifiedKill}(m\cdot\mathtt{periodLcm}\,t)(q\cdot\mathtt{periodLcm}\,t)\
 L\big)
-\implies \mathrm{Irrational}(S).\]</span> One certified kill
+\implies \mathrm{Irrational}(S).\]</span></div>
+<p><em> One certified kill
 <em>anywhere</em> on the two-multiplier LCM cone, at arbitrarily large
 <span class="math inline" data-term-auto="off">\(t\)</span>, suffices; the diagonal
 (Prop. <a class="math-ref" href="#prop:B3">prop:B3</a>) is the cell
@@ -3284,11 +3335,13 @@ than pairwise). <em> For a nonempty menu <span
 class="math inline" data-term-auto="off">\(Q\)</span> of positive vertex multipliers with
 one-sided floor <span class="math inline" data-term-auto="off">\(\forall q\in Q,\
 qH+L+2&lt;2^L\)</span> (<em>half</em> the pairwise floor of
-<code>certifiedKill</code>), <span
+<code>certifiedKill</code>), </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{coneNonflatCert}\ H\ L\ Q \implies
 \exists\, q_i,q_j\in Q,\
 \mathtt{totientTail}(q_jH)-\mathtt{totientTail}(q_iH)\notin
-\mathrm{range}(\mathbb Z\to\mathbb R).\]</span> If this fires at
+\mathrm{range}(\mathbb Z\to\mathbb R).\]</span></div>
+<p><em> If this fires at
 unbounded scale over a menu with <span
 class="math inline" data-term-auto="off">\(|Q|\ge3\)</span> genuinely joint (menu
 inconsistent while every pair is separately consistent), #249 follows
@@ -3305,8 +3358,10 @@ class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br /
 independent wall). <em> The Farey-gap denominator bound at window <span
 class="math inline" data-term-auto="off">\(K\)</span> is currently <span
 class="math inline" data-term-auto="off">\(\sim 7.96\times10^{34}\)</span> at <span
-class="math inline" data-term-auto="off">\(K=240\)</span> (Prop. <a class="math-ref" href="#prop:C2-inv">prop:C2-inv</a>). If <span
-class="math display" data-term-auto="off">\[\sup_K\, (b+d)(K) = \infty\]</span> (the bound
+class="math inline" data-term-auto="off">\(K=240\)</span> (Prop. <a class="math-ref" href="#prop:C2-inv">prop:C2-inv</a>). If </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sup_K\, (b+d)(K) = \infty\]</span></div>
+<p class="display-continue"><em> (the bound
 growing without limit as <span
 class="math inline" data-term-auto="off">\(K\to\infty\)</span>), then #249 follows via the
 <span class="math inline" data-term-auto="off">\(C3\)</span>-style denominator-exclusion
@@ -3325,8 +3380,10 @@ class="math inline" data-term-auto="off">\(e\)</span>. Rationality of <span
 class="math inline" data-term-auto="off">\(S\)</span> forces an associated tempered carry
 orbit with <span class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-rank <span
 class="math inline" data-term-auto="off">\(\ge 2^e-1\)</span> at every level (Prop. <a class="math-ref" href="#prop:CP-02">prop:CP-02</a>). Formally, a theorem
-<span class="math display" data-term-auto="off">\[\text{bounding the dyadic-section rank of
-\emph{every} rationality-supplied tempered carry}\]</span> would
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\text{bounding the dyadic-section rank of
+\emph{every} rationality-supplied tempered carry}\]</span></div>
+<p class="display-continue"><em> would
 contradict this lower bound and close #249. The corpus supplies no such
 theorem or mechanism. More strongly, its compressed-adjoint
 impossibility result and its explicit all-horizon finite-rank
@@ -3365,10 +3422,12 @@ must be consistent with — facts a solution cannot contradict, whichever
 way #249 eventually resolves.</p>
 <div class="prop">
 <p><strong>Proposition 129</strong> (Exact quotient-scale digit closed
-form, no cleanliness hypothesis). <em> <span
+form, no cleanliness hypothesis). <em> </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{lcmRayArithmeticLetter}\ t\ j \;=\;
 \mathtt{deltaTotient}(\mathtt{periodLcm}\,t)(\mathtt{periodLcm}\,t + j)
-\;=\; \mathtt{diagonalWindowIncrement}\ t\ j,\]</span> valid for
+\;=\; \mathtt{diagonalWindowIncrement}\ t\ j,\]</span></div>
+<p class="display-continue"><em> valid for
 <em>both</em> divisor and non-divisor offsets <span
 class="math inline" data-term-auto="off">\(j\)</span>, with no side condition on which primes
 of <span class="math inline" data-term-auto="off">\(j\)</span> survive in <span
@@ -3444,10 +3503,12 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 </div>
 <div class="prop">
 <p><strong>Proposition 133</strong> (Exact global-to-local bridge). <em>
-<span class="math display" data-term-auto="off">\[\mathtt{actualLcmTailOrbit}\ a \;=\;
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathtt{actualLcmTailOrbit}\ a \;=\;
 2^H(2^H-1)\Big(\textstyle\sum_n&#39; \varphi(n)/2^n\Big) -
 \big(\mathtt{totientPrefix}(2H)-\mathtt{totientPrefix}(H)\big),\quad
-H=\mathtt{periodLcm}(2^a).\]</span> Every local orbit statement is
+H=\mathtt{periodLcm}(2^a).\]</span></div>
+<p><em> Every local orbit statement is
 secretly a statement about the global series value minus a computable
 finite prefix; any rational-approximation or continued-fraction style
 separation argument for #249 must express its target through this exact
@@ -3475,9 +3536,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 135</strong> (Unconditional positive-sign
 corridor — a real theorem, not a supply). <em> For <span
 class="math inline" data-term-auto="off">\(a\ge8\)</span>, <span
-class="math inline" data-term-auto="off">\(J+(a+6)&lt;2\cdot2^a\)</span>: <span
+class="math inline" data-term-auto="off">\(J+(a+6)&lt;2\cdot2^a\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0 &lt; \mathtt{totientTail}(2H+J) -
-\mathtt{totientTail}(H+J),\qquad H=\mathtt{periodLcm}(2^a),\]</span>
+\mathtt{totientTail}(H+J),\qquad H=\mathtt{periodLcm}(2^a),\]</span></div>
+<p class="display-continue"><em>
 with no irrationality hypothesis — the true, infinite, real translated
 tail difference is strictly positive throughout almost the entire short
 window, proved unconditionally from Prop. <a class="math-ref" href="#prop:AR-05-inv">prop:AR-05-inv</a> plus a directed
@@ -3495,9 +3558,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 top-edge residue — names the obstruction). <em> Under the room bound of
 Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a> plus <span
 class="math inline" data-term-auto="off">\(2H+J+K+2&lt;2^K\)</span>: integrality of the
-actual orbit forces <span
+actual orbit forces </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{windowDiscrepancy}\ H\ (H{+}J)\ K \bmod
-2^K \;=\; 2^K - e\]</span> (the top-edge representative), provably
+2^K \;=\; 2^K - e\]</span></div>
+<p class="display-continue"><em> (the top-edge representative), provably
 <em>outside</em> the central arc required by <span
 class="math inline" data-term-auto="off">\(\mathtt{directedCertifiedKill}\)</span>. This
 documents precisely why the sign theorem alone cannot close #249: any
@@ -3513,9 +3578,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 137</strong> (Punctured staircase is pinned to
 the half-turn). <em> Under the room bound and the punctured-staircase
 hypothesis (all but the last letter vanish at growing dyadic weight; the
-last letter retained below the top-edge carry band), <span
+last letter retained below the top-edge carry band), </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{lcmRayArithmeticLetter}(2^a)(J{+}K{-}1) =
-2^{m-1} \quad\text{exactly, and}\quad 2^m &lt; 2(2H+J+K+2).\]</span> The
+2^{m-1} \quad\text{exactly, and}\quad 2^m &lt; 2(2H+J+K+2).\]</span></div>
+<p><em> The
 modulus must be the first dyadic scale above the room bound; any extra
 bit of modulus makes even the punctured route empty. Any attempt to
 revive a partial-staircase strategy must land exactly here. <span><span
@@ -3527,9 +3594,11 @@ class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br /
 <p><strong>Proposition 138</strong> (Any certificate reduces to a
 two-bit test — universal normal form). <em> Unconditionally, for
 arbitrary <span class="math inline" data-term-auto="off">\(h,N\)</span> (no totient content
-in the proof): <span class="math display" data-term-auto="off">\[(\exists L,\
+in the proof): </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(\exists L,\
 \mathtt{certifiedKill}\ h\ N\ L) \iff \mathtt{GuardCylinderWitness}\ h\
-N,\]</span> where the witness is a logarithmic-depth socket <span
+N,\]</span></div>
+<p class="display-continue"><em> where the witness is a logarithmic-depth socket <span
 class="math inline" data-term-auto="off">\((b{+}1)\)</span> or a two-bit mixed-guard cylinder
 at scale <span
 class="math inline" data-term-auto="off">\(b=\log_2(N{+}h{+}L{+}2){+}1\)</span>. Any
@@ -3565,10 +3634,12 @@ class="math inline" data-term-auto="off">\(\iff\)</span> integral tail differenc
 plumbing). <em> For a positive-multiplier tempered totient carry <span
 class="math inline" data-term-auto="off">\(u\)</span> (<span
 class="math inline" data-term-auto="off">\(\mathtt{IsTemperedBinaryOrbit}\ \varphi\ v\
-u\)</span>, <span class="math inline" data-term-auto="off">\(v&gt;0\)</span>): <span
+u\)</span>, <span class="math inline" data-term-auto="off">\(v&gt;0\)</span>): </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(v:\mathbb Z)\mid u(N{+}k)-u(N) \iff
 \mathtt{totientTail}(N{+}k)-\mathtt{totientTail}(N)\in\mathrm{range}(\mathbb
-Z\to\mathbb R).\]</span> Every statement in this batch that converts
+Z\to\mathbb R).\]</span></div>
+<p><em> Every statement in this batch that converts
 between “carry orbit divisibility” and “real tail difference is an
 integer” is an instance of this identity — the underlying machinery
 (<span class="math inline" data-term-auto="off">\(\mathtt{IsTemperedBinaryOrbit}\)</span>,
@@ -3641,9 +3712,11 @@ by a half-turn terminal pulse, at arbitrary two-adic depth (Prop. <a class="mat
 class="math inline" data-term-auto="off">\(K=2\)</span> case generalised to every <span
 class="math inline" data-term-auto="off">\(K\)</span>, via <span
 class="math inline" data-term-auto="off">\(K{-}1\)</span> fresh Dirichlet primes glued by
-CRT). This forces <span
+CRT). This forces </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{windowDiscrepancy}\ H\ (p{-}K)\ K \equiv
-2^{K-1}\pmod{2^K},\]</span> and under eventual integrality transfers to
+2^{K-1}\pmod{2^K},\]</span></div>
+<p class="display-continue"><em> and under eventual integrality transfers to
 <span class="math inline" data-term-auto="off">\(\exists z,\ (z:\mathbb
 R)=\mathtt{totientTail}(p{+}H)-\mathtt{totientTail}(p)\wedge
 z\equiv2^{K-1}\pmod{2^K}\)</span>. Any solution attempt must be
@@ -4878,9 +4951,11 @@ class="math inline" data-term-auto="off">\(\Theta_r\)</span> be the Möbius–Me
 rung and let <span class="math inline" data-term-auto="off">\(t(Y,r)\)</span> be its first
 <span class="math inline" data-term-auto="off">\(Y\)</span> atoms. For every <span
 class="math inline" data-term-auto="off">\(e\ge 1\)</span> and <span
-class="math inline" data-term-auto="off">\(Y\ge 4\)</span>, <span
+class="math inline" data-term-auto="off">\(Y\ge 4\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[t(Y,e{+}2)^2/t(Y,2e{+}2) - \Theta_2 &gt;
-1/480.\]</span> Every rank-one monomial Schur quotient built this way
+1/480.\]</span></div>
+<p><em> Every rank-one monomial Schur quotient built this way
 overshoots <span class="math inline" data-term-auto="off">\(\Theta_2 =
 S-1/2\)</span> by a fixed positive margin, uniformly in <span
 class="math inline" data-term-auto="off">\(e\)</span> and <span
@@ -5027,7 +5102,7 @@ shows</p>
 1}\varphi(n)/2^n\Bigr) \iff \forall a_0\ \exists a\ge a_0,\
 \texttt{actualLcmTailOrbit}\ a \notin
 \mathrm{range}(\mathbb{Z}\to\mathbb{R}),\]</span></div>
-<p>an
+<p class="display-continue">an
 <code>cofinal</code> statement in the exponent <span
 class="math inline" data-term-auto="off">\(a\)</span> that indexes <span
 class="math inline" data-term-auto="off">\(H=\mathrm{periodLcm}(2^a)\)</span>. Nothing weaker
@@ -5312,7 +5387,7 @@ characters). and :</p>
 h\ N\ L = \cos\!\Bigl(2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr),\qquad
   \mathtt{windowFirstExp}\ h\ N\ L =
 \exp\!\Bigl(i\,2\pi\,\tfrac{A_{h,N,L}\bmod 2^L}{2^L}\Bigr).\]</span></div>
-<p>records <span class="math inline" data-term-auto="off">\(\mathrm{Re}(\mathtt{windowFirstExp})
+<p class="display-continue">records <span class="math inline" data-term-auto="off">\(\mathrm{Re}(\mathtt{windowFirstExp})
 = \mathtt{windowFirstCos}\)</span> and that <span
 class="math inline" data-term-auto="off">\(\|\mathtt{windowFirstExp}\,h\,N\,L\| = 1\)</span>:
 this is literally the first additive character of the endpoint
@@ -5326,9 +5401,11 @@ class="sans-serif">scale:uniform</span></span>.
 <code>coord:first-harmonic</code>. For all <span
 class="math inline" data-term-auto="off">\(h,X,L\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;X\)</span> and the room condition <span
-class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2)\le 2^L\)</span>, if <span
+class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2)\le 2^L\)</span>, if </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{N=X}^{2X-1} \mathtt{windowFirstCos}\ h\ N\
-L \;\le\; \tfrac{9}{10}\,X ,\]</span> then <span
+L \;\le\; \tfrac{9}{10}\,X ,\]</span></div>
+<p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\exists N\in[X,2X)\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\ L\)</span>.</em></p>
 </div>
@@ -5340,8 +5417,10 @@ class="sans-serif">scale:uniform</span></span>.
 <code>coord:first-harmonic</code>. For any nonempty finite <span
 class="math inline" data-term-auto="off">\(T\subseteq\mathbb N\)</span> with <span
 class="math inline" data-term-auto="off">\(T\subset[0,2X)\)</span> and the same room
-condition, if <span class="math display" data-term-auto="off">\[\sum_{N\in T}
-\mathtt{windowFirstCos}\ h\ N\ L \;\le\; \tfrac{9}{10}\,|T| ,\]</span>
+condition, if </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{N\in T}
+\mathtt{windowFirstCos}\ h\ N\ L \;\le\; \tfrac{9}{10}\,|T| ,\]</span></div>
+<p class="display-continue"><em>
 then <span class="math inline" data-term-auto="off">\(\exists N\in T\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\ L\)</span>. This is
 strictly stronger than Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a>: <span
@@ -5361,19 +5440,24 @@ bound is strictly stronger than the real-part bound (<span
 class="math inline" data-term-auto="off">\(|z|\ge\mathrm{Re}(z)\)</span>, and <span
 class="math inline" data-term-auto="off">\(21/25 &lt; 9/10\)</span> absorbs the slack), so it
 composes through Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a> to the same
-certificate. Define <span
+certificate. Define </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{DTWFirstHarmonicNormGap}
 :\Leftrightarrow\;
   \forall h{&gt;}0\ \forall X_0\ \exists X, L,\ \max(X_0,1)\le X\
-\wedge\ 16(2X{+}h{+}L{+}2)\le 2^L\ \wedge\]</span> <span
+\wedge\ 16(2X{+}h{+}L{+}2)\le 2^L\ \wedge\]</span></div>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Bigl\|\
 \sum_{N=X}^{2X-1}\mathtt{windowFirstExp}\ h\ N\ L\ \Bigr\| \;\le\;
-\tfrac{21}{25}\,X .\]</span> <code>coord:first-harmonic</code>.
+\tfrac{21}{25}\,X .\]</span></div>
+<p><code>coord:first-harmonic</code>.
 <span><span class="sans-serif">scale:cofinal</span></span> (this is the
-open target itself). Then <span
+open target itself). Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{DTWFirstHarmonicNormGap}
 \;\Longrightarrow\; \mathrm{Irrational}\Bigl(\sum_{n\ge 0}
-  \tfrac{\varphi(n)}{2^n}\Bigr),\]</span> proved in full, with no
+  \tfrac{\varphi(n)}{2^n}\Bigr),\]</span></div>
+<p class="display-continue"><em> proved in full, with no
 further gap, by chaining Theorem <a class="math-ref" href="#thm:hgap-norm">thm:hgap-norm</a><span
 class="math inline" data-term-auto="off">\(\to\)</span>Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a><span
 class="math inline" data-term-auto="off">\(\to\)</span> .</em></p>
@@ -5478,9 +5562,11 @@ class="sans-serif">[Lean]</span></span>. <span><span
 class="sans-serif">scale:uniform</span></span>. For every <span
 class="math inline" data-term-auto="off">\(a\ge 8\)</span> and every <span
 class="math inline" data-term-auto="off">\(J\)</span> with <span
-class="math inline" data-term-auto="off">\(J+(a{+}6) &lt; 2\cdot 2^a\)</span>, <span
+class="math inline" data-term-auto="off">\(J+(a{+}6) &lt; 2\cdot 2^a\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0 \;&lt;\; \mathrm{totientTail}(2H{+}J) -
-\mathrm{totientTail}(H{+}J), \qquad H=\mathtt{periodLcm}(2^a).\]</span>
+\mathrm{totientTail}(H{+}J), \qquad H=\mathtt{periodLcm}(2^a).\]</span></div>
+<p><em>
 Hence <span class="math inline" data-term-auto="off">\(0 &lt; \mathtt{actualLcmTailOrbit}\
 a\)</span> for every <span class="math inline" data-term-auto="off">\(a\ge 8\)</span>. The
 proof is genuinely uniform in <span class="math inline" data-term-auto="off">\(a\)</span>: it
@@ -5566,13 +5652,16 @@ in the sense that it drops a hypothesis, widens a band, or asks only for
 magnitude rather than a signed inequality.</em></p>
 <ol>
 <li><p><em>(<span><span class="sans-serif">[Open]</span></span>,
-<span><span class="sans-serif">scale:cofinal</span></span>): <span
+<span><span class="sans-serif">scale:cofinal</span></span>): </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,m,\ a_0\le a \wedge 8\le a
 \wedge m{+}1{+}(a{+}6)&lt;2\cdot 2^a \wedge
-      2H{+}m{+}3 &lt; 2^m \wedge\]</span> <span
+      2H{+}m{+}3 &lt; 2^m \wedge\]</span></div>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2H{+}m{+}2 \le
 \mathtt{diagonalAdjacentSuffixResidue}(2^a)\,0\,m \le 2^m -
-(2H{+}m{+}2)\]</span> (a two-sided band on the adjacent-suffix residue
+(2H{+}m{+}2)\]</span></div>
+<p class="display-continue"><em> (a two-sided band on the adjacent-suffix residue
 directly, one candidate depth <span
 class="math inline" data-term-auto="off">\(m\)</span>).</em></p></li>
 <li><p><em>(<span><span class="sans-serif">[Open]</span></span>,
@@ -5584,11 +5673,12 @@ half-word residue mod <span class="math inline" data-term-auto="off">\(4^q\)</sp
 class="math inline" data-term-auto="off">\(1/32\)</span> central band.”</em></p></li>
 <li><p><em>(<span><span class="sans-serif">[Open]</span></span>,
 <span><span class="sans-serif">scale:cofinal</span></span>), <em>proved
-equivalent</em> to the previous one via : <span
+equivalent</em> to the previous one via : </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,q,\ \max(14,a_0)\le a
 \wedge \mathtt{oddGuardedCanonicalAdjacentSuffixDepth}(2^a)=2q{+}1
       \wedge H{+}q{+}2 \le |\mathtt{actualOddHalfCenteredLift}\ a\ q|
-.\]</span></em></p></li>
+.\]</span></div></li>
 <li><p><em>(<span><span class="sans-serif">[Open]</span></span>,
 <span><span class="sans-serif">scale:cofinal</span></span>): the same
 magnitude bound with the depth restriction relaxed from “canonical
@@ -5668,7 +5758,7 @@ throughout this exact corridor: for <span class="math inline" data-term-auto="of
 2^a\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0 &lt; \mathtt{carryOrbit}\
 H\ (H{+}J)\ d\ K\]</span></div>
-<p>whenever <span
+<p class="display-continue">whenever <span
 class="math inline" data-term-auto="off">\(d\)</span> is the real-valued representative of
 the translated tail difference.</p>
 <p>So the two branches of the corridor-escape disjunction that offers
@@ -5716,10 +5806,12 @@ class="level4">
 class="sans-serif">[Lean]</span></span>. <span><span
 class="sans-serif">scale:uniform</span></span>. Unconditionally, for
 every <span class="math inline" data-term-auto="off">\(a\)</span> and <span
-class="math inline" data-term-auto="off">\(q\)</span>, <span class="math display" data-term-auto="off">\[\bigl|\,
+class="math inline" data-term-auto="off">\(q\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\bigl|\,
 \mathtt{actualLcmTailOrbit}\ a - \mathtt{actualLcmRawApprox}\ a\ q
 \,\bigr|
-  \;&lt;\; \frac{4H + 2(2q{+}1) + 4}{2^{2q+2}} ,\]</span> where <span
+  \;&lt;\; \frac{4H + 2(2q{+}1) + 4}{2^{2q+2}} ,\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(\mathtt{actualLcmRawApprox}\ a\ q\)</span> is an
 explicit finite computable rational block. The error radius is uniform
 in <span class="math inline" data-term-auto="off">\(a\)</span> and <span
@@ -5773,9 +5865,11 @@ class="level4">
 <p><em>and . <span><span class="sans-serif">[Cert]</span></span> for the
 witness, <span><span class="sans-serif">[Lean]</span></span> for the
 consumer. <span><span class="sans-serif">scale:bounded</span></span>.
-<span class="math display" data-term-auto="off">\[\forall a_0\le 6,\ \exists a,L,\ a_0\le a
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall a_0\le 6,\ \exists a,L,\ a_0\le a
 \wedge L &lt; 2\cdot 2^a \wedge
-  \mathtt{LcmDiagonalArithmeticKill}(2^a)\,L\]</span> — literally the
+  \mathtt{LcmDiagonalArithmeticKill}(2^a)\,L\]</span></div>
+<p><em> — literally the
 open cofinal supply predicate below with its universal quantifier
 truncated at <span class="math inline" data-term-auto="off">\(a_0\le 6\)</span>. This is the
 purest <span><span
@@ -5817,11 +5911,13 @@ class="level4">
 <div class="thm">
 <p><strong>Theorem 236</strong>. <em>, with and . <span><span
 class="sans-serif">[Cert]</span></span>. <span><span
-class="sans-serif">scale:fixed</span></span>. <span
+class="sans-serif">scale:fixed</span></span>. </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall t\in\{1,2,3,4,5,7,8,9,11,13,16,17\},\
 \exists L,\
   \mathtt{certifiedKill}\ (\mathtt{periodLcm}\ t)\ (\mathtt{periodLcm}\
-t)\ L\]</span> at depths <span
+t)\ L\]</span></div>
+<p class="display-continue"><em> at depths <span
 class="math inline" data-term-auto="off">\(\{6,5,7,7,9,14,15,14,21,22,23,26\}\)</span>
 respectively, extended by the separate T19…T64 modules to 28 historical
 values through <span class="math inline" data-term-auto="off">\(t=64\)</span> (the <span
@@ -5849,11 +5945,13 @@ supported (<span><span class="sans-serif">[Cert]</span></span>, not
 observation, not a theorem.</p>
 </div>
 <div class="prop">
-<p><strong>Proposition 238</strong> (What would close it). <em><span
+<p><strong>Proposition 238</strong> (What would close it). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\exists C\ \forall t_0\ \exists t\ge t_0\ \exists
 L\le \log_2(4\cdot\mathtt{periodLcm}\ t)+C,\quad
   \mathtt{certifiedKill}\ (\mathtt{periodLcm}\ t)\ (\mathtt{periodLcm}\
-t)\ L .\]</span> This is an anti-concentration statement about the
+t)\ L .\]</span></div>
+<p><em> This is an anti-concentration statement about the
 diagonal word’s residue at the first admissible depth — exactly the
 shape a doubling-orbit equidistribution argument would produce.</em></p>
 </div>
@@ -5866,9 +5964,11 @@ class="level4">
 <div class="thm">
 <p><strong>Theorem 239</strong>. <em> and (shallower sibling ).
 <span><span class="sans-serif">[Cert]</span></span>. <span><span
-class="sans-serif">scale:fixed</span></span>. <span
+class="sans-serif">scale:fixed</span></span>. </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall h\in[1,16],\quad \mathtt{certifiedKill}\
-h\ 14\ 9\]</span> — a single position <span
+h\ 14\ 9\]</span></div>
+<p><em> — a single position <span
 class="math inline" data-term-auto="off">\(N=14\)</span> and a single depth <span
 class="math inline" data-term-auto="off">\(L=9\)</span> that simultaneously certify every
 period <span class="math inline" data-term-auto="off">\(h\)</span> up to <span
@@ -5996,8 +6096,10 @@ class="math inline" data-term-auto="off">\(H&gt;K\)</span>, and every bound <spa
 class="math inline" data-term-auto="off">\(B\)</span>, there are primes <span
 class="math inline" data-term-auto="off">\(p&gt;B\)</span> with a length-<span
 class="math inline" data-term-auto="off">\((K{-}1)\)</span> zero prefix and a terminal
-half-turn, giving <span class="math display" data-term-auto="off">\[A_{H,p-K,K} \equiv
-2^{K-1} \pmod{2^K}.\]</span> Under eventual integrality this transfers
+half-turn, giving </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[A_{H,p-K,K} \equiv
+2^{K-1} \pmod{2^K}.\]</span></div>
+<p><em> Under eventual integrality this transfers
 to an integer <span class="math inline" data-term-auto="off">\(z\)</span> with <span
 class="math inline" data-term-auto="off">\((z:\mathbb R) =
 \mathrm{totientTail}(p{+}H) - \mathrm{totientTail}(p)\)</span> and <span
@@ -6073,7 +6175,7 @@ supply). :</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{canonicalAdjacentSuffixCentralSlack}\ t =
 \min\bigl(d-2^{m-5},\ (2^m-2^{m-5})-d\bigr),\]</span></div>
-<p>with <span
+<p class="display-continue">with <span
 class="math inline" data-term-auto="off">\(m\)</span> the canonical adjacent-suffix depth and
 <span class="math inline" data-term-auto="off">\(d\)</span> the residue at that depth. The
 open producers, both <span><span class="sans-serif">[Open]</span></span>
@@ -6168,11 +6270,13 @@ off-coordinate (<code>coord:mobius-mersenne</code>)</h4>
 class="sans-serif">[Lean]</span></span>. <span><span
 class="sans-serif">scale:uniform</span></span>. For every <span
 class="math inline" data-term-auto="off">\(t\ge 5\)</span>, uniformly in <span
-class="math inline" data-term-auto="off">\(t\)</span>: <span class="math display" data-term-auto="off">\[2^{t/2}
+class="math inline" data-term-auto="off">\(t\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2^{t/2}
 \;\le\; \prod_{p\in \mathrm{upperHalfPrimes}(t)} \mathtt{mersenne}(p)
 \;\le\;
   \mathrm{den}\bigl(\mathtt{lcmHeight}(t)\cdot
-\mathtt{numericMobiusShadow}(\mathtt{lcmHeight}(t))\bigr).\]</span> An
+\mathtt{numericMobiusShadow}(\mathtt{lcmHeight}(t))\bigr).\]</span></div>
+<p><em> An
 unbounded denominator lower bound at every LCM height, with an
 individual surviving channel isolated (<span
 class="math inline" data-term-auto="off">\(2^{t/2}\le \mathtt{mersenne}(p) &lt;
@@ -6242,10 +6346,11 @@ in arithmetic progression).</em></p>
 class="sans-serif">[Lean]</span></span>. <span><span
 class="sans-serif">scale:uniform</span></span>. If <span
 class="math inline" data-term-auto="off">\(S\)</span> is rational there is a tempered
-integral carry orbit <span class="math inline" data-term-auto="off">\(u\)</span> with <span
+integral carry orbit <span class="math inline" data-term-auto="off">\(u\)</span> with </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^e - 1 \;\le\; \mathrm{finrank}_{\mathbb
 Q}\,\mathrm{span}(\mathtt{canonicalCarryKernelFamily}\ u\ e)
-  \qquad\text{for every } e .\]</span></em></p>
+  \qquad\text{for every } e .\]</span></div>
 </div>
 <div class="rem">
 <p><em>Remark 261</em> (The scale side is finished; the missing
@@ -7148,17 +7253,20 @@ class="math display" data-term-auto="off">\[\alpha_h \;:=\; (2^h-1)\,S .\]</span
 <div class="lem">
 <p><strong>Lemma 271</strong> (Doubling normal form). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge 0\)</span> and <span
-class="math inline" data-term-auto="off">\(h\ge 1\)</span>, <span
+class="math inline" data-term-auto="off">\(h\ge 1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[R_{N+1}=2R_N-\varphi(N+1),
   \qquad
-  R_{N+h}-R_N \;=\; 2^N\alpha_h-\bigl(\Phi_{N+h}-\Phi_N\bigr),\]</span>
-so <span class="math inline" data-term-auto="off">\(R_{N+h}-R_N \equiv 2^N\alpha_h \pmod
+  R_{N+h}-R_N \;=\; 2^N\alpha_h-\bigl(\Phi_{N+h}-\Phi_N\bigr),\]</span></div>
+<p>so <span class="math inline" data-term-auto="off">\(R_{N+h}-R_N \equiv 2^N\alpha_h \pmod
 1\)</span>, and consequently the exact first character of the tail
 difference is the <span class="math inline" data-term-auto="off">\(\times 2\)</span> orbit of
-one real number: <span
+one real number: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{tailOrbitFirstExp}(h,N)
   \;=\; e\bigl(2^N\alpha_h\bigr),
-  \qquad e(x):=\exp(2\pi i x).\]</span> Hence, for fixed <span
+  \qquad e(x):=\exp(2\pi i x).\]</span></div>
+<p><em> Hence, for fixed <span
 class="math inline" data-term-auto="off">\(h\)</span>, the phases <span
 class="math inline" data-term-auto="off">\(\{\,R_{N+h}-R_N \bmod 1\,\}_{N\ge 0}\)</span> are
 the forward orbit of <span class="math inline" data-term-auto="off">\(\alpha_h \bmod
@@ -7177,11 +7285,13 @@ a <em>lacunary exponential sum in a single real variable</em>. The
 following proposition makes the transfer exact, including the truncation
 budget.</p>
 <div class="prop">
-<p><strong>Proposition 272</strong> (Orbit transfer). <em> Define <span
+<p><strong>Proposition 272</strong> (Orbit transfer). <em> Define </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{OrbitBlockGap} :\equiv
   \forall h\ge 1\ \forall X_0\ \exists X\ge \max(X_0,1):\quad
   \sum_{N=X}^{2X-1}\cos\bigl(2\pi\,2^{N}\alpha_h\bigr)\;\le\;\tfrac{89}{100}\,X
-.\]</span> Then <span
+.\]</span></div>
+<p><em> Then <span
 class="math inline" data-term-auto="off">\(\mathrm{OrbitBlockGap}\)</span> implies that <span
 class="math inline" data-term-auto="off">\(S\)</span> is irrational.</em></p>
 </div>
@@ -7393,7 +7503,7 @@ X,L:\quad
   \max(X_0,1)\le X,\quad 16(2X+h+L+2)\le 2^{L},\quad
   \Bigl\|\sum_{N=X}^{2X-1} e\bigl(D(h,N,L)/2^{L}\bigr)\Bigr\|\le
 \tfrac{21}{25}X,\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(D(h,N,L)=\sum_{j&lt;L}\bigl(\varphi(N+h+1+j)-\varphi(N+1+j)\bigr)2^{L-1-j}\)</span>.
 , consumer . By Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a> the weaker real-part
 form with constant <span class="math inline" data-term-auto="off">\(89/100\)</span>
@@ -7521,9 +7631,11 @@ class="math inline" data-term-auto="off">\(\beta=\sum_{n\ge1}c(n)/2^{n}
 =\sum_{k\ge 1}2^{-k!}\)</span>. Then <span
 class="math inline" data-term-auto="off">\(\beta\)</span> is irrational, and for every <span
 class="math inline" data-term-auto="off">\(h\ge 1\)</span> and every <span
-class="math inline" data-term-auto="off">\(X\ge 81(h+5)\)</span>, <span
+class="math inline" data-term-auto="off">\(X\ge 81(h+5)\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{N=X}^{2X-1}\cos\bigl(2\pi\,2^{N}(2^{h}-1)\beta\bigr)
-\;&gt;\; \tfrac{9}{10}X .\]</span> Consequently the block-gap
+\;&gt;\; \tfrac{9}{10}X .\]</span></div>
+<p><em> Consequently the block-gap
 requirement fails at <em>every</em> scale for <span
 class="math inline" data-term-auto="off">\(\beta\)</span>, while <span
 class="math inline" data-term-auto="off">\(\beta\)</span> is irrational. No proof of the
@@ -7630,12 +7742,16 @@ class="math inline" data-term-auto="off">\(X\)</span>, with the predicate’s pr
 <span class="math inline" data-term-auto="off">\(h\)</span> and <span
 class="math inline" data-term-auto="off">\(s\)</span>. If <span
 class="math inline" data-term-auto="off">\(n=N+L-s+1\)</span> is not a supplier, then its
-largest prime factor satisfies <span class="math display" data-term-auto="off">\[P(n)\le
-(4+o(1))\sqrt X .\]</span> Therefore <span
+largest prime factor satisfies </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P(n)\le
+(4+o(1))\sqrt X .\]</span></div>
+<p>Therefore </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\#\{N\in[X,2X):\neg\,\mathrm{pivotSupplier}(X,L,s,N)\}
   \le
   \Psi(2X+O(\log X),(4+o(1))\sqrt X)
-  -\Psi(X+O(\log X),(4+o(1))\sqrt X).\]</span> A uniform smooth-number
+  -\Psi(X+O(\log X),(4+o(1))\sqrt X).\]</span></div>
+<p><em> A uniform smooth-number
 asymptotic for this shifted interval would make the right side <span
 class="math inline" data-term-auto="off">\((1-\log2+o(1))X&lt;\tfrac8{25}X\)</span> and would
 discharge the budget.</em></p>
@@ -7668,10 +7784,12 @@ class="math inline" data-term-auto="off">\(B(\eta)=\{m:\varphi(m)&lt;\eta m\}\)<
 natural density <span class="math inline" data-term-auto="off">\(D(\eta)\)</span>; by
 Schoenberg’s theorem <span class="math inline" data-term-auto="off">\(D\)</span> exists, is
 continuous, and <span class="math inline" data-term-auto="off">\(D(0+)=0\)</span> <span><span
-class="sans-serif">[Cited]</span></span>. Then <span
+class="sans-serif">[Cited]</span></span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\#\{N\in[X,2X): N\ \text{a supplier with
 cofactor}\ m\in B(\eta)\}
-  \;\le\;\bigl(D(\eta)+o(1)\bigr)X ,\]</span> so a single choice of
+  \;\le\;\bigl(D(\eta)+o(1)\bigr)X ,\]</span></div>
+<p class="display-continue"><em> so a single choice of
 <span class="math inline" data-term-auto="off">\(\eta\)</span> with <span
 class="math inline" data-term-auto="off">\(D(\eta)&lt;1/200\)</span> meets the <span
 class="math inline" data-term-auto="off">\(\tfrac{1}{100}X\)</span> budget for all large
@@ -7764,7 +7882,7 @@ leaves</p>
     w(mp)\,\bigl(e\bigl(a_m(p-1)/2^{t}\bigr)-\overline{e}_m\bigr)
   \;\le\;\tfrac{14}{25}X ,
   \qquad |w|\equiv 1 ,\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(\overline{e}_m\)</span> is the fibre mean and, by
 <a class="math-ref" href="#eq:window">(1)</a>, <span
 class="math inline" data-term-auto="off">\(w(n)\)</span> is the character of the same
@@ -7827,7 +7945,7 @@ class="math display" data-term-auto="off">\[\sum_{k\le K}\ \frac{1}{2^{k}}
   \Bigl|\sum_{N\in[2^{k},2^{k+1})}e\bigl(D(h,N,L_k)/2^{L_k}\bigr)\Bigr|
   \;=\;o(K)
   \quad\text{for each }h,\]</span></div>
-<p>with <span
+<p class="display-continue">with <span
 class="math inline" data-term-auto="off">\(L_k\)</span> any admissible depth sequence, then
 infinitely many blocks satisfy the gap and Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a> applies. Logarithmic
 averaging is exactly the regime in which the entropy-decrement method
@@ -7924,7 +8042,7 @@ the right one:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_{h,X,L}\;:=\;\mathrm{pivotFiber}(X,L,L-h,1)
   \;=\;\{\,N\in[X,2X)\ :\ N+h+1\ \text{prime}\,\},\]</span></div>
-<p>a membership
+<p class="display-continue">a membership
 equality rather than a sampled surrogate (, <span><span
 class="sans-serif">[Lean]</span></span>).</p>
 <p>The proposal is to prove</p>
@@ -7937,7 +8055,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
   \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L)\ \le\
 \tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr| ,
 \end{equation}\]</span></div>
-<p>which by the landed subset consumer yields a
+<p class="display-continue">which by the landed subset consumer yields a
 certificate at some <span class="math inline" data-term-auto="off">\(N\ge X\ge X_0\)</span>,
 hence irrationality. <span><span
 class="sans-serif">[Open]</span></span></p>
@@ -7984,7 +8102,7 @@ irrationality — is itself a well-defined finite piece of work.</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{ApFullDepthEscape} :\equiv
   \forall d\ge 1\ \forall N\ \exists t\ge 1:\
 \mathrm{certifiedKill}(td,\,N,\,td),\]</span></div>
-<p>unpacked, <span
+<p class="display-continue">unpacked, <span
 class="math inline" data-term-auto="off">\((N+2td+2:\mathbb{Z})&lt;D(td,N,td)\bmod
 2^{td}&lt;2^{td}-(N+2td+2)\)</span>. , consumer , ambient equivalence ,
 equivalence . The depth-locked condition is equivalent to irrationality;
@@ -8128,7 +8246,7 @@ c:\mathbb{N}\to\mathbb{N}\ \bigl(c(n)\le n,\
   \ \forall v&gt;0\ \forall u\ \mathrm{IsTemperedBinaryOrbit}(c,v,u)\
 \forall e:\quad
   \operatorname{rk}_e(u)\le C ,\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(X_c=\sum_{n\ge1}c(n)/2^{n}\)</span> and <span
 class="math inline" data-term-auto="off">\(\operatorname{rk}_e(u)\)</span> is the dimension
 of the span of the dyadic sections of <span
@@ -8153,7 +8271,7 @@ facts do not refute the desired bound for its carry orbit.</p>
 <p>The generic recurrence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[v\,c(N+1)=2u(N)-u(N+1)\]</span></div>
-<p>does express each
+<p class="display-continue">does express each
 <em>positive-residue</em> level-<span class="math inline" data-term-auto="off">\(j\)</span>
 section of <span class="math inline" data-term-auto="off">\(c\)</span> as a linear
 combination of two level-<span class="math inline" data-term-auto="off">\(j\)</span> sections
@@ -8400,7 +8518,7 @@ class="math display" data-term-auto="off">\[\mathrm{certifiedKill}(h,N,L) :\equi
   (N+h+L+2 : \mathbb{Z}) &lt; D(h,N,L) \bmod 2^L
   \ \wedge\
   D(h,N,L) \bmod 2^L &lt; 2^L - (N+h+L+2).\]</span></div>
-<p>(the definition;
+<p class="display-continue">(the definition;
 decidable, instance at line 84) <code>coord:other:binary-window</code>.
 In words: the residue of the window discrepancy modulo <span
 class="math inline" data-term-auto="off">\(2^L\)</span> avoids a shrinking radius-<span
@@ -8418,7 +8536,7 @@ class="math display" data-term-auto="off">\[\bigl(\exists L,\
   \iff
   R_{N+h} - R_N \notin \operatorname{range}\bigl((\uparrow)\colon
 \mathbb{Z}\to\mathbb{R}\bigr).\]</span></div>
-<p>(wrapped as
+<p class="display-continue">(wrapped as
 <code>totient_tail_window_kill_exists_iff_tail_diff</code><code>_not_int</code>
 at ) (holds for all <span class="math inline" data-term-auto="off">\(h,N\)</span>)
 <code>coord:other:binary-window</code>.</p>
@@ -8496,7 +8614,7 @@ endpoint-equivalent).</h5>
 m&gt;0,\ \exists N\ge N_0,\ \exists L,\
     \mathrm{certifiedKill}(m\cdot h_0, N, L)
   \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
-<p><code>coord:other:lcm-period-multiple</code>. Obligation 1’s hypothesis
+<p class="display-continue"><code>coord:other:lcm-period-multiple</code>. Obligation 1’s hypothesis
 trivially implies this one (take <span
 class="math inline" data-term-auto="off">\(m=1\)</span>), while the displayed theorem sends
 it back to irrationality and hence, by the base iff, back to Obligation
@@ -8509,7 +8627,7 @@ open as #249.</p>
   \ \Longleftrightarrow\
   \forall t_0,\ \exists t\ge t_0,\ \exists L,\
     \mathrm{certifiedKill}(H_t, H_t, L).\]</span></div>
-<p><code>coord:other:lcm-diagonal</code>. This is the canonical
+<p class="display-continue"><code>coord:other:lcm-diagonal</code>. This is the canonical
 single-quantifier restatement: write <span class="math inline" data-term-auto="off">\(P(t)
 :\equiv \exists L,\ \mathrm{certifiedKill}(H_t,H_t,L)\)</span>; the
 obligation is <span class="math inline" data-term-auto="off">\(\forall t_0\,\exists t\ge
@@ -8544,7 +8662,7 @@ class="level5">
 q,m,L,\ 0&lt;q\ \wedge\
     \mathrm{certifiedKill}(m\cdot H_t,\, q\cdot H_t,\, L)
   \ \Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
-<p><code>coord:other:lcm-cone</code>. The diagonal form above is exactly
+<p class="display-continue"><code>coord:other:lcm-cone</code>. The diagonal form above is exactly
 the cell <span class="math inline" data-term-auto="off">\(q=m=1\)</span>, so any diagonal
 witness trivially witnesses the cone form. The cone predicate is
 therefore a formally looser target, but its sufficiency theorem and the
@@ -8584,7 +8702,7 @@ class="math display" data-term-auto="off">\[\forall t_0,\ \exists t\ge t_0,\
 R_{2H_t}-R_{H_t}\notin\mathbb{Z}
   \ \Longleftrightarrow\ \text{diagonal obligation above}
   \ \Longrightarrow\ \mathrm{Irrational}(S),\]</span></div>
-<p>(cone analogue at
+<p class="display-continue">(cone analogue at
 ) <code>coord:other:real-analytic-nonintegrality</code>. This is the
 frontier of #249 with every piece of certificate machinery removed:
 <em>does <span
@@ -8605,12 +8723,12 @@ class="math display" data-term-auto="off">\[\mathrm{DTWFirstHarmonicNormGap} :\e
   16\,(2X+h+L+2)\le 2^L\ \wedge\
   \Bigl\|\sum_{N\in[X,2X)} e\bigl(D(h,N,L)/2^L\bigr)\Bigr\| \le
 \tfrac{21}{25}X.\]</span></div>
-<p>(the predicate; unproved at every <span
+<p class="display-continue">(the predicate; unproved at every <span
 class="math inline" data-term-auto="off">\(h,X_0\)</span>)
 <code>coord:other:first-harmonic</code>.</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{DTWFirstHarmonicNormGap} \
 \Longrightarrow\ \mathrm{Irrational}(S).\]</span></div>
-<p><code>coord:other:first-harmonic</code>. The consumer already has
+<p class="display-continue"><code>coord:other:first-harmonic</code>. The consumer already has
 Obligation 1’s exact free-parameter shape (<span
 class="math inline" data-term-auto="off">\(X\)</span> is a completely free threshold, so
 applying the gap at <span class="math inline" data-term-auto="off">\(X\ge N_0\)</span> gives
@@ -8679,7 +8797,7 @@ class="math inline" data-term-auto="off">\(2H+J+K+2&lt;2^m\)</span>, a terminal 
 letters vanishes mod its own growing power of two is impossible:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\neg\,\mathrm{ActualLcmTerminalDyadicStaircase}(a,J,K,m).\]</span></div>
-<p><code>coord:mobius-mersenne</code>. The mechanism is a bare
+<p class="display-continue"><code>coord:mobius-mersenne</code>. The mechanism is a bare
 positivity/divisibility contradiction (a positive quantity below a
 modulus, divisible by that modulus, must be <span
 class="math inline" data-term-auto="off">\(0\)</span>) against the unconditional positivity
@@ -8706,7 +8824,7 @@ class="math display" data-term-auto="off">\[\mathrm{ActualLcmTopEdgeResidueGap}(
   m\le K\ \wedge\
   2H+J+K+2 &lt; 2^m\ \wedge\
   D(H,\,H+J,\,K) \bmod 2^m \le 2^m - (2H+J+K+2).\]</span></div>
-<p>(a definition,
+<p class="display-continue">(a definition,
 unproved at any <span class="math inline" data-term-auto="off">\(a\)</span>)
 <code>coord:mobius-mersenne</code>.</p>
 <p>Note this is a <em>one-sided</em> inequality — only the upper
@@ -8716,7 +8834,7 @@ for <span class="math inline" data-term-auto="off">\(a\ge8\)</span> and <span
 class="math inline" data-term-auto="off">\(J+(a{+}6)&lt;2\cdot2^a\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0 &lt; R_{2H+J}-R_{H+J}\]</span></div>
-<p><code>coord:mobius-mersenne</code> — a rare genuinely unconditional,
+<p class="display-continue"><code>coord:mobius-mersenne</code> — a rare genuinely unconditional,
 non-hypothetical real-analytic theorem in this corpus, needing no
 rationality assumption at all.</p>
 <p>Its companion shows that <em>if</em> the orbit is integral, the
@@ -8732,7 +8850,7 @@ one named residue class rather than leaving it implicit.</p>
 class="math display" data-term-auto="off">\[\mathrm{ActualLcmTopEdgeResidueGap}(a,J,K,m)\
 \Longrightarrow\
   R_{2H+J}-R_{H+J}\notin\mathbb{Z}.\]</span></div>
-<p><code>coord:mobius-mersenne</code>.</p>
+<p class="display-continue"><code>coord:mobius-mersenne</code>.</p>
 <p>The cofinal target built from it:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply}
@@ -8744,7 +8862,7 @@ class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmTopEdgeResi
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{PowerTwoActualLcmTopEdgeResidueGapSupply}
 \Longrightarrow \mathrm{Irrational}(S).\]</span></div>
-<p><code>coord:mobius-mersenne</code>.</p>
+<p class="display-continue"><code>coord:mobius-mersenne</code>.</p>
 </section>
 <section
 id="five-strictly-weaker-links-each-independently-proved-sufficient."
@@ -8832,7 +8950,7 @@ class="math display" data-term-auto="off">\[\mathrm{PowerTwoFlexibleActualTermin
 :\equiv
   \forall a_0,\ \exists a,q,\quad \cdots\ \wedge\
   \Bigl(2u \le d - B\ \vee\ d \le 2u\Bigr),\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(d=\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)\)</span>,
 <span
 class="math inline" data-term-auto="off">\(u=\mathrm{actualOddHalfCenteredLift}(a,q)\)</span>,
@@ -8846,7 +8964,7 @@ of a proved identity,</p>
 class="math display" data-term-auto="off">\[2\cdot\mathrm{actualOddHalfCenteredLift}(a,q)
   = \mathrm{diagonalWindowIncrement}(2^a,2q{+}2) -
 \mathrm{carryOrbit}(H,H,z,2q{+}1),\]</span></div>
-<p><code>coord:mobius-mersenne</code> — an <em>equality</em>, not an
+<p class="display-continue"><code>coord:mobius-mersenne</code> — an <em>equality</em>, not an
 inequality: the doubled centered-lift state is exactly (terminal
 arithmetic letter) minus (true carry). Escaping either side of this
 named open interval is exactly the corridor-escape supply.</p>
@@ -8960,7 +9078,7 @@ class="math display" data-term-auto="off">\[\bigl(\exists L,\
 \mathrm{certifiedKill}(h,N,L)\bigr)
   \iff
   \mathrm{GuardCylinderWitness}(h,N).\]</span></div>
-<p><code>coord:seam-integer</code>, where the witness is <span
+<p class="display-continue"><code>coord:seam-integer</code>, where the witness is <span
 class="math inline" data-term-auto="off">\(\exists s,b,\
 \mathrm{certifiedKill}(h,N{+}s,b{+}1) \vee
 (\text{room} \wedge
@@ -8997,7 +9115,7 @@ class="math inline" data-term-auto="off">\(S\)</span> is rational there is a tem
 integral binary carry orbit <span class="math inline" data-term-auto="off">\(u\)</span> with</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall e,\quad 2^e-1 \le
 \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr).\]</span></div>
-<p><code>coord:other:carry-kernel-rank</code>.</p>
+<p class="display-continue"><code>coord:other:carry-kernel-rank</code>.</p>
 <p>An opposite inequality — a rationality-side rank <em>upper</em> bound
 — would of course contradict the displayed lower bound:</p>
 <div class="math-display" data-term-auto="off"><span
@@ -9007,7 +9125,7 @@ binary carry orbit } u
   \forall e,\quad
 \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr)
 \le C\]</span></div>
-<p>(or any bound growing slower than <span
+<p class="display-continue">(or any bound growing slower than <span
 class="math inline" data-term-auto="off">\(2^e-1\)</span>). This is a logically sufficient
 new theorem schema, not an open proposition isolated by the preceding
 mathematics: the corpus gives no reason rationality should force it, and
@@ -9036,7 +9154,7 @@ class="math inline" data-term-auto="off">\(K=240\)</span>:</p>
 class="math display" data-term-auto="off">\[\forall p\in\mathbb{Q},\quad p.\mathrm{den} \le
 79639646646701375323355774875831053
   \ \Longrightarrow\ S\ne p.\]</span></div>
-<p><code>coord:farey</code>. This
+<p class="display-continue"><code>coord:farey</code>. This
 bound is <em>sharp</em> at <span class="math inline" data-term-auto="off">\(K=240\)</span> —
 the mediant <span
 class="math inline" data-term-auto="off">\(q=79639646646701375323355774875831054\)</span> is

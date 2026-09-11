@@ -520,9 +520,11 @@ A\)</span>, put <span class="math inline" data-term-auto="off">\(\delta := 1/2 -
 x_A\)</span>, and let <span
 class="math inline" data-term-auto="off">\(\operatorname{ihc}(A,N)\)</span> denote the
 integer half-carry at level <span class="math inline" data-term-auto="off">\(N\)</span>. Then
-<span class="math display" data-term-auto="off">\[\operatorname{ihc}(A,N) \;=\;
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{ihc}(A,N) \;=\;
 2^{N+1}\,\delta \;+\; \mathrm{T}(N+1),
-  \qquad 0 \;\le\; \mathrm{T}(N+1) \;\le\; 2\sqrt{N+1} + 4 ,\]</span>
+  \qquad 0 \;\le\; \mathrm{T}(N+1) \;\le\; 2\sqrt{N+1} + 4 ,\]</span></div>
+<p class="display-continue"><em>
 where <span class="math inline" data-term-auto="off">\(\mathrm{T}\)</span> is the binary
 coefficient tail of <span
 class="math inline" data-term-auto="off">\(\operatorname{sc}_A\)</span>.
@@ -566,10 +568,12 @@ class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span>, by . �
 class="smallcaps">proved</span>, this pass). <em> Suppose <span
 class="math inline" data-term-auto="off">\(x_A = 1/2\)</span> and <span
 class="math inline" data-term-auto="off">\(1 \notin A\)</span>. Then for every <span
-class="math inline" data-term-auto="off">\(k \ge 1\)</span>, <span
+class="math inline" data-term-auto="off">\(k \ge 1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{ihc}(A, k^2 - 1) \;=\;
 \mathrm{T}(k^2) \;\le\; 2k + 4 \;=\;
-\texttt{halfStripBound}(k^2).\]</span> <code>coord:half-carry</code>
+\texttt{halfStripBound}(k^2).\]</span></div>
+<p class="display-continue"><em> <code>coord:half-carry</code>
 <span><span class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Math]</span></span></em></p>
 </div>
@@ -1040,7 +1044,7 @@ is not an open target:</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{p\ {\rm
 prime}}\frac1{2^p-1}
   =\sum_{n\ge1}\frac{\omega(n)}{2^n}\]</span></div>
-<p>by expanding each
+<p class="display-continue">by expanding each
 reciprocal Mersenne term geometrically and collecting divisors. Tao and
 Teräväinen prove the right-hand series irrational in Theorem 1.3 of <a
 href="https://arxiv.org/abs/2512.01739"><em>Quantitative correlations
@@ -1247,8 +1251,10 @@ class="sans-serif">[Math]</span></span></p>
 <p><strong>Theorem 25</strong> (Full-support irrationality,
 unconditional, every base <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>).
 <em> For every integer <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>,
-<span class="math display" data-term-auto="off">\[\sum_{k=0}^{\infty} \frac{1}{b^{k+1}-1}
-\quad \text{is irrational.}\]</span> <strong>Hypotheses:</strong> <span
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{k=0}^{\infty} \frac{1}{b^{k+1}-1}
+\quad \text{is irrational.}\]</span></div>
+<p><em> <strong>Hypotheses:</strong> <span
 class="math inline" data-term-auto="off">\(b \in \mathbb{N}\)</span>, <span
 class="math inline" data-term-auto="off">\(b \ge 2\)</span>. <strong>Conclusion:</strong>
 unconditional irrationality of the full-support Erdős–Borwein-type
@@ -1486,7 +1492,7 @@ class="math inline" data-term-auto="off">\(n\)</span> are</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[w(n,d)
 := \left\lfloor \frac{4^n}{2^d-1} \right\rfloor, \qquad d =
 2,\dots,n-1,\]</span></div>
-<p>and the seam target is <span
+<p class="display-continue">and the seam target is <span
 class="math inline" data-term-auto="off">\(T_n := 2^{2n-1} - 2^n\)</span>. The seam greedy
 process takes ranks <span class="math inline" data-term-auto="off">\(d = 2,\dots,n-1\)</span>
 in ascending order against <span class="math inline" data-term-auto="off">\(T_n\)</span>
@@ -1517,12 +1523,14 @@ class="sans-serif">[Cert]</span></span></p>
 </div>
 <div class="thm">
 <p><strong>Theorem 35</strong> (Master seam identity). <em> For every
-seam row <span class="math inline" data-term-auto="off">\(n \ge 6\)</span>, <span
+seam row <span class="math inline" data-term-auto="off">\(n \ge 6\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation*}
 \Delta_n \;=\; K(2n) \;+\; \sum_{d \in \mathrm{Skip}_n} \left\lfloor
 \frac{4^n}{2^d-1} \right\rfloor.
 \tag{I}
-\end{equation*}\]</span> <strong>Hypotheses:</strong> <span
+\end{equation*}\]</span></div>
+<p><em> <strong>Hypotheses:</strong> <span
 class="math inline" data-term-auto="off">\(n \ge 6\)</span>; <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}(n)\)</span>, <span
 class="math inline" data-term-auto="off">\(D_n\)</span>, <span
@@ -1573,17 +1581,21 @@ class="level3">
 <div class="thm">
 <p><strong>Theorem 36</strong> (Real (non-integer) form of the master
 identity). <em> Let <span class="math inline" data-term-auto="off">\(x_d :=
-1/(2^d-1)\)</span> and define the constant <span
+1/(2^d-1)\)</span> and define the constant </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C \;:=\; \sum_{d \ge 2} x_d \;-\; \tfrac12 \;=\;
-E - \tfrac32 \;=\; 0.1066951524152917\ldots,\]</span> where <span
+E - \tfrac32 \;=\; 0.1066951524152917\ldots,\]</span></div>
+<p>where <span
 class="math inline" data-term-auto="off">\(E\)</span> is the Erdős–Borwein constant. Then,
-for every seam row <span class="math inline" data-term-auto="off">\(n \ge 6\)</span>, <span
+for every seam row <span class="math inline" data-term-auto="off">\(n \ge 6\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation*}
 \Delta_n \;=\; 4^n \Big( \sum_{d \in \mathrm{Skip}_n} x_d \;-\; C \Big)
 \;+\; \eta_n, \qquad
 |\eta_n| &lt; 2n+2.
 \tag{II}
-\end{equation*}\]</span> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
+\end{equation*}\]</span></div>
+<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
 <strong>Conclusion:</strong> escaping the wall (making <span
 class="math inline" data-term-auto="off">\(\Delta_n\)</span> large, at scale <span
 class="math inline" data-term-auto="off">\(2^{(n+5)/2}\)</span> or beyond – the exact target
@@ -1614,14 +1626,16 @@ side.</em></p>
 <div class="thm">
 <p><strong>Theorem 37</strong> (Deviation dynamics and the R/M/U branch
 structure). <em> Let <span class="math inline" data-term-auto="off">\(\lambda_n := \Delta_n /
-2^n\)</span>. Then <span class="math display" data-term-auto="off">\[\begin{equation*}
+2^n\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation*}
 \begin{aligned}
 \lambda_{n+1} &amp;= 2\lambda_n + 2e_n + \delta_n,\\
 e_n &amp;\in \{0,+1,-1\}\quad\text{for branches R/M/U respectively},\\
 |\delta_n| &amp;\le \frac{2n+6}{2^n}.
 \end{aligned}
 \tag{III}
-\end{equation*}\]</span> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
+\end{equation*}\]</span></div>
+<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
 <strong>Conclusion:</strong> the deviation dynamics is a doubling map on
 <span class="math inline" data-term-auto="off">\(\lambda_n\)</span> with a forced signed
 digit <span class="math inline" data-term-auto="off">\(e_n\)</span> (recording which of three
@@ -2278,8 +2292,10 @@ class="sans-serif">scale:fixed</span></span><code>coord:seam-integer</code>
 Erdős–Borwein irrationality). <em> Write <span
 class="math inline" data-term-auto="off">\(K\)</span> for the Mersenne achievement set and
 <span class="math inline" data-term-auto="off">\(G(1/2)\)</span> for the greedy skipped
-support. Then <span class="math display" data-term-auto="off">\[\frac12\in K
-\quad\Longleftrightarrow\quad G(1/2)\text{ is infinite}.\]</span> The
+support. Then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac12\in K
+\quad\Longleftrightarrow\quad G(1/2)\text{ is infinite}.\]</span></div>
+<p><em> The
 forward direction uses irrationality of the Erdős–Borwein constant (the
 complete Mersenne tail from rank zero): if only finitely many exponents
 were skipped, the constant would equal <span
@@ -2404,8 +2420,10 @@ class="sans-serif">scale:uniform</span></span><code>coord:dedekind-cut</code>
 not just greedy). <em> Write <span class="math inline" data-term-auto="off">\(P_A(d)\)</span>
 for the rank-<span class="math inline" data-term-auto="off">\(d\)</span> prefix, <span
 class="math inline" data-term-auto="off">\(T(d+1)\)</span> for the remaining tail, and <span
-class="math inline" data-term-auto="off">\(w_{d+1}\)</span> for the next weight. If <span
-class="math display" data-term-auto="off">\[P_A(d)+T(d+1)&lt;t&lt;P_A(d)+w_{d+1},\]</span>
+class="math inline" data-term-auto="off">\(w_{d+1}\)</span> for the next weight. If </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P_A(d)+T(d+1)&lt;t&lt;P_A(d)+w_{d+1},\]</span></div>
+<p class="display-continue"><em>
 then the full support value is not <span
 class="math inline" data-term-auto="off">\(t\)</span> for <em>every</em> support <span
 class="math inline" data-term-auto="off">\(A\)</span> achieving that prefix, not merely the
@@ -2461,8 +2479,10 @@ for the greedy remainder, and <span class="math inline" data-term-auto="off">\(T
 for the remaining tail. A rank <span class="math inline" data-term-auto="off">\(M\)</span> is
 the last skip exactly when <span class="math inline" data-term-auto="off">\(M\in G\)</span>
 and the state at <span class="math inline" data-term-auto="off">\(M\)</span> is fatal.
-Equivalently, <span class="math display" data-term-auto="off">\[\frac12\in K
-\quad\Longleftrightarrow\quad \forall M\in G,\ R_M\le T_M.\]</span> This
+Equivalently, </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac12\in K
+\quad\Longleftrightarrow\quad \forall M\in G,\ R_M\le T_M.\]</span></div>
+<p><em> This
 turns half-membership into an infinite conjunction over <em>actually
 skipped</em> ranks only — the reduction from a global fatal-state
 statement to a rank-local pointwise inequality is a generic
@@ -2713,8 +2733,10 @@ class="math inline" data-term-auto="off">\(C_a(m)\)</span> denote the support co
 the word <span class="math inline" data-term-auto="off">\(a\)</span> at <span
 class="math inline" data-term-auto="off">\(m\)</span>. At row <span
 class="math inline" data-term-auto="off">\(2(N+1)\)</span>, changing only exponent <span
-class="math inline" data-term-auto="off">\(N+1\)</span> from false to true gives <span
-class="math display" data-term-auto="off">\[C_{a\mathbin{+}\mathrm{true}}(2N+2)=C_{a\mathbin{+}\mathrm{false}}(2N+2)+1.\]</span>
+class="math inline" data-term-auto="off">\(N+1\)</span> from false to true gives </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[C_{a\mathbin{+}\mathrm{true}}(2N+2)=C_{a\mathbin{+}\mathrm{false}}(2N+2)+1.\]</span></div>
+<p><em>
 This is the smallest possible “flip one bit, coefficient changes by
 exactly <span class="math inline" data-term-auto="off">\(1\)</span>” producer. The mechanism
 (flipping a single word-bit changes a divisor-incidence sum by exactly
@@ -3045,7 +3067,7 @@ class="math display" data-term-auto="off">\[\mathrm{localMersenneQuotient}(M,d) 
 \left\lfloor \frac{2^M}{2^d-1} \right\rfloor,\qquad
 \mathrm{localPrefixQuotient}(D,M) := \sum_{d\in D}
 \mathrm{localMersenneQuotient}(M,d),\]</span></div>
-<p>both natural-number floor
+<p class="display-continue">both natural-number floor
 division, and <span
 class="math inline" data-term-auto="off">\(\mathrm{localRepairInteger}(D,k) :=\)</span> the
 signed one-step carry defect of <span
@@ -3063,7 +3085,7 @@ built from.</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,k,M) \;:=\; 2^{M-k}
 - \mathrm{localPrefixQuotient}(D,M) - 1,\]</span></div>
-<p>the leftover carry
+<p class="display-continue">the leftover carry
 after subtracting <span class="math inline" data-term-auto="off">\(D\)</span>’s integer
 quotient contributions from the binary expansion of <span
 class="math inline" data-term-auto="off">\(2^{-k}\)</span> truncated at place <span
@@ -3098,10 +3120,12 @@ says nothing about this predicate.</p>
 <div class="thm">
 <p><strong>Theorem 107</strong> (257bm:c1 —
 <code>half_mem_mersenneAchievementSet_of_cofinalExactLocalRows</code>,
-THE PAYOFF THEOREM). <em><span
+THE PAYOFF THEOREM). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{CofinalExactLocalMersenneHalfRows}
 \;\longrightarrow\; (1/2:\mathbb{R}) \in
-\mathrm{mersenneAchievementSet},\]</span> where <span
+\mathrm{mersenneAchievementSet},\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(\mathrm{mersenneAchievementSet} := \{x \mid
 \exists A:\mathrm{Set}\,\mathbb{N},\ 0\notin A \wedge x =
 \mathrm{positiveMersenneSupportValue}(A)\}\)</span>. Proof: for each
@@ -3125,10 +3149,12 @@ must reach.</em></p>
 <p><strong>Theorem 108</strong> (257bm:c2 —
 <code>cofinalExactLocalMersenneHalfRows_of_positiveHalfGreedySkips</code>,
 <code>half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips</code>).
-<em><span class="math display" data-term-auto="off">\[\mathrm{CofinalPositiveHalfGreedySkips}
+<em></em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{CofinalPositiveHalfGreedySkips}
 \;\longrightarrow\; \mathrm{CofinalExactLocalMersenneHalfRows}
 \;\longrightarrow\;
-(1/2:\mathbb{R})\in\mathrm{mersenneAchievementSet},\]</span> where <span
+(1/2:\mathbb{R})\in\mathrm{mersenneAchievementSet},\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(\mathrm{CofinalPositiveHalfGreedySkips} := \forall
 N,\ \exists c,\ \max(N,4)\le c \wedge 0 &lt;
 \mathrm{greedyMersenneRemainderRat}(1/2,c-1) &lt;
@@ -3161,16 +3187,20 @@ class="math inline" data-term-auto="off">\(\to\)</span>chosen bit, with <span
 class="math inline" data-term-auto="off">\(\mathtt{bit\_stable}\)</span>: once endpoint <span
 class="math inline" data-term-auto="off">\(2d\)</span> is reached coordinate <span
 class="math inline" data-term-auto="off">\(d\)</span> is frozen forever) is feasible when
-<span class="math display" data-term-auto="off">\[\mathrm{GlobalEndpointExponentialBound}(T)
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{GlobalEndpointExponentialBound}(T)
 \ \wedge\ (\text{word-value clause})\ \wedge\ (\text{word-capacity
 clause})\ \wedge\ \forall n\ge2,\
 \mathrm{localPrefixQuotient}(\mathrm{globalRepairStageSupport}(T.\mathrm{bit},n),n)
-= 2^{n-1}-1,\]</span> where the named open producer is <span
+= 2^{n-1}-1,\]</span></div>
+<p>where the named open producer is </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{GlobalEndpointExponentialBound}(T) \;:=\;
 \forall n\ge2,\ \mathrm{let}\ D :=
 \mathrm{globalRepairLowerSupport}(T.\mathrm{bit},n);\ \
 2^{\mathrm{endpointDivisorContribution}(D,n)-1}-1 \le
-\mathrm{localBinarySuffix}(D,1,n-1).\]</span> This is the STRONGER,
+\mathrm{localBinarySuffix}(D,1,n-1).\]</span></div>
+<p><em> This is the STRONGER,
 harder consumer — a genuinely coherent (frozen-diagonal) repair, unlike
 257bm:d4’s cofinal-exact-row supply which needs no coherence at all.
 Kept as a fallback target only; 257bm:c1/c2 supersede it.</em></p>
@@ -3184,12 +3214,14 @@ class="level4 unnumbered">
 <div class="thm">
 <p><strong>Theorem 110</strong> (257bm:c4 —
 <code>SkippedCoreCriticalQuotientSupply</code>, THE REMAINING OPEN
-SOCKET). <em><span
+SOCKET). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{SkippedCoreCriticalQuotientSupply} \;:=\;
 \forall D\ c,\ 4\le c \to (\forall d\in D,\ 2\le d &lt; c) \to
 \mathrm{value}(D) &lt; \tfrac12 \to \Big(\tfrac12-\mathrm{value}(D) &lt;
 \mathrm{mersenneWeightRat}(c)\Big) \to 2^{(2c-2)-1} \le
-\mathrm{localPrefixQuotient}(\mathrm{insert}\ c\ D,\ 2c-2).\]</span>
+\mathrm{localPrefixQuotient}(\mathrm{insert}\ c\ D,\ 2c-2).\]</span></div>
+<p><em>
 Whenever a below-half core is genuinely crossed by rank <span
 class="math inline" data-term-auto="off">\(c\)</span>, adjoining <span
 class="math inline" data-term-auto="off">\(c\)</span> already reaches the integral
@@ -3224,12 +3256,14 @@ class="math inline" data-term-auto="off">\(\mathrm{CofinalExactLocalMersenneHalf
 <div class="thm">
 <p><strong>Theorem 112</strong> (257bm:c6 —
 <code>HalfGreedySkippedCriticalQuotientSupply</code>, the
-already-reduced canonical form). <em><span
+already-reduced canonical form). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{HalfGreedySkippedCriticalQuotientSupply}
 \;:=\; \forall c\ge4\ \text{skipped by the rational half-greedy
 orbit},\quad 2^{(2c-2)-1} \le
 \mathrm{localPrefixQuotient}(\mathrm{insert}\ c\
-(\mathrm{halfGreedyPrefixSupport}(c-1)),\ 2c-2).\]</span> The sharp
+(\mathrm{halfGreedyPrefixSupport}(c-1)),\ 2c-2).\]</span></div>
+<p><em> The sharp
 inequality at one crossing rank per step, in the canonical form the
 induction of 257bm:c5 actually consumes — this is 257bm:c4 with the
 universal quantifier already collapsed onto the one orbit by 257bm:i3
@@ -3244,9 +3278,11 @@ two-consecutive-skips producer). <em>UNCONDITIONAL: if <span
 class="math inline" data-term-auto="off">\(c\ge6\)</span> and BOTH rank <span
 class="math inline" data-term-auto="off">\(c\)</span> and rank <span
 class="math inline" data-term-auto="off">\(c+1\)</span> are skipped by the rational
-half-greedy orbit, then <span
+half-greedy orbit, then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(\mathrm{halfGreedyPrefixSupport}(c-1),\,1,\,2c-3)
-&lt; 2^{c-3},\]</span> which doubles into sharp capacity at <span
+&lt; 2^{c-3},\]</span></div>
+<p class="display-continue"><em> which doubles into sharp capacity at <span
 class="math inline" data-term-auto="off">\(c\)</span> and hence an exact row at <span
 class="math inline" data-term-auto="off">\(2c-2\)</span> with strict-upper separation. No
 supply hypothesis anywhere. The residual open set is exactly the
@@ -3308,9 +3344,11 @@ class="level4 unnumbered">
 <em>For any <span class="math inline" data-term-auto="off">\(c\ge4\)</span> and any finite
 <span class="math inline" data-term-auto="off">\(D\subseteq[2,c)\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathrm{value}(D)&lt;1/2\)</span> and the sharp
-capacity <span
+capacity </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2c-2) &lt;
-2^{c-2},\]</span> there is an exact row <span
+2^{c-2},\]</span></div>
+<p class="display-continue"><em> there is an exact row <span
 class="math inline" data-term-auto="off">\(E\)</span> at endpoint <span
 class="math inline" data-term-auto="off">\(2c-2\)</span> with <span
 class="math inline" data-term-auto="off">\(D\subseteq E\)</span> and every new rank strictly
@@ -3378,10 +3416,12 @@ Mersenne content: for <span class="math inline" data-term-auto="off">\(d,E,j\)</
 <span
 class="math inline" data-term-auto="off">\(\mathrm{CriticalDyadicBandIndex}(d,E,j)\)</span>
 the unique nearest dyadic power <span class="math inline" data-term-auto="off">\(2^{d-j+1}\ge
-E\)</span>, <span class="math display" data-term-auto="off">\[\mathrm{DyadicBandEscape}(d,E)
+E\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{DyadicBandEscape}(d,E)
 \;\Longleftrightarrow\; \exists j,\
 \mathrm{CriticalDyadicBandIndex}(d,E,j) \wedge E + 2(d+j) \le
-2^{d-j+1}.\]</span> The <span class="math inline" data-term-auto="off">\(\forall
+2^{d-j+1}.\]</span></div>
+<p><em> The <span class="math inline" data-term-auto="off">\(\forall
 j\in[0,d]\)</span> band-avoidance condition (<span
 class="math inline" data-term-auto="off">\(d+1\)</span> separate inequalities) collapses to
 checking exactly ONE nearest-boundary index per row. Specialised to the
@@ -3434,9 +3474,11 @@ class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}
 </div>
 <div class="thm">
 <p><strong>Theorem 122</strong> (257bm:c14 — (ii)
-<code>HalfGreedySkippedSeamAlignmentZero</code>). <em><span
+<code>HalfGreedySkippedSeamAlignmentZero</code>). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall\ \text{skipped rank whose actual word
-equals the seam-greedy word},\quad \text{seam remainder} = 0,\]</span>
+equals the seam-greedy word},\quad \text{seam remainder} = 0,\]</span></div>
+<p class="display-continue"><em>
 proved EQUIVALENT to (i) via
 <code>skippedSeamAlignmentZero_iff_skippedFullShellNonnegative</code>.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
@@ -3444,10 +3486,12 @@ proved EQUIVALENT to (i) via
 </div>
 <div class="thm">
 <p><strong>Theorem 123</strong> (257bm:c15 — (iii)
-<code>HalfGreedySkippedSeamEscape</code>). <em><span
+<code>HalfGreedySkippedSeamEscape</code>). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall\ \text{skipped rank},\quad
 \mathrm{halfStripBound}(2n) &lt;
-\mathrm{seamIntegerGreedyRemainder}(n),\]</span> a strictly SUFFICIENT
+\mathrm{seamIntegerGreedyRemainder}(n),\]</span></div>
+<p class="display-continue"><em> a strictly SUFFICIENT
 (not equivalent) condition for (i). The layered graded-socket pattern
 (equivalent core + one strictly-sufficient stronger variant) recurs
 across this whole lane as a proof-engineering idiom.</em></p>
@@ -3463,9 +3507,11 @@ track)</h4>
 <p><strong>Theorem 124</strong> (257rig:c16 — a square-root carry bound
 implies half-membership). <em>Write <span
 class="math inline" data-term-auto="off">\(G\)</span> for the greedy support and <span
-class="math inline" data-term-auto="off">\(C_G(N)\)</span> for its centred carry. If <span
+class="math inline" data-term-auto="off">\(C_G(N)\)</span> for its centred carry. If </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall N,\qquad C_G(N) \le 2\sqrt N +
-4,\]</span> then the greedy skipped support is infinite and its
+4,\]</span></div>
+<p class="display-continue"><em> then the greedy skipped support is infinite and its
 reciprocal-Mersenne series equals <span
 class="math inline" data-term-auto="off">\(1/2\)</span>. Nonnegativity of <span
 class="math inline" data-term-auto="off">\(C_G\)</span> is unconditional (see 257bm:i-carry
@@ -3477,13 +3523,15 @@ and 257bm:c7’s largest-skip socket.</em></p>
 </div>
 <div class="thm">
 <p><strong>Theorem 125</strong> (257rig:c17 — cofinal terminal-strip
-witnesses imply half-membership). <em><span
+witnesses imply half-membership). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 &amp;\forall N\ \exists M\ge N\ \exists\text{ normalized }a:\quad
 |C_a(M-1)| \le H(M) \\
 &amp;\hspace{4em}\Longrightarrow\quad
 \exists A\text{ infinite},\qquad \sum_{n\in A}\frac1{2^n-1}=\frac12,
-\end{aligned}\]</span> where <span class="math inline" data-term-auto="off">\(C_a\)</span> is
+\end{aligned}\]</span></div>
+<p class="display-continue"><em> where <span class="math inline" data-term-auto="off">\(C_a\)</span> is
 the integer half-carry of the word support and <span
 class="math inline" data-term-auto="off">\(H\)</span> is the stated strip bound. Same
 architecture as 257bm:d4: cofinal, no coherence, mutually incompatible
@@ -3555,10 +3603,12 @@ class="level4 unnumbered">
 <code>CofinalPositiveHalfGreedySkips</code> reduces to</h4>
 <div class="thm">
 <p><strong>Theorem 128</strong> (257bm:c20 — half-membership is
-equivalent to infinitely many greedy skips). <em><span
+equivalent to infinitely many greedy skips). <em></em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(1/2:\mathbb{R})\in\mathrm{mersenneAchievementSet}
 \;\Longleftrightarrow\;
-(\mathrm{greedyMersenneSkippedSupport}(1/2)).\mathrm{Infinite}.\]</span>
+(\mathrm{greedyMersenneSkippedSupport}(1/2)).\mathrm{Infinite}.\]</span></div>
+<p><em>
 Odd-denominator parity supplies the positivity clause in 257bm:c2
 automatically. Thus its cofinal-positive-skip hypothesis is exactly the
 assertion that the greedy skipped support is infinite, which the
@@ -3641,7 +3691,7 @@ class="math inline" data-term-auto="off">\(\mathrm{value}(D)&lt;1/2\)</span>:</p
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2c-2) &lt;
 2^{c-2}\]</span></div>
-<p>is the sharp skipped-core capacity — the residual carry
+<p class="display-continue">is the sharp skipped-core capacity — the residual carry
 after inserting rank <span class="math inline" data-term-auto="off">\(c\)</span> fits inside
 exactly <span class="math inline" data-term-auto="off">\(c-2\)</span> bits, making a
 below-half core repairable into an exact row at endpoint <span
@@ -3652,10 +3702,12 @@ class="math inline" data-term-auto="off">\(2c-2\)</span>.</p>
 <div class="thm">
 <p><strong>Theorem 133</strong> (257bm:i5 —
 <code>localBinarySuffix_two_mul_sub_two_lt_criticalCapacity_iff</code>).
-<em>Under the hypotheses of 257bm:i-cap: <span
+<em>Under the hypotheses of 257bm:i-cap: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2c-2) &lt; 2^{c-2}
 \;\Longleftrightarrow\; 2^{(2c-2)-1} \le
-\mathrm{localPrefixQuotient}(\mathrm{insert}\ c\ D,\ 2c-2).\]</span> The
+\mathrm{localPrefixQuotient}(\mathrm{insert}\ c\ D,\ 2c-2).\]</span></div>
+<p><em> The
 sharp capacity bound is equivalent to "adjoining rank <span
 class="math inline" data-term-auto="off">\(c\)</span> already reaches the integer
 half-target" — capacity and integral-crossing are the same fact viewed
@@ -3672,8 +3724,10 @@ loose (one-bit) capacity,
 every <span class="math inline" data-term-auto="off">\(c\ge4\)</span> and every below-half
 core <span class="math inline" data-term-auto="off">\(D\subseteq[2,c)\)</span> with deficit
 <span class="math inline" data-term-auto="off">\(&lt;\mathrm{mersenneWeightRat}(c)\)</span>:
-<span class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2c-2) &lt;
-2^{c-1}.\]</span> Uniform in <span class="math inline" data-term-auto="off">\(c\)</span>, no
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2c-2) &lt;
+2^{c-1}.\]</span></div>
+<p><em> Uniform in <span class="math inline" data-term-auto="off">\(c\)</span>, no
 table, no case split — but ONE BIT looser than the sharp 257bm:i5 test
 the fill (257bm:c7) actually needs. Reading the proof, the loss is
 purely additive, not multiplicative: it derives <span
@@ -3705,9 +3759,11 @@ class="level4 unnumbered">
 class="math inline" data-term-auto="off">\(D\)</span> bounded <span
 class="math inline" data-term-auto="off">\([2,n]\)</span>, <span class="math inline" data-term-auto="off">\(2\in
 D\)</span>, exact quotient at <span class="math inline" data-term-auto="off">\(n\)</span>,
-value <span class="math inline" data-term-auto="off">\(&lt;1/2\)</span>: <span
+value <span class="math inline" data-term-auto="off">\(&lt;1/2\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{localBinarySuffix}(D,1,2n-1) &lt;
-2^n.\]</span> The missing quotient at <span
+2^n.\]</span></div>
+<p><em> The missing quotient at <span
 class="math inline" data-term-auto="off">\(2n-1\)</span> fits the pure upper window <span
 class="math inline" data-term-auto="off">\(\{n+1,\dots,2n-1\}\)</span> — enough carry slack
 to encode the missing digits as a literal Boolean word with no recursion
@@ -3744,7 +3800,7 @@ satisfies</p>
 class="math display" data-term-auto="off">\[\mathrm{localPrefixQuotient}(\{2,3,6\},6) = 2^5-1
 = 31,\qquad \mathrm{localMersennePrefixValue}(\{2,3,6\}) &lt;
 1/2,\]</span></div>
-<p>hence <span
+<p class="display-continue">hence <span
 class="math inline" data-term-auto="off">\(\mathrm{ExactLocalMersenneHalfRow}(6)\)</span>.
 Closed numeric fixture, <code>norm_num</code>-checked. Every <span
 class="math inline" data-term-auto="off">\(6\le n\)</span> hypothesis in the
@@ -3874,14 +3930,18 @@ standard.</em></p>
 <p><strong>Theorem 145</strong> (257bm:i-t7 — rationality is equivalent
 to a tempered binary orbit). <em>For <span
 class="math inline" data-term-auto="off">\(c:\mathbb{N}\to\mathbb{N}\)</span> with <span
-class="math inline" data-term-auto="off">\(\forall n,\ c\,n\le n\)</span>: <span
+class="math inline" data-term-auto="off">\(\forall n,\ c\,n\le n\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{HasRationalValue}(\mathrm{binaryCoeffSeries}\,c)
 \;\Longleftrightarrow\; \exists v&gt;0,\ \exists
 u:\mathbb{N}\to\mathbb{Z},\
-\mathrm{IsTemperedBinaryOrbit}(c,v,u),\]</span> Here the series is <span
+\mathrm{IsTemperedBinaryOrbit}(c,v,u),\]</span></div>
+<p>Here the series is <span
 class="math inline" data-term-auto="off">\(\sum&#39;_n c(n{+}1)/2^{n+1}\)</span>, and a
-tempered orbit satisfies <span class="math display" data-term-auto="off">\[u(N{+}1)=2u(N)-v
-c(N{+}1),\qquad \frac{u(N)}{2^N}\longrightarrow0.\]</span> Only the
+tempered orbit satisfies </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u(N{+}1)=2u(N)-v
+c(N{+}1),\qquad \frac{u(N)}{2^N}\longrightarrow0.\]</span></div>
+<p><em> Only the
 linear growth bound <span class="math inline" data-term-auto="off">\(c(n)\le n\)</span> is
 required; the theorem uses no divisor, Mersenne, or #257-specific
 structure. Fully problem-agnostic; instantiating <span
@@ -3935,9 +3995,11 @@ above.</p>
 <span class="math inline" data-term-auto="off">\(\mathrm{erdosSupportSeries}(2,A)\)</span>
 equal to a dyadic rational <span class="math inline" data-term-auto="off">\(p/2^c\)</span>
 (any <span class="math inline" data-term-auto="off">\(c\)</span> — the easiest terminating
-case to rule out), then <span
+case to rule out), then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\neg\mathrm{Summable}(1/a\ \text{on}\ A) \;\vee\;
-1 &lt; \mathrm{reciprocalMass}(A).\]</span> Proved by a Cesàro-mean
+1 &lt; \mathrm{reciprocalMass}(A).\]</span></div>
+<p><em> Proved by a Cesàro-mean
 identification of the shifted-tail-state average with the reciprocal
 mass, plus an explicit two-spike construction at <span
 class="math inline" data-term-auto="off">\(\mathrm{lcm}(a,b)\)</span> for any two distinct
@@ -4043,7 +4105,7 @@ class="math display" data-term-auto="off">\[\mathrm{localMersenneCrossingRanks}(
 E.\mathrm{filter}\big(c \mapsto \tfrac12 &lt;
 \mathrm{localMersennePrefixValue}(E.\mathrm{filter}(\cdot\le
 c))\big),\]</span></div>
-<p>the ranks at which <span
+<p class="display-continue">the ranks at which <span
 class="math inline" data-term-auto="off">\(E\)</span>’s inclusive ordered prefix is already
 above one half.</p>
 <p> <span><span class="sans-serif">scale:n/a</span></span>
@@ -4055,11 +4117,13 @@ above one half.</p>
 class="math inline" data-term-auto="off">\(E\)</span> with <span
 class="math inline" data-term-auto="off">\(\forall d\in E,\ 2\le d\)</span> and <span
 class="math inline" data-term-auto="off">\(1/2&lt;\mathrm{localMersennePrefixValue}(E)\)</span>:
-<span class="math display" data-term-auto="off">\[\exists c\in E,\ 4\le c \ \wedge\
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\exists c\in E,\ 4\le c \ \wedge\
 \mathrm{localMersennePrefixValue}(E.\mathrm{filter}(\cdot&lt;c))&lt;\tfrac12
 \ \wedge\ \tfrac12 &lt;
 \mathrm{localMersennePrefixValue}(\mathrm{insert}\ c\
-(E.\mathrm{filter}(\cdot&lt;c))).\]</span> There is a first rank <span
+(E.\mathrm{filter}(\cdot&lt;c))).\]</span></div>
+<p><em> There is a first rank <span
 class="math inline" data-term-auto="off">\(c\ge4\)</span> at which the running prefix
 strictly crosses one half; the crossing rank <span
 class="math inline" data-term-auto="off">\(c\)</span> feeds directly into 257bm:k4/257bm:c7’s
@@ -4089,8 +4153,10 @@ integer, defined via <span
 class="math inline" data-term-auto="off">\(\mathrm{integerHalfCarry}\)</span>): if <span
 class="math inline" data-term-auto="off">\(1\notin A\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathrm{erdosSupportSeries}(2,A) &lt;
-1/2\)</span>, then <span class="math display" data-term-auto="off">\[\forall N,\quad 0 \le
-\mathrm{mobiusCenteredHalfCarry}(A,N),\]</span> via the identity <span
+1/2\)</span>, then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall N,\quad 0 \le
+\mathrm{mobiusCenteredHalfCarry}(A,N),\]</span></div>
+<p class="display-continue"><em> via the identity <span
 class="math inline" data-term-auto="off">\(\mathrm{integerHalfCarry}(A,N) =
 2^{N+1}(1/2-\mathrm{seriesValue}) +
 \mathrm{binaryCoeffTail}(\dots)\)</span>, both terms nonnegative.
@@ -4145,10 +4211,12 @@ shortfall between a single weight and the true tail sum beyond it.</p>
 <code>mersenneGap_tail_le</code>,
 <code>tendsto_mersenneGap_tail_zero</code>). <em>The TOTAL gap mass
 strictly beyond level <span class="math inline" data-term-auto="off">\(N\)</span> is summable
-and explicitly bounded: <span
+and explicitly bounded: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum\nolimits&#39;_{k}
 \mathrm{mersenneGap}(N+k+1) \;\le\; \frac29\Big(\frac14\Big)^N +
-\frac37\Big(\frac18\Big)^N \;\longrightarrow\; 0,\]</span> obtained
+\frac37\Big(\frac18\Big)^N \;\longrightarrow\; 0,\]</span></div>
+<p class="display-continue"><em> obtained
 purely by summing the pre-existing per-level asymptotic bound
 geometrically — no new arithmetic input. <strong>Scope caveat, explicit
 in the file header:</strong> this bounds gap MASS only. It says nothing
@@ -4185,8 +4253,10 @@ class="math inline" data-term-auto="off">\(k\)</span>, writing the skip-margin a
 class="math inline" data-term-auto="off">\(2^k u + a = 2L+u\)</span> (so <span
 class="math inline" data-term-auto="off">\(0&lt;a\Leftrightarrow\)</span> skip): the DYADIC
 safety test is <span class="math inline" data-term-auto="off">\(u\le a\)</span>, but the TRUE
-(tail-based) safety test only needs <span class="math display" data-term-auto="off">\[2u \le
-3a.\]</span> One-third tighter than the dyadic test, discharged for the
+(tail-based) safety test only needs </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2u \le
+3a.\]</span></div>
+<p><em> One-third tighter than the dyadic test, discharged for the
 ACTUAL Mersenne tail (not just the three-channel lower bound) in
 <code>skipSafe_actualTail_of_two_mul_le_three_mul</code>. <span
 class="math inline" data-term-auto="off">\(\mathtt{sharp\_of\_dyadic}: u\le
@@ -4232,9 +4302,11 @@ class="level4 unnumbered">
 local socket excluding exactly three middle "cells" plus one
 right-pulse-leak bound, induction (base case at row 5 verified by
 <code>decide</code>) propagates it to the universal two-sided bound
-<span class="math display" data-term-auto="off">\[\forall s\ge5,\quad
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall s\ge5,\quad
 \min(\mathrm{seamIntegerGreedyRemainder}(s),\ \mathrm{overshoot}(s))
-\;\le\; 2^s.\]</span> A global dyadic-scale control on the seam orbit,
+\;\le\; 2^s.\]</span></div>
+<p><em> A global dyadic-scale control on the seam orbit,
 independent of which branch fires. Exactly the ingredient 257bm:c11/c12
 needs to make its forbidden-band inequalities well-posed. The "exclude
 finitely many exceptional local cells, get a global dyadic bound by
@@ -4377,9 +4449,11 @@ class="math inline" data-term-auto="off">\(\mathrm{boundedDoubleOrRecycleModel}(
 reproduces the <span class="math inline" data-term-auto="off">\(\vee\)</span> shape by always
 taking the recycle branch with <span class="math inline" data-term-auto="off">\(c=4\)</span>,
 landing back at <span class="math inline" data-term-auto="off">\(2\cdot4-2=6\)</span>), yet
-<span class="math display" data-term-auto="off">\[\neg\big(\forall N,\ \exists n\ge N,\
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\neg\big(\forall N,\ \exists n\ge N,\
 \mathrm{boundedDoubleOrRecycleModel}(n)\big) \qquad \text{(NOT cofinal —
-only ever true at } n=6\text{)}.\]</span> Packaged existentially as
+only ever true at } n=6\text{)}.\]</span></div>
+<p><em> Packaged existentially as
 <code>exists_seeded_bounded_double_or_recycle_model</code>. The
 double-or-recycle transition shape, EVEN TOGETHER with an endpoint-six
 seed, is logically insufficient to conclude cofinal exact rows. A
@@ -4398,9 +4472,11 @@ other double-or-recycle-shaped inductive scheme, including one built for
 257bm:k1 attacks). <em>For <span class="math inline" data-term-auto="off">\(n\ge6\)</span>,
 <span
 class="math inline" data-term-auto="off">\(\mathrm{ExactLocalMersenneHalfRow}(n)\)</span>:
-<span class="math display" data-term-auto="off">\[\mathrm{ExactLocalMersenneHalfRow}(2n-1)
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{ExactLocalMersenneHalfRow}(2n-1)
 \;\vee\; \exists c,\ 4\le c\le n \wedge
-\mathrm{ExactLocalMersenneHalfRow}(2c-2).\]</span> Every exact row of
+\mathrm{ExactLocalMersenneHalfRow}(2c-2).\]</span></div>
+<p><em> Every exact row of
 endpoint <span class="math inline" data-term-auto="off">\(\ge6\)</span> has exactly one of
 two continuations — literal doubling (below-half) or recycling through a
 first-crossing to some <span class="math inline" data-term-auto="off">\(2c-2\)</span> with
@@ -4419,11 +4495,13 @@ double-or-recycle transition is already refuted.</em></p>
 <code>splitFractionMass_one_bound_not_necessary_fixture</code>,
 sufficient-but-not-necessary fixture). <em>Concrete fixture <span
 class="math inline" data-term-auto="off">\(D=\{2,3\}\)</span>, <span
-class="math inline" data-term-auto="off">\(c=5\)</span>: <span
+class="math inline" data-term-auto="off">\(c=5\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{value}(D)&lt;\tfrac12 \ \wedge\
 \tfrac12&lt;\mathrm{value}(\mathrm{insert}\,5\,D) \ \wedge\ 1 &lt;
 \mathrm{localFractionMass}(D,8) + \mathrm{localMersenneFraction}(8,5) \
-\wedge\ \mathrm{localBinarySuffix}(D,1,8) &lt; 2^3.\]</span>
+\wedge\ \mathrm{localBinarySuffix}(D,1,8) &lt; 2^3.\]</span></div>
+<p class="display-continue"><em>
 <code>norm_num</code>-checked. The "combined residue mass <span
 class="math inline" data-term-auto="off">\(\le1\)</span>" sufficient condition for sharp
 capacity
@@ -4452,7 +4530,7 @@ contributes</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{2^{11}\bmod3}{3} +
 \frac{2^{11}\bmod7}{7} + \frac{2^{11}\bmod63}{63} =
 \frac23+\frac47+\frac{32}{63} \approx 1.746 &gt; 1,\]</span></div>
-<p>so the
+<p class="display-continue">so the
 doubled row is STRICTLY ABOVE half. Iterating the cheap (doubling) arm
 is therefore impossible from the only landed seed; the chain is forced
 into the capacity-gated recycle arm at step one. What would close the
@@ -4506,7 +4584,7 @@ the odd-denominator parity fact of 257bm:k11, together with
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{CofinalPositiveHalfGreedySkips}
 \;\Longleftrightarrow\;
 (\mathrm{greedyMersenneSkippedSupport}(1/2)).\mathrm{Infinite},\]</span></div>
-<p>which 257bm:c20 (A6) proves EQUIVALENT to <span
+<p class="display-continue">which 257bm:c20 (A6) proves EQUIVALENT to <span
 class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>.
 Anyone attacking 257bm:c2’s hypothesis head-on is attacking #257-false
 directly, with NO reduction whatsoever, despite the corpus’s own
@@ -4526,8 +4604,10 @@ class="math inline" data-term-auto="off">\(c\ge4\)</span>, <span
 class="math inline" data-term-auto="off">\(D\)</span> bounded <span
 class="math inline" data-term-auto="off">\([2,c)\)</span>, below-half, with genuine crossing
 deficit <span class="math inline" data-term-auto="off">\(\tfrac12-\mathrm{value}(D) &lt;
-\mathrm{mersenneWeightRat}(c)\)</span>: <span class="math display" data-term-auto="off">\[D
-\;=\; \mathrm{halfGreedyPrefixSupport}(c-1).\]</span> EVERY crossing
+\mathrm{mersenneWeightRat}(c)\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[D
+\;=\; \mathrm{halfGreedyPrefixSupport}(c-1).\]</span></div>
+<p><em> EVERY crossing
 core is forced, uniquely, to be the canonical rational half-greedy
 prefix. There is no freedom left in <span
 class="math inline" data-term-auto="off">\(D\)</span> at all — 257bm:c4’s universal
@@ -4705,9 +4785,10 @@ consumes them. That machinery is present in the live file.</p>
 three integers). <em>For <span class="math inline" data-term-auto="off">\(s\ge5\)</span>,
 writing <span class="math inline" data-term-auto="off">\(R=(\text{seamAdjacentCut } s\
 hs).\mathrm{remainder}\)</span> and <span
-class="math inline" data-term-auto="off">\(P=(\ldots).\mathrm{belowPulse}\)</span>, <span
+class="math inline" data-term-auto="off">\(P=(\ldots).\mathrm{belowPulse}\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\neg(4R-P-4\le-4\ \vee\ 0\le 4R-P-4)\
-\Longleftrightarrow\ 4R-P-4\in\{-3,-2,-1\}\]</span></em></p>
+\Longleftrightarrow\ 4R-P-4\in\{-3,-2,-1\}\]</span></div>
 </div>
 <p>(, <span><span class="sans-serif">[Lean]</span></span>, <span><span
 class="sans-serif">scale:uniform</span></span>,
@@ -4807,7 +4888,7 @@ class="math display" data-term-auto="off">\[\left(\forall N,\ \exists M,K,\ \max
 M\wedge\mathrm{Nonempty}(\mathtt{CylinderStage}\ K\ M)\right)
 \ \Longrightarrow\ \exists A,\ A.\mathrm{Infinite}\wedge
 \mathtt{erdosSupportSeries}\ 2\ A=1/2\]</span></div>
-<p>is proved unconditionally
+<p class="display-continue">is proved unconditionally
 (, <span><span class="sans-serif">[Lean]</span></span>), with a
 positive-support refinement using the same odd-denominator lemma already
 used for O2 above (, <span><span
@@ -4850,7 +4931,7 @@ already suffices to close HALF:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{SeamMiddleProducerTailEscapeExceptNegThree}\
 \Longrightarrow\ (1/2:\mathbb{R})\in\mathcal{A}\]</span></div>
-<p>(, <span><span
+<p class="display-continue">(, <span><span
 class="sans-serif">[Lean]</span></span>), with the unreduced socket and
 the already-cited square-root majorant both routing through it (,
 <span><span class="sans-serif">[Lean]</span></span>). So the chain now
@@ -4876,7 +4957,7 @@ k+1\)</span> gives a nonnegative frozen margin ().</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{HalfGreedyGovernedFrozenMarginProducer}\
 \Longrightarrow\ (1/2:\mathbb{R})\in\mathcal{A}\]</span></div>
-<p>(, <span><span
+<p class="display-continue">(, <span><span
 class="sans-serif">[Lean]</span></span>), proved via the pre-existing
 and the excess-sign equivalence already noted above. This is the
 module’s actual promised consumer; the antecedent’s own first-passage
@@ -4903,7 +4984,7 @@ boundary discrepancy is the exact divisor-incidence identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[c_{\rm low}(m)+\#\{e:d&lt;e\le N,\ e\mid m\}
 =c_{\rm up}(m)+\mathbf 1_{d\mid m},\]</span></div>
-<p>not merely an inequality (,
+<p class="display-continue">not merely an inequality (,
 <span><span class="sans-serif">[Lean]</span></span>).</p>
 <p>The stage-level theorem consumes adjacent profiled prefixes directly
 (, <span><span class="sans-serif">[Lean]</span></span>). This is a local
@@ -4972,7 +5053,7 @@ class="math inline" data-term-auto="off">\(1/21\)</span>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F\subseteq\{n:n\ge2\}\quad\Longrightarrow\quad
   \sum_{n\in F}\frac1{2^n-1}\ne\frac1{21}\]</span></div>
-<p>for every finite
+<p class="display-continue">for every finite
 <span class="math inline" data-term-auto="off">\(F\)</span> (, <span><span
 class="sans-serif">[Lean]</span></span>, <span><span
 class="sans-serif">scale:uniform</span></span>,
@@ -5021,7 +5102,7 @@ Then</p>
 class="math display" data-term-auto="off">\[\frac1{21}\in\mathtt{mersenneAchievementSet}
 \quad\Longleftrightarrow\quad
 \neg\,\mathtt{TwentyOneFatalAlignedBranch}.\]</span></div>
-<p><code>coord:greedy-orbit</code>.</p>
+<p class="display-continue"><code>coord:greedy-orbit</code>.</p>
 <p>On the fatal branch the canonical quotient remainder <span
 class="math inline" data-term-auto="off">\(s_R\)</span> is eventually strictly above the
 closed capacity <span class="math inline" data-term-auto="off">\(2^R\)</span> (), and
@@ -5317,16 +5398,20 @@ mechanism is the same shape, one level down.)</em></p>
 </div>
 <div class="thm">
 <p><strong>Theorem 193</strong> (Witness exclusion). <em> Define the
-misalignment mass <span
+misalignment mass </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mu_J(M):=\sum_{q=2}^{J}\frac{2^{M\bmod
-q}}{2^q-1}.\]</span> Let <span class="math inline" data-term-auto="off">\(J\ge3\)</span>,
+q}}{2^q-1}.\]</span></div>
+<p>Let <span class="math inline" data-term-auto="off">\(J\ge3\)</span>,
 <span class="math inline" data-term-auto="off">\(n\ge4\)</span>, and suppose some <span
 class="math inline" data-term-auto="off">\(M\in[n,2n-2]\)</span> has <span
 class="math inline" data-term-auto="off">\(\mu_J(M)\le\tfrac{11}{15}\)</span>. Then no
 Boolean prefix <span
 class="math inline" data-term-auto="off">\(D\subseteq\{2,\ldots,n-1\}\)</span> satisfies
-<span class="math display" data-term-auto="off">\[T_{n+1}^{(J)}&lt;\tfrac12-\sum_{d\in
-D}w_d^{(J)}&lt;w_n^{(J)};\]</span> fatality at rank <span
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_{n+1}^{(J)}&lt;\tfrac12-\sum_{d\in
+D}w_d^{(J)}&lt;w_n^{(J)};\]</span></div>
+<p class="display-continue"><em> fatality at rank <span
 class="math inline" data-term-auto="off">\(n\)</span> is impossible for every prefix
 simultaneously (not merely the greedy one). The proof mechanism is a
 2-adic scaling and divisibility argument at the witness index <span
@@ -5343,8 +5428,10 @@ class="math inline" data-term-auto="off">\(L_J:=\mathrm{lcm}(2,3,\ldots,J)\)</sp
 class="math inline" data-term-auto="off">\(L_J\)</span> with <span class="math inline" data-term-auto="off">\(M\ge
 n\)</span>. Then <span class="math inline" data-term-auto="off">\(M\le2n-2\)</span> whenever
 <span class="math inline" data-term-auto="off">\(n\ge L_J/2+1\)</span>, and at that <span
-class="math inline" data-term-auto="off">\(M\)</span>, <span
-class="math display" data-term-auto="off">\[\mu_J(M)=\sum_{q=2}^{J}\frac{1}{2^q-1}&lt;E-1&lt;0.6067&lt;\frac{11}{15}\]</span>
+class="math inline" data-term-auto="off">\(M\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mu_J(M)=\sum_{q=2}^{J}\frac{1}{2^q-1}&lt;E-1&lt;0.6067&lt;\frac{11}{15}\]</span></div>
+<p class="display-continue"><em>
 (where <span class="math inline" data-term-auto="off">\(E\)</span> is the Erdős–Borwein
 constant). Hence, by Theorem <a class="math-ref" href="#thm:tr-witness-exclusion">thm:tr-witness-exclusion</a>, every
 rank <span class="math inline" data-term-auto="off">\(n\ge L_J/2+1\)</span> is automatically
@@ -6463,7 +6550,7 @@ is open. Tao–Teräväinen prove</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{p\ {\rm
 prime}}\frac1{2^p-1}
 =\sum_{n\ge1}\frac{\omega(n)}{2^n}\]</span></div>
-<p>irrational in Theorem 1.3 of
+<p class="display-continue">irrational in Theorem 1.3 of
 <a href="https://arxiv.org/abs/2512.01739">their 2025 preprint</a>. That
 result is cited, not formalised here. <strong>What remains
 diagnostic:</strong> replacing the global tail budget by a windowed one
@@ -7041,10 +7128,12 @@ staying centred in its dyadic interval, <span
 class="math inline" data-term-auto="off">\(|e&#39;|\le \mathrm{vuRadius}\,u\,\sigma\)</span>.
 Bounded local valuation-unit data at fixed precision can never exclude
 <em>all</em> finite centred carry completions — the completion always
-exists, constructively. <span
+exists, constructively. </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\exists\,\text{states},\;
 \mathrm{VUOrbit}\,u\,e\,\text{symbols}\,\text{states} \;\land\;
-  (\forall\,\text{symbol},\, |\text{state}| \le \text{radius}).\]</span>
+  (\forall\,\text{symbol},\, |\text{state}| \le \text{radius}).\]</span></div>
+<p class="display-continue"><em>
 built from and .</em></p>
 <p><em><strong>Scope.</strong> Closes: any proof strategy that tries to
 derive a contradiction purely from "the local valuation-unit signature
@@ -7104,7 +7193,7 @@ C_s \ne -2 \land C_s \ne -1\Big)
   \;\land\;
   \Big(\lnot\mathrm{carries} \to \mathrm{right} \to
 \mathrm{overshoot}\le 2^s \to \mathrm{charge}\le 2^{s+2}\Big),\]</span></div>
-<p>where we write <span class="math inline" data-term-auto="off">\(C_s := 4\cdot\mathrm{rem}(s)
+<p class="display-continue">where we write <span class="math inline" data-term-auto="off">\(C_s := 4\cdot\mathrm{rem}(s)
 - \mathrm{belowPulse}(s) - 4\)</span> for the integer coordinate that
 appears on the middle branch of the seam recursion (the same quantity
 that, along an all-right run, is the affine excess <span
@@ -7116,9 +7205,11 @@ no exceptional-cell exclusion). <em> On the carries branch of the step
 (i.e. <span class="math inline" data-term-auto="off">\((\mathrm{seamAdjacentCut}\ s\
 hs).\mathrm{successorCarries}\)</span> holds), the two-sided invariant
 propagates <em>unconditionally</em>, with zero exceptional cells and no
-hypothesis beyond <code>hcarry</code> itself: <span
+hypothesis beyond <code>hcarry</code> itself: </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{successorCarries} \implies
-\mathrm{rem}(s+1) \le 2^{s+1}.\]</span> (from , closed by
+\mathrm{rem}(s+1) \le 2^{s+1}.\]</span></div>
+<p class="display-continue"><em> (from , closed by
 <code>omega</code>). In this precise sense — no cell exclusion is ever
 needed on this branch of the step — the upper successor contributes
 nothing to the exceptional-cell inventory: it is "impossible" for the
@@ -7144,9 +7235,11 @@ class="math inline" data-term-auto="off">\(D\)</span>), followed by an all-right
 after (<span class="math inline" data-term-auto="off">\(\forall s\ge D{+}1\)</span>, <span
 class="math inline" data-term-auto="off">\(\mathrm{seamGreedyWord}(s+1) =
 \mathrm{seamGreedyWord}(s).\mathrm{extend}\ \mathrm{true}\)</span>).
-Then, unconditionally, <span
+Then, unconditionally, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{belowPulse}(D) + 2 \;\le\;
-4\cdot\mathrm{rem}(D),\]</span> i.e. <span class="math inline" data-term-auto="off">\(C_D \ge
+4\cdot\mathrm{rem}(D),\]</span></div>
+<p class="display-continue"><em> i.e. <span class="math inline" data-term-auto="off">\(C_D \ge
 -2\)</span> — the cell <span class="math inline" data-term-auto="off">\(C_D=-3\)</span> (and
 every more negative value) is excluded. </em></p>
 <p><em><strong>Mechanism.</strong> The proof chains three facts: (i) an
@@ -7419,9 +7512,11 @@ shrinks the displayed denominator down <em>into</em> <span
 class="math inline" data-term-auto="off">\(H\)</span> — then the
 <strong>complementary</strong> denominator factor <span
 class="math inline" data-term-auto="off">\(x.\mathrm{den}/H\)</span> divides <span
-class="math inline" data-term-auto="off">\(c\)</span>: <span class="math display" data-term-auto="off">\[H\mid
+class="math inline" data-term-auto="off">\(c\)</span>: </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[H\mid
 x.\mathrm{den} \ \land\ (c\cdot x).\mathrm{den}\mid H \implies
-x.\mathrm{den}/H \mid |c|.\]</span> . Equality form (height
+x.\mathrm{den}/H \mid |c|.\]</span></div>
+<p><em> . Equality form (height
 conservation): <span class="math inline" data-term-auto="off">\(\exists\,t:\mathbb Z,\ H\cdot
 c\cdot x = t\cdot x.\mathrm{num}\)</span> — the omitted denominator is
 transferred exactly to the coefficient <span
@@ -7577,7 +7672,7 @@ class="math inline" data-term-auto="off">\(L\ge 1\)</span> put</p>
 class="math display" data-term-auto="off">\[\Theta_L(M)\ :=\
 \sum_{i=1}^{L}\bigl(\tau(M+i)-1\bigr)\,2^{-i}\ \in\ \mathbb{Q}_{\ge
 0},\]</span></div>
-<p>where <span class="math inline" data-term-auto="off">\(\tau\)</span> is the
+<p class="display-continue">where <span class="math inline" data-term-auto="off">\(\tau\)</span> is the
 number-of-divisors function, so that <span
 class="math inline" data-term-auto="off">\(\tau(n)-1=\#\{d\ge 2: d\mid n\}\)</span> counts
 the divisors of <span class="math inline" data-term-auto="off">\(n\)</span> other than <span
@@ -7637,7 +7732,7 @@ d,\]</span></div>
 E_d\quad\lor\quad E_d + 2(d+j)\ \le\ 2^{\,d-j+1},
 \qquad
 E_d := 4\cdot\mathtt{overshoot}_d+\mathtt{abovePulse}_d,\]</span></div>
-<p>(),
+<p class="display-continue">(),
 with the closed consumer , <span><span
 class="sans-serif">[Lean]</span></span>. The <span
 class="math inline" data-term-auto="off">\(\forall j\le d\)</span> band check collapses to a
@@ -7671,10 +7766,12 @@ combinatorial one.</p>
 <div class="lem">
 <p><strong>Lemma 269</strong> (Divisor-residue form of the short-window
 phase). <em> For all <span class="math inline" data-term-auto="off">\(M,L\ge 1\)</span>,
-<span class="math display" data-term-auto="off">\[\Theta_L(M)\ =\ \sum_{d\ge 2}\
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\Theta_L(M)\ =\ \sum_{d\ge 2}\
 \sum_{\substack{1\le i\le L\\ i\,\equiv\,-M\ (\mathrm{mod}\ d)}} 2^{-i}
 \ =\ \sum_{d\ge 2}\
-2^{-i_d(M)}\cdot\frac{1-2^{-d\,m_d}}{1-2^{-d}},\]</span> where <span
+2^{-i_d(M)}\cdot\frac{1-2^{-d\,m_d}}{1-2^{-d}},\]</span></div>
+<p class="display-continue"><em> where <span
 class="math inline" data-term-auto="off">\(i_d(M)\in[1,d]\)</span> is the least <span
 class="math inline" data-term-auto="off">\(i\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(d\mid M+i\)</span> (so <span
@@ -7706,7 +7803,7 @@ class="math inline" data-term-auto="off">\(+1\)</span>-orbit. Define</p>
 class="math display" data-term-auto="off">\[\Psi:\widehat{\mathbb{Z}}\to\mathbb{R}\cup\{\infty\},\qquad
 \Psi(x)\ :=\ \sum_{d\ge2}\frac{2^{-i_d(x)}}{1-2^{-d}},\qquad
 i_d(x)\in[1,d],\ i_d(x)\equiv -x\ (\mathrm{mod}\ d),\]</span></div>
-<p>truncated
+<p class="display-continue">truncated
 at level <span class="math inline" data-term-auto="off">\(L\)</span> in the obvious way. Then
 <span class="math inline" data-term-auto="off">\(\Theta_L(M)=\Psi_L(M)\)</span> where <span
 class="math inline" data-term-auto="off">\(M\)</span> is viewed in <span
@@ -8148,7 +8245,7 @@ and collecting divisors gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{p\ {\rm
 prime}}\frac1{2^p-1}
 =\sum_{n\ge1}\frac{\omega(n)}{2^n},\]</span></div>
-<p>and Tao–Teräväinen prove
+<p class="display-continue">and Tao–Teräväinen prove
 the latter series irrational in Theorem 1.3 of <a
 href="https://arxiv.org/abs/2512.01739"><em>Quantitative correlations
 and some problems on prime factors of consecutive integers</em></a>.
@@ -8161,7 +8258,7 @@ class="math inline" data-term-auto="off">\(\sum_p1/p\)</span> diverges. Its gene
 block-certificate engine would also demand, in the prime case,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^r\mid\omega(N+r)\qquad(1\le r\le K),\]</span></div>
-<p>a
+<p class="display-continue">a
 simultaneous exact divisibility pattern far stronger than the input used
 by Tao–Teräväinen. Small computational witnesses for <span
 class="math inline" data-term-auto="off">\(K=2,3\)</span> diagnose that the condition is not
@@ -8195,7 +8292,7 @@ class="math display" data-term-auto="off">\[\text{(3)}\ \
 \text{(4)}\ \ \mathtt{GreedyHalfCarryCofinalStripReturn};
 \qquad
 \text{(5)}\ \ \mathtt{HalfCarryCofinalTerminalOnlyStrip},\]</span></div>
-<p>where
+<p class="display-continue">where
 <span
 class="math inline" data-term-auto="off">\(G:=\mathtt{greedyMersenneSupport}(1/2)\)</span>.
 The forward directions of (2)–(5) are landed Lean (, , , , all
@@ -8210,11 +8307,12 @@ class="level4 unnumbered">
 <span class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(1\notin A\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathtt{erdosSupportSeries}\ 2\ A=1/2\)</span>.
-Then for every <span class="math inline" data-term-auto="off">\(k\ge1\)</span>, <span
+Then for every <span class="math inline" data-term-auto="off">\(k\ge1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl(\mathtt{integerHalfCarry}\ A\ (k^{2}-1)\ :\
 \mathbb{R}\bigr)
 \ =\ \mathtt{binaryCoeffTail}\ (\mathtt{supportCoeff}\ A)\ (k^{2})
-\ \le\ 2k+4\ =\ \mathtt{halfStripBound}\ (k^{2}).\]</span></em></p>
+\ \le\ 2k+4\ =\ \mathtt{halfStripBound}\ (k^{2}).\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> By (<span><span
@@ -8224,7 +8322,7 @@ class="math display" data-term-auto="off">\[\bigl(\mathtt{integerHalfCarry}\ A\
 N:\mathbb{R}\bigr)
 = 2^{\,N+1}\Bigl(\tfrac12-\mathtt{erdosSupportSeries}\ 2\ A\Bigr)
 +\mathtt{binaryCoeffTail}\ (\mathtt{supportCoeff}\ A)\ (N+1),\]</span></div>
-<p>and the first term vanishes by hypothesis. Take <span
+<p class="display-continue">and the first term vanishes by hypothesis. Take <span
 class="math inline" data-term-auto="off">\(N=k^{2}-1\)</span>, so <span
 class="math inline" data-term-auto="off">\(N+1=k^{2}\)</span>. By (<span><span
 class="sans-serif">[Lean]</span></span>, unconditional) the tail at
@@ -8349,8 +8447,10 @@ class="math inline" data-term-auto="off">\(\mathrm{O1}&#39; := \forall A\ \text{
 <p><strong>Proposition 271</strong> (Squarefree support: exact engine
 ceiling, not an open value). <em> Let <span
 class="math inline" data-term-auto="off">\(A=\{n\ge2:n\text{ is squarefree}\}\)</span>. Then
-<span
-class="math display" data-term-auto="off">\[\mathtt{supportCoeff}\,A\,(n)=2^{\omega(n)}-1,\]</span>
+</em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathtt{supportCoeff}\,A\,(n)=2^{\omega(n)}-1,\]</span></div>
+<p class="display-continue"><em>
 which is odd for every <span class="math inline" data-term-auto="off">\(n\ge2\)</span>.
 Consequently neither the digitwise nor the carry-aware
 divisibility-first block-certificate schema has an instance at any even
@@ -8366,7 +8466,7 @@ class="math inline" data-term-auto="off">\(h\ge1\)</span>,</p>
 class="math display" data-term-auto="off">\[1,\quad
   \sum_{n\ {\rm squarefree}}\frac1{2^n-1},\quad\ldots,\quad
   \sum_{n\ {\rm squarefree}}\frac1{2^{hn}-1}\]</span></div>
-<p>are linearly
+<p class="display-continue">are linearly
 independent over <span class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>. After
 deleting the rational <span class="math inline" data-term-auto="off">\(n=1\)</span> term,
 squarefree support is therefore irrational at every base <span
@@ -8615,7 +8715,7 @@ hypothesis is unsupplied). Therefore the stronger statement</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{O1&#39;}\ :=\ \forall A,\
 A.\mathrm{Infinite}\Longrightarrow \mathrm{Cert}(A).\]</span></div>
-<p>would
+<p class="display-continue">would
 imply <span class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span>, but the
 reduction is <em>not</em> lossless and <span
 class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}\)</span> is actually false. For
@@ -8665,7 +8765,7 @@ fixed orbit:</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{HALF}\
 \Longleftrightarrow\
 \left(\mathtt{greedyMersenneSkippedSupport}(1/2)\right).\mathrm{Infinite}\]</span></div>
-<p>(, <span><span class="sans-serif">[Lean]</span></span>, <span><span
+<p class="display-continue">(, <span><span class="sans-serif">[Lean]</span></span>, <span><span
 class="sans-serif">scale:uniform</span></span>, coordinate
 <code>coord:mobius-mersenne</code>, target-generic in the reverse
 direction — the forward direction uses only that the target is rational,
@@ -8683,11 +8783,13 @@ of them is attacking Erdős #257-at-<span
 class="math inline" data-term-auto="off">\(1/2\)</span> directly.</p>
 <div class="prop">
 <p><strong>Proposition 274</strong> (CofinalPositiveHalfGreedySkips is
-equivalent to HALF). <em> Define <span
+equivalent to HALF). <em> Define </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{CPGS}\ :=\ \forall N,\ \exists c\ge N,\
 c\ \text{skipped by the rational half-greedy
 orbit}\ \wedge\
-0&lt;\mathtt{greedyMersenneRemainderRat}(1/2)(c-1)\]</span> (). The
+0&lt;\mathtt{greedyMersenneRemainderRat}(1/2)(c-1)\]</span></div>
+<p>(). The
 positivity conjunct is unconditionally true for every skipped <span
 class="math inline" data-term-auto="off">\(c\)</span> (, <span><span
 class="sans-serif">[Lean]</span></span>, <span><span
@@ -8696,8 +8798,9 @@ parity fact), hence deletable without changing the Prop’s meaning. What
 survives, <span class="math inline" data-term-auto="off">\(\forall N\,\exists c\ge N\)</span>
 skipped, is exactly <span
 class="math inline" data-term-auto="off">\((\mathtt{greedyMersenneSkippedSupport}(1/2)).\mathrm{Infinite}\)</span>,
-so <span class="math display" data-term-auto="off">\[\mathrm{CPGS}\ \Longleftrightarrow\
-\mathrm{HALF}.\]</span></em></p>
+so </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{CPGS}\ \Longleftrightarrow\
+\mathrm{HALF}.\]</span></div>
 </div>
 <p><span><span class="sans-serif">[Math, adversarially
 verified]</span></span> (Survivor 7, composition-survivor pass).
@@ -8765,7 +8868,7 @@ class="level3">
 class="math display" data-term-auto="off">\[\mathrm{CofinalExactLocalMersenneHalfRows}\ :=\
 \forall N,\ \exists n\ge N,\
 \mathtt{ExactLocalMersenneHalfRow}\ n\]</span></div>
-<p>(, <span><span
+<p class="display-continue">(, <span><span
 class="sans-serif">[Open]</span></span>, <span><span
 class="sans-serif">scale:cofinal</span></span>). No compatibility is
 required between witness supports at different endpoints — the defining
@@ -8777,21 +8880,31 @@ is proved unconditionally via compactness of <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (continuous image of <span
 class="math inline" data-term-auto="off">\((\mathbb{N}\to\mathrm{Fin}\,2)\)</span> under the
 digit-coding map, hence closed) (, <span><span
-class="sans-serif">[Lean]</span></span>). This direction is <em>strictly
-weaker</em> than <span class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span> as
-currently proved: the argument uses closedness alone and discards the
-producing rows, so the theorem as it stands does not pin a single
-limiting support <span class="math inline" data-term-auto="off">\(A\)</span>; a genuine
+class="sans-serif">[Lean]</span></span>). The Lean-landed theorem uses
+closedness of <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> and
+discards the producing rows, so it does not exhibit a single limiting
+support <span class="math inline" data-term-auto="off">\(A\)</span>. A genuine
 sequential-compactness extraction (Cantor-space diagonal argument over
 <span class="math inline" data-term-auto="off">\((\mathrm{Fin}\,2)^{\mathbb{N}}\)</span>,
 using the file’s own ) would upgrade this to producing <span
 class="math inline" data-term-auto="off">\(A\)</span> explicitly, and would additionally
 transfer <span class="math inline" data-term-auto="off">\(2\in A\)</span> for free () — but
 this upgrade is itself unformalised (Survivor 1, <span><span
-class="sans-serif">[Math, adversarially verified,
-weakened]</span></span>). So O3 sits strictly below <span
-class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span> in the current Lean state
-of the corpus, not merely logically.</p>
+class="sans-serif">[Math, adversarially verified]</span></span>). That
+is a constructive extraction task, not a proof that O3 is a strictly
+weaker logical condition.</p>
+<p>Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a>(c) already
+identifies <span
+class="math inline" data-term-auto="off">\(\mathrm{CofinalExactLocalMersenneHalfRows}\)</span>
+as logically equivalent to <span
+class="math inline" data-term-auto="off">\(1/2\in\mathcal{A}\)</span>. Equivalence of a
+membership condition, constructive extraction of a coherent support, and
+a rejected sufficient strengthening are not interchangeable
+descriptions. Absence of a Lean extraction theorem does not make O3 a
+strictly weaker substitute for <span
+class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span>. The remaining work on O3
+is to supply the cofinal exact rows, or any equivalent membership
+condition.</p>
 <section
 id="sharp-critical-capacity-conditions-the-booleanmöbius-lanes-producer-for-o3"
 class="level4">
@@ -8861,7 +8974,7 @@ class="math display" data-term-auto="off">\[\mathrm{HalfGreedySkippedCriticalQuo
 :=\ \forall c\ge 4\ \text{skipped},\
 2^{(2c-2)-1}\ \le\ \mathtt{localPrefixQuotient}\big(\mathrm{insert}\ c\
 (\mathtt{halfGreedyPrefixSupport}(c-1))\big)(2c-2)\]</span></div>
-<p>(), at
+<p class="display-continue">(), at
 essentially every step (<span><span
 class="sans-serif">[Open]</span></span>, <span><span
 class="sans-serif">scale:cofinal</span></span>). This is a strictly
@@ -8907,7 +9020,7 @@ equivalently stated as the R-run length bound</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{RUNBOUND}\ :=\ \forall\,\text{reset}\
 r\ge31,\quad L_r\ &lt;\ \frac{r-3}{2}\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(L_r\)</span> is the length of the pure-R run
 following reset <span class="math inline" data-term-auto="off">\(r\)</span>. <span
 class="math inline" data-term-auto="off">\(\mathrm{RUNBOUND}\Leftrightarrow
@@ -9071,16 +9184,19 @@ class="level3">
 <p>None of the following is offered as a plan of attack, and none is
 close. Each is stated to make the shape of the missing ingredient
 legible.</p>
-<p><strong>O1 (universal).</strong> A producer for <span
-class="math inline" data-term-auto="off">\(\mathrm{Cert}(A)\)</span> at an arbitrary infinite
-<span class="math inline" data-term-auto="off">\(A\)</span> is a statement about
-geometrically-weighted divisor sums achieving controlled residues modulo
-powers of two on prescribed dyadic blocks, uniformly over all infinite
-supports. No general result of this shape exists in the
-analytic-number-theory literature surveyed for this programme; the
-corpus’s own honest assessment is that this is a genuinely new
-near-integer anti-concentration theorem for a divisor-weighted sum, not
-a variant of an existing one.</p>
+<p><strong>O1 (universal).</strong> The honest target is <span
+class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span> itself. The stronger schema
+<span class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}=\forall
+A\,\mathrm{Cert}(A)\)</span> is a rejected sufficient strengthening, not
+future work: Proposition <a class="math-ref" href="#prop:squarefree">prop:squarefree</a> already exhibits a
+squarefree support on which neither the digitwise nor the carry-aware
+block-certificate producer exists, while Duverney–Tachiya still prove
+that squarefree value irrational. Supplying <span
+class="math inline" data-term-auto="off">\(\mathrm{Cert}(A)\)</span> for arbitrary infinite
+supports is therefore not an open equivalent normal form of <span
+class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span>. Remaining work on O1 is
+the universal irrationality statement, or a different method that covers
+supports the certificate schemas cannot.</p>
 <p><strong>O2/O3/O5 (Mersenne-specific).</strong> The sharp-capacity gap
 <span class="math inline" data-term-auto="off">\((\ast)\to(\ast\ast)\)</span> and the <span
 class="math inline" data-term-auto="off">\(-2,-1\)</span> middle-cell exclusion are both, at
@@ -9109,15 +9225,20 @@ count versus Euler’s totient).</p>
 </section>
 <section id="summary" class="level3">
 <h3>Summary</h3>
-<p>Erdős #257 is open in the universal form (O1), and both rational
-membership targets <span class="math inline" data-term-auto="off">\(1/2\)</span> (O2) and
-<span class="math inline" data-term-auto="off">\(1/21\)</span> (O2b) remain open. Every route
-surveyed above either (a) is proved equivalent to O2 and therefore
-offers no reduction, (b) is a genuine strict weakening (O3, O4, O5,
-O3-supply) whose own supply is unproved at cofinal scale, or (c) is
-certified only on a finite initial segment, however large a margin that
-segment exhibits. Nothing in this paper closes any of these gaps, and no
-claim above should be read as progress toward doing so.</p>
+<p>Erdős #257 is open in the universal form (O1<span
+class="math inline" data-term-auto="off">\({}={}\)</span>U257), and both rational membership
+targets <span class="math inline" data-term-auto="off">\(1/2\)</span> (O2) and <span
+class="math inline" data-term-auto="off">\(1/21\)</span> (O2b) remain open. Every route
+surveyed above either (a) is proved equivalent to O2, including O3 by
+Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a>(c), and
+therefore offers no logical reduction, (b) is a sufficient condition not
+known to be equivalent (O4, O5, O3-supply) whose own supply is unproved
+at cofinal scale, (c) is the rejected certificate strengthening <span
+class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}\)</span>, already false on
+squarefree support, or (d) is certified only on a finite initial
+segment, however large a margin that segment exhibits. Nothing in this
+paper closes any of these gaps, and no claim above should be read as
+progress toward doing so.</p>
 </section>
 </section>
 <section id="statements-and-declarations" class="level2 unnumbered">

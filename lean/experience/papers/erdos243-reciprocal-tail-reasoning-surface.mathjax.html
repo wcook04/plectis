@@ -19,10 +19,12 @@ reciprocal sum:</p>
 <div class="problem" id="long243:res:problem">
 <p><strong>Problem 1</strong> (Erdős #243). <em> Let <span
 class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a sequence
-of integers with <span
+of integers with </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^{2}}=1
 \qquad\text{and}\qquad
-\sum\frac{1}{a_n}\in\Q .\]</span> Then <span
+\sum\frac{1}{a_n}\in\Q .\]</span></div>
+<p><em> Then <span
 class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
@@ -69,14 +71,18 @@ class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> is irrational.</
 <div class="theorem" id="long243:res:cubicexclusion">
 <p><strong>Theorem 3</strong> (rising-factorial cubic exclusion). <em>
 Let <span class="math inline" data-term-auto="off">\(a,C,D:\N\to\Z_{&gt;0}\)</span> satisfy
-<span class="tex-label" id="long243:eq:cubicorbit"></span><span class="math display" data-term-auto="off">\[\begin{equation}
+</em></p>
+<div class="math-display" id="long243:eq:cubicorbit" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:cubicorbit}
 C_{n+1}=a_nC_n-D_n,\qquad D_{n+1}=a_nD_n .
-\end{equation}\]</span> Then for every <span
+\end{equation}\]</span></div>
+<p>Then for every <span
 class="math inline" data-term-auto="off">\(A\in\Q_{&gt;0}\)</span> and every <span
-class="math inline" data-term-auto="off">\(B\in\Q\)</span>, <span
+class="math inline" data-term-auto="off">\(B\in\Q\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\liminf_{X\to\infty}
-\frac{\#\{n\le X:C_n\ne A\,n(n+1)(n+2)+B\}}{X}&gt;0 .\]</span> In
+\frac{\#\{n\le X:C_n\ne A\,n(n+1)(n+2)+B\}}{X}&gt;0 .\]</span></div>
+<p><em> In
 particular no such orbit satisfies <span
 class="math inline" data-term-auto="off">\(C_n=A\,n(n+1)(n+2)+B\)</span> for all large <span
 class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
@@ -108,7 +114,7 @@ class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
 \qquad D_{n+1}=a_nD_n,\]</span></div>
-<p>which is <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>.
+<p class="display-continue">which is <a class="math-ref" href="#long243:eq:cubicorbit">(1)</a>.
 Section <a class="math-ref" href="#long243:sec:state">4</a>
 constructs the same triple with its centred error <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>, which the present
@@ -160,21 +166,24 @@ integer <span class="math inline" data-term-auto="off">\(g\)</span>. On the tail
 class="math inline" data-term-auto="off">\(G_n=g\)</span>, put <span
 class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span>, <span
 class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span> and <span
-class="math inline" data-term-auto="off">\(Q(n)=P(n)/g\)</span>. Then <span class="tex-label" id="long243:eq:primitivetail"></span><span
+class="math inline" data-term-auto="off">\(Q(n)=P(n)/g\)</span>. Then </em></p>
+<div class="math-display" id="long243:eq:primitivetail" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:primitivetail}
 u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n,\qquad \gcd(u_n,v_n)=1,
 \qquad\gcd(u_n,u_{n+1})=1,
-\end{equation}\]</span> and there are <span
+\end{equation}\]</span></div>
+<p>and there are <span
 class="math inline" data-term-auto="off">\(m\in\Z_{&gt;0}\)</span> and <span
-class="math inline" data-term-auto="off">\(c\in\{-1,1\}\)</span> with <span class="tex-label" id="long243:eq:Qmc"></span><span
+class="math inline" data-term-auto="off">\(c\in\{-1,1\}\)</span> with </em></p>
+<div class="math-display" id="long243:eq:Qmc" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:Qmc}
 Q(n)=\frac m6n(n+1)(n+2)+c .
-\end{equation}\]</span></em></p>
+\end{equation}\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Equation <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a> gives <span
+<p><em>Proof.</em> Equation <a class="math-ref" href="#long243:eq:cubicorbit">(1)</a> gives <span
 class="math inline" data-term-auto="off">\(G_n\mid G_{n+1}\)</span> and <span
 class="math inline" data-term-auto="off">\(G_n\mid C_t\)</span> for every <span
 class="math inline" data-term-auto="off">\(t\ge n\)</span>. Since <span
@@ -208,7 +217,7 @@ class="math inline" data-term-auto="off">\(\underline d(S)=0\)</span>. Now <span
 class="math inline" data-term-auto="off">\(Q(-1)=Q(0)=B/g\)</span>, so <span
 class="math inline" data-term-auto="off">\(c:=B/g\in\Z\)</span>, and <span
 class="math inline" data-term-auto="off">\(m:=Q(1)-Q(0)=6A/g\)</span> is a positive integer,
-which is <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a>
+which is <a class="math-ref" href="#long243:eq:Qmc">(3)</a>
 with <span class="math inline" data-term-auto="off">\(c\in\Z\)</span>.</p>
 <p>It remains to exclude <span class="math inline" data-term-auto="off">\(c=0\)</span> and
 every <span class="math inline" data-term-auto="off">\(c\)</span> with a prime factor. Let
@@ -221,7 +230,7 @@ class="math inline" data-term-auto="off">\(n+1=6\ell k\)</span>; then</p>
 class="math display" data-term-auto="off">\[\frac{n(n+1)(n+2)}6=\ell k(6\ell k-1)(6\ell k+1),
 \qquad
 \frac{(n+1)(n+2)(n+3)}6=\ell k(n+2)(n+3),\]</span></div>
-<p>so <span
+<p class="display-continue">so <span
 class="math inline" data-term-auto="off">\(\ell\)</span> divides both <span
 class="math inline" data-term-auto="off">\(Q(n)\)</span> and <span
 class="math inline" data-term-auto="off">\(Q(n+1)\)</span>. Agreement at both indices would
@@ -240,7 +249,7 @@ case). <em> On the primitive tail, <span
 class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>, the multipliers at
 distinct indices are pairwise coprime, infinitely many of them exceed
 <span class="math inline" data-term-auto="off">\(1\)</span>, and the cubic <span
-class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> of <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a> is irreducible
+class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> of <a class="math-ref" href="#long243:eq:Qmc">(3)</a> is irreducible
 over <span class="math inline" data-term-auto="off">\(\Q\)</span>.</em></p>
 </div>
 <div class="proof">
@@ -341,14 +350,14 @@ class="math inline" data-term-auto="off">\(f\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Eliminating <span class="math inline" data-term-auto="off">\(v_n\)</span>
-from <a class="math-ref" href="#long243:eq:primitivetail">long243:eq:primitivetail</a> gives</p>
+from <a class="math-ref" href="#long243:eq:primitivetail">(2)</a> gives</p>
 <div class="math-display" id="long243:eq:secondorderu" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:secondorderu}
 u_{n+2}=(a_n+a_{n+1})u_{n+1}-a_n^2u_n .
 \end{equation}\]</span></div>
 <p>Let <span class="math inline" data-term-auto="off">\(\ell\)</span> be
 a prime and <span class="math inline" data-term-auto="off">\(k\)</span> an index with <span
-class="math inline" data-term-auto="off">\(\ell\mid u_k\)</span>. Reading <a class="math-ref" href="#long243:eq:secondorderu">(1)</a> at <span
+class="math inline" data-term-auto="off">\(\ell\mid u_k\)</span>. Reading <a class="math-ref" href="#long243:eq:secondorderu">(4)</a> at <span
 class="math inline" data-term-auto="off">\(n=k-1\)</span> modulo <span
 class="math inline" data-term-auto="off">\(\ell\)</span> gives <span
 class="math inline" data-term-auto="off">\(u_{k+1}\equiv-a_{k-1}^2u_{k-1}\)</span>, hence</p>
@@ -356,7 +365,7 @@ class="math inline" data-term-auto="off">\(u_{k+1}\equiv-a_{k-1}^2u_{k-1}\)</spa
 \label{long243:eq:forcedsquare}
 -u_{k-1}u_{k+1}\equiv(a_{k-1}u_{k-1})^2 \pmod\ell,
 \end{equation}\]</span></div>
-<p>so <span
+<p class="display-continue">so <span
 class="math inline" data-term-auto="off">\(-u_{k-1}u_{k+1}\)</span> is a square modulo <span
 class="math inline" data-term-auto="off">\(\ell\)</span>.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(\ell\nmid6m\)</span> and let <span
@@ -381,10 +390,10 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \end{equation}\]</span></div>
 <p>If <span class="math inline" data-term-auto="off">\(r^2-1\)</span>
 were a nonsquare modulo <span class="math inline" data-term-auto="off">\(\ell\)</span>, then
-so would be the right side of <a class="math-ref" href="#long243:eq:threevalue">(3)</a>, because
+so would be the right side of <a class="math-ref" href="#long243:eq:threevalue">(6)</a>, because
 <span class="math inline" data-term-auto="off">\(9\kappa^2r^2\)</span> is a nonzero square;
 agreement at all three of <span class="math inline" data-term-auto="off">\(k-1,k,k+1\)</span>
-would then contradict <a class="math-ref" href="#long243:eq:forcedsquare">(2)</a>. That
+would then contradict <a class="math-ref" href="#long243:eq:forcedsquare">(5)</a>. That
 prohibition recurs at every index of the class <span
 class="math inline" data-term-auto="off">\(r-1\)</span> modulo <span
 class="math inline" data-term-auto="off">\(\ell\)</span>, and Lemma <a class="math-ref" href="#long243:res:periodicobstruction">4</a>
@@ -438,7 +447,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>Newton’s identities give <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z=-b\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-1}=-d/w\)</span>, so the
-first equation in <a class="math-ref" href="#long243:eq:alphatraces">(5)</a> and <a class="math-ref" href="#long243:eq:zalpha">(4)</a> give</p>
+first equation in <a class="math-ref" href="#long243:eq:alphatraces">(8)</a> and <a class="math-ref" href="#long243:eq:zalpha">(7)</a> give</p>
 <div class="math-display" id="long243:eq:dbw" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:dbw}
@@ -451,7 +460,7 @@ class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-2}=b^2-2b/w\)
 while <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}(zz^{-1})=3\)</span>, so <span
 class="math inline" data-term-auto="off">\(4\mathop{\mathrm{Tr}}\alpha^2=\mathop{\mathrm{Tr}}z^2+6+\mathop{\mathrm{Tr}}z^{-2}\)</span>
-and the second equation in <a class="math-ref" href="#long243:eq:alphatraces">(5)</a> reads
+and the second equation in <a class="math-ref" href="#long243:eq:alphatraces">(8)</a> reads
 <span class="math inline" data-term-auto="off">\(b^2+b(w-w^{-1})=1\)</span>. Multiplying by
 <span class="math inline" data-term-auto="off">\(w\)</span> factors this exactly:</p>
 <div class="math-display" id="long243:eq:factored" data-term-auto="off"><span
@@ -465,16 +474,16 @@ class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^3=-b^3-3b^2w-3w
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z^{-3}=b^3-3b^2/w-3/w\)</span>,
 while <span
 class="math inline" data-term-auto="off">\(\mathop{\mathrm{Tr}}z+\mathop{\mathrm{Tr}}z^{-1}=0\)</span>
-by <a class="math-ref" href="#long243:eq:dbw">(6)</a>, so <span
+by <a class="math-ref" href="#long243:eq:dbw">(9)</a>, so <span
 class="math inline" data-term-auto="off">\(8\mathop{\mathrm{Tr}}\alpha^3=\mathop{\mathrm{Tr}}z^3+\mathop{\mathrm{Tr}}z^{-3}\)</span>
-and the third equation in <a class="math-ref" href="#long243:eq:alphatraces">(5)</a> gives</p>
+and the third equation in <a class="math-ref" href="#long243:eq:alphatraces">(8)</a> gives</p>
 <div class="math-display" id="long243:eq:etatrace" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:etatrace}
 \eta=\frac{(b^2+1)(w+w^{-1})}8 .
 \end{equation}\]</span></div>
-<p>By <a class="math-ref" href="#long243:eq:factored">(7)</a>, either <span
+<p>By <a class="math-ref" href="#long243:eq:factored">(10)</a>, either <span
 class="math inline" data-term-auto="off">\(b=-w\)</span> or <span
-class="math inline" data-term-auto="off">\(b=w^{-1}\)</span>, and <a class="math-ref" href="#long243:eq:etatrace">(8)</a> becomes</p>
+class="math inline" data-term-auto="off">\(b=w^{-1}\)</span>, and <a class="math-ref" href="#long243:eq:etatrace">(11)</a> becomes</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\eta=\frac{(w^2+1)^2}{8w}
 \qquad\text{or}\qquad
@@ -503,7 +512,7 @@ class="math inline" data-term-auto="off">\(s\ge1\)</span> the value <span
 class="math inline" data-term-auto="off">\(1\)</span> is too small, and <span
 class="math inline" data-term-auto="off">\(4\)</span> is not a sum of two nonzero squares, so
 <span class="math inline" data-term-auto="off">\(r^2+s^2=2\)</span> and <span
-class="math inline" data-term-auto="off">\(|r|=s=1\)</span>. Then <a class="math-ref" href="#long243:eq:mformula">(9)</a> gives <span
+class="math inline" data-term-auto="off">\(|r|=s=1\)</span>. Then <a class="math-ref" href="#long243:eq:mformula">(12)</a> gives <span
 class="math inline" data-term-auto="off">\(m=12cr\)</span>, and <span
 class="math inline" data-term-auto="off">\(m&gt;0\)</span> gives <span
 class="math inline" data-term-auto="off">\(m=12\)</span>. ◻</p>
@@ -570,8 +579,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:d1square}
 d_1^2=c_1\,a_1d_1=c_1d_2=-c_1c_3 .
 \end{equation}\]</span></div>
-<p>For <a class="math-ref" href="#long243:eq:wordplus">(11)</a> this is <span
-class="math inline" data-term-auto="off">\(-6\cdot2=2\)</span>, and for <a class="math-ref" href="#long243:eq:wordminus">(12)</a> it is <span
+<p>For <a class="math-ref" href="#long243:eq:wordplus">(14)</a> this is <span
+class="math inline" data-term-auto="off">\(-6\cdot2=2\)</span>, and for <a class="math-ref" href="#long243:eq:wordminus">(15)</a> it is <span
 class="math inline" data-term-auto="off">\(-5\cdot1=2\)</span>. The square roots of <span
 class="math inline" data-term-auto="off">\(2\)</span> modulo <span
 class="math inline" data-term-auto="off">\(7\)</span> are <span
@@ -582,12 +591,12 @@ class="math inline" data-term-auto="off">\(d_1\in\{3,4\}\)</span> in both cases.
 class="math inline" data-term-auto="off">\(a_0=(c_1+d_0)/c_0\)</span> and hence <span
 class="math inline" data-term-auto="off">\(d_1=d_0(d_0+c_1)/c_0\)</span>, which is legitimate
 because <span class="math inline" data-term-auto="off">\(c_0\in\{1,4\}\)</span> is
-invertible. For <a class="math-ref" href="#long243:eq:wordplus">(11)</a> this is <span
+invertible. For <a class="math-ref" href="#long243:eq:wordplus">(14)</a> this is <span
 class="math inline" data-term-auto="off">\(d_1=d_0(d_0+6)\)</span>, with values</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(0,0,2,6,5,6,2) \qquad\text{at }
 d_0=0,1,\ldots,6,\]</span></div>
-<p>and for <a class="math-ref" href="#long243:eq:wordminus">(12)</a> it is <span
+<p>and for <a class="math-ref" href="#long243:eq:wordminus">(15)</a> it is <span
 class="math inline" data-term-auto="off">\(d_1=2d_0(d_0+5)\)</span>, with values</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(0,5,0,6,2,2,6).\]</span></div>
@@ -614,7 +623,7 @@ uniform lower bound for arbitrary cubic profiles. ◻</p>
 Assume <span class="math inline" data-term-auto="off">\(\underline d(S)=0\)</span>.
 Lemmas <a class="math-ref" href="#long243:res:gcdshape">5</a>
 and <a class="math-ref" href="#long243:res:reduciblecase">6</a>
-put the primitive tail in the shape <a class="math-ref" href="#long243:eq:Qmc">long243:eq:Qmc</a> with <span
+put the primitive tail in the shape <a class="math-ref" href="#long243:eq:Qmc">(3)</a> with <span
 class="math inline" data-term-auto="off">\(c=\pm1\)</span> and <span
 class="math inline" data-term-auto="off">\(Q_{m,c}\)</span> irreducible. Each excluded branch
 already contradicts the assumption by producing a positive,
@@ -632,11 +641,13 @@ force <span class="math inline" data-term-auto="off">\(m=12\)</span>, and Lemma�
 <div class="lemma" id="long243:res:extraction">
 <p><strong>Lemma 11</strong> (integer extraction at a regular rate).
 <em> Let <span class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> and let <span
-class="math inline" data-term-auto="off">\(C_n\)</span> be positive integers with <span class="tex-label" id="long243:eq:regularrate"></span><span
+class="math inline" data-term-auto="off">\(C_n\)</span> be positive integers with </em></p>
+<div class="math-display" id="long243:eq:regularrate" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:regularrate}
 \frac{C_{n+1}}{C_n}=1+\frac\lambda n+o(n^{-\lambda}).
-\end{equation}\]</span> Then <span
+\end{equation}\]</span></div>
+<p><em> Then <span
 class="math inline" data-term-auto="off">\(\lambda\)</span> is an integer <span
 class="math inline" data-term-auto="off">\(d\ge2\)</span>, and there are <span
 class="math inline" data-term-auto="off">\(A\in\Q_{&gt;0}\)</span> and <span
@@ -650,7 +661,7 @@ class="math inline" data-term-auto="off">\(F_n=\Gamma(n+\lambda)/\Gamma(n)\)</sp
 <span class="math inline" data-term-auto="off">\(F_{n+1}/F_n=1+\lambda/n\)</span> exactly and
 <span class="math inline" data-term-auto="off">\(F_n\sim n^\lambda\)</span>. Write <span
 class="math inline" data-term-auto="off">\(\varepsilon_n=o(n^{-\lambda})\)</span> for the
-error in <a class="math-ref" href="#long243:eq:regularrate">long243:eq:regularrate</a> and <span
+error in <a class="math-ref" href="#long243:eq:regularrate">(17)</a> and <span
 class="math inline" data-term-auto="off">\(z_n=C_n/F_n\)</span>, so that <span
 class="math inline" data-term-auto="off">\(z_{n+1}/z_n=1+\varepsilon_n/(1+\lambda/n)\)</span>.
 Since <span class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span> the errors are
@@ -667,7 +678,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>The recurrence gives <span
 class="math inline" data-term-auto="off">\(\delta_{n+1}-\delta_n=(\lambda/n)\delta_n+\varepsilon_nC_n\)</span>,
 in which the first term is <span class="math inline" data-term-auto="off">\(o(1)\)</span> by
-<a class="math-ref" href="#long243:eq:dsmall">(14)</a> and the
+<a class="math-ref" href="#long243:eq:dsmall">(18)</a> and the
 second is <span class="math inline" data-term-auto="off">\(o(1)\)</span> because <span
 class="math inline" data-term-auto="off">\(C_n=O(n^\lambda)\)</span>. So <span
 class="math inline" data-term-auto="off">\(\Delta\delta_n\to0\)</span>, and therefore <span
@@ -679,7 +690,7 @@ class="math inline" data-term-auto="off">\(\Gamma(n+1+\lambda)/\Gamma(n+1)-\Gamm
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta^jF_n=\lambda(\lambda-1)\cdots(\lambda-j+1)\,
 \frac{\Gamma(n+\lambda)}{\Gamma(n+j)},\]</span></div>
-<p>whose right side is
+<p class="display-continue">whose right side is
 <span class="math inline" data-term-auto="off">\(O(n^{\lambda-j})\)</span>. Choose an integer
 <span class="math inline" data-term-auto="off">\(j&gt;\lambda\)</span>; then <span
 class="math inline" data-term-auto="off">\(\Delta^jF_n\to0\)</span>, so <span
@@ -693,13 +704,13 @@ be <span class="math inline" data-term-auto="off">\(\lambda\)</span>, so <span
 class="math inline" data-term-auto="off">\(\lambda=d\)</span> is an integer, and <span
 class="math inline" data-term-auto="off">\(d\ge2\)</span> because <span
 class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span>. For that integer <span
-class="math inline" data-term-auto="off">\(F_n=n(n+1)\cdots(n+d-1)\)</span> exactly, so <a class="math-ref" href="#long243:eq:dsmall">(14)</a> says that the
+class="math inline" data-term-auto="off">\(F_n=n(n+1)\cdots(n+d-1)\)</span> exactly, so <a class="math-ref" href="#long243:eq:dsmall">(18)</a> says that the
 difference of two polynomials of degree <span
 class="math inline" data-term-auto="off">\(d\)</span> is <span
 class="math inline" data-term-auto="off">\(o(n)\)</span>, hence constant. This is the stated
 shape with <span class="math inline" data-term-auto="off">\(A=K&gt;0\)</span>. ◻</p>
 </div>
-<p>The precision in <a class="math-ref" href="#long243:eq:regularrate">long243:eq:regularrate</a> carries
+<p>The precision in <a class="math-ref" href="#long243:eq:regularrate">(17)</a> carries
 weight. The positive integers <span
 class="math inline" data-term-auto="off">\(C_n=n(n+1)(n+2)+(-1)^n\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(C_{n+1}/C_n=1+3/n+O(n^{-3})\)</span> and are not
@@ -714,10 +725,11 @@ class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> rational, and let <span
 class="math inline" data-term-auto="off">\((C_n,D_n)\)</span> be the canonical integer tail.
 Write <span class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span>.
-Then <span
+Then </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}=1+\gamma_n+O(a_n^{-1}),
 \qquad a_n\ge\exp(c\,2^n)\ \text{eventually for some }c&gt;0
-.\]</span></em></p>
+.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Since <span
@@ -747,7 +759,7 @@ last factor is <span class="math inline" data-term-auto="off">\(1+O(1/a_n)\)</sp
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}\)</span> is bounded, so the product
 is <span class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}+O(a_n^{-1})\)</span>. ◻</p>
 </div>
-<p>Equation <a class="math-ref" href="#long243:eq:weightedgrowth">(16)</a> of
+<p>Equation <a class="math-ref" href="#long243:eq:weightedgrowth">(20)</a> of
 Section <a class="math-ref" href="#long243:sec:lcmrecords">6</a> records the
 same comparison in the centred coordinates, where it follows from the
 kernel-checked defect identity of Theorem <a class="math-ref" href="#long243:res:defect">16</a>.</p>
@@ -758,7 +770,7 @@ class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+3/n+o(n^{-3})\)</span
 class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>. Suppose <span
 class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> were rational and pass to the
 canonical integer tail, so that <span
-class="math inline" data-term-auto="off">\((a,C,D)\)</span> satisfies <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a> with every
+class="math inline" data-term-auto="off">\((a,C,D)\)</span> satisfies <a class="math-ref" href="#long243:eq:cubicorbit">(1)</a> with every
 <span class="math inline" data-term-auto="off">\(C_n\)</span> and <span
 class="math inline" data-term-auto="off">\(D_n\)</span> a positive integer. By Lemma <a class="math-ref" href="#long243:res:tailratio">12</a> and <span
 class="math inline" data-term-auto="off">\(a_n\ge\exp(c2^n)\)</span>, the error term <span
@@ -779,7 +791,7 @@ class="math inline" data-term-auto="off">\(1\)</span>, or <span
 class="math inline" data-term-auto="off">\(2\)</span>, or bounded in advance.</p>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
-<p>Ordinary proof. The finite claims are the two words <a class="math-ref" href="#long243:eq:wordplus">(11)</a> and <a class="math-ref" href="#long243:eq:wordminus">(12)</a>, the image
+<p>Ordinary proof. The finite claims are the two words <a class="math-ref" href="#long243:eq:wordplus">(14)</a> and <a class="math-ref" href="#long243:eq:wordminus">(15)</a>, the image
 <span class="math inline" data-term-auto="off">\(\{0,2,5,6\}\)</span> of the first-step
 recursion modulo <span class="math inline" data-term-auto="off">\(7\)</span>, the divisor
 condition <span class="math inline" data-term-auto="off">\((r^2+s^2)^2\mid48\)</span>, and
@@ -814,7 +826,7 @@ Koizumi’s <span class="math inline" data-term-auto="off">\(1+o(1/n)\)</span> c
 <span class="math inline" data-term-auto="off">\(\sum_n\gamma_n\)</span> diverges, so
 Duverney’s convergent-defect hypothesis does not apply. Theorem <a class="math-ref" href="#long243:res:cubicexclusion">3</a> is
 independent of any growth or positivity assumption on <span
-class="math inline" data-term-auto="off">\((a_n)\)</span> beyond <a class="math-ref" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>, and the
+class="math inline" data-term-auto="off">\((a_n)\)</span> beyond <a class="math-ref" href="#long243:eq:cubicorbit">(1)</a>, and the
 later sections of this note decide nothing at the cubic rate.</p>
 </section>
 </section>
@@ -838,7 +850,7 @@ class="math inline" data-term-auto="off">\(a_n\)</span> does not satisfy the rec
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\
 \frac{[a_1,\ldots,a_n]}{a_{n+1}}
 \left(\frac{a_{n+1}^{2}}{a_{n+2}}-1\right)&gt;0,\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]\)</span> is the least common
 multiple <span class="citation" data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>.
 This is the indexing in the original theorem. Erdős’s 1988 survey,
@@ -860,7 +872,7 @@ class="math inline" data-term-auto="off">\(\epsilon_n\)</span> is rational if an
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_{n+1}=a_n^2-(\epsilon_{n+1}/\epsilon_n)a_n
              +\epsilon_{n+2}/\epsilon_{n+1}\]</span></div>
-<p>for all large <span
+<p class="display-continue">for all large <span
 class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
 data-cites="duverney2001"><a href="#ref-2">[2]</a></span>. Absolute convergence is a stronger
 sufficient specialisation, not the hypothesis printed in that corollary.
@@ -870,7 +882,7 @@ positive rational terms <span class="math inline" data-term-auto="off">\(b_n/a_n
 eventual strict inequality</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_{n+1}&gt;\frac{b_{n+1}}{b_n}a_n^2-\frac{b_{n+1}}{b_n}a_n+1\]</span></div>
-<p>forces irrationality, while rationality under the corresponding
+<p class="display-continue">forces irrationality, while rationality under the corresponding
 non-strict inequality forces eventual equality <span class="citation"
 data-cites="badea1993"><a href="#ref-3">[3]</a></span>. These positive-term hypotheses do not
 cover the mixed-sign state orbits studied here. Neither result is
@@ -894,7 +906,7 @@ class="math inline" data-term-auto="off">\(\varepsilon_n=e_n/c_n\)</span>, satis
 class="math display" data-term-auto="off">\[a_n=\frac{d_n-e_n}{c_n}+1,\qquad
 c_{n+1}=c_n-e_n,\qquad
 d_{n+1}=a_nd_n ,\]</span></div>
-<p>and the proof of that lemma also gives <span
+<p class="display-continue">and the proof of that lemma also gives <span
 class="math inline" data-term-auto="off">\(c_{n+1}=a_nc_n-d_n\)</span>. Under the dictionary
 <span class="math inline" data-term-auto="off">\((C_n,D_n,E_n)=(c_n,d_n,e_n)\)</span> these
 are exactly the objects of Section <a class="math-ref" href="#long243:sec:state">4</a>: the first
@@ -1086,7 +1098,7 @@ class="math display" data-term-auto="off">\[\operatorname{den}(a,D)=aD,
 \operatorname{tail}(a,D,C)=aC-D,
 \quad
 \operatorname{ctr}(a,D,C)=D-(a-1)C ,\]</span></div>
-<p>the <a
+<p class="display-continue">the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L41">denominator
 update</a>, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L45">tail
@@ -1277,11 +1289,12 @@ a given rational sum, which is the direction the problem needs, is the
 exposition of this paragraph and is not a checked statement.</p>
 <div class="proposition" id="long243:res:scale">
 <p><strong>Proposition 15</strong> (scale equivariance). <em> For every
-<span class="math inline" data-term-auto="off">\(s,a,D,C\in\Z\)</span>, <span
+<span class="math inline" data-term-auto="off">\(s,a,D,C\in\Z\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{den}(a,sD)=s\,\operatorname{den}(a,D),\qquad
-\operatorname{tail}(a,sD,sC)=s\,\operatorname{tail}(a,D,C),\]</span>
-<span
-class="math display" data-term-auto="off">\[\operatorname{ctr}(a,sD,sC)=s\,\operatorname{ctr}(a,D,C).\]</span></em></p>
+\operatorname{tail}(a,sD,sC)=s\,\operatorname{tail}(a,D,C),\]</span></div>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\operatorname{ctr}(a,sD,sC)=s\,\operatorname{ctr}(a,D,C).\]</span></div>
 </div>
 <p>Formalised as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L65">denominator
@@ -1321,9 +1334,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 defect</a>.</p>
 <div class="theorem" id="long243:res:defect">
 <p><strong>Theorem 16</strong> (defect identity). <em> For all <span
-class="math inline" data-term-auto="off">\(a,a&#39;,D,C\in\Z\)</span>, <span
+class="math inline" data-term-auto="off">\(a,a&#39;,D,C\in\Z\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{def}(a,a&#39;)\cdot\operatorname{tail}(a,D,C)
-=a^{2}\,\operatorname{ctr}(a,D,C)-\operatorname{ctr}\bigl(a&#39;,\operatorname{den}(a,D),\operatorname{tail}(a,D,C)\bigr),\]</span>
+=a^{2}\,\operatorname{ctr}(a,D,C)-\operatorname{ctr}\bigl(a&#39;,\operatorname{den}(a,D),\operatorname{tail}(a,D,C)\bigr),\]</span></div>
+<p class="display-continue"><em>
 that is, <span
 class="math inline" data-term-auto="off">\(\Delta_n\,C_{n+1}=a_n^{2}E_n-E_{n+1}\)</span>.</em></p>
 </div>
@@ -1347,9 +1362,11 @@ only on <span class="math inline" data-term-auto="off">\(a_0,a_1,a_2\)</span>, a
 class="math inline" data-term-auto="off">\(E_2=0\)</span> still. The defect is <span
 class="math inline" data-term-auto="off">\(\Delta_2=a_3-\operatorname{syl}(a_2)=44-43=1\)</span>,
 and <span class="math inline" data-term-auto="off">\(E_3=D_3-(a_3-1)C_3=42-43=-1\)</span>, so
-the identity reads <span
+the identity reads </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta_2C_3=1\cdot1=1=49\cdot0-(-1)=a_2^{2}E_2-E_3
-.\]</span> By Proposition <a class="math-ref" href="#long243:res:update">13</a> the tail state
+.\]</span></div>
+<p><em> By Proposition <a class="math-ref" href="#long243:res:update">13</a> the tail state
 then rises, <span class="math inline" data-term-auto="off">\(C_4=C_3-E_3=2\)</span>. A single
 unit of defect at one index has produced a negative error of magnitude
 <span class="math inline" data-term-auto="off">\(1\)</span> at the next, and the state has
@@ -1392,8 +1409,10 @@ h_1u_2+v_1=a_1u_1.\]</span></div>
 <div class="theorem" id="long243:res:secondorder">
 <p><strong>Theorem 19</strong> (two-step primitive recurrence). <em> Let
 <span class="math inline" data-term-auto="off">\(a,a_1,u,u_1,u_2,v,v_1,h,h_1\)</span> be
-integers satisfying <span class="math display" data-term-auto="off">\[hu_1+v=au,\qquad
-hv_1=av,\qquad h_1u_2+v_1=a_1u_1.\]</span> Then <span
+integers satisfying </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[hu_1+v=au,\qquad
+hv_1=av,\qquad h_1u_2+v_1=a_1u_1.\]</span></div>
+<p><em> Then <span
 class="math inline" data-term-auto="off">\(a^2u+hh_1u_2=h(a+a_1)u_1\)</span>.</em></p>
 </div>
 <div class="proof">
@@ -1419,8 +1438,9 @@ class="math display" data-term-auto="off">\[p_2+a^2p=(a+a_1)p_1.\]</span></div>
 <p><strong>Theorem 20</strong> (cancellation-free curvature identity).
 <em> Let <span class="math inline" data-term-auto="off">\(a,a_1,p,p_1,p_2,q\)</span> be
 integers with <span class="math inline" data-term-auto="off">\(q=ap-p_1\)</span> and <span
-class="math inline" data-term-auto="off">\(p_2+a^2p=(a+a_1)p_1\)</span>. Then <span
-class="math display" data-term-auto="off">\[q^2+\bigl(pp_2-p_1^2\bigr)=(a_1-a)pp_1.\]</span></em></p>
+class="math inline" data-term-auto="off">\(p_2+a^2p=(a+a_1)p_1\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[q^2+\bigl(pp_2-p_1^2\bigr)=(a_1-a)pp_1.\]</span></div>
 </div>
 <p>The square <span class="math inline" data-term-auto="off">\(q^2\)</span> is the local
 remainder, while <span class="math inline" data-term-auto="off">\(pp_2-p_1^2\)</span> is a
@@ -1610,18 +1630,21 @@ therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\
 <p><strong>Theorem 23</strong> (arithmetic weighted-record dichotomy).
 <em> Let <span class="math inline" data-term-auto="off">\(a_n,L_n,U_n\)</span> be positive
 integers and <span class="math inline" data-term-auto="off">\(V_n\)</span> integers
-satisfying <span class="math display" data-term-auto="off">\[\begin{gathered}
+satisfying </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{gathered}
 L_{n+1}=\operatorname{lcm}(L_n,a_n),\qquad \rho_n=\gcd(L_n,a_n),\\
 \rho_nU_{n+1}=U_n-V_n,\qquad
 V_n=L_n-(a_n-1)U_n,\qquad -U_n\le2V_n.
-\end{gathered}\]</span> Let <span
+\end{gathered}\]</span></div>
+<p>Let <span
 class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> be finite and
 nonincreasing, with <span class="math inline" data-term-auto="off">\(\int_1^\infty
 f(t)\,dt=\infty\)</span>. For each fixed integer <span
-class="math inline" data-term-auto="off">\(B\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(B\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sup_n U_n&lt;\infty
 \quad\Longleftrightarrow\quad
-\sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></em></p>
+\sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A bounded integer running maximum increases only
@@ -1692,9 +1715,10 @@ application to the original sequence.</p>
 growth and rationality hypotheses of Problem <a class="math-ref" href="#long243:res:problem">1</a>, and let <span
 class="math inline" data-term-auto="off">\(f\)</span> be as in Theorem <a class="math-ref" href="#long243:res:arithmeticrecord">23</a>. The
 sequence is eventually Sylvester if and only if, for some integer <span
-class="math inline" data-term-auto="off">\(B\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(B\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\in\mathcal
-R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></em></p>
+R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> If the endpoint fails, centred zero is never reached
@@ -1713,7 +1737,7 @@ gives the sufficient condition</p>
 class="math display" data-term-auto="off">\[\sum_{n\in\mathcal
 R}\frac{(-V_n-B)_+}{U_n\log(eU_n)}&lt;\infty.\]</span></div>
 <p>Its finite lower
-bound in <a class="math-ref" href="#long243:eq:weightedcrossing">(15)</a> is
+bound in <a class="math-ref" href="#long243:eq:weightedcrossing">(19)</a> is
 <span
 class="math inline" data-term-auto="off">\(P^{-1}\log\bigl(\log(eR_N)/\log(e(R_T+P))\bigr)\)</span>.
 Further fixed iterated logarithmic factors are allowed whenever the
@@ -1743,7 +1767,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \sum_{n\in\mathcal R}U_nf(U_n)
 \left(\frac{a_n^2}{a_{n+1}}-1-\frac B{U_n}\right)_+
 \end{equation}\]</span></div>
-<p>for some <span class="math inline" data-term-auto="off">\(B\)</span>.
+<p class="display-continue">for some <span class="math inline" data-term-auto="off">\(B\)</span>.
 The original hypotheses do not currently supply this finiteness. In
 particular, termwise convergence to zero is insufficient. The same
 equivalence holds directly on the canonical LCM orbit under the original
@@ -2154,9 +2178,11 @@ class="math inline" data-term-auto="off">\(E_n\)</span>.</p>
 <div class="theorem" id="long243:res:strausbounded">
 <p><strong>Theorem 33</strong> (the Erdős–Straus quantity, bounded
 form). <em> Let <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>
-and <span class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>, and put <span
+and <span class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>, and put </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[Q_n=\frac{a_1a_2\cdots a_{n-1}}{a_n}
-     \left(\frac{a_n^2}{a_{n+1}}-1\right).\]</span> If <span
+     \left(\frac{a_n^2}{a_{n+1}}-1\right).\]</span></div>
+<p><em> If <span
 class="math inline" data-term-auto="off">\(\limsup_nQ_n&lt;\infty\)</span> then the sequence
 is eventually Sylvester. If for some <span
 class="math inline" data-term-auto="off">\(\delta&gt;0\)</span> and all large <span
@@ -2223,12 +2249,14 @@ class="math inline" data-term-auto="off">\(\kappa&#39;_n=G_n/M_n\)</span> is a p
 integer and <span class="math inline" data-term-auto="off">\(E_n/M_n=\kappa&#39;_n\tilde
 e_n\)</span> is an integer carrying the sign of <span
 class="math inline" data-term-auto="off">\(E_n\)</span>. The growth defect carries a shifted
-sign. On any exact orbit, <span class="tex-label" id="long243:eq:shiftedsign"></span><span class="math display" data-term-auto="off">\[\begin{equation}
+sign. On any exact orbit, </em></p>
+<div class="math-display" id="long243:eq:shiftedsign" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:shiftedsign}
 \frac{a_n^2}{a_{n+1}}-1=-\frac{E_n}{C_n}+\Lambda_n,
 \qquad
 \Lambda_n=\frac{\bigl(1-E_n/C_n\bigr)\bigl(a_n-1+E_{n+1}/C_{n+1}\bigr)}{a_{n+1}},
-\end{equation}\]</span> and <span
+\end{equation}\]</span></div>
+<p class="display-continue"><em> and <span
 class="math inline" data-term-auto="off">\(0&lt;\Lambda_n&lt;3/a_n\)</span> for all large
 <span class="math inline" data-term-auto="off">\(n\)</span> whenever <span
 class="math inline" data-term-auto="off">\(E_n/C_n\to0\)</span>. The Erdős–Straus quantity of
@@ -2251,7 +2279,7 @@ class="math inline" data-term-auto="off">\(\Lambda_n=(a_n-1)/a_{n+1}\)</span>.</
 <div class="proof">
 <p><em>Proof.</em> The first sentence is the divisibility dictionary of
 Section <a class="math-ref" href="#long243:sec:records">7</a>.
-For <a class="math-ref" href="#long243:eq:shiftedsign">long243:eq:shiftedsign</a>,
+For <a class="math-ref" href="#long243:eq:shiftedsign">(21)</a>,
 write <span class="math inline" data-term-auto="off">\(\theta_n=E_n/C_n\)</span>;
 Proposition <a class="math-ref" href="#long243:res:update">13</a> gives <span
 class="math inline" data-term-auto="off">\(C_{n+1}=C_n(1-\theta_n)\)</span> and <span
@@ -2370,7 +2398,7 @@ constant is the exact maximal-gap coefficient is Problem <a class="math-ref" hr
 <p>Every criterion of this section leaves the same regime, which is</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(1-\delta)\ell(C_n)\ \le\ -E_n\ =\ o(C_n)
 \qquad\text{at infinitely many }n,\]</span></div>
-<p>with divergent normalised
+<p class="display-continue">with divergent normalised
 negative mass, unbounded record-amplified error, and infinitely many
 clean primitive record jumps of size at least three. Any argument
 entering it must use the congruence <span
@@ -2604,9 +2632,11 @@ Let <span class="math inline" data-term-auto="off">\(a,D,C,e:\N\to\N\)</span> wi
 class="math inline" data-term-auto="off">\(a_n\ge2\)</span>, <span
 class="math inline" data-term-auto="off">\(e_n&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span> for every <span
-class="math inline" data-term-auto="off">\(n\)</span>, satisfying <span
+class="math inline" data-term-auto="off">\(n\)</span>, satisfying </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[D_{n+1}=a_nD_n,\qquad C_{n+1}=C_n+e_n,\qquad
-D_n+e_n=(a_n-1)C_n ,\]</span> and suppose <span
+D_n+e_n=(a_n-1)C_n ,\]</span></div>
+<p class="display-continue"><em> and suppose <span
 class="math inline" data-term-auto="off">\(e_{n+h}=e_n\)</span> and <span
 class="math inline" data-term-auto="off">\(C_{n+h}=C_n+M\)</span> for some <span
 class="math inline" data-term-auto="off">\(h&gt;0\)</span> and <span
@@ -2930,8 +2960,9 @@ class="math inline" data-term-auto="off">\(|E_n|/C_n\to0\)</span>, then <span
 class="math inline" data-term-auto="off">\(\Gamma(N)=o(N)\)</span>. Moreover, for every
 starting bound <span class="math inline" data-term-auto="off">\(B\)</span> and block length
 <span class="math inline" data-term-auto="off">\(L\)</span>, some <span
-class="math inline" data-term-auto="off">\(n\ge B\)</span> satisfies <span
-class="math display" data-term-auto="off">\[G_n=G_{n+1}=\cdots=G_{n+L}.\]</span></em></p>
+class="math inline" data-term-auto="off">\(n\ge B\)</span> satisfies </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[G_n=G_{n+1}=\cdots=G_{n+L}.\]</span></div>
 </div>
 <p>The first assertion is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2180">sublinear
@@ -3113,8 +3144,10 @@ with a system of congruences.</p>
 <p><strong>Theorem 50</strong> (finite normalised negative mass). <em>
 Let <span class="math inline" data-term-auto="off">\(C_n\in\N_{&gt;0}\)</span> and <span
 class="math inline" data-term-auto="off">\(E_n\in\Z\)</span> satisfy <span
-class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>. If <span
-class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty,\]</span>
+class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>. If </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty,\]</span></div>
+<p class="display-continue"><em>
 then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> eventually. For an exact
 reciprocal-tail orbit this implies <span
 class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> eventually. No
@@ -3166,8 +3199,10 @@ is at most <span class="math inline" data-term-auto="off">\(1\)</span>; the cons
 <span class="math inline" data-term-auto="off">\(n=0\)</span> still permits <span
 class="math inline" data-term-auto="off">\(E_0\)</span> as negative as <span
 class="math inline" data-term-auto="off">\(-50\)</span>. Since <span
-class="math inline" data-term-auto="off">\(1+x\le e^{x}\)</span>, <span
-class="math display" data-term-auto="off">\[C_N\le100\prod_{n&lt;N}\bigl(1+2^{-n-1}\bigr)\le100e&lt;272\]</span>
+class="math inline" data-term-auto="off">\(1+x\le e^{x}\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[C_N\le100\prod_{n&lt;N}\bigl(1+2^{-n-1}\bigr)\le100e&lt;272\]</span></div>
+<p class="display-continue"><em>
 for every <span class="math inline" data-term-auto="off">\(N\)</span>. For all sufficiently
 large <span class="math inline" data-term-auto="off">\(n\)</span>, we have <span
 class="math inline" data-term-auto="off">\(2^{-n-1}&lt;1/272\)</span>. A strict rise would
@@ -3197,12 +3232,16 @@ any counterexample.</p>
 <div class="proposition" id="long243:res:frontier">
 <p><strong>Proposition 52</strong> (frontier profile for a
 counterexample). <em> For the canonical integer state attached to any
-counterexample to Problem <a class="math-ref" href="#long243:res:problem">1</a>, <span
+counterexample to Problem <a class="math-ref" href="#long243:res:problem">1</a>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[E_n\ne0\quad\hbox{eventually},\qquad
-\frac{|E_n|}{C_n}\longrightarrow0,\]</span> and <span
+\frac{|E_n|}{C_n}\longrightarrow0,\]</span></div>
+<p>and </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\limsup_{\substack{n\to\infty\\E_n&lt;0}}(-E_n)=\infty,
 \qquad
-\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}=\infty .\]</span> In particular,
+\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}=\infty .\]</span></div>
+<p><em> In particular,
 negative indices occur infinitely often. Thus the remaining regime
 consists of globally coherent, unbounded negative excursions with
 divergent normalised negative mass.</em></p>
@@ -3240,8 +3279,10 @@ class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, whose multipliers 
 class="math inline" data-term-auto="off">\(\lim_n a_{n+1}/a_n^{2}=1\)</span> and whose
 centred state satisfies normalised vanishing, and which is negative
 infinitely often with magnitudes unbounded along that cofinal set and
-<span class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty
-.\]</span> An excursion of this kind has none of the finiteness
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty
+.\]</span></div>
+<p><em> An excursion of this kind has none of the finiteness
 hypotheses just listed. By Proposition <a class="math-ref" href="#long243:res:frontier">52</a> the canonical
 state of a counterexample is such an orbit after deletion of a finite
 prefix, so an exclusion would settle Problem #243. A proposed
@@ -3256,10 +3297,12 @@ prefixes alone do not provide such a construction.</em></p>
 <div class="remark">
 <p><strong>Remark 2</strong>. <em>The hypotheses in Problem <a class="math-ref" href="#long243:res:excursions">53</a> beyond the
 state recurrence are not decorative: the recurrence alone admits
-unbounded divergent-mass excursions. Put <span
+unbounded divergent-mass excursions. Put </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_n=2^{n},\qquad b_0=2,\qquad b_{n+1}=\tfrac12
 b_n(b_n+2),\qquad
-a_n=b_n+2,\qquad D_n=b_nC_n ,\]</span> so that <span
+a_n=b_n+2,\qquad D_n=b_nC_n ,\]</span></div>
+<p>so that <span
 class="math inline" data-term-auto="off">\((b_n)=2,4,12,84,3612,\ldots\)</span> and <span
 class="math inline" data-term-auto="off">\((a_n)=4,6,14,86,3614,\ldots\)</span>. Every <span
 class="math inline" data-term-auto="off">\(b_n\)</span> is a positive even integer, since
@@ -3269,9 +3312,11 @@ are <span class="math inline" data-term-auto="off">\(\N\)</span>-valued. The orb
 <span class="math inline" data-term-auto="off">\(C_{n+1}+D_n=2^{n}(2+b_n)=a_nC_n\)</span> and
 <span
 class="math inline" data-term-auto="off">\(D_{n+1}=b_{n+1}2^{n+1}=b_n(b_n+2)2^{n}=a_nD_n\)</span>.
-Its centred state is <span
+Its centred state is </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[E_n=D_n-(a_n-1)C_n=b_n2^{n}-(b_n+1)2^{n}=-C_n
-,\]</span> so the negative magnitudes <span
+,\]</span></div>
+<p class="display-continue"><em> so the negative magnitudes <span
 class="math inline" data-term-auto="off">\(2^{n}\)</span> are unbounded and <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span> diverges. What fails
 is the centring: <span class="math inline" data-term-auto="off">\(|E_n|=C_n\)</span> at every
@@ -3328,7 +3373,7 @@ K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
 <p>This is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
 conservation law</a>.</p>
-<p>The square in <a class="math-ref" href="#long243:eq:repair-entropy">(17)</a> is the
+<p>The square in <a class="math-ref" href="#long243:eq:repair-entropy">(22)</a> is the
 key point. Exact denominator reduction charges <span
 class="math inline" data-term-auto="off">\(c_n^2\)</span> to the scale growth, so a repaired
 family whose LCM is at least <span
@@ -3358,15 +3403,19 @@ disappearance of fixed-length reset payments</a>. The theorem does not
 bound a recovery length that varies with <span
 class="math inline" data-term-auto="off">\(r\)</span>, nor does it supply a lower bound for
 the LCM of the moduli repaired in such an interval. Those are the
-missing inputs needed to turn <a class="math-ref" href="#long243:eq:repair-entropy">(17)</a> into a
+missing inputs needed to turn <a class="math-ref" href="#long243:eq:repair-entropy">(22)</a> into a
 global contradiction.</p>
 <div class="problem" id="long243:res:lcmheight">
 <p><strong>Problem 54</strong> (global overlap-height growth). <em> For
-every nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#long243:res:problem">1</a>, must <span
+every nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#long243:res:problem">1</a>, must </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{\log
-M_n}{n}&gt;0?\]</span> Equivalently, must there be a <span
-class="math inline" data-term-auto="off">\(K\ge1\)</span> for which <span
-class="math display" data-term-auto="off">\[2^n\le M_n^K\]</span> at infinitely many
+M_n}{n}&gt;0?\]</span></div>
+<p>Equivalently, must there be a <span
+class="math inline" data-term-auto="off">\(K\ge1\)</span> for which </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2^n\le M_n^K\]</span></div>
+<p class="display-continue"><em> at infinitely many
 indices?</em></p>
 </div>
 <p>The two displayed formulations are equivalent up to changing the
@@ -3393,9 +3442,11 @@ class="math inline" data-term-auto="off">\(|E_n|\)</span> subexponential in <spa
 class="math inline" data-term-auto="off">\(n\)</span>.</p>
 <div class="problem" id="long243:res:prefixgcd">
 <p><strong>Problem 55</strong> (old-factor overlap). <em> In every
-nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#long243:res:problem">1</a>, is <span
+nonterminal canonical orbit satisfying Problem <a class="math-ref" href="#long243:res:problem">1</a>, is </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
-\frac{\log\gcd(A_n,a_n-1)}{n}&gt;0?\]</span> Equivalently, do there
+\frac{\log\gcd(A_n,a_n-1)}{n}&gt;0?\]</span></div>
+<p><em> Equivalently, do there
 exist <span class="math inline" data-term-auto="off">\(\eta&gt;0\)</span> and infinitely many
 <span class="math inline" data-term-auto="off">\(n\)</span> such that <span
 class="math inline" data-term-auto="off">\(\gcd(A_n,a_n-1)\ge e^{\eta n}\)</span>?</em></p>
@@ -3410,8 +3461,9 @@ do not answer this question: the gcd uses the complete prefix.</p>
 <p><strong>Problem 56</strong> (summability from rationality). <em> Let
 <span class="math inline" data-term-auto="off">\((a_n)\)</span> satisfy Problem <a class="math-ref" href="#long243:res:problem">1</a>, and let <span
 class="math inline" data-term-auto="off">\((D_n,C_n,E_n)\)</span> be its canonical integer
-state. Must <span class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\delta_n
-=\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty ?\]</span></em></p>
+state. Must </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{n=0}^{\infty}\delta_n
+=\sum_{n=0}^{\infty}\frac{(-E_n)_+}{C_n}&lt;\infty ?\]</span></div>
 </div>
 <p>An affirmative answer closes Problem #243 by Theorem <a class="math-ref" href="#long243:res:mass">50</a>. Since <span
 class="math inline" data-term-auto="off">\(\delta_n\to0\)</span>, convergence is equivalently
@@ -3420,7 +3472,7 @@ class="math inline" data-term-auto="off">\(\prod_{n&lt;N}(1+\delta_n)\)</span>; 
 same criterion in multiplicative form. A negative answer requires a
 sequence satisfying the full growth and rationality hypotheses. A
 locally admissible state orbit is insufficient. By Theorem <a class="math-ref" href="#long243:res:weightedrecord">24</a>, it is
-enough to establish the finiteness of <a class="math-ref" href="#long243:eq:weightedgrowth">(16)</a> for one
+enough to establish the finiteness of <a class="math-ref" href="#long243:eq:weightedgrowth">(20)</a> for one
 decreasing weight with divergent integral and one fixed baseline. This
 replaces the all-index mass by a discounted series supported only at LCM
 records.</p>
@@ -3459,8 +3511,9 @@ Determine the weakest growth condition on the positive increments of
 <span class="math inline" data-term-auto="off">\(u_n\)</span> under which an unbounded
 integer sequence cannot remain coprime to infinitely many
 pairwise-coprime old moduli as in Theorem <a class="math-ref" href="#long243:res:barrier">43</a>. In particular,
-does the conclusion remain valid under the candidate condition <span
-class="math display" data-term-auto="off">\[(u_{n+1}-u_n)_+=o\bigl(\log\log(u_n+3)\bigr)?\]</span></em></p>
+does the conclusion remain valid under the candidate condition </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(u_{n+1}-u_n)_+=o\bigl(\log\log(u_n+3)\bigr)?\]</span></div>
 </div>
 <p>The displayed rate is a proposed threshold, not a proved sharp
 boundary. Either an extension of the CRT barrier or a counterexample
@@ -3572,7 +3625,7 @@ index <span class="math inline" data-term-auto="off">\(n\)</span> the numerator 
 multiplier is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span></div>
-<p>the <a
+<p class="display-continue">the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
 numerator</a>, and the divisor is <span
 class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit survives a step when that

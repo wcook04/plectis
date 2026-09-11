@@ -12,7 +12,7 @@ geometric series gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F(t)=\sum_{n\ge1}\frac1{t^n-1}
      =\sum_{n\ge1}\frac{\tau(n)}{t^n},\]</span></div>
-<p>where <span
+<p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(\tau(n)\)</span> is the number of positive
 divisors of <span class="math inline" data-term-auto="off">\(n\)</span>. Erdős Problem #1049
 asks for irrationality at every rational <span
@@ -52,13 +52,15 @@ class="math inline" data-term-auto="off">\(\theta^*=C_0/C_1\)</span> and <span
 class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are defined exactly.</p>
 <div class="theorem" id="res:rational-base-threshold">
 <p><strong>Theorem 1</strong> (rational-base region). <em> Let <span
-class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be coprime integers with <span
+class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be coprime integers with </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{gathered}
 b^{\mu}&lt;a,\qquad\text{equivalently}\qquad
 \frac{\log b}{\log a}&lt;\theta^*,\\
 \theta^*=\frac{C_0}{C_1}=0.4056830213840605\ldots,\\
 \mu=\frac{C_1}{C_0}=2.4649786835749750\ldots.
-\end{gathered}\]</span> Then <span class="math inline" data-term-auto="off">\(F(a/b)\)</span>
+\end{gathered}\]</span></div>
+<p><em> Then <span class="math inline" data-term-auto="off">\(F(a/b)\)</span>
 is irrational.</em></p>
 </div>
 <p>The cancellation is performed before homogenisation, so the clearing
@@ -280,9 +282,11 @@ and coprimality are preserved by a common positive integer power. ◻</p>
 powers). <em> For coprime <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\theta=\log b/\log a&lt;\theta^*\)</span> and
-every integer <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, <span
+every integer <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mu_{\rm irr}\!\left(F((a/b)^r)\right)
-\le\frac{1-\theta}{\theta^*-\theta}.\]</span> Here <span
+\le\frac{1-\theta}{\theta^*-\theta}.\]</span></div>
+<p><em> Here <span
 class="math inline" data-term-auto="off">\(\mu_{\rm irr}(\xi)\)</span> is the supremum of the
 exponents <span class="math inline" data-term-auto="off">\(\nu\)</span> for which <span
 class="math inline" data-term-auto="off">\(|\xi-p/q|&lt;q^{-\nu}\)</span> has infinitely many
@@ -308,7 +312,7 @@ class="math inline" data-term-auto="off">\(P_n=b^{W_n}V_n(a/b)\)</span>. With</p
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\alpha=(C_1-C_0)\log a,\qquad
 \tau=C_0\log a-C_1\log b&gt;0,\]</span></div>
-<p>we have <span
+<p class="display-continue">we have <span
 class="math inline" data-term-auto="off">\(\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)\)</span> and
 <span class="math inline" data-term-auto="off">\(|Q_n|\le\exp(\alpha
 n^2+o(n^2))\)</span>.</p>
@@ -375,10 +379,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 power certificate</a> <span class="math inline" data-term-auto="off">\(2^{18}&lt;7^7\)</span>
 yields the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">Archimedean
-height condition</a> <span class="math display" data-term-auto="off">\[\frac{\log
+height condition</a> </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{\log
 7}{\log(7/2)}
 &lt;
-\left(\frac12+\frac1{\pi^2}\right)^{-1}.\]</span></em></p>
+\left(\frac12+\frac1{\pi^2}\right)^{-1}.\]</span></div>
 </div>
 <p>This is the elementary parameter check at <span
 class="math inline" data-term-auto="off">\(q=7/2\)</span> in Bundschuh and Väänänen’s
@@ -452,7 +457,7 @@ satisfies</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
 n^{-2}\log\bigl|b^{d_n}\Lambda_n(a/b)\bigr|
 \le \delta\log b-\sigma\log(a/b),\]</span></div>
-<p>which is negative on the
+<p class="display-continue">which is negative on the
 stated sufficient region. The arithmetic form of that region is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean#L144">logarithmic
 region iff negative balance</a>, and the final numerical clause is <a
@@ -475,19 +480,22 @@ V_N^*=\det_{0\le i,j&lt;N}(v_{i+j}^*).\]</span></div>
 proves</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{ord}_q V_N^*\ge
 \frac{N(N-1)(2N-1)}6\]</span></div>
-<p>for every <span
+<p class="display-continue">for every <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> <span class="citation"
 data-cites="zudilin2016"><a href="#ref-4">[4]</a></span>. A formal moment expansion identifies
 the unique least-order term and shows that this estimate is always
 sharp.</p>
 <div class="theorem" id="res:zudilin-sharp-qorder">
 <p><strong>Theorem 6</strong> (sharp normalized Hankel order). <em> For
-every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>, <span
+every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{ord}_q
-V_N^*=\frac{N(N-1)(2N-1)}6,\]</span> and the coefficient of the first
-nonzero monomial is <span
+V_N^*=\frac{N(N-1)(2N-1)}6,\]</span></div>
+<p>and the coefficient of the first
+nonzero monomial is </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[[q^{N(N-1)(2N-1)/6}]V_N^*
-   =\frac{(N!)^2(N+1)!}{2^N}.\]</span></em></p>
+   =\frac{(N!)^2(N+1)!}{2^N}.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Write <span
@@ -581,8 +589,9 @@ class="math inline" data-term-auto="off">\(P_N\)</span> and <span
 class="math inline" data-term-auto="off">\(U_N\)</span> be the cleared tail state. Then for
 every <span class="math inline" data-term-auto="off">\(N\)</span> the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
-recurrence</a> is <span
-class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></em></p>
+recurrence</a> is </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></div>
 </div>
 <div class="theorem" id="res:forcing">
 <p><strong>Theorem 9</strong> (the forcing term). <em> Let <span
@@ -632,13 +641,17 @@ subset of <span class="math inline" data-term-auto="off">\(\{0,\dots,M-1\}\)</sp
 equivalently a vector of <span class="math inline" data-term-auto="off">\(\{0,1\}^M\)</span>,
 a <em>binary selector</em>. If the <span
 class="math inline" data-term-auto="off">\(2^M\)</span> binary selectors outnumber the finite
-four-jet target <span
-class="math display" data-term-auto="off">\[(\Z/3^R\Z)^2\times(\Z/2^S\Z)^2,\]</span> then two
+four-jet target </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(\Z/3^R\Z)^2\times(\Z/2^S\Z)^2,\]</span></div>
+<p>then two
 distinct subsets have the same four-jet sum. Subtracting their indicator
 vectors gives a nonzero coefficient vector in <span
 class="math inline" data-term-auto="off">\(\{-1,0,1\}^M\)</span> cancelling all four jets.
-The target has exact cardinality <span
-class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2.\]</span> In particular, if <span
+The target has exact cardinality </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2.\]</span></div>
+<p><em> In particular, if <span
 class="math inline" data-term-auto="off">\(R&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(4R+2S\le M\)</span>, such a collision
 exists.</em></p>
@@ -651,7 +664,7 @@ cardinality formula is the product of the four cyclic-modulus
 cardinalities. For <span class="math inline" data-term-auto="off">\(R&gt;0\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2&lt;(4^R)^2(2^S)^2=2^{4R+2S}\le2^M,\]</span></div>
-<p>which proves the stated sufficient threshold. The cardinality formula,
+<p class="display-continue">which proves the stated sufficient threshold. The cardinality formula,
 the collision, the signed <span
 class="math inline" data-term-auto="off">\(\{-1,0,1\}\)</span> vector and the sufficient
 width are together <a
@@ -667,16 +680,19 @@ coordinate.</p>
 <span class="math inline" data-term-auto="off">\(w_n=(A_n,B_n)\in R_0^2\)</span>. Suppose
 that every row is unimodular (<span class="math inline" data-term-auto="off">\(u_n A_n+v_n
 B_n=1\)</span> for some <span class="math inline" data-term-auto="off">\(u_n,v_n\)</span>)
-and every adjacent minor vanishes: <span
-class="math display" data-term-auto="off">\[A_nB_{n+1}-B_nA_{n+1}=0\qquad(n\ge0).\]</span>
-Then every pairwise minor <span
+and every adjacent minor vanishes: </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[A_nB_{n+1}-B_nA_{n+1}=0\qquad(n\ge0).\]</span></div>
+<p>Then every pairwise minor <span
 class="math inline" data-term-auto="off">\(A_iB_j-B_iA_j\)</span> vanishes. In particular,
 take <span class="math inline" data-term-auto="off">\(R_0=\Z/(2^S3^R)\Z\)</span> with <span
 class="math inline" data-term-auto="off">\(R&gt;0\)</span>. If <span
 class="math inline" data-term-auto="off">\(S+2R\le k\)</span>, there are two distinct binary
 selectors <span class="math inline" data-term-auto="off">\(s,t\in\{0,1\}^{k}\)</span> such
-that <span
-class="math display" data-term-auto="off">\[\sum_{i&lt;k}s_iw_i=\sum_{i&lt;k}t_iw_i.\]</span>
+that </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{i&lt;k}s_iw_i=\sum_{i&lt;k}t_iw_i.\]</span></div>
+<p><em>
 Thus the sufficient width is <span class="math inline" data-term-auto="off">\(S+2R\)</span>,
 rather than the ambient two-coordinate width <span
 class="math inline" data-term-auto="off">\(2S+4R\)</span>.</em></p>
@@ -694,7 +710,7 @@ free residue coordinate and occupy at most <span
 class="math inline" data-term-auto="off">\(2^S3^R\)</span> values. Finally</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^S3^R&lt;2^S4^R=2^{S+2R}\le2^k,\]</span></div>
-<p>and
+<p class="display-continue">and
 pigeonhole gives the two selectors. The ring-generic minor collapse and
 the modular selector collision are together <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269">plucker
@@ -710,11 +726,13 @@ hypothesis remains a separate condition on the source rows.</p>
 <div class="proposition" id="res:pade">
 <p><strong>Proposition 13</strong> (Padé summand bound and exact gap).
 <em> Let <span class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span>
-and put <span
-class="math display" data-term-auto="off">\[\widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),\]</span>
-<span
+and put </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),\]</span></div>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\widetilde{Q}(n,m)=2(n^{2}-n)+j^{2}+2jm+j-m^{2}+3m,
-\qquad j=n-m-1 .\]</span> Then, for integers <span
+\qquad j=n-m-1 .\]</span></div>
+<p><em> Then, for integers <span
 class="math inline" data-term-auto="off">\(n,k,m\)</span>:</em></p>
 <ol>
 <li><p><em>if <span class="math inline" data-term-auto="off">\(0\le k\le n\)</span>, the <a
@@ -787,13 +805,16 @@ class="math inline" data-term-auto="off">\(g:A\to\mathbb R\)</span> and <span
 class="math inline" data-term-auto="off">\(\iota:A\to J\)</span>. Suppose that each
 simultaneous fibre of <span class="math inline" data-term-auto="off">\((f,g)\)</span> has at
 most <span class="math inline" data-term-auto="off">\(k\)</span> elements and that, for some
-<span class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>, <span
+<span class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\iota(x)=\iota(y)\quad\Longrightarrow\quad
-|g(x)-g(y)|&lt;\delta.\]</span> If <span
+|g(x)-g(y)|&lt;\delta.\]</span></div>
+<p>If <span
 class="math inline" data-term-auto="off">\(|B||J|k&lt;|A|\)</span>, then some distinct <span
-class="math inline" data-term-auto="off">\(x,y\in A\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(x,y\in A\)</span> satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[f(x)=f(y),\qquad
-0&lt;|g(x)-g(y)|&lt;\delta.\]</span></em></p>
+0&lt;|g(x)-g(y)|&lt;\delta.\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Partition <span class="math inline" data-term-auto="off">\(A\)</span> by
@@ -853,33 +874,43 @@ construction). <em> Exhibit an integer constant <span
 class="math inline" data-term-auto="off">\(C\ge1\)</span> and, for every sufficiently large
 positive integer <span class="math inline" data-term-auto="off">\(n\)</span>, positive
 integers <span class="math inline" data-term-auto="off">\(W_n,R_n,S_n,M_n\)</span> such that
-<span class="math display" data-term-auto="off">\[n^2\le W_n,R_n,S_n\le Cn^2,
-\qquad 4R_n+2S_n\le M_n\le Cn^2,\]</span> together with polynomial pairs
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[n^2\le W_n,R_n,S_n\le Cn^2,
+\qquad 4R_n+2S_n\le M_n\le Cn^2,\]</span></div>
+<p>together with polynomial pairs
 coming from a named source family with an explicit coefficient-height
 bound after primitive normalisation, <span
 class="math inline" data-term-auto="off">\((U_{n,j},V_{n,j})\in\Z[X]^2\)</span> for <span
 class="math inline" data-term-auto="off">\(0\le j&lt;M_n\)</span>, each of degree at most the
 common declared width <span class="math inline" data-term-auto="off">\(W_n\)</span>, whose
-specialised integer rows are primitive: <span
-class="math display" data-term-auto="off">\[\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)=1.\]</span>
-Find a nonzero vector <span
+specialised integer rows are primitive: </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)=1.\]</span></div>
+<p>Find a nonzero vector <span
 class="math inline" data-term-auto="off">\(\lambda^{(n)}\in\{-1,0,1\}^{M_n}\)</span> for
-which, on putting <span
+which, on putting </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[U_n=\sum_{j&lt;M_n}\lambda^{(n)}_jU_{n,j},
-\qquad V_n=\sum_{j&lt;M_n}\lambda^{(n)}_jV_{n,j},\]</span> the pair
+\qquad V_n=\sum_{j&lt;M_n}\lambda^{(n)}_jV_{n,j},\]</span></div>
+<p>the pair
 <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> is not <span
 class="math inline" data-term-auto="off">\((0,0)\)</span>, all four common-width jets vanish,
-<span class="math display" data-term-auto="off">\[J_{3,R_n}(U_n)=J_{3,R_n}(V_n)=0,
-\qquad J_{2,S_n}(U_n)=J_{2,S_n}(V_n)=0,\]</span> where every jet in this
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[J_{3,R_n}(U_n)=J_{3,R_n}(V_n)=0,
+\qquad J_{2,S_n}(U_n)=J_{2,S_n}(V_n)=0,\]</span></div>
+<p>where every jet in this
 display is formed using the declared width <span
 class="math inline" data-term-auto="off">\(W_n\)</span>, and the resulting divided integer
-linear form <span
+linear form </em></p>
+<div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_n=\frac{H_{W_n}(U_n)}{3^{R_n}2^{S_n}},
 \qquad
 B_n=\frac{H_{W_n}(V_n)}{3^{R_n}2^{S_n}},
 \qquad
-\rho_n=A_nF(3/2)-B_n\]</span> satisfies the explicit analytic condition
-<span class="math display" data-term-auto="off">\[0&lt;|\rho_n|&lt;\frac1n.\]</span></em></p>
+\rho_n=A_nF(3/2)-B_n\]</span></div>
+<p>satisfies the explicit analytic condition
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0&lt;|\rho_n|&lt;\frac1n.\]</span></div>
 </div>
 <p>The jet equations make <span class="math inline" data-term-auto="off">\(A_n,B_n\)</span>
 integers. If <span class="math inline" data-term-auto="off">\(F(3/2)=a/b\)</span> were

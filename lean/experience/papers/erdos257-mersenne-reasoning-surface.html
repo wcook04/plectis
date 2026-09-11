@@ -10110,13 +10110,13 @@ is proved unconditionally via compactness of
 (continuous image of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\mathbb{N}\to\mathrm{Fin}\,2)</annotation></semantics></math>
 under the digit-coding map, hence closed) (, <span><span
-class="sans-serif">[Lean]</span></span>). This direction is than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">F</mi></mrow><annotation encoding="application/x-tex">\mathrm{HALF}</annotation></semantics></math>
-as currently proved: the argument uses closedness alone and discards the
-producing rows, so the theorem as it stands does not pin a single
+class="sans-serif">[Lean]</span></span>). The Lean-landed theorem uses
+closedness of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
+and discards the producing rows, so it does not exhibit a single
 limiting support
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
-a genuine sequential-compactness extraction (Cantor-space diagonal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+A genuine sequential-compactness extraction (Cantor-space diagonal
 argument over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi mathvariant="double-struck">ℕ</mi></msup></mrow><annotation encoding="application/x-tex">(\mathrm{Fin}\,2)^{\mathbb{N}}</annotation></semantics></math>,
 using the file’s own ) would upgrade this to producing
@@ -10124,10 +10124,20 @@ using the file’s own ) would upgrade this to producing
 explicitly, and would additionally transfer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∈</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">2\in A</annotation></semantics></math>
 for free () — but this upgrade is itself unformalised (Survivor 1,
-<span><span class="sans-serif">[Math, adversarially verified,
-weakened]</span></span>). So O3 sits strictly below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">F</mi></mrow><annotation encoding="application/x-tex">\mathrm{HALF}</annotation></semantics></math>
-in the current Lean state of the corpus, not merely logically.</p>
+<span><span class="sans-serif">[Math, adversarially
+verified]</span></span>). That is a constructive extraction task, not a
+proof that O3 is a strictly weaker logical condition.</p>
+<p>Proposition (c) already identifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">s</mi></mrow><annotation encoding="application/x-tex">\mathrm{CofinalExactLocalMersenneHalfRows}</annotation></semantics></math>
+as logically equivalent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2\in\mathcal{A}</annotation></semantics></math>.
+Equivalence of a membership condition, constructive extraction of a
+coherent support, and a rejected sufficient strengthening are not
+interchangeable descriptions. Absence of a Lean extraction theorem does
+not make O3 a strictly weaker substitute for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">F</mi></mrow><annotation encoding="application/x-tex">\mathrm{HALF}</annotation></semantics></math>.
+The remaining work on O3 is to supply the cofinal exact rows, or any
+equivalent membership condition.</p>
 <section
 id="sharp-critical-capacity-conditions-the-booleanmöbius-lanes-producer-for-o3"
 class="level4">
@@ -10442,17 +10452,21 @@ class="level3">
 <p>None of the following is offered as a plan of attack, and none is
 close. Each is stated to make the shape of the missing ingredient
 legible.</p>
-<p><strong>O1 (universal).</strong> A producer for
+<p><strong>O1 (universal).</strong> The honest target is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">U</mi><mn mathvariant="normal">257</mn></mrow><annotation encoding="application/x-tex">\mathrm{U257}</annotation></semantics></math>
+itself. The stronger schema
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">O</mi><msup><mn mathvariant="normal">1</mn><mo mathvariant="normal">′</mo></msup></mrow><mo>=</mo><mo>∀</mo><mi>A</mi><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{O1&#39;}=\forall A\,\mathrm{Cert}(A)</annotation></semantics></math>
+is a rejected sufficient strengthening, not future work: Proposition 
+already exhibits a squarefree support on which neither the digitwise nor
+the carry-aware block-certificate producer exists, while
+Duverney–Tachiya still prove that squarefree value irrational. Supplying
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Cert}(A)</annotation></semantics></math>
-at an arbitrary infinite
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-is a statement about geometrically-weighted divisor sums achieving
-controlled residues modulo powers of two on prescribed dyadic blocks,
-uniformly over all infinite supports. No general result of this shape
-exists in the analytic-number-theory literature surveyed for this
-programme; the corpus’s own honest assessment is that this is a
-genuinely new near-integer anti-concentration theorem for a
-divisor-weighted sum, not a variant of an existing one.</p>
+for arbitrary infinite supports is therefore not an open equivalent
+normal form of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">U</mi><mn mathvariant="normal">257</mn></mrow><annotation encoding="application/x-tex">\mathrm{U257}</annotation></semantics></math>.
+Remaining work on O1 is the universal irrationality statement, or a
+different method that covers supports the certificate schemas
+cannot.</p>
 <p><strong>O2/O3/O5 (Mersenne-specific).</strong> The sharp-capacity gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>*</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>*</mi><mi>*</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\ast)\to(\ast\ast)</annotation></semantics></math>
 and the
@@ -10483,18 +10497,22 @@ binary-digit count versus Euler’s totient).</p>
 </section>
 <section id="summary" class="level3">
 <h3>Summary</h3>
-<p>Erdős #257 is open in the universal form (O1), and both rational
-membership targets
+<p>Erdős #257 is open in the universal form
+(O1<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow></mrow><mo>=</mo><mrow></mrow></mrow><annotation encoding="application/x-tex">{}={}</annotation></semantics></math>U257),
+and both rational membership targets
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
 (O2) and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
 (O2b) remain open. Every route surveyed above either (a) is proved
-equivalent to O2 and therefore offers no reduction, (b) is a genuine
-strict weakening (O3, O4, O5, O3-supply) whose own supply is unproved at
-cofinal scale, or (c) is certified only on a finite initial segment,
-however large a margin that segment exhibits. Nothing in this paper
-closes any of these gaps, and no claim above should be read as progress
-toward doing so.</p>
+equivalent to O2, including O3 by Proposition (c), and therefore offers
+no logical reduction, (b) is a sufficient condition not known to be
+equivalent (O4, O5, O3-supply) whose own supply is unproved at cofinal
+scale, (c) is the rejected certificate strengthening
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">O</mi><msup><mn mathvariant="normal">1</mn><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\mathrm{O1&#39;}</annotation></semantics></math>,
+already false on squarefree support, or (d) is certified only on a
+finite initial segment, however large a margin that segment exhibits.
+Nothing in this paper closes any of these gaps, and no claim above
+should be read as progress toward doing so.</p>
 </section>
 </section>
 <section id="statements-and-declarations" class="level2 unnumbered">
