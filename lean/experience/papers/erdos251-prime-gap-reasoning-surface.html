@@ -44,7 +44,7 @@ also occurs, and at every finite horizon it is exactly twice this one,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><msub><mi>p</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>i</mi></mrow></msup></mfrac><mo>=</mo><mn>2</mn><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><msub><mi>p</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i}}
  =2\sum_{i=0}^{n-1}\frac{p_i}{2^{\,i+1}} ,</annotation></semantics></math>
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L111">factor-of-two
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L111">factor-of-two
 normalisation</a>. A factor of two does not change rationality, so no
 result below depends on the choice; the identity is stated so that the
 indexing cannot drift silently.</p>
@@ -476,9 +476,9 @@ put
 both empty, hence zero, at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>.
 We call these the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101">dyadic
 partial sum</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121">dyadic
 difference sum</a> of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p>
 <div class="proposition">
@@ -507,7 +507,7 @@ to
 and the two adjustments agree. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138">summation-by-parts
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138">summation-by-parts
 identity</a>. Nothing is assumed about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>:
 no positivity, no monotonicity, and no convergence.</p>
@@ -529,11 +529,11 @@ For every
  =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}} .</annotation></semantics></math></em></p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime-gap
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime-gap
 summation by parts</a>, using the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L161">gap
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L161">gap
 partial sum</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L156">gap
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L156">gap
 cast identity</a>; the latter records that the natural-number difference
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>p</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">p_{n+1}-p_n</annotation></semantics></math>
 agrees with the difference taken in
@@ -541,7 +541,7 @@ agrees with the difference taken in
 which needs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>p</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">p_n\le p_{n+1}</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L152">monotonicity
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L152">monotonicity
 step</a>. The leading
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 is the first prime, not a normalising constant. At
@@ -560,7 +560,7 @@ of the prime series and of the gap series, so that
 The termwise identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">v_n=2u_{n+1}-u_n</annotation></semantics></math>
 is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L202">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L202">dyadic
 discrete derivative</a>. It expresses each gap term as an integer
 combination of two consecutive prime terms, so once
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_n)</annotation></semantics></math>
@@ -592,13 +592,13 @@ gives <span class="math display" data-term-auto="off">$$\sum_{n\ge0}v_n
 =\sum_{n\ge0}u_n-2 . \qedhere$$</span> ◻</p>
 </div>
 <p>The polynomial bound is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">checked
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">checked
 here</a>, summability of the prime series <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379">here</a>,
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379">here</a>,
 the summability transfer is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385">gap-series
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385">gap-series
 summability theorem</a>, and the displayed identity is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
 prime-gap identity</a>. The prime number theorem is not a dependency at
 any point.</p>
 <div class="corollary">
@@ -614,11 +614,11 @@ equals
 and has the same irrationality status.</em></p>
 </div>
 <p>These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435">normalised
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435">normalised
 irrationality equivalence</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L444">displayed-series
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L444">displayed-series
 identity</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L459">displayed-series
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L459">displayed-series
 irrationality equivalence</a>. Concretely,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>=</mo><mn>3.674643966</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\Pi=3.674643966\ldots</annotation></semantics></math>
 is irrational if and only if
@@ -669,11 +669,11 @@ at
 and call a rational number when it is the image of an integer.</em></p>
 </div>
 <p>These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L482">tail
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L482">tail
 recurrence</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L544">shift</a>,
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L544">shift</a>,
 and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L575">integrality</a>.
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L575">integrality</a>.
 One small orbit is worth having in view. Take every digit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g_N=0</annotation></semantics></math>
 and
@@ -705,7 +705,7 @@ and
 so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>h</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">B_{h,N}=g_{N+1}2^{\,h-1}+\cdots+g_{N+h}</annotation></semantics></math>:
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L647">tail
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L647">tail
 block</a>.</p>
 <div class="theorem">
 <p><strong>Theorem 6</strong> (block identity). <em> For every
@@ -726,16 +726,16 @@ The second identity is the first minus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L653">iterated
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L653">iterated
 block identity</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L667">scaled
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L667">scaled
 shift identity</a>. The shift also obeys the recurrence in its own
 right,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long251:eq:shift-step}
  \sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr),
 \end{equation}</annotation></semantics></math> the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L563">shift
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L563">shift
 step identity</a>. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">B_{h,N}</annotation></semantics></math>
 is an integer, Theorem  converts a question about the shift into a
@@ -746,7 +746,7 @@ the shift
 is integral if and only if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">(2^{h}-1)T_N</annotation></semantics></math>
 is, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L802">integral-shift
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L802">integral-shift
 criterion</a>. The criterion holds in both directions, so once
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>
 is fixed no choice of the digits after index
@@ -776,17 +776,17 @@ and the multiplicative order of
 modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
 is the least such exponent. These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1217">denominator
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1217">denominator
 recurrence</a>, its <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1226">odd
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1226">odd
 case</a> and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236">even
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236">even
 case</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1279">denominator
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1279">denominator
 classification</a>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877">totient
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877">totient
 shift</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L900">propagation
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L900">propagation
 of an integral shift to every later index</a>. The hypothesis that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
 is odd cannot be dropped: if
@@ -860,13 +860,13 @@ rational. Negating the three conditions gives the two irrationality
 formulations. ◻</p>
 </div>
 <p>The exact real classifiers are <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1479">one
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1479">one
 integral positive shift</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1525">eventual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1525">eventual
 integrality</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1551">pointwise
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1551">pointwise
 nonintegrality</a>, and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572">cofinal
 nonintegrality</a>.</p>
 <section id="the-actual-prime-gap-orbit." class="level5">
 <h5>The actual prime-gap orbit.</h5>
@@ -874,11 +874,11 @@ nonintegrality</a>.</p>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>N</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>j</mi></mrow></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>j</mi></mrow></msup></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">T_N=\sum_{j\ge1}\frac{g_{N+j}}{2^{\,j}},</annotation></semantics></math>
 which converges by Theorem . The scaled tail equals its shifted-gap
 series, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">shifted-gap
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">shifted-gap
 series identity</a>, and satisfies
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}</annotation></semantics></math>
 with no rationality hypothesis, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">real
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">real
 tail recurrence</a>. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn><mi>S</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>2.349287932</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">T_0=2S-1=2.349287932\ldots</annotation></semantics></math>,
 the numbers
@@ -892,7 +892,7 @@ series: irrationality of
 is equivalent to cofinal nonintegrality of the positive shifts of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L73">escape
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L73">escape
 equivalence</a>. Nothing about the bridge from the series to its actual
 tail is left open; the open content is the escape hypothesis itself.</p>
 </section>
@@ -963,14 +963,14 @@ modulo the order of
 in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><mi>d</mi><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\mathbb{Z}/d\mathbb{Z}</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L92">free-pair
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L92">free-pair
 lattice</a>, so every rational orbit has a cutoff and a modulus at which
 integrality holds exactly on the congruence classes, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L105">lattice
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L105">lattice
 corollary</a>. The criterion for the actual series is checked as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L236">free-pair
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L236">free-pair
 equivalence</a>, over the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L186">actual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L186">actual
 real tail recurrence</a>. No antecedent for this packaging has been
 located; the nearest located neighbour is Schlage-Puchta’s
 Theorem 2 <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>,
@@ -997,7 +997,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_j=\operatorname{lcm}(1,\ldots,j)</annotation></semantics></math>.</p>
 <div class="theorem">
 <p><strong>Theorem 9</strong> (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153">lcm-diagonal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153">lcm-diagonal
 criterion</a>). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">g:\mathbb{N}\to\mathbb{Z}</annotation></semantics></math>
 and
@@ -1094,14 +1094,14 @@ satisfies the three displayed conditions for the actual prime gaps, then
 is irrational.</em></p>
 </div>
 <p>The rational finite contradiction is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L979">adjacent
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L979">adjacent
 small-shift obstruction</a> with its <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1006">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1006">cofinal
 form</a>; the real form is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">real
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">real
 adjacent-pair consumer</a>, and the implication to irrationality of the
 actual series is the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L120">small-mismatch
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L120">small-mismatch
 criterion</a>. The third hypothesis alone is available for the actual
 gaps: it reads
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mn>4</mn></msub><mo>=</mo><mn>2</mn><mo>≠</mo><mn>4</mn><mo>=</mo><msub><mi>g</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">g_4=2\ne4=g_3</annotation></semantics></math>
@@ -1132,9 +1132,9 @@ sequence of natural numbers has finite range after its preperiod and a
 bounded initial segment, hence is bounded. ◻</p>
 </div>
 <p>Lean checks the factorial argument as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L57">unboundedness
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L57">unboundedness
 of the actual gaps</a> and the conclusion as <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">non-eventual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">non-eventual
 periodicity</a>. Far stronger lower bounds for large gaps are
 known <span class="citation" data-cites="fgkmt2018"><a href="#ref-6">[6]</a></span>;
 unboundedness is all that is needed.</p>
@@ -1148,7 +1148,7 @@ so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>δ</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_{N+1}=2D_N-\delta_N</annotation></semantics></math>.</p>
 <div class="theorem">
 <p><strong>Theorem 13</strong> (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineShiftEscape.lean#L113">signed
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineShiftEscape.lean#L113">signed
 two-window normal form</a>). <em> Assume
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>N</mi></msub><annotation encoding="application/x-tex">\delta_N</annotation></semantics></math>
 is even. The conjunction
@@ -1350,14 +1350,14 @@ apply the same argument to
 trial-division sieve it re-runs on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo>,</mo><msup><mn>10</mn><mn>4</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[2,10^4)</annotation></semantics></math>:
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L310">certificate</a>,
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L310">certificate</a>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L316">floor
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L316">floor
 for the prime series</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L324">floor
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L324">floor
 for the gap series</a>. Its analytic input is the same enclosure, over
 the polynomial bound at <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.
 The four Farey literals have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>175</mn><annotation encoding="application/x-tex">175</annotation></semantics></math>
 to
@@ -1466,7 +1466,7 @@ The perturbed series converges and equals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>. ◻</p>
 </div>
 <p>The <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L193">construction</a>
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L193">construction</a>
 is kernel checked. The invariant-property consequence—a property shared
 by every admissible perturbation cannot by itself force irrationality—is
 the ordinary logical reading of that construction, rather than a
@@ -1476,7 +1476,7 @@ actual consecutive prime gaps for every
 and every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L208">rational
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L208">rational
 perturbed prime-gap series</a>, with the perturbed gap lying in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>g</mi><mi>n</mi></msub><mo>,</mo><msub><mi>g</mi><mi>n</mi></msub><mo>+</mo><mi>M</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[g_n,g_n+M]</annotation></semantics></math>
 and congruent to
@@ -1484,7 +1484,7 @@ and congruent to
 modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L234">gap
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L234">gap
 bounds</a>. Consequently no theorem about the size or the residue of
 prime gaps that survives such a perturbation can suffice for
 Problem #251; that class includes the bounded-gap and large-gap theorems
@@ -2065,20 +2065,20 @@ the same word has value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>18</mn><annotation encoding="application/x-tex">18</annotation></semantics></math>,
 and the two ranges must be kept apart. The formal construction checks
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1596">recurrence</a>,
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1596">recurrence</a>,
 <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1632">strict
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1632">strict
 growth</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1654">integrality
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1654">integrality
 of every shift</a>, <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1644">exclusion
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1644">exclusion
 of adjacent differences of size two</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L92">value
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L92">value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>32</mn><annotation encoding="application/x-tex">32</annotation></semantics></math>
 for the shifted series</a>, whose summand is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">c_{n+1}/2^{\,n+1}</annotation></semantics></math>;
 the rational value is recorded at <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L109">line 109</a>.
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L109">line 109</a>.
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent trigger
 of Theorem  fails at every index. The telescoping mechanism is the one
@@ -2090,7 +2090,7 @@ carries no priority claim and is not a result about Problem #251.</p>
 be arbitrary and put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\kappa_n=2K_n-K_{n+1}</annotation></semantics></math>:
 the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129">carry
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129">carry
 coefficient</a>.</p>
 <div class="proposition">
 <p><strong>Proposition 25</strong> (exact telescoping). <em> For every
@@ -2102,7 +2102,7 @@ coefficient</a>.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><msub><mi>K</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>−</mo><msub><mi>K</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">(2K_n-K_{n+1})2^{-(n+1)}=K_n2^{-n}-K_{n+1}2^{-(n+1)}</annotation></semantics></math>. ◻</p>
 </div>
 <p>Formalised as the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137">carry
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137">carry
 telescoping identity</a>. Taking
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>0</mn></msub><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>5</mn><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">K_0=\tfrac52</annotation></semantics></math>
 and
@@ -2195,11 +2195,11 @@ from every integer, and scaling that separation by
 at a legal depth gives the required strict inequality. ◻</p>
 </div>
 <p>These are the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L91">pointwise
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L91">pointwise
 affine identity</a>, its <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L162">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L162">cofinal
 form</a>, and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L308">fixed-lattice
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/AffineCylinderCollapse.lean#L308">fixed-lattice
 equivalence</a>. The apparent affine hierarchy contains no
 depth-dependent information, and the fixed lattice removes the data
 dependence at the cost of a growth condition under which rational
@@ -2397,7 +2397,7 @@ is checked by the kernel at the pinned commit.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">pinned formal-source revision</a> contains
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. Proof authority rests in those pinned sources. The
 present text is exposition and navigation.</p>
@@ -2494,7 +2494,7 @@ the last step because
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>.
 The same bound is checked by the kernel at <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.</p>
 </section>
 <section id="long251:app:certificates" class="level2">
 <h2>Integer certificates</h2>
@@ -3015,9 +3015,9 @@ integer-digit recurrences. That entry is withdrawn.</p>
 <p>An earlier reading of the short note placed the real-tail bridge and
 the real form of the adjacent-pair consumer on the paper side. Both are
 kernel-checked, at <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">line 48</a>
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">line 48</a>
 and <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">line 99</a>
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">line 99</a>
 of the real prime-gap tail module. A second reading placed the
 kernel-decided denominator floor and the free-pair criterion outside the
 source revision the note pins. Both modules are present at that

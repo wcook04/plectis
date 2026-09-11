@@ -14,7 +14,7 @@
       "routes": {
         "html_mathml": "documents/readme.html",
         "html_exact_tex": "documents/readme.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/README.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -23,8 +23,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "0b3e9ee447b85e9e66918b727350e7203a60a74dc195e092609d38f2a4dba646",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -33,8 +33,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "982a64aab97080d1a75ddfa1203ea6d80e581377c6445081182ef554dc1a6530",
-        "html_exact_tex_sha256": "764bd8f0f0ef51dd54d73305eb656a28d81ec04fa7f92f319a93ca8db774393f"
+        "html_mathml_sha256": "15c400f6f553102dfbc2ffdb7b6e165ce9982d054e18a4ad96e94d2879da8242",
+        "html_exact_tex_sha256": "3f78a418b60e1bf9153a1dd62223ff15b2fcfb6a46cd5be5328a5fa1cac38a61"
       },
       "sections": [
         {
@@ -139,7 +139,7 @@
       "routes": {
         "html_mathml": "documents/results.html",
         "html_exact_tex": "documents/results.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESULTS.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -148,8 +148,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "d02f8a989d42d1894d7ecae8c201c98ea98dfac0d28613a4ca91bf69c1ee9fe7",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -158,8 +158,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "a56f4e4c759b8236fe314916df5bcd92aee73e2b8e3db630592a7e625b487701",
-        "html_exact_tex_sha256": "f24d714e1aa07a877855f607aa78c39e4fed1c33cd3b0c9cde8209a04cbeeb92"
+        "html_mathml_sha256": "6e89ee2c6bb2d4f98858af557b341feb68de8477c2b36e20a0f6aaa4734d4d84",
+        "html_exact_tex_sha256": "e928f910ea72eafd96a991a8f36aa5fee899a72d1b3e4f98b659c2908dbd966b"
       },
       "sections": [
         {
@@ -354,7 +354,7 @@
       "routes": {
         "html_mathml": "documents/orientation.html",
         "html_exact_tex": "documents/orientation.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/ORIENTATION.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -363,8 +363,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "07172f426c7870898dd09f7314433fe03491055009fd30996a4fb25bf461037a",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -373,8 +373,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "b9cd32bb12bb2e2cbbc138a63e4b1a62aacc1d10ba1ceb35155ae2b220f6f882",
-        "html_exact_tex_sha256": "8870f0365b49e0bfe6b53e72ba72484db1adf3221fc06025890b5621922260ec"
+        "html_mathml_sha256": "87347177920857279ebe6ea361fcbd02e9039e513ee3ecf48dd3f5ed520980c1",
+        "html_exact_tex_sha256": "21df6a20ca5061a4254b7ea13799ea9acea4eb8d212b8914947171245c64f19b"
       },
       "sections": [
         {
@@ -469,7 +469,7 @@
       "routes": {
         "html_mathml": "documents/source-map.html",
         "html_exact_tex": "documents/source-map.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/SOURCE_MAP.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -478,8 +478,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "fe29affb93bfa6c7be9ead703ea5fa57f6da53b79f273c32c8c31c56d6acce95",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -488,8 +488,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "4e7b9025997152139e5dc22fbdf7d8d365edb8ac350ba928b328589259d5eda3",
-        "html_exact_tex_sha256": "804090e345a00ad1de2239b9b1a6e024e218c634ea0f419ae9d964a74468a23a"
+        "html_mathml_sha256": "ddfbf937eab6eb3ab3773f6f5c7608d16d7da0bc619f5ac49914b860cdde778c",
+        "html_exact_tex_sha256": "7189f6b09c56180ddec7d9c67f28a553ebbfe0608079e9a044f883cca8732f51"
       },
       "sections": [
         {
@@ -584,7 +584,7 @@
       "routes": {
         "html_mathml": "documents/related-problems.html",
         "html_exact_tex": "documents/related-problems.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -593,8 +593,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "0b3bf5e4a968a1f393c1a933f1335e52793ccbcd3654a79e8c9e35ecd9d03667",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -603,8 +603,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "0a6278e582a94ff751c2f233e8d4f0448f94a54344ddd4199def31a014b8aa6e",
-        "html_exact_tex_sha256": "b16461a06d2840a6cad27552ab82e9a160eac9e97c05021442352842eb539a80"
+        "html_mathml_sha256": "d4a39f700b1a4b2b0f549fb49177937491fdb65a3341ceab469eb7138fc9c76f",
+        "html_exact_tex_sha256": "8e9a76ae23cc39ef0a39b201975f345c2e8ceec3ef8a14b9ac6c3b9e5fd94257"
       },
       "sections": [
         {
@@ -634,7 +634,7 @@
       "routes": {
         "html_mathml": "documents/prior-art.html",
         "html_exact_tex": "documents/prior-art.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PRIOR_ART.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIOR_ART.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -643,8 +643,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "40b89e1c9e520ab7b77860e2355224523326e894b2e0ed780933b68841c4dc99",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 44,
         "raw_math_fallback_count": 0,
@@ -653,8 +653,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "760455a1e66324d323589f40664beeaf4a38374141260b82e1874bd12578e66c",
-        "html_exact_tex_sha256": "1209337b60717618ab21356cf83db3af2cb64373dc35cc183d9ec5c8072c511c"
+        "html_mathml_sha256": "350a089cb08aec4664269c4efea3c3190e250ab2576e67e0d4eaf24e736f1392",
+        "html_exact_tex_sha256": "a274b188bb837ba1a78dceb667130d258dbd1534bc267cc193238ccc9f95735b"
       },
       "sections": [
         {
@@ -724,7 +724,7 @@
       "routes": {
         "html_mathml": "documents/methodology.html",
         "html_exact_tex": "documents/methodology.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/METHODOLOGY.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/METHODOLOGY.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -733,8 +733,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -889,7 +889,7 @@
       "routes": {
         "html_mathml": "documents/scope.html",
         "html_exact_tex": "documents/scope.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/SCOPE.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/SCOPE.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -898,8 +898,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "663a579d4354c3c7df90a5f8e93ff0a3298ffbb4de01170a8059f7b3bce19c62",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -908,8 +908,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "5ca99b5a42aa9022017ab3b78f2a57da0ab2cf93787900889496c51ba12a0c4a",
-        "html_exact_tex_sha256": "b6a1956150b6f2df47f46a11b6696c3de6c55adc75a81ea81f47db772d25a225"
+        "html_mathml_sha256": "b0de0b290f641e3e743fc0dd56dca91081a940e54d694c07d284a7aa02b57795",
+        "html_exact_tex_sha256": "5e9cff2eb67abbc8962079a21003b66ba6d60c1763f026bcf7deb0f07295bd5d"
       },
       "sections": [
         {
@@ -934,7 +934,7 @@
       "routes": {
         "html_mathml": "documents/external-verification.html",
         "html_exact_tex": "documents/external-verification.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -943,8 +943,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "df173756240a132cf597ff5b3889c4cd6972af4019d8c002c781c8164ae7c008",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -953,8 +953,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "1890f6dfca50258463cbd0ff9bb570edd2bd2da8192d3028895a859b4fd50853",
-        "html_exact_tex_sha256": "b6df464d118c638648c3dfa73c9064abc00f63a400653f5c9f266e8e4c20ef02"
+        "html_mathml_sha256": "03fad45e350f1949ba8d30a4e81d78264bf904d33c0106a82d3c1feb8583a507",
+        "html_exact_tex_sha256": "1963be9a0f22d326d23b28e4969da4deeb697b02c37f69ee1879fce9c4b40539"
       },
       "sections": [
         {
@@ -1049,7 +1049,7 @@
       "routes": {
         "html_mathml": "documents/comparator-1049.html",
         "html_exact_tex": "documents/comparator-1049.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -1058,8 +1058,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "f46a4826481261b61570c98552d06f155b8c3b3746d108475e6bfb4e1deddb27",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1068,8 +1068,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "fdceb4fd9b74d33c5e1d07d6535ee771cdf742a3e54c033286d192f4ba1d9c41",
-        "html_exact_tex_sha256": "a3650911931674d070bf8bc8670681eda08de6f684275a243ba632a1056f47e6"
+        "html_mathml_sha256": "0fad01e2e5676ea32c8144ba706a9e80431b1d244f51318b141054c356025842",
+        "html_exact_tex_sha256": "460dbf32f4502f24fe30025b4b77bc0ec985f28bbf3c8e29987502f9da882062"
       },
       "sections": [
         {
@@ -1109,7 +1109,7 @@
       "routes": {
         "html_mathml": "documents/truth-audit.html",
         "html_exact_tex": "documents/truth-audit.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/TRUTH_AUDIT.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -1118,8 +1118,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "befefa81ecd2e49c82f59c077e0f0919f16cba37d2e685c0da979d8b5646ad66",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1128,8 +1128,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "4f34eb3af0464642935f2fab4eb4edcde3fc02b97271e3d65b4826be8187ee41",
-        "html_exact_tex_sha256": "4cfcdd38154bdb72bcb8958ef46a7426fe0b0652d5e217fe25cb4e9705e0e384"
+        "html_mathml_sha256": "cbaa3791870325ed4b42ad94792b57cbb2164e697f6c45c085b6543a7a57565d",
+        "html_exact_tex_sha256": "5d3593037107ee5da587bef88f7a517d20119b5e4c3cb1f02d26326cbbd14c3c"
       },
       "sections": [
         {
@@ -1464,7 +1464,7 @@
       "routes": {
         "html_mathml": "documents/architecture.html",
         "html_exact_tex": "documents/architecture.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ARCHITECTURE.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -1473,8 +1473,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "7ca8beb92b479c881bc78d34d83ec11f004cbd7bd2790539a2074fd97b8e4512",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1483,8 +1483,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "3cce4c22c02e974554afa6a9c5c8529e8a63165c07188ff945c5208a59de6a77",
-        "html_exact_tex_sha256": "1fbab783405eb59b83b046a230266eae12a863d59edfcce366a5dde357f17e26"
+        "html_mathml_sha256": "3e0165507f39da44c26eeb3a2da3db8998e9793fdeda14ba01832bd7e4ad6834",
+        "html_exact_tex_sha256": "1cbb0c15c95362ee8895c713c95e3b405ac9a5bfa4a25796d2e89d08559b222a"
       },
       "sections": [
         {
@@ -1569,7 +1569,7 @@
       "routes": {
         "html_mathml": "documents/residual-progress.html",
         "html_exact_tex": "documents/residual-progress.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESIDUAL_PROGRESS.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -1578,8 +1578,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "3dc33fe9080152678a66529af9ad514c873ff67a680141575b359274f2251bd4",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1588,8 +1588,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "6ed49152808c09e221365fbf82f98812e4e610c1dac4feacf172c4d529f0441a",
-        "html_exact_tex_sha256": "e53b4603684d39a766f35109b58a6fe667af0db8c42d329f899531aa6edf899e"
+        "html_mathml_sha256": "4304244ca1bf9d58cd824ebfcfc0f57f6b68e564b68288d615f18e39e4a0af7e",
+        "html_exact_tex_sha256": "c26e51c867742488e5247c95049e7c85b8ed8ce83b632a64fa99002758ec3c06"
       },
       "sections": [
         {
@@ -1639,7 +1639,7 @@
       "routes": {
         "html_mathml": "documents/wave-index.html",
         "html_exact_tex": "documents/wave-index.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/WAVE_INDEX.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/WAVE_INDEX.md"
       },
       "render_contract": {
         "preferred": "html_mathml",
@@ -1648,8 +1648,8 @@
         "frontend_math_dependency": null,
         "source_sha256": "501f06bf244dbcc7a32cb27d234f25d6542f1c9169864c34bc39f9e09c5d19b5",
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1658,8 +1658,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "1a4f5e8a2f4afce6f1af480fb1659d47cae9748ecf5b201586558cee350d5530",
-        "html_exact_tex_sha256": "3fa6efa41e20430cc59636ea9a7680cfbd7d5057b2fa3a83a3d59bbe2a030707"
+        "html_mathml_sha256": "e9196d2d910e0349de1ae666c3dc1670bedb8eee35c66032bb7498adfafbc0b5",
+        "html_exact_tex_sha256": "8607d3fd54e6db6ea1b98e8994114093f544e7b8d7ffee0190fc787ec22d75e3"
       },
       "sections": [
         {

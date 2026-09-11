@@ -49,7 +49,7 @@
       "declaration_count": 116,
       "theorem_count": 92,
       "content_digest": "sha256:d284ca394ba94d6e43b2819757ce27eb86562949b525f8bbf81546d613abfcd1",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     }
   ],
   "main_results": [
@@ -63,7 +63,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.exists_primeGap0_gt",
       "statement": "The consecutive prime gaps are unbounded.",
       "boundary": "Unbounded coefficients alone do not force irrationality.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     },
     {
       "id": "coefficient_only_no_go",
@@ -75,7 +75,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.coefficientOnlyNoGo",
       "statement": "The coefficient-only wrapper records the exact finite carry partial-sum identity together with non-eventual-periodicity of the synthetic coefficient stream and the actual prime-gap stream, exposing the limits of coefficient-only reasoning.",
       "boundary": "The wrapper proves the finite identity and the two non-eventual-periodicity statements only. It does not assert the infinite rational-sum limit of the synthetic countermodel, identify the synthetic coefficient stream with actual prime gaps, establish a prime-gap tail bridge, prove #251 irrationality, or make novelty, priority, significance, or external-review claims.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     },
     {
       "id": "prime_gap_irrationality_equivalence",
@@ -87,7 +87,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_tsum_primeDyadicTerm_iff_primeGap",
       "statement": "Lean checks that the prime-value dyadic series is irrational exactly when the prime-gap dyadic series is, discharging summability by an elementary polynomial prime bound rather than the prime-number theorem. Neither side is proved irrational. The already-known identity is Tao's (7 October 2025) and is recorded separately as cited only.",
       "boundary": "The equivalence does not prove irrationality of either series.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     },
     {
       "id": "dyadic_tail_integrality_classification",
@@ -99,7 +99,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_initial_iff_all_positive_tailShifts_nonintegral",
       "statement": "For any integer-digit real dyadic tail recurrence T(N + 1) = 2*T(N) - g(N + 1), the initial value T(0) is irrational exactly when every positive-length tail shift is nonintegral.",
       "boundary": "This exact normal form covers arbitrary integer-digit dyadic tail recurrences with the declared real state type; it does not supply a cofinal nonintegral shift for the consecutive-prime-gap recurrence. The prime-specific producer remains open, so no prime-gap irrationality, novelty, significance, or external-review claim is made and Erdős #251 remains open.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     },
     {
       "id": "small_mismatch_criterion",
@@ -111,7 +111,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.primeGapTailShift_not_eventuallyIntegral_of_cofinal_small_mismatch",
       "statement": "For the actual prime-gap dyadic tail, cofinally many adjacent pairs of strictly small h-shifts with unequal corresponding prime gaps force failure of eventual RatIntegral h-shifts.",
       "boundary": "The representative assumes T : ℕ → ℚ, the DyadicTailRecurrence for the actual prime-gap digits, and for every N₀ an N ≥ N₀ whose adjacent h-shifts both lie strictly in (-1, 1) while the corresponding prime gaps differ. Under that cofinal small-mismatch supply it excludes eventual RatIntegral h-shifts; it does not prove the supply or actual smallness. rationalPrimeGapTail_has_positive_shift_not_eventually_small records the contrary rational-state obstruction for at least one positive shift. This is a conditional reduction only: no #251 irrationality, infinite rational-sum limit, universal producer, novelty, priority, significance, or external-review claim is made; #251 remains open. The actual-prime-gap specialization is distinct from coefficient_only_no_go and does not duplicate prime_gap_reformulation.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean"
     }
   ],
   "comparator_review": {
@@ -267,8 +267,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
       "publication_manifest_match": true,
       "mathml_node_count": 496,
@@ -290,8 +290,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "9a1f85903251ebca627f37ac101b5d41d7910448a2b33386733645cb8a095798",
-      "html_exact_tex_sha256": "426469468c746cebbe702f185a40e46573e1229d45c6d89eba3eb8316a423320"
+      "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
+      "html_exact_tex_sha256": "e46d19c19e32501c5b03551c923848eab023965f12a5d72b45f917e7f1147445"
     },
     "sections": [
       {
@@ -428,7 +428,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_251",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos251",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos251",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -462,8 +462,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
         "publication_manifest_match": true,
         "mathml_node_count": 496,
@@ -485,8 +485,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "9a1f85903251ebca627f37ac101b5d41d7910448a2b33386733645cb8a095798",
-        "html_exact_tex_sha256": "426469468c746cebbe702f185a40e46573e1229d45c6d89eba3eb8316a423320"
+        "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
+        "html_exact_tex_sha256": "e46d19c19e32501c5b03551c923848eab023965f12a5d72b45f917e7f1147445"
       },
       "sections": [
         {
@@ -657,8 +657,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 922,
@@ -675,8 +675,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "e7e7344c957dd76609b135f7435bd7a0d18700527d2b473cab3ba5e4f6b31d1e",
-        "html_exact_tex_sha256": "ab88feeabdb5ed58e7f6e5ddb09a4eb6eeec45b61ef9e69f23452564221e9db5"
+        "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
+        "html_exact_tex_sha256": "fd9a963e31665e6258243ffd035d731c81a80c0222cb158ee6738f28a7deec15"
       },
       "sections": [
         {

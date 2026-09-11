@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <script defer src="../assets/maths.js?v=51c48d046e3b"></script>
   <style>
     .problem-paper { border-top: 2px solid var(--u-edge-hot); padding: 1.5rem 0 2.2rem; }
     .problem-paper__head { margin: 0 0 1.3rem; }
@@ -96,7 +96,7 @@
         <p class="dossier-head__q">Is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <span class="math" data-term-auto="off">∑<sub>n ≥ 2</sub> 1/(n! − 1)</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>?</p>
         <div class="dossier-head__meta">
           <span class="chip chip--open">Open</span>
-          <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos68" data-link-kind="exogenous" rel="external noopener">Problem on GitHub</a>
+          <a class="source-link" href="https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos68" data-link-kind="exogenous" rel="external noopener">Problem on GitHub</a>
         </div>
       </header>
       <details class="dossier-section research-details"><summary><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">Results</a> &amp; remaining work</summary>
@@ -185,7 +185,7 @@ class="math inline" data-term-auto="off">\(m-1\)</span> gives <span
 class="math inline" data-term-auto="off">\(Z_m=m!S=mZ_{m-1}\)</span>, proving <a class="math-ref" href="#erdos-68-factorial-denominator-irrationality__eq:finite-denominator-consumer">(1)</a>. A
 non-unit carry at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <span class="math inline" data-term-auto="off">\(m\)</span> therefore
 forces <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">every
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">every
 rational denominator to be at least <span
 class="math inline" data-term-auto="off">\(m\)</span></a>, since any smaller positive <span
 class="math inline" data-term-auto="off">\(q\)</span> would divide <span
@@ -204,7 +204,7 @@ posed by <a class="narrative-ref narrative-ref--term is-term-first" href="../../
 data-cites="erdos1988 bloom"><a href="#erdos-68-factorial-denominator-irrationality__ref-1">[1]</a><a href="#erdos-68-factorial-denominator-irrationality__ref-2">[2]</a></span>. Their computational <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificates</a>
 are specified in §<a class="math-ref" href="#erdos-68-factorial-denominator-irrationality__sec:finite">8</a>.</p>
 <p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
 factorial differences affect exactly their divisor channels</a>.
 Integral triangular elimination therefore <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solves</a> the channel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equations</a>.
 The support restriction determines which <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> moments occur, while
@@ -343,10 +343,10 @@ following conditions are equivalent: <span
 class="math display" data-term-auto="off">\[S\notin\mathbb Q,\qquad
 (\forall B)(\exists m&gt;B)\ b_m\ne1,\qquad
 (\forall B)(\exists m&gt;B)\ m\nmid Z_m.\]</span> In particular, <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
 non-unit carries imply irrationality</a>; equivalently, the original
 problem is the <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
 criterion</a>.</em></p>
 </div>
 <p>The pair of equivalences is <a
@@ -380,7 +380,7 @@ n/d\rfloor}},\qquad
 M(\lambda)=\sum_n\lambda_n n!,\qquad
 V_d(\lambda)=\sum_n\lambda_nW_{d,n}.\]</span></div>
 <p>The <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
 are integers</a>. We first <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-allowed" data-term="allowed" data-term-auto="1">allow</a> the auxiliary coordinate <span
 class="math inline" data-term-auto="off">\(e_1\)</span>, then impose the manuscript support
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. This coefficient convention
@@ -574,13 +574,13 @@ class="math inline" data-term-auto="off">\(M\ne0\)</span> therefore force at lea
 <span class="math inline" data-term-auto="off">\(i_j\ge2d\)</span>.</em></p>
 </div>
 <p>The exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorisation" data-term="factorisation" data-term-auto="1">factorisation</a> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> for every quotient band at <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
 band identity</a>, and its zero-channel consequence is <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">band
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">band
 cancellation</a>. The first-band form is explicit at <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">first-band
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">first-band
 factorisation</a>; the final breakpoint alternative is <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">breakpoint
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">breakpoint
 witness</a>.</p>
 <p>The earlier envelope <span
 class="math inline" data-term-auto="off">\(\Lambda_n=\operatorname{lcm}(1,\ldots,n)\mid
@@ -717,7 +717,7 @@ fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../doc
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>-grid Cramer vector the residual differs from a nonzero
 determinant times <span class="math inline" data-term-auto="off">\(S\)</span> by an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>:
 this is the <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
+href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
 residual identity</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">Cofinal</a> residual nonintegrality on this family is
 sufficient for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>; the construction does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establish</a> that
 nonintegrality.</p>
@@ -839,7 +839,7 @@ modulus <span class="math inline" data-term-auto="off">\(R_p\)</span> cancels: i
 permits <span class="math inline" data-term-auto="off">\(\rho_p=1\)</span>, so the
 complementary gap needs its own quantitative <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a>. Both losses must
 be <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controlled</a> at the same parameters. The <a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
 pair floor</a> splits that scale test into the complementary-residue
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> and a local collision-core cap. A joint mean <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> below
 <span class="math inline" data-term-auto="off">\((1-\varepsilon)p\log p\)</span> on the same
@@ -850,7 +850,7 @@ suffice; two unrelated <a class="narrative-ref narrative-ref--term is-term-again
 <h2>The remaining real comparison</h2>
 <p></p>
 <p>The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-target" data-term="target" data-term-auto="1">target</a> remains the <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
 criterion</a>:</p>
 <div class="math-display" id="erdos-68-factorial-denominator-irrationality__eq:canonical-open-target" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 (\forall B)(\exists m&gt;B)\ m\nmid Z_m.
@@ -890,10 +890,10 @@ still <a class="narrative-ref narrative-ref--term is-term-again" href="../../doc
 <p>Large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> valuations alone also leave the real gap
 uncontrolled: the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-fraction" data-term="fraction" data-term-auto="1">fractions</a> <span
 class="math inline" data-term-auto="off">\(1/q^e\)</span> tend to zero. The exact <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
 / lower-endpoint cylinder</a> and doubled-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-test" data-term="test" data-term-auto="1">tests</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> joint
 numerator or predecessor information. Their thresholds, the <a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
 collapse</a>, fixed-owner absorption, and the strongest countermodels
 are retained in the long reasoning record.</p>
 </section>
@@ -902,7 +902,7 @@ are retained in the long reasoning record.</p>
 <h2>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a></h2>
 <p>An exact non-unit carry at the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <span
 class="math inline" data-term-auto="off">\(67\)</span> already forces <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">every
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">every
 rational denominator to be at least <span
 class="math inline" data-term-auto="off">\(67\)</span></a>. The exact GMP carry <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
 covers <span class="math inline" data-term-auto="off">\(3\le m\le300000\)</span>. Its unit
@@ -983,7 +983,7 @@ register, <a class="narrative-ref narrative-ref--term is-term-again" href="../..
 record.</p>
 </section>
 <section id="erdos-68-factorial-denominator-irrationality__app:sources" class="level2">
-<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(6 links)</span></summary>
+<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <code>ErdosProblems.Erdos68</code> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> contains the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The pinned snapshot contains fifteen cited
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>: <a class="lean-jump" href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow"><code>AdjacentUnitCarryWindow</code></a>,
@@ -1005,161 +1005,162 @@ The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/
 used throughout this problem-note <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>.</p>
 <ul>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">adjacent-window
 collapse</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
 step den mul transition normalizers</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
 unit carry window den eq two step den</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
 unit carry window offset eq two step reduced numerator</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">denominator
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">denominator
 at least the carry index</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">denominator
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940">denominator
 at least <span class="math inline" data-term-auto="off">\(67\)</span></a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">strict-successor
 criterion</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953">cofinal
 non-unit carries imply irrationality</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">zero-branch
 / lower-endpoint cylinder</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
 pair floor</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
+href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">Cramer
 residual identity</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L34">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L34">residual
 centre term</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L39">factorial
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L39">factorial
 coeff term</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L44">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L44">residual
 centre</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L49">factorial
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L49">factorial
 coeff rat</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L80">factorial
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L80">factorial
 eq mul pred factorial</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L88">pred
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L88">pred
 div eq of not dvd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L102">pred
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L102">pred
 div add one eq of dvd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L129">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L129">residual
 centre term of not dvd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L146">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L146">residual
 centre term of dvd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L170">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L170">residual
 centre term self</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L179">factorial
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L179">factorial
 coeff term self</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L188">residual
+href="#lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-select-module="lean-module:ErdosProblems.Erdos68.DivisorFactorialCentre" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L188">residual
 centre recurrence</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">weights
 are integers</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L39">channel
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L39">channel
 weight</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">channel
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">channel
 weight mul denominator</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L51">channel
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L51">channel
 numerator</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L55">factorial
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L55">factorial
 moment</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L59">channel
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L59">channel
 event</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">adjacent
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">adjacent
 differences affect only divisor channels</a></p></li>
 <li><p><a
 href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101">lambda34</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L105">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L105">lambda34
 apply three</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L109">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L109">lambda34
 apply four</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L112">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L112">lambda34
 channel two</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L119">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L119">lambda34
 factorial moment</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L126">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L126">lambda34
 channel three</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L133">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L133">lambda34
 channel four</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L140">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L140">lambda34
 channel ge five</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L151">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L151">lambda34
 residual of tail</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
 residual bounds</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">square
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">square
 subsequence radius cubic lower</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885">no
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885">no
 eventual square subsequence cubic upper</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905">not
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905">not
 is little o square subsequence radius</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">square
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">square
 subsequence radius three halves lower</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">no
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">no
 eventual square subsequence three halves upper</a></p></li>
 </ul>
 <section id="erdos-68-factorial-denominator-irrationality__source-current-companion-orbit-and-comparator-routes."
 class="level5">
 <h5><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-current companion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> routes.</h5>
-<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in </p><ul class="paper-source-links"><li><a
+<p>The complete <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> rationality boundary is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
 href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a> . Its paper-facing endpoints are</li><li><a
+orbit rationality</a>. Its paper-facing endpoints are <a
 href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">not
 irrational factorial gap series iff eventually companion floor <span
-class="math inline" data-term-auto="off">\(-2\)</span></a> and</li><li><a
+class="math inline" data-term-auto="off">\(-2\)</span></a> and <a
 href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">irrational
-factorial gap series iff cofinal companion floor misses</a> . The
-coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite</li><li><a
+factorial gap series iff cofinal companion floor misses</a>. The
+coherent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> composite <a
 href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion-orbit
-complete characterisation</a> routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a></li><li><a class="math-ref" href="#erdos-68-factorial-denominator-irrationality__res:companion-orbit-rationality-boundary">2</a> and Remark</li><li><a class="math-ref" href="#bdry:companion-orbit-nonconcentration">bdry:companion-orbit-nonconcentration</a> .
+complete characterisation</a> routes to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos-68-factorial-denominator-irrationality__res:companion-orbit-rationality-boundary">2</a>
+and Remark <a class="math-ref" href="#bdry:companion-orbit-nonconcentration">bdry:companion-orbit-nonconcentration</a>.
 The moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> endpoints are recorded in the long
 reasoning record as the moving-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a> scale split, the split-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factor</a>
 normalised collision, and the fixed-owner absorption boundary. These
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">packages</a>, and this manuscript stage
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-require" data-term="require" data-term-auto="1">require</a> one common immutable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> checkpoint before <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> readiness is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</li></ul>
-</details></section>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> readiness is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</p>
+</section>
 </section>
 <section id="erdos-68-factorial-denominator-irrationality__references" class="level2 unnumbered">
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
@@ -2615,105 +2616,105 @@ computation with the <a class="narrative-ref narrative-ref--term is-term-again" 
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:prime-pole">2</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223">maximal-power
+href="#lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223">maximal-power
 survival</a>, with the residue formula at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L129">line
+href="#lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleCriterion" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L129">line
 129</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> form at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimePoleDenominator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleDenominator" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleDenominator.lean#L41">line
+href="#lean-module:ErdosProblems.Erdos68.PrimePoleDenominator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimePoleDenominator" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleDenominator.lean#L41">line
 41</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:wilson-cofinality">3</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097">cofinal
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097">cofinal
 private hits</a>; reflection at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3139">line
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3139">line
 3139</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:carry-equivalence">8</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986">strict-successor
+href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986">strict-successor
 misses</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exclude" data-term="exclude" data-term-auto="1">exclusions</a> at <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L812">line
+href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L812">line
 812</a> and <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L836">line
+href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L836">line
 836</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:companion-orbit">9</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438">companion
+href="#lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-select-module="lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438">companion
 orbit</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:lower-escape">10</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82">lower-interval
+href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82">lower-interval
 normal form</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> window at <a
-href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L122">line
+href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L122">line
 122</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> consumer at <a
-href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L145">line
+href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L145">line
 145</a>, classification <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:eq:escape-classification">(5)</a>
 at <a
-href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L39">line
+href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L39">line
 39</a>, radius at <a
-href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L158">line
+href="#lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-select-module="lean-module:ErdosProblems.Erdos68.ShrinkingTargetNormalForm" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L158">line
 158</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:shift-family">11</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139">family
+href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139">family
 boundary</a>; escape form at <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L156">line
+href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L156">line
 156</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-element" data-term="element" data-term-auto="1">member</a> <span class="math inline" data-term-auto="off">\(t=-1\)</span> at <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L175">line
+href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L175">line
 175</a>, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of <span class="math inline" data-term-auto="off">\(e\)</span>
 at <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L211">line
+href="#lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialShiftFamilyOrbit" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L211">line
 211</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:global-residue">12</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164">global
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164">global
 complementary residue</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:eq:gap-normalisation">(7)</a> at <a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4209">line
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4209">line
 4209</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:eq:factor-split">(9)</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766">unit-factor
 scale split</a>, floor identity at <a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4701">line
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4701">line
 4701</a>, consumer at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1574">line
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1574">line
 1574</a></td>
 </tr>
 <tr>
 <td class="ta-l">Fixed-owner absorption</td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2677">absorbed
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2677">absorbed
 owner</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:normalform">13</a> and <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:eq:channel-congruence">(10)</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">integral
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">integral
 channel weight</a>, <a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">exact
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43">exact
 cancellation</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:res:channel-radius">17</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">finite
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">finite
 radius bound</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> form at <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">line
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">line
 1103</a>, little-<span class="math inline" data-term-auto="off">\(o\)</span> form at <a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905">line
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905">line
 905</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-method" data-term="method" data-term-auto="1">method</a> ceiling ordinary in this record
 (<code>sharp_radius_satisfies_square_log_constraint</code> is not in
 this checkout)</td>
@@ -2721,29 +2722,29 @@ this checkout)</td>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a> channel corrector</td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1657">remote
+href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1657">remote
 reduction</a>, residual identity at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">line
+href="#lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559">line
 1559</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equation</a> <a class="math-ref" href="#erdos68-factorial-reasoning-surface__long68:eq:doubled-prime">(17)</a></td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauSupplement.lean#L257">doubled-prime
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauSupplement.lean#L257">doubled-prime
 criterion</a></td>
 </tr>
 <tr>
 <td class="ta-l">Canonical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a> digits</td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L78">termination
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L78">termination
 equivalence</a></td>
 </tr>
 <tr>
 <td class="ta-l">Amplification modulus</td>
 <td class="ta-l"><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5557">divisibility</a>,
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5557">divisibility</a>,
 nonvanishing at <a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5572">line
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5572">line
 5572</a></td>
 </tr>
 </tbody>
@@ -2768,7 +2769,7 @@ antecedent was located, which is a <a class="narrative-ref narrative-ref--term i
 priority is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a>.</p>
 </section>
 <section id="erdos68-factorial-reasoning-surface__long68:app:sources" class="level2">
-<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(0 links)</span></summary>
+<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <code>ErdosProblems.Erdos68</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> carries the
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> below are the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>
 chain behind the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> above, together with the subsidiary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a>
@@ -2776,171 +2777,171 @@ developed alongside them; they are pinned to the <a class="narrative-ref narrati
 named at the start of this note.</p>
 <ul>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L47">fac
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L47">fac
 floor rat eq cleared</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L81">canonical
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L81">canonical
 digit eq zero of rational</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L124">canonical
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L124">canonical
 digit eq floor mul remainder</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L153">canonical
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L153">canonical
 digit lt radix</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L162">canonical
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L162">canonical
 remainder recurrence</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196">factorial
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196">factorial
 expansion partial</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269">zero
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269">zero
 remainder forces zero digit tail</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L38">canonical
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L38">canonical
 remainder eq zero of zero digit tail</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L54">exists
+href="#lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-select-module="lean-module:ErdosProblems.Erdos68.CanonicalFactorialTermination" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L54">exists
 rat eq of canonical remainder eq zero</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L82">factorial
+href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L82">factorial
 grid plateau</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L945">irrational
+href="#lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L945">irrational
 factorial gap series of cofinal nonunit carries</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean#L136">sixty
+href="#lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean#L136">sixty
 seven le rational denominator</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">factorial
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099">factorial
 gap zero branch iff lower endpoint cylinder</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3047">exists
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3047">exists
 late prefix private factorial gap hit of prime product lt</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231">prime
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231">prime
 dvd factorial block normalized collision core of odd
 reflection</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252">one
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252">one
 lt factorial block prime hit count of odd reflection</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1419">factorial
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1419">factorial
 gap large prefix private power modulus dvd tailored block private
 quotient</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1524">factorial
+href="#lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-select-module="lean-module:ErdosProblems.Erdos68.PrimeZeroBranch" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1524">factorial
 gap large prefix private primes unit factor pair tailored
 block</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">consecutive
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">consecutive
 unit carries iff positive offset le den</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215">two
 step den mul transition normalizers</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243">adjacent
 unit carry window den eq two step den</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
+href="#lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-select-module="lean-module:ErdosProblems.Erdos68.AdjacentUnitCarryWindow" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337">adjacent
 unit carry window offset eq two step reduced numerator</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">factorial
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">factorial
 moment eq factorial pow mul channel numerator band</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">factorial
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">factorial
 moment eq zero of channel numerator eq zero band</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">factorial
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">factorial
 moment eq factorial mul channel numerator first band</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">exists
+href="#lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">exists
 index ge two mul of factorial moment ne zero of channel eq
 zero</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">square
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">square
 subsequence radius cubic lower</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885">no
+href="#lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-select-module="lean-module:ErdosProblems.Erdos68.ChannelIntegralCongruence" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885">no
 eventual square subsequence cubic upper</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">channel
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">channel
 event eq zero of not dvd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
+href="#lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156">lambda34
 residual bounds</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L52">tendsto
+href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L52">tendsto
 factorial gap succ div sq</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L84">not
+href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L84">not
 summable abs factorial gap succ div sq sub one</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L131">tendsto
+href="#lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-select-module="lean-module:ErdosProblems.Erdos68.FactorialAnalyticBoundary" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L131">tendsto
 factorial gap rpow one div two pow</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L556">pairwise
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L556">pairwise
 collision core insert gcd lcm</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L586">collision
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L586">collision
 core insert gcd lcm</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L698">collision
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L698">collision
 core div base eq pairwise collision core div gcd</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L739">collision
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L739">collision
 core div base factorization</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L800">collision
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L800">collision
 core div base mul denominator lcm dvd denominator prod</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2707">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2707">factorial
 block fixed pair private quotients eq one</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3327">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3327">factorial
 block normalized collision core le gap prod div gap lcm</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3394">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3394">factorial
 block normalized collision core factorization</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3443">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3443">factorial
 block prime power le gap pow of two hits</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3472">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3472">factorial
 block prime hit pair distance gt exponent</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3602">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3602">factorial
 block prime power hit count mul succ le</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3790">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3790">factorial
 block normalized collision factorization add base lt prime</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3848">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3848">factorial
 block normalized collision factorization add base lt block
 diameter</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3982">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3982">factorial
 block prime sq gt pred of dvd normalized collision core</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4387">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4387">factorial
 block factor projection lcm eq private modulus</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4854">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4854">factorial
 block complementary factor pair floor le global</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5213">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5213">factorial
 block normalized collision core factorization eq repeated hit layer
 count</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5277">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5277">factorial
 block normalized collision core factorization eq truncated repeated hit
 layer count</a></p></li>
 <li><p><a
-href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5389">factorial
+href="#lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-select-module="lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport" data-github="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5389">factorial
 block prime power dvd normalized collision core iff one lt hit count of
 endpoint lt base</a></p></li>
 </ul>
-</details></section>
+</section>
 <section id="erdos68-factorial-reasoning-surface__long68:sec:extended-record" class="level2">
 <h2>Extended record</h2>
 <p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">short note</a> above carries the advertised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-result" data-term="result" data-term-auto="1">results</a> with complete
@@ -3936,7 +3937,7 @@ href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
           <p class="result-card__statement"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">Irrationality</a> is equivalent to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a> many strict-successor divisibility failures.</p>
           <p class="result-card__boundary">The equivalence does not prove that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> failures occur.</p>
           <div class="result-card__links">
-            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</a>
           </div>
         </article>
         <article class="result-card">
@@ -3947,7 +3948,7 @@ href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
           <p class="result-card__statement"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">Irrationality</a> is equivalent to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinally</a> many non-unit carries.</p>
           <p class="result-card__boundary">The equivalence does not supply a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> carry producer.</p>
           <div class="result-card__links">
-            <a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries</a>
+            <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener">ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries</a>
           </div>
         </article>
       </section>
@@ -3974,79 +3975,79 @@ href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
             <thead><tr><th>Module</th><th>Lines</th><th>Declarations</th><th>Theorems</th></tr></thead>
             <tbody>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialGapPlateauCore</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialGapPlateauCore</code></a></td>
               <td class="num">1008</td>
               <td class="num">36</td>
               <td class="num">31</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.CanonicalFactorialDigits</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.CanonicalFactorialDigits</code></a></td>
               <td class="num">278</td>
               <td class="num">18</td>
               <td class="num">15</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelBreakpointRigidity</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelBreakpointRigidity</code></a></td>
               <td class="num">144</td>
               <td class="num">10</td>
               <td class="num">8</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelIntegralCongruence</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.ChannelIntegralCongruence</code></a></td>
               <td class="num">1133</td>
               <td class="num">55</td>
               <td class="num">46</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/DivisorFactorialCentre.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.DivisorFactorialCentre</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/DivisorFactorialCentre.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.DivisorFactorialCentre</code></a></td>
               <td class="num">303</td>
               <td class="num">18</td>
               <td class="num">13</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.EndpointWeightedPrivateSupport</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.EndpointWeightedPrivateSupport</code></a></td>
               <td class="num">6674</td>
               <td class="num">223</td>
               <td class="num">183</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialCarry.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialCarry</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialCarry.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialCarry</code></a></td>
               <td class="num">101</td>
               <td class="num">8</td>
               <td class="num">5</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialChannelCertificate.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialChannelCertificate</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialChannelCertificate.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialChannelCertificate</code></a></td>
               <td class="num">172</td>
               <td class="num">17</td>
               <td class="num">11</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialZeroPlateau</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FactorialZeroPlateau</code></a></td>
               <td class="num">1756</td>
               <td class="num">63</td>
               <td class="num">57</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FiniteDefectAutomaton</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.FiniteDefectAutomaton</code></a></td>
               <td class="num">120</td>
               <td class="num">10</td>
               <td class="num">6</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/PrimeUnitTranslator.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeUnitTranslator</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PrimeUnitTranslator.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeUnitTranslator</code></a></td>
               <td class="num">1730</td>
               <td class="num">91</td>
               <td class="num">70</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/PrimeZeroBranch.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeZeroBranch</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PrimeZeroBranch.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.PrimeZeroBranch</code></a></td>
               <td class="num">7293</td>
               <td class="num">187</td>
               <td class="num">155</td>
             </tr>
             <tr>
-              <td><a class="source-link" href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.StrictSuccessorArithmetic</code></a></td>
+              <td><a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean" data-link-kind="exogenous" rel="external noopener"><code>ErdosProblems.Erdos68.StrictSuccessorArithmetic</code></a></td>
               <td class="num">204</td>
               <td class="num">4</td>
               <td class="num">4</td>

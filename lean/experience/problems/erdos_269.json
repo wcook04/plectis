@@ -58,7 +58,7 @@
       "declaration_count": 54,
       "theorem_count": 38,
       "content_digest": "sha256:9a158ddc272a2c59d87aaefcd84352ffa6197d6bed95f965f0de59a119a8b34e",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.ResidueEscape",
@@ -68,7 +68,7 @@
       "declaration_count": 8,
       "theorem_count": 6,
       "content_digest": "sha256:826a3dd901c86f1876c7e03011447dafef8d3cb139a673227e921bef3a9dfe87",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/ResidueEscape.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ResidueEscape.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.RestrictedFloorSum",
@@ -78,7 +78,7 @@
       "declaration_count": 43,
       "theorem_count": 30,
       "content_digest": "sha256:7369d105e5cb014188e31fa44fdccb03b2c40bdfe4719f6e227555c1c30b0bd3",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.BoundedRadixTailEscape",
@@ -88,7 +88,7 @@
       "declaration_count": 6,
       "theorem_count": 4,
       "content_digest": "sha256:a3e8b3b5e9723a8de2ea1bc3a3dd4635a1cb06c4d563e0d4d9d55aec947f2c61",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.CarryLiftExtinction",
@@ -98,7 +98,7 @@
       "declaration_count": 14,
       "theorem_count": 12,
       "content_digest": "sha256:ace522da1f0a6833a200efbe18d5961cf3562e1e6756055427b85140d25aae4b",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/CarryLiftExtinction.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/CarryLiftExtinction.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.ThreeChannelBlockRigidity",
@@ -108,7 +108,7 @@
       "declaration_count": 6,
       "theorem_count": 4,
       "content_digest": "sha256:5dbd4a448520c6c4de924480e381ee5408a4724a3081837d04bfb4ac1186ae5f",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean"
     },
     {
       "module": "ErdosProblems.Erdos269.WeightedPhaseCarry",
@@ -118,7 +118,7 @@
       "declaration_count": 23,
       "theorem_count": 14,
       "content_digest": "sha256:ef3e57a4728534e108bb4e668ceef2cc102c2cf001673d59d9c15cff7f0beb9e",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean"
     }
   ],
   "main_results": [
@@ -132,7 +132,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.kernel_235_minor_eq_neg_one_fifteen",
       "statement": "The smallest displayed 2,3,5 kernel minor is exactly -1/15.",
       "boundary": "Failure of rank one does not imply irrationality.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
       "id": "three_prime_running_lcm",
@@ -144,7 +144,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.smoothPrefixLcm_eq_threePrimeHeight",
       "statement": "The running lcm of the three-prime smooth prefix equals the exact coordinatewise height.",
       "boundary": "The identity does not supply the missing irrationality bridge.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
       "id": "conditional_carry_escape",
@@ -156,7 +156,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
       "statement": "Under the denominator-dependent cofinal local-window residue-escape predicate, no positive reduced carry can satisfy the exact multiplier recurrence together with its short bound.",
       "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     }
   ],
   "comparator_review": {
@@ -317,8 +317,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
       "publication_manifest_match": true,
       "mathml_node_count": 260,
@@ -327,8 +327,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "de28a0e82bbaf368614340255188c808bec0af1ce587e582ccb6b5d39dd64213",
-      "html_exact_tex_sha256": "2925cdf4287a7e69c2bc0848dc17457d02b636f8553646052d045a75acc15368"
+      "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
+      "html_exact_tex_sha256": "339b16286c635a1a7c7e825b8fabaa47fa95d0f561d8a07604ce034341206d76"
     },
     "sections": [
       {
@@ -410,7 +410,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_269",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos269",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos269",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -444,8 +444,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
         "publication_manifest_match": true,
         "mathml_node_count": 260,
@@ -454,8 +454,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "de28a0e82bbaf368614340255188c808bec0af1ce587e582ccb6b5d39dd64213",
-        "html_exact_tex_sha256": "2925cdf4287a7e69c2bc0848dc17457d02b636f8553646052d045a75acc15368"
+        "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
+        "html_exact_tex_sha256": "339b16286c635a1a7c7e825b8fabaa47fa95d0f561d8a07604ce034341206d76"
       },
       "sections": [
         {
@@ -571,8 +571,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
         "publication_manifest_match": true,
         "mathml_node_count": 968,
@@ -590,8 +590,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "4a1a58dcc5efd25b03007b14c72b74a4c203b873ddc3f5169f4da80dcb326354",
-        "html_exact_tex_sha256": "37c5e3cb171ac38fc46802ef1a713c95916099433005ebcfb66ab379edb2deb8"
+        "html_mathml_sha256": "acd1faa4f01f148fad50f09c042c29c986b63cee9305ca8a2f94c6647547bcc6",
+        "html_exact_tex_sha256": "d7aa1519d797e15895d2d2b0bf550d8d5e34388c9a9e2efd8e0300decbfc2d3a"
       },
       "sections": [
         {

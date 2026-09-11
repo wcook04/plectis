@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/truth-audit.html",
     "html_exact_tex": "documents/truth-audit.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/TRUTH_AUDIT.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/TRUTH_AUDIT.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "befefa81ecd2e49c82f59c077e0f0919f16cba37d2e685c0da979d8b5646ad66",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "4f34eb3af0464642935f2fab4eb4edcde3fc02b97271e3d65b4826be8187ee41",
-    "html_exact_tex_sha256": "4cfcdd38154bdb72bcb8958ef46a7426fe0b0652d5e217fe25cb4e9705e0e384"
+    "html_mathml_sha256": "cbaa3791870325ed4b42ad94792b57cbb2164e697f6c45c085b6543a7a57565d",
+    "html_exact_tex_sha256": "5d3593037107ee5da587bef88f7a517d20119b5e4c3cb1f02d26326cbbd14c3c"
   },
   "sections": [
     {

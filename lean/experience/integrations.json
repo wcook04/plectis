@@ -12,7 +12,7 @@
       "id": "lean",
       "role": "formal_proof_source",
       "status_source": "../claims.json",
-      "repository": "https://github.com/wcook04/plectis-lean-erdos249-257"
+      "repository": "https://github.com/wcook04/plectis-erdos"
     },
     {
       "id": "papers",

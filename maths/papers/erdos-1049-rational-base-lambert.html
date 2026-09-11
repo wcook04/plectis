@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="../assets/maths.css?v=e70daf7207d5">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=a0556c94e5df"></script>
+  <script defer src="../assets/maths.js?v=51c48d046e3b"></script>
   <link rel="preload" href="../../assets/vendor/mathjax-3.2.2/tex-chtml.js" as="script">
   <script defer src="../assets/mathjax-config.js?v=39f92a942959"></script>
   <script defer src="../../assets/vendor/mathjax-3.2.2/tex-chtml.js"></script>
@@ -477,10 +477,10 @@ is attached.</p>
 <div class="theorem" id="res:sevenhalves">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 4</strong> (the <span
 class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
 power certificate</a> <span class="math inline" data-term-auto="off">\(2^{18}&lt;7^7\)</span>
 yields the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">Archimedean
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">Archimedean
 height condition</a> <span class="math display" data-term-auto="off">\[\frac{\log
 7}{\log(7/2)}
 &lt;
@@ -675,7 +675,7 @@ class="math inline" data-term-auto="off">\(N\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(K\ge1\)</span> and all natural <span
 class="math inline" data-term-auto="off">\(Q,D\)</span>, the tuple <span
 class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
 corridor</a>.</em></p>
 </div>
 <div class="theorem" id="res:tailrec">
@@ -686,7 +686,7 @@ class="math inline" data-term-auto="off">\(c:\N\to\Q\)</span>, and let <span
 class="math inline" data-term-auto="off">\(P_N\)</span> and <span
 class="math inline" data-term-auto="off">\(U_N\)</span> be the cleared tail state. Then for
 every <span class="math inline" data-term-auto="off">\(N\)</span> the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
 recurrence</a> is <span
 class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></em></p>
 </div>
@@ -719,7 +719,7 @@ J_{2,S}(P)=H_W(P)\pmod{2^S}.\]</span></div>
 <div class="lemma" id="res:bottomjet">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">Lemma</a> 10</strong> (bottom-jet divisibility). <em> Vanishing
 of the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">bottom
 jet</a> is exactly divisibility by the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">power</a> of three:
 <span class="math inline" data-term-auto="off">\(J_{3,R}(P)=0\)</span> if and only if <span
 class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
@@ -824,13 +824,13 @@ class="math display" data-term-auto="off">\[\widetilde{Q}(n,m)=2(n^{2}-n)+j^{2}+
 class="math inline" data-term-auto="off">\(n,k,m\)</span>:</em></p>
 <ol>
 <li><p><em>if <span class="math inline" data-term-auto="off">\(0\le k\le n\)</span>, the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
 exponent bound</a> is <span
 class="math inline" data-term-auto="off">\(\widetilde{P}(n,k)\le\widetilde{E}_n\)</span>, and
 the gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a> as <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)\)</span>;</em></p></li>
 <li><p><em>the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
 gap identity</a> is <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
 </ol>
@@ -838,11 +838,11 @@ class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\
 <div class="proposition" id="res:content">
 <p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 14</strong> (row-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">content</a> determinant scaling).
 <em> Rowwise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-content" data-term="content" data-term-auto="1">contents</a> scale the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">exterior
 determinant</a> by the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-factor" data-term="factor" data-term-auto="1">factors</a>: the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">content
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">content
 factorisation</a> and the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute
 determinant scaling</a> identify the local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> with the Archimedean
 height cost.</em></p>
 </div>
@@ -1026,7 +1026,7 @@ specify those <a class="narrative-ref narrative-ref--term is-term-again" href=".
 <h3 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">Statements</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a></h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-lean-erdos249-257/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7" data-link-kind="exogenous" rel="external noopener">pinned formal-source revision</a> contains
+<p>The <a href="https://github.com/wcook04/plectis-erdos/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7" data-link-kind="exogenous" rel="external noopener">pinned formal-source revision</a> contains
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">sources</a>, the fixed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a>, and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">library</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a> used in
 the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a>. The ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> used here are printed with their
 hypotheses.</p>
@@ -1045,7 +1045,7 @@ data-cites="erdosproblems"><a href="#ref-5">[5]</a></span>.</p>
 </section>
 </section>
 <section id="app:index" class="level2">
-<details class="paper-source-guide"><summary>Guide to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a> <span>(0 links)</span></summary>
+<h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
 <p>The seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> named below are linked at the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>
 revision 99f4bf47422a. Additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> in the body of the note
 are linked at a second immutable revision,
@@ -1067,7 +1067,7 @@ remaining four separate the Padé <a class="narrative-ref narrative-ref--term is
 Bézout–Plücker tail collapse. The link coordinates for those seven
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> are validated against that pinned revision, so they remain
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-correctness" data-term="correctness" data-term-auto="1">correct</a> as later work moves lines in the working tree.</p>
-</details></section>
+</section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
 <ol>
@@ -1131,7 +1131,7 @@ class="math inline" data-term-auto="off">\(k\ge2\)</span>.</p></li>
       </div>
     </main>
       <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">Introduction</a><a class="toc-l2" href="#sec:rational-base-irrationality">A rational base at which \(F\) is
-irrational</a><a class="toc-l3" href="#the-base-uniform-degree-restriction">The base-uniform degree restriction</a><a class="toc-l2" href="#sec:hankel-order">Exact normalized-Hankel order in Zudilin’s construction</a><a class="toc-l2" href="#sec:open">Local cancellation and the remaining real estimate</a><a class="toc-l3" href="#one-minor-gcd-controls-two-different-costs">One minor gcd controls two different costs</a><a class="toc-l3" href="#a-collision-must-have-a-small-nonzero-real-remainder">A collision must have a small nonzero real remainder</a><a class="toc-l3" href="#the-source-specific-endpoint-question">The source-specific endpoint question</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#references">References</a></aside>
+irrational</a><a class="toc-l3" href="#the-base-uniform-degree-restriction">The base-uniform degree restriction</a><a class="toc-l2" href="#sec:hankel-order">Exact normalized-Hankel order in Zudilin’s construction</a><a class="toc-l2" href="#sec:open">Local cancellation and the remaining real estimate</a><a class="toc-l3" href="#one-minor-gcd-controls-two-different-costs">One minor gcd controls two different costs</a><a class="toc-l3" href="#a-collision-must-have-a-small-nonzero-real-remainder">A collision must have a small nonzero real remainder</a><a class="toc-l3" href="#the-source-specific-endpoint-question">The source-specific endpoint question</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#app:index">Guide to the formal sources</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>
 </html>

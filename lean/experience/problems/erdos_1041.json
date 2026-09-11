@@ -53,7 +53,7 @@
       "declaration_count": 21,
       "theorem_count": 18,
       "content_digest": "sha256:8736b05c24517e4568cfdfc49f0180089951cc6397ad720d20271fbc9e5e7351",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
     }
   ],
   "main_results": [
@@ -67,7 +67,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.exists_small_translation_separating_arguments",
       "statement": "An arbitrarily small common translation separates a finite injective family from zero and from shared positive rays.",
       "boundary": "Finite-family avoidance does not provide the global topological or metric gluing.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
     },
     {
       "id": "newton_root_retention",
@@ -79,7 +79,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.constant_perturbation_roots_in_unitDisk",
       "statement": "A quantified small constant perturbation keeps every polynomial root inside the open unit disc.",
       "boundary": "Root retention is only one input to an incomplete global route.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"
     }
   ],
   "comparator_review": {
@@ -225,8 +225,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
       "publication_manifest_match": true,
       "mathml_node_count": 518,
@@ -235,8 +235,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "f052f4f76f5561225ef3c9f0e6a84ab120a657418882ae09eec133ed0a43bce9",
-      "html_exact_tex_sha256": "4f5acd3953b176773211687e6111c201f0b126671f061510667769f5098ffe59"
+      "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
+      "html_exact_tex_sha256": "715624b9a971b974d4883af147aef355049303f2a39f5909568b8085f23c1376"
     },
     "sections": [
       {
@@ -403,7 +403,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_1041",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos1041",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos1041",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -437,8 +437,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
         "publication_manifest_match": true,
         "mathml_node_count": 518,
@@ -447,8 +447,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f052f4f76f5561225ef3c9f0e6a84ab120a657418882ae09eec133ed0a43bce9",
-        "html_exact_tex_sha256": "4f5acd3953b176773211687e6111c201f0b126671f061510667769f5098ffe59"
+        "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
+        "html_exact_tex_sha256": "715624b9a971b974d4883af147aef355049303f2a39f5909568b8085f23c1376"
       },
       "sections": [
         {
@@ -649,8 +649,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
         "publication_manifest_match": true,
         "mathml_node_count": 1244,

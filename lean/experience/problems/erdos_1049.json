@@ -49,7 +49,7 @@
       "declaration_count": 16,
       "theorem_count": 11,
       "content_digest": "sha256:593c3b3e776820de229bad00c7f374bb39416099de60250b375d52cfa5f6e56a",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.RationalPadeArithmetic",
@@ -59,7 +59,7 @@
       "declaration_count": 19,
       "theorem_count": 14,
       "content_digest": "sha256:c7b54971556577d73bbc563dcf14eaf62aef8d31e1450c4e7337028e46013690",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
@@ -69,7 +69,7 @@
       "declaration_count": 36,
       "theorem_count": 25,
       "content_digest": "sha256:9001917590300c4f10a049af0dc56192f9db95f2700b9cfac5ac88b31505b7d0",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.HermitePadeNoGo",
@@ -79,7 +79,7 @@
       "declaration_count": 10,
       "theorem_count": 5,
       "content_digest": "sha256:812f2ca2ea8b18f8ce8e0a68ae14897aa851fba2e050a07881d839168182f2cc",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.ZudilinHeightRegion",
@@ -89,7 +89,7 @@
       "declaration_count": 13,
       "theorem_count": 12,
       "content_digest": "sha256:bdb9ffaeab12363ed91a6385a6df8ef8e931003ad7862096ed28fc09aa3669fa",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean"
     },
     {
       "module": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
@@ -99,7 +99,7 @@
       "declaration_count": 11,
       "theorem_count": 4,
       "content_digest": "sha256:8094ead680a8a3be3e7ad2c6c2fbc89cd51c9f84a360bfb46f91f6fc4b90cda1",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
     }
   ],
   "main_results": [
@@ -113,7 +113,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.threeHalves_no_coordinatewiseCorridor",
       "statement": "The coordinatewise divisibility corridor is impossible at base 3/2.",
       "boundary": "This excludes one proof architecture and proves no irrationality statement.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "id": "rational_base_tail_recurrence",
@@ -125,7 +125,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.rationalBaseClearedTailQ_succ",
       "statement": "The rational-base cleared tail obeys its exact first-order recurrence.",
       "boundary": "The recurrence is not derived from a rationality contradiction.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "id": "rectangular_hp_threshold",
@@ -137,7 +137,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.rectangular_hp_threshold_eq_classical_iff",
       "statement": "For the explicit rectangular two-function exponent model, with real rho and sigma satisfying 0 <= rho and 1 + rho <= sigma, the threshold equals 1/2 - 1/pi^2 exactly when rho = 0 and sigma = 1.",
       "boundary": "This is a sharp no-go only for the explicit rectangular two-function model under the stated real hypotheses; it constructs no approximating polynomials or remainders and is not a universal Pade or Hermite-Pade no-go. It proves no irrationality at 3/2 or any general rational-base endpoint, and the analytic remainder/nonvanishing input remains untreated. No novelty, priority, significance, external-review, or endpoint claim is made; Erdős #1049 remains open.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
     }
   ],
   "comparator_review": {
@@ -286,8 +286,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
       "publication_manifest_match": true,
       "mathml_node_count": 405,
@@ -296,8 +296,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "074b00fb1cfde2de769fffa73a405e4a7b1ea5efe2c47ea6bbc7ce6d42395e29",
-      "html_exact_tex_sha256": "7a58bfa7e8676233075b26900cf76cb9166019de03ac8b7c04e23a62911d03ca"
+      "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
+      "html_exact_tex_sha256": "09d1b3aff9249b8187d69e33e777d4e7b3af74e7ff0495f21dc024aa13744ab1"
     },
     "sections": [
       {
@@ -409,7 +409,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_1049",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos1049",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos1049",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -443,8 +443,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
@@ -453,8 +453,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "074b00fb1cfde2de769fffa73a405e4a7b1ea5efe2c47ea6bbc7ce6d42395e29",
-        "html_exact_tex_sha256": "7a58bfa7e8676233075b26900cf76cb9166019de03ac8b7c04e23a62911d03ca"
+        "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
+        "html_exact_tex_sha256": "09d1b3aff9249b8187d69e33e777d4e7b3af74e7ff0495f21dc024aa13744ab1"
       },
       "sections": [
         {
@@ -600,8 +600,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
@@ -610,8 +610,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "fb381f3330169e5af54c5d336e0abb338d91303e169dd1cf7b4e290b5812ef8a",
-        "html_exact_tex_sha256": "6e7983bdf4477de8d87550ff9bf41c2d137abf82202d532d20273b74c808a907"
+        "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
+        "html_exact_tex_sha256": "92ea6dde358257662d2435ba90947d83fbc66df6fabb4184de57c035b451bcdc"
       },
       "sections": [
         {

@@ -126,16 +126,16 @@ does not prove irrationality at <code>3/2</code> or construct
 approximants with analytic remainder control.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
 and exact public statuses and open propositions live in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>claims.json</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>claims.json</code></a>.</p>
 <p>For a narrative account, open the relevant item in the <a
 href="readme.html#problem-papers">eight-paper portfolio</a>. For exact
 declarations and assumptions, use the <a href="source-map.html">source
 map</a>. The sections below retain the complete technical inventory,
 including result-family dispositions, semantic census data, finite
 measurements, and retractions; operational procedures live in the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>.</p>
 <p><a id="ten-minute-verdict"></a></p>
 <details>
 <summary>
@@ -623,7 +623,7 @@ algebraic independence of the Ramanujan values at algebraic
 <code>P(1/2) = 1 − 24 ∑_{n≥1} σ(n)/2ⁿ</code> makes the divisor-sum
 series <code>∑_{n≥1} σ(n)/2ⁿ</code> transcendental by an elementary
 affine rewrite (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/totient-kernel/nesterenko-1996-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/totient-kernel/nesterenko-1996-source-closure.md">source
 closure</a>). This is a distinct <code>σ</code>-coefficient ladder rung,
 not the Euler-totient constant <code>S</code>; Nesterenko’s analytic
 proof is not formalised here, and no #249 irrationality or novelty claim
@@ -635,7 +635,7 @@ linearly independent for <code>q = 1/p</code> with integer
 release’s separately formalised identity
 <code>L₂(1) = ζ_{1/2}(2) − ζ_{1/2}(1)</code> therefore gives an
 irrational constant-weight squared-Lambert value (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/postelmans-van-assche-2007-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/postelmans-van-assche-2007-source-closure.md">source
 closure</a>). This does not transfer to the Möbius-weighted totient
 constant <code>S</code>, and the source supplies no #249 or #257
 solution.</li>
@@ -643,7 +643,7 @@ solution.</li>
 gives irrationality of <code>∑ f(n)/t^{σ(n)}</code> and
 <code>∑ f(n)/t^{φ(n)}</code> under explicit nonnegative infinite-support
 and growth hypotheses (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/kaneko-suzuki-tachiya-2026-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/kaneko-suzuki-tachiya-2026-source-closure.md">source
 closure</a>). Here <code>φ(n)</code> is a denominator exponent, not the
 coefficient of <code>2⁻ⁿ</code>; this result does not transfer to
 <code>S</code>, arbitrary-support #257, or the release’s gcd-moment
@@ -827,7 +827,7 @@ synthetic rather than actual totient differences, nonlinear combinations
 are not covered, and no unbounded certificate supply follows.</li>
 <li>Two additional checked #249 families are directly inspectable: an
 exact <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/Erdos249257/GcdMomentCalculus.lean">squared-Lambert
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean">squared-Lambert
 gcd-moment transfer</a> at base <code>1/2</code> —
 <code>tsum_totient_div_mersenne_sq_eq_gcd_moment_series</code>
 identifies the totient-weighted squared-Mersenne Lambert series with the
@@ -981,7 +981,7 @@ rational arguments, but expressly says he cannot prove the ordinary
 <code>f(x)</code> case. It proves only the sine-twisted
 <code>g(1/t)</code> case for integer <code>t ≥ 5</code>, via long zero
 blocks in sums of two squares (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/chowla-1947-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/chowla-1947-source-closure.md">source
 closure</a>). Thus Chowla is historical context for the full-support
 <code>x = 1/2</code> Lambert value, not evidence for arbitrary-support
 #257 or a new release theorem.</p></li>
@@ -992,7 +992,7 @@ divisor-convolution Lambert value at every integer base with absolute
 value greater than one; their stronger Theorem 1 gives linear
 independence for nonnegative periodic coefficients, including full- and
 odd-support examples (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/luca-tachiya-2014-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/luca-tachiya-2014-source-closure.md">source
 closure</a>). The hypotheses are periodic and coefficient-specific, so
 this is not a theorem for arbitrary infinite supports and remains
 distinct from the release’s periodic-divisor certificate and mixed-sign
@@ -1021,7 +1021,7 @@ term-versus- remaining-tail criterion for filling that interval. It also
 states nowhere density when the criterion fails, but explicitly leaves
 the “infinitely many failures” necessary-and-sufficient refinement
 unproved (<a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/primary-sources/reciprocal-tail/kakeya-1914-source-closure.md">source
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/kakeya-1914-source-closure.md">source
 closure</a>). This is classical subsum-set context only: it does not
 prove an arithmetic statement about Mersenne denominators, rational
 points, or universal #257.</p></li>
@@ -1183,7 +1183,7 @@ selection on the ray-separated locus as an open parent carrier
 reported degree-seven counterexample announcement is a separate external
 claim.</p></li>
 <li><p>Current-source boundary: the committed <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md"><code>research_corpus/Erdos1041/FRONTIER.md</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md"><code>research_corpus/Erdos1041/FRONTIER.md</code></a>
 is the dated route for later source-only research evidence. Read it
 before the generated <code>STRONGEST_RESULTS.json</code>: it records
 certified refutations of several proposed strategies, surviving
@@ -1480,7 +1480,7 @@ certifiedKill (periodLcm t) (periodLcm t) L.</code></pre>
 <pre class="text"><code>periodLcm 79 = 32433859254793982911622772305630400,</code></pre>
 <p>a 35-digit modulus, as <code>periodLcm_79_value</code>.</p>
 <p>The source-backed <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/checked_diagonal_depth_roster.json"><code>checked_diagonal_depth_roster.json</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/measurements/checked_diagonal_depth_roster.json"><code>checked_diagonal_depth_roster.json</code></a>
 covers all 33 distinct <code>periodLcm</code> scales whose plateaux fill
 the positive band <code>t≤82</code>. Every recorded working depth lies
 <code>0…4</code> above the arithmetic admissibility floor (median
@@ -1506,7 +1506,7 @@ files. The largest position in that audited set is:</p>
 <p>Source:
 <code>ErdosProblems/FreePosition/FreeKill64OneHundredFifteenDI.lean</code>.</p>
 <p>The generated <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/off_diagonal_certificate_roster.json"><code>off_diagonal_certificate_roster.json</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/measurements/off_diagonal_certificate_roster.json"><code>off_diagonal_certificate_roster.json</code></a>
 retains all selected source rows and their hashes, identifies both
 duplicate groups, and binds each distinct triple to its exact theorem,
 line, and source hash. It is a navigation and evidence projection, not a
@@ -1680,7 +1680,7 @@ rules out finite-state interpretations, not rationality itself.</li>
 </ul>
 <p>Their registry identifiers lead to the declarations and current
 source coordinates; operational lookup details live in the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>.</p>
 </section>
 <section id="demand-ledger" class="level3">
 <h3>Demand ledger</h3>
@@ -2004,7 +2004,7 @@ greedy recurrence and the complete failure set for <code>1≤n≤1000</code>
 from the definitions in
 <code>Erdos249257/GreedyAchievementSet.lean</code>. The generated
 artifact is <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/measurements/second_channel_separation_probe.json"><code>docs/measurements/second_channel_separation_probe.json</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/measurements/second_channel_separation_probe.json"><code>docs/measurements/second_channel_separation_probe.json</code></a>.
 Its status is <code>MEASURED</code>, not <code>PROVED</code>; in
 particular, the empty finite failure set does not establish the
 all-<code>n</code> hypothesis consumed by the Lean theorem.</p>
@@ -2093,7 +2093,7 @@ the sign of a nonzero tail difference, not merely for non-equality.</p>
 <h2>Verification and continuation</h2>
 <p>The exact build, query, replay, contribution, and source-bound
 reproduction routes are maintained in the <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>, where they can stay
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/AGENT_WORKBENCH.md">agent workbench</a>, where they can stay
 current without interrupting the mathematical account here. The
 historical isolated-tree timings were a dated manual record, not a
 machine-revalidated receipt for the present source tree. Lean checks
@@ -2109,7 +2109,7 @@ reader who follows the front page still reaches every statement it used
 to carry.</p>
 <section id="problem-statements" class="level3">
 <h3>Problem statements</h3>
-<p><a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/papers/corpus.json"><code>docs/papers/corpus.json</code></a>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/corpus.json"><code>docs/papers/corpus.json</code></a>
 is the machine-readable index of the papers.</p>
 <table>
 <colgroup>
@@ -2174,17 +2174,17 @@ checkout, sibling repository, cache, or network access.</p>
 <h3>External verification</h3>
 <p>Nineteen selected Lean propositions are declared a second time,
 without proofs, in <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/verification/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
 Comparator checks the proof-bearing module against those separate
 declarations and against a fixed axiom budget of <code>propext</code>,
 <code>Quot.sound</code>, and <code>Classical.choice</code>; an
 adversarial fixture alters one statement and must be rejected. <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/formalization.yaml"><code>formalization.yaml</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a>
 records, per selected result, the contribution class, exact statement,
 source declaration, boundary, <code>sorry</code> count, and axioms.
 Manifest and <a href="external-verification.html">verification packet</a>
 cover all eight problem programmes; <a
-href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md">replay</a> gives the reviewer-run
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION_REPLAY.md">replay</a> gives the reviewer-run
 Linux route. The same check runs in continuous integration against the
 reviewed source commit. Comparator checks propositions only: no paper
 deduction, cited theorem, external computation, intended meaning,
@@ -2198,7 +2198,7 @@ improvement. Full-kernel infinite rank is Coons’s prior result, the
 all-base rank paper theorem uses Martin externally, and #269’s two-prime
 result is not first.</p>
 <p><code>v0.10.0</code> is the latest tagged release and citation
-anchor; <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the
+anchor; <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the
 exact formal-source checkpoint this release ships. Lean source checked
 by the pinned Lean kernel is proof authority; do not infer results from
 private or unreleased work.</p>
@@ -2372,7 +2372,7 @@ href="#other-standalone-exact-obstructions">RESULTS</a>.</p>
 <p>An exact final-skip band formula does not show that the actual orbit
 avoids an unsafe band.</p>
 <p><a href="orientation.html">Orientation</a> routes claims; the retained
-<a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/archive/erdos249-257-main-paper.pdf">mathematics
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.pdf">mathematics
 paper</a> preserves the joint #249/#257 exposition.</p>
 </section>
 </section>

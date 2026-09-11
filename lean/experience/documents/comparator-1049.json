@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/comparator-1049.html",
     "html_exact_tex": "documents/comparator-1049.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "f46a4826481261b61570c98552d06f155b8c3b3746d108475e6bfb4e1deddb27",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "fdceb4fd9b74d33c5e1d07d6535ee771cdf742a3e54c033286d192f4ba1d9c41",
-    "html_exact_tex_sha256": "a3650911931674d070bf8bc8670681eda08de6f684275a243ba632a1056f47e6"
+    "html_mathml_sha256": "0fad01e2e5676ea32c8144ba706a9e80431b1d244f51318b141054c356025842",
+    "html_exact_tex_sha256": "460dbf32f4502f24fe30025b4b77bc0ec985f28bbf3c8e29987502f9da882062"
   },
   "sections": [
     {

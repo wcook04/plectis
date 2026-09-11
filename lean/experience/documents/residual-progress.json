@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/residual-progress.html",
     "html_exact_tex": "documents/residual-progress.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RESIDUAL_PROGRESS.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESIDUAL_PROGRESS.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "3dc33fe9080152678a66529af9ad514c873ff67a680141575b359274f2251bd4",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "6ed49152808c09e221365fbf82f98812e4e610c1dac4feacf172c4d529f0441a",
-    "html_exact_tex_sha256": "e53b4603684d39a766f35109b58a6fe667af0db8c42d329f899531aa6edf899e"
+    "html_mathml_sha256": "4304244ca1bf9d58cd824ebfcfc0f57f6b68e564b68288d615f18e39e4a0af7e",
+    "html_exact_tex_sha256": "c26e51c867742488e5247c95049e7c85b8ed8ce83b632a64fa99002758ec3c06"
   },
   "sections": [
     {

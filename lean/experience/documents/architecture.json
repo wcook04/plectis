@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/architecture.html",
     "html_exact_tex": "documents/architecture.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ARCHITECTURE.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ARCHITECTURE.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "7ca8beb92b479c881bc78d34d83ec11f004cbd7bd2790539a2074fd97b8e4512",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "3cce4c22c02e974554afa6a9c5c8529e8a63165c07188ff945c5208a59de6a77",
-    "html_exact_tex_sha256": "1fbab783405eb59b83b046a230266eae12a863d59edfcce366a5dde357f17e26"
+    "html_mathml_sha256": "3e0165507f39da44c26eeb3a2da3db8998e9793fdeda14ba01832bd7e4ad6834",
+    "html_exact_tex_sha256": "1cbb0c15c95362ee8895c713c95e3b405ac9a5bfa4a25796d2e89d08559b222a"
   },
   "sections": [
     {

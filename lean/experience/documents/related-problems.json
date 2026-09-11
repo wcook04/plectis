@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/related-problems.html",
     "html_exact_tex": "documents/related-problems.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/RELATED_PROBLEMS.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "0b3bf5e4a968a1f393c1a933f1335e52793ccbcd3654a79e8c9e35ecd9d03667",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "0a6278e582a94ff751c2f233e8d4f0448f94a54344ddd4199def31a014b8aa6e",
-    "html_exact_tex_sha256": "b16461a06d2840a6cad27552ab82e9a160eac9e97c05021442352842eb539a80"
+    "html_mathml_sha256": "d4a39f700b1a4b2b0f549fb49177937491fdb65a3341ceab469eb7138fc9c76f",
+    "html_exact_tex_sha256": "8e9a76ae23cc39ef0a39b201975f345c2e8ceec3ef8a14b9ac6c3b9e5fd94257"
   },
   "sections": [
     {

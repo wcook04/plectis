@@ -54,7 +54,7 @@
       "declaration_count": 36,
       "theorem_count": 31,
       "content_digest": "sha256:2eb8e4e63d7282a58c84b83801b06cafe0d383044f5a8a2a8960e58cac28d94b",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.CanonicalFactorialDigits",
@@ -64,7 +64,7 @@
       "declaration_count": 18,
       "theorem_count": 15,
       "content_digest": "sha256:a0b711c869ded5d04b3f22b27ff57ea574cb28550c27535f3c8b4047f8f14827",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.ChannelBreakpointRigidity",
@@ -74,7 +74,7 @@
       "declaration_count": 10,
       "theorem_count": 8,
       "content_digest": "sha256:0f62e658b9964a37ad2bf0310d99ec4fa35f385720932d66e91abac28b65a903",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.ChannelIntegralCongruence",
@@ -84,7 +84,7 @@
       "declaration_count": 55,
       "theorem_count": 46,
       "content_digest": "sha256:ea7c7f97d774c1cbb9021eb6708da60dcc09ecf6e3c872323aef312b6a026c97",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.DivisorFactorialCentre",
@@ -94,7 +94,7 @@
       "declaration_count": 18,
       "theorem_count": 13,
       "content_digest": "sha256:9fea8662f744c1d4bd948065e7a024315620bec3b3714c82fedea7f1b3de656b",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/DivisorFactorialCentre.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/DivisorFactorialCentre.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
@@ -104,7 +104,7 @@
       "declaration_count": 223,
       "theorem_count": 183,
       "content_digest": "sha256:e76dee594f84438f2d189e028e6507efdd162b2157ab60eccd5998174d27c026",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.FactorialCarry",
@@ -114,7 +114,7 @@
       "declaration_count": 8,
       "theorem_count": 5,
       "content_digest": "sha256:45438410c87c1e0e21e1157cb75e067adf467f89ec0d836d0ab2c569b64da730",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialCarry.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialCarry.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.FactorialChannelCertificate",
@@ -124,7 +124,7 @@
       "declaration_count": 17,
       "theorem_count": 11,
       "content_digest": "sha256:170b6eadada6558fb37892ff30e4fbdb1e1c2474db33241da38867dcbd4213a6",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialChannelCertificate.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialChannelCertificate.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.FactorialZeroPlateau",
@@ -134,7 +134,7 @@
       "declaration_count": 63,
       "theorem_count": 57,
       "content_digest": "sha256:00225da717d14e616b606a98dbca4469edd31e4bb83ae1504591e45e68755fbf",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.FiniteDefectAutomaton",
@@ -144,7 +144,7 @@
       "declaration_count": 10,
       "theorem_count": 6,
       "content_digest": "sha256:c072b7c22b1f86b69868db89aa9e2d2626d8637bbe5a08a2ca860c30c28fe6c3",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FiniteDefectAutomaton.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.PrimeUnitTranslator",
@@ -154,7 +154,7 @@
       "declaration_count": 91,
       "theorem_count": 70,
       "content_digest": "sha256:ceec4294ac834abb7850fe8732a5eea455328ade40bf9a5eb66c6f37cbef2c9a",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/PrimeUnitTranslator.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PrimeUnitTranslator.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.PrimeZeroBranch",
@@ -164,7 +164,7 @@
       "declaration_count": 187,
       "theorem_count": 155,
       "content_digest": "sha256:de5508cb858fdaaa5d9c4b40bcb65a6960f8c7ebb6209887bd57e800c6674900",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/PrimeZeroBranch.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PrimeZeroBranch.lean"
     },
     {
       "module": "ErdosProblems.Erdos68.StrictSuccessorArithmetic",
@@ -174,7 +174,7 @@
       "declaration_count": 4,
       "theorem_count": 4,
       "content_digest": "sha256:e03320c57d2ae0d42f52564023f4d62d92e805696bf010d6b48c66ecb053064b",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean"
     }
   ],
   "main_results": [
@@ -188,7 +188,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses",
       "statement": "Irrationality is equivalent to cofinally many strict-successor divisibility failures.",
       "boundary": "The equivalence does not prove that the cofinal failures occur.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
     },
     {
       "id": "factorial_nonunit_carry_equivalence",
@@ -200,7 +200,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_factorialGapSeries_iff_cofinal_nonunit_carries",
       "statement": "Irrationality is equivalent to cofinally many non-unit carries.",
       "boundary": "The equivalence does not supply a cofinal carry producer.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
     }
   ],
   "comparator_review": {
@@ -328,8 +328,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
       "publication_manifest_match": true,
       "mathml_node_count": 303,
@@ -338,8 +338,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "b20f6fbac80439b0a1e22abd786a66650a4b155fe50b3a5a2c3b76e7cbc45cb4",
-      "html_exact_tex_sha256": "949994c7a7d8a8e2b68e156ce1730b5c204d18373d6b544e6c35117372e67db9"
+      "html_mathml_sha256": "aa7fa86431547b895304091a0334e599abd1556a43d0959ebf07ce9e61f143c4",
+      "html_exact_tex_sha256": "9f729528b39c90192212776912046331cdbeedc8727858b0ede32e63b870cff2"
     },
     "sections": [
       {
@@ -436,7 +436,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_68",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos68",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos68",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -470,8 +470,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
         "publication_manifest_match": true,
         "mathml_node_count": 303,
@@ -480,8 +480,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "b20f6fbac80439b0a1e22abd786a66650a4b155fe50b3a5a2c3b76e7cbc45cb4",
-        "html_exact_tex_sha256": "949994c7a7d8a8e2b68e156ce1730b5c204d18373d6b544e6c35117372e67db9"
+        "html_mathml_sha256": "aa7fa86431547b895304091a0334e599abd1556a43d0959ebf07ce9e61f143c4",
+        "html_exact_tex_sha256": "9f729528b39c90192212776912046331cdbeedc8727858b0ede32e63b870cff2"
       },
       "sections": [
         {
@@ -612,8 +612,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
         "publication_manifest_match": true,
         "mathml_node_count": 883,
@@ -622,8 +622,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "8e8d8c20083f1cf8014c3a86dc12122b1139aa4e7e9afa4585d07e3ae606742b",
-        "html_exact_tex_sha256": "3c9ef1c29860c32b482bf910084c44a0dc01dfe8b38239e82efe3d2eefaece43"
+        "html_mathml_sha256": "ecee1171fc8d7a54220c6dfad7cf7dcf0332a4985c823d8acd423627c809421c",
+        "html_exact_tex_sha256": "fb4af0af66bb36c1bc5944e354be4f6364519cc7dd8b4ac525dd086c8720df67"
       },
       "sections": [
         {

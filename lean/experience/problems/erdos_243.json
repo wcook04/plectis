@@ -49,7 +49,7 @@
       "declaration_count": 77,
       "theorem_count": 67,
       "content_digest": "sha256:3145b8a5a4c3783fa4c79b726e20f55285a7a43ec58a5e876bf3e4a3d1f88ff9",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.FiniteHorizonResidue",
@@ -59,7 +59,7 @@
       "declaration_count": 10,
       "theorem_count": 7,
       "content_digest": "sha256:61d3b9deeb41875b031a0b50a27b336d3ebbbfe7111eda14450227c142d13006",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.SparseResetRecovery",
@@ -69,7 +69,7 @@
       "declaration_count": 20,
       "theorem_count": 15,
       "content_digest": "sha256:9382f94cc6aa852dec4566a1dd1c46451a0178bdd339ca194d99116a1f00381e",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.DynamicCancellation",
@@ -79,7 +79,7 @@
       "declaration_count": 15,
       "theorem_count": 15,
       "content_digest": "sha256:82f16b7f678b422b2c939a1587d27c0fc8c3be08272079e6965eb184bb28d2d6",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/DynamicCancellation.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/DynamicCancellation.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.FeedbackRealizability",
@@ -89,7 +89,7 @@
       "declaration_count": 7,
       "theorem_count": 7,
       "content_digest": "sha256:b5244899b15e5554ca45d0079023b9ec50622569c607b8ebaaf13ba2eba7c8e3",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/FeedbackRealizability.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/FeedbackRealizability.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.GlobalLcmHeight",
@@ -99,7 +99,7 @@
       "declaration_count": 13,
       "theorem_count": 9,
       "content_digest": "sha256:9b9d070b01a39b6685f9aee7b7669e22589b2a2a5dbf57a9c299879429711d02",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/GlobalLcmHeight.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/GlobalLcmHeight.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.LcmCriticalBoundary",
@@ -109,7 +109,7 @@
       "declaration_count": 15,
       "theorem_count": 14,
       "content_digest": "sha256:da5323838ee6412f15f2a9a169188edd46d105ba5a9b36a4161a1ca3cff33fbe",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/LcmCriticalBoundary.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmCriticalBoundary.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.PrimitivePrefixRigidity",
@@ -119,7 +119,7 @@
       "declaration_count": 6,
       "theorem_count": 4,
       "content_digest": "sha256:5bb23f80d66cb863e4504775476f0633d6814a749fe26a586596d390a0385327",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/PrimitivePrefixRigidity.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PrimitivePrefixRigidity.lean"
     },
     {
       "module": "ErdosProblems.Erdos243.WeightedCRTRepair",
@@ -129,7 +129,7 @@
       "declaration_count": 17,
       "theorem_count": 11,
       "content_digest": "sha256:7bd0b18c719d15929bcee8039eb56cc7692853e917853f25e5f74065f603a763",
-      "github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/lean/ErdosProblems/Erdos243/WeightedCRTRepair.lean"
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/WeightedCRTRepair.lean"
     }
   ],
   "main_results": [
@@ -143,7 +143,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_cofinallyBoundedNegative_of_normalizedVanishes",
       "statement": "Normalised vanishing and bounded rise exclude a cofinally bounded negative part.",
       "boundary": "All dynamics, bounded-rise, positivity, and vanishing hypotheses remain explicit.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
       "id": "centered_state_dynamics",
@@ -155,7 +155,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.boundedNegativePart_eventually_zero",
       "statement": "Under exact natural C/D dynamics with a > 1, C > 0, E = D - (a - 1)C, strict |E| < C, a uniform lower bound on E, and division-free normalized vanishing, boundedNegativePart_eventually_zero forces E = 0 eventually; centered-zero plus an eventually nonzero next tail recovers eventual Sylvester recurrence.",
       "boundary": "The signed theorem has a C D : ℕ → ℕ, E : ℕ → ℤ, and B : ℕ with all exact hypotheses explicit: a > 1, C > 0, C(n + 1) + D(n) = a(n) · C(n), D(n + 1) = a(n) · D(n), E is the centered state D − (a − 1)C, |E| < C, a uniform lower bound on E, and division-free normalized vanishing. It excludes persistent bounded negative behaviour and forces eventual centered defect zero; centered-zero plus an eventually nonzero next tail recovers Sylvester, but no reciprocal-tail irrationality follows. The unbounded negative mixed-sign branch and the prime-specific producer remain open. This is distinct from the periodic negative-orbit and cofinally bounded-negative no-go families; no novelty, priority, significance, or external-review claim is made, and no unrestricted #243 solution follows.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
       "id": "negative_mass_recovery",
@@ -167,7 +167,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.sylvesterNext_eventually_of_summable_negativeRelativeMass",
       "statement": "Under exact next-denominator and next-tail C/D dynamics with a, D : ℕ → ℤ, C : ℕ → ℕ, C > 0, the strict centered step equation, division-free normalized vanishing, and Summable normalized negative centered mass, the centered state vanishes eventually and a follows the Sylvester recurrence eventually.",
       "boundary": "This is a conditional recovery criterion: the source theorem assumes every displayed dynamics, positivity, strict centered-step, normalized-vanishing, and summability hypothesis, and does not prove them for the original Erdős #243 orbit. Any surviving canonical orbit must have divergent normalized negative mass. It supplies no prime-specific producer, unconditional #243 endpoint, or reciprocal-tail irrationality, and makes no novelty, priority, significance, or external-review claim. It is distinct from centered_state_dynamics, which uses a uniform lower-bound hypothesis rather than summability of normalized negative mass.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
     },
     {
       "id": "eventually_periodic_negative_no_go",
@@ -179,7 +179,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_eventuallyPeriodicNegative_orbit",
       "statement": "An eventually periodic negative-error orbit with positive phase growth is impossible.",
       "boundary": "The theorem does not cover arbitrary unbounded negative behaviour.",
-      "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     }
   ],
   "comparator_review": {
@@ -317,8 +317,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 18,
-      "renderer_fingerprint": "a8a2ee61a164fcd3",
+      "renderer_contract_version": 19,
+      "renderer_fingerprint": "8651f9b48af00d0c",
       "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
       "publication_manifest_match": true,
       "mathml_node_count": 278,
@@ -327,8 +327,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "9c5992c66d8d945b8e3eed262afb2511b6842988d8a56b40f2ccb6ff6c808a8f",
-      "html_exact_tex_sha256": "4c68401eeaa958ba9a6f8b6bc582b4b55f38d11881ab7f98fa613fb3eca9ce06"
+      "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
+      "html_exact_tex_sha256": "775b39549600ae1f2cec7cadfd0357ffed608599e4612dd63551fbac268a5986"
     },
     "sections": [
       {
@@ -420,7 +420,7 @@
   },
   "routes": {
     "graph_node": "problem:erdos_243",
-    "github_directory": "https://github.com/wcook04/plectis-lean-erdos249-257/tree/main/lean/ErdosProblems/Erdos243",
+    "github_directory": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos243",
     "claims": "../../claims.json",
     "problem_source": "../../problems.json"
   },
@@ -454,8 +454,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
         "publication_manifest_match": true,
         "mathml_node_count": 278,
@@ -464,8 +464,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "9c5992c66d8d945b8e3eed262afb2511b6842988d8a56b40f2ccb6ff6c808a8f",
-        "html_exact_tex_sha256": "4c68401eeaa958ba9a6f8b6bc582b4b55f38d11881ab7f98fa613fb3eca9ce06"
+        "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
+        "html_exact_tex_sha256": "775b39549600ae1f2cec7cadfd0357ffed608599e4612dd63551fbac268a5986"
       },
       "sections": [
         {
@@ -591,8 +591,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 18,
-        "renderer_fingerprint": "a8a2ee61a164fcd3",
+        "renderer_contract_version": 19,
+        "renderer_fingerprint": "8651f9b48af00d0c",
         "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
         "publication_manifest_match": true,
         "mathml_node_count": 1591,
@@ -601,8 +601,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "7b61493242a40aa8a9b92b27f83e278e65b784e1ce4a4b937552bfa3326c4450",
-        "html_exact_tex_sha256": "59bb24383bda9120941dd25ee0a5d495e52db12247b94a06e6ff0bc47c262a89"
+        "html_mathml_sha256": "e0fbb020622207caf379abba279d209b83811ee103d273a94330a953a3493b94",
+        "html_exact_tex_sha256": "d03b137b80253de801a55ad33130ef76bb96342257000e019a42c64de0bd1f82"
       },
       "sections": [
         {

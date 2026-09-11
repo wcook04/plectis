@@ -8,7 +8,7 @@
   "routes": {
     "html_mathml": "documents/wave-index.html",
     "html_exact_tex": "documents/wave-index.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/WAVE_INDEX.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/WAVE_INDEX.md"
   },
   "render_contract": {
     "preferred": "html_mathml",
@@ -17,8 +17,8 @@
     "frontend_math_dependency": null,
     "source_sha256": "501f06bf244dbcc7a32cb27d234f25d6542f1c9169864c34bc39f9e09c5d19b5",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 18,
-    "renderer_fingerprint": "a8a2ee61a164fcd3",
+    "renderer_contract_version": 19,
+    "renderer_fingerprint": "8651f9b48af00d0c",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +27,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "1a4f5e8a2f4afce6f1af480fb1659d47cae9748ecf5b201586558cee350d5530",
-    "html_exact_tex_sha256": "3fa6efa41e20430cc59636ea9a7680cfbd7d5057b2fa3a83a3d59bbe2a030707"
+    "html_mathml_sha256": "e9196d2d910e0349de1ae666c3dc1670bedb8eee35c66032bb7498adfafbc0b5",
+    "html_exact_tex_sha256": "8607d3fd54e6db6ea1b98e8994114093f544e7b8d7ffee0190fc787ec22d75e3"
   },
   "sections": [
     {

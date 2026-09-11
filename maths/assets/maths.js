@@ -97,30 +97,47 @@
 })();
 
 window.__plectisTypesetPage = function (MathJax) {
+  /* A dossier inlines the short paper and the long record. Typesetting a
+     30-page stage in one go freezes the tab; typeset the visible section
+     first, then the rest as it enters view and during idle time. */
   var stages = Array.prototype.slice.call(
     document.querySelectorAll('.paper-stage')
   );
   if (!stages.length) {
     return MathJax.typesetPromise();
   }
+  function chunksOf(stage) {
+    var sections = Array.prototype.slice.call(
+      stage.querySelectorAll(':scope > section')
+    );
+    return sections.length > 1 ? sections : [stage];
+  }
+  var chunks = [];
+  stages.forEach(function (stage) {
+    chunksOf(stage).forEach(function (chunk) { chunks.push(chunk); });
+  });
   function inView(el) {
     var r = el.getBoundingClientRect();
     var vh = window.innerHeight || 800;
     return r.bottom > 0 && r.top < vh + 240;
   }
-  var first = stages.filter(inView);
-  if (!first.length) first = [stages[0]];
-  var rest = stages.filter(function (stage) {
-    return first.indexOf(stage) === -1;
-  });
+  var queued = [];
+  function already(node) {
+    return queued.indexOf(node) !== -1;
+  }
   function typeset(nodes) {
-    if (!nodes.length) return Promise.resolve();
-    return MathJax.typesetPromise(nodes).then(function () {
-      nodes.forEach(function (node) {
-        node.classList.add('is-typeset');
-      });
+    var fresh = nodes.filter(function (node) { return !already(node); });
+    fresh.forEach(function (node) { queued.push(node); });
+    if (!fresh.length) return Promise.resolve();
+    return MathJax.typesetPromise(fresh).then(function () {
+      fresh.forEach(function (node) { node.classList.add('is-typeset'); });
     });
   }
+  var first = chunks.filter(inView);
+  if (!first.length) first = [chunks[0]];
+  var rest = chunks.filter(function (chunk) {
+    return first.indexOf(chunk) === -1;
+  });
   return typeset(first).then(function () {
     if (!rest.length) return;
     if ('IntersectionObserver' in window) {
@@ -130,12 +147,17 @@ window.__plectisTypesetPage = function (MathJax) {
           io.unobserve(entry.target);
           typeset([entry.target]);
         });
-      }, { rootMargin: '480px 0px' });
+      }, { rootMargin: '640px 0px' });
       rest.forEach(function (node) { io.observe(node); });
-      return;
     }
-    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1); };
-    idle(function () { typeset(rest); });
+    var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 32); };
+    function drain(index) {
+      if (index >= rest.length) return;
+      idle(function () {
+        typeset([rest[index]]).then(function () { drain(index + 1); });
+      });
+    }
+    drain(0);
   });
 };
 
