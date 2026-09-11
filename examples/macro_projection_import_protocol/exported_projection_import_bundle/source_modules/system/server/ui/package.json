@@ -8,11 +8,13 @@
     "dev:all": "cd ../../.. && ./repo-python tools/meta/testing/frontend_dev_server.py --dev-all",
     "dev:vite-only": "cd ../../.. && ./repo-python tools/meta/testing/frontend_dev_server.py",
     "typecheck": "tsc -p tsconfig.app.json --incremental && tsc -p tsconfig.node.json --incremental",
-    "build": "npm run check:station-geometry && npm run typecheck && vite build",
-    "build:web": "npm run check:station-geometry && npm run typecheck && vite build",
-    "build:embedded": "npm run typecheck && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=../../../apps/zenith-macos/dist/ZenithApp.app/Contents/Resources/EmbeddedWeb vite build",
-    "build:embedded:installed": "npm run typecheck && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=/Applications/Zenith.app/Contents/Resources/EmbeddedWeb vite build",
+    "build": "npm run check:station-geometry && npm run typecheck && vite build && ZENITH_UI_VERIFY_DIR=../static npm run verify:embedded",
+    "build:web": "npm run check:station-geometry && npm run typecheck && vite build && ZENITH_UI_VERIFY_DIR=../static npm run verify:embedded",
+    "build:embedded": "npm run typecheck && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=../../../apps/zenith-macos/dist/ZenithApp.app/Contents/Resources/EmbeddedWeb vite build && ZENITH_UI_VERIFY_DIR=../../../apps/zenith-macos/dist/ZenithApp.app/Contents/Resources/EmbeddedWeb npm run verify:embedded",
+    "build:embedded:installed": "npm run typecheck && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=/Applications/Zenith.app/Contents/Resources/EmbeddedWeb vite build && npm run verify:embedded:installed",
     "build:all": "npm run build:web && npm run build:embedded && npm run build:embedded:installed",
+    "verify:embedded": "node scripts/verifyEmbeddedAtlasBundle.mjs",
+    "verify:embedded:installed": "ZENITH_UI_VERIFY_DIR=/Applications/Zenith.app/Contents/Resources/EmbeddedWeb npm run verify:embedded",
     "test": "cd ../../.. && ./repo-python tools/meta/testing/frontend_vitest.py",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -58,6 +60,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vitest": "^3.2.4"
+    "vitest": "4.1.11"
   }
 }

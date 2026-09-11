@@ -1,7 +1,7 @@
 {
   "schema_version": "source_module_refresh_policy_v0",
   "policy_id": "microcosm_source_module_exact_copy_refresh_policy",
-  "policy_revision": "source_module_refresh_policy_2026_06_28_agent_route_observability_builder_refresh_v1",
+  "policy_revision": "source_module_refresh_policy_2026_09_11_station_package_security_v1",
   "operation": "exact_copy_source_module_refresh",
   "authority_boundary": "Operation-scoped authority for canonical exact-copy source-module refresh only. This is not release, publication, source-mutation, provider-call, account/session, private-root equivalence, or whole-system correctness authority.",
   "authority_source": {
@@ -354,6 +354,27 @@
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json::command_output_sidecar_helper_body_import"
       ],
       "anti_claim": "This grant permits only refresh for the declared command-output public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "station_geometry_package_security_exact_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/server/ui/package.json",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "station_geometry_build_wiring_source_body_import"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+        "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_09_11_station_package_security_v1",
+      "provenance_refs": [
+        "https://github.com/vitest-dev/vitest/security/advisories/GHSA-82fw-gwwq-j7x9",
+        "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json::station_geometry_build_wiring_source_body_import"
+      ],
+      "anti_claim": "Refresh only the already-published package manifest in these two example bundles, including patched development dependencies. No other UI source, account state, credentials, release or publication authority is granted."
     }
   ]
 }

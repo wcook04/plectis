@@ -1,25 +1,25 @@
 {
   "schema": "plectis-lean-companion-snapshot/v1",
   "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
-  "observed_at": "2026-08-17",
+  "observed_at": "2026-09-11",
   "upstream": {
     "repository": "https://github.com/wcook04/plectis-erdos",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "6843a666b2d8db78d41738697532d5ffbc46af55",
+    "public_ref": "6f41f392be83c15a7a70d0dc808a51891ad784ce",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "ed1a841190c104260be0a354cced4315c4603b7f9176ac3dab081e8f88e97be3",
-    "latest_tag": "v0.9.0",
-    "release_tag_object": "6843a666b2d8db78d41738697532d5ffbc46af55",
-    "release_commit": "6843a666b2d8db78d41738697532d5ffbc46af55",
+    "orientation_sha256": "b4c882bf2dc37c385f77150e2b8f5f4ea37d884a5fe633e558629af0356a586f",
+    "latest_tag": "v0.10.0",
+    "release_tag_object": "d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e",
+    "release_commit": "d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e",
     "problems_path": "docs/problems.json"
   },
   "scale": {
-    "module_count": 1023,
-    "declaration_count": 153320,
-    "theorem_like_count": 151085,
+    "module_count": 1274,
+    "declaration_count": 156245,
+    "theorem_like_count": 153502,
     "generated_certificate_declaration_count": 8171,
-    "principal_claim_link_count": 333
+    "principal_claim_link_count": 451
   },
   "authority_ceiling": {
     "scale_projection_only": true,
@@ -53,6 +53,6 @@
     "observed_statuses": [
       "open"
     ],
-    "problems_sha256": "e13e80b5cd74acba27587d4e067e4b9ae9f02160bf706da5bd54da6a7aa780d8"
+    "problems_sha256": "229edb81876b106f3dbe7eed462cc4affda18e02a814efaddc2c24b76c463777"
   }
 }

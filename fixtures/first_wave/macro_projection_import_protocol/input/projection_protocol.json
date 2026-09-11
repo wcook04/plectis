@@ -10709,24 +10709,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
+      "body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
-        "source_line_count": 7,
-        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+        "source_body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
+        "source_line_count": 65,
+        "source_ref": "system/server/ui/package.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
-        "target_line_count": 7,
+        "target_body_digest": "sha256:3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
+        "target_line_count": 65,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 7,
+      "body_line_count": 65,
       "body_text_in_receipt": false,
       "byte_count": 258,
       "claim_ceiling": "public spatial world-model Station geometry source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, private video export, raw sensor body export, simulator-product authority, release, publication, private-root equivalence, or whole-system correctness authority",
@@ -10743,14 +10743,8 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/ui/package.json",
-        "substitution": "public_safe_stub"
-      },
       "sha256_match": true,
-      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+      "source_ref": "system/server/ui/package.json",
       "source_refs": [
         "system/server/ui/package.json",
         "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
