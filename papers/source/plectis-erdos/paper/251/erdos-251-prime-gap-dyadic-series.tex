@@ -136,8 +136,10 @@ spacing tends to infinity.  For the polylogarithmic bound the spacing is
 comparable to $\log\log n$.  At most $m$ starting blocks of length $m$ meet
 one changed coefficient, so the total variation error is
 $O_\varepsilon(m/\log\log X)$ for $m=o(\log\log X)$.
-The full schedule and endpoint estimates are given in the companion
-sparse-rationalisation proof.
+The identities used above are the Lean-checked elementary core; the
+explicit spacing and block-law estimates in this paragraph are ordinary
+mathematics. There is no separately published companion file
+\texttt{SparseRationalisation.md}.
 \end{proof}
 
 Every bounded test of these blocks has the same asymptotic empirical
@@ -1255,8 +1257,11 @@ choices, or the interpretation, for which the author remains responsible.
 For Proposition~\ref{res:sparserationalisation}, the pair identities,
 congruence buffer and abstract variable-alphabet filling are checked in
 \texttt{SparseRationalisationCore.lean}.  The schedule, upper Banach density,
-and block-law transfer have ordinary proofs in
-\texttt{SparseRationalisation.md}.
+and block-law transfer are ordinary proofs, given in the Construction
+paragraph of that proposition; they are not Lean- or Comparator-verified.
+There is no separately published companion file
+\texttt{SparseRationalisation.md}.  End-to-end sparse candidate sources in
+the repository are labelled UNRUN and are not presented as checked theorems.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.

@@ -89,13 +89,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.pdf",
-      "source_sha256": "a5f1244c1877499b27f6da13d4e62ac388dcd0b8c5caea7ee09e8a03a457c8df",
-      "bytes": 143799,
+      "source_sha256": "a01f489c175075122fc4d9f51fd93510042d8fc93ac99c5786a57615e8ccae5c",
+      "bytes": 144150,
       "source_tex_path": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex",
-      "hosted_tex_sha256": "a0e8c41005bd3725a432285f21e8d4199351de6b3378fe13c2b1e4376d5cf38e",
-      "tex_bytes": 73174
+      "hosted_tex_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+      "tex_bytes": 73574
     },
     {
       "hosted_path": "papers/erdos251-prime-gap-reasoning-surface.pdf",

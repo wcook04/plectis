@@ -220,13 +220,13 @@
     },
     "how_to_contribute": {
       "kind": "proof",
-      "note": "Supply the h = 1 cofinal adjacent-small-mismatch producer from actual consecutive-prime arithmetic. Coarse gap properties cannot supply it (the polynomial countermodel), the measured event density of 0.0042 to 0.0082 over 6.8 million primes is finite evidence only, and a Lean-checked consumer converts the producer into irrationality."
+      "note": "Supply the h = 1 cofinal adjacent-small-mismatch producer from actual consecutive-prime arithmetic. Coarse gap properties cannot supply it (the polynomial countermodel), and the measured event density of 0.0042 to 0.0082 over 6.8 million primes is finite evidence only. Establishing the adjacent-small-mismatch condition for h=1 would settle one useful case of the open producer. The full tail-shift route to irrationality requires the corresponding condition for every fixed positive h; the h=1 case alone does not complete it."
     },
     "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. …",
     "failed_approaches": [
       "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
       "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
-      "Liouville-flavoured attacks: the certified expansion has irrationality-exponent witness 2.0007."
+      "Liouville-flavoured attacks: a finite continued-fraction expansion yields a local exponent-style witness 2.0007, which is not an irrationality-exponent theorem."
     ],
     "public_entry_ids": [
       "ExternalVerification251PolynomialShiftCountermodel",

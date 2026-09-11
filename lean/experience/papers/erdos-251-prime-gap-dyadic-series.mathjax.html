@@ -137,9 +137,10 @@ class="math inline" data-term-auto="off">\(m\)</span> starting blocks of length 
 class="math inline" data-term-auto="off">\(m\)</span> meet one changed coefficient, so the
 total variation error is <span
 class="math inline" data-term-auto="off">\(O_\varepsilon(m/\log\log X)\)</span> for <span
-class="math inline" data-term-auto="off">\(m=o(\log\log X)\)</span>. The full schedule and
-endpoint estimates are given in the companion sparse-rationalisation
-proof. ◻</p>
+class="math inline" data-term-auto="off">\(m=o(\log\log X)\)</span>. The identities used above are the Lean-checked elementary core; the
+explicit spacing and block-law estimates in this paragraph are ordinary
+mathematics. There is no separately published companion file
+<code>SparseRationalisation.md</code>. ◻</p>
 </div>
 <p>Every bounded test of these blocks has the same asymptotic empirical
 average. A density-zero witness family can lie inside the changed
@@ -1484,8 +1485,9 @@ responsible.</p>
 class="math inline" data-term-auto="off">\(\ref{res:sparserationalisation}\)</span>, the pair
 identities, congruence buffer and abstract variable-alphabet filling are
 checked in <code>SparseRationalisationCore.lean</code>. The schedule,
-upper Banach density, and block-law transfer have ordinary proofs in
-<code>SparseRationalisation.md</code>.</p>
+upper Banach density, and block-law transfer are ordinary proofs, given in the Construction paragraph of that
+proposition; they are not Lean- or Comparator-verified. There is no separately
+published <code>SparseRationalisation.md</code>.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
