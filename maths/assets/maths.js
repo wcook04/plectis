@@ -162,6 +162,9 @@ window.__plectisTypesetPage = function (MathJax) {
     }
     var prefetch = window.requestIdleCallback || function (cb) { setTimeout(cb, 120); };
     prefetch(function () { typeset(rest.slice(0, 1)); });
+    window.addEventListener('hashchange', function () {
+      typeset(chunks.filter(inView));
+    });
   });
 };
 

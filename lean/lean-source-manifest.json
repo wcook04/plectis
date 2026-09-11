@@ -5,8 +5,8 @@
   "note": "The Lean claim layer and curated human-reading shelf, hosted so a reader can understand the mathematics, evidence boundaries, and repository without learning its agent substrate. Each file is recopied from the public Lean repository only after its bytes match the named GitHub main artifact.",
   "not_hosted": {
     "reason": "Hosting these would add roughly 129 MB to a static site to serve material that is read by cloning, not by fetching. The claim layer above is what makes a question answerable; these are what make it verifiable, and they are one clone away.",
-    "proofs": "The 1,033 .lean files (about 152 MB) that carry the proofs: https://github.com/wcook04/plectis-lean-erdos249-257",
-    "declaration_atlas": "docs/declaration_atlas.json (about 72 MB), the full per-declaration atlas: https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/declaration_atlas.json"
+    "proofs": "The 1,033 .lean files (about 152 MB) that carry the proofs: https://github.com/wcook04/plectis-erdos",
+    "declaration_atlas": "docs/declaration_atlas.json (about 72 MB), the full per-declaration atlas: https://github.com/wcook04/plectis-erdos/blob/main/docs/declaration_atlas.json"
   },
   "files": [
     {
