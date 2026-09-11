@@ -21,7 +21,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "611b44978e176c84c0e285c1f8e9a063468ce170c36d8272d0eb50e228181560",
+        "source_sha256": "99e257f0bbd4bd5be0b59607244e93c7453f3e26c857d3360040120d40d92359",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
@@ -33,8 +33,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "a4af462b94f4cf15e638c711d27df0f3e3cb6c1f772dc827905edeb687ad745b",
-        "html_exact_tex_sha256": "3a359d3af32ebae7f6b67f2ea020898c0e0fe3d7ea658cbeaacee08ca0e29361"
+        "html_mathml_sha256": "8b5cc9aa7c4babca83a85ff174b1a0cc2efc59842c937907d5a174179bc5a0d0",
+        "html_exact_tex_sha256": "db1f52670c25e739929fa6c30808ba788fc355ca6b1efc0f0fbf024c60086cc2"
       },
       "sections": [
         {
@@ -91,7 +91,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "ab0ae003468acd34e2f366a388d13f19b5893824c174c1723c3a2fd94f3adfe6",
+        "source_sha256": "23625fcc97de3f59c992c7a5cb76401e1408726cc921856db339c9f10005e992",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
@@ -103,8 +103,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "aa4031ab908c55e990ecf17d5c8142ed711c1d6bc19b9d094a414747d16b1f10",
-        "html_exact_tex_sha256": "17be15c5b7cdd6208c2848b86851c357e65b791b19806c32800f3b3bbb278da7"
+        "html_mathml_sha256": "97498e85e87cad0ddfb34b776ff04923e39b0db19e0909711461f062d3c834cf",
+        "html_exact_tex_sha256": "fc3d1134d24e39be77b8595e9f7f1b14bcefe444799194f0a75f9c3046ae746b"
       },
       "sections": [
         {

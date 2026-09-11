@@ -15,8 +15,8 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "57e41153da50236637248f97066f63251456ebea2c6d177f52ad3ccee3b509b3",
-      "bytes": 930517
+      "source_sha256": "e56d672658265a6907fa128a49905f58c4b593aff912a949d4522c6cdc5f28ea",
+      "bytes": 930519
     },
     {
       "hosted_path": "lean/problems.json",
@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "9974c926c2c13408ed83273dd5a40193f5438543e73aaf02d4dc5e38bdcafab6",
+      "source_sha256": "1d19964c9577a73f2675d3e0d1913587f8f02c604056ef3e0f053372d379fe7e",
       "bytes": 377156
     },
     {
@@ -42,8 +42,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "ab0ae003468acd34e2f366a388d13f19b5893824c174c1723c3a2fd94f3adfe6",
-      "bytes": 105299
+      "source_sha256": "23625fcc97de3f59c992c7a5cb76401e1408726cc921856db339c9f10005e992",
+      "bytes": 105300
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -51,8 +51,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "611b44978e176c84c0e285c1f8e9a063468ce170c36d8272d0eb50e228181560",
-      "bytes": 12085
+      "source_sha256": "99e257f0bbd4bd5be0b59607244e93c7453f3e26c857d3360040120d40d92359",
+      "bytes": 12086
     },
     {
       "hosted_path": "lean/human-source/docs/RESULTS.md",
@@ -60,8 +60,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "ab0ae003468acd34e2f366a388d13f19b5893824c174c1723c3a2fd94f3adfe6",
-      "bytes": 105299
+      "source_sha256": "23625fcc97de3f59c992c7a5cb76401e1408726cc921856db339c9f10005e992",
+      "bytes": 105300
     },
     {
       "hosted_path": "lean/human-source/docs/ORIENTATION.md",

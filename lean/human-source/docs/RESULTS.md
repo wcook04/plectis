@@ -1637,7 +1637,7 @@ the number directly, exactly the Farey bound, not an improvement. Full-kernel
 infinite rank is Coons's prior result, the all-base rank paper theorem uses
 Martin externally, and #269's two-prime result is not first.
 
-`v0.9.0` is the latest tagged release and citation anchor;
+`v0.10.0` is the latest tagged release and citation anchor;
 [`docs/claims.json`](claims.json) pins the exact formal-source checkpoint
 this release ships. Lean source checked by the pinned Lean kernel is
 proof authority; do not infer results from private or unreleased work.

@@ -169,7 +169,7 @@ Agents arriving cold start at [`AGENTS.override.md`](AGENTS.override.md); the
 
 ## Citation and licence
 
-Cite release `v0.9.0` via [CITATION.cff](CITATION.cff). Code, scripts, and
+Cite release `v0.10.0` via [CITATION.cff](CITATION.cff). Code, scripts, and
 documentation are Apache-2.0. The manuscript layer, including the paper source
 and rendered PDFs, is CC-BY-4.0. Prior work and the MIT-0 wrapper are recorded
 in [REUSE.toml](REUSE.toml) and the [licence texts](LICENSES/Apache-2.0.txt).
