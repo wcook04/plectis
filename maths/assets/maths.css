@@ -1275,6 +1275,14 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
 
 /* Long theorem identifiers must fit the same mobile column as their prose. */
 .maths-layout { overflow-wrap: anywhere; }
+
+/* The shared return pill docks at the bottom of the viewport. On a manuscript
+   that covers every formula that crosses that band. Keep the same left edge
+   so a second press does not teleport sideways; sit under the topbar instead. */
+body.has-viewback:has(.maths-layout) .viewback {
+  bottom: auto;
+  top: calc(var(--topbar-h) + 10px);
+}
 .paper-source-guide {
   margin-block: 1.5rem;
   padding: 1rem 1.25rem;

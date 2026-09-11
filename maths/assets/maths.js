@@ -97,9 +97,9 @@
 })();
 
 window.__plectisTypesetPage = function (MathJax) {
-  /* A dossier inlines the short paper and the long record. The stage wraps
-     article.lean-paper, so typeset each body child, not the whole stage.
-     Visible chunks first; the rest wait for IntersectionObserver. */
+  /* A dossier inlines the short paper. The stage wraps article.lean-paper,
+     so typeset each body child, not the whole stage. Visible chunks first;
+     the rest wait for IntersectionObserver. */
   var stages = Array.prototype.slice.call(
     document.querySelectorAll('.paper-stage')
   );
