@@ -17,7 +17,7 @@
         return /(?:^|\/)docs\.js(?:[?#].*)?$/.test(s.getAttribute('src') || s.src || '');
       }).pop();
       var src = docsScript && (docsScript.src || docsScript.getAttribute('src'));
-      if (src) return src.replace(/docs\.js(?:[?#].*)?$/, name);
+      if (src) return src.replace(/docs\.js(?=[?#]|$)/, name);
     } catch (e) {}
     return (window.location && window.location.pathname || '').indexOf('/docs/') !== -1
       ? '../assets/' + name
@@ -29,7 +29,13 @@
   function mcSearchIndexRecords() {
     var data = window.__MICROCOSM_INDEX__ || {};
     var records = data.records || [];
-    return records && records.length ? records : [];
+    var terms = data.terms || [];
+    if ((!records || !records.length) && (!terms || !terms.length)) return [];
+    if (!terms || !terms.length) return records;
+    // Glossary cards ride a separate `terms` array so hover previews stay
+    // cheap. Search still has to find them: concatenate at query time rather
+    // than inflating record_count in the generated index.
+    return records.concat(terms);
   }
 
   function completeSearchIndex(records) {
@@ -1909,7 +1915,7 @@
     if (countEl && !countEl.getAttribute('role')) countEl.setAttribute('role', 'status');
     if (emptyEl && !emptyEl.getAttribute('role')) emptyEl.setAttribute('role', 'status');
 
-    var KIND = { component: 'Component', area: 'Area', page: 'Page', 'paper module': 'Paper module' };
+    var KIND = { component: 'Component', area: 'Area', page: 'Page', 'paper module': 'Paper module', term: 'Glossary' };
     // Kinds absent from KIND fall back to their raw id; snake_case ones (e.g.
     // source_ref) would otherwise surface as "source_ref" in the result chip,
     // screen-reader announcement, and count summary. Humanise underscores so
@@ -4276,6 +4282,46 @@
     mergeTerms(terms);
 
     // Reuses the module-scope el(tag, cls, text) helper (single-sourced).
+    function overlapArea(box, other) {
+      var x = Math.max(0, Math.min(box.right, other.right) - Math.max(box.left, other.left));
+      var y = Math.max(0, Math.min(box.bottom, other.bottom) - Math.max(box.top, other.top));
+      return x * y;
+    }
+    function pushRect(rects, el, kind) {
+      if (!el || !el.getBoundingClientRect) return;
+      var r = el.getBoundingClientRect();
+      if (r.width < 4 || r.height < 4) return;
+      if (r.bottom < 0 || r.top > window.innerHeight || r.right < 0 || r.left > window.innerWidth) return;
+      rects.push({
+        top: r.top, left: r.left, right: r.right, bottom: r.bottom, kind: kind || 'chrome'
+      });
+    }
+    function protectedRects(anchor) {
+      /* Interactive chrome, following CTA rows, and other glossary words in
+         the same block are not free space. Scoring only the paragraph made
+         the tip prefer "below", which sat on later terms (circuit-break
+         showing the previous exogenous-truth card) and the contact Send
+         buttons. */
+      var rects = [];
+      var nodes = document.querySelectorAll(
+        '.site-header, .docs-topbar, .glossary-hint, .link-rows, a.link-row, .site-footer, .hero__actions'
+      );
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (anchor && (el === anchor || el.contains(anchor))) continue;
+        pushRect(rects, el, 'chrome');
+      }
+      var block = anchor && anchor.closest &&
+        anchor.closest('p, li, dd, dt, blockquote, h1, h2, h3, h4');
+      if (block) {
+        var others = block.querySelectorAll('a.narrative-ref--term[data-term]');
+        for (var t = 0; t < others.length; t++) {
+          if (others[t] === anchor) continue;
+          pushRect(rects, others[t], 'term');
+        }
+      }
+      return rects;
+    }
     function placeFloater(node, anchor) {
       node.hidden = false;
       var rect = anchor.getBoundingClientRect();
@@ -4288,28 +4334,50 @@
       var left = Math.min(Math.max(8, rect.left), Math.max(8, window.innerWidth - width - 8));
       var aboveTop = rect.top - height - gap;
       var belowTop = rect.bottom + gap;
-      var aboveFits = aboveTop >= edge;
-      var belowFits = belowTop + height <= window.innerHeight - edge;
-      var tiePrefersAbove = rect.top > window.innerHeight * 0.42;
-      var placeAbove;
-      if (aboveFits && belowFits && readingRect) {
-        var aboveOverlap = Math.max(0, Math.min(aboveTop + height, readingRect.bottom) -
-          Math.max(aboveTop, readingRect.top));
-        var belowOverlap = Math.max(0, Math.min(belowTop + height, readingRect.bottom) -
-          Math.max(belowTop, readingRect.top));
-        placeAbove = aboveOverlap === belowOverlap ? tiePrefersAbove : aboveOverlap < belowOverlap;
-      } else if (aboveFits && belowFits) {
-        placeAbove = tiePrefersAbove;
-      } else if (aboveFits) {
-        placeAbove = true;
-      } else if (belowFits) {
-        placeAbove = false;
-      } else {
-        placeAbove = rect.top > window.innerHeight / 2;
+      var viewportBottom = window.innerHeight - edge;
+      var chrome = protectedRects(anchor);
+      function score(top) {
+        var box = { top: top, left: left, right: left + width, bottom: top + height };
+        var out = 0;
+        if (top < edge) out += 20000;
+        if (top + height > viewportBottom) out += 20000;
+        for (var c = 0; c < chrome.length; c++) {
+          var hit = overlapArea(box, chrome[c]);
+          if (!hit) continue;
+          /* Covering another glossary word is how circuit-break kept showing
+             the exogenous-truth card. Make that placement lose. */
+          out += chrome[c].kind === 'term' ? (50000 + hit * 8) : hit * 4;
+        }
+        if (readingRect) {
+          out += overlapArea(box, {
+            top: readingRect.top,
+            left: readingRect.left,
+            right: readingRect.right,
+            bottom: readingRect.bottom
+          });
+        }
+        return out;
       }
-      var top = placeAbove
-        ? Math.max(edge, aboveTop)
-        : Math.min(window.innerHeight - height - edge, belowTop);
+      /* Always score the clamped positions. Prefer a slot above the whole
+         reading block when the word sits inside a dense glossary cluster, so
+         the card does not cover later words in the same sentence. */
+      var aboveTopClamped = Math.max(edge, aboveTop);
+      var belowTopClamped = Math.min(Math.max(edge, belowTop), viewportBottom - height);
+      var candidates = [aboveTopClamped, belowTopClamped];
+      if (readingRect) {
+        candidates.push(Math.max(edge, readingRect.top - height - gap));
+      }
+      var bestTop = candidates[0];
+      var bestScore = score(bestTop);
+      for (var i = 1; i < candidates.length; i++) {
+        var candScore = score(candidates[i]);
+        if (candScore < bestScore) {
+          bestScore = candScore;
+          bestTop = candidates[i];
+        }
+      }
+      var placeAbove = bestTop + height / 2 <= rect.top;
+      var top = bestTop;
       node.setAttribute('data-placement', placeAbove ? 'above' : 'below');
       node.style.left = left + 'px';
       node.style.top = top + 'px';
@@ -4389,7 +4457,7 @@
         if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
         else { tipFull.hidden = true; }
         tipBack.hidden = false;
-        tipCue.textContent = 'Click the term again, or use the link, to open the complete glossary entry';
+        tipCue.textContent = 'Click the word again to open the full glossary';
       } else {
         tip.classList.remove('is-expanded');
         setTermText(tipText, data.reader_preview || data.text || data.reader_card || '');
@@ -4397,12 +4465,27 @@
         tipDeep.textContent = ''; tipDeep.hidden = true;
         tipFull.hidden = true;
         tipBack.hidden = true;
-        tipCue.textContent = 'Click to expand here and stay on this page';
+        tipCue.textContent = 'Click for a longer definition';
       }
+    }
+    function termUnderPointer(x, y) {
+      if (typeof x !== 'number' || typeof y !== 'number' || !document.elementFromPoint) {
+        return null;
+      }
+      var prev = tip.style.pointerEvents;
+      tip.style.pointerEvents = 'none';
+      var hit = document.elementFromPoint(x, y);
+      tip.style.pointerEvents = prev;
+      return termAnchorFrom(hit);
     }
     function showTip(anchor, intent) {
       var data = byId[anchor.getAttribute('data-term')];
-      if (!data) return;
+      if (!data) {
+        /* A missing preview must not leave the previous word's card sitting
+           on this word. That is how circuit-break showed exogenous truth. */
+        if (tipFor && tipFor !== anchor) hideTip(true);
+        return;
+      }
       if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
       if (tipFadeTimer) { clearTimeout(tipFadeTimer); tipFadeTimer = 0; }
       tip.classList.remove('is-leaving');
@@ -4460,10 +4543,22 @@
       if (tipHideTimer) clearTimeout(tipHideTimer);
       tipHideTimer = setTimeout(hideTip, 110); // grace so the pointer can land on the tip
     }
-    tip.addEventListener('mouseenter', function () {
+    tip.addEventListener('mouseenter', function (ev) {
+      var under = termUnderPointer(ev.clientX, ev.clientY);
+      if (under && under !== tipFor) {
+        if (byId[under.getAttribute('data-term')]) showTip(under, 'pointer');
+        else hideTip(true);
+        return;
+      }
       if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
       if (tipFadeTimer) { clearTimeout(tipFadeTimer); tipFadeTimer = 0; }
       tip.classList.remove('is-leaving');
+    });
+    tip.addEventListener('mousemove', function (ev) {
+      var under = termUnderPointer(ev.clientX, ev.clientY);
+      if (under && under !== tipFor && byId[under.getAttribute('data-term')]) {
+        showTip(under, 'pointer');
+      }
     });
     tip.addEventListener('mouseleave', scheduleHideTip);
     tipBack.addEventListener('click', function () {
