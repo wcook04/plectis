@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=db3897615282">
-  <link rel="stylesheet" href="../assets/maths.css?v=5be6294289c5">
+  <link rel="stylesheet" href="../assets/maths.css?v=cdf47cc90040">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5f04f7a560c8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f5799419588f"></script>
@@ -173,7 +173,7 @@ needed for irrationality.</p>
 <p>The termwise identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{n!-1}=\frac1{n!}+\frac1{n!(n!-1)}\]</span></div>
-<p>replaces the changing prefixes by the factorial orbit of one fixed
+<p class="display-continue">replaces the changing prefixes by the factorial orbit of one fixed
 number,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C=\sum_{n\ge2}\frac1{n!(n!-1)}.\]</span></div>
@@ -254,7 +254,7 @@ telescoping identity</p>
 class="math display" data-term-auto="off">\[\sum_{m&gt;N}\frac{m-1}{m!}
 =\sum_{m&gt;N}\left(\frac1{(m-1)!}-\frac1{m!}\right)
 =\frac1{N!}\]</span></div>
-<p>gives</p>
+<p class="display-continue">gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S=\lfloor
 C\rfloor+
    \sum_{m=2}^{N}\frac{d_m(C)+1}{m!}+\frac1{N!},\]</span></div>
@@ -351,10 +351,10 @@ introduces no term <span class="math inline" data-term-auto="off">\(1/(1!-1)\)</
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_n=ne_{n-1}-e_n,\qquad
 U_n=T_n-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}U_d
 \quad(n\ge2).\]</span></div>
-<p>Then </em></p>
+<p><em> Then </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M(U_n)=0,\qquad
 V_d(U_n)=(d!-1)\mathbf1_{d=n}.\]</span></div>
-<p>The vectors <span
+<p><em> The vectors <span
 class="math inline" data-term-auto="off">\(e_1,U_2,U_3,\ldots\)</span> form an integral
 basis. Every finite vector has the unique finite expansion </em></p>
 <div class="math-display" id="eq:channel-basis-expansion" data-term-auto="off"><span
@@ -424,7 +424,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 V_d(\lambda)\equiv M(\lambda)\pmod{d!-1}
 \label{res:congruence}
 \end{equation}\]</span></div>
-<p>in the equivalent integer-divisibility form <a
+<p class="display-continue">in the equivalent integer-divisibility form <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53">supported
 channel congruence</a>, and the unique description of every low-channel
 kernel:</p>
@@ -438,7 +438,7 @@ V_2=\cdots=V_D=0
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal
 R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1},\]</span></div>
-<p>we have <span
+<p class="display-continue">we have <span
 class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span>. Therefore</p>
 <div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span
@@ -707,7 +707,7 @@ by <span class="math inline" data-term-auto="off">\(L_M\)</span>, all lower-valu
 vanish modulo <span class="math inline" data-term-auto="off">\(q\)</span>. Hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_M\equiv (L_M/q^e)R_{q,e}(M)\pmod q,\]</span></div>
-<p>and <span class="math inline" data-term-auto="off">\(L_M/q^e\)</span> is a unit. Consequently</p>
+<p class="display-continue">and <span class="math inline" data-term-auto="off">\(L_M/q^e\)</span> is a unit. Consequently</p>
 <div class="math-display" id="eq:prime-pole-survival" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 v_q(\operatorname{den}H_M)=e
 \quad\Longleftrightarrow\quad R_{q,e}(M)\ne0\pmod q.
@@ -783,7 +783,7 @@ class="math inline" data-term-auto="off">\(L_p^{\rm blk}S\)</span> is an integer
 <span class="math inline" data-term-auto="off">\(R_p\)</span>. Therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A=L_p^{\rm blk}(S-H_{2p-1})\]</span></div>
-<p>is a
+<p class="display-continue">is a
 positive integer congruent to <span class="math inline" data-term-auto="off">\(-T_p\)</span>
 modulo <span class="math inline" data-term-auto="off">\(R_p\)</span>, and <span
 class="math inline" data-term-auto="off">\(A\ge\rho_p\)</span>. The positive tail bound</p>

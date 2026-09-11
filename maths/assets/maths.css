@@ -667,12 +667,24 @@ html:not(.scripting) .universe-nojs { display: block; }
   white-space: normal;
   overflow-x: auto;
   overflow-y: hidden;
-  margin: 1em 0;
+  margin: 0.7em 0;
   padding: 0;
   max-width: 100%;
 }
+/*
+  Lifted displays wrap a MathJax span that also carries display margins.
+  Paying both stacked the formula so far under the last wrapped words
+  ("Archimedean height condition") that the leftover read as a heading.
+*/
+.paper-stage .math-display span.math.display,
+.paper-stage .math-display mjx-container[display="true"] {
+  margin: 0;
+}
+.paper-stage p:has(+ .math-display) {
+  margin-bottom: 0.15em;
+}
 .paper-stage .math-display + p.display-continue {
-  margin-top: 0.35em;
+  margin-top: 0.15em;
 }
 /*
   Hide untypeset TeX until MathJax has replaced it. Keyed on html.scripting
@@ -725,6 +737,23 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
 .paper-stage .problem,
 .paper-stage .remark {
   margin: 1.15em 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--rule-strong) 70%, transparent);
+}
+/*
+  Pandoc wraps amsthm bodies in <em>. On paper that italic is the statement
+  cue; on this page it turns a long theorem into an italic wall around MathJax.
+  Keep the cue on the "Theorem N" lead-in and read the body in roman.
+*/
+.paper-stage .theorem em,
+.paper-stage .lemma em,
+.paper-stage .proposition em,
+.paper-stage .corollary em,
+.paper-stage .definition em,
+.paper-stage .example em,
+.paper-stage .problem em,
+.paper-stage .remark em {
+  font-style: normal;
 }
 .paper-stage .proof { margin: 0.85em 0 1.15em; }
 .paper-stage table {
