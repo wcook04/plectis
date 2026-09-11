@@ -352,7 +352,7 @@ The **Formal Math & Proof** area above includes bounded examples drawn from a
 separate Lean repository. That repository owns the proof source and
 mathematical exposition:
 
-[**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-erdos)
+[**plectis-erdos**](https://github.com/wcook04/plectis-erdos)
 contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
 #1041, and #1049**. All eight remain open. Its README gives the statement, checked frontier,
 and remaining obligation for each problem. The pinned Lean kernel checks the
