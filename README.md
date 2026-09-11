@@ -48,8 +48,7 @@ separate check can read, because the author's own confidence is not the thing
 being offered.
 
 The companion mathematics repository,
-[plectis-erdos](https://github.com/wcook04/plectis-erdos) (formerly
-`plectis-lean-erdos249-257`; the old address redirects), contains the Lean
+[plectis-erdos](https://github.com/wcook04/plectis-erdos), contains the Lean
 source, papers, recorded failed approaches and continuation workflows for eight
 open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. All
 eight remain open. A mathematics task needs only that repository; a software

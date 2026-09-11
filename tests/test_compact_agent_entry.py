@@ -43,7 +43,7 @@ def test_compact_agent_entry_is_bounded_and_machine_first() -> None:
         "comprehend --slice papers",
         "docs/papers/README.md",
         "docs/papers/corpus.json",
-        "plectis-lean-erdos249-257",
+        "plectis-erdos",
         "python3 scripts/query_corpus.py --ask",
         "Do not absorb the full file",
     ):

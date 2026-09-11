@@ -22,7 +22,7 @@ def main() -> int:
     parser.add_argument(
         "--upstream-root",
         type=Path,
-        help="optional local checkout of plectis-lean-erdos249-257",
+        help="optional local checkout of plectis-erdos",
     )
     parser.add_argument(
         "--write",

@@ -572,7 +572,7 @@ def _check_snapshot(
         "plectis-ai-review-packet.json",
         "llms.txt",
     )
-    lean_repo_url = "https://github.com/wcook04/plectis-lean-erdos249-257"
+    lean_repo_url = "https://github.com/wcook04/plectis-erdos"
     front_door_html_phrases = (
         lean_repo_url,
         "Epic Fail: 257 249",

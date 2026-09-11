@@ -274,7 +274,7 @@ def test_public_site_parity_accepts_six_card_front_door_landing(
     site_dir = tmp_path / "site"
     site_dir.mkdir()
     _write_snapshot(site_dir)
-    lean = "https://github.com/wcook04/plectis-lean-erdos249-257"
+    lean = "https://github.com/wcook04/plectis-erdos"
     cards = "".join(
         f'<article class="claim-card{" claim-card--featured" if i == 0 else ""}">'
         f'<h3>{"Epic Fail: 257 249" if i == 0 else f"Card {i}"}</h3>'

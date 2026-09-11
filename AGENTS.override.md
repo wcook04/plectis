@@ -12,7 +12,7 @@ authority ceiling where it stops. The local record a run writes is that
 accountability layer, not the product — do not describe this repository by it,
 and do not treat the nearest component as the whole system. Read counts from the
 self-model card below rather than asserting them. The companion
-[`plectis-lean-erdos249-257`](https://github.com/wcook04/plectis-lean-erdos249-257)
+[`plectis-erdos`](https://github.com/wcook04/plectis-erdos)
 repository contains the Lean source and papers for eight open Erdős problems.
 Neither repository gives access to private state or makes claims about it.
 
@@ -95,7 +95,7 @@ the companion repository's tracked machine route:
 python3 scripts/query_corpus.py --ask "<question>"
 ```
 
-That command is run inside a clone of `plectis-lean-erdos249-257`, not here.
+That command is run inside a clone of `plectis-erdos`, not here.
 Do not infer companion mathematics from Plectis organs, receipts, papers, or
 private-system descriptions.
 

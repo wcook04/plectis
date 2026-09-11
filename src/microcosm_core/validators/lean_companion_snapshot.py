@@ -184,7 +184,7 @@ def _build_snapshot_from_upstream(
     refreshed["problem_inventory"] = _problem_inventory_from_bytes(problems_bytes)
     refreshed["refresh"]["local_command"] = (
         "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py "
-        "--write --upstream-root ../plectis-lean-erdos249-257"
+        "--write --upstream-root ../plectis-erdos"
     )
     return refreshed
 

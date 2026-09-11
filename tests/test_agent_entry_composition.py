@@ -625,7 +625,7 @@ def test_agent_entry_card_routes_natural_whole_system_questions(
     ]
     assert route["paper_guide"]["human_index"] == "docs/papers/README.md"
     assert route["paper_guide"]["machine_inventory"] == "docs/papers/corpus.json"
-    assert route["companion_repository"]["id"] == "plectis-lean-erdos249-257"
+    assert route["companion_repository"]["id"] == "plectis-erdos"
     assert "scripts/query_corpus.py --ask" in route["companion_repository"][
         "entry_in_companion_clone"
     ]
