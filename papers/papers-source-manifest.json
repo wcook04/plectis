@@ -141,26 +141,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.pdf",
-      "source_sha256": "6523a51d74d82eac2dc14aa606cb5d08d58a362c63ad517929ba7f0d6c686bc4",
-      "bytes": 224261,
+      "source_sha256": "ba543e41affef1f9b776aff8ae9afaaa96de498648361cf4f81472e586099073",
+      "bytes": 224016,
       "source_tex_path": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos269-running-lcm-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex",
-      "hosted_tex_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
-      "tex_bytes": 121642
+      "hosted_tex_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
+      "tex_bytes": 121435
     },
     {
       "hosted_path": "papers/erdos-269-three-prime-running-lcm.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf",
-      "source_sha256": "bcf5ce52988d27974c9d40f0e3834cbc6ae772ae186cd5cb41a61a3c0caec881",
-      "bytes": 101871,
+      "source_sha256": "5100a23f74779e7be12234ff89ec8648232546033ab8750d571cf7e312756e72",
+      "bytes": 102224,
       "source_tex_path": "paper/269/erdos-269-three-prime-running-lcm.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos-269-three-prime-running-lcm.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex",
-      "hosted_tex_sha256": "323f5f00208cba1dca1ea5198f9e6af38d026cb7001e838ee06b6f8ecbd9daf5",
-      "tex_bytes": 43565
+      "hosted_tex_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
+      "tex_bytes": 43889
     },
     {
       "hosted_path": "papers/erdos-1041-lemniscate-newton-flow.pdf",

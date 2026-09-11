@@ -76,9 +76,8 @@ order \(n\) there are injective index families \(I,J\) whose minor
 \(\det(\Kernel(I(a),J(b),k))_{0\le a,b<n}\) is nonzero simultaneously in every
 layer \(k\), so for no finite \(d\) do there exist rational-valued
 \(f_\ell(i)\) and \(G_\ell(j,k)\) with
-\(\Kernel(i,j,k)=\sum_{\ell<d}f_\ell(i)G_\ell(j,k)\).  Both halves of that
-transition are checked by the Lean kernel at the pinned source
-revision~\commitshort.  A single binary floor carry is the whole difference,
+\(\Kernel(i,j,k)=\sum_{\ell<d}f_\ell(i)G_\ell(j,k)\).  Those statements are
+ordinary mathematics in this paper.  A single binary floor carry is the whole difference,
 and after row and column normalisation that carry matrix admits no better
 uniform approximation by a finite separated sum than \((r-1)/(2r)\), which is
 half its own jump and is attained by a constant.  These statements exclude
@@ -1582,18 +1581,18 @@ the denominator and to begin beyond the onset.
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 
-\paragraph{Evidence.}  Every linked phrase above opens its Lean declaration at
-the pinned source revision~\commitshort, where the finite running-LCM geometry,
-the two-prime outer product, the arbitrary-order kernel minors and the
-exclusion of finite separation, the literal shell summability and recurrence,
-the all-scale rationality lattice, the rationality-to-carry bridge, the residue
-arithmetic and both directions of the window-escape equivalence are checked by
-the Lean~4 kernel against Mathlib with no \texttt{sorry}.  The two-prime
-transcendence theorem is an ordinary proof over the cited Bugeaud--Laurent
-theorem and carries no Lean declaration; the quadratic tail bound, the explicit
-onset $a_D$, the sharp bound $K$, and Theorem~\ref{long269:res:uniform-rank} are ordinary proofs in this paper; the window-growth law and the enlarged little-$o(8^a)$ equivalence band have named Lean endpoints; the three
-finite computations of Section~\ref{long269:sec:evidence} are computational
-certificates.
+\paragraph{Evidence.}  Steve Fan's two-prime argument is an ordinary proof over
+the cited Bugeaud--Laurent theorem and carries no Lean declaration.  The
+arbitrary-order kernel minors and the exclusion of finite separation are
+ordinary mathematics in this paper; they are not in the Comparator manifest.
+Comparator names the $(2,3,5)$ minor $-1/15$, the running-LCM height identity,
+and a conditional carry-escape consumer.  The actual-series reduction is given;
+the source-specific cofinal escape remains unproved.  Named Lean sources below
+are locators, not a blanket end-to-end coverage claim.  The quadratic tail
+bound, the explicit onset $a_D$, the sharp bound $K$, and
+Theorem~\ref{long269:res:uniform-rank} are ordinary proofs in this paper; the
+three finite computations of Section~\ref{long269:sec:evidence} are
+computational certificates.
 
 \paragraph{Artefact and data availability.} The
 \href{\sourceurl}{pinned formal-source revision} contains the Lean sources, the
